@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "SizeUp - Business Intelligence for All";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<link href="@Url.Content("~/Content/views/home.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+}
+
+<h1>Business Intelligence for All</h1>
+<div id="wizard">
+    <div id="form">
+        <p class="tagCloud top">
+            <span class="c5">Dentists</span>
+            <span class="c2">Coffee Shops</span>
+            <span class="c4">Child Care Service</span>
+            <span class="c3">Landscape Contractors</span>
+            <span class="c6">Attorneys</span>
+            <span class="c1">Tax Preparers</span>
+            <span class="c5">Beauty Salons</span>
+            <span class="c1">Shoe Stores</span>
+            <span class="c1">Florists</span>
+            <span class="c4">Pharmacies</span>
+            <span class="c2">Architects</span>
+            <span class="c3">Veterinarians</span>
+        </p>
+        <label for="searchIndustry">Enter Your Industry</label>
+        <input type="text" id="searchIndustry" value="enter your industry"  />
+        <p class="tagCloud bottom">
+            <span class="c1">Retail Bakeries</span>
+            <span class="c3">Electric Contractors</span>
+            <span class="c1">Shoe Stores</span>                 
+            <span class="c4">Grocery Stores & Supermarkets</span>
+            <span class="c3">Gas Stations</span>                  
+            <span class="c1">Photographers</span>
+            <span class="c3">Hotels & Motels</span>
+            <span class="c1">Interior Decorators</span>                    
+            <span class="c1">Pest Control Services</span>
+            <span class="c2">Gift Shops</span>
+        </p>
+
+        <input type="text" id="searchCommunity" class="blank hidden" value="enter your city" />
+        <p id="enteredLocation" class="location hidden">Your city is <a class="changeLocation" href="#"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
+        <p id="detectedLocation" class="location" >We think you are in <a class="changeLocation" href="#"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
+        
+        <a href="#" id="continue" class="button" >Continue</a>
+    </div>
+
+    <div id="selector" class="hidden">
+        <h2>Choose your next step</h2>
+        <ul>
+            <li>
+                <img src="@Url.Content("~/Content/images/mybusiness.png")" alt="My Business" />
+                <a href="#" id="myBusiness" class="button" >My Business</a>
+                <p>Compare your business to your industry competitors.</p>
+            </li>
+            <li>
+                <img src="@Url.Content("~/Content/images/compete.png")" alt="Competition" />
+                <a href="#" id="competition" class="button" >Competition</a>
+                <p>Map your competitors, customers, and suppliers.</p>
+            </li>
+            <li>
+                <img src="@Url.Content("~/Content/images/advertise.png")" alt="Advertising" />
+                <a href="#" id="advertising" class="button" >Advertising</a>
+                <p>Find best places to target your next advertising campaign.</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+    var options = {
+       /* currentCity: @ViewBag.CurrentCityId,
+        detectedCity:  @ViewBag.DetectedCityId,
+        currentIndustry: @ViewBag.CurrentIndustryId*/
+    };
+    var driver = new sizeup.views.home(options);
+    </script>
+
+
+}
+
+

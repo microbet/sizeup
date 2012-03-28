@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="36e9d4b202ab467dbcc8df3d62139639" Name="Diagram1">
+        <EntityTypeShape EntityType="SizeUp.Data.Industry" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryKeyword" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizeUp.Data.NAICS" Width="1.5" PointX="2.625" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizeUp.Data.SicToNAICSMapping" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryKeyword_Industry" ManuallyRouted="false" />
+        <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_Industry" ManuallyRouted="false" />
+        <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_NAICS" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="7" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="8.875" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="8.875" PointY="3.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Metro" Width="1.5" PointX="11.25" PointY="4.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.State" Width="1.5" PointX="11.125" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="5" PointY="0.5" />
+        <AssociationConnector Association="SizeUp.Data.FK_City_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_City_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_County_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_County_State" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
