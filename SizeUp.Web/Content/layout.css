@@ -35,5 +35,5 @@ Main style page. Should only contain general layout styles for the layout page.
 #footer a {color:#fff;font-weight:normal;}
 #footer a:hover {text-decoration:underline;}
 #footer .col {display:inline-block; padding:0 1em; vertical-align:top;}
-#footer .copy {display:block; margin-top:2em;}
+#footer .copy {display:block; margin:2em 0;}
 

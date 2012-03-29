@@ -1010,6 +1010,30 @@ namespace SizeUp.Data
         private global::System.Int64 _CountyId;
         partial void OnCountyIdChanging(global::System.Int64 value);
         partial void OnCountyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, true, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
 
         #endregion
 

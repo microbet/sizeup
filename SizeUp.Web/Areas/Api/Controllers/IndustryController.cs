@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
-
+using SizeUp.Core.Web;
 
 namespace SizeUp.Web2.Areas.Api.Controllers
 {
@@ -14,7 +14,7 @@ namespace SizeUp.Web2.Areas.Api.Controllers
         // GET: /Api/Industry/
 
 
-        public JsonResult GetIndustry(int? id)
+        public JsonResult Industry(int? id)
         {
             var industry = DataContexts.SizeUpContext.Industries.Where(i => i.Id == id);
             var data = industry.Select(i => new
@@ -26,7 +26,8 @@ namespace SizeUp.Web2.Areas.Api.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCurrentIndustry()
+        [HttpGet]
+        public JsonResult CurrentIndustry()
         {
             var item = SizeUp.Core.Web.WebContext.Current.CurrentIndustry;
             object data = null;
@@ -40,6 +41,14 @@ namespace SizeUp.Web2.Areas.Api.Controllers
                 };
             }
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CurrentIndustry(int id)
+        {
+            var c = DataContexts.SizeUpContext.Industries.Where(i => i.Id == id).FirstOrDefault();
+            WebContext.Current.CurrentIndustry = c;
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult SearchIndustries(string term, int maxResults = 35)
@@ -74,6 +83,16 @@ namespace SizeUp.Web2.Areas.Api.Controllers
                     i.Name
                 });
                 
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult HasData(int id, int cityId)
+        {
+            object data = true;
+            if (cityId == 3454 && id == 8589)
+            {
+                data = false;
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
     }

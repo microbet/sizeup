@@ -9,8 +9,10 @@
         me.promptText = opts.promptText || me.textbox.val();
         me.maxResults = opts.maxResults || 35;
         me.minLength = opts.minLength || 2;
-        me.onSelect = opts.onSelect || function () { };
+        me.onChange = opts.onChange || function () { };
         me.selection = null;
+       
+
 
         var wrap = function (text, q) {
             var qs = $.trim(q).replace('|', '\|').split(' ').join('|');
@@ -19,13 +21,12 @@
         };
 
         var init = function () {
-            me.textbox.val('');
-            onBlur();
+            me.textbox.val(me.promptText);
+            me.textbox.addClass('blank');
         };
 
         var onBlur = function () {
             if ($.trim(me.textbox.val()) == '') {
-                me.selection = null;
                 me.textbox.val(me.promptText);
                 me.textbox.addClass('blank');
             }
@@ -41,18 +42,21 @@
             me.textbox.removeClass('blank');
         };
 
+
+
         var onSelection = function (item) {
             setSelection(item);
-            me.onSelect(item);
         };
 
         var setSelection = function (item) {
             me.selection = item;
             if (item != null) {
-                me.textbox.val(item.Name);
+                me.textbox.val(item.FullName);
+                me.textbox.removeClass('blank');
             }
             else {
                 me.textbox.val('');
+                me.textbox.addClass('blank');
             }
         };
 
@@ -65,7 +69,6 @@
         me.textbox.blur(onBlur);
 
 
-
         me.textbox.autocomplete({
             appendTo: me.textbox.parent(),
             source: function (request, response) {
@@ -73,7 +76,7 @@
                 var callback = function (data) {
                     response($.map(data, function (item) {
                         return {
-                            label: wrap(item.Name, request.term),
+                            label: wrap(item.DisplayName, request.term),
                             value: item
                         };
                     }));
@@ -84,6 +87,7 @@
             minLength: me.minLength,
             select: function (event, ui) {
                 onSelection(ui.item.value);
+                me.onChange(ui.item.value);
                 return false;
             },
             focus: function (event, ui) {
@@ -91,6 +95,20 @@
             },
             open: function (event, ui) {
                 $("ul.ui-autocomplete.ui-menu .ui-menu-item:even").addClass('odd');
+            },
+            change: function (event, ui) {
+                if (ui.item) {
+                    me.selection = ui.item.value;
+                }
+                else {
+                    me.selection = null;
+                }
+                if (!ui.item || me.selection != ui.item.value) {
+                    if ($.trim(me.textbox.val()) != '' && me.textbox.val() != me.promptText) {
+                        me.onChange(me.selection);
+                    }
+                }
+                return false;
             }
         }).data('autocomplete')._renderItem = function (ul, item) {
             return $("<li></li>")

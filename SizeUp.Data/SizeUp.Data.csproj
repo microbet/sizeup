@@ -60,12 +60,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="packages.config" />
     <EntityDeploy Include="SizeUpContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SizeUpContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="SizeUpContext.edmx.diagram">
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
     </None>

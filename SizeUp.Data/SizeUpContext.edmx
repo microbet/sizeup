@@ -79,6 +79,7 @@
           <Property Name="Geography" Type="geography" />
           <Property Name="StateId" Type="bigint" Nullable="false" />
           <Property Name="CountyId" Type="bigint" Nullable="false" />
+          <Property Name="SEOKey" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="County">
           <Key>
@@ -396,6 +397,7 @@
           <Property Type="Int64" Name="CountyId" Nullable="false" />
           <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_City_County" FromRole="City" ToRole="County" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_City_State" FromRole="City" ToRole="State" />
+          <Property Type="String" Name="SEOKey" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="County">
           <Key>
@@ -562,6 +564,7 @@
           <EntitySetMapping Name="Cities">
             <EntityTypeMapping TypeName="SizeUp.Data.City">
               <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="CountyId" ColumnName="CountyId" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="Geography" ColumnName="Geography" />

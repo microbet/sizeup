@@ -9,11 +9,12 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/citySelector.js")"></script>
 }
 
-<h1>Business Intelligence for All</h1>
 <div id="wizard">
-    <div id="form">
+    <div id="form" class="hidden">
+        <h1>Business Intelligence for All</h1>
         <p class="tagCloud top">
             <span class="c5">Dentists</span>
             <span class="c2">Coffee Shops</span>
@@ -29,6 +30,8 @@
             <span class="c3">Veterinarians</span>
         </p>
         <label for="searchIndustry">Enter Your Industry</label>
+        <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
+        <p id="noDataMessage" class="info hidden">There is not enough data for your industry in that city.<br />Please try a more common industry or a larger city.</p>
         <input type="text" id="searchIndustry" value="enter your industry"  />
         <p class="tagCloud bottom">
             <span class="c1">Retail Bakeries</span>
@@ -42,12 +45,13 @@
             <span class="c1">Pest Control Services</span>
             <span class="c2">Gift Shops</span>
         </p>
-
-        <input type="text" id="searchCommunity" class="blank hidden" value="enter your city" />
-        <p id="enteredLocation" class="location hidden">Your city is <a class="changeLocation" href="#"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
-        <p id="detectedLocation" class="location" >We think you are in <a class="changeLocation" href="#"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
         
-        <a href="#" id="continue" class="button" >Continue</a>
+        <p id="invalidCityMessage" class="info hidden">Please enter a valid city name.</p>
+        <input type="text" id="searchCommunity" class="blank hidden" value="enter your city" />
+        <p id="enteredLocation" class="location hidden">Your city is <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
+        <p id="detectedLocation" class="location hidden" >We think you are in <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
+        
+        <a href="javascript:void(0);" id="continue" class="button" >Continue</a>
     </div>
 
     <div id="selector" class="hidden">
@@ -76,9 +80,9 @@
 
     <script type="text/javascript">
     var options = {
-       /* currentCity: @ViewBag.CurrentCityId,
+        currentCity: @ViewBag.CurrentCityId,
         detectedCity:  @ViewBag.DetectedCityId,
-        currentIndustry: @ViewBag.CurrentIndustryId*/
+        currentIndustry: @ViewBag.CurrentIndustryId
     };
     var driver = new sizeup.views.home(options);
     </script>

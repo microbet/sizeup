@@ -60,7 +60,8 @@ namespace SizeUp.Core.Geo
                         if (geo != null)
                         {
                             var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
-                            p = DataContexts.SizeUpContext.Cities.Where(i => i.Geography.Distance(point) < 30000 && i.Geography.Area > 0).FirstOrDefault();
+                            p = DataContexts.SizeUpContext.Cities.Where(i => i.Geography.Distance(point) < 30000 && i.Geography.Area > 0)
+                                .OrderBy(i=>i.Geography.Distance(point)).FirstOrDefault();
                             Cache[cacheKey] = p;
                         }
                     }

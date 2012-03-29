@@ -121,19 +121,19 @@
     <Folder Include="Scripts\maps\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Areas\Api\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Footer.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Api\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SizeUp.Core\SizeUp.Core.csproj">

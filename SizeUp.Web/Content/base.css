@@ -32,7 +32,7 @@ input[type=text].blank {color:#A0A0A0;}
 .hidden {display:none;}
 
 
-ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA;border-style: solid;border-width: 1px; font-family: Arial,Sans-Serif; overflow:auto; max-height:18em; }
+ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA;border-style: solid;border-width: 1px; font-family: Arial,Sans-Serif; overflow:auto; max-height:18em; float: left; position:absolute; }
 ul.ui-autocomplete li.ui-menu-item a {color:#303030; text-decoration: none; font-weight: normal;display:block;padding: 0.1em 0.5em;}
 ul.ui-autocomplete li.ui-menu-item{ cursor: default;display: block; line-height: 1.5em; font-size:1.2em; margin: 0;overflow: hidden;}
 ul.ui-autocomplete li.ui-menu-item.odd {background:#EEEEEE;}
@@ -42,7 +42,7 @@ ul.ui-autocomplete li.ui-menu-item .ui-state-hover {background:#FFD86A;}
 
 a span.hint {color: #d0d0d0;}
 
-
+p.info {font-size: 1.3em; background-color: #FFFFF0; color: #000; border: solid 1px #ddd; padding: 1em; text-align: center; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius: 1em;  }
 
 
 

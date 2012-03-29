@@ -18,7 +18,7 @@ namespace SizeUp.Web2.Areas.Api
             context.MapRoute(
                 "SingleIndustry",
                 "Api/Industry/",
-                new { controller = "Industry", action = "GetIndustry" }
+                new { controller = "Industry", action = "Industry" }
             );
 
             context.MapRoute(
@@ -30,15 +30,21 @@ namespace SizeUp.Web2.Areas.Api
             context.MapRoute(
                 "CurrentIndustry",
                 "Api/Industry/Current",
-                new { controller = "Industry", action = "GetCurrentIndustry" }
+                new { controller = "Industry", action = "CurrentIndustry" }
             );
 
+            context.MapRoute(
+                "HasData",
+                "Api/Industry/HasData",
+                new { controller = "Industry", action = "HasData" }
+            );
+            
 
             /***********city**********/
             context.MapRoute(
                 "SingleCity",
                 "Api/City/",
-                new { controller = "City", action = "GetCity" }
+                new { controller = "City", action = "City" }
             );
 
             context.MapRoute(
@@ -50,13 +56,13 @@ namespace SizeUp.Web2.Areas.Api
             context.MapRoute(
                "CurrentCity",
                "Api/City/Current",
-               new { controller = "City", action = "GetCurrentCity" }
+               new { controller = "City", action = "CurrentCity" }
            );
 
             context.MapRoute(
                "DetectedCity",
                "Api/City/Detected",
-               new { controller = "City", action = "GetDetectedCity" }
+               new { controller = "City", action = "DetectedCity" }
            );
 
 

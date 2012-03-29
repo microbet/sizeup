@@ -16,19 +16,15 @@ namespace SizeUp.Web2.Controllers
 
         public ActionResult Index()
         {
-            /*
+            
             var dc = WebContext.Current.DetectedCity;
             var cc = WebContext.Current.CurrentCity;
             var ci = WebContext.Current.CurrentIndustry;
 
-       
 
-
-            ViewBag.DetectedCityId = dc != null ? dc.CityId.ToString() : "null";
-            ViewBag.CurrentCityId = cc != null ? cc.CityId.ToString() : "null";
-            ViewBag.CurrentIndustryId = ci != null ? ci.IndustryId.ToString() : "null";
-            */
-           
+            ViewBag.DetectedCityId = dc != null ? dc.Id.ToString() : "null";
+            ViewBag.CurrentCityId = cc != null ? cc.Id.ToString() : "null";
+            ViewBag.CurrentIndustryId = ci != null ? ci.Id.ToString() : "null";
 
 
             return View();
