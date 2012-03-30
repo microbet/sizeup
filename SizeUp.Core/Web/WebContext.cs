@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SizeUp.Data;
 using System.Web;
+using SizeUp.Core.Identity;
 
 namespace SizeUp.Core.Web
 {

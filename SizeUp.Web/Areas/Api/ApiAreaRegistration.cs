@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace SizeUp.Web2.Areas.Api
+namespace SizeUp.Web.Areas.Api
 {
     public class ApiAreaRegistration : AreaRegistration
     {

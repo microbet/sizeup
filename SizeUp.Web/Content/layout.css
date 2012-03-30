@@ -16,6 +16,7 @@ Main style page. Should only contain general layout styles for the layout page.
 #menu a:hover {text-decoration:underline;}
 #menu a.disabled {background-color:#0099CC;}
 #menu li {display:inline-block;}
+#menu li.lastMenuItem { margin-right: 3em; }
 #menu li span {font-size:1.5em;}
 
 

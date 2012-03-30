@@ -5,11 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Core.Web;
 using SizeUp.Core.Serialization;
-using Api = SizeUp.Web2.Areas.Api.Controllers;
+using Api = SizeUp.Web.Areas.Api.Controllers;
 
-namespace SizeUp.Web2.Controllers
+namespace SizeUp.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         //
         // GET: /Home/
@@ -26,7 +26,10 @@ namespace SizeUp.Web2.Controllers
             ViewBag.CurrentCityId = cc != null ? cc.Id.ToString() : "null";
             ViewBag.CurrentIndustryId = ci != null ? ci.Id.ToString() : "null";
 
-
+            ViewBag.Header = new Models.Header()
+            {
+                HideNavigation = true
+            };
             return View();
         }
 

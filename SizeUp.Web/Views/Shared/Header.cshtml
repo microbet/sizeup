@@ -1,16 +1,22 @@
 ﻿<a id="logo" href="/"><img src="@Url.Content("~/Content/images/sizeup.png")" alt="SizeUp Logo"/></a>
+@if(!ViewBag.Header.HideMenu){
 <div id="menu">
 <ul>
-<li><a href="#" class="disabled">My Business</a></li>
+@if(!ViewBag.Header.HideNavigation){
+<li><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard ? "disabled" : "")" >My Business</a></li>
 <li><span>|</span></li>
-<li><a href="#">Competition</a></li>
+<li><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition ? "disabled" : "")">Competition</a></li>
 <li><span>|</span></li>
-<li><a href="#">Advertising</a></li>
+<li><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising ? "disabled" : "")">Advertising</a></li>
 <li><span>|</span></li>
-<li><a href="#">Top Places</a></li>
-<li><span>|</span></li>
+<li class="lastMenuItem"><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces ? "disabled" : "")">Top Places</a></li>
+}
+@if(SizeUp.Core.Identity.IdentityContext.Current.User==null){
 <li><a href="#">Sign In</a></li>
+}else{
 <li><a href="#">Sign Out (NAME)</a></li>
+}
 </ul>
 </div>
+}
 

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 
-namespace SizeUp.Web2.Areas.Api.Controllers
+namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class CityController : Controller
     {
