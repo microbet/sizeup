@@ -25,28 +25,58 @@ namespace SizeUp.Core.Identity
             }
         }
 
-        public static void CreateUser(Identity User)
+        public static Identity CreateUser(Identity User, string Password)
         {
-
+            var u = Membership.CreateUser(User.UserName, Password, User.Email);
+            u.IsApproved = User.IsApproved;
+            Membership.UpdateUser(u);
+            if (!string.IsNullOrWhiteSpace(User.FullName))
+            {
+                var profile = ProfileBase.Create(User.UserName);
+                profile["FullName"] = User.FullName;
+                profile.Save();
+            }
+            return BindIdentity(u, User);
         }
 
         public static void UpdateUser(Identity User)
         {
+            var u = Membership.GetUser(User.UserName);
+            u.Email = User.Email;
+            u.IsApproved = User.IsApproved;
+            Membership.UpdateUser(u);
+            var profile = ProfileBase.Create(User.UserName);
+            profile["fullName"] = User.FullName;
+            profile.Save();
+        }
 
+        public static bool ValidateUser(string username, string password)
+        {
+            return Membership.ValidateUser(username, password);
         }
 
 
         public static Identity GetUser(string Username)
         {
+            Identity i = null;
             var user = Membership.GetUser(Username);
-            var profile = ProfileBase.Create(Username);
-            Identity i = new Identity();
-            i.UserName = user.UserName;
-            i.Email = user.UserName;
-            i.IsApproved = user.IsApproved;
-            i.IsLockedOut = user.IsLockedOut;
-            i.FullName = profile["FullName"] as string;
+            if (user != null)
+            {
+                i = BindIdentity(user, new Identity());
+            }
             return i;
+        }
+
+        protected static Identity BindIdentity(MembershipUser membership, Identity user)
+        {
+            var profile = ProfileBase.Create(membership.UserName);
+            user.UserName = membership.UserName;
+            user.Email = membership.UserName;
+            user.IsApproved = membership.IsApproved;
+            user.IsLockedOut = membership.IsLockedOut;
+            user.FullName = profile["FullName"] as string;
+            user.UserId = (Guid)membership.ProviderUserKey;
+            return user;
         }
 
 

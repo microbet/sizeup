@@ -80,6 +80,7 @@
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -96,6 +97,8 @@
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\views\home.css" />
+    <Content Include="Content\views\register.css" />
+    <Content Include="Content\views\signin.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\controls\citySelector.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
@@ -103,6 +106,8 @@
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\views\home.js" />
+    <Content Include="Scripts\views\register.js" />
+    <Content Include="Scripts\views\signin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -142,6 +147,12 @@
       <Project>{bddf3087-7d33-4a34-b72e-7dfefc5dea0e}</Project>
       <Name>SizeUp.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Signin.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
