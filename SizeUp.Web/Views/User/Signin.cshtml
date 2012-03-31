@@ -29,7 +29,7 @@
     <ul id="sidebar">
         @if(ViewBag.InvalidPassword){
         <li>
-            <p class="info error">Incorrect password. Try again or <a href="#">reset your password</a></p>
+            <p class="info error">Incorrect password. Try again or <a href="/resetpassword/?email=@ViewBag.Email">reset your password</a></p>
         </li>
         }
         @if(ViewBag.LockedOut){

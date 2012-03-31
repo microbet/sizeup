@@ -11,7 +11,8 @@ namespace SizeUp.Core.Email
     {
         public static void SendRegistrationEmail(Identity.Identity user)
         {
-
+            //create a strings database and a templating system (mustache perhaps) 
+            //make the emails part of those strings
         }
 
         public static void SendResetPasswordEmail(Identity.Identity user)

@@ -27,11 +27,17 @@ namespace SizeUp.Web
                new { controller = "User", action = "Signin" } // Parameter defaults
            );
 
-           routes.MapRoute(
-              "Signout", // Route name
-              "signout/", // URL with parameters
-              new { controller = "User", action = "Signout" } // Parameter defaults
-          );
+            routes.MapRoute(
+               "Signout", // Route name
+               "signout/", // URL with parameters
+               new { controller = "User", action = "Signout" } // Parameter defaults
+           );
+
+            routes.MapRoute(
+             "ResetPassword", // Route name
+             "resetpassword/", // URL with parameters
+             new { controller = "User", action = "ResetPassword" } // Parameter defaults
+         );
 
             routes.MapRoute(
                "Register", // Route name

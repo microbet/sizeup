@@ -156,5 +156,26 @@ namespace SizeUp.Web.Controllers
             return Redirect(Server.UrlDecode(Request["returnurl"]));
         }
 
+        [HttpGet]
+        public ActionResult ResetPassword(string email)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+
+            var i = IdentityContext.GetUser(email);
+            //TODO generate password reset key
+            Mailer.SendResetPasswordEmail(i);
+
+
+            ViewBag.InvalidPassword = false;
+            ViewBag.NotActive = false;
+            ViewBag.LockedOut = false;
+            ViewBag.PasswordReset = true;
+            ViewBag.Email = email;
+            return View("Signin");
+        }
+
     }
 }
