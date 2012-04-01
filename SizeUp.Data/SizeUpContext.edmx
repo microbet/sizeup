@@ -13,6 +13,7 @@
           <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Metro" EntityType="SizeUp.Data.Store.Metro" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="NAICS" EntityType="SizeUp.Data.Store.NAICS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ResourceString" EntityType="SizeUp.Data.Store.ResourceString" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SicToNAICSMapping" EntityType="SizeUp.Data.Store.SicToNAICSMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCode" EntityType="SizeUp.Data.Store.ZipCode" store:Type="Tables" Schema="dbo" />
@@ -128,6 +129,14 @@
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="NAICSCode" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ResourceString">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="SicToNAICSMapping">
           <Key>
@@ -283,6 +292,7 @@
             <End Role="State" EntitySet="States" />
             <End Role="County" EntitySet="Counties" />
           </AssociationSet>
+          <EntitySet Name="ResourceStrings" EntityType="SizeUp.Data.ResourceString" />
         </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -493,6 +503,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ResourceString">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Value" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -616,6 +634,15 @@
                 <ScalarProperty Name="Geography" ColumnName="Geography" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceStrings">
+            <EntityTypeMapping TypeName="SizeUp.Data.ResourceString">
+              <MappingFragment StoreEntitySet="ResourceString">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

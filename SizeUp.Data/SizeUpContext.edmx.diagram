@@ -22,6 +22,7 @@
         <AssociationConnector Association="SizeUp.Data.FK_City_State" />
         <AssociationConnector Association="SizeUp.Data.FK_County_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_County_State" />
+        <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="5" PointY="2.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

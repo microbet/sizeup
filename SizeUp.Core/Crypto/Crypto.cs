@@ -5,13 +5,11 @@ using System.Text;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.IO;
-namespace SizeUp.Utility.Crypto
+namespace SizeUp.Core.Crypto
 {
     public static class Crypto
     {
-        public static readonly byte[] Salt = new byte[] { 0x12, 0x74, 0x01, 0xfe, 0x21, 0x4d, 0x65, 0x61, 0x86, 0x65, 0xa4, 0x65, 0x76 };
-
-        public static string Encrypt(byte[] data, string Password)
+        public static string Encrypt(byte[] data, string Password, byte[] Salt)
         {
             MemoryStream ms = new MemoryStream();
             Rijndael alg = Rijndael.Create();
@@ -24,7 +22,7 @@ namespace SizeUp.Utility.Crypto
             return Convert.ToBase64String(ms.ToArray());
         }
 
-        public static byte[] Decrypt(string cipherData, string Password)
+        public static byte[] Decrypt(string cipherData, string Password, byte[] Salt)
         {
             MemoryStream ms = new MemoryStream();
             Rijndael alg = Rijndael.Create();

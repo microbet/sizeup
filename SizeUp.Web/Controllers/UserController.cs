@@ -55,7 +55,7 @@ namespace SizeUp.Web.Controllers
                 i = IdentityContext.CreateUser(i, password);
                 i.IsApproved = false;
                 IdentityContext.UpdateUser(i);
-                Mailer.SendRegistrationEmail(i);
+                Singleton<Mailer>.Instance.SendRegistrationEmail(i);
                 FormsAuthentication.SetAuthCookie(i.UserName, false);
 
                 UserRegistration reg = new UserRegistration()
@@ -163,17 +163,19 @@ namespace SizeUp.Web.Controllers
             {
                 HideMenu = true
             };
-
-            var i = IdentityContext.GetUser(email);
-            //TODO generate password reset key
-            Mailer.SendResetPasswordEmail(i);
-
-
             ViewBag.InvalidPassword = false;
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = true;
             ViewBag.Email = email;
+
+            var i = IdentityContext.GetUser(email);
+            if (i != null)
+            {
+                Singleton<Mailer>.Instance.SendResetPasswordEmail(i);
+            }
+
+
             return View("Signin");
         }
 

@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr4.StringTemplate">
+      <HintPath>..\packages\Antlr4.StringTemplate.4.0.6.9004\lib\net35\Antlr4.StringTemplate.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -77,6 +80,8 @@
     <None Include="Analytics\AnalyticsContext.edmx.diagram">
       <DependentUpon>AnalyticsContext.edmx</DependentUpon>
     </None>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <None Include="SizeUpContext.edmx.diagram">
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
     </None>
