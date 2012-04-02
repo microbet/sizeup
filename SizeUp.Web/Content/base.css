@@ -5,6 +5,7 @@ of elements and some common classes. Nothing more!
 
 body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; text-align: left; color: #606060; background-image:url(images/home-gradient.png); background-repeat:repeat-x; background-color:#0099CC;  }
 
+ol, ol li { list-style: decimal outside none; }
 a,
 p,
 span {font-size:1.3em;}
@@ -25,7 +26,7 @@ input[type=submit].button { font-family:"Trebuchet MS",Arial, Verdana, Sans-Seri
 
 
 h1 {font-size:2.4em; font-weight:bold;}
-h2 {font-size:1.75em;}
+h2 {font-size:1.75em; font-weight: bold;}
 h3 {font-size:1.5em;}
 h4 {font-size:1.25em; font-weight:bold;}
 

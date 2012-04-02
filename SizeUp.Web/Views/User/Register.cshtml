@@ -4,8 +4,8 @@
 
 @section head{
 <title>SizeUp - User Profile</title>
-<link href="@Url.Content("~/Content/views/register.css")" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/register.js")"></script>
+<link href="@Url.Content("~/Content/views/user/register.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/user/register.js")"></script>
 }
 
 <h1>Complete your free registration</h1>
@@ -49,10 +49,10 @@
                 <span>Your SizeUp account gives you access to a wealth of information that will 
                 help you make decisions to grow your business.</span>
                 <span>
-                 We keep your information completely confidential. For more information, please read our <a href="#">Privacy Policy</a>.
+                 We keep your information completely confidential. For more information, please read our <a href="/product/privacy-policy">Privacy Policy</a>.
                 </span>
                 <span>
-                By creating an account with SizeUp, you accept our <a href="#">Terms of Use</a>.
+                By creating an account with SizeUp, you accept our <a href="/product/terms">Terms of Use</a>.
                 </span>
             </p>
         </li>
@@ -66,7 +66,7 @@
 @section scripts{
     <script type="text/javascript">
 
-    var driver = new sizeup.views.register();
+    var driver = new sizeup.views.user.register();
     </script>
 }
 

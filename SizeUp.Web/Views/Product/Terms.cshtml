@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<title>SizeUp - Business Intelligence for All</title>
+<link href="@Url.Content("~/Content/views/product/terms.css")" rel="stylesheet" type="text/css" />
+}
+
+<div id="terms">
+@Html.Raw(ViewBag.Content)
+</div>

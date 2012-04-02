@@ -1,6 +1,6 @@
 ﻿(function () {
-    sizeup.core.namespace('sizeup.views.resetPassword');
-    sizeup.views.resetPassword = function () {
+    sizeup.core.namespace('sizeup.views.user.resetPassword');
+    sizeup.views.user.resetPassword = function () {
 
         var me = {};
 

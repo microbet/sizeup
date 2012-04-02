@@ -1,14 +1,13 @@
 ﻿(function () {
-    sizeup.core.namespace('sizeup.views.register');
-    sizeup.views.register = function () {
+    sizeup.core.namespace('sizeup.views.user.signin');
+    sizeup.views.user.signin = function () {
 
         var me = {};
-
+        
         var init = function () {
             me.form = {};
             me.error = {};
-            me.form.submit = $('#register');
-            me.form.name = $('#nameBox');
+            me.form.submit = $('#signin');
             me.form.email = $('#emailBox');
             me.form.password = $('#passwordBox');
 
@@ -19,7 +18,7 @@
             me.form.email.blur(validateEmail);
             me.form.password.blur(validatePassword);
 
-            $('#registerForm').submit(onSubmit);
+            $('#signinForm').submit(onSubmit);
 
 
             me.error.emailRequired.hide().removeClass('hidden');
@@ -69,7 +68,7 @@
             return isValid;
         };
 
-
+       
 
 
 

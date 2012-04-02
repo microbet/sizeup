@@ -82,7 +82,10 @@
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -99,11 +102,18 @@
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
-    <Content Include="Content\views\optout.css" />
+    <Content Include="Content\views\company\about.css" />
+    <Content Include="Content\views\company\team.css" />
+    <Content Include="Content\views\help\contact.css" />
+    <Content Include="Content\views\help\howitworks.css" />
+    <Content Include="Content\views\help\faq.css" />
+    <Content Include="Content\views\product\privacy.css" />
+    <Content Include="Content\views\product\terms.css" />
+    <Content Include="Content\views\user\optout.css" />
     <Content Include="Content\views\home.css" />
-    <Content Include="Content\views\register.css" />
-    <Content Include="Content\views\resetpassword.css" />
-    <Content Include="Content\views\signin.css" />
+    <Content Include="Content\views\user\register.css" />
+    <Content Include="Content\views\user\resetpassword.css" />
+    <Content Include="Content\views\user\signin.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\controls\citySelector.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
@@ -111,9 +121,9 @@
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\views\home.js" />
-    <Content Include="Scripts\views\register.js" />
-    <Content Include="Scripts\views\resetpassword.js" />
-    <Content Include="Scripts\views\signin.js" />
+    <Content Include="Scripts\views\user\register.js" />
+    <Content Include="Scripts\views\user\resetpassword.js" />
+    <Content Include="Scripts\views\user\signin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -168,6 +178,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\OptOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\Terms.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Product\Privacy.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Company\About.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Company\Team.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Help\HowItWorks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Help\Contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Help\Faq.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
