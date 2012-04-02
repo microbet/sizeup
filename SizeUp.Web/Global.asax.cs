@@ -22,33 +22,6 @@ namespace SizeUp.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               "Signin", // Route name
-               "signin/", // URL with parameters
-               new { controller = "User", action = "Signin" } // Parameter defaults
-           );
-
-            routes.MapRoute(
-               "Signout", // Route name
-               "signout/", // URL with parameters
-               new { controller = "User", action = "Signout" } // Parameter defaults
-           );
-
-            routes.MapRoute(
-             "ResetPassword", // Route name
-             "resetpassword/", // URL with parameters
-             new { controller = "User", action = "ResetPassword" } // Parameter defaults
-         );
-
-            routes.MapRoute(
-               "Register", // Route name
-               "register/", // URL with parameters
-               new { controller = "User", action = "Register" } // Parameter defaults
-           );
-
-
-
-
-            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults

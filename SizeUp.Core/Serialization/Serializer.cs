@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-
 namespace SizeUp.Core.Serialization
 {
     public static class Serializer
@@ -28,20 +27,19 @@ namespace SizeUp.Core.Serialization
             {
                 return string.Empty;
             }
-            System.Runtime.Serialization.Json.DataContractJsonSerializer serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(obj.GetType());
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter serializer = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             MemoryStream ms = new MemoryStream();
-            serializer.WriteObject(ms, obj);
+            serializer.Serialize(ms, obj);
             return Convert.ToBase64String(ms.ToArray());
         }
 
-        public static T FromBase64<T>(string base64)
+        public static object FromBase64(string base64)
         {
-            System.Runtime.Serialization.Json.DataContractJsonSerializer serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter serializer = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             byte[] b = Convert.FromBase64String(base64);
             ms.Write(b, 0, b.Length);
-            T output = (T)serializer.ReadObject(ms);
-            return output;
+            return serializer.Deserialize(ms);
         }
 
         public static byte[] ToBytes(object obj)
@@ -51,19 +49,19 @@ namespace SizeUp.Core.Serialization
             {
                 return new byte[0];
             }
-            System.Runtime.Serialization.Json.DataContractJsonSerializer serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(obj.GetType());
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter serializer = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             MemoryStream ms = new MemoryStream();
-            serializer.WriteObject(ms, obj);
+            serializer.Serialize(ms, obj);
             return ms.ToArray();
         }
 
-        public static T FromBytes<T>(byte[] bytes)
+        public static object FromBytes(byte[] bytes)
         {
-            System.Runtime.Serialization.Json.DataContractJsonSerializer serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
+            System.Runtime.Serialization.Formatters.Binary.BinaryFormatter serializer = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             MemoryStream ms = new MemoryStream();
             ms.Write(bytes, 0, bytes.Length);
-            T output = (T)serializer.ReadObject(ms);
-            return output;
+            ms.Position = 0;
+            return serializer.Deserialize(ms);
         }
     }
 }

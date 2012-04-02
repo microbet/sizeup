@@ -101,6 +101,7 @@
     <Content Include="Content\reset.css" />
     <Content Include="Content\views\home.css" />
     <Content Include="Content\views\register.css" />
+    <Content Include="Content\views\resetpassword.css" />
     <Content Include="Content\views\signin.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\controls\citySelector.js" />
@@ -159,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\ResetPassword.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

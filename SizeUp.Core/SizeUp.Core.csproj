@@ -58,12 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Crypto.cs" />
-    <Compile Include="Crypto\Token.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />
     <Compile Include="Email\Mailer.cs" />
     <Compile Include="Geo\GeoCoder.cs" />
     <Compile Include="Identity\Identity.cs" />
-    <Compile Include="Identity\IdentityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Singleton.cs" />

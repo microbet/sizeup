@@ -11,10 +11,10 @@
 <li><span>|</span></li>
 <li class="lastMenuItem"><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces ? "disabled" : "")">Top Places</a></li>
 }
-@if(SizeUp.Core.Identity.IdentityContext.Current.User==null){
-<li><a href="/signin/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
+@if(SizeUp.Core.Identity.Identity.CurrentUser==null){
+<li><a href="/user/signin/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
 }else{
-<li><a href="/signout/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign Out (@SizeUp.Core.Identity.IdentityContext.Current.User.DisplayName)</a></li>
+<li><a href="/user/signout/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign Out (@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName)</a></li>
 }
 </ul>
 </div>

@@ -26,8 +26,8 @@ namespace SizeUp.Core.Email
             var uri = HttpContext.Current.Request.Url;
             var t = Templates.TemplateFactory.GetTemplate(template);
             t.Add("User", user);
-            t.Add("PasswordResetKey", GetPasswordResetKey(user));
-            t.Add("OptOutKey", GetOptOutKey(user));
+            t.Add("PasswordResetKey", HttpContext.Current.Server.UrlEncode(user.GetEncryptedToken()));
+            t.Add("OptOutKey", HttpContext.Current.Server.UrlEncode(user.GetEncryptedToken()));
             t.Add("AppDomain", uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port);
             string body = t.Render();
             SendMail(user.Email, subject, body);
@@ -42,34 +42,6 @@ namespace SizeUp.Core.Email
             message.Body = body;
             SmtpClient client = new SmtpClient();
             client.Send(message);          
-        }
-
-        protected string GetOptOutKey(Identity.Identity user)
-        {
-            Crypto.Token<Guid> token = new Crypto.Token<Guid>()
-            {
-                Salt = DateTime.Now,
-                Value = user.UserId
-            };
-
-            byte[] data = Serialization.Serializer.ToBytes(token);
-            byte[] salt = Encoding.Unicode.GetBytes(ConfigurationManager.AppSettings["Crypto.Salt"]);
-            string cypher = Crypto.Crypto.Encrypt(data, ConfigurationManager.AppSettings["Crypto.Password"], salt);
-            return cypher;
-        }
-
-        protected string GetPasswordResetKey(Identity.Identity user)
-        {
-            Crypto.Token<Guid> token = new Crypto.Token<Guid>()
-            {
-                Salt = DateTime.Now,
-                Value = user.UserId
-            };
-
-            byte[] data = Serialization.Serializer.ToBytes(token);
-            byte[] salt = Encoding.Unicode.GetBytes(ConfigurationManager.AppSettings["Crypto.Salt"]);
-            string cypher = Crypto.Crypto.Encrypt(data, ConfigurationManager.AppSettings["Crypto.Password"], salt);
-            return cypher;
         }
     }
 }

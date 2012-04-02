@@ -4,12 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Text;
+using System.Configuration;
 using SizeUp.Core;
 using SizeUp.Core.Identity;
 using SizeUp.Core.Email;
 using SizeUp.Data;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.Web;
+using SizeUp.Core.Crypto;
 
 namespace SizeUp.Web.Controllers
 {
@@ -52,9 +55,9 @@ namespace SizeUp.Web.Controllers
 
             try
             {
-                i = IdentityContext.CreateUser(i, password);
+                i = Identity.CreateUser(i, password);
                 i.IsApproved = false;
-                IdentityContext.UpdateUser(i);
+                i.Save();
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
                 FormsAuthentication.SetAuthCookie(i.UserName, false);
 
@@ -113,9 +116,9 @@ namespace SizeUp.Web.Controllers
             ViewBag.PasswordReset = false;
             ViewBag.Email = email;
 
-            if (!IdentityContext.ValidateUser(email, password))
+            if (!Identity.ValidateUser(email, password))
             {
-                var user = IdentityContext.GetUser(email);
+                var user = Identity.GetUser(email);
                 if (user != null && !user.IsApproved)
                 {
                     ViewBag.NotActive = true;
@@ -157,7 +160,7 @@ namespace SizeUp.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ResetPassword(string email)
+        public ActionResult BeginResetPassword(string email)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -169,7 +172,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.PasswordReset = true;
             ViewBag.Email = email;
 
-            var i = IdentityContext.GetUser(email);
+            var i = Identity.GetUser(email);
             if (i != null)
             {
                 Singleton<Mailer>.Instance.SendResetPasswordEmail(i);
@@ -179,5 +182,59 @@ namespace SizeUp.Web.Controllers
             return View("Signin");
         }
 
+
+        [HttpGet]
+        public ActionResult ResetPassword(string key)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            ViewBag.BadCode = false;
+            ViewBag.Error = false;
+
+            try
+            {
+                var user = Identity.DecryptToken(key);
+                ViewBag.Email = user.UserName;
+            }
+            catch (Exception e)
+            {
+                ViewBag.BadCode = true;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(string key, string password)
+        {
+            ActionResult returnAction = View("Signin");
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            ViewBag.BadCode = false;
+            ViewBag.Error = false;
+            ViewBag.InvalidPassword = false;
+            ViewBag.NotActive = false;
+            ViewBag.LockedOut = false;
+            ViewBag.PasswordReset = false;
+            ViewBag.Email = "";
+            try
+            {
+                var user = Identity.DecryptToken(key);
+                if (user != null)
+                {
+                    user.ResetPassword(password);
+                }
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = true;
+                returnAction = View();
+            }
+            return returnAction;
+        }
     }
 }

@@ -11,7 +11,7 @@
 <h1>Returning users</h1>
 <p class="details">Please enter your e-mail address and password.</p>
 
-<form id="signinForm" action="/signin/?returnurl=@Request.QueryString["returnurl"]" method="post">
+<form id="signinForm" action="/user/signin/?returnurl=@Request.QueryString["returnurl"]" method="post">
     <ul id="form">
         <li>
             <label for="emailBox">Email:</label>
@@ -29,26 +29,26 @@
     <ul id="sidebar">
         @if(ViewBag.InvalidPassword){
         <li>
-            <p class="info error">Incorrect password. Try again or <a href="/resetpassword/?email=@ViewBag.Email">reset your password</a></p>
+            <p class="info error">Incorrect password. Try again or <a href="/user/beginresetpassword/?email=@ViewBag.Email">reset your password</a></p>
         </li>
         }
         @if(ViewBag.LockedOut){
         <li>
-            <p class="error">This account has been locked out.  Please contact support for assistance.</p>
+            <p class="info error">This account has been locked out.  Please contact support for assistance.</p>
         </li> 
         }
         @if(ViewBag.NotActive){
         <li>
-            <p class="error">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.</p>
+            <p class="info">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.</p>
         </li>
         }
         @if(ViewBag.PasswordReset){
         <li>
-            <p class="error">We've sent you a password reset e-mail. Please open it to complete resetting your password.</p>
+            <p class="info">We've sent you a password reset e-mail. Please open it to complete resetting your password.</p>
         </li> 
         } 
         <li>
-            <p class="info">No account? No problem! Click to <a href="/register/?returnurl=@Request.QueryString["returnurl"]">register</a>. It's free and takes only moments.</p>
+            <p class="info">No account? No problem! Click to <a href="/user/register/?returnurl=@Request.QueryString["returnurl"]">register</a>. It's free and takes only moments.</p>
         </li>
     </ul>
 
