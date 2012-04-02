@@ -20,6 +20,7 @@ namespace SizeUp.Core.Identity
         public string Email { get; set; }
         public bool IsApproved { get; set; }
         public bool IsLockedOut { get; set; }
+        public bool IsOptOut { get; set; }
         public string DisplayName { get { return string.IsNullOrWhiteSpace(FullName) ? UserName : FullName; } }
 
         /// <summary>
@@ -60,12 +61,7 @@ namespace SizeUp.Core.Identity
         public void Save()
         {
             var u = Membership.GetUser(UserName);
-            u.Email = Email;
-            u.IsApproved = IsApproved;
-            Membership.UpdateUser(u);
-            var profile = ProfileBase.Create(UserName);
-            profile["fullName"] = FullName;
-            profile.Save();
+            SaveIdentity(u, this);
         }
        
 
@@ -74,14 +70,7 @@ namespace SizeUp.Core.Identity
         public static Identity CreateUser(Identity User, string Password)
         {
             var u = Membership.CreateUser(User.UserName, Password, User.Email);
-            u.IsApproved = User.IsApproved;
-            Membership.UpdateUser(u);
-            if (!string.IsNullOrWhiteSpace(User.FullName))
-            {
-                var profile = ProfileBase.Create(User.UserName);
-                profile["FullName"] = User.FullName;
-                profile.Save();
-            }
+            SaveIdentity(u, User);
             return BindIdentity(u, User);
         }
 
@@ -117,11 +106,25 @@ namespace SizeUp.Core.Identity
         {
             var profile = ProfileBase.Create(membership.UserName);
             user.UserName = membership.UserName;
-            user.Email = membership.UserName;
+            user.Email = membership.Email;
             user.IsApproved = membership.IsApproved;
             user.IsLockedOut = membership.IsLockedOut;
             user.FullName = profile["FullName"] as string;
+            user.IsOptOut = string.IsNullOrWhiteSpace(profile["OptOut"] as string) ? false : bool.Parse(profile["OptOut"] as string);
             user.UserId = (Guid)membership.ProviderUserKey;
+            return user;
+        }
+
+        protected static Identity SaveIdentity(MembershipUser membership, Identity user)
+        {
+            var profile = ProfileBase.Create(membership.UserName);
+            membership.Email = user.Email;
+            membership.IsApproved = user.IsApproved;
+            profile["FullName"] = user.FullName;
+            profile["OptOut"] = user.IsOptOut.ToString();
+            user.UserId = (Guid)membership.ProviderUserKey;
+            profile.Save();
+            Membership.UpdateUser(membership);
             return user;
         }
 

@@ -33,8 +33,8 @@ Main style page. Should only contain general layout styles for the layout page.
 
 /******footery things go here******/
 #footer {color:#fff; text-align:center;}
-#footer a {color:#fff;font-weight:normal;}
+#footer a {color:#fff;font-weight:normal; font-size: 1.1em;}
 #footer a:hover {text-decoration:underline;}
 #footer .col {display:inline-block; padding:0 1em; vertical-align:top;}
-#footer .copy {display:block; margin:2em 0;}
+#footer .copy {display:block; margin:2em 0;font-size: 1.1em;}
 

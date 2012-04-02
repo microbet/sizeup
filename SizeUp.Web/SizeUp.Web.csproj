@@ -99,6 +99,7 @@
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
+    <Content Include="Content\views\optout.css" />
     <Content Include="Content\views\home.css" />
     <Content Include="Content\views\register.css" />
     <Content Include="Content\views\resetpassword.css" />
@@ -111,6 +112,7 @@
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\register.js" />
+    <Content Include="Scripts\views\resetpassword.js" />
     <Content Include="Scripts\views\signin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -163,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\ResetPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\OptOut.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

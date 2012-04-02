@@ -18,8 +18,6 @@
             me.form.email.blur(validateEmail);
             me.form.password.blur(validatePassword);
 
-            me.form.submit.click(submitClicked);
-            
             $('#signinForm').submit(onSubmit);
 
 
@@ -61,9 +59,6 @@
             return isValid;
         };
 
-        var submitClicked = function () {
-            $('#signinForm').submit();
-        };
 
         var onSubmit = function () {
 

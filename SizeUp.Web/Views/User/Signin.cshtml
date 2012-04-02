@@ -37,12 +37,22 @@
             <p class="info error">This account has been locked out.  Please contact support for assistance.</p>
         </li> 
         }
-        @if(ViewBag.NotActive){
+        @if (ViewBag.NotActive){
         <li>
             <p class="info">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.</p>
         </li>
         }
-        @if(ViewBag.PasswordReset){
+        @if(ViewBag.Verified){
+        <li>
+            <p class="info">Thank you. Your e-mail address has been verified.</p>
+        </li>
+        }
+        @if(ViewBag.VerificationError){
+        <li>
+            <p class="info">We could not verify your e-mail address using the code you supplied.<br/><br/> Please check the link and try again.</p>
+        </li>
+        }
+        @if (ViewBag.PasswordReset){
         <li>
             <p class="info">We've sent you a password reset e-mail. Please open it to complete resetting your password.</p>
         </li> 
@@ -55,8 +65,7 @@
     <div id="submitContainer">
         <label for="persistSignin">Keep me signed in</label>
         <input id="persistSignin" type="checkbox" name="persist" />
-        <input type="submit" class="hidden" value="Sign In" />
-        <a href="javascript:void(0)" id="signin" class="button">Sign In</a>
+        <input id="signin" type="submit" class="button" value="Sign In" />
     </div>
 </form>
 

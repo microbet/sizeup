@@ -98,7 +98,10 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
             ViewBag.Email = "";
+
             return View();
         }
 
@@ -114,6 +117,8 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
             ViewBag.Email = email;
 
             if (!Identity.ValidateUser(email, password))
@@ -170,6 +175,8 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = true;
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
             ViewBag.Email = email;
 
             var i = Identity.GetUser(email);
@@ -196,7 +203,7 @@ namespace SizeUp.Web.Controllers
             try
             {
                 var user = Identity.DecryptToken(key);
-                ViewBag.Email = user.UserName;
+                ViewBag.UserName = user.UserName;
             }
             catch (Exception e)
             {
@@ -219,7 +226,8 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
-            ViewBag.Email = "";
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
             try
             {
                 var user = Identity.DecryptToken(key);
@@ -236,5 +244,83 @@ namespace SizeUp.Web.Controllers
             }
             return returnAction;
         }
+
+        [HttpGet]
+        public ActionResult ConfirmRegistration(string key)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            ViewBag.BadCode = false;
+            ViewBag.Error = false;
+            ViewBag.InvalidPassword = false;
+            ViewBag.NotActive = false;
+            ViewBag.LockedOut = false;
+            ViewBag.PasswordReset = false;
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
+
+            try
+            {
+                var user = Identity.DecryptToken(key);
+                user.IsApproved = true;
+                user.Save();
+                ViewBag.Verified = true;
+            }
+            catch (Exception e)
+            {
+                ViewBag.VerificationError = true;
+            }
+            return View("Signin");
+        }
+
+
+        [HttpGet]
+        public ActionResult OptOut(string key)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            ViewBag.BadCode = false;
+
+            try
+            {
+                var user = Identity.DecryptToken(key);
+                ViewBag.OptOut = user.IsOptOut;
+                ViewBag.Email = user.Email;
+            }
+            catch (Exception e)
+            {
+                ViewBag.BadCode = true;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult OptOut(string key, bool OptOut)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            ViewBag.BadCode = false;
+            ViewBag.OptOut = false;
+            try
+            {
+                var user = Identity.DecryptToken(key);
+                user.IsOptOut = OptOut;
+                user.Save();
+                ViewBag.OptOut = user.IsOptOut;
+                ViewBag.Email = user.Email;
+            }
+            catch (Exception e)
+            {
+                ViewBag.BadCode = true;
+            }
+            return View();
+        }
+
     }
 }
