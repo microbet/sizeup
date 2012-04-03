@@ -82,6 +82,7 @@
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -102,6 +103,7 @@
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
+    <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\company\about.css" />
     <Content Include="Content\views\company\team.css" />
     <Content Include="Content\views\help\contact.css" />
@@ -199,6 +201,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Help\Faq.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Business\StateList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Business\CityList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Business\IndustryList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
