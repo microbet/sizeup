@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>Business Listings</title>
+<link href="@Url.Content("~/Content/views/business/business.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/business/find.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/citySelector.js")"></script>
+}
+
+<div id="businessListings">
+    <h1>Business Listings</h1>
+    <form action="/find-business" method="get" id="form" class="hidden" >
+        <ul>
+            <li>
+                <label for="business">Business Name:</label>
+                <input type="text" id="business" name="name" value="" class="blank" />
+            </li>
+            <li>
+                <label for="industry">Industry:</label>
+                <input type="text" id="industry"  value="enter an industry" class="blank" />
+            </li>
+            <li>
+                <label for="city">City:</label>
+                <input type="text" id="city"  value="enter a city" class="blank" />
+            </li>
+        </ul>
+        <input type="hidden" name="page" value="0" />
+        <input type="hidden" id="cityId" name="cityId" value="@Request.QueryString["cityId"]" />
+        <input type="hidden" id="industryId" name="industryId" value="@Request.QueryString["industryId"]" />
+        <input type="submit" id="submit" class="button" value="Filter" />
+        <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
+        <p id="invalidCityMessage" class="info hidden">Please enter a valid city name.</p>
+    </form>
+
+
+    @foreach(var col in ViewBag.Businesses)
+    {
+    <div class="col">
+        <ul>
+            @foreach(var item in col)
+            {
+            <li>
+                <a href="/business/@item.State.Name/@item.Industry.Name">@item.Business.Name</a>
+                <address>
+                    @if(!string.IsNullOrWhiteSpace(item.Business.Address)){
+                    <span class="address1">@item.Business.Address</span>
+                    }
+                    <span class="address2">@item.Business.City, @item.State.Abbreviation @item.ZipCode.Zip</span>
+                </address>
+            </li>
+            }
+        </ul>
+    </div>
+    }
+
+    <div id="buttonContainer">
+        <a href="#" id="prev" class="button small">Last Page</a>
+        <a href="#" id="next" class="button small">Next Page</a>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+    var options = {
+        cityId: '@Request.QueryString["cityId"]',
+        industryId: '@Request.QueryString["industryId"]',
+        name: '@Server.UrlDecode(Request.QueryString["name"])'
+    };
+    var driver = new sizeup.views.business.find(options);
+    </script>
+
+
+}
+
+
+

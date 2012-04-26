@@ -17,6 +17,26 @@
           <EntitySet Name="SicToNAICSMapping" EntityType="SizeUp.Data.Store.SicToNAICSMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCode" EntityType="SizeUp.Data.Store.ZipCode" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.Store.FK_Business_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Industry" Association="SizeUp.Data.Store.FK_Business_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Metro" Association="SizeUp.Data.Store.FK_Business_Metro">
+            <End Role="Metro" EntitySet="Metro" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_State" Association="SizeUp.Data.Store.FK_Business_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_ZipCode" Association="SizeUp.Data.Store.FK_Business_ZipCode">
+            <End Role="ZipCode" EntitySet="ZipCode" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
           <AssociationSet Name="FK_City_County" Association="SizeUp.Data.Store.FK_City_County">
             <End Role="County" EntitySet="County" />
             <End Role="City" EntitySet="City" />
@@ -51,48 +71,54 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Street" Type="nvarchar" MaxLength="30" />
-          <Property Name="State" Type="nvarchar" MaxLength="2" />
-          <Property Name="Zip" Type="nvarchar" MaxLength="5" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address" Type="nvarchar" MaxLength="30" />
+          <Property Name="City" Type="nvarchar" MaxLength="16" />
           <Property Name="ZipPlus4" Type="nvarchar" MaxLength="4" />
+          <Property Name="PrimaryWebURL" Type="nvarchar" MaxLength="40" />
           <Property Name="Phone" Type="nvarchar" MaxLength="10" />
-          <Property Name="VendorId" Type="bigint" Nullable="false" />
-          <Property Name="WebsiteURL" Type="nvarchar" MaxLength="50" />
-          <Property Name="Geography" Type="geography" Nullable="false" />
-          <Property Name="SEOKey" Type="nvarchar" MaxLength="255" />
-          <Property Name="BusinessStatusCode" Type="int" />
-          <Property Name="YearStarted" Type="int" />
-          <Property Name="IsHomeBased" Type="bit" Nullable="false" />
-          <Property Name="IsFirm" Type="bit" Nullable="false" />
-          <Property Name="PublicCompanyIndicator" Type="int" />
-          <Property Name="City" Type="nvarchar" MaxLength="30" />
+          <Property Name="BusinessStatusCode" Type="nvarchar" MaxLength="1" />
+          <Property Name="WorkAtHomeFlag" Type="nvarchar" MaxLength="1" />
+          <Property Name="PublicCompanyIndicator" Type="nvarchar" MaxLength="1" />
+          <Property Name="FirmCode" Type="nvarchar" MaxLength="1" />
+          <Property Name="YearEstablished" Type="int" />
+          <Property Name="YearAppeared" Type="int" />
+          <Property Name="InfoGroupId" Type="bigint" />
+          <Property Name="Lat" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="Long" Type="decimal" Precision="10" Scale="6" />
+          <Property Name="MatchLevel" Type="nvarchar" MaxLength="1" />
+          <Property Name="IndustryId" Type="bigint" />
+          <Property Name="ZipCodeId" Type="bigint" />
+          <Property Name="CountyId" Type="bigint" />
+          <Property Name="MetroId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="Geography" Type="geography" />
         </EntityType>
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="CityType" Type="nvarchar" Nullable="false" MaxLength="25" />
-          <Property Name="CensusClassCode" Type="nvarchar" Nullable="false" MaxLength="10" />
-          <Property Name="Geography" Type="geography" />
+          <Property Name="CensusClassCode" Type="nvarchar" Nullable="false" MaxLength="3" />
+          <Property Name="SEOKey" Type="nvarchar" MaxLength="150" />
+          <Property Name="Geography" Type="geography" Nullable="false" />
           <Property Name="StateId" Type="bigint" Nullable="false" />
-          <Property Name="CountyId" Type="bigint" Nullable="false" />
-          <Property Name="SEOKey" Type="nvarchar" MaxLength="255" />
+          <Property Name="CountyId" Type="bigint" />
         </EntityType>
         <EntityType Name="County">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="LongName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="Geography" Type="geography" Nullable="false" />
           <Property Name="StateId" Type="bigint" Nullable="false" />
           <Property Name="MetroId" Type="bigint" />
-          <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="5" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="LongName" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="Geography" Type="geography" Nullable="false" />
         </EntityType>
         <EntityType Name="Industry">
           <Key>
@@ -119,7 +145,7 @@
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="5" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="Geography" Type="geography" Nullable="false" />
         </EntityType>
         <EntityType Name="NAICS">
@@ -153,20 +179,81 @@
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="2" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Abbreviation" Type="nvarchar" Nullable="false" MaxLength="3" />
+          <Property Name="Abbreviation" Type="nvarchar" Nullable="false" MaxLength="2" />
           <Property Name="Geography" Type="geography" Nullable="false" />
+          <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ZIP" Type="nvarchar" Nullable="false" MaxLength="7" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Zip" Type="nvarchar" Nullable="false" MaxLength="5" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="Geography" Type="geography" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Business_County">
+          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Metro">
+          <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_State">
+          <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="0..1" />
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_ZipCode">
+          <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="0..1" />
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZipCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_City_County">
-          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="1" />
+          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
           <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="County">
@@ -270,11 +357,11 @@
             <End Role="NAICS" EntitySet="NAICS" />
             <End Role="SicToNAICSMapping" EntitySet="SicToNAICSMappings" />
           </AssociationSet>
-          <EntitySet Name="Businesses" EntityType="SizeUp.Data.Business" />
-          <EntitySet Name="Cities" EntityType="SizeUp.Data.City" />
-          <EntitySet Name="Counties" EntityType="SizeUp.Data.County" />
           <EntitySet Name="Metroes" EntityType="SizeUp.Data.Metro" />
           <EntitySet Name="States" EntityType="SizeUp.Data.State" />
+          <EntitySet Name="ResourceStrings" EntityType="SizeUp.Data.ResourceString" />
+          <EntitySet Name="Cities" EntityType="SizeUp.Data.City" />
+          <EntitySet Name="Counties" EntityType="SizeUp.Data.County" />
           <EntitySet Name="ZipCodes" EntityType="SizeUp.Data.ZipCode" />
           <AssociationSet Name="FK_City_County" Association="SizeUp.Data.FK_City_County">
             <End Role="County" EntitySet="Counties" />
@@ -292,8 +379,28 @@
             <End Role="State" EntitySet="States" />
             <End Role="County" EntitySet="Counties" />
           </AssociationSet>
-          <EntitySet Name="ResourceStrings" EntityType="SizeUp.Data.ResourceString" />
-        </EntityContainer>
+          <EntitySet Name="Businesses" EntityType="SizeUp.Data.Business" />
+          <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.FK_Business_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="Business" EntitySet="Businesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Industry" Association="SizeUp.Data.FK_Business_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="Business" EntitySet="Businesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_Metro" Association="SizeUp.Data.FK_Business_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="Business" EntitySet="Businesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_State" Association="SizeUp.Data.FK_Business_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="Business" EntitySet="Businesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_ZipCode" Association="SizeUp.Data.FK_Business_ZipCode">
+            <End Role="ZipCode" EntitySet="ZipCodes" />
+            <End Role="Business" EntitySet="Businesses" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Industry">
           <Key>
             <PropertyRef Name="Id" />
@@ -305,6 +412,7 @@
           <Property Name="SEOKey" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="IndustryKeywords" Relationship="SizeUp.Data.FK_IndustryKeyword_Industry" FromRole="Industry" ToRole="IndustryKeyword" />
           <NavigationProperty Name="SicToNAICSMappings" Relationship="SizeUp.Data.FK_SicToNAICSMapping_Industry" FromRole="Industry" ToRole="SicToNAICSMapping" />
+          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Industry" FromRole="Industry" ToRole="Business" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -371,68 +479,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Business">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Street" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="State" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Zip" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ZipPlus4" MaxLength="4" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Phone" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Int64" Name="VendorId" Nullable="false" />
-          <Property Type="String" Name="WebsiteURL" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Geography" Name="Geography" Nullable="false" />
-          <Property Type="String" Name="SEOKey" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="BusinessStatusCode" />
-          <Property Type="Int32" Name="YearStarted" />
-          <Property Type="Boolean" Name="IsHomeBased" Nullable="false" />
-          <Property Type="Boolean" Name="IsFirm" Nullable="false" />
-          <Property Type="Int32" Name="PublicCompanyIndicator" />
-          <Property Type="String" Name="City" MaxLength="30" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="City">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CityType" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="CensusClassCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Geography" Name="Geography" />
-          <Property Type="Int64" Name="StateId" Nullable="false" />
-          <Property Type="Int64" Name="CountyId" Nullable="false" />
-          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_City_County" FromRole="City" ToRole="County" />
-          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_City_State" FromRole="City" ToRole="State" />
-          <Property Type="String" Name="SEOKey" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="County">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="StateId" Nullable="false" />
-          <Property Type="Int64" Name="MetroId" />
-          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LongName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Geography" Name="Geography" Nullable="false" />
-          <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_County" FromRole="County" ToRole="City" />
-          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_County_Metro" FromRole="County" ToRole="Metro" />
-          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
-        </EntityType>
         <EntityType Name="Metro">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="FIPS" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="Geography" Name="Geography" Nullable="false" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
+          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Metro" ToRole="Business" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -441,22 +497,65 @@
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="FIPS" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Abbreviation" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Abbreviation" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Type="Geography" Name="Geography" Nullable="false" />
+          <Property Type="String" Name="SEOKey" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_State" FromRole="State" ToRole="County" />
+          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_State" FromRole="State" ToRole="Business" />
+        </EntityType>
+        <EntityType Name="ResourceString">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Value" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CityType" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CensusClassCode" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SEOKey" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="Geography" Name="Geography" Nullable="false" />
+          <Property Type="Int64" Name="StateId" Nullable="false" />
+          <Property Type="Int64" Name="CountyId" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_City_County" FromRole="City" ToRole="County" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_City_State" FromRole="City" ToRole="State" />
+        </EntityType>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LongName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Geography" Name="Geography" Nullable="false" />
+          <Property Type="Int64" Name="StateId" Nullable="false" />
+          <Property Type="Int64" Name="MetroId" />
+          <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_County" FromRole="County" ToRole="City" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_County_Metro" FromRole="County" ToRole="Metro" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
+          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_County" FromRole="County" ToRole="Business" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="ZIP" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Zip" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="Geography" Name="Geography" Nullable="false" />
+          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_ZipCode" FromRole="ZipCode" ToRole="Business" />
         </EntityType>
         <Association Name="FK_City_County">
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="1" />
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
           <End Type="SizeUp.Data.City" Role="City" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="County">
@@ -503,15 +602,100 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ResourceString">
+        <EntityType Name="Business">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Value" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="City" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ZipPlus4" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PrimaryWebURL" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BusinessStatusCode" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkAtHomeFlag" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PublicCompanyIndicator" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirmCode" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="YearEstablished" />
+          <Property Type="Int32" Name="YearAppeared" />
+          <Property Type="Int64" Name="InfoGroupId" />
+          <Property Type="Decimal" Name="Lat" Precision="10" Scale="6" />
+          <Property Type="Decimal" Name="Long" Precision="10" Scale="6" />
+          <Property Type="String" Name="MatchLevel" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Int64" Name="ZipCodeId" />
+          <Property Type="Int64" Name="CountyId" />
+          <Property Type="Int64" Name="MetroId" />
+          <Property Type="Int64" Name="StateId" />
+          <Property Type="Geography" Name="Geography" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_Business_County" FromRole="Business" ToRole="County" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_Business_Industry" FromRole="Business" ToRole="Industry" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Business" ToRole="Metro" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_Business_State" FromRole="Business" ToRole="State" />
+          <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_Business_ZipCode" FromRole="Business" ToRole="ZipCode" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_Business_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_State">
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_ZipCode">
+          <End Type="SizeUp.Data.ZipCode" Role="ZipCode" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZipCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -556,57 +740,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Businesses">
-            <EntityTypeMapping TypeName="SizeUp.Data.Business">
-              <MappingFragment StoreEntitySet="Business">
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="PublicCompanyIndicator" ColumnName="PublicCompanyIndicator" />
-                <ScalarProperty Name="IsFirm" ColumnName="IsFirm" />
-                <ScalarProperty Name="IsHomeBased" ColumnName="IsHomeBased" />
-                <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
-                <ScalarProperty Name="BusinessStatusCode" ColumnName="BusinessStatusCode" />
-                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
-                <ScalarProperty Name="Geography" ColumnName="Geography" />
-                <ScalarProperty Name="WebsiteURL" ColumnName="WebsiteURL" />
-                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="ZipPlus4" ColumnName="ZipPlus4" />
-                <ScalarProperty Name="Zip" ColumnName="Zip" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cities">
-            <EntityTypeMapping TypeName="SizeUp.Data.City">
-              <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
-                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="Geography" ColumnName="Geography" />
-                <ScalarProperty Name="CensusClassCode" ColumnName="CensusClassCode" />
-                <ScalarProperty Name="CityType" ColumnName="CityType" />
-                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Counties">
-            <EntityTypeMapping TypeName="SizeUp.Data.County">
-              <MappingFragment StoreEntitySet="County">
-                <ScalarProperty Name="Geography" ColumnName="Geography" />
-                <ScalarProperty Name="LongName" ColumnName="LongName" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
-                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Metroes">
             <EntityTypeMapping TypeName="SizeUp.Data.Metro">
               <MappingFragment StoreEntitySet="Metro">
@@ -620,10 +753,48 @@
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="SizeUp.Data.State">
               <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="Geography" ColumnName="Geography" />
                 <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResourceStrings">
+            <EntityTypeMapping TypeName="SizeUp.Data.ResourceString">
+              <MappingFragment StoreEntitySet="ResourceString">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="SizeUp.Data.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Geography" ColumnName="Geography" />
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+                <ScalarProperty Name="CensusClassCode" ColumnName="CensusClassCode" />
+                <ScalarProperty Name="CityType" ColumnName="CityType" />
+                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Counties">
+            <EntityTypeMapping TypeName="SizeUp.Data.County">
+              <MappingFragment StoreEntitySet="County">
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Geography" ColumnName="Geography" />
+                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+                <ScalarProperty Name="LongName" ColumnName="LongName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -633,15 +804,35 @@
               <MappingFragment StoreEntitySet="ZipCode">
                 <ScalarProperty Name="Geography" ColumnName="Geography" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ResourceStrings">
-            <EntityTypeMapping TypeName="SizeUp.Data.ResourceString">
-              <MappingFragment StoreEntitySet="ResourceString">
-                <ScalarProperty Name="Value" ColumnName="Value" />
+          <EntitySetMapping Name="Businesses">
+            <EntityTypeMapping TypeName="SizeUp.Data.Business">
+              <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="Geography" ColumnName="Geography" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+                <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="MatchLevel" ColumnName="MatchLevel" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="InfoGroupId" ColumnName="InfoGroupId" />
+                <ScalarProperty Name="YearAppeared" ColumnName="YearAppeared" />
+                <ScalarProperty Name="YearEstablished" ColumnName="YearEstablished" />
+                <ScalarProperty Name="FirmCode" ColumnName="FirmCode" />
+                <ScalarProperty Name="PublicCompanyIndicator" ColumnName="PublicCompanyIndicator" />
+                <ScalarProperty Name="WorkAtHomeFlag" ColumnName="WorkAtHomeFlag" />
+                <ScalarProperty Name="BusinessStatusCode" ColumnName="BusinessStatusCode" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PrimaryWebURL" ColumnName="PrimaryWebURL" />
+                <ScalarProperty Name="ZipPlus4" ColumnName="ZipPlus4" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

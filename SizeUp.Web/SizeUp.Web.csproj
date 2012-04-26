@@ -91,6 +91,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Business\City.cs" />
+    <Compile Include="Models\Business\CityGroup.cs" />
+    <Compile Include="Models\Business\BusinessItem.cs" />
+    <Compile Include="Models\Business\Industry.cs" />
+    <Compile Include="Models\Business\IndustryGroup.cs" />
+    <Compile Include="Models\Business\State.cs" />
     <Compile Include="Models\Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,6 +105,7 @@
     <Content Include="Content\images\advertise.png" />
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\home-gradient.png" />
+    <Content Include="Content\images\logosmall.gif" />
     <Content Include="Content\images\mybusiness.png" />
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\layout.css" />
@@ -122,6 +129,7 @@
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
+    <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
@@ -203,13 +211,7 @@
     <Content Include="Views\Help\Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Business\StateList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Business\CityList.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Business\IndustryList.cshtml" />
+    <Content Include="Views\Business\Find.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

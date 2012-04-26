@@ -24,21 +24,9 @@ namespace SizeUp.Web
 
 
             routes.MapRoute(
-                "BusinessStateList", // Route name
-                "find-business", // URL with parameters
-                new { controller = "Business", action = "StateList" } // Parameter defaults
-            );
-
-            routes.MapRoute(
-                "BusinessCityList", // Route name
-                "find-business/{state}", // URL with parameters
-                new { controller = "Business", action = "CityList", state = UrlParameter.Optional } // Parameter defaults
-            );
-
-            routes.MapRoute(
-                "BusinessIndustryList", // Route name
-                "find-business/{state}/{city}", // URL with parameters
-                new { controller = "Business", action = "IndustryList", state = UrlParameter.Optional, city = UrlParameter.Optional } // Parameter defaults
+                "FindBusiness", // Route name
+                "find-business/", // URL with parameters
+                new { controller = "Business", action = "Find" } // Parameter defaults
             );
 
             routes.MapRoute(
