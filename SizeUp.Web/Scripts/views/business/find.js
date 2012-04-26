@@ -3,9 +3,6 @@
     sizeup.views.business.find = function (opts) {
 
         var me = {};
-
-
-        
         var dataLayer = new sizeup.core.data();
         var notifier = new sizeup.core.notifier(function () { init(); });
 
@@ -21,6 +18,7 @@
         var init = function () {
             me.form = {};
             me.errors = {};
+            me.pager = {};
             me.form.city = {};
             me.form.industry = {};
             me.form.business = {};
@@ -33,6 +31,8 @@
             me.form.city.hiddenField = $('#cityId');
             me.form.submit = $('#submit');
 
+            
+            me.hasErrors = false;
             me.errors.noIndustryMatches = $('#noIndustryMatchesMessage');
             me.errors.invalidCity = $('#invalidCityMessage');
 
@@ -56,15 +56,6 @@
                 me.form.business.textbox.val(me.data.name);
             }
            
-
-
-
-
-
-
-
-
-
             me.form.submit.click(onSubmit);
 
             me.form.container.hide().removeClass('hidden');
@@ -80,16 +71,14 @@
             me.form.container.show();
         };
 
-        var showSelector = function () {
-            me.form.container.hide("slide", { direction: "left" }, 500);
-            me.selector.container.show("slide", { direction: "right" }, 500);
-        };
 
         var onIndustryChange = function (item) {
             if (!item) {
+                me.errors.hasErrors = true;
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
             }
             else {
+                me.errors.hasErrors = false;
                 me.errors.noIndustryMatches.fadeOut('slow');
                 me.form.industry.hiddenField.val(item.Id);
             }
@@ -97,9 +86,11 @@
 
         var onCityChange = function (item) {
             if (!item) {
+                me.errors.hasErrors = true;
                 me.errors.invalidCity.hide().fadeIn('slow');
             }
             else {
+                me.errors.hasErrors = false;
                 me.errors.invalidCity.fadeOut('slow');
                 me.form.city.hiddenField.val(item.Id);
             }
@@ -107,10 +98,17 @@
 
 
         var onSubmit = function () {
-
+            return !me.errors.hasErrors;// && validateCity() && validateIndustry();
         };
 
-      
+
+        var validateCity = function () {
+            //me.form.city.selector.
+        };
+
+        var validateIndustry = function () {
+            //me.form.industry.selector
+        };
 
 
        

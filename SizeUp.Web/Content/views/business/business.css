@@ -3,19 +3,19 @@
 #businessListings input.button[type="submit"] { font-size: 1.5em; }
 #businessListings address span { display: block; }
 
-#businessListings form { margin: 0 0 1em; border-bottom: 1px solid #ccc; padding:  0 0 1em;  }
-#businessListings form ul {  position: relative; left:9.5em; }
+#businessListings form { margin: 1em auto; width: 72em;  }
+#businessListings form ul {  }
 #businessListings form ul li { margin: 0.5em 0; }
 #businessListings form ul li label{ width: 8em; text-align: right; margin-right: 1em;}
 #businessListings form ul li input[type="text"] { width: 20em; text-align: center;  }
-#businessListings form  input[type="submit"] { position: relative; left: 36.75em;}
+#businessListings form  input[type="submit"] {  position:relative;left: 30.5em; margin:  0 0 1em 0;}
 
 
 
 #businessListings .col { display: inline-block; width: 30em; vertical-align: top; text-align: center; }
 #businessListings .col ul li{ margin: 0.5em 0; }
 
-#businessListings #buttonContainer { margin:  2em 0 0 0; position: relative; }
+#businessListings #buttonContainer { margin:  2em 0 0 0; position: relative; height: 2em; }
 
 #businessListings #next { position:absolute; right: 0; }
 

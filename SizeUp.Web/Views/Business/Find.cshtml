@@ -59,8 +59,12 @@
     }
 
     <div id="buttonContainer">
-        <a href="#" id="prev" class="button small">Last Page</a>
-        <a href="#" id="next" class="button small">Next Page</a>
+        @if(!ViewBag.FirstPage){
+        <a href="/find-business?@ViewBag.Prev.ToString()" id="prev" class="button small">Last Page</a>
+        }
+        @if(!ViewBag.LastPage){
+        <a href="/find-business?@ViewBag.Next.ToString()" id="next" class="button small">Next Page</a>
+        }
     </div>
 </div>
 

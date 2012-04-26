@@ -62,10 +62,7 @@
 
 
         var onSubmit = function () {
-
-            var isValid = true;
-            isValid = validateEmail();
-            isValid = validatePassword();
+            var isValid = validateEmail() && validatePassword();
             return isValid;
         };
 
