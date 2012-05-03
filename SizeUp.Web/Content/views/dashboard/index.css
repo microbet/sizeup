@@ -1,0 +1,50 @@
+﻿#contentWrap { padding: 0 0 2em; }
+
+
+#dasboard { position: relative; }
+#dashboard h1 {font-size: 1.8em; position: absolute;   left: 14em; top: -1.4em;}
+#dashboard h3 { color:#6EAB24; font-size: 1.7em; }
+#dashboard h4 { font-size: 1.7em; font-weight: normal; }
+
+#dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
+
+
+#dashboard .report .header .icon { width:60px; height:60px; background-image:url(/content/images/dashboardIcons.png);background-repeat:no-repeat; }
+#dashboard .report .header h2 { font-size: 2.4em; font-weight: normal;  position: absolute; top: 1em; left: 3.5em;  }
+#dashboard .report .header .hint {font-size:1.1em; position: absolute; top: 5em; left: 8.5em;   }
+#dashboard .report .header input[type="text"] {font-family:  Trebuchet MS,Arial,Sans-Serif;  position: absolute;top: 1em;left: 21em;  font-weight: bold; padding: 0.5em;  width: 8em; text-align: right;}
+#dashboard .report .header .prompt {position: absolute; top: 1.25em;right: 4.75em; background-image: url("/content/images/dashbuttons.png"); background-repeat: no-repeat; color: #FFFFFF; display: block; font-size: 1.1em; font-weight: bold; height: 38px; line-height: 1.2em; padding: 11px 10px 0 35px; text-align: center; text-transform: uppercase; width: 270px; }
+
+#dashboard .report .header .gauge { position: absolute; top: 1em; right: 28em;  }
+#dashboard .report .header a.button { padding: 0.5em 0.75em; position: absolute; top: 1em; right: 12.5em;  }
+
+#dashboard #revenue.report .header .icon {background-position: 0 0; }
+#dashboard #yearStarted.report .header .icon {background-position: 0 -60px; }
+#dashboard #salary.report .header .icon {background-position: 0 -305px; }
+#dashboard #employees.report .header .icon {background-position: 0 -365px; }
+#dashboard #costEffectiveness.report .header .icon {background-position: 0 -120px; }
+#dashboard #revenuePerCapita.report .header .icon {background-position: 0 -180px; }
+#dashboard #turnover.report .header .icon {background-position: 0 -425px; }
+#dashboard #healthcareCost.report .header .icon {background-position: 0 -485px; }
+#dashboard #workersComp.report .header .icon {background-position: 0 -545px; }
+
+#dashboard #costEffectiveness.report .header .prompt { background-image: none; color: #ccc; }
+
+
+#dashboard .report .body ul.links { margin: 1em 0; text-align: right; }
+#dashboard .report .body ul.links li { display: inline-block; padding: 0 0 0 1em; }
+
+#dashboard .report .body ul.links li a.source {text-transform: uppercase; display:inline-block;text-align: center; width: 5em; font-size:1em; padding:0 0.5em; color:#fff; background-color:#cccccc; border:1px solid #b9b9b9; border-radius:0.5em;-moz-border-radius:0.5em;-webkit-border-radius:0.5em;}
+#dashboard .report .body ul.links li a.source:hover {border:1px solid #e78500; background-color:#e78500; background-image: linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); background-image: -moz-linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); background-image: -webkit-linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); background-image: -ms-linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffbb76', endColorstr='#e78500');}
+
+#dashboard .report .body .reportContainer .reportContent { display: inline-block; width: 56em; padding: 1em; }
+#dashboard .report .body .reportContainer .reportContent .chart { text-align:right; margin: 1em 0 0 0; }
+#dashboard .report .body .reportContainer .reportContent .chart a {font-size: 0.9em; font-weight:bold; display: inline-block; margin: 0 0 0 1em; }
+#dashboard .report .body .reportContainer .reportContent .map{margin:  1em 0 0 0; width: 560px; height: 360px; border: solid 1px black; }
+
+
+#dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; vertical-align:top;}
+#dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 1em; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
+#dashboard .report .body .reportContainer .reportSidebar .section p { padding: 0 1em; margin: 0 0 1em 0; line-height: 1.5em; }
+
+

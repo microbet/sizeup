@@ -34,7 +34,7 @@ label { font-size: 1.85em; /*color: #999999;*/ display: inline-block; }
 
 
 
-.hidden {display:none;}
+.hidden {display:none !important;}
 
 
 ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA;border-style: solid;border-width: 1px; font-family: Arial,Sans-Serif; overflow:auto; max-height:19.5em; float: left; position:absolute; }
@@ -47,6 +47,7 @@ ul.ui-autocomplete li.ui-menu-item .ui-state-hover {background:#FFD86A;}
 
 span.hint {color: #aaa;}
 p.info { background-color: #FFFFF0; border: solid 1px #ddd; padding: 1em; text-align: center; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius: 1em;  }
+p.info span { display: block;padding: 0.25em; }
 span.error,
 p.error { color: #ff0000; }
 span.error { padding: 0.25em; font-size: 1.5em; }
@@ -58,14 +59,23 @@ a.button:hover,
 
 input[type=submit].button { font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; font-weight: bold; }
 
+.button.tiny,
+a.button.tiny { font-size: 1em;  }
+
 .button.small,
 a.button.small { font-size: 1.5em; }
+
+.button.medium,
+a.button.medium { font-size: 1.9em; }
 
 
 
 /**** experimental base styles*****/
 
 
-
+.loading { text-align: center; }
+.loading p { font-size: 1.6em; padding: 1.5em; }
+.loading .title { font-weight: bold; color: #6EAB24; }
+.loading .message { color: #c0c0c0; }
 
 
