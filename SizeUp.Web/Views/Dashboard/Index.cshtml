@@ -15,7 +15,16 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/charts/barchart.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/contentExpander.js")"></script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/reportContainer.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenue.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/averageSalary.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/yearStarted.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/employees.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/costEffectiveness.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenuePerCapita.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/turnover.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/healthcareCost.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/workersComp.js")"></script>
 
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/dashboard.js")"></script>
@@ -23,26 +32,26 @@
 }
 
 
-<div id="dashboard">
+<div id="dashboard" class="hidden">
 <h1>Pharmacies is San Francisco, CA</h1>
 
     <div id="revenue" class="report">
         <div class="header">
             <div class="icon"></div>
             <h2>Revenue</h2>
-            <span class="hint hidden">Annual revenue of your business</span>
+            <span class="hint">Annual revenue of your business</span>
             <input type="text" class="valueBox" />
-            <span class="prompt hidden">Please enter <br />your annual revenue</span>
-            <div class="gauge hidden"></div>
-            <a href="javascript:void(0)" class="button medium runReport hidden">Run Report</a>
+            <span class="prompt">Please enter <br />your annual revenue</span>
+            <div class="gauge"></div>
+            <a href="javascript:void(0)" class="button medium runReport">Run Report</a>
         </div>
-        <div class="body hidden">
+        <div class="body">
             <div class="loading">
                 <p class="title">Average Revenue Report</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
-            <div class="reportContainer hidden">
+            <div class="reportContainer">
                 <div class="reportContent">
                     <h3>How you size up</h3>
                     <p>Your business generates less revenue than 99% of businesses in your industry in the nation.</p>
@@ -56,7 +65,7 @@
                             <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
                         </li>
                     </ul>
-                    <div class="sourceContent hidden" data-expandedClass="expanded">
+                    <div class="sourceContent " data-expandedClass="expanded">
                         <p>Average revenue data for communities on SizeUp is aggregated from data on individual businesses,
                              which comes from hundreds of data sources including, but not limited to, IRS records, county 
                              courthouse filings, business publications, and corporate annual reports.
@@ -101,10 +110,67 @@
             <div class="icon"></div>
             <h2>Year Started</h2>
             <span class="hint">The year your business was started</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
             <span class="prompt">Please enter <br />the year your business started</span>
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Average Revenue Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>Your business started in 1999. In the same year, 0 businesses in your industry started in your city,
+                         0 started in your county, 2 started in your metro area, 19 started in your state, and 142 started nationally.
+                    </p>
+                    <p>In your industry, your business has been in operation longer than 47% of businesses in your city, 47% of 
+                        businesses in your county, 51% of businesses in your metro area, 55% of businesses in your state, and 56% 
+                        of businesses in the nation.
+                    </p>       
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>The year started chart is based on data on the start date for individual businesses,
+                         which comes from hundreds of data sources including IRS records, county courthouse filings,
+                          Yellow Pages and White Pages, business publications, the U.S. Postal Service, and corporate annual reports.
+                           This chart goes as far back as 1986 to show patterns in business formation.
+                        </p>
+                    </div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>This chart measures both business formation and survival, and can be used to assess the relative stability or 
+                            volatility of your industry in your area.  The chart measures the starts per year of all businesses that are 
+                            still in operation.
+                        </p>
+		                <p>If most of the local businesses have formed within the past few years, your industry may be growing.  It also may 
+                            be a very volatile industry where branding and longevity have little value, resulting in a high level of churn from 
+                            businesses opening and closing.
+		                </p>
+		                <p>A dip in this chart for a given year could mean that fewer businesses formed then, or that businesses formed in that year
+                            were less likely to survive until today.  If there is a downward trend in recent years, it may be that the industry is maturing
+                             rather than declining.  If most of the businesses have been operating for many years, there may be significant barriers to 
+                            entry that prevent startups from competing, which can result in a marketplace of well-established businesses.
+		                </p>
+		                <p>If you are mostly interested in local trends, click to hide the data at the national and state level.
+		                </p>  
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="salary" class="report">
@@ -112,10 +178,65 @@
             <div class="icon"></div>
             <h2>Salary</h2>
             <span class="hint">Average annual worker salary</span>
-            <input type="text" />
+            <input type="text"  class="valueBox" />
             <span class="prompt">Please enter <br />your average employee salary</span>
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Average Salary Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>The average salary for all workers in your county for the closest corresponding industry category, <strong>Pharmacies and Drug Stores</strong>, is $69,194. The average salary for your business is 87% below the average for your county.</p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Salary data comes from quarterly censuses of businesses by the Federal Government. </p>
+                    </div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>The average salary for an industry often takes into account many different occupations.
+                             For example, a law firm employs clerical staff in addition to attorneys, which will affect the average salary.
+                        </p>
+                        <p>If the mix of occupations for your business is typical of other businesses in your industry, the average salary is 
+                            a useful measurement for judging whether you are paying more or less than other businesses in your industry.
+                        </p>
+                        <p>Within an occupation, salary levels are affected by age and education. If your salaries are comparatively high 
+                            and years of experience and education are not necessarily critical, you may consider hiring younger workers, or 
+                            graduates from community colleges as opposed to 4-year colleges.
+                        </p>
+                        <p>Salary levels are correlated with cost of living, which may account for many of the salary differences among areas.
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h4>Resources</h4>
+                        <p>Post available jobs at <a href="http://hiring.monster.com" target="_blank">Monster</a>, <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>, <a href="http://success.simplyhired.com" target="_blank">Simply Hired</a>, or <a href=https://ads.indeed.com" target="_blank">Indeed</a>.</p>
+		                <p>Search resumes at <a href="http://www.linkedin.com/" target="_blank">LinkedIn</a>, <a href="http://hiring.monster.com" target="_blank">Monster</a>, or <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>.</p>
+		                <p>Find temporary employees through <a href="http://www.manpower.com" target="_blank">Manpower</a>.</p>
+	                    <p>Augment salaries with a retention plan from <a href="http://retensa.com"  target="_blank">Retensa</a> and perks from <a href="http://betterworks.com"  target="_blank">BetterWorks</a>.</p>
+                        <p>Find salary data by occupation at <a href="http://salary.com"  target="_blank">Salary.com</a> or <a href="http://www.payscale.com/hr/solutions/salary-benchmarking"  target="_blank">PayScale</a>.</p>
+		                <p>Enhance your employee benefits packages while saving your company money. Sign up for commuter benefit programs and flexible spending accounts through <a href="http://www.transitcenter.com/employers/"  target="_blank">TransitCheck</a>,
+                        <a href="https://www.flexdirect.adp.com/" target="_blank">FlexDirect</a>, or <a href="http://www.flex-plan.com/" target="_blank">Flex-Plan Services</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="employees" class="report">
@@ -123,10 +244,63 @@
             <div class="icon"></div>
             <h2>Employees</h2>
             <span class="hint">Number of full-time equivalent employees</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
             <span class="prompt">Please enter <br />how many employees you have</span>
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Employee Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>In your industry, your business has more employees than 100% of businesses in your city, 
+                        27% of businesses in your county, 28% of businesses in your metro area, 37% of businesses 
+                        in your state, and 34% of businesses in the nation.
+                    </p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Employee data for communities on SizeUp is aggregated from data on individual businesses,
+                         which comes from hundreds of data sources including, but not limited to, IRS records,
+                          county courthouse filings, Yellow Pages and White Pages, business publications,
+                           the U.S. Postal Service, and corporate annual reports.
+                        </p>
+                    </div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>Are you larger or smaller than the average business in your area?  You should be aware of the advantages
+                         and disadvantages for either situation, and how to promote the advantages to your customers.
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h4>Resources</h4>
+                        <p>Post available jobs at <a href="http://hiring.monster.com" target="_blank">Monster</a>, <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>, <a href="http://success.simplyhired.com" target="_blank">Simply Hired</a>, or <a href=https://ads.indeed.com" target="_blank">Indeed</a>.</p>
+		                <p>Search resumes at <a href="http://www.linkedin.com/" target="_blank">LinkedIn</a>, <a href="http://hiring.monster.com" target="_blank">Monster</a>, or <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>.</p>
+		                <p>Find temporary employees through <a href="http://www.manpower.com" target="_blank">Manpower</a>.</p>
+	                    <p>Augment salaries with a retention plan from <a href="http://retensa.com"  target="_blank">Retensa</a> and perks from <a href="http://betterworks.com"  target="_blank">BetterWorks</a>.</p>
+                        <p>Find salary data by occupation at <a href="http://salary.com"  target="_blank">Salary.com</a> or <a href="http://www.payscale.com/hr/solutions/salary-benchmarking"  target="_blank">PayScale</a>.</p>
+		                <p>Enhance your employee benefits packages while saving your company money. Sign up for commuter benefit programs and flexible spending accounts through <a href="http://www.transitcenter.com/employers/"  target="_blank">TransitCheck</a>,
+                        <a href="https://www.flexdirect.adp.com/" target="_blank">FlexDirect</a>, or <a href="http://www.flex-plan.com/" target="_blank">Flex-Plan Services</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="costEffectiveness" class="report">
@@ -134,10 +308,65 @@
             <div class="icon"></div>
             <h2>Cost Effectiveness</h2>
             <span class="hint">Revenue per employee divided by worker salary</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
             <span class="prompt">Please provide revenue, number of employees and salary to see this report</span>
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Cost Effectiveness Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>Cost effectiveness is measured by dividing the annual revenue produced per employee by the average annual worker salary.
+                         The cost effectiveness for your business is 97% below the average for your county. The salary data used in this calculation,
+                         which is not available for <strong>PHARMACIES</strong>, comes from the closest corresponding industry category, 
+                        <strong>Pharmacies and Drug Stores</strong>.
+                    </p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Cost effectiveness data is a measure that combines salary data with revenue and employee data
+                             from individual businesses to show how much revenue an employee generates relative to 
+                             the labor costs incurred by that employee. 
+                        </p>
+                    </div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                         <p>The cost effectiveness index only accounts for the costs of labor, and not other associated costs of a 
+                            business like the costs of goods you sell. If your costs exclusive of labor are higher than your competition,
+                             you may be less cost effective compared to your competition than this calculation indicates. Alternatively,
+                             if your costs exclusive of labor are less than your competition, you may be more cost effective compared to
+                             your competition than this calculation indicates.
+                         </p>
+		                 <p>Do not assume that lowering salaries is necessarily the key to becoming more cost effective.  If your revenue 
+                            numbers are low, you may have more significant obstacles than low productivity, and lowering salaries 
+                            may leave you unable to attract the talented workers that you need to succeed.
+		                 </p>
+                    </div>
+                    <div class="section">
+                        <h4>Resources</h4>
+                        <p>Seek financial advice from <a href="http://www.score.org/chapters"  target="_blank">SCORE</a> or <a href="http://retirement.ameriprise.com/investment-advice-life-events/business-financial-advice.asp" target="_blank">Ameriprise</a>.</p>
+		                <p>Track revenue and expenses with <a href="http://quickbooks.intuit.com/" target="_blank">Quickbooks</a>, <a href="https://indinero.com/" target="_blank">inDinero</a>, or <a href="http://waveaccounting.com/" target="_blank">Wave Accounting</a>.</p> 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="revenuePerCapita" class="report">
@@ -145,9 +374,64 @@
             <div class="icon"></div>
             <h2>Revenue Per Capita</h2>
             <span class="hint">Revenue generated per community resident</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Average Salary Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>Revenue per capita is measured by the revenue generated for every person living in the community.
+                         The revenue per capita in your industry in your city is greater than 100% of cities
+                         in your county, 97% of cities in your metro area, 92% of cities in your state,
+                         and 78% of cities in the nation.
+                    </p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Revenue Per Capita is determined by dividing the total revenue for a community in this specific industry by the
+                             population of the community. The total revenue for a community is aggregated from data on individual businesses,
+                              which comes from hundreds of data sources which are more fully described in their respective reports.
+                               Population data is estimated using a sophisticated projection methodology based on Census population counts,
+                                building permit statistics, and Medicare eligible population counts, among other data sources.
+                        </p>
+                    </div>
+                    <div class="map"></div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>Revenue per capita illustrates how well a community is producing revenue relative to the size of its population.</p>
+		                <p>If you are a local-serving business (i.e., your goods or services are purchased within your community),
+                             revenue per capita can show you whether your location is underserved compared to the national
+                             average.  If your area is underserved, there may be potential for your company to grow and
+                             take advantage of the local consumer spending power, some of which may be leaking out to 
+                            businesses in neighboring communities.
+		                </p>
+		                <p>If you serve customers outside of your immediate community, a high revenue per capita may indicate a strong 
+                            local cluster of businesses in your industry, which may be a sign that your area has a competitive 
+                            advantage in your industry. If you are in an area with a small economy, a strong revenue 
+                            concentration may result from one major export employer, rather than any clustering of businesses.
+		                </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="turnover" class="report">
@@ -155,9 +439,66 @@
             <div class="icon"></div>
             <h2>Local Turnover</h2>
             <span class="hint">Percentage of workers newly hired</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <!--dont forget job change report here --->
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Turnover Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>The turnover rate in your county is 5.9% for <strong>Health and Personal Care Stores (Unclassified)</strong>,
+                         which is the closest corresponding industry category for <strong>PHARMACIES</strong>. 
+                        The turnover rate is the percentage of workers that are new as of the most recent fiscal quarter.
+                         The turnover rate depends on the numbers of hires and separations. Separations count 
+                        the number of workers whose jobs with a given employer ended in a quarter.
+                    </p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Turnover data is collected through the Federal Government. </p>
+                    </div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>Turnover is a measure of employee stability.  Training employees takes time and money before they can be productive, 
+                            so reducing turnover can reduce your expenses.
+                        </p>
+		                <p>Some industries have higher turnover rates than others. If your job openings are entry level service jobs best suited
+                         to people first entering the workforce, it may be hard to avoid high turnover rates.
+		                </p>
+		                <p>When economic times are good for your industry, talented workers may be drawn to other opportunities and companies.
+		                </p>
+                    </div>
+                    <div class="section">
+                        <h4>Resources</h4>
+                        <p>Post available jobs at <a href="http://hiring.monster.com" target="_blank">Monster</a>, <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>, <a href="http://success.simplyhired.com" target="_blank">Simply Hired</a>, or <a href=https://ads.indeed.com" target="_blank">Indeed</a>.</p>
+		                <p>Search resumes at <a href="http://www.linkedin.com/" target="_blank">LinkedIn</a>, <a href="http://hiring.monster.com" target="_blank">Monster</a>, or <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>.</p>
+		                <p>Find temporary employees through <a href="http://www.manpower.com" target="_blank">Manpower</a>.</p>
+	                    <p>Augment salaries with a retention plan from <a href="http://retensa.com"  target="_blank">Retensa</a> and perks from <a href="http://betterworks.com"  target="_blank">BetterWorks</a>.</p>
+                        <p>Find salary data by occupation at <a href="http://salary.com"  target="_blank">Salary.com</a> or <a href="http://www.payscale.com/hr/solutions/salary-benchmarking"  target="_blank">PayScale</a>.</p>
+		                <p>Enhance your employee benefits packages while saving your company money. Sign up for commuter benefit programs and flexible spending accounts through <a href="http://www.transitcenter.com/employers/"  target="_blank">TransitCheck</a>,
+                        <a href="https://www.flexdirect.adp.com/" target="_blank">FlexDirect</a>, or <a href="http://www.flex-plan.com/" target="_blank">Flex-Plan Services</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="healthcareCost" class="report">
@@ -165,10 +506,57 @@
             <div class="icon"></div>
             <h2>Healthcare Cost</h2>
             <span class="hint">Annual healthcare premium per employee</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
             <span class="prompt">Please enter your annual healthcare premium per employee</span>
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Average Salary Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>You pay $4,223 less for health care per employee than the average company of your size in your state.</p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Healthcare cost data is tracked by the Agency for Health Care Research and Quality.
+                             Data on healthcare costs is available at the state level, and is further broken down
+                              by the company’s employee size and industry sector.
+                        </p>
+                    </div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>Healthcare premiums vary by the employee's age, medical history, and level of risk associated 
+                            with their occupation. Because healthcare costs are typically growing each year and it is 
+                            a significant expense for every business, consider reviewing your policy to make sure
+                             you are getting the maximum value.
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h4>Resources</h4>
+                        <p>Get quotes from <a href="https://employer.uhc.com/forms/flows/form7721.gsp" target="_blank">United Health</a> and <a href="https://prospectivemembers.kaiserpermanente.org" target="_blank">Kaiser</a> to potentially reduce your healthcare premiums.</p>
+                        <p>Reduce medical costs for you and your employees by providing flexible spending accounts through <a href="https://www.flexdirect.adp.com" target="_blank">FlexDirect</a> or <a href="http://www.flex-plan.com" target="_blank">Flex-Plan Services</a>.</p>
+		                <p>Improve the health of your employees through wellness training programs from <a href="http://training.blr.com/employee-training-topics/Employee-Wellness-Training" target="_blank">BLR</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="workersComp" class="report">
@@ -176,10 +564,53 @@
             <div class="icon"></div>
             <h2>Workers' Compensation</h2>
             <span class="hint">Premium per employee (per $100 of payroll)</span>
-            <input type="text" />
+            <input type="text" class="valueBox" />
             <span class="prompt">Please enter premium per employee<br/>(per $100 of payroll)</span>
+            <div class="gauge "></div>
+            <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
         </div>
-        <div class="body hidden"></div>
+        <div class="body ">
+            <div class="loading">
+                <p class="title">Average Salary Report</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+            <div class="reportContainer ">
+                <div class="reportContent">
+                    <h3>How you size up</h3>
+                    <p>Your premium rate for workers' compensation is 136% greater than that for the average company in your state.</p>
+                    <div class="chart">
+                        <a href="#">Hide Variations by Geography</a>
+                        <a href="#">View Data Table </a>
+                        <div class="container"></div>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                        </li>
+                    </ul>
+                    <div class="sourceContent " data-expandedClass="expanded">
+                        <p>Workers’ compensation premium rates come from the states themselves, obtained directly from the states via letter,
+                        fax, or telephone call, or from the National Council on Compensation Insurance’s All States Basic Manual for Workers’
+                        Compensation and Employers’ Liability Insurance.
+                        </p>
+                    </div>
+                    <div class="map"></div>
+                </div>
+                <div class="reportSidebar">
+                    <div class="section">
+                        <h4>Considerations</h4>
+                        <p>Within a particular state, workers' compensation premiums will vary by insurer as well as by the type of occupation insured.</p>
+		                <p>It may be possible to reduce your workers' compensation rates through safety training, accident prevention, and by helping injured workers return to work quickly.</p>
+                    </div>
+                    <div class="section">
+                        <h4>Resources</h4>
+                        <p>Get a quote from <a href="http://www.shopinsuranceonline.com" target="_blank">Insurance Source</a> and reduce your workers' compensation premiums.</p>
+       	                <p>Provide employee safety training online with safety training libraries from <a href="http://www.mastery.com/employee-safety-training.php" target="_blank">Mastery</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <p class="info">

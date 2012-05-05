@@ -215,31 +215,12 @@
             }
         };
 
-        this.addSource = function (buttonId, sourceId) {
-            
-            var source = $(sourceId);
-            source.hide().removeClass('hidden');
-            source.load('/fragments/dataSources/' + me._token + '.html');
-            var button = $(buttonId);
-            button.unbind('click');
-            button.click(function () {
-                button
-                source.slideToggle();
-            }).toggle(
-            function () {
-                button.html('HIDE');
-            },
-            function () {
-                button.html('SOURCE');
-            });
-        };
 
         return new function () {
             this.AddBar = me.addBar;
             this.AddMarker = me.addMarker;
             this.RedrawChart = me.redrawChart;
             this.Reset = me.reset;
-            this.AddSource = me.addSource;
         };
 
     };
