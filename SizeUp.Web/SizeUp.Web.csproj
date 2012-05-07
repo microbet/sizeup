@@ -101,7 +101,11 @@
     <Content Include="Content\base.css" />
     <Content Include="Content\images\advertise.png" />
     <Content Include="Content\images\compete.png" />
+    <Content Include="Content\images\dashboardIcons.png" />
+    <Content Include="Content\images\dashbuttons.png" />
+    <Content Include="Content\images\gauge.png" />
     <Content Include="Content\images\home-gradient.png" />
+    <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\logosmall.gif" />
     <Content Include="Content\images\mybusiness.png" />
     <Content Include="Content\images\SizeUp.png" />
@@ -122,13 +126,30 @@
     <Content Include="Content\views\user\resetpassword.css" />
     <Content Include="Content\views\user\signin.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\controls\citySelector.js" />
+    <Content Include="Scripts\controls\contentExpander.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
+    <Content Include="Scripts\controls\gauge.js" />
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
+    <Content Include="Scripts\thirdParty\raphael-min.js" />
+    <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\business\find.js" />
+    <Content Include="Scripts\views\dashboard\averageSalary.js" />
+    <Content Include="Scripts\views\dashboard\jobChange.js" />
+    <Content Include="Scripts\views\dashboard\reportContainer.js" />
+    <Content Include="Scripts\views\dashboard\workersComp.js" />
+    <Content Include="Scripts\views\dashboard\healthcareCost.js" />
+    <Content Include="Scripts\views\dashboard\turnover.js" />
+    <Content Include="Scripts\views\dashboard\revenuePerCapita.js" />
+    <Content Include="Scripts\views\dashboard\costEffectiveness.js" />
+    <Content Include="Scripts\views\dashboard\employees.js" />
+    <Content Include="Scripts\views\dashboard\yearStarted.js" />
+    <Content Include="Scripts\views\dashboard\dashboard.js" />
+    <Content Include="Scripts\views\dashboard\revenue.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
@@ -148,7 +169,6 @@
   <ItemGroup>
     <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\Shared\" />
-    <Folder Include="Scripts\charts\" />
     <Folder Include="Scripts\maps\" />
     <Folder Include="Scripts\views\competition\" />
   </ItemGroup>

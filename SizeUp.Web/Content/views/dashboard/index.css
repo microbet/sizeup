@@ -38,7 +38,7 @@
 #dashboard .report .body ul.links li a.source:hover {border:1px solid #e78500; background-color:#e78500; background-image: linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); background-image: -moz-linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); background-image: -webkit-linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); background-image: -ms-linear-gradient(top, rgb(255,187,118) 0%, rgb(231,135,0) 100%); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffbb76', endColorstr='#e78500');}
 
 #dashboard .report .body .reportContainer .reportContent { display: inline-block; width: 56em; padding: 1em; }
-#dashboard .report .body .reportContainer .reportContent .chart { text-align:right; margin: 1em 0 0 0; }
+#dashboard .report .body .reportContainer .reportContent .chart { display:block; text-align:right; margin: 1em 0 0 0; }
 #dashboard .report .body .reportContainer .reportContent .chart a {font-size: 0.9em; font-weight:bold; display: inline-block; margin: 0 0 0 1em; }
 #dashboard .report .body .reportContainer .reportContent .map{margin:  1em 0 0 0; width: 560px; height: 360px; border: solid 1px black; }
 

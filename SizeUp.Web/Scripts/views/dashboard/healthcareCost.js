@@ -11,6 +11,20 @@
 
         var init = function () {
 
+            me.reportContainer = new sizeup.views.dashboard.reportContainer(
+                {
+                    container: me.container,
+                    inputValidation: /^[0-9]+$/g,
+                    inputCleaning: /[\$\,]/g,
+                    events:
+                    {
+                        runReport: runReport,
+                        valueChanged: function () { }
+                    },
+                    inputFormat: function (val) {
+                        return '$' + sizeup.util.numbers.format.addCommas(val);
+                    }
+                });
 
             me.source = new sizeup.controls.contentExpander(
                 {
@@ -18,11 +32,12 @@
                     contentPanel: me.container.find('.reportContainer .sourceContent')
                 });
 
-            me.reportContainer = new sizeup.views.dashboard.reportContainer(
-                {
-                    container: me.container
-                });
 
+
+        };
+
+        var runReport = function (e) {
+            e.callback();
         };
 
         var fadeInPrompt = function (delay, callback) {
@@ -40,3 +55,5 @@
 
     };
 })();
+
+

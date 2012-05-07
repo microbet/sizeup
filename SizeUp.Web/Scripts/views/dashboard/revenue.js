@@ -13,7 +13,17 @@
            
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
                 {
-                    container: me.container
+                    container: me.container,
+                    inputValidation: /^[0-9]+$/g,
+                    inputCleaning: /[\$\,]/g,
+                    events:
+                    {
+                        runReport: runReport,
+                        valueChanged: function () { }
+                    },
+                    inputFormat: function (val) {
+                        return '$' + sizeup.util.numbers.format.addCommas(val);
+                    }
                 });
 
             me.source = new sizeup.controls.contentExpander(
@@ -26,6 +36,9 @@
 
         };
 
+        var runReport = function (e) {
+            e.callback();
+        };
 
         var fadeInPrompt = function (delay, callback) {
             me.reportContainer.fadeInPrompt(delay, callback);

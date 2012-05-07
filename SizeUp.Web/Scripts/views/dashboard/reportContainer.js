@@ -2,20 +2,27 @@
     sizeup.core.namespace('sizeup.views.dashboard.reportContainer');
     sizeup.views.dashboard.reportContainer = function (opts) {
 
+        var defaults =
+        {
+            displayValue:'',
+            inputValidation: /.*/g,
+            inputCleaning:new RegExp(''),
+            inputFormat: function (val) { return val; },
+            events: {
+                runReport: function (e) { },
+                valueChanged: function (e) { }
+            }
+        };
         var me = {};
         me.data = {};
-        me.opts = opts;
+        me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
-        me.data.displayValue = opts.displayValue;
+        me.isReportStale = true;
 
-        me.opts.events = me.opts.events || {};
-        me.events = {
-            runReport: me.opts.events.runReport || function () { },
-            valueChanged: me.opts.events.valueChanged || function () { }
-        };
         
 
         var init = function () {
+
             me.gauge = new sizeup.controls.gauge({ element: me.container.find('.gauge') });
             me.prompt = me.container.find('.prompt');
             me.runReport = me.container.find('.runReport');
@@ -34,21 +41,39 @@
             me.valueBox.blur(function () { onTextboxBlur(); });
             me.valueBox.keypress(function (e) { onTextboxKeypress(e); });
 
-            if (me.data.enteredValue) {
-                me.valueBox.val(me.data.enteredValue);
-                me.valueBox.blur();
-            };
+            setValue(me.opts.displayValue);
         };
 
 
 
        
+        var reportLoaded = function () {
+            showReport();
+        };
 
         var getReport = function () {
             showGauge();
+            hideReport();
             me.body.show();
-            displayReport();
+            var e =
+            {
+                callback: reportLoaded,
+            }
+            me.opts.events.runReport(e);
         };
+
+
+        var showReport = function () {
+            me.loading.hide();
+            me.reportContainer.show();
+        };
+
+        var hideReport = function () {
+            me.body.hide();
+            me.loading.show();
+            me.reportContainer.hide();
+        };
+
 
         var hideAllControls = function () {
             me.gauge.hide();
@@ -75,44 +100,53 @@
         };
 
         var cleanInput = function (val) {
-            return val.replace(/\$|\,/g, '');
+            var reg = new RegExp(me.opts.inputCleaning);
+            return val.replace(reg, '');
         };
 
-        var validateInput = function (val) {
-            var v = cleanInput(val);
-            return /^[0-9]+$/g.test(v);
+        var isValid = function (val) {
+            var reg = new RegExp(me.opts.inputValidation);
+            return reg.test(val);
         };
 
-        var formatInput = function (val) {
-            return '$' + sizeup.util.numbers.format.addCommas(val);
-        };
 
         var doSubmit = function () {
-            var v = cleanInput(me.valueBox.val());
-            if (validateInput(v)) {
-                me.valueBox.val(formatInput(v));
-                me.data.enteredValue = v;
-                getReport();
-            }
-            else if (v == '') {
-                hideAllControls();
-                me.body.hide();
-                fadeInPrompt(0);
-            }
-            else {
-                me.valueBox.val('');
+            if (me.isReportStale) {
+                var v = $.trim(cleanInput(me.valueBox.val()));
+                if (isValid(v)) {
+                    me.isReportStale = false;
+                    getReport();
+                    setValue(v);
+                }
+                else if (v == '') {
+                    hideAllControls();
+                    hideReport();
+                    fadeInPrompt(0);
+                    setValue('');
+                }
+                else {
+                    setValue('');
+                }
             }
         };
 
         var onTextboxKeypress = function (e) {
-            var v = me.valueBox.val();
-            if ($.trim(v) != '') {
-                showRunReport();
+            var val = $.trim(cleanInput(me.valueBox.val()));
+            if (e.charCode != 0) {
+                me.isReportStale = true;
+                if (val != '') {
+                    showRunReport();
+                } else {
+                    hideAllControls();
+                }
+            }
+            else if (e.keyCode == 8 || e.keyCode == 46) {
+                me.isReportStale = true;
+            }
+            else if (e.keyCode == 13) {
                 if (e.keyCode == 13) {
                     doSubmit();
                 }
-            } else {
-                hideAllControls();
             }
         };
 
@@ -121,15 +155,30 @@
             doSubmit();
         };
 
+        var setValue = function (val) {
+            if (val != '') {
+                me.data.value = val;
+                me.valueBox.val(me.opts.inputFormat(val));
+            }
+            else {
+                me.data.value = '';
+                me.valueBox.val('');
+            }
+        };
+
+        var getValue = function () {
+            return me.data.value;
+        };
+
         var publicObj = {
             fadeInPrompt: function (delay, callback) {
                 fadeInPrompt(delay, callback);
             },
             setDisplayValue: function (value) {
-
+                setValue(value);
             },
             getDisplayValue: function () {
-
+                return getValue();
             }
         };
         init();
