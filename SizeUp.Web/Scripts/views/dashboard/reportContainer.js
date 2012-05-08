@@ -115,8 +115,8 @@
                 var v = $.trim(cleanInput(me.valueBox.val()));
                 if (isValid(v)) {
                     me.isReportStale = false;
-                    getReport();
                     setValue(v);
+                    getReport();
                 }
                 else if (v == '') {
                     hideAllControls();
@@ -150,6 +150,9 @@
             }
         };
 
+        var setGauge = function (data) {
+            me.gauge.setValue(data.value, data.tooltip);
+        };
 
         var onTextboxBlur = function () {
             doSubmit();
@@ -164,6 +167,7 @@
                 me.data.value = '';
                 me.valueBox.val('');
             }
+            me.opts.events.valueChanged({ value: me.data.value });
         };
 
         var getValue = function () {
@@ -174,11 +178,14 @@
             fadeInPrompt: function (delay, callback) {
                 fadeInPrompt(delay, callback);
             },
-            setDisplayValue: function (value) {
+            setValue: function (value) {
                 setValue(value);
             },
-            getDisplayValue: function () {
+            getValue: function () {
                 return getValue();
+            },
+            setGauge: function (data) {
+                setGauge(data);
             }
         };
         init();

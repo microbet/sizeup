@@ -41,7 +41,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             county = DataContexts.SizeUpContext.AverageSalaryByCounties.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == locations.County.Id).Select(i => i.AverageSalary).FirstOrDefault();
 
             var obj = new Models.Charts.BarChart();
-            obj.National = new Models.Charts.ChartItem()
+            obj.Nation = new Models.Charts.ChartItem()
             {
                 Value = national.HasValue ? national.Value.ToString() : null,
                 Name = "USA"
@@ -65,6 +65,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 Name = locations.County.Name
             };
 
+
+            return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Percentile(int industryId, int countyId, decimal value)
+        {
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
+            long? county = DataContexts.SizeUpContext.AverageSalaryByCounties.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == countyId).Select(i => i.AverageSalary).FirstOrDefault();
+            var obj = new
+            {
+                Percentile = (int)(((value- county) / county) * 100)
+            };
 
             return Json(obj, JsonRequestBehavior.AllowGet);
         }

@@ -12,6 +12,19 @@
                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
             }
             return x1 + x2;
+        },
+        percentage: function (number, places) {
+            if (places == null || typeof places == 'undefined') {
+                places = 0;
+            }
+            return number.toFixed(places) + '%';
+        },
+        ordinal:function(num)
+        {
+            var n = num % 100;
+            var suff = ["th", "st", "nd", "rd", "th"]; // suff for suffix
+            var ord= n<21?(n<4 ? suff[n]:suff[0]): (n%10>4 ? suff[0] : suff[n%10]);
+            return this + ord;
         }
 
     };

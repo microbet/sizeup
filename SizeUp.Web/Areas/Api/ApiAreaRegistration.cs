@@ -74,6 +74,12 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageSalary", action = "Salary", countyId = UrlParameter.Optional }
             );
 
+            context.MapRoute(
+                "SalaryPercentile",
+                "Api/Salary/Percentile",
+                new { controller = "AverageSalary", action = "Percentile", countyId = UrlParameter.Optional }
+            );
+
 
 
 

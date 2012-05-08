@@ -65,6 +65,9 @@
             getSalaryChart: function (params, success) {
                 get('/api/salary/?industryId={industryId}&countyId={countyId}', params, success);
             },
+            getSalaryPercentile: function (params, success) {
+                get('/api/salary/percentile/?industryId={industryId}&countyId={countyId}&value={value}', params, success);
+            },
 
 
 

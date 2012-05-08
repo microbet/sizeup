@@ -132,7 +132,8 @@
 
             var min = boundsA.min < boundsB.min ? boundsA.min : boundsB.min;
             var max = boundsA.max > boundsB.max ? boundsA.max : boundsB.max;
-
+            min = parseFloat(min);
+            max = parseFloat(max);
             return { min: min, max: max + max * me._rangePadding };
         };
 

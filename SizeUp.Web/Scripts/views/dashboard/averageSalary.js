@@ -7,7 +7,7 @@
         me.opts = opts;
         me.data = {};
         me.container = opts.container;
-        me.data.enteredValue = opts.revenue;
+        me.data.enteredValue = opts.enteredValue;
 
         var init = function () {
 
@@ -19,7 +19,7 @@
                     events:
                     {
                         runReport: runReport,
-                        valueChanged: function () { }
+                        valueChanged: function (val) { me.data.enteredValue = val; }
                     },
                     inputFormat: function (val) {
                         return '$' + sizeup.util.numbers.format.addCommas(val);
@@ -34,58 +34,10 @@
         };
 
 
-        var displayReport = function (data) {
+        var displayReport = function () {
 
-            var data = {
-
-                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
-                container: me.container.find('.chart .container'),
-                title: 'average annual revenue per business',
-                bars:[
-                    {
-                        value: 777,
-                        label: '',
-                        name: 'My Business',
-                        color: '#5b0'
-                    },
-                    {
-                        value: 2621032,
-                        label: 'City',
-                        name: 'San Francisco, CA',
-                        color: '#0af'
-                    },
-                    {
-                        value: 2621032,
-                        label: 'County',
-                        name: 'San Francisco County, CA',
-                        color: '#0af'
-                    },
-                    {
-                        value: 3169992,
-                        label: 'Metro',
-                        name: 'San Francisco-Oakland-Fremont, CA',
-                        color: '#0af'
-                    },
-                    {
-                        value: 2482152,
-                        label: 'State',
-                        name: 'California',
-                        color: '#0af'
-                    },
-                    {
-                        value: 2615169,
-                        label: 'Nation',
-                        name: 'USA', 
-                        color: '#0af'
-                    }
-                ],
-                marker: {
-                    value: 123456,
-                    label: 'National Median',
-                    color: '#f60'
-                }
-            };
-            var chart = new sizeup.charts.barChart(data);
+            me.reportContainer.setGauge(me.data.gauge);
+            var chart = new sizeup.charts.barChart(me.data.chart);
             chart.draw();
         };
 
@@ -96,11 +48,50 @@
             });
 
             dataLayer.getSalaryChart({ industryId: 8589, countyId: 222 }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getSalaryPercentile({ industryId: 8589, countyId: 222, value: me.reportContainer.getValue() }, notifier.getNotifier(percentileDataReturned));
            
         };
 
-        var chartDataReturned = function (data) {
+        var percentileDataReturned = function (data) {
 
+            var val = 50 + (data.Percentile/2);
+            var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentile));
+            me.data.gauge = {
+                value: val,
+                tooltip: data.Percentile < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
+            };
+        };
+
+        var chartDataReturned = function (data) {
+            var enteredValue = me.reportContainer.getValue();
+            me.data.chart = {
+
+                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
+                container: me.container.find('.chart .container'),
+                title: 'average annual revenue per business',
+                bars:[
+                    {
+                        value: enteredValue,
+                        label: '',
+                        name: 'My Business',
+                        color: '#5b0'
+                    }
+                ]
+            };
+          
+        
+            var indexes = ['County', 'Metro', 'State', 'Nation'];
+            for (var x = 0; x < indexes.length; x++) {
+                if (data[indexes[x]] != null) {
+                    me.data.chart.bars.push(
+                    {
+                        value: parseInt(data[indexes[x]].Value),
+                        label: indexes[x],
+                        name: data[indexes[x]].Name,
+                        color: '#0af'
+                    });
+                }
+            } 
         };
 
 
