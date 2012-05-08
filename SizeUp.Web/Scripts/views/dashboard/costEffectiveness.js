@@ -40,14 +40,27 @@
             e.callback();
         };
 
+        var setupReport = function () {
+            if (me.data.enteredValue) {
+                me.reportContainer.doSubmit();
+            }
+            else {
+                fadeInPrompt(0);
+            }
+        };
+
         var fadeInPrompt = function (delay, callback) {
             me.reportContainer.fadeInPrompt(delay, callback);
         };
 
 
         var publicObj = {
+
             fadeInPrompt: function (delay, callback) {
                 fadeInPrompt(delay, callback);
+            },
+            setupReport: function () {
+                setupReport();
             }
         };
         init();

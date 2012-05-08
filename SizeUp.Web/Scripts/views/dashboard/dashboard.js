@@ -35,6 +35,13 @@
         var initAllReports = function () {
             for (var x = 0; x < me.reports.length; x++) {
                 var step = 250;
+                var f = function(report, delay){
+                    return function(){
+                        report.setupReport(delay);
+                    }
+                };
+
+                setTimeout(f(me.reports[x], step));
                 me.reports[x].fadeInPrompt(step * x);
             }
         };

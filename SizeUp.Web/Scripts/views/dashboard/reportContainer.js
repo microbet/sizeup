@@ -4,7 +4,6 @@
 
         var defaults =
         {
-            displayValue:'',
             inputValidation: /.*/g,
             inputCleaning:new RegExp(''),
             inputFormat: function (val) { return val; },
@@ -18,7 +17,7 @@
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
         me.isReportStale = true;
-
+        me.fadeTimeout = null;
         
 
         var init = function () {
@@ -40,8 +39,6 @@
 
             me.valueBox.blur(function () { onTextboxBlur(); });
             me.valueBox.keypress(function (e) { onTextboxKeypress(e); });
-
-            setValue(me.opts.displayValue);
         };
 
 
@@ -94,7 +91,7 @@
         };
 
         var fadeInPrompt = function (delay, callback) {
-            setTimeout(function () {
+            me.fadeTimeout = setTimeout(function () {
                 me.prompt.fadeIn(500, callback);
             }, delay);
         };
@@ -174,6 +171,12 @@
             return me.data.value;
         };
 
+        var forceSubmit = function () {
+            clearTimeout(me.fadeTimeout);
+            me.isReportStale = true;
+            doSubmit();
+        };
+
         var publicObj = {
             fadeInPrompt: function (delay, callback) {
                 fadeInPrompt(delay, callback);
@@ -186,6 +189,9 @@
             },
             setGauge: function (data) {
                 setGauge(data);
+            },
+            doSubmit: function () {
+                forceSubmit();
             }
         };
         init();

@@ -7,10 +7,9 @@
         me.opts = opts;
         me.data = {};
         me.container = opts.container;
-        me.data.enteredValue = opts.enteredValue;
+        me.data.enteredValue = sizeup.core.urlParams.getParams().salary;
 
         var init = function () {
-
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
                 {
                     container: me.container,
@@ -19,7 +18,7 @@
                     events:
                     {
                         runReport: runReport,
-                        valueChanged: function (val) { me.data.enteredValue = val; }
+                        valueChanged: function (val) {  }
                     },
                     inputFormat: function (val) {
                         return '$' + sizeup.util.numbers.format.addCommas(val);
@@ -31,12 +30,20 @@
                     button: me.container.find('.reportContainer .links .source'),
                     contentPanel: me.container.find('.reportContainer .sourceContent')
                 });
+
+            if (me.data.enteredValue) {
+                me.reportContainer.setValue(me.data.enteredValue);
+            }
         };
 
 
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
+            me.map = new sizeup.maps.map({
+                container: me.container.find('.reportContainer .map')
+            });
+
             var chart = new sizeup.charts.barChart(me.data.chart);
             chart.draw();
         };
@@ -47,8 +54,10 @@
                 displayReport();
             });
 
+            me.data.enteredValue = me.reportContainer.getValue();
+            sizeup.core.urlParams.add({ salary: me.data.enteredValue });
             dataLayer.getSalaryChart({ industryId: 8589, countyId: 222 }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getSalaryPercentile({ industryId: 8589, countyId: 222, value: me.reportContainer.getValue() }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getSalaryPercentile({ industryId: 8589, countyId: 222, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
            
         };
 
@@ -63,7 +72,6 @@
         };
 
         var chartDataReturned = function (data) {
-            var enteredValue = me.reportContainer.getValue();
             me.data.chart = {
 
                 valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
@@ -71,7 +79,7 @@
                 title: 'average annual revenue per business',
                 bars:[
                     {
-                        value: enteredValue,
+                        value: me.data.enteredValue,
                         label: '',
                         name: 'My Business',
                         color: '#5b0'
@@ -95,14 +103,27 @@
         };
 
 
+        var setupReport = function () {
+            if (me.data.enteredValue) {
+                me.reportContainer.doSubmit();
+            }
+            else {
+                fadeInPrompt(0);
+            }
+        };
+
         var fadeInPrompt = function (delay, callback) {
             me.reportContainer.fadeInPrompt(delay, callback);
         };
 
 
         var publicObj = {
+
             fadeInPrompt: function (delay, callback) {
                 fadeInPrompt(delay, callback);
+            },
+            setupReport: function () {
+                setupReport();
             }
         };
         init();

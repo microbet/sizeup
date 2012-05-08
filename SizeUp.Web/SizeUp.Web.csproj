@@ -84,6 +84,8 @@
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
+    <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -137,6 +139,10 @@
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
+    <Content Include="Scripts\core\urlParams.js" />
+    <Content Include="Scripts\maps\map.js" />
+    <Content Include="Scripts\maps\mapOptions.js" />
+    <Content Include="Scripts\maps\mapStyles.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
     <Content Include="Scripts\util\numbers\format.js" />
@@ -171,7 +177,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Api\Views\Shared\" />
-    <Folder Include="Scripts\maps\" />
+    <Folder Include="Areas\Tiles\Models\" />
+    <Folder Include="Areas\Tiles\Views\Shared\" />
     <Folder Include="Scripts\views\competition\" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Dashboard\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Tiles\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
