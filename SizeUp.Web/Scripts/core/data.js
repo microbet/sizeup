@@ -60,7 +60,12 @@
             },
             getDetectedCity: function (success) {
                 get('/api/city/detected', null, success);
-            }
+            },
+
+            getSalaryChart: function (params, success) {
+                get('/api/salary/?industryId={industryId}&countyId={countyId}', params, success);
+            },
+
 
 
         };

@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="SizeUp.Data.Industry" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.IndustryKeyword" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.NAICS" Width="1.5" PointX="2.625" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SizeUp.Data.SicToNAICSMapping" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizeUp.Data.SicToNAICSMapping" Width="1.5" PointX="0.5" PointY="3.625" IsExpanded="true" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryKeyword_Industry" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_Industry" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_NAICS" ManuallyRouted="false" />
@@ -28,6 +28,17 @@
         <AssociationConnector Association="SizeUp.Data.FK_Business_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_State" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_ZipCode" />
+        <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByCounty" Width="2.25" PointX="0.5" PointY="15.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByMetro" Width="2.375" PointX="0.5" PointY="13" />
+        <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByState" Width="2.25" PointX="0.5" PointY="10.375" />
+        <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryNational" Width="2.25" PointX="0.5" PointY="8.125" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_NAICS" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_NAICS" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByState_NAICS" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByState_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryNational_NAICS" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

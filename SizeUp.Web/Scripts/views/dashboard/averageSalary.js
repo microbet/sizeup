@@ -38,11 +38,8 @@
 
             var data = {
 
-                grids: { horizontal: 3 }, gutters: { left: 45, top: 1, right: 50 }, bar: { height: 15, padding: 8 }, format: '',
-
-                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(val);},
+                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
                 container: me.container.find('.chart .container'),
-                animationSpeed: 2000,
                 title: 'average annual revenue per business',
                 bars:[
                     {
@@ -93,11 +90,19 @@
         };
 
         var runReport = function (e) {
-            setTimeout(function () {
+            var notifier = new sizeup.core.notifier(function () {
                 e.callback();
                 displayReport();
-            }, 250);
+            });
+
+            dataLayer.getSalaryChart({ industryId: 8589, countyId: 222 }, notifier.getNotifier(chartDataReturned));
+           
         };
+
+        var chartDataReturned = function (data) {
+
+        };
+
 
         var fadeInPrompt = function (delay, callback) {
             me.reportContainer.fadeInPrompt(delay, callback);

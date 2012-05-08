@@ -6,6 +6,10 @@
     <edmx:StorageModels>
     <Schema Namespace="SizeUp.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SizeUpDataStoreContainer">
+          <EntitySet Name="AverageSalaryByCounty" EntityType="SizeUp.Data.Store.AverageSalaryByCounty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AverageSalaryByMetro" EntityType="SizeUp.Data.Store.AverageSalaryByMetro" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AverageSalaryByState" EntityType="SizeUp.Data.Store.AverageSalaryByState" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AverageSalaryNational" EntityType="SizeUp.Data.Store.AverageSalaryNational" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Business" EntityType="SizeUp.Data.Store.Business" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="City" EntityType="SizeUp.Data.Store.City" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="County" EntityType="SizeUp.Data.Store.County" store:Type="Tables" Schema="dbo" />
@@ -17,6 +21,34 @@
           <EntitySet Name="SicToNAICSMapping" EntityType="SizeUp.Data.Store.SicToNAICSMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCode" EntityType="SizeUp.Data.Store.ZipCode" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AverageSalaryByCounty_County" Association="SizeUp.Data.Store.FK_AverageSalaryByCounty_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByCounty_NAICS" Association="SizeUp.Data.Store.FK_AverageSalaryByCounty_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByMetro_Metro" Association="SizeUp.Data.Store.FK_AverageSalaryByMetro_Metro">
+            <End Role="Metro" EntitySet="Metro" />
+            <End Role="AverageSalaryByMetro" EntitySet="AverageSalaryByMetro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByMetro_NAICS" Association="SizeUp.Data.Store.FK_AverageSalaryByMetro_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryByMetro" EntitySet="AverageSalaryByMetro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByState_NAICS" Association="SizeUp.Data.Store.FK_AverageSalaryByState_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryByState" EntitySet="AverageSalaryByState" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByState_State" Association="SizeUp.Data.Store.FK_AverageSalaryByState_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="AverageSalaryByState" EntitySet="AverageSalaryByState" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryNational_NAICS" Association="SizeUp.Data.Store.FK_AverageSalaryNational_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryNational" EntitySet="AverageSalaryNational" />
+          </AssociationSet>
           <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.Store.FK_Business_County">
             <End Role="County" EntitySet="County" />
             <End Role="Business" EntitySet="Business" />
@@ -66,6 +98,45 @@
             <End Role="SicToNAICSMapping" EntitySet="SicToNAICSMapping" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AverageSalaryByCounty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="CountyId" Type="bigint" />
+          <Property Name="AverageSalary" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AverageSalaryByMetro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="MetroId" Type="bigint" />
+          <Property Name="AverageSalary" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AverageSalaryByState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="AverageSalary" Type="bigint" />
+        </EntityType>
+        <EntityType Name="AverageSalaryNational">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="AverageSalary" Type="bigint" />
+        </EntityType>
         <EntityType Name="Business">
           <Key>
             <PropertyRef Name="Id" />
@@ -192,6 +263,90 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
           <Property Name="Geography" Type="geography" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AverageSalaryByCounty_County">
+          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
+          <End Role="AverageSalaryByCounty" Type="SizeUp.Data.Store.AverageSalaryByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByCounty_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="AverageSalaryByCounty" Type="SizeUp.Data.Store.AverageSalaryByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByCounty">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByMetro_Metro">
+          <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+          <End Role="AverageSalaryByMetro" Type="SizeUp.Data.Store.AverageSalaryByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByMetro">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByMetro_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="AverageSalaryByMetro" Type="SizeUp.Data.Store.AverageSalaryByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByMetro">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByState_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="AverageSalaryByState" Type="SizeUp.Data.Store.AverageSalaryByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByState">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByState_State">
+          <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="0..1" />
+          <End Role="AverageSalaryByState" Type="SizeUp.Data.Store.AverageSalaryByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByState">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryNational_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="AverageSalaryNational" Type="SizeUp.Data.Store.AverageSalaryNational" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryNational">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Business_County">
           <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
           <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
@@ -400,6 +555,38 @@
             <End Role="ZipCode" EntitySet="ZipCodes" />
             <End Role="Business" EntitySet="Businesses" />
           </AssociationSet>
+          <EntitySet Name="AverageSalaryByCounties" EntityType="SizeUp.Data.AverageSalaryByCounty" />
+          <EntitySet Name="AverageSalaryByMetroes" EntityType="SizeUp.Data.AverageSalaryByMetro" />
+          <EntitySet Name="AverageSalaryByStates" EntityType="SizeUp.Data.AverageSalaryByState" />
+          <EntitySet Name="AverageSalaryNationals" EntityType="SizeUp.Data.AverageSalaryNational" />
+          <AssociationSet Name="FK_AverageSalaryByCounty_County" Association="SizeUp.Data.FK_AverageSalaryByCounty_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByCounty_NAICS" Association="SizeUp.Data.FK_AverageSalaryByCounty_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByMetro_Metro" Association="SizeUp.Data.FK_AverageSalaryByMetro_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="AverageSalaryByMetro" EntitySet="AverageSalaryByMetroes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByMetro_NAICS" Association="SizeUp.Data.FK_AverageSalaryByMetro_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryByMetro" EntitySet="AverageSalaryByMetroes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByState_NAICS" Association="SizeUp.Data.FK_AverageSalaryByState_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryByState" EntitySet="AverageSalaryByStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryByState_State" Association="SizeUp.Data.FK_AverageSalaryByState_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="AverageSalaryByState" EntitySet="AverageSalaryByStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AverageSalaryNational_NAICS" Association="SizeUp.Data.FK_AverageSalaryNational_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="AverageSalaryNational" EntitySet="AverageSalaryNationals" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -432,6 +619,10 @@
           <Property Name="NAICSCode" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="SicToNAICSMappings" Relationship="SizeUp.Data.FK_SicToNAICSMapping_NAICS" FromRole="NAICS" ToRole="SicToNAICSMapping" />
+          <NavigationProperty Name="AverageSalaryByCounties" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_NAICS" FromRole="NAICS" ToRole="AverageSalaryByCounty" />
+          <NavigationProperty Name="AverageSalaryByMetroes" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_NAICS" FromRole="NAICS" ToRole="AverageSalaryByMetro" />
+          <NavigationProperty Name="AverageSalaryByStates" Relationship="SizeUp.Data.FK_AverageSalaryByState_NAICS" FromRole="NAICS" ToRole="AverageSalaryByState" />
+          <NavigationProperty Name="AverageSalaryNationals" Relationship="SizeUp.Data.FK_AverageSalaryNational_NAICS" FromRole="NAICS" ToRole="AverageSalaryNational" />
         </EntityType>
         <EntityType Name="SicToNAICSMapping">
           <Key>
@@ -441,7 +632,7 @@
           <Property Name="IndustryId" Type="Int64" Nullable="false" />
           <Property Name="NAICSId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_SicToNAICSMapping_Industry" FromRole="SicToNAICSMapping" ToRole="Industry" />
-          <NavigationProperty Name="NAIC" Relationship="SizeUp.Data.FK_SicToNAICSMapping_NAICS" FromRole="SicToNAICSMapping" ToRole="NAICS" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_SicToNAICSMapping_NAICS" FromRole="SicToNAICSMapping" ToRole="NAICS" />
         </EntityType>
         <Association Name="FK_IndustryKeyword_Industry">
           <End Role="Industry" Type="SizeUp.Data.Industry" Multiplicity="1" />
@@ -489,6 +680,7 @@
           <Property Type="Geography" Name="Geography" Nullable="false" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Metro" ToRole="Business" />
+          <NavigationProperty Name="AverageSalaryByMetroes" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_Metro" FromRole="Metro" ToRole="AverageSalaryByMetro" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -503,6 +695,7 @@
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_State" FromRole="State" ToRole="County" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_State" FromRole="State" ToRole="Business" />
+          <NavigationProperty Name="AverageSalaryByStates" Relationship="SizeUp.Data.FK_AverageSalaryByState_State" FromRole="State" ToRole="AverageSalaryByState" />
         </EntityType>
         <EntityType Name="ResourceString">
           <Key>
@@ -543,6 +736,7 @@
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_County_Metro" FromRole="County" ToRole="Metro" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_County" FromRole="County" ToRole="Business" />
+          <NavigationProperty Name="AverageSalaryByCounties" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="County" ToRole="AverageSalaryByCounty" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -695,6 +889,136 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AverageSalaryByCounty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="Year" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="CountyId" />
+          <Property Type="Int64" Name="AverageSalary" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="AverageSalaryByCounty" ToRole="County" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_NAICS" FromRole="AverageSalaryByCounty" ToRole="NAICS" />
+        </EntityType>
+        <EntityType Name="AverageSalaryByMetro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="Year" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="MetroId" />
+          <Property Type="Int64" Name="AverageSalary" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_Metro" FromRole="AverageSalaryByMetro" ToRole="Metro" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_NAICS" FromRole="AverageSalaryByMetro" ToRole="NAICS" />
+        </EntityType>
+        <EntityType Name="AverageSalaryByState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="Year" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="StateId" />
+          <Property Type="Int64" Name="AverageSalary" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_AverageSalaryByState_NAICS" FromRole="AverageSalaryByState" ToRole="NAICS" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_AverageSalaryByState_State" FromRole="AverageSalaryByState" ToRole="State" />
+        </EntityType>
+        <EntityType Name="AverageSalaryNational">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="Year" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="AverageSalary" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_AverageSalaryNational_NAICS" FromRole="AverageSalaryNational" ToRole="NAICS" />
+        </EntityType>
+        <Association Name="FK_AverageSalaryByCounty_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByCounty" Role="AverageSalaryByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByCounty_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByCounty" Role="AverageSalaryByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByCounty">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByMetro_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByMetro" Role="AverageSalaryByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByMetro">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByMetro_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByMetro" Role="AverageSalaryByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByMetro">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByState_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByState" Role="AverageSalaryByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByState">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryByState_State">
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByState" Role="AverageSalaryByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByState">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AverageSalaryNational_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryNational" Role="AverageSalaryNational" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryNational">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -834,6 +1158,49 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AverageSalaryByCounties">
+            <EntityTypeMapping TypeName="SizeUp.Data.AverageSalaryByCounty">
+              <MappingFragment StoreEntitySet="AverageSalaryByCounty">
+                <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AverageSalaryByMetroes">
+            <EntityTypeMapping TypeName="SizeUp.Data.AverageSalaryByMetro">
+              <MappingFragment StoreEntitySet="AverageSalaryByMetro">
+                <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AverageSalaryByStates">
+            <EntityTypeMapping TypeName="SizeUp.Data.AverageSalaryByState">
+              <MappingFragment StoreEntitySet="AverageSalaryByState">
+                <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AverageSalaryNationals">
+            <EntityTypeMapping TypeName="SizeUp.Data.AverageSalaryNational">
+              <MappingFragment StoreEntitySet="AverageSalaryNational">
+                <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

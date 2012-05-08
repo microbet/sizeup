@@ -31,6 +31,13 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "AverageSalaryByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "AverageSalaryByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "AverageSalaryByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryNational", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryNational), true)]
 
 #endregion
 
@@ -257,6 +264,70 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<Business> _Businesses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AverageSalaryByCounty> AverageSalaryByCounties
+        {
+            get
+            {
+                if ((_AverageSalaryByCounties == null))
+                {
+                    _AverageSalaryByCounties = base.CreateObjectSet<AverageSalaryByCounty>("AverageSalaryByCounties");
+                }
+                return _AverageSalaryByCounties;
+            }
+        }
+        private ObjectSet<AverageSalaryByCounty> _AverageSalaryByCounties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AverageSalaryByMetro> AverageSalaryByMetroes
+        {
+            get
+            {
+                if ((_AverageSalaryByMetroes == null))
+                {
+                    _AverageSalaryByMetroes = base.CreateObjectSet<AverageSalaryByMetro>("AverageSalaryByMetroes");
+                }
+                return _AverageSalaryByMetroes;
+            }
+        }
+        private ObjectSet<AverageSalaryByMetro> _AverageSalaryByMetroes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AverageSalaryByState> AverageSalaryByStates
+        {
+            get
+            {
+                if ((_AverageSalaryByStates == null))
+                {
+                    _AverageSalaryByStates = base.CreateObjectSet<AverageSalaryByState>("AverageSalaryByStates");
+                }
+                return _AverageSalaryByStates;
+            }
+        }
+        private ObjectSet<AverageSalaryByState> _AverageSalaryByStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AverageSalaryNational> AverageSalaryNationals
+        {
+            get
+            {
+                if ((_AverageSalaryNationals == null))
+                {
+                    _AverageSalaryNationals = base.CreateObjectSet<AverageSalaryNational>("AverageSalaryNationals");
+                }
+                return _AverageSalaryNationals;
+            }
+        }
+        private ObjectSet<AverageSalaryNational> _AverageSalaryNationals;
 
         #endregion
 
@@ -349,6 +420,38 @@ namespace SizeUp.Data
         {
             base.AddObject("Businesses", business);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AverageSalaryByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAverageSalaryByCounties(AverageSalaryByCounty averageSalaryByCounty)
+        {
+            base.AddObject("AverageSalaryByCounties", averageSalaryByCounty);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AverageSalaryByMetroes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAverageSalaryByMetroes(AverageSalaryByMetro averageSalaryByMetro)
+        {
+            base.AddObject("AverageSalaryByMetroes", averageSalaryByMetro);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AverageSalaryByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAverageSalaryByStates(AverageSalaryByState averageSalaryByState)
+        {
+            base.AddObject("AverageSalaryByStates", averageSalaryByState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AverageSalaryNationals EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAverageSalaryNationals(AverageSalaryNational averageSalaryNational)
+        {
+            base.AddObject("AverageSalaryNationals", averageSalaryNational);
+        }
 
         #endregion
 
@@ -357,6 +460,872 @@ namespace SizeUp.Data
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryByCounty")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AverageSalaryByCounty : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AverageSalaryByCounty object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static AverageSalaryByCounty CreateAverageSalaryByCounty(global::System.Int64 id)
+        {
+            AverageSalaryByCounty averageSalaryByCounty = new AverageSalaryByCounty();
+            averageSalaryByCounty.Id = id;
+            return averageSalaryByCounty;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int64> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> CountyId
+        {
+            get
+            {
+                return _CountyId;
+            }
+            set
+            {
+                OnCountyIdChanging(value);
+                ReportPropertyChanging("CountyId");
+                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
+                ReportPropertyChanged("CountyId");
+                OnCountyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _CountyId;
+        partial void OnCountyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnCountyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageSalary
+        {
+            get
+            {
+                return _AverageSalary;
+            }
+            set
+            {
+                OnAverageSalaryChanging(value);
+                ReportPropertyChanging("AverageSalary");
+                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
+                ReportPropertyChanged("AverageSalary");
+                OnAverageSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageSalary;
+        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageSalaryChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_County", "County")]
+        public County County
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<County> CountyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_NAICS", "NAICS")]
+        public NAICS NAICS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryByMetro")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AverageSalaryByMetro : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AverageSalaryByMetro object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static AverageSalaryByMetro CreateAverageSalaryByMetro(global::System.Int64 id)
+        {
+            AverageSalaryByMetro averageSalaryByMetro = new AverageSalaryByMetro();
+            averageSalaryByMetro.Id = id;
+            return averageSalaryByMetro;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int64> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MetroId
+        {
+            get
+            {
+                return _MetroId;
+            }
+            set
+            {
+                OnMetroIdChanging(value);
+                ReportPropertyChanging("MetroId");
+                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
+                ReportPropertyChanged("MetroId");
+                OnMetroIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MetroId;
+        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
+        partial void OnMetroIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageSalary
+        {
+            get
+            {
+                return _AverageSalary;
+            }
+            set
+            {
+                OnAverageSalaryChanging(value);
+                ReportPropertyChanging("AverageSalary");
+                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
+                ReportPropertyChanged("AverageSalary");
+                OnAverageSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageSalary;
+        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageSalaryChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_Metro", "Metro")]
+        public Metro Metro
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Metro> MetroReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_NAICS", "NAICS")]
+        public NAICS NAICS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryByState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AverageSalaryByState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AverageSalaryByState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static AverageSalaryByState CreateAverageSalaryByState(global::System.Int64 id)
+        {
+            AverageSalaryByState averageSalaryByState = new AverageSalaryByState();
+            averageSalaryByState.Id = id;
+            return averageSalaryByState;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int64> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> StateId
+        {
+            get
+            {
+                return _StateId;
+            }
+            set
+            {
+                OnStateIdChanging(value);
+                ReportPropertyChanging("StateId");
+                _StateId = StructuralObject.SetValidValue(value, "StateId");
+                ReportPropertyChanged("StateId");
+                OnStateIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _StateId;
+        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
+        partial void OnStateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageSalary
+        {
+            get
+            {
+                return _AverageSalary;
+            }
+            set
+            {
+                OnAverageSalaryChanging(value);
+                ReportPropertyChanging("AverageSalary");
+                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
+                ReportPropertyChanged("AverageSalary");
+                OnAverageSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageSalary;
+        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageSalaryChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "NAICS")]
+        public NAICS NAICS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryNational")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AverageSalaryNational : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AverageSalaryNational object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static AverageSalaryNational CreateAverageSalaryNational(global::System.Int64 id)
+        {
+            AverageSalaryNational averageSalaryNational = new AverageSalaryNational();
+            averageSalaryNational.Id = id;
+            return averageSalaryNational;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int64> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageSalary
+        {
+            get
+            {
+                return _AverageSalary;
+            }
+            set
+            {
+                OnAverageSalaryChanging(value);
+                ReportPropertyChanging("AverageSalary");
+                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
+                ReportPropertyChanged("AverageSalary");
+                OnAverageSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageSalary;
+        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageSalaryChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "NAICS")]
+        public NAICS NAICS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -1805,6 +2774,28 @@ namespace SizeUp.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_County", "AverageSalaryByCounty")]
+        public EntityCollection<AverageSalaryByCounty> AverageSalaryByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_County", "AverageSalaryByCounty");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_County", "AverageSalaryByCounty", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -2391,6 +3382,28 @@ namespace SizeUp.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro")]
+        public EntityCollection<AverageSalaryByMetro> AverageSalaryByMetroes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -2522,6 +3535,94 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SicToNAICSMapping>("SizeUp.Data.FK_SicToNAICSMapping_NAICS", "SicToNAICSMapping", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_NAICS", "AverageSalaryByCounty")]
+        public EntityCollection<AverageSalaryByCounty> AverageSalaryByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "AverageSalaryByCounty");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "AverageSalaryByCounty", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_NAICS", "AverageSalaryByMetro")]
+        public EntityCollection<AverageSalaryByMetro> AverageSalaryByMetroes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "AverageSalaryByMetro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "AverageSalaryByMetro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "AverageSalaryByState")]
+        public EntityCollection<AverageSalaryByState> AverageSalaryByStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "AverageSalaryByState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "AverageSalaryByState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "AverageSalaryNational")]
+        public EntityCollection<AverageSalaryNational> AverageSalaryNationals
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryNational>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "AverageSalaryNational");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryNational>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "AverageSalaryNational", value);
                 }
             }
         }
@@ -2791,7 +3892,7 @@ namespace SizeUp.Data
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_SicToNAICSMapping_NAICS", "NAICS")]
-        public NAICS NAIC
+        public NAICS NAICS
         {
             get
             {
@@ -2807,7 +3908,7 @@ namespace SizeUp.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICReference
+        public EntityReference<NAICS> NAICSReference
         {
             get
             {
@@ -3074,6 +4175,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Business>("SizeUp.Data.FK_Business_State", "Business", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "AverageSalaryByState")]
+        public EntityCollection<AverageSalaryByState> AverageSalaryByStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_State", "AverageSalaryByState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_State", "AverageSalaryByState", value);
                 }
             }
         }

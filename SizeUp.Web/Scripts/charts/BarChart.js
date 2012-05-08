@@ -2,16 +2,17 @@
     sizeup.core.namespace('sizeup.charts.barChart');
     sizeup.charts.barChart = function (opts) {
 
+        //leaving all this garbage for now...will refactor later
         var defaults =
         {
             valueFormat:  function(val){ return val;},
-            animationSpeed: 2000,
-
+            grids: { horizontal: 3 },
+            gutters: { left: 45, top: 1, right: 50 },
+            bar: { height: 15, padding: 8 },
             rangePadding: 0.1 
         };
 
         var me = {};
-        //var me = this;
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
 
@@ -21,19 +22,23 @@
                 var bar = me.opts.bars[x];
                 addBar('bar' + x, bar.value, null, bar.label, bar.name, bar.color, '');
             }
+            if (me.opts.marker) {
+                var m = me.opts.marker;
+                addMarker('marker', m.value, null, m.label, '', m.color, '');
+            }
         };
 
     
-        me._parentElement = me.opts.container
+        me._parentElement = me.opts.container.empty()
         me._width = me.opts.width || me._parentElement.width();
         me._height = me.opts.height || me._parentElement.height();
 
         me._rangePadding = me.opts.rangePadding;
         me._bounds = { xMin: Infinity, xMax: -Infinity, yMin: Infinity, yMax: -Infinity };
         me._canvas = Raphael(me._parentElement.get(0), me._width, me._height);
-        me._gutters = jQuery.extend({ left: 105, right: 105, top: 10, bottom: 40, color: "#e6e6e0" }, me.opts.gutters); //{ left: 105, top: 10, right: 105, bottom: 20, color: "#e6e6e0" };
+        me._gutters = jQuery.extend({ left: 105, right: 105, top: 10, bottom: 40, color: "#e6e6e0" }, me.opts.gutters); 
         me._fillRight = me.opts.fillRight != null ? me.opts.fillRight : true;
-        me._grids = jQuery.extend({ vertical: 10, horizontal: 7, color: "#969690" }, me.opts.grids); // { vertical: options.verticalGrids, horizontal: options.horizontalGrids, color: "#969690" };
+        me._grids = jQuery.extend({ vertical: 10, horizontal: 7, color: "#969690" }, me.opts.grids);
         me._axisTextStyle = { fill: me._grids.color, "font-size": 10, "font-family": "Trebuchet MS, Arial, sans-serif" };
         me._barTextStyle = { fill: me._grids.color, "font-size": 12, "font-family": "Trebuchet MS, Arial, sans-serif" };
         me._legendTextStyle = { fill: me._grids.color, "font-size": 10, "font-family": "Trebuchet MS, Arial, sans-serif" };
@@ -108,7 +113,7 @@
         var _drawMarker = function (bar, bounds) {
 
             var left = me._gutters.left + (bar.value - bounds.min) / (bounds.max - bounds.min) * me._effectiveSize.width;
-            var thisBar = me._canvas.path(["M", left, me._gutters.top + me._effectiveSize.height, "L", left, me._gutters.top]).attr({ stroke: bar.color, "stroke-width": 4, opacity: 0.6, cursor: "pointer", title: bar.name + ' ' + me._getFormattedValue(bar.value) });
+            var thisBar = me._canvas.path(["M", left, me._gutters.top + me._effectiveSize.height, "L", left, me._gutters.top]).attr({ stroke: bar.color, "stroke-width": 4, opacity: 0.6, cursor: "pointer", title: bar.name + ' ' + _getFormattedValue(bar.value) });
 
             (function (outerRect) {
                 outerRect.hover(
