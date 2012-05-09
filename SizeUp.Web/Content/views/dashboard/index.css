@@ -40,7 +40,31 @@
 #dashboard .report .body .reportContainer .reportContent { display: inline-block; width: 56em; padding: 1em; }
 #dashboard .report .body .reportContainer .reportContent .chart { display:block; text-align:right; margin: 1em 0 0 0; }
 #dashboard .report .body .reportContainer .reportContent .chart a {font-size: 0.9em; font-weight:bold; display: inline-block; margin: 0 0 0 1em; }
-#dashboard .report .body .reportContainer .reportContent .map{margin:  1em 0 0 0; width: 560px; height: 360px; border: solid 1px black; }
+#dashboard .report .body .reportContainer .reportContent .map{margin:  1em 0 0 0; display: block; }
+#dashboard .report .body .reportContainer .reportContent .map .container { height: 36em; }
+#dashboard .report .body .reportContainer .reportContent .table { width: 100%; font-size: 1.3em; margin: 1em 0; }
+#dashboard .report .body .reportContainer .reportContent .table thead { font-weight: bold; border-bottom: 2px solid #ccc; color:#aaa; }
+
+
+#dashboard #revenue.report .body .reportContainer .reportContent .table .name ,
+#dashboard #salary.report .body .reportContainer .reportContent .table .name ,
+#dashboard #employees.report .body .reportContainer .reportContent .table .name ,
+#dashboard #costEffectiveness.report .body .reportContainer .reportContent .table .name , 
+#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .name , 
+#dashboard #turnover.report .body .reportContainer .reportContent .table .name , 
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .name, 
+#dashboard #workersComp.report .body .reportContainer .reportContent .table .name { width: 90%; padding: 0 0 0 0.5em; }
+
+#dashboard #revenue.report .body .reportContainer .reportContent .table .value,
+#dashboard #salary.report .body .reportContainer .reportContent .table .value,
+#dashboard #employees.report .body .reportContainer .reportContent .table .value,
+#dashboard #costEffectiveness.report .body .reportContainer .reportContent .table .value, 
+#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .value, 
+#dashboard #turnover.report .body .reportContainer .reportContent .table .value, 
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .value, 
+#dashboard #workersComp.report .body .reportContainer .reportContent .table .value { width: 10%; text-align: right; padding: 0 0.5em 0 0; }
+
+
 
 
 #dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; vertical-align:top;}

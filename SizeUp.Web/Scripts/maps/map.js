@@ -34,23 +34,11 @@
             copyrightDiv.innerHTML = "Business Intelligence Provided By: SizeUp";
         };
 
-       
-
-        var show = function () {
-            me.container.show();
-        };
-
-        var hide = function () {
-            me.container.hide();
-        };
 
 
         var publicObj = {
-            show: function () {
-                show();
-            },
-            hide: function () {
-                hide();
+            getContainer: function(){
+                return me.container;
             }
         };
         init();

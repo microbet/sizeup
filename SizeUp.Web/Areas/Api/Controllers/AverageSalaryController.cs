@@ -62,7 +62,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             obj.County = new Models.Charts.ChartItem()
             {
                 Value = county.HasValue ? county.Value.ToString() : null,
-                Name = locations.County.Name
+                Name = string.Format("{0}, {1}", locations.County.Name, locations.State.Abbreviation)
             };
 
 

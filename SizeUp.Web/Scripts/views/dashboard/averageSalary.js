@@ -4,6 +4,7 @@
 
         var me = {};
         var dataLayer = new sizeup.core.data();
+        var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.data = {};
         me.container = opts.container;
@@ -26,11 +27,27 @@
                     }
                 });
 
-            me.source = new sizeup.controls.contentExpander(
+            me.sourceButton = new sizeup.controls.toggleButton(
                 {
                     button: me.container.find('.reportContainer .links .source'),
-                    contentPanel: me.container.find('.reportContainer .sourceContent')
+                    onClick: function () { toggleSource(); }
                 });
+
+            me.mapToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.mapToggle'),
+                    onClick: function () { toggleMap(); }
+                });
+
+            me.chartToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.chartToggle'),
+                    onClick: function () { toggleChart(); }
+                });
+
+
+            me.description = me.container.find('.description');
+            me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
 
             me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
@@ -40,6 +57,27 @@
         };
 
 
+        var toggleMap = function () {
+            me.map.getContainer().toggle("slide", { direction: "up" }, 350);
+        };
+
+        var toggleSource = function () {
+            me.sourceContent.slideToggle();
+        };
+
+        var toggleChart = function () {
+            if (me.chart.getContainer().is(':visible')) {
+                me.chart.getContainer().toggle("slide", { direction: "up" }, 350, function () {
+                    me.table.getContainer().toggle("slide", { direction: "up" }, 350);
+                });
+            }
+            else {
+                me.table.getContainer().toggle("slide", { direction: "up" }, 350, function () {
+                    me.chart.getContainer().toggle("slide", { direction: "up" }, 350);
+                });
+            }
+        };
+      
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
@@ -47,12 +85,26 @@
                 me.noData.hide();
                 me.reportData.show();
 
-                me.map = new sizeup.maps.map({
+                me.map = new sizeup.maps.heatMap({
                     container: me.container.find('.reportContainer .map')
                 });
 
-                var chart = new sizeup.charts.barChart(me.data.chart);
-                chart.draw();
+                me.chart = new sizeup.charts.barChart({
+
+                    valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
+                    container: me.container.find('.chart .container'),
+                    title: 'average annual revenue per business',
+                    bars: me.data.chart
+                });
+                me.chart.draw();
+
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table').hide(),
+                    rowContainer: me.container.find('.table .container'),
+                    rowTemplate: templates.get('tableRow'),
+                    rows:me.data.table
+                });
+
             }
             else {
                 me.noData.show();
@@ -92,31 +144,36 @@
         };
 
         var chartDataReturned = function (data) {
-            me.data.chart = {
+            me.data.chart = [
+                {
+                    value: me.data.enteredValue,
+                    label: '',
+                    name: 'My Business',
+                    color: '#5b0'
+                }
+            ]
 
-                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
-                container: me.container.find('.chart .container'),
-                title: 'average annual revenue per business',
-                bars:[
-                    {
-                        value: me.data.enteredValue,
-                        label: '',
-                        name: 'My Business',
-                        color: '#5b0'
-                    }
-                ]
-            };
-          
-        
+            me.data.table = [
+                {
+                    name: 'My Business',
+                    value: '$' + sizeup.util.numbers.format.addCommas(me.data.enteredValue)
+                }
+            ]
+       
             var indexes = ['County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
-                    me.data.chart.bars.push(
+                    me.data.chart.push(
                     {
                         value: parseInt(data[indexes[x]].Value),
                         label: indexes[x],
                         name: data[indexes[x]].Name,
                         color: '#0af'
+                    });
+
+                    me.data.table.push({
+                        name: data[indexes[x]].Name,
+                        value: '$' + sizeup.util.numbers.format.addCommas(parseInt(data[indexes[x]].Value))
                     });
                 }
             } 
