@@ -8,6 +8,7 @@
         me.data = {};
         me.container = opts.container;
         me.data.enteredValue = sizeup.core.urlParams.getParams().salary;
+        me.data.hasData = false;
 
         var init = function () {
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
@@ -31,6 +32,8 @@
                     contentPanel: me.container.find('.reportContainer .sourceContent')
                 });
 
+            me.noData = me.container.find('.noDataError').hide();
+            me.reportData = me.container.find('.reportData');
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -40,12 +43,21 @@
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            me.map = new sizeup.maps.map({
-                container: me.container.find('.reportContainer .map')
-            });
+            if (me.data.hasData) {
+                me.noData.hide();
+                me.reportData.show();
 
-            var chart = new sizeup.charts.barChart(me.data.chart);
-            chart.draw();
+                me.map = new sizeup.maps.map({
+                    container: me.container.find('.reportContainer .map')
+                });
+
+                var chart = new sizeup.charts.barChart(me.data.chart);
+                chart.draw();
+            }
+            else {
+                me.noData.show();
+                me.reportData.hide();
+            }
         };
 
         var runReport = function (e) {
@@ -56,19 +68,27 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             sizeup.core.urlParams.add({ salary: me.data.enteredValue });
-            dataLayer.getSalaryChart({ industryId: 8589, countyId: 222 }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getSalaryPercentile({ industryId: 8589, countyId: 222, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getSalaryChart({ industryId: me.opts.industryId, countyId: me.opts.countyId }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getSalaryPercentile({ industryId: me.opts.industryId, countyId: me.opts.countyId, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
            
         };
 
         var percentileDataReturned = function (data) {
-
-            var val = 50 + (data.Percentile/2);
-            var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentile));
-            me.data.gauge = {
-                value: val,
-                tooltip: data.Percentile < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
-            };
+            if (data) {
+                me.data.hasData = true;
+                var val = 50 + (data.Percentile / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentile));
+                me.data.gauge = {
+                    value: val,
+                    tooltip: data.Percentile < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
+                };
+            }
+            else {
+                me.data.gauge = {
+                    value: 0,
+                    tooltip: 'No data'
+                };
+            }
         };
 
         var chartDataReturned = function (data) {

@@ -17,15 +17,15 @@
 
         var init = function () {
             
-            me.reports.push(new sizeup.views.dashboard.revenue({ container: $('#revenue') }));
-            me.reports.push(new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted') }));
-            me.reports.push(new sizeup.views.dashboard.averageSalary({ container: $('#salary') }));
-            me.reports.push(new sizeup.views.dashboard.employees({ container: $('#employees') }));
-            me.reports.push(new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness') }));
-            me.reports.push(new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita') }));
-            me.reports.push(new sizeup.views.dashboard.turnover({ container: $('#turnover') }));
-            me.reports.push(new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost') }));
-            me.reports.push(new sizeup.views.dashboard.workersComp({ container: $('#workersComp') }));
+            me.reports.push(new sizeup.views.dashboard.revenue({ container: $('#revenue'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.averageSalary({ container: $('#salary'), countyId: opts.countyId, industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.employees({ container: $('#employees'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.turnover({ container: $('#turnover'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), industryId: opts.industryId }));
+            me.reports.push(new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), industryId: opts.industryId }));
 
             $('#dashboard').removeClass('hidden');
             initAllReports();
@@ -37,12 +37,10 @@
                 var step = 250;
                 var f = function(report, delay){
                     return function(){
-                        report.setupReport(delay);
+                        report.setupReport();
                     }
                 };
-
-                setTimeout(f(me.reports[x], step));
-                me.reports[x].fadeInPrompt(step * x);
+                setTimeout(f(me.reports[x]), step*x);
             }
         };
 

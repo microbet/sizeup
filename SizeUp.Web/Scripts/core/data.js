@@ -3,12 +3,16 @@
     sizeup.core.namespace('sizeup.core.data');
     window.sizeup.core.data = function () {
 
-        var get = function (url, params, success) {
-            $.getJSON(format(url, params), function (data) {if (success) { success(data); }});
+        var get = function (url, params, success, error) {
+            $.getJSON(format(url, params))
+            .success(function (data) { if (success) { success(data); } })
+            .error(function (e) { if (error) { error(e); } });
         };
 
-        var post = function (url, params, success) {
-            $.post(url, params, function (data) { if (success) { success(data); } });
+        var post = function (url, params, success, error) {
+            $.post(url, params)
+            .success(function (data) { if (success) { success(data); } })
+            .error(function (e) { if (error) { error(e); } });
         };
 
         var format = function (url, params) {
@@ -31,42 +35,42 @@
 
         var publicObj = {
 
-            searchIndustries: function (params, success) {
-                get('/api/industry/search/?term={term}&maxResults={maxResults}', params, success);
+            searchIndustries: function (params, success, error) {
+                get('/api/industry/search/?term={term}&maxResults={maxResults}', params, success, error);
             },
-            getIndustry: function (params, success) {
-                get('/api/industry/?id={id}', params, success);
+            getIndustry: function (params, success, error) {
+                get('/api/industry/?id={id}', params, success, error);
             },
-            getCurrentIndustry: function (success) {
-                get('/api/industry/current', null, success);
+            getCurrentIndustry: function (success, error) {
+                get('/api/industry/current', null, success, error);
             },
-            setCurrentIndustry: function (params, success) {
-                post('/api/industry/current', params, success);
+            setCurrentIndustry: function (params, success, error) {
+                post('/api/industry/current', params, success, error);
             },
-            hasData: function (params, success) {
-                get('/api/industry/hasData/?id={id}&cityid={cityId}', params, success);
+            hasData: function (params, success, error) {
+                get('/api/industry/hasData/?id={id}&cityid={cityId}', params, success, error);
             },
-            searchCities: function (params, success) {
-                get('/api/city/search/?term={term}&maxResults={maxResults}', params, success);
+            searchCities: function (params, success, error) {
+                get('/api/city/search/?term={term}&maxResults={maxResults}', params, success, error);
             },
-            getCity: function (params, success) {
-                get('/api/city/?id={id}', params, success);
+            getCity: function (params, success, error) {
+                get('/api/city/?id={id}', params, success, error);
             },
-            getCurrentCity: function (success) {
-                get('/api/city/current', null, success);
+            getCurrentCity: function (success, error) {
+                get('/api/city/current', null, success, error);
             },
-            setCurrentCity: function (params, success) {
-                post('/api/city/current', params, success);
+            setCurrentCity: function (params, success, error) {
+                post('/api/city/current', params, success, error);
             },
-            getDetectedCity: function (success) {
-                get('/api/city/detected', null, success);
+            getDetectedCity: function (success, error) {
+                get('/api/city/detected', null, success, error);
             },
 
-            getSalaryChart: function (params, success) {
-                get('/api/salary/?industryId={industryId}&countyId={countyId}', params, success);
+            getSalaryChart: function (params, success, error) {
+                get('/api/salary/?industryId={industryId}&countyId={countyId}', params, success, error);
             },
-            getSalaryPercentile: function (params, success) {
-                get('/api/salary/percentile/?industryId={industryId}&countyId={countyId}&value={value}', params, success);
+            getSalaryPercentile: function (params, success, error) {
+                get('/api/salary/percentile/?industryId={industryId}&countyId={countyId}&value={value}', params, success, error);
             },
 
 

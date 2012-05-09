@@ -152,9 +152,9 @@
             var currentCity = me.form.location.citySelector.getSelection();
             var currentIndustry = me.form.industry.industrySelector.getSelection();
 
-            me.selector.myBusiness.attr('href', 'dashboard/' + currentCity.SEOKey + '/' + currentIndustry.SEOKey);
-            me.selector.competition.attr('href', 'competition/' + currentCity.SEOKey + '/' + currentIndustry.SEOKey);
-            me.selector.advertising.attr('href', 'advertising/' + currentCity.SEOKey + '/' + currentIndustry.SEOKey);
+            me.selector.myBusiness.attr('href', 'dashboard/' + currentCity.State + '/' + currentCity.SEOKey + '/' + currentIndustry.SEOKey);
+            me.selector.competition.attr('href', 'competition/' + currentCity.State + '/' + currentCity.SEOKey + '/' + currentIndustry.SEOKey);
+            me.selector.advertising.attr('href', 'advertising/' + currentCity.State + '/' + currentCity.SEOKey + '/' + currentIndustry.SEOKey);
         };
 
 

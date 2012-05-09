@@ -59,10 +59,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
             var searchSpace = keywords.Select(i=> new { 
                 Id = i.IndustryId ,
                 i.Name,
+                i.Industry.SEOKey,
                 i.SortOrder
             }).Union(industries.Select(i=> new {
                 i.Id,
                 i.Name,
+                i.SEOKey,
                 SortOrder = 1
             }));
 
@@ -80,7 +82,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 .Select(i => new
                 {
                     i.Id,
-                    i.Name
+                    i.Name,
+                    i.SEOKey
                 });
                 
             return Json(data, JsonRequestBehavior.AllowGet);

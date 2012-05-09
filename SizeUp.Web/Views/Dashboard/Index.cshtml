@@ -39,7 +39,7 @@
 
 
 <div id="dashboard" class="hidden">
-<h1>Pharmacies is San Francisco, CA</h1>
+<h1>@ViewBag.Industry.Name in @ViewBag.City.Name, @ViewBag.State.Abbreviation</h1>
 
     <div id="revenue" class="report">
         <div class="header">
@@ -196,9 +196,12 @@
                 <p class="message">Generating Report</p>
             </div>
             <div class="reportContainer ">
-                <div class="reportContent">
+                <div class="reportContent noDataError">
+                    <p>There is no data available for this report with this industry and city</p>
+                </div>
+                <div class="reportContent reportData">
                     <h3>How you size up</h3>
-                    <p>The average salary for all workers in your county for the closest corresponding industry category, <strong>Pharmacies and Drug Stores</strong>, is $69,194. The average salary for your business is 87% below the average for your county.</p>
+                    <p>The average salary for all workers in your county for the closest corresponding industry category, <strong>@ViewBag.NAICS6.Name</strong>, is $69,194. The average salary for your business is 87% below the average for your county.</p>
                     <div class="chart">
                         <a href="#">Hide Variations by Geography</a>
                         <a href="#">View Data Table </a>
@@ -630,7 +633,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var dirver = new sizeup.views.dashboard.dashboard();
+        var opts = @Html.Raw(ViewBag.IdsJSON)
+        var driver = new sizeup.views.dashboard.dashboard(opts);
     });
 </script>
 }

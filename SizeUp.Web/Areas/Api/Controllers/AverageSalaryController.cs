@@ -73,11 +73,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
             long? county = DataContexts.SizeUpContext.AverageSalaryByCounties.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == countyId).Select(i => i.AverageSalary).FirstOrDefault();
-            var obj = new
+            object obj = null;
+            if (county.HasValue && county != 0)
             {
-                Percentile = (int)(((value- county) / county) * 100)
-            };
-
+                obj = new
+                {
+                    Percentile = (int)(((value - county) / county) * 100)
+                };
+            }
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
