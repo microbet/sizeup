@@ -25,6 +25,16 @@ namespace SizeUp.Core.Extensions
                 yield return toReturn;
             }
         }
+
+        public static IEnumerable<List<T>> Ntile<T>(this IEnumerable<T> source, Func<T, T> selector, int groups)
+        {
+            List<T> toReturn = new List<T>();
+            
+            if (toReturn.Any())
+            {
+                yield return toReturn;
+            }
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 ﻿(function () {
-    sizeup.core.namespace('sizeup.maps.map');
+    sizeup.core.namespace('sizeup.maps');
     sizeup.maps.map = function (opts) {
 
         var defaults = {
@@ -9,10 +9,10 @@
         var me = {};
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
-        
-        var init = function () {
+        me.map = new google.maps.Map(me.container.get(0), me.opts.mapSettings);
+        me._native = me.map;
 
-            me.map = new google.maps.Map(me.container.get(0), me.opts.mapSettings);
+        var init = function () {
             google.maps.event.trigger(me.map, 'resize');
             if (me.opts.styles) {
                 var mapStyle = new google.maps.StyledMapType(me.opts.styles, { name: "mapStyle" });
@@ -35,10 +35,42 @@
         };
 
 
+        var addPolygon = function (p) {
+            p.getNative().setMap(me.map);
+        };
+
+        var addEventListener = function(event, handler){
+            google.maps.event.addListener(me.map, event, handler);
+        };
+
+        var getBounds = function () {
+            //make sizeup
+            return me.map.getBounds();
+        };
+
+        var getZoom = function () {
+            return me.map.getZoom();
+        };
+
 
         var publicObj = {
-            getContainer: function(){
+            getContainer: function () {
                 return me.container;
+            },
+            getNative: function () {
+                return me._native;
+            },
+            getBounds: function(){
+                return getBounds();
+            },
+            getZoom: function(){
+                return getZoom();
+            },
+            addPolygon: function (p) {
+                addPolygon(p);
+            },
+            addEventListener: function (event, handler) {
+                addEventListener(event, handler);
             }
         };
         init();

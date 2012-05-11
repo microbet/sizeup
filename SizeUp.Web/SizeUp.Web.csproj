@@ -54,6 +54,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Extensions" />
@@ -81,9 +85,14 @@
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
+    <Compile Include="Areas\Api\Controllers\ZipController.cs" />
+    <Compile Include="Areas\Api\Controllers\CountyController.cs" />
+    <Compile Include="Areas\Api\Controllers\StateController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Maps\Polygon.cs" />
+    <Compile Include="Areas\Api\Models\Maps\LatLng.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -145,9 +154,11 @@
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\core\urlParams.js" />
     <Content Include="Scripts\maps\heatMap.js" />
+    <Content Include="Scripts\maps\latLng.js" />
     <Content Include="Scripts\maps\map.js" />
     <Content Include="Scripts\maps\mapOptions.js" />
     <Content Include="Scripts\maps\mapStyles.js" />
+    <Content Include="Scripts\maps\polygon.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />

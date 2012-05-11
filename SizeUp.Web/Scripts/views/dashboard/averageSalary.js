@@ -86,7 +86,13 @@
                 me.reportData.show();
 
                 me.map = new sizeup.maps.heatMap({
-                    container: me.container.find('.reportContainer .map')
+                    container: me.container.find('.reportContainer .map'),
+                    dataSources: {
+                        zip: null,
+                        county: null,
+                        metro: null,
+                        state: function (callback) { dataLayer.getSalaryBandsByState({ industryId: me.opts.industryId }, callback); }
+                    }
                 });
 
                 me.chart = new sizeup.charts.barChart({
@@ -122,7 +128,6 @@
             sizeup.core.urlParams.add({ salary: me.data.enteredValue });
             dataLayer.getSalaryChart({ industryId: me.opts.industryId, countyId: me.opts.countyId }, notifier.getNotifier(chartDataReturned));
             dataLayer.getSalaryPercentile({ industryId: me.opts.industryId, countyId: me.opts.countyId, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
-           
         };
 
         var percentileDataReturned = function (data) {

@@ -6,8 +6,8 @@
         var mapOptions = {
             defaults: function () {
                 return {
-                    zoom: 12,
-                    minZoom: 4,
+                    zoom: 10,
+                    minZoom: 0,
                     center: new google.maps.LatLng(37.012, -122.01),
                     mapTypeControl: false,
                     streetViewControl: false,
