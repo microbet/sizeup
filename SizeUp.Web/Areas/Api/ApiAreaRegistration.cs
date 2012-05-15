@@ -66,47 +66,7 @@ namespace SizeUp.Web.Areas.Api
            );
 
 
-            /****state*****/
-
-            context.MapRoute(
-                "State",
-                "Api/State/Polygon",
-                new { controller = "State", action = "Polygon" }
-            );
-
-            context.MapRoute(
-                "StateBounds",
-                "Api/State/Contained",
-                new { controller = "State", action = "Contained" }
-            );
-
-            /****county*****/
-
-            context.MapRoute(
-                "County",
-                "Api/County/Polygon",
-                new { controller = "County", action = "Polygon" }
-            );
-
-            context.MapRoute(
-                "CountyBounds",
-                "Api/County/Contained",
-                new { controller = "County", action = "Contained" }
-            );
-
-            /****Zip*****/
-
-            context.MapRoute(
-                "Zip",
-                "Api/Zip/Polygon",
-                new { controller = "Zip", action = "Polygon" }
-            );
-
-            context.MapRoute(
-                "ZipBounds",
-                "Api/Zip/Contained",
-                new { controller = "Zip", action = "Contained" }
-            );
+         
 
 
             /****salary*****/
@@ -129,11 +89,6 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageSalary", action = "BandsByCounty" }
             );
 
-            context.MapRoute(
-                "SalaryMetro",
-                "Api/Salary/Bands/Metro",
-                new { controller = "AverageSalary", action = "BandsByMetro" }
-            );
 
             context.MapRoute(
                 "SalaryState",

@@ -15,10 +15,22 @@ namespace SizeUp.Web.Areas.Tiles
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "SalaryTiles",
-                "Tiles/Salary/",
-                new { controller = "AverageSalary", action = "Get" }
+                "SalaryTilesZip",
+                "Tiles/Salary/Zip/",
+                new { controller = "AverageSalary", action = "Zip" , boundingEntityId = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "SalaryTilesCounty",
+                "Tiles/Salary/County/",
+                new { controller = "AverageSalary", action = "County", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+               "SalaryTilesState",
+               "Tiles/Salary/State/",
+               new { controller = "AverageSalary", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
 
 
 

@@ -85,9 +85,6 @@
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
-    <Compile Include="Areas\Api\Controllers\ZipController.cs" />
-    <Compile Include="Areas\Api\Controllers\CountyController.cs" />
-    <Compile Include="Areas\Api\Controllers\StateController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
@@ -152,7 +149,6 @@
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\templates.js" />
-    <Content Include="Scripts\core\urlParams.js" />
     <Content Include="Scripts\maps\heatMap.js" />
     <Content Include="Scripts\maps\latLng.js" />
     <Content Include="Scripts\maps\map.js" />

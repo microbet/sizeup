@@ -78,14 +78,10 @@
             },
 
             getSalaryBandsByCounty: function (params, success, error) {
-                return get('/api/salary/bands/county/?industryId={industryId}&bands={bands}', params, success, error);
+                return get('/api/salary/bands/county/?industryId={industryId}&bands={bands}&stateId={stateId}', params, success, error);
             },
 
-            getSalaryBandsByMetro: function (params, success, error) {
-                return get('/api/salary/bands/metro/?industryId={industryId}&bands={bands}', params, success, error);
-            },
-
-           
+          
 
             getStatesInBounds: function (params, success, error) {
                 return get('/api/state/contained/?sw={sw}&ne={ne}&buffer={buffer}', params, success, error);
@@ -97,7 +93,7 @@
 
 
             getCountiesInBounds: function (params, success, error) {
-                return get('/api/county/contained/?sw={sw}&ne={ne}&buffer={buffer}', params, success, error);
+                return get('/api/county/contained/?sw={sw}&ne={ne}&buffer={buffer}&stateId={stateId}', params, success, error);
             },
 
             getCountyPolygons: function (params, success, error) {

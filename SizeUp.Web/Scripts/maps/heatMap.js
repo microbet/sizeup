@@ -6,7 +6,7 @@
         var me = {};
         var chunks = {
             zip: 25,
-            county: 10,
+            county: 100,
             metro: 5,
             state: 7
         };
@@ -80,21 +80,13 @@
         var me = {};
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
-
-        me.data = {
-            polygons: {
-                zip: [],
-                county: [],
-                metro: [],
-                state:[]
-            },
-            bands: {
-                zip: null,
-                county: null,
-                metro: null,
-                state:null
-            }
+        me.imageMap ={
+            zip: null,
+            county: null,
+            metro: null,
+            state:null
         };
+
 
         var init = function () {
 
@@ -104,136 +96,86 @@
                 mapSettings: me.opts.mapSettings,
                 styles: me.opts.styles
             });
-            me.map.addEventListener('bounds_changed', boundsChanged);
-            me.map.addEventListener('idle', boundsChanged);
-            me.map.addEventListener('zoom_changed', zoomChanged);
+            
+            var zipOverlay = {
+                getTileUrl: function (point, zoom) {
+                    var url = "/tiles/salary/zip/";
+                    var params = {
+                        industryId: 1,
+                        x: point.x,
+                        y: point.y,
+                        zoom: zoom,
+                        colors: me.opts.colors.join(',')
+                    };
+                    return jQuery.param.querystring(url, params);
+                },
+                tileSize: new google.maps.Size(256, 256)
+            };
+            var countyOverlay = {
+                getTileUrl: function (point, zoom) {
+                    var url = "/tiles/salary/county/";
+                    var params = {
+                        industryId :1,
+                        x : point.x,
+                        y: point.y,
+                        zoom: zoom,
+                        colors: me.opts.colors.join(',')
+                    };
+                    return jQuery.param.querystring(url, params);
+                },
+                tileSize: new google.maps.Size(256, 256)
+            };
+            var stateOverlay = {
+                getTileUrl: function (point, zoom) {
+                    var url = "/tiles/salary/state/";
+                    var params = {
+                        industryId: 1,
+                        x: point.x,
+                        y: point.y,
+                        zoom: zoom,
+                        colors: me.opts.colors.join(',')
+                    };
+                    return jQuery.param.querystring(url, params);
+                },
+                tileSize: new google.maps.Size(256, 256)
+            };
+            me.imageMap["zip"] = new google.maps.ImageMapType(zipOverlay);
+            me.imageMap["county"] =new  google.maps.ImageMapType(countyOverlay);
+            me.imageMap["state"] = new google.maps.ImageMapType(stateOverlay);
+          
 
-            updatePolygonResolution();
+           // me.map.addEventListener('bounds_changed', boundsChanged);
+           // me.map.addEventListener('idle', boundsChanged);
+            me.map.addEventListener('zoom_changed', zoomChanged);
+            setOverlay();
+            //updatePolygonResolution();
         };
         
+        var setOverlay = function () {
+            var z = me.map.getNative().getZoom();
+            me.map.getNative().overlayMapTypes.clear();
+            if (z >= 0 && z <= 4) {
+                me.map.getNative().overlayMapTypes.push(me.imageMap['state']);
+            }
+            else if (z >= 5 && z <= 10) {
+                me.map.getNative().overlayMapTypes.push(me.imageMap['county']);
+            }
+            else if (z >= 11 && z <= 18) {
+                me.map.getNative().overlayMapTypes.push(me.imageMap['zip']);
+            }
+        };
+
+        
+
        
-        var buildPolygon = function (polyData, visible) {
-            var latlngs = [];
-            for (var x = 0; x < polyData.Paths.length; x++) {
-                var poly = []
-                latlngs.push(poly);
-                for (var y = 0; y < polyData.Paths[x].length; y++) {
-                    poly.push(new sizeup.maps.latLng({ lat: polyData.Paths[x][y].Lat, lng: polyData.Paths[x][y].Lng }).getNative());
-                }
-            };
-            var c = me.opts.colors[Math.floor((Math.random() * me.opts.colors.length))];
-            var p = new sizeup.maps.polygon({
-                visible: visible,
-                clickable: false,
-                fillColor: c,
-                fillOpacity: 0.6,
-                strokeColor: c,
-                strokeOpacity: 1,
-                strokeWeight: 1
-            });
-            p.getNative().setPaths(latlngs);
-            return p;
-        };
-
-        var switchPolygonResolution = function (level) {
-            for (var x in me.data.polygons) {
-                if (x == level) {
-                    for (var y in me.data.polygons[x]) {
-                        me.data.polygons[x][y].setVisible(true);
-                    }
-                }
-                else {
-                    for (var y in me.data.polygons[x]) {
-                        me.data.polygons[x][y].setVisible(false);
-                    }
-                }
-            }
-        };
-
-        var updatePolygonResolution = function () {
-            var oldRes = me.polygonResolution;
-            var z = me.map.getZoom();
-            if (z < 6) {
-                me.polygonResolution = "state";
-            }
-            else if (z < 10) {
-                me.polygonResolution = "county";
-            }
-            else if (z < 12) {
-                me.polygonResolution = "zip";
-            }
-
-
-            if (oldRes != me.polygonResolution) {
-                switchPolygonResolution(me.polygonResolution);
-            }
-        };
 
         var zoomChanged = function () {
-            updatePolygonResolution();
+            setOverlay();
         };
 
-        var boundsChanged = function () {
-            var bounds = me.map.getBounds();
-            var sw = bounds.getSouthWest();
-            var ne = bounds.getNorthEast();
-
-            if (!(me.statesXHR) || me.statesXHR.statusText == "OK") {
-                if (me.polygonResolution == 'state') {
-                    me.statesXHR = dataLayer.getStatesInBounds({ sw: sw.lat() + ' ' + sw.lng(), ne: ne.lat() + ' ' + ne.lng(), buffer: 100000 }, function(d){ boundsReturned(d, 'state');});
-                }
-                else if (me.polygonResolution == 'county') {
-                    me.statesXHR = dataLayer.getCountiesInBounds({ sw: sw.lat() + ' ' + sw.lng(), ne: ne.lat() + ' ' + ne.lng(), buffer: 10000 },  function(d){ boundsReturned(d, 'county');});
-                }
-                else if (me.polygonResolution == 'zip') {
-                    me.statesXHR = dataLayer.getZipCodesInBounds({ sw: sw.lat() + ' ' + sw.lng(), ne: ne.lat() + ' ' + ne.lng(), buffer: 2500 }, function (d) { boundsReturned(d, 'zip');});
-                }
-            }
-            
-        };
-
-        var boundsReturned = function (data, index) {
-            //opts.dataSources.state(bandsReturned);
-
-            sizeup.maps.polygonCache.get(data, index, function (polys) {
-                for (var x in polys) {
-                    if (!me.data.polygons[index][x]) {
-                        var p = buildPolygon(polys[x], me.polygonResolution == index);
-                        me.data.polygons[index][x] = p;
-                        me.map.addPolygon(p);
-                    }
-                }
-            });
-        };
-
-        var countyBoundsReturned = function (data) {
-            sizeup.maps.polygonCache.get(data, 'county',  function (polys) {
-                for (var x in polys) {
-                    if (!me.data.polygons.county[x]) {
-                        var p = buildPolygon(polys[x], me.polygonResolution == 'county');
-                        me.data.polygons.county[x] = p;
-                        me.map.addPolygon(p);
-                    }
-                }
-            });
-        };
-
-        var zipCodeBoundsReturned = function (data) {
-            sizeup.maps.polygonCache.get(data,'zip', function (polys) {
-                for (var x in polys) {
-                    if (!me.data.polygons.zip[x]) {
-                        var p = buildPolygon(polys[x], me.polygonResolution == 'zip');
-                        me.data.polygons.zip[x] = p;
-                        me.map.addPolygon(p);
-                    }
-                }
-            });
-        };
+        
 
 
-        var bandsReturned = function (data) {
-            
-        }
 
 
         var publicObj = {

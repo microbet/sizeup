@@ -42,10 +42,15 @@
     <Reference Include="Antlr4.StringTemplate">
       <HintPath>..\packages\Antlr4.StringTemplate.4.0.6.9004\lib\net35\Antlr4.StringTemplate.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,6 +72,11 @@
     <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Templates\TemplateFactory.cs" />
+    <Compile Include="Tiles\BoundingEntity.cs" />
+    <Compile Include="Tiles\GeoSink.cs" />
+    <Compile Include="Tiles\GoogleMapsAPIProjection.cs" />
+    <Compile Include="Tiles\Heatmap.cs" />
+    <Compile Include="Tiles\Tile.cs" />
     <Compile Include="Web\P3PHeader.cs" />
     <Compile Include="Web\WebContext.cs" />
   </ItemGroup>
@@ -79,9 +89,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tiles\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

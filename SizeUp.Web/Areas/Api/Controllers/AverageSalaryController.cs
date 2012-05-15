@@ -87,10 +87,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult BandsByCounty(int industryId, int bands = 1)
         {
+
+
             var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-            var data = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id)
-                .OrderBy(i => i.AverageSalary)
+            var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
+                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id);
+                
+                
+
+            if (!string.IsNullOrEmpty(Request["stateId"]))
+            {
+                long stateId = long.Parse(Request["stateId"]);
+                filters = filters.Where(i => i.County.StateId == stateId);
+            }
+            var data = filters.OrderBy(i => i.AverageSalary)
                 .Select(i => new { value = i.AverageSalary, id = i.CountyId })
                 .ToList();
 
@@ -117,37 +127,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             return Json(groups, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult BandsByMetro(int industryId, int bands = 1)
-        {
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-            var data = DataContexts.SizeUpContext.AverageSalaryByMetroes
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByMetroes.Max(m => m.Year) && i.NAICSId == naics.Id)
-                .OrderBy(i => i.AverageSalary)
-                .Select(i => new { value = i.AverageSalary, id = i.MetroId })
-                .ToList();
-
-            long min = data.Min(i => i.value).Value;
-            long max = data.Max(i => i.value).Value;
-            int count = data.Count;
-
-            int itemsPerBand = (int)Math.Ceiling((decimal)count / bands);
-
-            List<List<object>> groups = new List<List<object>>();
-            for (int x = 0; x < bands; x++)
-            {
-                List<object> g = new List<object>();
-                var items = data.Skip(itemsPerBand * x).Take(itemsPerBand).ToList();
-                if (items.Count > 0)
-                {
-                    foreach (var i in items)
-                    {
-                        g.Add(i);
-                    }
-                    groups.Add(g);
-                }
-            }
-            return Json(groups, JsonRequestBehavior.AllowGet);
-        }
 
         public ActionResult BandsByState(int industryId, int bands = 1)
         {
