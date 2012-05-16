@@ -5,7 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
+using SizeUp.Core.Geo;
+using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
+ 
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -85,79 +88,60 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
 
-        public ActionResult BandsByCounty(int industryId, int bands = 1)
+        public ActionResult BandsByCounty(int industryId, int bands, string boundingEntityId)
         {
-
-
+            BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
             var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
             var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id);
-                
-                
+                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
 
-            if (!string.IsNullOrEmpty(Request["stateId"]))
+            if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
             {
-                long stateId = long.Parse(Request["stateId"]);
-                filters = filters.Where(i => i.County.StateId == stateId);
+                filters = filters.Where(i => i.County.StateId == boundingEntity.EntityId);
             }
-            var data = filters.OrderBy(i => i.AverageSalary)
-                .Select(i => new { value = i.AverageSalary, id = i.CountyId })
+            else if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
+            {
+                filters = filters.Where(i => i.County.MetroId == boundingEntity.EntityId);
+            }
+            var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
+            var bandData = data.NTile(i => i.AverageSalary, bands)
+                .Select(b => new Models.Salary.Band(){ Min = b.Min(i => i.AverageSalary), Max = b.Max(i => i.AverageSalary) })
                 .ToList();
 
-            long min = data.Min(i => i.value).Value;
-            long max = data.Max(i => i.value).Value;
-            int count = data.Count;
-
-            int itemsPerBand = (int)Math.Ceiling((decimal)count / bands);
-
-            List<List<object>> groups = new List<List<object>>();
-            for (int x = 0; x < bands; x++)
+            Models.Salary.Band old = null;
+            foreach(var band in bandData)
             {
-                List<object> g = new List<object>();
-                var items = data.Skip(itemsPerBand * x).Take(itemsPerBand).ToList();
-                if (items.Count > 0)
+                if (old != null)
                 {
-                    foreach (var i in items)
-                    {
-                        g.Add(i);
-                    }
-                    groups.Add(g);
+                    old.Max = band.Min - 1;
                 }
+                old = band;
             }
-            return Json(groups, JsonRequestBehavior.AllowGet);
+            return Json(bandData, JsonRequestBehavior.AllowGet);
         }
 
 
-        public ActionResult BandsByState(int industryId, int bands = 1)
+        public ActionResult BandsByState(int industryId, int bands)
         {
             var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-            var data = DataContexts.SizeUpContext.AverageSalaryByStates
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByStates.Max(m => m.Year) && i.NAICSId == naics.Id)
-                .OrderBy(i => i.AverageSalary)
-                .Select(i => new { value =  i.AverageSalary, id = i.StateId })
+            var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
+                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByStates.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
+
+            var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
+            var bandData = data.NTile(i => i.AverageSalary, bands)
+                .Select(b => new Models.Salary.Band() { Min = b.Min(i => i.AverageSalary), Max = b.Max(i => i.AverageSalary) })
                 .ToList();
 
-            long min = data.Min(i => i.value).Value;
-            long max = data.Max(i => i.value).Value;
-            int count = data.Count;
-
-            int itemsPerBand = (int)Math.Ceiling((decimal)count / bands);
-
-            List<List<object>> groups = new List<List<object>>();
-            for (int x = 0; x < bands; x++)
+            Models.Salary.Band old = null;
+            foreach (var band in bandData)
             {
-                List<object> g = new List<object>();
-                var items = data.Skip(itemsPerBand * x).Take(itemsPerBand).ToList();
-                if (items.Count > 0)
+                if (old != null)
                 {
-                    foreach (var i in items)
-                    {
-                        g.Add(i);
-                    }
-                    groups.Add(g);
+                    old.Max = band.Min - 1;
                 }
+                old = band;
             }
-            return Json(groups, JsonRequestBehavior.AllowGet);
+            return Json(bandData, JsonRequestBehavior.AllowGet);
         }
 
     }

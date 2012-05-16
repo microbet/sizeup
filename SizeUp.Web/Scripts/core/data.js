@@ -56,6 +56,12 @@
             getCity: function (params, success, error) {
                 return get('/api/city/?id={id}', params, success, error);
             },
+            getCityBoundingBox: function (params, success, error) {
+                return get('/api/city/boundingbox/?id={id}', params, success, error);
+            },
+            getCityCentroid: function (params, success, error) {
+                return get('/api/city/centroid/?id={id}', params, success, error);
+            },
             getCurrentCity: function (success, error) {
                 return get('/api/city/current', null, success, error);
             },
@@ -64,6 +70,18 @@
             },
             getDetectedCity: function (success, error) {
                 return get('/api/city/detected', null, success, error);
+            },
+
+            getCounty: function (params, success, error) {
+                return get('/api/county/?id={id}', params, success, error);
+            },
+
+            getMetro: function (params, success, error) {
+                return get('/api/metro/?id={id}', params, success, error);
+            },
+
+            getState: function (params, success, error) {
+                return get('/api/state/?id={id}', params, success, error);
             },
 
             getSalaryChart: function (params, success, error) {
@@ -78,36 +96,12 @@
             },
 
             getSalaryBandsByCounty: function (params, success, error) {
-                return get('/api/salary/bands/county/?industryId={industryId}&bands={bands}&stateId={stateId}', params, success, error);
-            },
+                return get('/api/salary/bands/county/?industryId={industryId}&bands={bands}&boundingEntityId={boundingEntityId}', params, success, error);
+            }
 
           
 
-            getStatesInBounds: function (params, success, error) {
-                return get('/api/state/contained/?sw={sw}&ne={ne}&buffer={buffer}', params, success, error);
-            },
-
-            getStatePolygons: function (params, success, error) {
-                return get('/api/state/polygon/?ids={ids}', params, success, error);
-            },
-
-
-            getCountiesInBounds: function (params, success, error) {
-                return get('/api/county/contained/?sw={sw}&ne={ne}&buffer={buffer}&stateId={stateId}', params, success, error);
-            },
-
-            getCountyPolygons: function (params, success, error) {
-                return get('/api/county/polygon/?ids={ids}', params, success, error);
-            },
-
-            getZipCodesInBounds: function (params, success, error) {
-                return get('/api/zip/contained/?sw={sw}&ne={ne}&buffer={buffer}', params, success, error);
-            },
-
-            getZipCodePolygons: function (params, success, error) {
-                return get('/api/zip/polygon/?ids={ids}', params, success, error);
-            }
-
+            
 
 
 

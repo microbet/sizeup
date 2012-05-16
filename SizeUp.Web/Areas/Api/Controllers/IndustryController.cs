@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
+using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -17,11 +18,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public JsonResult Industry(int? id)
         {
             var industry = DataContexts.SizeUpContext.Industries.Where(i => i.Id == id);
-            var data = industry.Select(i => new
+            var data = industry.Select(i => new Models.Industry.Industry()
             {
-                i.Id,
-                i.Name,
-                i.SEOKey
+                Id = i.Id,
+                Name = i.Name,
+                SEOKey = i.SEOKey
             }).FirstOrDefault();
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -29,15 +30,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
         [HttpGet]
         public JsonResult CurrentIndustry()
         {
-            var item = SizeUp.Core.Web.WebContext.Current.CurrentIndustry;
+            var i = SizeUp.Core.Web.WebContext.Current.CurrentIndustry;
             object data = null;
-            if (item != null)
+            if (i != null)
             {
-                data = new
+                data = new Models.Industry.Industry()
                 {
-                    item.Id,
-                    item.Name,
-                    item.SEOKey
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey
                 };
             }
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -79,11 +80,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
             var data = searchSpace
                 .OrderBy(i => i.SortOrder)
                 .Take(maxResults)
-                .Select(i => new
+                .Select(i => new Models.Industry.Industry()
                 {
-                    i.Id,
-                    i.Name,
-                    i.SEOKey
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey
                 });
                 
             return Json(data, JsonRequestBehavior.AllowGet);

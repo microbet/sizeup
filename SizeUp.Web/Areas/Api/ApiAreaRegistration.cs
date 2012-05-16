@@ -65,6 +65,38 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "City", action = "DetectedCity" }
            );
 
+            context.MapRoute(
+              "BoundingBoxCity",
+              "Api/City/BoundingBox",
+              new { controller = "City", action = "BoundingBox" }
+          );
+
+            context.MapRoute(
+             "CentroidCity",
+             "Api/City/Centroid",
+             new { controller = "City", action = "Centroid" }
+         );
+
+            /***********county**********/
+            context.MapRoute(
+                "SingleCounty",
+                "Api/County/",
+                new { controller = "County", action = "County" }
+            );
+
+            /***********metro**********/
+            context.MapRoute(
+                "SingleMetro",
+                "Api/Metro/",
+                new { controller = "Metro", action = "Metro" }
+            );
+
+            /***********state**********/
+            context.MapRoute(
+                "SingleState",
+                "Api/State/",
+                new { controller = "State", action = "State" }
+            );
 
          
 
@@ -86,9 +118,8 @@ namespace SizeUp.Web.Areas.Api
             context.MapRoute(
                 "SalaryBands",
                 "Api/Salary/Bands/County",
-                new { controller = "AverageSalary", action = "BandsByCounty" }
+                new { controller = "AverageSalary", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
             );
-
 
             context.MapRoute(
                 "SalaryState",

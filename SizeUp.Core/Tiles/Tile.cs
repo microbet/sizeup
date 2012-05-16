@@ -22,7 +22,7 @@ namespace SizeUp.Core.Tiles
         protected Graphics Graphics { get; set; }
         protected GoogleMapsAPIProjection Projection { get; set; }
         protected Matrix TranslationMatrix = new Matrix();
-           
+           //probasbly need to convert this to sw and ne becuase at zoom levels less than 4 we get wonky bounding boxes
         public Tile(int Width, int Height, int x, int y, double Zoom)
         {
             this.Width = Width;

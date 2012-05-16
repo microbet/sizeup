@@ -5,22 +5,19 @@
         
         var defaults =
         {
-            rowTemplate: '',
-            rowContainer: $()
         };
-        var templates = new sizeup.core.templates();
+        var templates = new sizeup.core.templates(opts.container);
         var me = {};
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
-
+        me.rowContainer = me.container.find('.container');
 
         var init = function () {
             var tableString = '';
-            var t = function () { return me.opts.rowTemplate };
             for (var x in me.opts.rows) {
-                tableString = tableString + templates.bind(t(), me.opts.rows[x]);
+                tableString = tableString + templates.bind(templates.get('tableRow'), me.opts.rows[x]);
             }
-            me.opts.rowContainer.html(tableString);
+            me.rowContainer.html(tableString);
         };
 
    

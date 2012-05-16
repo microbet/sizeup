@@ -44,14 +44,22 @@
         };
 
         var getBounds = function () {
-            //make sizeup
-            return me.map.getBounds();
+            var nbounds = me.map.getBounds();
+            var b = new sizeup.maps.latLngBounds();
+            b.getNative().union(nbounds);
+            return b;
         };
 
         var getZoom = function () {
             return me.map.getZoom();
         };
 
+        var fitBounds = function (latLngBounds) {
+            me.map.fitBounds(latLngBounds.getNative());
+        };
+        var setCenter = function (latLng) {
+            me.map.setCenter(latLng.getNative());
+        };
 
         var publicObj = {
             getContainer: function () {
@@ -71,6 +79,12 @@
             },
             addEventListener: function (event, handler) {
                 addEventListener(event, handler);
+            },
+            fitBounds: function (latLngBounds) {
+                fitBounds(latLngBounds);
+            },
+            setCenter: function (latLng) {
+                setCenter(latLng);
             }
         };
         init();

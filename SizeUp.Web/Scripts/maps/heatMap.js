@@ -1,186 +1,148 @@
 ﻿(function () {
     sizeup.core.namespace('sizeup.maps');
-    sizeup.maps.polygonCache = sizeup.maps.polygonCache || new function(){
-
-        var dataLayer = new sizeup.core.data();
-        var me = {};
-        var chunks = {
-            zip: 25,
-            county: 100,
-            metro: 5,
-            state: 7
-        };
-        var dataSources = {
-            zip: dataLayer.getZipCodePolygons,
-            county: dataLayer.getCountyPolygons,
-            metro: null,
-            state: dataLayer.getStatePolygons
-        };
-
-        var cache = {
-            zip: [],
-            county: [],
-            metro: [],
-            state:[]
-        };
-
-
-        var get = function (ids, index, callback) {
-            var needs = [];
-            for (var x in ids) {
-                if (!cache[index][ids[x]] || cache[index][ids[x]] == '') {
-                    cache[index][ids[x]] = '';
-                    needs.push(ids[x]);
-                }
-            }
-            var ret = function (data) {
-                var polys = [];
-                for (var x in data) {
-                    cache[index][data[x].Id] = data[x].Polygon;
-                }
-                for (var x in ids) {
-                    if (cache[index][ids[x]] != '') {
-                        polys[ids[x]] = cache[index][ids[x]];
-                    }
-                }
-                callback(polys);
-            };
-            if (needs.length > 0) {
-                for (var x = 0; x < needs.length; x = x + chunks[index]) {
-                    var partialNeeds = needs.slice(x, Math.min(needs.length, x + chunks[index]));
-                    dataSources[index]({ ids: partialNeeds.join() }, ret);
-                }
-            }
-        };
-
-        var publicObj = {
-            get: function (ids, index, callback) {
-                return get(ids, index,  callback);
-            }
-        };
-        return publicObj;
-    };
-
     sizeup.maps.heatMap = function (opts) {
 
         var defaults = {
             mapSettings: sizeup.maps.mapOptions.getDefaults(),
             styles: sizeup.maps.mapStyles.getDefaults(),
-            colors: [
-                '#F5F500',
-                '#F5CC00',
-                '#F5A300',
-                '#F57A00',
-                '#F55200',
-                '#F52900',
-                '#F50000'
-            ]
+            colors: [],
+            overlays:[]
         };
         var dataLayer = new sizeup.core.data();
+        var templates = new sizeup.core.templates(opts.container);
         var me = {};
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
-        me.imageMap ={
-            zip: null,
-            county: null,
-            metro: null,
-            state:null
-        };
-
+        me.overlays = [];
+        me.currentOverlayIndex=null;
 
         var init = function () {
 
-            me.legend = me.container.find('.legend');
+            me.legend = me.container.find('.legendContainer');
+            me.legend.parent().hide();
+            me.title = me.container.find('.title').hide();
             me.map = new sizeup.maps.map({
                 container: me.container.find('.container'),
                 mapSettings: me.opts.mapSettings,
                 styles: me.opts.styles
             });
-            
-            var zipOverlay = {
-                getTileUrl: function (point, zoom) {
-                    var url = "/tiles/salary/zip/";
-                    var params = {
-                        industryId: 1,
-                        x: point.x,
-                        y: point.y,
-                        zoom: zoom,
-                        colors: me.opts.colors.join(',')
-                    };
-                    return jQuery.param.querystring(url, params);
-                },
-                tileSize: new google.maps.Size(256, 256)
-            };
-            var countyOverlay = {
-                getTileUrl: function (point, zoom) {
-                    var url = "/tiles/salary/county/";
-                    var params = {
-                        industryId :1,
-                        x : point.x,
-                        y: point.y,
-                        zoom: zoom,
-                        colors: me.opts.colors.join(',')
-                    };
-                    return jQuery.param.querystring(url, params);
-                },
-                tileSize: new google.maps.Size(256, 256)
-            };
-            var stateOverlay = {
-                getTileUrl: function (point, zoom) {
-                    var url = "/tiles/salary/state/";
-                    var params = {
-                        industryId: 1,
-                        x: point.x,
-                        y: point.y,
-                        zoom: zoom,
-                        colors: me.opts.colors.join(',')
-                    };
-                    return jQuery.param.querystring(url, params);
-                },
-                tileSize: new google.maps.Size(256, 256)
-            };
-            me.imageMap["zip"] = new google.maps.ImageMapType(zipOverlay);
-            me.imageMap["county"] =new  google.maps.ImageMapType(countyOverlay);
-            me.imageMap["state"] = new google.maps.ImageMapType(stateOverlay);
-          
-
-           // me.map.addEventListener('bounds_changed', boundsChanged);
-           // me.map.addEventListener('idle', boundsChanged);
+            buildOverlays();
             me.map.addEventListener('zoom_changed', zoomChanged);
             setOverlay();
-            //updatePolygonResolution();
+        };
+
+        var buildOverlays = function () {
+            for (var x in me.opts.overlays) {
+                var func = function(){
+                    var opts = me.opts.overlays[x];
+                    return function (point, zoom) {
+                        var url = opts.tileUrl;
+                        var params = {
+                            industryId: opts.industryId,
+                            x: point.x,
+                            y: point.y,
+                            zoom: zoom,
+                            colors: opts.colors.join(',')
+                        };
+                        if (opts.boundingEntityId) {
+                            params.boundingEntityId = opts.boundingEntityId;
+                        }
+                        return jQuery.param.querystring(url, params);
+                    };
+                };
+
+                var overlay =
+                {
+                    legendSource: me.opts.overlays[x].legendSource,
+                    legendTitle: me.opts.overlays[x].legendTitle,
+                    legendFormat: me.opts.overlays[x].legendFormat,
+                    minZoom: me.opts.overlays[x].minZoom,
+                    maxZoom: me.opts.overlays[x].maxZoom,
+                    colors: me.opts.overlays[x].colors,
+                    imageMap: new google.maps.ImageMapType({
+                        getTileUrl:func(),
+                        tileSize: new google.maps.Size(256, 256)
+                    })
+                }
+                me.overlays.push(overlay);
+            }
         };
         
         var setOverlay = function () {
             var z = me.map.getNative().getZoom();
-            me.map.getNative().overlayMapTypes.clear();
-            if (z >= 0 && z <= 4) {
-                me.map.getNative().overlayMapTypes.push(me.imageMap['state']);
+            var newOverlay = null;
+            for(var x in me.overlays){
+                if (z >= me.overlays[x].minZoom && z <= me.overlays[x].maxZoom && me.currentOverlayIndex != x) {
+                    newOverlay = {
+                        overlay: me.overlays[x],
+                        index: x
+                    };
+                }
             }
-            else if (z >= 5 && z <= 10) {
-                me.map.getNative().overlayMapTypes.push(me.imageMap['county']);
-            }
-            else if (z >= 11 && z <= 18) {
-                me.map.getNative().overlayMapTypes.push(me.imageMap['zip']);
+
+            if (newOverlay != null) {
+                me.map.getNative().overlayMapTypes.clear();
+                me.map.getNative().overlayMapTypes.push(newOverlay.overlay.imageMap);
+                me.currentOverlayIndex = newOverlay.index;
+                newOverlay.overlay.legendSource(function (data) {
+                    updateLegend({ overlay: newOverlay.overlay, data: data });
+                });
             }
         };
 
-        
+        var updateLegend = function (data) {
 
-       
+            me.title.html(data.overlay.legendTitle);
+
+            var list = [];
+            if (data.data.length > 0) {
+                if (data.data.length < data.overlay.colors.length) {
+                    for (var x = 0; x < data.data.length; x++) {
+                        var t = templates.get('legendItem');
+                        list.push(templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) }));
+                    }
+                }
+                else {
+                    for (var x = 0; x < data.data.length; x++) {
+                        var t = templates.get('legendItem');
+                        list.push(templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) + ' - ' + data.overlay.legendFormat(data.data[x].Max) }));
+                    }
+                }
+                me.legend.html(list.reverse().join(''));
+
+                me.legend.parent().show();
+                me.title.show();
+            }
+            else {
+                me.legend.parent().hide();
+                me.title.hide();
+            }
+
+         
+
+        };
 
         var zoomChanged = function () {
             setOverlay();
         };
 
-        
+        var fitBounds = function (latLngBounds) {
+            me.map.fitBounds(latLngBounds);
+        };
 
-
-
+        var setCenter = function (latLng) {
+            me.map.setCenter(latLng);
+        };
 
         var publicObj = {
             getContainer: function () {
                 return me.container;
+            },
+            fitBounds: function (bounds) {
+                fitBounds(bounds);
+            },
+            setCenter: function (latLng) {
+                setCenter(latLng);
             }
         };
         init();

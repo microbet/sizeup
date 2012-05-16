@@ -4,7 +4,6 @@
 
         var me = {};
         var dataLayer = new sizeup.core.data();
-        var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.data = {};
         me.container = opts.container;
@@ -87,12 +86,83 @@
 
                 me.map = new sizeup.maps.heatMap({
                     container: me.container.find('.reportContainer .map'),
-                    dataSources: {
-                        county: function (callback) { dataLayer.getSalaryBandsByCounty({ industryId: me.opts.industryId, bands: 7 }, callback); },
-                        state: function (callback) { dataLayer.getSalaryBandsByState({ industryId: me.opts.industryId, bands: 7 }, callback); }
-                    }
+                    overlays:[
+                        {
+                            tileUrl: "/tiles/salary/state/",
+                            legendSource: function (callback) {
+                                dataLayer.getSalaryBandsByState({ 
+                                    industryId: me.opts.industryId,
+                                    bands: 7 
+                                }, callback);
+                            },
+                            legendTitle: 'Average Salary by state in the USA',
+                            legendFormat: function(val){ return '$' + sizeup.util.numbers.format.abbreviate(val);},
+                            industryId: me.opts.industryId,
+                            minZoom: 0,
+                            maxZoom: 4,
+                            colors:[
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        },
+                        {
+                            tileUrl: "/tiles/salary/county/",
+                            legendSource: function (callback) {
+                                dataLayer.getSalaryBandsByCounty({
+                                    industryId: me.opts.industryId,
+                                    bands: 7,
+                                    boundingEntityId: 's' + me.opts.locations.state.Id
+                                }, callback);
+                            },
+                            legendTitle: 'Average Salary by county in ' + me.opts.locations.state.Name,
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.industryId,
+                            minZoom: 5,
+                            maxZoom: 8,
+                            boundingEntityId: 's' + me.opts.locations.state.Id,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        },
+                        {
+                            tileUrl: "/tiles/salary/county/",
+                            legendSource:function (callback) {
+                                dataLayer.getSalaryBandsByCounty({
+                                    industryId: me.opts.industryId,
+                                    bands: 7,
+                                    boundingEntityId: me.opts.locations.metro ? 'm' + me.opts.locations.metro.Id : 's' + me.opts.locations.state.Id
+                                }, callback); 
+                            },
+                            legendTitle: 'Average Salary by county in ' +   (me.opts.locations.metro ? me.opts.locations.metro.Name + ' (Metro)' : me.opts.locations.state.Name),
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.industryId,
+                            minZoom: 9,
+                            maxZoom: 32,
+                            boundingEntityId: me.opts.locations.metro ? 'm' + me.opts.locations.metro.Id : 's' + me.opts.locations.state.Id,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        }
+                    ]
                 });
-
+                me.map.setCenter(me.opts.center);
                 me.chart = new sizeup.charts.barChart({
 
                     valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
@@ -104,8 +174,6 @@
 
                 me.table = new sizeup.charts.tableChart({
                     container: me.container.find('.table').hide(),
-                    rowContainer: me.container.find('.table .container'),
-                    rowTemplate: templates.get('tableRow'),
                     rows:me.data.table
                 });
 
@@ -124,8 +192,8 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ salary: me.data.enteredValue });
-            dataLayer.getSalaryChart({ industryId: me.opts.industryId, countyId: me.opts.countyId }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getSalaryPercentile({ industryId: me.opts.industryId, countyId: me.opts.countyId, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getSalaryChart({ industryId: me.opts.industryId, countyId: me.opts.locations.county.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getSalaryPercentile({ industryId: me.opts.industryId, countyId: me.opts.locations.county.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {

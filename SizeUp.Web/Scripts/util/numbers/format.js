@@ -25,7 +25,26 @@
             var suff = ["th", "st", "nd", "rd", "th"]; // suff for suffix
             var ord= n<21?(n<4 ? suff[n]:suff[0]): (n%10>4 ? suff[0] : suff[n%10]);
             return this + ord;
+        },
+        abbreviate: function (num) {
+            if (num < 10) {
+                return this.addCommas(pValue.toFixed(1));
+            }
+            else if (num >= 10 && num < 10000) {
+                return this.addCommas(Math.round(num));
+            }
+            else if (num >= 10000 && num < 100000) {
+                return this.addCommas((num / 1000).toFixed(1)) + "K";
+            }
+            else if (num >= 100000 && num < 1000000) {
+                return this.addCommas(Math.round(num / 1000)) + "K";
+            }
+            else if (num >= 1000000 && num < 1000000000) {
+                return this.addCommas((num / 1000000).toFixed(1)) + "M";
+            }
+            else if (num >= 1000000000) {
+                return this.addCommas((num / 1000000000).toFixed(1)) + "B";
+            }
         }
-
     };
 })();

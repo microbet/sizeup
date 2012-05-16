@@ -51,12 +51,12 @@
             });
 
             if (!me.data.currentCity && me.data.detectedCity) {
-                me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.FullName);
+                me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.Name + ', ' + me.data.detectedCity.State);
                 me.form.location.citySelector.setSelection(me.data.detectedCity);
                 showDetectedCity();
             }
             else if (me.data.currentCity) {
-                me.form.location.enteredLocation.find('.locationText').html(me.data.currentCity.FullName);
+                me.form.location.enteredLocation.find('.locationText').html(me.data.currentCity.Name + ', ' + me.data.currentCity.State);
                 me.form.location.citySelector.setSelection(me.data.currentCity);
                 showCurrentCity();
             }
@@ -127,7 +127,7 @@
             }
             else {
                 me.errors.invalidCity.fadeOut('slow');
-                me.form.location.enteredLocation.find('.locationText').html(item.FullName);
+                me.form.location.enteredLocation.find('.locationText').html(item.Name + ', ' + item.State);
                 showCurrentCity();
                 checkForData();
             }

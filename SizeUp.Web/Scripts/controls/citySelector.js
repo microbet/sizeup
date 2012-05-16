@@ -51,7 +51,7 @@
         var setSelection = function (item) {
             me.selection = item;
             if (item != null) {
-                me.textbox.val(item.FullName);
+                me.textbox.val(item.Name + ', ' + item.State);
                 me.textbox.removeClass('blank');
             }
             else {

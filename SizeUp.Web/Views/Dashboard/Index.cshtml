@@ -19,7 +19,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/polygon.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmap.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/gauge.js")"></script>
@@ -251,8 +251,14 @@
                     <div class="sourceContent">
                         <p>Salary data comes from quarterly censuses of businesses by the Federal Government. </p>
                     </div>
-                    <div class="map">
-                        <div class="legend"></div>
+                    <div class="map heatmap">
+                        <p class="title backdrop"></p>
+                        <div class="legend backdrop">
+                            <ul class="legendContainer">
+                                <li data-template="legendItem"><div class="block" style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
+                            </ul>
+                            <div class="bottom backdrop"></div>
+                        </div>
                         <div class="container"></div>
                     </div>
                 </div>
