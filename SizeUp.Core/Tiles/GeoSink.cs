@@ -10,7 +10,7 @@ using System.Drawing.Drawing2D;
 
 namespace SizeUp.Core.Tiles
 {
-    public class GeoSink : IGeographySink110
+    public class GeoSink : IGeographySink
     {
 
         private readonly GoogleMapsAPIProjection projection;

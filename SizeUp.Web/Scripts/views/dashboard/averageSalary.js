@@ -44,9 +44,25 @@
                     onClick: function () { toggleChart(); }
                 });
 
+            me.considerationToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.reportSidebar .considerationToggle'),
+                    onClick: function () { toggleConsiderations(); }
+                });
+
+            me.resourceToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.reportSidebar .resourcesToggle'),
+                    onClick: function () { toggleResources(); }
+                });
+
 
             me.description = me.container.find('.description');
             me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
+            me.considerations = me.container.find('.reportContainer .considerations');
+            me.resources = me.container.find('.reportContainer .resources');
+
+
 
             me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
@@ -62,6 +78,14 @@
 
         var toggleSource = function () {
             me.sourceContent.slideToggle();
+        };
+
+        var toggleConsiderations = function () {
+            me.considerations.toggleClass('collapsed', 1000);
+        };
+
+        var toggleResources = function () {
+            me.resources.toggleClass('collapsed', 1000);
         };
 
         var toggleChart = function () {

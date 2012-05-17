@@ -40,50 +40,56 @@ namespace SizeUp.Core.Geo
             {
                 EntityId = long.Parse(entityIdCode.Substring(1));
                 EntityType = BoundingEntityType.Zip;
-                var g = DataContexts.SizeUpContext.ZipCodes.Where(i => i.Id == EntityId).Select(i => i.Geography.Buffer(-100)).FirstOrDefault();
+                var g = DataContexts.SizeUpContext.ZipCodes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
                 if (g != null)
                 {
+                    //g = g.Buffer(-100);
                     Geography = SqlGeography.Parse(g.AsText());
+                    Geography = Geography.Reduce(10).STBuffer(-100);
                 }
             }
             else if (entityIdCode.StartsWith("c"))
             {
                 EntityId = long.Parse(entityIdCode.Substring(1));
                 EntityType = BoundingEntityType.City;
-                var g = DataContexts.SizeUpContext.Cities.Where(i => i.Id == EntityId).Select(i => i.Geography.Buffer(-500)).FirstOrDefault();
+                var g = DataContexts.SizeUpContext.Cities.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
                 if (g != null)
                 {
                     Geography = SqlGeography.Parse(g.AsText());
+                    Geography = Geography.Reduce(100).STBuffer(-500);
                 }
             }
             else if (entityIdCode.StartsWith("co"))
             {
                 EntityId = long.Parse(entityIdCode.Substring(2));
                 EntityType = BoundingEntityType.County;
-                var g = DataContexts.SizeUpContext.Counties.Where(i => i.Id == EntityId).Select(i => i.Geography.Buffer(-500)).FirstOrDefault();
+                var g = DataContexts.SizeUpContext.Counties.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
                 if (g != null)
                 {
                     Geography = SqlGeography.Parse(g.AsText());
+                    Geography = Geography.Reduce(100).STBuffer(-500);
                 }
             }
             else if (entityIdCode.StartsWith("m"))
             {
                 EntityId = long.Parse(entityIdCode.Substring(1));
                 EntityType = BoundingEntityType.Metro;
-                var g = DataContexts.SizeUpContext.Metroes.Where(i => i.Id == EntityId).Select(i => i.Geography.Buffer(-500)).FirstOrDefault();
+                var g = DataContexts.SizeUpContext.Metroes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
                 if (g != null)
                 {
                     Geography = SqlGeography.Parse(g.AsText());
+                    Geography = Geography.Reduce(100).STBuffer(-500);
                 }
             }
             else if (entityIdCode.StartsWith("s"))
             {
                 EntityId = long.Parse(entityIdCode.Substring(1));
                 EntityType = BoundingEntityType.State;
-                var g = DataContexts.SizeUpContext.States.Where(i => i.Id == EntityId).Select(i => i.Geography.Buffer(-2500)).FirstOrDefault();
+                var g = DataContexts.SizeUpContext.States.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
                 if (g != null)
                 {
                     Geography = SqlGeography.Parse(g.AsText());
+                    Geography = Geography.Reduce(2500).STBuffer(-2500);
                 }
             }
         }

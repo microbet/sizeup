@@ -67,10 +67,18 @@
 
 
 
-#dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; vertical-align:top;}
-#dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 1em; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
+#dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; vertical-align:top; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
+#dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 1em; }
 #dashboard .report .body .reportContainer .reportSidebar .section p { padding: 0 1em; margin: 0 0 1em 0; line-height: 1.5em; }
 
 #dashboard .report .body .reportContainer .map .container a,
 #dashboard .report .body .reportContainer .map .container span { font-size: 1em; }
 
+
+
+#dashboard .fadeToggle {display: block; text-align: center; font-size: 1.1em; text-transform: uppercase; color: #aaa; padding: 0 0 0.5em 0;   }
+#dashboard .fadeToggle:after { content: " "; padding:  0 10px;background-position: 0 -26px; background-repeat: no-repeat; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAoCAYAAADHVmuAAAAAAXNSR0IArs4c6QAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIChYOJ8jCqs4AAAEhSURBVDjL7dSha9ZRGMXxj0MsC9ZlDQoDcWFFmU0cm9FiExkcFgQHBhXFJbNBw5EVzQ6mRQWDxW4w+A8opjXBaPkJ2+99FwRt74nPPffcAw/3y39T2zdtz45ma22fwNyB+RZ2214YTDdxD/fh2CjhPN7iPZaxkmT/UGLbpSSfcR0XsZpkv+3S+OnbbW8l+YhFfG+7M1w6ZNzAetvHOI49/EjydFrHeXzAKewlyZ+zg4mS/MQ6XmDTTDPN9M85ND+ezU0xreFr29NHGgdA7eAV3rVdmDC2XcTzgTlbuIvXbU+OE7eHz/+l7WqSXdzBwwmkDMnPBkrcSPLyqI7bOIcVPGp7dVrHzcF0OcknXMKDthPYO4FrSX4NwPqGKzjzV0v4DRX9ZsqfcqjrAAAAAElFTkSuQmCC); }
+#dashboard .collapsed.fadeToggle:after { background-position: 0 3px; }
+#dashboard .collapsable { overflow: hidden; position: relative; }
+#dashboard .collapsable:after{content: " "; position:absolute;width: 33em; height: 20px; bottom: 0;  background-repeat: repeat-x; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAYAAABMDlehAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhMdLGgtp6AAAAAoSURBVAjXY/jw4YM0EwMDAy8TAwMDD5zFjSrGg0UJDxYCQ8fbt2/ZAFgOBr3ma59TAAAAAElFTkSuQmCC); }
+#dashboard .collapsable.collapsed {height: 3em;  }
