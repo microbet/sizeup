@@ -1,0 +1,62 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Revenue Per Capita</h2>
+    <span class="hint">Revenue generated per community resident</span>
+    <input type="text" class="valueBox" />
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Average Salary Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent">
+            <h3>How you size up</h3>
+            <p>Revenue per capita is measured by the revenue generated for every person living in the community.
+                    The revenue per capita in your industry in your city is greater than 100% of cities
+                    in your county, 97% of cities in your metro area, 92% of cities in your state,
+                    and 78% of cities in the nation.
+            </p>
+            <div class="chart">
+                <a href="#">Hide Variations by Geography</a>
+                <a href="#">View Data Table </a>
+                <div class="container"></div>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                <p>Revenue Per Capita is determined by dividing the total revenue for a community in this specific industry by the
+                        population of the community. The total revenue for a community is aggregated from data on individual businesses,
+                        which comes from hundreds of data sources which are more fully described in their respective reports.
+                        Population data is estimated using a sophisticated projection methodology based on Census population counts,
+                        building permit statistics, and Medicare eligible population counts, among other data sources.
+                </p>
+            </div>
+            <div class="map"></div>
+            <div class="map"></div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section">
+                <h4>Considerations</h4>
+                <p>Revenue per capita illustrates how well a community is producing revenue relative to the size of its population.</p>
+		        <p>If you are a local-serving business (i.e., your goods or services are purchased within your community),
+                        revenue per capita can show you whether your location is underserved compared to the national
+                        average.  If your area is underserved, there may be potential for your company to grow and
+                        take advantage of the local consumer spending power, some of which may be leaking out to 
+                    businesses in neighboring communities.
+		        </p>
+		        <p>If you serve customers outside of your immediate community, a high revenue per capita may indicate a strong 
+                    local cluster of businesses in your industry, which may be a sign that your area has a competitive 
+                    advantage in your industry. If you are in an area with a small economy, a strong revenue 
+                    concentration may result from one major export employer, rather than any clustering of businesses.
+		        </p>
+            </div>
+        </div>
+    </div>
+</div>

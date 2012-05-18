@@ -29,6 +29,7 @@
             me.body = me.container.find('.body');
             me.loading = me.container.find('.body .loading');
             me.reportContainer = me.container.find('.body .reportContainer');
+            me.toggle = me.container.find('.reportToggle');
 
             me.gauge.hide();
             me.prompt.hide();
@@ -36,22 +37,40 @@
             me.body.hide();
             me.reportContainer.hide();
 
-
+            me.toggle.click(function () { reportToggleClicked(); });
             me.valueBox.blur(function () { onTextboxBlur(); });
             me.valueBox.keypress(function (e) { onTextboxKeypress(e); });
         };
 
 
+        var reportToggleClicked = function () {
+            if (me.body.is(':visible')) {
+                collapseReport();
+            } else {
+                expandReport();
+            }
+        };
 
        
         var reportLoaded = function () {
             showReport();
         };
 
+        var makeStale = function () {
+            me.isReportStale = true;
+            me.toggle.removeClass('active');
+        };
+
+        var makeFresh = function () {
+            me.isReportStale = false;
+            me.toggle.addClass('active');
+        };
+
         var getReport = function () {
             showGauge();
             hideReport();
             me.body.show();
+            me.toggle.addClass('open');
             var e =
             {
                 callback: reportLoaded,
@@ -63,12 +82,15 @@
         var showReport = function () {
             me.loading.hide();
             me.reportContainer.show();
+            me.body.show();
+            me.toggle.addClass('open');
         };
 
         var hideReport = function () {
             me.body.hide();
             me.loading.show();
             me.reportContainer.hide();
+            me.toggle.removeClass('open');
         };
 
 
@@ -111,7 +133,7 @@
             if (me.isReportStale) {
                 var v = $.trim(cleanInput(me.valueBox.val()));
                 if (isValid(v)) {
-                    me.isReportStale = false;
+                    makeFresh();
                     setValue(v);
                     getReport();
                 }
@@ -130,7 +152,7 @@
         var onTextboxKeypress = function (e) {
             var val = $.trim(cleanInput(me.valueBox.val()));
             if (e.charCode != 0) {
-                me.isReportStale = true;
+                makeStale();
                 if (val != '') {
                     showRunReport();
                 } else {
@@ -138,7 +160,7 @@
                 }
             }
             else if (e.keyCode == 8 || e.keyCode == 46) {
-                me.isReportStale = true;
+                makeStale();
             }
             else if (e.keyCode == 13) {
                 if (e.keyCode == 13) {
@@ -173,8 +195,18 @@
 
         var forceSubmit = function () {
             clearTimeout(me.fadeTimeout);
-            me.isReportStale = true;
+            makeStale();
             doSubmit();
+        };
+
+        var expandReport = function () {
+            if (!me.isReportStale) {
+                showReport();
+            }
+        };
+
+        var collapseReport = function () {
+            hideReport();
         };
 
         var publicObj = {
@@ -192,6 +224,12 @@
             },
             doSubmit: function () {
                 forceSubmit();
+            },
+            expandReport: function () {
+                expandReport();
+            },
+            collapseReport: function () {
+                collapseReport();
             }
         };
         init();

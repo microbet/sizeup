@@ -25,12 +25,13 @@
                     }
                 });
 
+            /*
             me.source = new sizeup.controls.contentExpander(
                 {
                     button: me.container.find('.reportContainer .links .source'),
                     contentPanel: me.container.find('.reportContainer .sourceContent')
                 });
-
+                */
 
 
         };
@@ -52,6 +53,14 @@
             me.reportContainer.fadeInPrompt(delay, callback);
         };
 
+        var collapseReport = function () {
+            me.reportContainer.collapseReport();
+        };
+
+        var expandReport = function () {
+            me.reportContainer.expandReport();
+        };
+
 
         var publicObj = {
 
@@ -60,6 +69,12 @@
             },
             setupReport: function () {
                 setupReport();
+            },
+            collapseReport: function () {
+                collapseReport();
+            },
+            expandReport: function () {
+                expandReport();
             }
         };
         init();

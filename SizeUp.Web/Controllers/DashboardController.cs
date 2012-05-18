@@ -7,6 +7,7 @@ using SizeUp.Web.Models;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Web.Areas.Api.Models;
+using Microsoft.SqlServer.Types;
 
 namespace SizeUp.Web.Controllers
 {
@@ -17,15 +18,32 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Index(string state, string city, string industry)
         {
-            ViewBag.Strings = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name.StartsWith("Salary")).ToDictionary(i => i.Name, i => i.Value);
+            ViewBag.Strings = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name.StartsWith("Dashboard")).ToDictionary(i => i.Name, i => i.Value);
             var ind = DataContexts.SizeUpContext.Industries.Where(i => i.SEOKey == industry)
-                .Select(i=> new {Industry = i, NAICS6 = DataContexts.SizeUpContext.SicToNAICSMappings.Where(m=>m.IndustryId == i.Id).Select(m=>m.NAICS).FirstOrDefault()})
+                .Select(i=> new {
+                    Industry = i,
+                    NAICS6 = DataContexts.SizeUpContext.SicToNAICSMappings.Where(m=>m.IndustryId == i.Id).Select(m=>m.NAICS).FirstOrDefault(),
+                    NAICS4 = DataContexts.SizeUpContext.NAICS.Where(n => n.NAICSCode == DataContexts.SizeUpContext.SicToNAICSMappings
+                        .Where(m => m.IndustryId == i.Id)
+                        .Select(m => m.NAICS)
+                        .FirstOrDefault()
+                        .NAICSCode.Substring(0,4)
+                   ).FirstOrDefault()
+                })
                 .FirstOrDefault();
     
             var locations = DataContexts.SizeUpContext.Cities.Where(i => i.SEOKey == city && i.State.Abbreviation == state).Select(i => new { City = i, County = i.County, Metro = i.County.Metro, State = i.State }).FirstOrDefault();
             WebContext.Current.CurrentCity = locations.City;
             WebContext.Current.CurrentIndustry = ind.Industry;
-           
+
+            var center = new Areas.Api.Models.Maps.LatLng();
+            var geo = SqlGeography.Parse(locations.City.Geography.AsText());
+            var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
+            geom = geom.STCentroid();
+            geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
+            center.Lat = (double)geo.STPointN(1).Lat;
+            center.Lng = (double)geo.STPointN(1).Long;
+
 
             ViewBag.Report = new Models.Business.Report()
             {
@@ -66,8 +84,15 @@ namespace SizeUp.Web.Controllers
                         Id = ind.NAICS6.Id,
                         NAICSCode = ind.NAICS6.NAICSCode,
                         Name = ind.NAICS6.Name
+                    },
+                    NAICS4 = new Areas.Api.Models.NAICS.NAICS()
+                    {
+                        Id = ind.NAICS4.Id,
+                        NAICSCode = ind.NAICS4.NAICSCode,
+                        Name = ind.NAICS4.Name
                     }
-                }
+                },
+                MapCenter = center
             };
 
             if (locations.Metro != null)

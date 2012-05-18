@@ -1,0 +1,51 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Workers' Compensation</h2>
+    <span class="hint">Premium per employee (per $100 of payroll)</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please enter premium per employee<br/>(per $100 of payroll)</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Average Salary Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent">
+            <h3>How you size up</h3>
+            <p>Your premium rate for workers' compensation is 136% greater than that for the average company in your state.</p>
+            <div class="chart">
+                <a href="#">Hide Variations by Geography</a>
+                <a href="#">View Data Table </a>
+                <div class="container"></div>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                <p>Workers’ compensation premium rates come from the states themselves, obtained directly from the states via letter,
+                fax, or telephone call, or from the National Council on Compensation Insurance’s All States Basic Manual for Workers’
+                Compensation and Employers’ Liability Insurance.
+                </p>
+            </div>
+            <div class="map"></div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section">
+                <h4>Considerations</h4>
+                <p>Within a particular state, workers' compensation premiums will vary by insurer as well as by the type of occupation insured.</p>
+		        <p>It may be possible to reduce your workers' compensation rates through safety training, accident prevention, and by helping injured workers return to work quickly.</p>
+            </div>
+            <div class="section">
+                <h4>Resources</h4>
+                <p>Get a quote from <a href="http://www.shopinsuranceonline.com" target="_blank">Insurance Source</a> and reduce your workers' compensation premiums.</p>
+       	        <p>Provide employee safety training online with safety training libraries from <a href="http://www.mastery.com/employee-safety-training.php" target="_blank">Mastery</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>

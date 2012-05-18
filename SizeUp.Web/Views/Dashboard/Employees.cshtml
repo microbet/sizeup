@@ -1,0 +1,61 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Employees</h2>
+    <span class="hint">Number of full-time equivalent employees</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please enter <br />how many employees you have</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Employee Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent">
+            <h3>How you size up</h3>
+            <p>In your industry, your business has more employees than 100% of businesses in your city, 
+                27% of businesses in your county, 28% of businesses in your metro area, 37% of businesses 
+                in your state, and 34% of businesses in the nation.
+            </p>
+            <div class="chart">
+                <a href="#">Hide Variations by Geography</a>
+                <a href="#">View Data Table </a>
+                <div class="container"></div>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                <p>Employee data for communities on SizeUp is aggregated from data on individual businesses,
+                    which comes from hundreds of data sources including, but not limited to, IRS records,
+                    county courthouse filings, Yellow Pages and White Pages, business publications,
+                    the U.S. Postal Service, and corporate annual reports.
+                </p>
+            </div>
+            <div class="map"></div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section">
+                <h4>Considerations</h4>
+                <p>Are you larger or smaller than the average business in your area?  You should be aware of the advantages
+                    and disadvantages for either situation, and how to promote the advantages to your customers.
+                </p>
+            </div>
+            <div class="section">
+                <h4>Resources</h4>
+                <p>Post available jobs at <a href="http://hiring.monster.com" target="_blank">Monster</a>, <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>, <a href="http://success.simplyhired.com" target="_blank">Simply Hired</a>, or <a href=https://ads.indeed.com" target="_blank">Indeed</a>.</p>
+		        <p>Search resumes at <a href="http://www.linkedin.com/" target="_blank">LinkedIn</a>, <a href="http://hiring.monster.com" target="_blank">Monster</a>, or <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>.</p>
+		        <p>Find temporary employees through <a href="http://www.manpower.com" target="_blank">Manpower</a>.</p>
+	            <p>Augment salaries with a retention plan from <a href="http://retensa.com"  target="_blank">Retensa</a> and perks from <a href="http://betterworks.com"  target="_blank">BetterWorks</a>.</p>
+                <p>Find salary data by occupation at <a href="http://salary.com"  target="_blank">Salary.com</a> or <a href="http://www.payscale.com/hr/solutions/salary-benchmarking"  target="_blank">PayScale</a>.</p>
+		        <p>Enhance your employee benefits packages while saving your company money. Sign up for commuter benefit programs and flexible spending accounts through <a href="http://www.transitcenter.com/employers/"  target="_blank">TransitCheck</a>,
+                <a href="https://www.flexdirect.adp.com/" target="_blank">FlexDirect</a>, or <a href="http://www.flex-plan.com/" target="_blank">Flex-Plan Services</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>

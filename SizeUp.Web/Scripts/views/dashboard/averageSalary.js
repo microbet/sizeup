@@ -190,7 +190,7 @@
                         }
                     ]
                 });
-                me.map.setCenter(me.opts.center);
+                me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
                 me.chart = new sizeup.charts.barChart({
 
                     valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
@@ -305,6 +305,15 @@
         };
 
 
+        var collapseReport = function () {
+            me.reportContainer.collapseReport();
+        };
+
+        var expandReport = function () {
+            me.reportContainer.expandReport();
+        };
+
+
         var publicObj = {
 
             fadeInPrompt: function (delay, callback) {
@@ -312,6 +321,12 @@
             },
             setupReport: function () {
                 setupReport();
+            },
+            collapseReport: function () {
+                collapseReport();
+            },
+            expandReport: function () {
+                expandReport();
             }
         };
         init();

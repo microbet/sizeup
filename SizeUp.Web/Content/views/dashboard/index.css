@@ -1,12 +1,14 @@
 ﻿#contentWrap { padding: 0 0 2em; }
+#content { margin-bottom: 3em; }
 
-
-#dasboard { position: relative; }
+#dashboard { position: relative; text-align: center; }
 #dashboard h1 {font-size: 1.8em; position: absolute;   left: 14em; top: -1.4em;}
 #dashboard h3 { color:#6EAB24; font-size: 1.7em; }
 #dashboard h4 { font-size: 1.7em; font-weight: normal; }
 
-#dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
+#dashboard .info { margin: 1em 1em 3em 1em; }
+
+#dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; text-align: left; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
 
 
 #dashboard .report .header .icon { width:60px; height:60px; background-image:url(/content/images/dashboardIcons.png);background-repeat:no-repeat; }
@@ -14,9 +16,15 @@
 #dashboard .report .header .hint {font-size:1.1em; position: absolute; top: 5em; left: 8.5em;   }
 #dashboard .report .header input[type="text"] {font-family:  Trebuchet MS,Arial,Sans-Serif;  position: absolute;top: 1em;left: 21em;  font-weight: bold; padding: 0.5em;  width: 8em; text-align: right;}
 #dashboard .report .header .prompt {position: absolute; top: 1.25em;right: 4.75em; background-image: url("/content/images/dashbuttons.png"); background-repeat: no-repeat; color: #FFFFFF; display: block; font-size: 1.1em; font-weight: bold; height: 38px; line-height: 1.2em; padding: 11px 10px 0 35px; text-align: center; text-transform: uppercase; width: 270px; }
-
 #dashboard .report .header .gauge { position: absolute; top: 1em; right: 28em;  }
 #dashboard .report .header a.button { padding: 0.5em 0.75em; position: absolute; top: 1em; right: 12.5em;  }
+
+#dashboard .report .header .reportToggle { height: 30px; width: 30px; cursor: default; position: absolute; right: 2em; top: 2em; background-image: url("/content/images/dashbuttons.png"); background-position: -318px -28px; background-repeat: no-repeat; }
+#dashboard .report .header .reportToggle.active { cursor :pointer; }
+#dashboard .report .header .reportToggle.open { background-position: -346px -22px; }
+#dashboard .report .header:hover .reportToggle.open.active { background-position: -346px 7px; }
+#dashboard .report .header:hover .reportToggle.active { background-position: -318px 0px; }
+
 
 #dashboard #revenue.report .header .icon {background-position: 0 0; }
 #dashboard #yearStarted.report .header .icon {background-position: 0 -60px; }
@@ -82,3 +90,5 @@
 #dashboard .collapsable { overflow: hidden; position: relative; }
 #dashboard .collapsable:after{content: " "; position:absolute;width: 33em; height: 20px; bottom: 0;  background-repeat: repeat-x; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAYAAABMDlehAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhMdLGgtp6AAAAAoSURBVAjXY/jw4YM0EwMDAy8TAwMDD5zFjSrGg0UJDxYCQ8fbt2/ZAFgOBr3ma59TAAAAAElFTkSuQmCC); }
 #dashboard .collapsable.collapsed {height: 3em;  }
+
+#dashboard #summaryView { position: relative; display: inline-block; padding: 0.25em 4em; top: 3.5em; opacity: 0.9; background-color: #ddd; -webkit-border-bottom-right-radius: 1em;-webkit-border-bottom-left-radius: 1em;-moz-border-radius-bottomright: 1em;-moz-border-radius-bottomleft: 1em;border-bottom-right-radius: 1em;border-bottom-left-radius: 1em; }

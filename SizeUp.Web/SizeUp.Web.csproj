@@ -307,6 +307,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\new.SizeUp.com.pubxml" />
+    <Content Include="Views\Dashboard\Salary.cshtml" />
+    <Content Include="Views\Dashboard\Revenue.cshtml" />
+    <Content Include="Views\Dashboard\YearStarted.cshtml" />
+    <Content Include="Views\Dashboard\Employees.cshtml" />
+    <Content Include="Views\Dashboard\CostEffectiveness.cshtml" />
+    <Content Include="Views\Dashboard\RevenuePerCapita.cshtml" />
+    <Content Include="Views\Dashboard\Turnover.cshtml" />
+    <Content Include="Views\Dashboard\HealthcareCost.cshtml" />
+    <Content Include="Views\Dashboard\WorkersComp.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
