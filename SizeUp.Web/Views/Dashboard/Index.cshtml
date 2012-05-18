@@ -58,7 +58,7 @@
 
 
 <div id="dashboard" class="hidden">
-<h1>@ViewBag.Industry.Name in @ViewBag.City.Name, @ViewBag.State.Abbreviation</h1>
+<h1>@ViewBag.Report.IndustryDetails.Industry.Name in @ViewBag.Report.Locations.City.Name, @ViewBag.Report.Locations.State.Abbreviation</h1>
 
     <div id="revenue" class="report">
         <div class="header">
@@ -221,8 +221,9 @@
                 <div class="reportContent reportData">
                     <h3>How you size up</h3>
                     <p class="description">
-                        The average salary for all workers in your county for the closest corresponding industry category,
-                        <strong>@ViewBag.NAICS6.Name</strong>, is $69,194. The average salary for your business is 87% below the average for your county.
+                        <div data-template="description">
+                        @Html.Raw(ViewBag.Strings["Salary.Description"])
+                        </div>
                     </p>
                     <div class="chart">
                         <a href="javascript:void(0);" class="mapToggle" data-toggleText="View Variations by Geography">Hide Variations by Geography</a>
@@ -249,7 +250,7 @@
                         </li>
                     </ul>
                     <div class="sourceContent">
-                        <p>Salary data comes from quarterly censuses of businesses by the Federal Government. </p>
+                        @Html.Raw(ViewBag.Strings["Salary.Source"])
                     </div>
                     <div class="map heatmap">
                         <p class="title backdrop"></p>
@@ -264,30 +265,11 @@
                 </div>
                 <div class="reportSidebar">
                     <div class="section considerations collapsable">
-                        <h4>Considerations</h4>
-                        <p>The average salary for an industry often takes into account many different occupations.
-                             For example, a law firm employs clerical staff in addition to attorneys, which will affect the average salary.
-                        </p>
-                        <p>If the mix of occupations for your business is typical of other businesses in your industry, the average salary is 
-                            a useful measurement for judging whether you are paying more or less than other businesses in your industry.
-                        </p>
-                        <p>Within an occupation, salary levels are affected by age and education. If your salaries are comparatively high 
-                            and years of experience and education are not necessarily critical, you may consider hiring younger workers, or 
-                            graduates from community colleges as opposed to 4-year colleges.
-                        </p>
-                        <p>Salary levels are correlated with cost of living, which may account for many of the salary differences among areas.
-                        </p>
+                        @Html.Raw(ViewBag.Strings["Salary.Considerations"])
                     </div>
                     <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
                     <div class="section resources collapsable">
-                        <h4>Resources</h4>
-                        <p>Post available jobs at <a href="http://hiring.monster.com" target="_blank">Monster</a>, <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>, <a href="http://success.simplyhired.com" target="_blank">Simply Hired</a>, or <a href=https://ads.indeed.com" target="_blank">Indeed</a>.</p>
-		                <p>Search resumes at <a href="http://www.linkedin.com/" target="_blank">LinkedIn</a>, <a href="http://hiring.monster.com" target="_blank">Monster</a>, or <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>.</p>
-		                <p>Find temporary employees through <a href="http://www.manpower.com" target="_blank">Manpower</a>.</p>
-	                    <p>Augment salaries with a retention plan from <a href="http://retensa.com"  target="_blank">Retensa</a> and perks from <a href="http://betterworks.com"  target="_blank">BetterWorks</a>.</p>
-                        <p>Find salary data by occupation at <a href="http://salary.com"  target="_blank">Salary.com</a> or <a href="http://www.payscale.com/hr/solutions/salary-benchmarking"  target="_blank">PayScale</a>.</p>
-		                <p>Enhance your employee benefits packages while saving your company money. Sign up for commuter benefit programs and flexible spending accounts through <a href="http://www.transitcenter.com/employers/"  target="_blank">TransitCheck</a>,
-                        <a href="https://www.flexdirect.adp.com/" target="_blank">FlexDirect</a>, or <a href="http://www.flex-plan.com/" target="_blank">Flex-Plan Services</a>.</p>
+                        @Html.Raw(ViewBag.Strings["Salary.Resources"])
                     </div>
                     <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
                 </div>
@@ -680,7 +662,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var opts = @Html.Raw(ViewBag.IdsJSON)
+        var opts = @Html.Raw(ViewBag.ReportJSON)
         var driver = new sizeup.views.dashboard.dashboard(opts);
     });
 </script>

@@ -152,6 +152,7 @@
     <Compile Include="Areas\Api\Models\Maps\LatLng.cs" />
     <Compile Include="Areas\Api\Models\Maps\Polygon.cs" />
     <Compile Include="Areas\Api\Models\Metro\Metro.cs" />
+    <Compile Include="Areas\Api\Models\NAICS\NAICS.cs" />
     <Compile Include="Areas\Api\Models\Salary\Band.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
@@ -169,7 +170,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\BusinessItem.cs" />
-    <Compile Include="Models\Business\ReportIds.cs" />
+    <Compile Include="Models\Business\IndustryDetails.cs" />
+    <Compile Include="Models\Business\Locations.cs" />
+    <Compile Include="Models\Business\Report.cs" />
     <Compile Include="Models\Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

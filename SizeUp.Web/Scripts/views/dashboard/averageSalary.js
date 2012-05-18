@@ -4,11 +4,13 @@
 
         var me = {};
         var dataLayer = new sizeup.core.data();
+        var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.data = {};
         me.container = opts.container;
         me.data.enteredValue = jQuery.bbq.getState().salary;
         me.data.hasData = false;
+        me.data.description = {};
 
         var init = function () {
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
@@ -61,6 +63,7 @@
             me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
             me.considerations = me.container.find('.reportContainer .considerations');
             me.resources = me.container.find('.reportContainer .resources');
+            me.description = me.container.find('.reportContainer .description');
 
 
 
@@ -109,19 +112,20 @@
                 me.reportData.show();
 
                 me.map = new sizeup.maps.heatMap({
+                    templates: templates,
                     container: me.container.find('.reportContainer .map'),
                     overlays:[
                         {
                             tileUrl: "/tiles/salary/state/",
                             legendSource: function (callback) {
                                 dataLayer.getSalaryBandsByState({ 
-                                    industryId: me.opts.industryId,
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7 
                                 }, callback);
                             },
                             legendTitle: 'Average Salary by state in the USA',
                             legendFormat: function(val){ return '$' + sizeup.util.numbers.format.abbreviate(val);},
-                            industryId: me.opts.industryId,
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 0,
                             maxZoom: 4,
                             colors:[
@@ -138,17 +142,17 @@
                             tileUrl: "/tiles/salary/county/",
                             legendSource: function (callback) {
                                 dataLayer.getSalaryBandsByCounty({
-                                    industryId: me.opts.industryId,
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.locations.state.Id
+                                    boundingEntityId: 's' + me.opts.report.Locations.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + me.opts.locations.state.Name,
+                            legendTitle: 'Average Salary by county in ' + me.opts.report.Locations.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.industryId,
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.locations.state.Id,
+                            boundingEntityId: 's' + me.opts.report.Locations.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -163,17 +167,17 @@
                             tileUrl: "/tiles/salary/county/",
                             legendSource:function (callback) {
                                 dataLayer.getSalaryBandsByCounty({
-                                    industryId: me.opts.industryId,
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.locations.metro ? 'm' + me.opts.locations.metro.Id : 's' + me.opts.locations.state.Id
+                                    boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
                                 }, callback); 
                             },
-                            legendTitle: 'Average Salary by county in ' +   (me.opts.locations.metro ? me.opts.locations.metro.Name + ' (Metro)' : me.opts.locations.state.Name),
+                            legendTitle: 'Average Salary by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.industryId,
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
                             maxZoom: 32,
-                            boundingEntityId: me.opts.locations.metro ? 'm' + me.opts.locations.metro.Id : 's' + me.opts.locations.state.Id,
+                            boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -198,8 +202,18 @@
 
                 me.table = new sizeup.charts.tableChart({
                     container: me.container.find('.table').hide(),
+                    templates:templates,
                     rows:me.data.table
                 });
+
+
+                me.data.description = {
+                    Percentage: me.data.gauge.tooltip,
+                    NAICS6: me.opts.report.IndustryDetails.NAICS6,
+                    Salary: me.data.table['County'].value
+                };
+
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
 
             }
             else {
@@ -216,8 +230,8 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ salary: me.data.enteredValue });
-            dataLayer.getSalaryChart({ industryId: me.opts.industryId, countyId: me.opts.locations.county.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getSalaryPercentile({ industryId: me.opts.industryId, countyId: me.opts.locations.county.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getSalaryPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {
@@ -228,7 +242,7 @@
                 me.data.gauge = {
                     value: val,
                     tooltip: data.Percentile < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
-                };
+                };               
             }
             else {
                 me.data.gauge = {
@@ -239,37 +253,39 @@
         };
 
         var chartDataReturned = function (data) {
-            me.data.chart = [
+            me.data.chart = {};
+            me.data.table = {};
+            me.data.chart['me'] =
                 {
                     value: me.data.enteredValue,
                     label: '',
                     name: 'My Business',
                     color: '#5b0'
-                }
-            ]
+                };
+            
 
-            me.data.table = [
+            me.data.table['me'] =
                 {
                     name: 'My Business',
                     value: '$' + sizeup.util.numbers.format.addCommas(me.data.enteredValue)
-                }
-            ]
+                };
+            
        
             var indexes = ['County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
-                    me.data.chart.push(
+                    me.data.chart[indexes[x]] =
                     {
                         value: parseInt(data[indexes[x]].Value),
                         label: indexes[x],
                         name: data[indexes[x]].Name,
                         color: '#0af'
-                    });
+                    };
 
-                    me.data.table.push({
+                    me.data.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
                         value: '$' + sizeup.util.numbers.format.addCommas(parseInt(data[indexes[x]].Value))
-                    });
+                    };
                 }
             } 
         };
