@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace SizeUp.Web
@@ -21,8 +26,6 @@ namespace SizeUp.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
-
             routes.MapRoute(
                 "FindBusiness", // Route name
                 "find-business/", // URL with parameters
@@ -40,21 +43,31 @@ namespace SizeUp.Web
                 "dashboard/{state}/{city}/{industry}", // URL with parameters
                 new { controller = "Dashboard", action = "Index" } // Parameter defaults
             );
+            /*
+            routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );*/
 
             routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
         }
 
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
+            // Use LocalDB for Entity Framework by default
+            Database.DefaultConnectionFactory = new SqlConnectionFactory("Data Source=(localdb)\v11.0; Integrated Security=True; MultipleActiveResultSets=True");
+
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            BundleTable.Bundles.RegisterTemplateBundles();
         }
     }
 }

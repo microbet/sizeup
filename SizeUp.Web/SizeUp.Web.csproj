@@ -8,26 +8,24 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1C3CA391-2D1C-45B6-A586-6519B735609A}</ProjectGuid>
-    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SizeUp.Web</RootNamespace>
     <AssemblyName>SizeUp.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UpgradeBackupLocation />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Beta|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -35,7 +33,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,48 +41,100 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr4.StringTemplate">
       <HintPath>..\packages\Antlr4.StringTemplate.4.0.6.9004\lib\net35\Antlr4.StringTemplate.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Data.Entity">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.Data">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Net.Http.Formatting.4.0.20126.16343\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetWebApi.Core.4.0.20126.16343\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Web.Http.Common.4.0.20126.16343\lib\net40\System.Web.Http.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetWebApi.4.0.20126.16343\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetMvc.4.0.20126.16343\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.Web.Optimization.1.0.0-beta\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\System.Web.Providers.Core.1.0\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetRazor.Core.2.0.20126.16343\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\AspNetWebPages.Core.2.0.20126.16343\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
@@ -100,8 +149,8 @@
     <Compile Include="Areas\Api\Models\City\City.cs" />
     <Compile Include="Areas\Api\Models\County\County.cs" />
     <Compile Include="Areas\Api\Models\Industry\Industry.cs" />
-    <Compile Include="Areas\Api\Models\Maps\Polygon.cs" />
     <Compile Include="Areas\Api\Models\Maps\LatLng.cs" />
+    <Compile Include="Areas\Api\Models\Maps\Polygon.cs" />
     <Compile Include="Areas\Api\Models\Metro\Metro.cs" />
     <Compile Include="Areas\Api\Models\Salary\Band.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
@@ -120,8 +169,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\BusinessItem.cs" />
-    <Compile Include="Models\Header.cs" />
     <Compile Include="Models\Business\ReportIds.cs" />
+    <Compile Include="Models\Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,12 +193,12 @@
     <Content Include="Content\views\company\team.css" />
     <Content Include="Content\views\dashboard\index.css" />
     <Content Include="Content\views\help\contact.css" />
-    <Content Include="Content\views\help\howitworks.css" />
     <Content Include="Content\views\help\faq.css" />
+    <Content Include="Content\views\help\howitworks.css" />
+    <Content Include="Content\views\home.css" />
     <Content Include="Content\views\product\privacy.css" />
     <Content Include="Content\views\product\terms.css" />
     <Content Include="Content\views\user\optout.css" />
-    <Content Include="Content\views\home.css" />
     <Content Include="Content\views\user\register.css" />
     <Content Include="Content\views\user\resetpassword.css" />
     <Content Include="Content\views\user\signin.css" />
@@ -158,9 +207,9 @@
     <Content Include="Scripts\charts\tableChart.js" />
     <Content Include="Scripts\controls\citySelector.js" />
     <Content Include="Scripts\controls\contentExpander.js" />
-    <Content Include="Scripts\controls\toggleButton.js" />
-    <Content Include="Scripts\controls\industrySelector.js" />
     <Content Include="Scripts\controls\gauge.js" />
+    <Content Include="Scripts\controls\industrySelector.js" />
+    <Content Include="Scripts\controls\toggleButton.js" />
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
@@ -177,17 +226,17 @@
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
+    <Content Include="Scripts\views\dashboard\costEffectiveness.js" />
+    <Content Include="Scripts\views\dashboard\dashboard.js" />
+    <Content Include="Scripts\views\dashboard\employees.js" />
+    <Content Include="Scripts\views\dashboard\healthcareCost.js" />
     <Content Include="Scripts\views\dashboard\jobChange.js" />
     <Content Include="Scripts\views\dashboard\reportContainer.js" />
-    <Content Include="Scripts\views\dashboard\workersComp.js" />
-    <Content Include="Scripts\views\dashboard\healthcareCost.js" />
-    <Content Include="Scripts\views\dashboard\turnover.js" />
-    <Content Include="Scripts\views\dashboard\revenuePerCapita.js" />
-    <Content Include="Scripts\views\dashboard\costEffectiveness.js" />
-    <Content Include="Scripts\views\dashboard\employees.js" />
-    <Content Include="Scripts\views\dashboard\yearStarted.js" />
-    <Content Include="Scripts\views\dashboard\dashboard.js" />
     <Content Include="Scripts\views\dashboard\revenue.js" />
+    <Content Include="Scripts\views\dashboard\revenuePerCapita.js" />
+    <Content Include="Scripts\views\dashboard\turnover.js" />
+    <Content Include="Scripts\views\dashboard\workersComp.js" />
+    <Content Include="Scripts\views\dashboard\yearStarted.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
@@ -205,22 +254,43 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Tiles\Models\" />
     <Folder Include="Areas\Tiles\Views\Shared\" />
     <Folder Include="Scripts\views\competition\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Api\Views\Web.config" />
+    <Content Include="Areas\Tiles\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Business\Find.cshtml" />
+    <Content Include="Views\Company\About.cshtml" />
+    <Content Include="Views\Company\Team.cshtml" />
+    <Content Include="Views\Competition\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Help\Contact.cshtml" />
+    <Content Include="Views\Help\Faq.cshtml" />
+    <Content Include="Views\Help\HowItWorks.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Product\Privacy.cshtml" />
+    <Content Include="Views\Product\Terms.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\OptOut.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\User\Signin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SizeUp.Core\SizeUp.Core.csproj">
@@ -233,55 +303,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User\Signin.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\ResetPassword.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\User\OptOut.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Product\Terms.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Product\Privacy.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Company\About.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Company\Team.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Help\HowItWorks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Help\Contact.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Help\Faq.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Business\Find.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Competition\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Dashboard\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Tiles\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
+    <None Include="Properties\PublishProfiles\new.SizeUp.com.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -305,7 +327,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>65232</DevelopmentServerPort>
+          <DevelopmentServerPort>39252</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:10000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
