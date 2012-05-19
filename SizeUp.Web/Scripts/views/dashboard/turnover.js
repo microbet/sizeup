@@ -26,13 +26,7 @@
                     }
                 });
 
-            me.source = new sizeup.controls.contentExpander(
-                {
-                    button: me.container.find('.reportContainer .links .source'),
-                    contentPanel: me.container.find('.reportContainer .sourceContent')
-                });
-
-
+        
 
         };
 
@@ -54,6 +48,15 @@
         };
 
 
+        var collapseReport = function () {
+            me.reportContainer.collapseReport();
+        };
+
+        var expandReport = function () {
+            me.reportContainer.expandReport();
+        };
+
+
         var publicObj = {
 
             fadeInPrompt: function (delay, callback) {
@@ -61,6 +64,12 @@
             },
             setupReport: function () {
                 setupReport();
+            },
+            collapseReport: function () {
+                collapseReport();
+            },
+            expandReport: function () {
+                expandReport();
             }
         };
         init();

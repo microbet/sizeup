@@ -24,12 +24,12 @@
             me.reports.push(new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.report }));
             me.reports.push(new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.report }));
             if (me.opts.isAuthenticated) {
-               /* me.reports.push(new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.report }));
+                me.reports.push(new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.report }));
                 me.reports.push(new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), report: me.opts.report }));
                 me.reports.push(new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), report: me.opts.report }));
                 me.reports.push(new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.report }));
                 me.reports.push(new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), report: me.opts.report }));
-                me.reports.push(new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), report: me.opts.report }));*/
+                me.reports.push(new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), report: me.opts.report }));
             }
 
             $('#dashboard').removeClass('hidden');

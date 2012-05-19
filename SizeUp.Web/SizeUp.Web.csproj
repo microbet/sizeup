@@ -209,7 +209,6 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
     <Content Include="Scripts\controls\citySelector.js" />
-    <Content Include="Scripts\controls\contentExpander.js" />
     <Content Include="Scripts\controls\gauge.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
     <Content Include="Scripts\controls\toggleButton.js" />

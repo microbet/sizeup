@@ -19,7 +19,7 @@
 #dashboard .report .header .gauge { position: absolute; top: 1em; right: 28em;  }
 #dashboard .report .header a.button { padding: 0.5em 0.75em; position: absolute; top: 1em; right: 12.5em;  }
 
-#dashboard .report .header .reportToggle { height: 30px; width: 30px; cursor: default; position: absolute; right: 2em; top: 2em; background-image: url("/content/images/dashbuttons.png"); background-position: -318px -28px; background-repeat: no-repeat; }
+#dashboard .report .header .reportToggle { height: 30px; width: 30px; cursor: default; position: absolute; right: 1em; top: 2em; background-image: url("/content/images/dashbuttons.png"); background-position: -318px -28px; background-repeat: no-repeat; }
 #dashboard .report .header .reportToggle.active { cursor :pointer; }
 #dashboard .report .header .reportToggle.open { background-position: -346px -22px; }
 #dashboard .report .header:hover .reportToggle.open.active { background-position: -346px 7px; }
@@ -36,7 +36,11 @@
 #dashboard #healthcareCost.report .header .icon {background-position: 0 -485px; }
 #dashboard #workersComp.report .header .icon {background-position: 0 -545px; }
 
-#dashboard #costEffectiveness.report .header .prompt { background-image: none; color: #ccc; }
+#dashboard #costEffectiveness.report .header .prompt { background-image: none; color: #aaa; }
+
+#dashboard #costEffectiveness.report .header input[type="text"],
+#dashboard #revenuePerCapita.report .header input[type="text"],
+#dashboard #turnover.report .header input[type="text"]{ border: none; background-color: transparent; }
 
 
 #dashboard .report .body ul.links { margin: 1em 0; text-align: right; }
@@ -85,10 +89,16 @@
 
 
 #dashboard .fadeToggle {display: block; text-align: center; font-size: 1.1em; text-transform: uppercase; color: #aaa; padding: 0 0 1em 0;   }
-#dashboard .fadeToggle:after { content: " "; padding:  0 10px;background-position: 0 -26px; background-repeat: no-repeat; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAoCAYAAADHVmuAAAAAAXNSR0IArs4c6QAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIChYOJ8jCqs4AAAEhSURBVDjL7dSha9ZRGMXxj0MsC9ZlDQoDcWFFmU0cm9FiExkcFgQHBhXFJbNBw5EVzQ6mRQWDxW4w+A8opjXBaPkJ2+99FwRt74nPPffcAw/3y39T2zdtz45ma22fwNyB+RZ2214YTDdxD/fh2CjhPN7iPZaxkmT/UGLbpSSfcR0XsZpkv+3S+OnbbW8l+YhFfG+7M1w6ZNzAetvHOI49/EjydFrHeXzAKewlyZ+zg4mS/MQ6XmDTTDPN9M85ND+ezU0xreFr29NHGgdA7eAV3rVdmDC2XcTzgTlbuIvXbU+OE7eHz/+l7WqSXdzBwwmkDMnPBkrcSPLyqI7bOIcVPGp7dVrHzcF0OcknXMKDthPYO4FrSX4NwPqGKzjzV0v4DRX9ZsqfcqjrAAAAAElFTkSuQmCC); }
-#dashboard .collapsed.fadeToggle:after { background-position: 0 3px; }
+#dashboard .fadeToggle:after { content: "."; color:transparent; padding:  0 10px; background-position: 0 -26px;  background-repeat: no-repeat; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAoCAYAAADHVmuAAAAAAXNSR0IArs4c6QAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIChYOJ8jCqs4AAAEhSURBVDjL7dSha9ZRGMXxj0MsC9ZlDQoDcWFFmU0cm9FiExkcFgQHBhXFJbNBw5EVzQ6mRQWDxW4w+A8opjXBaPkJ2+99FwRt74nPPffcAw/3y39T2zdtz45ma22fwNyB+RZ2214YTDdxD/fh2CjhPN7iPZaxkmT/UGLbpSSfcR0XsZpkv+3S+OnbbW8l+YhFfG+7M1w6ZNzAetvHOI49/EjydFrHeXzAKewlyZ+zg4mS/MQ6XmDTTDPN9M85ND+ezU0xreFr29NHGgdA7eAV3rVdmDC2XcTzgTlbuIvXbU+OE7eHz/+l7WqSXdzBwwmkDMnPBkrcSPLyqI7bOIcVPGp7dVrHzcF0OcknXMKDthPYO4FrSX4NwPqGKzjzV0v4DRX9ZsqfcqjrAAAAAElFTkSuQmCC); }
+#dashboard .collapsed.fadeToggle:after { background-position: 0 3px;  }
+
+.ie9 #dashboard .fadeToggle:after { background-position: 0 -29px;  }
+.ie9 #dashboard .collapsed.fadeToggle:after { background-position: 0 0px;  }
+
+
 #dashboard .collapsable { overflow: hidden; position: relative; }
 #dashboard .collapsable:after{content: " "; position:absolute;width: 33em; height: 20px; bottom: 0;  background-repeat: repeat-x; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAYAAABMDlehAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhMdLGgtp6AAAAAoSURBVAjXY/jw4YM0EwMDAy8TAwMDD5zFjSrGg0UJDxYCQ8fbt2/ZAFgOBr3ma59TAAAAAElFTkSuQmCC); }
 #dashboard .collapsable.collapsed {height: 3em;  }
 
 #dashboard #summaryView { position: relative; display: inline-block; padding: 0.25em 4em; top: 3.5em; opacity: 0.9; background-color: #ddd; -webkit-border-bottom-right-radius: 1em;-webkit-border-bottom-left-radius: 1em;-moz-border-radius-bottomright: 1em;-moz-border-radius-bottomleft: 1em;border-bottom-right-radius: 1em;border-bottom-left-radius: 1em; }
+.ie9 #dashboard #summaryView { top: 3.25em; }

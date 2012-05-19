@@ -39,7 +39,7 @@
 
             me.toggle.click(function () { reportToggleClicked(); });
             me.valueBox.blur(function () { onTextboxBlur(); });
-            me.valueBox.keypress(function (e) { onTextboxKeypress(e); });
+            me.valueBox.keydown(function (e) { onTextboxKeypress(e); });
         };
 
 
@@ -151,22 +151,22 @@
 
         var onTextboxKeypress = function (e) {
             var val = $.trim(cleanInput(me.valueBox.val()));
-            if (e.charCode != 0) {
-                makeStale();
-                if (val != '') {
-                    showRunReport();
-                } else {
-                    hideAllControls();
-                }
-            }
-            else if (e.keyCode == 8 || e.keyCode == 46) {
+             if (e.keyCode == 8 || e.keyCode == 46) {
                 makeStale();
             }
-            else if (e.keyCode == 13) {
-                if (e.keyCode == 13) {
-                    doSubmit();
-                }
-            }
+             else if (e.keyCode == 13) {
+                 if (e.keyCode == 13) {
+                     doSubmit();
+                 }
+             }
+             else {
+                 makeStale();
+                 if (val != '') {
+                     showRunReport();
+                 } else {
+                     hideAllControls();
+                 }
+             }
         };
 
         var setGauge = function (data) {
