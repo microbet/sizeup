@@ -15,6 +15,9 @@
           <EntitySet Name="County" EntityType="SizeUp.Data.Store.County" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Industry" EntityType="SizeUp.Data.Store.Industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LaborDynamicsByCounty" EntityType="SizeUp.Data.Store.LaborDynamicsByCounty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LaborDynamicsByMetro" EntityType="SizeUp.Data.Store.LaborDynamicsByMetro" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LaborDynamicsByState" EntityType="SizeUp.Data.Store.LaborDynamicsByState" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Metro" EntityType="SizeUp.Data.Store.Metro" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="NAICS" EntityType="SizeUp.Data.Store.NAICS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ResourceString" EntityType="SizeUp.Data.Store.ResourceString" store:Type="Tables" Schema="dbo" />
@@ -88,6 +91,38 @@
           <AssociationSet Name="FK_IndustryKeyword_Industry" Association="SizeUp.Data.Store.FK_IndustryKeyword_Industry">
             <End Role="Industry" EntitySet="Industry" />
             <End Role="IndustryKeyword" EntitySet="IndustryKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_County" Association="SizeUp.Data.Store.FK_LaborDynamicsByCounty_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="LaborDynamicsByCounty" EntitySet="LaborDynamicsByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_Metro" Association="SizeUp.Data.Store.FK_LaborDynamicsByCounty_Metro">
+            <End Role="Metro" EntitySet="Metro" />
+            <End Role="LaborDynamicsByCounty" EntitySet="LaborDynamicsByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_NAICS" Association="SizeUp.Data.Store.FK_LaborDynamicsByCounty_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="LaborDynamicsByCounty" EntitySet="LaborDynamicsByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_State" Association="SizeUp.Data.Store.FK_LaborDynamicsByCounty_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="LaborDynamicsByCounty" EntitySet="LaborDynamicsByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByMetro_Metro" Association="SizeUp.Data.Store.FK_LaborDynamicsByMetro_Metro">
+            <End Role="Metro" EntitySet="Metro" />
+            <End Role="LaborDynamicsByMetro" EntitySet="LaborDynamicsByMetro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByMetro_NAICS" Association="SizeUp.Data.Store.FK_LaborDynamicsByMetro_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="LaborDynamicsByMetro" EntitySet="LaborDynamicsByMetro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByState_NAICS" Association="SizeUp.Data.Store.FK_LaborDynamicsByState_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="LaborDynamicsByState" EntitySet="LaborDynamicsByState" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByState_State" Association="SizeUp.Data.Store.FK_LaborDynamicsByState_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="LaborDynamicsByState" EntitySet="LaborDynamicsByState" />
           </AssociationSet>
           <AssociationSet Name="FK_SicToNAICSMapping_Industry" Association="SizeUp.Data.Store.FK_SicToNAICSMapping_Industry">
             <End Role="Industry" EntitySet="Industry" />
@@ -209,6 +244,57 @@
           <Property Name="IndustryId" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LaborDynamicsByCounty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="smallint" />
+          <Property Name="Quarter" Type="smallint" />
+          <Property Name="CountyId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="MetroId" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="JobGains" Type="bigint" />
+          <Property Name="JobLosses" Type="bigint" />
+          <Property Name="NetJobChange" Type="bigint" />
+          <Property Name="Hires" Type="bigint" />
+          <Property Name="Separations" Type="bigint" />
+          <Property Name="Turnover" Type="float" />
+        </EntityType>
+        <EntityType Name="LaborDynamicsByMetro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="smallint" />
+          <Property Name="Quarter" Type="smallint" />
+          <Property Name="MetroId" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="JobGains" Type="bigint" />
+          <Property Name="JobLosses" Type="bigint" />
+          <Property Name="NetJobChange" Type="bigint" />
+          <Property Name="Hires" Type="bigint" />
+          <Property Name="Separations" Type="bigint" />
+          <Property Name="Turnover" Type="float" />
+        </EntityType>
+        <EntityType Name="LaborDynamicsByState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="smallint" />
+          <Property Name="Quarter" Type="smallint" />
+          <Property Name="StateId" Type="bigint" />
+          <Property Name="NAICSId" Type="bigint" />
+          <Property Name="JobGains" Type="bigint" />
+          <Property Name="JobLosses" Type="bigint" />
+          <Property Name="NetJobChange" Type="bigint" />
+          <Property Name="Hires" Type="bigint" />
+          <Property Name="Separations" Type="bigint" />
+          <Property Name="Employment" Type="bigint" />
+          <Property Name="Turnover" Type="float" />
         </EntityType>
         <EntityType Name="Metro">
           <Key>
@@ -467,6 +553,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LaborDynamicsByCounty_County">
+          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByCounty" Type="SizeUp.Data.Store.LaborDynamicsByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_Metro">
+          <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByCounty" Type="SizeUp.Data.Store.LaborDynamicsByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByCounty" Type="SizeUp.Data.Store.LaborDynamicsByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_State">
+          <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByCounty" Type="SizeUp.Data.Store.LaborDynamicsByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByMetro_Metro">
+          <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByMetro" Type="SizeUp.Data.Store.LaborDynamicsByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByMetro">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByMetro_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByMetro" Type="SizeUp.Data.Store.LaborDynamicsByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByMetro">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByState_NAICS">
+          <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByState" Type="SizeUp.Data.Store.LaborDynamicsByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByState">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByState_State">
+          <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="0..1" />
+          <End Role="LaborDynamicsByState" Type="SizeUp.Data.Store.LaborDynamicsByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByState">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SicToNAICSMapping_Industry">
           <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
           <End Role="SicToNAICSMapping" Type="SizeUp.Data.Store.SicToNAICSMapping" Multiplicity="*" />
@@ -587,6 +769,41 @@
             <End Role="NAICS" EntitySet="NAICS" />
             <End Role="AverageSalaryNational" EntitySet="AverageSalaryNationals" />
           </AssociationSet>
+          <EntitySet Name="LaborDynamicsByCounties" EntityType="SizeUp.Data.LaborDynamicsByCounty" />
+          <EntitySet Name="LaborDynamicsByMetroes" EntityType="SizeUp.Data.LaborDynamicsByMetro" />
+          <AssociationSet Name="FK_LaborDynamicsByCounty_County" Association="SizeUp.Data.FK_LaborDynamicsByCounty_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="LaborDynamicsByCounty1" EntitySet="LaborDynamicsByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_Metro" Association="SizeUp.Data.FK_LaborDynamicsByCounty_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="LaborDynamicsByCounty1" EntitySet="LaborDynamicsByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_NAICS" Association="SizeUp.Data.FK_LaborDynamicsByCounty_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="LaborDynamicsByCounty1" EntitySet="LaborDynamicsByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_State" Association="SizeUp.Data.FK_LaborDynamicsByCounty_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="LaborDynamicsByCounty1" EntitySet="LaborDynamicsByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByMetro_Metro" Association="SizeUp.Data.FK_LaborDynamicsByMetro_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="LaborDynamicsByMetro1" EntitySet="LaborDynamicsByMetroes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByMetro_NAICS" Association="SizeUp.Data.FK_LaborDynamicsByMetro_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="LaborDynamicsByMetro1" EntitySet="LaborDynamicsByMetroes" />
+          </AssociationSet>
+          <EntitySet Name="LaborDynamicsByStates" EntityType="SizeUp.Data.LaborDynamicsByState" />
+          <AssociationSet Name="FK_LaborDynamicsByState_NAICS" Association="SizeUp.Data.FK_LaborDynamicsByState_NAICS">
+            <End Role="NAICS" EntitySet="NAICS" />
+            <End Role="LaborDynamicsByState" EntitySet="LaborDynamicsByStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByState_State" Association="SizeUp.Data.FK_LaborDynamicsByState_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="LaborDynamicsByState" EntitySet="LaborDynamicsByStates" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -623,6 +840,9 @@
           <NavigationProperty Name="AverageSalaryByMetroes" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_NAICS" FromRole="NAICS" ToRole="AverageSalaryByMetro" />
           <NavigationProperty Name="AverageSalaryByStates" Relationship="SizeUp.Data.FK_AverageSalaryByState_NAICS" FromRole="NAICS" ToRole="AverageSalaryByState" />
           <NavigationProperty Name="AverageSalaryNationals" Relationship="SizeUp.Data.FK_AverageSalaryNational_NAICS" FromRole="NAICS" ToRole="AverageSalaryNational" />
+          <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_NAICS" FromRole="NAICS" ToRole="LaborDynamicsByCounty1" />
+          <NavigationProperty Name="LaborDynamicsByMetroes" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_NAICS" FromRole="NAICS" ToRole="LaborDynamicsByMetro1" />
+          <NavigationProperty Name="LaborDynamicsByStates" Relationship="SizeUp.Data.FK_LaborDynamicsByState_NAICS" FromRole="NAICS" ToRole="LaborDynamicsByState" />
         </EntityType>
         <EntityType Name="SicToNAICSMapping">
           <Key>
@@ -681,6 +901,8 @@
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Metro" ToRole="Business" />
           <NavigationProperty Name="AverageSalaryByMetroes" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_Metro" FromRole="Metro" ToRole="AverageSalaryByMetro" />
+          <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" FromRole="Metro" ToRole="LaborDynamicsByCounty1" />
+          <NavigationProperty Name="LaborDynamicsByMetroes" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_Metro" FromRole="Metro" ToRole="LaborDynamicsByMetro1" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -696,6 +918,8 @@
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_State" FromRole="State" ToRole="County" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_State" FromRole="State" ToRole="Business" />
           <NavigationProperty Name="AverageSalaryByStates" Relationship="SizeUp.Data.FK_AverageSalaryByState_State" FromRole="State" ToRole="AverageSalaryByState" />
+          <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_State" FromRole="State" ToRole="LaborDynamicsByCounty1" />
+          <NavigationProperty Name="LaborDynamicsByStates" Relationship="SizeUp.Data.FK_LaborDynamicsByState_State" FromRole="State" ToRole="LaborDynamicsByState" />
         </EntityType>
         <EntityType Name="ResourceString">
           <Key>
@@ -737,6 +961,7 @@
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_County" FromRole="County" ToRole="Business" />
           <NavigationProperty Name="AverageSalaryByCounties" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="County" ToRole="AverageSalaryByCounty" />
+          <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_County" FromRole="County" ToRole="LaborDynamicsByCounty1" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -1019,6 +1244,161 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LaborDynamicsByCounty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Year" />
+          <Property Type="Int16" Name="Quarter" />
+          <Property Type="Int64" Name="CountyId" />
+          <Property Type="Int64" Name="StateId" />
+          <Property Type="Int64" Name="MetroId" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="JobGains" />
+          <Property Type="Int64" Name="JobLosses" />
+          <Property Type="Int64" Name="NetJobChange" />
+          <Property Type="Int64" Name="Hires" />
+          <Property Type="Int64" Name="Separations" />
+          <Property Type="Double" Name="Turnover" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_County" FromRole="LaborDynamicsByCounty1" ToRole="County" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" FromRole="LaborDynamicsByCounty1" ToRole="Metro" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_NAICS" FromRole="LaborDynamicsByCounty1" ToRole="NAICS" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_State" FromRole="LaborDynamicsByCounty1" ToRole="State" />
+        </EntityType>
+        <EntityType Name="LaborDynamicsByMetro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Year" />
+          <Property Type="Int16" Name="Quarter" />
+          <Property Type="Int64" Name="MetroId" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="JobGains" />
+          <Property Type="Int64" Name="JobLosses" />
+          <Property Type="Int64" Name="NetJobChange" />
+          <Property Type="Int64" Name="Hires" />
+          <Property Type="Int64" Name="Separations" />
+          <Property Type="Double" Name="Turnover" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_Metro" FromRole="LaborDynamicsByMetro1" ToRole="Metro" />
+          <NavigationProperty Name="NAIC" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_NAICS" FromRole="LaborDynamicsByMetro1" ToRole="NAICS" />
+        </EntityType>
+        <Association Name="FK_LaborDynamicsByCounty_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty1">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty1">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty1">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_State">
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty1">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByMetro_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByMetro" Role="LaborDynamicsByMetro1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByMetro1">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByMetro_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByMetro" Role="LaborDynamicsByMetro1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByMetro1">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LaborDynamicsByState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int16" Name="Year" />
+          <Property Type="Int16" Name="Quarter" />
+          <Property Type="Int64" Name="StateId" />
+          <Property Type="Int64" Name="NAICSId" />
+          <Property Type="Int64" Name="JobGains" />
+          <Property Type="Int64" Name="JobLosses" />
+          <Property Type="Int64" Name="NetJobChange" />
+          <Property Type="Int64" Name="Hires" />
+          <Property Type="Int64" Name="Separations" />
+          <Property Type="Int64" Name="Employment" />
+          <Property Type="Double" Name="Turnover" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_LaborDynamicsByState_NAICS" FromRole="LaborDynamicsByState" ToRole="NAICS" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_LaborDynamicsByState_State" FromRole="LaborDynamicsByState" ToRole="State" />
+        </EntityType>
+        <Association Name="FK_LaborDynamicsByState_NAICS">
+          <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByState" Role="LaborDynamicsByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NAICS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByState">
+              <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByState_State">
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByState" Role="LaborDynamicsByState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByState">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1200,6 +1580,60 @@
               <MappingFragment StoreEntitySet="AverageSalaryNational">
                 <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
                 <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaborDynamicsByCounties">
+            <EntityTypeMapping TypeName="SizeUp.Data.LaborDynamicsByCounty">
+              <MappingFragment StoreEntitySet="LaborDynamicsByCounty">
+                <ScalarProperty Name="Turnover" ColumnName="Turnover" />
+                <ScalarProperty Name="Separations" ColumnName="Separations" />
+                <ScalarProperty Name="Hires" ColumnName="Hires" />
+                <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
+                <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
+                <ScalarProperty Name="JobGains" ColumnName="JobGains" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaborDynamicsByMetroes">
+            <EntityTypeMapping TypeName="SizeUp.Data.LaborDynamicsByMetro">
+              <MappingFragment StoreEntitySet="LaborDynamicsByMetro">
+                <ScalarProperty Name="Turnover" ColumnName="Turnover" />
+                <ScalarProperty Name="Separations" ColumnName="Separations" />
+                <ScalarProperty Name="Hires" ColumnName="Hires" />
+                <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
+                <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
+                <ScalarProperty Name="JobGains" ColumnName="JobGains" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LaborDynamicsByStates">
+            <EntityTypeMapping TypeName="SizeUp.Data.LaborDynamicsByState">
+              <MappingFragment StoreEntitySet="LaborDynamicsByState">
+                <ScalarProperty Name="Turnover" ColumnName="Turnover" />
+                <ScalarProperty Name="Employment" ColumnName="Employment" />
+                <ScalarProperty Name="Separations" ColumnName="Separations" />
+                <ScalarProperty Name="Hires" ColumnName="Hires" />
+                <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
+                <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
+                <ScalarProperty Name="JobGains" ColumnName="JobGains" />
+                <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

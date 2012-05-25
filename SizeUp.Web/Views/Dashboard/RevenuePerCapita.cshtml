@@ -15,48 +15,68 @@
     <div class="reportContainer ">
         <div class="reportContent">
             <h3>How you size up</h3>
-            <p>Revenue per capita is measured by the revenue generated for every person living in the community.
+            <p class="description">
+                <div data-template="description">
+                    Revenue per capita is measured by the revenue generated for every person living in the community.
                     The revenue per capita in your industry in your city is greater than 100% of cities
                     in your county, 97% of cities in your metro area, 92% of cities in your state,
                     and 78% of cities in the nation.
+                    @@Html.Raw(ViewBag.Strings["Dashboard.Turnover.Description"]) 
+                </div>
             </p>
             <div class="chart">
-                <a href="#">Hide Variations by Geography</a>
-                <a href="#">View Data Table </a>
+                <a href="javascript:void(0);" class="mapToggle" data-toggleText="View Variations by Geography">Hide Variations by Geography</a>
+                <a href="javascript:void(0);" class="chartToggle" data-toggleText="View Chart">View Data Table</a>
                 <div class="container"></div>
             </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="value">Value</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="tableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
             <ul class="links">
                 <li>
                     <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
                 </li>
             </ul>
             <div class="sourceContent " data-expandedClass="expanded">
-                <p>Revenue Per Capita is determined by dividing the total revenue for a community in this specific industry by the
-                        population of the community. The total revenue for a community is aggregated from data on individual businesses,
-                        which comes from hundreds of data sources which are more fully described in their respective reports.
-                        Population data is estimated using a sophisticated projection methodology based on Census population counts,
-                        building permit statistics, and Medicare eligible population counts, among other data sources.
-                </p>
+                @Html.Raw(ViewBag.Strings["Dashboard.RevenuePerCapita.Source"])
             </div>
-            <div class="map"></div>
-            <div class="map"></div>
+            <div class="map heatmap revenuePerCapita">
+                <p class="title backdrop"></p>
+                <div class="legend backdrop">
+                    <ul class="legendContainer">
+                        <li data-template="legendItem"><div class="block" style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
+                    </ul>
+                    <div class="bottom backdrop"></div>
+                </div>
+                <div class="container"></div>
+            </div>
+            <div class="map heatmap totalRevenue">
+                <p class="title backdrop"></p>
+                <div class="legend backdrop">
+                    <ul class="legendContainer">
+                        <li data-template="legendItem"><div class="block" style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
+                    </ul>
+                    <div class="bottom backdrop"></div>
+                </div>
+                <div class="container"></div>
+            </div>
         </div>
         <div class="reportSidebar">
-            <div class="section">
-                <h4>Considerations</h4>
-                <p>Revenue per capita illustrates how well a community is producing revenue relative to the size of its population.</p>
-		        <p>If you are a local-serving business (i.e., your goods or services are purchased within your community),
-                        revenue per capita can show you whether your location is underserved compared to the national
-                        average.  If your area is underserved, there may be potential for your company to grow and
-                        take advantage of the local consumer spending power, some of which may be leaking out to 
-                    businesses in neighboring communities.
-		        </p>
-		        <p>If you serve customers outside of your immediate community, a high revenue per capita may indicate a strong 
-                    local cluster of businesses in your industry, which may be a sign that your area has a competitive 
-                    advantage in your industry. If you are in an area with a small economy, a strong revenue 
-                    concentration may result from one major export employer, rather than any clustering of businesses.
-		        </p>
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.RevenuePerCapita.Considerations"])
             </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
         </div>
     </div>
 </div>

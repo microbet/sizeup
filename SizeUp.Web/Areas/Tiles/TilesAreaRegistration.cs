@@ -16,14 +16,14 @@ namespace SizeUp.Web.Areas.Tiles
         {
 
             context.MapRoute(
-                "SalaryTilesCounty",
-                "Tiles/Salary/County/",
+                "AverageSalaryTilesCounty",
+                "Tiles/AverageSalary/County/",
                 new { controller = "AverageSalary", action = "County", boundingEntityId = UrlParameter.Optional }
             );
 
             context.MapRoute(
-               "SalaryTilesState",
-               "Tiles/Salary/State/",
+               "AverageSalaryTilesState",
+               "Tiles/AverageSalary/State/",
                new { controller = "AverageSalary", action = "State", boundingEntityId = UrlParameter.Optional }
            );
 

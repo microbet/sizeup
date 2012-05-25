@@ -193,6 +193,11 @@
             return me.data.value;
         };
 
+        var doGetReport = function () {
+            makeFresh();
+            getReport();
+        };
+
         var forceSubmit = function () {
             clearTimeout(me.fadeTimeout);
             makeStale();
@@ -208,6 +213,7 @@
         var collapseReport = function () {
             hideReport();
         };
+
 
         var publicObj = {
             fadeInPrompt: function (delay, callback) {
@@ -230,6 +236,9 @@
             },
             collapseReport: function () {
                 collapseReport();
+            },
+            doGetReport: function () {
+                doGetReport();
             }
         };
         init();

@@ -9,6 +9,7 @@
             overlays:[]
         };
         var dataLayer = new sizeup.core.data();
+        var templates = new sizeup.core.templates();
         var me = {};
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
@@ -97,14 +98,14 @@
             if (data.data.length > 0) {
                 if (data.data.length < data.overlay.colors.length) {
                     for (var x = 0; x < data.data.length; x++) {
-                        var t = me.opts.templates.get('legendItem');
-                        list.push(me.opts.templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) }));
+                        var t = me.opts.legendItemTemplate;
+                        list.push(templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) }));
                     }
                 }
                 else {
                     for (var x = 0; x < data.data.length; x++) {
-                        var t = me.opts.templates.get('legendItem');
-                        list.push(me.opts.templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) + ' - ' + data.overlay.legendFormat(data.data[x].Max) }));
+                        var t = me.opts.legendItemTemplate;
+                        list.push(templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) + ' - ' + data.overlay.legendFormat(data.data[x].Max) }));
                     }
                 }
                 me.legend.html(list.reverse().join(''));

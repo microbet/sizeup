@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SizeUp.Web.Areas.Api.Models.Salary
+namespace SizeUp.Web.Areas.Api.Models.AverageSalary
 {
     public class Band
     {

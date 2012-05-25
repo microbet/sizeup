@@ -5,8 +5,10 @@
         
         var defaults =
         {
+
         };
         var me = {};
+        var templates = new sizeup.core.templates();
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
         me.rowContainer = me.container.find('.container');
@@ -14,7 +16,7 @@
         var init = function () {
             var tableString = '';
             for (var x in me.opts.rows) {
-                tableString = tableString + me.opts.templates.bind(me.opts.templates.get('tableRow'), me.opts.rows[x]);
+                tableString = tableString + templates.bind(me.opts.rowTemplate, me.opts.rows[x]);
             }
             me.rowContainer.html(tableString);
         };

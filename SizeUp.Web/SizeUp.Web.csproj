@@ -142,19 +142,27 @@
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
+    <Compile Include="Areas\Api\Controllers\JobChangeController.cs" />
     <Compile Include="Areas\Api\Controllers\MetroController.cs" />
+    <Compile Include="Areas\Api\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\StateController.cs" />
+    <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
     <Compile Include="Areas\Api\Models\County\County.cs" />
     <Compile Include="Areas\Api\Models\Industry\Industry.cs" />
+    <Compile Include="Areas\Api\Models\JobChange\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\JobChange\JobChangeDynamics.cs" />
     <Compile Include="Areas\Api\Models\Maps\LatLng.cs" />
     <Compile Include="Areas\Api\Models\Maps\Polygon.cs" />
     <Compile Include="Areas\Api\Models\Metro\Metro.cs" />
     <Compile Include="Areas\Api\Models\NAICS\NAICS.cs" />
-    <Compile Include="Areas\Api\Models\Salary\Band.cs" />
+    <Compile Include="Areas\Api\Models\AverageSalary\Band.cs" />
+    <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
+    <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Turnover\TurnoverDynamics.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -306,7 +314,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\new.SizeUp.com.pubxml" />
-    <Content Include="Views\Dashboard\Salary.cshtml" />
+    <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />
     <Content Include="Views\Dashboard\YearStarted.cshtml" />
     <Content Include="Views\Dashboard\Employees.cshtml" />

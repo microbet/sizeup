@@ -17,14 +17,18 @@
             if (places == null || typeof places == 'undefined') {
                 places = 0;
             }
-            return number.toFixed(places) + '%';
+            return this.round(number, places) + '%';
+        },
+        round: function(num, dec) {
+            var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+            return result;
         },
         ordinal:function(num)
         {
             var n = num % 100;
             var suff = ["th", "st", "nd", "rd", "th"]; // suff for suffix
             var ord= n<21?(n<4 ? suff[n]:suff[0]): (n%10>4 ? suff[0] : suff[n%10]);
-            return this + ord;
+            return num + ord;
         },
         abbreviate: function (num) {
             if (num < 10) {

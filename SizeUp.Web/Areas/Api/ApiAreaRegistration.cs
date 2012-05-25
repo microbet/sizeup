@@ -101,33 +101,56 @@ namespace SizeUp.Web.Areas.Api
          
 
 
-            /****salary*****/
+            /****AverageSalary*****/
 
             context.MapRoute(
-                "Salary",
-                "Api/Salary/",
-                new { controller = "AverageSalary", action = "Salary", countyId = UrlParameter.Optional }
+                "AverageSalary",
+                "Api/AverageSalary/",
+                new { controller = "AverageSalary", action = "AverageSalary", countyId = UrlParameter.Optional }
             );
 
             context.MapRoute(
-                "SalaryPercentile",
-                "Api/Salary/Percentile",
-                new { controller = "AverageSalary", action = "Percentile", countyId = UrlParameter.Optional }
+                "AverageSalaryPercentage",
+                "Api/AverageSalary/Percentage",
+                new { controller = "AverageSalary", action = "Percentage", countyId = UrlParameter.Optional }
             );
 
             context.MapRoute(
-                "SalaryBands",
-                "Api/Salary/Bands/County",
+                "AverageSalaryBands",
+                "Api/AverageSalary/Bands/County",
                 new { controller = "AverageSalary", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
             );
 
             context.MapRoute(
-                "SalaryState",
-                "Api/Salary/Bands/State",
+                "AverageSalaryState",
+                "Api/AverageSalary/Bands/State",
                 new { controller = "AverageSalary", action = "BandsByState" }
             );
 
 
+            /****turnover*****/
+
+            context.MapRoute(
+                "Turnover",
+                "Api/Turnover/",
+                new { controller = "Turnover", action = "Turnover" }
+            );
+
+            context.MapRoute(
+                "TurnoverPercentile",
+                "Api/Turnover/percentile",
+                new { controller = "Turnover", action = "Percentile" }
+            );
+
+            /****turnover*****/
+
+            context.MapRoute(
+                "JobChange",
+                "Api/JobChange/",
+                new { controller = "JobChange", action = "JobChange" }
+            );
+
+  
 
 
 

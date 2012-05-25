@@ -8,6 +8,5 @@ namespace SizeUp.Web.Areas.Api.Models.Charts
     public class ChartItem
     {
         public string Name { get; set; }
-        public string Value { get; set; }
     }
 }

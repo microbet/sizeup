@@ -57,6 +57,50 @@ namespace SizeUp.Web
             );
         }
 
+        public static void RegisterBundles()
+        {
+           // BundleTable.Bundles.EnableDefaultBundles();
+
+ 
+            /*
+          var jSBundle = new Bundle("~/js/JsMinify", typeof(JsMinify));
+
+ 
+
+          jSBundle.AddFile("~/Scripts/CustomFunction.js");
+
+          jSBundle.AddFile("~/Scripts/jquery-1.4.1-vsdoc.js");
+
+          jSBundle.AddFile("~/Scripts/jquery-1.4.1.js");
+
+          jSBundle.AddFile("~/Scripts/JSONCreate.js");
+
+          BundleTable.Bundles.Add(jSBundle);
+
+          var cssBundle = new Bundle("~/CSSMinify", typeof(CssMinify));
+
+ 
+
+          cssBundle.AddFile("~/Styles/Collection.css");
+
+          cssBundle.AddFile("~/Styles/GlobalSupport.css");
+
+          cssBundle.AddFile("~/Styles/MasterStyle.css");
+
+          cssBundle.AddFile("~/Styles/MenuStyle.css");
+
+          cssBundle.AddFile("~/Styles/Minimum.css");
+
+          cssBundle.AddFile("~/Styles/Ribbon.css");
+
+          cssBundle.AddFile("~/Styles/Site.css");
+
+          BundleTable.Bundles.Add(cssBundle);
+
+ */
+
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -66,6 +110,8 @@ namespace SizeUp.Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            RegisterBundles();
 
             BundleTable.Bundles.RegisterTemplateBundles();
         }

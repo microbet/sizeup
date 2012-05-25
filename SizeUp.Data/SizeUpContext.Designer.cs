@@ -38,6 +38,14 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "AverageSalaryByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryNational", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryNational), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "LaborDynamicsByCounty1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "LaborDynamicsByCounty1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "LaborDynamicsByCounty1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "LaborDynamicsByCounty1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "LaborDynamicsByMetro1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "LaborDynamicsByMetro1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByState_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "LaborDynamicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "LaborDynamicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByState), true)]
 
 #endregion
 
@@ -328,6 +336,54 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<AverageSalaryNational> _AverageSalaryNationals;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LaborDynamicsByCounty> LaborDynamicsByCounties
+        {
+            get
+            {
+                if ((_LaborDynamicsByCounties == null))
+                {
+                    _LaborDynamicsByCounties = base.CreateObjectSet<LaborDynamicsByCounty>("LaborDynamicsByCounties");
+                }
+                return _LaborDynamicsByCounties;
+            }
+        }
+        private ObjectSet<LaborDynamicsByCounty> _LaborDynamicsByCounties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LaborDynamicsByMetro> LaborDynamicsByMetroes
+        {
+            get
+            {
+                if ((_LaborDynamicsByMetroes == null))
+                {
+                    _LaborDynamicsByMetroes = base.CreateObjectSet<LaborDynamicsByMetro>("LaborDynamicsByMetroes");
+                }
+                return _LaborDynamicsByMetroes;
+            }
+        }
+        private ObjectSet<LaborDynamicsByMetro> _LaborDynamicsByMetroes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LaborDynamicsByState> LaborDynamicsByStates
+        {
+            get
+            {
+                if ((_LaborDynamicsByStates == null))
+                {
+                    _LaborDynamicsByStates = base.CreateObjectSet<LaborDynamicsByState>("LaborDynamicsByStates");
+                }
+                return _LaborDynamicsByStates;
+            }
+        }
+        private ObjectSet<LaborDynamicsByState> _LaborDynamicsByStates;
 
         #endregion
 
@@ -451,6 +507,30 @@ namespace SizeUp.Data
         public void AddToAverageSalaryNationals(AverageSalaryNational averageSalaryNational)
         {
             base.AddObject("AverageSalaryNationals", averageSalaryNational);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LaborDynamicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLaborDynamicsByCounties(LaborDynamicsByCounty laborDynamicsByCounty)
+        {
+            base.AddObject("LaborDynamicsByCounties", laborDynamicsByCounty);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LaborDynamicsByMetroes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLaborDynamicsByMetroes(LaborDynamicsByMetro laborDynamicsByMetro)
+        {
+            base.AddObject("LaborDynamicsByMetroes", laborDynamicsByMetro);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LaborDynamicsByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLaborDynamicsByStates(LaborDynamicsByState laborDynamicsByState)
+        {
+            base.AddObject("LaborDynamicsByStates", laborDynamicsByState);
         }
 
         #endregion
@@ -2796,6 +2876,28 @@ namespace SizeUp.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_County", "LaborDynamicsByCounty1")]
+        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "LaborDynamicsByCounty1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "LaborDynamicsByCounty1", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -3208,6 +3310,1282 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LaborDynamicsByCounty")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LaborDynamicsByCounty : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LaborDynamicsByCounty object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static LaborDynamicsByCounty CreateLaborDynamicsByCounty(global::System.Int64 id)
+        {
+            LaborDynamicsByCounty laborDynamicsByCounty = new LaborDynamicsByCounty();
+            laborDynamicsByCounty.Id = id;
+            return laborDynamicsByCounty;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int16> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _Quarter;
+        partial void OnQuarterChanging(Nullable<global::System.Int16> value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> CountyId
+        {
+            get
+            {
+                return _CountyId;
+            }
+            set
+            {
+                OnCountyIdChanging(value);
+                ReportPropertyChanging("CountyId");
+                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
+                ReportPropertyChanged("CountyId");
+                OnCountyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _CountyId;
+        partial void OnCountyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnCountyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> StateId
+        {
+            get
+            {
+                return _StateId;
+            }
+            set
+            {
+                OnStateIdChanging(value);
+                ReportPropertyChanging("StateId");
+                _StateId = StructuralObject.SetValidValue(value, "StateId");
+                ReportPropertyChanged("StateId");
+                OnStateIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _StateId;
+        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
+        partial void OnStateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MetroId
+        {
+            get
+            {
+                return _MetroId;
+            }
+            set
+            {
+                OnMetroIdChanging(value);
+                ReportPropertyChanging("MetroId");
+                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
+                ReportPropertyChanged("MetroId");
+                OnMetroIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MetroId;
+        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
+        partial void OnMetroIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Turnover
+        {
+            get
+            {
+                return _Turnover;
+            }
+            set
+            {
+                OnTurnoverChanging(value);
+                ReportPropertyChanging("Turnover");
+                _Turnover = StructuralObject.SetValidValue(value, "Turnover");
+                ReportPropertyChanged("Turnover");
+                OnTurnoverChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Turnover;
+        partial void OnTurnoverChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_County", "County")]
+        public County County
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<County> CountyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_Metro", "Metro")]
+        public Metro Metro
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Metro> MetroReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_NAICS", "NAICS")]
+        public NAICS NAICS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_State", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LaborDynamicsByMetro")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LaborDynamicsByMetro : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LaborDynamicsByMetro object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static LaborDynamicsByMetro CreateLaborDynamicsByMetro(global::System.Int64 id)
+        {
+            LaborDynamicsByMetro laborDynamicsByMetro = new LaborDynamicsByMetro();
+            laborDynamicsByMetro.Id = id;
+            return laborDynamicsByMetro;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int16> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _Quarter;
+        partial void OnQuarterChanging(Nullable<global::System.Int16> value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MetroId
+        {
+            get
+            {
+                return _MetroId;
+            }
+            set
+            {
+                OnMetroIdChanging(value);
+                ReportPropertyChanging("MetroId");
+                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
+                ReportPropertyChanged("MetroId");
+                OnMetroIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MetroId;
+        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
+        partial void OnMetroIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Turnover
+        {
+            get
+            {
+                return _Turnover;
+            }
+            set
+            {
+                OnTurnoverChanging(value);
+                ReportPropertyChanging("Turnover");
+                _Turnover = StructuralObject.SetValidValue(value, "Turnover");
+                ReportPropertyChanged("Turnover");
+                OnTurnoverChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Turnover;
+        partial void OnTurnoverChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_Metro", "Metro")]
+        public Metro Metro
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Metro> MetroReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_NAICS", "NAICS")]
+        public NAICS NAIC
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LaborDynamicsByState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LaborDynamicsByState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LaborDynamicsByState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static LaborDynamicsByState CreateLaborDynamicsByState(global::System.Int64 id)
+        {
+            LaborDynamicsByState laborDynamicsByState = new LaborDynamicsByState();
+            laborDynamicsByState.Id = id;
+            return laborDynamicsByState;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int16> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int16> Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private Nullable<global::System.Int16> _Quarter;
+        partial void OnQuarterChanging(Nullable<global::System.Int16> value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> StateId
+        {
+            get
+            {
+                return _StateId;
+            }
+            set
+            {
+                OnStateIdChanging(value);
+                ReportPropertyChanging("StateId");
+                _StateId = StructuralObject.SetValidValue(value, "StateId");
+                ReportPropertyChanged("StateId");
+                OnStateIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _StateId;
+        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
+        partial void OnStateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICSId
+        {
+            get
+            {
+                return _NAICSId;
+            }
+            set
+            {
+                OnNAICSIdChanging(value);
+                ReportPropertyChanging("NAICSId");
+                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
+                ReportPropertyChanged("NAICSId");
+                OnNAICSIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICSId;
+        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Employment
+        {
+            get
+            {
+                return _Employment;
+            }
+            set
+            {
+                OnEmploymentChanging(value);
+                ReportPropertyChanging("Employment");
+                _Employment = StructuralObject.SetValidValue(value, "Employment");
+                ReportPropertyChanged("Employment");
+                OnEmploymentChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Employment;
+        partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
+        partial void OnEmploymentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Turnover
+        {
+            get
+            {
+                return _Turnover;
+            }
+            set
+            {
+                OnTurnoverChanging(value);
+                ReportPropertyChanging("Turnover");
+                _Turnover = StructuralObject.SetValidValue(value, "Turnover");
+                ReportPropertyChanged("Turnover");
+                OnTurnoverChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Turnover;
+        partial void OnTurnoverChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_NAICS", "NAICS")]
+        public NAICS NAICS
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<NAICS> NAICSReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_State", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="Metro")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -3401,6 +4779,50 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_Metro", "LaborDynamicsByCounty1")]
+        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "LaborDynamicsByCounty1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "LaborDynamicsByCounty1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_Metro", "LaborDynamicsByMetro1")]
+        public EntityCollection<LaborDynamicsByMetro> LaborDynamicsByMetroes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "LaborDynamicsByMetro1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "LaborDynamicsByMetro1", value);
                 }
             }
         }
@@ -3623,6 +5045,72 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryNational>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "AverageSalaryNational", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_NAICS", "LaborDynamicsByCounty1")]
+        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "LaborDynamicsByCounty1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "LaborDynamicsByCounty1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_NAICS", "LaborDynamicsByMetro1")]
+        public EntityCollection<LaborDynamicsByMetro> LaborDynamicsByMetroes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "LaborDynamicsByMetro1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "LaborDynamicsByMetro1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_NAICS", "LaborDynamicsByState")]
+        public EntityCollection<LaborDynamicsByState> LaborDynamicsByStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "LaborDynamicsByState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "LaborDynamicsByState", value);
                 }
             }
         }
@@ -4197,6 +5685,50 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_State", "AverageSalaryByState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_State", "LaborDynamicsByCounty1")]
+        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "LaborDynamicsByCounty1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "LaborDynamicsByCounty1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_State", "LaborDynamicsByState")]
+        public EntityCollection<LaborDynamicsByState> LaborDynamicsByStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_State", "LaborDynamicsByState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_State", "LaborDynamicsByState", value);
                 }
             }
         }

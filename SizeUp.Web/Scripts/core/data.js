@@ -84,22 +84,39 @@
                 return get('/api/state/?id={id}', params, success, error);
             },
 
-            getSalaryChart: function (params, success, error) {
-                return get('/api/salary/?industryId={industryId}&countyId={countyId}', params, success, error);
+            getAverageSalaryChart: function (params, success, error) {
+                return get('/api/averageSalary/?industryId={industryId}&countyId={countyId}', params, success, error);
             },
-            getSalaryPercentile: function (params, success, error) {
-                return get('/api/salary/percentile/?industryId={industryId}&countyId={countyId}&value={value}', params, success, error);
-            },
-
-            getSalaryBandsByState: function (params, success, error) {
-                return get('/api/salary/bands/state/?industryId={industryId}&bands={bands}', params, success, error);
+            getAverageSalaryPercentage: function (params, success, error) {
+                return get('/api/averageSalary/percentage/?industryId={industryId}&countyId={countyId}&value={value}', params, success, error);
             },
 
-            getSalaryBandsByCounty: function (params, success, error) {
-                return get('/api/salary/bands/county/?industryId={industryId}&bands={bands}&boundingEntityId={boundingEntityId}', params, success, error);
-            }
+            getAverageSalaryBandsByState: function (params, success, error) {
+                return get('/api/averageSalary/bands/state/?industryId={industryId}&bands={bands}', params, success, error);
+            },
 
-          
+            getAverageSalaryBandsByCounty: function (params, success, error) {
+                return get('/api/averageSalary/bands/county/?industryId={industryId}&bands={bands}&boundingEntityId={boundingEntityId}', params, success, error);
+            },
+
+
+            getTurnoverChart: function (params, success, error) {
+                return get('/api/turnover/?industryId={industryId}&countyId={countyId}', params, success, error);
+            },
+
+            getTurnoverPercentile: function (params, success, error) {
+                return get('/api/turnover/percentile/?industryId={industryId}&countyId={countyId}', params, success, error);
+            },
+
+
+            getJobChangeChart: function (params, success, error) {
+                return get('/api/jobchange/?industryId={industryId}&countyId={countyId}', params, success, error);
+            },
+
+            getRevenuePerCapitaChart: function (params, success, error) {
+                return get('/api/revenuePerCapita/?industryId={industryId}&cityId={cityId}', params, success, error);
+            },
+
 
             
 

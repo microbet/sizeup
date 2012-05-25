@@ -2,63 +2,106 @@
     <div class="icon"></div>
     <h2>Local Turnover</h2>
     <span class="hint">Percentage of workers newly hired</span>
-    <input type="text" class="valueBox" />
+    <input type="text" class="valueBox"  disabled="disabled" />
     <div class="gauge "></div>
     <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
 </div>
-<!--dont forget job change report here --->
 <div class="body ">
     <div class="loading">
         <p class="title">Turnover Report</p>
         <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
         <p class="message">Generating Report</p>
     </div>
-    <div class="reportContainer ">
-        <div class="reportContent">
-            <h3>How you size up</h3>
-            <p>The turnover rate in your county is 5.9% for <strong>Health and Personal Care Stores (Unclassified)</strong>,
-                    which is the closest corresponding industry category for <strong>PHARMACIES</strong>. 
-                The turnover rate is the percentage of workers that are new as of the most recent fiscal quarter.
-                    The turnover rate depends on the numbers of hires and separations. Separations count 
-                the number of workers whose jobs with a given employer ended in a quarter.
+    <div class="reportContainer">
+        <div class="reportContent noDataError">
+            <p>There is no data available for this report with this industry and city</p>
+        </div>
+        <div class="reportContent turnover">
+            <h3>Turnover Rate</h3>
+            <p class="description">
+                <div data-template="turnoverDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Description"]) 
+                </div>
             </p>
-            <div class="chart">
-                <a href="#">Hide Variations by Geography</a>
-                <a href="#">View Data Table </a>
-                <div class="container"></div>
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="hires">Hires</td>
+                        <td class="separations">Separations</td>
+                        <td class="turnover">Turnover Rate</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="turnoverTableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="hires">{{hires}}</td>
+                        <td class="separations">{{separations}}</td>
+                        <td class="turnover">{{turnover}}</td>
+                    </tr>
+                </tbody>
+            </table>
             <ul class="links">
                 <li>
                     <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
                 </li>
             </ul>
             <div class="sourceContent " data-expandedClass="expanded">
-                <p>Turnover data is collected through the Federal Government. </p>
+             @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Source"]) 
             </div>
-            <div class="map"></div>
         </div>
-        <div class="reportSidebar">
-            <div class="section">
-                <h4>Considerations</h4>
-                <p>Turnover is a measure of employee stability.  Training employees takes time and money before they can be productive, 
-                    so reducing turnover can reduce your expenses.
-                </p>
-		        <p>Some industries have higher turnover rates than others. If your job openings are entry level service jobs best suited
-                    to people first entering the workforce, it may be hard to avoid high turnover rates.
-		        </p>
-		        <p>When economic times are good for your industry, talented workers may be drawn to other opportunities and companies.
-		        </p>
+        <div class="reportSidebar turnover">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Considerations"])
             </div>
-            <div class="section">
-                <h4>Resources</h4>
-                <p>Post available jobs at <a href="http://hiring.monster.com" target="_blank">Monster</a>, <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>, <a href="http://success.simplyhired.com" target="_blank">Simply Hired</a>, or <a href=https://ads.indeed.com" target="_blank">Indeed</a>.</p>
-		        <p>Search resumes at <a href="http://www.linkedin.com/" target="_blank">LinkedIn</a>, <a href="http://hiring.monster.com" target="_blank">Monster</a>, or <a href="http://www.careerbuilder.com/jobposter/"  target="_blank">CareerBuilder</a>.</p>
-		        <p>Find temporary employees through <a href="http://www.manpower.com" target="_blank">Manpower</a>.</p>
-	            <p>Augment salaries with a retention plan from <a href="http://retensa.com"  target="_blank">Retensa</a> and perks from <a href="http://betterworks.com"  target="_blank">BetterWorks</a>.</p>
-                <p>Find salary data by occupation at <a href="http://salary.com"  target="_blank">Salary.com</a> or <a href="http://www.payscale.com/hr/solutions/salary-benchmarking"  target="_blank">PayScale</a>.</p>
-		        <p>Enhance your employee benefits packages while saving your company money. Sign up for commuter benefit programs and flexible spending accounts through <a href="http://www.transitcenter.com/employers/"  target="_blank">TransitCheck</a>,
-                <a href="https://www.flexdirect.adp.com/" target="_blank">FlexDirect</a>, or <a href="http://www.flex-plan.com/" target="_blank">Flex-Plan Services</a>.</p>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Resources"])
             </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+
+
+        <div class="reportContent jobChange">
+            <h3>Net Job Change</h3>
+            <p class="description">
+                <div data-template="jobChangeDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Description"]) 
+                </div>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="jobGains">job Gains</td>
+                        <td class="jobLosses">Job Losses</td>
+                        <td class="netJobChange">Net Job change</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="jobChangeTableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="jobGains">{{jobGains}}</td>
+                        <td class="jobLosses">{{jobLosses}}</td>
+                        <td class="netJobChange">{{netJobChange}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+             @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Source"]) 
+            </div>
+        </div>
+        <div class="reportSidebar jobChange">
+            <div class="section considerations collapsable">
+
+                @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Considerations"])
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
         </div>
     </div>
 </div>

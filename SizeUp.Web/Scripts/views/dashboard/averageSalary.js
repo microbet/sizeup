@@ -59,7 +59,7 @@
                 });
 
 
-            me.description = me.container.find('.description');
+
             me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
             me.considerations = me.container.find('.reportContainer .considerations');
             me.resources = me.container.find('.reportContainer .resources');
@@ -112,13 +112,13 @@
                 me.reportData.show();
 
                 me.map = new sizeup.maps.heatMap({
-                    templates: templates,
+                    legendItemTemplate: templates.get('legendItem'),
                     container: me.container.find('.reportContainer .map'),
                     overlays:[
                         {
-                            tileUrl: "/tiles/salary/state/",
+                            tileUrl: "/tiles/averageSalary/state/",
                             legendSource: function (callback) {
-                                dataLayer.getSalaryBandsByState({ 
+                                dataLayer.getAverageSalaryBandsByState({ 
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7 
                                 }, callback);
@@ -139,9 +139,9 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/salary/county/",
+                            tileUrl: "/tiles/averageSalary/county/",
                             legendSource: function (callback) {
-                                dataLayer.getSalaryBandsByCounty({
+                                dataLayer.getAverageSalaryBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.Locations.State.Id
@@ -164,9 +164,9 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/salary/county/",
+                            tileUrl: "/tiles/averageSalary/county/",
                             legendSource:function (callback) {
-                                dataLayer.getSalaryBandsByCounty({
+                                dataLayer.getAverageSalaryBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
@@ -202,7 +202,7 @@
 
                 me.table = new sizeup.charts.tableChart({
                     container: me.container.find('.table').hide(),
-                    templates:templates,
+                    rowTemplate: templates.get('tableRow'),
                     rows:me.data.table
                 });
 
@@ -230,15 +230,15 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ salary: me.data.enteredValue });
-            dataLayer.getSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getSalaryPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var val = 50 + (data.Percentile / 2);
-                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentile));
+                var val = 50 + (data.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
                 me.data.gauge = {
                     value: val,
                     tooltip: data.Percentile < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
@@ -276,7 +276,7 @@
                 if (data[indexes[x]] != null) {
                     me.data.chart[indexes[x]] =
                     {
-                        value: parseInt(data[indexes[x]].Value),
+                        value: data[indexes[x]].Value,
                         label: indexes[x],
                         name: data[indexes[x]].Name,
                         color: '#0af'

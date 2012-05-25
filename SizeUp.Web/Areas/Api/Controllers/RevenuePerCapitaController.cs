@@ -10,14 +10,16 @@ using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
  
 
+
+
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class AverageSalaryController : Controller
+    public class RevenuePerCapitaController : Controller
     {
         //
-        // GET: /Api/AverageSalary/
+        // GET: /Api/RevenuePerCapita/
 
-        public ActionResult AverageSalary(int industryId, int countyId)
+        public ActionResult RevenuePerCapita(int industryId, int countyId)
         {
             var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
 
@@ -54,7 +56,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 Value = state,
                 Name = locations.State.Name
             };
-            if (locations.Metro != null && metro!=null)
+            if (locations.Metro != null && metro != null)
             {
                 obj.Metro = new Models.AverageSalary.ChartItem()
                 {
@@ -85,63 +87,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 };
             }
             return Json(obj, JsonRequestBehavior.AllowGet);
-        }
-
-
-        public ActionResult BandsByCounty(int industryId, int bands, string boundingEntityId)
-        {
-            BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-            var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
-
-            if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
-            {
-                filters = filters.Where(i => i.County.StateId == boundingEntity.EntityId);
-            }
-            else if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
-            {
-                filters = filters.Where(i => i.County.MetroId == boundingEntity.EntityId);
-            }
-            var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
-            var bandData = data.NTile(i => i.AverageSalary, bands)
-                .Select(b => new Models.AverageSalary.Band(){ Min = b.Min(i => i.AverageSalary), Max = b.Max(i => i.AverageSalary) })
-                .ToList();
-
-            Models.AverageSalary.Band old = null;
-            foreach(var band in bandData)
-            {
-                if (old != null)
-                {
-                    old.Max = band.Min - 1;
-                }
-                old = band;
-            }
-            return Json(bandData, JsonRequestBehavior.AllowGet);
-        }
-
-
-        public ActionResult BandsByState(int industryId, int bands)
-        {
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-            var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByStates.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
-
-            var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
-            var bandData = data.NTile(i => i.AverageSalary, bands)
-                .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i.AverageSalary), Max = b.Max(i => i.AverageSalary) })
-                .ToList();
-
-            Models.AverageSalary.Band old = null;
-            foreach (var band in bandData)
-            {
-                if (old != null)
-                {
-                    old.Max = band.Min - 1;
-                }
-                old = band;
-            }
-            return Json(bandData, JsonRequestBehavior.AllowGet);
         }
 
     }
