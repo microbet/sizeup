@@ -26,106 +26,107 @@ namespace SizeUp.Web.Areas.Api.Controllers
                        .FirstOrDefault()
                        .NAICSCode.Substring(0, 4)
                   ).FirstOrDefault()
-               ).FirstOrDefault();
+               );
 
-            var locations = DataContexts.SizeUpContext.Counties.Where(i => i.Id == countyId)
+            var locations = DataContexts.SizeUpContext.Counties
                 .Select(i => new
                 {
                     County = i,
                     Metro = i.Metro,
                     State = i.State
                 })
-                .FirstOrDefault();
+                .Where(i => i.County.Id == countyId);
 
 
 
+            //nation
+            var nation = DataContexts.SizeUpContext.LaborDynamicsByStates.Where(i => i.NAICSId == naics4.FirstOrDefault().Id);
+            var nMax = nation.Select(i => new { i.Year, i.Quarter })
+                .OrderByDescending(i => i.Year)
+                .ThenByDescending(i => i.Quarter);
+            var nationData = nation.Where(i =>
+                i.Year == nMax.FirstOrDefault().Year &&
+                i.Quarter == nMax.FirstOrDefault().Quarter)
 
-            Api.Models.Turnover.TurnoverDynamics nation = null;
-            Api.Models.Turnover.TurnoverDynamics state = null;
-            Api.Models.Turnover.TurnoverDynamics metro = null;
-            Api.Models.Turnover.TurnoverDynamics county = null;
+               .GroupBy(g => new { g.Year, g.Quarter })
+               .Select(i => new Models.Turnover.ChartItem()
+               {
+                   Turnover = (0.5d * (i.Sum(g => g.Hires) + i.Sum(g => g.Separations)) / i.Sum(g => g.Employment)) * 100,
+                   Hires = i.Sum(g => g.Hires),
+                   Separations = i.Sum(g => g.Separations),
+                   Name = "USA"
+               });
 
-
-
-            nation = DataContexts.SizeUpContext.LaborDynamicsByStates.Where(i =>
-                i.Year == DataContexts.SizeUpContext.LaborDynamicsByStates.Max(m => m.Year) &&
-                i.Quarter == DataContexts.SizeUpContext.LaborDynamicsByStates.Where(q => q.Year == i.Year).Max(m => m.Quarter) &&
-                i.NAICSId == naics4.Id)
-                .GroupBy(g => new { g.Year, g.Quarter })
-                .Select(i => new Api.Models.Turnover.TurnoverDynamics() { Turnover = (0.5d * (i.Sum(g=>g.Hires) + i.Sum(g=>g.Separations)) / i.Sum(g=>g.Employment)) *100, Hires = i.Sum(g=>g.Hires), Separations = i.Sum(g=>g.Separations) })
-                .FirstOrDefault();
-
-            state = DataContexts.SizeUpContext.LaborDynamicsByStates.Where(i =>
-                i.Year == DataContexts.SizeUpContext.LaborDynamicsByStates.Max(m => m.Year) &&
-                i.Quarter == DataContexts.SizeUpContext.LaborDynamicsByStates.Where(q => q.Year == i.Year).Max(m => m.Quarter) &&
-                i.NAICSId == naics4.Id && i.StateId == locations.State.Id)
-                .Select(i => new Api.Models.Turnover.TurnoverDynamics() { Turnover = i.Turnover*100, Hires = i.Hires, Separations = i.Separations })
-                .FirstOrDefault();
-
-            if (locations.Metro != null)
-            {
-                metro = DataContexts.SizeUpContext.LaborDynamicsByMetroes.Where(i =>
-                    i.Year == DataContexts.SizeUpContext.LaborDynamicsByMetroes.Max(m => m.Year) &&
-                    i.Quarter == DataContexts.SizeUpContext.LaborDynamicsByMetroes.Where(q => q.Year == i.Year).Max(m => m.Quarter) &&
-                    i.NAICSId == naics4.Id && i.MetroId == locations.Metro.Id)
-                    .Select(i => new Api.Models.Turnover.TurnoverDynamics() { Turnover = i.Turnover*100, Hires = i.Hires, Separations = i.Separations })
-                    .FirstOrDefault();
-            }
-
-            county = DataContexts.SizeUpContext.LaborDynamicsByCounties.Where(i =>
-                i.Year == DataContexts.SizeUpContext.LaborDynamicsByCounties.Max(m => m.Year) &&
-                i.Quarter == DataContexts.SizeUpContext.LaborDynamicsByCounties.Where(q => q.Year == i.Year).Max(m => m.Quarter) &&
-                i.NAICSId == naics4.Id && i.CountyId == locations.County.Id)
-                .Select(i => new Api.Models.Turnover.TurnoverDynamics() { Turnover = i.Turnover*100, Hires = i.Hires, Separations = i.Separations })
-                .FirstOrDefault();
-
-
-            var obj = new Models.Charts.BarChart();
-            if (nation != null)
-            {
-                obj.Nation = new Models.Turnover.ChartItem()
+            //state
+            var state = DataContexts.SizeUpContext.LaborDynamicsByStates.Where(i =>
+                i.NAICSId == naics4.FirstOrDefault().Id &&
+                i.StateId == locations.FirstOrDefault().State.Id);
+            var sMax = state.Select(i => new { i.Year, i.Quarter })
+                .OrderByDescending(i => i.Year)
+                .ThenByDescending(i => i.Quarter);
+            var stateData = state
+                .Where(i =>
+                    i.Year == sMax.FirstOrDefault().Year &&
+                    i.Quarter == sMax.FirstOrDefault().Quarter)
+                .Select(i => new Models.Turnover.ChartItem()
                 {
-                    Hires = nation.Hires,
-                    Separations = nation.Separations,
-                    Turnover = nation.Turnover,
-                    Name = "USA"
-                };
-            }
-            if (state != null)
-            {
-                obj.State = new Models.Turnover.ChartItem()
+                    Turnover = i.Turnover * 100,
+                    Hires = i.Hires,
+                    Separations = i.Separations,
+                    Name = locations.FirstOrDefault().State.Name
+                });
+
+            //metro
+            var metro = DataContexts.SizeUpContext.LaborDynamicsByMetroes.Where(i =>
+                i.NAICSId == naics4.FirstOrDefault().Id &&
+                i.MetroId == locations.FirstOrDefault().Metro.Id);
+            var mMax = metro.Select(i => new { i.Year, i.Quarter })
+               .OrderByDescending(i => i.Year)
+               .ThenByDescending(i => i.Quarter);
+            var metroData = metro.Where(i =>
+                 i.Year == mMax.FirstOrDefault().Year &&
+                    i.Quarter == mMax.FirstOrDefault().Quarter)
+                .Select(i => new Models.Turnover.ChartItem()
                 {
-                    Hires = state.Hires,
-                    Separations = state.Separations,
-                    Turnover = state.Turnover,
-                    Name = locations.State.Name
-                };
-            }
-            if (locations.Metro != null && metro != null)
-            {
-                obj.Metro = new Models.Turnover.ChartItem()
+                    Turnover = i.Turnover * 100,
+                    Hires = i.Hires,
+                    Separations = i.Separations,
+                    Name = locations.FirstOrDefault().Metro.Name
+                });
+
+
+            //county
+            var county = DataContexts.SizeUpContext.LaborDynamicsByCounties.Where(i =>
+                i.NAICSId == naics4.FirstOrDefault().Id &&
+                i.CountyId == locations.FirstOrDefault().County.Id);
+            var cMax = county.Select(i => new { i.Year, i.Quarter })
+              .OrderByDescending(i => i.Year)
+              .ThenByDescending(i => i.Quarter);
+            var countyData = county
+                .Where(i =>
+                    i.Year == cMax.FirstOrDefault().Year &&
+                    i.Quarter == cMax.FirstOrDefault().Quarter)
+                .Select(i => new Models.Turnover.ChartItem()
                 {
-                    Hires = metro.Hires,
-                    Separations = metro.Separations,
-                    Turnover = metro.Turnover,
-                    Name = locations.Metro.Name
-                };
-            }
-            if (county != null)
+                    Turnover = i.Turnover * 100,
+                    Hires = i.Hires,
+                    Separations = i.Separations,
+                    Name = locations.FirstOrDefault().County.Name + ", " + locations.FirstOrDefault().State.Abbreviation
+                });
+
+
+
+
+            var data = countyData.Select(i => new Models.Charts.BarChart()
             {
-                obj.County = new Models.Turnover.ChartItem()
-                {
-                    Hires = county.Hires,
-                    Separations = county.Separations,
-                    Turnover = county.Turnover,
-                    Name = string.Format("{0}, {1}", locations.County.Name, locations.State.Abbreviation)
-                };
-            }
+                Nation = nationData.FirstOrDefault(),
+                State = stateData.FirstOrDefault(),
+                Metro = metroData.FirstOrDefault(),
+                County = i
+            }).FirstOrDefault();
 
 
-
-
-            return Json(obj, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Percentile(int industryId, int countyId)
@@ -137,25 +138,37 @@ namespace SizeUp.Web.Areas.Api.Controllers
                        .FirstOrDefault()
                        .NAICSCode.Substring(0, 4)
                   ).FirstOrDefault()
-               ).FirstOrDefault();
-
-            var turnovers = DataContexts.SizeUpContext.LaborDynamicsByCounties.Where(i =>
-                i.Year == DataContexts.SizeUpContext.LaborDynamicsByCounties.Max(m => m.Year) &&
-                i.Quarter == DataContexts.SizeUpContext.LaborDynamicsByCounties.Where(q => q.Year == i.Year).Max(m => m.Quarter) &&
-                i.NAICSId == naics4.Id)
-                .Select(i => new { i.Turnover, i.CountyId });
+               );
 
 
-            var currentTurnover = turnovers.Where(i => i.CountyId == countyId).Select(i => i.Turnover).FirstOrDefault();
-            var total = turnovers.Count();
-            var less = turnovers.Where(i => i.Turnover < currentTurnover).Count();
+            var turnovers = DataContexts.SizeUpContext.LaborDynamicsByCounties
+                .Where(i=>
+                    i.NAICSId == naics4.FirstOrDefault().Id
+                   )
+                .Select(i => new { i.Turnover, i.CountyId, i.Year, i.Quarter });
+
+            var maxes = turnovers
+               .Select(i => new { i.Year, i.Quarter })
+               .OrderByDescending(i => i.Year)
+               .ThenByDescending(i => i.Quarter);
+
+            turnovers = turnovers.Where(i =>
+                i.Year == maxes.FirstOrDefault().Year &&
+                    i.Quarter == maxes.FirstOrDefault().Quarter
+                    );
+
+            var data = new
+            {
+                Total = turnovers.Count(),
+                Less = turnovers.Where(i => i.Turnover < turnovers.Where(d => d.CountyId == countyId).Select(d => d.Turnover).FirstOrDefault()).Count()
+            };
 
             object obj = null;
-            if (total > 0)
+            if (data.Total > 0)
             {
                 obj = new
                 {
-                    Percentile = (int)((less / total) * 100)
+                    Percentile = (int)(((decimal)data.Less / (decimal)data.Total) * 100)
                 };
             }
 

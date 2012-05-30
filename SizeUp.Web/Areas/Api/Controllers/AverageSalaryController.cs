@@ -19,63 +19,106 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult AverageSalary(int industryId, int countyId)
         {
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
 
-            var locations = DataContexts.SizeUpContext.Counties.Where(i => i.Id == countyId)
+            var locations = DataContexts.SizeUpContext.Counties
                 .Select(i => new
                 {
                     County = i,
                     Metro = i.Metro,
                     State = i.State
                 })
-                .FirstOrDefault();
+                .Where(i => i.County.Id == countyId);
 
-            long? national = null;
-            long? state = null;
-            long? metro = null;
-            long? county = null;
-
-            national = DataContexts.SizeUpContext.AverageSalaryNationals.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryNationals.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-            state = DataContexts.SizeUpContext.AverageSalaryByStates.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByStates.Max(m => m.Year) && i.NAICSId == naics.Id && i.StateId == locations.State.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-            if (locations.Metro != null)
-            {
-                metro = DataContexts.SizeUpContext.AverageSalaryByMetroes.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByMetroes.Max(m => m.Year) && i.NAICSId == naics.Id && i.MetroId == locations.Metro.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-            }
-            county = DataContexts.SizeUpContext.AverageSalaryByCounties.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == locations.County.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-
-            var obj = new Models.Charts.BarChart();
-            obj.Nation = new Models.AverageSalary.ChartItem()
-            {
-                Value = national,
-                Name = "USA"
-            };
-            obj.State = new Models.AverageSalary.ChartItem()
-            {
-                Value = state,
-                Name = locations.State.Name
-            };
-            if (locations.Metro != null && metro!=null)
-            {
-                obj.Metro = new Models.AverageSalary.ChartItem()
+               
+            var nation = DataContexts.SizeUpContext.AverageSalaryNationals
+                .Where(i =>
+                    i.NAICSId == naics.FirstOrDefault().Id &&
+                    i.AverageSalary > 0);
+            var nMax = nation.Select(i => i.Year)
+                .OrderByDescending(i => i);
+            var nationData = nation.Where(i =>
+                i.Year == nMax.FirstOrDefault())
+                .Select(i => new Models.AverageSalary.ChartItem()
                 {
-                    Value = metro,
-                    Name = locations.Metro.Name
-                };
-            }
-            obj.County = new Models.AverageSalary.ChartItem()
+                    Value = i.AverageSalary,
+                    Name = "USA"
+                });
+
+
+            
+            
+            var state = DataContexts.SizeUpContext.AverageSalaryByStates
+                .Where(i => 
+                    i.NAICSId == naics.FirstOrDefault().Id &&
+                    i.StateId == locations.FirstOrDefault().State.Id &&
+                    i.AverageSalary > 0);
+            var sMax = state.Select(i => i.Year)
+                .OrderByDescending(i => i);
+            var stateData = state.Where(i =>
+                i.Year == sMax.FirstOrDefault())
+                .Select(i => new Models.AverageSalary.ChartItem()
+                {
+                    Value = i.AverageSalary,
+                    Name = locations.FirstOrDefault().State.Name
+                });
+     
+            var metro = DataContexts.SizeUpContext.AverageSalaryByMetroes
+                .Where(i => 
+                    i.NAICSId == naics.FirstOrDefault().Id &&
+                    i.MetroId == locations.FirstOrDefault().Metro.Id &&
+                    i.AverageSalary > 0);
+            var mMax = metro.Select(i => i.Year)
+                .OrderByDescending(i => i);
+            var metroData = metro.Where(i=>
+                i.Year == mMax.FirstOrDefault())
+                .Select(i => new Models.AverageSalary.ChartItem()
+                {
+                    Value = i.AverageSalary,
+                    Name = locations.FirstOrDefault().Metro.Name
+                });
+         
+
+            var county = DataContexts.SizeUpContext.AverageSalaryByCounties
+                .Where(i =>
+                    i.NAICSId == naics.FirstOrDefault().Id &&
+                    i.CountyId == locations.FirstOrDefault().County.Id &&
+                    i.AverageSalary > 0);
+            var cMax = county.Select(i => i.Year)
+                .OrderByDescending(i => i);
+            var countyData = county.Where(i=>
+                i.Year == cMax.FirstOrDefault())
+                .Select(i => new Models.AverageSalary.ChartItem()
+                {
+                    Value = i.AverageSalary,
+                    Name = locations.FirstOrDefault().County.Name + ", " + locations.FirstOrDefault().State.Abbreviation
+                });
+
+
+            var data = countyData.Select(i => new Models.Charts.BarChart()
             {
-                Value = county,
-                Name = string.Format("{0}, {1}", locations.County.Name, locations.State.Abbreviation)
-            };
+                Nation = nationData.FirstOrDefault(),
+                State = stateData.FirstOrDefault(),
+                Metro = metroData.FirstOrDefault(),
+                County = i
+            }).FirstOrDefault();
 
 
-            return Json(obj, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Percentage(int industryId, int countyId, decimal value)
         {
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-            long? county = DataContexts.SizeUpContext.AverageSalaryByCounties.Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == countyId).Select(i => i.AverageSalary).FirstOrDefault();
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
+            var countyData = DataContexts.SizeUpContext.AverageSalaryByCounties.Where(i =>
+                i.NAICSId == naics.FirstOrDefault().Id &&
+                i.CountyId == countyId);
+
+            var cMax = countyData.Select(i => i.Year)
+               .OrderByDescending(i => i);
+
+            long? county = countyData.Where(i => i.Year == cMax.FirstOrDefault())
+                .Select(i => i.AverageSalary).FirstOrDefault();
             object obj = null;
             if (county.HasValue && county != 0)
             {
@@ -91,9 +134,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public ActionResult BandsByCounty(int industryId, int bands, string boundingEntityId)
         {
             BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
             var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
+                .Where(i => 
+                    i.NAICSId == naics.FirstOrDefault().Id &&
+                    i.AverageSalary > 0);
+
+            var cMax = filters.Select(i => i.Year)
+               .OrderByDescending(i => i);
+
+            filters = filters.Where(i => i.Year == cMax.FirstOrDefault());
 
             if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
             {
@@ -123,9 +173,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult BandsByState(int industryId, int bands)
         {
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
             var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByStates.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
+                .Where(i => 
+                    i.NAICSId == naics.FirstOrDefault().Id &&
+                    i.AverageSalary > 0);
+
+            var sMax = filters.Select(i => i.Year)
+               .OrderByDescending(i => i);
+
+            filters = filters.Where(i => i.Year == sMax.FirstOrDefault());
 
             var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
             var bandData = data.NTile(i => i.AverageSalary, bands)

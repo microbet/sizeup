@@ -153,7 +153,6 @@
     <Compile Include="Areas\Api\Models\County\County.cs" />
     <Compile Include="Areas\Api\Models\Industry\Industry.cs" />
     <Compile Include="Areas\Api\Models\JobChange\ChartItem.cs" />
-    <Compile Include="Areas\Api\Models\JobChange\JobChangeDynamics.cs" />
     <Compile Include="Areas\Api\Models\Maps\LatLng.cs" />
     <Compile Include="Areas\Api\Models\Maps\Polygon.cs" />
     <Compile Include="Areas\Api\Models\Metro\Metro.cs" />
@@ -162,7 +161,6 @@
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
-    <Compile Include="Areas\Api\Models\Turnover\TurnoverDynamics.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -251,7 +249,9 @@
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -33,9 +33,12 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             
             var geos = DataContexts.SizeUpContext.Counties.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
             
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
             var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0 );
+                .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0 );
+             var max = filters.Select(i => i.Year)
+                .OrderByDescending(i => i);
+             filters = filters.Where(i => i.Year == max.FirstOrDefault());
 
             if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
             {
@@ -85,9 +88,14 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
 
             var geos = DataContexts.SizeUpContext.States.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
+            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
             var filters = DataContexts.SizeUpContext.AverageSalaryByStates
-                .Where(i => i.Year == DataContexts.SizeUpContext.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0);
+                .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0);
+
+            var max = filters.Select(i => i.Year)
+               .OrderByDescending(i => i);
+            filters = filters.Where(i => i.Year == max.FirstOrDefault());
+
 
             var data = filters.OrderBy(i => i.AverageSalary)
                 .Select(i => new { i.AverageSalary, i.StateId })
