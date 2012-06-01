@@ -32,9 +32,24 @@ namespace SizeUp.Web
                 new { controller = "Business", action = "Find" } // Parameter defaults
             );
 
+
+            routes.MapRoute(
+               "TopPlaces", // Route name
+               "topplaces/{industry}", // URL with parameters
+               new { controller = "TopPlaces", action = "Index" } // Parameter defaults
+           );
+
+
+            routes.MapRoute(
+                "Advertising", // Route name
+                "advertising/{state}/{city}/{industry}", // URL with parameters
+                new { controller = "Advertising", action = "Index" } // Parameter defaults
+            );
+
+
             routes.MapRoute(
                 "Competition", // Route name
-                "competition/{city}/{industry}", // URL with parameters
+                "competition/{state}/{city}/{industry}", // URL with parameters
                 new { controller = "Competition", action = "Index" } // Parameter defaults
             );
 

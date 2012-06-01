@@ -3,13 +3,29 @@
 <div id="menu">
 <ul>
 @if(!ViewBag.Header.HideNavigation){
-<li><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard ? "disabled" : "")" >My Business</a></li>
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
+<li><a class="disabled">My Business</a></li>
+}else{
+<li><a href="/dashboard/@SizeUp.Core.Web.WebContext.Current.CurrentCity.State.Abbreviation/@SizeUp.Core.Web.WebContext.Current.CurrentCity.SEOKey/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">My Business</a></li>
+}
 <li><span>|</span></li>
-<li><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition ? "disabled" : "")">Competition</a></li>
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition){
+<li><a class="disabled">Competition</a></li>
+}else{
+<li><a href="/competition/@SizeUp.Core.Web.WebContext.Current.CurrentCity.State.Abbreviation/@SizeUp.Core.Web.WebContext.Current.CurrentCity.SEOKey/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">Competition</a></li>
+}
 <li><span>|</span></li>
-<li><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising ? "disabled" : "")">Advertising</a></li>
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
+<li><a class="disabled">Advertising</a></li>
+}else{
+<li><a href="/advertising/@SizeUp.Core.Web.WebContext.Current.CurrentCity.State.Abbreviation/@SizeUp.Core.Web.WebContext.Current.CurrentCity.SEOKey/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">Advertising</a></li>
+}
 <li><span>|</span></li>
-<li class="lastMenuItem"><a href="#" class="@(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces ? "disabled" : "")">Top Places</a></li>
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces){
+<li class="lastMenuItem"><a class="disabled">Top Places</a></li>
+}else{
+<li class="lastMenuItem"><a href="/topPlaces/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">Top Places</a></li>
+}
 }
 @if(SizeUp.Core.Identity.Identity.CurrentUser==null){
 <li><a href="/user/signin/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>

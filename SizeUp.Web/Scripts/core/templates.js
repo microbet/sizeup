@@ -23,7 +23,8 @@
                 'data-override-onclick',
                 'data-override-ondblclick',
                 'data-override-onmouseover',
-                'data-override-onmouseout'
+                'data-override-onmouseout',
+                'data-override-style'
             ];
             for (var x in overrides) {
                 var index = '[' + overrides[x] + ']';
