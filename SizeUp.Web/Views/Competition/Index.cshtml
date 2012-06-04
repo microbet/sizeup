@@ -15,8 +15,79 @@
 
 
 <div id="competition">
-<h2>Index</h2>
+    <ul id="tabs">
+        <li id="competitorTab" class="tab active">
+            <a href="#">
+                <span class="inverse">Competitors</span>
+            </a>
+        </li>
+        <li id="buyerTab" class="tab hidden">
+            <a href="#">
+                <span class="inverse">Customers</span>
+            </a>
+        </li>
+        <li id="supplierTab" class="tab hidden">
+            <a href="#">
+                <span class="inverse">Suppliers</span>
+            </a>
+        </li>
+    </ul>
 
+    <ul id="questions">
+        <li id="buyersQuestion" class="question" >
+            <a href="#"><span class="inverse">Do you SELL to other businesses?</span></a>
+        </li>
+        <li id="suppliersQuestion" class="question" >
+            <a href="#"><span class="inverse">Do you BUY from other businesses?</span></a>
+        </li>
+    </ul>
+
+    <div class="tabContent wrapper">
+        <div class="picker wrapper hidden">
+            <h2>Select categories of businesses that you compete with</h2>
+            <p>Map the potential competitors in your area.</p>
+            <ul class="industryList">
+                <li>
+                    <a href="javascript:void(0);" class="remove">Remove</a>
+                    <span>Sunglasses &amp; Sun Goggles</span>
+                </li>
+            </ul>
+
+            <input type="text" class="pickerInput" value="enter a keyword" />
+            <a href="#" class="button small submit">Done</a>
+            <a href="#" class="cancel inverse">Cancel</a>
+        </div>
+        
+        <div class="content">
+            <h2>You are in the Pharmacies industry</h2>
+            <a href="#" class="change">[Do you COMPETE with businesses in other industries?]</a>
+
+            <div class="wrapper">
+                <div class="list wrapper">
+                    <ul class="businessList">
+                        <li>
+                            <a href="#">
+                                <img src="/content/images/temp.png" />
+                                <dl>
+                                    <dt class="name">{{Name}}</dt>
+                                    <dd class="address">{{Address}}{{^Address}}Street address not provided{{/Address}}</dd>
+                                </dl>
+                            </a>
+                        </li>
+                    </ul>
+                    @if(!HttpContext.Current.User.Identity.IsAuthenticated){
+                    <p id="signinPanel" class="info">
+                        <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
+                        <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
+                    </p>
+                    }
+                </div>
+                <div class="mapContent wrapper">
+                    <div class="map">map</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

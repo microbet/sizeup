@@ -1,1 +1,62 @@
-﻿
+﻿#header { height: 11em; }
+#compeition { position: relative; }
+
+#competition h2 { font-size: 2.1em; display: inline-block; font-weight: normal; }
+
+#competition .inverse { color: #606060; }
+#competition .inverse:hover { color: #e78500;  }
+
+#competition #tabs {position: absolute; top: -4.1em; left: 25.5em;}
+#competition #tabs .tab { display: inline-block; }
+#competition #tabs .tab a { display: block; font-size: 1em; width: 14.5em; height: 3.7em; background-color:#F0F0E7; border:solid 2px #d7d7ce; -webkit-border-top-left-radius: 1em;-webkit-border-top-right-radius: 1em;-moz-border-radius-topleft: 1em;-moz-border-radius-topright: 1em;border-top-left-radius: 1em;border-top-right-radius: 1em;}
+#competition #tabs .tab.active a {  background-color:#fff; border-bottom: 2px solid #fff; }
+#competition #tabs .tab a span {font-size:1.9em; font-weight:bold; display: inline-block; position:relative; left:0.25em; padding: 0.3em 0 0 1.25em; height: 1.7em; background:url('/content/images/temp.png') no-repeat 0 4px transparent;}
+
+#competition #questions {position: absolute; top: -2.75em; right: 2em;}
+#competition #questions .question { display: inline-block; margin: 0 0 0 1em; }
+
+
+
+#competition a.change { font-weight: normal; font-size: 1.2em; display: inline-block; color: #aaa; position: relative; left: 0.5em;top: -0.25em;  }
+#competition a.change:hover { color: #e78500;  }
+
+#competition .wrapper { position: relative; }
+
+
+#competition .list.wrapper { display: inline-block;  left: 0;  margin: 0 1em 0 0;}
+#competition .mapContent { display: inline-block; left: 0; vertical-align: top;}
+
+
+#competition .picker p { font-size: 1.1em; text-indent: 1em; }
+#competition .picker input { font-size: 1.3em; padding: 0.1em; margin:1em; width: 30em; display: block;}
+#competition .picker a { margin: 0 0 0 1em; }
+#competition .picker a.cancel { font-size: 1.1em; }
+#competition .picker .industryList { margin: 1em 0 0 1em; }
+#competition .picker .industryList .remove {color:transparent; padding: 14px 0 0 14px; position: relative; top: 2px; font-size: 0; background:url('/content/images/btn_close.gif') no-repeat 0 0 transparent;  }
+
+
+
+
+
+#competition .map { width: 50em; height: 40em; border: solid black 1px; }
+#competition .businessList { width: 40em; }
+
+#competition .businessList li { }
+#competition .businessList li a {display:block; padding:0.5em; height:3em; font-size: 1em;  }
+#competition .businessList li a:hover {background-color:#f6f6f0;}
+#competition .businessList li dl {font-family: Arial,Verdana,sans-serif; display: inline-block;}
+#competition .businessList li img {  }
+#competition .businessList li .name { font-size:1.5em; font-weight:bold; color:#E78500; }
+#competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
+
+
+
+#competition #signinPanel {margin: 7em auto;  }
+
+
+
+
+
+
+
+

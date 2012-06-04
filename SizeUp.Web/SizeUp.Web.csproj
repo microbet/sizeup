@@ -37,6 +37,9 @@
     <PublishDatabases>false</PublishDatabases>
     <DeployIisAppPath>Default Web Site</DeployIisAppPath>
     <EnableUpdateable>true</EnableUpdateable>
+    <DeleteAppCodeCompiledFiles>false</DeleteAppCodeCompiledFiles>
+    <UseMetabasePath>false</UseMetabasePath>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -191,6 +194,7 @@
   <ItemGroup>
     <Content Include="Content\base.css" />
     <Content Include="Content\images\advertise.png" />
+    <Content Include="Content\images\btn_close.gif" />
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\dashboardIcons.png" />
     <Content Include="Content\images\dashbuttons.png" />
@@ -221,6 +225,7 @@
     <Content Include="Content\views\user\resetpassword.css" />
     <Content Include="Content\views\user\signin.css" />
     <Content Include="Global.asax" />
+    <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
     <Content Include="Scripts\controls\citySelector.js" />
