@@ -18,7 +18,11 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            ViewBag.Content = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name == "Terms.Content").Select(i => i.Value).FirstOrDefault();
+
+            using (var context = new SizeUpContext())
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Terms.Content").Select(i => i.Value).FirstOrDefault();
+            }
             return View();
         }
 
@@ -29,7 +33,10 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            ViewBag.Content = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name == "Privacy.Content").Select(i => i.Value).FirstOrDefault();
+            using (var context = new SizeUpContext())
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Privacy.Content").Select(i => i.Value).FirstOrDefault();
+            }
             return View("Privacy");
         }
 

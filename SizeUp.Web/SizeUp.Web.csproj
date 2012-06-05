@@ -33,7 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PrecompileBeforePublish>true</PrecompileBeforePublish>
+    <PrecompileBeforePublish>false</PrecompileBeforePublish>
     <PublishDatabases>false</PublishDatabases>
     <DeployIisAppPath>Default Web Site</DeployIisAppPath>
     <EnableUpdateable>true</EnableUpdateable>
@@ -175,6 +175,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\TopPlacesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Models\Business\IndustryDetails.cs" />
     <Compile Include="Models\Business\Locations.cs" />
     <Compile Include="Models\Business\Report.cs" />
+    <Compile Include="Models\CurrentInfo.cs" />
     <Compile Include="Models\Header.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -247,6 +249,7 @@
     <Content Include="Scripts\thirdParty\raphael-min.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\business\find.js" />
+    <Content Include="Scripts\views\competition\competition.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
     <Content Include="Scripts\views\dashboard\costEffectiveness.js" />
     <Content Include="Scripts\views\dashboard\dashboard.js" />
@@ -266,15 +269,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -282,7 +278,6 @@
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Tiles\Models\" />
     <Folder Include="Areas\Tiles\Views\Shared\" />
-    <Folder Include="Scripts\views\competition\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -327,7 +322,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\new.SizeUp.com.pubxml" />
+    <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />
     <Content Include="Views\Dashboard\YearStarted.cshtml" />
@@ -339,6 +334,14 @@
     <Content Include="Views\Dashboard\WorkersComp.cshtml" />
     <Content Include="Views\Advertising\Index.cshtml" />
     <Content Include="Views\TopPlaces\Index.cshtml" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

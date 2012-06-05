@@ -80,12 +80,7 @@
 @section scripts{
 
     <script type="text/javascript">
-    var options = {
-        currentCity: @ViewBag.CurrentCityId,
-        detectedCity:  @ViewBag.DetectedCityId,
-        currentIndustry: @ViewBag.CurrentIndustryId
-    };
-    var driver = new sizeup.views.home(options);
+    var driver = new sizeup.views.home();
     </script>
 
 

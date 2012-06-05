@@ -18,7 +18,10 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            ViewBag.Content = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name == "HowItWorks.Content").Select(i => i.Value).FirstOrDefault();
+            using (var context = new SizeUpContext())
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "HowItWorks.Content").Select(i => i.Value).FirstOrDefault();
+            }
             return View("HowItWorks");
         }
 
@@ -28,7 +31,10 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            ViewBag.Content = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name == "Faq.Content").Select(i => i.Value).FirstOrDefault();
+            using (var context = new SizeUpContext())
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Faq.Content").Select(i => i.Value).FirstOrDefault();
+            }
             return View();
         }
 
@@ -38,7 +44,10 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            ViewBag.Content = DataContexts.SizeUpContext.ResourceStrings.Where(i => i.Name == "Contact.Content").Select(i => i.Value).FirstOrDefault();
+            using (var context = new SizeUpContext())
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Contact.Content").Select(i => i.Value).FirstOrDefault();
+            }
             return View();
         }
 

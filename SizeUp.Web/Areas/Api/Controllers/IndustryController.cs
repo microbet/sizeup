@@ -13,81 +13,93 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Industry/
-
-
         public JsonResult Industry(int? id)
         {
-            var industry = DataContexts.SizeUpContext.Industries.Where(i => i.Id == id);
-            var data = industry.Select(i => new Models.Industry.Industry()
+            using (var context = new SizeUpContext())
             {
-                Id = i.Id,
-                Name = i.Name,
-                SEOKey = i.SEOKey
-            }).FirstOrDefault();
-            return Json(data, JsonRequestBehavior.AllowGet);
+                var industry = context.Industries.Where(i => i.Id == id);
+                var data = industry.Select(i => new Models.Industry.Industry()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey
+                }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
         public JsonResult CurrentIndustry()
         {
-            var i = SizeUp.Core.Web.WebContext.Current.CurrentIndustry;
-            object data = null;
-            if (i != null)
+            var id = SizeUp.Core.Web.WebContext.Current.CurrentIndustryId;
+            using (var context = new SizeUpContext())
             {
-                data = new Models.Industry.Industry()
+                var industry = context.Industries.Where(i => i.Id == id);
+                var data = industry.Select(i => new Models.Industry.Industry()
                 {
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey
-                };
+                }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult CurrentIndustry(int id)
+        public JsonResult CurrentIndustry(long id)
         {
-            var c = DataContexts.SizeUpContext.Industries.Where(i => i.Id == id).FirstOrDefault();
-            WebContext.Current.CurrentIndustry = c;
-            return Json(true, JsonRequestBehavior.AllowGet);
+            using (var context = new SizeUpContext())
+            {
+                var c = context.Industries.Where(i => i.Id == id).FirstOrDefault();
+                if (c != null)
+                {
+                    WebContext.Current.CurrentIndustryId = id;
+                }
+                return Json(c!=null, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult SearchIndustries(string term, int maxResults = 35)
         {
-            var keywords = DataContexts.SizeUpContext.IndustryKeywords.AsQueryable();
-            var industries = DataContexts.SizeUpContext.Industries.AsQueryable();
-
-            var searchSpace = keywords.Select(i=> new { 
-                Id = i.IndustryId ,
-                i.Name,
-                i.Industry.SEOKey,
-                i.SortOrder
-            }).Union(industries.Select(i=> new {
-                i.Id,
-                i.Name,
-                i.SEOKey,
-                SortOrder = 1
-            }));
-
-            foreach (var qs in term.Split(' '))
+            using (var context = new SizeUpContext())
             {
-                if (!string.IsNullOrWhiteSpace(qs))
-                {
-                    searchSpace = searchSpace.Where(i => i.Name.Contains(qs));
-                }
-            }
+                var keywords = context.IndustryKeywords.AsQueryable();
+                var industries = context.Industries.AsQueryable();
 
-            var data = searchSpace
-                .OrderBy(i => i.SortOrder)
-                .Take(maxResults)
-                .Select(i => new Models.Industry.Industry()
+                var searchSpace = keywords.Select(i => new
                 {
-                    Id = i.Id,
-                    Name = i.Name,
-                    SEOKey = i.SEOKey
-                });
-                
-            return Json(data, JsonRequestBehavior.AllowGet);
+                    Id = i.IndustryId,
+                    i.Name,
+                    i.Industry.SEOKey,
+                    i.SortOrder
+                }).Union(industries.Select(i => new
+                {
+                    i.Id,
+                    i.Name,
+                    i.SEOKey,
+                    SortOrder = 1
+                }));
+
+                foreach (var qs in term.Split(' '))
+                {
+                    if (!string.IsNullOrWhiteSpace(qs))
+                    {
+                        searchSpace = searchSpace.Where(i => i.Name.Contains(qs));
+                    }
+                }
+
+                var data = searchSpace
+                    .OrderBy(i => i.SortOrder)
+                    .Take(maxResults)
+                    .Select(i => new Models.Industry.Industry()
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        SEOKey = i.SEOKey
+                    });
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult HasData(int id, int cityId)

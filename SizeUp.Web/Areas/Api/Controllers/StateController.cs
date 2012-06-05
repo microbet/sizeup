@@ -16,16 +16,19 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult State(int? id)
         {
-            var item = DataContexts.SizeUpContext.States.Where(i => i.Id == id);
-            var data = item.Select(i => new Models.State.State()
+            using (var context = new SizeUpContext())
             {
-                Id = i.Id,
-                Name = i.Name,
-                Abbreviation = i.Abbreviation,
-                SEOKey = i.SEOKey
+                var item = context.States.Where(i => i.Id == id);
+                var data = item.Select(i => new Models.State.State()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Abbreviation = i.Abbreviation,
+                    SEOKey = i.SEOKey
 
-            }).FirstOrDefault();
-            return Json(data, JsonRequestBehavior.AllowGet);
+                }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

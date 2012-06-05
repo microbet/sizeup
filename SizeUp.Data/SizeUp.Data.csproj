@@ -56,7 +56,6 @@
       <DependentUpon>AnalyticsContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Analytics\Tracker.cs" />
-    <Compile Include="DataContexts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeUpContext.Designer.cs">
       <AutoGen>True</AutoGen>

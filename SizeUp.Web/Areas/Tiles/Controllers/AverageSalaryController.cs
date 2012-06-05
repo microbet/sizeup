@@ -23,108 +23,114 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
        
         public ActionResult County(int x, int y, int zoom, int industryId, string colors, string boundingEntityId)
         {
-            string[] colorArray = colors.Split(',');
-            List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
-            Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-            BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-
-            var boundingBox = tile.GetBoundingGeography(boundingEntity.Geography);
-            var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
-            
-            var geos = DataContexts.SizeUpContext.Counties.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
-            
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
-            var filters = DataContexts.SizeUpContext.AverageSalaryByCounties
-                .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0 );
-             var max = filters.Select(i => i.Year)
-                .OrderByDescending(i => i);
-             filters = filters.Where(i => i.Year == max.FirstOrDefault());
-
-            if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
+            using (var context = new SizeUpContext())
             {
-                filters = filters.Where(i => i.County.StateId == boundingEntity.EntityId);
+                string[] colorArray = colors.Split(',');
+                List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
+                Heatmap tile = new Heatmap(256, 256, x, y, zoom);
+                BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
+
+                var boundingBox = tile.GetBoundingGeography(boundingEntity.Geography);
+                var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
+
+                var geos = context.Counties.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
+
+                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
+                var filters = context.AverageSalaryByCounties
+                    .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0);
+                var max = filters.Select(i => i.Year)
+                   .OrderByDescending(i => i);
+                filters = filters.Where(i => i.Year == max.FirstOrDefault());
+
+                if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
+                {
+                    filters = filters.Where(i => i.County.StateId == boundingEntity.EntityId);
+                }
+                else if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
+                {
+                    filters = filters.Where(i => i.County.MetroId == boundingEntity.EntityId);
+                }
+                var data = filters.OrderBy(i => i.AverageSalary)
+                    .Select(i => new { i.AverageSalary, i.CountyId })
+                    .ToList();
+
+
+                var bands = data.NTile(i => i.AverageSalary, colorArray.Length).ToList();
+                var bandedGeos = bands.Select(b => b.Join(geos, i => i.CountyId, i => i.Id, (i, o) => new { o.Id, o.Geography, i.AverageSalary }).ToList()).ToList();
+                var noData = geos.Where(g => !data.Select(ig => ig.CountyId).Contains(g.Id)).ToList();
+
+                for (var b = 0; b < bandedGeos.Count; b++)
+                {
+                    var geoCollection = new Heatmap.GeographyCollection();
+                    geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                    geoCollection.Color = colorArray[b];
+                    collection.Add(geoCollection);
+                }
+
+                var noDataCollection = new Heatmap.GeographyCollection();
+                noDataCollection.Geographies = new List<SqlGeography>();
+                noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                collection.Add(noDataCollection);
+
+
+                tile.Draw(collection);
+                var stream = new System.IO.MemoryStream();
+                tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return File(stream.GetBuffer(), "image/png");
             }
-            else if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
-            {
-                filters = filters.Where(i => i.County.MetroId == boundingEntity.EntityId);
-            }
-            var data = filters.OrderBy(i => i.AverageSalary)
-                .Select(i => new { i.AverageSalary, i.CountyId })
-                .ToList();
-
-
-            var bands = data.NTile(i => i.AverageSalary, colorArray.Length).ToList();
-            var bandedGeos = bands.Select(b => b.Join(geos, i => i.CountyId, i => i.Id, (i, o) => new { o.Id, o.Geography, i.AverageSalary }).ToList()).ToList();
-            var noData = geos.Where(g => !data.Select(ig => ig.CountyId).Contains(g.Id)).ToList();
-
-            for (var b = 0; b < bandedGeos.Count; b++)
-            {
-                var geoCollection = new Heatmap.GeographyCollection();
-                geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
-                geoCollection.Color = colorArray[b];
-                collection.Add(geoCollection);
-            }
-
-            var noDataCollection = new Heatmap.GeographyCollection();
-            noDataCollection.Geographies = new List<SqlGeography>();
-            noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
-            collection.Add(noDataCollection);
-
-
-            tile.Draw(collection);
-            var stream = new System.IO.MemoryStream();
-            tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-            return File(stream.GetBuffer(), "image/png");
         }
 
         public ActionResult State(int x, int y, int zoom, int industryId, string colors)
         {
-            string[] colorArray = colors.Split(',');
-            List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
-            Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-            
-
-            var boundingBox = tile.GetBoundingGeography();
-            var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
-
-            var geos = DataContexts.SizeUpContext.States.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
-            var naics = DataContexts.SizeUpContext.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
-            var filters = DataContexts.SizeUpContext.AverageSalaryByStates
-                .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0);
-
-            var max = filters.Select(i => i.Year)
-               .OrderByDescending(i => i);
-            filters = filters.Where(i => i.Year == max.FirstOrDefault());
-
-
-            var data = filters.OrderBy(i => i.AverageSalary)
-                .Select(i => new { i.AverageSalary, i.StateId })
-                .ToList();
-
-            var bands = data.NTile(i => i.AverageSalary, colorArray.Length).ToList();
-            var bandedGeos = bands.Select(b => b.Join(geos, i => i.StateId, i => i.Id, (i, o) => new { o.Id, o.Geography, i.AverageSalary }).ToList()).ToList();
-            var noData = geos.Where(g => !data.Select(ig => ig.StateId).Contains(g.Id)).ToList();
-
-            for (var b = 0; b < bandedGeos.Count; b++)
+            using (var context = new SizeUpContext())
             {
-                var geoCollection = new Heatmap.GeographyCollection();
-                geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
-                geoCollection.Color = colorArray[b];
-                collection.Add(geoCollection);
+                string[] colorArray = colors.Split(',');
+                List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
+                Heatmap tile = new Heatmap(256, 256, x, y, zoom);
+
+
+                var boundingBox = tile.GetBoundingGeography();
+                var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
+
+                var geos = context.States.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
+                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
+                var filters = context.AverageSalaryByStates
+                    .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0);
+
+                var max = filters.Select(i => i.Year)
+                   .OrderByDescending(i => i);
+                filters = filters.Where(i => i.Year == max.FirstOrDefault());
+
+
+                var data = filters.OrderBy(i => i.AverageSalary)
+                    .Select(i => new { i.AverageSalary, i.StateId })
+                    .ToList();
+
+                var bands = data.NTile(i => i.AverageSalary, colorArray.Length).ToList();
+                var bandedGeos = bands.Select(b => b.Join(geos, i => i.StateId, i => i.Id, (i, o) => new { o.Id, o.Geography, i.AverageSalary }).ToList()).ToList();
+                var noData = geos.Where(g => !data.Select(ig => ig.StateId).Contains(g.Id)).ToList();
+
+                for (var b = 0; b < bandedGeos.Count; b++)
+                {
+                    var geoCollection = new Heatmap.GeographyCollection();
+                    geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                    geoCollection.Color = colorArray[b];
+                    collection.Add(geoCollection);
+                }
+
+                var noDataCollection = new Heatmap.GeographyCollection();
+                noDataCollection.Geographies = new List<SqlGeography>();
+                noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                collection.Add(noDataCollection);
+
+
+
+
+                tile.Draw(collection);
+                var stream = new System.IO.MemoryStream();
+                tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return File(stream.GetBuffer(), "image/png");
             }
-
-            var noDataCollection = new Heatmap.GeographyCollection();
-            noDataCollection.Geographies = new List<SqlGeography>();
-            noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
-            collection.Add(noDataCollection);
-
-
-
-
-            tile.Draw(collection);
-            var stream = new System.IO.MemoryStream();
-            tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-            return File(stream.GetBuffer(), "image/png");
         }
     }
 }

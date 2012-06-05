@@ -26,21 +26,21 @@ namespace SizeUp.Core.Geo
         }
 
         protected static string GEOCoderAddress { get { return @"http://api.ipinfodb.com/v2/ip_query.php?key=3f1885fa744dbf2517f3236bb50c7f791a68580cee86048388a9393ad36e28bf&ip={0}&timezone=false"; } }
-        public static City GetPlaceByIPAddress()
+        public static long? GetCityIdByIPAddress()
         {
-            return GetPlaceByIPAddress(HttpContext.Current.Request.UserHostAddress);
+            return GetCityIdByIPAddress(HttpContext.Current.Request.UserHostAddress);
         }
-        public static City GetPlaceByIPAddress(string ip)
+        public static long? GetCityIdByIPAddress(string ip)
         {
-            City p = null;
+            long? id = null;
             var Cache = HttpContext.Current.Cache;
             var cacheKey = string.Format("SizeUp.Core.Geo.GeoCoder.IP{0}", ip);
             try
             {
                 if (!IsLocalIpAddress(ip))
                 {
-                    p = Cache[cacheKey] as City;
-                    if (p == null)
+                    id = Cache[cacheKey] as long?;
+                    if (id == null)
                     {
                         XDocument xdoc = XDocument.Load(String.Format(GEOCoderAddress, ip));
                         var geo = (from x in xdoc.Descendants("Response")
@@ -59,16 +59,19 @@ namespace SizeUp.Core.Geo
 
                         if (geo != null)
                         {
-                            var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
-                            p = DataContexts.SizeUpContext.Cities.Where(i => i.Geography.Distance(point) < 30000 && i.Geography.Area > 0)
-                                .OrderBy(i=>i.Geography.Distance(point)).FirstOrDefault();
-                            Cache[cacheKey] = p;
+                            using (var context = new SizeUpContext())
+                            {
+                                var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
+                                id = context.Cities.Where(i => i.Geography.Distance(point) < 30000 && i.Geography.Area > 0)
+                                    .OrderBy(i => i.Geography.Distance(point)).Select(i=>i.Id).FirstOrDefault();
+                                Cache[cacheKey] = id;
+                            }
                         }
                     }
                 }
             }
             catch (Exception e){ }
-            return p;
+            return id;
         }
 
         protected static bool IsLocalIpAddress(string host)

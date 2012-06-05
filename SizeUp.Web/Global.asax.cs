@@ -58,6 +58,13 @@ namespace SizeUp.Web
                 "dashboard/{state}/{city}/{industry}", // URL with parameters
                 new { controller = "Dashboard", action = "Index" } // Parameter defaults
             );
+
+            routes.MapRoute(
+                "404", // Route name
+                "error/404", // URL with parameters
+                new { controller = "Error", action = "Error404" } // Parameter defaults
+            );
+
             /*
             routes.MapHttpRoute(
                 name: "DefaultApi",

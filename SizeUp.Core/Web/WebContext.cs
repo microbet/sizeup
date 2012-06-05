@@ -24,35 +24,23 @@ namespace SizeUp.Core.Web
             }
         }
 
-        public City DetectedCity
+        public long? CurrentIndustryId
         {
             get
             {
-                return Geo.GeoCoder.GetPlaceByIPAddress();
-            }
-        }
-
-        public Industry CurrentIndustry
-        {
-            get
-            {
-                var c = System.Web.HttpContext.Current;
-                var ind = c.Items["Sizeup.Core.Web.WebContext.CurrentIndustry"] as Industry;
-                var cookie = c.Request.Cookies["industry"];
-                int? id = cookie == null ? null : int.Parse(cookie.Value) as int?;
-                if (ind == null && id.HasValue)
                 {
-                    ind = DataContexts.SizeUpContext.Industries.Where(i => i.Id == id).FirstOrDefault();
-                    c.Items["Sizeup.Core.Web.WebContext.CurrentIndustry"] = ind;
+                    var c = System.Web.HttpContext.Current;
+                    var cookie = c.Request.Cookies["industry"];
+                    long? id = cookie == null ? null : long.Parse(cookie.Value) as long?;
+                    return id;
                 }
-                return ind;
             }
             set
             {
                 var c = System.Web.HttpContext.Current;
                 if (value != null)
                 {
-                    HttpCookie cookie = new HttpCookie("industry", value.Id.ToString());
+                    HttpCookie cookie = new HttpCookie("industry", value.ToString());
                     cookie.Expires = DateTime.Now.AddDays(7.0);
                     c.Response.Cookies.Add(cookie);
                 }
@@ -65,27 +53,21 @@ namespace SizeUp.Core.Web
             }
         }
 
-         public City CurrentCity
+         public long? CurrentCityId
          {
              get
              {
                  var c = System.Web.HttpContext.Current;
-                 var ind = c.Items["Sizeup.Core.Web.WebContext.CurrentCity"] as City;
                  var cookie = c.Request.Cookies["city"];
-                 int? id = cookie == null ? null : int.Parse(cookie.Value) as int?;
-                 if (ind == null && id.HasValue)
-                 {
-                     ind = DataContexts.SizeUpContext.Cities.Where(i => i.Id == id).FirstOrDefault();
-                     c.Items["Sizeup.Core.Web.WebContext.CurrentCity"] = ind;
-                 }
-                 return ind;
+                 long? id = cookie == null ? null : long.Parse(cookie.Value) as long?;
+                 return id;
              }
              set
              {
                  var c = System.Web.HttpContext.Current;
                  if (value != null)
                  {
-                     HttpCookie cookie = new HttpCookie("city", value.Id.ToString());
+                     HttpCookie cookie = new HttpCookie("city", value.ToString());
                      cookie.Expires = DateTime.Now.AddDays(7.0);
                      c.Response.Cookies.Add(cookie);
                  }

@@ -15,14 +15,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult County(int? id)
         {
-            var item = DataContexts.SizeUpContext.Counties.Where(i => i.Id == id);
-            var data = item.Select(i => new Models.County.County()
+            using (var context = new SizeUpContext())
             {
-                Id = i.Id,
-                Name = i.Name,
-                State = i.State.Abbreviation
-            }).FirstOrDefault();
-            return Json(data, JsonRequestBehavior.AllowGet);
+                var item = context.Counties.Where(i => i.Id == id);
+                var data = item.Select(i => new Models.County.County()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    State = i.State.Abbreviation
+                }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

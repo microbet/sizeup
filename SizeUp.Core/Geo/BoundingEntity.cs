@@ -27,69 +27,72 @@ namespace SizeUp.Core.Geo
 
         public BoundingEntity(string entityIdCode)
         {
-            BoundingEntityId = entityIdCode;
-            EntityType = null;
-            Geography = null;
-            EntityId = null;
-            if (string.IsNullOrEmpty(entityIdCode))
+            using (var context = new SizeUpContext())
             {
-                entityIdCode = string.Empty;
-            }
+                BoundingEntityId = entityIdCode;
+                EntityType = null;
+                Geography = null;
+                EntityId = null;
+                if (string.IsNullOrEmpty(entityIdCode))
+                {
+                    entityIdCode = string.Empty;
+                }
 
-            if (entityIdCode.StartsWith("z"))
-            {
-                EntityId = long.Parse(entityIdCode.Substring(1));
-                EntityType = BoundingEntityType.Zip;
-                var g = DataContexts.SizeUpContext.ZipCodes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
-                if (g != null)
+                if (entityIdCode.StartsWith("z"))
                 {
-                    //g = g.Buffer(-100);
-                    Geography = SqlGeography.Parse(g.AsText());
-                    Geography = Geography.Reduce(10).STBuffer(-100);
+                    EntityId = long.Parse(entityIdCode.Substring(1));
+                    EntityType = BoundingEntityType.Zip;
+                    var g = context.ZipCodes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    if (g != null)
+                    {
+                        //g = g.Buffer(-100);
+                        Geography = SqlGeography.Parse(g.AsText());
+                        Geography = Geography.Reduce(10).STBuffer(-100);
+                    }
                 }
-            }
-            else if (entityIdCode.StartsWith("c"))
-            {
-                EntityId = long.Parse(entityIdCode.Substring(1));
-                EntityType = BoundingEntityType.City;
-                var g = DataContexts.SizeUpContext.Cities.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
-                if (g != null)
+                else if (entityIdCode.StartsWith("c"))
                 {
-                    Geography = SqlGeography.Parse(g.AsText());
-                    Geography = Geography.Reduce(100).STBuffer(-500);
+                    EntityId = long.Parse(entityIdCode.Substring(1));
+                    EntityType = BoundingEntityType.City;
+                    var g = context.Cities.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    if (g != null)
+                    {
+                        Geography = SqlGeography.Parse(g.AsText());
+                        Geography = Geography.Reduce(100).STBuffer(-500);
+                    }
                 }
-            }
-            else if (entityIdCode.StartsWith("co"))
-            {
-                EntityId = long.Parse(entityIdCode.Substring(2));
-                EntityType = BoundingEntityType.County;
-                var g = DataContexts.SizeUpContext.Counties.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
-                if (g != null)
+                else if (entityIdCode.StartsWith("co"))
                 {
-                    Geography = SqlGeography.Parse(g.AsText());
-                    Geography = Geography.Reduce(100).STBuffer(-500);
+                    EntityId = long.Parse(entityIdCode.Substring(2));
+                    EntityType = BoundingEntityType.County;
+                    var g = context.Counties.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    if (g != null)
+                    {
+                        Geography = SqlGeography.Parse(g.AsText());
+                        Geography = Geography.Reduce(100).STBuffer(-500);
+                    }
                 }
-            }
-            else if (entityIdCode.StartsWith("m"))
-            {
-                EntityId = long.Parse(entityIdCode.Substring(1));
-                EntityType = BoundingEntityType.Metro;
-                var g = DataContexts.SizeUpContext.Metroes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
-                if (g != null)
+                else if (entityIdCode.StartsWith("m"))
                 {
-                    Geography = SqlGeography.Parse(g.AsText());
-                    Geography = Geography.Reduce(100).STBuffer(-500);
+                    EntityId = long.Parse(entityIdCode.Substring(1));
+                    EntityType = BoundingEntityType.Metro;
+                    var g = context.Metroes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    if (g != null)
+                    {
+                        Geography = SqlGeography.Parse(g.AsText());
+                        Geography = Geography.Reduce(100).STBuffer(-500);
+                    }
                 }
-            }
-            else if (entityIdCode.StartsWith("s"))
-            {
-                EntityId = long.Parse(entityIdCode.Substring(1));
-                EntityType = BoundingEntityType.State;
-                var g = DataContexts.SizeUpContext.States.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
-                if (g != null)
+                else if (entityIdCode.StartsWith("s"))
                 {
-                    Geography = SqlGeography.Parse(g.AsText());
-                    Geography = Geography.Reduce(2500).STBuffer(-2500);
+                    EntityId = long.Parse(entityIdCode.Substring(1));
+                    EntityType = BoundingEntityType.State;
+                    var g = context.States.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    if (g != null)
+                    {
+                        Geography = SqlGeography.Parse(g.AsText());
+                        Geography = Geography.Reduce(2500).STBuffer(-2500);
+                    }
                 }
             }
         }

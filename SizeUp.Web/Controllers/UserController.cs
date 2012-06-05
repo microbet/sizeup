@@ -60,16 +60,16 @@ namespace SizeUp.Web.Controllers
                 i.Save();
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
                 FormsAuthentication.SetAuthCookie(i.UserName, false);
-
                 UserRegistration reg = new UserRegistration()
                 {
                     APIKeyId = null,
-                    CityId = WebContext.Current.CurrentCity != null ? WebContext.Current.CurrentCity.Id : null as long?,
-                    IndustryId = WebContext.Current.CurrentIndustry != null ? WebContext.Current.CurrentIndustry.Id: null as long?,
+                    CityId = WebContext.Current.CurrentCityId,
+                    IndustryId = WebContext.Current.CurrentIndustryId,
                     UserId = i.UserId,
                     Email = i.Email,
                     ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "" : Request["returnurl"]
                 };
+
                 Singleton<Tracker>.Instance.UserRegisteration(reg);
                 FormsAuthentication.RedirectFromLoginPage(i.UserName, false);
             }

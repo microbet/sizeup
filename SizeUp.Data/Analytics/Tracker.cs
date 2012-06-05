@@ -27,8 +27,11 @@ namespace SizeUp.Data.Analytics
             reg.Year = Year;
             reg.Week = Week;
             reg.Timestamp = DateTime.Now;
-            DataContexts.AnalyticsContext.UserRegistrations.AddObject(reg);
-            DataContexts.AnalyticsContext.SaveChanges();
+            using (var context = new AnalyticsContext())
+            {
+                context.UserRegistrations.AddObject(reg);
+                context.SaveChanges();
+            }
         }
     }
 }

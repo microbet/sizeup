@@ -6,25 +6,25 @@
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
 <li><a class="disabled">My Business</a></li>
 }else{
-<li><a href="/dashboard/@SizeUp.Core.Web.WebContext.Current.CurrentCity.State.Abbreviation/@SizeUp.Core.Web.WebContext.Current.CurrentCity.SEOKey/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">My Business</a></li>
+<li><a href="/dashboard/@ViewBag.CurrentInfo.CurrentCity.State/@ViewBag.CurrentInfo.CurrentCity.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">My Business</a></li>
 }
 <li><span>|</span></li>
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition){
 <li><a class="disabled">Competition</a></li>
 }else{
-<li><a href="/competition/@SizeUp.Core.Web.WebContext.Current.CurrentCity.State.Abbreviation/@SizeUp.Core.Web.WebContext.Current.CurrentCity.SEOKey/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">Competition</a></li>
+<li><a href="/competition/@ViewBag.CurrentInfo.CurrentCity.State/@ViewBag.CurrentInfo.CurrentCity.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Competition</a></li>
 }
 <li><span>|</span></li>
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 <li><a class="disabled">Advertising</a></li>
 }else{
-<li><a href="/advertising/@SizeUp.Core.Web.WebContext.Current.CurrentCity.State.Abbreviation/@SizeUp.Core.Web.WebContext.Current.CurrentCity.SEOKey/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">Advertising</a></li>
+<li><a href="/advertising/@ViewBag.CurrentInfo.CurrentCity.State/@ViewBag.CurrentInfo.CurrentCity.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Advertising</a></li>
 }
 <li><span>|</span></li>
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces){
 <li class="lastMenuItem"><a class="disabled">Top Places</a></li>
 }else{
-<li class="lastMenuItem"><a href="/topPlaces/@SizeUp.Core.Web.WebContext.Current.CurrentIndustry.SEOKey">Top Places</a></li>
+<li class="lastMenuItem"><a href="/topPlaces/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Top Places</a></li>
 }
 }
 @if(SizeUp.Core.Identity.Identity.CurrentUser==null){

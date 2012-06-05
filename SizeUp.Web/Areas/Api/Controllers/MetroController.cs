@@ -15,13 +15,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult Metro(int? id)
         {
-            var item = DataContexts.SizeUpContext.Metroes.Where(i => i.Id == id);
-            var data = item.Select(i => new Models.Metro.Metro()
+            using (var context = new SizeUpContext())
             {
-                Id = i.Id,
-                Name = i.Name
-            }).FirstOrDefault();
-            return Json(data, JsonRequestBehavior.AllowGet);
+                var item = context.Metroes.Where(i => i.Id == id);
+                var data = item.Select(i => new Models.Metro.Metro()
+                {
+                    Id = i.Id,
+                    Name = i.Name
+                }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }
