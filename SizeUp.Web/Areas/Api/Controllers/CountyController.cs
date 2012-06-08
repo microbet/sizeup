@@ -15,7 +15,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult County(int? id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var item = context.Counties.Where(i => i.Id == id);
                 var data = item.Select(i => new Models.County.County()

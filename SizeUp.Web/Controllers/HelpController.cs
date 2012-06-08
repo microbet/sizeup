@@ -18,7 +18,7 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "HowItWorks.Content").Select(i => i.Value).FirstOrDefault();
             }
@@ -31,7 +31,7 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Faq.Content").Select(i => i.Value).FirstOrDefault();
             }
@@ -44,7 +44,7 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Contact.Content").Select(i => i.Value).FirstOrDefault();
             }

@@ -15,7 +15,7 @@ namespace SizeUp.Web.Controllers
             base.Initialize(requestContext);
             var data = new Models.Header();
 
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var info = new Models.CurrentInfo()
                 {

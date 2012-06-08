@@ -19,7 +19,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public ActionResult JobChange(int industryId, int countyId)
         {
 
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var naics4 = context.Industries.Where(i => i.Id == industryId)
                    .Select(i => context.NAICS.Where(n => n.NAICSCode == context.SicToNAICSMappings

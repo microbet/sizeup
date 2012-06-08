@@ -19,7 +19,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult AverageSalary(int industryId, int countyId)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
 
@@ -109,7 +109,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Percentage(int industryId, int countyId, decimal value)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
                 var countyData = context.AverageSalaryByCounties.Where(i =>
@@ -136,7 +136,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult BandsByCounty(int industryId, int bands, string boundingEntityId)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
@@ -179,7 +179,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult BandsByState(int industryId, int bands)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
                 var filters = context.AverageSalaryByCounties

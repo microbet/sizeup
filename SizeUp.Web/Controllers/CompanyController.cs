@@ -17,7 +17,7 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Team.Content").Select(i => i.Value).FirstOrDefault();
             }
@@ -31,7 +31,7 @@ namespace SizeUp.Web.Controllers
                 HideNavigation = true
             };
 
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "About.Content").Select(i => i.Value).FirstOrDefault();
             }

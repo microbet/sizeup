@@ -14,12 +14,28 @@ namespace SizeUp.Web.Areas.Api
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+
+            /*********user***********/
+            context.MapRoute(
+                "UserAuthenticated",
+                "Api/User/Authenticated",
+                new { controller = "User", action = "Authenticated" },
+                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+            );
+
+
             /*********industry***********/
             context.MapRoute(
                 "SingleIndustry",
                 "Api/Industry/",
                 new { controller = "Industry", action = "Industry" }
             );
+
+            context.MapRoute(
+               "IndustryList",
+               "Api/Industry/List",
+               new { controller = "Industry", action = "IndustryList" }
+           );
 
             context.MapRoute(
                 "SearchIndustry",
@@ -96,6 +112,20 @@ namespace SizeUp.Web.Areas.Api
                 "SingleState",
                 "Api/State/",
                 new { controller = "State", action = "State" }
+            );
+
+
+            /***********business**********/
+            context.MapRoute(
+                "Business",
+                "Api/Business/",
+                new { controller = "Business", action = "Business" }
+            );
+
+            context.MapRoute(
+                "BusinessList",
+                "Api/Business/List",
+                new { controller = "Business", action = "BusinessList", page = UrlParameter.Optional, radius= UrlParameter.Optional }
             );
 
          

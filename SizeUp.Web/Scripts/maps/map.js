@@ -43,6 +43,10 @@
             google.maps.event.addListener(me.map, event, handler);
         };
 
+        var triggerEvent = function (event) {
+            google.maps.event.trigger(me.map, event);
+        };
+
         var getBounds = function () {
             var nbounds = me.map.getBounds();
             var b = new sizeup.maps.latLngBounds();
@@ -79,6 +83,9 @@
             },
             addEventListener: function (event, handler) {
                 addEventListener(event, handler);
+            },
+            triggerEvent: function(event){
+                triggerEvent(event);
             },
             fitBounds: function (latLngBounds) {
                 fitBounds(latLngBounds);

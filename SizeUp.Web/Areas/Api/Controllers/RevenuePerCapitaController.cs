@@ -21,7 +21,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult RevenuePerCapita(int industryId, int countyId)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
 
@@ -79,7 +79,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Percentage(int industryId, int countyId, decimal value)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
                 long? county = context.AverageSalaryByCounties.Where(i => i.Year == context.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == countyId).Select(i => i.AverageSalary).FirstOrDefault();

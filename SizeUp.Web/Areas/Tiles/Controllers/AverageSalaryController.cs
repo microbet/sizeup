@@ -23,7 +23,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
        
         public ActionResult County(int x, int y, int zoom, int industryId, string colors, string boundingEntityId)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 string[] colorArray = colors.Split(',');
                 List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
@@ -82,7 +82,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
         public ActionResult State(int x, int y, int zoom, int industryId, string colors)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 string[] colorArray = colors.Split(',');
                 List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();

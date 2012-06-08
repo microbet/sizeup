@@ -14,9 +14,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/State/
 
-        public JsonResult State(int? id)
+        public JsonResult State(long? id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var item = context.States.Where(i => i.Id == id);
                 var data = item.Select(i => new Models.State.State()
@@ -25,7 +25,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Name = i.Name,
                     Abbreviation = i.Abbreviation,
                     SEOKey = i.SEOKey
-
                 }).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

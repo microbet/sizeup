@@ -22,14 +22,17 @@
 
 #competition .wrapper { position: relative; }
 
-
-#competition .list.wrapper { display: inline-block;  left: 0;  margin: 0 1em 0 0;}
-#competition .mapContent { display: inline-block; left: 0; vertical-align: top;}
+#competition .main.wrapper { margin: 2em 0 0; }
+#competition .list.wrapper { display: inline-block;  left: 0;  margin: 0 1em 0 0; width:40em;}
+#competition .mapContent { display: inline-block; left: 0; vertical-align: top; width:50em}
 
 
 #competition .picker p { font-size: 1.1em; text-indent: 1em; }
 #competition .picker input { font-size: 1.3em; padding: 0.1em; margin:1em; width: 30em; display: block;}
-#competition .picker a { margin: 0 0 0 1em; }
+
+#competition .picker .submt,
+#competition .picker .cancel,
+#competition .picker .industryList a { margin: 0 0 0 1em; }
 #competition .picker a.cancel { font-size: 1.1em; }
 #competition .picker .industryList { margin: 1em 0 0 1em; }
 #competition .picker .industryList .remove {color:transparent; padding: 14px 0 0 14px; position: relative; top: 2px; font-size: 0; background:url('/content/images/btn_close.gif') no-repeat 0 0 transparent;  }
@@ -38,20 +41,33 @@
 
 
 
-#competition .map { width: 50em; height: 40em; border: solid black 1px; }
-#competition .businessList { width: 40em; }
+#competition .map { height: 40em; border: solid black 1px; }
+#competition .pager,
+#competition .businessList {font-family: Arial,Verdana,sans-serif;  }
 
 #competition .businessList li { }
 #competition .businessList li a {display:block; padding:0.5em; height:3em; font-size: 1em;  }
 #competition .businessList li a:hover {background-color:#f6f6f0;}
-#competition .businessList li dl {font-family: Arial,Verdana,sans-serif; display: inline-block;}
+#competition .businessList li dl { display: inline-block;}
 #competition .businessList li img {  }
 #competition .businessList li .name { font-size:1.5em; font-weight:bold; color:#E78500; }
 #competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
 
 
+#competition .pager { text-align: right; margin:1em 1em 0; }
+#competition .pager,
+#competition .pager span,
+#competition .pager a { font-size: 1em; }
+#competition .pager span { margin:0 1em 0 0; }
+#competition .pager a,
+#competition .pager ul,
+#competition .pager ul li {display:inline; }
+#competition .pager li.current a,
+#competition .pager li.current a:hover { color: #606060; }
 
-#competition #signinPanel {margin: 7em auto;  }
+
+
+#competition .signinPanel {margin: 7em auto;  }
 
 
 

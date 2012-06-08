@@ -27,7 +27,7 @@ namespace SizeUp.Core.Geo
 
         public BoundingEntity(string entityIdCode)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 BoundingEntityId = entityIdCode;
                 EntityType = null;

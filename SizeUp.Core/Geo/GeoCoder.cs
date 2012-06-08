@@ -59,7 +59,7 @@ namespace SizeUp.Core.Geo
 
                         if (geo != null)
                         {
-                            using (var context = new SizeUpContext())
+                            using (var context = ContextFactory.SizeUpContext)
                             {
                                 var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
                                 id = context.Cities.Where(i => i.Geography.Distance(point) < 30000 && i.Geography.Area > 0)

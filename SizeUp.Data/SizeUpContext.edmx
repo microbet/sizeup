@@ -1036,8 +1036,8 @@
           <Property Type="String" Name="WorkAtHomeFlag" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="PublicCompanyIndicator" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="FirmCode" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="YearEstablished" />
-          <Property Type="Int32" Name="YearAppeared" />
+          <Property Type="Int32" Name="YearEstablished" Nullable="true" />
+          <Property Type="Int32" Name="YearAppeared" Nullable="true" />
           <Property Type="Int64" Name="InfoGroupId" />
           <Property Type="Decimal" Name="Lat" Precision="10" Scale="6" />
           <Property Type="Decimal" Name="Long" Precision="10" Scale="6" />

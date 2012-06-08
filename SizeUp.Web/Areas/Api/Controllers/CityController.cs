@@ -18,7 +18,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult City(int? id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var item = context.Cities.Where(i => i.Id == id);
                 var data = item.Select(i => new Models.City.City()
@@ -28,7 +28,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     County = i.County.Name,
                     State = i.State.Abbreviation,
                     SEOKey = i.SEOKey
-
                 }).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -37,7 +36,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         [HttpGet]
         public JsonResult CurrentCity()
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var data = context.Cities
                     .Where(i => i.Id == SizeUp.Core.Web.WebContext.Current.CurrentCityId)
@@ -48,9 +47,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         County = i.County.Name,
                         State = i.State.Abbreviation,
                         SEOKey = i.SEOKey
-
-                    })
-                    .FirstOrDefault();
+                    }).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -58,7 +55,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         [HttpPost]
         public JsonResult CurrentCity(long id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var c = context.Cities.Where(i => i.Id == id).FirstOrDefault();
                 if (c != null)
@@ -72,7 +69,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public JsonResult DetectedCity()
         {
             var id = GeoCoder.GetCityIdByIPAddress();
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var data = context.Cities
                     .Where(i => i.Id == id)
@@ -83,16 +80,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         County = i.County.Name,
                         State = i.State.Abbreviation,
                         SEOKey = i.SEOKey
-
-                    })
-                    .FirstOrDefault();
+                    }).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         public JsonResult SearchCities(string term, int maxResults = 35)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var keywords = context.Cities.AsQueryable();
                 var data = keywords.Select(i => new Models.City.City()
@@ -102,7 +97,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     County = i.County.Name,
                     State = i.State.Abbreviation,
                     SEOKey = i.SEOKey
-
                 });
 
                 data = data.Where(i => (i.Name + " " + i.State).StartsWith(term));
@@ -118,7 +112,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult BoundingBox(int id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var item = context.Cities.Where(i => i.Id == id);
                 var data = item.Select(i => i.Geography).FirstOrDefault();
@@ -138,7 +132,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult Centroid(int id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var item = context.Cities.Where(i => i.Id == id);
                 var data = item.Select(i => i.Geography).FirstOrDefault();

@@ -18,7 +18,7 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Index(string state, string city, string industry)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Strings = context.ResourceStrings.Where(i => i.Name.StartsWith("Dashboard")).ToDictionary(i => i.Name, i => i.Value);
                 var ind = context.Industries.Where(i => i.SEOKey == industry)

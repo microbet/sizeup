@@ -15,9 +15,24 @@ namespace SizeUp.Web.Areas.Api.Controllers
         // GET: /Api/Industry/
         public JsonResult Industry(int? id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var industry = context.Industries.Where(i => i.Id == id);
+                var data = industry.Select(i => new Models.Industry.Industry()
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey
+                }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult IndustryList(List<long> ids)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var industry = context.Industries.Where(i => ids.Contains(i.Id));
                 var data = industry.Select(i => new Models.Industry.Industry()
                 {
                     Id = i.Id,
@@ -32,7 +47,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public JsonResult CurrentIndustry()
         {
             var id = SizeUp.Core.Web.WebContext.Current.CurrentIndustryId;
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var industry = context.Industries.Where(i => i.Id == id);
                 var data = industry.Select(i => new Models.Industry.Industry()
@@ -48,7 +63,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         [HttpPost]
         public JsonResult CurrentIndustry(long id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var c = context.Industries.Where(i => i.Id == id).FirstOrDefault();
                 if (c != null)
@@ -61,7 +76,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult SearchIndustries(string term, int maxResults = 35)
         {
-            using (var context = new SizeUpContext())
+            //going to have to rewrite this to work for dynamic filtering
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var keywords = context.IndustryKeywords.AsQueryable();
                 var industries = context.Industries.AsQueryable();
@@ -96,7 +112,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Id = i.Id,
                         Name = i.Name,
                         SEOKey = i.SEOKey
-                    });
+                    }).ToList();
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

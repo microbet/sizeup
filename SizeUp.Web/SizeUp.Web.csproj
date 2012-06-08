@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
@@ -154,6 +155,8 @@
     <Compile Include="Areas\Api\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\StateController.cs" />
     <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
+    <Compile Include="Areas\Api\Controllers\UserController.cs" />
+    <Compile Include="Areas\Api\Models\Business\Business.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
@@ -233,6 +236,7 @@
     <Content Include="Scripts\controls\citySelector.js" />
     <Content Include="Scripts\controls\gauge.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
+    <Content Include="Scripts\controls\pager.js" />
     <Content Include="Scripts\controls\toggleButton.js" />
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />

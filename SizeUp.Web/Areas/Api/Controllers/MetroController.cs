@@ -15,7 +15,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult Metro(int? id)
         {
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var item = context.Metroes.Where(i => i.Id == id);
                 var data = item.Select(i => new Models.Metro.Metro()

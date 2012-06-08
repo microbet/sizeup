@@ -24,7 +24,7 @@ namespace SizeUp.Web.Controllers
             string businessName = Request["name"];
             string page = Request["page"];
 
-            using (var context = new SizeUpContext())
+            using (var context = ContextFactory.SizeUpContext)
             {
                 var results = context.Businesses.AsQueryable();
 
