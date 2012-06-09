@@ -10,7 +10,11 @@
 #competition #tabs .tab { display: inline-block; }
 #competition #tabs .tab a { display: block; font-size: 1em; width: 14.5em; height: 3.7em; background-color:#F0F0E7; border:solid 2px #d7d7ce; -webkit-border-top-left-radius: 1em;-webkit-border-top-right-radius: 1em;-moz-border-radius-topleft: 1em;-moz-border-radius-topright: 1em;border-top-left-radius: 1em;border-top-right-radius: 1em;}
 #competition #tabs .tab.active a {  background-color:#fff; border-bottom: 2px solid #fff; }
-#competition #tabs .tab a span {font-size:1.9em; font-weight:bold; display: inline-block; position:relative; left:0.25em; padding: 0.3em 0 0 1.25em; height: 1.7em; background:url('/content/images/temp.png') no-repeat 0 4px transparent;}
+#competition #tabs .tab a span { font-size: 1.9em; font-weight: bold; display: inline-block; position: relative; left: 0.25em; padding: 0.3em 0 0 1.25em; height: 1.7em; }
+
+#competition #tabs .tab.competitor a span {background:url('/content/images/markerCompetitor.png') no-repeat 0 4px transparent;}
+#competition #tabs .tab.buyer a span {background:url('/content/images/markerBuyer.png') no-repeat 0 4px transparent;}
+#competition #tabs .tab.supplier a span {background:url('/content/images/markerSupplier.png') no-repeat 0 4px transparent;}
 
 #competition #questions {position: absolute; top: -2.75em; right: 2em;}
 #competition #questions .question { display: inline-block; margin: 0 0 0 1em; }
@@ -54,14 +58,14 @@
 #competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
 
 
-#competition .pager { text-align: right; margin:1em 1em 0; }
+#competition .pager { text-align: right; margin:1em 1em 0 0; }
 #competition .pager,
 #competition .pager span,
-#competition .pager a { font-size: 1em; }
+#competition .pager a { font-size: 0.95em; }
 #competition .pager span { margin:0 1em 0 0; }
 #competition .pager a,
 #competition .pager ul,
-#competition .pager ul li {display:inline; }
+#competition .pager ul li {display:inline;  font-weight:bold; }
 #competition .pager li.current a,
 #competition .pager li.current a:hover { color: #606060; }
 

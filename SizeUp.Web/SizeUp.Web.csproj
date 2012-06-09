@@ -171,6 +171,8 @@
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
+    <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
+    <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -242,12 +244,14 @@
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\templates.js" />
+    <Content Include="Scripts\maps\businessMap.js" />
     <Content Include="Scripts\maps\heatMap.js" />
     <Content Include="Scripts\maps\latLng.js" />
     <Content Include="Scripts\maps\latLngBounds.js" />
     <Content Include="Scripts\maps\map.js" />
     <Content Include="Scripts\maps\mapOptions.js" />
     <Content Include="Scripts\maps\mapStyles.js" />
+    <Content Include="Scripts\maps\imageMarker.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
@@ -280,6 +284,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Api\Views\Shared\" />
+    <Folder Include="Areas\Pins\Models\" />
+    <Folder Include="Areas\Pins\Views\Shared\" />
     <Folder Include="Areas\Tiles\Models\" />
     <Folder Include="Areas\Tiles\Views\Shared\" />
   </ItemGroup>
@@ -326,6 +332,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Pins\Views\Web.config" />
     <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />

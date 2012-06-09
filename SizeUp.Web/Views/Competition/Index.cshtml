@@ -18,6 +18,9 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/imageMarker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMap.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")"></script>
 
 }
@@ -126,10 +129,10 @@
                     <ul class="businessList">
                         <li data-template="competitorBusinessItem">
                             <a href="javascript:void(0);">
-                                <img src="/content/images/temp.png" />
+                                <img data-override-src="/pins/business/marker/competitor/{{index}}" />
                                 <dl>
-                                    <dt class="name">{{Name}}</dt>
-                                    <dd class="address">{{Address}}{{^Address}}Street address not provided{{/Address}}</dd>
+                                    <dt class="name">{{business.Name}}</dt>
+                                    <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
                                 </dl>
                             </a>
                         </li>
@@ -138,16 +141,16 @@
                     <div class="pager hidden">
                         <div data-template="competitorPager">
                             <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            {{#first}}<a href="javascript:sizeup.competition.report.gotoPage('first');" class="first">&lt;&lt;</a>{{/first}}
-                            {{#prev}}<a href="javascript:sizeup.competition.report.gotoPage('prev');" class="prev">&lt;</a>{{/prev}}
+                            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
+                            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
                             <ul>
                                 {{#pages}}
-                                <li class="page {{#current}}current{{/current}}"><a href="" data-override-href="javascript:sizeup.competition.report.gotoPage({{index}});">{{index}}</a></li>
+                                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
                                 {{#seperator}}<li class="seperator">|</li>{{/seperator}}
                                 {{/pages}}
                             </ul>
-                            {{#next}}<a href="javascript:sizeup.competition.report.gotoPage('next');" class="next">&gt;</a>{{/next}}
-                            {{#last}}<a href="javascript:sizeup.competition.report.gotoPage('last');" class="last">&gt;&gt;</a>{{/last}}
+                            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
+                            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
                         </div>
                     </div>
 
@@ -189,14 +192,30 @@
                     <ul class="businessList">
                         <li data-template="buyerBusinessItem">
                             <a href="javascript:void(0);">
-                                <img src="/content/images/temp.png" />
+                                <img data-override-src="/pins/business/marker/buyer/{{index}}" />
                                 <dl>
-                                    <dt class="name">{{Name}}</dt>
-                                    <dd class="address">{{Address}}{{^Address}}Street address not provided{{/Address}}</dd>
+                                    <dt class="name">{{business.Name}}</dt>
+                                    <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
                                 </dl>
                             </a>
                         </li>
                     </ul>
+
+                    <div class="pager hidden">
+                        <div data-template="competitorPager">
+                            <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
+                            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
+                            <ul>
+                                {{#pages}}
+                                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
+                                {{#seperator}}<li class="seperator">|</li>{{/seperator}}
+                                {{/pages}}
+                            </ul>
+                            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
+                            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
+                        </div>
+                    </div>
                     @if(!HttpContext.Current.User.Identity.IsAuthenticated){
                     <p class="signinPanel info">
                         <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
@@ -233,14 +252,29 @@
                     <ul class="businessList">
                         <li data-template="supplierBusinessItem">
                             <a href="javascript:void(0);">
-                                <img src="/content/images/temp.png" />
+                                <img data-override-src="/pins/business/marker/supplier/{{index}}" />
                                 <dl>
-                                    <dt class="name">{{Name}}</dt>
-                                    <dd class="address">{{Address}}{{^Address}}Street address not provided{{/Address}}</dd>
+                                    <dt class="name">{{business.Name}}</dt>
+                                    <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
                                 </dl>
                             </a>
                         </li>
                     </ul>
+                    <div class="pager hidden">
+                        <div data-template="competitorPager">
+                            <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
+                            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
+                            <ul>
+                                {{#pages}}
+                                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
+                                {{#seperator}}<li class="seperator">|</li>{{/seperator}}
+                                {{/pages}}
+                            </ul>
+                            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
+                            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
+                        </div>
+                    </div>
                     @if(!HttpContext.Current.User.Identity.IsAuthenticated){
                     <p class="signinPanel info">
                         <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
@@ -263,7 +297,8 @@
 @section scripts{
 
     <script type="text/javascript">
-    var driver = new sizeup.views.competition.competition();
+        var opts = @Html.Raw(ViewBag.CurrentInfoJSON) ;
+    var driver = new sizeup.views.competition.competition(opts);
     </script>
 
 

@@ -65,6 +65,10 @@
             me.map.setCenter(latLng.getNative());
         };
 
+        var addMarker = function (marker) {
+            marker.getNative().setMap(me.map);
+        };
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -92,6 +96,9 @@
             },
             setCenter: function (latLng) {
                 setCenter(latLng);
+            },
+            addMarker: function (marker) {
+                addMarker(marker);
             }
         };
         init();

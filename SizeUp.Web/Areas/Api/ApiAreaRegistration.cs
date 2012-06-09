@@ -119,13 +119,15 @@ namespace SizeUp.Web.Areas.Api
             context.MapRoute(
                 "Business",
                 "Api/Business/",
-                new { controller = "Business", action = "Business" }
+                new { controller = "Business", action = "Business" },
+                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
             );
 
             context.MapRoute(
                 "BusinessList",
                 "Api/Business/List",
-                new { controller = "Business", action = "BusinessList", page = UrlParameter.Optional, radius= UrlParameter.Optional }
+                new { controller = "Business", action = "BusinessList", page = UrlParameter.Optional, radius = UrlParameter.Optional },
+                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
             );
 
          

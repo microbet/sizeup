@@ -29,11 +29,11 @@
 
         me.data.competitor =
         {
-            industries: [8589],
+            industries: [1245],
             pickerIndustries: [],
+            primaryIndustry: opts.CurrentIndustry.Id,
             businesses: {
-                page: 0,
-                items: [],
+                items: {},
                 isStale: true
             }
         };
@@ -42,8 +42,7 @@
             industries: [],
             pickerIndustries: [],
             businesses: {
-                page: 0,
-                items: [],
+                items: {},
                 isStale: true
             }
         };
@@ -52,8 +51,7 @@
             industries: [],
             pickerIndustries: [],
             businesses: {
-                page: 0,
-                items: [],
+                items: {},
                 isStale: true
             }
         };
@@ -65,7 +63,8 @@
             initGeneral('supplier');
             initGeneral('buyer');
 
-
+            showTab('competitor');
+            activateTab('competitor');
             showContent('competitor');
         };
        
@@ -84,7 +83,8 @@
             me[index].content.pager = new sizeup.controls.pager({
                 container: me[index].content.container.find('.pager'),
                 templates: templates,
-                templateId: index + 'Pager'
+                templateId: index + 'Pager',
+                onUpdate: function (data) { pagerOnUpdate(index, data); }
             });
             me[index].content.pager.hide();
 
@@ -107,10 +107,8 @@
             });
 
 
-            me[index].map = new sizeup.maps.map({
-                container: me[index].content.container.find('.map'),
-                mapSettings: sizeup.maps.mapOptions.getDefaults(),
-                styles: sizeup.maps.mapStyles.getDefaults()
+            me[index].content.map = new sizeup.maps.businessMap({
+                container: me[index].content.container.find('.map')
             });
         };
 
@@ -175,7 +173,7 @@
                 loadBusinesses(index);
             }
             me[index].content.container.show();
-            me[index].map.triggerEvent('resize');
+            me[index].content.map.triggerEvent('resize');
             me.activeContentIndex = index;
         };
 
@@ -187,13 +185,12 @@
             if (me.data[index].businesses.isStale) {
                 loadBusinesses(index);
             }
-            me[index].map.triggerEvent('resize');
             me[index].content.container.show(
                "slide",
                { direction: "left" },
                me.opts.slideTime,
                function () {
-                   me[index].map.triggerEvent('resize');
+                   me[index].content.map.triggerEvent('resize');
                    if (callback) {
                        callback();
                    }
@@ -268,12 +265,28 @@
 
         };
 
+        var pagerOnUpdate = function (index, data) {
+            loadBusinesses(index);
+        };
+
+        var getIndustryIds = function (index) {
+            var ar = new Array();
+            ar = ar.concat(me.data[index].industries);
+            if (me.data[index].primaryIndustry) {
+                ar.push(me.data[index].primaryIndustry);
+            }
+            return ar;
+        };
+
+
         var loadBusinesses = function (index) {
             me[index].content.loader.show();
+            me[index].content.businessList.hide();
+            me[index].content.pager.hide();
             var pagerData = me[index].content.pager.getPageData();
             dataLayer.getBusinessesByIndustry({
-                industryIds: me.data[index].industries,
-                cityId: 3454,
+                industryIds: getIndustryIds(index),
+                cityId: me.opts.CurrentCity.Id,
                 itemCount: me.opts.itemsPerPage,
                 page: pagerData.page
             }, function (data) {
@@ -293,11 +306,23 @@
             }
             me.data[index].businesses.items = data.Items;
             var html = '';
-            for (var x in data.Items) {
+            for (var x = 0; x < data.Items.length;x++) {
                 var template = templates.get(index + 'BusinessItem');
-                html = html + templates.bind(template, data.Items[x]);
+                html = html + templates.bind(template, { index: x + 1, business: data.Items[x] });
+
+                createMarker(index, data.Items[x], x + 1);
             };
             me[index].content.businessList.html(html);
+            me[index].content.businessList.show();
+        };
+
+        var createMarker = function (index, business, label) {
+            var marker = new sizeup.maps.imageMarker({
+                position: new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }),
+                section: index,
+                index: label
+            });
+            me[index].content.map.addMarker(marker);
         };
 
 

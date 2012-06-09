@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
+using SizeUp.Core.Serialization;
 using Api = SizeUp.Web.Areas.Api;
 namespace SizeUp.Web.Controllers
 {
@@ -37,6 +38,7 @@ namespace SizeUp.Web.Controllers
                 };
 
                 ViewBag.CurrentInfo = info;
+                ViewBag.CurrentInfoJSON = Serializer.ToJSON(info);
             }
 
             ViewBag.Header = data;

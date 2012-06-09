@@ -10,7 +10,8 @@
             currentPage: 1,
             pagesToShow: 10,
             templates: new sizeup.core.templates(),
-            templateId: ''
+            templateId: '',
+            onUpdate: function () { }
         };
         var me = {};
         me.opts = $.extend(true, defaults, opts);
@@ -18,6 +19,12 @@
 
         var init = function () {
             me.container.removeClass('hidden').hide();
+            me.container.find('a').live('click', function (e) {
+                var i = $(this);
+                var index = i.attr('data-index');
+                var data = gotoPage(index);
+                me.opts.onUpdate(data);
+            });
         };
 
         
