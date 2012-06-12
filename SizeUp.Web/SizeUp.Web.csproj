@@ -174,6 +174,7 @@
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
@@ -246,6 +247,7 @@
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\businessMap.js" />
     <Content Include="Scripts\maps\heatMap.js" />
+    <Content Include="Scripts\maps\infoWindow.js" />
     <Content Include="Scripts\maps\latLng.js" />
     <Content Include="Scripts\maps\latLngBounds.js" />
     <Content Include="Scripts\maps\map.js" />

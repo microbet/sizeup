@@ -69,6 +69,10 @@
             marker.getNative().setMap(me.map);
         };
 
+        var removeMarker = function (marker) {
+            marker.getNative().setMap(null);
+        };
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -99,6 +103,9 @@
             },
             addMarker: function (marker) {
                 addMarker(marker);
+            },
+            removeMarker: function (marker) {
+                removeMarker(marker);
             }
         };
         init();

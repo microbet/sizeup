@@ -26,7 +26,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 string[] colorArray = colors.Split(',');
-                List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
+                List<GeographyCollection> collection = new List<GeographyCollection>();
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
 
@@ -61,13 +61,13 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
                 for (var b = 0; b < bandedGeos.Count; b++)
                 {
-                    var geoCollection = new Heatmap.GeographyCollection();
+                    var geoCollection = new GeographyCollection();
                     geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
                     geoCollection.Color = colorArray[b];
                     collection.Add(geoCollection);
                 }
 
-                var noDataCollection = new Heatmap.GeographyCollection();
+                var noDataCollection = new GeographyCollection();
                 noDataCollection.Geographies = new List<SqlGeography>();
                 noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
                 collection.Add(noDataCollection);
@@ -85,7 +85,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 string[] colorArray = colors.Split(',');
-                List<Heatmap.GeographyCollection> collection = new List<Heatmap.GeographyCollection>();
+                List<GeographyCollection> collection = new List<GeographyCollection>();
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
 
 
@@ -112,13 +112,13 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
                 for (var b = 0; b < bandedGeos.Count; b++)
                 {
-                    var geoCollection = new Heatmap.GeographyCollection();
+                    var geoCollection = new GeographyCollection();
                     geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
                     geoCollection.Color = colorArray[b];
                     collection.Add(geoCollection);
                 }
 
-                var noDataCollection = new Heatmap.GeographyCollection();
+                var noDataCollection = new GeographyCollection();
                 noDataCollection.Geographies = new List<SqlGeography>();
                 noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
                 collection.Add(noDataCollection);

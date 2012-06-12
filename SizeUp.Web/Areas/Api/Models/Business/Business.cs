@@ -33,6 +33,21 @@ namespace SizeUp.Web.Areas.Api.Models.Business
                 else { return null; };
             }
         }
+        public string PhoneFormatted
+        {
+            get
+            {
+                long i = 0;
+                if (long.TryParse(Phone, out i))
+                {
+                    return string.Format("{0:###-###-####}", i);
+                }
+                else
+                {
+                    return Phone;
+                }
+            }
+        }
     }
 
 

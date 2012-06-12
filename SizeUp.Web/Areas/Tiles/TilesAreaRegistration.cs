@@ -28,6 +28,13 @@ namespace SizeUp.Web.Areas.Tiles
            );
 
 
+           context.MapRoute(
+              "Businesses",
+              "Tiles/Businesses/",
+              new { controller = "Businesses", action = "Index", competitorIndustryIds = UrlParameter.Optional, buyerIndustryIds = UrlParameter.Optional, supplierIndustryIds = UrlParameter.Optional }
+          );
+
+
 
 
             context.MapRoute(

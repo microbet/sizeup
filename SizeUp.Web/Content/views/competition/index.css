@@ -74,6 +74,15 @@
 #competition .signinPanel {margin: 7em auto;  }
 
 
+#competition .infoWindow { font-family: Arial,Verdana,sans-serif; padding: 0.5em 0; }
+#competition .infoWindow h3 { font-size:1.5em; color:#99BB66; font-weight:bold;}
+#competition .infoWindow span { font-size:1.05em; color:#A6A6A0;}
+
+#competition .infoWindow ul { margin: 0.5em 0; }
+#competition .infoWindow ul li { margin: 0.25em 0; }
+#competition .infoWindow ul li span { font-size: 1.1em; font-weight: bold; display:inline-block;}
+#competition .infoWindow ul li span.label {padding: 0 0 0 1.5em; }
+#competition .infoWindow ul li span.value {float:right; color:#606060; }
 
 
 

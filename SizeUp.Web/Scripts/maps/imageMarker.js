@@ -31,6 +31,8 @@
                 new google.maps.Point(5, 23)
             );
 
+        
+
         me._native = new google.maps.Marker({
             position: opts.position.getNative(),
             icon: icon,
@@ -46,9 +48,30 @@
             me._native.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
         });
 
+
+        var triggerEvent = function (event) {
+            google.maps.event.trigger(me._native, event);
+        };
+
+        var getPosition = function () {
+            return opts.position;
+        };
+
+        var bindEvent = function (event, func) {
+            google.maps.event.addListener(me._native, event, func);
+        };
+
         var publicObj = {
             getNative: function () {
                 return me._native;
+            }, getPosition: function () {
+                return getPosition();
+            },
+            triggerEvent: function (event) {
+                triggerEvent(event);
+            },
+            bindEvent: function (event, func) {
+                bindEvent(event, func);
             }
         };
         return publicObj;

@@ -56,5 +56,7 @@ namespace SizeUp.Core.Tiles
             }
             return box;
         }
+
+        public abstract void Draw(List<GeographyCollection> Geographies);
     }
 }

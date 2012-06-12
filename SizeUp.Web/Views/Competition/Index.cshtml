@@ -20,7 +20,9 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/imageMarker.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlngBounds.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMap.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")"></script>
 
 }
@@ -59,8 +61,8 @@
             <h2>Select categories of businesses that you compete with</h2>
             <p>Map the potential competitors in your area.</p>
             <ul class="industryList">
-                <li data-template="competitionPickerItem">
-                    <a href="javascript:void(0);" class="remove">Remove</a>
+                <li data-template="competitorPickerItem">
+                    <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
                     <span>{{Name}}</span>
                 </li>
             </ul>
@@ -77,7 +79,7 @@
             <p>Map the potential customers in your area.</p>
             <ul class="industryList">
                 <li data-template="buyerPickerItem">
-                    <a href="javascript:void(0);" class="remove">Remove</a>
+                    <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
                     <span>{{Name}}</span>
                 </li>
             </ul>
@@ -94,7 +96,7 @@
             <p>Map the businesses in your area that provide goods and services necessary for your business.</p>
             <ul class="industryList">
                 <li data-template="supplierPickerItem">
-                    <a href="javascript:void(0);" class="remove">Remove</a>
+                    <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
                     <span>{{Name}}</span>
                 </li>
             </ul>
@@ -116,7 +118,7 @@
 
 
         <div class="content competitor hidden">
-            <h2>You are in the Pharmacies industry</h2>
+            <h2>You are in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
             <a href="javascript:void(0);" class="change">[Do you COMPETE with businesses in other industries?]</a>
 
             <div class="main wrapper">
@@ -128,7 +130,7 @@
                     </div>
                     <ul class="businessList">
                         <li data-template="competitorBusinessItem">
-                            <a href="javascript:void(0);">
+                            <a href="javascript:void(0);" data-id="{{business.Id}}">
                                 <img data-override-src="/pins/business/marker/competitor/{{index}}" />
                                 <dl>
                                     <dt class="name">{{business.Name}}</dt>
@@ -165,6 +167,20 @@
                 </div>
                 <div class="mapContent wrapper">
                     <div class="map">map</div>
+                    <div data-template="competitorInfoWindow" class="infoWindow">
+                        <h3>{{Name}}</h3>
+                        <span>{{Address}}{{^Address}}Street address not provided{{/Address}}</span>
+                        <ul>
+                            <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
+                            <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
+                            <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
+                            <li><span class="label">Website:</span>{{#URL}}<a target="_blank" data-override-href="http://{{URL}}" class="value">{{URL}}</a>{{/URL}}{{^URL}}<span class="lowlight value">Not provided</span>{{/URL}}</li>
+                            <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
+                        </ul>
+                        <div class="tools">
+                        <a class="zoom" href="javascript:sizeup.competition.report.zoomIn(989894068);">Zoom</a>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -191,7 +207,7 @@
 
                     <ul class="businessList">
                         <li data-template="buyerBusinessItem">
-                            <a href="javascript:void(0);">
+                            <a href="javascript:void(0);" data-id="{{business.Id}}">
                                 <img data-override-src="/pins/business/marker/buyer/{{index}}" />
                                 <dl>
                                     <dt class="name">{{business.Name}}</dt>
@@ -202,7 +218,7 @@
                     </ul>
 
                     <div class="pager hidden">
-                        <div data-template="competitorPager">
+                        <div data-template="buyerPager">
                             <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
                             {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
                             {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
@@ -251,7 +267,7 @@
 
                     <ul class="businessList">
                         <li data-template="supplierBusinessItem">
-                            <a href="javascript:void(0);">
+                            <a href="javascript:void(0);" data-id="{{business.Id}}">
                                 <img data-override-src="/pins/business/marker/supplier/{{index}}" />
                                 <dl>
                                     <dt class="name">{{business.Name}}</dt>
@@ -261,7 +277,7 @@
                         </li>
                     </ul>
                     <div class="pager hidden">
-                        <div data-template="competitorPager">
+                        <div data-template="supplierPager">
                             <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
                             {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
                             {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}

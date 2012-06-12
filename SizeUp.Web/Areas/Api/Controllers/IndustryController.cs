@@ -38,7 +38,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey
-                }).FirstOrDefault();
+                }).ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -82,18 +82,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var keywords = context.IndustryKeywords.AsQueryable();
                 var industries = context.Industries.AsQueryable();
 
-                var searchSpace = keywords.Select(i => new
+                var searchSpace = context.Industries.Select(i=> new
+                {
+                    Id = i.Id,
+                    i.Name,
+                    i.SEOKey,
+                    SortOrder = 1
+                }).Concat(context.IndustryKeywords.Select(i => new
                 {
                     Id = i.IndustryId,
                     i.Name,
                     i.Industry.SEOKey,
                     i.SortOrder
-                }).Union(industries.Select(i => new
-                {
-                    i.Id,
-                    i.Name,
-                    i.SEOKey,
-                    SortOrder = 1
                 }));
 
                 foreach (var qs in term.Split(' '))
@@ -103,6 +103,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         searchSpace = searchSpace.Where(i => i.Name.Contains(qs));
                     }
                 }
+
+                var validIndustries = context.Businesses
+                    .GroupBy(i => i.IndustryId)
+                    .Select(g => new { Id = g.Key, Count = g.Count() })
+                    .Where(i => i.Count >= 1000)
+                    .Select(i => i.Id);
+
+                searchSpace = searchSpace.Where(i => validIndustries.Contains(i.Id));
+
 
                 var data = searchSpace
                     .OrderBy(i => i.SortOrder)
@@ -120,12 +129,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult HasData(int id, int cityId)
         {
-            object data = true;
-            if (cityId == 3454 && id == 8589)
+            using (var context = ContextFactory.SizeUpContext)
             {
-                data = false;
+                var c = context.Cities.Where(i => i.Id == cityId).FirstOrDefault();
+                if (c != null)
+                {
+                    WebContext.Current.CurrentIndustryId = id;
+                }
+                return Json(c != null, JsonRequestBehavior.AllowGet);
             }
-            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }
