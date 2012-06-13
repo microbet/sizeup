@@ -17,23 +17,12 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
         //
         // GET: /Tiles/Business/
 
-        public ActionResult Index(int x, int y, int zoom, long cityId, int radius, List<long> competitorIndustryIds = null, List<long> buyerIndustryIds = null, List<long> supplierIndustryIds = null)
+        public ActionResult Index(int x, int y, int zoom, List<long> competitorIndustryIds = null, List<long> buyerIndustryIds = null, List<long> supplierIndustryIds = null)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 Businesses tile = new Businesses(256, 256, x, y, zoom);
-                var boundingBox = tile.GetBoundingGeography();
-                var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
-
-
-                var city = context.Cities.Where(i => i.Id == cityId).Select(i => i.Geography).FirstOrDefault();
-                var geo = SqlGeography.Parse(city.AsText());
-                var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                geom = geom.STCentroid();
-                geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
-                var lat = (double)geo.STPointN(1).Lat;
-                var lng = (double)geo.STPointN(1).Long;
-                var scalar = 69.1 * Math.Cos(lat / 57.3);
+                var boundingBox = tile.GetBoundingBox(0.1f);
 
                 if (competitorIndustryIds == null)
                 {
@@ -60,25 +49,72 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
                 List<GeographyCollection> geoCollection = new List<GeographyCollection>();
 
+                
+                var geos = context.Businesses.Select(g=> new {
 
-                var cGeos = competitors.Select(i => new
+                    competitors = competitors
+                    .Where(i => i.Lat < (decimal)boundingBox.NorthEast.Y && i.Lat > (decimal)boundingBox.SouthWest.Y && i.Long > (decimal)boundingBox.SouthWest.X && i.Long < (decimal)boundingBox.NorthEast.X)
+                    .Select(i => new
+                    {
+                        Geography = i.Geography,
+                        Lat = i.Lat,
+                        Long = i.Long
+                    }),
+
+                    buyers = buyers
+                    .Where(i => i.Lat < (decimal)boundingBox.NorthEast.Y && i.Lat > (decimal)boundingBox.SouthWest.Y && i.Long > (decimal)boundingBox.SouthWest.X && i.Long < (decimal)boundingBox.NorthEast.X)
+                    .Select(i => new
+                    {
+                        Geography = i.Geography,
+                        Lat = i.Lat,
+                        Long = i.Long
+                    }),
+
+                    suppliers = suppliers.Where(i => i.Lat < (decimal)boundingBox.NorthEast.Y && i.Lat > (decimal)boundingBox.SouthWest.Y && i.Long > (decimal)boundingBox.SouthWest.X && i.Long < (decimal)boundingBox.NorthEast.X)
+                    .Select(i => new
+                    {
+                        Geography = i.Geography,
+                        Lat = i.Lat,
+                        Long = i.Long
+                    })
+                }).FirstOrDefault();
+
+
+                GeographyCollection competitorCollection = new GeographyCollection()
                 {
-                    Distance = Math.Pow(Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
-                    Geography = i.Geography
-                }).Where(i => i.Distance < radius && i.Geography.Intersects(boundingSpatial))
-                .ToList()
-                .Select(i => SqlGeography.Parse(i.Geography.AsText()))
-                .ToList();
+                    Color = "#ff5522",
+                    Opacity = Math.Max(0, Math.Min(255, (zoom - 5) * 25 + 50)),
+                    BorderWidth = 1,
+                    BorderColor = "#000000",
+                    BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
+                };
+                competitorCollection.Geographies.AddRange(geos.competitors.ToList().Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                geoCollection.Add(competitorCollection);
+
+                GeographyCollection buyerCollection = new GeographyCollection()
+                {
+                    Color = "#66ee00",
+                    Opacity = Math.Max(0, Math.Min(255, (zoom - 5) * 25 + 50)),
+                    BorderWidth = 1,
+                    BorderColor = "#000000",
+                    BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
+                };
+                buyerCollection.Geographies.AddRange(geos.buyers.ToList().Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                geoCollection.Add(buyerCollection);
+
+                GeographyCollection supplierCollection = new GeographyCollection()
+                {
+                    Color = "#11aaff",
+                    Opacity = Math.Max(0, Math.Min(255, (zoom - 5) * 25 + 50)),
+                    BorderWidth = 1,
+                    BorderColor = "#000000",
+                    BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
+                };
+                supplierCollection.Geographies.AddRange(geos.suppliers.ToList().Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                geoCollection.Add(supplierCollection);
 
 
-                GeographyCollection comp = new GeographyCollection();
-                comp.Color = "#ff5522";
-                comp.Opacity = 255;
-                comp.Geographies.AddRange(cGeos);
-                //comp. = 255;
-                //comp.Opacity = 255;
-
-                geoCollection.Add(comp);
+                
 
 
 

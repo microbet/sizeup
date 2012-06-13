@@ -36,8 +36,6 @@ namespace SizeUp.Web.Controllers
                     .FirstOrDefault();
 
                 var locations = context.Cities.Where(i => i.SEOKey == city && i.State.Abbreviation == state).Select(i => new { City = i, County = i.County, Metro = i.County.Metro, State = i.State }).FirstOrDefault();
-                WebContext.Current.CurrentCityId = locations.City.Id;
-                WebContext.Current.CurrentIndustryId = ind.Industry.Id;
 
                 var center = new Areas.Api.Models.Maps.LatLng();
                 var geo = SqlGeography.Parse(locations.City.Geography.AsText());

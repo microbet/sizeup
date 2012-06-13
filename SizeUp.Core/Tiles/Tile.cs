@@ -22,7 +22,6 @@ namespace SizeUp.Core.Tiles
         protected Graphics Graphics { get; set; }
         protected GoogleMapsAPIProjection Projection { get; set; }
         protected Matrix TranslationMatrix = new Matrix();
-           //probasbly need to convert this to sw and ne becuase at zoom levels less than 4 we get wonky bounding boxes
         public Tile(int Width, int Height, int x, int y, double Zoom)
         {
             this.Width = Width;
@@ -41,9 +40,8 @@ namespace SizeUp.Core.Tiles
 
         public SqlGeography GetBoundingGeography()
         {
-            var ne = Projection.FromPixelToCoordinates(new PointF((X + 1)*Width, Y*Height));
-            var sw = Projection.FromPixelToCoordinates(new PointF(X*Width, (Y + 1)*Height));
-            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", sw.X, ne.X, sw.Y, ne.Y));
+            var box = GetBoundingBox();
+            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", box.SouthWest.X, box.NorthEast.X, box.SouthWest.Y, box.NorthEast.Y));
         }
 
         public SqlGeography GetBoundingGeography(SqlGeography geography)
@@ -55,6 +53,44 @@ namespace SizeUp.Core.Tiles
                 box = box.STIntersection(geography);
             }
             return box;
+        }
+
+        public BoundingBox GetBoundingBox()
+        {
+            var ne = Projection.FromPixelToCoordinates(new PointF((X + 1) * Width, Y * Height));
+            var sw = Projection.FromPixelToCoordinates(new PointF(X * Width, (Y + 1) * Height));
+            return new BoundingBox(sw, ne);
+        }
+
+
+        public SqlGeography GetBoundingGeography(float bufferPercent)
+        {
+            var box = GetBoundingBox(bufferPercent);
+            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", box.SouthWest.X, box.NorthEast.X, box.SouthWest.Y, box.NorthEast.Y));
+        }
+
+        public SqlGeography GetBoundingGeography(SqlGeography geography, float bufferPercent)
+        {
+            var box = GetBoundingGeography(bufferPercent);
+
+            if (geography != null)
+            {
+                box = box.STIntersection(geography);
+            }
+            return box;
+        }
+
+        public BoundingBox GetBoundingBox(float bufferPercent)
+        {
+            var nep = new PointF((X + 1) * Width, Y * Height);
+            nep.X = nep.X + (Width * bufferPercent);
+            nep.Y = nep.Y - (Height * bufferPercent);
+            var swp = new PointF(X * Width, (Y + 1) * Height);
+            swp.X = swp.X - (Width * bufferPercent);
+            swp.Y = swp.Y + (Height * bufferPercent);
+            var ne = Projection.FromPixelToCoordinates(nep);
+            var sw = Projection.FromPixelToCoordinates(swp);
+            return new BoundingBox(sw, ne);
         }
 
         public abstract void Draw(List<GeographyCollection> Geographies);

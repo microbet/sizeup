@@ -6,7 +6,9 @@
             mapSettings: sizeup.maps.mapOptions.getDefaults(),
             styles: sizeup.maps.mapStyles.getDefaults(),
             cityId: 0,
-            radius: 100
+            radius: 100,
+            primaryIndex: '',
+            primaryIndexZoomFilter: 10
         };
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates();
@@ -39,6 +41,21 @@
                         radius: opts.radius,
                         cityId: opts.cityId
                     };
+                    if (zoom <= me.opts.primaryIndexZoomFilter) {
+                        if (me.opts.primaryIndex == 'competitor') {
+                            delete params.buyerIndustryIds;
+                            delete params.supplierIndustryIds;
+                        }
+                        else if (me.opts.primaryIndex == 'buyer') {
+                            delete params.competitorIndustryIds;
+                            delete params.supplierIndustryIds;
+                        }
+                        else if (me.opts.primaryIndex == 'supplier') {
+                            delete params.buyerIndustryIds;
+                            delete params.competitorIndustryIds;
+                        }
+                    }
+
                     return jQuery.param.querystring(url, params);
                 },
                 tileSize: new google.maps.Size(256, 256)

@@ -17,6 +17,7 @@ namespace SizeUp.Web.Areas.Pins.Controllers
             Core.Pins.Marker marker = new Core.Pins.Marker(index, template);
             var stream = new System.IO.MemoryStream();
             marker.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+            //return new EmptyResult();
             return File(stream.GetBuffer(), "image/png");
         }
 

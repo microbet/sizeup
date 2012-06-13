@@ -172,7 +172,8 @@
             me[index].content.map = new sizeup.maps.businessMap({
                 container: me[index].content.container.find('.map'),
                 radius: me.opts.mapRadius,
-                cityId: me.opts.CurrentCity.Id
+                cityId: me.opts.CurrentCity.Id,
+                primaryIndex: index
             });
             me[index].content.map.fitBounds(me.data.cityBoundingBox);
         };
@@ -328,7 +329,7 @@
         var updateMaps = function () {
             var obj = {
                 competitorIndustryIds: getIndustryIds('competitor'),
-                buyerIndsutryIds: getIndustryIds('buyer'),
+                buyerIndustryIds: getIndustryIds('buyer'),
                 supplierIndustryIds: getIndustryIds('supplier')
             };
             me['competitor'].content.map.setIndustryIds(obj);

@@ -24,16 +24,21 @@ namespace SizeUp.Core.Web
             }
         }
 
+        private long? _currentCityId = null;
+        private long? _currentIndustryId = null;
+
+
         public long? CurrentIndustryId
         {
             get
             {
+                if(_currentIndustryId==null)
                 {
                     var c = System.Web.HttpContext.Current;
                     var cookie = c.Request.Cookies["industry"];
-                    long? id = cookie == null ? null : long.Parse(cookie.Value) as long?;
-                    return id;
+                    _currentIndustryId = cookie == null ? null : long.Parse(cookie.Value) as long?;
                 }
+                return _currentIndustryId;
             }
             set
             {
@@ -50,6 +55,7 @@ namespace SizeUp.Core.Web
                     cookie.Expires = DateTime.MinValue;
                     c.Response.Cookies.Add(cookie);
                 }
+                _currentIndustryId = value;
             }
         }
 
@@ -57,10 +63,13 @@ namespace SizeUp.Core.Web
          {
              get
              {
-                 var c = System.Web.HttpContext.Current;
-                 var cookie = c.Request.Cookies["city"];
-                 long? id = cookie == null ? null : long.Parse(cookie.Value) as long?;
-                 return id;
+                 if (_currentCityId == null)
+                 {
+                     var c = System.Web.HttpContext.Current;
+                     var cookie = c.Request.Cookies["city"];
+                     _currentCityId = cookie == null ? null : long.Parse(cookie.Value) as long?;
+                 }
+                 return _currentCityId;
              }
              set
              {
@@ -77,6 +86,7 @@ namespace SizeUp.Core.Web
                      cookie.Expires = DateTime.MinValue;
                      c.Response.Cookies.Add(cookie);
                  }
+                 _currentCityId = value;
              }
          }
     }

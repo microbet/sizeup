@@ -16,8 +16,23 @@ namespace SizeUp.Web.Controllers
             base.Initialize(requestContext);
             var data = new Models.Header();
 
+            
             using (var context = ContextFactory.SizeUpContext)
             {
+                if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["city"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["state"]))
+                {
+                    var city = (string)requestContext.RouteData.Values["city"];
+                    var state = (string)requestContext.RouteData.Values["state"];
+                    WebContext.Current.CurrentCityId = context.Cities.Where(i => i.SEOKey == city && i.State.Abbreviation == state).Select(i => i.Id).FirstOrDefault();
+                    
+                }
+
+                if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["industry"]))
+                {
+                    var industry = (string)requestContext.RouteData.Values["industry"];
+                    WebContext.Current.CurrentIndustryId = context.Industries.Where(i => i.SEOKey == industry).Select(i => i.Id).FirstOrDefault();
+                }
+
                 var info = new Models.CurrentInfo()
                 {
                     CurrentCity = context.Cities.Where(i => i.Id == WebContext.Current.CurrentCityId).Select(i => new Api.Models.City.City()
