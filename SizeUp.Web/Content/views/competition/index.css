@@ -29,6 +29,19 @@
 #competition .main.wrapper { margin: 2em 0 0; }
 #competition .list.wrapper { display: inline-block;  left: 0;  margin: 0 1em 0 0; width:40em;}
 #competition .mapContent { display: inline-block; left: 0; vertical-align: top; width:50em}
+#competition .map { height: 40em; }
+
+#competition .mapContent .footer { background-color:#E6E6E0; display:block; padding:0.5em;}
+#competition .mapContent .footer ul li {display:inline; position:relative; margin: 0 1em 0 0; }
+#competition .mapContent .footer ul li label span { font-size: 1em; }
+#competition .mapContent .footer ul li.disabled label { color: #aaa; }
+#competition .mapContent .footer ul li label .legendItem { border: 0.1em solid #909090; display: inline-block; height: 0.8em; margin: 0 0.3em 0 0; position: relative; top: 0.15em; width: 0.8em; }
+#competition .mapContent .footer ul li.competitor label .legendItem { background-color: #FF5522; }
+#competition .mapContent .footer ul li.buyer label .legendItem { background-color: #66EE00; }
+#competition .mapContent .footer ul li.supplier label .legendItem { background-color: #11AAFF; }
+
+#competition .mapContent .footer ul li label{font-size:1.2em;}
+#competition .mapContent .footer ul li input{top:0.15em; position:relative;}
 
 
 #competition .picker p { font-size: 1.1em; text-indent: 1em; }
@@ -45,7 +58,7 @@
 
 
 
-#competition .map { height: 40em; border: solid black 1px; }
+
 #competition .pager,
 #competition .businessList {font-family: Arial,Verdana,sans-serif;  }
 

@@ -15,16 +15,45 @@
         var me = {};
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container;
+        me.footer = me.container.find('.footer');
         me.overlay = null;
         me.data = {};
-
+        me.activeOverlayFilter = 'all';
         var init = function () {
 
+            me.opts.mapSettings.zoom = 20;
             me.map = new sizeup.maps.map({
-                container: me.container,
+                container: me.container.find('.map'),
                 mapSettings: me.opts.mapSettings,
                 styles: me.opts.styles
             });
+            me.map.addEventListener('zoom_changed', zoomChanged);
+
+            me.footer.find('input').change(filterChanged);
+        };
+
+        var filterChanged = function (e) {
+            var target = $(e.target);
+            me.activeOverlayFilter = target.attr('data-index');
+            setOverlay();
+        };
+
+        var zoomChanged = function () {
+            if (me.map.getZoom() <= me.opts.primaryIndexZoomFilter) {
+                
+                var primary = me.footer.find('.' + me.opts.primaryIndex + ' input');
+                if (!primary.is(':checked')) {
+                    primary.attr('checked', 'checked');
+                }
+
+                me.footer.find('.all input').attr('disabled', true).parent().addClass('disabled');
+                me.footer.find('.all label .zoomMessage').show();
+            }
+            else {
+                me.footer.find('.all input').attr('disabled', false).parent().removeClass('disabled');
+                me.footer.find('.' + me.activeOverlayFilter + ' input').attr('checked', 'checked');
+                me.footer.find('.all label .zoomMessage').hide();
+            }
         };
 
         var buildOverlay = function () {
@@ -41,19 +70,29 @@
                         radius: opts.radius,
                         cityId: opts.cityId
                     };
-                    if (zoom <= me.opts.primaryIndexZoomFilter) {
-                        if (me.opts.primaryIndex == 'competitor') {
-                            delete params.buyerIndustryIds;
-                            delete params.supplierIndustryIds;
-                        }
-                        else if (me.opts.primaryIndex == 'buyer') {
-                            delete params.competitorIndustryIds;
-                            delete params.supplierIndustryIds;
-                        }
-                        else if (me.opts.primaryIndex == 'supplier') {
-                            delete params.buyerIndustryIds;
-                            delete params.competitorIndustryIds;
-                        }
+
+                    var filter = '';
+                    if (me.footer.find('.competitor input').is(':checked')) {
+                        filter = 'competitor';
+                    }
+                    else if (me.footer.find('.buyer input').is(':checked')) {
+                        filter = 'buyer';
+                    }
+                    else if (me.footer.find('.supplier input').is(':checked')) {
+                        filter = 'supplier';
+                    }
+
+                    if (filter == 'competitor') {
+                        delete params.buyerIndustryIds;
+                        delete params.supplierIndustryIds;
+                    }
+                    else if (filter == 'buyer') {
+                        delete params.competitorIndustryIds;
+                        delete params.supplierIndustryIds;
+                    }
+                    else if (filter == 'supplier') {
+                        delete params.buyerIndustryIds;
+                        delete params.competitorIndustryIds;
                     }
 
                     return jQuery.param.querystring(url, params);
@@ -78,12 +117,6 @@
 
         var fitBounds = function (latLngBounds) {
             me.map.fitBounds(latLngBounds);
-        };
-
-
-
-        var zoomChanged = function () {
-            setOverlay();
         };
 
         var removeMarker = function (marker) {

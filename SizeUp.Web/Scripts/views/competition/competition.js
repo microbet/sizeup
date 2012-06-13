@@ -170,7 +170,7 @@
 
 
             me[index].content.map = new sizeup.maps.businessMap({
-                container: me[index].content.container.find('.map'),
+                container: me[index].content.container.find('.mapContent'),
                 radius: me.opts.mapRadius,
                 cityId: me.opts.CurrentCity.Id,
                 primaryIndex: index

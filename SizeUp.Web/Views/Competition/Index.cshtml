@@ -166,7 +166,28 @@
                     }
                 </div>
                 <div class="mapContent wrapper">
-                    <div class="map">map</div>
+                    <div class="map"></div>
+                    <div class="footer">
+                       <ul>
+                            <li><label>Show:</label></li>
+                            <li class="competitor">
+                                <input type="radio" id="competitorCompetitorBox" data-index="competitor" name="competitorFilter">
+                                <label for="competitorCompetitorBox"><span class="legendItem"></span>Competitors</label>
+                            </li>
+                            <li class="buyer">
+                                <input type="radio" id="competitorBuyerBox" data-index="buyer" name="competitorFilter">
+                                <label for="competitorBuyerBox"><span class="legendItem"></span>Customers</label>
+                            </li>
+                            <li class="supplier">
+                                <input type="radio" id="competitorSupplierBox" data-index="supplier" name="competitorFilter">
+                                <label for="competitorSupplierBox"><span class="legendItem"></span>Suppliers</label>
+                            </li>
+                            <li class="all">
+                                <input type="radio" id="competitorAllBox" data-index="all" name="competitorFilter" checked="checked" >
+                                <label for="competitorAllBox">All <span class="zoomMessage">(Zoom In)</span></label>
+                            </li>
+                        </ul>
+                    </div>
                     <div data-template="competitorInfoWindow" class="infoWindow">
                         <h3>{{Name}}</h3>
                         <span>{{Address}}{{^Address}}Street address not provided{{/Address}}</span>

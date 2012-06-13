@@ -58,6 +58,10 @@
             return me.map.getZoom();
         };
 
+        var setZoom = function (zoom) {
+            me.map.setZoom(zoom);
+        };
+
         var fitBounds = function (latLngBounds) {
             me.map.fitBounds(latLngBounds.getNative());
         };
@@ -85,6 +89,9 @@
             },
             getZoom: function(){
                 return getZoom();
+            },
+            setZoom: function(zoom){
+                setZoom(zoom);
             },
             addPolygon: function (p) {
                 addPolygon(p);
