@@ -1,1 +1,23 @@
 ﻿
+
+#topPlaces { position:relative; margin: 0 0 5em 0;}
+#topPlaces .heading { position: relative; height:5em; margin: 0 0 1em 0;}
+#topPlaces .heading h2 { font-size: 2.4em; font-weight:normal; position:absolute; top:0.35em;}
+
+
+#topPlaces .mapContent { }
+#topPlaces .mapContent .map{width:100%;height:40em; border:solid 1px black;}
+#topPlaces .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
+#topPlaces .mapContent .footer ul li { display: inline-block; width: 33%; }
+
+
+#topPlaces .message { color: #aaa; padding: 0.5em 3em; display:inline-block; }
+
+
+
+
+
+
+
+
+

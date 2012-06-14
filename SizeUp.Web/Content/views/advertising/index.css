@@ -1,1 +1,35 @@
 ﻿
+
+#advertising { position:relative; margin: 0 0 5em 0;}
+#advertising .heading { position: relative; height:5em; margin: 0 0 1em 0;}
+#advertising .heading h2 { font-size: 2.4em; font-weight:normal; position:absolute; top:0.35em;}
+#advertising .heading label { color: #ccc; position: absolute; right: 22em; top: 0.6em; }
+#advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: absolute; right: 0; top:0;  }
+
+
+#advertising .mapContent { }
+#advertising .mapContent .map{width:100%;height:40em; border:solid 1px black;}
+#advertising .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
+#advertising .mapContent .footer ul li { display: inline-block; width: 33%; }
+
+
+#advertising .message { color: #aaa; padding: 0.5em 3em; display:inline-block; }
+
+#advertising .sort {position:relative; margin:2em 0 0; }
+#advertising .sort .direction { width:5em;height:1em; border:solid 1px black; display:inline-block; }
+#advertising .sort .value {width:5em;height:1em; border:solid 1px black; float:right; display:inline-block; }
+
+
+#advertising .pager { float:right; position:relative; top:2em;}
+
+#advertising ul.results {border-top:#eee solid 1px; margin:0 0 4em 0; }
+#advertising ul.results li {border-bottom:#eee solid 1px; padding:1em 0; }
+#advertising ul.results li .name { font-size: 1.5em; font-weight:bold; }
+#advertising ul.results li .value { font-size: 1.5em; float:right; }
+#advertising ul.results li .details { font-size: 1.1em; padding: 0 0 0 3.5em; color:#aaa; }
+
+
+
+
+
+

@@ -4,7 +4,7 @@
 
 
 @section head{
-<title>Advertising</title>
+<title>Best Places To Advertise - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentCity.Name, @ViewBag.CurrentInfo.CurrentCity.State </title>
 <link href="@Url.Content("~/Content/views/advertising/index.css")" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
@@ -15,8 +15,73 @@
 
 
 <div id="advertising">
-<h2>Index</h2>
+    <div class="wrapper heading">
+        <h2>Best Places to Advertise</h2>
+        <label>based on</label>
+        <div class="filter"></div>
+    </div>
 
+    <div class="mapContent wrapper">
+        <div class="map"></div>
+        <div class="footer">
+            <ul>
+                <li><img src="" /><span>12-166</span></li>
+                <li><img src="" /><span>200-1555</span></li>
+                <li><img src="" /><span>2000-4564</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="message">This is a list of zip codes showing data for the <strong>Pharmacies</strong> industry.</p>
+
+
+    <div class="pager hidden">
+        <div data-template="pager">
+            <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
+            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
+            <ul>
+                {{#pages}}
+                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
+                {{#seperator}}<li class="seperator">|</li>{{/seperator}}
+                {{/pages}}
+            </ul>
+            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
+            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
+        </div>
+    </div>
+
+
+    <div class="sort">
+        <div class="direction"></div>
+        <div class="value"></div>
+    </div>
+
+
+    <ul class="results">
+        <li>
+            <a href="#" class="name">San Francisco, CA 94104</a>
+            <span class="value">564</span>
+            <p class="details">Revenue Per Capita: $9,194 per capita</p>
+        </li>
+        <li>
+            <a href="#" class="name">San Francisco, CA 94104</a>
+            <span class="value">564</span>
+            <p class="details">Revenue Per Capita: $9,194 per capita</p>
+        </li>
+        <li>
+            <a href="#" class="name">San Francisco, CA 94104</a>
+            <span class="value">564</span>
+            <p class="details">Revenue Per Capita: $9,194 per capita</p>
+        </li>
+    </ul>
+
+    @if(!HttpContext.Current.User.Identity.IsAuthenticated){
+    <p class="signinPanel info">
+        <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
+        <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
+    </p>
+    }
 </div>
 
 
