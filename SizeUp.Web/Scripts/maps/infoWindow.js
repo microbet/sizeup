@@ -42,6 +42,7 @@
             close: function () {
                 close();
             }
+           
         };
         return publicObj;
 

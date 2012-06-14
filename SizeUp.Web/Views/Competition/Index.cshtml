@@ -121,7 +121,10 @@
         <div class="content competitor hidden">
             <h2>You are in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
             <a href="javascript:void(0);" class="change">[Do you COMPETE with businesses in other industries?]</a>
-
+            <p class="industryMessage">Additional categories of businesses that compete with you:</p>
+            <ul class="industryList">
+                <li data-template="competitorIndustryItem"><span>{{Name}}</span></li>
+            </ul>
             <div class="main wrapper">
                 <div class="list wrapper">
                     <div class="loading">
@@ -196,11 +199,12 @@
                             <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
                             <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
                             <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                            <li><span class="label">Website:</span>{{#URL}}<a target="_blank" data-override-href="http://{{URL}}" class="value">{{URL}}</a>{{/URL}}{{^URL}}<span class="lowlight value">Not provided</span>{{/URL}}</li>
+                            <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
                             <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
                         </ul>
                         <div class="tools">
-                        <a class="zoom" href="javascript:sizeup.competition.report.zoomIn(989894068);">Zoom</a>
+                        <a class="zoom" href="javascript:void(0);">Zoom</a>
+                        <a class="remove" href="javascript:void(0);">Remove Pin</a>
                     </div>
                 </div>
                 </div>
@@ -217,6 +221,10 @@
         <div class="content buyer hidden">
             <h2>Categories of businesses that buy from you</h2>
             <a href="javascript:void(0);" class="change">[Change]</a>
+
+            <ul class="industryList">
+                <li data-template="buyerIndustryItem"><span>{{Name}}</span></li>
+            </ul>
 
             <div class="wrapper">
                 <div class="list wrapper">
@@ -291,11 +299,12 @@
                             <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
                             <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
                             <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                            <li><span class="label">Website:</span>{{#URL}}<a target="_blank" data-override-href="http://{{URL}}" class="value">{{URL}}</a>{{/URL}}{{^URL}}<span class="lowlight value">Not provided</span>{{/URL}}</li>
+                            <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
                             <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
                         </ul>
                         <div class="tools">
-                            <a class="zoom" href="javascript:sizeup.competition.report.zoomIn(989894068);">Zoom</a>
+                            <a class="zoom" href="javascript:void(0);">Zoom</a>
+                            <a class="remove" href="javascript:void(0);">Remove Pin</a>
                         </div>
                     </div>
                 </div>
@@ -312,6 +321,9 @@
         <div class="content supplier hidden">
             <h2>Categories of businesses from which you buy</h2>
             <a href="javascript:void(0);" class="change">[Change]</a>
+            <ul class="industryList">
+                <li data-template="supplierIndustryItem"><span>{{Name}}</span></li>
+            </ul>
 
             <div class="wrapper">
                 <div class="list wrapper">
@@ -385,11 +397,12 @@
                             <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
                             <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
                             <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                            <li><span class="label">Website:</span>{{#URL}}<a target="_blank" data-override-href="http://{{URL}}" class="value">{{URL}}</a>{{/URL}}{{^URL}}<span class="lowlight value">Not provided</span>{{/URL}}</li>
+                            <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
                             <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
                         </ul>
                         <div class="tools">
-                            <a class="zoom" href="javascript:sizeup.competition.report.zoomIn(989894068);">Zoom</a>
+                            <a class="zoom" href="javascript:void(0);">Zoom</a>
+                            <a class="remove" href="javascript:void(0);">Remove Pin</a>
                         </div>
                     </div>
                 </div>

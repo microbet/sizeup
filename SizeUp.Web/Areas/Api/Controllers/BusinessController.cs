@@ -114,7 +114,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         IsHomeBased = i.WorkAtHomeFlag == "1",
                         IsFirm = i.FirmCode == "2",
                         IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
-                        YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null
+                        YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
+                        IndustryId = i.IndustryId
                     }
                 }).Where(i => i.Distance < radius);
 

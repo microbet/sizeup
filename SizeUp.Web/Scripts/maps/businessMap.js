@@ -147,6 +147,25 @@
             }
         };
 
+        var getActiveIndexes = function () {
+            var filter = {};
+            if (me.footer.find('.competitor input').is(':checked')) {
+                filter['competitor'] = true;
+            }
+            else if (me.footer.find('.buyer input').is(':checked')) {
+                filter['buyer'] = true;
+            }
+            else if (me.footer.find('.supplier input').is(':checked')) {
+                filter['supplier'] = true;
+            }
+            else {
+                filter['competitor'] = true;
+                filter['buyer'] = true;
+                filter['supplier'] = true;
+            }
+            return filter;
+        };
+
         var setIndustryIds = function (obj) {
             me.data.competitorIndustryIds = obj.competitorIndustryIds;
             me.data.buyerIndustryIds = obj.buyerIndustryIds;
@@ -162,6 +181,10 @@
 
         var setZoom = function(zoom){
             me.map.setZoom(zoom);
+        };
+
+        var setCenter = function (latLng) {
+            me.map.setCenter(latLng);
         };
 
         var publicObj = {
@@ -191,6 +214,12 @@
             },
             setZoom: function (zoom) {
                 setZoom(zoom);
+            },
+            getActiveIndexes: function () {
+                return getActiveIndexes();
+            },
+            setCenter: function (latLng) {
+                setCenter(latLng);
             }
         };
         init();

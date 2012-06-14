@@ -26,6 +26,8 @@
 
 #competition .wrapper { position: relative; }
 
+#competition .industryList { margin: 0 0 2em 3em; }
+
 #competition .main.wrapper { margin: 2em 0 0; }
 #competition .list.wrapper { display: inline-block;  left: 0;  margin: 0 1em 0 0; width:40em;}
 #competition .mapContent { display: inline-block; left: 0; vertical-align: top; width:50em}
@@ -93,10 +95,12 @@
 
 #competition .infoWindow ul { margin: 0.5em 0; }
 #competition .infoWindow ul li { margin: 0.25em 0; }
+#competition .infoWindow ul li a,
 #competition .infoWindow ul li span { font-size: 1.1em; font-weight: bold; display:inline-block;}
 #competition .infoWindow ul li span.label {padding: 0 0 0 1.5em; }
 #competition .infoWindow ul li span.value {float:right; color:#606060; }
-
+#competition .infoWindow ul li a.value {float:right; }
+#competition .infoWindow .tools .remove { float: right; }
 
 
 

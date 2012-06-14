@@ -34,10 +34,11 @@
             businesses: {
                 items: {},
                 markers: {},
+                pins: {},
                 infoWindow: null,
                 isStale: true
             },
-            color:'FF5522'
+            color: 'FF5522'
         };
         me.data.buyer =
         {
@@ -46,6 +47,7 @@
             businesses: {
                 items: {},
                 markers: {},
+                pins: {},
                 infoWindow: null,
                 isStale: true
             },
@@ -58,6 +60,7 @@
             businesses: {
                 items: {},
                 markers: {},
+                pins: {},
                 infoWindow: null,
                 isStale: true
             },
@@ -74,14 +77,20 @@
 
         var params = jQuery.bbq.getState();
 
+        var insertIndustries = function (index, data) {
+            for (var x in data) {
+                me.data[index].industries[data[x].Id] = data[x];
+            }
+        };
+
         if (params.competitor) {
-            dataLayer.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { me.data.competitor.industries = data; }));
+            dataLayer.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
         }
         if (params.buyer) {
-            dataLayer.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { me.data.buyer.industries = data; }));
+            dataLayer.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
         }
         if (params.supplier) {
-            dataLayer.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier( function (data) { me.data.supplier.industries = data; }));
+            dataLayer.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
         }
       
 
@@ -116,20 +125,22 @@
             me[index].content.container = me.container.find('.content.' + index).removeClass('hidden').hide();
             me[index].content.loader = me[index].content.container.find('.loading').removeClass('hidden').hide();
             me[index].content.businessList = me[index].content.container.find('.businessList');
+            me[index].content.industryList = me[index].content.container.find('.industryList');
+            me[index].content.industryMessage = me[index].content.container.find('.industryMessage');
 
-            me[index].content.businessList.find('a').live('mouseover', function () {
+            me[index].content.businessList.delegate('a', 'mouseover', function () {
                 var a = $(this);
                 var id = a.attr('data-id');
                 me.data[index].businesses.markers[id].triggerEvent('mouseover');
-            }).live('mouseout', function () {
+            }).delegate('a', 'mouseout', function () {
                 var a = $(this);
                 var id = a.attr('data-id');
                 me.data[index].businesses.markers[id].triggerEvent('mouseout');
-            }).live('click', function () {
+            }).delegate('a', 'click', function () {
                 var a = $(this);
                 var id = a.attr('data-id');
                 me.data[index].businesses.markers[id].triggerEvent('click');
-            }).live('dblclick', function () {
+            }).delegate('a', 'dblclick', function () {
                 var a = $(this);
                 var id = a.attr('data-id');
                 me.data[index].businesses.markers[id].triggerEvent('dblclick');
@@ -150,8 +161,8 @@
 
             me[index].picker = {};
             me[index].picker.container = me.container.find('.picker.' + index).removeClass('hidden').hide();
-            me[index].picker.list = me.container.find('.industryList');
-            me[index].picker.list.find('a').on('click', function () {
+            me[index].picker.list = me[index].picker.container.find('.industryList');
+            me[index].picker.list.delegate('a', 'click', function () {
                 var a = $(this);
                 var id = a.attr('data-id');
                 a.parent().remove();
@@ -179,7 +190,9 @@
                 primaryIndex: index
             });
             me[index].content.map.fitBounds(me.data.cityBoundingBox);
-            me[index].content.map.addEventListener('click', function (e) { mapClicked(index, {lat: e.latLng.lat(), lng: e.latLng.lng()}); });
+            me[index].content.map.addEventListener('click', function (e) { mapClicked(index, { lat: e.latLng.lat(), lng: e.latLng.lng() }); });
+
+            bindIndustryList(index);
         };
 
 
@@ -273,12 +286,19 @@
             callback);
         };
 
+        var getActiveIds = function (index) {
+            var activeIndexes = me[index].content.map.getActiveIndexes();
+            var ids = [];
+            for (var x in activeIndexes) {
+                if (activeIndexes[x]) {
+                    ids = ids.concat(getIndustryIds(x));
+                }
+            }
+            return ids;
+        };
 
         var mapClicked = function (index, latLng) {
-            var ids = [];
-            ids = ids.concat(getIndustryIds('competitor'));
-            ids = ids.concat(getIndustryIds('buyer'));
-            ids = ids.concat(getIndustryIds('supplier'));
+            var ids = getActiveIds(index);
             dataLayer.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(index, data); });
         };
 
@@ -316,6 +336,8 @@
                 obj[index] = ids;
                 jQuery.bbq.pushState(obj);
                 me[index].content.pager.gotoPage(1);
+                bindIndustryList(index);
+                updateMaps();           
             }
             slideOutPicker(index, function () {
                 slideInContent(index);
@@ -323,8 +345,7 @@
             showTab(index);
             activateTab(index);
             hideQuestion(index);
-            bindListIndustries(index);
-            updateMaps();
+           
         };
 
         var questionClicked = function (index) {
@@ -346,6 +367,9 @@
                 buyerIndustryIds: getIndustryIds('buyer'),
                 supplierIndustryIds: getIndustryIds('supplier')
             };
+            clearPins('competitor');
+            clearPins('buyer');
+            clearPins('supplier');
             me['competitor'].content.map.setIndustryIds(obj);
             me['buyer'].content.map.setIndustryIds(obj);
             me['supplier'].content.map.setIndustryIds(obj);
@@ -401,8 +425,18 @@
         };
 
 
-        var bindListIndustries = function (index) {
-
+        var bindIndustryList = function (index) {           
+            var html = '';
+            for (var x in me.data[index].industries) {
+                html = html + templates.bind(templates.get(index + 'IndustryItem'), me.data[index].industries[x]);
+            }
+            if (me.data[index].industries.length > 0) {
+                me[index].content.industryMessage.show();
+            }
+            else {
+                me[index].content.industryMessage.hide();
+            }
+            me[index].content.industryList.html(html);
         };
 
         var loadBusinesses = function (index) {
@@ -451,24 +485,31 @@
             me[index].content.businessList.show();
         };
 
-        var getPinColor = function (id) {
+        var getPinColor = function (index, id) {
             var color = '';
-            var ids = getIndustryIds('supplier');
-            for (var x in ids) {
-                if (ids[x] == id) {
-                    color = me.data['supplier'].color;
+            var activeIndexes = me[index].content.map.getActiveIndexes();
+            if (activeIndexes['supplier']) {
+                var ids = getIndustryIds('supplier');
+                for (var x in ids) {
+                    if (ids[x] == id) {
+                        color = me.data['supplier'].color;
+                    }
                 }
             }
-            ids = getIndustryIds('buyer');
-            for (var x in ids) {
-                if (ids[x] == id) {
-                    color = me.data['buyer'].color;
+            if (activeIndexes['buyer']) {
+                ids = getIndustryIds('buyer');
+                for (var x in ids) {
+                    if (ids[x] == id) {
+                        color = me.data['buyer'].color;
+                    }
                 }
             }
-            ids = getIndustryIds('competitor');
-            for (var x in ids) {
-                if (ids[x] == id) {
-                    color = me.data['competitor'].color;
+            if (activeIndexes['competitor']) {
+                ids = getIndustryIds('competitor');
+                for (var x in ids) {
+                    if (ids[x] == id) {
+                        color = me.data['competitor'].color;
+                    }
                 }
             }
             return color;
@@ -477,10 +518,15 @@
         var createPin = function(index, business){
             var marker = new sizeup.maps.imagePin({
                 position: new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }),
-                color: getPinColor(business.IndustryId)
+                color: getPinColor(index, business.IndustryId)
             });
+            me.data[index].businesses.pins[business.Id] = { business: business, pin: marker };
             me[index].content.map.addMarker(marker);
-            createInfoWindow(index, business, makrer);
+            createInfoWindow(index, business, marker, true);
+            marker.bindEvent('click', function () {
+                createInfoWindow(index, business, marker, true);
+
+            });
         };
 
         var createMarker = function (index, business, label) {
@@ -503,15 +549,32 @@
 
 
 
-        var createInfoWindow = function (index, business, marker) {
+        var createInfoWindow = function (index, business, marker, isPin) {
             var content = templates.bind(templates.get(index + 'InfoWindow'), business);
+            var jContent = $(content);
             if (me.data[index].businesses.infoWindow) {
                 me.data[index].businesses.infoWindow.close();
             }
             me.data[index].businesses.infoWindow = new sizeup.maps.infoWindow({
-                content: content
+                content: jContent.get(0)
             });
             me.data[index].businesses.infoWindow.open(me[index].content.map, marker);
+
+            jContent.find('.tools .zoom').click(function (e) {
+                e.stopPropagation();
+                me[index].content.map.setCenter(new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }));
+                me[index].content.map.setZoom(24);
+            });
+
+            if (isPin) {
+                jContent.find('.tools .remove').click(function (e) {
+                    e.stopPropagation();
+                    removePin(index, business.Id);
+                });
+            }
+            else {
+                jContent.find('.tools .remove').remove();
+            }
         };
 
         var clearMarkers = function (index) {
@@ -521,6 +584,30 @@
             me.data[index].businesses.markers = {};
         };
 
+        var collectAllIndustryIds = function () {
+            var ids = [];
+            ids = ids.concat(getIndustryIds('competitor'));
+            ids = ids.concat(getIndustryIds('buyer'));
+            ids = ids.concat(getIndustryIds('supplier'));
+            return ids;
+        };
+
+        var clearPins = function (index) {
+            var ids = collectAllIndustryIds();
+            for (var x in me.data[index].businesses.pins) {
+                for (var y in ids) {
+                    if (me.data[index].businesses.pins[x].business.IndustryId == ids[y]) {
+                        me[index].content.map.removeMarker(me.data[index].businesses.pins[x].pin);
+                        delete me.data[index].businesses.pins[x];
+                    }
+                }
+            }
+        };
+
+        var removePin = function(index, id){
+            me[index].content.map.removeMarker(me.data[index].businesses.pins[id].pin);
+            delete me.data[index].businesses.pins[id];
+        };
 
         var publicObj = {
 
