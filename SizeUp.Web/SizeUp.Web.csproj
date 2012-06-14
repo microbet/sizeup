@@ -246,6 +246,7 @@
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\businessMap.js" />
+    <Content Include="Scripts\maps\imagePin.js" />
     <Content Include="Scripts\maps\heatMap.js" />
     <Content Include="Scripts\maps\infoWindow.js" />
     <Content Include="Scripts\maps\latLng.js" />

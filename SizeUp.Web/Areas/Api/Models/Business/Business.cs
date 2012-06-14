@@ -22,6 +22,7 @@ namespace SizeUp.Web.Areas.Api.Models.Business
         public bool IsHomeBased { get; set; }
         public bool IsPublic { get; set; }
         public int? YearsInBusiness { get; set; }
+        public long? IndustryId { get; set; }
         public string Address
         {
             get

@@ -36,7 +36,8 @@
                 markers: {},
                 infoWindow: null,
                 isStale: true
-            }
+            },
+            color:'FF5522'
         };
         me.data.buyer =
         {
@@ -47,7 +48,8 @@
                 markers: {},
                 infoWindow: null,
                 isStale: true
-            }
+            },
+            color: '66EE00'
         };
         me.data.supplier = 
         {
@@ -58,7 +60,8 @@
                 markers: {},
                 infoWindow: null,
                 isStale: true
-            }
+            },
+            color: '11AAFF'
         };
 
         var notifier = new sizeup.core.notifier(function () { init(); });
@@ -176,6 +179,7 @@
                 primaryIndex: index
             });
             me[index].content.map.fitBounds(me.data.cityBoundingBox);
+            me[index].content.map.addEventListener('click', function (e) { mapClicked(index, {lat: e.latLng.lat(), lng: e.latLng.lng()}); });
         };
 
 
@@ -268,6 +272,16 @@
                 me.opts.slideTime,
             callback);
         };
+
+
+        var mapClicked = function (index, latLng) {
+            var ids = [];
+            ids = ids.concat(getIndustryIds('competitor'));
+            ids = ids.concat(getIndustryIds('buyer'));
+            ids = ids.concat(getIndustryIds('supplier'));
+            dataLayer.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(index, data); });
+        };
+
 
         var tabClicked = function (index) {
             if (me.activePickerIndex != null) {
@@ -437,20 +451,52 @@
             me[index].content.businessList.show();
         };
 
+        var getPinColor = function (id) {
+            var color = '';
+            var ids = getIndustryIds('supplier');
+            for (var x in ids) {
+                if (ids[x] == id) {
+                    color = me.data['supplier'].color;
+                }
+            }
+            ids = getIndustryIds('buyer');
+            for (var x in ids) {
+                if (ids[x] == id) {
+                    color = me.data['buyer'].color;
+                }
+            }
+            ids = getIndustryIds('competitor');
+            for (var x in ids) {
+                if (ids[x] == id) {
+                    color = me.data['competitor'].color;
+                }
+            }
+            return color;
+        };
+
+        var createPin = function(index, business){
+            var marker = new sizeup.maps.imagePin({
+                position: new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }),
+                color: getPinColor(business.IndustryId)
+            });
+            me[index].content.map.addMarker(marker);
+            createInfoWindow(index, business, makrer);
+        };
+
         var createMarker = function (index, business, label) {
             var marker = new sizeup.maps.imageMarker({
                 position: new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }),
                 section: index,
                 index: label
             });
-
-
-            //wrap these in inner funcs so we can pass along the index and id and jank
             marker.bindEvent('click', function () {
                 createInfoWindow(index, business, marker);
                 
             });
-            marker.bindEvent('dblclick', markerDblClicked);
+            marker.bindEvent('dblclick', function () {
+                me[index].content.map.setZoom(28);
+                createInfoWindow(index, business, marker);
+            });
             me[index].content.map.addMarker(marker);
             return marker;
         };
@@ -467,10 +513,6 @@
             });
             me.data[index].businesses.infoWindow.open(me[index].content.map, marker);
         };
-
-       
-        var markerDblClicked = function () { }
-
 
         var clearMarkers = function (index) {
             for (var x in me.data[index].businesses.markers) {

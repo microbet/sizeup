@@ -127,15 +127,42 @@
             return me.map.getNative();
         };
 
+        var setupFilter = function () {
+            var indexCount = 0;
+            if (me.data.competitorIndustryIds != null && me.data.competitorIndustryIds.length > 0) {
+                indexCount = indexCount + 1;
+            }
+            if (me.data.buyerIndustryIds != null && me.data.buyerIndustryIds.length > 0) {
+                indexCount = indexCount + 1;
+            }
+            if (me.data.supplierIndustryIds != null && me.data.supplierIndustryIds.length > 0) {
+                indexCount = indexCount + 1;
+            }
+
+            if (indexCount > 1) {
+                me.footer.show();
+            }
+            else {
+                me.footer.hide();
+            }
+        };
+
         var setIndustryIds = function (obj) {
             me.data.competitorIndustryIds = obj.competitorIndustryIds;
             me.data.buyerIndustryIds = obj.buyerIndustryIds;
             me.data.supplierIndustryIds = obj.supplierIndustryIds;
+            setupFilter();
             buildOverlay();
             setOverlay();
         };
 
+        var addEventListener = function (event, callback) {
+            me.map.addEventListener(event, callback);
+        };
 
+        var setZoom = function(zoom){
+            me.map.setZoom(zoom);
+        };
 
         var publicObj = {
             getNative: function(){
@@ -146,9 +173,6 @@
             },
             addMarker: function (marker) {
                 addMarker(marker);
-            },
-            addPin: function (pin) {
-
             },
             triggerEvent: function (event) {
                 triggerEvent(event);
@@ -161,6 +185,12 @@
             },
             setIndustryIds: function (obj) {
                 setIndustryIds(obj);
+            },
+            addEventListener: function (event, callback) {
+                addEventListener(event, callback);
+            },
+            setZoom: function (zoom) {
+                setZoom(zoom);
             }
         };
         init();

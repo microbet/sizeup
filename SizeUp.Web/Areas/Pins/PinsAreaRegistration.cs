@@ -39,14 +39,14 @@ namespace SizeUp.Web.Areas.Pins
 
             context.MapRoute(
                 "BusinessPin",
-                "Pins/Business/Pin",
+                "Pins/Business/Pin/{color}",
                 new { controller = "Business", action = "Pin" },
                 new string[] { "SizeUp.Web.Areas.Pins.Controllers" }
             );
 
             context.MapRoute(
                "BusinessPinShadow",
-               "Pins/Business/Pin/Shadow",
+               "Pins/Business/PinShadow",
                new { controller = "Business", action = "PinShadow" },
                new string[] { "SizeUp.Web.Areas.Pins.Controllers" }
            );

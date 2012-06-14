@@ -17,7 +17,6 @@ namespace SizeUp.Web.Areas.Pins.Controllers
             Core.Pins.Marker marker = new Core.Pins.Marker(index, template);
             var stream = new System.IO.MemoryStream();
             marker.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-            //return new EmptyResult();
             return File(stream.GetBuffer(), "image/png");
         }
 
@@ -35,20 +34,19 @@ namespace SizeUp.Web.Areas.Pins.Controllers
             return File(Server.MapPath("/content/images/markerShadow.png"), "image/png");
         }
 
-        public ActionResult Pin(int index, string section)
+        public ActionResult Pin(string color)
         {
-            Image template = Image.FromFile(Server.MapPath(string.Format("/content/images/markerHighlight{0}.png", section)));
-            Core.Pins.Marker marker = new Core.Pins.Marker(index, template);
+            Core.Pins.PushPin pin = new Core.Pins.PushPin(ColorTranslator.FromHtml("#" + color));
             var stream = new System.IO.MemoryStream();
-            marker.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+            pin.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
             return File(stream.GetBuffer(), "image/png");
         }
 
         public ActionResult PinShadow()
         {
-            var stream = new System.IO.MemoryStream();
-            return File(stream.GetBuffer(), "image/png");
+            return File(Server.MapPath("/content/images/pinShadow.png"), "image/png");
         }
+
 
 
     }

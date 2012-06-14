@@ -73,8 +73,12 @@
                 return get('/api/state/', params, success, error);
             },
 
-            getBusiness: function (success, error) {
-                return get('/api/business/', null, success, error);
+            getBusiness: function (params, success, error) {
+                return get('/api/business/', params, success, error);
+            },
+
+            getBusinessAt: function (params, success, error) {
+                return get('/api/business/at', params, success, error);
             },
 
             getBusinessesByIndustry: function (params, success, error) {
