@@ -4,6 +4,8 @@
 
         var me = {};
         var dataLayer = new sizeup.core.data();
+        var notifier = new sizeup.core.notifier(function () { init();});
+
         var reportIndexes = [
             'revenue',
             'yearStarted',
@@ -23,6 +25,7 @@
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
 
+        dataLayer.getCityCentroid({ id: opts.report.Locations.City.Id }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
         var init = function () {
             
             me.resourceToggle = new sizeup.controls.toggleButton(
@@ -83,7 +86,6 @@
         var publicObj = {
 
         };
-        init();
         return publicObj;
         
     };

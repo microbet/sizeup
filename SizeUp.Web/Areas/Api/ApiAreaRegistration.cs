@@ -55,6 +55,26 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "Industry", action = "HasData" }
             );
             
+            /***********place**********/
+
+            context.MapRoute(
+                "SearchPlace",
+                "Api/Place/Search",
+                new { controller = "Place", action = "SearchPlaces" }
+            );
+
+            context.MapRoute(
+               "CurrentPlace",
+               "Api/Place/Current",
+               new { controller = "Place", action = "CurrentPlace" }
+           );
+
+            context.MapRoute(
+               "DetectedPlace",
+               "Api/Place/Detected",
+               new { controller = "Place", action = "DetectedPlace" }
+           );
+
 
             /***********city**********/
             context.MapRoute(
@@ -62,24 +82,6 @@ namespace SizeUp.Web.Areas.Api
                 "Api/City/",
                 new { controller = "City", action = "City" }
             );
-
-            context.MapRoute(
-                "SearchCity",
-                "Api/City/Search",
-                new { controller = "City", action = "SearchCities" }
-            );
-
-            context.MapRoute(
-               "CurrentCity",
-               "Api/City/Current",
-               new { controller = "City", action = "CurrentCity" }
-           );
-
-            context.MapRoute(
-               "DetectedCity",
-               "Api/City/Detected",
-               new { controller = "City", action = "DetectedCity" }
-           );
 
             context.MapRoute(
               "BoundingBoxCity",
@@ -99,6 +101,8 @@ namespace SizeUp.Web.Areas.Api
                 "Api/County/",
                 new { controller = "County", action = "County" }
             );
+
+            
 
             /***********metro**********/
             context.MapRoute(
@@ -138,7 +142,38 @@ namespace SizeUp.Web.Areas.Api
                 new string[] { "SizeUp.Web.Areas.Api.Controllers" }
             );
 
-         
+
+            /****revenue*****/
+
+            context.MapRoute(
+                "Revenue",
+                "Api/Revenue/",
+                new { controller = "Revenue", action = "Revenue" }
+            );
+
+            context.MapRoute(
+                "RevenuePercentle",
+                "Api/Revenue/Percentile",
+                new { controller = "Revenue", action = "Percentile" }
+            );
+
+            context.MapRoute(
+                "RevenueBandsZip",
+                "Api/Revenue/Bands/Zip",
+                new { controller = "Revenue", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "RevenueBandsCounty",
+                "Api/Revenue/Bands/County",
+                new { controller = "Revenue", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "RevenueBandsState",
+                "Api/Revenue/Bands/State",
+                new { controller = "Revenue", action = "BandsByState" }
+            );
 
 
             /****AverageSalary*****/
@@ -146,13 +181,13 @@ namespace SizeUp.Web.Areas.Api
             context.MapRoute(
                 "AverageSalary",
                 "Api/AverageSalary/",
-                new { controller = "AverageSalary", action = "AverageSalary", countyId = UrlParameter.Optional }
+                new { controller = "AverageSalary", action = "AverageSalary" }
             );
 
             context.MapRoute(
                 "AverageSalaryPercentage",
                 "Api/AverageSalary/Percentage",
-                new { controller = "AverageSalary", action = "Percentage", countyId = UrlParameter.Optional }
+                new { controller = "AverageSalary", action = "Percentage" }
             );
 
             context.MapRoute(
@@ -182,7 +217,7 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "Turnover", action = "Percentile" }
             );
 
-            /****turnover*****/
+            /****jobchange*****/
 
             context.MapRoute(
                 "JobChange",

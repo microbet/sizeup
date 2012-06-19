@@ -127,11 +127,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public JsonResult HasData(int id, int cityId)
+        public JsonResult HasData(int id, int placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var c = context.Cities.Where(i => i.Id == cityId).FirstOrDefault();
+                var c = context.CityCountyMappings.Where(i => i.Id == placeId).FirstOrDefault();
                 if (c != null)
                 {
                     WebContext.Current.CurrentIndustryId = id;

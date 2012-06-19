@@ -8,7 +8,7 @@ namespace SizeUp.Web.Models
 {
     public class CurrentInfo
     {
-        public Api.Models.City.City CurrentCity { get; set; }
+        public Api.Models.Place.Place CurrentPlace { get; set; }
         public Api.Models.Industry.Industry CurrentIndustry { get; set; }
     }
 }

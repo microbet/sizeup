@@ -11,6 +11,7 @@ namespace SizeUp.Web.Controllers
 {
     public class BaseController : Controller
     {
+        protected Models.CurrentInfo CurrentInfo { get; set; }
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -19,12 +20,15 @@ namespace SizeUp.Web.Controllers
             
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["city"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["state"]))
+                if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["city"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["county"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["state"]))
                 {
                     var city = (string)requestContext.RouteData.Values["city"];
+                    var county = (string)requestContext.RouteData.Values["county"];
                     var state = (string)requestContext.RouteData.Values["state"];
-                    WebContext.Current.CurrentCityId = context.Cities.Where(i => i.SEOKey == city && i.State.Abbreviation == state).Select(i => i.Id).FirstOrDefault();
-                    
+                    WebContext.Current.CurrentCityId = context.CityCountyMappings
+                        .Where(i => i.County.SEOKey == county && i.City.State.SEOKey == state && i.City.SEOKey == city)
+                        .Select(i => i.Id)
+                        .FirstOrDefault();
                 }
 
                 if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["industry"]))
@@ -33,15 +37,37 @@ namespace SizeUp.Web.Controllers
                     WebContext.Current.CurrentIndustryId = context.Industries.Where(i => i.SEOKey == industry).Select(i => i.Id).FirstOrDefault();
                 }
 
-                var info = new Models.CurrentInfo()
+                CurrentInfo = new Models.CurrentInfo()
                 {
-                    CurrentCity = context.Cities.Where(i => i.Id == WebContext.Current.CurrentCityId).Select(i => new Api.Models.City.City()
+                    CurrentPlace = context.CityCountyMappings.Where(i => i.Id == WebContext.Current.CurrentCityId).Select(i => new Api.Models.Place.Place()
                     {
                         Id = i.Id,
-                        County = i.County.Name,
-                        Name = i.Name,
-                        State = i.State.Abbreviation,
-                        SEOKey = i.SEOKey
+                        City = new Api.Models.City.City()
+                        {
+                            Id = i.City.Id,
+                            Name = i.City.Name,
+                            SEOKey = i.City.SEOKey,
+                            State = i.City.State.Abbreviation
+                        },
+                        County = new Api.Models.County.County()
+                        {
+                            Id = i.County.Id,
+                            Name = i.County.Name,
+                            SEOKey = i.County.SEOKey,
+                            State = i.County.State.Abbreviation
+                        },
+                        Metro = new Api.Models.Metro.Metro()
+                        {
+                            Id = i.County.Metro.Id,
+                            Name = i.County.Metro.Name
+                        },
+                        State = new Api.Models.State.State()
+                        {
+                            Id = i.County.State.Id,
+                            Name = i.County.State.Name,
+                            Abbreviation = i.County.State.Abbreviation,
+                            SEOKey = i.County.State.SEOKey
+                        }
                     }).FirstOrDefault(),
 
                     CurrentIndustry = context.Industries.Where(i => i.Id == WebContext.Current.CurrentIndustryId).Select(i => new Api.Models.Industry.Industry()
@@ -52,8 +78,8 @@ namespace SizeUp.Web.Controllers
                     }).FirstOrDefault()
                 };
 
-                ViewBag.CurrentInfo = info;
-                ViewBag.CurrentInfoJSON = Serializer.ToJSON(info);
+                ViewBag.CurrentInfo = CurrentInfo;
+                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
             }
 
             ViewBag.Header = data;

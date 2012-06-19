@@ -10,6 +10,5 @@ namespace SizeUp.Web.Models.Business
     {
         public IndustryDetails IndustryDetails { get; set; }
         public Locations Locations { get; set; }
-        public Areas.Api.Models.Maps.LatLng MapCenter { get; set; }
     }
 }

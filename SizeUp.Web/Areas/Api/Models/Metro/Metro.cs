@@ -8,7 +8,7 @@ namespace SizeUp.Web.Areas.Api.Models.Metro
 {
     public class Metro
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public string Name { get; set; }
     }
 }

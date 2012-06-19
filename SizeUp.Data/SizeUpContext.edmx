@@ -12,6 +12,7 @@
           <EntitySet Name="AverageSalaryNational" EntityType="SizeUp.Data.Store.AverageSalaryNational" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Business" EntityType="SizeUp.Data.Store.Business" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="City" EntityType="SizeUp.Data.Store.City" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CityCountyMapping" EntityType="SizeUp.Data.Store.CityCountyMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="County" EntityType="SizeUp.Data.Store.County" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Industry" EntityType="SizeUp.Data.Store.Industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
@@ -79,6 +80,14 @@
           <AssociationSet Name="FK_City_State" Association="SizeUp.Data.Store.FK_City_State">
             <End Role="State" EntitySet="State" />
             <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityCountyMapping_City" Association="SizeUp.Data.Store.FK_CityCountyMapping_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="CityCountyMapping" EntitySet="CityCountyMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityCountyMapping_County" Association="SizeUp.Data.Store.FK_CityCountyMapping_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="CityCountyMapping" EntitySet="CityCountyMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_County_Metro" Association="SizeUp.Data.Store.FK_County_Metro">
             <End Role="Metro" EntitySet="Metro" />
@@ -214,13 +223,21 @@
           <Property Name="StateId" Type="bigint" Nullable="false" />
           <Property Name="CountyId" Type="bigint" />
         </EntityType>
+        <EntityType Name="CityCountyMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CityId" Type="bigint" Nullable="false" />
+          <Property Name="CountyId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="County">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="LongName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Geography" Type="geography" Nullable="false" />
           <Property Name="StateId" Type="bigint" Nullable="false" />
@@ -517,6 +534,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CityCountyMapping_City">
+          <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+          <End Role="CityCountyMapping" Type="SizeUp.Data.Store.CityCountyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CityCountyMapping">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CityCountyMapping_County">
+          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="1" />
+          <End Role="CityCountyMapping" Type="SizeUp.Data.Store.CityCountyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CityCountyMapping">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_County_Metro">
           <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
           <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="*" />
@@ -698,29 +739,12 @@
           <EntitySet Name="States" EntityType="SizeUp.Data.State" />
           <EntitySet Name="ResourceStrings" EntityType="SizeUp.Data.ResourceString" />
           <EntitySet Name="Cities" EntityType="SizeUp.Data.City" />
-          <EntitySet Name="Counties" EntityType="SizeUp.Data.County" />
           <EntitySet Name="ZipCodes" EntityType="SizeUp.Data.ZipCode" />
-          <AssociationSet Name="FK_City_County" Association="SizeUp.Data.FK_City_County">
-            <End Role="County" EntitySet="Counties" />
-            <End Role="City" EntitySet="Cities" />
-          </AssociationSet>
           <AssociationSet Name="FK_City_State" Association="SizeUp.Data.FK_City_State">
             <End Role="State" EntitySet="States" />
             <End Role="City" EntitySet="Cities" />
           </AssociationSet>
-          <AssociationSet Name="FK_County_Metro" Association="SizeUp.Data.FK_County_Metro">
-            <End Role="Metro" EntitySet="Metroes" />
-            <End Role="County" EntitySet="Counties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_County_State" Association="SizeUp.Data.FK_County_State">
-            <End Role="State" EntitySet="States" />
-            <End Role="County" EntitySet="Counties" />
-          </AssociationSet>
           <EntitySet Name="Businesses" EntityType="SizeUp.Data.Business" />
-          <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.FK_Business_County">
-            <End Role="County" EntitySet="Counties" />
-            <End Role="Business" EntitySet="Businesses" />
-          </AssociationSet>
           <AssociationSet Name="FK_Business_Industry" Association="SizeUp.Data.FK_Business_Industry">
             <End Role="Industry" EntitySet="Industries" />
             <End Role="Business" EntitySet="Businesses" />
@@ -741,10 +765,6 @@
           <EntitySet Name="AverageSalaryByMetroes" EntityType="SizeUp.Data.AverageSalaryByMetro" />
           <EntitySet Name="AverageSalaryByStates" EntityType="SizeUp.Data.AverageSalaryByState" />
           <EntitySet Name="AverageSalaryNationals" EntityType="SizeUp.Data.AverageSalaryNational" />
-          <AssociationSet Name="FK_AverageSalaryByCounty_County" Association="SizeUp.Data.FK_AverageSalaryByCounty_County">
-            <End Role="County" EntitySet="Counties" />
-            <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounties" />
-          </AssociationSet>
           <AssociationSet Name="FK_AverageSalaryByCounty_NAICS" Association="SizeUp.Data.FK_AverageSalaryByCounty_NAICS">
             <End Role="NAICS" EntitySet="NAICS" />
             <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounties" />
@@ -771,10 +791,6 @@
           </AssociationSet>
           <EntitySet Name="LaborDynamicsByCounties" EntityType="SizeUp.Data.LaborDynamicsByCounty" />
           <EntitySet Name="LaborDynamicsByMetroes" EntityType="SizeUp.Data.LaborDynamicsByMetro" />
-          <AssociationSet Name="FK_LaborDynamicsByCounty_County" Association="SizeUp.Data.FK_LaborDynamicsByCounty_County">
-            <End Role="County" EntitySet="Counties" />
-            <End Role="LaborDynamicsByCounty1" EntitySet="LaborDynamicsByCounties" />
-          </AssociationSet>
           <AssociationSet Name="FK_LaborDynamicsByCounty_Metro" Association="SizeUp.Data.FK_LaborDynamicsByCounty_Metro">
             <End Role="Metro" EntitySet="Metroes" />
             <End Role="LaborDynamicsByCounty1" EntitySet="LaborDynamicsByCounties" />
@@ -803,6 +819,40 @@
           <AssociationSet Name="FK_LaborDynamicsByState_State" Association="SizeUp.Data.FK_LaborDynamicsByState_State">
             <End Role="State" EntitySet="States" />
             <End Role="LaborDynamicsByState" EntitySet="LaborDynamicsByStates" />
+          </AssociationSet>
+          <EntitySet Name="Counties" EntityType="SizeUp.Data.County" />
+          <AssociationSet Name="FK_AverageSalaryByCounty_County" Association="SizeUp.Data.FK_AverageSalaryByCounty_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="AverageSalaryByCounty" EntitySet="AverageSalaryByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.FK_Business_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="Business" EntitySet="Businesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_County" Association="SizeUp.Data.FK_City_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_County_Metro" Association="SizeUp.Data.FK_County_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="County" EntitySet="Counties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_County_State" Association="SizeUp.Data.FK_County_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="County" EntitySet="Counties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LaborDynamicsByCounty_County" Association="SizeUp.Data.FK_LaborDynamicsByCounty_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="LaborDynamicsByCounty" EntitySet="LaborDynamicsByCounties" />
+          </AssociationSet>
+          <EntitySet Name="CityCountyMappings" EntityType="SizeUp.Data.CityCountyMapping" />
+          <AssociationSet Name="FK_CityCountyMapping_City" Association="SizeUp.Data.FK_CityCountyMapping_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="CityCountyMapping" EntitySet="CityCountyMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CityCountyMapping_County" Association="SizeUp.Data.FK_CityCountyMapping_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="CityCountyMapping" EntitySet="CityCountyMappings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
@@ -898,11 +948,11 @@
           <Property Type="String" Name="FIPS" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Type="Geography" Name="Geography" Nullable="false" />
-          <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Metro" ToRole="Business" />
           <NavigationProperty Name="AverageSalaryByMetroes" Relationship="SizeUp.Data.FK_AverageSalaryByMetro_Metro" FromRole="Metro" ToRole="AverageSalaryByMetro" />
           <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" FromRole="Metro" ToRole="LaborDynamicsByCounty1" />
           <NavigationProperty Name="LaborDynamicsByMetroes" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_Metro" FromRole="Metro" ToRole="LaborDynamicsByMetro1" />
+          <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -915,11 +965,11 @@
           <Property Type="Geography" Name="Geography" Nullable="false" />
           <Property Type="String" Name="SEOKey" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_State" FromRole="State" ToRole="City" />
-          <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_State" FromRole="State" ToRole="County" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_State" FromRole="State" ToRole="Business" />
           <NavigationProperty Name="AverageSalaryByStates" Relationship="SizeUp.Data.FK_AverageSalaryByState_State" FromRole="State" ToRole="AverageSalaryByState" />
           <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_State" FromRole="State" ToRole="LaborDynamicsByCounty1" />
           <NavigationProperty Name="LaborDynamicsByStates" Relationship="SizeUp.Data.FK_LaborDynamicsByState_State" FromRole="State" ToRole="LaborDynamicsByState" />
+          <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_State" FromRole="State" ToRole="County" />
         </EntityType>
         <EntityType Name="ResourceString">
           <Key>
@@ -942,26 +992,9 @@
           <Property Type="Geography" Name="Geography" Nullable="false" />
           <Property Type="Int64" Name="StateId" Nullable="false" />
           <Property Type="Int64" Name="CountyId" />
-          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_City_County" FromRole="City" ToRole="County" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_City_State" FromRole="City" ToRole="State" />
-        </EntityType>
-        <EntityType Name="County">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="LongName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Type="Geography" Name="Geography" Nullable="false" />
-          <Property Type="Int64" Name="StateId" Nullable="false" />
-          <Property Type="Int64" Name="MetroId" />
-          <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_County" FromRole="County" ToRole="City" />
-          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_County_Metro" FromRole="County" ToRole="Metro" />
-          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
-          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_County" FromRole="County" ToRole="Business" />
-          <NavigationProperty Name="AverageSalaryByCounties" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="County" ToRole="AverageSalaryByCounty" />
-          <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_County" FromRole="County" ToRole="LaborDynamicsByCounty1" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_City_County" FromRole="City" ToRole="County" />
+          <NavigationProperty Name="CityCountyMappings" Relationship="SizeUp.Data.FK_CityCountyMapping_City" FromRole="City" ToRole="CityCountyMapping" />
         </EntityType>
         <EntityType Name="ZipCode">
           <Key>
@@ -973,18 +1006,6 @@
           <Property Type="Geography" Name="Geography" Nullable="false" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_ZipCode" FromRole="ZipCode" ToRole="Business" />
         </EntityType>
-        <Association Name="FK_City_County">
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.City" Role="City" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="County">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="City">
-              <PropertyRef Name="CountyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_City_State">
           <End Type="SizeUp.Data.State" Role="State" Multiplicity="1" />
           <End Type="SizeUp.Data.City" Role="City" Multiplicity="*" />
@@ -993,30 +1014,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="City">
-              <PropertyRef Name="StateId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_County_Metro">
-          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Metro">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="County">
-              <PropertyRef Name="MetroId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_County_State">
-          <End Type="SizeUp.Data.State" Role="State" Multiplicity="1" />
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="State">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="County">
               <PropertyRef Name="StateId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1048,24 +1045,12 @@
           <Property Type="Int64" Name="MetroId" />
           <Property Type="Int64" Name="StateId" />
           <Property Type="Geography" Name="Geography" />
-          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_Business_County" FromRole="Business" ToRole="County" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_Business_Industry" FromRole="Business" ToRole="Industry" />
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Business" ToRole="Metro" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_Business_State" FromRole="Business" ToRole="State" />
           <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_Business_ZipCode" FromRole="Business" ToRole="ZipCode" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_Business_County" FromRole="Business" ToRole="County" />
         </EntityType>
-        <Association Name="FK_Business_County">
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="County">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Business">
-              <PropertyRef Name="CountyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Business_Industry">
           <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
           <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
@@ -1123,8 +1108,8 @@
           <Property Type="Int64" Name="NAICSId" />
           <Property Type="Int64" Name="CountyId" />
           <Property Type="Int64" Name="AverageSalary" />
-          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="AverageSalaryByCounty" ToRole="County" />
           <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_NAICS" FromRole="AverageSalaryByCounty" ToRole="NAICS" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="AverageSalaryByCounty" ToRole="County" />
         </EntityType>
         <EntityType Name="AverageSalaryByMetro">
           <Key>
@@ -1160,18 +1145,6 @@
           <Property Type="Int64" Name="AverageSalary" />
           <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_AverageSalaryNational_NAICS" FromRole="AverageSalaryNational" ToRole="NAICS" />
         </EntityType>
-        <Association Name="FK_AverageSalaryByCounty_County">
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.AverageSalaryByCounty" Role="AverageSalaryByCounty" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="County">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AverageSalaryByCounty">
-              <PropertyRef Name="CountyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AverageSalaryByCounty_NAICS">
           <End Type="SizeUp.Data.NAICS" Role="NAICS" Multiplicity="0..1" />
           <End Type="SizeUp.Data.AverageSalaryByCounty" Role="AverageSalaryByCounty" Multiplicity="*" />
@@ -1261,10 +1234,10 @@
           <Property Type="Int64" Name="Hires" />
           <Property Type="Int64" Name="Separations" />
           <Property Type="Double" Name="Turnover" />
-          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_County" FromRole="LaborDynamicsByCounty1" ToRole="County" />
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" FromRole="LaborDynamicsByCounty1" ToRole="Metro" />
           <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_NAICS" FromRole="LaborDynamicsByCounty1" ToRole="NAICS" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_State" FromRole="LaborDynamicsByCounty1" ToRole="State" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_County" FromRole="LaborDynamicsByCounty" ToRole="County" />
         </EntityType>
         <EntityType Name="LaborDynamicsByMetro">
           <Key>
@@ -1284,18 +1257,6 @@
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_Metro" FromRole="LaborDynamicsByMetro1" ToRole="Metro" />
           <NavigationProperty Name="NAIC" Relationship="SizeUp.Data.FK_LaborDynamicsByMetro_NAICS" FromRole="LaborDynamicsByMetro1" ToRole="NAICS" />
         </EntityType>
-        <Association Name="FK_LaborDynamicsByCounty_County">
-          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="County">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LaborDynamicsByCounty1">
-              <PropertyRef Name="CountyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LaborDynamicsByCounty_Metro">
           <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
           <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty1" Multiplicity="*" />
@@ -1399,6 +1360,131 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SEOKey" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIPS" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Geography" Name="Geography" Nullable="false" />
+          <Property Type="Int64" Name="StateId" Nullable="false" />
+          <Property Type="Int64" Name="MetroId" />
+          <NavigationProperty Name="AverageSalaryByCounties" Relationship="SizeUp.Data.FK_AverageSalaryByCounty_County" FromRole="County" ToRole="AverageSalaryByCounty" />
+          <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_County" FromRole="County" ToRole="Business" />
+          <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_County" FromRole="County" ToRole="City" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_County_Metro" FromRole="County" ToRole="Metro" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
+          <NavigationProperty Name="LaborDynamicsByCounties" Relationship="SizeUp.Data.FK_LaborDynamicsByCounty_County" FromRole="County" ToRole="LaborDynamicsByCounty" />
+          <NavigationProperty Name="CityCountyMappings" Relationship="SizeUp.Data.FK_CityCountyMapping_County" FromRole="County" ToRole="CityCountyMapping" />
+        </EntityType>
+        <Association Name="FK_AverageSalaryByCounty_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.AverageSalaryByCounty" Role="AverageSalaryByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AverageSalaryByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Business_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_County_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="County">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_County_State">
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="1" />
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="County">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LaborDynamicsByCounty_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.LaborDynamicsByCounty" Role="LaborDynamicsByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LaborDynamicsByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CityCountyMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="CityId" Nullable="false" />
+          <Property Type="Int64" Name="CountyId" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_CityCountyMapping_City" FromRole="CityCountyMapping" ToRole="City" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_CityCountyMapping_County" FromRole="CityCountyMapping" ToRole="County" />
+        </EntityType>
+        <Association Name="FK_CityCountyMapping_City">
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="1" />
+          <End Type="SizeUp.Data.CityCountyMapping" Role="CityCountyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CityCountyMapping">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CityCountyMapping_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="1" />
+          <End Type="SizeUp.Data.CityCountyMapping" Role="CityCountyMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CityCountyMapping">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1485,19 +1571,6 @@
                 <ScalarProperty Name="CensusClassCode" ColumnName="CensusClassCode" />
                 <ScalarProperty Name="CityType" ColumnName="CityType" />
                 <ScalarProperty Name="FIPS" ColumnName="FIPS" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Counties">
-            <EntityTypeMapping TypeName="SizeUp.Data.County">
-              <MappingFragment StoreEntitySet="County">
-                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
-                <ScalarProperty Name="StateId" ColumnName="StateId" />
-                <ScalarProperty Name="Geography" ColumnName="Geography" />
-                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
-                <ScalarProperty Name="LongName" ColumnName="LongName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1635,6 +1708,28 @@
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Counties">
+            <EntityTypeMapping TypeName="SizeUp.Data.County">
+              <MappingFragment StoreEntitySet="County">
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Geography" ColumnName="Geography" />
+                <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityCountyMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.CityCountyMapping">
+              <MappingFragment StoreEntitySet="CityCountyMapping">
+                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

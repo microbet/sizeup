@@ -26,11 +26,11 @@ namespace SizeUp.Core.Geo
         }
 
         protected static string GEOCoderAddress { get { return @"http://api.ipinfodb.com/v2/ip_query.php?key=3f1885fa744dbf2517f3236bb50c7f791a68580cee86048388a9393ad36e28bf&ip={0}&timezone=false"; } }
-        public static long? GetCityIdByIPAddress()
+        public static long? GetPlaceIdByIPAddress()
         {
-            return GetCityIdByIPAddress(HttpContext.Current.Request.UserHostAddress);
+            return GetPlaceIdByIPAddress(HttpContext.Current.Request.UserHostAddress);
         }
-        public static long? GetCityIdByIPAddress(string ip)
+        public static long? GetPlaceIdByIPAddress(string ip)
         {
             long? id = null;
             var Cache = HttpContext.Current.Cache;
@@ -62,8 +62,8 @@ namespace SizeUp.Core.Geo
                             using (var context = ContextFactory.SizeUpContext)
                             {
                                 var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
-                                id = context.Cities.Where(i => i.Geography.Distance(point) < 30000 && i.Geography.Area > 0)
-                                    .OrderBy(i => i.Geography.Distance(point)).Select(i=>i.Id).FirstOrDefault();
+                                id = context.CityCountyMappings.Where(i => i.City.Geography.Distance(point) < 30000 && i.County.Geography.Distance(point) < 30000 && i.City.Geography.Area > 0)
+                                    .OrderBy(i => i.City.Geography.Distance(point)).ThenBy(i=>i.County.Geography.Distance(point)).Select(i=>i.Id).FirstOrDefault();
                                 Cache[cacheKey] = id;
                             }
                         }

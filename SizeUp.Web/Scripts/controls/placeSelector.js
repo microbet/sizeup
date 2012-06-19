@@ -1,7 +1,7 @@
 ﻿(function () {
 
-    sizeup.core.namespace('sizeup.controls.citySelector');
-    window.sizeup.controls.citySelector = function (opts) {
+    sizeup.core.namespace('sizeup.controls');
+    window.sizeup.controls.placeSelector = function (opts) {
 
         var me = {};
         var dataLayer = new sizeup.core.data();
@@ -51,7 +51,7 @@
         var setSelection = function (item) {
             me.selection = item;
             if (item != null) {
-                me.textbox.val(item.Name + ', ' + item.State);
+                me.textbox.val(item.City.Name + ', ' + item.City.State);
                 me.textbox.removeClass('blank');
             }
             else {
@@ -82,7 +82,7 @@
                     }));
                 };
 
-                dataLayer.searchCities({ term: request.term, maxResults: me.maxResults }, callback);
+                dataLayer.searchPlaces({ term: request.term, maxResults: me.maxResults }, callback);
             },
             minLength: me.minLength,
             select: function (event, ui) {

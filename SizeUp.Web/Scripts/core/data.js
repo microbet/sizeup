@@ -40,9 +40,20 @@
             hasData: function (params, success, error) {
                 return get('/api/industry/hasData/', params, success, error);
             },
-            searchCities: function (params, success, error) {
-                return get('/api/city/search/', params, success, error);
+
+            searchPlaces: function (params, success, error) {
+                return get('/api/place/search/', params, success, error);
             },
+            getCurrentPlace: function (success, error) {
+                return get('/api/place/current', null, success, error);
+            },
+            setCurrentPlace: function (params, success, error) {
+                return post('/api/place/current', params, success, error);
+            },
+            getDetectedPlace: function (success, error) {
+                return get('/api/place/detected', null, success, error);
+            },
+
             getCity: function (params, success, error) {
                 return get('/api/city/', params, success, error);
             },
@@ -52,19 +63,11 @@
             getCityCentroid: function (params, success, error) {
                 return get('/api/city/centroid/', params, success, error);
             },
-            getCurrentCity: function (success, error) {
-                return get('/api/city/current', null, success, error);
-            },
-            setCurrentCity: function (params, success, error) {
-                return post('/api/city/current', params, success, error);
-            },
-            getDetectedCity: function (success, error) {
-                return get('/api/city/detected', null, success, error);
-            },
+           
             getCounty: function (params, success, error) {
                 return get('/api/county/', params, success, error);
             },
-
+            
             getMetro: function (params, success, error) {
                 return get('/api/metro/', params, success, error);
             },

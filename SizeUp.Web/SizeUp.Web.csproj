@@ -152,6 +152,8 @@
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Api\Controllers\JobChangeController.cs" />
     <Compile Include="Areas\Api\Controllers\MetroController.cs" />
+    <Compile Include="Areas\Api\Controllers\PlaceController.cs" />
+    <Compile Include="Areas\Api\Controllers\RevenueController.cs" />
     <Compile Include="Areas\Api\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\StateController.cs" />
     <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
+    <Compile Include="Areas\Api\Models\Place\Place.cs" />
     <Compile Include="Areas\Api\Models\County\County.cs" />
     <Compile Include="Areas\Api\Models\Industry\Industry.cs" />
     <Compile Include="Areas\Api\Models\JobChange\ChartItem.cs" />
@@ -211,7 +214,16 @@
     <Content Include="Content\images\home-gradient.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\logosmall.gif" />
+    <Content Include="Content\images\markerBuyer.png" />
+    <Content Include="Content\images\markerCompetitor.png" />
+    <Content Include="Content\images\markerHighlightBuyer.png" />
+    <Content Include="Content\images\markerHighlightCompetitor.png" />
+    <Content Include="Content\images\markerHighlightSupplier.png" />
+    <Content Include="Content\images\markerShadow.png" />
+    <Content Include="Content\images\markerSupplier.png" />
     <Content Include="Content\images\mybusiness.png" />
+    <Content Include="Content\images\pinShadow.png" />
+    <Content Include="Content\images\PinTemplate.png" />
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
@@ -236,10 +248,10 @@
     <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
-    <Content Include="Scripts\controls\citySelector.js" />
     <Content Include="Scripts\controls\gauge.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
     <Content Include="Scripts\controls\pager.js" />
+    <Content Include="Scripts\controls\placeSelector.js" />
     <Content Include="Scripts\controls\toggleButton.js" />
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />

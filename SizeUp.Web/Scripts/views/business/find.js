@@ -36,7 +36,7 @@
             me.errors.noIndustryMatches = $('#noIndustryMatchesMessage');
             me.errors.invalidCity = $('#invalidCityMessage');
 
-            me.form.city.selector = sizeup.controls.citySelector({
+            me.form.city.selector = sizeup.controls.placeSelector({
                 textbox: me.form.city.textbox,
                 onChange: function (item) { onCityChange(item); }
             });

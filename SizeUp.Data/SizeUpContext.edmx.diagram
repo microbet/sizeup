@@ -16,14 +16,9 @@
         <EntityTypeShape EntityType="SizeUp.Data.State" Width="1.5" PointX="11.125" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="7.25" PointY="2.875" />
         <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="9.125" PointY="0.5" />
-        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="9.125" PointY="4.25" />
         <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="7.25" PointY="0.5" />
-        <AssociationConnector Association="SizeUp.Data.FK_City_County" />
         <AssociationConnector Association="SizeUp.Data.FK_City_State" />
-        <AssociationConnector Association="SizeUp.Data.FK_County_Metro" />
-        <AssociationConnector Association="SizeUp.Data.FK_County_State" />
         <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="5" PointY="0.5" />
-        <AssociationConnector Association="SizeUp.Data.FK_Business_County" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_Industry" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_State" />
@@ -32,7 +27,6 @@
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByMetro" Width="2.375" PointX="0.5" PointY="13" />
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByState" Width="2.25" PointX="0.5" PointY="10.375" />
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryNational" Width="2.25" PointX="0.5" PointY="8.125" />
-        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_County" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_NAICS" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_NAICS" />
@@ -41,7 +35,6 @@
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryNational_NAICS" />
         <EntityTypeShape EntityType="SizeUp.Data.LaborDynamicsByCounty" Width="2.25" PointX="4.25" PointY="8.125" />
         <EntityTypeShape EntityType="SizeUp.Data.LaborDynamicsByMetro" Width="2.25" PointX="4.25" PointY="12.625" />
-        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_County" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_NAICS" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_State" />
@@ -50,6 +43,16 @@
         <EntityTypeShape EntityType="SizeUp.Data.LaborDynamicsByState" Width="2.25" PointX="4.25" PointY="16.625" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByState_NAICS" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByState_State" />
+        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="9.125" PointY="6.875" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_Business_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_City_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_County_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_County_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_County" />
+        <EntityTypeShape EntityType="SizeUp.Data.CityCountyMapping" Width="1.875" PointX="9" PointY="4.25" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityCountyMapping_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityCountyMapping_County" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

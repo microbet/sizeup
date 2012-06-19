@@ -59,35 +59,35 @@ namespace SizeUp.Core.Web
             }
         }
 
-         public long? CurrentCityId
-         {
-             get
-             {
-                 if (_currentCityId == null)
-                 {
-                     var c = System.Web.HttpContext.Current;
-                     var cookie = c.Request.Cookies["city"];
-                     _currentCityId = cookie == null ? null : long.Parse(cookie.Value) as long?;
-                 }
-                 return _currentCityId;
-             }
-             set
-             {
-                 var c = System.Web.HttpContext.Current;
-                 if (value != null)
-                 {
-                     HttpCookie cookie = new HttpCookie("city", value.ToString());
-                     cookie.Expires = DateTime.Now.AddDays(7.0);
-                     c.Response.Cookies.Add(cookie);
-                 }
-                 else
-                 {
-                     HttpCookie cookie = new HttpCookie("city", "");
-                     cookie.Expires = DateTime.MinValue;
-                     c.Response.Cookies.Add(cookie);
-                 }
-                 _currentCityId = value;
-             }
-         }
+        public long? CurrentCityId
+        {
+            get
+            {
+                if (_currentCityId == null)
+                {
+                    var c = System.Web.HttpContext.Current;
+                    var cookie = c.Request.Cookies["city"];
+                    _currentCityId = cookie == null ? null : long.Parse(cookie.Value) as long?;
+                }
+                return _currentCityId;
+            }
+            set
+            {
+                var c = System.Web.HttpContext.Current;
+                if (value != null)
+                {
+                    HttpCookie cookie = new HttpCookie("city", value.ToString());
+                    cookie.Expires = DateTime.Now.AddDays(7.0);
+                    c.Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    HttpCookie cookie = new HttpCookie("city", "");
+                    cookie.Expires = DateTime.MinValue;
+                    c.Response.Cookies.Add(cookie);
+                }
+                _currentCityId = value;
+            }
+        }
     }
 }

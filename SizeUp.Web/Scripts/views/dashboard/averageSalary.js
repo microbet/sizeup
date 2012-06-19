@@ -195,7 +195,7 @@
 
                     valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
                     container: me.container.find('.chart .container'),
-                    title: 'average annual revenue per business',
+                    title: 'average annual salary',
                     bars: me.data.chart
                 });
                 me.chart.draw();

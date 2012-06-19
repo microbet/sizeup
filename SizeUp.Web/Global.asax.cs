@@ -42,20 +42,20 @@ namespace SizeUp.Web
 
             routes.MapRoute(
                 "Advertising", // Route name
-                "advertising/{state}/{city}/{industry}", // URL with parameters
+                "advertising/{state}/{county}/{city}/{industry}", // URL with parameters
                 new { controller = "Advertising", action = "Index" } // Parameter defaults
             );
 
 
             routes.MapRoute(
                 "Competition", // Route name
-                "competition/{state}/{city}/{industry}", // URL with parameters
+                "competition/{state}/{county}/{city}/{industry}", // URL with parameters
                 new { controller = "Competition", action = "Index" } // Parameter defaults
             );
 
             routes.MapRoute(
                 "Dashboard", // Route name
-                "dashboard/{state}/{city}/{industry}", // URL with parameters
+                "dashboard/{state}/{county}/{city}/{industry}", // URL with parameters
                 new { controller = "Dashboard", action = "Index" } // Parameter defaults
             );
 
