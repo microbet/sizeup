@@ -66,7 +66,7 @@
 #dashboard #healthcareCost.report .body .reportContainer .reportContent .table .name, 
 #dashboard #workersComp.report .body .reportContainer .reportContent .table .name { width: 90%; padding: 0 0 0 0.5em; }
 
-#dashboard #turnover.report .body .reportContainer .reportContent .table .name { width: 55%; padding: 0 0 0 0.5em; }
+#dashboard #turnover.report .body .reportContainer .reportContent .table .name { width: 64%; padding: 0 0 0 0.5em; }
 
 
 #dashboard #revenue.report .body .reportContainer .reportContent .table .value,
@@ -83,7 +83,7 @@
 #dashboard #turnover.report .body .reportContainer .reportContent .table .hires,
 #dashboard #turnover.report .body .reportContainer .reportContent .table .jobGains,
 #dashboard #turnover.report .body .reportContainer .reportContent .table .jobLosses,
-#dashboard #turnover.report .body .reportContainer .reportContent .table .netJobChange { width: 15%; text-align: right; padding: 0 0.5em 0 0;  }
+#dashboard #turnover.report .body .reportContainer .reportContent .table .netJobChange { width: 12%; text-align: right; padding: 0 0.5em 0 0;  }
 
 #dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; margin:  0 0 1em 0; vertical-align:top; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
 #dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 1em; }

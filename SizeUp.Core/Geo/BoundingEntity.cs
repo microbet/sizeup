@@ -42,56 +42,65 @@ namespace SizeUp.Core.Geo
                 {
                     EntityId = long.Parse(entityIdCode.Substring(1));
                     EntityType = BoundingEntityType.Zip;
-                    var g = context.ZipCodes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    var g = context.ZipCodeGeographies
+                        .Where(i=>i.GeographyClass.Name == "Calculation")
+                        .Where(i => i.ZipCodeId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                     if (g != null)
                     {
-                        //g = g.Buffer(-100);
                         Geography = SqlGeography.Parse(g.AsText());
-                        Geography = Geography.Reduce(10).STBuffer(-100);
+                        //Geography = Geography.Reduce(10).STBuffer(-100);
                     }
                 }
                 else if (entityIdCode.StartsWith("c"))
                 {
                     EntityId = long.Parse(entityIdCode.Substring(1));
                     EntityType = BoundingEntityType.City;
-                    var g = context.Cities.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    var g = context.CityGeographies
+                        .Where(i => i.GeographyClass.Name == "Calculation")
+                        .Where(i => i.CityId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        Geography = Geography.Reduce(100).STBuffer(-500);
+                        //Geography = Geography.Reduce(100).STBuffer(-500);
                     }
                 }
                 else if (entityIdCode.StartsWith("co"))
                 {
                     EntityId = long.Parse(entityIdCode.Substring(2));
                     EntityType = BoundingEntityType.County;
-                    var g = context.Counties.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    var g = context.CountyGeographies
+                        .Where(i=>i.GeographyClass.Name == "Calculation")
+                        .Where(i => i.CountyId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        Geography = Geography.Reduce(100).STBuffer(-500);
+                       // Geography = Geography.Reduce(100).STBuffer(-500);
                     }
                 }
                 else if (entityIdCode.StartsWith("m"))
                 {
                     EntityId = long.Parse(entityIdCode.Substring(1));
                     EntityType = BoundingEntityType.Metro;
-                    var g = context.Metroes.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    var g = context.MetroGeographies
+                        .Where(i=>i.GeographyClass.Name == "Calculation")
+                        .Where(i => i.MetroId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        Geography = Geography.Reduce(100).STBuffer(-500);
+                       // Geography = Geography.Reduce(100).STBuffer(-500);
                     }
                 }
                 else if (entityIdCode.StartsWith("s"))
                 {
                     EntityId = long.Parse(entityIdCode.Substring(1));
                     EntityType = BoundingEntityType.State;
-                    var g = context.States.Where(i => i.Id == EntityId).Select(i => i.Geography).FirstOrDefault();
+                    var g = context.StateGeographies
+                        .Where(i=>i.GeographyClass.Name == "Calculation")
+                        .Where(i => i.StateId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        Geography = Geography.Reduce(2500).STBuffer(-2500);
+                        //Geography = Geography.Reduce(2500).STBuffer(-2500);
                     }
                 }
             }

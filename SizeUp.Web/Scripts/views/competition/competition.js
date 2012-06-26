@@ -69,7 +69,7 @@
 
         var notifier = new sizeup.core.notifier(function () { init(); });
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-        dataLayer.getCityBoundingBox({id: opts.CurrentCity.Id}, notifier.getNotifier(function (data) { 
+        dataLayer.getCityBoundingBox({id: opts.CurrentPlace.City.Id}, notifier.getNotifier(function (data) { 
             me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[0].Lat, lng: data[0].Lng}));
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[1].Lat, lng: data[1].Lng}));
@@ -186,7 +186,7 @@
             me[index].content.map = new sizeup.maps.businessMap({
                 container: me[index].content.container.find('.mapContent'),
                 radius: me.opts.mapRadius,
-                cityId: me.opts.CurrentCity.Id,
+                cityId: me.opts.CurrentPlace.City.Id,
                 primaryIndex: index
             });
             me[index].content.map.fitBounds(me.data.cityBoundingBox);
@@ -446,7 +446,7 @@
             var pagerData = me[index].content.pager.getPageData();
             dataLayer.getBusinessesByIndustry({
                 industryIds: getIndustryIds(index),
-                cityId: me.opts.CurrentCity.Id,
+                cityId: me.opts.CurrentPlace.City.Id,
                 itemCount: me.opts.itemsPerPage,
                 page: pagerData.page
             }, function (data) {

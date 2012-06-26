@@ -36,8 +36,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var item = context.Cities.Where(i => i.Id == id);
-                var data = item.Select(i => i.Geography).FirstOrDefault();
+                var item = context.CityGeographies.Where(i => i.CityId == id && i.GeographyClass.Name == "Calculation");
+                var data = item.Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                 List<Models.Maps.LatLng> output = new List<Models.Maps.LatLng>();
                 if (data != null)
                 {
@@ -56,8 +56,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var item = context.Cities.Where(i => i.Id == id);
-                var data = item.Select(i => i.Geography).FirstOrDefault();
+                var item = context.CityGeographies.Where(i => i.CityId == id && i.GeographyClass.Name == "Calculation");
+                var data = item.Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
                 Models.Maps.LatLng output = new Models.Maps.LatLng();
                 if (data != null)
                 {

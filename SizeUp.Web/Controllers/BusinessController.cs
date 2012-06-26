@@ -42,7 +42,7 @@ namespace SizeUp.Web.Controllers
                 {
                     int id = int.Parse(cityId);
                     city = context.Cities.Where(i => i.Id == id).FirstOrDefault();
-                    results = results.Where(i => city.Geography.Intersects(i.Geography));
+                   // results = results.Where(i => city.Geography.Intersects(i.Geography));
                 }
 
                 if (!string.IsNullOrWhiteSpace(businessName))

@@ -24,6 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var data = context.CityCountyMappings
                 .Where(i => i.City.Name.StartsWith(term))
                 .OrderBy(i => i.City.Name)
+                .ThenBy(i=>i.City.State.Abbreviation)
                 .Take(maxResults)
                 .Select(i => new Api.Models.Place.Place()
                 {

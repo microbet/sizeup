@@ -55,14 +55,6 @@ namespace SizeUp.Core.Tiles
             return box;
         }
 
-        public BoundingBox GetBoundingBox()
-        {
-            var ne = Projection.FromPixelToCoordinates(new PointF((X + 1) * Width, Y * Height));
-            var sw = Projection.FromPixelToCoordinates(new PointF(X * Width, (Y + 1) * Height));
-            return new BoundingBox(sw, ne);
-        }
-
-
         public SqlGeography GetBoundingGeography(float bufferPercent)
         {
             var box = GetBoundingBox(bufferPercent);
@@ -80,6 +72,13 @@ namespace SizeUp.Core.Tiles
             return box;
         }
 
+        public BoundingBox GetBoundingBox()
+        {
+            var ne = Projection.FromPixelToCoordinates(new PointF((X + 1) * Width, Y * Height));
+            var sw = Projection.FromPixelToCoordinates(new PointF(X * Width, (Y + 1) * Height));
+            return new BoundingBox(sw, ne);
+        }
+ 
         public BoundingBox GetBoundingBox(float bufferPercent)
         {
             var nep = new PointF((X + 1) * Width, Y * Height);

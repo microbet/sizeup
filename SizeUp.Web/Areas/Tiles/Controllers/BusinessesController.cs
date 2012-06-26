@@ -56,7 +56,6 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .Where(i => i.Lat < (decimal)boundingBox.NorthEast.Y && i.Lat > (decimal)boundingBox.SouthWest.Y && i.Long > (decimal)boundingBox.SouthWest.X && i.Long < (decimal)boundingBox.NorthEast.X)
                     .Select(i => new
                     {
-                        Geography = i.Geography,
                         Lat = i.Lat,
                         Long = i.Long
                     }),
@@ -65,7 +64,6 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .Where(i => i.Lat < (decimal)boundingBox.NorthEast.Y && i.Lat > (decimal)boundingBox.SouthWest.Y && i.Long > (decimal)boundingBox.SouthWest.X && i.Long < (decimal)boundingBox.NorthEast.X)
                     .Select(i => new
                     {
-                        Geography = i.Geography,
                         Lat = i.Lat,
                         Long = i.Long
                     }),
@@ -73,7 +71,6 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     suppliers = suppliers.Where(i => i.Lat < (decimal)boundingBox.NorthEast.Y && i.Lat > (decimal)boundingBox.SouthWest.Y && i.Long > (decimal)boundingBox.SouthWest.X && i.Long < (decimal)boundingBox.NorthEast.X)
                     .Select(i => new
                     {
-                        Geography = i.Geography,
                         Lat = i.Lat,
                         Long = i.Long
                     })
@@ -88,7 +85,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     BorderColor = "#000000",
                     BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
                 };
-                competitorCollection.Geographies.AddRange(geos.competitors.ToList().Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                competitorCollection.Geographies.AddRange(geos.competitors.ToList().Select(i => SqlGeography.Parse(string.Format("POINT({0} {1})", i.Long, i.Lat))).ToList());
                 geoCollection.Add(competitorCollection);
 
                 GeographyCollection buyerCollection = new GeographyCollection()
@@ -99,7 +96,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     BorderColor = "#000000",
                     BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
                 };
-                buyerCollection.Geographies.AddRange(geos.buyers.ToList().Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                buyerCollection.Geographies.AddRange(geos.buyers.ToList().Select(i => SqlGeography.Parse(string.Format("POINT({0} {1})", i.Long, i.Lat))).ToList());
                 geoCollection.Add(buyerCollection);
 
                 GeographyCollection supplierCollection = new GeographyCollection()
@@ -110,7 +107,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     BorderColor = "#000000",
                     BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
                 };
-                supplierCollection.Geographies.AddRange(geos.suppliers.ToList().Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                supplierCollection.Geographies.AddRange(geos.suppliers.ToList().Select(i => SqlGeography.Parse(string.Format("POINT({0} {1})", i.Long, i.Lat))).ToList());
                 geoCollection.Add(supplierCollection);
 
 

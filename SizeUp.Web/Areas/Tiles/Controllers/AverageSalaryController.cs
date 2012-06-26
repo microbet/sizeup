@@ -30,10 +30,14 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
 
-                var boundingBox = tile.GetBoundingGeography(boundingEntity.Geography);
-                var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
+                var boundingBox = tile.GetBoundingBox(0.2f);
+                var boundingGeo = tile.GetBoundingGeography(boundingEntity.Geography);
+                var boundingSpatial = DbGeography.FromText((string)boundingGeo.STAsText().ToSqlString());
 
-                var geos = context.Counties.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
+                var geos = context.CountyGeographies
+                    .Select(i=> new {CountyId = i.CountyId, Display =  context.CountyGeographies.Where(g=>g.GeographyClass.Name == "Display" && g.CountyId == i.CountyId).FirstOrDefault(), Calculation = context.CountyGeographies.Where(g=>g.GeographyClass.Name == "Calculation" && g.CountyId == i.CountyId).FirstOrDefault()})
+                    .Where(i => i.Calculation.Geography.North > (double)boundingBox.SouthWest.Y && i.Calculation.Geography.East > (double)boundingBox.SouthWest.X && i.Calculation.Geography.South < (double)boundingBox.NorthEast.Y && i.Calculation.Geography.West < (double)boundingBox.NorthEast.X)
+                    .Where(i => i.Calculation.Geography.GeographyPolygon.Intersects(boundingSpatial)).Select(i => new { Id = i.CountyId, Geography = i.Display.Geography.GeographyPolygon }).ToList();
 
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
                 var filters = context.AverageSalaryByCounties
@@ -89,10 +93,15 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
 
 
-                var boundingBox = tile.GetBoundingGeography();
-                var boundingSpatial = DbGeography.FromText((string)boundingBox.STAsText().ToSqlString());
+                var boundingBox = tile.GetBoundingBox(0.2f);
+                var boundingGeo = tile.GetBoundingGeography();
+                var boundingSpatial = DbGeography.FromText((string)boundingGeo.STAsText().ToSqlString());
 
-                var geos = context.States.Where(i => i.Geography.Intersects(boundingSpatial)).Select(i => new { i.Id, i.Geography }).ToList();
+                var geos = context.StateGeographies
+                   .Select(i => new { StateId = i.StateId, Display = context.StateGeographies.Where(g => g.GeographyClass.Name == "Display" && g.StateId == i.StateId).FirstOrDefault(), Calculation = context.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation" && g.StateId == i.StateId).FirstOrDefault() })
+                    .Where(i => i.Calculation.Geography.North > (double)boundingBox.SouthWest.Y && i.Calculation.Geography.East > (double)boundingBox.SouthWest.X && i.Calculation.Geography.South < (double)boundingBox.NorthEast.Y && i.Calculation.Geography.West < (double)boundingBox.NorthEast.X)
+                    .Where(i => i.Calculation.Geography.GeographyPolygon.Intersects(boundingSpatial)).Select(i => new { Id = i.StateId, Geography = i.Display.Geography.GeographyPolygon }).ToList();
+
                 var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
                 var filters = context.AverageSalaryByStates
                     .Where(i => i.NAICSId == naics.FirstOrDefault().Id && i.AverageSalary > 0);

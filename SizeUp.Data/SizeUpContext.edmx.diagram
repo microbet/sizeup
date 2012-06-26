@@ -8,51 +8,119 @@
         <EntityTypeShape EntityType="SizeUp.Data.Industry" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.IndustryKeyword" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.NAICS" Width="1.5" PointX="2.625" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SizeUp.Data.SicToNAICSMapping" Width="1.5" PointX="0.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizeUp.Data.SicToNAICSMapping" Width="1.5" PointX="0.5" PointY="5.625" IsExpanded="true" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryKeyword_Industry" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_Industry" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_NAICS" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SizeUp.Data.Metro" Width="1.5" PointX="11.75" PointY="5.125" />
-        <EntityTypeShape EntityType="SizeUp.Data.State" Width="1.5" PointX="11.125" PointY="0.5" />
-        <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="7.25" PointY="2.875" />
-        <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="9.125" PointY="0.5" />
-        <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="7.25" PointY="0.5" />
-        <AssociationConnector Association="SizeUp.Data.FK_City_State" />
-        <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="5" PointY="0.5" />
-        <AssociationConnector Association="SizeUp.Data.FK_Business_Industry" />
-        <AssociationConnector Association="SizeUp.Data.FK_Business_Metro" />
-        <AssociationConnector Association="SizeUp.Data.FK_Business_State" />
-        <AssociationConnector Association="SizeUp.Data.FK_Business_ZipCode" />
+        <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="6.5" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByCounty" Width="2.25" PointX="0.5" PointY="15.75" />
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByMetro" Width="2.375" PointX="0.5" PointY="13" />
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryByState" Width="2.25" PointX="0.5" PointY="10.375" />
         <EntityTypeShape EntityType="SizeUp.Data.AverageSalaryNational" Width="2.25" PointX="0.5" PointY="8.125" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_NAICS" />
-        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_NAICS" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByState_NAICS" />
-        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByState_State" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryNational_NAICS" />
         <EntityTypeShape EntityType="SizeUp.Data.LaborDynamicsByCounty" Width="2.25" PointX="4.25" PointY="8.125" />
         <EntityTypeShape EntityType="SizeUp.Data.LaborDynamicsByMetro" Width="2.25" PointX="4.25" PointY="12.625" />
-        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_NAICS" />
-        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_State" />
-        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByMetro_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByMetro_NAICS" />
         <EntityTypeShape EntityType="SizeUp.Data.LaborDynamicsByState" Width="2.25" PointX="4.25" PointY="16.625" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByState_NAICS" />
-        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByState_State" />
-        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="9.125" PointY="6.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.CityCountyMapping" Width="1.875" PointX="6.5" PointY="2.375" />
+        <EntityTypeShape EntityType="SizeUp.Data.APIKey" Width="1.5" PointX="6.625" PointY="5.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.APIKeyDomain" Width="1.5" PointX="8.25" PointY="5.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="4.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="11.25" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.CityGeography" Width="1.5" PointX="11.25" PointY="4.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="13.375" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.CountyGeography" Width="2" PointX="13.375" PointY="5.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByCity" Width="3.5" PointX="3.875" PointY="20.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByCounty" Width="3.5" PointX="7.625" PointY="20.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByZip" Width="3.125" PointX="0.5" PointY="20.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.EmployeesByCity" Width="2.25" PointX="7" PointY="8.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.EmployeesByZip" Width="2.25" PointX="7" PointY="12.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.Geography" Width="1.5" PointX="12" PointY="9.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographyClass" Width="1.5" PointX="13.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographySource" Width="2.375" PointX="12" PointY="13.375" />
+        <EntityTypeShape EntityType="SizeUp.Data.Metro" Width="1.5" PointX="15.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.MetroGeography" Width="2.125" PointX="15.75" PointY="4.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.RevenueByCity" Width="1.5" PointX="0.5" PointY="31.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.RevenueByZip" Width="1.5" PointX="2.25" PointY="31.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.State" Width="1.5" PointX="18.25" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.StateGeography" Width="1.5" PointX="18.25" PointY="5.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.YearStartedByCity" Width="1.875" PointX="4.125" PointY="31.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.YearStartedByZip" Width="1.875" PointX="6.25" PointY="31.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="8.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCodeGeography" Width="2" PointX="8.75" PointY="2.875" />
+        <AssociationConnector Association="SizeUp.Data.FK_APIKeyDomain_APIKey" />
         <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByCounty_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByMetro_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_AverageSalaryByState_State" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_County" />
-        <AssociationConnector Association="SizeUp.Data.FK_City_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_Business_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_Business_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_Business_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_Business_ZipCode" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByCity_Business" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByZip_Business" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByCity_Business" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByZip_Business" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByCity_Business" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByZip_Business" />
+        <AssociationConnector Association="SizeUp.Data.FK_City_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityCountyMapping_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityGeography_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByCity_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByCity_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByCity_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityCountyMapping_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityGeography_Geography" />
+        <AssociationConnector Association="SizeUp.Data.FK_CityGeography_GeographyClass" />
         <AssociationConnector Association="SizeUp.Data.FK_County_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_County_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_CountyGeography_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByCity_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByZip_County" />
         <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_County" />
-        <EntityTypeShape EntityType="SizeUp.Data.CityCountyMapping" Width="1.875" PointX="9" PointY="4.25" />
-        <AssociationConnector Association="SizeUp.Data.FK_CityCountyMapping_City" />
-        <AssociationConnector Association="SizeUp.Data.FK_CityCountyMapping_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByCity_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByZip_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByCity_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByZip_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_CountyGeography_Geography" />
+        <AssociationConnector Association="SizeUp.Data.FK_CountyGeography_GeographyClass" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByCity_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByCity_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByCity_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByZip_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByZip_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_EmployeesByZip_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_Geography_GeographySource" />
+        <AssociationConnector Association="SizeUp.Data.FK_MetroGeography_Geography" />
+        <AssociationConnector Association="SizeUp.Data.FK_StateGeography_Geography" />
+        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeGeography_Geography" />
+        <AssociationConnector Association="SizeUp.Data.FK_MetroGeography_GeographyClass" />
+        <AssociationConnector Association="SizeUp.Data.FK_StateGeography_GeographyClass" />
+        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeGeography_GeographyClass" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByCity_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByZip_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByCity_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByZip_Industry" />
+        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByCounty_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByMetro_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_LaborDynamicsByState_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_MetroGeography_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByCity_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByZip_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByCity_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByZip_Metro" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByCity_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_RevenueByZip_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_StateGeography_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByCity_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_YearStartedByZip_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeGeography_ZipCode" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

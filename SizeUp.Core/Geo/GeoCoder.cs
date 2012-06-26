@@ -62,8 +62,19 @@ namespace SizeUp.Core.Geo
                             using (var context = ContextFactory.SizeUpContext)
                             {
                                 var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
-                                id = context.CityCountyMappings.Where(i => i.City.Geography.Distance(point) < 30000 && i.County.Geography.Distance(point) < 30000 && i.City.Geography.Area > 0)
-                                    .OrderBy(i => i.City.Geography.Distance(point)).ThenBy(i=>i.County.Geography.Distance(point)).Select(i=>i.Id).FirstOrDefault();
+                                id = context.CityCountyMappings
+                                    .Select(i=> new {
+                                        Id = i.Id,
+                                        CityDistance = i.City.CityGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point),
+                                        CountyDistance = i.County.CountyGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point)
+                                    })
+                                    .Where(i=>i.CityDistance < 30000 && i.CityDistance < 30000)
+                                    .OrderBy(i=>i.CityDistance)
+                                    .ThenBy(i=>i.CountyDistance)
+                                    //    .Where(i => i.City.CityGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point) < 30000/* && i.County.CountyGeographies.Where(g=>g.GeographyClass.Name =="Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point) < 30000*/)
+                                    //.OrderBy(i => i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point))
+                                    //.ThenBy(i => i.County.Geography.Distance(point))
+                                    .Select(i => i.Id).FirstOrDefault();
                                 Cache[cacheKey] = id;
                             }
                         }

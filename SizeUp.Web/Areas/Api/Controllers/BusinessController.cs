@@ -83,7 +83,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var city = context.Cities.Where(i => i.Id == cityId).Select(i =>i.Geography).FirstOrDefault();
+                var city = context.CityGeographies
+                    .Where(i => i.CityId == cityId && i.GeographyClass.Name == "Calculation")
+                    .Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
 
                 var geo = SqlGeography.Parse(city.AsText());
                 var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
