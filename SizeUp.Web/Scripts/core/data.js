@@ -88,6 +88,34 @@
                 return get('/api/business/list', params, success, error);
             },
 
+            getRevenueChart: function (params, success, error) {
+                return get('/api/revenue/', params, success, error);
+            },
+            getRevenuePercentile: function (params, success, error) {
+                return get('/api/revenue/percentile/', params, success, error);
+            },
+
+            getRevenueBandsByState: function (params, success, error) {
+                return get('/api/revenue/bands/state/', params, success, error);
+            },
+
+            getRevenueBandsByCounty: function (params, success, error) {
+                return get('/api/revenue/bands/county/', params, success, error);
+            },
+
+            getRevenueBandsByZip: function (params, success, error) {
+                return get('/api/revenue/bands/zip/', params, success, error);
+            },
+
+            getYearStartedChart: function (params, success, error) {
+                return get('/api/yearStarted/', params, success, error);
+            },
+
+            getYearStartedPercentile: function (params, success, error) {
+                return get('/api/yearStarted/percentile', params, success, error);
+            },
+
+
             getAverageSalaryChart: function (params, success, error) {
                 return get('/api/averageSalary/', params, success, error);
             },

@@ -158,9 +158,12 @@
     <Compile Include="Areas\Api\Controllers\StateController.cs" />
     <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
     <Compile Include="Areas\Api\Controllers\UserController.cs" />
+    <Compile Include="Areas\Api\Controllers\YearStartedController.cs" />
     <Compile Include="Areas\Api\Models\Business\Business.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
-    <Compile Include="Areas\Api\Models\Charts\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Charts\BarChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Charts\LineChart.cs" />
+    <Compile Include="Areas\Api\Models\Charts\LineChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
     <Compile Include="Areas\Api\Models\Place\Place.cs" />
     <Compile Include="Areas\Api\Models\County\County.cs" />
@@ -172,12 +175,16 @@
     <Compile Include="Areas\Api\Models\NAICS\NAICS.cs" />
     <Compile Include="Areas\Api\Models\AverageSalary\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Revenue\Band.cs" />
+    <Compile Include="Areas\Api\Models\Revenue\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\YearStarted\ChartItem.cs" />
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\RevenueController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
@@ -368,6 +375,7 @@
     </Content>
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <None Include="Properties\PublishProfiles\Profile.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

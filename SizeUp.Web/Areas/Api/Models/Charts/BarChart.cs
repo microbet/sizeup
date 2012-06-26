@@ -7,9 +7,10 @@ namespace SizeUp.Web.Areas.Api.Models.Charts
 {
     public class BarChart
     {
-        public ChartItem Nation { get; set; }
-        public ChartItem State { get; set; }
-        public ChartItem Metro { get; set; }
-        public ChartItem County { get; set; }
+        public BarChartItem Nation { get; set; }
+        public BarChartItem State { get; set; }
+        public BarChartItem Metro { get; set; }
+        public BarChartItem County { get; set; }
+        public BarChartItem City { get; set; }
     }
 }

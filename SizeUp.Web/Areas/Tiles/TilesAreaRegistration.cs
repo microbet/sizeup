@@ -16,6 +16,28 @@ namespace SizeUp.Web.Areas.Tiles
         {
 
             context.MapRoute(
+                "RevenueTilesZip",
+                "Tiles/Revenue/Zip/",
+                new { controller = "Revenue", action = "Zip", boundingEntityId = UrlParameter.Optional }
+            );
+
+
+
+            context.MapRoute(
+               "RevenueTilesCounty",
+               "Tiles/Revenue/County/",
+               new { controller = "Revenue", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "RevenueTilesState",
+               "Tiles/Revenue/State/",
+               new { controller = "Revenue", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+     
+
+            context.MapRoute(
                 "AverageSalaryTilesCounty",
                 "Tiles/AverageSalary/County/",
                 new { controller = "AverageSalary", action = "County", boundingEntityId = UrlParameter.Optional }

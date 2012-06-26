@@ -51,6 +51,19 @@ namespace SizeUp.Core.Geo
                         //Geography = Geography.Reduce(10).STBuffer(-100);
                     }
                 }
+                else if (entityIdCode.StartsWith("co"))
+                {
+                    EntityId = long.Parse(entityIdCode.Substring(2));
+                    EntityType = BoundingEntityType.County;
+                    var g = context.CountyGeographies
+                        .Where(i => i.GeographyClass.Name == "Calculation")
+                        .Where(i => i.CountyId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
+                    if (g != null)
+                    {
+                        Geography = SqlGeography.Parse(g.AsText());
+                        // Geography = Geography.Reduce(100).STBuffer(-500);
+                    }
+                }
                 else if (entityIdCode.StartsWith("c"))
                 {
                     EntityId = long.Parse(entityIdCode.Substring(1));
@@ -62,19 +75,6 @@ namespace SizeUp.Core.Geo
                     {
                         Geography = SqlGeography.Parse(g.AsText());
                         //Geography = Geography.Reduce(100).STBuffer(-500);
-                    }
-                }
-                else if (entityIdCode.StartsWith("co"))
-                {
-                    EntityId = long.Parse(entityIdCode.Substring(2));
-                    EntityType = BoundingEntityType.County;
-                    var g = context.CountyGeographies
-                        .Where(i=>i.GeographyClass.Name == "Calculation")
-                        .Where(i => i.CountyId == EntityId).Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
-                    if (g != null)
-                    {
-                        Geography = SqlGeography.Parse(g.AsText());
-                       // Geography = Geography.Reduce(100).STBuffer(-500);
                     }
                 }
                 else if (entityIdCode.StartsWith("m"))
