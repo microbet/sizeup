@@ -3,9 +3,6 @@
 
 #competition h2 { font-size: 2.1em; display: inline-block; font-weight: normal; }
 
-#competition .inverse { color: #606060; }
-#competition .inverse:hover { color: #e78500;  }
-
 #competition #tabs {position: absolute; top: -4.1em; left: 25.5em;}
 #competition #tabs .tab { display: inline-block; }
 #competition #tabs .tab a { display: block; font-size: 1em; width: 14.5em; height: 3.7em; background-color:#F0F0E7; border:solid 2px #d7d7ce; -webkit-border-top-left-radius: 1em;-webkit-border-top-right-radius: 1em;-moz-border-radius-topleft: 1em;-moz-border-radius-topright: 1em;border-top-left-radius: 1em;border-top-right-radius: 1em;}

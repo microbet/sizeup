@@ -153,7 +153,7 @@
     <Compile Include="Areas\Api\Controllers\JobChangeController.cs" />
     <Compile Include="Areas\Api\Controllers\MetroController.cs" />
     <Compile Include="Areas\Api\Controllers\PlaceController.cs" />
-    <Compile Include="Areas\Api\Controllers\RevenueController.cs" />
+    <Compile Include="Areas\Api\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Api\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\StateController.cs" />
     <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
@@ -175,8 +175,8 @@
     <Compile Include="Areas\Api\Models\NAICS\NAICS.cs" />
     <Compile Include="Areas\Api\Models\AverageSalary\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
-    <Compile Include="Areas\Api\Models\Revenue\Band.cs" />
-    <Compile Include="Areas\Api\Models\Revenue\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\AverageRevenue\Band.cs" />
+    <Compile Include="Areas\Api\Models\AverageRevenue\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\YearStarted\ChartItem.cs" />
@@ -184,7 +184,7 @@
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\RevenueController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
@@ -234,6 +234,7 @@
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
+    <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\advertising\index.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\company\about.css" />
@@ -274,10 +275,13 @@
     <Content Include="Scripts\maps\mapOptions.js" />
     <Content Include="Scripts\maps\mapStyles.js" />
     <Content Include="Scripts\maps\imageMarker.js" />
+    <Content Include="Scripts\thirdParty\chosen.jquery.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
+    <Content Include="Scripts\thirdParty\jquery.linkselect.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
     <Content Include="Scripts\util\numbers\format.js" />
+    <Content Include="Scripts\views\advertising\advertising.js" />
     <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\competition\competition.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />

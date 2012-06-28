@@ -143,36 +143,36 @@ namespace SizeUp.Web.Areas.Api
             );
 
 
-            /****revenue*****/
+            /****AverageRevenue*****/
 
             context.MapRoute(
-                "Revenue",
-                "Api/Revenue/",
-                new { controller = "Revenue", action = "Revenue" }
+                "AverageRevenue",
+                "Api/AverageRevenue/",
+                new { controller = "AverageRevenue", action = "AverageRevenue" }
             );
 
             context.MapRoute(
-                "RevenuePercentle",
-                "Api/Revenue/Percentile",
-                new { controller = "Revenue", action = "Percentile" }
+                "AverageRevenuePercentle",
+                "Api/AverageRevenue/Percentile",
+                new { controller = "AverageRevenue", action = "Percentile" }
             );
 
             context.MapRoute(
-                "RevenueBandsZip",
-                "Api/Revenue/Bands/Zip",
-                new { controller = "Revenue", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+                "AverageRevenueBandsZip",
+                "Api/AverageRevenue/Bands/Zip",
+                new { controller = "AverageRevenue", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
             );
 
             context.MapRoute(
-                "RevenueBandsCounty",
-                "Api/Revenue/Bands/County",
-                new { controller = "Revenue", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+                "AverageRevenueBandsCounty",
+                "Api/AverageRevenue/Bands/County",
+                new { controller = "AverageRevenue", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
             );
 
             context.MapRoute(
-                "RevenueBandsState",
-                "Api/Revenue/Bands/State",
-                new { controller = "Revenue", action = "BandsByState" }
+                "AverageRevenueBandsState",
+                "Api/AverageRevenue/Bands/State",
+                new { controller = "AverageRevenue", action = "BandsByState" }
             );
 
             /*****year started *****/

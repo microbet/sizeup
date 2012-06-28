@@ -167,8 +167,18 @@
 
 
         var setupReport = function () {
-            me.reportContainer.doGetReport();
+            if (me.data.enteredValue) {
+                me.reportContainer.doSubmit();
+            }
+            else {
+                fadeInPrompt(0);
+            }
         };
+
+        var fadeInPrompt = function (delay, callback) {
+            me.reportContainer.fadeInPrompt(delay, callback);
+        };
+
 
         var collapseReport = function () {
             me.reportContainer.collapseReport();
@@ -181,14 +191,17 @@
 
         var publicObj = {
 
+            fadeInPrompt: function (delay, callback) {
+                fadeInPrompt(delay, callback);
+            },
+            setupReport: function () {
+                setupReport();
+            },
             collapseReport: function () {
                 collapseReport();
             },
             expandReport: function () {
                 expandReport();
-            },
-            setupReport: function () {
-                setupReport();
             }
         };
         init();

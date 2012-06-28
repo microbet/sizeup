@@ -1,14 +1,39 @@
 ﻿
 
-#advertising { position:relative; margin: 0 0 5em 0;}
+#advertising { position:relative; }
+#advertising .content{ position: relative; margin: 0 0 5em 0; }
+
 #advertising .heading { position: relative; height:5em; margin: 0 0 1em 0;}
 #advertising .heading h2 { font-size: 2.4em; font-weight:normal; position:absolute; top:0.35em;}
 #advertising .heading label { color: #ccc; position: absolute; right: 22em; top: 0.6em; }
-#advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: absolute; right: 0; top:0;  }
+#advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: absolute; right: 0; top:0;  cursor:pointer;}
 
+#advertising #optionMenu { width: 24em; position:relative; top:1em; }
+#advertising .heading .filter #optionMenu_chzn { top: 1.25em; left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; }
+#advertising .heading .filter #optionMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block; }
+#advertising .heading .filter #optionMenu_chzn .chzn-single:hover { color: #fff; }
+
+#advertising #filterSettingsButton { color: transparent; height: 3.75em; position: absolute; right: 0; top: 0; width: 4.5em; }
+
+#advertising #filterSettings {  }
+#advertising #filterSettings h2 { font-size: 2em; font-weight: normal; }
+#advertising #filterSettings h3 { font-size: 1.5em; font-weight: bold; }
+#advertising #filterSettings p { text-indent: 1em; }
+#advertising #filterSettings .section { border-top: 1px solid #ccc; padding:0 0 1em 0; margin:1em 0 0 0;}
+#advertising #filterSettings .cancel { margin: 0 0 0 1em; }
+
+#advertising #filterSettings ul.options li { display: inline-block; padding: 1em; text-align: left; width: 43em; }
+#advertising #filterSettings ul.options li .valueLabel {font-size:1em; color:#aaa; }
+#advertising #filterSettings ul.options li .valueLabel .val{font-size:1.4em; color:#FFA500; font-weight:bold; }
+#advertising #filterSettings ul.options li .label { }
+#advertising #filterSettings ul.options li .sliderLabel {font-size:1em; display:inline-block; }
+#advertising #filterSettings ul.options li .sliderLabel.less { text-align: right; width:9em; }
+#advertising #filterSettings ul.options li .sliderLabel.more { text-align: left;  }
+#advertising #filterSettings ul.options li .sliderWrap { text-align: right; padding: 0.25em 6em 0 0;}
+#advertising #filterSettings ul.options li .slider { font-size: 0.85em; width:28em;  display:inline-block; margin: 0 1em;}
 
 #advertising .mapContent { }
-#advertising .mapContent .map{width:100%;height:40em; border:solid 1px black;}
+#advertising .mapContent .map{width:100%;height:40em;}
 #advertising .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
 #advertising .mapContent .footer ul li { display: inline-block; width: 33%; }
 
@@ -27,6 +52,19 @@
 #advertising ul.results li .name { font-size: 1.5em; font-weight:bold; }
 #advertising ul.results li .value { font-size: 1.5em; float:right; }
 #advertising ul.results li .details { font-size: 1.1em; padding: 0 0 0 3.5em; color:#aaa; }
+
+
+
+
+.chzn-container {position:relative; z-index:9999999; }
+.chzn-container .chzn-drop {position:absolute; background-color:#fff; }
+.chzn-container .chzn-drop .chzn-search { display: none; }
+
+.chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; }
+
+
+.chzn-container .chzn-drop .chzn-results .active-result.result-selected {background-color:#E6E6E6; }
+.chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; }
 
 
 

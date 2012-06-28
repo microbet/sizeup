@@ -88,23 +88,23 @@
                 return get('/api/business/list', params, success, error);
             },
 
-            getRevenueChart: function (params, success, error) {
-                return get('/api/revenue/', params, success, error);
+            getAverageRevenueChart: function (params, success, error) {
+                return get('/api/averageRevenue/', params, success, error);
             },
-            getRevenuePercentile: function (params, success, error) {
-                return get('/api/revenue/percentile/', params, success, error);
-            },
-
-            getRevenueBandsByState: function (params, success, error) {
-                return get('/api/revenue/bands/state/', params, success, error);
+            getAverageRevenuePercentile: function (params, success, error) {
+                return get('/api/averageRevenue/percentile/', params, success, error);
             },
 
-            getRevenueBandsByCounty: function (params, success, error) {
-                return get('/api/revenue/bands/county/', params, success, error);
+            getAverageRevenueBandsByState: function (params, success, error) {
+                return get('/api/averageRevenue/bands/state/', params, success, error);
             },
 
-            getRevenueBandsByZip: function (params, success, error) {
-                return get('/api/revenue/bands/zip/', params, success, error);
+            getAverageRevenueBandsByCounty: function (params, success, error) {
+                return get('/api/averageRevenue/bands/county/', params, success, error);
+            },
+
+            getAverageRevenueBandsByZip: function (params, success, error) {
+                return get('/api/averageRevenue/bands/zip/', params, success, error);
             },
 
             getYearStartedChart: function (params, success, error) {

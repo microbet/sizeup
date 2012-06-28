@@ -15,7 +15,7 @@ using SizeUp.Core.Extensions;
 
 namespace SizeUp.Web.Areas.Tiles.Controllers
 {
-    public class RevenueController : Controller
+    public class AverageRevenueController : Controller
     {
         //
         // GET: /Tiles/Revenue/

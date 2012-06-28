@@ -116,9 +116,9 @@
                     container: me.container.find('.reportContainer .map'),
                     overlays: [
                         {
-                            tileUrl: "/tiles/revenue/state/",
+                            tileUrl: "/tiles/AverageRevenue/state/",
                             legendSource: function (callback) {
-                                dataLayer.geRevenueBandsByState({
+                                dataLayer.geAverageRevenueBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
@@ -139,9 +139,9 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/revenue/county/",
+                            tileUrl: "/tiles/AverageRevenue/county/",
                             legendSource: function (callback) {
-                                dataLayer.getRevenueBandsByCounty({
+                                dataLayer.getAverageRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.Locations.State.Id
@@ -164,9 +164,9 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/revenue/county/",
+                            tileUrl: "/tiles/AverageRevenue/county/",
                             legendSource: function (callback) {
-                                dataLayer.getRevenueBandsByCounty({
+                                dataLayer.getAverageRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
@@ -189,9 +189,9 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/revenue/zip/",
+                            tileUrl: "/tiles/AverageRevenue/zip/",
                             legendSource: function (callback) {
-                                dataLayer.getRevenueBandsByZip({
+                                dataLayer.getAverageRevenueBandsByZip({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 'co' + me.opts.report.Locations.County.Id
@@ -255,8 +255,8 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ revenue: me.data.enteredValue });
-            dataLayer.getRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, cityId: me.opts.report.Locations.City.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getRevenuePercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, cityId: me.opts.report.Locations.City.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {
