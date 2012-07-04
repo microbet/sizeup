@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
@@ -256,6 +257,8 @@
     <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\rangeSlider.js" />
+    <Content Include="Scripts\controls\slider.js" />
     <Content Include="Scripts\controls\gauge.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
     <Content Include="Scripts\controls\pager.js" />

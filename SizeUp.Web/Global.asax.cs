@@ -43,7 +43,8 @@ namespace SizeUp.Web
             routes.MapRoute(
                 "Advertising", // Route name
                 "advertising/{state}/{county}/{city}/{industry}", // URL with parameters
-                new { controller = "Advertising", action = "Index" } // Parameter defaults
+                new { controller = "Advertising", action = "Index" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
             );
 
 

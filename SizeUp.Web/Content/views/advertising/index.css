@@ -27,10 +27,12 @@
 #advertising #filterSettings ul.options li .valueLabel .val{font-size:1.4em; color:#FFA500; font-weight:bold; }
 #advertising #filterSettings ul.options li .label { }
 #advertising #filterSettings ul.options li .sliderLabel {font-size:1em; display:inline-block; }
-#advertising #filterSettings ul.options li .sliderLabel.less { text-align: right; width:9em; }
-#advertising #filterSettings ul.options li .sliderLabel.more { text-align: left;  }
-#advertising #filterSettings ul.options li .sliderWrap { text-align: right; padding: 0.25em 6em 0 0;}
-#advertising #filterSettings ul.options li .slider { font-size: 0.85em; width:28em;  display:inline-block; margin: 0 1em;}
+#advertising #filterSettings ul.options li .sliderLabel.less { text-align: right; width:7em; }
+#advertising #filterSettings ul.options li .sliderLabel.more { text-align: left; width:7em; }
+#advertising #filterSettings ul.options li .sliderWrap { text-align: right; padding: 0.25em 0 0 0;}
+#advertising #filterSettings ul.options li .slider { font-size: 0.85em; width:29em;  display:inline-block; margin: 0 1em;}
+
+#advertising #filterSettings ul.options li.noFilter .slider .ui-widget-header { background: none; }
 
 #advertising .mapContent { }
 #advertising .mapContent .map{width:100%;height:40em;}
@@ -38,7 +40,7 @@
 #advertising .mapContent .footer ul li { display: inline-block; width: 33%; }
 
 
-#advertising .message { color: #aaa; padding: 0.5em 3em; display:inline-block; }
+#advertising .description { color: #aaa; padding: 0.5em 3em; display:inline-block; }
 
 #advertising .sort {position:relative; margin:2em 0 0; }
 #advertising .sort .direction { width:5em;height:1em; border:solid 1px black; display:inline-block; }
@@ -51,7 +53,9 @@
 #advertising ul.results li {border-bottom:#eee solid 1px; padding:1em 0; }
 #advertising ul.results li .name { font-size: 1.5em; font-weight:bold; }
 #advertising ul.results li .value { font-size: 1.5em; float:right; }
-#advertising ul.results li .details { font-size: 1.1em; padding: 0 0 0 3.5em; color:#aaa; }
+
+#advertising ul.results li ul.details li { border: none; font-size: 1.1em; padding: 0 0 0 3.5em; color: #aaa; }
+
 
 
 

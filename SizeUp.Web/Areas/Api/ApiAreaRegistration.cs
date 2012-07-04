@@ -175,6 +175,8 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageRevenue", action = "BandsByState" }
             );
 
+           
+
             /*****year started *****/
             context.MapRoute(
                "YearStarted",
@@ -229,6 +231,16 @@ namespace SizeUp.Web.Areas.Api
                 "JobChange",
                 "Api/JobChange/",
                 new { controller = "JobChange", action = "JobChange" }
+            );
+
+
+
+            /****advertising*****/
+
+            context.MapRoute(
+                "BestPlacesToAdvertise",
+                "Api/Advertising/",
+                new { controller = "Advertising", action = "Advertising" }
             );
 
   

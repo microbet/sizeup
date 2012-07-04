@@ -150,7 +150,9 @@
             },
 
 
-            
+            getBestPlacesToAdvertise: function (params, success, error) {
+                return get('/api/Advertising/', params, success, error);
+            },
 
 
 
