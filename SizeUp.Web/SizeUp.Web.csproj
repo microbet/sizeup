@@ -160,6 +160,8 @@
     <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
     <Compile Include="Areas\Api\Controllers\UserController.cs" />
     <Compile Include="Areas\Api\Controllers\YearStartedController.cs" />
+    <Compile Include="Areas\Api\Models\Advertising\Advertising.cs" />
+    <Compile Include="Areas\Api\Models\Advertising\Range.cs" />
     <Compile Include="Areas\Api\Models\Business\Business.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\BarChartItem.cs" />
@@ -178,6 +180,7 @@
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\YearStarted\ChartItem.cs" />

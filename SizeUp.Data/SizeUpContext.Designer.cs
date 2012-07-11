@@ -22,55 +22,23 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryKeyword_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "IndustryKeyword", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryKeyword), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_SicToNAICSMapping_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "SicToNAICSMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.SicToNAICSMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_SicToNAICSMapping_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.NAICS), "SicToNAICSMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.SicToNAICSMapping), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByMetro), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByState), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "AverageSalaryNational", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryNational), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "LaborDynamicsByCounty1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "LaborDynamicsByMetro1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByMetro), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByState_NAICS", "NAICS", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "LaborDynamicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_APIKeyDomain_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.APIKey), "APIKeyDomain", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.APIKeyDomain), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "AverageSalaryByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "AverageSalaryByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByMetro), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "AverageSalaryByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.AverageSalaryByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByCity_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "EmployeesByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByZip_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "EmployeesByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByCity_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "RevenueByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByZip_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "RevenueByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByCity_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "YearStartedByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByZip_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "YearStartedByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CityCountyMapping_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CityCountyMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CityGeography_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "CityGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CityGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "EmployeesByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "RevenueByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "YearStartedByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByCity), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CityCountyMapping_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CityCountyMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CityGeography_Geography", "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Geography), "CityGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CityGeography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CityGeography_GeographyClass", "GeographyClass", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographyClass), "CityGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CityGeography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_County_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_County_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CountyGeography_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "CountyGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CountyGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByCity_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "EmployeesByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByZip_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "EmployeesByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "LaborDynamicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByCity_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "RevenueByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByZip_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "RevenueByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByCity_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "YearStartedByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByZip_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "YearStartedByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CountyGeography_Geography", "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Geography), "CountyGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CountyGeography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_CountyGeography_GeographyClass", "GeographyClass", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographyClass), "CountyGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.CountyGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByCity_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "EmployeesByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByCity_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "EmployeesByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByCity_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "EmployeesByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "EmployeesByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByZip_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "EmployeesByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByZip_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "EmployeesByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Geography_GeographySource", "GeographySource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographySource), "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Geography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_MetroGeography_Geography", "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Geography), "MetroGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.MetroGeography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_StateGeography_Geography", "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Geography), "StateGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.StateGeography), true)]
@@ -78,32 +46,20 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_MetroGeography_GeographyClass", "GeographyClass", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographyClass), "MetroGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.MetroGeography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_StateGeography_GeographyClass", "GeographyClass", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographyClass), "StateGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.StateGeography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCodeGeography_GeographyClass", "GeographyClass", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographyClass), "ZipCodeGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCodeGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByCity_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "RevenueByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "RevenueByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByCity_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "YearStartedByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "YearStartedByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "LaborDynamicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "LaborDynamicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "LaborDynamicsByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByMetro), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LaborDynamicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "LaborDynamicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LaborDynamicsByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_MetroGeography_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Metro), "MetroGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.MetroGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByCity_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "RevenueByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByZip_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "RevenueByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByCity_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "YearStartedByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByZip_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "YearStartedByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByCity_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "RevenueByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByZip_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "RevenueByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_StateGeography_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "StateGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.StateGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByCity_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "YearStartedByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByZip_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "YearStartedByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCodeGeography_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "ZipCodeGeography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCodeGeography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_EmployeesByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "EmployeesByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.EmployeesByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_RevenueByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "RevenueByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.RevenueByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_YearStartedByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "YearStartedByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.YearStartedByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.City), "IndustryDataByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCity), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "IndustryDataByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCity_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCity), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCounty_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByState_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "IndustryDataByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "IndustryDataByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByNation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByNation), true)]
 
 #endregion
 
@@ -238,118 +194,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<AverageSalaryByCounty> AverageSalaryByCounties
-        {
-            get
-            {
-                if ((_AverageSalaryByCounties == null))
-                {
-                    _AverageSalaryByCounties = base.CreateObjectSet<AverageSalaryByCounty>("AverageSalaryByCounties");
-                }
-                return _AverageSalaryByCounties;
-            }
-        }
-        private ObjectSet<AverageSalaryByCounty> _AverageSalaryByCounties;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<AverageSalaryByMetro> AverageSalaryByMetroes
-        {
-            get
-            {
-                if ((_AverageSalaryByMetroes == null))
-                {
-                    _AverageSalaryByMetroes = base.CreateObjectSet<AverageSalaryByMetro>("AverageSalaryByMetroes");
-                }
-                return _AverageSalaryByMetroes;
-            }
-        }
-        private ObjectSet<AverageSalaryByMetro> _AverageSalaryByMetroes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<AverageSalaryByState> AverageSalaryByStates
-        {
-            get
-            {
-                if ((_AverageSalaryByStates == null))
-                {
-                    _AverageSalaryByStates = base.CreateObjectSet<AverageSalaryByState>("AverageSalaryByStates");
-                }
-                return _AverageSalaryByStates;
-            }
-        }
-        private ObjectSet<AverageSalaryByState> _AverageSalaryByStates;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<AverageSalaryNational> AverageSalaryNationals
-        {
-            get
-            {
-                if ((_AverageSalaryNationals == null))
-                {
-                    _AverageSalaryNationals = base.CreateObjectSet<AverageSalaryNational>("AverageSalaryNationals");
-                }
-                return _AverageSalaryNationals;
-            }
-        }
-        private ObjectSet<AverageSalaryNational> _AverageSalaryNationals;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<LaborDynamicsByCounty> LaborDynamicsByCounties
-        {
-            get
-            {
-                if ((_LaborDynamicsByCounties == null))
-                {
-                    _LaborDynamicsByCounties = base.CreateObjectSet<LaborDynamicsByCounty>("LaborDynamicsByCounties");
-                }
-                return _LaborDynamicsByCounties;
-            }
-        }
-        private ObjectSet<LaborDynamicsByCounty> _LaborDynamicsByCounties;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<LaborDynamicsByMetro> LaborDynamicsByMetroes
-        {
-            get
-            {
-                if ((_LaborDynamicsByMetroes == null))
-                {
-                    _LaborDynamicsByMetroes = base.CreateObjectSet<LaborDynamicsByMetro>("LaborDynamicsByMetroes");
-                }
-                return _LaborDynamicsByMetroes;
-            }
-        }
-        private ObjectSet<LaborDynamicsByMetro> _LaborDynamicsByMetroes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<LaborDynamicsByState> LaborDynamicsByStates
-        {
-            get
-            {
-                if ((_LaborDynamicsByStates == null))
-                {
-                    _LaborDynamicsByStates = base.CreateObjectSet<LaborDynamicsByState>("LaborDynamicsByStates");
-                }
-                return _LaborDynamicsByStates;
-            }
-        }
-        private ObjectSet<LaborDynamicsByState> _LaborDynamicsByStates;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<CityCountyMapping> CityCountyMappings
         {
             get
@@ -478,38 +322,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<EmployeesByCity> EmployeesByCities
-        {
-            get
-            {
-                if ((_EmployeesByCities == null))
-                {
-                    _EmployeesByCities = base.CreateObjectSet<EmployeesByCity>("EmployeesByCities");
-                }
-                return _EmployeesByCities;
-            }
-        }
-        private ObjectSet<EmployeesByCity> _EmployeesByCities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<EmployeesByZip> EmployeesByZips
-        {
-            get
-            {
-                if ((_EmployeesByZips == null))
-                {
-                    _EmployeesByZips = base.CreateObjectSet<EmployeesByZip>("EmployeesByZips");
-                }
-                return _EmployeesByZips;
-            }
-        }
-        private ObjectSet<EmployeesByZip> _EmployeesByZips;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Geography> Geographies
         {
             get
@@ -590,38 +402,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<RevenueByCity> RevenueByCities
-        {
-            get
-            {
-                if ((_RevenueByCities == null))
-                {
-                    _RevenueByCities = base.CreateObjectSet<RevenueByCity>("RevenueByCities");
-                }
-                return _RevenueByCities;
-            }
-        }
-        private ObjectSet<RevenueByCity> _RevenueByCities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<RevenueByZip> RevenueByZips
-        {
-            get
-            {
-                if ((_RevenueByZips == null))
-                {
-                    _RevenueByZips = base.CreateObjectSet<RevenueByZip>("RevenueByZips");
-                }
-                return _RevenueByZips;
-            }
-        }
-        private ObjectSet<RevenueByZip> _RevenueByZips;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<State> States
         {
             get
@@ -650,38 +430,6 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<StateGeography> _StateGeographies;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<YearStartedByCity> YearStartedByCities
-        {
-            get
-            {
-                if ((_YearStartedByCities == null))
-                {
-                    _YearStartedByCities = base.CreateObjectSet<YearStartedByCity>("YearStartedByCities");
-                }
-                return _YearStartedByCities;
-            }
-        }
-        private ObjectSet<YearStartedByCity> _YearStartedByCities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<YearStartedByZip> YearStartedByZips
-        {
-            get
-            {
-                if ((_YearStartedByZips == null))
-                {
-                    _YearStartedByZips = base.CreateObjectSet<YearStartedByZip>("YearStartedByZips");
-                }
-                return _YearStartedByZips;
-            }
-        }
-        private ObjectSet<YearStartedByZip> _YearStartedByZips;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -718,34 +466,98 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DemographicsByCounty> DemographicsByCounties
+        public ObjectSet<IndustryDataByCity> IndustryDataByCities
         {
             get
             {
-                if ((_DemographicsByCounties == null))
+                if ((_IndustryDataByCities == null))
                 {
-                    _DemographicsByCounties = base.CreateObjectSet<DemographicsByCounty>("DemographicsByCounties");
+                    _IndustryDataByCities = base.CreateObjectSet<IndustryDataByCity>("IndustryDataByCities");
                 }
-                return _DemographicsByCounties;
+                return _IndustryDataByCities;
             }
         }
-        private ObjectSet<DemographicsByCounty> _DemographicsByCounties;
+        private ObjectSet<IndustryDataByCity> _IndustryDataByCities;
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DemographicsByZip> DemographicsByZips
+        public ObjectSet<IndustryDataByCounty> IndustryDataByCounties
         {
             get
             {
-                if ((_DemographicsByZips == null))
+                if ((_IndustryDataByCounties == null))
                 {
-                    _DemographicsByZips = base.CreateObjectSet<DemographicsByZip>("DemographicsByZips");
+                    _IndustryDataByCounties = base.CreateObjectSet<IndustryDataByCounty>("IndustryDataByCounties");
                 }
-                return _DemographicsByZips;
+                return _IndustryDataByCounties;
             }
         }
-        private ObjectSet<DemographicsByZip> _DemographicsByZips;
+        private ObjectSet<IndustryDataByCounty> _IndustryDataByCounties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IndustryDataByMetro> IndustryDataByMetroes
+        {
+            get
+            {
+                if ((_IndustryDataByMetroes == null))
+                {
+                    _IndustryDataByMetroes = base.CreateObjectSet<IndustryDataByMetro>("IndustryDataByMetroes");
+                }
+                return _IndustryDataByMetroes;
+            }
+        }
+        private ObjectSet<IndustryDataByMetro> _IndustryDataByMetroes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IndustryDataByState> IndustryDataByStates
+        {
+            get
+            {
+                if ((_IndustryDataByStates == null))
+                {
+                    _IndustryDataByStates = base.CreateObjectSet<IndustryDataByState>("IndustryDataByStates");
+                }
+                return _IndustryDataByStates;
+            }
+        }
+        private ObjectSet<IndustryDataByState> _IndustryDataByStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IndustryDataByZip> IndustryDataByZips
+        {
+            get
+            {
+                if ((_IndustryDataByZips == null))
+                {
+                    _IndustryDataByZips = base.CreateObjectSet<IndustryDataByZip>("IndustryDataByZips");
+                }
+                return _IndustryDataByZips;
+            }
+        }
+        private ObjectSet<IndustryDataByZip> _IndustryDataByZips;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IndustryDataByNation> IndustryDataByNations
+        {
+            get
+            {
+                if ((_IndustryDataByNations == null))
+                {
+                    _IndustryDataByNations = base.CreateObjectSet<IndustryDataByNation>("IndustryDataByNations");
+                }
+                return _IndustryDataByNations;
+            }
+        }
+        private ObjectSet<IndustryDataByNation> _IndustryDataByNations;
 
         #endregion
 
@@ -789,62 +601,6 @@ namespace SizeUp.Data
         public void AddToResourceStrings(ResourceString resourceString)
         {
             base.AddObject("ResourceStrings", resourceString);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the AverageSalaryByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAverageSalaryByCounties(AverageSalaryByCounty averageSalaryByCounty)
-        {
-            base.AddObject("AverageSalaryByCounties", averageSalaryByCounty);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the AverageSalaryByMetroes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAverageSalaryByMetroes(AverageSalaryByMetro averageSalaryByMetro)
-        {
-            base.AddObject("AverageSalaryByMetroes", averageSalaryByMetro);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the AverageSalaryByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAverageSalaryByStates(AverageSalaryByState averageSalaryByState)
-        {
-            base.AddObject("AverageSalaryByStates", averageSalaryByState);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the AverageSalaryNationals EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAverageSalaryNationals(AverageSalaryNational averageSalaryNational)
-        {
-            base.AddObject("AverageSalaryNationals", averageSalaryNational);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the LaborDynamicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToLaborDynamicsByCounties(LaborDynamicsByCounty laborDynamicsByCounty)
-        {
-            base.AddObject("LaborDynamicsByCounties", laborDynamicsByCounty);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the LaborDynamicsByMetroes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToLaborDynamicsByMetroes(LaborDynamicsByMetro laborDynamicsByMetro)
-        {
-            base.AddObject("LaborDynamicsByMetroes", laborDynamicsByMetro);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the LaborDynamicsByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToLaborDynamicsByStates(LaborDynamicsByState laborDynamicsByState)
-        {
-            base.AddObject("LaborDynamicsByStates", laborDynamicsByState);
         }
     
         /// <summary>
@@ -912,22 +668,6 @@ namespace SizeUp.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the EmployeesByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToEmployeesByCities(EmployeesByCity employeesByCity)
-        {
-            base.AddObject("EmployeesByCities", employeesByCity);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the EmployeesByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToEmployeesByZips(EmployeesByZip employeesByZip)
-        {
-            base.AddObject("EmployeesByZips", employeesByZip);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Geographies EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToGeographies(Geography geography)
@@ -968,22 +708,6 @@ namespace SizeUp.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the RevenueByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToRevenueByCities(RevenueByCity revenueByCity)
-        {
-            base.AddObject("RevenueByCities", revenueByCity);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the RevenueByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToRevenueByZips(RevenueByZip revenueByZip)
-        {
-            base.AddObject("RevenueByZips", revenueByZip);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the States EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToStates(State state)
@@ -997,22 +721,6 @@ namespace SizeUp.Data
         public void AddToStateGeographies(StateGeography stateGeography)
         {
             base.AddObject("StateGeographies", stateGeography);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the YearStartedByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToYearStartedByCities(YearStartedByCity yearStartedByCity)
-        {
-            base.AddObject("YearStartedByCities", yearStartedByCity);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the YearStartedByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToYearStartedByZips(YearStartedByZip yearStartedByZip)
-        {
-            base.AddObject("YearStartedByZips", yearStartedByZip);
         }
     
         /// <summary>
@@ -1032,19 +740,51 @@ namespace SizeUp.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the IndustryDataByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToDemographicsByCounties(DemographicsByCounty demographicsByCounty)
+        public void AddToIndustryDataByCities(IndustryDataByCity industryDataByCity)
         {
-            base.AddObject("DemographicsByCounties", demographicsByCounty);
+            base.AddObject("IndustryDataByCities", industryDataByCity);
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the IndustryDataByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToDemographicsByZips(DemographicsByZip demographicsByZip)
+        public void AddToIndustryDataByCounties(IndustryDataByCounty industryDataByCounty)
         {
-            base.AddObject("DemographicsByZips", demographicsByZip);
+            base.AddObject("IndustryDataByCounties", industryDataByCounty);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IndustryDataByMetroes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIndustryDataByMetroes(IndustryDataByMetro industryDataByMetro)
+        {
+            base.AddObject("IndustryDataByMetroes", industryDataByMetro);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IndustryDataByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIndustryDataByStates(IndustryDataByState industryDataByState)
+        {
+            base.AddObject("IndustryDataByStates", industryDataByState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IndustryDataByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIndustryDataByZips(IndustryDataByZip industryDataByZip)
+        {
+            base.AddObject("IndustryDataByZips", industryDataByZip);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IndustryDataByNations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIndustryDataByNations(IndustryDataByNation industryDataByNation)
+        {
+            base.AddObject("IndustryDataByNations", industryDataByNation);
         }
 
         #endregion
@@ -1331,872 +1071,6 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<APIKey>("SizeUp.Data.FK_APIKeyDomain_APIKey", "APIKey", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryByCounty")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class AverageSalaryByCounty : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new AverageSalaryByCounty object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static AverageSalaryByCounty CreateAverageSalaryByCounty(global::System.Int64 id)
-        {
-            AverageSalaryByCounty averageSalaryByCounty = new AverageSalaryByCounty();
-            averageSalaryByCounty.Id = id;
-            return averageSalaryByCounty;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int64> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _CountyId;
-        partial void OnCountyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AverageSalary
-        {
-            get
-            {
-                return _AverageSalary;
-            }
-            set
-            {
-                OnAverageSalaryChanging(value);
-                ReportPropertyChanging("AverageSalary");
-                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
-                ReportPropertyChanged("AverageSalary");
-                OnAverageSalaryChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _AverageSalary;
-        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
-        partial void OnAverageSalaryChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_NAICS", "NAICS")]
-        public NAICS NAICS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "NAICS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_AverageSalaryByCounty_County", "County", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryByMetro")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class AverageSalaryByMetro : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new AverageSalaryByMetro object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static AverageSalaryByMetro CreateAverageSalaryByMetro(global::System.Int64 id)
-        {
-            AverageSalaryByMetro averageSalaryByMetro = new AverageSalaryByMetro();
-            averageSalaryByMetro.Id = id;
-            return averageSalaryByMetro;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int64> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AverageSalary
-        {
-            get
-            {
-                return _AverageSalary;
-            }
-            set
-            {
-                OnAverageSalaryChanging(value);
-                ReportPropertyChanging("AverageSalary");
-                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
-                ReportPropertyChanged("AverageSalary");
-                OnAverageSalaryChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _AverageSalary;
-        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
-        partial void OnAverageSalaryChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_NAICS", "NAICS")]
-        public NAICS NAICS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "NAICS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "Metro", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryByState")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class AverageSalaryByState : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new AverageSalaryByState object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static AverageSalaryByState CreateAverageSalaryByState(global::System.Int64 id)
-        {
-            AverageSalaryByState averageSalaryByState = new AverageSalaryByState();
-            averageSalaryByState.Id = id;
-            return averageSalaryByState;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int64> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _StateId;
-        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AverageSalary
-        {
-            get
-            {
-                return _AverageSalary;
-            }
-            set
-            {
-                OnAverageSalaryChanging(value);
-                ReportPropertyChanging("AverageSalary");
-                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
-                ReportPropertyChanged("AverageSalary");
-                OnAverageSalaryChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _AverageSalary;
-        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
-        partial void OnAverageSalaryChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "NAICS")]
-        public NAICS NAICS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "NAICS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_AverageSalaryByState_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="AverageSalaryNational")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class AverageSalaryNational : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new AverageSalaryNational object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static AverageSalaryNational CreateAverageSalaryNational(global::System.Int64 id)
-        {
-            AverageSalaryNational averageSalaryNational = new AverageSalaryNational();
-            averageSalaryNational.Id = id;
-            return averageSalaryNational;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int64> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AverageSalary
-        {
-            get
-            {
-                return _AverageSalary;
-            }
-            set
-            {
-                OnAverageSalaryChanging(value);
-                ReportPropertyChanging("AverageSalary");
-                _AverageSalary = StructuralObject.SetValidValue(value, "AverageSalary");
-                ReportPropertyChanged("AverageSalary");
-                OnAverageSalaryChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _AverageSalary;
-        partial void OnAverageSalaryChanging(Nullable<global::System.Int64> value);
-        partial void OnAverageSalaryChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "NAICS")]
-        public NAICS NAICS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "NAICS", value);
                 }
             }
         }
@@ -2954,138 +1828,6 @@ namespace SizeUp.Data
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_Business", "EmployeesByCity")]
-        public EntityCollection<EmployeesByCity> EmployeesByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_Business", "EmployeesByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_Business", "EmployeesByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_Business", "EmployeesByZip")]
-        public EntityCollection<EmployeesByZip> EmployeesByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_Business", "EmployeesByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_Business", "EmployeesByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_Business", "RevenueByCity")]
-        public EntityCollection<RevenueByCity> RevenueByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_Business", "RevenueByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_Business", "RevenueByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_Business", "RevenueByZip")]
-        public EntityCollection<RevenueByZip> RevenueByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_Business", "RevenueByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_Business", "RevenueByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_Business", "YearStartedByCity")]
-        public EntityCollection<YearStartedByCity> YearStartedByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_Business", "YearStartedByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_Business", "YearStartedByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_Business", "YearStartedByZip")]
-        public EntityCollection<YearStartedByZip> YearStartedByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_Business", "YearStartedByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_Business", "YearStartedByZip", value);
-                }
-            }
-        }
 
         #endregion
 
@@ -3411,62 +2153,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_City", "EmployeesByCity")]
-        public EntityCollection<EmployeesByCity> EmployeesByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCity_City", "IndustryDataByCity")]
+        public EntityCollection<IndustryDataByCity> IndustryDataByCities
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_City", "EmployeesByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByCity>("SizeUp.Data.FK_IndustryDataByCity_City", "IndustryDataByCity");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_City", "EmployeesByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_City", "RevenueByCity")]
-        public EntityCollection<RevenueByCity> RevenueByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_City", "RevenueByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_City", "RevenueByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_City", "YearStartedByCity")]
-        public EntityCollection<YearStartedByCity> YearStartedByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_City", "YearStartedByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_City", "YearStartedByCity", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByCity>("SizeUp.Data.FK_IndustryDataByCity_City", "IndustryDataByCity", value);
                 }
             }
         }
@@ -4105,28 +2803,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_County", "AverageSalaryByCounty")]
-        public EntityCollection<AverageSalaryByCounty> AverageSalaryByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_County", "AverageSalaryByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_County", "AverageSalaryByCounty", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Business_County", "Business")]
         public EntityCollection<Business> Businesses
         {
@@ -4269,172 +2945,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_County", "EmployeesByCity")]
-        public EntityCollection<EmployeesByCity> EmployeesByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCounty_County", "IndustryDataByCounty")]
+        public EntityCollection<IndustryDataByCounty> IndustryDataByCounties
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_County", "EmployeesByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByCounty>("SizeUp.Data.FK_IndustryDataByCounty_County", "IndustryDataByCounty");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_County", "EmployeesByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_County", "EmployeesByZip")]
-        public EntityCollection<EmployeesByZip> EmployeesByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_County", "EmployeesByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_County", "EmployeesByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_County", "LaborDynamicsByCounty")]
-        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "LaborDynamicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "LaborDynamicsByCounty", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_County", "RevenueByCity")]
-        public EntityCollection<RevenueByCity> RevenueByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_County", "RevenueByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_County", "RevenueByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_County", "RevenueByZip")]
-        public EntityCollection<RevenueByZip> RevenueByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_County", "RevenueByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_County", "RevenueByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_County", "YearStartedByCity")]
-        public EntityCollection<YearStartedByCity> YearStartedByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_County", "YearStartedByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_County", "YearStartedByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_County", "YearStartedByZip")]
-        public EntityCollection<YearStartedByZip> YearStartedByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_County", "YearStartedByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_County", "YearStartedByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "DemographicsByCounty")]
-        public EntityCollection<DemographicsByCounty> DemographicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_County", "DemographicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_County", "DemographicsByCounty", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByCounty>("SizeUp.Data.FK_IndustryDataByCounty_County", "IndustryDataByCounty", value);
                 }
             }
         }
@@ -4687,3504 +3209,6 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GeographyClass>("SizeUp.Data.FK_CountyGeography_GeographyClass", "GeographyClass", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="DemographicsByCounty")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class DemographicsByCounty : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new DemographicsByCounty object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        public static DemographicsByCounty CreateDemographicsByCounty(global::System.Int64 id, global::System.Int32 year)
-        {
-            DemographicsByCounty demographicsByCounty = new DemographicsByCounty();
-            demographicsByCounty.Id = id;
-            demographicsByCounty.Year = year;
-            return demographicsByCounty;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int32 _Year;
-        partial void OnYearChanging(global::System.Int32 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _CountyId;
-        partial void OnCountyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _StateId;
-        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalPopulation
-        {
-            get
-            {
-                return _TotalPopulation;
-            }
-            set
-            {
-                OnTotalPopulationChanging(value);
-                ReportPropertyChanging("TotalPopulation");
-                _TotalPopulation = StructuralObject.SetValidValue(value, "TotalPopulation");
-                ReportPropertyChanged("TotalPopulation");
-                OnTotalPopulationChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalPopulation;
-        partial void OnTotalPopulationChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalPopulationChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusBachelorsDegree
-        {
-            get
-            {
-                return _PopulationAge25PlusBachelorsDegree;
-            }
-            set
-            {
-                OnPopulationAge25PlusBachelorsDegreeChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusBachelorsDegree");
-                _PopulationAge25PlusBachelorsDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusBachelorsDegree");
-                ReportPropertyChanged("PopulationAge25PlusBachelorsDegree");
-                OnPopulationAge25PlusBachelorsDegreeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusBachelorsDegree;
-        partial void OnPopulationAge25PlusBachelorsDegreeChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusBachelorsDegreeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusGraduateDegree
-        {
-            get
-            {
-                return _PopulationAge25PlusGraduateDegree;
-            }
-            set
-            {
-                OnPopulationAge25PlusGraduateDegreeChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusGraduateDegree");
-                _PopulationAge25PlusGraduateDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusGraduateDegree");
-                ReportPropertyChanged("PopulationAge25PlusGraduateDegree");
-                OnPopulationAge25PlusGraduateDegreeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusGraduateDegree;
-        partial void OnPopulationAge25PlusGraduateDegreeChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusGraduateDegreeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25Plus
-        {
-            get
-            {
-                return _PopulationAge25Plus;
-            }
-            set
-            {
-                OnPopulationAge25PlusChanging(value);
-                ReportPropertyChanging("PopulationAge25Plus");
-                _PopulationAge25Plus = StructuralObject.SetValidValue(value, "PopulationAge25Plus");
-                ReportPropertyChanged("PopulationAge25Plus");
-                OnPopulationAge25PlusChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25Plus;
-        partial void OnPopulationAge25PlusChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusHighSchoolGrad
-        {
-            get
-            {
-                return _PopulationAge25PlusHighSchoolGrad;
-            }
-            set
-            {
-                OnPopulationAge25PlusHighSchoolGradChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusHighSchoolGrad");
-                _PopulationAge25PlusHighSchoolGrad = StructuralObject.SetValidValue(value, "PopulationAge25PlusHighSchoolGrad");
-                ReportPropertyChanged("PopulationAge25PlusHighSchoolGrad");
-                OnPopulationAge25PlusHighSchoolGradChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusHighSchoolGrad;
-        partial void OnPopulationAge25PlusHighSchoolGradChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusHighSchoolGradChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusCollegeNoDiploma
-        {
-            get
-            {
-                return _PopulationAge25PlusCollegeNoDiploma;
-            }
-            set
-            {
-                OnPopulationAge25PlusCollegeNoDiplomaChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusCollegeNoDiploma");
-                _PopulationAge25PlusCollegeNoDiploma = StructuralObject.SetValidValue(value, "PopulationAge25PlusCollegeNoDiploma");
-                ReportPropertyChanged("PopulationAge25PlusCollegeNoDiploma");
-                OnPopulationAge25PlusCollegeNoDiplomaChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusCollegeNoDiploma;
-        partial void OnPopulationAge25PlusCollegeNoDiplomaChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusCollegeNoDiplomaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusAssociatesDegree
-        {
-            get
-            {
-                return _PopulationAge25PlusAssociatesDegree;
-            }
-            set
-            {
-                OnPopulationAge25PlusAssociatesDegreeChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusAssociatesDegree");
-                _PopulationAge25PlusAssociatesDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusAssociatesDegree");
-                ReportPropertyChanged("PopulationAge25PlusAssociatesDegree");
-                OnPopulationAge25PlusAssociatesDegreeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusAssociatesDegree;
-        partial void OnPopulationAge25PlusAssociatesDegreeChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusAssociatesDegreeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationWhite
-        {
-            get
-            {
-                return _PopulationWhite;
-            }
-            set
-            {
-                OnPopulationWhiteChanging(value);
-                ReportPropertyChanging("PopulationWhite");
-                _PopulationWhite = StructuralObject.SetValidValue(value, "PopulationWhite");
-                ReportPropertyChanged("PopulationWhite");
-                OnPopulationWhiteChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationWhite;
-        partial void OnPopulationWhiteChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationWhiteChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationBlack
-        {
-            get
-            {
-                return _PopulationBlack;
-            }
-            set
-            {
-                OnPopulationBlackChanging(value);
-                ReportPropertyChanging("PopulationBlack");
-                _PopulationBlack = StructuralObject.SetValidValue(value, "PopulationBlack");
-                ReportPropertyChanged("PopulationBlack");
-                OnPopulationBlackChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationBlack;
-        partial void OnPopulationBlackChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationBlackChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationNativeAmerican
-        {
-            get
-            {
-                return _PopulationNativeAmerican;
-            }
-            set
-            {
-                OnPopulationNativeAmericanChanging(value);
-                ReportPropertyChanging("PopulationNativeAmerican");
-                _PopulationNativeAmerican = StructuralObject.SetValidValue(value, "PopulationNativeAmerican");
-                ReportPropertyChanged("PopulationNativeAmerican");
-                OnPopulationNativeAmericanChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationNativeAmerican;
-        partial void OnPopulationNativeAmericanChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationNativeAmericanChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAsian
-        {
-            get
-            {
-                return _PopulationAsian;
-            }
-            set
-            {
-                OnPopulationAsianChanging(value);
-                ReportPropertyChanging("PopulationAsian");
-                _PopulationAsian = StructuralObject.SetValidValue(value, "PopulationAsian");
-                ReportPropertyChanged("PopulationAsian");
-                OnPopulationAsianChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAsian;
-        partial void OnPopulationAsianChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAsianChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationHawaiian
-        {
-            get
-            {
-                return _PopulationHawaiian;
-            }
-            set
-            {
-                OnPopulationHawaiianChanging(value);
-                ReportPropertyChanging("PopulationHawaiian");
-                _PopulationHawaiian = StructuralObject.SetValidValue(value, "PopulationHawaiian");
-                ReportPropertyChanged("PopulationHawaiian");
-                OnPopulationHawaiianChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationHawaiian;
-        partial void OnPopulationHawaiianChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationHawaiianChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationOtherRace
-        {
-            get
-            {
-                return _PopulationOtherRace;
-            }
-            set
-            {
-                OnPopulationOtherRaceChanging(value);
-                ReportPropertyChanging("PopulationOtherRace");
-                _PopulationOtherRace = StructuralObject.SetValidValue(value, "PopulationOtherRace");
-                ReportPropertyChanged("PopulationOtherRace");
-                OnPopulationOtherRaceChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationOtherRace;
-        partial void OnPopulationOtherRaceChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationOtherRaceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationMixedRace
-        {
-            get
-            {
-                return _PopulationMixedRace;
-            }
-            set
-            {
-                OnPopulationMixedRaceChanging(value);
-                ReportPropertyChanging("PopulationMixedRace");
-                _PopulationMixedRace = StructuralObject.SetValidValue(value, "PopulationMixedRace");
-                ReportPropertyChanged("PopulationMixedRace");
-                OnPopulationMixedRaceChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationMixedRace;
-        partial void OnPopulationMixedRaceChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationMixedRaceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationHispanic
-        {
-            get
-            {
-                return _PopulationHispanic;
-            }
-            set
-            {
-                OnPopulationHispanicChanging(value);
-                ReportPropertyChanging("PopulationHispanic");
-                _PopulationHispanic = StructuralObject.SetValidValue(value, "PopulationHispanic");
-                ReportPropertyChanged("PopulationHispanic");
-                OnPopulationHispanicChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationHispanic;
-        partial void OnPopulationHispanicChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationHispanicChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationNonHispanic
-        {
-            get
-            {
-                return _PopulationNonHispanic;
-            }
-            set
-            {
-                OnPopulationNonHispanicChanging(value);
-                ReportPropertyChanging("PopulationNonHispanic");
-                _PopulationNonHispanic = StructuralObject.SetValidValue(value, "PopulationNonHispanic");
-                ReportPropertyChanged("PopulationNonHispanic");
-                OnPopulationNonHispanicChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationNonHispanic;
-        partial void OnPopulationNonHispanicChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationNonHispanicChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MedianHouseholdIncome
-        {
-            get
-            {
-                return _MedianHouseholdIncome;
-            }
-            set
-            {
-                OnMedianHouseholdIncomeChanging(value);
-                ReportPropertyChanging("MedianHouseholdIncome");
-                _MedianHouseholdIncome = StructuralObject.SetValidValue(value, "MedianHouseholdIncome");
-                ReportPropertyChanged("MedianHouseholdIncome");
-                OnMedianHouseholdIncomeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MedianHouseholdIncome;
-        partial void OnMedianHouseholdIncomeChanging(Nullable<global::System.Int64> value);
-        partial void OnMedianHouseholdIncomeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalHouseholdExpenditure
-        {
-            get
-            {
-                return _TotalHouseholdExpenditure;
-            }
-            set
-            {
-                OnTotalHouseholdExpenditureChanging(value);
-                ReportPropertyChanging("TotalHouseholdExpenditure");
-                _TotalHouseholdExpenditure = StructuralObject.SetValidValue(value, "TotalHouseholdExpenditure");
-                ReportPropertyChanged("TotalHouseholdExpenditure");
-                OnTotalHouseholdExpenditureChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalHouseholdExpenditure;
-        partial void OnTotalHouseholdExpenditureChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalHouseholdExpenditureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageHouseholdExpenditure
-        {
-            get
-            {
-                return _AverageHouseholdExpenditure;
-            }
-            set
-            {
-                OnAverageHouseholdExpenditureChanging(value);
-                ReportPropertyChanging("AverageHouseholdExpenditure");
-                _AverageHouseholdExpenditure = StructuralObject.SetValidValue(value, "AverageHouseholdExpenditure");
-                ReportPropertyChanged("AverageHouseholdExpenditure");
-                OnAverageHouseholdExpenditureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageHouseholdExpenditure;
-        partial void OnAverageHouseholdExpenditureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageHouseholdExpenditureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MuseumsZoos
-        {
-            get
-            {
-                return _MuseumsZoos;
-            }
-            set
-            {
-                OnMuseumsZoosChanging(value);
-                ReportPropertyChanging("MuseumsZoos");
-                _MuseumsZoos = StructuralObject.SetValidValue(value, "MuseumsZoos");
-                ReportPropertyChanged("MuseumsZoos");
-                OnMuseumsZoosChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MuseumsZoos;
-        partial void OnMuseumsZoosChanging(Nullable<global::System.Int64> value);
-        partial void OnMuseumsZoosChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Bars
-        {
-            get
-            {
-                return _Bars;
-            }
-            set
-            {
-                OnBarsChanging(value);
-                ReportPropertyChanging("Bars");
-                _Bars = StructuralObject.SetValidValue(value, "Bars");
-                ReportPropertyChanged("Bars");
-                OnBarsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Bars;
-        partial void OnBarsChanging(Nullable<global::System.Int64> value);
-        partial void OnBarsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Restaurants
-        {
-            get
-            {
-                return _Restaurants;
-            }
-            set
-            {
-                OnRestaurantsChanging(value);
-                ReportPropertyChanging("Restaurants");
-                _Restaurants = StructuralObject.SetValidValue(value, "Restaurants");
-                ReportPropertyChanged("Restaurants");
-                OnRestaurantsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Restaurants;
-        partial void OnRestaurantsChanging(Nullable<global::System.Int64> value);
-        partial void OnRestaurantsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> WhiteCollarEmployees
-        {
-            get
-            {
-                return _WhiteCollarEmployees;
-            }
-            set
-            {
-                OnWhiteCollarEmployeesChanging(value);
-                ReportPropertyChanging("WhiteCollarEmployees");
-                _WhiteCollarEmployees = StructuralObject.SetValidValue(value, "WhiteCollarEmployees");
-                ReportPropertyChanged("WhiteCollarEmployees");
-                OnWhiteCollarEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _WhiteCollarEmployees;
-        partial void OnWhiteCollarEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnWhiteCollarEmployeesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> BlueCollarEmployees
-        {
-            get
-            {
-                return _BlueCollarEmployees;
-            }
-            set
-            {
-                OnBlueCollarEmployeesChanging(value);
-                ReportPropertyChanging("BlueCollarEmployees");
-                _BlueCollarEmployees = StructuralObject.SetValidValue(value, "BlueCollarEmployees");
-                ReportPropertyChanged("BlueCollarEmployees");
-                OnBlueCollarEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _BlueCollarEmployees;
-        partial void OnBlueCollarEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnBlueCollarEmployeesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalEstablishments
-        {
-            get
-            {
-                return _TotalEstablishments;
-            }
-            set
-            {
-                OnTotalEstablishmentsChanging(value);
-                ReportPropertyChanging("TotalEstablishments");
-                _TotalEstablishments = StructuralObject.SetValidValue(value, "TotalEstablishments");
-                ReportPropertyChanged("TotalEstablishments");
-                OnTotalEstablishmentsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalEstablishments;
-        partial void OnTotalEstablishmentsChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalEstablishmentsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalEmployees
-        {
-            get
-            {
-                return _TotalEmployees;
-            }
-            set
-            {
-                OnTotalEmployeesChanging(value);
-                ReportPropertyChanging("TotalEmployees");
-                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
-                ReportPropertyChanged("TotalEmployees");
-                OnTotalEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalEmployees;
-        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalEmployeesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> EstablishmentsEmployees1to4
-        {
-            get
-            {
-                return _EstablishmentsEmployees1to4;
-            }
-            set
-            {
-                OnEstablishmentsEmployees1to4Changing(value);
-                ReportPropertyChanging("EstablishmentsEmployees1to4");
-                _EstablishmentsEmployees1to4 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees1to4");
-                ReportPropertyChanged("EstablishmentsEmployees1to4");
-                OnEstablishmentsEmployees1to4Changed();
-            }
-        }
-        private Nullable<global::System.Int64> _EstablishmentsEmployees1to4;
-        partial void OnEstablishmentsEmployees1to4Changing(Nullable<global::System.Int64> value);
-        partial void OnEstablishmentsEmployees1to4Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> EstablishmentsEmployees5to9
-        {
-            get
-            {
-                return _EstablishmentsEmployees5to9;
-            }
-            set
-            {
-                OnEstablishmentsEmployees5to9Changing(value);
-                ReportPropertyChanging("EstablishmentsEmployees5to9");
-                _EstablishmentsEmployees5to9 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees5to9");
-                ReportPropertyChanged("EstablishmentsEmployees5to9");
-                OnEstablishmentsEmployees5to9Changed();
-            }
-        }
-        private Nullable<global::System.Int64> _EstablishmentsEmployees5to9;
-        partial void OnEstablishmentsEmployees5to9Changing(Nullable<global::System.Int64> value);
-        partial void OnEstablishmentsEmployees5to9Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> EstablishmentsEmployees10to19
-        {
-            get
-            {
-                return _EstablishmentsEmployees10to19;
-            }
-            set
-            {
-                OnEstablishmentsEmployees10to19Changing(value);
-                ReportPropertyChanging("EstablishmentsEmployees10to19");
-                _EstablishmentsEmployees10to19 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees10to19");
-                ReportPropertyChanged("EstablishmentsEmployees10to19");
-                OnEstablishmentsEmployees10to19Changed();
-            }
-        }
-        private Nullable<global::System.Int64> _EstablishmentsEmployees10to19;
-        partial void OnEstablishmentsEmployees10to19Changing(Nullable<global::System.Int64> value);
-        partial void OnEstablishmentsEmployees10to19Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> MedianAge
-        {
-            get
-            {
-                return _MedianAge;
-            }
-            set
-            {
-                OnMedianAgeChanging(value);
-                ReportPropertyChanging("MedianAge");
-                _MedianAge = StructuralObject.SetValidValue(value, "MedianAge");
-                ReportPropertyChanged("MedianAge");
-                OnMedianAgeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _MedianAge;
-        partial void OnMedianAgeChanging(Nullable<global::System.Double> value);
-        partial void OnMedianAgeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> MedianCommuteTime
-        {
-            get
-            {
-                return _MedianCommuteTime;
-            }
-            set
-            {
-                OnMedianCommuteTimeChanging(value);
-                ReportPropertyChanging("MedianCommuteTime");
-                _MedianCommuteTime = StructuralObject.SetValidValue(value, "MedianCommuteTime");
-                ReportPropertyChanged("MedianCommuteTime");
-                OnMedianCommuteTimeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _MedianCommuteTime;
-        partial void OnMedianCommuteTimeChanging(Nullable<global::System.Double> value);
-        partial void OnMedianCommuteTimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageCommuteTime
-        {
-            get
-            {
-                return _AverageCommuteTime;
-            }
-            set
-            {
-                OnAverageCommuteTimeChanging(value);
-                ReportPropertyChanging("AverageCommuteTime");
-                _AverageCommuteTime = StructuralObject.SetValidValue(value, "AverageCommuteTime");
-                ReportPropertyChanged("AverageCommuteTime");
-                OnAverageCommuteTimeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageCommuteTime;
-        partial void OnAverageCommuteTimeChanging(Nullable<global::System.Double> value);
-        partial void OnAverageCommuteTimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AveragePropertyTax
-        {
-            get
-            {
-                return _AveragePropertyTax;
-            }
-            set
-            {
-                OnAveragePropertyTaxChanging(value);
-                ReportPropertyChanging("AveragePropertyTax");
-                _AveragePropertyTax = StructuralObject.SetValidValue(value, "AveragePropertyTax");
-                ReportPropertyChanged("AveragePropertyTax");
-                OnAveragePropertyTaxChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _AveragePropertyTax;
-        partial void OnAveragePropertyTaxChanging(Nullable<global::System.Int64> value);
-        partial void OnAveragePropertyTaxChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageAnnualTemperature
-        {
-            get
-            {
-                return _AverageAnnualTemperature;
-            }
-            set
-            {
-                OnAverageAnnualTemperatureChanging(value);
-                ReportPropertyChanging("AverageAnnualTemperature");
-                _AverageAnnualTemperature = StructuralObject.SetValidValue(value, "AverageAnnualTemperature");
-                ReportPropertyChanged("AverageAnnualTemperature");
-                OnAverageAnnualTemperatureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageAnnualTemperature;
-        partial void OnAverageAnnualTemperatureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageAnnualTemperatureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageAnnualHighTemperature
-        {
-            get
-            {
-                return _AverageAnnualHighTemperature;
-            }
-            set
-            {
-                OnAverageAnnualHighTemperatureChanging(value);
-                ReportPropertyChanging("AverageAnnualHighTemperature");
-                _AverageAnnualHighTemperature = StructuralObject.SetValidValue(value, "AverageAnnualHighTemperature");
-                ReportPropertyChanged("AverageAnnualHighTemperature");
-                OnAverageAnnualHighTemperatureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageAnnualHighTemperature;
-        partial void OnAverageAnnualHighTemperatureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageAnnualHighTemperatureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageAnnualLowTemperature
-        {
-            get
-            {
-                return _AverageAnnualLowTemperature;
-            }
-            set
-            {
-                OnAverageAnnualLowTemperatureChanging(value);
-                ReportPropertyChanging("AverageAnnualLowTemperature");
-                _AverageAnnualLowTemperature = StructuralObject.SetValidValue(value, "AverageAnnualLowTemperature");
-                ReportPropertyChanged("AverageAnnualLowTemperature");
-                OnAverageAnnualLowTemperatureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageAnnualLowTemperature;
-        partial void OnAverageAnnualLowTemperatureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageAnnualLowTemperatureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AnnualRainfall
-        {
-            get
-            {
-                return _AnnualRainfall;
-            }
-            set
-            {
-                OnAnnualRainfallChanging(value);
-                ReportPropertyChanging("AnnualRainfall");
-                _AnnualRainfall = StructuralObject.SetValidValue(value, "AnnualRainfall");
-                ReportPropertyChanged("AnnualRainfall");
-                OnAnnualRainfallChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AnnualRainfall;
-        partial void OnAnnualRainfallChanging(Nullable<global::System.Double> value);
-        partial void OnAnnualRainfallChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AnnualSnowfall
-        {
-            get
-            {
-                return _AnnualSnowfall;
-            }
-            set
-            {
-                OnAnnualSnowfallChanging(value);
-                ReportPropertyChanging("AnnualSnowfall");
-                _AnnualSnowfall = StructuralObject.SetValidValue(value, "AnnualSnowfall");
-                ReportPropertyChanged("AnnualSnowfall");
-                OnAnnualSnowfallChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AnnualSnowfall;
-        partial void OnAnnualSnowfallChanging(Nullable<global::System.Double> value);
-        partial void OnAnnualSnowfallChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> LaborForce
-        {
-            get
-            {
-                return _LaborForce;
-            }
-            set
-            {
-                OnLaborForceChanging(value);
-                ReportPropertyChanging("LaborForce");
-                _LaborForce = StructuralObject.SetValidValue(value, "LaborForce");
-                ReportPropertyChanged("LaborForce");
-                OnLaborForceChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _LaborForce;
-        partial void OnLaborForceChanging(Nullable<global::System.Int64> value);
-        partial void OnLaborForceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> LaborForceAge16Plus
-        {
-            get
-            {
-                return _LaborForceAge16Plus;
-            }
-            set
-            {
-                OnLaborForceAge16PlusChanging(value);
-                ReportPropertyChanging("LaborForceAge16Plus");
-                _LaborForceAge16Plus = StructuralObject.SetValidValue(value, "LaborForceAge16Plus");
-                ReportPropertyChanged("LaborForceAge16Plus");
-                OnLaborForceAge16PlusChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _LaborForceAge16Plus;
-        partial void OnLaborForceAge16PlusChanging(Nullable<global::System.Int64> value);
-        partial void OnLaborForceAge16PlusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationEmployed
-        {
-            get
-            {
-                return _PopulationEmployed;
-            }
-            set
-            {
-                OnPopulationEmployedChanging(value);
-                ReportPropertyChanging("PopulationEmployed");
-                _PopulationEmployed = StructuralObject.SetValidValue(value, "PopulationEmployed");
-                ReportPropertyChanged("PopulationEmployed");
-                OnPopulationEmployedChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationEmployed;
-        partial void OnPopulationEmployedChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationEmployedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationEmployed16Plus
-        {
-            get
-            {
-                return _PopulationEmployed16Plus;
-            }
-            set
-            {
-                OnPopulationEmployed16PlusChanging(value);
-                ReportPropertyChanging("PopulationEmployed16Plus");
-                _PopulationEmployed16Plus = StructuralObject.SetValidValue(value, "PopulationEmployed16Plus");
-                ReportPropertyChanged("PopulationEmployed16Plus");
-                OnPopulationEmployed16PlusChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationEmployed16Plus;
-        partial void OnPopulationEmployed16PlusChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationEmployed16PlusChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_DemographicsByCounty_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_DemographicsByCounty_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_DemographicsByCounty_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_DemographicsByCounty_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByCounty_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByCounty_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByCounty_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByCounty_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_DemographicsByCounty_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_DemographicsByCounty_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_DemographicsByCounty_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_DemographicsByCounty_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="DemographicsByZip")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class DemographicsByZip : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new DemographicsByZip object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        public static DemographicsByZip CreateDemographicsByZip(global::System.Int64 id, global::System.Int32 year)
-        {
-            DemographicsByZip demographicsByZip = new DemographicsByZip();
-            demographicsByZip.Id = id;
-            demographicsByZip.Year = year;
-            return demographicsByZip;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int32 _Year;
-        partial void OnYearChanging(global::System.Int32 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _ZipCodeId;
-        partial void OnZipCodeIdChanging(Nullable<global::System.Int64> value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalPopulation
-        {
-            get
-            {
-                return _TotalPopulation;
-            }
-            set
-            {
-                OnTotalPopulationChanging(value);
-                ReportPropertyChanging("TotalPopulation");
-                _TotalPopulation = StructuralObject.SetValidValue(value, "TotalPopulation");
-                ReportPropertyChanged("TotalPopulation");
-                OnTotalPopulationChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalPopulation;
-        partial void OnTotalPopulationChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalPopulationChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusBachelorsDegree
-        {
-            get
-            {
-                return _PopulationAge25PlusBachelorsDegree;
-            }
-            set
-            {
-                OnPopulationAge25PlusBachelorsDegreeChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusBachelorsDegree");
-                _PopulationAge25PlusBachelorsDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusBachelorsDegree");
-                ReportPropertyChanged("PopulationAge25PlusBachelorsDegree");
-                OnPopulationAge25PlusBachelorsDegreeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusBachelorsDegree;
-        partial void OnPopulationAge25PlusBachelorsDegreeChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusBachelorsDegreeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusGraduateDegree
-        {
-            get
-            {
-                return _PopulationAge25PlusGraduateDegree;
-            }
-            set
-            {
-                OnPopulationAge25PlusGraduateDegreeChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusGraduateDegree");
-                _PopulationAge25PlusGraduateDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusGraduateDegree");
-                ReportPropertyChanged("PopulationAge25PlusGraduateDegree");
-                OnPopulationAge25PlusGraduateDegreeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusGraduateDegree;
-        partial void OnPopulationAge25PlusGraduateDegreeChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusGraduateDegreeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25Plus
-        {
-            get
-            {
-                return _PopulationAge25Plus;
-            }
-            set
-            {
-                OnPopulationAge25PlusChanging(value);
-                ReportPropertyChanging("PopulationAge25Plus");
-                _PopulationAge25Plus = StructuralObject.SetValidValue(value, "PopulationAge25Plus");
-                ReportPropertyChanged("PopulationAge25Plus");
-                OnPopulationAge25PlusChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25Plus;
-        partial void OnPopulationAge25PlusChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusHighSchoolGrad
-        {
-            get
-            {
-                return _PopulationAge25PlusHighSchoolGrad;
-            }
-            set
-            {
-                OnPopulationAge25PlusHighSchoolGradChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusHighSchoolGrad");
-                _PopulationAge25PlusHighSchoolGrad = StructuralObject.SetValidValue(value, "PopulationAge25PlusHighSchoolGrad");
-                ReportPropertyChanged("PopulationAge25PlusHighSchoolGrad");
-                OnPopulationAge25PlusHighSchoolGradChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusHighSchoolGrad;
-        partial void OnPopulationAge25PlusHighSchoolGradChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusHighSchoolGradChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusCollegeNoDiploma
-        {
-            get
-            {
-                return _PopulationAge25PlusCollegeNoDiploma;
-            }
-            set
-            {
-                OnPopulationAge25PlusCollegeNoDiplomaChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusCollegeNoDiploma");
-                _PopulationAge25PlusCollegeNoDiploma = StructuralObject.SetValidValue(value, "PopulationAge25PlusCollegeNoDiploma");
-                ReportPropertyChanged("PopulationAge25PlusCollegeNoDiploma");
-                OnPopulationAge25PlusCollegeNoDiplomaChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusCollegeNoDiploma;
-        partial void OnPopulationAge25PlusCollegeNoDiplomaChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusCollegeNoDiplomaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAge25PlusAssociatesDegree
-        {
-            get
-            {
-                return _PopulationAge25PlusAssociatesDegree;
-            }
-            set
-            {
-                OnPopulationAge25PlusAssociatesDegreeChanging(value);
-                ReportPropertyChanging("PopulationAge25PlusAssociatesDegree");
-                _PopulationAge25PlusAssociatesDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusAssociatesDegree");
-                ReportPropertyChanged("PopulationAge25PlusAssociatesDegree");
-                OnPopulationAge25PlusAssociatesDegreeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAge25PlusAssociatesDegree;
-        partial void OnPopulationAge25PlusAssociatesDegreeChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAge25PlusAssociatesDegreeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationWhite
-        {
-            get
-            {
-                return _PopulationWhite;
-            }
-            set
-            {
-                OnPopulationWhiteChanging(value);
-                ReportPropertyChanging("PopulationWhite");
-                _PopulationWhite = StructuralObject.SetValidValue(value, "PopulationWhite");
-                ReportPropertyChanged("PopulationWhite");
-                OnPopulationWhiteChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationWhite;
-        partial void OnPopulationWhiteChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationWhiteChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationBlack
-        {
-            get
-            {
-                return _PopulationBlack;
-            }
-            set
-            {
-                OnPopulationBlackChanging(value);
-                ReportPropertyChanging("PopulationBlack");
-                _PopulationBlack = StructuralObject.SetValidValue(value, "PopulationBlack");
-                ReportPropertyChanged("PopulationBlack");
-                OnPopulationBlackChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationBlack;
-        partial void OnPopulationBlackChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationBlackChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationNativeAmerican
-        {
-            get
-            {
-                return _PopulationNativeAmerican;
-            }
-            set
-            {
-                OnPopulationNativeAmericanChanging(value);
-                ReportPropertyChanging("PopulationNativeAmerican");
-                _PopulationNativeAmerican = StructuralObject.SetValidValue(value, "PopulationNativeAmerican");
-                ReportPropertyChanged("PopulationNativeAmerican");
-                OnPopulationNativeAmericanChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationNativeAmerican;
-        partial void OnPopulationNativeAmericanChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationNativeAmericanChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationAsian
-        {
-            get
-            {
-                return _PopulationAsian;
-            }
-            set
-            {
-                OnPopulationAsianChanging(value);
-                ReportPropertyChanging("PopulationAsian");
-                _PopulationAsian = StructuralObject.SetValidValue(value, "PopulationAsian");
-                ReportPropertyChanged("PopulationAsian");
-                OnPopulationAsianChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationAsian;
-        partial void OnPopulationAsianChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationAsianChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationHawaiian
-        {
-            get
-            {
-                return _PopulationHawaiian;
-            }
-            set
-            {
-                OnPopulationHawaiianChanging(value);
-                ReportPropertyChanging("PopulationHawaiian");
-                _PopulationHawaiian = StructuralObject.SetValidValue(value, "PopulationHawaiian");
-                ReportPropertyChanged("PopulationHawaiian");
-                OnPopulationHawaiianChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationHawaiian;
-        partial void OnPopulationHawaiianChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationHawaiianChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationOtherRace
-        {
-            get
-            {
-                return _PopulationOtherRace;
-            }
-            set
-            {
-                OnPopulationOtherRaceChanging(value);
-                ReportPropertyChanging("PopulationOtherRace");
-                _PopulationOtherRace = StructuralObject.SetValidValue(value, "PopulationOtherRace");
-                ReportPropertyChanged("PopulationOtherRace");
-                OnPopulationOtherRaceChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationOtherRace;
-        partial void OnPopulationOtherRaceChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationOtherRaceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationMixedRace
-        {
-            get
-            {
-                return _PopulationMixedRace;
-            }
-            set
-            {
-                OnPopulationMixedRaceChanging(value);
-                ReportPropertyChanging("PopulationMixedRace");
-                _PopulationMixedRace = StructuralObject.SetValidValue(value, "PopulationMixedRace");
-                ReportPropertyChanged("PopulationMixedRace");
-                OnPopulationMixedRaceChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationMixedRace;
-        partial void OnPopulationMixedRaceChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationMixedRaceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationHispanic
-        {
-            get
-            {
-                return _PopulationHispanic;
-            }
-            set
-            {
-                OnPopulationHispanicChanging(value);
-                ReportPropertyChanging("PopulationHispanic");
-                _PopulationHispanic = StructuralObject.SetValidValue(value, "PopulationHispanic");
-                ReportPropertyChanged("PopulationHispanic");
-                OnPopulationHispanicChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationHispanic;
-        partial void OnPopulationHispanicChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationHispanicChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationNonHispanic
-        {
-            get
-            {
-                return _PopulationNonHispanic;
-            }
-            set
-            {
-                OnPopulationNonHispanicChanging(value);
-                ReportPropertyChanging("PopulationNonHispanic");
-                _PopulationNonHispanic = StructuralObject.SetValidValue(value, "PopulationNonHispanic");
-                ReportPropertyChanged("PopulationNonHispanic");
-                OnPopulationNonHispanicChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationNonHispanic;
-        partial void OnPopulationNonHispanicChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationNonHispanicChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MedianHouseholdIncome
-        {
-            get
-            {
-                return _MedianHouseholdIncome;
-            }
-            set
-            {
-                OnMedianHouseholdIncomeChanging(value);
-                ReportPropertyChanging("MedianHouseholdIncome");
-                _MedianHouseholdIncome = StructuralObject.SetValidValue(value, "MedianHouseholdIncome");
-                ReportPropertyChanged("MedianHouseholdIncome");
-                OnMedianHouseholdIncomeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MedianHouseholdIncome;
-        partial void OnMedianHouseholdIncomeChanging(Nullable<global::System.Int64> value);
-        partial void OnMedianHouseholdIncomeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalHouseholdExpenditure
-        {
-            get
-            {
-                return _TotalHouseholdExpenditure;
-            }
-            set
-            {
-                OnTotalHouseholdExpenditureChanging(value);
-                ReportPropertyChanging("TotalHouseholdExpenditure");
-                _TotalHouseholdExpenditure = StructuralObject.SetValidValue(value, "TotalHouseholdExpenditure");
-                ReportPropertyChanged("TotalHouseholdExpenditure");
-                OnTotalHouseholdExpenditureChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalHouseholdExpenditure;
-        partial void OnTotalHouseholdExpenditureChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalHouseholdExpenditureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageHouseholdExpenditure
-        {
-            get
-            {
-                return _AverageHouseholdExpenditure;
-            }
-            set
-            {
-                OnAverageHouseholdExpenditureChanging(value);
-                ReportPropertyChanging("AverageHouseholdExpenditure");
-                _AverageHouseholdExpenditure = StructuralObject.SetValidValue(value, "AverageHouseholdExpenditure");
-                ReportPropertyChanged("AverageHouseholdExpenditure");
-                OnAverageHouseholdExpenditureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageHouseholdExpenditure;
-        partial void OnAverageHouseholdExpenditureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageHouseholdExpenditureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MuseumsZoos
-        {
-            get
-            {
-                return _MuseumsZoos;
-            }
-            set
-            {
-                OnMuseumsZoosChanging(value);
-                ReportPropertyChanging("MuseumsZoos");
-                _MuseumsZoos = StructuralObject.SetValidValue(value, "MuseumsZoos");
-                ReportPropertyChanged("MuseumsZoos");
-                OnMuseumsZoosChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MuseumsZoos;
-        partial void OnMuseumsZoosChanging(Nullable<global::System.Int64> value);
-        partial void OnMuseumsZoosChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Bars
-        {
-            get
-            {
-                return _Bars;
-            }
-            set
-            {
-                OnBarsChanging(value);
-                ReportPropertyChanging("Bars");
-                _Bars = StructuralObject.SetValidValue(value, "Bars");
-                ReportPropertyChanged("Bars");
-                OnBarsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Bars;
-        partial void OnBarsChanging(Nullable<global::System.Int64> value);
-        partial void OnBarsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Restaurants
-        {
-            get
-            {
-                return _Restaurants;
-            }
-            set
-            {
-                OnRestaurantsChanging(value);
-                ReportPropertyChanging("Restaurants");
-                _Restaurants = StructuralObject.SetValidValue(value, "Restaurants");
-                ReportPropertyChanged("Restaurants");
-                OnRestaurantsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Restaurants;
-        partial void OnRestaurantsChanging(Nullable<global::System.Int64> value);
-        partial void OnRestaurantsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> WhiteCollarEmployees
-        {
-            get
-            {
-                return _WhiteCollarEmployees;
-            }
-            set
-            {
-                OnWhiteCollarEmployeesChanging(value);
-                ReportPropertyChanging("WhiteCollarEmployees");
-                _WhiteCollarEmployees = StructuralObject.SetValidValue(value, "WhiteCollarEmployees");
-                ReportPropertyChanged("WhiteCollarEmployees");
-                OnWhiteCollarEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _WhiteCollarEmployees;
-        partial void OnWhiteCollarEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnWhiteCollarEmployeesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> BlueCollarEmployees
-        {
-            get
-            {
-                return _BlueCollarEmployees;
-            }
-            set
-            {
-                OnBlueCollarEmployeesChanging(value);
-                ReportPropertyChanging("BlueCollarEmployees");
-                _BlueCollarEmployees = StructuralObject.SetValidValue(value, "BlueCollarEmployees");
-                ReportPropertyChanged("BlueCollarEmployees");
-                OnBlueCollarEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _BlueCollarEmployees;
-        partial void OnBlueCollarEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnBlueCollarEmployeesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalEstablishments
-        {
-            get
-            {
-                return _TotalEstablishments;
-            }
-            set
-            {
-                OnTotalEstablishmentsChanging(value);
-                ReportPropertyChanging("TotalEstablishments");
-                _TotalEstablishments = StructuralObject.SetValidValue(value, "TotalEstablishments");
-                ReportPropertyChanged("TotalEstablishments");
-                OnTotalEstablishmentsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalEstablishments;
-        partial void OnTotalEstablishmentsChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalEstablishmentsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> TotalEmployees
-        {
-            get
-            {
-                return _TotalEmployees;
-            }
-            set
-            {
-                OnTotalEmployeesChanging(value);
-                ReportPropertyChanging("TotalEmployees");
-                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
-                ReportPropertyChanged("TotalEmployees");
-                OnTotalEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _TotalEmployees;
-        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnTotalEmployeesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> EstablishmentsEmployees1to4
-        {
-            get
-            {
-                return _EstablishmentsEmployees1to4;
-            }
-            set
-            {
-                OnEstablishmentsEmployees1to4Changing(value);
-                ReportPropertyChanging("EstablishmentsEmployees1to4");
-                _EstablishmentsEmployees1to4 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees1to4");
-                ReportPropertyChanged("EstablishmentsEmployees1to4");
-                OnEstablishmentsEmployees1to4Changed();
-            }
-        }
-        private Nullable<global::System.Int64> _EstablishmentsEmployees1to4;
-        partial void OnEstablishmentsEmployees1to4Changing(Nullable<global::System.Int64> value);
-        partial void OnEstablishmentsEmployees1to4Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> EstablishmentsEmployees5to9
-        {
-            get
-            {
-                return _EstablishmentsEmployees5to9;
-            }
-            set
-            {
-                OnEstablishmentsEmployees5to9Changing(value);
-                ReportPropertyChanging("EstablishmentsEmployees5to9");
-                _EstablishmentsEmployees5to9 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees5to9");
-                ReportPropertyChanged("EstablishmentsEmployees5to9");
-                OnEstablishmentsEmployees5to9Changed();
-            }
-        }
-        private Nullable<global::System.Int64> _EstablishmentsEmployees5to9;
-        partial void OnEstablishmentsEmployees5to9Changing(Nullable<global::System.Int64> value);
-        partial void OnEstablishmentsEmployees5to9Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> EstablishmentsEmployees10to19
-        {
-            get
-            {
-                return _EstablishmentsEmployees10to19;
-            }
-            set
-            {
-                OnEstablishmentsEmployees10to19Changing(value);
-                ReportPropertyChanging("EstablishmentsEmployees10to19");
-                _EstablishmentsEmployees10to19 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees10to19");
-                ReportPropertyChanged("EstablishmentsEmployees10to19");
-                OnEstablishmentsEmployees10to19Changed();
-            }
-        }
-        private Nullable<global::System.Int64> _EstablishmentsEmployees10to19;
-        partial void OnEstablishmentsEmployees10to19Changing(Nullable<global::System.Int64> value);
-        partial void OnEstablishmentsEmployees10to19Changed();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> MedianAge
-        {
-            get
-            {
-                return _MedianAge;
-            }
-            set
-            {
-                OnMedianAgeChanging(value);
-                ReportPropertyChanging("MedianAge");
-                _MedianAge = StructuralObject.SetValidValue(value, "MedianAge");
-                ReportPropertyChanged("MedianAge");
-                OnMedianAgeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _MedianAge;
-        partial void OnMedianAgeChanging(Nullable<global::System.Double> value);
-        partial void OnMedianAgeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> MedianCommuteTime
-        {
-            get
-            {
-                return _MedianCommuteTime;
-            }
-            set
-            {
-                OnMedianCommuteTimeChanging(value);
-                ReportPropertyChanging("MedianCommuteTime");
-                _MedianCommuteTime = StructuralObject.SetValidValue(value, "MedianCommuteTime");
-                ReportPropertyChanged("MedianCommuteTime");
-                OnMedianCommuteTimeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _MedianCommuteTime;
-        partial void OnMedianCommuteTimeChanging(Nullable<global::System.Double> value);
-        partial void OnMedianCommuteTimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageCommuteTime
-        {
-            get
-            {
-                return _AverageCommuteTime;
-            }
-            set
-            {
-                OnAverageCommuteTimeChanging(value);
-                ReportPropertyChanging("AverageCommuteTime");
-                _AverageCommuteTime = StructuralObject.SetValidValue(value, "AverageCommuteTime");
-                ReportPropertyChanged("AverageCommuteTime");
-                OnAverageCommuteTimeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageCommuteTime;
-        partial void OnAverageCommuteTimeChanging(Nullable<global::System.Double> value);
-        partial void OnAverageCommuteTimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AveragePropertyTax
-        {
-            get
-            {
-                return _AveragePropertyTax;
-            }
-            set
-            {
-                OnAveragePropertyTaxChanging(value);
-                ReportPropertyChanging("AveragePropertyTax");
-                _AveragePropertyTax = StructuralObject.SetValidValue(value, "AveragePropertyTax");
-                ReportPropertyChanged("AveragePropertyTax");
-                OnAveragePropertyTaxChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _AveragePropertyTax;
-        partial void OnAveragePropertyTaxChanging(Nullable<global::System.Int64> value);
-        partial void OnAveragePropertyTaxChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageAnnualTemperature
-        {
-            get
-            {
-                return _AverageAnnualTemperature;
-            }
-            set
-            {
-                OnAverageAnnualTemperatureChanging(value);
-                ReportPropertyChanging("AverageAnnualTemperature");
-                _AverageAnnualTemperature = StructuralObject.SetValidValue(value, "AverageAnnualTemperature");
-                ReportPropertyChanged("AverageAnnualTemperature");
-                OnAverageAnnualTemperatureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageAnnualTemperature;
-        partial void OnAverageAnnualTemperatureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageAnnualTemperatureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageAnnualHighTemperature
-        {
-            get
-            {
-                return _AverageAnnualHighTemperature;
-            }
-            set
-            {
-                OnAverageAnnualHighTemperatureChanging(value);
-                ReportPropertyChanging("AverageAnnualHighTemperature");
-                _AverageAnnualHighTemperature = StructuralObject.SetValidValue(value, "AverageAnnualHighTemperature");
-                ReportPropertyChanged("AverageAnnualHighTemperature");
-                OnAverageAnnualHighTemperatureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageAnnualHighTemperature;
-        partial void OnAverageAnnualHighTemperatureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageAnnualHighTemperatureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageAnnualLowTemperature
-        {
-            get
-            {
-                return _AverageAnnualLowTemperature;
-            }
-            set
-            {
-                OnAverageAnnualLowTemperatureChanging(value);
-                ReportPropertyChanging("AverageAnnualLowTemperature");
-                _AverageAnnualLowTemperature = StructuralObject.SetValidValue(value, "AverageAnnualLowTemperature");
-                ReportPropertyChanged("AverageAnnualLowTemperature");
-                OnAverageAnnualLowTemperatureChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageAnnualLowTemperature;
-        partial void OnAverageAnnualLowTemperatureChanging(Nullable<global::System.Double> value);
-        partial void OnAverageAnnualLowTemperatureChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AnnualRainfall
-        {
-            get
-            {
-                return _AnnualRainfall;
-            }
-            set
-            {
-                OnAnnualRainfallChanging(value);
-                ReportPropertyChanging("AnnualRainfall");
-                _AnnualRainfall = StructuralObject.SetValidValue(value, "AnnualRainfall");
-                ReportPropertyChanged("AnnualRainfall");
-                OnAnnualRainfallChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AnnualRainfall;
-        partial void OnAnnualRainfallChanging(Nullable<global::System.Double> value);
-        partial void OnAnnualRainfallChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AnnualSnowfall
-        {
-            get
-            {
-                return _AnnualSnowfall;
-            }
-            set
-            {
-                OnAnnualSnowfallChanging(value);
-                ReportPropertyChanging("AnnualSnowfall");
-                _AnnualSnowfall = StructuralObject.SetValidValue(value, "AnnualSnowfall");
-                ReportPropertyChanged("AnnualSnowfall");
-                OnAnnualSnowfallChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AnnualSnowfall;
-        partial void OnAnnualSnowfallChanging(Nullable<global::System.Double> value);
-        partial void OnAnnualSnowfallChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> LaborForce
-        {
-            get
-            {
-                return _LaborForce;
-            }
-            set
-            {
-                OnLaborForceChanging(value);
-                ReportPropertyChanging("LaborForce");
-                _LaborForce = StructuralObject.SetValidValue(value, "LaborForce");
-                ReportPropertyChanged("LaborForce");
-                OnLaborForceChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _LaborForce;
-        partial void OnLaborForceChanging(Nullable<global::System.Int64> value);
-        partial void OnLaborForceChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> LaborForceAge16Plus
-        {
-            get
-            {
-                return _LaborForceAge16Plus;
-            }
-            set
-            {
-                OnLaborForceAge16PlusChanging(value);
-                ReportPropertyChanging("LaborForceAge16Plus");
-                _LaborForceAge16Plus = StructuralObject.SetValidValue(value, "LaborForceAge16Plus");
-                ReportPropertyChanged("LaborForceAge16Plus");
-                OnLaborForceAge16PlusChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _LaborForceAge16Plus;
-        partial void OnLaborForceAge16PlusChanging(Nullable<global::System.Int64> value);
-        partial void OnLaborForceAge16PlusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationEmployed
-        {
-            get
-            {
-                return _PopulationEmployed;
-            }
-            set
-            {
-                OnPopulationEmployedChanging(value);
-                ReportPropertyChanging("PopulationEmployed");
-                _PopulationEmployed = StructuralObject.SetValidValue(value, "PopulationEmployed");
-                ReportPropertyChanged("PopulationEmployed");
-                OnPopulationEmployedChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationEmployed;
-        partial void OnPopulationEmployedChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationEmployedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PopulationEmployed16Plus
-        {
-            get
-            {
-                return _PopulationEmployed16Plus;
-            }
-            set
-            {
-                OnPopulationEmployed16PlusChanging(value);
-                ReportPropertyChanging("PopulationEmployed16Plus");
-                _PopulationEmployed16Plus = StructuralObject.SetValidValue(value, "PopulationEmployed16Plus");
-                ReportPropertyChanged("PopulationEmployed16Plus");
-                OnPopulationEmployed16PlusChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _PopulationEmployed16Plus;
-        partial void OnPopulationEmployed16PlusChanging(Nullable<global::System.Int64> value);
-        partial void OnPopulationEmployed16PlusChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByZip_ZipCode", "ZipCode")]
-        public ZipCode ZipCode
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_DemographicsByZip_ZipCode", "ZipCode").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_DemographicsByZip_ZipCode", "ZipCode").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ZipCode> ZipCodeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_DemographicsByZip_ZipCode", "ZipCode");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_DemographicsByZip_ZipCode", "ZipCode", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="EmployeesByCity")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class EmployeesByCity : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new EmployeesByCity object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        /// <param name="quarter">Initial value of the Quarter property.</param>
-        /// <param name="businessId">Initial value of the BusinessId property.</param>
-        /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
-        /// <param name="cityId">Initial value of the CityId property.</param>
-        /// <param name="countyId">Initial value of the CountyId property.</param>
-        /// <param name="stateId">Initial value of the StateId property.</param>
-        public static EmployeesByCity CreateEmployeesByCity(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter, global::System.Int64 businessId, global::System.Int64 industryId, global::System.Int64 zipCodeId, global::System.Int64 cityId, global::System.Int64 countyId, global::System.Int64 stateId)
-        {
-            EmployeesByCity employeesByCity = new EmployeesByCity();
-            employeesByCity.Id = id;
-            employeesByCity.Year = year;
-            employeesByCity.Quarter = quarter;
-            employeesByCity.BusinessId = businessId;
-            employeesByCity.IndustryId = industryId;
-            employeesByCity.ZipCodeId = zipCodeId;
-            employeesByCity.CityId = cityId;
-            employeesByCity.CountyId = countyId;
-            employeesByCity.StateId = stateId;
-            return employeesByCity;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int64 _Year;
-        partial void OnYearChanging(global::System.Int64 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private global::System.Int64 _Quarter;
-        partial void OnQuarterChanging(global::System.Int64 value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 BusinessId
-        {
-            get
-            {
-                return _BusinessId;
-            }
-            set
-            {
-                OnBusinessIdChanging(value);
-                ReportPropertyChanging("BusinessId");
-                _BusinessId = StructuralObject.SetValidValue(value, "BusinessId");
-                ReportPropertyChanged("BusinessId");
-                OnBusinessIdChanged();
-            }
-        }
-        private global::System.Int64 _BusinessId;
-        partial void OnBusinessIdChanging(global::System.Int64 value);
-        partial void OnBusinessIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
-        {
-            get
-            {
-                return _IndustryId;
-            }
-            set
-            {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
-            }
-        }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private global::System.Int64 _ZipCodeId;
-        partial void OnZipCodeIdChanging(global::System.Int64 value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CityId
-        {
-            get
-            {
-                return _CityId;
-            }
-            set
-            {
-                OnCityIdChanging(value);
-                ReportPropertyChanging("CityId");
-                _CityId = StructuralObject.SetValidValue(value, "CityId");
-                ReportPropertyChanged("CityId");
-                OnCityIdChanged();
-            }
-        }
-        private global::System.Int64 _CityId;
-        partial void OnCityIdChanging(global::System.Int64 value);
-        partial void OnCityIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private global::System.Int64 _CountyId;
-        partial void OnCountyIdChanging(global::System.Int64 value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private global::System.Int64 _StateId;
-        partial void OnStateIdChanging(global::System.Int64 value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Employees
-        {
-            get
-            {
-                return _Employees;
-            }
-            set
-            {
-                OnEmployeesChanging(value);
-                ReportPropertyChanging("Employees");
-                _Employees = StructuralObject.SetValidValue(value, "Employees");
-                ReportPropertyChanged("Employees");
-                OnEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Employees;
-        partial void OnEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnEmployeesChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_Business", "Business")]
-        public Business Business
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_EmployeesByCity_Business", "Business").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_EmployeesByCity_Business", "Business").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Business> BusinessReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_EmployeesByCity_Business", "Business");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_EmployeesByCity_Business", "Business", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_City", "City")]
-        public City City
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_EmployeesByCity_City", "City").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_EmployeesByCity_City", "City").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<City> CityReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_EmployeesByCity_City", "City");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<City>("SizeUp.Data.FK_EmployeesByCity_City", "City", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_EmployeesByCity_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_EmployeesByCity_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_EmployeesByCity_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_EmployeesByCity_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_Industry", "Industry")]
-        public Industry Industry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByCity_Industry", "Industry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByCity_Industry", "Industry").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Industry> IndustryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByCity_Industry", "Industry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByCity_Industry", "Industry", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByCity_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByCity_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByCity_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByCity_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_EmployeesByCity_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_EmployeesByCity_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_EmployeesByCity_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_EmployeesByCity_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="EmployeesByZip")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class EmployeesByZip : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new EmployeesByZip object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        /// <param name="quarter">Initial value of the Quarter property.</param>
-        /// <param name="businessId">Initial value of the BusinessId property.</param>
-        /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
-        /// <param name="countyId">Initial value of the CountyId property.</param>
-        /// <param name="stateId">Initial value of the StateId property.</param>
-        public static EmployeesByZip CreateEmployeesByZip(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter, global::System.Int64 businessId, global::System.Int64 industryId, global::System.Int64 zipCodeId, global::System.Int64 countyId, global::System.Int64 stateId)
-        {
-            EmployeesByZip employeesByZip = new EmployeesByZip();
-            employeesByZip.Id = id;
-            employeesByZip.Year = year;
-            employeesByZip.Quarter = quarter;
-            employeesByZip.BusinessId = businessId;
-            employeesByZip.IndustryId = industryId;
-            employeesByZip.ZipCodeId = zipCodeId;
-            employeesByZip.CountyId = countyId;
-            employeesByZip.StateId = stateId;
-            return employeesByZip;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int64 _Year;
-        partial void OnYearChanging(global::System.Int64 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private global::System.Int64 _Quarter;
-        partial void OnQuarterChanging(global::System.Int64 value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 BusinessId
-        {
-            get
-            {
-                return _BusinessId;
-            }
-            set
-            {
-                OnBusinessIdChanging(value);
-                ReportPropertyChanging("BusinessId");
-                _BusinessId = StructuralObject.SetValidValue(value, "BusinessId");
-                ReportPropertyChanged("BusinessId");
-                OnBusinessIdChanged();
-            }
-        }
-        private global::System.Int64 _BusinessId;
-        partial void OnBusinessIdChanging(global::System.Int64 value);
-        partial void OnBusinessIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
-        {
-            get
-            {
-                return _IndustryId;
-            }
-            set
-            {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
-            }
-        }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private global::System.Int64 _ZipCodeId;
-        partial void OnZipCodeIdChanging(global::System.Int64 value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private global::System.Int64 _CountyId;
-        partial void OnCountyIdChanging(global::System.Int64 value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private global::System.Int64 _StateId;
-        partial void OnStateIdChanging(global::System.Int64 value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Employees
-        {
-            get
-            {
-                return _Employees;
-            }
-            set
-            {
-                OnEmployeesChanging(value);
-                ReportPropertyChanging("Employees");
-                _Employees = StructuralObject.SetValidValue(value, "Employees");
-                ReportPropertyChanged("Employees");
-                OnEmployeesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Employees;
-        partial void OnEmployeesChanging(Nullable<global::System.Int64> value);
-        partial void OnEmployeesChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_Business", "Business")]
-        public Business Business
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_EmployeesByZip_Business", "Business").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_EmployeesByZip_Business", "Business").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Business> BusinessReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_EmployeesByZip_Business", "Business");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_EmployeesByZip_Business", "Business", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_EmployeesByZip_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_EmployeesByZip_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_EmployeesByZip_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_EmployeesByZip_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_Industry", "Industry")]
-        public Industry Industry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByZip_Industry", "Industry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByZip_Industry", "Industry").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Industry> IndustryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByZip_Industry", "Industry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_EmployeesByZip_Industry", "Industry", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByZip_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByZip_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByZip_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_EmployeesByZip_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_EmployeesByZip_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_EmployeesByZip_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_EmployeesByZip_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_EmployeesByZip_State", "State", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_ZipCode", "ZipCode")]
-        public ZipCode ZipCode
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_EmployeesByZip_ZipCode", "ZipCode").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_EmployeesByZip_ZipCode", "ZipCode").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ZipCode> ZipCodeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_EmployeesByZip_ZipCode", "ZipCode");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_EmployeesByZip_ZipCode", "ZipCode", value);
                 }
             }
         }
@@ -9141,18 +4165,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_Industry", "EmployeesByCity")]
-        public EntityCollection<EmployeesByCity> EmployeesByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCity_Industry", "IndustryDataByCity")]
+        public EntityCollection<IndustryDataByCity> IndustryDataByCities
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_Industry", "EmployeesByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByCity>("SizeUp.Data.FK_IndustryDataByCity_Industry", "IndustryDataByCity");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_Industry", "EmployeesByCity", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByCity>("SizeUp.Data.FK_IndustryDataByCity_Industry", "IndustryDataByCity", value);
                 }
             }
         }
@@ -9163,18 +4187,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_Industry", "EmployeesByZip")]
-        public EntityCollection<EmployeesByZip> EmployeesByZips
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCounty_Industry", "IndustryDataByCounty")]
+        public EntityCollection<IndustryDataByCounty> IndustryDataByCounties
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_Industry", "EmployeesByZip");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByCounty>("SizeUp.Data.FK_IndustryDataByCounty_Industry", "IndustryDataByCounty");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_Industry", "EmployeesByZip", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByCounty>("SizeUp.Data.FK_IndustryDataByCounty_Industry", "IndustryDataByCounty", value);
                 }
             }
         }
@@ -9185,18 +4209,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_Industry", "RevenueByCity")]
-        public EntityCollection<RevenueByCity> RevenueByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Industry", "IndustryDataByMetro")]
+        public EntityCollection<IndustryDataByMetro> IndustryDataByMetroes
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_Industry", "RevenueByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByMetro>("SizeUp.Data.FK_IndustryDataByMetro_Industry", "IndustryDataByMetro");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_Industry", "RevenueByCity", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByMetro>("SizeUp.Data.FK_IndustryDataByMetro_Industry", "IndustryDataByMetro", value);
                 }
             }
         }
@@ -9207,18 +4231,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_Industry", "RevenueByZip")]
-        public EntityCollection<RevenueByZip> RevenueByZips
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByState_Industry", "IndustryDataByState")]
+        public EntityCollection<IndustryDataByState> IndustryDataByStates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_Industry", "RevenueByZip");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByState>("SizeUp.Data.FK_IndustryDataByState_Industry", "IndustryDataByState");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_Industry", "RevenueByZip", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByState>("SizeUp.Data.FK_IndustryDataByState_Industry", "IndustryDataByState", value);
                 }
             }
         }
@@ -9229,18 +4253,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_Industry", "YearStartedByCity")]
-        public EntityCollection<YearStartedByCity> YearStartedByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByZip_Industry", "IndustryDataByZip")]
+        public EntityCollection<IndustryDataByZip> IndustryDataByZips
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_Industry", "YearStartedByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByZip>("SizeUp.Data.FK_IndustryDataByZip_Industry", "IndustryDataByZip");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_Industry", "YearStartedByCity", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByZip>("SizeUp.Data.FK_IndustryDataByZip_Industry", "IndustryDataByZip", value);
                 }
             }
         }
@@ -9251,18 +4275,2848 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_Industry", "YearStartedByZip")]
-        public EntityCollection<YearStartedByZip> YearStartedByZips
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "IndustryDataByNation")]
+        public EntityCollection<IndustryDataByNation> IndustryDataByNations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_Industry", "YearStartedByZip");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByNation>("SizeUp.Data.FK_IndustryDataByNation_Industry", "IndustryDataByNation");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_Industry", "YearStartedByZip", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByNation>("SizeUp.Data.FK_IndustryDataByNation_Industry", "IndustryDataByNation", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="IndustryDataByCity")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustryDataByCity : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustryDataByCity object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="quarter">Initial value of the Quarter property.</param>
+        public static IndustryDataByCity CreateIndustryDataByCity(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter)
+        {
+            IndustryDataByCity industryDataByCity = new IndustryDataByCity();
+            industryDataByCity.Id = id;
+            industryDataByCity.Year = year;
+            industryDataByCity.Quarter = quarter;
+            return industryDataByCity;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int64 _Year;
+        partial void OnYearChanging(global::System.Int64 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private global::System.Int64 _Quarter;
+        partial void OnQuarterChanging(global::System.Int64 value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> CityId
+        {
+            get
+            {
+                return _CityId;
+            }
+            set
+            {
+                OnCityIdChanging(value);
+                ReportPropertyChanging("CityId");
+                _CityId = StructuralObject.SetValidValue(value, "CityId");
+                ReportPropertyChanged("CityId");
+                OnCityIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _CityId;
+        partial void OnCityIdChanging(Nullable<global::System.Int64> value);
+        partial void OnCityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageEmployees
+        {
+            get
+            {
+                return _AverageEmployees;
+            }
+            set
+            {
+                OnAverageEmployeesChanging(value);
+                ReportPropertyChanging("AverageEmployees");
+                _AverageEmployees = StructuralObject.SetValidValue(value, "AverageEmployees");
+                ReportPropertyChanged("AverageEmployees");
+                OnAverageEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageEmployees;
+        partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenue
+        {
+            get
+            {
+                return _TotalRevenue;
+            }
+            set
+            {
+                OnTotalRevenueChanging(value);
+                ReportPropertyChanging("TotalRevenue");
+                _TotalRevenue = StructuralObject.SetValidValue(value, "TotalRevenue");
+                ReportPropertyChanged("TotalRevenue");
+                OnTotalRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenue;
+        partial void OnTotalRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenue
+        {
+            get
+            {
+                return _AverageRevenue;
+            }
+            set
+            {
+                OnAverageRevenueChanging(value);
+                ReportPropertyChanging("AverageRevenue");
+                _AverageRevenue = StructuralObject.SetValidValue(value, "AverageRevenue");
+                ReportPropertyChanged("AverageRevenue");
+                OnAverageRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenue;
+        partial void OnAverageRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployees
+        {
+            get
+            {
+                return _TotalEmployees;
+            }
+            set
+            {
+                OnTotalEmployeesChanging(value);
+                ReportPropertyChanging("TotalEmployees");
+                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
+                ReportPropertyChanged("TotalEmployees");
+                OnTotalEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployees;
+        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> RevenuePerCapita
+        {
+            get
+            {
+                return _RevenuePerCapita;
+            }
+            set
+            {
+                OnRevenuePerCapitaChanging(value);
+                ReportPropertyChanging("RevenuePerCapita");
+                _RevenuePerCapita = StructuralObject.SetValidValue(value, "RevenuePerCapita");
+                ReportPropertyChanged("RevenuePerCapita");
+                OnRevenuePerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _RevenuePerCapita;
+        partial void OnRevenuePerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnRevenuePerCapitaChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCity_City", "City")]
+        public City City
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_IndustryDataByCity_City", "City").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_IndustryDataByCity_City", "City").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<City> CityReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_IndustryDataByCity_City", "City");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<City>("SizeUp.Data.FK_IndustryDataByCity_City", "City", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCity_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCity_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCity_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCity_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCity_Industry", "Industry", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="IndustryDataByCounty")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustryDataByCounty : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustryDataByCounty object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="quarter">Initial value of the Quarter property.</param>
+        public static IndustryDataByCounty CreateIndustryDataByCounty(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter)
+        {
+            IndustryDataByCounty industryDataByCounty = new IndustryDataByCounty();
+            industryDataByCounty.Id = id;
+            industryDataByCounty.Year = year;
+            industryDataByCounty.Quarter = quarter;
+            return industryDataByCounty;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int64 _Year;
+        partial void OnYearChanging(global::System.Int64 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private global::System.Int64 _Quarter;
+        partial void OnQuarterChanging(global::System.Int64 value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> CountyId
+        {
+            get
+            {
+                return _CountyId;
+            }
+            set
+            {
+                OnCountyIdChanging(value);
+                ReportPropertyChanging("CountyId");
+                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
+                ReportPropertyChanged("CountyId");
+                OnCountyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _CountyId;
+        partial void OnCountyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnCountyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageEmployees
+        {
+            get
+            {
+                return _AverageEmployees;
+            }
+            set
+            {
+                OnAverageEmployeesChanging(value);
+                ReportPropertyChanging("AverageEmployees");
+                _AverageEmployees = StructuralObject.SetValidValue(value, "AverageEmployees");
+                ReportPropertyChanged("AverageEmployees");
+                OnAverageEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageEmployees;
+        partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenue
+        {
+            get
+            {
+                return _TotalRevenue;
+            }
+            set
+            {
+                OnTotalRevenueChanging(value);
+                ReportPropertyChanging("TotalRevenue");
+                _TotalRevenue = StructuralObject.SetValidValue(value, "TotalRevenue");
+                ReportPropertyChanged("TotalRevenue");
+                OnTotalRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenue;
+        partial void OnTotalRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenue
+        {
+            get
+            {
+                return _AverageRevenue;
+            }
+            set
+            {
+                OnAverageRevenueChanging(value);
+                ReportPropertyChanging("AverageRevenue");
+                _AverageRevenue = StructuralObject.SetValidValue(value, "AverageRevenue");
+                ReportPropertyChanged("AverageRevenue");
+                OnAverageRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenue;
+        partial void OnAverageRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployees
+        {
+            get
+            {
+                return _TotalEmployees;
+            }
+            set
+            {
+                OnTotalEmployeesChanging(value);
+                ReportPropertyChanging("TotalEmployees");
+                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
+                ReportPropertyChanged("TotalEmployees");
+                OnTotalEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployees;
+        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ReveuePerCapita
+        {
+            get
+            {
+                return _ReveuePerCapita;
+            }
+            set
+            {
+                OnReveuePerCapitaChanging(value);
+                ReportPropertyChanging("ReveuePerCapita");
+                _ReveuePerCapita = StructuralObject.SetValidValue(value, "ReveuePerCapita");
+                ReportPropertyChanged("ReveuePerCapita");
+                OnReveuePerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ReveuePerCapita;
+        partial void OnReveuePerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnReveuePerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageAnnualSalary
+        {
+            get
+            {
+                return _AverageAnnualSalary;
+            }
+            set
+            {
+                OnAverageAnnualSalaryChanging(value);
+                ReportPropertyChanging("AverageAnnualSalary");
+                _AverageAnnualSalary = StructuralObject.SetValidValue(value, "AverageAnnualSalary");
+                ReportPropertyChanged("AverageAnnualSalary");
+                OnAverageAnnualSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageAnnualSalary;
+        partial void OnAverageAnnualSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageAnnualSalaryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> TurnoverRate
+        {
+            get
+            {
+                return _TurnoverRate;
+            }
+            set
+            {
+                OnTurnoverRateChanging(value);
+                ReportPropertyChanging("TurnoverRate");
+                _TurnoverRate = StructuralObject.SetValidValue(value, "TurnoverRate");
+                ReportPropertyChanged("TurnoverRate");
+                OnTurnoverRateChanged();
+            }
+        }
+        private Nullable<global::System.Double> _TurnoverRate;
+        partial void OnTurnoverRateChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverRateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Employment
+        {
+            get
+            {
+                return _Employment;
+            }
+            set
+            {
+                OnEmploymentChanging(value);
+                ReportPropertyChanging("Employment");
+                _Employment = StructuralObject.SetValidValue(value, "Employment");
+                ReportPropertyChanged("Employment");
+                OnEmploymentChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Employment;
+        partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
+        partial void OnEmploymentChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCounty_County", "County")]
+        public County County
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_IndustryDataByCounty_County", "County").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_IndustryDataByCounty_County", "County").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<County> CountyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_IndustryDataByCounty_County", "County");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_IndustryDataByCounty_County", "County", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCounty_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCounty_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCounty_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCounty_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByCounty_Industry", "Industry", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="IndustryDataByMetro")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustryDataByMetro : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustryDataByMetro object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static IndustryDataByMetro CreateIndustryDataByMetro(global::System.Int64 id)
+        {
+            IndustryDataByMetro industryDataByMetro = new IndustryDataByMetro();
+            industryDataByMetro.Id = id;
+            return industryDataByMetro;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int32> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Quarter;
+        partial void OnQuarterChanging(Nullable<global::System.Int32> value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MetroId
+        {
+            get
+            {
+                return _MetroId;
+            }
+            set
+            {
+                OnMetroIdChanging(value);
+                ReportPropertyChanging("MetroId");
+                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
+                ReportPropertyChanged("MetroId");
+                OnMetroIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MetroId;
+        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
+        partial void OnMetroIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageEmployees
+        {
+            get
+            {
+                return _AverageEmployees;
+            }
+            set
+            {
+                OnAverageEmployeesChanging(value);
+                ReportPropertyChanging("AverageEmployees");
+                _AverageEmployees = StructuralObject.SetValidValue(value, "AverageEmployees");
+                ReportPropertyChanged("AverageEmployees");
+                OnAverageEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageEmployees;
+        partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenue
+        {
+            get
+            {
+                return _TotalRevenue;
+            }
+            set
+            {
+                OnTotalRevenueChanging(value);
+                ReportPropertyChanging("TotalRevenue");
+                _TotalRevenue = StructuralObject.SetValidValue(value, "TotalRevenue");
+                ReportPropertyChanged("TotalRevenue");
+                OnTotalRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenue;
+        partial void OnTotalRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenue
+        {
+            get
+            {
+                return _AverageRevenue;
+            }
+            set
+            {
+                OnAverageRevenueChanging(value);
+                ReportPropertyChanging("AverageRevenue");
+                _AverageRevenue = StructuralObject.SetValidValue(value, "AverageRevenue");
+                ReportPropertyChanged("AverageRevenue");
+                OnAverageRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenue;
+        partial void OnAverageRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployees
+        {
+            get
+            {
+                return _TotalEmployees;
+            }
+            set
+            {
+                OnTotalEmployeesChanging(value);
+                ReportPropertyChanging("TotalEmployees");
+                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
+                ReportPropertyChanged("TotalEmployees");
+                OnTotalEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployees;
+        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ReveuePerCapita
+        {
+            get
+            {
+                return _ReveuePerCapita;
+            }
+            set
+            {
+                OnReveuePerCapitaChanging(value);
+                ReportPropertyChanging("ReveuePerCapita");
+                _ReveuePerCapita = StructuralObject.SetValidValue(value, "ReveuePerCapita");
+                ReportPropertyChanged("ReveuePerCapita");
+                OnReveuePerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ReveuePerCapita;
+        partial void OnReveuePerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnReveuePerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageAnnualSalary
+        {
+            get
+            {
+                return _AverageAnnualSalary;
+            }
+            set
+            {
+                OnAverageAnnualSalaryChanging(value);
+                ReportPropertyChanging("AverageAnnualSalary");
+                _AverageAnnualSalary = StructuralObject.SetValidValue(value, "AverageAnnualSalary");
+                ReportPropertyChanged("AverageAnnualSalary");
+                OnAverageAnnualSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageAnnualSalary;
+        partial void OnAverageAnnualSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageAnnualSalaryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> TurnoverRate
+        {
+            get
+            {
+                return _TurnoverRate;
+            }
+            set
+            {
+                OnTurnoverRateChanging(value);
+                ReportPropertyChanging("TurnoverRate");
+                _TurnoverRate = StructuralObject.SetValidValue(value, "TurnoverRate");
+                ReportPropertyChanged("TurnoverRate");
+                OnTurnoverRateChanged();
+            }
+        }
+        private Nullable<global::System.Double> _TurnoverRate;
+        partial void OnTurnoverRateChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverRateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Employment
+        {
+            get
+            {
+                return _Employment;
+            }
+            set
+            {
+                OnEmploymentChanging(value);
+                ReportPropertyChanging("Employment");
+                _Employment = StructuralObject.SetValidValue(value, "Employment");
+                ReportPropertyChanged("Employment");
+                OnEmploymentChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Employment;
+        partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
+        partial void OnEmploymentChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByMetro_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByMetro_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByMetro_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByMetro_Industry", "Industry", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Metro", "Metro")]
+        public Metro Metro
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "Metro").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "Metro").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Metro> MetroReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "Metro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "Metro", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="IndustryDataByNation")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustryDataByNation : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustryDataByNation object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static IndustryDataByNation CreateIndustryDataByNation(global::System.Int64 id)
+        {
+            IndustryDataByNation industryDataByNation = new IndustryDataByNation();
+            industryDataByNation.Id = id;
+            return industryDataByNation;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int32> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Quarter;
+        partial void OnQuarterChanging(Nullable<global::System.Int32> value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageEmployees
+        {
+            get
+            {
+                return _AverageEmployees;
+            }
+            set
+            {
+                OnAverageEmployeesChanging(value);
+                ReportPropertyChanging("AverageEmployees");
+                _AverageEmployees = StructuralObject.SetValidValue(value, "AverageEmployees");
+                ReportPropertyChanged("AverageEmployees");
+                OnAverageEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageEmployees;
+        partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenue
+        {
+            get
+            {
+                return _TotalRevenue;
+            }
+            set
+            {
+                OnTotalRevenueChanging(value);
+                ReportPropertyChanging("TotalRevenue");
+                _TotalRevenue = StructuralObject.SetValidValue(value, "TotalRevenue");
+                ReportPropertyChanged("TotalRevenue");
+                OnTotalRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenue;
+        partial void OnTotalRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenue
+        {
+            get
+            {
+                return _AverageRevenue;
+            }
+            set
+            {
+                OnAverageRevenueChanging(value);
+                ReportPropertyChanging("AverageRevenue");
+                _AverageRevenue = StructuralObject.SetValidValue(value, "AverageRevenue");
+                ReportPropertyChanged("AverageRevenue");
+                OnAverageRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenue;
+        partial void OnAverageRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployees
+        {
+            get
+            {
+                return _TotalEmployees;
+            }
+            set
+            {
+                OnTotalEmployeesChanging(value);
+                ReportPropertyChanging("TotalEmployees");
+                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
+                ReportPropertyChanged("TotalEmployees");
+                OnTotalEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployees;
+        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ReveuePerCapita
+        {
+            get
+            {
+                return _ReveuePerCapita;
+            }
+            set
+            {
+                OnReveuePerCapitaChanging(value);
+                ReportPropertyChanging("ReveuePerCapita");
+                _ReveuePerCapita = StructuralObject.SetValidValue(value, "ReveuePerCapita");
+                ReportPropertyChanged("ReveuePerCapita");
+                OnReveuePerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ReveuePerCapita;
+        partial void OnReveuePerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnReveuePerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageAnnualSalary
+        {
+            get
+            {
+                return _AverageAnnualSalary;
+            }
+            set
+            {
+                OnAverageAnnualSalaryChanging(value);
+                ReportPropertyChanging("AverageAnnualSalary");
+                _AverageAnnualSalary = StructuralObject.SetValidValue(value, "AverageAnnualSalary");
+                ReportPropertyChanged("AverageAnnualSalary");
+                OnAverageAnnualSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageAnnualSalary;
+        partial void OnAverageAnnualSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageAnnualSalaryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> TurnoverRate
+        {
+            get
+            {
+                return _TurnoverRate;
+            }
+            set
+            {
+                OnTurnoverRateChanging(value);
+                ReportPropertyChanging("TurnoverRate");
+                _TurnoverRate = StructuralObject.SetValidValue(value, "TurnoverRate");
+                ReportPropertyChanged("TurnoverRate");
+                OnTurnoverRateChanged();
+            }
+        }
+        private Nullable<global::System.Double> _TurnoverRate;
+        partial void OnTurnoverRateChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverRateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Employment
+        {
+            get
+            {
+                return _Employment;
+            }
+            set
+            {
+                OnEmploymentChanging(value);
+                ReportPropertyChanging("Employment");
+                _Employment = StructuralObject.SetValidValue(value, "Employment");
+                ReportPropertyChanged("Employment");
+                OnEmploymentChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Employment;
+        partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
+        partial void OnEmploymentChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByNation_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByNation_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByNation_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByNation_Industry", "Industry", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="IndustryDataByState")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustryDataByState : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustryDataByState object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        public static IndustryDataByState CreateIndustryDataByState(global::System.Int64 id)
+        {
+            IndustryDataByState industryDataByState = new IndustryDataByState();
+            industryDataByState.Id = id;
+            return industryDataByState;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Year;
+        partial void OnYearChanging(Nullable<global::System.Int32> value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Quarter;
+        partial void OnQuarterChanging(Nullable<global::System.Int32> value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> StateId
+        {
+            get
+            {
+                return _StateId;
+            }
+            set
+            {
+                OnStateIdChanging(value);
+                ReportPropertyChanging("StateId");
+                _StateId = StructuralObject.SetValidValue(value, "StateId");
+                ReportPropertyChanged("StateId");
+                OnStateIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _StateId;
+        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
+        partial void OnStateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageEmployees
+        {
+            get
+            {
+                return _AverageEmployees;
+            }
+            set
+            {
+                OnAverageEmployeesChanging(value);
+                ReportPropertyChanging("AverageEmployees");
+                _AverageEmployees = StructuralObject.SetValidValue(value, "AverageEmployees");
+                ReportPropertyChanged("AverageEmployees");
+                OnAverageEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageEmployees;
+        partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenue
+        {
+            get
+            {
+                return _TotalRevenue;
+            }
+            set
+            {
+                OnTotalRevenueChanging(value);
+                ReportPropertyChanging("TotalRevenue");
+                _TotalRevenue = StructuralObject.SetValidValue(value, "TotalRevenue");
+                ReportPropertyChanged("TotalRevenue");
+                OnTotalRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenue;
+        partial void OnTotalRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenue
+        {
+            get
+            {
+                return _AverageRevenue;
+            }
+            set
+            {
+                OnAverageRevenueChanging(value);
+                ReportPropertyChanging("AverageRevenue");
+                _AverageRevenue = StructuralObject.SetValidValue(value, "AverageRevenue");
+                ReportPropertyChanged("AverageRevenue");
+                OnAverageRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenue;
+        partial void OnAverageRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployees
+        {
+            get
+            {
+                return _TotalEmployees;
+            }
+            set
+            {
+                OnTotalEmployeesChanging(value);
+                ReportPropertyChanging("TotalEmployees");
+                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
+                ReportPropertyChanged("TotalEmployees");
+                OnTotalEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployees;
+        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ReveuePerCapita
+        {
+            get
+            {
+                return _ReveuePerCapita;
+            }
+            set
+            {
+                OnReveuePerCapitaChanging(value);
+                ReportPropertyChanging("ReveuePerCapita");
+                _ReveuePerCapita = StructuralObject.SetValidValue(value, "ReveuePerCapita");
+                ReportPropertyChanged("ReveuePerCapita");
+                OnReveuePerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ReveuePerCapita;
+        partial void OnReveuePerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnReveuePerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageAnnualSalary
+        {
+            get
+            {
+                return _AverageAnnualSalary;
+            }
+            set
+            {
+                OnAverageAnnualSalaryChanging(value);
+                ReportPropertyChanging("AverageAnnualSalary");
+                _AverageAnnualSalary = StructuralObject.SetValidValue(value, "AverageAnnualSalary");
+                ReportPropertyChanged("AverageAnnualSalary");
+                OnAverageAnnualSalaryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageAnnualSalary;
+        partial void OnAverageAnnualSalaryChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageAnnualSalaryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Hires
+        {
+            get
+            {
+                return _Hires;
+            }
+            set
+            {
+                OnHiresChanging(value);
+                ReportPropertyChanging("Hires");
+                _Hires = StructuralObject.SetValidValue(value, "Hires");
+                ReportPropertyChanged("Hires");
+                OnHiresChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Hires;
+        partial void OnHiresChanging(Nullable<global::System.Int64> value);
+        partial void OnHiresChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Separations
+        {
+            get
+            {
+                return _Separations;
+            }
+            set
+            {
+                OnSeparationsChanging(value);
+                ReportPropertyChanging("Separations");
+                _Separations = StructuralObject.SetValidValue(value, "Separations");
+                ReportPropertyChanged("Separations");
+                OnSeparationsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Separations;
+        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
+        partial void OnSeparationsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> TurnoverRate
+        {
+            get
+            {
+                return _TurnoverRate;
+            }
+            set
+            {
+                OnTurnoverRateChanging(value);
+                ReportPropertyChanging("TurnoverRate");
+                _TurnoverRate = StructuralObject.SetValidValue(value, "TurnoverRate");
+                ReportPropertyChanged("TurnoverRate");
+                OnTurnoverRateChanged();
+            }
+        }
+        private Nullable<global::System.Double> _TurnoverRate;
+        partial void OnTurnoverRateChanging(Nullable<global::System.Double> value);
+        partial void OnTurnoverRateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobGains
+        {
+            get
+            {
+                return _JobGains;
+            }
+            set
+            {
+                OnJobGainsChanging(value);
+                ReportPropertyChanging("JobGains");
+                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
+                ReportPropertyChanged("JobGains");
+                OnJobGainsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobGains;
+        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
+        partial void OnJobGainsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> JobLosses
+        {
+            get
+            {
+                return _JobLosses;
+            }
+            set
+            {
+                OnJobLossesChanging(value);
+                ReportPropertyChanging("JobLosses");
+                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
+                ReportPropertyChanged("JobLosses");
+                OnJobLossesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _JobLosses;
+        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
+        partial void OnJobLossesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NetJobChange
+        {
+            get
+            {
+                return _NetJobChange;
+            }
+            set
+            {
+                OnNetJobChangeChanging(value);
+                ReportPropertyChanging("NetJobChange");
+                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
+                ReportPropertyChanged("NetJobChange");
+                OnNetJobChangeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NetJobChange;
+        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
+        partial void OnNetJobChangeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Employment
+        {
+            get
+            {
+                return _Employment;
+            }
+            set
+            {
+                OnEmploymentChanging(value);
+                ReportPropertyChanging("Employment");
+                _Employment = StructuralObject.SetValidValue(value, "Employment");
+                ReportPropertyChanged("Employment");
+                OnEmploymentChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Employment;
+        partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
+        partial void OnEmploymentChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByState_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByState_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByState_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByState_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByState_Industry", "Industry", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByState_State", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_IndustryDataByState_State", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_IndustryDataByState_State", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_IndustryDataByState_State", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_IndustryDataByState_State", "State", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="IndustryDataByZip")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustryDataByZip : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustryDataByZip object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="quarter">Initial value of the Quarter property.</param>
+        public static IndustryDataByZip CreateIndustryDataByZip(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter)
+        {
+            IndustryDataByZip industryDataByZip = new IndustryDataByZip();
+            industryDataByZip.Id = id;
+            industryDataByZip.Year = year;
+            industryDataByZip.Quarter = quarter;
+            return industryDataByZip;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int64 _Year;
+        partial void OnYearChanging(global::System.Int64 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private global::System.Int64 _Quarter;
+        partial void OnQuarterChanging(global::System.Int64 value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ZipCodeId
+        {
+            get
+            {
+                return _ZipCodeId;
+            }
+            set
+            {
+                OnZipCodeIdChanging(value);
+                ReportPropertyChanging("ZipCodeId");
+                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
+                ReportPropertyChanged("ZipCodeId");
+                OnZipCodeIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ZipCodeId;
+        partial void OnZipCodeIdChanging(Nullable<global::System.Int64> value);
+        partial void OnZipCodeIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageEmployees
+        {
+            get
+            {
+                return _AverageEmployees;
+            }
+            set
+            {
+                OnAverageEmployeesChanging(value);
+                ReportPropertyChanging("AverageEmployees");
+                _AverageEmployees = StructuralObject.SetValidValue(value, "AverageEmployees");
+                ReportPropertyChanged("AverageEmployees");
+                OnAverageEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageEmployees;
+        partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenue
+        {
+            get
+            {
+                return _TotalRevenue;
+            }
+            set
+            {
+                OnTotalRevenueChanging(value);
+                ReportPropertyChanging("TotalRevenue");
+                _TotalRevenue = StructuralObject.SetValidValue(value, "TotalRevenue");
+                ReportPropertyChanged("TotalRevenue");
+                OnTotalRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenue;
+        partial void OnTotalRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenue
+        {
+            get
+            {
+                return _AverageRevenue;
+            }
+            set
+            {
+                OnAverageRevenueChanging(value);
+                ReportPropertyChanging("AverageRevenue");
+                _AverageRevenue = StructuralObject.SetValidValue(value, "AverageRevenue");
+                ReportPropertyChanged("AverageRevenue");
+                OnAverageRevenueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenue;
+        partial void OnAverageRevenueChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployees
+        {
+            get
+            {
+                return _TotalEmployees;
+            }
+            set
+            {
+                OnTotalEmployeesChanging(value);
+                ReportPropertyChanging("TotalEmployees");
+                _TotalEmployees = StructuralObject.SetValidValue(value, "TotalEmployees");
+                ReportPropertyChanged("TotalEmployees");
+                OnTotalEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployees;
+        partial void OnTotalEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> RevenuePerCapita
+        {
+            get
+            {
+                return _RevenuePerCapita;
+            }
+            set
+            {
+                OnRevenuePerCapitaChanging(value);
+                ReportPropertyChanging("RevenuePerCapita");
+                _RevenuePerCapita = StructuralObject.SetValidValue(value, "RevenuePerCapita");
+                ReportPropertyChanged("RevenuePerCapita");
+                OnRevenuePerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _RevenuePerCapita;
+        partial void OnRevenuePerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnRevenuePerCapitaChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByZip_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByZip_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByZip_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByZip_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryDataByZip_Industry", "Industry", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode")]
+        public ZipCode ZipCode
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_IndustryDataByZip_ZipCode", "ZipCode").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_IndustryDataByZip_ZipCode", "ZipCode").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ZipCode> ZipCodeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_IndustryDataByZip_ZipCode", "ZipCode");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_IndustryDataByZip_ZipCode", "ZipCode", value);
                 }
             }
         }
@@ -9450,1282 +7304,6 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LaborDynamicsByCounty")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class LaborDynamicsByCounty : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new LaborDynamicsByCounty object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static LaborDynamicsByCounty CreateLaborDynamicsByCounty(global::System.Int64 id)
-        {
-            LaborDynamicsByCounty laborDynamicsByCounty = new LaborDynamicsByCounty();
-            laborDynamicsByCounty.Id = id;
-            return laborDynamicsByCounty;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int16> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _Quarter;
-        partial void OnQuarterChanging(Nullable<global::System.Int16> value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _CountyId;
-        partial void OnCountyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _StateId;
-        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> JobGains
-        {
-            get
-            {
-                return _JobGains;
-            }
-            set
-            {
-                OnJobGainsChanging(value);
-                ReportPropertyChanging("JobGains");
-                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
-                ReportPropertyChanged("JobGains");
-                OnJobGainsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _JobGains;
-        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
-        partial void OnJobGainsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> JobLosses
-        {
-            get
-            {
-                return _JobLosses;
-            }
-            set
-            {
-                OnJobLossesChanging(value);
-                ReportPropertyChanging("JobLosses");
-                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
-                ReportPropertyChanged("JobLosses");
-                OnJobLossesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _JobLosses;
-        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
-        partial void OnJobLossesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NetJobChange
-        {
-            get
-            {
-                return _NetJobChange;
-            }
-            set
-            {
-                OnNetJobChangeChanging(value);
-                ReportPropertyChanging("NetJobChange");
-                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
-                ReportPropertyChanged("NetJobChange");
-                OnNetJobChangeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NetJobChange;
-        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
-        partial void OnNetJobChangeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Hires
-        {
-            get
-            {
-                return _Hires;
-            }
-            set
-            {
-                OnHiresChanging(value);
-                ReportPropertyChanging("Hires");
-                _Hires = StructuralObject.SetValidValue(value, "Hires");
-                ReportPropertyChanged("Hires");
-                OnHiresChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Hires;
-        partial void OnHiresChanging(Nullable<global::System.Int64> value);
-        partial void OnHiresChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Separations
-        {
-            get
-            {
-                return _Separations;
-            }
-            set
-            {
-                OnSeparationsChanging(value);
-                ReportPropertyChanging("Separations");
-                _Separations = StructuralObject.SetValidValue(value, "Separations");
-                ReportPropertyChanged("Separations");
-                OnSeparationsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Separations;
-        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
-        partial void OnSeparationsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> Turnover
-        {
-            get
-            {
-                return _Turnover;
-            }
-            set
-            {
-                OnTurnoverChanging(value);
-                ReportPropertyChanging("Turnover");
-                _Turnover = StructuralObject.SetValidValue(value, "Turnover");
-                ReportPropertyChanged("Turnover");
-                OnTurnoverChanged();
-            }
-        }
-        private Nullable<global::System.Double> _Turnover;
-        partial void OnTurnoverChanging(Nullable<global::System.Double> value);
-        partial void OnTurnoverChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_NAICS", "NAICS")]
-        public NAICS NAICS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "NAICS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_LaborDynamicsByCounty_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LaborDynamicsByMetro")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class LaborDynamicsByMetro : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new LaborDynamicsByMetro object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static LaborDynamicsByMetro CreateLaborDynamicsByMetro(global::System.Int64 id)
-        {
-            LaborDynamicsByMetro laborDynamicsByMetro = new LaborDynamicsByMetro();
-            laborDynamicsByMetro.Id = id;
-            return laborDynamicsByMetro;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int16> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _Quarter;
-        partial void OnQuarterChanging(Nullable<global::System.Int16> value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> JobGains
-        {
-            get
-            {
-                return _JobGains;
-            }
-            set
-            {
-                OnJobGainsChanging(value);
-                ReportPropertyChanging("JobGains");
-                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
-                ReportPropertyChanged("JobGains");
-                OnJobGainsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _JobGains;
-        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
-        partial void OnJobGainsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> JobLosses
-        {
-            get
-            {
-                return _JobLosses;
-            }
-            set
-            {
-                OnJobLossesChanging(value);
-                ReportPropertyChanging("JobLosses");
-                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
-                ReportPropertyChanged("JobLosses");
-                OnJobLossesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _JobLosses;
-        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
-        partial void OnJobLossesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NetJobChange
-        {
-            get
-            {
-                return _NetJobChange;
-            }
-            set
-            {
-                OnNetJobChangeChanging(value);
-                ReportPropertyChanging("NetJobChange");
-                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
-                ReportPropertyChanged("NetJobChange");
-                OnNetJobChangeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NetJobChange;
-        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
-        partial void OnNetJobChangeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Hires
-        {
-            get
-            {
-                return _Hires;
-            }
-            set
-            {
-                OnHiresChanging(value);
-                ReportPropertyChanging("Hires");
-                _Hires = StructuralObject.SetValidValue(value, "Hires");
-                ReportPropertyChanged("Hires");
-                OnHiresChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Hires;
-        partial void OnHiresChanging(Nullable<global::System.Int64> value);
-        partial void OnHiresChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Separations
-        {
-            get
-            {
-                return _Separations;
-            }
-            set
-            {
-                OnSeparationsChanging(value);
-                ReportPropertyChanging("Separations");
-                _Separations = StructuralObject.SetValidValue(value, "Separations");
-                ReportPropertyChanged("Separations");
-                OnSeparationsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Separations;
-        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
-        partial void OnSeparationsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> Turnover
-        {
-            get
-            {
-                return _Turnover;
-            }
-            set
-            {
-                OnTurnoverChanging(value);
-                ReportPropertyChanging("Turnover");
-                _Turnover = StructuralObject.SetValidValue(value, "Turnover");
-                ReportPropertyChanged("Turnover");
-                OnTurnoverChanged();
-            }
-        }
-        private Nullable<global::System.Double> _Turnover;
-        partial void OnTurnoverChanging(Nullable<global::System.Double> value);
-        partial void OnTurnoverChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_NAICS", "NAICS")]
-        public NAICS NAIC
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "NAICS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "Metro", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LaborDynamicsByState")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class LaborDynamicsByState : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new LaborDynamicsByState object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        public static LaborDynamicsByState CreateLaborDynamicsByState(global::System.Int64 id)
-        {
-            LaborDynamicsByState laborDynamicsByState = new LaborDynamicsByState();
-            laborDynamicsByState.Id = id;
-            return laborDynamicsByState;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _Year;
-        partial void OnYearChanging(Nullable<global::System.Int16> value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int16> Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private Nullable<global::System.Int16> _Quarter;
-        partial void OnQuarterChanging(Nullable<global::System.Int16> value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _StateId;
-        partial void OnStateIdChanging(Nullable<global::System.Int64> value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NAICSId
-        {
-            get
-            {
-                return _NAICSId;
-            }
-            set
-            {
-                OnNAICSIdChanging(value);
-                ReportPropertyChanging("NAICSId");
-                _NAICSId = StructuralObject.SetValidValue(value, "NAICSId");
-                ReportPropertyChanged("NAICSId");
-                OnNAICSIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NAICSId;
-        partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
-        partial void OnNAICSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> JobGains
-        {
-            get
-            {
-                return _JobGains;
-            }
-            set
-            {
-                OnJobGainsChanging(value);
-                ReportPropertyChanging("JobGains");
-                _JobGains = StructuralObject.SetValidValue(value, "JobGains");
-                ReportPropertyChanged("JobGains");
-                OnJobGainsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _JobGains;
-        partial void OnJobGainsChanging(Nullable<global::System.Int64> value);
-        partial void OnJobGainsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> JobLosses
-        {
-            get
-            {
-                return _JobLosses;
-            }
-            set
-            {
-                OnJobLossesChanging(value);
-                ReportPropertyChanging("JobLosses");
-                _JobLosses = StructuralObject.SetValidValue(value, "JobLosses");
-                ReportPropertyChanged("JobLosses");
-                OnJobLossesChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _JobLosses;
-        partial void OnJobLossesChanging(Nullable<global::System.Int64> value);
-        partial void OnJobLossesChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> NetJobChange
-        {
-            get
-            {
-                return _NetJobChange;
-            }
-            set
-            {
-                OnNetJobChangeChanging(value);
-                ReportPropertyChanging("NetJobChange");
-                _NetJobChange = StructuralObject.SetValidValue(value, "NetJobChange");
-                ReportPropertyChanged("NetJobChange");
-                OnNetJobChangeChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _NetJobChange;
-        partial void OnNetJobChangeChanging(Nullable<global::System.Int64> value);
-        partial void OnNetJobChangeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Hires
-        {
-            get
-            {
-                return _Hires;
-            }
-            set
-            {
-                OnHiresChanging(value);
-                ReportPropertyChanging("Hires");
-                _Hires = StructuralObject.SetValidValue(value, "Hires");
-                ReportPropertyChanged("Hires");
-                OnHiresChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Hires;
-        partial void OnHiresChanging(Nullable<global::System.Int64> value);
-        partial void OnHiresChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Separations
-        {
-            get
-            {
-                return _Separations;
-            }
-            set
-            {
-                OnSeparationsChanging(value);
-                ReportPropertyChanging("Separations");
-                _Separations = StructuralObject.SetValidValue(value, "Separations");
-                ReportPropertyChanged("Separations");
-                OnSeparationsChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Separations;
-        partial void OnSeparationsChanging(Nullable<global::System.Int64> value);
-        partial void OnSeparationsChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Employment
-        {
-            get
-            {
-                return _Employment;
-            }
-            set
-            {
-                OnEmploymentChanging(value);
-                ReportPropertyChanging("Employment");
-                _Employment = StructuralObject.SetValidValue(value, "Employment");
-                ReportPropertyChanged("Employment");
-                OnEmploymentChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Employment;
-        partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
-        partial void OnEmploymentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> Turnover
-        {
-            get
-            {
-                return _Turnover;
-            }
-            set
-            {
-                OnTurnoverChanging(value);
-                ReportPropertyChanging("Turnover");
-                _Turnover = StructuralObject.SetValidValue(value, "Turnover");
-                ReportPropertyChanged("Turnover");
-                OnTurnoverChanged();
-            }
-        }
-        private Nullable<global::System.Double> _Turnover;
-        partial void OnTurnoverChanging(Nullable<global::System.Double> value);
-        partial void OnTurnoverChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_NAICS", "NAICS")]
-        public NAICS NAICS
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "NAICS", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_LaborDynamicsByState_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="Metro")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -10837,28 +7415,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro")]
-        public EntityCollection<AverageSalaryByMetro> AverageSalaryByMetroes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_Metro", "AverageSalaryByMetro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Business_Metro", "Business")]
         public EntityCollection<Business> Businesses
         {
@@ -10903,94 +7459,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_Metro", "EmployeesByCity")]
-        public EntityCollection<EmployeesByCity> EmployeesByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_Metro", "EmployeesByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_Metro", "EmployeesByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_Metro", "EmployeesByZip")]
-        public EntityCollection<EmployeesByZip> EmployeesByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_Metro", "EmployeesByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_Metro", "EmployeesByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_Metro", "LaborDynamicsByCounty")]
-        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "LaborDynamicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_Metro", "LaborDynamicsByCounty", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_Metro", "LaborDynamicsByMetro")]
-        public EntityCollection<LaborDynamicsByMetro> LaborDynamicsByMetroes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "LaborDynamicsByMetro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_Metro", "LaborDynamicsByMetro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_MetroGeography_Metro", "MetroGeography")]
         public EntityCollection<MetroGeography> MetroGeographies
         {
@@ -11013,106 +7481,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_Metro", "RevenueByCity")]
-        public EntityCollection<RevenueByCity> RevenueByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Metro", "IndustryDataByMetro")]
+        public EntityCollection<IndustryDataByMetro> IndustryDataByMetroes
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_Metro", "RevenueByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByMetro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "IndustryDataByMetro");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_Metro", "RevenueByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_Metro", "RevenueByZip")]
-        public EntityCollection<RevenueByZip> RevenueByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_Metro", "RevenueByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_Metro", "RevenueByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_Metro", "YearStartedByCity")]
-        public EntityCollection<YearStartedByCity> YearStartedByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_Metro", "YearStartedByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_Metro", "YearStartedByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_Metro", "YearStartedByZip")]
-        public EntityCollection<YearStartedByZip> YearStartedByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_Metro", "YearStartedByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_Metro", "YearStartedByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_Metro", "DemographicsByCounty")]
-        public EntityCollection<DemographicsByCounty> DemographicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_Metro", "DemographicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_Metro", "DemographicsByCounty", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByMetro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "IndustryDataByMetro", value);
                 }
             }
         }
@@ -11502,160 +7882,6 @@ namespace SizeUp.Data
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByCounty_NAICS", "AverageSalaryByCounty")]
-        public EntityCollection<AverageSalaryByCounty> AverageSalaryByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "AverageSalaryByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByCounty>("SizeUp.Data.FK_AverageSalaryByCounty_NAICS", "AverageSalaryByCounty", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByMetro_NAICS", "AverageSalaryByMetro")]
-        public EntityCollection<AverageSalaryByMetro> AverageSalaryByMetroes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "AverageSalaryByMetro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByMetro>("SizeUp.Data.FK_AverageSalaryByMetro_NAICS", "AverageSalaryByMetro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_NAICS", "AverageSalaryByState")]
-        public EntityCollection<AverageSalaryByState> AverageSalaryByStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "AverageSalaryByState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_NAICS", "AverageSalaryByState", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryNational_NAICS", "AverageSalaryNational")]
-        public EntityCollection<AverageSalaryNational> AverageSalaryNationals
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryNational>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "AverageSalaryNational");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryNational>("SizeUp.Data.FK_AverageSalaryNational_NAICS", "AverageSalaryNational", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_NAICS", "LaborDynamicsByCounty1")]
-        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "LaborDynamicsByCounty1");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_NAICS", "LaborDynamicsByCounty1", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByMetro_NAICS", "LaborDynamicsByMetro1")]
-        public EntityCollection<LaborDynamicsByMetro> LaborDynamicsByMetroes
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "LaborDynamicsByMetro1");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByMetro>("SizeUp.Data.FK_LaborDynamicsByMetro_NAICS", "LaborDynamicsByMetro1", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_NAICS", "LaborDynamicsByState")]
-        public EntityCollection<LaborDynamicsByState> LaborDynamicsByStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "LaborDynamicsByState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_NAICS", "LaborDynamicsByState", value);
-                }
-            }
-        }
 
         #endregion
 
@@ -11764,1068 +7990,6 @@ namespace SizeUp.Data
         private global::System.String _Value;
         partial void OnValueChanging(global::System.String value);
         partial void OnValueChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="RevenueByCity")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class RevenueByCity : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new RevenueByCity object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        /// <param name="quarter">Initial value of the Quarter property.</param>
-        /// <param name="businessId">Initial value of the BusinessId property.</param>
-        /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
-        /// <param name="cityId">Initial value of the CityId property.</param>
-        /// <param name="countyId">Initial value of the CountyId property.</param>
-        /// <param name="stateId">Initial value of the StateId property.</param>
-        public static RevenueByCity CreateRevenueByCity(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter, global::System.Int64 businessId, global::System.Int64 industryId, global::System.Int64 zipCodeId, global::System.Int64 cityId, global::System.Int64 countyId, global::System.Int64 stateId)
-        {
-            RevenueByCity revenueByCity = new RevenueByCity();
-            revenueByCity.Id = id;
-            revenueByCity.Year = year;
-            revenueByCity.Quarter = quarter;
-            revenueByCity.BusinessId = businessId;
-            revenueByCity.IndustryId = industryId;
-            revenueByCity.ZipCodeId = zipCodeId;
-            revenueByCity.CityId = cityId;
-            revenueByCity.CountyId = countyId;
-            revenueByCity.StateId = stateId;
-            return revenueByCity;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int64 _Year;
-        partial void OnYearChanging(global::System.Int64 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private global::System.Int64 _Quarter;
-        partial void OnQuarterChanging(global::System.Int64 value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 BusinessId
-        {
-            get
-            {
-                return _BusinessId;
-            }
-            set
-            {
-                OnBusinessIdChanging(value);
-                ReportPropertyChanging("BusinessId");
-                _BusinessId = StructuralObject.SetValidValue(value, "BusinessId");
-                ReportPropertyChanged("BusinessId");
-                OnBusinessIdChanged();
-            }
-        }
-        private global::System.Int64 _BusinessId;
-        partial void OnBusinessIdChanging(global::System.Int64 value);
-        partial void OnBusinessIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
-        {
-            get
-            {
-                return _IndustryId;
-            }
-            set
-            {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
-            }
-        }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private global::System.Int64 _ZipCodeId;
-        partial void OnZipCodeIdChanging(global::System.Int64 value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CityId
-        {
-            get
-            {
-                return _CityId;
-            }
-            set
-            {
-                OnCityIdChanging(value);
-                ReportPropertyChanging("CityId");
-                _CityId = StructuralObject.SetValidValue(value, "CityId");
-                ReportPropertyChanged("CityId");
-                OnCityIdChanged();
-            }
-        }
-        private global::System.Int64 _CityId;
-        partial void OnCityIdChanging(global::System.Int64 value);
-        partial void OnCityIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private global::System.Int64 _CountyId;
-        partial void OnCountyIdChanging(global::System.Int64 value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private global::System.Int64 _StateId;
-        partial void OnStateIdChanging(global::System.Int64 value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Revenue
-        {
-            get
-            {
-                return _Revenue;
-            }
-            set
-            {
-                OnRevenueChanging(value);
-                ReportPropertyChanging("Revenue");
-                _Revenue = StructuralObject.SetValidValue(value, "Revenue");
-                ReportPropertyChanged("Revenue");
-                OnRevenueChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Revenue;
-        partial void OnRevenueChanging(Nullable<global::System.Int64> value);
-        partial void OnRevenueChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_Business", "Business")]
-        public Business Business
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_RevenueByCity_Business", "Business").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_RevenueByCity_Business", "Business").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Business> BusinessReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_RevenueByCity_Business", "Business");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_RevenueByCity_Business", "Business", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_City", "City")]
-        public City City
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_RevenueByCity_City", "City").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_RevenueByCity_City", "City").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<City> CityReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_RevenueByCity_City", "City");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<City>("SizeUp.Data.FK_RevenueByCity_City", "City", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_RevenueByCity_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_RevenueByCity_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_RevenueByCity_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_RevenueByCity_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_Industry", "Industry")]
-        public Industry Industry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_RevenueByCity_Industry", "Industry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_RevenueByCity_Industry", "Industry").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Industry> IndustryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_RevenueByCity_Industry", "Industry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_RevenueByCity_Industry", "Industry", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_RevenueByCity_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_RevenueByCity_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_RevenueByCity_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_RevenueByCity_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_RevenueByCity_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_RevenueByCity_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_RevenueByCity_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_RevenueByCity_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="RevenueByZip")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class RevenueByZip : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new RevenueByZip object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        /// <param name="quarter">Initial value of the Quarter property.</param>
-        /// <param name="businessId">Initial value of the BusinessId property.</param>
-        /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
-        /// <param name="countyId">Initial value of the CountyId property.</param>
-        /// <param name="stateId">Initial value of the StateId property.</param>
-        public static RevenueByZip CreateRevenueByZip(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter, global::System.Int64 businessId, global::System.Int64 industryId, global::System.Int64 zipCodeId, global::System.Int64 countyId, global::System.Int64 stateId)
-        {
-            RevenueByZip revenueByZip = new RevenueByZip();
-            revenueByZip.Id = id;
-            revenueByZip.Year = year;
-            revenueByZip.Quarter = quarter;
-            revenueByZip.BusinessId = businessId;
-            revenueByZip.IndustryId = industryId;
-            revenueByZip.ZipCodeId = zipCodeId;
-            revenueByZip.CountyId = countyId;
-            revenueByZip.StateId = stateId;
-            return revenueByZip;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int64 _Year;
-        partial void OnYearChanging(global::System.Int64 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private global::System.Int64 _Quarter;
-        partial void OnQuarterChanging(global::System.Int64 value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 BusinessId
-        {
-            get
-            {
-                return _BusinessId;
-            }
-            set
-            {
-                OnBusinessIdChanging(value);
-                ReportPropertyChanging("BusinessId");
-                _BusinessId = StructuralObject.SetValidValue(value, "BusinessId");
-                ReportPropertyChanged("BusinessId");
-                OnBusinessIdChanged();
-            }
-        }
-        private global::System.Int64 _BusinessId;
-        partial void OnBusinessIdChanging(global::System.Int64 value);
-        partial void OnBusinessIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
-        {
-            get
-            {
-                return _IndustryId;
-            }
-            set
-            {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
-            }
-        }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private global::System.Int64 _ZipCodeId;
-        partial void OnZipCodeIdChanging(global::System.Int64 value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private global::System.Int64 _CountyId;
-        partial void OnCountyIdChanging(global::System.Int64 value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private global::System.Int64 _StateId;
-        partial void OnStateIdChanging(global::System.Int64 value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> Revenue
-        {
-            get
-            {
-                return _Revenue;
-            }
-            set
-            {
-                OnRevenueChanging(value);
-                ReportPropertyChanging("Revenue");
-                _Revenue = StructuralObject.SetValidValue(value, "Revenue");
-                ReportPropertyChanged("Revenue");
-                OnRevenueChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _Revenue;
-        partial void OnRevenueChanging(Nullable<global::System.Int64> value);
-        partial void OnRevenueChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_Business", "Business")]
-        public Business Business
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_RevenueByZip_Business", "Business").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_RevenueByZip_Business", "Business").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Business> BusinessReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_RevenueByZip_Business", "Business");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_RevenueByZip_Business", "Business", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_RevenueByZip_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_RevenueByZip_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_RevenueByZip_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_RevenueByZip_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_Industry", "Industry")]
-        public Industry Industry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_RevenueByZip_Industry", "Industry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_RevenueByZip_Industry", "Industry").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Industry> IndustryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_RevenueByZip_Industry", "Industry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_RevenueByZip_Industry", "Industry", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_RevenueByZip_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_RevenueByZip_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_RevenueByZip_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_RevenueByZip_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_RevenueByZip_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_RevenueByZip_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_RevenueByZip_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_RevenueByZip_State", "State", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_ZipCode", "ZipCode")]
-        public ZipCode ZipCode
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_RevenueByZip_ZipCode", "ZipCode").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_RevenueByZip_ZipCode", "ZipCode").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ZipCode> ZipCodeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_RevenueByZip_ZipCode", "ZipCode");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_RevenueByZip_ZipCode", "ZipCode", value);
-                }
-            }
-        }
 
         #endregion
 
@@ -13185,28 +8349,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_AverageSalaryByState_State", "AverageSalaryByState")]
-        public EntityCollection<AverageSalaryByState> AverageSalaryByStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_State", "AverageSalaryByState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<AverageSalaryByState>("SizeUp.Data.FK_AverageSalaryByState_State", "AverageSalaryByState", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Business_State", "Business")]
         public EntityCollection<Business> Businesses
         {
@@ -13273,138 +8415,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByCity_State", "EmployeesByCity")]
-        public EntityCollection<EmployeesByCity> EmployeesByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_State", "EmployeesByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByCity>("SizeUp.Data.FK_EmployeesByCity_State", "EmployeesByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_State", "EmployeesByZip")]
-        public EntityCollection<EmployeesByZip> EmployeesByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_State", "EmployeesByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_State", "EmployeesByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByCounty_State", "LaborDynamicsByCounty")]
-        public EntityCollection<LaborDynamicsByCounty> LaborDynamicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "LaborDynamicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByCounty>("SizeUp.Data.FK_LaborDynamicsByCounty_State", "LaborDynamicsByCounty", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LaborDynamicsByState_State", "LaborDynamicsByState")]
-        public EntityCollection<LaborDynamicsByState> LaborDynamicsByStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_State", "LaborDynamicsByState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LaborDynamicsByState>("SizeUp.Data.FK_LaborDynamicsByState_State", "LaborDynamicsByState", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByCity_State", "RevenueByCity")]
-        public EntityCollection<RevenueByCity> RevenueByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_State", "RevenueByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByCity>("SizeUp.Data.FK_RevenueByCity_State", "RevenueByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_State", "RevenueByZip")]
-        public EntityCollection<RevenueByZip> RevenueByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_State", "RevenueByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_State", "RevenueByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_StateGeography_State", "StateGeography")]
         public EntityCollection<StateGeography> StateGeographies
         {
@@ -13427,62 +8437,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_State", "YearStartedByCity")]
-        public EntityCollection<YearStartedByCity> YearStartedByCities
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByState_State", "IndustryDataByState")]
+        public EntityCollection<IndustryDataByState> IndustryDataByStates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_State", "YearStartedByCity");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByState>("SizeUp.Data.FK_IndustryDataByState_State", "IndustryDataByState");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByCity>("SizeUp.Data.FK_YearStartedByCity_State", "YearStartedByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_State", "YearStartedByZip")]
-        public EntityCollection<YearStartedByZip> YearStartedByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_State", "YearStartedByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_State", "YearStartedByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_State", "DemographicsByCounty")]
-        public EntityCollection<DemographicsByCounty> DemographicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_State", "DemographicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_State", "DemographicsByCounty", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByState>("SizeUp.Data.FK_IndustryDataByState_State", "IndustryDataByState", value);
                 }
             }
         }
@@ -13746,1116 +8712,6 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="YearStartedByCity")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class YearStartedByCity : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new YearStartedByCity object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        /// <param name="quarter">Initial value of the Quarter property.</param>
-        /// <param name="businessId">Initial value of the BusinessId property.</param>
-        /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
-        /// <param name="cityId">Initial value of the CityId property.</param>
-        /// <param name="countyId">Initial value of the CountyId property.</param>
-        /// <param name="stateId">Initial value of the StateId property.</param>
-        public static YearStartedByCity CreateYearStartedByCity(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter, global::System.Int64 businessId, global::System.Int64 industryId, global::System.Int64 zipCodeId, global::System.Int64 cityId, global::System.Int64 countyId, global::System.Int64 stateId)
-        {
-            YearStartedByCity yearStartedByCity = new YearStartedByCity();
-            yearStartedByCity.Id = id;
-            yearStartedByCity.Year = year;
-            yearStartedByCity.Quarter = quarter;
-            yearStartedByCity.BusinessId = businessId;
-            yearStartedByCity.IndustryId = industryId;
-            yearStartedByCity.ZipCodeId = zipCodeId;
-            yearStartedByCity.CityId = cityId;
-            yearStartedByCity.CountyId = countyId;
-            yearStartedByCity.StateId = stateId;
-            return yearStartedByCity;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int64 _Year;
-        partial void OnYearChanging(global::System.Int64 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private global::System.Int64 _Quarter;
-        partial void OnQuarterChanging(global::System.Int64 value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 BusinessId
-        {
-            get
-            {
-                return _BusinessId;
-            }
-            set
-            {
-                OnBusinessIdChanging(value);
-                ReportPropertyChanging("BusinessId");
-                _BusinessId = StructuralObject.SetValidValue(value, "BusinessId");
-                ReportPropertyChanged("BusinessId");
-                OnBusinessIdChanged();
-            }
-        }
-        private global::System.Int64 _BusinessId;
-        partial void OnBusinessIdChanging(global::System.Int64 value);
-        partial void OnBusinessIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
-        {
-            get
-            {
-                return _IndustryId;
-            }
-            set
-            {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
-            }
-        }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private global::System.Int64 _ZipCodeId;
-        partial void OnZipCodeIdChanging(global::System.Int64 value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CityId
-        {
-            get
-            {
-                return _CityId;
-            }
-            set
-            {
-                OnCityIdChanging(value);
-                ReportPropertyChanging("CityId");
-                _CityId = StructuralObject.SetValidValue(value, "CityId");
-                ReportPropertyChanged("CityId");
-                OnCityIdChanged();
-            }
-        }
-        private global::System.Int64 _CityId;
-        partial void OnCityIdChanging(global::System.Int64 value);
-        partial void OnCityIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private global::System.Int64 _CountyId;
-        partial void OnCountyIdChanging(global::System.Int64 value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private global::System.Int64 _StateId;
-        partial void OnStateIdChanging(global::System.Int64 value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> YearStarted
-        {
-            get
-            {
-                return _YearStarted;
-            }
-            set
-            {
-                OnYearStartedChanging(value);
-                ReportPropertyChanging("YearStarted");
-                _YearStarted = StructuralObject.SetValidValue(value, "YearStarted");
-                ReportPropertyChanged("YearStarted");
-                OnYearStartedChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _YearStarted;
-        partial void OnYearStartedChanging(Nullable<global::System.Int32> value);
-        partial void OnYearStartedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> YearEstablished
-        {
-            get
-            {
-                return _YearEstablished;
-            }
-            set
-            {
-                OnYearEstablishedChanging(value);
-                ReportPropertyChanging("YearEstablished");
-                _YearEstablished = StructuralObject.SetValidValue(value, "YearEstablished");
-                ReportPropertyChanged("YearEstablished");
-                OnYearEstablishedChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _YearEstablished;
-        partial void OnYearEstablishedChanging(Nullable<global::System.Int32> value);
-        partial void OnYearEstablishedChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_Business", "Business")]
-        public Business Business
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_YearStartedByCity_Business", "Business").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_YearStartedByCity_Business", "Business").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Business> BusinessReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_YearStartedByCity_Business", "Business");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_YearStartedByCity_Business", "Business", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_City", "City")]
-        public City City
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_YearStartedByCity_City", "City").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_YearStartedByCity_City", "City").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<City> CityReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_YearStartedByCity_City", "City");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<City>("SizeUp.Data.FK_YearStartedByCity_City", "City", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_YearStartedByCity_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_YearStartedByCity_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_YearStartedByCity_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_YearStartedByCity_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_Industry", "Industry")]
-        public Industry Industry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByCity_Industry", "Industry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByCity_Industry", "Industry").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Industry> IndustryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByCity_Industry", "Industry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByCity_Industry", "Industry", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByCity_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByCity_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByCity_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByCity_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByCity_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_YearStartedByCity_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_YearStartedByCity_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_YearStartedByCity_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_YearStartedByCity_State", "State", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="YearStartedByZip")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class YearStartedByZip : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new YearStartedByZip object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="year">Initial value of the Year property.</param>
-        /// <param name="quarter">Initial value of the Quarter property.</param>
-        /// <param name="businessId">Initial value of the BusinessId property.</param>
-        /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
-        /// <param name="countyId">Initial value of the CountyId property.</param>
-        /// <param name="stateId">Initial value of the StateId property.</param>
-        public static YearStartedByZip CreateYearStartedByZip(global::System.Int64 id, global::System.Int64 year, global::System.Int64 quarter, global::System.Int64 businessId, global::System.Int64 industryId, global::System.Int64 zipCodeId, global::System.Int64 countyId, global::System.Int64 stateId)
-        {
-            YearStartedByZip yearStartedByZip = new YearStartedByZip();
-            yearStartedByZip.Id = id;
-            yearStartedByZip.Year = year;
-            yearStartedByZip.Quarter = quarter;
-            yearStartedByZip.BusinessId = businessId;
-            yearStartedByZip.IndustryId = industryId;
-            yearStartedByZip.ZipCodeId = zipCodeId;
-            yearStartedByZip.CountyId = countyId;
-            yearStartedByZip.StateId = stateId;
-            return yearStartedByZip;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value, "Id");
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int64 _Id;
-        partial void OnIdChanging(global::System.Int64 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Year
-        {
-            get
-            {
-                return _Year;
-            }
-            set
-            {
-                OnYearChanging(value);
-                ReportPropertyChanging("Year");
-                _Year = StructuralObject.SetValidValue(value, "Year");
-                ReportPropertyChanged("Year");
-                OnYearChanged();
-            }
-        }
-        private global::System.Int64 _Year;
-        partial void OnYearChanging(global::System.Int64 value);
-        partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 Quarter
-        {
-            get
-            {
-                return _Quarter;
-            }
-            set
-            {
-                OnQuarterChanging(value);
-                ReportPropertyChanging("Quarter");
-                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
-                ReportPropertyChanged("Quarter");
-                OnQuarterChanged();
-            }
-        }
-        private global::System.Int64 _Quarter;
-        partial void OnQuarterChanging(global::System.Int64 value);
-        partial void OnQuarterChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 BusinessId
-        {
-            get
-            {
-                return _BusinessId;
-            }
-            set
-            {
-                OnBusinessIdChanging(value);
-                ReportPropertyChanging("BusinessId");
-                _BusinessId = StructuralObject.SetValidValue(value, "BusinessId");
-                ReportPropertyChanged("BusinessId");
-                OnBusinessIdChanged();
-            }
-        }
-        private global::System.Int64 _BusinessId;
-        partial void OnBusinessIdChanging(global::System.Int64 value);
-        partial void OnBusinessIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
-        {
-            get
-            {
-                return _IndustryId;
-            }
-            set
-            {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
-            }
-        }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 ZipCodeId
-        {
-            get
-            {
-                return _ZipCodeId;
-            }
-            set
-            {
-                OnZipCodeIdChanging(value);
-                ReportPropertyChanging("ZipCodeId");
-                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
-                ReportPropertyChanged("ZipCodeId");
-                OnZipCodeIdChanged();
-            }
-        }
-        private global::System.Int64 _ZipCodeId;
-        partial void OnZipCodeIdChanging(global::System.Int64 value);
-        partial void OnZipCodeIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 CountyId
-        {
-            get
-            {
-                return _CountyId;
-            }
-            set
-            {
-                OnCountyIdChanging(value);
-                ReportPropertyChanging("CountyId");
-                _CountyId = StructuralObject.SetValidValue(value, "CountyId");
-                ReportPropertyChanged("CountyId");
-                OnCountyIdChanged();
-            }
-        }
-        private global::System.Int64 _CountyId;
-        partial void OnCountyIdChanging(global::System.Int64 value);
-        partial void OnCountyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> MetroId
-        {
-            get
-            {
-                return _MetroId;
-            }
-            set
-            {
-                OnMetroIdChanging(value);
-                ReportPropertyChanging("MetroId");
-                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
-                ReportPropertyChanged("MetroId");
-                OnMetroIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _MetroId;
-        partial void OnMetroIdChanging(Nullable<global::System.Int64> value);
-        partial void OnMetroIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int64 StateId
-        {
-            get
-            {
-                return _StateId;
-            }
-            set
-            {
-                OnStateIdChanging(value);
-                ReportPropertyChanging("StateId");
-                _StateId = StructuralObject.SetValidValue(value, "StateId");
-                ReportPropertyChanged("StateId");
-                OnStateIdChanged();
-            }
-        }
-        private global::System.Int64 _StateId;
-        partial void OnStateIdChanging(global::System.Int64 value);
-        partial void OnStateIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> YearStarted
-        {
-            get
-            {
-                return _YearStarted;
-            }
-            set
-            {
-                OnYearStartedChanging(value);
-                ReportPropertyChanging("YearStarted");
-                _YearStarted = StructuralObject.SetValidValue(value, "YearStarted");
-                ReportPropertyChanged("YearStarted");
-                OnYearStartedChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _YearStarted;
-        partial void OnYearStartedChanging(Nullable<global::System.Int32> value);
-        partial void OnYearStartedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> YearEstablished
-        {
-            get
-            {
-                return _YearEstablished;
-            }
-            set
-            {
-                OnYearEstablishedChanging(value);
-                ReportPropertyChanging("YearEstablished");
-                _YearEstablished = StructuralObject.SetValidValue(value, "YearEstablished");
-                ReportPropertyChanged("YearEstablished");
-                OnYearEstablishedChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _YearEstablished;
-        partial void OnYearEstablishedChanging(Nullable<global::System.Int32> value);
-        partial void OnYearEstablishedChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_Business", "Business")]
-        public Business Business
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_YearStartedByZip_Business", "Business").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_YearStartedByZip_Business", "Business").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Business> BusinessReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_YearStartedByZip_Business", "Business");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_YearStartedByZip_Business", "Business", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_County", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_YearStartedByZip_County", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_YearStartedByZip_County", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_YearStartedByZip_County", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_YearStartedByZip_County", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_Industry", "Industry")]
-        public Industry Industry
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByZip_Industry", "Industry").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByZip_Industry", "Industry").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Industry> IndustryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByZip_Industry", "Industry");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_YearStartedByZip_Industry", "Industry", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_Metro", "Metro")]
-        public Metro Metro
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByZip_Metro", "Metro").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByZip_Metro", "Metro").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Metro> MetroReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByZip_Metro", "Metro");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_YearStartedByZip_Metro", "Metro", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_YearStartedByZip_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_YearStartedByZip_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_YearStartedByZip_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_YearStartedByZip_State", "State", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_ZipCode", "ZipCode")]
-        public ZipCode ZipCode
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_YearStartedByZip_ZipCode", "ZipCode").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_YearStartedByZip_ZipCode", "ZipCode").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<ZipCode> ZipCodeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_YearStartedByZip_ZipCode", "ZipCode");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_YearStartedByZip_ZipCode", "ZipCode", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="ZipCode")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -15011,84 +8867,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_EmployeesByZip_ZipCode", "EmployeesByZip")]
-        public EntityCollection<EmployeesByZip> EmployeesByZips
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "IndustryDataByZip")]
+        public EntityCollection<IndustryDataByZip> IndustryDataByZips
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_ZipCode", "EmployeesByZip");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByZip>("SizeUp.Data.FK_IndustryDataByZip_ZipCode", "IndustryDataByZip");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EmployeesByZip>("SizeUp.Data.FK_EmployeesByZip_ZipCode", "EmployeesByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_RevenueByZip_ZipCode", "RevenueByZip")]
-        public EntityCollection<RevenueByZip> RevenueByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_ZipCode", "RevenueByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<RevenueByZip>("SizeUp.Data.FK_RevenueByZip_ZipCode", "RevenueByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_YearStartedByZip_ZipCode", "YearStartedByZip")]
-        public EntityCollection<YearStartedByZip> YearStartedByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_ZipCode", "YearStartedByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<YearStartedByZip>("SizeUp.Data.FK_YearStartedByZip_ZipCode", "YearStartedByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByZip_ZipCode", "DemographicsByZip")]
-        public EntityCollection<DemographicsByZip> DemographicsByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByZip>("SizeUp.Data.FK_DemographicsByZip_ZipCode", "DemographicsByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByZip>("SizeUp.Data.FK_DemographicsByZip_ZipCode", "DemographicsByZip", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByZip>("SizeUp.Data.FK_IndustryDataByZip_ZipCode", "IndustryDataByZip", value);
                 }
             }
         }

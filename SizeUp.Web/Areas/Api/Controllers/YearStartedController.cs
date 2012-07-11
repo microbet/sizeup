@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     })
                     .Where(i => i.County.Id == countyId && i.City.Id == cityId);
 
-
+                /*
 
                 var nation = context.YearStartedByZips
                     .Where(i => i.IndustryId == industryId)
@@ -114,8 +114,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Values = nationData.GroupBy(g => g.Value).Select(g => new Models.YearStarted.ChartItem.ChartItemValue() { Key = g.Key, Value = g.Count() })
                     }
                 }).FirstOrDefault();
-
-                return Json(data, JsonRequestBehavior.AllowGet);
+                */
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -134,7 +134,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                      .Where(i => i.County.Id == countyId && i.City.Id == cityId);
 
                
-
+                /*
                 var nation = context.YearStartedByZips
                     .Where(i => i.IndustryId == industryId)
                     .Select(i => new { i.Year, i.Quarter, YearStarted = i.YearEstablished ?? i.YearStarted })
@@ -263,8 +263,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                      State = data.State.Total > 0 ? (int?)(((decimal)data.State.Less / (decimal)data.State.Total) * 100) : null,
                      Nation = data.Nation.Total > 0 ? (int?)(((decimal)data.Nation.Less / (decimal)data.Nation.Total) * 100) : null
                  };
-
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                */
+                return Json(null, JsonRequestBehavior.AllowGet);
             }
         }
 

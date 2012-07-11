@@ -7,7 +7,7 @@ using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
-
+using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -18,114 +18,71 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult JobChange(int industryId, int countyId)
         {
-
             using (var context = ContextFactory.SizeUpContext)
             {
-                var naics4 = context.Industries.Where(i => i.Id == industryId)
-                   .Select(i => context.NAICS.Where(n => n.NAICSCode == context.SicToNAICSMappings
-                           .Where(m => m.IndustryId == i.Id)
-                           .Select(m => m.NAICS)
-                           .FirstOrDefault()
-                           .NAICSCode.Substring(0, 4)
-                      ).FirstOrDefault()
-                   );
-
-                var locations = context.Counties
+                var locations = context.CityCountyMappings
                     .Select(i => new
                     {
-                        County = i,
-                        Metro = i.Metro,
-                        State = i.State
+                        County = i.County,
+                        Metro = i.County.Metro,
+                        State = i.County.State
                     })
-                    .Where(i => i.County.Id == countyId);
+                    .Where(i => i.County.Id == countyId).FirstOrDefault();
 
 
 
-                //nation
-                var nation = context.LaborDynamicsByStates.Where(i => i.NAICSId == naics4.FirstOrDefault().Id);
-                var nMax = nation.Select(i => new { i.Year, i.Quarter })
-                    .OrderByDescending(i => i.Year)
-                    .ThenByDescending(i => i.Quarter);
-                var nationData = nation.Where(i =>
-                    i.Year == nMax.FirstOrDefault().Year &&
-                    i.Quarter == nMax.FirstOrDefault().Quarter)
 
-                   .GroupBy(g => new { g.Year, g.Quarter })
+                var n = context.IndustryDataByNations
+                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => new Models.JobChange.ChartItem()
+                    {
+                        NetJobChange = i.NetJobChange,
+                        JobGains = i.JobGains,
+                        JobLosses = i.JobLosses,
+                        Name = "USA"
+                    });
+
+
+                var s = context.IndustryDataByStates
+                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => new Models.JobChange.ChartItem()
+                    {
+                        NetJobChange = i.NetJobChange,
+                        JobGains = i.JobGains,
+                        JobLosses = i.JobLosses,
+                        Name = locations.State.Name
+                    });
+
+                var m = context.IndustryDataByMetroes
+                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => new Models.JobChange.ChartItem()
+                    {
+                        NetJobChange = i.NetJobChange,
+                        JobGains = i.JobGains,
+                        JobLosses = i.JobLosses,
+                        Name = locations.Metro.Name
+                    });
+
+                var co = context.IndustryDataByCounties
+                   .Where(i => i.IndustryId == industryId && i.CountyId == locations.County.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
                    .Select(i => new Models.JobChange.ChartItem()
                    {
-                       NetJobChange = i.Sum(g => g.NetJobChange),
-                       JobGains = i.Sum(g => g.JobGains),
-                       JobLosses = i.Sum(g => g.JobLosses),
-                       Name = "USA"
+                       NetJobChange = i.NetJobChange,
+                       JobGains = i.JobGains,
+                       JobLosses = i.JobLosses,
+                       Name = locations.County.Name + ", " + locations.State.Abbreviation
                    });
 
-                //state
-                var state = context.LaborDynamicsByStates.Where(i =>
-                    i.NAICSId == naics4.FirstOrDefault().Id &&
-                    i.StateId == locations.FirstOrDefault().State.Id);
-                var sMax = state.Select(i => new { i.Year, i.Quarter })
-                    .OrderByDescending(i => i.Year)
-                    .ThenByDescending(i => i.Quarter);
-                var stateData = state
-                    .Where(i =>
-                        i.Year == sMax.FirstOrDefault().Year &&
-                        i.Quarter == sMax.FirstOrDefault().Quarter)
-                    .Select(i => new Models.JobChange.ChartItem()
-                    {
-                        NetJobChange = i.NetJobChange,
-                        JobGains = i.JobGains,
-                        JobLosses = i.JobLosses,
-                        Name = locations.FirstOrDefault().State.Name
-                    });
-
-                //metro
-                var metro = context.LaborDynamicsByMetroes.Where(i =>
-                    i.NAICSId == naics4.FirstOrDefault().Id &&
-                    i.MetroId == locations.FirstOrDefault().Metro.Id);
-                var mMax = metro.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenByDescending(i => i.Quarter);
-                var metroData = metro.Where(i =>
-                     i.Year == mMax.FirstOrDefault().Year &&
-                        i.Quarter == mMax.FirstOrDefault().Quarter)
-                    .Select(i => new Models.JobChange.ChartItem()
-                    {
-                        NetJobChange = i.NetJobChange,
-                        JobGains = i.JobGains,
-                        JobLosses = i.JobLosses,
-                        Name = locations.FirstOrDefault().Metro.Name
-                    });
-
-
-                //county
-                var county = context.LaborDynamicsByCounties.Where(i =>
-                    i.NAICSId == naics4.FirstOrDefault().Id &&
-                    i.CountyId == locations.FirstOrDefault().County.Id);
-                var cMax = county.Select(i => new { i.Year, i.Quarter })
-                  .OrderByDescending(i => i.Year)
-                  .ThenByDescending(i => i.Quarter);
-                var countyData = county
-                    .Where(i =>
-                        i.Year == cMax.FirstOrDefault().Year &&
-                        i.Quarter == cMax.FirstOrDefault().Quarter)
-                    .Select(i => new Models.JobChange.ChartItem()
-                    {
-                        NetJobChange = i.NetJobChange,
-                        JobGains = i.JobGains,
-                        JobLosses = i.JobLosses,
-                        Name = locations.FirstOrDefault().County.Name + ", " + locations.FirstOrDefault().State.Abbreviation
-                    });
 
 
 
-
-                var data = countyData.Select(i => new Models.Charts.BarChart()
+                var data = new Models.Charts.BarChart()
                 {
-                    Nation = nationData.FirstOrDefault(),
-                    State = stateData.FirstOrDefault(),
-                    Metro = metroData.FirstOrDefault(),
-                    County = i
-                }).FirstOrDefault();
+                    Nation = n.FirstOrDefault(),
+                    State = s.FirstOrDefault(),
+                    Metro = m.FirstOrDefault(),
+                    County = co.FirstOrDefault()
+                };
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SqlServer.Types;
 using SizeUp.Data;
+using System.Data.Spatial;
 
 namespace SizeUp.Core.Geo
 {
@@ -22,6 +23,7 @@ namespace SizeUp.Core.Geo
         public string BoundingEntityId { get; protected set; }
         public BoundingEntityType? EntityType { get; protected set;}
         public SqlGeography Geography { get; protected set; }
+        public DbGeography DbGeography { get; protected set; }
         public long? EntityId { get; protected set; }
 
 
@@ -48,7 +50,7 @@ namespace SizeUp.Core.Geo
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        //Geography = Geography.Reduce(10).STBuffer(-100);
+                        DbGeography = g;
                     }
                 }
                 else if (entityIdCode.StartsWith("co"))
@@ -61,7 +63,7 @@ namespace SizeUp.Core.Geo
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        // Geography = Geography.Reduce(100).STBuffer(-500);
+                        DbGeography = g;
                     }
                 }
                 else if (entityIdCode.StartsWith("c"))
@@ -74,7 +76,7 @@ namespace SizeUp.Core.Geo
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        //Geography = Geography.Reduce(100).STBuffer(-500);
+                        DbGeography = g;
                     }
                 }
                 else if (entityIdCode.StartsWith("m"))
@@ -87,7 +89,7 @@ namespace SizeUp.Core.Geo
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                       // Geography = Geography.Reduce(100).STBuffer(-500);
+                        DbGeography = g;
                     }
                 }
                 else if (entityIdCode.StartsWith("s"))
@@ -100,7 +102,7 @@ namespace SizeUp.Core.Geo
                     if (g != null)
                     {
                         Geography = SqlGeography.Parse(g.AsText());
-                        //Geography = Geography.Reduce(2500).STBuffer(-2500);
+                        DbGeography = g;
                     }
                 }
             }

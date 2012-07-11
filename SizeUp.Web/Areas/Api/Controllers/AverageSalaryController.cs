@@ -8,7 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
- 
+using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -19,88 +19,65 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult AverageSalary(int industryId, int countyId)
         {
+
             using (var context = ContextFactory.SizeUpContext)
             {
-                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
 
-                var locations = context.Counties
+                var locations = context.CityCountyMappings
                     .Select(i => new
                     {
-                        County = i,
-                        Metro = i.Metro,
-                        State = i.State
+                        County = i.County,
+                        Metro = i.County.Metro,
+                        State = i.County.State
                     })
-                    .Where(i => i.County.Id == countyId);
+                    .Where(i => i.County.Id == countyId).FirstOrDefault();
 
-                var nation = context.AverageSalaryNationals
-                    .Where(i =>
-                        i.NAICSId == naics.FirstOrDefault().Id &&
-                        i.AverageSalary > 0);
-                var nMax = nation.Select(i => i.Year)
-                    .OrderByDescending(i => i);
-                var nationData = nation.Where(i =>
-                    i.Year == nMax.FirstOrDefault())
+
+
+
+                var n = context.IndustryDataByNations
+                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
-                        Value = i.AverageSalary,
+                        Value = (long)i.AverageAnnualSalary,
                         Name = "USA"
                     });
 
 
-                var state = context.AverageSalaryByStates
-                    .Where(i =>
-                        i.NAICSId == naics.FirstOrDefault().Id &&
-                        i.StateId == locations.FirstOrDefault().State.Id &&
-                        i.AverageSalary > 0);
-                var sMax = state.Select(i => i.Year)
-                    .OrderByDescending(i => i);
-                var stateData = state.Where(i =>
-                    i.Year == sMax.FirstOrDefault())
+                var s = context.IndustryDataByStates
+                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
-                        Value = i.AverageSalary,
-                        Name = locations.FirstOrDefault().State.Name
+                        Value = (long)i.AverageAnnualSalary,
+                        Name = locations.State.Name
                     });
 
-                var metro = context.AverageSalaryByMetroes
-                    .Where(i =>
-                        i.NAICSId == naics.FirstOrDefault().Id &&
-                        i.MetroId == locations.FirstOrDefault().Metro.Id &&
-                        i.AverageSalary > 0);
-                var mMax = metro.Select(i => i.Year)
-                    .OrderByDescending(i => i);
-                var metroData = metro.Where(i =>
-                    i.Year == mMax.FirstOrDefault())
+                var m = context.IndustryDataByMetroes
+                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
-                        Value = i.AverageSalary,
-                        Name = locations.FirstOrDefault().Metro.Name
+                        Value = (long)i.AverageAnnualSalary,
+                        Name = locations.Metro.Name
                     });
 
+                var co = context.IndustryDataByCounties
+                   .Where(i => i.IndustryId == industryId && i.CountyId == locations.County.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                   .Select(i => new Models.AverageSalary.ChartItem()
+                   {
+                       Value = (long)i.AverageAnnualSalary,
+                       Name = locations.County.Name + ", " + locations.State.Abbreviation
+                   });
 
-                var county = context.AverageSalaryByCounties
-                    .Where(i =>
-                        i.NAICSId == naics.FirstOrDefault().Id &&
-                        i.CountyId == locations.FirstOrDefault().County.Id &&
-                        i.AverageSalary > 0);
-                var cMax = county.Select(i => i.Year)
-                    .OrderByDescending(i => i);
-                var countyData = county.Where(i =>
-                    i.Year == cMax.FirstOrDefault())
-                    .Select(i => new Models.AverageSalary.ChartItem()
-                    {
-                        Value = i.AverageSalary,
-                        Name = locations.FirstOrDefault().County.Name + ", " + locations.FirstOrDefault().State.Abbreviation
-                    });
+             
 
 
-                var data = countyData.Select(i => new Models.Charts.BarChart()
+                var data = new Models.Charts.BarChart()
                 {
-                    Nation = nationData.FirstOrDefault(),
-                    State = stateData.FirstOrDefault(),
-                    Metro = metroData.FirstOrDefault(),
-                    County = i
-                }).FirstOrDefault();
+                    Nation = n.FirstOrDefault(),
+                    State = s.FirstOrDefault(),
+                    Metro = m.FirstOrDefault(),
+                    County = co.FirstOrDefault()
+                };
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -111,22 +88,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
-                var countyData = context.AverageSalaryByCounties.Where(i =>
-                    i.NAICSId == naics.FirstOrDefault().Id &&
-                    i.CountyId == countyId);
 
-                var cMax = countyData.Select(i => i.Year)
-                   .OrderByDescending(i => i);
+                var salary = context.IndustryDataByCounties
+                    .Where(i => i.IndustryId == industryId && i.CountyId == countyId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => i.AverageAnnualSalary)
+                    .FirstOrDefault();
 
-                long? county = countyData.Where(i => i.Year == cMax.FirstOrDefault())
-                    .Select(i => i.AverageSalary).FirstOrDefault();
                 object obj = null;
-                if (county.HasValue && county != 0)
+                if (salary!= null && salary != 0)
                 {
                     obj = new
                     {
-                        Percentage = (int)(((value - county) / county) * 100)
+                        Percentage = (int)(((value - salary) / salary) * 100)
                     };
                 }
                 return Json(obj, JsonRequestBehavior.AllowGet);
@@ -139,32 +112,22 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
-                var filters = context.AverageSalaryByCounties
-                    .Where(i =>
-                        i.NAICSId == naics.FirstOrDefault().Id &&
-                        i.AverageSalary > 0);
 
-                var cMax = filters.Select(i => i.Year)
-                   .OrderByDescending(i => i);
+                var geos = context.CountyGeographies
+                    .Where(i => i.GeographyClass.Name == "Calculation" && i.Geography.GeographyPolygon.Intersects(boundingEntity.DbGeography.Buffer(-1)))
+                    .Select(i => i.CountyId);
 
-                filters = filters.Where(i => i.Year == cMax.FirstOrDefault());
-
-                if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
-                {
-                    filters = filters.Where(i => i.County.StateId == boundingEntity.EntityId);
-                }
-                else if (boundingEntity.EntityType != null && boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
-                {
-                    filters = filters.Where(i => i.County.MetroId == boundingEntity.EntityId);
-                }
-                var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
-                var bandData = data.NTile(i => i.AverageSalary, bands)
-                    .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i.AverageSalary), Max = b.Max(i => i.AverageSalary) })
+                var data = context.IndustryDataByCounties
+                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageAnnualSalary > 0)
+                    .Join(geos, i => i.CountyId, i => i, (i, o) => i)
+                    .Select(i => i.AverageAnnualSalary)
+                    .ToList()
+                    .NTile(i => i, bands)
+                    .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
                 Models.AverageSalary.Band old = null;
-                foreach (var band in bandData)
+                foreach (var band in data)
                 {
                     if (old != null)
                     {
@@ -172,7 +135,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     }
                     old = band;
                 }
-                return Json(bandData, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -181,24 +144,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS);
-                var filters = context.AverageSalaryByCounties
-                    .Where(i =>
-                        i.NAICSId == naics.FirstOrDefault().Id &&
-                        i.AverageSalary > 0);
 
-                var sMax = filters.Select(i => i.Year)
-                   .OrderByDescending(i => i);
-
-                filters = filters.Where(i => i.Year == sMax.FirstOrDefault());
-
-                var data = filters.Select(i => new { i.AverageSalary, i.CountyId }).ToList();
-                var bandData = data.NTile(i => i.AverageSalary, bands)
-                    .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i.AverageSalary), Max = b.Max(i => i.AverageSalary) })
+                var data = context.IndustryDataByStates
+                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageAnnualSalary > 0)
+                    .Select(i => i.AverageAnnualSalary)
+                    .ToList()
+                    .NTile(i => i, bands)
+                    .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
                 Models.AverageSalary.Band old = null;
-                foreach (var band in bandData)
+                foreach (var band in data)
                 {
                     if (old != null)
                     {
@@ -206,8 +162,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     }
                     old = band;
                 }
-                return Json(bandData, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
+
         }
 
     }

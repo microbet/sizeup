@@ -8,7 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
- 
+using SizeUp.Core;
 
 
 
@@ -23,57 +23,61 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-
-                var locations = context.Counties.Where(i => i.Id == countyId)
+                var locations = context.CityCountyMappings
                     .Select(i => new
                     {
-                        County = i,
-                        Metro = i.Metro,
-                        State = i.State
+                        County = i.County,
+                        Metro = i.County.Metro,
+                        State = i.County.State
                     })
-                    .FirstOrDefault();
+                    .Where(i => i.County.Id == countyId).FirstOrDefault();
 
-                long? national = null;
-                long? state = null;
-                long? metro = null;
-                long? county = null;
 
-                national = context.AverageSalaryNationals.Where(i => i.Year == context.AverageSalaryNationals.Max(m => m.Year) && i.NAICSId == naics.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-                state = context.AverageSalaryByStates.Where(i => i.Year == context.AverageSalaryByStates.Max(m => m.Year) && i.NAICSId == naics.Id && i.StateId == locations.State.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-                if (locations.Metro != null)
-                {
-                    metro = context.AverageSalaryByMetroes.Where(i => i.Year == context.AverageSalaryByMetroes.Max(m => m.Year) && i.NAICSId == naics.Id && i.MetroId == locations.Metro.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
-                }
-                county = context.AverageSalaryByCounties.Where(i => i.Year == context.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == locations.County.Id && i.AverageSalary > 0).Select(i => i.AverageSalary).FirstOrDefault();
 
-                var obj = new Models.Charts.BarChart();
-                obj.Nation = new Models.AverageSalary.ChartItem()
-                {
-                    Value = national,
-                    Name = "USA"
-                };
-                obj.State = new Models.AverageSalary.ChartItem()
-                {
-                    Value = state,
-                    Name = locations.State.Name
-                };
-                if (locations.Metro != null && metro != null)
-                {
-                    obj.Metro = new Models.AverageSalary.ChartItem()
+
+                var n = context.IndustryDataByNations
+                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => new Models.RevenuePerCapita.ChartItem()
                     {
-                        Value = metro,
+                        Value = i.ReveuePerCapita,
+                        Name = "USA"
+                    });
+
+
+                var s = context.IndustryDataByStates
+                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => new Models.RevenuePerCapita.ChartItem()
+                    {
+                        Value = i.ReveuePerCapita,
+                        Name = locations.State.Name
+                    });
+
+                var m = context.IndustryDataByMetroes
+                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => new Models.RevenuePerCapita.ChartItem()
+                    {
+                        Value = i.ReveuePerCapita,
                         Name = locations.Metro.Name
-                    };
-                }
-                obj.County = new Models.AverageSalary.ChartItem()
+                    });
+
+                var co = context.IndustryDataByCounties
+                   .Where(i => i.IndustryId == industryId && i.CountyId == locations.County.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                   .Select(i => new Models.RevenuePerCapita.ChartItem()
+                   {
+                       Value = i.ReveuePerCapita,
+                       Name = locations.County.Name + ", " + locations.State.Abbreviation
+                   });
+
+                var data = new Models.Charts.BarChart()
                 {
-                    Value = county,
-                    Name = string.Format("{0}, {1}", locations.County.Name, locations.State.Abbreviation)
+                    Nation = n.FirstOrDefault(),
+                    State = s.FirstOrDefault(),
+                    Metro = m.FirstOrDefault(),
+                    County = co.FirstOrDefault()
                 };
 
 
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -81,14 +85,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var naics = context.SicToNAICSMappings.Where(i => i.IndustryId == industryId).Select(i => i.NAICS).FirstOrDefault();
-                long? county = context.AverageSalaryByCounties.Where(i => i.Year == context.AverageSalaryByCounties.Max(m => m.Year) && i.NAICSId == naics.Id && i.CountyId == countyId).Select(i => i.AverageSalary).FirstOrDefault();
+
+                var data = context.IndustryDataByCounties
+                    .Where(i => i.IndustryId == industryId && i.CountyId == countyId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                    .Select(i => i.ReveuePerCapita)
+                    .FirstOrDefault();
+
                 object obj = null;
-                if (county.HasValue && county != 0)
+                if (data != null && value != 0)
                 {
                     obj = new
                     {
-                        Percentage = (int)(((value - county) / county) * 100)
+                        Percentage = (int)(((value - data) / data) * 100)
                     };
                 }
                 return Json(obj, JsonRequestBehavior.AllowGet);
