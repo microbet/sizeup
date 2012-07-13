@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
+using SizeUp.Data.Views;
+using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
-using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -19,56 +20,38 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult AverageSalary(int industryId, int countyId)
         {
-
             using (var context = ContextFactory.SizeUpContext)
             {
 
-                var locations = context.CityCountyMappings
-                    .Select(i => new
-                    {
-                        County = i.County,
-                        Metro = i.County.Metro,
-                        State = i.County.State
-                    })
-                    .Where(i => i.County.Id == countyId).FirstOrDefault();
+                var locations = Data.Views.Locations.Get(context, countyId).FirstOrDefault();
 
-
-
-
-                var n = context.IndustryDataByNations
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var n = IndustryData.GetNational(context, industryId)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
                         Value = (long)i.AverageAnnualSalary,
                         Name = "USA"
                     });
 
-
-                var s = context.IndustryDataByStates
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var s = IndustryData.GetState(context, industryId, locations.State.Id)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
                         Value = (long)i.AverageAnnualSalary,
                         Name = locations.State.Name
                     });
 
-                var m = context.IndustryDataByMetroes
-                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
                         Value = (long)i.AverageAnnualSalary,
                         Name = locations.Metro.Name
                     });
 
-                var co = context.IndustryDataByCounties
-                   .Where(i => i.IndustryId == industryId && i.CountyId == locations.County.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
                    .Select(i => new Models.AverageSalary.ChartItem()
                    {
                        Value = (long)i.AverageAnnualSalary,
                        Name = locations.County.Name + ", " + locations.State.Abbreviation
                    });
-
-             
 
 
                 var data = new Models.Charts.BarChart()
@@ -112,14 +95,25 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
+                IQueryable<long> ids = context.Counties.Select(i => i.Id);
 
-                var geos = context.CountyGeographies
-                    .Where(i => i.GeographyClass.Name == "Calculation" && i.Geography.GeographyPolygon.Intersects(boundingEntity.DbGeography.Buffer(-1)))
-                    .Select(i => i.CountyId);
+                if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
+                {
+                    ids = context.Counties
+                       .Where(i => i.MetroId == boundingEntity.EntityId)
+                       .Select(i => i.Id);
+                }
+                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
+                {
+                    ids = context.Counties
+                       .Where(i => i.StateId == boundingEntity.EntityId)
+                       .Select(i => i.Id);
+                }
 
-                var data = context.IndustryDataByCounties
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageAnnualSalary > 0)
-                    .Join(geos, i => i.CountyId, i => i, (i, o) => i)
+
+                var data = IndustryData.GetCounties(context, industryId)
+                    .Where(i => i.AverageAnnualSalary > 0)
+                    .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Select(i => i.AverageAnnualSalary)
                     .ToList()
                     .NTile(i => i, bands)
@@ -145,8 +139,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
 
-                var data = context.IndustryDataByStates
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageAnnualSalary > 0)
+                var data = IndustryData.GetStates(context, industryId)
+                    .Where(i => i.AverageAnnualSalary > 0)
                     .Select(i => i.AverageAnnualSalary)
                     .ToList()
                     .NTile(i => i, bands)

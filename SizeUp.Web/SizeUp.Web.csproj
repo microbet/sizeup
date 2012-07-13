@@ -150,6 +150,7 @@
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
+    <Compile Include="Areas\Api\Controllers\HealthCareController.cs" />
     <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Api\Controllers\JobChangeController.cs" />
     <Compile Include="Areas\Api\Controllers\MetroController.cs" />
@@ -157,8 +158,10 @@
     <Compile Include="Areas\Api\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Api\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\StateController.cs" />
+    <Compile Include="Areas\Api\Controllers\TotalRevenueController.cs" />
     <Compile Include="Areas\Api\Controllers\TurnoverController.cs" />
     <Compile Include="Areas\Api\Controllers\UserController.cs" />
+    <Compile Include="Areas\Api\Controllers\WorkersCompController.cs" />
     <Compile Include="Areas\Api\Controllers\YearStartedController.cs" />
     <Compile Include="Areas\Api\Models\Advertising\Advertising.cs" />
     <Compile Include="Areas\Api\Models\Advertising\Range.cs" />
@@ -180,15 +183,20 @@
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\ReveunePerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
+    <Compile Include="Areas\Api\Models\TotalRevenue\Band.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\WorkersComp\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\YearStarted\ChartItem.cs" />
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
@@ -315,6 +323,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Api\Models\Shared\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Pins\Models\" />
     <Folder Include="Areas\Pins\Views\Shared\" />
@@ -385,7 +394,7 @@
     </Content>
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <None Include="Properties\PublishProfiles\Profile.pubxml" />
+    <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

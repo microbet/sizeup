@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace SizeUp.Core
+namespace SizeUp.Data
 {
-    public static class TimeSliceOld
+    public static class TimeSlice
     {
         public static int Year
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using System.Drawing;
 
-namespace SizeUp.Core.Tiles
+namespace SizeUp.Core.Geo
 {
     public class BoundingBox
     {

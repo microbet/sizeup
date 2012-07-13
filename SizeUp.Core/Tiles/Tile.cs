@@ -8,7 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using Microsoft.SqlServer.Types;
-
+using SizeUp.Core.Geo;
 namespace SizeUp.Core.Tiles
 {
     public abstract class Tile

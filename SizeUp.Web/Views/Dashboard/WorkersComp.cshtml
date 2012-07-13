@@ -15,38 +15,45 @@
         <p class="message">Generating Report</p>
     </div>
     <div class="reportContainer ">
-        <div class="reportContent">
+        <div class="reportContent noDataError">
+            <p>There is no data available for this report with this industry and city</p>
+        </div>
+        <div class="reportContent reportData">
             <h3>How you size up</h3>
             <p>Your premium rate for workers' compensation is 136% greater than that for the average company in your state.</p>
-            <div class="chart">
-                <a href="#">Hide Variations by Geography</a>
-                <a href="#">View Data Table </a>
-                <div class="container"></div>
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="value">Value</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="tableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
             <ul class="links">
                 <li>
                     <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
                 </li>
             </ul>
-            <div class="sourceContent " data-expandedClass="expanded">
-                <p>Workers’ compensation premium rates come from the states themselves, obtained directly from the states via letter,
-                fax, or telephone call, or from the National Council on Compensation Insurance’s All States Basic Manual for Workers’
-                Compensation and Employers’ Liability Insurance.
-                </p>
+            <div class="sourceContent">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Source"])
             </div>
-            <div class="map"></div>
+     
         </div>
         <div class="reportSidebar">
-            <div class="section">
-                <h4>Considerations</h4>
-                <p>Within a particular state, workers' compensation premiums will vary by insurer as well as by the type of occupation insured.</p>
-		        <p>It may be possible to reduce your workers' compensation rates through safety training, accident prevention, and by helping injured workers return to work quickly.</p>
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Considerations"])
             </div>
-            <div class="section">
-                <h4>Resources</h4>
-                <p>Get a quote from <a href="http://www.shopinsuranceonline.com" target="_blank">Insurance Source</a> and reduce your workers' compensation premiums.</p>
-       	        <p>Provide employee safety training online with safety training libraries from <a href="http://www.mastery.com/employee-safety-training.php" target="_blank">Mastery</a>.</p>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Resources"])
             </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
         </div>
     </div>
 </div>

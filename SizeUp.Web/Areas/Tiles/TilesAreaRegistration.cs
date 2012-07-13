@@ -21,8 +21,6 @@ namespace SizeUp.Web.Areas.Tiles
                 new { controller = "AverageRevenue", action = "Zip", boundingEntityId = UrlParameter.Optional }
             );
 
-
-
             context.MapRoute(
                "AverageRevenueTilesCounty",
                "Tiles/AverageRevenue/County/",
@@ -47,6 +45,44 @@ namespace SizeUp.Web.Areas.Tiles
                "AverageSalaryTilesState",
                "Tiles/AverageSalary/State/",
                new { controller = "AverageSalary", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+
+            context.MapRoute(
+               "RevenuePerCapitaTilesZip",
+               "Tiles/RevenuePerCapita/Zip/",
+               new { controller = "RevenuePerCapita", action = "Zip", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "RevenuePerCapitaTilesCounty",
+               "Tiles/RevenuePerCapita/County/",
+               new { controller = "RevenuePerCapita", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "RevenuePerCapitaTilesState",
+               "Tiles/RevenuePerCapita/State/",
+               new { controller = "RevenuePerCapita", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+
+            context.MapRoute(
+               "TotalRevenueTilesZip",
+               "Tiles/TotalRevenue/Zip/",
+               new { controller = "TotalRevenue", action = "Zip", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "TotalRevenueTilesCounty",
+               "Tiles/TotalRevenue/County/",
+               new { controller = "TotalRevenue", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "TotalRevenueTilesState",
+               "Tiles/TotalRevenue/State/",
+               new { controller = "TotalRevenue", action = "State", boundingEntityId = UrlParameter.Optional }
            );
 
 

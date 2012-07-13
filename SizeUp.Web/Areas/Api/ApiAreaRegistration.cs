@@ -210,6 +210,60 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageSalary", action = "BandsByState" }
             );
 
+            /****RevenuePerCapita*****/
+
+            context.MapRoute(
+                "RevenuePerCapita",
+                "Api/RevenuePerCapita/",
+                new { controller = "RevenuePerCapita", action = "RevenuePerCapita" }
+            );
+
+            context.MapRoute(
+                "RevenuePerCapitaPercentage",
+                "Api/RevenuePerCapita/Percentage",
+                new { controller = "RevenuePerCapita", action = "Percentage" }
+            );
+
+            context.MapRoute(
+                "RevenuePerCapitaBandsZip",
+                "Api/RevenuePerCapita/Bands/Zip",
+                new { controller = "RevenuePerCapita", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "RevenuePerCapitaBandsCounty",
+                "Api/RevenuePerCapita/Bands/County",
+                new { controller = "RevenuePerCapita", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "RevenuePerCapitaBandsState",
+                "Api/RevenuePerCapita/Bands/State",
+                new { controller = "RevenuePerCapita", action = "BandsByState" }
+            );
+
+            /****TotalRevenue*****/
+
+
+            context.MapRoute(
+                "TotalRevenueBandsZip",
+                "Api/TotalRevenue/Bands/Zip",
+                new { controller = "TotalRevenue", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "TotalRevenueBandsCounty",
+                "Api/TotalRevenue/Bands/County",
+                new { controller = "TotalRevenue", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "TotalRevenueBandsState",
+                "Api/TotalRevenue/Bands/State",
+                new { controller = "TotalRevenue", action = "BandsByState" }
+            );
+
+           
 
             /****turnover*****/
 
@@ -232,6 +286,28 @@ namespace SizeUp.Web.Areas.Api
                 "Api/JobChange/",
                 new { controller = "JobChange", action = "JobChange" }
             );
+
+            /****healthcare*****/
+
+            context.MapRoute(
+                "HealthCare",
+                "Api/HealthCare/",
+                new { controller = "HealthCare", action = "HealthCare" }
+            );
+
+            /****workerscomp*****/
+
+            context.MapRoute(
+                "WorkersComp",
+                "Api/WorkersComp/",
+                new { controller = "WorkersComp", action = "WorkersComp" }
+            );
+
+            context.MapRoute(
+               "WorkersCompPercentage",
+               "Api/WorkersComp/Percentage",
+               new { controller = "WorkersComp", action = "Percentage" }
+           );
 
 
 

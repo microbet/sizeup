@@ -8,5 +8,6 @@ namespace SizeUp.Web.Areas.Api.Models.AverageRevenue
     public class ChartItem : Models.Charts.BarChartItem
     {
         public long? Value { get; set; }
+        public long? Median { get; set; }
     }
 }

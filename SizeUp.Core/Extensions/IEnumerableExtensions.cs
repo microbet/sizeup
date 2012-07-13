@@ -46,6 +46,23 @@ namespace SizeUp.Core.Extensions
                 yield return toReturn;
             }
         }
+
+
+        public static int? Percentile<T, R>(this IEnumerable<T> source, Func<T, R> selector, R value) where R : IComparable<R>
+        {
+            var data = new
+            {
+                Total = source.Count(),
+                Less = source.Select(selector).Where(i => i.CompareTo(value) < 0).Count()
+            };
+
+            int? val = null;
+            if (data.Total > 0)
+            {
+                val = (int)(((decimal)data.Less / (decimal)data.Total) * 100);
+            }
+            return val;
+        }
     }
 
 }

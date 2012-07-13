@@ -106,14 +106,14 @@
                     container: me.container.find('.reportContainer .map.revenuePerCapita'),
                     overlays: [
                         {
-                            tileUrl: "/tiles/averageSalary/state/",
+                            tileUrl: "/tiles/revenuePerCapita/state/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByState({
+                                dataLayer.getRevenuePerCapitaBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by state in the USA',
+                            legendTitle: 'Revenue Per Capita by state in the USA',
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 0,
@@ -129,15 +129,15 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/averageSalary/county/",
+                            tileUrl: "/tiles/revenuePerCapita/county/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByCounty({
+                                dataLayer.getRevenuePerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.Locations.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + me.opts.report.Locations.State.Name,
+                            legendTitle: 'Revenue Per Capita by county in ' + me.opts.report.Locations.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 5,
@@ -154,15 +154,15 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/averageSalary/county/",
+                            tileUrl: "/tiles/revenuePerCapita/county/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByCounty({
+                                dataLayer.getRevenuePerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
+                            legendTitle: 'Revenue Per Capita by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
@@ -188,14 +188,14 @@
                     container: me.container.find('.reportContainer .map.totalRevenue'),
                     overlays: [
                         {
-                            tileUrl: "/tiles/averageSalary/state/",
+                            tileUrl: "/tiles/totalRevenue/state/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByState({
+                                dataLayer.getTotalRevenueBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by state in the USA',
+                            legendTitle: 'Total Revenue by state in the USA',
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 0,
@@ -211,15 +211,15 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/averageSalary/county/",
+                            tileUrl: "/tiles/totalRevenue/county/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByCounty({
+                                dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.Locations.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + me.opts.report.Locations.State.Name,
+                            legendTitle: 'Total Revenue by county in ' + me.opts.report.Locations.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 5,
@@ -236,15 +236,15 @@
                             ]
                         },
                         {
-                            tileUrl: "/tiles/averageSalary/county/",
+                            tileUrl: "/tiles/totalRevenue/county/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByCounty({
+                                dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
+                            legendTitle: 'Total Revenue by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
@@ -269,7 +269,7 @@
 
                     valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
                     container: me.container.find('.chart .container'),
-                    title: 'average annual revenue per business',
+                    title: 'revenue per capita',
                     bars: me.data.chart
                 });
                 me.chart.draw();
@@ -304,8 +304,8 @@
                 displayReport();
             });
 
-            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {

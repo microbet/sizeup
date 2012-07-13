@@ -29,7 +29,8 @@ namespace SizeUp.Web
             routes.MapRoute(
                 "FindBusiness", // Route name
                 "find-business/", // URL with parameters
-                new { controller = "Business", action = "Find" } // Parameter defaults
+                new { controller = "Business", action = "Find" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
             );
 
 

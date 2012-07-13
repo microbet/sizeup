@@ -32,33 +32,32 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
 
-                var boundingBox = tile.GetBoundingBox(0.2f);
-                var boundingGeo = tile.GetBoundingGeography(boundingEntity.Geography);
-                var boundingSpatial = DbGeography.FromText((string)boundingGeo.STAsText().ToSqlString());
-
-
-                var geos = context.CountyGeographies
-                   .Where(i => i.GeographyClass.Name == "Calculation" && i.Geography.GeographyPolygon.Intersects(boundingEntity.DbGeography.Buffer(-1)))
-                   .Select(i => i.CountyId);
+                IQueryable<long> ids = context.Counties.Select(i => i.Id);
+                if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
+                {
+                    ids = context.Counties
+                       .Where(i => i.MetroId == boundingEntity.EntityId)
+                       .Select(i => i.Id);
+                }
+                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
+                {
+                    ids = context.Counties
+                       .Where(i => i.StateId == boundingEntity.EntityId)
+                       .Select(i => i.Id);
+                }
 
                 var data = context.IndustryDataByCounties
                     .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageRevenue > 0)
-                    .Join(geos, i => i.CountyId, i => i, (i, o) => i)
+                    .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Select(i => new { i.AverageAnnualSalary, i.CountyId })
                     .ToList();
 
                 var bands = data.NTile(i => i.AverageAnnualSalary, colorArray.Length)
                     .ToList();
 
-                var zipIds = context.CountyGeographies
-                  .Where(i => i.GeographyClass.Name == "Calculation")
-                  .Where(i => i.Geography.North > (double)boundingBox.SouthWest.Y && i.Geography.East > (double)boundingBox.SouthWest.X && i.Geography.South < (double)boundingBox.NorthEast.Y && i.Geography.West < (double)boundingBox.NorthEast.X)
-                  .Where(i => i.Geography.GeographyPolygon.Intersects(boundingSpatial))
-                  .Select(i => i.CountyId);
-
 
                 var displayGeos = context.CountyGeographies
-                    .Join(zipIds, i => i.CountyId, i => i, (i, o) => i)
+                    .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Where(i => i.GeographyClass.Name == "Display")
                     .Select(i => new { i.CountyId, i.Geography.GeographyPolygon })
                     .ToList();
@@ -112,15 +111,12 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                   .ToList();
 
 
-                var stateIds = context.StateGeographies
-                    .Where(i => i.GeographyClass.Name == "Calculation")
-                    .Where(i => i.Geography.North > (double)boundingBox.SouthWest.Y && i.Geography.East > (double)boundingBox.SouthWest.X && i.Geography.South < (double)boundingBox.NorthEast.Y && i.Geography.West < (double)boundingBox.NorthEast.X)
-                    .Where(i => i.Geography.GeographyPolygon.Intersects(boundingSpatial))
-                    .Select(i => i.StateId);
+                var ids = context.States
+                    .Select(i => i.Id);
 
 
                 var displayGeos = context.StateGeographies
-                    .Join(stateIds, i => i.StateId, i => i, (i, o) => i)
+                    .Join(ids, i => i.StateId, i => i, (i, o) => i)
                     .Where(i => i.GeographyClass.Name == "Display")
                     .Select(i => new { i.StateId, i.Geography.GeographyPolygon })
                     .ToList();

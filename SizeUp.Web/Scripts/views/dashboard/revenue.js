@@ -176,7 +176,7 @@
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
-                            maxZoom: 32,
+                            maxZoom: 11,
                             boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id,
                             colors: [
                                 '#F5F500',
@@ -200,7 +200,7 @@
                             legendTitle: 'Average Business Annual Revenue by ZIP code in ' +  me.opts.report.Locations.County.Name + ', ' + me.opts.report.Locations.State.Abbreviation,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 9,
+                            minZoom: 12,
                             maxZoom: 32,
                             boundingEntityId: 'co' + me.opts.report.Locations.County.Id,
                             colors: [

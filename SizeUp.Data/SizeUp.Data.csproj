@@ -58,12 +58,16 @@
     </Compile>
     <Compile Include="Analytics\Tracker.cs" />
     <Compile Include="ContextFactory.cs" />
+    <Compile Include="Models\Locations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeUpContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="TimeSlice.cs" />
+    <Compile Include="Views\IndustryData.cs" />
+    <Compile Include="Views\Locations.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="SizeUpContext.edmx">

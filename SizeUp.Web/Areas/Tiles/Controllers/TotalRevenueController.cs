@@ -16,7 +16,7 @@ using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Tiles.Controllers
 {
-    public class AverageRevenueController : Controller
+    public class TotalRevenueController : Controller
     {
         //
         // GET: /Tiles/Revenue/
@@ -31,6 +31,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
 
                 IQueryable<long> zips = context.ZipCodes.Select(i => i.Id);
+
                 if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.City)
                 {
                     zips = context.ZipCodeCityMappings
@@ -60,10 +61,10 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 var data = context.IndustryDataByZips
                     .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageRevenue > 0)
                     .Join(zips, i => i.ZipCodeId, i => i, (i, o) => i)
-                    .Select(i => new { i.AverageRevenue, i.ZipCodeId})
+                    .Select(i => new { i.TotalRevenue, i.ZipCodeId})
                     .ToList();
 
-                var bands = data.NTile(i => i.AverageRevenue, colorArray.Length)
+                var bands = data.NTile(i => i.TotalRevenue, colorArray.Length)
                     .ToList();
 
                 var displayGeos = context.ZipCodeGeographies
@@ -106,8 +107,9 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 List<GeographyCollection> collection = new List<GeographyCollection>();
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-                var BoundingBox = tile.GetBoundingBox(0.2f);
+
                 IQueryable<long> ids = context.Counties.Select(i => i.Id);
+
                 if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
                 {
                     ids = context.Counties
@@ -121,30 +123,20 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                        .Select(i => i.Id);
                 }
 
+
+
                 var data = context.IndustryDataByCounties
                     .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageRevenue > 0)
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                    .Select(i => new { i.AverageRevenue, i.CountyId })
+                    .Select(i => new { i.TotalRevenue, i.CountyId })
                     .ToList();
 
-                var bands = data.NTile(i => i.AverageRevenue, colorArray.Length)
+                var bands = data.NTile(i => i.TotalRevenue, colorArray.Length)
                     .ToList();
 
-                var calcGeos = context.CountyGeographies
-                   .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                   .Where(i => i.GeographyClass.Name == "Calculation")
-                   .Select(i => new { i.CountyId, i.Geography })
-                   .Where(i => 
-                       i.Geography.West < BoundingBox.NorthEast.X &&
-                       i.Geography.East > BoundingBox.SouthWest.X &&
-                       i.Geography.South < BoundingBox.NorthEast.Y &&
-                       i.Geography.North > BoundingBox.SouthWest.Y
-                       );
-
-                var geoIds = ids.Join(calcGeos,i=>i,i=>i.CountyId,(i,o)=>i);
 
                 var displayGeos = context.CountyGeographies
-                    .Join(geoIds, i => i.CountyId, i => i, (i, o) => i)
+                    .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Where(i => i.GeographyClass.Name == "Display")
                     .Select(i => new { i.CountyId, i.Geography.GeographyPolygon })
                     .ToList();
@@ -191,10 +183,10 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
                 var data = context.IndustryDataByStates
                   .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageRevenue > 0)
-                  .Select(i => new { i.StateId, i.AverageRevenue });
+                  .Select(i => new { i.StateId, i.TotalRevenue });
 
                 var bands = data.ToList()
-                  .NTile(i => i.AverageRevenue, colorArray.Length)
+                  .NTile(i => i.TotalRevenue, colorArray.Length)
                   .ToList();
 
 

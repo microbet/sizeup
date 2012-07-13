@@ -131,6 +131,42 @@
                 return get('/api/averageSalary/bands/county/', params, success, error);
             },
 
+            getRevenuePerCapitaChart: function (params, success, error) {
+                return get('/api/RevenuePerCapita/', params, success, error);
+            },
+
+            getRevenuePerCapitaPercentage: function (params, success, error) {
+                return get('/api/RevenuePerCapita/percentage/', params, success, error);
+            },
+
+            getRevenuePerCapitaPercentile: function (params, success, error) {
+                return get('/api/RevenuePerCapita/percentile/', params, success, error);
+            },
+
+            getRevenuePerCapitaBandsByState: function (params, success, error) {
+                return get('/api/RevenuePerCapita/bands/state/', params, success, error);
+            },
+
+            getRevenuePerCapitaBandsByCounty: function (params, success, error) {
+                return get('/api/RevenuePerCapita/bands/county/', params, success, error);
+            },
+
+            getRevenuePerCapitaBandsByZip: function (params, success, error) {
+                return get('/api/RevenuePerCapita/bands/zip/', params, success, error);
+            },
+
+            getTotalRevenueBandsByState: function (params, success, error) {
+                return get('/api/TotalRevenue/bands/state/', params, success, error);
+            },
+
+            getTotalRevenueBandsByCounty: function (params, success, error) {
+                return get('/api/TotalRevenue/bands/county/', params, success, error);
+            },
+
+            getTotalRevenueBandsByZip: function (params, success, error) {
+                return get('/api/TotalRevenue/bands/zip/', params, success, error);
+            },
+
 
             getTurnoverChart: function (params, success, error) {
                 return get('/api/turnover/', params, success, error);

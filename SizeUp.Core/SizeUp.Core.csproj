@@ -68,7 +68,7 @@
     <Compile Include="Singleton.cs" />
     <Compile Include="Templates\TemplateFactory.cs" />
     <Compile Include="Geo\BoundingEntity.cs" />
-    <Compile Include="Tiles\BoundingBox.cs" />
+    <Compile Include="Geo\BoundingBox.cs" />
     <Compile Include="Tiles\Businesses.cs" />
     <Compile Include="Tiles\GeographyCollection.cs" />
     <Compile Include="Tiles\GeoSink.cs" />
