@@ -13,7 +13,7 @@ using SizeUp.Core.Tiles;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
-
+using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Tiles.Controllers
 {
@@ -22,32 +22,20 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
         //
         // GET: /Tiles/AverageSalary/
 
-       
         public ActionResult County(int x, int y, int zoom, int industryId, string colors, string boundingEntityId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 string[] colorArray = colors.Split(',');
-                List<GeographyCollection> collection = new List<GeographyCollection>();
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
+                var BoundingBox = tile.GetBoundingBox(0.2f);
 
-                IQueryable<long> ids = context.Counties.Select(i => i.Id);
-                if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
-                {
-                    ids = context.Counties
-                       .Where(i => i.MetroId == boundingEntity.EntityId)
-                       .Select(i => i.Id);
-                }
-                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
-                {
-                    ids = context.Counties
-                       .Where(i => i.StateId == boundingEntity.EntityId)
-                       .Select(i => i.Id);
-                }
+                IQueryable<long> ids = Counties.GetBounded(context, boundingEntity)
+                    .Select(i => i.Id);
 
-                var data = context.IndustryDataByCounties
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageRevenue > 0)
+                var data = IndustryData.GetCounties(context, industryId)
+                    .Where(i => i.AverageAnnualSalary > 0)
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Select(i => new { i.AverageAnnualSalary, i.CountyId })
                     .ToList();
@@ -55,31 +43,17 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 var bands = data.NTile(i => i.AverageAnnualSalary, colorArray.Length)
                     .ToList();
 
-
-                var displayGeos = context.CountyGeographies
+                var geoIds = Core.DataAccess.Geography.GetBoundingBoxedCounties(context, BoundingBox)
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                    .Where(i => i.GeographyClass.Name == "Display")
-                    .Select(i => new { i.CountyId, i.Geography.GeographyPolygon })
-                    .ToList();
+                    .Select(i => i.CountyId);
+
+                var displayGeos = Core.DataAccess.Geography.GetDisplayCounties(context, geoIds).ToList();
+
+                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.CountyId, i => i.Id, (i, o) => o).ToList()).ToList();
+                var noData = displayGeos.Where(g => !data.Select(ig => ig.CountyId).Contains(g.Id)).ToList();
 
 
-                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.CountyId, i => i.CountyId, (i, o) => o).ToList()).ToList();
-                var noData = displayGeos.Where(g => !data.Select(ig => ig.CountyId).Contains(g.CountyId)).ToList();
-
-
-                for (var b = 0; b < bandedGeos.Count; b++)
-                {
-                    var geoCollection = new GeographyCollection();
-                    geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.GeographyPolygon.AsText())).ToList());
-                    geoCollection.Color = colorArray[b];
-                    collection.Add(geoCollection);
-                }
-
-                var noDataCollection = new GeographyCollection();
-                noDataCollection.Geographies = new List<SqlGeography>();
-                noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.GeographyPolygon.AsText())).ToList());
-                collection.Add(noDataCollection);
-
+                var collection = Heatmap.CreateCollections(colorArray, bandedGeos, noData);
 
                 tile.Draw(collection);
                 var stream = new System.IO.MemoryStream();
@@ -93,51 +67,27 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 string[] colorArray = colors.Split(',');
-                List<GeographyCollection> collection = new List<GeographyCollection>();
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
+                var BoundingBox = tile.GetBoundingBox(0.2f);
 
-
-                var boundingBox = tile.GetBoundingBox(0.2f);
-                var boundingGeo = tile.GetBoundingGeography();
-                var boundingSpatial = DbGeography.FromText((string)boundingGeo.STAsText().ToSqlString());
-
-
-                var data = context.IndustryDataByStates
-                  .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter && i.AverageRevenue > 0)
+                var data = IndustryData.GetStates(context,industryId)
+                  .Where(i => i.AverageAnnualSalary > 0)
                   .Select(i => new { i.StateId, i.AverageAnnualSalary });
 
                 var bands = data.ToList()
                   .NTile(i => i.AverageAnnualSalary, colorArray.Length)
                   .ToList();
 
+                var geoIds = Core.DataAccess.Geography.GetBoundingBoxedStates(context, BoundingBox)
+                     .Select(i => i.StateId);
 
-                var ids = context.States
-                    .Select(i => i.Id);
-
-
-                var displayGeos = context.StateGeographies
-                    .Join(ids, i => i.StateId, i => i, (i, o) => i)
-                    .Where(i => i.GeographyClass.Name == "Display")
-                    .Select(i => new { i.StateId, i.Geography.GeographyPolygon })
-                    .ToList();
+                var displayGeos = Core.DataAccess.Geography.GetDisplayStates(context, geoIds).ToList();
 
 
-                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.StateId, i => i.StateId, (i, o) => o).ToList()).ToList();
-                var noData = displayGeos.Where(g => !data.Select(ig => ig.StateId).Contains(g.StateId)).ToList();
+                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.StateId, i => i.Id, (i, o) => o).ToList()).ToList();
+                var noData = displayGeos.Where(g => !data.Select(ig => ig.StateId).Contains(g.Id)).ToList();
 
-                for (var b = 0; b < bandedGeos.Count; b++)
-                {
-                    var geoCollection = new GeographyCollection();
-                    geoCollection.Geographies.AddRange(bandedGeos[b].Select(i => SqlGeography.Parse(i.GeographyPolygon.AsText())).ToList());
-                    geoCollection.Color = colorArray[b];
-                    collection.Add(geoCollection);
-                }
-
-                var noDataCollection = new GeographyCollection();
-                noDataCollection.Geographies = new List<SqlGeography>();
-                noDataCollection.Geographies.AddRange(noData.Select(i => SqlGeography.Parse(i.GeographyPolygon.AsText())).ToList());
-                collection.Add(noDataCollection);
-
+                var collection = Heatmap.CreateCollections(colorArray, bandedGeos, noData);
 
                 tile.Draw(collection);
                 var stream = new System.IO.MemoryStream();

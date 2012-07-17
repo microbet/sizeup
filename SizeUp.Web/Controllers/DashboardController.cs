@@ -38,13 +38,7 @@ namespace SizeUp.Web.Controllers
 
                 ViewBag.Report = new Models.Business.Report()
                 {
-                    Locations = new Models.Business.Locations()
-                    {
-                        City = CurrentInfo.CurrentPlace.City,
-                        County = CurrentInfo.CurrentPlace.County,
-                        Metro = CurrentInfo.CurrentPlace.Metro,
-                        State = CurrentInfo.CurrentPlace.State
-                    },
+                    CurrentPlace = CurrentInfo.CurrentPlace,
                     IndustryDetails = new Models.Business.IndustryDetails()
                     {
                         Industry = new Areas.Api.Models.Industry.Industry()

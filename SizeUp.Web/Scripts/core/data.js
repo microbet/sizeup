@@ -44,6 +44,9 @@
             searchPlaces: function (params, success, error) {
                 return get('/api/place/search/', params, success, error);
             },
+            getPlace: function (params, success, error) {
+                return get('/api/place/', params, success, error);
+            },
             getCurrentPlace: function (success, error) {
                 return get('/api/place/current', null, success, error);
             },

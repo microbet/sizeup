@@ -8,7 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
-
+using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -16,64 +16,48 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Turnover/
-
-        public ActionResult Turnover(int industryId, int countyId)
+        public ActionResult Turnover(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = context.CityCountyMappings
-                    .Select(i => new
-                    {
-                        County = i.County,
-                        Metro = i.County.Metro,
-                        State = i.County.State
-                    })
-                    .Where(i => i.County.Id == countyId).FirstOrDefault();
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-
-
-
-                var n = context.IndustryDataByNations
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var n = IndustryData.GetNational(context, industryId)
                     .Select(i => new Models.Turnover.ChartItem()
                     {
                         Hires = i.Hires,
                         Separations = i.Separations,
-                        Turnover = i.TurnoverRate,
+                        Turnover = i.TurnoverRate * 100,
                         Name = "USA"
                     });
 
 
-                var s = context.IndustryDataByStates
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var s = IndustryData.GetState(context, industryId, locations.State.Id)
                     .Select(i => new Models.Turnover.ChartItem()
                     {
                         Hires = i.Hires,
                         Separations = i.Separations,
-                        Turnover = i.TurnoverRate,
+                        Turnover = i.TurnoverRate * 100,
                         Name = locations.State.Name
                     });
 
-                var m = context.IndustryDataByMetroes
-                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
-                    .Select(i => new Models.Turnover.ChartItem()
-                    {
-                        Hires = i.Hires,
-                        Separations = i.Separations,
-                        Turnover = i.TurnoverRate,
-                        Name = locations.Metro.Name
-                    });
+                var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                     .Select(i => new Models.Turnover.ChartItem()
+                     {
+                         Hires = i.Hires,
+                         Separations = i.Separations,
+                         Turnover = i.TurnoverRate * 100,
+                         Name = locations.Metro.Name
+                     });
 
-                var co = context.IndustryDataByCounties
-                   .Where(i => i.IndustryId == industryId && i.CountyId == locations.County.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
                    .Select(i => new Models.Turnover.ChartItem()
                    {
                        Hires = i.Hires,
                        Separations = i.Separations,
-                       Turnover = i.TurnoverRate,
+                       Turnover = i.TurnoverRate * 100,
                        Name = locations.County.Name + ", " + locations.State.Abbreviation
                    });
-
 
                 var data = new Models.Charts.BarChart()
                 {
@@ -88,38 +72,27 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Percentile(int industryId, int countyId)
+        public ActionResult Percentile(long industryId, int placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-                var turnovers = context.IndustryDataByCounties
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+
+                var values = IndustryData.GetCounties(context, industryId)
                     .Select(i => i.TurnoverRate);
 
-                var currentTurnover = context.IndustryDataByCounties
-                    .Where(i => i.IndustryId == industryId && i.CountyId == countyId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
-                    .Select(i => i.TurnoverRate)
-                    .FirstOrDefault();
+                var value = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                   .Select(i => i.TurnoverRate)
+                   .FirstOrDefault();
 
-                var data = new
+                var obj = new
                 {
-                    Total = turnovers.Count(),
-                    Less = turnovers.Where(i => i.Value < currentTurnover).Count()
+                    Percentile = Core.DataAccess.Math.Percentile(values, (double)value)
                 };
-
-                object obj = null;
-                if (data.Total > 0)
-                {
-                    obj = new
-                    {
-                        Percentile = (int)(((decimal)data.Less / (decimal)data.Total) * 100)
-                    };
-                }
 
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

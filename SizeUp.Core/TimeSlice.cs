@@ -7,7 +7,7 @@ using System.Configuration;
 
 namespace SizeUp.Core
 {
-    public static class TimeSliceOld
+    public static class TimeSlice
     {
         public static int Year
         {

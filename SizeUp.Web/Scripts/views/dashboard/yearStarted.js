@@ -120,8 +120,8 @@
                 displayReport();
             });
 
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, cityId: me.opts.report.Locations.City.Id,  countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, cityId: me.opts.report.Locations.City.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(percentileDataReturned));
         };
 
 

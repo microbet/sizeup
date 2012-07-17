@@ -17,7 +17,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/YearStarted/
 
-        public ActionResult YearStarted(long industryId, long cityId, long countyId)
+        public ActionResult YearStarted(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -30,7 +30,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Metro = i.County.Metro,
                         State = i.County.State
                     })
-                    .Where(i => i.County.Id == countyId && i.City.Id == cityId);
+                    .Where(i => i.County.Id == placeId);
 
                 /*
 
@@ -119,7 +119,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Percentile(long industryId, long cityId, long countyId, int value)
+        public ActionResult Percentile(long industryId, long placeId, int value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -131,7 +131,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                          Metro = i.County.Metro,
                          State = i.County.State
                      })
-                     .Where(i => i.County.Id == countyId && i.City.Id == cityId);
+                     .Where(i => i.County.Id == placeId);
 
                
                 /*

@@ -119,7 +119,7 @@
                 me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
 
                 me.data.turnover.description = {
-                    Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,1),
+                    Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,2),
                     NAICS4: me.opts.report.IndustryDetails.NAICS4,
                     Industry: me.opts.report.IndustryDetails.Industry
                 };
@@ -160,9 +160,9 @@
                 e.callback();
                 displayReport();
             });
-            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(turnoverChartDataReturned));
-            dataLayer.getJobChangeChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(jobChangeChartDataReturned));
-            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(turnoverChartDataReturned));
+            dataLayer.getJobChangeChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(jobChangeChartDataReturned));
+            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(percentileDataReturned));
         };
 
 

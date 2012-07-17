@@ -22,7 +22,7 @@
         me._needle.rotate(180, 43, 42);  // work around IE bug when setting rotation angle to 0.
         me._intervalId = setInterval(function () { me._needle.animate({ rotation: 177 + Math.random() * 6 + " 43 42" }, 100); }, 150);
         me._value = 50;
-        me._element.mouseover(_flash);
+        me._element.mouseover(function () { _flash(); });
 
         var _setValue = function (percentage, tooltip) {
             clearInterval(me._intervalId);

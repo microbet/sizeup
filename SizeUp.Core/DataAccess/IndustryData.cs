@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SizeUp.Core;
+using SizeUp.Data;
 
-namespace SizeUp.Data.Views
+namespace SizeUp.Core.DataAccess
 {
     public static class IndustryData
     {

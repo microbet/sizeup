@@ -446,7 +446,7 @@
             var pagerData = me[index].content.pager.getPageData();
             dataLayer.getBusinessesByIndustry({
                 industryIds: getIndustryIds(index),
-                cityId: me.opts.CurrentPlace.City.Id,
+                placeId: me.opts.CurrentPlace.Id,
                 itemCount: me.opts.itemsPerPage,
                 page: pagerData.page
             }, function (data) {

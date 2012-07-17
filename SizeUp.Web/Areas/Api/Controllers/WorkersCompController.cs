@@ -17,7 +17,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/WorkersComp/
 
-        public ActionResult WorkersComp(long industryId, long cityId, int? employees)
+        public ActionResult WorkersComp(long industryId, long placeId, int? employees)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -29,7 +29,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                        Metro = i.County.Metro,
                        State = i.County.State
                    })
-                   .Where(i => i.City.Id ==cityId).FirstOrDefault();
+                   .Where(i => i.City.Id == placeId).FirstOrDefault();
 
 
                 var data = context.IndustryDataByStates

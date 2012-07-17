@@ -134,15 +134,15 @@
                                 dataLayer.getRevenuePerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.report.Locations.State.Id
+                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Revenue Per Capita by county in ' + me.opts.report.Locations.State.Name,
+                            legendTitle: 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.report.Locations.State.Id,
+                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -159,15 +159,15 @@
                                 dataLayer.getRevenuePerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
+                                    boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Revenue Per Capita by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
+                            legendTitle: 'Revenue Per Capita by county in ' + (me.opts.report.CurrentPlace.Metro ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
                             maxZoom: 32,
-                            boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id,
+                            boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -216,15 +216,15 @@
                                 dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.report.Locations.State.Id
+                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Revenue by county in ' + me.opts.report.Locations.State.Name,
+                            legendTitle: 'Total Revenue by county in ' + me.opts.report.CurrentPlace.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.report.Locations.State.Id,
+                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -241,15 +241,15 @@
                                 dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id
+                                    boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Revenue by county in ' + (me.opts.report.Locations.Metro ? me.opts.report.Locations.Metro.Name + ' (Metro)' : me.opts.report.Locations.State.Name),
+                            legendTitle: 'Total Revenue by county in ' + (me.opts.report.CurrentPlace.Metro ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
                             maxZoom: 32,
-                            boundingEntityId: me.opts.report.Locations.Metro ? 'm' + me.opts.report.Locations.Metro.Id : 's' + me.opts.report.Locations.State.Id,
+                            boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -282,7 +282,7 @@
 
 
                 me.data.description = {
-                    Percentage: me.data.gauge.tooltip,
+                    Percentiles: me.data.percentiles,
                     NAICS6: me.opts.report.IndustryDetails.NAICS6,
                     Salary: me.data.table['County'].value
                 };
@@ -304,17 +304,18 @@
                 displayReport();
             });
 
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var percentile = sizeup.util.numbers.format.ordinal(data.Percentile);
+                me.data.percentiles = data;
+
                 me.data.gauge = {
-                    value: data.Percentile,
-                    tooltip: percentile + ' Percentile'
+                    value: me.data.percentiles.Nation,
+                    tooltip: sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
                 };
             }
             else {

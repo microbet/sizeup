@@ -8,6 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
+using SizeUp.Core.DataAccess;
 
 
 namespace SizeUp.Web.Areas.Api.Controllers
@@ -17,24 +18,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/HealthCare/
 
-        public ActionResult HealthCare(long industryId, long cityId, long? employees)
+        public ActionResult HealthCare(long industryId, long placeId, long? employees)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = context.CityCountyMappings
-                    .Select(i => new
-                    {
-                        City = i.City,
-                        County = i.County,
-                        Metro = i.County.Metro,
-                        State = i.County.State
-                    })
-                    .Where(i => i.City.Id == cityId).FirstOrDefault();
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-
-
-                var n = context.IndustryDataByStates
-                   .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var s = IndustryData.GetStates(context, industryId)
                    .Select(i => new Models.JobChange.ChartItem()
                    {
                        NetJobChange = i.NetJobChange,

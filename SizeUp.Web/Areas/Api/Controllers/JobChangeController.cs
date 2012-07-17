@@ -8,6 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
+using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -16,24 +17,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/JobChange/
 
-        public ActionResult JobChange(int industryId, int countyId)
+        public ActionResult JobChange(int industryId, int placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = context.CityCountyMappings
-                    .Select(i => new
-                    {
-                        County = i.County,
-                        Metro = i.County.Metro,
-                        State = i.County.State
-                    })
-                    .Where(i => i.County.Id == countyId).FirstOrDefault();
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-
-
-
-                var n = context.IndustryDataByNations
-                    .Where(i => i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var n = IndustryData.GetNational(context, industryId)
                     .Select(i => new Models.JobChange.ChartItem()
                     {
                         NetJobChange = i.NetJobChange,
@@ -42,10 +32,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Name = "USA"
                     });
 
-
-                var s = context.IndustryDataByStates
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
-                    .Select(i => new Models.JobChange.ChartItem()
+                var s = IndustryData.GetState(context, industryId, locations.State.Id)
+                     .Select(i => new Models.JobChange.ChartItem()
                     {
                         NetJobChange = i.NetJobChange,
                         JobGains = i.JobGains,
@@ -53,8 +41,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Name = locations.State.Name
                     });
 
-                var m = context.IndustryDataByMetroes
-                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+
+                var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
                     .Select(i => new Models.JobChange.ChartItem()
                     {
                         NetJobChange = i.NetJobChange,
@@ -63,8 +51,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Name = locations.Metro.Name
                     });
 
-                var co = context.IndustryDataByCounties
-                   .Where(i => i.IndustryId == industryId && i.CountyId == locations.County.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
                    .Select(i => new Models.JobChange.ChartItem()
                    {
                        NetJobChange = i.NetJobChange,
@@ -72,7 +59,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                        JobLosses = i.JobLosses,
                        Name = locations.County.Name + ", " + locations.State.Abbreviation
                    });
-
 
 
 
@@ -88,8 +74,5 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
-
-
     }
 }

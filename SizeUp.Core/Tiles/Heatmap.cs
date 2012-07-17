@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Microsoft.SqlServer.Types;
+using SizeUp.Core.DataAccess.Models;
 
 namespace SizeUp.Core.Tiles
 {
@@ -49,6 +50,26 @@ namespace SizeUp.Core.Tiles
                     }
                 }
             }
+        }
+
+        public static List<GeographyCollection> CreateCollections(string[] colors, IEnumerable<IEnumerable<DisplayGeography>> Geographies, IEnumerable<DisplayGeography> NoDataGeographies)
+        {
+            List<GeographyCollection> c = new List<GeographyCollection>();
+
+            for(var b = 0; b < Geographies.Count(); b++)
+            {
+                var geoCollection = new GeographyCollection();
+                geoCollection.Geographies.AddRange(Geographies.ElementAt(b).Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+                geoCollection.Color = colors[b];
+                c.Add(geoCollection);
+            }
+
+            var noDataCollection = new GeographyCollection();
+            noDataCollection.Geographies = new List<SqlGeography>();
+            noDataCollection.Geographies.AddRange(NoDataGeographies.Select(i => SqlGeography.Parse(i.Geography.AsText())).ToList());
+            c.Add(noDataCollection);
+
+            return c;
         }
     }
 }

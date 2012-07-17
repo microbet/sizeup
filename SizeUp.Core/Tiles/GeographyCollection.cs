@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SqlServer.Types;
+using SizeUp.Core.DataAccess.Models;
 
 namespace SizeUp.Core.Tiles
 {

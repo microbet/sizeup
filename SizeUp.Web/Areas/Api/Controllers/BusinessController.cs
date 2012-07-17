@@ -7,6 +7,8 @@ using SizeUp.Data;
 using System.Linq.Expressions;
 using System.Data.Objects.SqlClient;
 using Microsoft.SqlServer.Types;
+using SizeUp.Core.DataAccess;
+
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class BusinessController : Controller
@@ -40,13 +42,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var scalar = 69.1 * Math.Cos(lat / 57.3);
+                var scalar = 69.1 * System.Math.Cos(lat / 57.3);
                 var year = DateTime.Now.Year;
                 var item = context.Businesses.Where(i => industryIds.Contains(i.IndustryId.Value));
                 item = item.Where(i => i.BusinessStatusCode != "1" || i.BusinessStatusCode != "3");
                 var data = item.Select(i => new
                 {
-                    Distance = Math.Pow(Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
+                    Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
                     Business = new Models.Business.Business()
                     {
                         Id = i.Id,
@@ -73,7 +75,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult BusinessList(List<long> industryIds, long cityId, int itemCount, int page = 1, int radius = 100)
+        public ActionResult BusinessList(List<long> industryIds, long placeId, int itemCount, int page = 1, int radius = 100)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -83,8 +85,10 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
+                var locations = Locations.Get(context, placeId);
+
                 var city = context.CityGeographies
-                    .Where(i => i.CityId == cityId && i.GeographyClass.Name == "Calculation")
+                    .Where(i => i.CityId == locations.FirstOrDefault().City.Id && i.GeographyClass.Name == "Calculation")
                     .Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
 
                 var geo = SqlGeography.Parse(city.AsText());
@@ -94,13 +98,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var lat = (double)geo.STPointN(1).Lat;
                 var lng = (double)geo.STPointN(1).Long;
 
-               var scalar = 69.1 * Math.Cos(lat / 57.3);
+                var scalar = 69.1 * System.Math.Cos(lat / 57.3);
 
                 var year = DateTime.Now.Year;
                 var item = context.Businesses.Where(i => industryIds.Contains(i.IndustryId.Value));
                 item = item.Where(i => i.BusinessStatusCode != "1" || i.BusinessStatusCode != "3");
                 var projection = item.Select(i => new {
-                    Distance = Math.Pow(Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
+                    Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
                     Business = new Models.Business.Business()
                     {
                         Id = i.Id,

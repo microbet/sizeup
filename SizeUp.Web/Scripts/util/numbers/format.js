@@ -17,7 +17,7 @@
             if (places == null || typeof places == 'undefined') {
                 places = 0;
             }
-            return this.round(number, places) + '%';
+            return this.round(number, places).toFixed(places) + '%';
         },
         round: function(num, dec) {
             var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);

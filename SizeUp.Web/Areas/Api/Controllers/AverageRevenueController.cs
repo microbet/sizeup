@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
-using SizeUp.Data.Views;
+using SizeUp.Core.DataAccess;
 using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
@@ -19,12 +19,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/AverageRevenue/
 
-        public ActionResult AverageRevenue(long industryId, long cityId, long countyId)
+        public ActionResult AverageRevenue(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-
-                var locations = Data.Views.Locations.Get(context, cityId, countyId).FirstOrDefault();
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
                 var n = IndustryData.GetNational(context,industryId)
                     .Select(i => new Models.AverageRevenue.ChartItem()
@@ -77,16 +76,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Percentile(long industryId, decimal value)
+        public ActionResult Percentile(long industryId, double value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-
                 var revenues = IndustryData.GetCities(context, industryId)
-                    .Select(i => i.AverageRevenue)
-                    .Where(i => i != null);
+                    .Select(i => i.AverageRevenue);
 
-                var percentile = revenues.Percentile(i => i.Value, value);
+
+                var percentile = Core.DataAccess.Math.Percentile(revenues, (long)value);
 
                 var obj = new
                 {
@@ -103,33 +101,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-                IQueryable<long> zips = context.ZipCodes.Select(i=>i.Id);
 
-                if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.City)
-                {
-                    zips = context.ZipCodeCityMappings
-                        .Where(i => i.CityId == boundingEntity.EntityId)
-                        .Select(i => i.ZipCodeId);
-                }
-                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.County)
-                {
-                    zips = context.ZipCodeCountyMappings
-                       .Where(i => i.CountyId == boundingEntity.EntityId)
-                       .Select(i => i.ZipCodeId);
-                }
-                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
-                {
-                    zips = context.ZipCodeCountyMappings
-                       .Where(i => i.County.MetroId == boundingEntity.EntityId)
-                       .Select(i => i.ZipCodeId);
-                }
-                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
-                {
-                    zips = context.ZipCodeCountyMappings
-                       .Where(i => i.County.StateId == boundingEntity.EntityId)
-                       .Select(i => i.ZipCodeId);
-                }
-
+                var zips = ZipCodes.GetBounded(context, boundingEntity)
+                    .Select(i => i.Id);
 
                 var data = IndustryData.GetZipCodes(context, industryId)
                     .Where(i => i.AverageRevenue > 0)
@@ -155,25 +129,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult BandsByCounty(long industryId, int bands, string boundingEntityId)
         {
-
             using (var context = ContextFactory.SizeUpContext)
             {
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-                IQueryable<long> ids = context.Counties.Select(i => i.Id);
 
-                if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
-                {
-                    ids = context.Counties
-                       .Where(i => i.MetroId == boundingEntity.EntityId)
-                       .Select(i => i.Id);
-                }
-                else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
-                {
-                    ids = context.Counties
-                       .Where(i => i.StateId == boundingEntity.EntityId)
-                       .Select(i => i.Id);
-                }
-
+                var ids = Counties.GetBounded(context, boundingEntity)
+                    .Select(i => i.Id);
 
                 var data = IndustryData.GetCounties(context, industryId)
                     .Where(i => i.AverageRevenue > 0)

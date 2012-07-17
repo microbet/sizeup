@@ -75,6 +75,12 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "Place", action = "DetectedPlace" }
            );
 
+            context.MapRoute(
+               "GetPlace",
+               "Api/Place/",
+               new { controller = "Place", action = "Get" }
+           );
+
 
             /***********city**********/
             context.MapRoute(
@@ -184,6 +190,7 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "YearStarted", action = "YearStarted" }
            );
 
+
             /****AverageSalary*****/
 
             context.MapRoute(
@@ -210,6 +217,40 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageSalary", action = "BandsByState" }
             );
 
+            /****AverageEmployees*****/
+
+            context.MapRoute(
+                "AverageEmployees",
+                "Api/AverageEmployees/",
+                new { controller = "AverageEmployees", action = "AverageEmployees" }
+            );
+
+            context.MapRoute(
+                "AverageEmployeesPercentle",
+                "Api/AverageEmployees/Percentile",
+                new { controller = "AverageEmployees", action = "Percentile" }
+            );
+
+            context.MapRoute(
+                "AverageEmployeesBandsZip",
+                "Api/AverageEmployees/Bands/Zip",
+                new { controller = "AverageEmployees", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "AverageEmployeesBandsCounty",
+                "Api/AverageEmployees/Bands/County",
+                new { controller = "AverageEmployees", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "AverageEmployeesBandsState",
+                "Api/AverageEmployees/Bands/State",
+                new { controller = "AverageEmployees", action = "BandsByState" }
+            );
+
+           
+
             /****RevenuePerCapita*****/
 
             context.MapRoute(
@@ -219,9 +260,9 @@ namespace SizeUp.Web.Areas.Api
             );
 
             context.MapRoute(
-                "RevenuePerCapitaPercentage",
-                "Api/RevenuePerCapita/Percentage",
-                new { controller = "RevenuePerCapita", action = "Percentage" }
+                "RevenuePerCapitaPercentile",
+                "Api/RevenuePerCapita/Percentile",
+                new { controller = "RevenuePerCapita", action = "Percentile" }
             );
 
             context.MapRoute(

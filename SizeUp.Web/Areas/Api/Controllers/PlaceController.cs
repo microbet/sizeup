@@ -160,5 +160,46 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
 
+        public JsonResult Get(long id)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = context.CityCountyMappings
+                    .Where(i => i.Id == id)
+                    .Select(i => new Api.Models.Place.Place()
+                    {
+                        Id = i.Id,
+                        City = new Api.Models.City.City()
+                        {
+                            Id = i.City.Id,
+                            Name = i.City.Name,
+                            SEOKey = i.City.SEOKey,
+                            State = i.City.State.Abbreviation
+                        },
+                        County = new Api.Models.County.County()
+                        {
+                            Id = i.County.Id,
+                            Name = i.County.Name,
+                            SEOKey = i.County.SEOKey,
+                            State = i.County.State.Abbreviation
+                        },
+                        Metro = new Api.Models.Metro.Metro()
+                        {
+                            Id = i.County.Metro.Id,
+                            Name = i.County.Metro.Name
+                        },
+                        State = new Api.Models.State.State()
+                        {
+                            Id = i.County.State.Id,
+                            Name = i.County.State.Name,
+                            Abbreviation = i.County.State.Abbreviation,
+                            SEOKey = i.County.State.SEOKey
+                        }
+                    }).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

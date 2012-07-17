@@ -56,9 +56,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Crypto.cs" />
+    <Compile Include="DataAccess\Cities.cs" />
+    <Compile Include="DataAccess\Counties.cs" />
+    <Compile Include="DataAccess\Geography.cs" />
+    <Compile Include="DataAccess\IndustryData.cs" />
+    <Compile Include="DataAccess\Locations.cs" />
+    <Compile Include="DataAccess\Math.cs" />
+    <Compile Include="DataAccess\Models\DisplayGeography.cs" />
+    <Compile Include="DataAccess\Models\Locations.cs" />
+    <Compile Include="DataAccess\ZipCodes.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />
     <Compile Include="Email\Mailer.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\IQueryableExtensions.cs" />
     <Compile Include="Geo\GeoCoder.cs" />
     <Compile Include="Identity\Identity.cs" />
     <Compile Include="Pins\Marker.cs" />

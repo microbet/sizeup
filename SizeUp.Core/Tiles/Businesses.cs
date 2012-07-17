@@ -14,7 +14,7 @@ namespace SizeUp.Core.Tiles
 
     public class Businesses : Tile
     {
-        public Businesses(int Width, int Height, int x, int y, double zoom)
+        public Businesses(int Width, int Height, int x, int y, int zoom)
             : base(Width, Height, x, y, zoom)
         {
 
