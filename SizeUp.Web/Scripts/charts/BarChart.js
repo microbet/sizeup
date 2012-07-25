@@ -24,7 +24,7 @@
             }
             if (me.opts.marker) {
                 var m = me.opts.marker;
-                addMarker('marker', m.value, null, m.label, '', m.color, '');
+                addMarker('marker', m.value, null, m.name, m.label,  m.color, '');
             }
         };
 

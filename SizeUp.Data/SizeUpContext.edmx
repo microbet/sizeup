@@ -360,6 +360,7 @@
           <Property Name="CityId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
@@ -419,6 +420,8 @@
           <Property Name="CountyId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="CostEffectiveness" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
@@ -486,6 +489,8 @@
           <Property Name="MetroId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="CostEffectiveness" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
@@ -508,7 +513,10 @@
           <Property Name="Quarter" Type="int" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="CostEffectiveness" Type="float" />
           <Property Name="MedianRevenue" Type="bigint" />
+          <Property Name="MedianEmployees" Type="bigint" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
@@ -532,6 +540,8 @@
           <Property Name="StateId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="CostEffectiveness" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
@@ -544,6 +554,15 @@
           <Property Name="JobLosses" Type="bigint" />
           <Property Name="NetJobChange" Type="bigint" />
           <Property Name="Employment" Type="bigint" />
+          <Property Name="WorkersCompRank" Type="int" />
+          <Property Name="WorkersComp" Type="float" />
+          <Property Name="HealthcareByState" Type="bigint" />
+          <Property Name="Healthcare0To9Employees" Type="bigint" />
+          <Property Name="Healthcare10To24Employees" Type="bigint" />
+          <Property Name="Healthcare25To99Employees" Type="bigint" />
+          <Property Name="Healthcare100To999Employees" Type="bigint" />
+          <Property Name="Healthcare1000orMoreEmployees" Type="bigint" />
+          <Property Name="HealthcareByIndustry" Type="bigint" />
         </EntityType>
         <EntityType Name="IndustryDataByZip">
           <Key>
@@ -556,6 +575,7 @@
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="RevenuePerCapita" Type="bigint" />
@@ -1414,6 +1434,7 @@
           <EntitySet Name="IndustryDataByCities" EntityType="SizeUp.Data.IndustryDataByCity" />
           <EntitySet Name="IndustryDataByCounties" EntityType="SizeUp.Data.IndustryDataByCounty" />
           <EntitySet Name="IndustryDataByMetroes" EntityType="SizeUp.Data.IndustryDataByMetro" />
+          <EntitySet Name="IndustryDataByNations" EntityType="SizeUp.Data.IndustryDataByNation" />
           <EntitySet Name="IndustryDataByStates" EntityType="SizeUp.Data.IndustryDataByState" />
           <EntitySet Name="IndustryDataByZips" EntityType="SizeUp.Data.IndustryDataByZip" />
           <AssociationSet Name="FK_IndustryDataByCity_City" Association="SizeUp.Data.FK_IndustryDataByCity_City">
@@ -1436,6 +1457,10 @@
             <End Role="Industry" EntitySet="Industries" />
             <End Role="IndustryDataByMetro" EntitySet="IndustryDataByMetroes" />
           </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByNation_Industry" Association="SizeUp.Data.FK_IndustryDataByNation_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="IndustryDataByNation" EntitySet="IndustryDataByNations" />
+          </AssociationSet>
           <AssociationSet Name="FK_IndustryDataByState_Industry" Association="SizeUp.Data.FK_IndustryDataByState_Industry">
             <End Role="Industry" EntitySet="Industries" />
             <End Role="IndustryDataByState" EntitySet="IndustryDataByStates" />
@@ -1456,11 +1481,6 @@
             <End Role="ZipCode" EntitySet="ZipCodes" />
             <End Role="IndustryDataByZip" EntitySet="IndustryDataByZips" />
           </AssociationSet>
-          <EntitySet Name="IndustryDataByNations" EntityType="SizeUp.Data.IndustryDataByNation" />
-          <AssociationSet Name="FK_IndustryDataByNation_Industry" Association="SizeUp.Data.FK_IndustryDataByNation_Industry">
-            <End Role="Industry" EntitySet="Industries" />
-            <End Role="IndustryDataByNation" EntitySet="IndustryDataByNations" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -1477,9 +1497,9 @@
           <NavigationProperty Name="IndustryDataByCities" Relationship="SizeUp.Data.FK_IndustryDataByCity_Industry" FromRole="Industry" ToRole="IndustryDataByCity" />
           <NavigationProperty Name="IndustryDataByCounties" Relationship="SizeUp.Data.FK_IndustryDataByCounty_Industry" FromRole="Industry" ToRole="IndustryDataByCounty" />
           <NavigationProperty Name="IndustryDataByMetroes" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Industry" FromRole="Industry" ToRole="IndustryDataByMetro" />
+          <NavigationProperty Name="IndustryDataByNations" Relationship="SizeUp.Data.FK_IndustryDataByNation_Industry" FromRole="Industry" ToRole="IndustryDataByNation" />
           <NavigationProperty Name="IndustryDataByStates" Relationship="SizeUp.Data.FK_IndustryDataByState_Industry" FromRole="Industry" ToRole="IndustryDataByState" />
           <NavigationProperty Name="IndustryDataByZips" Relationship="SizeUp.Data.FK_IndustryDataByZip_Industry" FromRole="Industry" ToRole="IndustryDataByZip" />
-          <NavigationProperty Name="IndustryDataByNations" Relationship="SizeUp.Data.FK_IndustryDataByNation_Industry" FromRole="Industry" ToRole="IndustryDataByNation" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -2194,6 +2214,7 @@
           <Property Type="Int64" Name="CityId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="TotalEmployees" />
@@ -2255,6 +2276,8 @@
           <Property Type="Int64" Name="CountyId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="CostEffectiveness" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="TotalEmployees" />
@@ -2324,6 +2347,8 @@
           <Property Type="Int64" Name="MetroId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="CostEffectiveness" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="TotalEmployees" />
@@ -2339,16 +2364,19 @@
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Industry" FromRole="IndustryDataByMetro" ToRole="Industry" />
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Metro" FromRole="IndustryDataByMetro" ToRole="Metro" />
         </EntityType>
-        <EntityType Name="IndustryDataByState">
+        <EntityType Name="IndustryDataByNation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="Year" />
           <Property Type="Int32" Name="Quarter" />
-          <Property Type="Int64" Name="StateId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="CostEffectiveness" />
+          <Property Type="Int64" Name="MedianRevenue" />
+          <Property Type="Int64" Name="MedianEmployees" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="TotalEmployees" />
@@ -2361,6 +2389,41 @@
           <Property Type="Int64" Name="JobLosses" />
           <Property Type="Int64" Name="NetJobChange" />
           <Property Type="Int64" Name="Employment" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByNation_Industry" FromRole="IndustryDataByNation" ToRole="Industry" />
+        </EntityType>
+        <EntityType Name="IndustryDataByState">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Year" />
+          <Property Type="Int32" Name="Quarter" />
+          <Property Type="Int64" Name="StateId" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="CostEffectiveness" />
+          <Property Type="Int64" Name="TotalRevenue" />
+          <Property Type="Int64" Name="AverageRevenue" />
+          <Property Type="Int64" Name="TotalEmployees" />
+          <Property Type="Int64" Name="RevenuePerCapita" />
+          <Property Type="Int64" Name="AverageAnnualSalary" />
+          <Property Type="Int64" Name="Hires" />
+          <Property Type="Int64" Name="Separations" />
+          <Property Type="Double" Name="TurnoverRate" />
+          <Property Type="Int64" Name="JobGains" />
+          <Property Type="Int64" Name="JobLosses" />
+          <Property Type="Int64" Name="NetJobChange" />
+          <Property Type="Int64" Name="Employment" />
+          <Property Type="Int32" Name="WorkersCompRank" />
+          <Property Type="Double" Name="WorkersComp" />
+          <Property Type="Int64" Name="HealthcareByState" />
+          <Property Type="Int64" Name="Healthcare0To9Employees" />
+          <Property Type="Int64" Name="Healthcare10To24Employees" />
+          <Property Type="Int64" Name="Healthcare25To99Employees" />
+          <Property Type="Int64" Name="Healthcare100To999Employees" />
+          <Property Type="Int64" Name="Healthcare1000orMoreEmployees" />
+          <Property Type="Int64" Name="HealthcareByIndustry" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByState_Industry" FromRole="IndustryDataByState" ToRole="Industry" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_IndustryDataByState_State" FromRole="IndustryDataByState" ToRole="State" />
         </EntityType>
@@ -2375,6 +2438,7 @@
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="TotalEmployees" />
           <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="RevenuePerCapita" />
@@ -2485,6 +2549,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IndustryDataByNation_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByNation" Role="IndustryDataByNation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByNation">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndustryDataByState_Industry">
           <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
           <End Type="SizeUp.Data.IndustryDataByState" Role="IndustryDataByState" Multiplicity="*" />
@@ -2542,42 +2618,6 @@
             </Principal>
             <Dependent Role="IndustryDataByZip">
               <PropertyRef Name="ZipCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="IndustryDataByNation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="Year" />
-          <Property Type="Int32" Name="Quarter" />
-          <Property Type="Int64" Name="IndustryId" />
-          <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="MedianRevenue" />
-          <Property Type="Int64" Name="TotalRevenue" />
-          <Property Type="Int64" Name="AverageRevenue" />
-          <Property Type="Int64" Name="TotalEmployees" />
-          <Property Type="Int64" Name="RevenuePerCapita" />
-          <Property Type="Int64" Name="AverageAnnualSalary" />
-          <Property Type="Int64" Name="Hires" />
-          <Property Type="Int64" Name="Separations" />
-          <Property Type="Double" Name="TurnoverRate" />
-          <Property Type="Int64" Name="JobGains" />
-          <Property Type="Int64" Name="JobLosses" />
-          <Property Type="Int64" Name="NetJobChange" />
-          <Property Type="Int64" Name="Employment" />
-          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByNation_Industry" FromRole="IndustryDataByNation" ToRole="Industry" />
-        </EntityType>
-        <Association Name="FK_IndustryDataByNation_Industry">
-          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.IndustryDataByNation" Role="IndustryDataByNation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Industry">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="IndustryDataByNation">
-              <PropertyRef Name="IndustryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2897,6 +2937,7 @@
                 <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
                 <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
                 <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
                 <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
@@ -2965,6 +3006,8 @@
                 <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
                 <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
                 <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="CostEffectiveness" ColumnName="CostEffectiveness" />
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
                 <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="CountyId" ColumnName="CountyId" />
@@ -2989,6 +3032,8 @@
                 <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
                 <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
                 <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="CostEffectiveness" ColumnName="CostEffectiveness" />
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
                 <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="MetroId" ColumnName="MetroId" />
@@ -2998,9 +3043,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IndustryDataByStates">
-            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByState">
-              <MappingFragment StoreEntitySet="IndustryDataByState">
+          <EntitySetMapping Name="IndustryDataByNations">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByNation">
+              <MappingFragment StoreEntitySet="IndustryDataByNation">
                 <ScalarProperty Name="Employment" ColumnName="Employment" />
                 <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
                 <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
@@ -3013,6 +3058,44 @@
                 <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
                 <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
                 <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="MedianEmployees" ColumnName="MedianEmployees" />
+                <ScalarProperty Name="MedianRevenue" ColumnName="MedianRevenue" />
+                <ScalarProperty Name="CostEffectiveness" ColumnName="CostEffectiveness" />
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
+                <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByStates">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByState">
+              <MappingFragment StoreEntitySet="IndustryDataByState">
+                <ScalarProperty Name="HealthcareByIndustry" ColumnName="HealthcareByIndustry" />
+                <ScalarProperty Name="Healthcare1000orMoreEmployees" ColumnName="Healthcare1000orMoreEmployees" />
+                <ScalarProperty Name="Healthcare100To999Employees" ColumnName="Healthcare100To999Employees" />
+                <ScalarProperty Name="Healthcare25To99Employees" ColumnName="Healthcare25To99Employees" />
+                <ScalarProperty Name="Healthcare10To24Employees" ColumnName="Healthcare10To24Employees" />
+                <ScalarProperty Name="Healthcare0To9Employees" ColumnName="Healthcare0To9Employees" />
+                <ScalarProperty Name="HealthcareByState" ColumnName="HealthcareByState" />
+                <ScalarProperty Name="WorkersComp" ColumnName="WorkersComp" />
+                <ScalarProperty Name="WorkersCompRank" ColumnName="WorkersCompRank" />
+                <ScalarProperty Name="Employment" ColumnName="Employment" />
+                <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
+                <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
+                <ScalarProperty Name="JobGains" ColumnName="JobGains" />
+                <ScalarProperty Name="TurnoverRate" ColumnName="TurnoverRate" />
+                <ScalarProperty Name="Separations" ColumnName="Separations" />
+                <ScalarProperty Name="Hires" ColumnName="Hires" />
+                <ScalarProperty Name="AverageAnnualSalary" ColumnName="AverageAnnualSalary" />
+                <ScalarProperty Name="RevenuePerCapita" ColumnName="RevenuePerCapita" />
+                <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+                <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
+                <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="CostEffectiveness" ColumnName="CostEffectiveness" />
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
                 <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
@@ -3072,34 +3155,11 @@
                 <ScalarProperty Name="RevenuePerCapita" ColumnName="RevenuePerCapita" />
                 <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
                 <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
                 <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
                 <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="IndustryDataByNations">
-            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByNation">
-              <MappingFragment StoreEntitySet="IndustryDataByNation">
-                <ScalarProperty Name="Employment" ColumnName="Employment" />
-                <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
-                <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
-                <ScalarProperty Name="JobGains" ColumnName="JobGains" />
-                <ScalarProperty Name="TurnoverRate" ColumnName="TurnoverRate" />
-                <ScalarProperty Name="Separations" ColumnName="Separations" />
-                <ScalarProperty Name="Hires" ColumnName="Hires" />
-                <ScalarProperty Name="AverageAnnualSalary" ColumnName="AverageAnnualSalary" />
-                <ScalarProperty Name="RevenuePerCapita" ColumnName="RevenuePerCapita" />
-                <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
-                <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
-                <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
-                <ScalarProperty Name="MedianRevenue" ColumnName="MedianRevenue" />
-                <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
-                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

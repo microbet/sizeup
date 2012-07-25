@@ -171,6 +171,29 @@
             },
 
 
+
+            getAverageEmployeesChart: function (params, success, error) {
+                return get('/api/AverageEmployees/', params, success, error);
+            },
+
+            getAverageEmployeesPercentile: function (params, success, error) {
+                return get('/api/AverageEmployees/percentile/', params, success, error);
+            },
+
+            getAverageEmployeesBandsByState: function (params, success, error) {
+                return get('/api/AverageEmployees/bands/state/', params, success, error);
+            },
+
+            getAverageEmployeesBandsByCounty: function (params, success, error) {
+                return get('/api/AverageEmployees/bands/county/', params, success, error);
+            },
+
+            getAverageEmployeesBandsByZip: function (params, success, error) {
+                return get('/api/AverageEmployees/bands/zip/', params, success, error);
+            },
+
+
+
             getTurnoverChart: function (params, success, error) {
                 return get('/api/turnover/', params, success, error);
             },
@@ -187,6 +210,16 @@
             getRevenuePerCapitaChart: function (params, success, error) {
                 return get('/api/revenuePerCapita/', params, success, error);
             },
+
+
+            getWorkersCompChart: function (params, success, error) {
+                return get('/api/workersComp/', params, success, error);
+            },
+
+            getWorkersCompPercentage: function (params, success, error) {
+                return get('/api/workersComp/percentage/', params, success, error);
+            },
+
 
 
             getBestPlacesToAdvertise: function (params, success, error) {

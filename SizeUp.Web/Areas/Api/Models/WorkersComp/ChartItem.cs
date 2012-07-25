@@ -9,7 +9,7 @@ namespace SizeUp.Web.Areas.Api.Models.WorkersComp
 {
     public class ChartItem : Charts.BarChartItem
     {
-        public float Average { get; set; }
+        public double Average { get; set; }
         public int Rank { get; set; }   
     }
 }

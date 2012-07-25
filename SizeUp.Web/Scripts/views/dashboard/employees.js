@@ -4,10 +4,14 @@
 
         var me = {};
         var dataLayer = new sizeup.core.data();
+        var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.data = {};
         me.container = opts.container;
-        me.data.enteredValue = opts.revenue;
+        me.data.enteredValue = jQuery.bbq.getState().employees;
+        me.data.hasData = false;
+        me.data.description = {};
+
 
         var init = function () {
 
@@ -25,13 +29,373 @@
                     }
                 });
 
-         
+            me.sourceButton = new sizeup.controls.toggleButton(
+                  {
+                      button: me.container.find('.reportContainer .links .source'),
+                      onClick: function () { toggleSource(); }
+                  });
 
+            me.mapToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.mapToggle'),
+                    onClick: function () { toggleMap(); }
+                });
+
+            me.chartToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.chartToggle'),
+                    onClick: function () { toggleChart(); }
+                });
+
+            me.considerationToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.reportSidebar .considerationToggle'),
+                    onClick: function () { toggleConsiderations(); }
+                });
+
+
+            me.question = new sizeup.controls.question({
+                answerClicked: function (index) { answerClicked(index); },
+                answerCleared: function (index) { answerCleared(index); },
+                questionContainer: me.container.find('.reportSidebar .question'),
+                clearingButtons: [me.container.find('.reportSidebar .clearer')],
+                answers: [
+                        {
+                            question: me.container.find('.reportSidebar .question .startup'),
+                            answer: me.container.find('.reportSidebar .answer.startup'),
+                            index: 'startup'
+                        },
+                        {
+                            question: me.container.find('.reportSidebar .question .established'),
+                            answer: me.container.find('.reportSidebar .answer.established'),
+                            index: 'established'
+                        }
+                ]
+            });
+            var index = jQuery.bbq.getState('businessSize');
+            if (index) {
+                me.question.showAnswer(index);
+            }
+            $(window).bind('hashchange', function (e) { hashChanged(e); });
+
+
+            me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
+            me.considerations = me.container.find('.reportContainer .considerations');
+            me.resources = me.container.find('.reportContainer .resources');
+            me.description = me.container.find('.reportContainer .description');
+
+
+
+            me.noData = me.container.find('.noDataError').hide();
+            me.reportData = me.container.find('.reportData');
+            if (me.data.enteredValue) {
+                me.reportContainer.setValue(me.data.enteredValue);
+            }
 
         };
 
+        var toggleMap = function () {
+            me.revenuePerCapitaMap.getContainer().toggle("slide", { direction: "up" }, 350);
+            me.totalRevenueMap.getContainer().toggle("slide", { direction: "up" }, 350);
+        };
+
+        var toggleSource = function () {
+            me.sourceContent.slideToggle();
+        };
+
+        var toggleConsiderations = function () {
+            me.considerations.toggleClass('collapsed', 1000);
+        };
+
+        var toggleChart = function () {
+            if (me.chart.getContainer().is(':visible')) {
+                me.chart.getContainer().toggle("slide", { direction: "up" }, 350, function () {
+                    me.table.getContainer().toggle("slide", { direction: "up" }, 350);
+                });
+            }
+            else {
+                me.table.getContainer().toggle("slide", { direction: "up" }, 350, function () {
+                    me.chart.getContainer().toggle("slide", { direction: "up" }, 350);
+                });
+            }
+        };
+
+        var answerClicked = function (index) {
+            jQuery.bbq.pushState({ businessType: index });
+        };
+
+        var answerCleared = function () {
+            jQuery.bbq.removeState('businessSize');
+        };
+
+        var hashChanged = function (e) {
+            var index = e.getState('businessSize');
+            me.question.showAnswer(index);
+        };
+
+
+        var displayReport = function () {
+
+            me.reportContainer.setGauge(me.data.gauge);
+            if (me.data.hasData) {
+                me.noData.hide();
+                me.reportData.show();
+
+                /*
+                me.averageEmployeeMap = new sizeup.maps.heatMap({
+                    legendItemTemplate: templates.get('legendItem'),
+                    container: me.container.find('.reportContainer .map.revenuePerCapita'),
+                    overlays: [
+                        {
+                            tileUrl: "/tiles/revenuePerCapita/state/",
+                            legendSource: function (callback) {
+                                dataLayer.getRevenuePerCapitaBandsByState({
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                                    bands: 7
+                                }, callback);
+                            },
+                            legendTitle: 'Revenue Per Capita by state in the USA',
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
+                            minZoom: 0,
+                            maxZoom: 4,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        },
+                        {
+                            tileUrl: "/tiles/revenuePerCapita/county/",
+                            legendSource: function (callback) {
+                                dataLayer.getRevenuePerCapitaBandsByCounty({
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                                    bands: 7,
+                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
+                                }, callback);
+                            },
+                            legendTitle: 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name,
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
+                            minZoom: 5,
+                            maxZoom: 8,
+                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        },
+                        {
+                            tileUrl: "/tiles/revenuePerCapita/county/",
+                            legendSource: function (callback) {
+                                dataLayer.getRevenuePerCapitaBandsByCounty({
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                                    bands: 7,
+                                    boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
+                                }, callback);
+                            },
+                            legendTitle: 'Revenue Per Capita by county in ' + (me.opts.report.CurrentPlace.Metro ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
+                            minZoom: 9,
+                            maxZoom: 32,
+                            boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        }
+                    ]
+                });
+                me.revenuePerCapitaMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+                */
+
+
+
+
+                /*
+                me.totalRevenueMap = new sizeup.maps.heatMap({
+                    legendItemTemplate: templates.get('legendItem'),
+                    container: me.container.find('.reportContainer .map.totalRevenue'),
+                    overlays: [
+                        {
+                            tileUrl: "/tiles/totalRevenue/state/",
+                            legendSource: function (callback) {
+                                dataLayer.getTotalRevenueBandsByState({
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                                    bands: 7
+                                }, callback);
+                            },
+                            legendTitle: 'Total Revenue by state in the USA',
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
+                            minZoom: 0,
+                            maxZoom: 4,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        },
+                        {
+                            tileUrl: "/tiles/totalRevenue/county/",
+                            legendSource: function (callback) {
+                                dataLayer.getTotalRevenueBandsByCounty({
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                                    bands: 7,
+                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
+                                }, callback);
+                            },
+                            legendTitle: 'Total Revenue by county in ' + me.opts.report.CurrentPlace.State.Name,
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
+                            minZoom: 5,
+                            maxZoom: 8,
+                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        },
+                        {
+                            tileUrl: "/tiles/totalRevenue/county/",
+                            legendSource: function (callback) {
+                                dataLayer.getTotalRevenueBandsByCounty({
+                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                                    bands: 7,
+                                    boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
+                                }, callback);
+                            },
+                            legendTitle: 'Total Revenue by county in ' + (me.opts.report.CurrentPlace.Metro ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
+                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            industryId: me.opts.report.IndustryDetails.Industry.Id,
+                            minZoom: 9,
+                            maxZoom: 32,
+                            boundingEntityId: me.opts.report.CurrentPlace.Metro ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
+                            colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                            ]
+                        }
+                    ]
+                });
+                me.totalRevenueMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+                */
+
+                me.chart = new sizeup.charts.barChart({
+
+                    valueFormat: function (val) { return Math.floor(val); },
+                    container: me.container.find('.chart .container'),
+                    title: 'average employees',
+                    bars: me.data.chart
+                });
+                me.chart.draw();
+
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table').hide(),
+                    rowTemplate: templates.get('tableRow'),
+                    rows: me.data.table
+                });
+
+
+                me.data.description = {
+                    Percentiles: me.data.percentiles
+                };
+
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
+
+
+            }
+            else {
+                me.noData.show();
+                me.reportData.hide();
+            }
+        };
+
+
         var runReport = function (e) {
-            e.callback();
+            var notifier = new sizeup.core.notifier(function () {
+                e.callback();
+                displayReport();
+            });
+
+            me.data.enteredValue = me.reportContainer.getValue();
+            jQuery.bbq.pushState({ employees: me.data.enteredValue });
+
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(percentileDataReturned));
+        };
+
+        var percentileDataReturned = function (data) {
+            if (data) {
+                me.data.hasData = true;
+                me.data.percentiles = data;
+
+                me.data.gauge = {
+                    value: me.data.percentiles.Nation,
+                    tooltip: sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
+                };
+            }
+            else {
+                me.data.gauge = {
+                    value: 0,
+                    tooltip: 'No data'
+                };
+            }
+        };
+
+        var chartDataReturned = function (data) {
+
+            me.data.chart = {};
+            me.data.table = {};
+
+
+            var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
+            for (var x = 0; x < indexes.length; x++) {
+                if (data[indexes[x]] != null) {
+                    me.data.chart[indexes[x]] =
+                    {
+                        value: data[indexes[x]].Value,
+                        label: indexes[x],
+                        name: data[indexes[x]].Name,
+                        color: '#0af'
+                    };
+
+                    me.data.table[indexes[x]] = {
+                        name: data[indexes[x]].Name,
+                        value: parseInt(data[indexes[x]].Value)
+                    };
+                }
+            }
+            me.data.displayValue = data.City.Value;
         };
 
         var setupReport = function () {

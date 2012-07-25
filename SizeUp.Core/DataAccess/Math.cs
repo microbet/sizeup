@@ -9,12 +9,26 @@ namespace SizeUp.Core.DataAccess
 {
     public static class Math
     {
-        public static int? Percentile(IQueryable<double?> source, double value)
+        public enum Order
         {
+            LessThan,
+            GreaterThan
+        }
+
+        public static int? Percentile(IQueryable<double?> source, double value, Order order = Order.LessThan)
+        {
+            IQueryable<double?> filtered = null;
+            if(order == Order.GreaterThan){
+                filtered = source.Where(i => i.Value >= value);
+            }
+            else{
+                filtered = source.Where(i => i.Value <= value);
+            }
+
             var data = new
             {
                 Total = source.Count(),
-                Less = source.Where(i => i.Value <= value).Count()
+                Less = filtered.Count()
             };
 
             int? val = null;
@@ -25,12 +39,22 @@ namespace SizeUp.Core.DataAccess
             return val;
         }
 
-        public static int? Percentile(IQueryable<long?> source, long value)
+        public static int? Percentile(IQueryable<long?> source, long value, Order order = Order.LessThan)
         {
+            IQueryable<long?> filtered = null;
+            if (order == Order.GreaterThan)
+            {
+                filtered = source.Where(i => i.Value >= value);
+            }
+            else
+            {
+                filtered = source.Where(i => i.Value <= value);
+            }
+
             var data = new
             {
                 Total = source.Count(),
-                Less = source.Where(i => i.Value <= value).Count()
+                Less = filtered.Count()
             };
 
             int? val = null;

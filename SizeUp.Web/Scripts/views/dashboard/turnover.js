@@ -75,6 +75,31 @@
                     onClick: function () { toggleResources('jobChange'); }
                 });
 
+            me.jobChange.question = new sizeup.controls.question({
+                answerClicked: function (index) { answerClicked(index); },
+                answerCleared: function (index) { answerCleared(index); },
+                questionContainer: me.container.find('.reportSidebar .question'),
+                clearingButtons: [me.container.find('.reportSidebar .clearer')],
+                answers: [
+                        {
+                            question: me.container.find('.reportSidebar .question .startup'),
+                            answer: me.container.find('.reportSidebar .answer.startup'),
+                            index: 'startup'
+                        },
+                        {
+                            question: me.container.find('.reportSidebar .question .established'),
+                            answer: me.container.find('.reportSidebar .answer.established'),
+                            index: 'established'
+                        }
+                ]
+            });
+            var index = jQuery.bbq.getState('businessType');
+            if (index) {
+                me.jobChange.question.showAnswer(index);
+            }
+            $(window).bind('hashchange', function (e) { hashChanged(e); });
+
+
             me.jobChange.sourceContent = me.container.find('.reportContainer .jobChange .sourceContent').hide();
             me.jobChange.considerations = me.container.find('.reportContainer .jobChange .considerations');
             me.jobChange.description = me.container.find('.reportContainer .jobChange .description');
@@ -103,6 +128,23 @@
             me[index].resources.toggleClass('collapsed', 1000);
         };
 
+        var answerClicked = function (index) {
+            jQuery.bbq.pushState({ businessType: index });
+        };
+
+        var answerCleared = function () {
+            jQuery.bbq.removeState('businessType');
+        };
+
+        var hashChanged = function (e) {
+            var index = e.getState('businessType');
+            if (index) {
+                me.jobChange.question.showAnswer(index);
+            }
+            else {
+                me.jobChange.question.clearAnswer();
+            }
+        };
 
         var displayReport = function () {
 

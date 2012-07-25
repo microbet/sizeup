@@ -88,7 +88,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
                 var obj = new
                 {
-                    Percentile = Core.DataAccess.Math.Percentile(values, (double)value)
+                    Percentile = Core.DataAccess.Math.Percentile(values, (double)value, Core.DataAccess.Math.Order.GreaterThan)
                 };
 
                 return Json(obj, JsonRequestBehavior.AllowGet);

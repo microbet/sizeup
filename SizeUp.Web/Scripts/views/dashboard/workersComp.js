@@ -17,7 +17,7 @@
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
                 {
                     container: me.container,
-                    inputValidation: /^[0-9]+$/g,
+                    inputValidation: /^[0-9\.]+$/g,
                     inputCleaning: /[\$\,]/g,
                     events:
                     {
@@ -55,7 +55,9 @@
 
             me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
-
+            if (me.data.enteredValue) {
+                me.reportContainer.setValue(me.data.enteredValue);
+            }
 
         };
 
@@ -73,6 +75,27 @@
         };
 
         var displayReport = function () {
+            me.reportContainer.setGauge(me.data.gauge);
+            if (me.data.hasData) {
+                me.noData.hide();
+                me.reportData.show();
+               
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table'),
+                    rowTemplate: templates.get('tableRow'),
+                    rows: me.data.table
+                });
+
+               
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
+
+
+            }
+            else {
+                me.noData.show();
+                me.reportData.hide();
+            }
+
 
         };
 
@@ -85,18 +108,24 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ workersComp: me.data.enteredValue });
-            //dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, countyId: me.opts.report.Locations.County.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+
+            dataLayer.getWorkersCompChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getWorkersCompPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
         };
 
-        var percentileDataReturned = function (data) {
+        var percentageDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var val = 50 + (data.Percentage / 2);
+                var val = 50 - (data.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
+
+                me.data.description = {
+                    Percentage: data.Percentage < 0 ? percentage + ' less' : percentage + ' greater'
+                };
+
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.Percentile < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
+                    tooltip: 'You' + (data.Percentage < 0 ? ' save ' : ' overpay ') + percentage + ' compared to the average'
                 };
             }
             else {
@@ -108,38 +137,23 @@
         };
 
         var chartDataReturned = function (data) {
-            me.data.chart = {};
+
             me.data.table = {};
-            me.data.chart['me'] =
-                {
-                    value: me.data.enteredValue,
-                    label: '',
-                    name: 'My Business',
-                    color: '#5b0'
-                };
-
-
             me.data.table['me'] =
                 {
                     name: 'My Business',
-                    value: '$' + sizeup.util.numbers.format.addCommas(me.data.enteredValue)
+                    value: '$' + sizeup.util.numbers.format.addCommas(new Number(me.data.enteredValue).toFixed(2))
                 };
 
 
-            var indexes = ['County', 'Metro', 'State', 'Nation'];
+            var indexes = ['State'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
-                    me.data.chart[indexes[x]] =
-                    {
-                        value: data[indexes[x]].Value,
-                        label: indexes[x],
-                        name: data[indexes[x]].Name,
-                        color: '#0af'
-                    };
-
+                   
                     me.data.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
-                        value: '$' + sizeup.util.numbers.format.addCommas(parseInt(data[indexes[x]].Value))
+                        rank: data[indexes[x]].Rank,
+                        value: '$' + sizeup.util.numbers.format.addCommas(data[indexes[x]].Average)
                     };
                 }
             }

@@ -58,12 +58,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCity_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCity), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCounty_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCounty), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByNation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByNation), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByState_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "IndustryDataByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByMetro), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "IndustryDataByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByNation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByNation), true)]
 
 #endregion
 
@@ -550,6 +550,22 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<IndustryDataByNation> IndustryDataByNations
+        {
+            get
+            {
+                if ((_IndustryDataByNations == null))
+                {
+                    _IndustryDataByNations = base.CreateObjectSet<IndustryDataByNation>("IndustryDataByNations");
+                }
+                return _IndustryDataByNations;
+            }
+        }
+        private ObjectSet<IndustryDataByNation> _IndustryDataByNations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<IndustryDataByState> IndustryDataByStates
         {
             get
@@ -578,22 +594,6 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<IndustryDataByZip> _IndustryDataByZips;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<IndustryDataByNation> IndustryDataByNations
-        {
-            get
-            {
-                if ((_IndustryDataByNations == null))
-                {
-                    _IndustryDataByNations = base.CreateObjectSet<IndustryDataByNation>("IndustryDataByNations");
-                }
-                return _IndustryDataByNations;
-            }
-        }
-        private ObjectSet<IndustryDataByNation> _IndustryDataByNations;
 
         #endregion
 
@@ -816,6 +816,14 @@ namespace SizeUp.Data
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the IndustryDataByNations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIndustryDataByNations(IndustryDataByNation industryDataByNation)
+        {
+            base.AddObject("IndustryDataByNations", industryDataByNation);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the IndustryDataByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToIndustryDataByStates(IndustryDataByState industryDataByState)
@@ -829,14 +837,6 @@ namespace SizeUp.Data
         public void AddToIndustryDataByZips(IndustryDataByZip industryDataByZip)
         {
             base.AddObject("IndustryDataByZips", industryDataByZip);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the IndustryDataByNations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToIndustryDataByNations(IndustryDataByNation industryDataByNation)
-        {
-            base.AddObject("IndustryDataByNations", industryDataByNation);
         }
 
         #endregion
@@ -4375,6 +4375,28 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "IndustryDataByNation")]
+        public EntityCollection<IndustryDataByNation> IndustryDataByNations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByNation>("SizeUp.Data.FK_IndustryDataByNation_Industry", "IndustryDataByNation");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByNation>("SizeUp.Data.FK_IndustryDataByNation_Industry", "IndustryDataByNation", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByState_Industry", "IndustryDataByState")]
         public EntityCollection<IndustryDataByState> IndustryDataByStates
         {
@@ -4409,28 +4431,6 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByZip>("SizeUp.Data.FK_IndustryDataByZip_Industry", "IndustryDataByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByNation_Industry", "IndustryDataByNation")]
-        public EntityCollection<IndustryDataByNation> IndustryDataByNations
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IndustryDataByNation>("SizeUp.Data.FK_IndustryDataByNation_Industry", "IndustryDataByNation");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByNation>("SizeUp.Data.FK_IndustryDataByNation_Industry", "IndustryDataByNation", value);
                 }
             }
         }
@@ -4614,6 +4614,30 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _AverageEmployees;
         partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
         partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EmployeesPerCapita
+        {
+            get
+            {
+                return _EmployeesPerCapita;
+            }
+            set
+            {
+                OnEmployeesPerCapitaChanging(value);
+                ReportPropertyChanging("EmployeesPerCapita");
+                _EmployeesPerCapita = StructuralObject.SetValidValue(value, "EmployeesPerCapita");
+                ReportPropertyChanged("EmployeesPerCapita");
+                OnEmployeesPerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _EmployeesPerCapita;
+        partial void OnEmployeesPerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmployeesPerCapitaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6022,6 +6046,54 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _AverageEmployees;
         partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
         partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EmployeesPerCapita
+        {
+            get
+            {
+                return _EmployeesPerCapita;
+            }
+            set
+            {
+                OnEmployeesPerCapitaChanging(value);
+                ReportPropertyChanging("EmployeesPerCapita");
+                _EmployeesPerCapita = StructuralObject.SetValidValue(value, "EmployeesPerCapita");
+                ReportPropertyChanged("EmployeesPerCapita");
+                OnEmployeesPerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _EmployeesPerCapita;
+        partial void OnEmployeesPerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmployeesPerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CostEffectiveness
+        {
+            get
+            {
+                return _CostEffectiveness;
+            }
+            set
+            {
+                OnCostEffectivenessChanging(value);
+                ReportPropertyChanging("CostEffectiveness");
+                _CostEffectiveness = StructuralObject.SetValidValue(value, "CostEffectiveness");
+                ReportPropertyChanged("CostEffectiveness");
+                OnCostEffectivenessChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CostEffectiveness;
+        partial void OnCostEffectivenessChanging(Nullable<global::System.Double> value);
+        partial void OnCostEffectivenessChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7628,6 +7700,54 @@ namespace SizeUp.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EmployeesPerCapita
+        {
+            get
+            {
+                return _EmployeesPerCapita;
+            }
+            set
+            {
+                OnEmployeesPerCapitaChanging(value);
+                ReportPropertyChanging("EmployeesPerCapita");
+                _EmployeesPerCapita = StructuralObject.SetValidValue(value, "EmployeesPerCapita");
+                ReportPropertyChanged("EmployeesPerCapita");
+                OnEmployeesPerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _EmployeesPerCapita;
+        partial void OnEmployeesPerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmployeesPerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CostEffectiveness
+        {
+            get
+            {
+                return _CostEffectiveness;
+            }
+            set
+            {
+                OnCostEffectivenessChanging(value);
+                ReportPropertyChanging("CostEffectiveness");
+                _CostEffectiveness = StructuralObject.SetValidValue(value, "CostEffectiveness");
+                ReportPropertyChanged("CostEffectiveness");
+                OnCostEffectivenessChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CostEffectiveness;
+        partial void OnCostEffectivenessChanging(Nullable<global::System.Double> value);
+        partial void OnCostEffectivenessChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int64> TotalRevenue
         {
             get
@@ -8148,6 +8268,54 @@ namespace SizeUp.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EmployeesPerCapita
+        {
+            get
+            {
+                return _EmployeesPerCapita;
+            }
+            set
+            {
+                OnEmployeesPerCapitaChanging(value);
+                ReportPropertyChanging("EmployeesPerCapita");
+                _EmployeesPerCapita = StructuralObject.SetValidValue(value, "EmployeesPerCapita");
+                ReportPropertyChanged("EmployeesPerCapita");
+                OnEmployeesPerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _EmployeesPerCapita;
+        partial void OnEmployeesPerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmployeesPerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CostEffectiveness
+        {
+            get
+            {
+                return _CostEffectiveness;
+            }
+            set
+            {
+                OnCostEffectivenessChanging(value);
+                ReportPropertyChanging("CostEffectiveness");
+                _CostEffectiveness = StructuralObject.SetValidValue(value, "CostEffectiveness");
+                ReportPropertyChanged("CostEffectiveness");
+                OnCostEffectivenessChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CostEffectiveness;
+        partial void OnCostEffectivenessChanging(Nullable<global::System.Double> value);
+        partial void OnCostEffectivenessChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int64> MedianRevenue
         {
             get
@@ -8166,6 +8334,30 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _MedianRevenue;
         partial void OnMedianRevenueChanging(Nullable<global::System.Int64> value);
         partial void OnMedianRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MedianEmployees
+        {
+            get
+            {
+                return _MedianEmployees;
+            }
+            set
+            {
+                OnMedianEmployeesChanging(value);
+                ReportPropertyChanging("MedianEmployees");
+                _MedianEmployees = StructuralObject.SetValidValue(value, "MedianEmployees");
+                ReportPropertyChanged("MedianEmployees");
+                OnMedianEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MedianEmployees;
+        partial void OnMedianEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnMedianEmployeesChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -8678,6 +8870,54 @@ namespace SizeUp.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EmployeesPerCapita
+        {
+            get
+            {
+                return _EmployeesPerCapita;
+            }
+            set
+            {
+                OnEmployeesPerCapitaChanging(value);
+                ReportPropertyChanging("EmployeesPerCapita");
+                _EmployeesPerCapita = StructuralObject.SetValidValue(value, "EmployeesPerCapita");
+                ReportPropertyChanged("EmployeesPerCapita");
+                OnEmployeesPerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _EmployeesPerCapita;
+        partial void OnEmployeesPerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmployeesPerCapitaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CostEffectiveness
+        {
+            get
+            {
+                return _CostEffectiveness;
+            }
+            set
+            {
+                OnCostEffectivenessChanging(value);
+                ReportPropertyChanging("CostEffectiveness");
+                _CostEffectiveness = StructuralObject.SetValidValue(value, "CostEffectiveness");
+                ReportPropertyChanged("CostEffectiveness");
+                OnCostEffectivenessChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CostEffectiveness;
+        partial void OnCostEffectivenessChanging(Nullable<global::System.Double> value);
+        partial void OnCostEffectivenessChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int64> TotalRevenue
         {
             get
@@ -8960,6 +9200,222 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _Employment;
         partial void OnEmploymentChanging(Nullable<global::System.Int64> value);
         partial void OnEmploymentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> WorkersCompRank
+        {
+            get
+            {
+                return _WorkersCompRank;
+            }
+            set
+            {
+                OnWorkersCompRankChanging(value);
+                ReportPropertyChanging("WorkersCompRank");
+                _WorkersCompRank = StructuralObject.SetValidValue(value, "WorkersCompRank");
+                ReportPropertyChanged("WorkersCompRank");
+                OnWorkersCompRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _WorkersCompRank;
+        partial void OnWorkersCompRankChanging(Nullable<global::System.Int32> value);
+        partial void OnWorkersCompRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> WorkersComp
+        {
+            get
+            {
+                return _WorkersComp;
+            }
+            set
+            {
+                OnWorkersCompChanging(value);
+                ReportPropertyChanging("WorkersComp");
+                _WorkersComp = StructuralObject.SetValidValue(value, "WorkersComp");
+                ReportPropertyChanged("WorkersComp");
+                OnWorkersCompChanged();
+            }
+        }
+        private Nullable<global::System.Double> _WorkersComp;
+        partial void OnWorkersCompChanging(Nullable<global::System.Double> value);
+        partial void OnWorkersCompChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> HealthcareByState
+        {
+            get
+            {
+                return _HealthcareByState;
+            }
+            set
+            {
+                OnHealthcareByStateChanging(value);
+                ReportPropertyChanging("HealthcareByState");
+                _HealthcareByState = StructuralObject.SetValidValue(value, "HealthcareByState");
+                ReportPropertyChanged("HealthcareByState");
+                OnHealthcareByStateChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _HealthcareByState;
+        partial void OnHealthcareByStateChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcareByStateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Healthcare0To9Employees
+        {
+            get
+            {
+                return _Healthcare0To9Employees;
+            }
+            set
+            {
+                OnHealthcare0To9EmployeesChanging(value);
+                ReportPropertyChanging("Healthcare0To9Employees");
+                _Healthcare0To9Employees = StructuralObject.SetValidValue(value, "Healthcare0To9Employees");
+                ReportPropertyChanged("Healthcare0To9Employees");
+                OnHealthcare0To9EmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Healthcare0To9Employees;
+        partial void OnHealthcare0To9EmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcare0To9EmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Healthcare10To24Employees
+        {
+            get
+            {
+                return _Healthcare10To24Employees;
+            }
+            set
+            {
+                OnHealthcare10To24EmployeesChanging(value);
+                ReportPropertyChanging("Healthcare10To24Employees");
+                _Healthcare10To24Employees = StructuralObject.SetValidValue(value, "Healthcare10To24Employees");
+                ReportPropertyChanged("Healthcare10To24Employees");
+                OnHealthcare10To24EmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Healthcare10To24Employees;
+        partial void OnHealthcare10To24EmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcare10To24EmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Healthcare25To99Employees
+        {
+            get
+            {
+                return _Healthcare25To99Employees;
+            }
+            set
+            {
+                OnHealthcare25To99EmployeesChanging(value);
+                ReportPropertyChanging("Healthcare25To99Employees");
+                _Healthcare25To99Employees = StructuralObject.SetValidValue(value, "Healthcare25To99Employees");
+                ReportPropertyChanged("Healthcare25To99Employees");
+                OnHealthcare25To99EmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Healthcare25To99Employees;
+        partial void OnHealthcare25To99EmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcare25To99EmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Healthcare100To999Employees
+        {
+            get
+            {
+                return _Healthcare100To999Employees;
+            }
+            set
+            {
+                OnHealthcare100To999EmployeesChanging(value);
+                ReportPropertyChanging("Healthcare100To999Employees");
+                _Healthcare100To999Employees = StructuralObject.SetValidValue(value, "Healthcare100To999Employees");
+                ReportPropertyChanged("Healthcare100To999Employees");
+                OnHealthcare100To999EmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Healthcare100To999Employees;
+        partial void OnHealthcare100To999EmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcare100To999EmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Healthcare1000orMoreEmployees
+        {
+            get
+            {
+                return _Healthcare1000orMoreEmployees;
+            }
+            set
+            {
+                OnHealthcare1000orMoreEmployeesChanging(value);
+                ReportPropertyChanging("Healthcare1000orMoreEmployees");
+                _Healthcare1000orMoreEmployees = StructuralObject.SetValidValue(value, "Healthcare1000orMoreEmployees");
+                ReportPropertyChanged("Healthcare1000orMoreEmployees");
+                OnHealthcare1000orMoreEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Healthcare1000orMoreEmployees;
+        partial void OnHealthcare1000orMoreEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcare1000orMoreEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> HealthcareByIndustry
+        {
+            get
+            {
+                return _HealthcareByIndustry;
+            }
+            set
+            {
+                OnHealthcareByIndustryChanging(value);
+                ReportPropertyChanging("HealthcareByIndustry");
+                _HealthcareByIndustry = StructuralObject.SetValidValue(value, "HealthcareByIndustry");
+                ReportPropertyChanged("HealthcareByIndustry");
+                OnHealthcareByIndustryChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _HealthcareByIndustry;
+        partial void OnHealthcareByIndustryChanging(Nullable<global::System.Int64> value);
+        partial void OnHealthcareByIndustryChanged();
 
         #endregion
 
@@ -9244,6 +9700,30 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _AverageEmployees;
         partial void OnAverageEmployeesChanging(Nullable<global::System.Int64> value);
         partial void OnAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EmployeesPerCapita
+        {
+            get
+            {
+                return _EmployeesPerCapita;
+            }
+            set
+            {
+                OnEmployeesPerCapitaChanging(value);
+                ReportPropertyChanging("EmployeesPerCapita");
+                _EmployeesPerCapita = StructuralObject.SetValidValue(value, "EmployeesPerCapita");
+                ReportPropertyChanged("EmployeesPerCapita");
+                OnEmployeesPerCapitaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _EmployeesPerCapita;
+        partial void OnEmployeesPerCapitaChanging(Nullable<global::System.Int64> value);
+        partial void OnEmployeesPerCapitaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

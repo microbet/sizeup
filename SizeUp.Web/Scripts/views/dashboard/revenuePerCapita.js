@@ -101,6 +101,8 @@
                 me.noData.hide();
                 me.reportData.show();
 
+                me.reportContainer.setValue(me.data.displayValue);
+
                 me.revenuePerCapitaMap = new sizeup.maps.heatMap({
                     legendItemTemplate: templates.get('legendItem'),
                     container: me.container.find('.reportContainer .map.revenuePerCapita'),
@@ -282,9 +284,7 @@
 
 
                 me.data.description = {
-                    Percentiles: me.data.percentiles,
-                    NAICS6: me.opts.report.IndustryDetails.NAICS6,
-                    Salary: me.data.table['County'].value
+                    Percentiles: me.data.percentiles
                 };
 
                 me.description.html(templates.bind(templates.get("description"), me.data.description));
@@ -349,6 +349,7 @@
                     };
                 }
             }
+            me.data.displayValue = data.City.Value;
         };
 
 

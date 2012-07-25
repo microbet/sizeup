@@ -20,18 +20,24 @@
         </div>
         <div class="reportContent reportData">
             <h3>How you size up</h3>
-            <p>Your premium rate for workers' compensation is 136% greater than that for the average company in your state.</p>
+            <p class="description">
+                <div data-template="description">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Description"]) 
+                </div>
+            </p>
             <table class="table">
                 <thead>
                     <tr>
-                        <td class="label">Business/Geography</td>
-                        <td class="value">Value</td>
+                        <td class="name">Business/Geography</td>
+                        <td class="value">Workers' Compensation Premium per Employee <span class="hint">(per $100 of Payroll)</span></td>
+                        <td class="rank">State Rank</td>
                     </tr>
                 </thead>
                 <tbody class="container">
                     <tr data-template="tableRow">
                         <td class="name">{{name}}</td>
                         <td class="value">{{value}}</td>
+                        <td class="rank">{{rank}}</td>
                     </tr>
                 </tbody>
             </table>

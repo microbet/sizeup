@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
+using SizeUp.Core.DataAccess;
 using SizeUp.Core.Web;
+using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
@@ -21,60 +23,45 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = context.CityCountyMappings
-                   .Select(i => new
-                   {
-                       City = i.City,
-                       County = i.County,
-                       Metro = i.County.Metro,
-                       State = i.County.State
-                   })
-                   .Where(i => i.City.Id == placeId).FirstOrDefault();
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
 
-                var data = context.IndustryDataByStates
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                var s = IndustryData.GetState(context, industryId, locations.State.Id)
                     .Select(i => new Models.WorkersComp.ChartItem()
                     {
-                        Rank = 1,
-                        Average = 2.12f
+                        Rank = i.WorkersCompRank.Value,
+                        Average = i.WorkersComp.Value,
+                        Name = locations.State.Name
                     });
 
-                return Json(null, JsonRequestBehavior.AllowGet);
+                var data = new Models.Charts.BarChart()
+                {
+                    State = s.FirstOrDefault()
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentage(int industryId, int cityId, decimal value)
+        public ActionResult Percentage(int industryId, long placeId, double value)
         {
-            //TODO need to fix this once we get the data in the database
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = context.CityCountyMappings
-                   .Select(i => new
-                   {
-                       City = i.City,
-                       County = i.County,
-                       Metro = i.County.Metro,
-                       State = i.County.State
-                   })
-                   .Where(i => i.City.Id == cityId).FirstOrDefault();
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-
-
-                var salary = context.IndustryDataByStates
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.State.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
-                    .Select(i => i.Quarter)
+                var data = IndustryData.GetState(context, industryId, locations.State.Id)
+                    .Select(i => i.WorkersComp.Value)
                     .FirstOrDefault();
 
                 object obj = null;
-                if (salary != null && salary != 0)
+                if (data != 0)
                 {
                     obj = new
                     {
-                        Percentage = (int)(((value - salary) / salary) * 100)
+                        Percentage = (int)(((value - data) / data) * 100)
                     };
                 }
-                return Json(null, JsonRequestBehavior.AllowGet);
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
