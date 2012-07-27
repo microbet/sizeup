@@ -9,6 +9,10 @@
           <EntitySet Name="APIKey" EntityType="SizeUp.Data.Store.APIKey" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="APIKeyDomain" EntityType="SizeUp.Data.Store.APIKeyDomain" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Business" EntityType="SizeUp.Data.Store.Business" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessCityMapping" EntityType="SizeUp.Data.Store.BusinessCityMapping" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessDataByCity" EntityType="SizeUp.Data.Store.BusinessDataByCity" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessDataByCounty" EntityType="SizeUp.Data.Store.BusinessDataByCounty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessDataByZip" EntityType="SizeUp.Data.Store.BusinessDataByZip" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="City" EntityType="SizeUp.Data.Store.City" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CityCountyMapping" EntityType="SizeUp.Data.Store.CityCountyMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CityGeography" EntityType="SizeUp.Data.Store.CityGeography" store:Type="Tables" Schema="dbo" />
@@ -59,6 +63,58 @@
           <AssociationSet Name="FK_Business_ZipCode" Association="SizeUp.Data.Store.FK_Business_ZipCode">
             <End Role="ZipCode" EntitySet="ZipCode" />
             <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessCityMapping_Business" Association="SizeUp.Data.Store.FK_BusinessCityMapping_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessCityMapping" EntitySet="BusinessCityMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessCityMapping_City" Association="SizeUp.Data.Store.FK_BusinessCityMapping_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="BusinessCityMapping" EntitySet="BusinessCityMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCity_Business" Association="SizeUp.Data.Store.FK_BusinessDataByCity_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessDataByCity" EntitySet="BusinessDataByCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCity_City" Association="SizeUp.Data.Store.FK_BusinessDataByCity_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="BusinessDataByCity" EntitySet="BusinessDataByCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCity_Industry" Association="SizeUp.Data.Store.FK_BusinessDataByCity_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="BusinessDataByCity" EntitySet="BusinessDataByCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_Business" Association="SizeUp.Data.Store.FK_BusinessDataByCounty_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_County" Association="SizeUp.Data.Store.FK_BusinessDataByCounty_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_Industry" Association="SizeUp.Data.Store.FK_BusinessDataByCounty_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_Metro" Association="SizeUp.Data.Store.FK_BusinessDataByCounty_Metro">
+            <End Role="Metro" EntitySet="Metro" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_State" Association="SizeUp.Data.Store.FK_BusinessDataByCounty_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByZip_Business" Association="SizeUp.Data.Store.FK_BusinessDataByZip_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessDataByZip" EntitySet="BusinessDataByZip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByZip_Industry" Association="SizeUp.Data.Store.FK_BusinessDataByZip_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="BusinessDataByZip" EntitySet="BusinessDataByZip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByZip_ZipCode" Association="SizeUp.Data.Store.FK_BusinessDataByZip_ZipCode">
+            <End Role="ZipCode" EntitySet="ZipCode" />
+            <End Role="BusinessDataByZip" EntitySet="BusinessDataByZip" />
           </AssociationSet>
           <AssociationSet Name="FK_City_State" Association="SizeUp.Data.Store.FK_City_State">
             <End Role="State" EntitySet="State" />
@@ -260,6 +316,61 @@
           <Property Name="MetroId" Type="bigint" />
           <Property Name="StateId" Type="bigint" />
         </EntityType>
+        <EntityType Name="BusinessCityMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CityId" Type="bigint" Nullable="false" />
+          <Property Name="BusinessId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessDataByCity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" />
+          <Property Name="CityId" Type="bigint" />
+          <Property Name="BusinessId" Type="bigint" Nullable="false" />
+          <Property Name="Revenue" Type="bigint" />
+          <Property Name="Employees" Type="bigint" />
+          <Property Name="YearEstablished" Type="int" />
+          <Property Name="YearAppeared" Type="int" />
+        </EntityType>
+        <EntityType Name="BusinessDataByCounty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" />
+          <Property Name="CountyId" Type="bigint" />
+          <Property Name="MetroId" Type="bigint" />
+          <Property Name="StateId" Type="bigint" Nullable="false" />
+          <Property Name="BusinessId" Type="bigint" Nullable="false" />
+          <Property Name="Revenue" Type="bigint" />
+          <Property Name="Employees" Type="bigint" />
+          <Property Name="YearEstablished" Type="int" />
+          <Property Name="YearAppeared" Type="int" />
+        </EntityType>
+        <EntityType Name="BusinessDataByZip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="ZipCodeId" Type="bigint" />
+          <Property Name="IndustryId" Type="bigint" />
+          <Property Name="BusinessId" Type="bigint" Nullable="false" />
+          <Property Name="Revenue" Type="bigint" />
+          <Property Name="Employees" Type="bigint" />
+          <Property Name="YearEstablished" Type="int" />
+          <Property Name="YearAppeared" Type="int" />
+        </EntityType>
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="Id" />
@@ -360,7 +471,7 @@
           <Property Name="CityId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
-          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
@@ -420,7 +531,7 @@
           <Property Name="CountyId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
-          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="float" />
           <Property Name="CostEffectiveness" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
@@ -489,7 +600,7 @@
           <Property Name="MetroId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
-          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="float" />
           <Property Name="CostEffectiveness" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
@@ -513,7 +624,7 @@
           <Property Name="Quarter" Type="int" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
-          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="float" />
           <Property Name="CostEffectiveness" Type="float" />
           <Property Name="MedianRevenue" Type="bigint" />
           <Property Name="MedianEmployees" Type="bigint" />
@@ -540,7 +651,7 @@
           <Property Name="StateId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
-          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="float" />
           <Property Name="CostEffectiveness" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
@@ -575,7 +686,7 @@
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="TotalEmployees" Type="bigint" />
           <Property Name="AverageEmployees" Type="bigint" />
-          <Property Name="EmployeesPerCapita" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="float" />
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="RevenuePerCapita" Type="bigint" />
@@ -794,6 +905,162 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Business">
+              <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessCityMapping_Business">
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+          <End Role="BusinessCityMapping" Type="SizeUp.Data.Store.BusinessCityMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessCityMapping">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessCityMapping_City">
+          <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+          <End Role="BusinessCityMapping" Type="SizeUp.Data.Store.BusinessCityMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessCityMapping">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCity_Business">
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+          <End Role="BusinessDataByCity" Type="SizeUp.Data.Store.BusinessDataByCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCity">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCity_City">
+          <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="0..1" />
+          <End Role="BusinessDataByCity" Type="SizeUp.Data.Store.BusinessDataByCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCity">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCity_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+          <End Role="BusinessDataByCity" Type="SizeUp.Data.Store.BusinessDataByCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCity">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_Business">
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+          <End Role="BusinessDataByCounty" Type="SizeUp.Data.Store.BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_County">
+          <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
+          <End Role="BusinessDataByCounty" Type="SizeUp.Data.Store.BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+          <End Role="BusinessDataByCounty" Type="SizeUp.Data.Store.BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_Metro">
+          <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+          <End Role="BusinessDataByCounty" Type="SizeUp.Data.Store.BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_State">
+          <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="1" />
+          <End Role="BusinessDataByCounty" Type="SizeUp.Data.Store.BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByZip_Business">
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+          <End Role="BusinessDataByZip" Type="SizeUp.Data.Store.BusinessDataByZip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByZip">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByZip_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+          <End Role="BusinessDataByZip" Type="SizeUp.Data.Store.BusinessDataByZip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByZip">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByZip_ZipCode">
+          <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="0..1" />
+          <End Role="BusinessDataByZip" Type="SizeUp.Data.Store.BusinessDataByZip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZipCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByZip">
               <PropertyRef Name="ZipCodeId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1431,6 +1698,62 @@
             <End Role="ZipCode" EntitySet="ZipCodes" />
             <End Role="ZipCodeCountyMapping" EntitySet="ZipCodeCountyMappings" />
           </AssociationSet>
+          <EntitySet Name="BusinessCityMappings" EntityType="SizeUp.Data.BusinessCityMapping" />
+          <EntitySet Name="BusinessDataByCities" EntityType="SizeUp.Data.BusinessDataByCity" />
+          <EntitySet Name="BusinessDataByCounties" EntityType="SizeUp.Data.BusinessDataByCounty" />
+          <EntitySet Name="BusinessDataByZips" EntityType="SizeUp.Data.BusinessDataByZip" />
+          <AssociationSet Name="FK_BusinessCityMapping_Business" Association="SizeUp.Data.FK_BusinessCityMapping_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="BusinessCityMapping" EntitySet="BusinessCityMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCity_Business" Association="SizeUp.Data.FK_BusinessDataByCity_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="BusinessDataByCity" EntitySet="BusinessDataByCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_Business" Association="SizeUp.Data.FK_BusinessDataByCounty_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByZip_Business" Association="SizeUp.Data.FK_BusinessDataByZip_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="BusinessDataByZip" EntitySet="BusinessDataByZips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessCityMapping_City" Association="SizeUp.Data.FK_BusinessCityMapping_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="BusinessCityMapping" EntitySet="BusinessCityMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCity_City" Association="SizeUp.Data.FK_BusinessDataByCity_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="BusinessDataByCity" EntitySet="BusinessDataByCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCity_Industry" Association="SizeUp.Data.FK_BusinessDataByCity_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="BusinessDataByCity" EntitySet="BusinessDataByCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_County" Association="SizeUp.Data.FK_BusinessDataByCounty_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_Industry" Association="SizeUp.Data.FK_BusinessDataByCounty_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_Metro" Association="SizeUp.Data.FK_BusinessDataByCounty_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByCounty_State" Association="SizeUp.Data.FK_BusinessDataByCounty_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="BusinessDataByCounty" EntitySet="BusinessDataByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByZip_Industry" Association="SizeUp.Data.FK_BusinessDataByZip_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="BusinessDataByZip" EntitySet="BusinessDataByZips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessDataByZip_ZipCode" Association="SizeUp.Data.FK_BusinessDataByZip_ZipCode">
+            <End Role="ZipCode" EntitySet="ZipCodes" />
+            <End Role="BusinessDataByZip" EntitySet="BusinessDataByZips" />
+          </AssociationSet>
           <EntitySet Name="IndustryDataByCities" EntityType="SizeUp.Data.IndustryDataByCity" />
           <EntitySet Name="IndustryDataByCounties" EntityType="SizeUp.Data.IndustryDataByCounty" />
           <EntitySet Name="IndustryDataByMetroes" EntityType="SizeUp.Data.IndustryDataByMetro" />
@@ -1494,6 +1817,9 @@
           <NavigationProperty Name="IndustryKeywords" Relationship="SizeUp.Data.FK_IndustryKeyword_Industry" FromRole="Industry" ToRole="IndustryKeyword" />
           <NavigationProperty Name="SicToNAICSMappings" Relationship="SizeUp.Data.FK_SicToNAICSMapping_Industry" FromRole="Industry" ToRole="SicToNAICSMapping" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Industry" FromRole="Industry" ToRole="Business" />
+          <NavigationProperty Name="BusinessDataByCities" Relationship="SizeUp.Data.FK_BusinessDataByCity_Industry" FromRole="Industry" ToRole="BusinessDataByCity" />
+          <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Industry" FromRole="Industry" ToRole="BusinessDataByCounty" />
+          <NavigationProperty Name="BusinessDataByZips" Relationship="SizeUp.Data.FK_BusinessDataByZip_Industry" FromRole="Industry" ToRole="BusinessDataByZip" />
           <NavigationProperty Name="IndustryDataByCities" Relationship="SizeUp.Data.FK_IndustryDataByCity_Industry" FromRole="Industry" ToRole="IndustryDataByCity" />
           <NavigationProperty Name="IndustryDataByCounties" Relationship="SizeUp.Data.FK_IndustryDataByCounty_Industry" FromRole="Industry" ToRole="IndustryDataByCounty" />
           <NavigationProperty Name="IndustryDataByMetroes" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Industry" FromRole="Industry" ToRole="IndustryDataByMetro" />
@@ -1633,6 +1959,10 @@
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Business" ToRole="Metro" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_Business_State" FromRole="Business" ToRole="State" />
           <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_Business_ZipCode" FromRole="Business" ToRole="ZipCode" />
+          <NavigationProperty Name="BusinessCityMappings" Relationship="SizeUp.Data.FK_BusinessCityMapping_Business" FromRole="Business" ToRole="BusinessCityMapping" />
+          <NavigationProperty Name="BusinessDataByCities" Relationship="SizeUp.Data.FK_BusinessDataByCity_Business" FromRole="Business" ToRole="BusinessDataByCity" />
+          <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Business" FromRole="Business" ToRole="BusinessDataByCounty" />
+          <NavigationProperty Name="BusinessDataByZips" Relationship="SizeUp.Data.FK_BusinessDataByZip_Business" FromRole="Business" ToRole="BusinessDataByZip" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -1650,6 +1980,8 @@
           <NavigationProperty Name="CityCountyMappings" Relationship="SizeUp.Data.FK_CityCountyMapping_City" FromRole="City" ToRole="CityCountyMapping" />
           <NavigationProperty Name="CityGeographies" Relationship="SizeUp.Data.FK_CityGeography_City" FromRole="City" ToRole="CityGeography" />
           <NavigationProperty Name="ZipCodeCityMappings" Relationship="SizeUp.Data.FK_ZipCodeCityMapping_City" FromRole="City" ToRole="ZipCodeCityMapping" />
+          <NavigationProperty Name="BusinessCityMappings" Relationship="SizeUp.Data.FK_BusinessCityMapping_City" FromRole="City" ToRole="BusinessCityMapping" />
+          <NavigationProperty Name="BusinessDataByCities" Relationship="SizeUp.Data.FK_BusinessDataByCity_City" FromRole="City" ToRole="BusinessDataByCity" />
           <NavigationProperty Name="IndustryDataByCities" Relationship="SizeUp.Data.FK_IndustryDataByCity_City" FromRole="City" ToRole="IndustryDataByCity" />
         </EntityType>
         <EntityType Name="CityGeography">
@@ -1680,6 +2012,7 @@
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_County_State" FromRole="County" ToRole="State" />
           <NavigationProperty Name="CountyGeographies" Relationship="SizeUp.Data.FK_CountyGeography_County" FromRole="County" ToRole="CountyGeography" />
           <NavigationProperty Name="ZipCodeCountyMappings" Relationship="SizeUp.Data.FK_ZipCodeCountyMapping_County" FromRole="County" ToRole="ZipCodeCountyMapping" />
+          <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_County" FromRole="County" ToRole="BusinessDataByCounty" />
           <NavigationProperty Name="IndustryDataByCounties" Relationship="SizeUp.Data.FK_IndustryDataByCounty_County" FromRole="County" ToRole="IndustryDataByCounty" />
         </EntityType>
         <EntityType Name="CountyGeography">
@@ -1746,6 +2079,7 @@
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Metro" FromRole="Metro" ToRole="Business" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
           <NavigationProperty Name="MetroGeographies" Relationship="SizeUp.Data.FK_MetroGeography_Metro" FromRole="Metro" ToRole="MetroGeography" />
+          <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Metro" FromRole="Metro" ToRole="BusinessDataByCounty" />
           <NavigationProperty Name="IndustryDataByMetroes" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Metro" FromRole="Metro" ToRole="IndustryDataByMetro" />
         </EntityType>
         <EntityType Name="MetroGeography">
@@ -1773,6 +2107,7 @@
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_State" FromRole="State" ToRole="City" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_State" FromRole="State" ToRole="County" />
           <NavigationProperty Name="StateGeographies" Relationship="SizeUp.Data.FK_StateGeography_State" FromRole="State" ToRole="StateGeography" />
+          <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_State" FromRole="State" ToRole="BusinessDataByCounty" />
           <NavigationProperty Name="IndustryDataByStates" Relationship="SizeUp.Data.FK_IndustryDataByState_State" FromRole="State" ToRole="IndustryDataByState" />
         </EntityType>
         <EntityType Name="StateGeography">
@@ -1798,6 +2133,7 @@
           <NavigationProperty Name="ZipCodeGeographies" Relationship="SizeUp.Data.FK_ZipCodeGeography_ZipCode" FromRole="ZipCode" ToRole="ZipCodeGeography" />
           <NavigationProperty Name="ZipCodeCityMappings" Relationship="SizeUp.Data.FK_ZipCodeCityMapping_ZipCode" FromRole="ZipCode" ToRole="ZipCodeCityMapping" />
           <NavigationProperty Name="ZipCodeCountyMappings" Relationship="SizeUp.Data.FK_ZipCodeCountyMapping_ZipCode" FromRole="ZipCode" ToRole="ZipCodeCountyMapping" />
+          <NavigationProperty Name="BusinessDataByZips" Relationship="SizeUp.Data.FK_BusinessDataByZip_ZipCode" FromRole="ZipCode" ToRole="BusinessDataByZip" />
           <NavigationProperty Name="IndustryDataByZips" Relationship="SizeUp.Data.FK_IndustryDataByZip_ZipCode" FromRole="ZipCode" ToRole="IndustryDataByZip" />
         </EntityType>
         <EntityType Name="ZipCodeGeography">
@@ -2204,6 +2540,230 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BusinessCityMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="CityId" Nullable="false" />
+          <Property Type="Int64" Name="BusinessId" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="SizeUp.Data.FK_BusinessCityMapping_Business" FromRole="BusinessCityMapping" ToRole="Business" />
+          <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_BusinessCityMapping_City" FromRole="BusinessCityMapping" ToRole="City" />
+        </EntityType>
+        <EntityType Name="BusinessDataByCity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Int64" Name="CityId" />
+          <Property Type="Int64" Name="BusinessId" Nullable="false" />
+          <Property Type="Int64" Name="Revenue" />
+          <Property Type="Int64" Name="Employees" />
+          <Property Type="Int32" Name="YearEstablished" />
+          <Property Type="Int32" Name="YearAppeared" />
+          <NavigationProperty Name="Business" Relationship="SizeUp.Data.FK_BusinessDataByCity_Business" FromRole="BusinessDataByCity" ToRole="Business" />
+          <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_BusinessDataByCity_City" FromRole="BusinessDataByCity" ToRole="City" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_BusinessDataByCity_Industry" FromRole="BusinessDataByCity" ToRole="Industry" />
+        </EntityType>
+        <EntityType Name="BusinessDataByCounty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Int64" Name="CountyId" />
+          <Property Type="Int64" Name="MetroId" />
+          <Property Type="Int64" Name="StateId" Nullable="false" />
+          <Property Type="Int64" Name="BusinessId" Nullable="false" />
+          <Property Type="Int64" Name="Revenue" />
+          <Property Type="Int64" Name="Employees" />
+          <Property Type="Int32" Name="YearEstablished" />
+          <Property Type="Int32" Name="YearAppeared" />
+          <NavigationProperty Name="Business" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Business" FromRole="BusinessDataByCounty" ToRole="Business" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_BusinessDataByCounty_County" FromRole="BusinessDataByCounty" ToRole="County" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Industry" FromRole="BusinessDataByCounty" ToRole="Industry" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Metro" FromRole="BusinessDataByCounty" ToRole="Metro" />
+          <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_BusinessDataByCounty_State" FromRole="BusinessDataByCounty" ToRole="State" />
+        </EntityType>
+        <EntityType Name="BusinessDataByZip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int64" Name="ZipCodeId" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Int64" Name="BusinessId" Nullable="false" />
+          <Property Type="Int64" Name="Revenue" />
+          <Property Type="Int64" Name="Employees" />
+          <Property Type="Int32" Name="YearEstablished" />
+          <Property Type="Int32" Name="YearAppeared" />
+          <NavigationProperty Name="Business" Relationship="SizeUp.Data.FK_BusinessDataByZip_Business" FromRole="BusinessDataByZip" ToRole="Business" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_BusinessDataByZip_Industry" FromRole="BusinessDataByZip" ToRole="Industry" />
+          <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_BusinessDataByZip_ZipCode" FromRole="BusinessDataByZip" ToRole="ZipCode" />
+        </EntityType>
+        <Association Name="FK_BusinessCityMapping_Business">
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="1" />
+          <End Type="SizeUp.Data.BusinessCityMapping" Role="BusinessCityMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessCityMapping">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCity_Business">
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="1" />
+          <End Type="SizeUp.Data.BusinessDataByCity" Role="BusinessDataByCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCity">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_Business">
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="1" />
+          <End Type="SizeUp.Data.BusinessDataByCounty" Role="BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByZip_Business">
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="1" />
+          <End Type="SizeUp.Data.BusinessDataByZip" Role="BusinessDataByZip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByZip">
+              <PropertyRef Name="BusinessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessCityMapping_City">
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="1" />
+          <End Type="SizeUp.Data.BusinessCityMapping" Role="BusinessCityMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessCityMapping">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCity_City">
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByCity" Role="BusinessDataByCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCity">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCity_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByCity" Role="BusinessDataByCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCity">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_County">
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByCounty" Role="BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByCounty" Role="BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByCounty" Role="BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByCounty_State">
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="1" />
+          <End Type="SizeUp.Data.BusinessDataByCounty" Role="BusinessDataByCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByCounty">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByZip_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByZip" Role="BusinessDataByZip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByZip">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessDataByZip_ZipCode">
+          <End Type="SizeUp.Data.ZipCode" Role="ZipCode" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.BusinessDataByZip" Role="BusinessDataByZip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZipCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessDataByZip">
+              <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="IndustryDataByCity">
           <Key>
             <PropertyRef Name="Id" />
@@ -2214,7 +2774,7 @@
           <Property Type="Int64" Name="CityId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="EmployeesPerCapita" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="TotalEmployees" />
@@ -2276,7 +2836,7 @@
           <Property Type="Int64" Name="CountyId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="EmployeesPerCapita" />
           <Property Type="Double" Name="CostEffectiveness" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
@@ -2347,7 +2907,7 @@
           <Property Type="Int64" Name="MetroId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="EmployeesPerCapita" />
           <Property Type="Double" Name="CostEffectiveness" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
@@ -2373,7 +2933,7 @@
           <Property Type="Int32" Name="Quarter" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="EmployeesPerCapita" />
           <Property Type="Double" Name="CostEffectiveness" />
           <Property Type="Int64" Name="MedianRevenue" />
           <Property Type="Int64" Name="MedianEmployees" />
@@ -2401,7 +2961,7 @@
           <Property Type="Int64" Name="StateId" />
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="EmployeesPerCapita" />
           <Property Type="Double" Name="CostEffectiveness" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
@@ -2438,7 +2998,7 @@
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Int64" Name="TotalEmployees" />
           <Property Type="Int64" Name="AverageEmployees" />
-          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <Property Type="Double" Name="EmployeesPerCapita" />
           <Property Type="Int64" Name="TotalRevenue" />
           <Property Type="Int64" Name="AverageRevenue" />
           <Property Type="Int64" Name="RevenuePerCapita" />
@@ -2882,6 +3442,65 @@
               <MappingFragment StoreEntitySet="ZipCodeCountyMapping">
                 <ScalarProperty Name="CountyId" ColumnName="CountyId" />
                 <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessCityMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.BusinessCityMapping">
+              <MappingFragment StoreEntitySet="BusinessCityMapping">
+                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessDataByCities">
+            <EntityTypeMapping TypeName="SizeUp.Data.BusinessDataByCity">
+              <MappingFragment StoreEntitySet="BusinessDataByCity">
+                <ScalarProperty Name="YearAppeared" ColumnName="YearAppeared" />
+                <ScalarProperty Name="YearEstablished" ColumnName="YearEstablished" />
+                <ScalarProperty Name="Employees" ColumnName="Employees" />
+                <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessDataByCounties">
+            <EntityTypeMapping TypeName="SizeUp.Data.BusinessDataByCounty">
+              <MappingFragment StoreEntitySet="BusinessDataByCounty">
+                <ScalarProperty Name="YearAppeared" ColumnName="YearAppeared" />
+                <ScalarProperty Name="YearEstablished" ColumnName="YearEstablished" />
+                <ScalarProperty Name="Employees" ColumnName="Employees" />
+                <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessDataByZips">
+            <EntityTypeMapping TypeName="SizeUp.Data.BusinessDataByZip">
+              <MappingFragment StoreEntitySet="BusinessDataByZip">
+                <ScalarProperty Name="YearAppeared" ColumnName="YearAppeared" />
+                <ScalarProperty Name="YearEstablished" ColumnName="YearEstablished" />
+                <ScalarProperty Name="Employees" ColumnName="Employees" />
+                <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+                <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

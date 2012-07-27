@@ -5,12 +5,12 @@ using System.Web;
 
 namespace SizeUp.Web.Areas.Api.Models.Charts
 {
-    public class LineChart
+    public class LineChart<T, V>
     {
-        public LineChartItem City { get; set; }
-        public LineChartItem County { get; set; }
-        public LineChartItem Metro { get; set; }
-        public LineChartItem State { get; set; }
-        public LineChartItem Nation { get; set; }
+        public List<LineChartItem<T, V>> City { get; set; }
+        public List<LineChartItem<T, V>> County { get; set; }
+        public List<LineChartItem<T, V>> Metro { get; set; }
+        public List<LineChartItem<T, V>> State { get; set; }
+        public List<LineChartItem<T, V>> Nation { get; set; }
     }
 }

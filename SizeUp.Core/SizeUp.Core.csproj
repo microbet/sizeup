@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Crypto.cs" />
+    <Compile Include="DataAccess\BusinessData.cs" />
     <Compile Include="DataAccess\Cities.cs" />
     <Compile Include="DataAccess\Counties.cs" />
     <Compile Include="DataAccess\Geography.cs" />

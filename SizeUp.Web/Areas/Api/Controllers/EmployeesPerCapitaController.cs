@@ -13,50 +13,49 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class AverageEmployeesController : Controller
+    public class EmployeesPerCapitaController : Controller
     {
         //
         // GET: /Api/Employee/
 
-        public ActionResult AverageEmployees(long industryId, long placeId)
+        public ActionResult EmployeesPerCapita(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
 
                 var n = IndustryData.GetNational(context, industryId)
-                    .Select(i => new Models.AverageEmployees.ChartItem()
+                    .Select(i => new Models.EmployeesPerCapita.ChartItem()
                     {
-                        Value = (long)i.AverageEmployees,
-                        Median = i.MedianEmployees,
+                        Value = (double)i.EmployeesPerCapita,
                         Name = "USA"
                     });
 
                 var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Select(i => new Models.AverageEmployees.ChartItem()
+                    .Select(i => new Models.EmployeesPerCapita.ChartItem()
                     {
-                        Value = (long)i.AverageEmployees,
+                        Value = (double)i.EmployeesPerCapita,
                         Name = locations.State.Name
                     });
 
                 var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                    .Select(i => new Models.AverageEmployees.ChartItem()
+                    .Select(i => new Models.EmployeesPerCapita.ChartItem()
                     {
-                        Value = (long)i.AverageEmployees,
+                        Value = (double)i.EmployeesPerCapita,
                         Name = locations.Metro.Name
                     });
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Select(i => new Models.AverageEmployees.ChartItem()
+                   .Select(i => new Models.EmployeesPerCapita.ChartItem()
                    {
-                       Value = (long)i.AverageEmployees,
+                       Value = (double)i.EmployeesPerCapita,
                        Name = locations.County.Name + ", " + locations.State.Abbreviation
                    });
 
                 var c = IndustryData.GetCity(context, industryId, locations.City.Id)
-                   .Select(i => new Models.AverageEmployees.ChartItem()
+                   .Select(i => new Models.EmployeesPerCapita.ChartItem()
                    {
-                       Value = (long)i.AverageEmployees,
+                       Value = (double)i.EmployeesPerCapita,
                        Name = locations.City.Name + ", " + locations.State.Abbreviation
                    });
 
@@ -75,36 +74,41 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Percentile(long industryId, long placeId, long value)
+        public ActionResult Percentile(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
 
 
-                var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
-                   .Where(i => i.Employees != null)
-                   .Select(i => i.Employees);
+                var value = IndustryData.GetCity(context, industryId, locations.City.Id)
+                   .Where(i => i.EmployeesPerCapita != null)
+                   .Select(i => i.EmployeesPerCapita)
+                   .FirstOrDefault();
 
-                var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
-                    .Where(i=>i.Employees != null)
-                    .Select(i=>i.Employees);
 
-                var metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
-                    .Where(i => i.Employees != null)
-                    .Select(i => i.Employees);
 
-                var state = BusinessData.GetByState(context, industryId, locations.State.Id)
-                    .Where(i => i.Employees != null)
-                    .Select(i => i.Employees);
+                var county = IndustryData.GetCities(context, industryId)
+                    .Where(i => i.EmployeesPerCapita != null)
+                    .Where(i => i.City.CityCountyMappings.Any(m => m.CountyId == locations.County.Id))
+                    .Select(i => i.EmployeesPerCapita);
 
-                var nation = BusinessData.GetByNation(context, industryId)
-                    .Where(i => i.Employees != null)
-                    .Select(i => i.Employees);
+                var metro = IndustryData.GetCities(context, industryId)
+                    .Where(i => i.EmployeesPerCapita != null)
+                    .Where(i => i.City.CityCountyMappings.Any(m => m.County.MetroId == locations.Metro.Id))
+                    .Select(i => i.EmployeesPerCapita);
+
+                var state = IndustryData.GetCities(context, industryId)
+                    .Where(i => i.EmployeesPerCapita != null)
+                    .Where(i => i.City.CityCountyMappings.Any(m => m.County.StateId == locations.State.Id))
+                    .Select(i => i.EmployeesPerCapita);
+
+                var nation = IndustryData.GetCities(context, industryId)
+                    .Where(i => i.EmployeesPerCapita != null)
+                    .Select(i => i.EmployeesPerCapita);
 
                 var obj = new
                 {
-                    City = Core.DataAccess.Math.Percentile(city, value),
                     County = Core.DataAccess.Math.Percentile(county, value),
                     Metro = Core.DataAccess.Math.Percentile(metro, value),
                     State = Core.DataAccess.Math.Percentile(state, value),
@@ -126,15 +130,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     .Select(i => i.Id);
 
                 var data = IndustryData.GetZipCodes(context, industryId)
-                    .Where(i => i.AverageEmployees > 0)
+                    .Where(i => i.EmployeesPerCapita > 0)
                     .Join(zips, i => i.ZipCodeId, i => i, (i, o) => i)
-                    .Select(i => i.AverageEmployees)
+                    .Select(i => i.EmployeesPerCapita)
                     .ToList()
                     .NTile(i => i, bands)
-                    .Select(b => new Models.AverageEmployees.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .Select(b => new Models.EmployeesPerCapita.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
-                Models.AverageEmployees.Band old = null;
+                Models.EmployeesPerCapita.Band old = null;
                 foreach (var band in data)
                 {
                     if (old != null)
@@ -157,15 +161,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     .Select(i => i.Id);
 
                 var data = IndustryData.GetCounties(context, industryId)
-                    .Where(i => i.AverageEmployees > 0)
+                    .Where(i => i.EmployeesPerCapita > 0)
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                    .Select(i => i.AverageEmployees)
+                    .Select(i => i.EmployeesPerCapita)
                     .ToList()
                     .NTile(i => i, bands)
-                    .Select(b => new Models.AverageEmployees.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .Select(b => new Models.EmployeesPerCapita.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
-                Models.AverageEmployees.Band old = null;
+                Models.EmployeesPerCapita.Band old = null;
                 foreach (var band in data)
                 {
                     if (old != null)
@@ -184,14 +188,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
 
                 var data = IndustryData.GetStates(context, industryId)
-                    .Where(i => i.AverageEmployees > 0)
-                    .Select(i => i.AverageEmployees)
+                    .Where(i => i.EmployeesPerCapita > 0)
+                    .Select(i => i.EmployeesPerCapita)
                     .ToList()
                     .NTile(i => i, bands)
-                    .Select(b => new Models.AverageEmployees.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .Select(b => new Models.EmployeesPerCapita.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
-                Models.AverageEmployees.Band old = null;
+                Models.EmployeesPerCapita.Band old = null;
                 foreach (var band in data)
                 {
                     if (old != null)

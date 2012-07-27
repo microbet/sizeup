@@ -80,8 +80,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var revenues = IndustryData.GetCities(context, industryId)
-                    .Select(i => i.AverageRevenue);
+                var revenues = BusinessData.GetByNation(context, industryId)
+                    .Where(i=>i.Revenue != null)
+                    .Select(i => i.Revenue);
 
 
                 var percentile = Core.DataAccess.Math.Percentile(revenues, (long)value);

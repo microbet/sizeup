@@ -5,225 +5,245 @@
 
         jQuery.ajaxSettings.traditional = true;
 
-        var get = function (url, params, success, error) {
+        var get = function (url, params, callback) {
             return $.get(url, params, 'json')
-
-            .success(function (data) { if (success) { success(data); } })
-            .error(function (e) { if (error) { error(e); } });
+            .success(function (data) { if (callback) { callback(data); } })
+            .error(function (e) { if (callback) { callback(null); } });
         };
 
-        var post = function (url, params, success, error) {
+        var post = function (url, params, callback) {
             return $.post(url, params)
-            .success(function (data) { if (success) { success(data); } })
-            .error(function (e) { if (error) { error(e); } });
+            .success(function (data) { if (callback) { callback(data); } })
+            .error(function (e) { if (error) { callback(null); } });
         };
 
         var publicObj = {
-            isAuthenticated: function ( success, error) {
-                return get('/api/user/authenticated/', null, success, error);
+            isAuthenticated: function ( callback) {
+                return get('/api/user/authenticated/', null, callback);
             },
-            searchIndustries: function (params, success, error) {
-                return get('/api/industry/search/', params, success, error);
+            searchIndustries: function (params, callback) {
+                return get('/api/industry/search/', params, callback);
             },
-            getIndustry: function (params, success, error) {
-                return get('/api/industry/', params, success, error);
+            getIndustry: function (params, callback) {
+                return get('/api/industry/', params, callback);
             },
-            getIndustries: function (params, success, error) {
-                return get('/api/industry/list', params, success, error);
+            getIndustries: function (params, callback) {
+                return get('/api/industry/list', params, callback);
             },
-            getCurrentIndustry: function (success, error) {
-                return get('/api/industry/current', null, success, error);
+            getCurrentIndustry: function (callback) {
+                return get('/api/industry/current', null, callback);
             },
-            setCurrentIndustry: function (params, success, error) {
-                return post('/api/industry/current', params, success, error);
+            setCurrentIndustry: function (params, callback) {
+                return post('/api/industry/current', params, callback);
             },
-            hasData: function (params, success, error) {
-                return get('/api/industry/hasData/', params, success, error);
-            },
-
-            searchPlaces: function (params, success, error) {
-                return get('/api/place/search/', params, success, error);
-            },
-            getPlace: function (params, success, error) {
-                return get('/api/place/', params, success, error);
-            },
-            getCurrentPlace: function (success, error) {
-                return get('/api/place/current', null, success, error);
-            },
-            setCurrentPlace: function (params, success, error) {
-                return post('/api/place/current', params, success, error);
-            },
-            getDetectedPlace: function (success, error) {
-                return get('/api/place/detected', null, success, error);
+            hasData: function (params, callback) {
+                return get('/api/industry/hasData/', params, callback);
             },
 
-            getCity: function (params, success, error) {
-                return get('/api/city/', params, success, error);
+            searchPlaces: function (params, callback) {
+                return get('/api/place/search/', params, callback);
             },
-            getCityBoundingBox: function (params, success, error) {
-                return get('/api/city/boundingbox/', params, success, error);
+            getPlace: function (params, callback) {
+                return get('/api/place/', params, callback);
             },
-            getCityCentroid: function (params, success, error) {
-                return get('/api/city/centroid/', params, success, error);
+            getCurrentPlace: function (callback) {
+                return get('/api/place/current', null, callback);
+            },
+            setCurrentPlace: function (params, callback) {
+                return post('/api/place/current', params, callback);
+            },
+            getDetectedPlace: function (callback) {
+                return get('/api/place/detected', null, callback);
+            },
+
+            getCity: function (params, callback) {
+                return get('/api/city/', params, callback);
+            },
+            getCityBoundingBox: function (params, callback) {
+                return get('/api/city/boundingbox/', params, callback);
+            },
+            getCityCentroid: function (params, callback) {
+                return get('/api/city/centroid/', params, callback);
             },
            
-            getCounty: function (params, success, error) {
-                return get('/api/county/', params, success, error);
+            getCounty: function (params, callback) {
+                return get('/api/county/', params, callback);
             },
             
-            getMetro: function (params, success, error) {
-                return get('/api/metro/', params, success, error);
+            getMetro: function (params, callback) {
+                return get('/api/metro/', params, callback);
             },
 
-            getState: function (params, success, error) {
-                return get('/api/state/', params, success, error);
+            getState: function (params, callback) {
+                return get('/api/state/', params, callback);
             },
 
-            getBusiness: function (params, success, error) {
-                return get('/api/business/', params, success, error);
+            getBusiness: function (params, callback) {
+                return get('/api/business/', params, callback);
             },
 
-            getBusinessAt: function (params, success, error) {
-                return get('/api/business/at', params, success, error);
+            getBusinessAt: function (params, callback) {
+                return get('/api/business/at', params, callback);
             },
 
-            getBusinessesByIndustry: function (params, success, error) {
-                return get('/api/business/list', params, success, error);
+            getBusinessesByIndustry: function (params, callback) {
+                return get('/api/business/list', params, callback);
             },
 
-            getAverageRevenueChart: function (params, success, error) {
-                return get('/api/averageRevenue/', params, success, error);
+            getAverageRevenueChart: function (params, callback) {
+                return get('/api/averageRevenue/', params, callback);
             },
-            getAverageRevenuePercentile: function (params, success, error) {
-                return get('/api/averageRevenue/percentile/', params, success, error);
-            },
-
-            getAverageRevenueBandsByState: function (params, success, error) {
-                return get('/api/averageRevenue/bands/state/', params, success, error);
+            getAverageRevenuePercentile: function (params, callback) {
+                return get('/api/averageRevenue/percentile/', params, callback);
             },
 
-            getAverageRevenueBandsByCounty: function (params, success, error) {
-                return get('/api/averageRevenue/bands/county/', params, success, error);
+            getAverageRevenueBandsByState: function (params, callback) {
+                return get('/api/averageRevenue/bands/state/', params, callback);
             },
 
-            getAverageRevenueBandsByZip: function (params, success, error) {
-                return get('/api/averageRevenue/bands/zip/', params, success, error);
+            getAverageRevenueBandsByCounty: function (params, callback) {
+                return get('/api/averageRevenue/bands/county/', params, callback);
             },
 
-            getYearStartedChart: function (params, success, error) {
-                return get('/api/yearStarted/', params, success, error);
+            getAverageRevenueBandsByZip: function (params, callback) {
+                return get('/api/averageRevenue/bands/zip/', params, callback);
             },
 
-            getYearStartedPercentile: function (params, success, error) {
-                return get('/api/yearStarted/percentile', params, success, error);
+            getYearStartedChart: function (params, callback) {
+                return get('/api/yearStarted/', params, callback);
             },
 
-
-            getAverageSalaryChart: function (params, success, error) {
-                return get('/api/averageSalary/', params, success, error);
-            },
-            getAverageSalaryPercentage: function (params, success, error) {
-                return get('/api/averageSalary/percentage/', params, success, error);
-            },
-
-            getAverageSalaryBandsByState: function (params, success, error) {
-                return get('/api/averageSalary/bands/state/', params, success, error);
-            },
-
-            getAverageSalaryBandsByCounty: function (params, success, error) {
-                return get('/api/averageSalary/bands/county/', params, success, error);
-            },
-
-            getRevenuePerCapitaChart: function (params, success, error) {
-                return get('/api/RevenuePerCapita/', params, success, error);
-            },
-
-            getRevenuePerCapitaPercentage: function (params, success, error) {
-                return get('/api/RevenuePerCapita/percentage/', params, success, error);
-            },
-
-            getRevenuePerCapitaPercentile: function (params, success, error) {
-                return get('/api/RevenuePerCapita/percentile/', params, success, error);
-            },
-
-            getRevenuePerCapitaBandsByState: function (params, success, error) {
-                return get('/api/RevenuePerCapita/bands/state/', params, success, error);
-            },
-
-            getRevenuePerCapitaBandsByCounty: function (params, success, error) {
-                return get('/api/RevenuePerCapita/bands/county/', params, success, error);
-            },
-
-            getRevenuePerCapitaBandsByZip: function (params, success, error) {
-                return get('/api/RevenuePerCapita/bands/zip/', params, success, error);
-            },
-
-            getTotalRevenueBandsByState: function (params, success, error) {
-                return get('/api/TotalRevenue/bands/state/', params, success, error);
-            },
-
-            getTotalRevenueBandsByCounty: function (params, success, error) {
-                return get('/api/TotalRevenue/bands/county/', params, success, error);
-            },
-
-            getTotalRevenueBandsByZip: function (params, success, error) {
-                return get('/api/TotalRevenue/bands/zip/', params, success, error);
+            getYearStartedPercentile: function (params, callback) {
+                return get('/api/yearStarted/percentile', params, callback);
             },
 
 
-
-            getAverageEmployeesChart: function (params, success, error) {
-                return get('/api/AverageEmployees/', params, success, error);
+            getAverageSalaryChart: function (params, callback) {
+                return get('/api/averageSalary/', params, callback);
+            },
+            getAverageSalaryPercentage: function (params, callback) {
+                return get('/api/averageSalary/percentage/', params, callback);
             },
 
-            getAverageEmployeesPercentile: function (params, success, error) {
-                return get('/api/AverageEmployees/percentile/', params, success, error);
+            getAverageSalaryBandsByState: function (params, callback) {
+                return get('/api/averageSalary/bands/state/', params, callback);
             },
 
-            getAverageEmployeesBandsByState: function (params, success, error) {
-                return get('/api/AverageEmployees/bands/state/', params, success, error);
+            getAverageSalaryBandsByCounty: function (params, callback) {
+                return get('/api/averageSalary/bands/county/', params, callback);
             },
 
-            getAverageEmployeesBandsByCounty: function (params, success, error) {
-                return get('/api/AverageEmployees/bands/county/', params, success, error);
+            getRevenuePerCapitaChart: function (params, callback) {
+                return get('/api/RevenuePerCapita/', params, callback);
             },
 
-            getAverageEmployeesBandsByZip: function (params, success, error) {
-                return get('/api/AverageEmployees/bands/zip/', params, success, error);
+            getRevenuePerCapitaPercentage: function (params, callback) {
+                return get('/api/RevenuePerCapita/percentage/', params, callback);
+            },
+
+            getRevenuePerCapitaPercentile: function (params, callback) {
+                return get('/api/RevenuePerCapita/percentile/', params, callback);
+            },
+
+            getRevenuePerCapitaBandsByState: function (params, callback) {
+                return get('/api/RevenuePerCapita/bands/state/', params, callback);
+            },
+
+            getRevenuePerCapitaBandsByCounty: function (params, callback) {
+                return get('/api/RevenuePerCapita/bands/county/', params, callback);
+            },
+
+            getRevenuePerCapitaBandsByZip: function (params, callback) {
+                return get('/api/RevenuePerCapita/bands/zip/', params, callback);
+            },
+
+            getTotalRevenueBandsByState: function (params, callback) {
+                return get('/api/TotalRevenue/bands/state/', params, callback);
+            },
+
+            getTotalRevenueBandsByCounty: function (params, callback) {
+                return get('/api/TotalRevenue/bands/county/', params, callback);
+            },
+
+            getTotalRevenueBandsByZip: function (params, callback) {
+                return get('/api/TotalRevenue/bands/zip/', params, callback);
             },
 
 
 
-            getTurnoverChart: function (params, success, error) {
-                return get('/api/turnover/', params, success, error);
+            getAverageEmployeesChart: function (params, callback) {
+                return get('/api/AverageEmployees/', params, callback);
             },
 
-            getTurnoverPercentile: function (params, success, error) {
-                return get('/api/turnover/percentile/', params, success, error);
+            getAverageEmployeesPercentile: function (params, callback) {
+                return get('/api/AverageEmployees/percentile/', params, callback);
             },
 
-
-            getJobChangeChart: function (params, success, error) {
-                return get('/api/jobchange/', params, success, error);
+            getAverageEmployeesBandsByState: function (params, callback) {
+                return get('/api/AverageEmployees/bands/state/', params, callback);
             },
 
-            getRevenuePerCapitaChart: function (params, success, error) {
-                return get('/api/revenuePerCapita/', params, success, error);
+            getAverageEmployeesBandsByCounty: function (params, callback) {
+                return get('/api/AverageEmployees/bands/county/', params, callback);
             },
 
-
-            getWorkersCompChart: function (params, success, error) {
-                return get('/api/workersComp/', params, success, error);
-            },
-
-            getWorkersCompPercentage: function (params, success, error) {
-                return get('/api/workersComp/percentage/', params, success, error);
+            getAverageEmployeesBandsByZip: function (params, callback) {
+                return get('/api/AverageEmployees/bands/zip/', params, callback);
             },
 
 
+            getEmployeesPerCapitaChart: function (params, callback) {
+                return get('/api/EmployeesPerCapita/', params, callback);
+            },
 
-            getBestPlacesToAdvertise: function (params, success, error) {
-                return get('/api/Advertising/', params, success, error);
+            getEmployeesPerCapitaPercentile: function (params, callback) {
+                return get('/api/EmployeesPerCapita/percentile/', params, callback);
+            },
+
+            getEmployeesPerCapitaBandsByState: function (params, callback) {
+                return get('/api/EmployeesPerCapita/bands/state/', params, callback);
+            },
+
+            getEmployeesPerCapitaBandsByCounty: function (params, callback) {
+                return get('/api/EmployeesPerCapita/bands/county/', params, callback);
+            },
+
+            getEmployeesPerCapitaBandsByZip: function (params, callback) {
+                return get('/api/EmployeesPerCapita/bands/zip/', params, callback);
+            },
+
+
+
+            getTurnoverChart: function (params, callback) {
+                return get('/api/turnover/', params, callback);
+            },
+
+            getTurnoverPercentile: function (params, callback) {
+                return get('/api/turnover/percentile/', params, callback);
+            },
+
+
+            getJobChangeChart: function (params, callback) {
+                return get('/api/jobchange/', params, callback);
+            },
+
+            getRevenuePerCapitaChart: function (params, callback) {
+                return get('/api/revenuePerCapita/', params, callback);
+            },
+
+
+            getWorkersCompChart: function (params, callback) {
+                return get('/api/workersComp/', params, callback);
+            },
+
+            getWorkersCompPercentage: function (params, callback) {
+                return get('/api/workersComp/percentage/', params, callback);
+            },
+
+
+
+            getBestPlacesToAdvertise: function (params, callback) {
+                return get('/api/Advertising/', params, callback);
             },
 
 

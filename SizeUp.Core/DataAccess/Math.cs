@@ -15,7 +15,7 @@ namespace SizeUp.Core.DataAccess
             GreaterThan
         }
 
-        public static int? Percentile(IQueryable<double?> source, double value, Order order = Order.LessThan)
+        public static int? Percentile(IQueryable<double?> source, double? value, Order order = Order.LessThan)
         {
             IQueryable<double?> filtered = null;
             if(order == Order.GreaterThan){
@@ -39,9 +39,35 @@ namespace SizeUp.Core.DataAccess
             return val;
         }
 
-        public static int? Percentile(IQueryable<long?> source, long value, Order order = Order.LessThan)
+        public static int? Percentile(IQueryable<long?> source, long? value, Order order = Order.LessThan)
         {
             IQueryable<long?> filtered = null;
+            if (order == Order.GreaterThan)
+            {
+                filtered = source.Where(i => i.Value >= value);
+            }
+            else
+            {
+                filtered = source.Where(i => i.Value <= value);
+            }
+
+            var data = new
+            {
+                Total = source.Count(),
+                Less = filtered.Count()
+            };
+
+            int? val = null;
+            if (data.Total > 0)
+            {
+                val = (int)(((decimal)data.Less / (decimal)data.Total) * 100);
+            }
+            return val;
+        }
+
+        public static int? Percentile(IQueryable<int?> source, int? value, Order order = Order.LessThan)
+        {
+            IQueryable<int?> filtered = null;
             if (order == Order.GreaterThan)
             {
                 filtered = source.Where(i => i.Value >= value);

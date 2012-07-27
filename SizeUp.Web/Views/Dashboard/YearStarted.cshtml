@@ -10,23 +10,38 @@
 </div>
 <div class="body ">
     <div class="loading">
-        <p class="title">Average Revenue Report</p>
+        <p class="title">Years In Business Report</p>
         <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
         <p class="message">Generating Report</p>
     </div>
     <div class="reportContainer ">
-        <div class="reportContent">
+         <div class="reportContent noDataError">
+            <p>There is no data available for this report with this industry and city</p>
+        </div>
+        <div class="reportContent reportData">
             <h3>How you size up</h3>
-            <p>Your business started in 1999. In the same year, 0 businesses in your industry started in your city,
+            <p class="description">
+                <div data-template="description">
+                @Html.Raw(ViewBag.Strings["Dashboard.Salary.Description"])
+
+
+                    <p>Your business started in 1999. In the same year, 0 businesses in your industry started in your city,
                     0 started in your county, 2 started in your metro area, 19 started in your state, and 142 started nationally.
+                    </p>
+                    <p>In your industry, your business has been in operation longer than 47% of businesses in your city, 47% of 
+                    businesses in your county, 51% of businesses in your metro area, 55% of businesses in your state, and 56% 
+                    of businesses in the nation.
+                    </p> 
+                </div>
             </p>
-            <p>In your industry, your business has been in operation longer than 47% of businesses in your city, 47% of 
-                businesses in your county, 51% of businesses in your metro area, 55% of businesses in your state, and 56% 
-                of businesses in the nation.
-            </p>       
+
+           
+            
+            
+            
+            
+                  
             <div class="chart">
-                <a href="#">Hide Variations by Geography</a>
-                <a href="#">View Data Table </a>
                 <div class="container"></div>
             </div>
             <ul class="links">
@@ -34,16 +49,20 @@
                     <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
                 </li>
             </ul>
-            <div class="sourceContent " data-expandedClass="expanded">
-                <p>The year started chart is based on data on the start date for individual businesses,
+            <div class="sourceContent">
+                @Html.Raw(ViewBag.Strings["Dashboard.Salary.Source"])
+
+                 <p>The year started chart is based on data on the start date for individual businesses,
                     which comes from hundreds of data sources including IRS records, county courthouse filings,
                     Yellow Pages and White Pages, business publications, the U.S. Postal Service, and corporate annual reports.
                     This chart goes as far back as 1986 to show patterns in business formation.
                 </p>
             </div>
+
+
         </div>
         <div class="reportSidebar">
-            <div class="section">
+            <div class="section considerations collapsable">
                 <h4>Considerations</h4>
                 <p>This chart measures both business formation and survival, and can be used to assess the relative stability or 
                     volatility of your industry in your area.  The chart measures the starts per year of all businesses that are 
@@ -67,36 +86,32 @@
                 <div class="startup answer collapsed hidden">
                     <h5>you are a startup</h5>
                     <a href="javascript:void(0);" class="clearer">[change]</a>
-                    <p>Assess the performance of the average local business in your industry to help gauge your
-                         expectations of how much businesses in your local market area make.
-                    </p>
                     <p>
-                        Use the <a href="javascript:gisp.dashboard.CompetitorAnalysis();">competitor map</a> to identify who 
-                        your strongest local competitors and potential partners are.
+                        Refer to the chart to see the trends over time in business formation and to assess 
+                        the level of risk for new businesses starting up.  If you see a recent spike in 
+                        business formation, there may be opportunity but also greater competition.
+                          If the business starts have recently dipped, there may be growing challenges 
+                        facing start-ups in your industry that you should research.
                     </p>
+				    <p>
+                        If the national trend is downward but your local trend is upward, you are likely in
+                         a good position.  This may mean that you are in a generally maturing industry 
+                        that is at an earlier stage in your area, and by joining now, you may have advantages 
+                        later when the industry matures.
+				    </p>
                 </div>
                 <div class="established answer collapsed hidden">
                     <h5>you are an established business</h5>
                     <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>Determine whether you should be concerned about new competitors entering your space.</p>
                     <p>
-                        Comparing your revenue to the industry averages in your surrounding area will tell you 
-                        whether you are outperforming your competition.
-                    </p>
-                    <p>
-                        Use the <a href="javascript:gisp.dashboard.CompetitorAnalysis();">competitor map</a> to see who in
-                         your area might be getting market-share revenue your company could have.  Once you have identified
-                         your top competitors, think about what is allowing them to succeed, and then consider about 
-                        how you might be able to outperform them.
-                    </p>
-                    <p>
-                        Is your product or service faster, cheaper or better than the competition?
-                          If the answer is "yes", make sure your competitors' customers know you are better to give
-                         them a reason to buy from you.  Find the best places to <a href="javascript:gisp.dashboard.Advertise();">advertise</a>
-                         or start a targeted <a href="javascript:gisp.dashboard.Advertise();">marketing campaign</a>.
+                        If you are considering selling your business, use the chart to identify spikes in
+                         business formation to see when the interest in acquiring your business may be highest.
                     </p>
                 </div>
 
             </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
         </div>
     </div>
 </div>

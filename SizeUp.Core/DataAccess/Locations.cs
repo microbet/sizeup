@@ -36,18 +36,5 @@ namespace SizeUp.Core.DataAccess
                    })
                    .Where(i => i.County.Id == countyId && i.City.Id == cityId);
         }
-        /*
-        public static IQueryable<Models.Locations> Get(SizeUpContext context, long countyId)
-        {
-            return context.CityCountyMappings
-                   .Select(i => new Models.Locations()
-                   {
-                       County = i.County,
-                       Metro = i.County.Metro,
-                       State = i.County.State
-                   })
-                   .Where(i => i.County.Id == countyId);
-        }
-         * */
     }
 }

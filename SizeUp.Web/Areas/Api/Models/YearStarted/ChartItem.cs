@@ -6,13 +6,8 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Models.YearStarted
 {
-    public class ChartItem : Charts.LineChartItem
+    public class ChartItem : Charts.LineChartItem<int, int>
     {
-        public class ChartItemValue : Charts.LineChartItem.LineChartItemValue<int, int>
-        {
 
-        }
-        public IEnumerable<ChartItemValue> Values { get; set; }
     }
-
 }

@@ -31,15 +31,29 @@ namespace SizeUp.Core.Extensions
         {
             source = source.OrderBy(selector);
             int count = source.Count();
-            int itemsPerBand = (int)Math.Ceiling((decimal)count / bands);
-            List<T> toReturn = new List<T>(itemsPerBand);
+            int itemsPerBand = (int)Math.Floor((decimal)count / bands);
+            int remainder = count - (bands * itemsPerBand);
+            if (itemsPerBand == 0)
+            {
+                itemsPerBand = 1;
+                remainder = 0;
+            }
+            List<T> toReturn = new List<T>();
+            int rCount = 0;
             foreach (var item in source)
             {
                 toReturn.Add(item);
-                if (toReturn.Count == itemsPerBand)
+                if (rCount < remainder && toReturn.Count == itemsPerBand + 1)
                 {
+                    rCount++;
                     yield return toReturn;
-                    toReturn = new List<T>(itemsPerBand);
+                    toReturn = new List<T>();
+                }
+                if (rCount >= remainder && toReturn.Count == itemsPerBand)
+                {
+                    rCount++;
+                    yield return toReturn;
+                    toReturn = new List<T>();
                 }
             }
             if (toReturn.Any())

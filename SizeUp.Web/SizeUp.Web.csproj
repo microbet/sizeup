@@ -149,6 +149,7 @@
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
+    <Compile Include="Areas\Api\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
     <Compile Include="Areas\Api\Controllers\AverageEmployeesController.cs" />
     <Compile Include="Areas\Api\Controllers\HealthCareController.cs" />
@@ -174,6 +175,8 @@
     <Compile Include="Areas\Api\Models\Charts\LineChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\LineChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
+    <Compile Include="Areas\Api\Models\EmployeesPerCapita\Band.cs" />
+    <Compile Include="Areas\Api\Models\EmployeesPerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Place\Place.cs" />
     <Compile Include="Areas\Api\Models\County\County.cs" />
     <Compile Include="Areas\Api\Models\Industry\Industry.cs" />
@@ -198,6 +201,8 @@
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
@@ -231,6 +236,7 @@
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\dashboardIcons.png" />
     <Content Include="Content\images\dashbuttons.png" />
+    <Content Include="Content\images\externalLink.gif" />
     <Content Include="Content\images\gauge.png" />
     <Content Include="Content\images\heatmaplegend.png" />
     <Content Include="Content\images\home-gradient.png" />
@@ -270,6 +276,7 @@
     <Content Include="Global.asax" />
     <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
+    <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
     <Content Include="Scripts\controls\question.js" />
     <Content Include="Scripts\controls\rangeSlider.js" />

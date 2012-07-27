@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
+using SizeUp.Core.DataAccess;
+using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
-
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -17,256 +18,99 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/YearStarted/
 
-        public ActionResult YearStarted(long industryId, long placeId)
+        public ActionResult YearStarted(long industryId, long placeId, int startYear, int endYear)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-
-                var locations = context.CityCountyMappings
-                    .Select(i => new
-                    {
-                        City = i.City,
-                        County = i.County,
-                        Metro = i.County.Metro,
-                        State = i.County.State
-                    })
-                    .Where(i => i.County.Id == placeId);
-
-                /*
-
-                var nation = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId)
-                    .Select(i => new { i.Year, i.Quarter, i.YearStarted, i.YearEstablished });
-                var nMax = nation.Select(i => new { i.Year, i.Quarter })
-                    .OrderByDescending(i => i.Year)
-                    .ThenBy(i => i.Quarter);
-                var nationData = nation.Where(i =>
-                    i.Year == nMax.FirstOrDefault().Year && i.Quarter == nMax.FirstOrDefault().Quarter)
-                    .Select(i => i.YearEstablished ?? i.YearStarted);
+                var years = Enumerable.Range(startYear, (endYear-startYear)+1).ToList();
 
 
-                var state = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.FirstOrDefault().State.Id)
-                    .Select(i => new { i.Year, i.Quarter, i.YearStarted, i.YearEstablished });
-                var sMax = state.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var stateData = state.Where(i =>
-                    i.Year == sMax.FirstOrDefault().Year && i.Quarter == sMax.FirstOrDefault().Quarter)
-                    .Select(i => i.YearEstablished ?? i.YearStarted);
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-                var metro = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.FirstOrDefault().Metro.Id)
-                    .Select(i => new { i.Year, i.Quarter, i.YearStarted, i.YearEstablished });
-                var mMax = metro.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var metroData = metro.Where(i =>
-                    i.Year == mMax.FirstOrDefault().Year && i.Quarter == mMax.FirstOrDefault().Quarter)
-                    .Select(i => i.YearEstablished ?? i.YearStarted);
-
-                var county = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId && i.CountyId == locations.FirstOrDefault().County.Id)
-                    .Select(i => new { i.Year, i.Quarter, i.YearStarted, i.YearEstablished });
-                var coMax = county.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var countyData = county.Where(i =>
-                    i.Year == coMax.FirstOrDefault().Year && i.Quarter == coMax.FirstOrDefault().Quarter)
-                    .Select(i => i.YearEstablished ?? i.YearStarted);
-
-                var city = context.YearStartedByCities
-                    .Where(i => i.IndustryId == industryId && i.CityId == locations.FirstOrDefault().City.Id)
-                    .Select(i => new { i.Year, i.Quarter, i.YearStarted, i.YearEstablished });
-                var cMax = city.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var cityData = city.Where(i =>
-                    i.Year == cMax.FirstOrDefault().Year && i.Quarter == cMax.FirstOrDefault().Quarter)
-                    .Select(i => i.YearEstablished ?? i.YearStarted);
+                var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i >= startYear && i <= endYear);
 
 
-                var data = countyData.Select(i => new Models.Charts.LineChart()
+                var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i >= startYear && i <= endYear);
+
+                var metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i >= startYear && i <= endYear);
+
+                var state = BusinessData.GetByState(context, industryId, locations.State.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i >= startYear && i <= endYear);
+
+                var nation = BusinessData.GetByNation(context, industryId)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i >= startYear && i <= endYear);
+
+
+
+                var obj = new Models.Charts.LineChart<int, int>()
                 {
-                    City = new Models.YearStarted.ChartItem()
-                    {
-                        Name = "City",
-                        Values = cityData.GroupBy(g => g.Value).Select(g => new Models.YearStarted.ChartItem.ChartItemValue() { Key = g.Key, Value = g.Count() })
-                    },
-                    County = new Models.YearStarted.ChartItem()
-                    {
-                        Name = "County",
-                        Values = countyData.GroupBy(g => g.Value).Select(g => new Models.YearStarted.ChartItem.ChartItemValue() { Key = g.Key, Value = g.Count() })
-                    },
-                    Metro = new Models.YearStarted.ChartItem()
-                    {
-                        Name = "Metro",
-                        Values = metroData.GroupBy(g => g.Value).Select(g => new Models.YearStarted.ChartItem.ChartItemValue() { Key = g.Key, Value = g.Count() })
-                    },
-                    State = new Models.YearStarted.ChartItem()
-                    {
-                        Name = "State",
-                        Values = stateData.GroupBy(g => g.Value).Select(g => new Models.YearStarted.ChartItem.ChartItemValue() { Key = g.Key, Value = g.Count() })
-                    },
-                    Nation = new Models.YearStarted.ChartItem()
-                    {
-                        Name = "Nation",
-                        Values = nationData.GroupBy(g => g.Value).Select(g => new Models.YearStarted.ChartItem.ChartItemValue() { Key = g.Key, Value = g.Count() })
-                    }
-                }).FirstOrDefault();
-                */
-                return Json(null, JsonRequestBehavior.AllowGet);
+                    City = years.GroupJoin(city, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
+                    County = years.GroupJoin(county, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
+                    Metro = years.GroupJoin(metro, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
+                    State = years.GroupJoin(state, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
+                    Nation = years.GroupJoin(nation, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList()
+                };
+
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentile(long industryId, long placeId, int value)
+        public ActionResult Percentile(long industryId, long placeId, int? value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = context.CityCountyMappings
-                     .Select(i => new
-                     {
-                         City = i.City,
-                         County = i.County,
-                         Metro = i.County.Metro,
-                         State = i.County.State
-                     })
-                     .Where(i => i.County.Id == placeId);
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-               
-                /*
-                var nation = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId)
-                    .Select(i => new { i.Year, i.Quarter, YearStarted = i.YearEstablished ?? i.YearStarted })
-                    .Where(i => i.YearStarted != null);
 
-                var nMax = nation
-                   .Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
+                var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared )
+                    .Where(i => i != null);
 
-                var nationData = nation.Where(i =>
-                    i.Year == nMax.FirstOrDefault().Year && i.Quarter == nMax.FirstOrDefault().Quarter);
-    
+                var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared )
+                    .Where(i => i != null);
+
+                var metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared )
+                    .Where(i => i != null);
+
+                var state = BusinessData.GetByState(context, industryId, locations.State.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared )
+                    .Where(i => i != null);
+
+                var nation = BusinessData.GetByNation(context, industryId)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared )
+                    .Where(i => i != null);
 
 
 
-
-
-
-                var state = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId && i.StateId == locations.FirstOrDefault().State.Id)
-                    .Select(i => new { i.Year, i.Quarter, YearStarted = i.YearEstablished ?? i.YearStarted })
-                    .Where(i => i.YearStarted != null);
-
-
-                var sMax = state.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var stateData = state.Where(i =>
-                    i.Year == sMax.FirstOrDefault().Year && i.Quarter == sMax.FirstOrDefault().Quarter);
-
-
-
-
-
-                var metro = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId && i.MetroId == locations.FirstOrDefault().Metro.Id)
-                    .Select(i => new { i.Year, i.Quarter, YearStarted = i.YearEstablished ?? i.YearStarted })
-                    .Where(i => i.YearStarted != null);
-
-
-                var mMax = metro.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var metroData = metro.Where(i =>
-                    i.Year == mMax.FirstOrDefault().Year && i.Quarter == mMax.FirstOrDefault().Quarter);
-
-
-
-
-
-
-                var county = context.YearStartedByZips
-                    .Where(i => i.IndustryId == industryId && i.CountyId == locations.FirstOrDefault().County.Id)
-                    .Select(i => new { i.Year, i.Quarter, YearStarted = i.YearEstablished ?? i.YearStarted })
-                    .Where(i => i.YearStarted != null);
-
-
-
-                var coMax = county.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var countyData = county.Where(i =>
-                    i.Year == coMax.FirstOrDefault().Year && i.Quarter == coMax.FirstOrDefault().Quarter);
-
-
-
-
-
-
-
-                var city = context.YearStartedByCities
-                    .Where(i => i.IndustryId == industryId && i.CityId == locations.FirstOrDefault().City.Id)
-                    .Select(i => new { i.Year, i.Quarter, YearStarted = i.YearEstablished ?? i.YearStarted })
-                    .Where(i => i.YearStarted != null);
-
-
-
-                var cMax = city.Select(i => new { i.Year, i.Quarter })
-                   .OrderByDescending(i => i.Year)
-                   .ThenBy(i => i.Quarter);
-                var cityData = city.Where(i =>
-                    i.Year == cMax.FirstOrDefault().Year && i.Quarter == cMax.FirstOrDefault().Quarter);
-
-
-
-              
-
-                //NOTE the comparison for the LESS value is flipped to greater than becuase older is better
-                var data = countyData.Select(i => new
+                var obj = new
                 {
-                    City = new
-                    {
-                        Total = cityData.Count(),
-                        Less = cityData.Where(g=>g.YearStarted > value).Count()
-                    },
-                    County = new
-                    {
-                        Total = countyData.Count(),
-                        Less = countyData.Where(g => g.YearStarted > value).Count()
-                    },
-                    Metro = new
-                    {
-                        Total = metroData.Count(),
-                        Less = metroData.Where(g => g.YearStarted > value).Count()
-                    },
-                    State = new
-                    {
-                        Total = stateData.Count(),
-                        Less = stateData.Where(g => g.YearStarted > value).Count()
-                    },
-                    Nation = new
-                    {
-                        Total = nationData.Count(),
-                        Less = nationData.Where(g => g.YearStarted > value).Count()
-                    },
-                }).FirstOrDefault();
-           
-              
+                    City = Core.DataAccess.Math.Percentile(city, value, Core.DataAccess.Math.Order.GreaterThan),
+                    County = Core.DataAccess.Math.Percentile(county, value, Core.DataAccess.Math.Order.GreaterThan),
+                    Metro = Core.DataAccess.Math.Percentile(metro, value, Core.DataAccess.Math.Order.GreaterThan),
+                    State = Core.DataAccess.Math.Percentile(state, value, Core.DataAccess.Math.Order.GreaterThan),
+                    Nation = Core.DataAccess.Math.Percentile(nation, value, Core.DataAccess.Math.Order.GreaterThan)
+                };
 
-                object obj = new
-                 {
-                     City = data.City.Total > 0 ? (int?)(((decimal)data.City.Less / (decimal)data.City.Total) * 100) : null,
-                     County = data.County.Total > 0 ? (int?)(((decimal)data.County.Less / (decimal)data.County.Total) * 100) : null,
-                     Metro = data.Metro.Total > 0 ? (int?)(((decimal)data.Metro.Less / (decimal)data.Metro.Total) * 100) : null,
-                     State = data.State.Total > 0 ? (int?)(((decimal)data.State.Less / (decimal)data.State.Total) * 100) : null,
-                     Nation = data.Nation.Total > 0 ? (int?)(((decimal)data.Nation.Less / (decimal)data.Nation.Total) * 100) : null
-                 };
-                */
-                return Json(null, JsonRequestBehavior.AllowGet);
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
+
+
 
     }
 }

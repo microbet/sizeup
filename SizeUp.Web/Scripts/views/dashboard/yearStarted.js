@@ -6,6 +6,8 @@
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
+        me.opts.startYear = 1986;
+        me.opts.endYear = 2016;
         me.data = {};
         me.container = opts.container;
         me.data.enteredValue = jQuery.bbq.getState().yearStarted;
@@ -31,20 +33,20 @@
 
             me.sourceButton = new sizeup.controls.toggleButton(
                 {
-                    button: me.container.find('.reportContainer .turnover .links .source'),
-                    onClick: function () { toggleSource('turnover'); }
+                    button: me.container.find('.reportContainer  .links .source'),
+                    onClick: function () { toggleSource(); }
                 });
 
             me.considerationToggle = new sizeup.controls.toggleButton(
                 {
-                    button: me.container.find('.reportSidebar.turnover .considerationToggle'),
-                    onClick: function () { toggleConsiderations('turnover'); }
+                    button: me.container.find('.reportSidebar .considerationToggle'),
+                    onClick: function () { toggleConsiderations(); }
                 });
 
             me.resourceToggle = new sizeup.controls.toggleButton(
                 {
-                    button: me.container.find('.reportSidebar.turnover .resourcesToggle'),
-                    onClick: function () { toggleResources('turnover'); }
+                    button: me.container.find('.reportSidebar .resourcesToggle'),
+                    onClick: function () { toggleResources(); }
                 });
 
             me.question = new sizeup.controls.question({
@@ -72,10 +74,10 @@
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
 
-            me.sourceContent = me.container.find('.reportContainer .turnover .sourceContent').hide();
-            me.considerations = me.container.find('.reportContainer .turnover .considerations');
-            me.resources = me.container.find('.reportContainer .turnover .resources');
-            me.description = me.container.find('.reportContainer .turnover .description');
+            me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
+            me.considerations = me.container.find('.reportContainer  .considerations');
+            me.resources = me.container.find('.reportContainer  .resources');
+            me.description = me.container.find('.reportContainer  .description');
 
 
 
@@ -83,7 +85,6 @@
 
             me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
-
 
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
@@ -93,16 +94,16 @@
 
 
 
-        var toggleSource = function (index) {
-            me[index].sourceContent.slideToggle();
+        var toggleSource = function () {
+            me.sourceContent.slideToggle();
         };
 
-        var toggleConsiderations = function (index) {
-            me[index].considerations.toggleClass('collapsed', 1000);
+        var toggleConsiderations = function () {
+            me.considerations.toggleClass('collapsed', 1000);
         };
 
-        var toggleResources = function (index) {
-            me[index].resources.toggleClass('collapsed', 1000);
+        var toggleResources = function () {
+            me.resources.toggleClass('collapsed', 1000);
         };
 
         var answerClicked = function (index) {
@@ -124,21 +125,28 @@
             if (me.data.hasData) {
                 me.noData.hide();
                 me.reportData.show();
-                me.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.turnover .table'),
-                    rowTemplate: templates.get('turnoverTableRow'),
-                    rows: me.data.turnover.table
-                });
+               
 
-                me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.raw['County'].turnover, 0));
+               
+                me.chart = new sizeup.charts.lineChart({
+                    container: me.container.find('.chart .container'),
+                    series: me.data.chart.series,
+                    marker: me.data.chart.marker
+                });
+                me.chart.draw();
+
+
+
+
+
 
                 me.data.description = {
-                    Turnover: sizeup.util.numbers.format.percentage(me.data.raw['County'].turnover, 1),
-                    NAICS4: me.opts.report.IndustryDetails.NAICS4,
-                    Industry: me.opts.report.IndustryDetails.Industry
+                    //Turnover: sizeup.util.numbers.format.percentage(me.data.raw['County'].turnover, 1),
+                    //NAICS4: me.opts.report.IndustryDetails.NAICS4,
+                    //Industry: me.opts.report.IndustryDetails.Industry
                 };
 
-                me.description.html(templates.bind(templates.get("turnoverDescription"), me.data.description));
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
 
             }
             else {
@@ -156,18 +164,21 @@
                 displayReport();
             });
 
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(percentileDataReturned));
+            me.data.enteredValue = me.reportContainer.getValue();
+            jQuery.bbq.pushState({ yearStarted: me.data.enteredValue });
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear }, notifier.getNotifier(chartDataReturned));
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
         };
 
 
         var percentileDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var percentile = sizeup.util.numbers.format.ordinal(data.Percentile);
+                me.data.percentiles = data;
+
                 me.data.gauge = {
-                    value: data.Percentile,
-                    tooltip: percentile + ' Percentile'
+                    value: me.data.percentiles.Nation,
+                    tooltip: sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
                 };
             }
             else {
@@ -180,25 +191,25 @@
 
         var chartDataReturned = function (data) {
 
-            me.data.turnover.table = {};
-            me.data.turnover.raw = {};
-            var indexes = ['County', 'Metro', 'State', 'Nation'];
+            me.data.chart = {
+                marker:null,
+                series: data
+            };
+
+
+            /*
+            var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
-                    me.data.turnover.raw[indexes[x]] = {
+                    me.data.raw[indexes[x]] = {
                         hires: data[indexes[x]].Hires,
                         separations: data[indexes[x]].Separations,
                         turnover: data[indexes[x]].Turnover
                     };
 
-                    me.data.turnover.table[indexes[x]] = {
-                        name: data[indexes[x]].Name,
-                        hires: sizeup.util.numbers.format.addCommas(data[indexes[x]].Hires),
-                        separations: sizeup.util.numbers.format.addCommas(data[indexes[x]].Separations),
-                        turnover: sizeup.util.numbers.format.percentage(data[indexes[x]].Turnover, 2)
-                    };
+        
                 }
-            }
+            }*/
         };
 
 

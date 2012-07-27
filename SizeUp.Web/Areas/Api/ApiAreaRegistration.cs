@@ -249,6 +249,39 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageEmployees", action = "BandsByState" }
             );
 
+
+            /****EmployeesPerCapita*****/
+
+            context.MapRoute(
+                "EmployeesPerCapita",
+                "Api/EmployeesPerCapita/",
+                new { controller = "EmployeesPerCapita", action = "EmployeesPerCapita" }
+            );
+
+            context.MapRoute(
+                "EmployeesPerCapitaPercentle",
+                "Api/EmployeesPerCapita/Percentile",
+                new { controller = "EmployeesPerCapita", action = "Percentile" }
+            );
+
+            context.MapRoute(
+                "EmployeesPerCapitaBandsZip",
+                "Api/EmployeesPerCapita/Bands/Zip",
+                new { controller = "EmployeesPerCapita", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "EmployeesPerCapitaBandsCounty",
+                "Api/EmployeesPerCapita/Bands/County",
+                new { controller = "EmployeesPerCapita", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "EmployeesPerCapitaBandsState",
+                "Api/EmployeesPerCapita/Bands/State",
+                new { controller = "EmployeesPerCapita", action = "BandsByState" }
+            );
+
            
 
             /****RevenuePerCapita*****/

@@ -86,6 +86,45 @@ namespace SizeUp.Web.Areas.Tiles
            );
 
 
+
+            context.MapRoute(
+               "AverageEmployeesTilesZip",
+               "Tiles/AverageEmployees/Zip/",
+               new { controller = "AverageEmployees", action = "Zip", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "AverageEmployeesTilesCounty",
+               "Tiles/AverageEmployees/County/",
+               new { controller = "AverageEmployees", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "AverageEmployeesTilesState",
+               "Tiles/AverageEmployees/State/",
+               new { controller = "AverageEmployees", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+
+            context.MapRoute(
+               "EmployeesPerCapitaTilesZip",
+               "Tiles/EmployeesPerCapita/Zip/",
+               new { controller = "EmployeesPerCapita", action = "Zip", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "EmployeesPerCapitaTilesCounty",
+               "Tiles/EmployeesPerCapita/County/",
+               new { controller = "EmployeesPerCapita", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "EmployeesPerCapitaTilesState",
+               "Tiles/EmployeesPerCapita/State/",
+               new { controller = "EmployeesPerCapita", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+
            context.MapRoute(
               "Businesses",
               "Tiles/Businesses/",

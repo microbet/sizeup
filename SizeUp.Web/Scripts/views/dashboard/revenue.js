@@ -344,13 +344,7 @@
                     value: '$' + sizeup.util.numbers.format.addCommas(me.data.enteredValue)
                 };
 
-            me.data.table['median'] =
-               {
-                   name: 'National Median',
-                   value: '$' + sizeup.util.numbers.format.addCommas(data['Nation'].Median)
-               };
-
-
+           
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
@@ -368,6 +362,11 @@
                     };
                 }
             }
+            me.data.table['median'] =
+              {
+                  name: 'National Median',
+                  value: '$' + sizeup.util.numbers.format.addCommas(data['Nation'].Median)
+              };
         };
 
 
