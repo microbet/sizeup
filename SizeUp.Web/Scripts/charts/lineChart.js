@@ -5,11 +5,7 @@
         //leaving all this garbage for now...will refactor later
         var defaults =
         {
-            valueFormat: function (val) { return val; },
-            grids: { horizontal: 3 },
-            gutters: { left: 45, top: 1, right: 50 },
-            bar: { height: 15, padding: 8 },
-            rangePadding: 0.1
+
         };
 
         var me = {};
@@ -21,39 +17,52 @@
 
             _drawGridlines();
 
-
             for (var x in me.opts.series) {
                 var serie = me.opts.series[x];
-                addSeries('series' + x);
+                addSeries(x, getDataX(serie.plots), getDataY(serie.plots), getBounds(serie.plots), serie.color, '{y} new businesses in {x}', true);
             }
             if (me.opts.marker) {
                 var m = me.opts.marker;
-                addMarker('marker', m.value, null, m.name, m.label, m.color, '');
+                addMarkers('marker', [me.opts.xBounds.min, m.value, me.opts.xBounds.max], [0, 1, 0], { xMin: me.opts.xBounds.min, xMax: me.opts.xBounds.max, yMin: 0, yMax: 1 }, m.color, m.label, true);
             }
+        };
 
+        var getDataX = function (series) {
+            var a = [];
+            for (var x in series) {
+                a.push(series[x].Key);
+            }
+            return a;
+        };
 
-            //key, xData, yData, bounds, color, pointDescriptionTemplate, visible) {
+        var getDataY = function (series) {
+            var a = [];
+            for (var x in series) {
+                a.push(series[x].Value);
+            }
+            return a;
+        };
 
+        var getBounds = function (series) {
+            var b = {
+                xMax: series[0].Key,
+                xMin: series[0].Key,
+                yMax: series[0].Value,
+                yMin: series[0].Value,
+            };
 
-
-            /*chart.AddMarkers(<%= _myBizData %>);
-            chart.AddSeries(<%= _cityData.ToString() %>);
-            chart.AddSeries(<%= _countyData.ToString() %>);
-            chart.AddSeries(<%= _metroData.ToString() %>);
-            chart.AddSeries(<%= _stateData.ToString() %>);
-            chart.AddSeries(<%= _nationData.ToString() %>);*/
-
- 
-        
-
-
-
+            for (var x in series) {
+                b.xMax = Math.max(series[x].Key, b.xMax);
+                b.yMax = Math.max(series[x].Value, b.yMax);
+                b.xMin = Math.min(series[x].Key, b.xMin);
+                b.yMin = Math.min(series[x].Value, b.yMin);
+            }
+            return b;
         };
 
 
 
-
-        var el = me.container;
+        var el = me.container.empty();
         me._width = el.width();
         me._height = el.height();
         me._bounds = { xMin: Infinity, xMax: -Infinity, yMin: Infinity, yMax: -Infinity };
@@ -244,7 +253,12 @@
 
         var redrawChartAction = function (fadeDelay) {
 
-            var superBounds = null;
+            var superBounds = {
+                xMin: me.opts.xBounds.min,
+                xMax: me.opts.xBounds.max,
+                yMin: 0,
+                yMax: 0
+            };
 
             for (var thisSeriesKey in me._series) {
                 var thisSeries = me._series[thisSeriesKey];
@@ -297,6 +311,12 @@
             },
             getContainer: function () {
                 return me.container;
+            },
+            showSeries: function (key) {
+                showSeries(key);
+            },
+            hideSeries: function (key) {
+                hideSeries(key);
             }
         };
         init();

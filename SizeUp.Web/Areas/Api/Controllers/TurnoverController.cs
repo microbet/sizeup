@@ -21,7 +21,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
-
+                IQueryable<Models.Turnover.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
                     .Select(i => new Models.Turnover.ChartItem()
                     {
@@ -41,14 +41,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Name = locations.State.Name
                     });
 
-                var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                     .Select(i => new Models.Turnover.ChartItem()
-                     {
-                         Hires = i.Hires,
-                         Separations = i.Separations,
-                         Turnover = i.TurnoverRate * 100,
-                         Name = locations.Metro.Name
-                     });
+                if (locations.Metro != null)
+                {
+                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                         .Select(i => new Models.Turnover.ChartItem()
+                         {
+                             Hires = i.Hires,
+                             Separations = i.Separations,
+                             Turnover = i.TurnoverRate * 100,
+                             Name = locations.Metro.Name
+                         });
+                }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
                    .Select(i => new Models.Turnover.ChartItem()
@@ -63,7 +66,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     Nation = n.FirstOrDefault(),
                     State = s.FirstOrDefault(),
-                    Metro = m.FirstOrDefault(),
+                    Metro = m == null ? null : m.FirstOrDefault(),
                     County = co.FirstOrDefault()
                 };
 

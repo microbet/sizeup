@@ -59,6 +59,22 @@
 #dashboard .report .body .reportContainer .reportContent .table thead { font-weight: bold; border-bottom: 2px solid #ccc; color:#aaa; }
 #dashboard .report .body .reportContainer .reportContent .table thead .hint { font-size: 0.85em; }
 
+
+
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart .container {width:57em; height:37em; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul { text-align: center; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart  ul li{ display:inline-block; width:8em;}
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li label { font-size: 1.1em; font-weight: normal; display:inline-block; position:relative; top:-0.3em; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li .labelBox { height:1.2em; width:1.2em; display:inline-block; border: solid 1px #606060; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li input[type=checkbox] { display:inline-block; }
+
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.city .labelBox { background-color: #35B; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.county .labelBox { background-color: #08D; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.metro .labelBox { background-color: #6AC; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.state .labelBox { background-color: #FB1; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.nation .labelBox { background-color: #F60; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.business .labelBox { background-color: #5b0; }
+
 #dashboard #revenue.report .body .reportContainer .reportContent .table .name ,
 #dashboard #salary.report .body .reportContainer .reportContent .table .name ,
 #dashboard #employees.report .body .reportContainer .reportContent .table .name ,

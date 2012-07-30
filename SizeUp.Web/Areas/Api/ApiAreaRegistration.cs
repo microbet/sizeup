@@ -181,13 +181,25 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageRevenue", action = "BandsByState" }
             );
 
-           
+
 
             /*****year started *****/
             context.MapRoute(
                "YearStarted",
                "Api/YearStarted/",
                new { controller = "YearStarted", action = "YearStarted" }
+           );
+
+            context.MapRoute(
+               "YearStartedPercentile",
+               "Api/YearStarted/Percentile",
+               new { controller = "YearStarted", action = "Percentile" }
+           );
+
+            context.MapRoute(
+               "YearStartedCount",
+               "Api/YearStarted/Count",
+               new { controller = "YearStarted", action = "YearStartedCount" }
            );
 
 

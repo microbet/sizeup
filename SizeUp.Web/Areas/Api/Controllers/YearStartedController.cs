@@ -22,26 +22,28 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var years = Enumerable.Range(startYear, (endYear-startYear)+1).ToList();
+                var years = Enumerable.Range(startYear, (endYear - startYear) + 1).ToList();
 
 
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
-
+                IQueryable<int?> metro = null;
                 var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
                     .Select(i => i.YearEstablished ?? i.YearAppeared)
                     .Where(i => i != null)
                     .Where(i => i >= startYear && i <= endYear);
-
 
                 var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
                     .Select(i => i.YearEstablished ?? i.YearAppeared)
                     .Where(i => i != null)
                     .Where(i => i >= startYear && i <= endYear);
 
-                var metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
-                    .Select(i => i.YearEstablished ?? i.YearAppeared)
-                    .Where(i => i != null)
-                    .Where(i => i >= startYear && i <= endYear);
+                if (locations.Metro != null)
+                {
+                    metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
+                        .Select(i => i.YearEstablished ?? i.YearAppeared)
+                        .Where(i => i != null)
+                        .Where(i => i >= startYear && i <= endYear);
+                }
 
                 var state = BusinessData.GetByState(context, industryId, locations.State.Id)
                     .Select(i => i.YearEstablished ?? i.YearAppeared)
@@ -59,9 +61,60 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     City = years.GroupJoin(city, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
                     County = years.GroupJoin(county, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
-                    Metro = years.GroupJoin(metro, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
+                    Metro = metro == null ? null : years.GroupJoin(metro, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
                     State = years.GroupJoin(state, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList(),
                     Nation = years.GroupJoin(nation, o => o, i => i, (i, o) => new Models.Charts.LineChartItem<int, int>() { Key = i, Value = o.Count() }).ToList()
+                };
+
+                return Json(obj, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult YearStartedCount(long industryId, long placeId, int year)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
+                IQueryable<int?> metro = null;
+
+                var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i == year);
+
+
+                var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i == year);
+
+                if (locations.Metro != null)
+                {
+                    metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i == year);
+                }
+
+                var state = BusinessData.GetByState(context, industryId, locations.State.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i == year);
+
+                var nation = BusinessData.GetByNation(context, industryId)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
+                    .Where(i => i != null)
+                    .Where(i => i == year);
+
+
+
+                var obj = new 
+                {
+                    City = city.Count(),
+                    County = county.Count(),
+                    Metro = metro == null ? 0 : metro.Count(),
+                    State = state.Count(),
+                    Nation = nation.Count()
                 };
 
                 return Json(obj, JsonRequestBehavior.AllowGet);
@@ -73,7 +126,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
-
+                IQueryable<int?> metro = null;
 
                 var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
                     .Select(i => i.YearEstablished ?? i.YearAppeared )
@@ -83,9 +136,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     .Select(i => i.YearEstablished ?? i.YearAppeared )
                     .Where(i => i != null);
 
-                var metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
-                    .Select(i => i.YearEstablished ?? i.YearAppeared )
+                if (locations.Metro != null)
+                {
+                    metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
+                    .Select(i => i.YearEstablished ?? i.YearAppeared)
                     .Where(i => i != null);
+                }
 
                 var state = BusinessData.GetByState(context, industryId, locations.State.Id)
                     .Select(i => i.YearEstablished ?? i.YearAppeared )
@@ -101,7 +157,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     City = Core.DataAccess.Math.Percentile(city, value, Core.DataAccess.Math.Order.GreaterThan),
                     County = Core.DataAccess.Math.Percentile(county, value, Core.DataAccess.Math.Order.GreaterThan),
-                    Metro = Core.DataAccess.Math.Percentile(metro, value, Core.DataAccess.Math.Order.GreaterThan),
+                    Metro = metro == null ? null : Core.DataAccess.Math.Percentile(metro, value, Core.DataAccess.Math.Order.GreaterThan),
                     State = Core.DataAccess.Math.Percentile(state, value, Core.DataAccess.Math.Order.GreaterThan),
                     Nation = Core.DataAccess.Math.Percentile(nation, value, Core.DataAccess.Math.Order.GreaterThan)
                 };

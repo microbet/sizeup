@@ -22,27 +22,42 @@
             <h3>How you size up</h3>
             <p class="description">
                 <div data-template="description">
-                @Html.Raw(ViewBag.Strings["Dashboard.Salary.Description"])
-
-
-                    <p>Your business started in 1999. In the same year, 0 businesses in your industry started in your city,
-                    0 started in your county, 2 started in your metro area, 19 started in your state, and 142 started nationally.
-                    </p>
-                    <p>In your industry, your business has been in operation longer than 47% of businesses in your city, 47% of 
-                    businesses in your county, 51% of businesses in your metro area, 55% of businesses in your state, and 56% 
-                    of businesses in the nation.
-                    </p> 
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.Description"])
                 </div>
-            </p>
 
-           
-            
-            
-            
-            
-                  
+                <div data-template="outOfBoundsDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.OutOfBoundsDescription"])
+                </div>
+            </p>  
             <div class="chart">
                 <div class="container"></div>
+                <ul class="legend">
+                    <li class="city">
+                        <input type="checkbox" checked="checked" value="City" />
+                        <div class="labelBox"></div>
+                        <label>City</label>
+                    </li>
+                    <li class="county">
+                        <input type="checkbox" checked="checked" value="County" />
+                        <div class="labelBox"></div>
+                        <label>County</label>
+                    </li>
+                    <li class="metro">
+                        <input type="checkbox" checked="checked" value="Metro" />
+                        <div class="labelBox"></div>
+                        <label>Metro</label>
+                    </li>
+                    <li class="state">
+                        <input type="checkbox" checked="checked" value="State" />
+                        <div class="labelBox"></div>
+                        <label>State</label>
+                    </li>
+                    <li class="nation">
+                        <input type="checkbox" checked="checked" value="Nation" />
+                        <div class="labelBox"></div>
+                        <label>Nation</label>
+                    </li>
+                </ul>
             </div>
             <ul class="links">
                 <li>
@@ -50,36 +65,14 @@
                 </li>
             </ul>
             <div class="sourceContent">
-                @Html.Raw(ViewBag.Strings["Dashboard.Salary.Source"])
-
-                 <p>The year started chart is based on data on the start date for individual businesses,
-                    which comes from hundreds of data sources including IRS records, county courthouse filings,
-                    Yellow Pages and White Pages, business publications, the U.S. Postal Service, and corporate annual reports.
-                    This chart goes as far back as 1986 to show patterns in business formation.
-                </p>
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.Source"])
             </div>
 
 
         </div>
         <div class="reportSidebar">
             <div class="section considerations collapsable">
-                <h4>Considerations</h4>
-                <p>This chart measures both business formation and survival, and can be used to assess the relative stability or 
-                    volatility of your industry in your area.  The chart measures the starts per year of all businesses that are 
-                    still in operation.
-                </p>
-		        <p>If most of the local businesses have formed within the past few years, your industry may be growing.  It also may 
-                    be a very volatile industry where branding and longevity have little value, resulting in a high level of churn from 
-                    businesses opening and closing.
-		        </p>
-		        <p>A dip in this chart for a given year could mean that fewer businesses formed then, or that businesses formed in that year
-                    were less likely to survive until today.  If there is a downward trend in recent years, it may be that the industry is maturing
-                        rather than declining.  If most of the businesses have been operating for many years, there may be significant barriers to 
-                    entry that prevent startups from competing, which can result in a marketplace of well-established businesses.
-		        </p>
-		        <p>If you are mostly interested in local trends, click to hide the data at the national and state level.
-		        </p>  
-
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.Considerations"])
                 <div class="question">
                     <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a href="javascript:void(0);" class="established">established business</a>?</span>
                 </div>

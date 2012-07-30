@@ -26,6 +26,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
 
+                IQueryable<Models.RevenuePerCapita.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
                     .Select(i => new Models.RevenuePerCapita.ChartItem()
                     {
@@ -39,14 +40,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                          Value = i.RevenuePerCapita,
                          Name = locations.State.Name
                      });
-
-                var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                     .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
-                    .Select(i => new Models.RevenuePerCapita.ChartItem()
-                    {
-                        Value = i.RevenuePerCapita,
-                        Name = locations.Metro.Name
-                    });
+                if (locations.Metro != null)
+                {
+                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                         .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
+                        .Select(i => new Models.RevenuePerCapita.ChartItem()
+                        {
+                            Value = i.RevenuePerCapita,
+                            Name = locations.Metro.Name
+                        });
+                }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
                    .Select(i => new Models.RevenuePerCapita.ChartItem()
@@ -67,7 +70,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     Nation = n.FirstOrDefault(),
                     State = s.FirstOrDefault(),
-                    Metro = m.FirstOrDefault(),
+                    Metro = m == null ? null : m.FirstOrDefault(),
                     County = co.FirstOrDefault(),
                     City = c.FirstOrDefault()
                 };
@@ -83,22 +86,23 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
 
-
+                IQueryable<long?> metro = null;
                 var raw = IndustryData.GetCities(context, industryId);
 
                 var coIds = Cities.GetBounded(context, locations.CountyBoundingEntity)
                     .Select(i=>i.Id);
-
-                var mIds = Cities.GetBounded(context, locations.MetroBoundingEntity)
-                    .Select(i=>i.Id);
-
                 var sIds = Cities.GetBounded(context, locations.StateBoundingEntity)
                     .Select(i=>i.Id);
 
+                if (locations.Metro != null)
+                {
 
+                    var mIds = Cities.GetBounded(context, locations.MetroBoundingEntity)
+                      .Select(i => i.Id);
+                    metro = raw.Join(mIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);
+                }
 
-                var county = raw.Join(coIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);
-                var metro = raw.Join(mIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);
+                var county = raw.Join(coIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);    
                 var state = raw.Join(sIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);
                 var nation = raw.Select(i=>i.RevenuePerCapita);
 
@@ -106,14 +110,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    .Select(i => i.RevenuePerCapita)
                    .FirstOrDefault();
 
-
-                var obj = new
+                object obj = null;
+                if (value != null)
                 {
-                    County = Core.DataAccess.Math.Percentile(county, (long)value),
-                    Metro = Core.DataAccess.Math.Percentile(metro, (long)value),
-                    State = Core.DataAccess.Math.Percentile(state, (long)value),
-                    Nation = Core.DataAccess.Math.Percentile(nation, (long)value)
-                };
+                    obj = new
+                    {
+                        County = Core.DataAccess.Math.Percentile(county, (long)value),
+                        Metro = metro == null ? null : Core.DataAccess.Math.Percentile(metro, (long)value),
+                        State = Core.DataAccess.Math.Percentile(state, (long)value),
+                        Nation = Core.DataAccess.Math.Percentile(nation, (long)value)
+                    };
+                }
 
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }

@@ -24,7 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
 
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
-
+                IQueryable<Models.AverageSalary.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
@@ -39,12 +39,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Name = locations.State.Name
                     });
 
-                var m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                    .Select(i => new Models.AverageSalary.ChartItem()
-                    {
-                        Value = (long)i.AverageAnnualSalary,
-                        Name = locations.Metro.Name
-                    });
+                if (locations.Metro != null)
+                {
+                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                        .Select(i => new Models.AverageSalary.ChartItem()
+                        {
+                            Value = (long)i.AverageAnnualSalary,
+                            Name = locations.Metro.Name
+                        });
+                }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
                    .Select(i => new Models.AverageSalary.ChartItem()
@@ -58,7 +61,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     Nation = n.FirstOrDefault(),
                     State = s.FirstOrDefault(),
-                    Metro = m.FirstOrDefault(),
+                    Metro = m == null ? null :  m.FirstOrDefault(),
                     County = co.FirstOrDefault()
                 };
 

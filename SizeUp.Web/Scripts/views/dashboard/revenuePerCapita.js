@@ -330,7 +330,6 @@
 
             me.data.chart = {};
             me.data.table = {};
-           
 
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
@@ -349,7 +348,12 @@
                     };
                 }
             }
-            me.data.displayValue = data.City.Value;
+            if (data.City != null) {
+                me.data.displayValue = data.City.Value;
+            }
+            else {
+                me.data.hasData = false;
+            }
         };
 
 

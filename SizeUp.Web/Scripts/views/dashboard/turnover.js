@@ -233,16 +233,16 @@
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
                     me.data.turnover.raw[indexes[x]] = {
-                        hires: data[indexes[x]].Hires,
-                        separations: data[indexes[x]].Separations,
-                        turnover: data[indexes[x]].Turnover
+                        hires: data[indexes[x]].Hires == null ? 'no data' : data[indexes[x]].Hires,
+                        separations: data[indexes[x]].Separations == null ? 'no data' : data[indexes[x]].Separations,
+                        turnover: data[indexes[x]].Turnover == null ? 'no data' : data[indexes[x]].Turnover
                     };
 
                     me.data.turnover.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
-                        hires: sizeup.util.numbers.format.addCommas(data[indexes[x]].Hires),
-                        separations: sizeup.util.numbers.format.addCommas(data[indexes[x]].Separations),
-                        turnover: sizeup.util.numbers.format.percentage(data[indexes[x]].Turnover, 2)
+                        hires: data[indexes[x]].Hires == null ? 'no data' : sizeup.util.numbers.format.addCommas(data[indexes[x]].Hires),
+                        separations: data[indexes[x]].Separations == null ? 'no data' : sizeup.util.numbers.format.addCommas(data[indexes[x]].Separations),
+                        turnover: data[indexes[x]].Turnover == null ? 'no data' : sizeup.util.numbers.format.percentage(data[indexes[x]].Turnover, 2)
                     };
                 }
             }
@@ -256,16 +256,16 @@
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
                     me.data.jobChange.raw[indexes[x]] = {
-                        jobGains: data[indexes[x]].JobGains,
-                        jobLosses: data[indexes[x]].JobLosses,
-                        netJobChange: data[indexes[x]].NetJobChange
+                        jobGains: data[indexes[x]].JobGains== null ? 'no data' : data[indexes[x]].JobGains,
+                        jobLosses: data[indexes[x]].JobLosses == null ? 'no data' : data[indexes[x]].JobLosses,
+                        netJobChange: data[indexes[x]].NetJobChange == null ? 'no data' : data[indexes[x]].NetJobChange
                     };
 
                     me.data.jobChange.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
-                        jobGains: sizeup.util.numbers.format.addCommas(data[indexes[x]].JobGains),
-                        jobLosses: sizeup.util.numbers.format.addCommas(data[indexes[x]].JobLosses),
-                        netJobChange: sizeup.util.numbers.format.addCommas(data[indexes[x]].NetJobChange)
+                        jobGains: data[indexes[x]].JobGains == null ? 'no data' : sizeup.util.numbers.format.addCommas(data[indexes[x]].JobGains),
+                        jobLosses: data[indexes[x]].JobLosses == null ? 'no data' : sizeup.util.numbers.format.addCommas(data[indexes[x]].JobLosses),
+                        netJobChange: data[indexes[x]].NetJobChange == null ? 'no data' : sizeup.util.numbers.format.addCommas(data[indexes[x]].NetJobChange)
                     };
                 }
             }
