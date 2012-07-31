@@ -70,7 +70,7 @@
 #competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
 
 
-#competition .pager { text-align: right; margin:1em 1em 0 0; }
+#competition .pager { text-align: right; margin:1em 0 0 0; }
 #competition .pager,
 #competition .pager span,
 #competition .pager a { font-size: 0.95em; }

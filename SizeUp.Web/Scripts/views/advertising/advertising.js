@@ -258,7 +258,7 @@
         var getParameters = function () {
             var params = jQuery.bbq.getState();
             var p = {
-                cityId: me.opts.CurrentPlace.City.Id,
+                placeId: me.opts.CurrentPlace.Id,
                 industryId: me.opts.CurrentIndustry.Id
             };
 

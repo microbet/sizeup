@@ -154,7 +154,7 @@
 
             var index = jQuery.bbq.getState('businessSize');
             if (index) {
-                me.question.showAnswer(index);
+                me.employeesPerCapita.question.showAnswer(index);
             }
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
@@ -203,7 +203,7 @@
 
         var hashChanged = function (e) {
             var index = e.getState('businessSize');
-            me.question.showAnswer(index);
+            me.employeesPerCapita.question.showAnswer(index);
         };
 
 
