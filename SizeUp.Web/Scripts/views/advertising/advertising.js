@@ -8,10 +8,42 @@
             colors: [],
             overlays: [],
             slideTime: 500,
-            filterOptions: {
-                distance: 20,
-                attribute: 'TotalRevenue',
-                sort: 'desc'
+            filterTemplates: {
+                averageRevenue: {
+                    distance: 20,
+                    attribute: 'AverageRevenue',
+                    sortAttribute: 'AverageRevenue',
+                    sort: 'desc',
+                    template: 'averageRevenue'
+                },
+                totalRevenue: {
+                    distance: 20,
+                    attribute: 'TotalRevenue',
+                    sortAttribute: 'TotalRevenue',
+                    sort: 'desc',
+                    template: 'totalRevenue'
+                },
+                underservedMarkets: {
+                    distance: 20,
+                    attribute: 'RevenuePerCapita',
+                    sortAttribute: 'RevenuePerCapita',
+                    sort: 'asc',
+                    template: 'underservedMarkets'
+                },
+                revenuePerCapita: {
+                    distance: 20,
+                    attribute: 'RevenuePerCapita',
+                    sortAttribute: 'RevenuePerCapita',
+                    sort: 'desc',
+                    template: 'revenuePerCapita'
+                },
+                householdIncome: {
+                    distance: 20,
+                    attribute: 'HouseholdIncome',
+                    sortAttribute: 'HouseholdIncome',
+                    sort: 'desc',
+                    template: 'householdIncome'
+                }
             }
         };
         var me = {};
@@ -23,14 +55,19 @@
         me.opts = $.extend(true, defaults, opts);
        
         me.data = {};
-
+        me.opts.filterOptions = {};
         
 
         dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({lat:data.Lat, lng: data.Lng}); }));
         var init = function () {
             
             var params = jQuery.bbq.getState();
-            jQuery.bbq.pushState($.extend(true, me.opts.filterOptions, params));
+            if (params.template == null) {
+                setParameters(me.opts.filterTemplates.totalRevenue);
+            }
+            params = jQuery.bbq.getState();
+            me.opts.filterOptions = params;
+
 
             me.content = {};
             me.content.container = me.container.find('.content').hide().removeClass('hidden');
@@ -46,14 +83,30 @@
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
-            me.content.optionMenu = me.content.container.find('#optionMenu');
-            me.content.optionMenu.chosen();
+            me.content.optionMenu = {};
+            me.content.optionMenu.option = me.content.container.find('#optionMenu');
+            me.content.optionMenu.custom = me.content.optionMenu.option.find('.custom');
+            me.content.optionMenu.custom.remove();
+            me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
+            me.content.optionMenu.menu.change(optionMenuChanged);
+            
+           
 
             me.content.list = {};
             me.content.list.container = me.content.container.find('.listWrapper');
 
             me.content.list.body = me.content.list.container.find('.results');
+            me.content.list.sort = {
+                name: me.content.list.container.find('.sort .name'),
+                value: me.content.list.container.find('.sort .value')
+            };
 
+            if (params.sortAttribute == 'Name') {
+                me.content.list.sort.name.addClass(params.sort);
+            }
+
+            me.content.list.sort.name.click(function () { nameSortClicked(); });
+            me.content.list.sort.value.click(function () { valueSortClicked(); });
 
             me.filterSettings = {};
             me.filterSettings.container = me.container.find('#filterSettings').hide().removeClass('hidden');
@@ -66,7 +119,8 @@
 
 
             initFilterSliders();
-
+            setOptionMenu(params.template);
+            setSliderValues(params);
 
             me.pageLoader = me.container.find('.page.loading');
             me.listLoader = me.container.find('.list.loading').hide().removeClass('hidden');
@@ -110,7 +164,6 @@
                 max: 95,
                 range: 'max'
             });
-
 
             me.filterSettings.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
                 container: me.filterSettings.container.find('#averageRevenue'),
@@ -242,8 +295,36 @@
 
         };
 
-  
-        var setParameters = function () {
+        var optionMenuChanged = function () {
+            var x = me.content.optionMenu.option.val();
+            setOptionMenu(x);
+            if (x != 'custom') {
+                setParameters(me.opts.filterTemplates[x]);
+            }
+            loadReport();
+        };
+
+        var setOptionMenu = function (index) {
+            if (index == 'custom') {
+                me.content.optionMenu.option.append(me.content.optionMenu.custom);
+                me.opts.filterOptions.template = 'custom';
+            }
+            else {
+                me.content.optionMenu.custom.remove();
+            }
+            me.content.optionMenu.option.find('option[value=' + index + ']').attr('selected','selected');
+            me.content.optionMenu.menu.trigger('liszt:updated');
+            me.content.optionMenu.option.val(index);
+        };
+
+
+        var setSliderValues = function (params) {
+            for (var x in me.filterSettings.sliders) {
+                me.filterSettings.sliders[x].setParam(params[x]);
+            }
+        };
+
+        var getSliderValues = function () {
             var params = {};
             for (var x in me.filterSettings.sliders) {
                 params[x] = me.filterSettings.sliders[x].getParam();
@@ -251,32 +332,90 @@
                     delete params[x];
                 }
             }
-            jQuery.bbq.pushState(params);
+            return params;
+        };
+
+        var setParameters = function (params) {
+            me.opts.filterOptions = params;
+            jQuery.bbq.pushState(params, 2);
         };
 
 
         var getParameters = function () {
             var params = jQuery.bbq.getState();
-            var p = {
-                placeId: me.opts.CurrentPlace.Id,
-                industryId: me.opts.CurrentIndustry.Id
-            };
-
-            return $.extend(true, p,params);
+            return params;
         };
 
         var loadReport = function () {
             me.listLoader.show();
-            me.content.list.container.hide();
+            me.content.list.body.hide();
             var params = getParameters();
+            params.placeId = me.opts.CurrentPlace.Id;
+            params.industryId = me.opts.CurrentIndustry.Id;
             dataLayer.getBestPlacesToAdvertise(params, function (data) {
-                bindCityList(data);
+                var formattedData = formatData(data);
+                bindZipList(formattedData);
                 me.listLoader.hide();
-                me.content.list.container.show();
+                me.content.list.body.show();
             });
         };
       
-        var bindCityList = function (data) {
+        var formatData = function (data) {
+            var newData = {
+                Items: [],
+                Total: data.Total
+            };
+
+            for (var x in data.Items) {
+                newData.Items.push(formatDataItem(data.Items[x]));
+            }
+            return newData;
+        };
+
+        var formatDataItem = function (item) {
+            var newItem = {};
+            newItem['Name'] = item.Name;
+            newItem['TotalPopulation'] = sizeup.util.numbers.format.addCommas(item.TotalPopulation == null ? 0 : item.TotalPopulation);
+            newItem['TotalRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue == null ? 0 : item.TotalRevenue);
+
+            if (me.opts.filterOptions['averageRevenue'] != null || me.opts.filterOptions.attribute == 'AverageRevenue') {
+                newItem['AverageRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue == null ? 0 : item.AverageRevenue);
+            }
+            if (me.opts.filterOptions['totalEmployees'] != null || me.opts.filterOptions.attribute == 'TotalEmployees') {
+                newItem['TotalEmployees'] = sizeup.util.numbers.format.addCommas(item.TotalEmployees == null ? 0 : item.TotalEmployees);
+            }
+            if (me.opts.filterOptions['revenuePerCapita'] != null || me.opts.filterOptions.attribute == 'RevenuePerCapita') {
+                newItem['RevenuePerCapita'] = '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita == null ? 0 : item.RevenuePerCapita);
+            }
+            if (me.opts.filterOptions['householdIncome'] != null || me.opts.filterOptions.attribute == 'HouseholdIncome') {
+                newItem['HouseholdIncome'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome == null ? 0 : item.HouseholdIncome);
+            }
+            if (me.opts.filterOptions['householdExpenditures'] != null || me.opts.filterOptions.attribute == 'HouseholdExpenditures') {
+                newItem['HouseholdExpenditures'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdExpenditures == null ? 0 : item.HouseholdExpenditures);
+            }
+            if (me.opts.filterOptions['medianAge'] != null || me.opts.filterOptions.attribute == 'MedianAge') {
+                newItem['MedianAge'] = item.MedianAge == null ? 0 : item.MedianAge;
+            }
+            if (me.opts.filterOptions['highSchoolOrHigher'] != null || me.opts.filterOptions.attribute == 'HighSchoolOrHigher') {
+                newItem['HighSchoolOrHigher'] = (item.HighSchoolOrHigher == null ? 0 : item.HighSchoolOrHigher * 100).toFixed(1) + '%';
+            }
+            if (me.opts.filterOptions['whiteCollar'] != null || me.opts.filterOptions.attribute == 'WhiteCollarWorkers') {
+                newItem['WhiteCollarWorkers'] = (item.WhiteCollarWorkers == null ? 0 : item.WhiteCollarWorkers * 100).toFixed(1) + '%';
+            }
+            if (me.opts.filterOptions['bachelorOrHigher'] != null || me.opts.filterOptions.attribute == 'BachelorsDegreeOrHigher') {
+                newItem['BachelorsDegreeOrHigher'] = (item.BachelorsDegreeOrHigher == null ? 0 : item.BachelorsDegreeOrHigher * 100).toFixed(1) + '%';
+            }
+
+  
+            newItem['Value'] = newItem[me.opts.filterOptions.attribute];
+            delete newItem[me.opts.filterOptions.attribute];
+
+
+            return newItem;
+        };
+
+
+        var bindZipList = function (data) {
             var html = '';
             for (var x in data.Items) {
                 var template = templates.get('listItem');
@@ -286,6 +425,31 @@
         };
 
       
+
+        var nameSortClicked = function () {
+            if (me.content.list.sort.name.hasClass('asc')) {
+                me.content.list.sort.name.removeClass('asc');
+                me.content.list.sort.name.addClass('desc');
+                me.opts.filterOptions.sort = 'desc';
+                me.opts.filterOptions.sortAttribute = 'Name';
+            }
+            else {
+                me.content.list.sort.name.removeClass('desc');
+                me.content.list.sort.name.addClass('asc');
+                me.opts.filterOptions.sort = 'asc';
+                me.opts.filterOptions.sortAttribute = 'Name';
+            }
+            me.content.list.sort.value.removeClass('asc');
+            me.content.list.sort.value.removeClass('desc');
+            me.opts.filterOptions.template = 'custom';
+            setOptionMenu('custom');
+            setParameters(me.opts.filterOptions);
+            loadReport();
+        };
+
+        var valueSortClicked = function () {
+
+        };
 
         var slideInFilterSettings = function (callback) {
             me.filterSettings.container.show(
@@ -325,9 +489,6 @@
             callback);
         };
 
-
-
-
         var cancelClicked = function () {
             slideOutFilterSettings(function () {
                 slideInContent();
@@ -335,7 +496,13 @@
         };
 
         var submitClicked = function () {
-            setParameters();
+            var params = getSliderValues();
+            params.sort = me.opts.filterOptions.sort;
+            params.sortAttribute = me.opts.filterOptions.sortAttribute;
+            params.attribute = me.opts.filterOptions.attribute;
+            params.template = 'custom';
+            setOptionMenu('custom');
+            setParameters(params);
             loadReport();
             slideOutFilterSettings(function () {
                 slideInContent();

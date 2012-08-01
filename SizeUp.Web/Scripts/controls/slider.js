@@ -48,6 +48,10 @@
             return val;
         };
 
+        var setValue = function (val) {
+            me.slider.slider('value', val);
+        };
+
         var getState = function (val) {
             var state = null;
             if (val == me.opts.min && me.opts.range == 'max') {
@@ -124,10 +128,20 @@
             return obj;
         };
 
+        var setSliderValue = function (param) {
+            var index = getMappingValue(param, me.opts.range == 'max' ? me.opts.min : me.opts.max);
+            setValue(index);
+            setValueLabel(index);
+
+        };
+
 
         var publicObj = {
             getParam: function () {
                 return getSliderValue();
+            },
+            setParam: function (param) {
+                setSliderValue(param);
             }
         };
         init();

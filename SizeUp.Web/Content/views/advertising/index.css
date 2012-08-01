@@ -39,11 +39,12 @@
 #advertising .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
 #advertising .mapContent .footer ul li { display: inline-block; width: 33%; }
 
+#advertising .listWrapper { padding: 0 3em; } 
 
 #advertising .description { color: #aaa; padding: 0.5em 3em; display:inline-block; }
 
-#advertising .sort {position:relative; margin:2em 0 0; }
-#advertising .sort .direction { width:5em;height:1em; border:solid 1px black; display:inline-block; }
+#advertising .sort {position:relative; margin:2em 0 0.5em; }
+#advertising .sort .name {  }
 #advertising .sort .value {width:5em;height:1em; border:solid 1px black; float:right; display:inline-block; }
 
 

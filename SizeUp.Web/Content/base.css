@@ -96,3 +96,8 @@ a.button.medium { font-size: 1.9em; }
 .map p,
 .map a,
 .map span { font-size: 1em; }
+
+
+a.sorter { font-size:1em; display: inline-block; background: url(images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0; }
+a.sorter.asc { background-position:right -2.2em; }
+a.sorter.desc { background-position:right 0.3em; }

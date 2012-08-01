@@ -19,6 +19,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/slider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")"></script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
@@ -212,12 +214,12 @@
             <label>based on</label>
             <div class="filter">
                 <select id="optionMenu">
-                    <option value="REVENUE_PER_CAPITA_DESC">Highest Revenue Per Capita</option>
-                    <option value="REVENUE_PER_CAPITA_ASC">Most Underserved Markets</option>
-                    <option value="AVG_SALES_DESC">Highest Average Revenue</option>
-                    <option value="TOTAL_SALES_DESC" selected="selected">Highest Total Revenue</option>
-                    <option value="HOUSEHOLD_INCOME">Highest Household Income</option>
-                    <option value="CUSTOM">Custom Filter</option>
+                    <option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                    <option value="underservedMarkets">Most Underserved Markets</option>
+                    <option value="averageRevenue">Highest Average Revenue</option>
+                    <option value="totalRevenue">Highest Total Revenue</option>
+                    <option value="householdIncome">Highest Household Income</option>
+                    <option class="custom" value="custom">Custom Filter</option>
                 </select>
                 <a href="javascript:void(0);" id="filterSettingsButton">Settings</a>
             </div>
@@ -255,19 +257,27 @@
 
 
             <div class="sort">
-                <div class="direction"></div>
-                <div class="value"></div>
+                <a class="name sorter" href="javascript:void(0);">ZIP Code by City</a>
+                <a class="value" href="javascript:void(0);"></a>
             </div>
 
 
             <ul class="results">
                 <li data-template="listItem">
-                    <a href="#" class="name">San Francisco, CA 94104</a>
-                    <span class="value">564</span>
+                    <a href="#" class="name">{{Name}}</a>
+                    <span class="value">{{Value}}</span>
                     <ul class="details">
-                        <li>Revenue Per Capita: $9,194 per capita</li>
-                        <li>Revenue Per Capita: $9,194 per capita</li>
-                        <li>Revenue Per Capita: $9,194 per capita</li>
+                        <li>Total Population: {{TotalPopulation}}</li>
+                        <li>Total Annual Revenue: {{TotalRevenue}}</li>
+                        {{#AverageRevenue}}<li>Average Annual Revenue: {{AverageRevenue}}</li>{{/AverageRevenue}}
+                        {{#TotalEmployees}}<li>Total Employees: {{TotalEmployees}}</li>{{/TotalEmployees}}
+                        {{#RevenuePerCapita}}<li>Revenue Per Capita: {{RevenuePerCapita}}</li>{{/RevenuePerCapita}}
+                        {{#HouseholdIncome}}<li>Household Income: {{HouseholdIncome}}</li>{{/HouseholdIncome}}
+                        {{#HouseholdExpenditures}}<li>Household Expenditures (Average): {{HouseholdExpenditures}}</li>{{/HouseholdExpenditures}}
+                        {{#MedianAge}}<li>Median Age: {{MedianAge}}</li>{{/MedianAge}}
+                        {{#BachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{BachelorsDegreeOrHigher}}</li>{{/BachelorsDegreeOrHigher}}
+                        {{#HighSchoolOrHigher}}<li>Highschool Degree or Higher: {{HighSchoolOrHigher}}</li>{{/HighSchoolOrHigher}}
+                        {{#WhiteCollarWorkers}}<li>White Collar Workers: {{WhiteCollarWorkers}}</li>{{/WhiteCollarWorkers}}             
                     </ul>
                 </li>
             </ul>

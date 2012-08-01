@@ -41,5 +41,15 @@ namespace SizeUp.Core.Web
             }
             return v;
         }
+
+        public static string StringValue(string index)
+        {
+            string v = null;
+            if (HttpContext.Current.Request.QueryString[index] != null)
+            {
+                v = HttpContext.Current.Request.QueryString[index];
+            }
+            return v;
+        }
     }
 }

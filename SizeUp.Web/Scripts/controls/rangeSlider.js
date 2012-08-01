@@ -46,6 +46,10 @@
             return val;
         };
 
+        var setValues = function (vals) {
+            me.slider.slider('values', vals);
+        };
+
         var getState = function (vals) {
             var state = null;
             if (vals[0] == me.opts.min && vals[1] == me.opts.max) {
@@ -89,6 +93,9 @@
         };
 
         var getMappingValues = function (values, defaults) {
+            if (!values) {
+                values = [null, null];
+            }
             var vals = [getMappingValue(values[0], defaults[0]), getMappingValue(values[1], defaults[1])];
             return vals;
         };
@@ -146,11 +153,20 @@
             return obj;
         };
 
+        var setSliderValues = function (param) {
+            var mappings = getMappingValues(param, [me.opts.min, me.opts.max]);
+            setValues(mappings);
+            setValueLabel(mappings);
+        };
+
        
 
         var publicObj = {
             getParam: function () {
                 return getSliderValues();
+            },
+            setParam: function (param) {
+                setSliderValues(param);
             }
         };
         init();
