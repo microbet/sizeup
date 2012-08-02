@@ -8,39 +8,41 @@
             colors: [],
             overlays: [],
             slideTime: 500,
+            itemsPerPage: 20,
+            pagesToShow: 5,
             filterTemplates: {
                 averageRevenue: {
                     distance: 20,
-                    attribute: 'AverageRevenue',
-                    sortAttribute: 'AverageRevenue',
+                    attribute: 'averageRevenue',
+                    sortAttribute: 'averageRevenue',
                     sort: 'desc',
                     template: 'averageRevenue'
                 },
                 totalRevenue: {
                     distance: 20,
-                    attribute: 'TotalRevenue',
-                    sortAttribute: 'TotalRevenue',
+                    attribute: 'totalRevenue',
+                    sortAttribute: 'totalRevenue',
                     sort: 'desc',
                     template: 'totalRevenue'
                 },
                 underservedMarkets: {
                     distance: 20,
-                    attribute: 'RevenuePerCapita',
-                    sortAttribute: 'RevenuePerCapita',
+                    attribute: 'revenuePerCapita',
+                    sortAttribute: 'revenuePerCapita',
                     sort: 'asc',
                     template: 'underservedMarkets'
                 },
                 revenuePerCapita: {
                     distance: 20,
-                    attribute: 'RevenuePerCapita',
-                    sortAttribute: 'RevenuePerCapita',
+                    attribute: 'revenuePerCapita',
+                    sortAttribute: 'revenuePerCapita',
                     sort: 'desc',
                     template: 'revenuePerCapita'
                 },
                 householdIncome: {
                     distance: 20,
-                    attribute: 'HouseholdIncome',
-                    sortAttribute: 'HouseholdIncome',
+                    attribute: 'householdIncome',
+                    sortAttribute: 'householdIncome',
                     sort: 'desc',
                     template: 'householdIncome'
                 }
@@ -58,7 +60,8 @@
         me.opts.filterOptions = {};
         
 
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({lat:data.Lat, lng: data.Lng}); }));
+        dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
         var init = function () {
             
             var params = jQuery.bbq.getState();
@@ -80,6 +83,19 @@
 
             me.content.map.setCenter(me.data.CityCenter);
 
+            me.content.pager = new sizeup.controls.pager({
+                container: me.content.container.find('.pager'),
+                itemsPerPage: me.opts.itemsPerPage,
+                pagesToShow: me.opts.pagesToShow,
+                templates: templates,
+                templateId: 'pager',
+                onUpdate: function (data) { pagerOnUpdate( data); }
+            });
+            me.content.pager.hide();
+
+
+
+
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
@@ -97,16 +113,38 @@
 
             me.content.list.body = me.content.list.container.find('.results');
             me.content.list.sort = {
-                name: me.content.list.container.find('.sort .name'),
-                value: me.content.list.container.find('.sort .value')
+                name: me.content.list.container.find('.sort .name')
             };
 
-            if (params.sortAttribute == 'Name') {
+            me.content.list.sort.value = {};
+            me.content.list.sort.value.option = me.content.list.container.find('.sort #valueMenu');
+            me.content.list.sort.value.menuItems = {
+                totalPopulation: me.content.list.sort.value.option.find('option[value=totalPopulation]').remove(),
+                totalRevenue: me.content.list.sort.value.option.find('option[value=totalRevenue]').remove(),
+                averageRevenue: me.content.list.sort.value.option.find('option[value=averageRevenue]').remove(),
+                totalEmployees: me.content.list.sort.value.option.find('option[value=totalEmployees]').remove(),
+                revenuePerCapita: me.content.list.sort.value.option.find('option[value=revenuePerCapita]').remove(),
+                householdIncome: me.content.list.sort.value.option.find('option[value=householdIncome]').remove(),
+                householdExpenditures: me.content.list.sort.value.option.find('option[value=householdExpenditures]').remove(),
+                medianAge: me.content.list.sort.value.option.find('option[value=medianAge]').remove(),
+                bachelorsDegreeOrHigher: me.content.list.sort.value.option.find('option[value=bachelorsDegreeOrHigher]').remove(),
+                highSchoolOrHigher: me.content.list.sort.value.option.find('option[value=highSchoolOrHigher]').remove(),
+                whiteCollarWorkers: me.content.list.sort.value.option.find('option[value=whiteCollarWorkers]').remove()
+            };
+
+            me.content.list.sort.value.direction = me.content.list.container.find('.sort .value .sorter');
+            me.content.list.sort.value.menu = me.content.list.sort.value.option.chosen();
+            me.content.list.sort.value.menu.change(valueMenuChanged);
+
+            if (params.sortAttribute == 'name') {
                 me.content.list.sort.name.addClass(params.sort);
+            }
+            else {
+                me.content.list.sort.value.direction.addClass(params.sort);
             }
 
             me.content.list.sort.name.click(function () { nameSortClicked(); });
-            me.content.list.sort.value.click(function () { valueSortClicked(); });
+            me.content.list.sort.value.direction.click(function () { valueSortClicked(); });
 
             me.filterSettings = {};
             me.filterSettings.container = me.container.find('#filterSettings').hide().removeClass('hidden');
@@ -121,6 +159,7 @@
             initFilterSliders();
             setOptionMenu(params.template);
             setSliderValues(params);
+            setValueMenu();
 
             me.pageLoader = me.container.find('.page.loading');
             me.listLoader = me.container.find('.list.loading').hide().removeClass('hidden');
@@ -141,9 +180,9 @@
                 range: 'min'
             });
 
-            me.filterSettings.sliders['bachelorOrHigher'] = new sizeup.controls.slider({
+            me.filterSettings.sliders['bachelorsDegreeOrHigher'] = new sizeup.controls.slider({
                 container: me.filterSettings.container.find('#bachelorOrHigher'),
-                value: params['bachelorOrHigher'],
+                value: params['bachelorsDegreeOrHigher'],
                 min: 0,
                 max: 95,
                 range: 'max'
@@ -157,9 +196,9 @@
                 range: 'max'
             });
 
-            me.filterSettings.sliders['whiteCollar'] = new sizeup.controls.slider({
+            me.filterSettings.sliders['whiteCollarWorkers'] = new sizeup.controls.slider({
                 container: me.filterSettings.container.find('#whiteCollar'),
-                value: params['whiteCollar'],
+                value: params['whiteCollarWorkers'],
                 min: 0,
                 max: 95,
                 range: 'max'
@@ -295,14 +334,32 @@
 
         };
 
+        var pagerOnUpdate = function (data) {
+            var params = getParameters();
+            params.page = data.page;
+            setParameters(params);
+            loadReport();
+        };
+
         var optionMenuChanged = function () {
             var x = me.content.optionMenu.option.val();
             setOptionMenu(x);
             if (x != 'custom') {
                 setParameters(me.opts.filterTemplates[x]);
+                setSliderValues(me.opts.filterTemplates[x]);
             }
             loadReport();
         };
+
+        var valueMenuChanged = function () {
+            var x = me.content.list.sort.value.option.val();
+            var params = getParameters();
+            params.attribute = x;
+            params.sortAttribute = x;
+            setParameters(params);
+            loadReport();
+        };
+
 
         var setOptionMenu = function (index) {
             if (index == 'custom') {
@@ -315,6 +372,45 @@
             me.content.optionMenu.option.find('option[value=' + index + ']').attr('selected','selected');
             me.content.optionMenu.menu.trigger('liszt:updated');
             me.content.optionMenu.option.val(index);
+        };
+
+        var setValueMenu = function () {
+            me.content.list.sort.value.option.empty();
+            me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.totalPopulation);
+            me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.totalRevenue);
+            var params = me.opts.filterOptions;
+            var p = getParameters();
+
+            if(params.averageRevenue || p.attribute == 'averageRevenue'){
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.averageRevenue);
+            }
+            if (params.totalEmployees || p.attribute == 'totalEmployees') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.totalEmployees);
+            }
+            if (params.revenuePerCapita || p.attribute == 'revenuePerCapita') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.revenuePerCapita);
+            }
+            if (params.householdIncome || p.attribute == 'householdIncome') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.householdIncome);
+            }
+            if (params.householdExpenditures || p.attribute == 'householdExpenditures') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.householdExpenditures);
+            }
+            if (params.medianAge || p.attribute == 'medianAge') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.medianAge);
+            }
+            if (params.bachelorsDegreeOrHigher || p.attribute == 'bachelorsDegreeOrHigher') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.bachelorOrHigher);
+            }
+            if (params.highSchoolOrHigher || p.attribute == 'highSchoolOrHigher') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.highSchoolOrHigher);
+            }
+            if (params.whiteCollarWorkers || p.attribute == 'whiteCollarWorkers') {
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.whiteCollarWorkers);
+            }
+
+            me.content.list.sort.value.menuItems[p.attribute].attr('selected', 'selected');
+            me.content.list.sort.value.menu.trigger('liszt:updated');
         };
 
 
@@ -336,7 +432,7 @@
         };
 
         var setParameters = function (params) {
-            me.opts.filterOptions = params;
+            me.opts.filterOptions = $.extend(true,{},params);
             jQuery.bbq.pushState(params, 2);
         };
 
@@ -350,14 +446,29 @@
             me.listLoader.show();
             me.content.list.body.hide();
             var params = getParameters();
+            var pagerData = me.content.pager.getPageData();
+            setValueMenu();
             params.placeId = me.opts.CurrentPlace.Id;
             params.industryId = me.opts.CurrentIndustry.Id;
+            params.itemCount = me.opts.itemsPerPage,
+            params.page = pagerData.page;
             dataLayer.getBestPlacesToAdvertise(params, function (data) {
+                setPager({Count: data.Total, Page: pagerData.page});
                 var formattedData = formatData(data);
                 bindZipList(formattedData);
                 me.listLoader.hide();
                 me.content.list.body.show();
             });
+        };
+
+        var setPager = function (data) {
+            me.content.pager.setState(data);
+            if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
+                me.content.pager.show();
+            }
+            else {
+                me.content.pager.hide();
+            }
         };
       
         var formatData = function (data) {
@@ -374,40 +485,40 @@
 
         var formatDataItem = function (item) {
             var newItem = {};
-            newItem['Name'] = item.Name;
-            newItem['TotalPopulation'] = sizeup.util.numbers.format.addCommas(item.TotalPopulation == null ? 0 : item.TotalPopulation);
-            newItem['TotalRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue == null ? 0 : item.TotalRevenue);
+            newItem['name'] = item.Name;
+            newItem['totalPopulation'] = sizeup.util.numbers.format.addCommas(item.TotalPopulation == null ? 0 : item.TotalPopulation);
+            newItem['totalRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue == null ? 0 : item.TotalRevenue);
 
-            if (me.opts.filterOptions['averageRevenue'] != null || me.opts.filterOptions.attribute == 'AverageRevenue') {
-                newItem['AverageRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue == null ? 0 : item.AverageRevenue);
+            if (me.opts.filterOptions['averageRevenue'] != null || me.opts.filterOptions.attribute == 'averageRevenue') {
+                newItem['averageRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue == null ? 0 : item.AverageRevenue);
             }
-            if (me.opts.filterOptions['totalEmployees'] != null || me.opts.filterOptions.attribute == 'TotalEmployees') {
-                newItem['TotalEmployees'] = sizeup.util.numbers.format.addCommas(item.TotalEmployees == null ? 0 : item.TotalEmployees);
+            if (me.opts.filterOptions['totalEmployees'] != null || me.opts.filterOptions.attribute == 'totalEmployees') {
+                newItem['totalEmployees'] = sizeup.util.numbers.format.addCommas(item.TotalEmployees == null ? 0 : item.TotalEmployees);
             }
-            if (me.opts.filterOptions['revenuePerCapita'] != null || me.opts.filterOptions.attribute == 'RevenuePerCapita') {
-                newItem['RevenuePerCapita'] = '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita == null ? 0 : item.RevenuePerCapita);
+            if (me.opts.filterOptions['revenuePerCapita'] != null || me.opts.filterOptions.attribute == 'revenuePerCapita') {
+                newItem['revenuePerCapita'] = '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita == null ? 0 : item.RevenuePerCapita);
             }
-            if (me.opts.filterOptions['householdIncome'] != null || me.opts.filterOptions.attribute == 'HouseholdIncome') {
-                newItem['HouseholdIncome'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome == null ? 0 : item.HouseholdIncome);
+            if (me.opts.filterOptions['householdIncome'] != null || me.opts.filterOptions.attribute == 'householdIncome') {
+                newItem['householdIncome'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome == null ? 0 : item.HouseholdIncome);
             }
-            if (me.opts.filterOptions['householdExpenditures'] != null || me.opts.filterOptions.attribute == 'HouseholdExpenditures') {
-                newItem['HouseholdExpenditures'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdExpenditures == null ? 0 : item.HouseholdExpenditures);
+            if (me.opts.filterOptions['householdExpenditures'] != null || me.opts.filterOptions.attribute == 'householdExpenditures') {
+                newItem['householdExpenditures'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdExpenditures == null ? 0 : item.HouseholdExpenditures);
             }
-            if (me.opts.filterOptions['medianAge'] != null || me.opts.filterOptions.attribute == 'MedianAge') {
-                newItem['MedianAge'] = item.MedianAge == null ? 0 : item.MedianAge;
+            if (me.opts.filterOptions['medianAge'] != null || me.opts.filterOptions.attribute == 'medianAge') {
+                newItem['medianAge'] = item.MedianAge == null ? 0 : item.MedianAge;
             }
-            if (me.opts.filterOptions['highSchoolOrHigher'] != null || me.opts.filterOptions.attribute == 'HighSchoolOrHigher') {
-                newItem['HighSchoolOrHigher'] = (item.HighSchoolOrHigher == null ? 0 : item.HighSchoolOrHigher * 100).toFixed(1) + '%';
+            if (me.opts.filterOptions['highSchoolOrHigher'] != null || me.opts.filterOptions.attribute == 'highSchoolOrHigher') {
+                newItem['highSchoolOrHigher'] = (item.HighSchoolOrHigher == null ? 0 : item.HighSchoolOrHigher * 100).toFixed(1) + '%';
             }
-            if (me.opts.filterOptions['whiteCollar'] != null || me.opts.filterOptions.attribute == 'WhiteCollarWorkers') {
-                newItem['WhiteCollarWorkers'] = (item.WhiteCollarWorkers == null ? 0 : item.WhiteCollarWorkers * 100).toFixed(1) + '%';
+            if (me.opts.filterOptions['whiteCollarWorkers'] != null || me.opts.filterOptions.attribute == 'whiteCollarWorkers') {
+                newItem['whiteCollarWorkers'] = (item.WhiteCollarWorkers == null ? 0 : item.WhiteCollarWorkers * 100).toFixed(1) + '%';
             }
-            if (me.opts.filterOptions['bachelorOrHigher'] != null || me.opts.filterOptions.attribute == 'BachelorsDegreeOrHigher') {
-                newItem['BachelorsDegreeOrHigher'] = (item.BachelorsDegreeOrHigher == null ? 0 : item.BachelorsDegreeOrHigher * 100).toFixed(1) + '%';
+            if (me.opts.filterOptions['bachelorsDegreeOrHigher'] != null || me.opts.filterOptions.attribute == 'bachelorsDegreeOrHigher') {
+                newItem['bachelorsDegreeOrHigher'] = (item.BachelorsDegreeOrHigher == null ? 0 : item.BachelorsDegreeOrHigher * 100).toFixed(1) + '%';
             }
 
   
-            newItem['Value'] = newItem[me.opts.filterOptions.attribute];
+            newItem['value'] = newItem[me.opts.filterOptions.attribute];
             delete newItem[me.opts.filterOptions.attribute];
 
 
@@ -431,16 +542,16 @@
                 me.content.list.sort.name.removeClass('asc');
                 me.content.list.sort.name.addClass('desc');
                 me.opts.filterOptions.sort = 'desc';
-                me.opts.filterOptions.sortAttribute = 'Name';
+                me.opts.filterOptions.sortAttribute = 'name';
             }
             else {
                 me.content.list.sort.name.removeClass('desc');
                 me.content.list.sort.name.addClass('asc');
                 me.opts.filterOptions.sort = 'asc';
-                me.opts.filterOptions.sortAttribute = 'Name';
+                me.opts.filterOptions.sortAttribute = 'name';
             }
-            me.content.list.sort.value.removeClass('asc');
-            me.content.list.sort.value.removeClass('desc');
+            me.content.list.sort.value.direction.removeClass('asc');
+            me.content.list.sort.value.direction.removeClass('desc');
             me.opts.filterOptions.template = 'custom';
             setOptionMenu('custom');
             setParameters(me.opts.filterOptions);
@@ -448,7 +559,23 @@
         };
 
         var valueSortClicked = function () {
-
+            if (me.content.list.sort.value.direction.hasClass('asc')) {
+                me.content.list.sort.value.direction.removeClass('asc');
+                me.content.list.sort.value.direction.addClass('desc');
+                me.opts.filterOptions.sort = 'desc';
+            }
+            else {
+                me.content.list.sort.value.direction.removeClass('desc');
+                me.content.list.sort.value.direction.addClass('asc');
+                me.opts.filterOptions.sort = 'asc';
+            }
+            me.content.list.sort.name.removeClass('asc');
+            me.content.list.sort.name.removeClass('desc');
+            me.opts.filterOptions.template = 'custom';
+            me.opts.filterOptions.sortAttribute = me.content.list.sort.value.option.val();
+            setOptionMenu('custom');
+            setParameters(me.opts.filterOptions);
+            loadReport();
         };
 
         var slideInFilterSettings = function (callback) {
@@ -496,10 +623,18 @@
         };
 
         var submitClicked = function () {
+            var p = getParameters();
             var params = getSliderValues();
-            params.sort = me.opts.filterOptions.sort;
-            params.sortAttribute = me.opts.filterOptions.sortAttribute;
-            params.attribute = me.opts.filterOptions.attribute;
+            if (params[p.attribute]) {
+                params.sort = p.sort;
+                params.attribute = p.attribute;
+                params.sortAttribute = p.sortAttribute;
+            }
+            else {
+                params.sort = 'desc';
+                params.attribute = 'totalRevenue';
+                params.sortAttribute = 'totalRevenue';
+            }
             params.template = 'custom';
             setOptionMenu('custom');
             setParameters(params);

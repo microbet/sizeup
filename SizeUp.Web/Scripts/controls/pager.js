@@ -101,8 +101,8 @@
         };
 
         var setState = function (obj) {
-            me.opts.totalItems = obj.Count;
-            me.opts.currentPage = obj.Page;
+            me.opts.totalItems = parseInt(obj.Count);
+            me.opts.currentPage = parseInt(obj.Page);
             bindTemplate();
         };
 

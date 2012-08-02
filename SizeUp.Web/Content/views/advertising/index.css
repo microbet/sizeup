@@ -43,12 +43,11 @@
 
 #advertising .description { color: #aaa; padding: 0.5em 3em; display:inline-block; }
 
-#advertising .sort {position:relative; margin:2em 0 0.5em; }
+#advertising .sort {position:relative; margin:1em 0 0.5em; }
 #advertising .sort .name {  }
-#advertising .sort .value {width:5em;height:1em; border:solid 1px black; float:right; display:inline-block; }
+#advertising .sort .value {font-size:1em;display :inline-block; float:right; }
+#advertising .sort .value #valueMenu {width:15em;  }
 
-
-#advertising .pager { float:right; position:relative; top:2em;}
 
 #advertising ul.results {border-top:#eee solid 1px; margin:0 0 4em 0; }
 #advertising ul.results li {border-bottom:#eee solid 1px; padding:1em 0; }
@@ -62,17 +61,25 @@
 
 
 .chzn-container {position:relative; z-index:9999999; }
-.chzn-container .chzn-drop {position:absolute; background-color:#fff; }
+.chzn-container .chzn-drop {position:absolute; background-color:#fff; border:1px solid #ccc; }
 .chzn-container .chzn-drop .chzn-search { display: none; }
-
 .chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; }
-
-
 .chzn-container .chzn-drop .chzn-results .active-result.result-selected {background-color:#E6E6E6; }
 .chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; }
 
+#advertising .sort .value a { font-size: 1em;  }
+#advertising .sort .value .chzn-container .chzn-drop { }
+#advertising .sort .value .chzn-container .chzn-drop .chzn-results .active-result { font-size: 1em; }
+#advertising .sort .value .chzn-container { display: inline-block; text-align:right; }
 
-
-
-
+#advertising .pager { position:relative; text-align: right; margin:1em 0 0 0; }
+#advertising .pager,
+#advertising .pager span,
+#advertising .pager a { font-size: 0.95em; }
+#advertising .pager span { margin:0 1em 0 0; }
+#advertising .pager a,
+#advertising .pager ul,
+#advertising .pager ul li {display:inline;  font-weight:bold; }
+#advertising .pager li.current a,
+#advertising .pager li.current a:hover { color: #606060; }
 

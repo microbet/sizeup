@@ -18,6 +18,7 @@
     
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/slider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
 
@@ -258,26 +259,42 @@
 
             <div class="sort">
                 <a class="name sorter" href="javascript:void(0);">ZIP Code by City</a>
-                <a class="value" href="javascript:void(0);"></a>
+                <div class="value">
+                    <select id="valueMenu">
+                        <option value="totalPopulation">Total Population</option>
+                        <option value="totalRevenue">Total Annual Revenue</option>
+                        <option value="averageRevenue">Average Annual Revenue</option>
+                        <option value="totalEmployees">Total Employees</option>
+                        <option value="revenuePerCapita">Revenue Per Capita</option>
+                        <option value="householdIncome">Household Income</option>
+                        <option value="householdExpenditures">Household Expenditures (Average)</option>
+                        <option value="medianAge">Median Age</option>
+                        <option value="bachelorsDegreeOrHigher">Bachelors Degree or Higher</option>
+                        <option value="highSchoolOrHigher">Highschool Degree or Higher</option>
+                        <option value="whiteCollarWorkers">White Collar Workers</option>
+                    </select>
+                    <a class="sorter" href="javascript:void(0);">&nbsp;</a>
+                </div>
+                
             </div>
 
 
             <ul class="results">
                 <li data-template="listItem">
-                    <a href="#" class="name">{{Name}}</a>
-                    <span class="value">{{Value}}</span>
+                    <a href="#" class="name">{{name}}</a>
+                    <span class="value">{{value}}</span>
                     <ul class="details">
-                        <li>Total Population: {{TotalPopulation}}</li>
-                        <li>Total Annual Revenue: {{TotalRevenue}}</li>
-                        {{#AverageRevenue}}<li>Average Annual Revenue: {{AverageRevenue}}</li>{{/AverageRevenue}}
-                        {{#TotalEmployees}}<li>Total Employees: {{TotalEmployees}}</li>{{/TotalEmployees}}
-                        {{#RevenuePerCapita}}<li>Revenue Per Capita: {{RevenuePerCapita}}</li>{{/RevenuePerCapita}}
-                        {{#HouseholdIncome}}<li>Household Income: {{HouseholdIncome}}</li>{{/HouseholdIncome}}
-                        {{#HouseholdExpenditures}}<li>Household Expenditures (Average): {{HouseholdExpenditures}}</li>{{/HouseholdExpenditures}}
-                        {{#MedianAge}}<li>Median Age: {{MedianAge}}</li>{{/MedianAge}}
-                        {{#BachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{BachelorsDegreeOrHigher}}</li>{{/BachelorsDegreeOrHigher}}
-                        {{#HighSchoolOrHigher}}<li>Highschool Degree or Higher: {{HighSchoolOrHigher}}</li>{{/HighSchoolOrHigher}}
-                        {{#WhiteCollarWorkers}}<li>White Collar Workers: {{WhiteCollarWorkers}}</li>{{/WhiteCollarWorkers}}             
+                        {{#totalPopulation}}<li>Total Population: {{totalPopulation}}</li>{{/totalPopulation}}
+                        {{#totalRevenue}}<li>Total Annual Revenue: {{totalRevenue}}</li>{{/totalRevenue}}
+                        {{#averageRevenue}}<li>Average Annual Revenue: {{averageRevenue}}</li>{{/averageRevenue}}
+                        {{#totalEmployees}}<li>Total Employees: {{totalEmployees}}</li>{{/totalEmployees}}
+                        {{#revenuePerCapita}}<li>Revenue Per Capita: {{revenuePerCapita}}</li>{{/revenuePerCapita}}
+                        {{#householdIncome}}<li>Household Income: {{householdIncome}}</li>{{/householdIncome}}
+                        {{#householdExpenditures}}<li>Household Expenditures (Average): {{householdExpenditures}}</li>{{/householdExpenditures}}
+                        {{#medianAge}}<li>Median Age: {{medianAge}}</li>{{/medianAge}}
+                        {{#bachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{bachelorsDegreeOrHigher}}</li>{{/bachelorsDegreeOrHigher}}
+                        {{#highSchoolOrHigher}}<li>Highschool Degree or Higher: {{highSchoolOrHigher}}</li>{{/highSchoolOrHigher}}
+                        {{#whiteCollarWorkers}}<li>White Collar Workers: {{whiteCollarWorkers}}</li>{{/whiteCollarWorkers}}             
                     </ul>
                 </li>
             </ul>
