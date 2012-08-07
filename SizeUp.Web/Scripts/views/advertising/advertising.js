@@ -10,37 +10,34 @@
             slideTime: 500,
             itemsPerPage: 20,
             pagesToShow: 5,
+            bandCount: 5,
+            bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             filterTemplates: {
                 averageRevenue: {
-                    distance: 20,
                     attribute: 'averageRevenue',
                     sortAttribute: 'averageRevenue',
                     sort: 'desc',
                     template: 'averageRevenue'
                 },
                 totalRevenue: {
-                    distance: 20,
                     attribute: 'totalRevenue',
                     sortAttribute: 'totalRevenue',
                     sort: 'desc',
                     template: 'totalRevenue'
                 },
                 underservedMarkets: {
-                    distance: 20,
                     attribute: 'revenuePerCapita',
                     sortAttribute: 'revenuePerCapita',
                     sort: 'asc',
                     template: 'underservedMarkets'
                 },
                 revenuePerCapita: {
-                    distance: 20,
                     attribute: 'revenuePerCapita',
                     sortAttribute: 'revenuePerCapita',
                     sort: 'desc',
                     template: 'revenuePerCapita'
                 },
                 householdIncome: {
-                    distance: 20,
                     attribute: 'householdIncome',
                     sortAttribute: 'householdIncome',
                     sort: 'desc',
@@ -59,14 +56,15 @@
         me.data = {};
         me.opts.filterOptions = {};
         
-
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.getBestPlacesToAdvertiseMinimumDistance({ placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage }, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
+        dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
         var init = function () {
             
             var params = jQuery.bbq.getState();
             if (params.template == null) {
-                setParameters(me.opts.filterTemplates.totalRevenue);
+                var d = $.extend(me.opts.filterTemplates.totalRevenue, { distance: me.data.defaultDistance });
+                setParameters(d);
             }
             params = jQuery.bbq.getState();
             me.opts.filterOptions = params;
@@ -75,6 +73,7 @@
             me.content = {};
             me.content.container = me.container.find('.content').hide().removeClass('hidden');
 
+            me.content.mapPins = [];
             me.content.map = new sizeup.maps.map({
                 container: me.content.container.find('.mapContent .map'),
                 mapSettings: me.opts.mapSettings,
@@ -94,6 +93,7 @@
             me.content.pager.hide();
 
 
+            me.content.bands = me.content.container.find('.mapContent .footer .bandContainer');
 
 
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
@@ -345,8 +345,9 @@
             var x = me.content.optionMenu.option.val();
             setOptionMenu(x);
             if (x != 'custom') {
-                setParameters(me.opts.filterTemplates[x]);
-                setSliderValues(me.opts.filterTemplates[x]);
+                var d = $.extend(me.opts.filterTemplates[x], { distance: me.data.defaultDistance });
+                setParameters(d);
+                setSliderValues(d);
             }
             loadReport();
         };
@@ -400,7 +401,7 @@
                 me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.medianAge);
             }
             if (params.bachelorsDegreeOrHigher || p.attribute == 'bachelorsDegreeOrHigher') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.bachelorOrHigher);
+                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.bachelorsDegreeOrHigher);
             }
             if (params.highSchoolOrHigher || p.attribute == 'highSchoolOrHigher') {
                 me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.highSchoolOrHigher);
@@ -452,14 +453,77 @@
             params.industryId = me.opts.CurrentIndustry.Id;
             params.itemCount = me.opts.itemsPerPage,
             params.page = pagerData.page;
-            dataLayer.getBestPlacesToAdvertise(params, function (data) {
-                setPager({Count: data.Total, Page: pagerData.page});
-                var formattedData = formatData(data);
+
+            var reportData = {
+                zips: null,
+                bands: null
+            };
+            var notifier = new sizeup.core.notifier(function () {
+                setPager({ Count: reportData.zips.Total, Page: pagerData.page });
+                var formattedData = formatData(reportData.zips);
+                var formattedBands = formatBands(reportData.bands, params.attribute);
+
+                bindCircle(params.distance);
                 bindZipList(formattedData);
+                bindBands(formattedBands);
+
+
+                bindMap(reportData);
+
+
+
                 me.listLoader.hide();
                 me.content.list.body.show();
             });
+
+            dataLayer.getBestPlacesToAdvertise(params, notifier.getNotifier(function (data) {
+                reportData.zips = data;
+            }));
+            params.bands = me.opts.bandCount;
+            dataLayer.getBestPlacesToAdvertiseBands(params, notifier.getNotifier(function (data) {
+                reportData.bands = data;
+            }));
         };
+
+        var bindBands = function (data) {
+            var html = '';
+            for (var x = 0 ;x < data.length; x++) {
+                var d = {
+                    label: x == data.length - 1 ? data[x].Max + ' and below' : data[x].Max + ' - ' + data[x].Min,
+                    color: me.opts.bandColors[x]
+                };
+                var template = templates.get('bandItem');
+                html = html + templates.bind(template, d);
+            }
+            me.content.bands.html(html);
+        };
+
+       
+        var bindMap = function (data) {
+            for (var x in me.content.mapPins) {
+                me.content.map.removeMarker(me.content.mapPins[x]);
+            }
+            me.content.mapPins = [];
+            for (var x in data.zips.Items) {
+                var pin = new sizeup.maps.heatPin({
+                    position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Lat, lng: data.zips.Items[x].Long }),
+                    color: 'ffff00'
+                });
+                me.content.mapPins.push(pin);
+                me.content.map.addMarker(pin);
+            };
+        };
+
+        var bindCircle = function (radius) {
+            if (me.content.mapCircle) {
+                me.content.map.removeCircle(me.content.mapCircle);
+            }
+            if (radius) {
+                me.content.mapCircle = new sizeup.maps.circle({ center: me.data.CityCenter, radius: radius * 1609.344, strokeColor: "#6495ED", strokeWeight: 2, strokeOpacity: 0.35, fillOpacity: 0 });
+                me.content.map.addCircle(me.content.mapCircle);
+            }
+        };
+
 
         var setPager = function (data) {
             me.content.pager.setState(data);
@@ -471,6 +535,66 @@
             }
         };
       
+        var formatBands = function (data, attribute) {
+            var newData = [];
+
+            for (var x in data) {
+                newData.push(formatBandItem(data[x], attribute));
+            }
+            return newData;
+        };
+
+        var formatBandItem = function (item, attribute) {
+            var newItem = {};
+            if(attribute == 'totalPopulation'){
+                newItem.Min = sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'totalRevenue') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'averageRevenue') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'totalEmployees') {
+                newItem.Min = sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'revenuePerCapita') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'householdIncome') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'householdExpenditures') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'medianAge') {
+                newItem.Min = sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'highSchoolOrHigher') {
+                newItem.Min = (item.Min * 100).toFixed(1) + '%';
+                newItem.Max = (item.Max * 100).toFixed(1) + '%';
+            }
+            else if (attribute == 'whiteCollarWorkers') {
+                newItem.Min = (item.Min * 100).toFixed(1) + '%';
+                newItem.Max = (item.Max * 100).toFixed(1) + '%';
+            }
+            else if (attribute == 'bachelorsDegreeOrHigher') {
+                newItem.Min = (item.Min * 100).toFixed(1) + '%';
+                newItem.Max = (item.Max * 100).toFixed(1) + '%';
+            }
+
+
+            return newItem;
+        };
+
         var formatData = function (data) {
             var newData = {
                 Items: [],
@@ -485,6 +609,11 @@
 
         var formatDataItem = function (item) {
             var newItem = {};
+            newItem['city'] = item.City;
+            newItem['state'] = item.State;
+            newItem['county'] = item.County;
+            newItem['lat'] = item.Lat;
+            newItem['long'] = item.Long;
             newItem['name'] = item.Name;
             newItem['totalPopulation'] = sizeup.util.numbers.format.addCommas(item.TotalPopulation == null ? 0 : item.TotalPopulation);
             newItem['totalRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue == null ? 0 : item.TotalRevenue);

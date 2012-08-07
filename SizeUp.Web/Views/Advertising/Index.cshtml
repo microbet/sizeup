@@ -31,6 +31,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/imageMarker.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/circle.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")"></script>
 
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/advertising/advertising.js")"></script>
@@ -229,10 +231,8 @@
         <div class="mapContent wrapper">
             <div class="map"></div>
             <div class="footer">
-                <ul>
-                    <li><img src="" /><span>12-166</span></li>
-                    <li><img src="" /><span>200-1555</span></li>
-                    <li><img src="" /><span>2000-4564</span></li>
+                <ul class="bandContainer">
+                    <li data-template="bandItem"><img data-override-src="/content/images/heatPin{{color}}.png" /><span>{{label}}</span></li>
                 </ul>
             </div>
         </div>
@@ -281,7 +281,12 @@
 
             <ul class="results">
                 <li data-template="listItem">
-                    <a href="#" class="name">{{name}}</a>
+                    {{#city.SEOKey}}
+                    <a data-override-href="/communities/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" class="name">{{name}}</a>
+                    {{/city.SEOKey}}
+                    {{^city.SEOKey}}
+                    <a class="name noCommunity">{{name}}</a>
+                    {{/city.SEOKey}}
                     <span class="value">{{value}}</span>
                     <ul class="details">
                         {{#totalPopulation}}<li>Total Population: {{totalPopulation}}</li>{{/totalPopulation}}

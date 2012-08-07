@@ -81,6 +81,11 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "Place", action = "Get" }
            );
 
+            context.MapRoute(
+             "CentroidPlace",
+             "Api/Place/Centroid",
+             new { controller = "Place", action = "Centroid" }
+            );
 
             /***********city**********/
             context.MapRoute(
@@ -404,6 +409,18 @@ namespace SizeUp.Web.Areas.Api
                 "Api/Advertising/",
                 new { controller = "Advertising", action = "Advertising" }
             );
+
+            context.MapRoute(
+                "BestPlacesToAdvertiseMinDistance",
+                "Api/Advertising/MinimumDistance",
+                new { controller = "Advertising", action = "MinimumDistance" }
+            );
+
+            context.MapRoute(
+               "BestPlacesToAdvertiseBands",
+               "Api/Advertising/Bands",
+               new { controller = "Advertising", action = "Bands" }
+           );
 
   
 

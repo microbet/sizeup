@@ -39,6 +39,15 @@
             p.getNative().setMap(me.map);
         };
 
+        var addCircle = function (c) {
+            c.getNative().setMap(me.map);
+        };
+
+        var removeCircle = function (c) {
+            c.getNative().setMap(null);
+        };
+
+
         var addEventListener = function(event, handler){
             google.maps.event.addListener(me.map, event, handler);
         };
@@ -95,6 +104,12 @@
             },
             addPolygon: function (p) {
                 addPolygon(p);
+            },
+            addCircle: function (c) {
+                addCircle(c);
+            },
+            removeCircle: function (c) {
+                removeCircle(c);
             },
             addEventListener: function (event, handler) {
                 addEventListener(event, handler);

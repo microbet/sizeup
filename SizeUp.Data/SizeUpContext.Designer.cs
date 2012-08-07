@@ -77,6 +77,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "IndustryDataByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByMetro), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "IndustryDataByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.CityCountyMapping), "ZipCodePlaceMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCodePlaceMapping), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "ZipCodePlaceMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCodePlaceMapping), true)]
 
 #endregion
 
@@ -671,6 +673,22 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<IndustryDataByZip> _IndustryDataByZips;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ZipCodePlaceMapping> ZipCodePlaceMappings
+        {
+            get
+            {
+                if ((_ZipCodePlaceMappings == null))
+                {
+                    _ZipCodePlaceMappings = base.CreateObjectSet<ZipCodePlaceMapping>("ZipCodePlaceMappings");
+                }
+                return _ZipCodePlaceMappings;
+            }
+        }
+        private ObjectSet<ZipCodePlaceMapping> _ZipCodePlaceMappings;
 
         #endregion
 
@@ -946,6 +964,14 @@ namespace SizeUp.Data
         public void AddToIndustryDataByZips(IndustryDataByZip industryDataByZip)
         {
             base.AddObject("IndustryDataByZips", industryDataByZip);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ZipCodePlaceMappings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToZipCodePlaceMappings(ZipCodePlaceMapping zipCodePlaceMapping)
+        {
+            base.AddObject("ZipCodePlaceMappings", zipCodePlaceMapping);
         }
 
         #endregion
@@ -4170,6 +4196,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_CityCountyMapping_County", "County", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_CityCountyMapping", "ZipCodePlaceMapping")]
+        public EntityCollection<ZipCodePlaceMapping> ZipCodePlaceMappings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ZipCodePlaceMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "ZipCodePlaceMapping");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ZipCodePlaceMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "ZipCodePlaceMapping", value);
                 }
             }
         }
@@ -14635,6 +14683,28 @@ namespace SizeUp.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_ZipCode", "ZipCodePlaceMapping")]
+        public EntityCollection<ZipCodePlaceMapping> ZipCodePlaceMappings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ZipCodePlaceMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode", "ZipCodePlaceMapping");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ZipCodePlaceMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode", "ZipCodePlaceMapping", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -15260,6 +15330,194 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_ZipCodeGeography_ZipCode", "ZipCode", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="ZipCodePlaceMapping")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ZipCodePlaceMapping : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ZipCodePlaceMapping object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="placeId">Initial value of the PlaceId property.</param>
+        /// <param name="zipCodeId">Initial value of the ZipCodeId property.</param>
+        public static ZipCodePlaceMapping CreateZipCodePlaceMapping(global::System.Int64 id, global::System.Int64 placeId, global::System.Int64 zipCodeId)
+        {
+            ZipCodePlaceMapping zipCodePlaceMapping = new ZipCodePlaceMapping();
+            zipCodePlaceMapping.Id = id;
+            zipCodePlaceMapping.PlaceId = placeId;
+            zipCodePlaceMapping.ZipCodeId = zipCodeId;
+            return zipCodePlaceMapping;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 PlaceId
+        {
+            get
+            {
+                return _PlaceId;
+            }
+            set
+            {
+                OnPlaceIdChanging(value);
+                ReportPropertyChanging("PlaceId");
+                _PlaceId = StructuralObject.SetValidValue(value, "PlaceId");
+                ReportPropertyChanged("PlaceId");
+                OnPlaceIdChanged();
+            }
+        }
+        private global::System.Int64 _PlaceId;
+        partial void OnPlaceIdChanging(global::System.Int64 value);
+        partial void OnPlaceIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ZipCodeId
+        {
+            get
+            {
+                return _ZipCodeId;
+            }
+            set
+            {
+                OnZipCodeIdChanging(value);
+                ReportPropertyChanging("ZipCodeId");
+                _ZipCodeId = StructuralObject.SetValidValue(value, "ZipCodeId");
+                ReportPropertyChanged("ZipCodeId");
+                OnZipCodeIdChanged();
+            }
+        }
+        private global::System.Int64 _ZipCodeId;
+        partial void OnZipCodeIdChanging(global::System.Int64 value);
+        partial void OnZipCodeIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping")]
+        public CityCountyMapping CityCountyMapping
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityCountyMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityCountyMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CityCountyMapping> CityCountyMappingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityCountyMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CityCountyMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_ZipCode", "ZipCode")]
+        public ZipCode ZipCode
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode", "ZipCode").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode", "ZipCode").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ZipCode> ZipCodeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ZipCode>("SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode", "ZipCode");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ZipCode>("SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode", "ZipCode", value);
                 }
             }
         }

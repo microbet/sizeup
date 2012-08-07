@@ -40,6 +40,7 @@
           <EntitySet Name="ZipCodeCityMapping" EntityType="SizeUp.Data.Store.ZipCodeCityMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCodeCountyMapping" EntityType="SizeUp.Data.Store.ZipCodeCountyMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCodeGeography" EntityType="SizeUp.Data.Store.ZipCodeGeography" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ZipCodePlaceMapping" EntityType="SizeUp.Data.Store.ZipCodePlaceMapping" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.Store.FK_APIKeyDomain_APIKey">
             <End Role="APIKey" EntitySet="APIKey" />
             <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
@@ -271,6 +272,14 @@
           <AssociationSet Name="FK_ZipCodeGeography_ZipCode" Association="SizeUp.Data.Store.FK_ZipCodeGeography_ZipCode">
             <End Role="ZipCode" EntitySet="ZipCode" />
             <End Role="ZipCodeGeography" EntitySet="ZipCodeGeography" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipCodePlaceMapping_CityCountyMapping" Association="SizeUp.Data.Store.FK_ZipCodePlaceMapping_CityCountyMapping">
+            <End Role="CityCountyMapping" EntitySet="CityCountyMapping" />
+            <End Role="ZipCodePlaceMapping" EntitySet="ZipCodePlaceMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipCodePlaceMapping_ZipCode" Association="SizeUp.Data.Store.FK_ZipCodePlaceMapping_ZipCode">
+            <End Role="ZipCode" EntitySet="ZipCode" />
+            <End Role="ZipCodePlaceMapping" EntitySet="ZipCodePlaceMapping" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="APIKey">
@@ -836,6 +845,14 @@
           <Property Name="ZipCodeId" Type="bigint" Nullable="false" />
           <Property Name="GeographyId" Type="bigint" Nullable="false" />
           <Property Name="ClassId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ZipCodePlaceMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceId" Type="bigint" Nullable="false" />
+          <Property Name="ZipCodeId" Type="bigint" Nullable="false" />
         </EntityType>
         <Association Name="FK_APIKeyDomain_APIKey">
           <End Role="APIKey" Type="SizeUp.Data.Store.APIKey" Multiplicity="1" />
@@ -1533,6 +1550,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ZipCodePlaceMapping_CityCountyMapping">
+          <End Role="CityCountyMapping" Type="SizeUp.Data.Store.CityCountyMapping" Multiplicity="1" />
+          <End Role="ZipCodePlaceMapping" Type="SizeUp.Data.Store.ZipCodePlaceMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityCountyMapping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZipCodePlaceMapping">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipCodePlaceMapping_ZipCode">
+          <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="1" />
+          <End Role="ZipCodePlaceMapping" Type="SizeUp.Data.Store.ZipCodePlaceMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZipCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZipCodePlaceMapping">
+              <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1804,6 +1845,15 @@
             <End Role="ZipCode" EntitySet="ZipCodes" />
             <End Role="IndustryDataByZip" EntitySet="IndustryDataByZips" />
           </AssociationSet>
+          <EntitySet Name="ZipCodePlaceMappings" EntityType="SizeUp.Data.ZipCodePlaceMapping" />
+          <AssociationSet Name="FK_ZipCodePlaceMapping_CityCountyMapping" Association="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping">
+            <End Role="CityCountyMapping" EntitySet="CityCountyMappings" />
+            <End Role="ZipCodePlaceMapping" EntitySet="ZipCodePlaceMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ZipCodePlaceMapping_ZipCode" Association="SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode">
+            <End Role="ZipCode" EntitySet="ZipCodes" />
+            <End Role="ZipCodePlaceMapping" EntitySet="ZipCodePlaceMappings" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -1909,6 +1959,7 @@
           <Property Type="Int64" Name="CountyId" Nullable="false" />
           <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_CityCountyMapping_City" FromRole="CityCountyMapping" ToRole="City" />
           <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_CityCountyMapping_County" FromRole="CityCountyMapping" ToRole="County" />
+          <NavigationProperty Name="ZipCodePlaceMappings" Relationship="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping" FromRole="CityCountyMapping" ToRole="ZipCodePlaceMapping" />
         </EntityType>
         <EntityType Name="APIKey">
           <Key>
@@ -2135,6 +2186,7 @@
           <NavigationProperty Name="ZipCodeCountyMappings" Relationship="SizeUp.Data.FK_ZipCodeCountyMapping_ZipCode" FromRole="ZipCode" ToRole="ZipCodeCountyMapping" />
           <NavigationProperty Name="BusinessDataByZips" Relationship="SizeUp.Data.FK_BusinessDataByZip_ZipCode" FromRole="ZipCode" ToRole="BusinessDataByZip" />
           <NavigationProperty Name="IndustryDataByZips" Relationship="SizeUp.Data.FK_IndustryDataByZip_ZipCode" FromRole="ZipCode" ToRole="IndustryDataByZip" />
+          <NavigationProperty Name="ZipCodePlaceMappings" Relationship="SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode" FromRole="ZipCode" ToRole="ZipCodePlaceMapping" />
         </EntityType>
         <EntityType Name="ZipCodeGeography">
           <Key>
@@ -3181,6 +3233,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ZipCodePlaceMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="ZipCodeId" Nullable="false" />
+          <NavigationProperty Name="CityCountyMapping" Relationship="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping" FromRole="ZipCodePlaceMapping" ToRole="CityCountyMapping" />
+          <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode" FromRole="ZipCodePlaceMapping" ToRole="ZipCode" />
+        </EntityType>
+        <Association Name="FK_ZipCodePlaceMapping_CityCountyMapping">
+          <End Type="SizeUp.Data.CityCountyMapping" Role="CityCountyMapping" Multiplicity="1" />
+          <End Type="SizeUp.Data.ZipCodePlaceMapping" Role="ZipCodePlaceMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityCountyMapping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZipCodePlaceMapping">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ZipCodePlaceMapping_ZipCode">
+          <End Type="SizeUp.Data.ZipCode" Role="ZipCode" Multiplicity="1" />
+          <End Type="SizeUp.Data.ZipCodePlaceMapping" Role="ZipCodePlaceMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ZipCode">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ZipCodePlaceMapping">
+              <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3781,6 +3867,15 @@
                 <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZipCodePlaceMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.ZipCodePlaceMapping">
+              <MappingFragment StoreEntitySet="ZipCodePlaceMapping">
+                <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

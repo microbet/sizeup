@@ -12,6 +12,8 @@ namespace SizeUp.Web.Areas.Api.Models.Advertising
         public City.City City { get; set; }
         public County.County County { get; set; }
         public State.State State { get; set; }
+        public double Lat { get; set; }
+        public double Long { get; set; }
         public string Name { get; set; }
         public long? TotalRevenue { get; set; }
         public long? AverageRevenue { get; set; }

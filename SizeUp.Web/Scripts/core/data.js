@@ -63,7 +63,7 @@
                 return get('/api/city/boundingbox/', params, callback);
             },
             getCityCentroid: function (params, callback) {
-                return get('/api/city/centroid/', params, callback);
+                return get('/api/place/centroid/', params, callback);
             },
            
             getCounty: function (params, callback) {
@@ -248,6 +248,14 @@
 
             getBestPlacesToAdvertise: function (params, callback) {
                 return get('/api/Advertising/', params, callback);
+            },
+
+            getBestPlacesToAdvertiseBands: function (params, callback) {
+                return get('/api/Advertising/Bands', params, callback);
+            },
+
+            getBestPlacesToAdvertiseMinimumDistance: function (params, callback) {
+                return get('/api/Advertising/MinimumDistance', params, callback);
             },
 
 

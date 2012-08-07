@@ -97,6 +97,9 @@
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByMetro_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByState_State" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByZip_ZipCode" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCodePlaceMapping" Width="2.375" PointX="7" PointY="11.375" />
+        <AssociationConnector Association="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping" />
+        <AssociationConnector Association="SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

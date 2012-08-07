@@ -64,6 +64,7 @@
     <Compile Include="DataAccess\Locations.cs" />
     <Compile Include="DataAccess\Math.cs" />
     <Compile Include="DataAccess\Models\DisplayGeography.cs" />
+    <Compile Include="DataAccess\Models\EntityDistance.cs" />
     <Compile Include="DataAccess\Models\Locations.cs" />
     <Compile Include="DataAccess\ZipCodes.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />

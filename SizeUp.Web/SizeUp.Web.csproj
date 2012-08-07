@@ -166,6 +166,7 @@
     <Compile Include="Areas\Api\Controllers\WorkersCompController.cs" />
     <Compile Include="Areas\Api\Controllers\YearStartedController.cs" />
     <Compile Include="Areas\Api\Models\Advertising\Advertising.cs" />
+    <Compile Include="Areas\Api\Models\Advertising\Band.cs" />
     <Compile Include="Areas\Api\Models\Advertising\Range.cs" />
     <Compile Include="Areas\Api\Models\AverageEmployees\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageEmployees\ChartItem.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\WorkersComp\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\YearStarted\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\ZipCode\ZipCode.cs" />
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
@@ -291,6 +293,7 @@
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\businessMap.js" />
+    <Content Include="Scripts\maps\circle.js" />
     <Content Include="Scripts\maps\imagePin.js" />
     <Content Include="Scripts\maps\heatMap.js" />
     <Content Include="Scripts\maps\infoWindow.js" />

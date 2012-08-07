@@ -37,8 +37,9 @@
 #advertising .mapContent { }
 #advertising .mapContent .map{width:100%;height:40em;}
 #advertising .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
-#advertising .mapContent .footer ul li { display: inline-block; width: 33%; }
-
+#advertising .mapContent .footer ul li { display: inline-block; width: 20%; }
+#advertising .mapContent .footer ul li img { width: 1.5em; height: 1.5em; }
+#advertising .mapContent .footer ul li span { font-size:1em; position:relative; top:-0.35em; }
 #advertising .listWrapper { padding: 0 3em; } 
 
 #advertising .description { color: #aaa; padding: 0.5em 3em; display:inline-block; }
@@ -52,6 +53,8 @@
 #advertising ul.results {border-top:#eee solid 1px; margin:0 0 4em 0; }
 #advertising ul.results li {border-bottom:#eee solid 1px; padding:1em 0; }
 #advertising ul.results li .name { font-size: 1.5em; font-weight:bold; }
+#advertising ul.results li .name.noCommunity { color: #606060; }
+#advertising ul.results li .name.noCommunity:hover { color: #606060; }
 #advertising ul.results li .value { font-size: 1.5em; float:right; }
 
 #advertising ul.results li ul.details li { border: none; font-size: 1.1em; padding: 0 0 0 3.5em; color: #aaa; }

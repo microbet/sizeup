@@ -43,20 +43,22 @@ namespace SizeUp.Core.DataAccess
             return entity;
         }
 
-        public static IQueryable<Data.ZipCode> GetWithin(SizeUpContext context, double lat, double lng, int miles)
+        public static IQueryable<Models.EntityDistance<Data.ZipCode>> GetWithDistance(SizeUpContext context, double lat, double lng)
         {
             var scalar = 69.1 * System.Math.Cos(lat / 57.3);
-            IQueryable<ZipCode> entity = context.ZipCodeGeographies
+            IQueryable<Models.EntityDistance<Data.ZipCode>> entity = context.ZipCodeGeographies
                 .Where(i => i.GeographyClass.Name == "Calculation")
-                .Select(i => new
+                .Select(i => new Models.EntityDistance<Data.ZipCode>()
                 {
                     Distance = System.Math.Pow(System.Math.Pow(((double)i.Geography.CenterLat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Geography.CenterLong.Value - lng) * scalar, 2), 0.5),
-                    ZipCode = i.ZipCode
-                })
-                .Where(i => i.Distance <= (double)miles)
-                .Select(i => i.ZipCode);
+                    Entity = i.ZipCode
+                });
             return entity;
         }
+
+       
+
+
 
     }
 }
