@@ -29,7 +29,8 @@
         me._native = new google.maps.Marker({
             position: opts.position.getNative(),
             icon: icon,
-            shadow: shadow
+            shadow: shadow,
+            title: opts.title
         });
 
 

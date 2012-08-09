@@ -62,6 +62,31 @@ namespace SizeUp.Web
             );
 
             routes.MapRoute(
+               "Community", // Route name
+               "community/{state}/{county}/{city}", // URL with parameters
+               new { controller = "Community", action = "Community" } // Parameter defaults
+           );
+
+            routes.MapRoute(
+               "CommunityWithIndustry", // Route name
+               "community/{state}/{county}/{city}/{industry}", // URL with parameters
+               new { controller = "Community", action = "CommunityWithIndustry" } // Parameter defaults
+           );
+
+
+            routes.MapRoute(
+               "Redirect", // Route name
+               "community/{oldSEO}", // URL with parameters
+               new { controller = "Community", action = "Redirect" } // Parameter defaults
+           );
+
+            routes.MapRoute(
+               "RedirectWithIndustry", // Route name
+               "community/{oldSEO}/{industry}", // URL with parameters
+               new { controller = "Community", action = "RedirectWithIndustry" } // Parameter defaults
+           );
+
+            routes.MapRoute(
                 "404", // Route name
                 "error/404", // URL with parameters
                 new { controller = "Error", action = "Error404" } // Parameter defaults

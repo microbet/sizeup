@@ -11,10 +11,13 @@
 
         me.data.name = opts.name;
 
-        dataLayer.getIndustry({id: opts.industryId}, notifier.getNotifier(function (i) { me.data.industry = i; }));
-        dataLayer.getCity({id: opts.cityId}, notifier.getNotifier(function (i) { me.data.city = i; }));
+        if (opts.IndustryId) {
+            dataLayer.getIndustry({ id: opts.industryId }, notifier.getNotifier(function (i) { me.data.industry = i; }));
+        }
+        if (opts.placeId) {
+            dataLayer.getPlace({ id: opts.placeId }, notifier.getNotifier(function (i) { me.data.city = i; }));
+        }
         
-
         var init = function () {
             me.form = {};
             me.errors = {};
@@ -117,6 +120,8 @@
         var publicObj = {
 
         };
+        //fires a fake notifier if we dont have any params
+        notifier.getNotifier()();
         return publicObj;
         
     };

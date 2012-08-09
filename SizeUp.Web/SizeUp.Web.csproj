@@ -210,6 +210,7 @@
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
+    <Compile Include="Controllers\CommunityController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
@@ -223,9 +224,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Business\BusinessItem.cs" />
+    <Compile Include="Models\Business\BusinessResult.cs" />
     <Compile Include="Models\Business\IndustryDetails.cs" />
-    <Compile Include="Models\Business\Locations.cs" />
     <Compile Include="Models\Business\Report.cs" />
     <Compile Include="Models\CurrentInfo.cs" />
     <Compile Include="Models\Header.cs" />
@@ -233,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\base.css" />
+    <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
     <Content Include="Content\images\btn_close.gif" />
     <Content Include="Content\images\compete.png" />
@@ -241,6 +242,12 @@
     <Content Include="Content\images\externalLink.gif" />
     <Content Include="Content\images\gauge.png" />
     <Content Include="Content\images\heatmaplegend.png" />
+    <Content Include="Content\images\heatPinff0000.png" />
+    <Content Include="Content\images\heatPinff6400.png" />
+    <Content Include="Content\images\heatPinff9600.png" />
+    <Content Include="Content\images\heatPinffc800.png" />
+    <Content Include="Content\images\heatPinffff00.png" />
+    <Content Include="Content\images\heatPinShadow.png" />
     <Content Include="Content\images\home-gradient.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\logosmall.gif" />
@@ -255,15 +262,18 @@
     <Content Include="Content\images\pinShadow.png" />
     <Content Include="Content\images\PinTemplate.png" />
     <Content Include="Content\images\SizeUp.png" />
+    <Content Include="Content\images\up-down.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\advertising\index.css" />
     <Content Include="Content\views\business\business.css" />
+    <Content Include="Content\views\community\communityWithIndustry.css" />
     <Content Include="Content\views\company\about.css" />
     <Content Include="Content\views\company\team.css" />
     <Content Include="Content\views\competition\index.css" />
     <Content Include="Content\views\dashboard\index.css" />
+    <Content Include="Content\views\community\community.css" />
     <Content Include="Content\views\help\contact.css" />
     <Content Include="Content\views\help\faq.css" />
     <Content Include="Content\views\help\howitworks.css" />
@@ -294,6 +304,7 @@
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\businessMap.js" />
     <Content Include="Scripts\maps\circle.js" />
+    <Content Include="Scripts\maps\heatPin.js" />
     <Content Include="Scripts\maps\imagePin.js" />
     <Content Include="Scripts\maps\heatMap.js" />
     <Content Include="Scripts\maps\infoWindow.js" />
@@ -311,6 +322,7 @@
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />
     <Content Include="Scripts\views\business\find.js" />
+    <Content Include="Scripts\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\views\competition\competition.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
     <Content Include="Scripts\views\dashboard\costEffectiveness.js" />
@@ -324,6 +336,7 @@
     <Content Include="Scripts\views\dashboard\turnover.js" />
     <Content Include="Scripts\views\dashboard\workersComp.js" />
     <Content Include="Scripts\views\dashboard\yearStarted.js" />
+    <Content Include="Scripts\views\community\community.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
@@ -409,6 +422,8 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
+    <Content Include="Views\Community\Community.cshtml" />
+    <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -468,7 +468,7 @@
                 bindBands(formattedBands);
 
 
-                bindMap(reportData);
+                bindMap(reportData, params.attribute);
 
 
 
@@ -499,7 +499,7 @@
         };
 
        
-        var bindMap = function (data) {
+        var bindMap = function (data, attribute) {
             for (var x in me.content.mapPins) {
                 me.content.map.removeMarker(me.content.mapPins[x]);
             }
@@ -507,12 +507,62 @@
             for (var x in data.zips.Items) {
                 var pin = new sizeup.maps.heatPin({
                     position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Lat, lng: data.zips.Items[x].Long }),
-                    color: 'ffff00'
+                    color: getColor(getValue(data.zips.Items[x], attribute), data.bands),
+                    title: data.zips.Items[x].Name
                 });
                 me.content.mapPins.push(pin);
                 me.content.map.addMarker(pin);
             };
         };
+
+        var getColor = function (value, bandData) {
+            var color = null;
+            for (var x = 0; x < bandData.length; x++) {
+                if (value >= bandData[x].Min && value <= bandData[x].Max) {
+                    color = me.opts.bandColors[x];
+                }
+            }
+            return color;
+        };
+
+        var getValue = function(item, attribute){
+            var val = null;
+            if(attribute == 'totalPopulation'){
+                val = item.TotalPopulation;
+            }
+            else if (attribute == 'totalRevenue') {
+                val = item.TotalRevenue;
+            }
+            else if (attribute == 'averageRevenue') {
+                val = item.AverageRevenue;
+            }
+            else if (attribute == 'totalEmployees') {
+                val = item.TotalEmployees;
+            }
+            else if (attribute == 'revenuePerCapita') {
+                val = item.RevenuePerCapita;
+            }
+            else if (attribute == 'householdIncome') {
+                val = item.HouseholdIncome;
+            }
+            else if (attribute == 'householdExpenditures') {
+                val = item.HouseholdExpenditures;
+            }
+            else if (attribute == 'medianAge') {
+                val = item.MedianAge;
+            }
+            else if (attribute == 'highSchoolOrHigher') {
+                val = item.HighSchoolOrHigher;
+            }
+            else if (attribute == 'whiteCollarWorkers') {
+                val = item.WhiteCollarWorkers;
+            }
+            else if (attribute == 'bachelorsDegreeOrHigher') {
+                val = item.BachelorsDegreeOrHigher;
+            }
+            return val;
+        }
+
 
         var bindCircle = function (radius) {
             if (me.content.mapCircle) {

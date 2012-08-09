@@ -18,7 +18,7 @@
         <ul>
             <li>
                 <label for="business">Business Name:</label>
-                <input type="text" id="business" name="name" value="" class="blank" />
+                <input type="text" id="business" name="name" value="" class="" />
             </li>
             <li>
                 <label for="industry">Industry:</label>
@@ -30,7 +30,7 @@
             </li>
         </ul>
         <input type="hidden" name="page" value="0" />
-        <input type="hidden" id="cityId" name="cityId" value="@Request.QueryString["cityId"]" />
+        <input type="hidden" id="cityId" name="placeId" value="@Request.QueryString["placeId"]" />
         <input type="hidden" id="industryId" name="industryId" value="@Request.QueryString["industryId"]" />
         <input type="submit" id="submit" class="button" value="Filter" />
         <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
@@ -45,12 +45,12 @@
             @foreach(var item in col)
             {
             <li>
-                <a href="/business/@item.State.Name/@item.Industry.Name">@item.Business.Name</a>
+                <a href="/business/@item.StateSEO/@item.CountySEO/@item.IndustrySEO">@item.Name</a>
                 <address>
-                    @if(!string.IsNullOrWhiteSpace(item.Business.Address)){
-                    <span class="address1">@item.Business.Address</span>
+                    @if(!string.IsNullOrWhiteSpace(item.Address)){
+                    <span class="address1">@item.Address</span>
                     }
-                    <span class="address2">@item.Business.City, @item.State.Abbreviation @item.ZipCode.Zip</span>
+                    <span class="address2">@item.City, @item.State @item.Zip</span>
                 </address>
             </li>
             }
@@ -74,7 +74,7 @@
 
     <script type="text/javascript">
     var options = {
-        cityId: '@Request.QueryString["cityId"]',
+        placeId: '@Request.QueryString["placeId"]',
         industryId: '@Request.QueryString["industryId"]',
         name: '@Server.UrlDecode(Request.QueryString["name"])'
     };

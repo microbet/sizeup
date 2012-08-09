@@ -258,6 +258,10 @@
                 return get('/api/Advertising/MinimumDistance', params, callback);
             },
 
+            getDemographics: function (params, callback) {
+                return get('/api/place/centroid/', params, callback);
+            }
+
 
 
         };

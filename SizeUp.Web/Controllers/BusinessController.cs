@@ -20,17 +20,19 @@ namespace SizeUp.Web.Controllers
         {
             int pagesize = 21;
             string industryId = Request["industryId"];
-            string cityId = Request["cityId"];
+            string placeId = Request["placeId"];
             string businessName = Request["name"];
             string page = Request["page"];
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var results = context.Businesses.AsQueryable();
+                var results = context.Businesses.Where(i=>i.IndustryId != null && i.ZipCodeId !=null && i.CountyId != null && (i.BusinessStatusCode != "1" || i.BusinessStatusCode != "3"));
 
+                var mappings = context.BusinessCityMappings
+                    .Join(context.CityCountyMappings, i => new { City = i.CityId, County = i.Business.CountyId.Value }, o => new { City = o.CityId, County = o.CountyId }, (i, o) => new { i.BusinessId, o.Id });
 
-                Data.Industry industry = null;
-                Data.City city = null;
+                
+              
 
                 if (!string.IsNullOrWhiteSpace(industryId))
                 {
@@ -38,11 +40,13 @@ namespace SizeUp.Web.Controllers
                     results = results.Where(i => i.IndustryId == id);
                 }
 
-                if (!string.IsNullOrWhiteSpace(cityId))
+                if (!string.IsNullOrWhiteSpace(placeId))
                 {
-                    int id = int.Parse(cityId);
-                    city = context.Cities.Where(i => i.Id == id).FirstOrDefault();
-                   // results = results.Where(i => city.Geography.Intersects(i.Geography));
+                    int id = int.Parse(placeId);
+                    //results = results.Where(i => i.BusinessCityMappings.Any(b => b.City.CityCountyMappings.Any(bb=>bb.Id == id)));
+                    results = results.Join(mappings, i => i.Id, o => o.BusinessId, (i, o) => new { business = i, mapping = o })
+                                .Where(i => i.mapping.Id == id)
+                                .Select(i => i.business);
                 }
 
                 if (!string.IsNullOrWhiteSpace(businessName))
@@ -56,16 +60,33 @@ namespace SizeUp.Web.Controllers
                     p = int.Parse(page);
                 }
 
-                results = results.Where(i => i.ZipCode != null && i.Industry != null).OrderBy(i => i.Name);
+                results = results.OrderBy(i => i.Name);
                 //gotta fix this the counts are killing us
                 //also when we do a search on just a city we get creamed
+
                 var total = results.Count();
                 ViewBag.LastPage = pagesize * (p + 1) >= total;
                 ViewBag.FirstPage = p == 0;
 
 
                 results = results.Skip(pagesize * p).Take(pagesize);
-                var data = results.Select(i => new Models.Business.BusinessItem() { Business = i, State = i.State, Industry = i.Industry, ZipCode = i.ZipCode }).ToList();
+                var data = results.Select(i => new Models.Business.BusinessResult()
+                { 
+                    Name = i.Name,
+                    Address = i.Address,
+                    City = i.City,
+                    State = i.State.Abbreviation,
+                    Zip = i.ZipCode.Zip,
+                    StateSEO = i.State.SEOKey,
+                    CountySEO = i.County.SEOKey,
+                    IndustrySEO = i.Industry.SEOKey
+                    
+                    
+                    //,
+                    //CitySEO = i.BusinessCityMappings.
+                   
+                }).ToList();
+
                 ViewBag.Businesses = data.InSetsOf(pagesize / 3).ToList();
 
                 var prev = new NameValueCollection(Request.QueryString);
