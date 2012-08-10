@@ -266,6 +266,31 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "AverageEmployees", action = "BandsByState" }
             );
 
+            /****TotalEmployees*****/
+
+            context.MapRoute(
+                "TotalEmployees",
+                "Api/TotalEmployees/",
+                new { controller = "TotalEmployees", action = "TotalEmployees" }
+            );
+
+            context.MapRoute(
+                "TotalEmployeesBandsZip",
+                "Api/TotalEmployees/Bands/Zip",
+                new { controller = "TotalEmployees", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "TotalEmployeesBandsCounty",
+                "Api/TotalEmployees/Bands/County",
+                new { controller = "TotalEmployees", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "TotalEmployeesBandsState",
+                "Api/TotalEmployees/Bands/State",
+                new { controller = "TotalEmployees", action = "BandsByState" }
+            );
 
             /****EmployeesPerCapita*****/
 
@@ -335,6 +360,11 @@ namespace SizeUp.Web.Areas.Api
 
             /****TotalRevenue*****/
 
+            context.MapRoute(
+               "TotalRevenue",
+               "Api/TotalRevenue/",
+               new { controller = "TotalRevenue", action = "TotalRevenue" }
+           );
 
             context.MapRoute(
                 "TotalRevenueBandsZip",
@@ -354,7 +384,26 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "TotalRevenue", action = "BandsByState" }
             );
 
-           
+            /****CostEffectiveness*****/
+
+            context.MapRoute(
+                "CostEffectiveness",
+                "Api/CostEffectiveness/",
+                new { controller = "CostEffectiveness", action = "CostEffectiveness" }
+            );
+
+            context.MapRoute(
+                "CostEffectivenessBandsCounty",
+                "Api/CostEffectiveness/Bands/County",
+                new { controller = "CostEffectiveness", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "CostEffectivenessBandsState",
+                "Api/CostEffectiveness/Bands/State",
+                new { controller = "CostEffectiveness", action = "BandsByState" }
+            );
+
 
             /****turnover*****/
 

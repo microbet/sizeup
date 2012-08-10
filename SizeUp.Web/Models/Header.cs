@@ -18,6 +18,6 @@ namespace SizeUp.Web.Models
     {
         public bool HideMenu { get; set; }
         public bool HideNavigation { get; set; }
-        public NavItems ActiveTab { get; set; }
+        public NavItems? ActiveTab { get; set; }
     }
 }

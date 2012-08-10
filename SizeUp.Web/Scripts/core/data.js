@@ -161,6 +161,10 @@
                 return get('/api/RevenuePerCapita/bands/zip/', params, callback);
             },
 
+            getTotalRevenueChart: function (params, callback) {
+                return get('/api/TotalRevenue/', params, callback);
+            },
+
             getTotalRevenueBandsByState: function (params, callback) {
                 return get('/api/TotalRevenue/bands/state/', params, callback);
             },
@@ -195,6 +199,22 @@
                 return get('/api/AverageEmployees/bands/zip/', params, callback);
             },
 
+            getTotalEmployeesChart: function (params, callback) {
+                return get('/api/TotalEmployees/', params, callback);
+            },
+
+            getTotalEmployeesBandsByState: function (params, callback) {
+                return get('/api/TotalEmployees/bands/state/', params, callback);
+            },
+
+            getTotalEmployeesBandsByCounty: function (params, callback) {
+                return get('/api/TotalEmployees/bands/county/', params, callback);
+            },
+
+            getTotalEmployeesBandsByZip: function (params, callback) {
+                return get('/api/TotalEmployees/bands/zip/', params, callback);
+            },
+
 
             getEmployeesPerCapitaChart: function (params, callback) {
                 return get('/api/EmployeesPerCapita/', params, callback);
@@ -216,7 +236,17 @@
                 return get('/api/EmployeesPerCapita/bands/zip/', params, callback);
             },
 
+            getCostEffectivenessChart: function (params, callback) {
+                return get('/api/CostEffectiveness/', params, callback);
+            },
 
+            getCostEffectivenessBandsByState: function (params, callback) {
+                return get('/api/CostEffectiveness/bands/state/', params, callback);
+            },
+
+            getCostEffectivenessBandsByCounty: function (params, callback) {
+                return get('/api/CostEffectiveness/bands/county/', params, callback);
+            },
 
             getTurnoverChart: function (params, callback) {
                 return get('/api/turnover/', params, callback);

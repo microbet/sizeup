@@ -59,7 +59,7 @@ namespace SizeUp.Core.Web
             }
         }
 
-        public long? CurrentCityId
+        public long? CurrentPlaceId
         {
             get
             {

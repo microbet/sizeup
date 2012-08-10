@@ -13,58 +13,62 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class AverageSalaryController : Controller
+    public class TotalEmployeesController : Controller
     {
         //
-        // GET: /Api/AverageSalary/
+        // GET: /Api/Employee/
 
-        public ActionResult AverageSalary(int industryId, int placeId)
+        public ActionResult TotalEmployees(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.AverageSalary.ChartItem> m = null;
+                IQueryable<Models.TotalEmployees.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
-                    .Select(i => new Models.AverageSalary.ChartItem()
+                    .Select(i => new Models.TotalEmployees.ChartItem()
                     {
-                        Value = (long)i.AverageAnnualSalary,
+                        Value = (long)i.TotalEmployees,
                         Name = "USA"
                     });
 
                 var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Where(i=>i.AverageAnnualSalary!=null && i.AverageAnnualSalary> 0)
-                    .Select(i => new Models.AverageSalary.ChartItem()
+                    .Select(i => new Models.TotalEmployees.ChartItem()
                     {
-                        Value = (long)i.AverageAnnualSalary,
+                        Value = (long)i.TotalEmployees,
                         Name = locations.State.Name
                     });
 
                 if (locations.Metro != null)
                 {
                     m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                        .Select(i => new Models.AverageSalary.ChartItem()
+                        .Select(i => new Models.TotalEmployees.ChartItem()
                         {
-                            Value = (long)i.AverageAnnualSalary,
+                            Value = (long)i.TotalEmployees,
                             Name = locations.Metro.Name
                         });
                 }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                   .Select(i => new Models.AverageSalary.ChartItem()
+                   .Select(i => new Models.TotalEmployees.ChartItem()
                    {
-                       Value = (long)i.AverageAnnualSalary,
+                       Value = (long)i.TotalEmployees,
                        Name = locations.County.Name + ", " + locations.State.Abbreviation
+                   });
+
+                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
+                   .Select(i => new Models.TotalEmployees.ChartItem()
+                   {
+                       Value = (long)i.TotalEmployees,
+                       Name = locations.City.Name + ", " + locations.State.Abbreviation
                    });
 
 
                 var data = new Models.Charts.BarChart()
                 {
+                    City = c.FirstOrDefault(),
                     Nation = n.FirstOrDefault(),
                     State = s.FirstOrDefault(),
-                    Metro = m == null ? null :  m.FirstOrDefault(),
+                    Metro = m == null ? null : m.FirstOrDefault(),
                     County = co.FirstOrDefault()
                 };
 
@@ -73,31 +77,38 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Percentage(int industryId, int placeId, decimal value)
+        public ActionResult BandsByZip(long industryId, int bands, string boundingEntityId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
+                BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
 
-                var salary = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                    .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                    .Select(i => i.AverageAnnualSalary)
-                    .FirstOrDefault();
+                var zips = ZipCodes.GetBounded(context, boundingEntity)
+                    .Select(i => i.Id);
 
-                object obj = null;
-                if (salary != null && salary != 0)
+                var data = IndustryData.GetZipCodes(context, industryId)
+                    .Where(i => i.TotalEmployees > 0)
+                    .Join(zips, i => i.ZipCodeId, i => i, (i, o) => i)
+                    .Select(i => i.TotalEmployees)
+                    .ToList()
+                    .NTile(i => i, bands)
+                    .Select(b => new Models.TotalEmployees.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .ToList();
+
+                Models.TotalEmployees.Band old = null;
+                foreach (var band in data)
                 {
-                    obj = new
+                    if (old != null)
                     {
-                        Percentage = (int)(((value - salary) / salary) * 100)
-                    };
+                        old.Max = band.Min - 1;
+                    }
+                    old = band;
                 }
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-
-        public ActionResult BandsByCounty(int industryId, int bands, string boundingEntityId)
+        public ActionResult BandsByCounty(long industryId, int bands, string boundingEntityId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -107,15 +118,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     .Select(i => i.Id);
 
                 var data = IndustryData.GetCounties(context, industryId)
-                    .Where(i => i.AverageAnnualSalary > 0)
+                    .Where(i => i.TotalEmployees > 0)
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                    .Select(i => i.AverageAnnualSalary)
+                    .Select(i => i.TotalEmployees)
                     .ToList()
                     .NTile(i => i, bands)
-                    .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .Select(b => new Models.TotalEmployees.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
-                Models.AverageSalary.Band old = null;
+                Models.TotalEmployees.Band old = null;
                 foreach (var band in data)
                 {
                     if (old != null)
@@ -128,21 +139,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-
-        public ActionResult BandsByState(int industryId, int bands)
+        public ActionResult BandsByState(long industryId, int bands)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
 
                 var data = IndustryData.GetStates(context, industryId)
-                    .Where(i => i.AverageAnnualSalary > 0)
-                    .Select(i => i.AverageAnnualSalary)
+                    .Where(i => i.TotalEmployees > 0)
+                    .Select(i => i.TotalEmployees)
                     .ToList()
                     .NTile(i => i, bands)
-                    .Select(b => new Models.AverageSalary.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .Select(b => new Models.TotalEmployees.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
 
-                Models.AverageSalary.Band old = null;
+                Models.TotalEmployees.Band old = null;
                 foreach (var band in data)
                 {
                     if (old != null)
@@ -154,6 +164,5 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
     }
 }

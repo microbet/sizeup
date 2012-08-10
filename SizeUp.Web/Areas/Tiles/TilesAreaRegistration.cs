@@ -107,6 +107,26 @@ namespace SizeUp.Web.Areas.Tiles
 
 
             context.MapRoute(
+               "TotalEmployeesTilesZip",
+               "Tiles/TotalEmployees/Zip/",
+               new { controller = "TotalEmployees", action = "Zip", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "TotalEmployeesTilesCounty",
+               "Tiles/TotalEmployees/County/",
+               new { controller = "TotalEmployees", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "TotalEmployeesTilesState",
+               "Tiles/TotalEmployees/State/",
+               new { controller = "TotalEmployees", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+
+
+            context.MapRoute(
                "EmployeesPerCapitaTilesZip",
                "Tiles/EmployeesPerCapita/Zip/",
                new { controller = "EmployeesPerCapita", action = "Zip", boundingEntityId = UrlParameter.Optional }
@@ -122,6 +142,19 @@ namespace SizeUp.Web.Areas.Tiles
                "EmployeesPerCapitaTilesState",
                "Tiles/EmployeesPerCapita/State/",
                new { controller = "EmployeesPerCapita", action = "State", boundingEntityId = UrlParameter.Optional }
+           );
+
+
+            context.MapRoute(
+               "CostEffectivenessTilesCounty",
+               "Tiles/CostEffectiveness/County/",
+               new { controller = "CostEffectiveness", action = "County", boundingEntityId = UrlParameter.Optional }
+           );
+
+            context.MapRoute(
+               "CostEffectivenessTilesState",
+               "Tiles/CostEffectiveness/State/",
+               new { controller = "CostEffectiveness", action = "State", boundingEntityId = UrlParameter.Optional }
            );
 
 

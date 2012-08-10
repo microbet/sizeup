@@ -16,6 +16,64 @@ namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class TotalRevenueController : Controller
     {
+        public ActionResult TotalRevenue(long industryId, long placeId)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
+                IQueryable<Models.TotalRevenue.ChartItem> m = null;
+                var n = IndustryData.GetNational(context, industryId)
+                    .Select(i => new Models.TotalRevenue.ChartItem()
+                    {
+                        Value = (long)i.TotalRevenue,
+                        Name = "USA"
+                    });
+
+                var s = IndustryData.GetState(context, industryId, locations.State.Id)
+                    .Select(i => new Models.TotalRevenue.ChartItem()
+                    {
+                        Value = (long)i.TotalRevenue,
+                        Name = locations.State.Name
+                    });
+
+                if (locations.Metro != null)
+                {
+                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                        .Select(i => new Models.TotalRevenue.ChartItem()
+                        {
+                            Value = (long)i.TotalRevenue,
+                            Name = locations.Metro.Name
+                        });
+                }
+
+                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                   .Select(i => new Models.TotalRevenue.ChartItem()
+                   {
+                       Value = (long)i.TotalRevenue,
+                       Name = locations.County.Name + ", " + locations.State.Abbreviation
+                   });
+
+                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
+                   .Select(i => new Models.TotalRevenue.ChartItem()
+                   {
+                       Value = (long)i.TotalRevenue,
+                       Name = locations.City.Name + ", " + locations.State.Abbreviation
+                   });
+
+
+                var data = new Models.Charts.BarChart()
+                {
+                    City = c.FirstOrDefault(),
+                    Nation = n.FirstOrDefault(),
+                    State = s.FirstOrDefault(),
+                    Metro = m == null ? null : m.FirstOrDefault(),
+                    County = co.FirstOrDefault()
+                };
+
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult BandsByZip(long industryId, int bands, string boundingEntityId)
         {

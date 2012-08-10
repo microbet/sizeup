@@ -43,7 +43,6 @@ namespace SizeUp.Web.Controllers
                 if (!string.IsNullOrWhiteSpace(placeId))
                 {
                     int id = int.Parse(placeId);
-                    //results = results.Where(i => i.BusinessCityMappings.Any(b => b.City.CityCountyMappings.Any(bb=>bb.Id == id)));
                     results = results.Join(mappings, i => i.Id, o => o.BusinessId, (i, o) => new { business = i, mapping = o })
                                 .Where(i => i.mapping.Id == id)
                                 .Select(i => i.business);
@@ -61,9 +60,6 @@ namespace SizeUp.Web.Controllers
                 }
 
                 results = results.OrderBy(i => i.Name);
-                //gotta fix this the counts are killing us
-                //also when we do a search on just a city we get creamed
-
                 var total = results.Count();
                 ViewBag.LastPage = pagesize * (p + 1) >= total;
                 ViewBag.FirstPage = p == 0;

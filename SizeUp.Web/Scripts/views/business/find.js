@@ -101,7 +101,7 @@
 
 
         var onSubmit = function () {
-            return !me.errors.hasErrors;// && validateCity() && validateIndustry();
+            return !me.errors.hasErrors;
         };
 
 

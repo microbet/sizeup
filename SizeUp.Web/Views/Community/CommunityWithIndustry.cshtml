@@ -4,7 +4,7 @@
 
 @section head{
 <title>
-    Ashland, MA – Demographic and Business Profile – population, industries, labor force, business, relocation, real estate, map, taxes, transportation, quality of life
+    @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation – Demographic and Business Profile – population, industries, labor force, business, relocation, real estate, map, taxes, transportation, quality of life
 </title>
 
 <link href="@Url.Content("~/Content/views/community/communityWithIndustry.css")" rel="stylesheet" type="text/css" />
@@ -12,16 +12,19 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/charts/barChart.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatMap.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
+
 
 
 
@@ -33,16 +36,89 @@
 
 
 <div id="community">
-    <div class="map"></div>
-    <div class="loading">
-        <p class="title">Community Industry Analysis Report</p>
-        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
-        <p class="message">Generating Report</p>
+    <h2>Community Information</h2>
+    <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
+    <p>There are @ViewBag.BusinessCount businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
+         A comprehensive demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name is available <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">here.</a></p>
+    <div class="map heatmap hidden">
+        <p class="title backdrop"></p>
+        <div class="legend backdrop">
+            <ul class="legendContainer">
+                <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
+            </ul>
+            <div class="bottom backdrop"></div>
+        </div>
+        <div class="container"></div>
     </div>
+    
 
-    <div class="report wrapper hidden">
-  
-        
+    <div class="report wrapper">
+        <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+        <div id="averageRevenue" class="chartContainer">
+            <h3>Average Estimated Revenue</h3>
+            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+            <div class="chart"></div>
+            <div class="loading">
+                <p class="title">Average Estimated Revenue</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="totalRevenue" class="chartContainer">
+            <h3>Total Estimated Revenue</h3>
+            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+            <div class="chart"></div>
+            <div class="loading">
+                <p class="title">Total Estimated Revenue</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="averageEmployees" class="chartContainer">
+            <h3>Average Estimated Employees</h3>
+            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+            <div class="chart"></div>
+            <div class="loading">
+                <p class="title">Average Estimated Employees</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="totalEmployees" class="chartContainer">
+            <h3>Total Estimated Employees</h3>
+            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+            <div class="chart"></div>
+            <div class="loading">
+                <p class="title">Total Estimated Employees</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="averageSalary" class="chartContainer">
+            <h3>Average Salary</h3>
+            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+            <div class="chart"></div>
+            <div class="loading">
+                <p class="title">Average Salary</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="costEffectiveness" class="chartContainer">
+            <h3>Cost Effectiveness</h3>
+            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+            <div class="chart"></div>
+            <div class="loading">
+                <p class="title">Cost Effectiveness</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
     </div>
 
 </div>

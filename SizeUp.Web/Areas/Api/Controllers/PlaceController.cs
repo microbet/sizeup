@@ -69,7 +69,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = context.CityCountyMappings
-                    .Where(i => i.Id == SizeUp.Core.Web.WebContext.Current.CurrentCityId)
+                    .Where(i => i.Id == SizeUp.Core.Web.WebContext.Current.CurrentPlaceId)
                     .Select(i => new Api.Models.Place.Place()
                     {
                         Id = i.Id,
@@ -112,7 +112,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var c = context.CityCountyMappings.Where(i => i.Id == id).FirstOrDefault();
                 if (c != null)
                 {
-                    WebContext.Current.CurrentCityId = id;
+                    WebContext.Current.CurrentPlaceId = id;
                 }
                 return Json(c != null, JsonRequestBehavior.AllowGet);
             }

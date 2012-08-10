@@ -26,15 +26,16 @@
                 mapSettings: me.opts.mapSettings,
                 styles: me.opts.styles
             });
-            buildOverlays();
+            buildOverlays(me.opts.overlays);
             me.map.addEventListener('zoom_changed', zoomChanged);
             setOverlay();
         };
 
-        var buildOverlays = function () {
-            for (var x in me.opts.overlays) {
+        
+        var buildOverlays = function (overlays) {
+            for (var x in overlays) {
                 var func = function(){
-                    var opts = me.opts.overlays[x];
+                    var opts = overlays[x];
                     return function (point, zoom) {
                         var url = opts.tileUrl;
                         var params = {
@@ -53,12 +54,12 @@
 
                 var overlay =
                 {
-                    legendSource: me.opts.overlays[x].legendSource,
-                    legendTitle: me.opts.overlays[x].legendTitle,
-                    legendFormat: me.opts.overlays[x].legendFormat,
-                    minZoom: me.opts.overlays[x].minZoom,
-                    maxZoom: me.opts.overlays[x].maxZoom,
-                    colors: me.opts.overlays[x].colors,
+                    legendSource: overlays[x].legendSource,
+                    legendTitle: overlays[x].legendTitle,
+                    legendFormat: overlays[x].legendFormat,
+                    minZoom: overlays[x].minZoom,
+                    maxZoom: overlays[x].maxZoom,
+                    colors: overlays[x].colors,
                     imageMap: new google.maps.ImageMapType({
                         getTileUrl:func(),
                         tileSize: new google.maps.Size(256, 256)
@@ -96,16 +97,17 @@
 
             var list = [];
             if (data.data.length > 0) {
-                if (data.data.length < data.overlay.colors.length) {
+                var colors = data.overlay.colors;
+                if (data.data.length < colors.length) {
                     for (var x = 0; x < data.data.length; x++) {
                         var t = me.opts.legendItemTemplate;
-                        list.push(templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) }));
+                        list.push(templates.bind(t, { color: colors[x], label: data.overlay.legendFormat(data.data[x].Min) }));
                     }
                 }
                 else {
                     for (var x = 0; x < data.data.length; x++) {
                         var t = me.opts.legendItemTemplate;
-                        list.push(templates.bind(t, { color: data.overlay.colors[x], label: data.overlay.legendFormat(data.data[x].Min) + ' - ' + data.overlay.legendFormat(data.data[x].Max) }));
+                        list.push(templates.bind(t, { color: colors[x], label: data.overlay.legendFormat(data.data[x].Min) + ' - ' + data.overlay.legendFormat(data.data[x].Max) }));
                     }
                 }
                 me.legend.html(list.reverse().join(''));
@@ -134,6 +136,46 @@
             me.map.setCenter(latLng);
         };
 
+        var hideLegend = function (duration) {
+            if (duration) {
+                me.legend.parent().hide(duration);
+                me.title.hide(duration);
+            }
+            else {
+                me.legend.parent().hide();
+                me.title.hide();
+            }
+        };
+
+        var showLegend = function (duration) {
+            if (duration) {
+                me.legend.parent().show(duration);
+                me.title.show(duration);
+            }
+            else {
+                me.legend.parent().show();
+                me.title.show();
+            }
+        };
+
+        var clearOverlays = function () {
+            me.overlays = [];
+            me.currentOverlayIndex = null;
+            me.map.getNative().overlayMapTypes.clear();
+            hideLegend();
+        };
+
+        var setOverlays = function (overlays) {
+            showLegend();
+            me.currentOverlayIndex = null;
+            buildOverlays(overlays);
+            setOverlay();
+        };
+
+        var triggerEvent = function (event) {
+            me.map.triggerEvent(event);
+        };
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -143,6 +185,21 @@
             },
             setCenter: function (latLng) {
                 setCenter(latLng);
+            },
+            hideLegend: function (duration) {
+                hideLegend(duration);
+            },
+            showLegend: function (duration) {
+                showLegend(duration);
+            },
+            clearOverlays: function () {
+                clearOverlays();
+            },
+            setOverlays: function (overlays) {
+                setOverlays(overlays);
+            },
+            triggerEvent: function (event) {
+                triggerEvent(event);
             }
         };
         init();

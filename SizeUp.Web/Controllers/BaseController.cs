@@ -25,7 +25,7 @@ namespace SizeUp.Web.Controllers
                     var city = (string)requestContext.RouteData.Values["city"];
                     var county = (string)requestContext.RouteData.Values["county"];
                     var state = (string)requestContext.RouteData.Values["state"];
-                    WebContext.Current.CurrentCityId = context.CityCountyMappings
+                    WebContext.Current.CurrentPlaceId = context.CityCountyMappings
                         .Where(i => i.County.SEOKey == county && i.City.State.SEOKey == state && i.City.SEOKey == city)
                         .Select(i => i.Id)
                         .FirstOrDefault();
@@ -39,7 +39,7 @@ namespace SizeUp.Web.Controllers
 
                 CurrentInfo = new Models.CurrentInfo()
                 {
-                    CurrentPlace = context.CityCountyMappings.Where(i => i.Id == WebContext.Current.CurrentCityId).Select(i => new Api.Models.Place.Place()
+                    CurrentPlace = context.CityCountyMappings.Where(i => i.Id == WebContext.Current.CurrentPlaceId).Select(i => new Api.Models.Place.Place()
                     {
                         Id = i.Id,
                         City = new Api.Models.City.City()

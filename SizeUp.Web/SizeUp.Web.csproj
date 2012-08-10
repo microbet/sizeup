@@ -149,6 +149,8 @@
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
+    <Compile Include="Areas\Api\Controllers\CostEffectivenessController.cs" />
+    <Compile Include="Areas\Api\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Api\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
     <Compile Include="Areas\Api\Controllers\AverageEmployeesController.cs" />
@@ -176,6 +178,8 @@
     <Compile Include="Areas\Api\Models\Charts\LineChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\LineChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
+    <Compile Include="Areas\Api\Models\CostEffectiveness\Band.cs" />
+    <Compile Include="Areas\Api\Models\CostEffectiveness\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\EmployeesPerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\EmployeesPerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Place\Place.cs" />
@@ -193,7 +197,10 @@
     <Compile Include="Areas\Api\Models\ReveunePerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
+    <Compile Include="Areas\Api\Models\TotalEmployees\Band.cs" />
+    <Compile Include="Areas\Api\Models\TotalEmployees\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\TotalRevenue\Band.cs" />
+    <Compile Include="Areas\Api\Models\TotalRevenue\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Turnover\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\WorkersComp\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\YearStarted\ChartItem.cs" />
@@ -204,6 +211,8 @@
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\CostEffectivenessController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
