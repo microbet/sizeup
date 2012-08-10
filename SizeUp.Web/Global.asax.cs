@@ -33,6 +33,13 @@ namespace SizeUp.Web
                 new string[] { "SizeUp.Web.Controllers" }
             );
 
+            routes.MapRoute(
+               "FindCommunity", // Route name
+               "find-community/", // URL with parameters
+               new { controller = "Community", action = "Find" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
+           );
+
 
             routes.MapRoute(
                "TopPlaces", // Route name

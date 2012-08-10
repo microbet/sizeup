@@ -6,6 +6,7 @@
 #businessListings form { margin: 1em auto; width: 72em;  }
 #businessListings form ul {  }
 #businessListings form ul li { margin: 0.5em 0; }
+#businessListings form ul li.ui-menu-item { margin: 0; }
 #businessListings form ul li label{ width: 8em; text-align: right; margin-right: 1em;}
 #businessListings form ul li input[type="text"] { width: 20em; text-align: center;  }
 #businessListings form  input[type="submit"] {  position:relative;left: 30.5em; margin:  0 0 1em 0;}

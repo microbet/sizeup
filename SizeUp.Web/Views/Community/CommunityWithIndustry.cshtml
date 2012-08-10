@@ -39,7 +39,7 @@
     <h2>Community Information</h2>
     <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
     <p>There are @ViewBag.BusinessCount businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
-         A comprehensive demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name is available <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">here.</a></p>
+         A comprehensive <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name </a> is available.</p>
     <div class="map heatmap hidden">
         <p class="title backdrop"></p>
         <div class="legend backdrop">
@@ -50,8 +50,6 @@
         </div>
         <div class="container"></div>
     </div>
-    
-
     <div class="report wrapper">
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
         <div id="averageRevenue" class="chartContainer">

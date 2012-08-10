@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>
+    
+</title>
+
+
+
+
+<link href="@Url.Content("~/Content/views/community/find.css")" rel="stylesheet" type="text/css" />
+
+
+}
+
+
+<div id="community">
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+@section scripts{
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
+        //var driver = new sizeup.views.community.community(opts);
+    });
+</script>
+}

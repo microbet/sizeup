@@ -433,6 +433,7 @@
     <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
     <Content Include="Views\Community\Community.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
+    <Content Include="Views\Community\Find.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

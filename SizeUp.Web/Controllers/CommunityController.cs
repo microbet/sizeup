@@ -35,6 +35,12 @@ namespace SizeUp.Web.Controllers
             return View();
         }
 
+        public ActionResult Find()
+        {
+
+            return View();
+        }
+
 
         public ActionResult RedirectWithIndustry(string oldSEO, string industry)
         {
