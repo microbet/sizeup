@@ -13,13 +13,56 @@
 <link href="@Url.Content("~/Content/views/community/find.css")" rel="stylesheet" type="text/css" />
 
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/chosen.jquery.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/find.js")"></script>
 }
 
 
 <div id="community">
+    <h1>Community Listings</h1>
+    <form action="/find-community" method="get" id="form" class="hidden" >
+        <ul>
+            <li>
+                <label for="business">State:</label>
+                <select id="state">
+                    <option value="">Filter By State</option>
+                    @foreach (var state in ViewBag.States)
+                    {
+                        <option value="@state.Id">@state.Name</option>
+                    }
+                </select>
+            </li>
+        </ul>
+        <input type="hidden" name="page" value="0" />
+        <input type="hidden" id="stateId" name="stateId" value="@Request.QueryString["stateId"]" />
+        <input type="submit" id="submit" class="button" value="Filter" />
+    </form>
 
+    @foreach(var col in ViewBag.Communities)
+    {
+    <div class="col">
+        <ul>
+            @foreach(var item in col)
+            {
+            <li>
+                <a href="/community/@item.StateSEO/@item.CountySEO/@item.CitySEO/@item.IndustrySEO">@item.City, @item.State (@item.County County)</a>
+                <span>@item.Industry</span>
+            </li>
+            }
+        </ul>
+    </div>
+    }
 
-
+    <div id="buttonContainer">
+        @if(!ViewBag.FirstPage){
+        <a href="/find-community?@ViewBag.Prev.ToString()" id="prev" class="button small">Last Page</a>
+        }
+        @if(!ViewBag.LastPage){
+        <a href="/find-community?@ViewBag.Next.ToString()" id="next" class="button small">Next Page</a>
+        }
+    </div>
 
 </div>
 
@@ -34,8 +77,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
-        //var driver = new sizeup.views.community.community(opts);
+        var driver = new sizeup.views.community.find();
     });
 </script>
 }

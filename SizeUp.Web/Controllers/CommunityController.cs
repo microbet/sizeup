@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections.Specialized;
 using SizeUp.Web.Models;
 using SizeUp.Core.DataAccess;
 using SizeUp.Data;
@@ -38,7 +39,74 @@ namespace SizeUp.Web.Controllers
         public ActionResult Find()
         {
 
-            return View();
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                int pagesize = 21;
+                string stateId = Request["stateId"];
+                string page = Request["page"];
+                ViewBag.States = context.States.Select(i => new Option<long>{ Id = i.Id, Name = i.Name }).ToList();
+
+                var results = IndustryData.GetCities(context)
+                    .Join(context.CityCountyMappings, i => i.CityId, o => o.CityId, (i, o) => new { Place = o, i.Industry })
+                    .Where(i => i.Industry != null);
+
+                  //  context.CityCountyMappings.Select(i=> new {Place = i});
+                  //  .Join(context.IndustryDataByCities, i => i.CityId, o => o.CityId, (i, o) => new { o.Industry, Place = i });
+
+               
+
+                int p = 0;
+                if (!string.IsNullOrWhiteSpace(page))
+                {
+                    p = int.Parse(page);
+                }
+
+                if (!string.IsNullOrWhiteSpace(stateId))
+                {
+                    var id = long.Parse(stateId);
+                    results = results.Where(i => i.Place.County.StateId == id);
+                }
+
+                int total = results.Count();
+
+                ViewBag.LastPage = pagesize * (p + 1) >= total;
+                ViewBag.FirstPage = p == 0;
+
+
+                ViewBag.Communities = results
+                    .OrderBy(i=>i.Place.Id)
+                    .ThenBy(i=>i.Industry.Id)
+                    /*.OrderBy(i => i.Place.County.State.Name)
+                    .ThenBy(i => i.Place.City.Name)
+                    .ThenBy(i => i.Place.County.Name)
+                    .ThenBy(i => i.Industry.Name)*/
+                    .Skip(pagesize * p)
+                    .Take(pagesize)
+                    .Select(i => new Models.Community.Community()
+                    {
+                        City = i.Place.City.Name,
+                        County = i.Place.County.Name,
+                        State = i.Place.County.State.Abbreviation,
+                        Industry = i.Industry.Name,
+                        CitySEO = i.Place.City.SEOKey,
+                        CountySEO = i.Place.County.SEOKey,
+                        StateSEO = i.Place.County.State.SEOKey,
+                        IndustrySEO = i.Industry.SEOKey
+                    })
+                    .ToList()
+                    .InSetsOf(pagesize / 3).ToList();
+
+                var prev = new NameValueCollection(Request.QueryString);
+                var next = new NameValueCollection(Request.QueryString);
+
+                prev["page"] = (p - 1).ToString();
+                next["page"] = (p + 1).ToString(); ;
+
+                ViewBag.Prev = string.Join("&", Array.ConvertAll(prev.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(prev[key]))));
+                ViewBag.Next = string.Join("&", Array.ConvertAll(next.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(next[key])))); ;
+
+                return View();
+            }
         }
 
 

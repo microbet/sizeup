@@ -38,6 +38,19 @@
 <div id="business">
     <h2>Business Information</h2>
     <h1>@ViewBag.Business.Name</h1>
+    <address>
+        @ViewBag.Business.Address <br />
+        @ViewBag.Business.City, @ViewBag.Business.State @ViewBag.Business.Zip
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Business.Phone))
+        {
+            <br />@System.Text.RegularExpressions.Regex.Replace(ViewBag.Business.Phone, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3");
+        }
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Business.WebSite))
+        {
+            <br /><a href="@ViewBag.Business.WebSite" target="_blank" >@ViewBag.Business.WebSite</a>
+        }
+
+    </address>
     <p>
         @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation is a @(ViewBag.Business.IsPublic ? "public" : "private") company categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
     </p>
@@ -134,7 +147,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
-        var driver = new sizeup.views.community.communityWithIndustry(opts);
+        var driver = new sizeup.views.business.business(opts);
     });
 </script>
 }

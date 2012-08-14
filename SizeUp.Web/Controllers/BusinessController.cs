@@ -26,34 +26,33 @@ namespace SizeUp.Web.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var mappings = context.BusinessCityMappings
-                  .Join(context.CityCountyMappings, i => new { City = i.CityId, County = i.Business.CountyId.Value }, o => new { City = o.CityId, County = o.CountyId }, (i, o) => new { i.Business, Place = o });
-
-
-                var results = mappings
-                    .Join(context.Businesses, i => i.Business.Id, o => o.Id, (i, o) => new { Business = o, Place = i.Place })
+                var count = context.BusinessCityMappings
                     .Where(i => i.Business.IsActive);
-      
-           
-              
-                
-              
+
+                var results = context.BusinessCityMappings
+                  .Join(context.CityCountyMappings, i => new { City = i.CityId, County = i.Business.CountyId.Value }, o => new { City = o.CityId, County = o.CountyId }, (i, o) => new { i.Business, Place = o })
+                  .Where(i => i.Business.IsActive);
 
                 if (!string.IsNullOrWhiteSpace(industryId))
                 {
                     int id = int.Parse(industryId);
                     results = results.Where(i => i.Business.IndustryId == id);
+                    count = count.Where(i => i.Business.IndustryId == id);
+                }
+
+                if (!string.IsNullOrWhiteSpace(businessName))
+                {
+                    results = results.Where(i => i.Business.Name.StartsWith(businessName));
+                    count = count.Where(i => i.Business.Name.StartsWith(businessName));
                 }
 
                 if (!string.IsNullOrWhiteSpace(placeId))
                 {
                     int id = int.Parse(placeId);
                     results = results.Where(i => i.Place.Id == id);
-                }
 
-                if (!string.IsNullOrWhiteSpace(businessName))
-                {
-                    results = results.Where(i => i.Business.Name.StartsWith(businessName));
+                    count = count
+                        .Join(context.CityCountyMappings, i => new { City = i.CityId, County = i.Business.CountyId.Value }, o => new { City = o.CityId, County = o.CountyId }, (i, o) => i);
                 }
 
                 int p = 0;
@@ -63,7 +62,10 @@ namespace SizeUp.Web.Controllers
                 }
 
                 results = results.OrderBy(i => i.Business.Name);
-                var total = results.Count();
+
+                int total = count.Count();
+
+
                 ViewBag.LastPage = pagesize * (p + 1) >= total;
                 ViewBag.FirstPage = p == 0;
 
@@ -112,8 +114,9 @@ namespace SizeUp.Web.Controllers
                         City = i.City,
                         State = i.State.Abbreviation,
                         Phone = i.Phone,
+                        WebSite = i.PrimaryWebURL,
                         Zip = i.ZipCode.Zip,
-                        IsPublic = i.PublicCompanyIndicator == "1",
+                        IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
                         Lat = i.Lat.Value,
                         Long = i.Long.Value
                     }).FirstOrDefault();

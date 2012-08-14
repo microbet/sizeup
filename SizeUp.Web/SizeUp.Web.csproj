@@ -236,8 +236,10 @@
     <Compile Include="Models\Business\BusinessResult.cs" />
     <Compile Include="Models\Business\IndustryDetails.cs" />
     <Compile Include="Models\Business\Report.cs" />
+    <Compile Include="Models\Community\Community.cs" />
     <Compile Include="Models\CurrentInfo.cs" />
     <Compile Include="Models\Header.cs" />
+    <Compile Include="Models\Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -332,8 +334,10 @@
     <Content Include="Scripts\thirdParty\raphael-min.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />
+    <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
+    <Content Include="Scripts\views\community\find.js" />
     <Content Include="Scripts\views\competition\competition.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
     <Content Include="Scripts\views\dashboard\costEffectiveness.js" />

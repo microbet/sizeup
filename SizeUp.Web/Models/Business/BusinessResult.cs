@@ -14,6 +14,7 @@ namespace SizeUp.Web.Models.Business
         public string State { get; set; }
         public string Zip { get; set; }
         public string Phone { get; set; }
+        public string WebSite { get; set; }
         public bool IsPublic { get; set; }
         public string StateSEO { get; set; }
         public string CountySEO { get; set; }
