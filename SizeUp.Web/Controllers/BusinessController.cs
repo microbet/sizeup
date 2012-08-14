@@ -26,31 +26,34 @@ namespace SizeUp.Web.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var results = context.Businesses.Where(i=>i.IndustryId != null && i.ZipCodeId !=null && i.CountyId != null && (i.BusinessStatusCode != "1" || i.BusinessStatusCode != "3"));
-
                 var mappings = context.BusinessCityMappings
-                    .Join(context.CityCountyMappings, i => new { City = i.CityId, County = i.Business.CountyId.Value }, o => new { City = o.CityId, County = o.CountyId }, (i, o) => new { i.BusinessId, o.Id });
+                  .Join(context.CityCountyMappings, i => new { City = i.CityId, County = i.Business.CountyId.Value }, o => new { City = o.CityId, County = o.CountyId }, (i, o) => new { i.Business, Place = o });
 
+
+                var results = mappings
+                    .Join(context.Businesses, i => i.Business.Id, o => o.Id, (i, o) => new { Business = o, Place = i.Place })
+                    .Where(i => i.Business.IsActive);
+      
+           
+              
                 
               
 
                 if (!string.IsNullOrWhiteSpace(industryId))
                 {
                     int id = int.Parse(industryId);
-                    results = results.Where(i => i.IndustryId == id);
+                    results = results.Where(i => i.Business.IndustryId == id);
                 }
 
                 if (!string.IsNullOrWhiteSpace(placeId))
                 {
                     int id = int.Parse(placeId);
-                    results = results.Join(mappings, i => i.Id, o => o.BusinessId, (i, o) => new { business = i, mapping = o })
-                                .Where(i => i.mapping.Id == id)
-                                .Select(i => i.business);
+                    results = results.Where(i => i.Place.Id == id);
                 }
 
                 if (!string.IsNullOrWhiteSpace(businessName))
                 {
-                    results = results.Where(i => i.Name.StartsWith(businessName));
+                    results = results.Where(i => i.Business.Name.StartsWith(businessName));
                 }
 
                 int p = 0;
@@ -59,7 +62,7 @@ namespace SizeUp.Web.Controllers
                     p = int.Parse(page);
                 }
 
-                results = results.OrderBy(i => i.Name);
+                results = results.OrderBy(i => i.Business.Name);
                 var total = results.Count();
                 ViewBag.LastPage = pagesize * (p + 1) >= total;
                 ViewBag.FirstPage = p == 0;
@@ -67,19 +70,18 @@ namespace SizeUp.Web.Controllers
 
                 results = results.Skip(pagesize * p).Take(pagesize);
                 var data = results.Select(i => new Models.Business.BusinessResult()
-                { 
-                    Name = i.Name,
-                    Address = i.Address,
-                    City = i.City,
-                    State = i.State.Abbreviation,
-                    Zip = i.ZipCode.Zip,
-                    StateSEO = i.State.SEOKey,
-                    CountySEO = i.County.SEOKey,
-                    IndustrySEO = i.Industry.SEOKey
-                    
-                    
-                    //,
-                    //CitySEO = i.BusinessCityMappings.
+                {
+                    Id = i.Business.Id,
+                    Name = i.Business.Name,
+                    Address = i.Business.Address,
+                    City = i.Business.City,
+                    State = i.Business.State.Abbreviation,
+                    Zip = i.Business.ZipCode.Zip,
+                    StateSEO = i.Business.State.SEOKey,
+                    CountySEO = i.Business.County.SEOKey,
+                    CitySEO = i.Place.City.SEOKey,
+                    IndustrySEO = i.Business.Industry.SEOKey,
+                    SEOKey = i.Business.SEOKey
                    
                 }).ToList();
 
@@ -97,5 +99,35 @@ namespace SizeUp.Web.Controllers
             }
         }
 
+
+        public ActionResult Business(string state, string county, string city, string industry, string name, long id)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var business = context.Businesses.Where(i => i.Id == id && i.SEOKey == name && i.State.SEOKey == state && i.County.SEOKey == county && i.Industry.SEOKey == industry)
+                    .Select(i=> new Models.Business.BusinessResult()
+                    {
+                        Name = i.Name,
+                        Address = i.Address,
+                        City = i.City,
+                        State = i.State.Abbreviation,
+                        Phone = i.Phone,
+                        Zip = i.ZipCode.Zip,
+                        IsPublic = i.PublicCompanyIndicator == "1",
+                        Lat = i.Lat.Value,
+                        Long = i.Long.Value
+                    }).FirstOrDefault();
+
+                if (business != null)
+                {
+                    ViewBag.Business = business;
+                }
+                else
+                {
+                    throw new HttpException(404, "Page Not Found"); 
+                }
+                return View();
+            }
+        }
     }
 }

@@ -1,32 +1,12 @@
-﻿#businessListings h1 { margin: 0 0 1em 0; }
-#businessListings h2 { margin: 0 0 0 1em; }
-#businessListings input.button[type="submit"] { font-size: 1.5em; }
-#businessListings address span { display: block; }
+﻿#business { }
+#business h1 { }
+#business h2 { font-weight: normal; color: #909090; }
+#business h3 { font-weight: normal; color: #909090; font-size:1.35em; display:inline-block; margin:0 0 0 1em;}
 
-#businessListings form { margin: 1em auto; width: 72em;  }
-#businessListings form ul {  }
-#businessListings form ul li { margin: 0.5em 0; }
-#businessListings form ul li.ui-menu-item { margin: 0; }
-#businessListings form ul li label{ width: 8em; text-align: right; margin-right: 1em;}
-#businessListings form ul li input[type="text"] { width: 20em; text-align: center;  }
-#businessListings form  input[type="submit"] {  position:relative;left: 30.5em; margin:  0 0 1em 0;}
+#business .map { width: 100%; height:30em; margin: 2em 0; display:inline-block; }
+#business .map .container { width: 100%; height: 100%; }
 
+#business .chartContainer { width: 42em; height: 23em; display:inline-block; overflow:hidden; margin:1em; position:relative;}
 
-
-#businessListings .col { display: inline-block; width: 30em; vertical-align: top; text-align: center; }
-#businessListings .col ul li{ margin: 0.5em 0; }
-
-#businessListings #buttonContainer { margin:  2em 0 0 0; position: relative; height: 2em; }
-
-#businessListings #next { position:absolute; right: 0; }
-
-
-
-
-
-
-
-
-
-
+#business .chartContainer p.buttons { display: inline-block; font-size:1.1em; margin: 0 0 0 1em; position: absolute; right:4.5em;}
 

@@ -11,7 +11,7 @@
 
         me.data.name = opts.name;
 
-        if (opts.IndustryId) {
+        if (opts.industryId) {
             dataLayer.getIndustry({ id: opts.industryId }, notifier.getNotifier(function (i) { me.data.industry = i; }));
         }
         if (opts.placeId) {

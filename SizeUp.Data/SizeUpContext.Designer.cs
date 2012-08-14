@@ -1280,10 +1280,12 @@ namespace SizeUp.Data
         /// Create a new Business object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Business CreateBusiness(global::System.Int64 id)
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static Business CreateBusiness(global::System.Int64 id, global::System.Boolean isActive)
         {
             Business business = new Business();
             business.Id = id;
+            business.IsActive = isActive;
             return business;
         }
 
@@ -1821,6 +1823,54 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _StateId;
         partial void OnStateIdChanging(Nullable<global::System.Int64> value);
         partial void OnStateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, true, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value, "IsActive");
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
 
         #endregion
 

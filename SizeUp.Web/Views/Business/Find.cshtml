@@ -4,7 +4,7 @@
 
 @section head{
 <title>Business Listings</title>
-<link href="@Url.Content("~/Content/views/business/business.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/business/find.css")" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/business/find.js")"></script>
@@ -45,7 +45,7 @@
             @foreach(var item in col)
             {
             <li>
-                <a href="/business/@item.StateSEO/@item.CountySEO/@item.IndustrySEO">@item.Name</a>
+                <a href="/business/@item.StateSEO/@item.CountySEO/@item.CitySEO/@item.IndustrySEO/@item.Id/@item.SEOKey">@item.Name</a>
                 <address>
                     @if(!string.IsNullOrWhiteSpace(item.Address)){
                     <span class="address1">@item.Address</span>

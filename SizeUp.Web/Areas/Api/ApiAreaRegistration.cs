@@ -132,7 +132,7 @@ namespace SizeUp.Web.Areas.Api
 
             /***********business**********/
             context.MapRoute(
-                "Business",
+                "Api.Business",
                 "Api/Business/",
                 new { controller = "Business", action = "Business" },
                 new string[] { "SizeUp.Web.Areas.Api.Controllers" }
