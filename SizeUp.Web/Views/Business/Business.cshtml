@@ -23,6 +23,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatMap.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/imagePin.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
 
 
@@ -146,7 +147,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
+        var opts =  {
+            location: @Html.Raw(ViewBag.CurrentInfoJSON) ,
+            businessLocation: { 
+                lat: @ViewBag.Business.Lat,
+                lng: @ViewBag.Business.Long
+            }
+        };
         var driver = new sizeup.views.business.business(opts);
     });
 </script>

@@ -15,32 +15,40 @@
         me.container = $('#business');
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
-        var notifier = new sizeup.core.notifier(function () { init(); });
+        //var notifier = new sizeup.core.notifier(function () { init(); });
 
 
         me.content = {};
 
 
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        //dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
 
         var init = function () {
 
+            var businessPoint = new sizeup.maps.latLng(me.opts.businessLocation);
 
             me.content.map = new sizeup.maps.heatMap({
                 legendItemTemplate: templates.get('legendItem'),
                 container: me.container.find('.map').removeClass('hidden').show()
             });
-            me.content.map.setCenter(me.data.CityCenter);
+            me.content.map.setCenter(businessPoint);
             me.content.map.hideLegend();
 
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initAverageRevenueChart);
-            dataLayer.getTotalRevenueChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initTotalRevenueChart);
+            me.content.businessPin = new sizeup.maps.imagePin({
+                color: 'ff5522',
+                position: businessPoint
+            });
 
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initAverageEmployeesChart);
-            dataLayer.getTotalEmployeesChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initTotalEmployeesChart);
+            me.content.map.addMarker(me.content.businessPin);
 
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initAverageSalaryChart);
-            dataLayer.getCostEffectivenessChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initCostEffectivenessChart);
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id }, initAverageRevenueChart);
+            dataLayer.getTotalRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id }, initTotalRevenueChart);
+
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id }, initAverageEmployeesChart);
+            dataLayer.getTotalEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id }, initTotalEmployeesChart);
+
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id }, initAverageSalaryChart);
+            dataLayer.getCostEffectivenessChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id }, initCostEffectivenessChart);
 
             
         };
@@ -59,13 +67,13 @@
                      tileUrl: "/tiles/AverageRevenue/state/",
                      legendSource: function (callback) {
                          dataLayer.getAverageRevenueBandsByState({
-                             industryId: me.opts.CurrentIndustry.Id,
+                             industryId: me.opts.location.CurrentIndustry.Id,
                              bands: 7
                          }, callback);
                      },
                      legendTitle: 'Average Business Annual Revenue by state in the USA',
                      legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                     industryId: me.opts.CurrentIndustry.Id,
+                     industryId: me.opts.location.CurrentIndustry.Id,
                      minZoom: 0,
                      maxZoom: 4,
                      colors: [
@@ -82,17 +90,17 @@
                      tileUrl: "/tiles/AverageRevenue/county/",
                      legendSource: function (callback) {
                          dataLayer.getAverageRevenueBandsByCounty({
-                             industryId: me.opts.CurrentIndustry.Id,
+                             industryId: me.opts.location.CurrentIndustry.Id,
                              bands: 7,
-                             boundingEntityId: 's' + me.opts.CurrentPlace.State.Id
+                             boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id
                          }, callback);
                      },
-                     legendTitle: 'Average Business Annual Revenue by county in ' + me.opts.CurrentPlace.State.Name,
+                     legendTitle: 'Average Business Annual Revenue by county in ' + me.opts.location.CurrentPlace.State.Name,
                      legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                     industryId: me.opts.CurrentIndustry.Id,
+                     industryId: me.opts.location.CurrentIndustry.Id,
                      minZoom: 5,
                      maxZoom: 8,
-                     boundingEntityId: 's' + me.opts.CurrentPlace.State.Id,
+                     boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                      colors: [
                          '#F5F500',
                          '#F5CC00',
@@ -107,17 +115,17 @@
                     tileUrl: "/tiles/AverageRevenue/county/",
                     legendSource: function (callback) {
                         dataLayer.getAverageRevenueBandsByCounty({
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             bands: 7,
-                            boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                         }, callback);
                     },
-                    legendTitle: 'Average Business Annual Revenue by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
+                    legendTitle: 'Average Business Annual Revenue by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                     legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    industryId: me.opts.CurrentIndustry.Id,
+                    industryId: me.opts.location.CurrentIndustry.Id,
                     minZoom: 9,
                     maxZoom: 11,
-                    boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id,
+                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                     colors: [
                         '#F5F500',
                         '#F5CC00',
@@ -132,17 +140,17 @@
                     tileUrl: "/tiles/AverageRevenue/zip/",
                     legendSource: function (callback) {
                         dataLayer.getAverageRevenueBandsByZip({
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             bands: 7,
-                            boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id
+                            boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id
                         }, callback);
                     },
-                    legendTitle: 'Average Business Annual Revenue by ZIP code in ' + me.opts.CurrentPlace.County.Name + ', ' + me.opts.CurrentPlace.State.Abbreviation,
+                    legendTitle: 'Average Business Annual Revenue by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation,
                     legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    industryId: me.opts.CurrentIndustry.Id,
+                    industryId: me.opts.location.CurrentIndustry.Id,
                     minZoom: 12,
                     maxZoom: 32,
-                    boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id,
+                    boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                     colors: [
                         '#F5F500',
                         '#F5CC00',
@@ -169,7 +177,7 @@
                       },
                       legendTitle: 'Total Revenue by state in the USA',
                       legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                      industryId: me.opts.CurrentIndustry.Id,
+                      industryId: me.opts.location.CurrentIndustry.Id,
                       minZoom: 0,
                       maxZoom: 4,
                       colors: [
@@ -186,17 +194,17 @@
                             tileUrl: "/tiles/totalRevenue/county/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalRevenueBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Revenue by county in ' + me.opts.CurrentPlace.State.Name,
+                            legendTitle: 'Total Revenue by county in ' + me.opts.location.CurrentPlace.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -211,17 +219,17 @@
                             tileUrl: "/tiles/totalRevenue/county/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalRevenueBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Revenue by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
+                            legendTitle: 'Total Revenue by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
-                            boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -236,17 +244,17 @@
                             tileUrl: "/tiles/totalRevenue/zip/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalRevenueBandsByZip({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id
+                                    boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Revenue by ZIP code in ' + me.opts.CurrentPlace.County.Name + ', ' + me.opts.CurrentPlace.State.Abbreviation,
+                            legendTitle: 'Total Revenue by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 12,
                             maxZoom: 32,
-                            boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id,
+                            boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -273,7 +281,7 @@
                       },
                       legendTitle: 'Average Employees per business by state in the USA',
                       legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                      industryId: me.opts.CurrentIndustry.Id,
+                      industryId: me.opts.location.CurrentIndustry.Id,
                       minZoom: 0,
                       maxZoom: 4,
                       colors: [
@@ -290,17 +298,17 @@
                             tileUrl: "/tiles/AverageEmployees/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageEmployeesBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Employees per business by county in ' + me.opts.CurrentPlace.State.Name,
+                            legendTitle: 'Average Employees per business by county in ' + me.opts.location.CurrentPlace.State.Name,
                             legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -315,17 +323,17 @@
                             tileUrl: "/tiles/AverageEmployees/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageEmployeesBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Employees per business by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
+                            legendTitle: 'Average Employees per business by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
-                            boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -340,17 +348,17 @@
                             tileUrl: "/tiles/AverageEmployees/zip/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageEmployeesBandsByZip({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id
+                                    boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Employees per business by ZIP code in ' + me.opts.CurrentPlace.County.Name + ', ' + me.opts.CurrentPlace.State.Abbreviation,
+                            legendTitle: 'Average Employees per business by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation,
                             legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 12,
                             maxZoom: 32,
-                            boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id,
+                            boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -377,7 +385,7 @@
                       },
                       legendTitle: 'Total Employees by state in the USA',
                       legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                      industryId: me.opts.CurrentIndustry.Id,
+                      industryId: me.opts.location.CurrentIndustry.Id,
                       minZoom: 0,
                       maxZoom: 4,
                       colors: [
@@ -394,17 +402,17 @@
                             tileUrl: "/tiles/TotalEmployees/county/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalEmployeesBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Employees by county in ' + me.opts.CurrentPlace.State.Name,
+                            legendTitle: 'Total Employees by county in ' + me.opts.location.CurrentPlace.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -419,17 +427,17 @@
                             tileUrl: "/tiles/TotalEmployees/county/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalEmployeesBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Employees by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
+                            legendTitle: 'Total Employees by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
-                            boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -444,17 +452,17 @@
                             tileUrl: "/tiles/TotalEmployees/zip/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalEmployeesBandsByZip({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id
+                                    boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Employees by ZIP code in ' + me.opts.CurrentPlace.County.Name + ', ' + me.opts.CurrentPlace.State.Abbreviation,
+                            legendTitle: 'Total Employees by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 12,
                             maxZoom: 32,
-                            boundingEntityId: 'co' + me.opts.CurrentPlace.County.Id,
+                            boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -481,7 +489,7 @@
                       },
                       legendTitle: 'Average Salary by state in the USA',
                       legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                      industryId: me.opts.CurrentIndustry.Id,
+                      industryId: me.opts.location.CurrentIndustry.Id,
                       minZoom: 0,
                       maxZoom: 4,
                       colors: [
@@ -498,17 +506,17 @@
                             tileUrl: "/tiles/averageSalary/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageSalaryBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + me.opts.CurrentPlace.State.Name,
+                            legendTitle: 'Average Salary by county in ' + me.opts.location.CurrentPlace.State.Name,
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 5,
                             maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -523,17 +531,17 @@
                             tileUrl: "/tiles/averageSalary/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageSalaryBandsByCounty({
-                                    industryId: me.opts.CurrentIndustry.Id,
+                                    industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
+                            legendTitle: 'Average Salary by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 32,
-                            boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -562,7 +570,7 @@
                      },
                      legendTitle: 'Cost Effectiveness by state in the USA',
                      legendFormat: function (val) { return sizeup.util.numbers.format.round(val, 2); },
-                     industryId: me.opts.CurrentIndustry.Id,
+                     industryId: me.opts.location.CurrentIndustry.Id,
                      minZoom: 0,
                      maxZoom: 4,
                      colors: [
@@ -579,17 +587,17 @@
                     tileUrl: "/tiles/CostEffectiveness/county/",
                     legendSource: function (callback) {
                         dataLayer.getCostEffectivenessBandsByCounty({
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             bands: 7,
-                            boundingEntityId: 's' + me.opts.CurrentPlace.State.Id
+                            boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id
                         }, callback);
                     },
-                    legendTitle: 'Cost Effectiveness by county in ' + me.opts.CurrentPlace.State.Name,
+                    legendTitle: 'Cost Effectiveness by county in ' + me.opts.location.CurrentPlace.State.Name,
                     legendFormat: function (val) { return sizeup.util.numbers.format.round(val, 2); },
-                    industryId: me.opts.CurrentIndustry.Id,
+                    industryId: me.opts.location.CurrentIndustry.Id,
                     minZoom: 5,
                     maxZoom: 8,
-                    boundingEntityId: 's' + me.opts.CurrentPlace.State.Id,
+                    boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                     colors: [
                         '#F5F500',
                         '#F5CC00',
@@ -604,17 +612,17 @@
                     tileUrl: "/tiles/CostEffectiveness/county/",
                     legendSource: function (callback) {
                         dataLayer.getCostEffectivenessBandsByCounty({
-                            industryId: me.opts.CurrentIndustry.Id,
+                            industryId: me.opts.location.CurrentIndustry.Id,
                             bands: 7,
-                            boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                         }, callback);
                     },
-                    legendTitle: 'Cost Effectiveness by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
+                    legendTitle: 'Cost Effectiveness by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                     legendFormat: function (val) { return sizeup.util.numbers.format.round(val, 2); },
-                    industryId: me.opts.CurrentIndustry.Id,
+                    industryId: me.opts.location.CurrentIndustry.Id,
                     minZoom: 9,
                     maxZoom: 32,
-                    boundingEntityId: me.opts.CurrentPlace.Metro ? 'm' + me.opts.CurrentPlace.Metro.Id : 's' + me.opts.CurrentPlace.State.Id,
+                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                     colors: [
                         '#F5F500',
                         '#F5CC00',
@@ -818,6 +826,7 @@
         var publicObj = {
 
         };
+        init();
         return publicObj;
 
     };

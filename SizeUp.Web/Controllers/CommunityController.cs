@@ -43,17 +43,13 @@ namespace SizeUp.Web.Controllers
             {
                 int pagesize = 21;
                 string stateId = Request["stateId"];
+                string industryId = Request["industryId"];
                 string page = Request["page"];
                 ViewBag.States = context.States.Select(i => new Option<long>{ Id = i.Id, Name = i.Name }).ToList();
 
                 var results = IndustryData.GetCities(context)
                     .Join(context.CityCountyMappings, i => i.CityId, o => o.CityId, (i, o) => new { Place = o, i.Industry })
                     .Where(i => i.Industry != null);
-
-                  //  context.CityCountyMappings.Select(i=> new {Place = i});
-                  //  .Join(context.IndustryDataByCities, i => i.CityId, o => o.CityId, (i, o) => new { o.Industry, Place = i });
-
-               
 
                 int p = 0;
                 if (!string.IsNullOrWhiteSpace(page))
@@ -67,6 +63,12 @@ namespace SizeUp.Web.Controllers
                     results = results.Where(i => i.Place.County.StateId == id);
                 }
 
+                if (!string.IsNullOrWhiteSpace(industryId))
+                {
+                    var id = long.Parse(industryId);
+                    results = results.Where(i => i.Industry.Id == id);
+                }
+
                 int total = results.Count();
 
                 ViewBag.LastPage = pagesize * (p + 1) >= total;
@@ -76,10 +78,6 @@ namespace SizeUp.Web.Controllers
                 ViewBag.Communities = results
                     .OrderBy(i=>i.Place.Id)
                     .ThenBy(i=>i.Industry.Id)
-                    /*.OrderBy(i => i.Place.County.State.Name)
-                    .ThenBy(i => i.Place.City.Name)
-                    .ThenBy(i => i.Place.County.Name)
-                    .ThenBy(i => i.Industry.Name)*/
                     .Skip(pagesize * p)
                     .Take(pagesize)
                     .Select(i => new Models.Community.Community()

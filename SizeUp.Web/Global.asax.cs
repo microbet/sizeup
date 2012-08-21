@@ -66,13 +66,15 @@ namespace SizeUp.Web
             routes.MapRoute(
                 "Competition", // Route name
                 "competition/{state}/{county}/{city}/{industry}", // URL with parameters
-                new { controller = "Competition", action = "Index" } // Parameter defaults
+                new { controller = "Competition", action = "Index" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
             );
 
             routes.MapRoute(
                 "Dashboard", // Route name
                 "dashboard/{state}/{county}/{city}/{industry}", // URL with parameters
-                new { controller = "Dashboard", action = "Index" } // Parameter defaults
+                new { controller = "Dashboard", action = "Index" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
             );
 
             routes.MapRoute(

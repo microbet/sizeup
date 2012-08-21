@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]>  <html class="ie ie6 lte9 lte8 lte7"  xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if IE 7]>     <html class="ie ie7 lte9 lte8" xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if IE 8]>     <html class="ie ie8 lte9" xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9" xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if gt IE 9]>  <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
+<!--[if !IE]><!--> <html xmlns="http://www.w3.org/1999/xhtml">             <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/reset.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/thirdParty/jquery-ui-1.8.21.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Widget/Content/base.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/Widget/Content/layout.css")" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="https://www.proxino.com/p.js"></script>
+    <script type="text/javascript">
+        Proxino.key = "3xIEXXa1IBVdiB-wMbcEOw";
+        Proxino.track_errors();
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/namespace.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/notifier.js")" type="text/javascript"></script>
+
+
+    @RenderSection("head",false)
+</head>
+
+<body>
+    <div id="header">
+    @Html.Partial("Header")
+    </div>
+    <div id="content">
+        <div id="contentWrap">
+        @RenderBody()
+        </div>
+    </div>
+    @RenderSection("scripts",false)
+</body>
+</html>

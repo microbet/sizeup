@@ -217,6 +217,13 @@
     <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
+    <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
+    <Compile Include="Areas\Widget\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Widget\Controllers\HelpController.cs" />
+    <Compile Include="Areas\Widget\Controllers\SelectController.cs" />
+    <Compile Include="Areas\Widget\Controllers\UserController.cs" />
+    <Compile Include="Areas\Widget\WidgetAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
@@ -243,6 +250,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Widget\Content\base.css" />
+    <Content Include="Areas\Widget\Content\layout.css" />
+    <Content Include="Areas\Widget\Content\Views\competition\index.css" />
+    <Content Include="Areas\Widget\Content\Views\help\help.css" />
+    <Content Include="Areas\Widget\Content\Views\select\select.css" />
+    <Content Include="Areas\Widget\Content\Views\user\register.css" />
+    <Content Include="Areas\Widget\Content\Views\user\signin.css" />
     <Content Include="Content\base.css" />
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
@@ -356,6 +370,7 @@
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
+    <Content Include="Scripts\widget\views\select\select.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -371,6 +386,7 @@
     <Folder Include="Areas\Pins\Views\Shared\" />
     <Folder Include="Areas\Tiles\Models\" />
     <Folder Include="Areas\Tiles\Views\Shared\" />
+    <Folder Include="Areas\Widget\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -416,6 +432,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Pins\Views\Web.config" />
+    <Content Include="Areas\Widget\Views\Web.config" />
+    <Content Include="Areas\Widget\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Widget\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Widget\Views\Shared\Header.cshtml" />
+    <Content Include="Areas\Widget\Views\Select\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Competition\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Advertising\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\User\Signin.cshtml" />
+    <Content Include="Areas\Widget\Views\Help\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Help\Transcript.cshtml" />
+    <Content Include="Areas\Widget\Views\User\Register.cshtml" />
     <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />

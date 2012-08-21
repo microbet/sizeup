@@ -1,0 +1,31 @@
+﻿@if(!ViewBag.Header.HideMenu){
+<div id="menu">
+<ul>
+@if(!ViewBag.Header.HideNavigation){
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
+<li class="dashboard"><a class="disabled">My Business</a></li>
+}else{
+<li class="dashboard"><a href="/widget/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">My Business</a></li>
+}
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition){
+<li class="competition"><a class="disabled">Competition</a></li>
+}else{
+<li class="competition"><a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Competition</a></li>
+}
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
+<li class="advertising"><a class="disabled">Advertising</a></li>
+}else{
+<li class="advertising"><a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Advertising</a></li>
+}
+<li class="startOver"><a href="/widget/select">Start Over</a></li>
+}
+@if(SizeUp.Core.Identity.Identity.CurrentUser==null){
+<li class="signin"><a href="/widget/user/signin/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
+}else{
+<li class="signin"><a href="/widget/user/signout/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign Out (@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName)</a></li>
+}
+<li class="help"><a href="/widget/help" class="button help" title="Help">?</a></li>
+</ul>
+</div>
+}
+

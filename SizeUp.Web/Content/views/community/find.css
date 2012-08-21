@@ -9,8 +9,10 @@
 #community form ul li { margin: 0.5em 0; }
 #community form ul li.ui-menu-item { margin: 0; }
 #community form ul li label{ width: 8em; text-align: right; margin-right: 1em;}
-#community form ul li select { width: 16em; text-align: right; padding:0.5em; }
-#community form  input[type="submit"] {  position:relative;left: 18.5em; margin:  0 0 1em 0;}
+#community form ul li select { width: 20.7em; text-align: center; padding:0.5em; font-size:1.9em; color:#606060; }
+#community form ul li select option { text-align: right;  }
+#community form ul li input[type="text"] { width: 20em; text-align: center;  }
+#community form  input[type="submit"] {  position:relative;left: 30.5em; margin:  0 0 1em 0;}
 
 
 

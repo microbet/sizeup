@@ -1,0 +1,39 @@
+﻿/*****
+Main style page. Should only contain general layout styles for the layout page.
+*****/
+body { width: 600px; }
+
+#header,
+#content {width:100%; clear:both; }
+
+/****headery things goes here******/
+#header {background-color: #F8F8F8; border-bottom: 2px solid #EEEEEE; height:3.1em; }
+#header ul { position: relative; text-align:right; margin: 0 1em;}
+#header ul li { display: inline-block; vertical-align: top; }
+#header ul li a { display: block; padding:0.5em; }
+
+#header ul li.dashboard {float:left; }
+#header ul li.competition {float:left;  }
+#header ul li.advertising {float:left;  }
+
+#header ul li.help { position:relative; top:0.8em; }
+#header ul li.signin {  }
+#header ul li.startOver { }
+    
+
+
+#header ul li a.button.help { background-color: #6699AA; display: inline; font-size: 1em; padding: 0.1em 0.7em; position: relative; border-radius: 4em; }
+#header ul li a.button.help:hover { background-color: #061f70;}
+.highContrast #header ul li a.button.help {background-color:#061f70;}
+
+
+/********contenty things go here*************/
+#content {height: auto; min-height: 25em; position: relative; }
+#contentWrap {padding:2em;}
+
+
+
+
+
+
+

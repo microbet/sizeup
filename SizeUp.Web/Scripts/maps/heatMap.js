@@ -176,6 +176,10 @@
             me.map.triggerEvent(event);
         };
 
+        var addMarker = function (marker) {
+            me.map.addMarker(marker);
+        };
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -200,6 +204,9 @@
             },
             triggerEvent: function (event) {
                 triggerEvent(event);
+            },
+            addMarker: function (marker) {
+                addMarker(marker);
             }
         };
         init();

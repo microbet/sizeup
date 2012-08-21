@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Areas/Widget/Views/Shared/_Layout.cshtml";
+}
+
+
+@section head{
+<title>Sign In</title>
+<link href="@Url.Content("~/Areas/Widget/Content/Views/user/signin.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/user/signin.js")"></script>
+}
+
+<div id="signin">
+    <h1>Returning users</h1>
+    <p class="details">Please enter your e-mail address and password.</p>
+
+    <form id="signinForm" action="/widget/user/signin/?returnurl=@Request.QueryString["returnurl"]" method="post">
+        <ul id="form">
+            <li>
+                <label for="emailBox">Email:</label>
+                <input id="emailBox" type="text" name="email" value="@ViewBag.Email" />
+                <span id="emailRequired" class="error hidden" title="Email is required">*</span>
+                <span id="emailInvalid" class="error hidden" title="A valid email address is required">*</span>
+            </li>
+            <li>
+                <label for="passwordBox">Password:</label>
+                <input id="passwordBox" type="password" name="password" />
+                <span id="passwordRequired" class="error hidden" title="Password is required">*</span>
+            </li>
+        </ul>
+
+        <ul id="sidebar">
+            @if(ViewBag.InvalidPassword){
+            <li>
+                <p class="info error">Incorrect password. Try again or <a target="_blank" href="/user/beginresetpassword/?email=@ViewBag.Email">reset your password</a></p>
+            </li>
+            }
+            @if(ViewBag.LockedOut){
+            <li>
+                <p class="info error">This account has been locked out.  Please contact support for assistance.</p>
+            </li> 
+            }
+            @if (ViewBag.NotActive){
+            <li>
+                <p class="info">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.</p>
+            </li>
+            }
+            @if(ViewBag.Verified){
+            <li>
+                <p class="info">Thank you. Your e-mail address has been verified.</p>
+            </li>
+            }
+            @if(ViewBag.VerificationError){
+            <li>
+                <p class="info">We could not verify your e-mail address using the code you supplied.<br/><br/> Please check the link and try again.</p>
+            </li>
+            }
+            @if (ViewBag.PasswordReset){
+            <li>
+                <p class="info">We've sent you a password reset e-mail. Please open it to complete resetting your password.</p>
+            </li> 
+            } 
+            <li>
+                <p class="info">No account? No problem! Click to <a href="/widget/user/register/?returnurl=@Request.QueryString["returnurl"]">register</a>. It's free and takes only moments.</p>
+            </li>
+        </ul>
+
+        <div id="submitContainer">
+            <input id="persistSignin" type="checkbox" name="persist" />
+            <label for="persistSignin">Keep me signed in</label>
+            <input id="signin" type="submit" class="button" value="Sign In" />
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        var driver = new sizeup.views.user.signin();
+    </script>
+}
+

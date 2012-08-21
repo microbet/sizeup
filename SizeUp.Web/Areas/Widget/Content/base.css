@@ -1,0 +1,104 @@
+﻿/****
+base style guide for the site. Should only contain basic stylings
+of elements and some common classes. Nothing more!
+****/
+
+body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; text-align: left; color: #606060;  }
+
+ol, ol li { list-style: decimal outside none; }
+a,
+p,
+span {font-size:1.3em;}
+
+span a,
+p span,
+p a,
+a span { font-size: 1em;  }
+
+a {color: #e78500;text-decoration: none;font-weight: bold;}
+a:hover {color: #0099cc;}
+
+a.inverse { color: #606060; }
+a.inverse:hover { color: #e78500;  }
+
+h1 {font-size:2.4em; font-weight:bold;}
+h2 {font-size:2em; }
+h3 {font-size:1.5em;}
+h4 {font-size:1.25em; font-weight:bold;}
+
+input[type=password],
+input[type=text] {border: 1px solid #CCC; color:#606060; font-size: 1.9em;margin: 0;padding: 0.5em;}
+input[type=password].blank,
+input[type=text].blank {color:#A0A0A0;}
+label { font-size: 1.85em; display: inline-block; }
+
+
+
+
+
+.hidden {display:none !important;}
+
+
+ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA;border-style: solid;border-width: 1px; font-family: Arial,Sans-Serif; overflow:auto; max-height:19.5em; float: left; position:absolute; }
+ul.ui-autocomplete li.ui-menu-item a {color:#303030; text-decoration: none; font-weight: normal;display:block;padding: 0.25em 0.5em;}
+ul.ui-autocomplete li.ui-menu-item{ cursor: default;display: block; line-height: 1.5em; margin: 0;overflow: hidden;}
+ul.ui-autocomplete li.ui-menu-item.odd {background:#EEEEEE;}
+ul.ui-autocomplete li.ui-menu-item .ui-state-hover {background:#FFD86A;}
+
+
+
+span.hint {color: #aaa;}
+p.info { background-color: #FFFFF0; border: solid 1px #ddd; padding: 1em; text-align: center; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius: 1em;  }
+p.info span { display: block;padding: 0.25em; }
+span.error,
+p.error { color: #ff0000; }
+span.error { padding: 0.25em; font-size: 1.5em; }
+
+a.button,
+.button  {color: #fff;display:inline-block;padding: 0.25em 2em; cursor: pointer; border-radius:0.4em;-moz-border-radius:0.4em;-webkit-border-radius: 0.4em; background-color: #e78500; background-size: 100% 100%; font-size:2.6em; border:none; box-shadow: 1px 1px 1px #aaa; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==);}
+a.button:hover,
+.button:hover{text-shadow: 0 0 0.1em #fff;}
+
+input[type=submit].button { font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; font-weight: bold; }
+
+.button.tiny,
+a.button.tiny { font-size: 1em;  }
+
+.button.small,
+a.button.small { font-size: 1.5em; }
+
+.button.medium,
+a.button.medium { font-size: 1.9em; }
+
+
+
+
+/**** experimental base styles*****/
+
+
+.loading { text-align: center; }
+.loading p { font-size: 1.6em; padding: 1.5em; }
+.loading .title { font-weight: bold; color: #6EAB24; }
+.loading .message { color: #c0c0c0; }
+
+
+.heatmap { position: relative; color: #fff; font-weight:bold;}
+.heatmap .title,
+.heatmap .range {font-size: 1em; line-height: 1.5em; vertical-align: top; }
+.heatmap .range { font-size:1.1em; padding: 0 0 0 0.5em; }
+.heatmap .backdrop {position: absolute; background-image:url(images/heatmaplegend.png);background-repeat:no-repeat;z-index:9999;   }
+.heatmap .title { font-size: 1.2em; background-position: -23px -133px; height: 2em; min-width: 15em; max-width: 90%; padding: 0.25em 1em; right: 0; top: 0; z-index: 9999; }
+.heatmap .legend { background-position: 0px 0px; min-width: 3.5em; padding: 0.5em 1.5em 0 4em; right: 0; top: 2.7em; }
+.heatmap .legend .bottom { background-position: 0 -150px; height: 1em; left: 0; width: 100%; }
+.heatmap .legend ul li { line-height: 1.5em; }
+.heatmap .legend ul .block { width: 1em; height: 1.5em; display: inline-block; }
+
+
+.map p,
+.map a,
+.map span { font-size: 1em; }
+
+
+a.sorter { font-size:1em; display: inline-block; background: url(images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0; }
+a.sorter.asc { background-position:right -2.2em; }
+a.sorter.desc { background-position:right 0.3em; }

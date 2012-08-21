@@ -12,7 +12,7 @@
 
 <link href="@Url.Content("~/Content/views/community/find.css")" rel="stylesheet" type="text/css" />
 
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/chosen.jquery.js")"></script>
@@ -24,6 +24,10 @@
     <h1>Community Listings</h1>
     <form action="/find-community" method="get" id="form" class="hidden" >
         <ul>
+            <li>
+                <label for="industry">Industry:</label>
+                <input type="text" id="industry"  value="enter an industry" class="blank" />
+            </li>
             <li>
                 <label for="business">State:</label>
                 <select id="state">
@@ -37,7 +41,9 @@
         </ul>
         <input type="hidden" name="page" value="0" />
         <input type="hidden" id="stateId" name="stateId" value="@Request.QueryString["stateId"]" />
+        <input type="hidden" id="industryId" name="industryId" value="@Request.QueryString["industryId"]" />
         <input type="submit" id="submit" class="button" value="Filter" />
+        <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
     </form>
 
     @foreach(var col in ViewBag.Communities)
@@ -76,8 +82,12 @@
 @section scripts{
 
 <script type="text/javascript">
+    var opts = {
+        stateId: '@Request.QueryString["stateId"]',
+        industryId: '@Request.QueryString["industryId"]'
+    };
     $(document).ready(function () {
-        var driver = new sizeup.views.community.find();
+        var driver = new sizeup.views.community.find(opts);
     });
 </script>
 }
