@@ -1,0 +1,110 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Year Started</h2>
+    <span class="hint">The year your business was started</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please Enter</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Years In Business Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+         <div class="reportContent noDataError">
+            <p>There is no data available for this report with this industry and city</p>
+        </div>
+        <div class="reportContent reportData">
+            <h3>How you size up</h3>
+            <p class="description">
+                <div data-template="description">
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.Description"])
+                </div>
+
+                <div data-template="outOfBoundsDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.OutOfBoundsDescription"])
+                </div>
+            </p>  
+            <div class="chart">
+                <div class="container"></div>
+                <ul class="legend">
+                    <li class="city">
+                        <input type="checkbox" checked="checked" value="City" />
+                        <div class="labelBox"></div>
+                        <label>City</label>
+                    </li>
+                    <li class="county">
+                        <input type="checkbox" checked="checked" value="County" />
+                        <div class="labelBox"></div>
+                        <label>County</label>
+                    </li>
+                    <li class="metro">
+                        <input type="checkbox" checked="checked" value="Metro" />
+                        <div class="labelBox"></div>
+                        <label>Metro</label>
+                    </li>
+                    <li class="state">
+                        <input type="checkbox" checked="checked" value="State" />
+                        <div class="labelBox"></div>
+                        <label>State</label>
+                    </li>
+                    <li class="nation">
+                        <input type="checkbox" checked="checked" value="Nation" />
+                        <div class="labelBox"></div>
+                        <label>Nation</label>
+                    </li>
+                </ul>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent">
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.Source"])
+            </div>
+
+
+        </div>
+        <div class="reportSidebar">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.YearStarted.Considerations"])
+                <div class="question">
+                    <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a href="javascript:void(0);" class="established">established business</a>?</span>
+                </div>
+                <div class="startup answer collapsed hidden">
+                    <h5>you are a startup</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>
+                        Refer to the chart to see the trends over time in business formation and to assess 
+                        the level of risk for new businesses starting up.  If you see a recent spike in 
+                        business formation, there may be opportunity but also greater competition.
+                          If the business starts have recently dipped, there may be growing challenges 
+                        facing start-ups in your industry that you should research.
+                    </p>
+				    <p>
+                        If the national trend is downward but your local trend is upward, you are likely in
+                         a good position.  This may mean that you are in a generally maturing industry 
+                        that is at an earlier stage in your area, and by joining now, you may have advantages 
+                        later when the industry matures.
+				    </p>
+                </div>
+                <div class="established answer collapsed hidden">
+                    <h5>you are an established business</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>Determine whether you should be concerned about new competitors entering your space.</p>
+                    <p>
+                        If you are considering selling your business, use the chart to identify spikes in
+                         business formation to see when the interest in acquiring your business may be highest.
+                    </p>
+                </div>
+
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+    </div>
+</div>

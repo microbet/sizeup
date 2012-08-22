@@ -250,13 +250,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Widget\Content\base.css" />
-    <Content Include="Areas\Widget\Content\layout.css" />
-    <Content Include="Areas\Widget\Content\Views\competition\index.css" />
-    <Content Include="Areas\Widget\Content\Views\help\help.css" />
-    <Content Include="Areas\Widget\Content\Views\select\select.css" />
-    <Content Include="Areas\Widget\Content\Views\user\register.css" />
-    <Content Include="Areas\Widget\Content\Views\user\signin.css" />
     <Content Include="Content\base.css" />
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
@@ -312,6 +305,14 @@
     <Content Include="Content\views\user\register.css" />
     <Content Include="Content\views\user\resetpassword.css" />
     <Content Include="Content\views\user\signin.css" />
+    <Content Include="Content\widget\base.css" />
+    <Content Include="Content\widget\layout.css" />
+    <Content Include="Content\widget\Views\advertising\index.css" />
+    <Content Include="Content\widget\Views\competition\index.css" />
+    <Content Include="Content\widget\Views\help\help.css" />
+    <Content Include="Content\widget\Views\select\select.css" />
+    <Content Include="Content\widget\Views\user\register.css" />
+    <Content Include="Content\widget\Views\user\signin.css" />
     <Content Include="Global.asax" />
     <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
@@ -444,6 +445,15 @@
     <Content Include="Areas\Widget\Views\Help\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Help\Transcript.cshtml" />
     <Content Include="Areas\Widget\Views\User\Register.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\AverageSalary.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\CostEffectiveness.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\Employees.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\HealthcareCost.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\Revenue.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\RevenuePerCapita.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\Turnover.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\WorkersComp.cshtml" />
+    <Content Include="Areas\Widget\Views\Dashboard\YearStarted.cshtml" />
     <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />

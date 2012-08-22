@@ -3,13 +3,14 @@
 #advertising { position:relative; }
 #advertising .content{ position: relative; margin: 0 0 5em 0; }
 
-#advertising .heading { position: relative; height:5em; margin: 0 0 1em 0;}
-#advertising .heading h2 { font-size: 2.4em; font-weight:normal; position:absolute; top:0.35em;}
-#advertising .heading label { color: #ccc; position: absolute; right: 22em; top: 0.6em; }
-#advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: absolute; right: 0; top:0;  cursor:pointer;}
+#advertising .heading { position: relative; margin: 0 0 1em 0; text-align:right;}
+#advertising .heading h2 { font-size: 2.4em; font-weight:normal; position:relative; top:0.35em; float:left; margin: 0 0 0.5em 0;}
+#advertising .heading .filterWrapper {float:right; margin: 0 0 0 0.5em;}
+#advertising .heading label { color: #ccc; position: relative; display:inline-block; }
+#advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: relative; right: 0; top:0;  cursor:pointer;display:inline-block;}
 
 #advertising #optionMenu { width: 24em; position:relative; top:1em; }
-#advertising .heading .filter #optionMenu_chzn { top: 1.25em; left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; }
+#advertising .heading .filter #optionMenu_chzn { top: 1.25em; left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left;}
 #advertising .heading .filter #optionMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block; }
 #advertising .heading .filter #optionMenu_chzn .chzn-single:hover { color: #fff; }
 
@@ -34,7 +35,7 @@
 
 #advertising #filterSettings ul.options li.noFilter .slider .ui-widget-header { background: none; }
 
-#advertising .mapContent { }
+#advertising .mapContent {clear:both; }
 #advertising .mapContent .map{width:100%;height:40em;}
 #advertising .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
 #advertising .mapContent .footer ul li { display: inline-block; width: 20%; }

@@ -35,7 +35,7 @@ label { font-size: 1.85em; /*color: #999999;*/ display: inline-block; }
 
 
 
-
+.clear { clear: both; }
 .hidden {display:none !important;}
 
 

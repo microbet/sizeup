@@ -1,7 +1,7 @@
 ﻿/*****
 Main style page. Should only contain general layout styles for the layout page.
 *****/
-body { width: 600px; }
+body { width: 1200px; }
 
 #header,
 #content {width:100%; clear:both; }
@@ -11,6 +11,8 @@ body { width: 600px; }
 #header ul { position: relative; text-align:right; margin: 0 1em;}
 #header ul li { display: inline-block; vertical-align: top; }
 #header ul li a { display: block; padding:0.5em; }
+#header ul li a.disabled { background-color: #F7D6AA; }
+#header ul li a.disabled:hover { color: #e78500; }
 
 #header ul li.dashboard {float:left; }
 #header ul li.competition {float:left;  }

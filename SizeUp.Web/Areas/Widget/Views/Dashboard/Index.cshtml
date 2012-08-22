@@ -1,6 +1,116 @@
 ﻿@{
-    ViewBag.Title = "Index";
     Layout = "~/Areas/Widget/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@section head{
+<title>Business Listings</title>
+<link href="@Url.Content("~/Content/views/dashboard/index.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/widget/views/dashboard/index.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmap.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/gauge.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/charts/barchart.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/charts/tableChart.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/charts/lineChart.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/question.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/reportContainer.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenue.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/averageSalary.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/yearStarted.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/employees.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/costEffectiveness.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenuePerCapita.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/turnover.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/healthcareCost.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/workersComp.js")"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/dashboard.js")"></script>
+
+}
+
+
+<div id="dashboard" class="hidden">
+<h1>@ViewBag.Report.IndustryDetails.Industry.Name in @ViewBag.Report.CurrentPlace.City.Name, @ViewBag.Report.CurrentPlace.State.Abbreviation</h1>
+
+    <div id="revenue" class="report">
+    @Html.Partial("Revenue")
+    </div>
+
+    <div id="yearStarted" class="report">
+    @Html.Partial("YearStarted")
+    </div>
+
+    <div id="salary" class="report">
+    @Html.Partial("AverageSalary")
+    </div>
+
+    @if(HttpContext.Current.User.Identity.IsAuthenticated){
+    <div id="employees" class="report">
+    @Html.Partial("Employees")
+    </div>
+
+    <div id="costEffectiveness" class="report">
+    @Html.Partial("CostEffectiveness")        
+    </div>
+
+    <div id="revenuePerCapita" class="report">
+    @Html.Partial("RevenuePerCapita")               
+    </div>
+
+    <div id="turnover" class="report">
+    @Html.Partial("Turnover")                    
+    </div>
+
+    <div id="healthcareCost" class="report">
+    @Html.Partial("HealthcareCost")                 
+    </div>
+
+    <div id="workersComp" class="report">
+    @Html.Partial("WorkersComp")              
+    </div>
+    }
+
+    @if(!HttpContext.Current.User.Identity.IsAuthenticated){
+    <div class="report">
+        <p class="info">
+            <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more reports.</span>
+            <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
+        </p>
+    </div>    
+    }
+
+    <a href="javascript:void(0);" id="summaryView" data-toggleText="Detailed View">Summary View</a>
+</div>
+
+
+@section scripts{
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var opts = {
+            report: @Html.Raw(ViewBag.ReportJSON),
+            isAuthenticated: @(HttpContext.Current.User.Identity.IsAuthenticated ? "true" : "false")
+        };
+        var driver = new sizeup.views.dashboard.dashboard(opts);
+    });
+</script>
+}

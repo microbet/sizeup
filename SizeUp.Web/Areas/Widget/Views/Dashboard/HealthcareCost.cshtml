@@ -1,0 +1,59 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Healthcare Cost</h2>
+    <span class="hint">Annual healthcare premium per employee</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please Enter</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Healthcare Cost Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent">
+            <h3>How you size up</h3>
+            <p>You pay $4,223 less for health care per employee than the average company of your size in your state.</p>
+            <div class="chart">
+                <a href="#">Hide Variations by Geography</a>
+                <a href="#">View Data Table </a>
+                <div class="container"></div>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                <p>Healthcare cost data is tracked by the Agency for Health Care Research and Quality.
+                        Data on healthcare costs is available at the state level, and is further broken down
+                        by the company’s employee size and industry sector.
+                </p>
+            </div>
+            <div class="map"></div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section">
+                <h4>Considerations</h4>
+                <p>Healthcare premiums vary by the employee's age, medical history, and level of risk associated 
+                    with their occupation. Because healthcare costs are typically growing each year and it is 
+                    a significant expense for every business, consider reviewing your policy to make sure
+                        you are getting the maximum value.
+                </p>
+            </div>
+            <div class="section">
+                <h4>Resources</h4>
+                <p>Get quotes from <a href="https://employer.uhc.com/forms/flows/form7721.gsp" target="_blank">United Health</a> and <a href="https://prospectivemembers.kaiserpermanente.org" target="_blank">Kaiser</a> to potentially reduce your healthcare premiums.</p>
+                <p>Reduce medical costs for you and your employees by providing flexible spending accounts through <a href="https://www.flexdirect.adp.com" target="_blank">FlexDirect</a> or <a href="http://www.flex-plan.com" target="_blank">Flex-Plan Services</a>.</p>
+		        <p>Improve the health of your employees through wellness training programs from <a href="http://training.blr.com/employee-training-topics/Employee-Wellness-Training" target="_blank">BLR</a>.</p>
+           
+
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+        </div>
+    </div>
+</div>

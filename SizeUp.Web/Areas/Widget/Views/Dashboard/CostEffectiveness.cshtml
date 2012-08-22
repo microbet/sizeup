@@ -1,0 +1,66 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Cost Effectiveness</h2>
+    <span class="hint">Revenue per employee divided by worker salary</span>
+    <input type="text" class="valueBox" disabled="disabled" />
+    
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Cost Effectiveness Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent">
+            <h3>How you size up</h3>
+            <p>Cost effectiveness is measured by dividing the annual revenue produced per employee by the average annual worker salary.
+                    The cost effectiveness for your business is 97% below the average for your county. The salary data used in this calculation,
+                    which is not available for <strong>PHARMACIES</strong>, comes from the closest corresponding industry category, 
+                <strong>Pharmacies and Drug Stores</strong>.
+            </p>
+            <div class="chart">
+                <a href="#">Hide Variations by Geography</a>
+                <a href="#">View Data Table </a>
+                <div class="container"></div>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                <p>Cost effectiveness data is a measure that combines salary data with revenue and employee data
+                        from individual businesses to show how much revenue an employee generates relative to 
+                        the labor costs incurred by that employee. 
+                </p>
+            </div>
+            <div class="map"></div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section">
+                <h4>Considerations</h4>
+                    <p>The cost effectiveness index only accounts for the costs of labor, and not other associated costs of a 
+                    business like the costs of goods you sell. If your costs exclusive of labor are higher than your competition,
+                        you may be less cost effective compared to your competition than this calculation indicates. Alternatively,
+                        if your costs exclusive of labor are less than your competition, you may be more cost effective compared to
+                        your competition than this calculation indicates.
+                    </p>
+		            <p>Do not assume that lowering salaries is necessarily the key to becoming more cost effective.  If your revenue 
+                    numbers are low, you may have more significant obstacles than low productivity, and lowering salaries 
+                    may leave you unable to attract the talented workers that you need to succeed.
+		            </p>
+            </div>
+            <div class="section">
+                <h4>Resources</h4>
+                <p>Seek financial advice from <a href="http://www.score.org/chapters"  target="_blank">SCORE</a> or <a href="http://retirement.ameriprise.com/investment-advice-life-events/business-financial-advice.asp" target="_blank">Ameriprise</a>.</p>
+		        <p>Track revenue and expenses with <a href="http://quickbooks.intuit.com/" target="_blank">Quickbooks</a>, <a href="https://indinero.com/" target="_blank">inDinero</a>, or <a href="http://waveaccounting.com/" target="_blank">Wave Accounting</a>.</p> 
+
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+        </div>
+    </div>
+</div>

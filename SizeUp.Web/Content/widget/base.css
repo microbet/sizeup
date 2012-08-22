@@ -3,7 +3,7 @@ base style guide for the site. Should only contain basic stylings
 of elements and some common classes. Nothing more!
 ****/
 
-body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; text-align: left; color: #606060;  }
+body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; text-align: left; color: #606060; min-width:575px;  }
 
 ol, ol li { list-style: decimal outside none; }
 a,
@@ -35,7 +35,7 @@ label { font-size: 1.85em; display: inline-block; }
 
 
 
-
+.clear { clear: both; }
 .hidden {display:none !important;}
 
 
@@ -86,7 +86,7 @@ a.button.medium { font-size: 1.9em; }
 .heatmap .title,
 .heatmap .range {font-size: 1em; line-height: 1.5em; vertical-align: top; }
 .heatmap .range { font-size:1.1em; padding: 0 0 0 0.5em; }
-.heatmap .backdrop {position: absolute; background-image:url(images/heatmaplegend.png);background-repeat:no-repeat;z-index:9999;   }
+.heatmap .backdrop {position: absolute; background-image:url(/content/images/heatmaplegend.png);background-repeat:no-repeat;z-index:9999;   }
 .heatmap .title { font-size: 1.2em; background-position: -23px -133px; height: 2em; min-width: 15em; max-width: 90%; padding: 0.25em 1em; right: 0; top: 0; z-index: 9999; }
 .heatmap .legend { background-position: 0px 0px; min-width: 3.5em; padding: 0.5em 1.5em 0 4em; right: 0; top: 2.7em; }
 .heatmap .legend .bottom { background-position: 0 -150px; height: 1em; left: 0; width: 100%; }
@@ -99,6 +99,6 @@ a.button.medium { font-size: 1.9em; }
 .map span { font-size: 1em; }
 
 
-a.sorter { font-size:1em; display: inline-block; background: url(images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0; }
+a.sorter { font-size:1em; display: inline-block; background: url(/content/images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0; }
 a.sorter.asc { background-position:right -2.2em; }
 a.sorter.desc { background-position:right 0.3em; }
