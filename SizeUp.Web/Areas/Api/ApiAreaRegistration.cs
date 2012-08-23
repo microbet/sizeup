@@ -434,6 +434,12 @@ namespace SizeUp.Web.Areas.Api
                 "Api/HealthCare/",
                 new { controller = "HealthCare", action = "HealthCare" }
             );
+       
+            context.MapRoute(
+                "HealthCarePercentage",
+                "Api/Turnover/percentage",
+                new { controller = "HealthCare", action = "Percentage" }
+            );
 
             /****workerscomp*****/
 

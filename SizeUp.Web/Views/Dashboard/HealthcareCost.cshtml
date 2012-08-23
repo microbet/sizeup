@@ -17,11 +17,53 @@
     <div class="reportContainer ">
         <div class="reportContent">
             <h3>How you size up</h3>
-            <p>You pay $4,223 less for health care per employee than the average company of your size in your state.</p>
-            <div class="chart">
-                <a href="#">Hide Variations by Geography</a>
-                <a href="#">View Data Table </a>
-                <div class="container"></div>
+            <p class="description">
+                <div data-template="noEmployeeDescription">
+                    Please enter the number of employees above to get a more accourate report.
+                </div>
+                <div data-template="description">
+                              
+                    You pay {{firmSizeDifference}} for health care per employee than the average company of your size in your state.
+                    You pay {{industryDifference}} for health care per employee than the average company in your industry.
+                </div>
+                <div data-template="overpayDescription">      
+                    <br />
+                    Since you are paying more than comparable businesses, you may be able to save money.
+                    Review the additional resources in this report to learn more.
+                </div>
+            </p>
+            <div class="tableContainer">
+                <table data-template="table" class="table">
+                    <thead>
+                        <tr>
+                            <td class="name"></td>
+                            <td class="value">Annual Healthcare Premium per Employee</td>
+                            <td class="rank">State Rank</td>
+                        </tr>
+                    </thead>
+                    <tbody class="container">
+                        <tr>
+                            <td class="name">Your Business</td>
+                            <td class="value">{{currentBusiness}}</td>
+                            <td class="rank"></td>
+                        </tr>
+                        <tr>
+                            <td class="name">State (average for firms in similar industries)</td>
+                            <td class="value">{{industry}}</td>
+                            <td class="rank">{{industryRank}}</td>
+                        </tr>
+                        <tr>
+                            <td class="name">State (average for firms of same size)</td>
+                            <td class="value">{{firmSize}}</td>
+                            <td class="rank">{{firmSizeRank}}</td>
+                        </tr>
+                        <tr>
+                            <td class="name">State (average)</td>
+                            <td class="value">{{state}}</td>
+                            <td class="rank">{{stateRank}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <ul class="links">
                 <li>
@@ -29,31 +71,39 @@
                 </li>
             </ul>
             <div class="sourceContent " data-expandedClass="expanded">
-                <p>Healthcare cost data is tracked by the Agency for Health Care Research and Quality.
+                   <p>Healthcare cost data is tracked by the Agency for Health Care Research and Quality.
                         Data on healthcare costs is available at the state level, and is further broken down
                         by the company’s employee size and industry sector.
                 </p>
+             @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Source"]) 
             </div>
-            <div class="map"></div>
         </div>
         <div class="reportSidebar">
-            <div class="section">
+            <div class="section considerations collapsable">
                 <h4>Considerations</h4>
                 <p>Healthcare premiums vary by the employee's age, medical history, and level of risk associated 
                     with their occupation. Because healthcare costs are typically growing each year and it is 
                     a significant expense for every business, consider reviewing your policy to make sure
                         you are getting the maximum value.
                 </p>
+
+
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Considerations"])
             </div>
-            <div class="section">
-                <h4>Resources</h4>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                 <h4>Resources</h4>
                 <p>Get quotes from <a href="https://employer.uhc.com/forms/flows/form7721.gsp" target="_blank">United Health</a> and <a href="https://prospectivemembers.kaiserpermanente.org" target="_blank">Kaiser</a> to potentially reduce your healthcare premiums.</p>
                 <p>Reduce medical costs for you and your employees by providing flexible spending accounts through <a href="https://www.flexdirect.adp.com" target="_blank">FlexDirect</a> or <a href="http://www.flex-plan.com" target="_blank">Flex-Plan Services</a>.</p>
 		        <p>Improve the health of your employees through wellness training programs from <a href="http://training.blr.com/employee-training-topics/Employee-Wellness-Training" target="_blank">BLR</a>.</p>
            
 
+
+
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Resources"])
                 <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
             </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
         </div>
     </div>
 </div>

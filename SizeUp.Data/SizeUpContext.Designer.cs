@@ -11345,6 +11345,174 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _HealthcareByIndustry;
         partial void OnHealthcareByIndustryChanging(Nullable<global::System.Int64> value);
         partial void OnHealthcareByIndustryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> HealthcareByStateRank
+        {
+            get
+            {
+                return _HealthcareByStateRank;
+            }
+            set
+            {
+                OnHealthcareByStateRankChanging(value);
+                ReportPropertyChanging("HealthcareByStateRank");
+                _HealthcareByStateRank = StructuralObject.SetValidValue(value, "HealthcareByStateRank");
+                ReportPropertyChanged("HealthcareByStateRank");
+                OnHealthcareByStateRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _HealthcareByStateRank;
+        partial void OnHealthcareByStateRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcareByStateRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Healthcare0To9EmployeesRank
+        {
+            get
+            {
+                return _Healthcare0To9EmployeesRank;
+            }
+            set
+            {
+                OnHealthcare0To9EmployeesRankChanging(value);
+                ReportPropertyChanging("Healthcare0To9EmployeesRank");
+                _Healthcare0To9EmployeesRank = StructuralObject.SetValidValue(value, "Healthcare0To9EmployeesRank");
+                ReportPropertyChanged("Healthcare0To9EmployeesRank");
+                OnHealthcare0To9EmployeesRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Healthcare0To9EmployeesRank;
+        partial void OnHealthcare0To9EmployeesRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcare0To9EmployeesRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Healthcare10To24EmployeesRank
+        {
+            get
+            {
+                return _Healthcare10To24EmployeesRank;
+            }
+            set
+            {
+                OnHealthcare10To24EmployeesRankChanging(value);
+                ReportPropertyChanging("Healthcare10To24EmployeesRank");
+                _Healthcare10To24EmployeesRank = StructuralObject.SetValidValue(value, "Healthcare10To24EmployeesRank");
+                ReportPropertyChanged("Healthcare10To24EmployeesRank");
+                OnHealthcare10To24EmployeesRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Healthcare10To24EmployeesRank;
+        partial void OnHealthcare10To24EmployeesRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcare10To24EmployeesRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Healthcare25To99EmployeesRank
+        {
+            get
+            {
+                return _Healthcare25To99EmployeesRank;
+            }
+            set
+            {
+                OnHealthcare25To99EmployeesRankChanging(value);
+                ReportPropertyChanging("Healthcare25To99EmployeesRank");
+                _Healthcare25To99EmployeesRank = StructuralObject.SetValidValue(value, "Healthcare25To99EmployeesRank");
+                ReportPropertyChanged("Healthcare25To99EmployeesRank");
+                OnHealthcare25To99EmployeesRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Healthcare25To99EmployeesRank;
+        partial void OnHealthcare25To99EmployeesRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcare25To99EmployeesRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Healthcare100To999EmployeesRank
+        {
+            get
+            {
+                return _Healthcare100To999EmployeesRank;
+            }
+            set
+            {
+                OnHealthcare100To999EmployeesRankChanging(value);
+                ReportPropertyChanging("Healthcare100To999EmployeesRank");
+                _Healthcare100To999EmployeesRank = StructuralObject.SetValidValue(value, "Healthcare100To999EmployeesRank");
+                ReportPropertyChanged("Healthcare100To999EmployeesRank");
+                OnHealthcare100To999EmployeesRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Healthcare100To999EmployeesRank;
+        partial void OnHealthcare100To999EmployeesRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcare100To999EmployeesRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Healthcare1000orMoreEmployeesRank
+        {
+            get
+            {
+                return _Healthcare1000orMoreEmployeesRank;
+            }
+            set
+            {
+                OnHealthcare1000orMoreEmployeesRankChanging(value);
+                ReportPropertyChanging("Healthcare1000orMoreEmployeesRank");
+                _Healthcare1000orMoreEmployeesRank = StructuralObject.SetValidValue(value, "Healthcare1000orMoreEmployeesRank");
+                ReportPropertyChanged("Healthcare1000orMoreEmployeesRank");
+                OnHealthcare1000orMoreEmployeesRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Healthcare1000orMoreEmployeesRank;
+        partial void OnHealthcare1000orMoreEmployeesRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcare1000orMoreEmployeesRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> HealthcareByIndustryRank
+        {
+            get
+            {
+                return _HealthcareByIndustryRank;
+            }
+            set
+            {
+                OnHealthcareByIndustryRankChanging(value);
+                ReportPropertyChanging("HealthcareByIndustryRank");
+                _HealthcareByIndustryRank = StructuralObject.SetValidValue(value, "HealthcareByIndustryRank");
+                ReportPropertyChanged("HealthcareByIndustryRank");
+                OnHealthcareByIndustryRankChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _HealthcareByIndustryRank;
+        partial void OnHealthcareByIndustryRankChanging(Nullable<global::System.Int32> value);
+        partial void OnHealthcareByIndustryRankChanged();
 
         #endregion
 

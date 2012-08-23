@@ -275,6 +275,18 @@
             },
 
 
+            getHealthcareCostChart: function (params, callback) {
+                return get('/api/healthcare/', params, callback);
+            },
+
+            getHealthcareCostPercentage: function (params, callback) {
+                return get('/api/healthcare/percentage/', params, callback);
+            },
+
+
+
+
+
 
             getBestPlacesToAdvertise: function (params, callback) {
                 return get('/api/Advertising/', params, callback);

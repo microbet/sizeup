@@ -79,15 +79,13 @@
 #dashboard #salary.report .body .reportContainer .reportContent .table .name ,
 #dashboard #employees.report .body .reportContainer .reportContent .table .name ,
 #dashboard #costEffectiveness.report .body .reportContainer .reportContent .table .name , 
-#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .name , 
-#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .name { width: 90%; padding: 0 0 0 0.5em; }
+#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .name  { width: 90%; padding: 0 0 0 0.5em; }
 
 #dashboard #revenue.report .body .reportContainer .reportContent .table .value,
 #dashboard #salary.report .body .reportContainer .reportContent .table .value,
 #dashboard #employees.report .body .reportContainer .reportContent .table .value,
 #dashboard #costEffectiveness.report .body .reportContainer .reportContent .table .value, 
-#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .value, 
-#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .value { width: 10%; text-align: right; padding: 0 0.5em 0 0; }
+#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .value { width: 10%; text-align: right; padding: 0 0.5em 0 0; }
 
 
 
@@ -103,6 +101,11 @@
 #dashboard #turnover.report .body .reportContainer .reportContent .table .jobGains,
 #dashboard #turnover.report .body .reportContainer .reportContent .table .jobLosses,
 #dashboard #turnover.report .body .reportContainer .reportContent .table .netJobChange { width: 12%; text-align: right; padding: 0 0.5em 0 0;  }
+
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .name { width: 60%; padding: 0 0 0 0.5em; }
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .value { width: 20%; padding: 0 0 0 0.5em; text-align: right; }
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .rank { width: 20%; padding: 0 0 0 0.5em; text-align: right; }
+
 
 #dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; margin:  0 0 1em 0; vertical-align:top; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
 #dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 1em; }

@@ -685,6 +685,13 @@
           <Property Name="Healthcare100To999Employees" Type="bigint" />
           <Property Name="Healthcare1000orMoreEmployees" Type="bigint" />
           <Property Name="HealthcareByIndustry" Type="bigint" />
+          <Property Name="HealthcareByStateRank" Type="int" />
+          <Property Name="Healthcare0To9EmployeesRank" Type="int" />
+          <Property Name="Healthcare10To24EmployeesRank" Type="int" />
+          <Property Name="Healthcare25To99EmployeesRank" Type="int" />
+          <Property Name="Healthcare100To999EmployeesRank" Type="int" />
+          <Property Name="Healthcare1000orMoreEmployeesRank" Type="int" />
+          <Property Name="HealthcareByIndustryRank" Type="int" />
         </EntityType>
         <EntityType Name="IndustryDataByZip">
           <Key>
@@ -3042,6 +3049,13 @@
           <Property Type="Int64" Name="HealthcareByIndustry" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByState_Industry" FromRole="IndustryDataByState" ToRole="Industry" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_IndustryDataByState_State" FromRole="IndustryDataByState" ToRole="State" />
+          <Property Type="Int32" Name="HealthcareByStateRank" />
+          <Property Type="Int32" Name="Healthcare0To9EmployeesRank" />
+          <Property Type="Int32" Name="Healthcare10To24EmployeesRank" />
+          <Property Type="Int32" Name="Healthcare25To99EmployeesRank" />
+          <Property Type="Int32" Name="Healthcare100To999EmployeesRank" />
+          <Property Type="Int32" Name="Healthcare1000orMoreEmployeesRank" />
+          <Property Type="Int32" Name="HealthcareByIndustryRank" />
         </EntityType>
         <EntityType Name="IndustryDataByZip">
           <Key>
@@ -3784,6 +3798,13 @@
           <EntitySetMapping Name="IndustryDataByStates">
             <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByState">
               <MappingFragment StoreEntitySet="IndustryDataByState">
+                <ScalarProperty Name="HealthcareByIndustryRank" ColumnName="HealthcareByIndustryRank" />
+                <ScalarProperty Name="Healthcare1000orMoreEmployeesRank" ColumnName="Healthcare1000orMoreEmployeesRank" />
+                <ScalarProperty Name="Healthcare100To999EmployeesRank" ColumnName="Healthcare100To999EmployeesRank" />
+                <ScalarProperty Name="Healthcare25To99EmployeesRank" ColumnName="Healthcare25To99EmployeesRank" />
+                <ScalarProperty Name="Healthcare10To24EmployeesRank" ColumnName="Healthcare10To24EmployeesRank" />
+                <ScalarProperty Name="Healthcare0To9EmployeesRank" ColumnName="Healthcare0To9EmployeesRank" />
+                <ScalarProperty Name="HealthcareByStateRank" ColumnName="HealthcareByStateRank" />
                 <ScalarProperty Name="HealthcareByIndustry" ColumnName="HealthcareByIndustry" />
                 <ScalarProperty Name="Healthcare1000orMoreEmployees" ColumnName="Healthcare1000orMoreEmployees" />
                 <ScalarProperty Name="Healthcare100To999Employees" ColumnName="Healthcare100To999Employees" />

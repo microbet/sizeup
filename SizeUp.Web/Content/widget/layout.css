@@ -1,7 +1,7 @@
 ﻿/*****
 Main style page. Should only contain general layout styles for the layout page.
 *****/
-body { width: 1200px; }
+body { width: 100%; }
 
 #header,
 #content {width:100%; clear:both; }
