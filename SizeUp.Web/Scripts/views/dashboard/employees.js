@@ -365,7 +365,7 @@
                                }, callback);
                            },
                            legendTitle: 'Employees Per Capita per business by state in the USA',
-                           legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
+                           legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
                            industryId: me.opts.report.IndustryDetails.Industry.Id,
                            minZoom: 0,
                            maxZoom: 4,
@@ -389,7 +389,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Employees Per Capita per business by county in ' + me.opts.report.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
+                            legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 5,
                             maxZoom: 8,
@@ -414,7 +414,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Employees Per Capita per business by county in ' + (me.opts.report.CurrentPlace.Metro ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
+                            legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 9,
                             maxZoom: 11,
@@ -439,7 +439,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Employees Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation,
-                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
+                            legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
                             industryId: me.opts.report.IndustryDetails.Industry.Id,
                             minZoom: 12,
                             maxZoom: 32,
@@ -460,7 +460,7 @@
 
                 me.employeesPerCapita.chart = new sizeup.charts.barChart({
 
-                    valueFormat: function (val) { return Math.floor(val); },
+                    valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
                     container: me.container.find('.employeesPerCapita .chart .container'),
                     title: 'employees per capita',
                     bars: me.data.employeesPerCapita.chart.bars,
@@ -600,7 +600,7 @@
                 if (data[indexes[x]] != null) {
                     me.data.employeesPerCapita.chart.bars[indexes[x]] =
                     {
-                        value: parseFloat(data[indexes[x]].Value).toPrecision(3),
+                        value: sizeup.util.numbers.format.sigFig((data[indexes[x]].Value),3),
                         label: indexes[x],
                         name: data[indexes[x]].Name,
                         color: '#0af'
@@ -608,7 +608,7 @@
 
                     me.data.employeesPerCapita.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
-                        value: parseFloat(data[indexes[x]].Value).toPrecision(3)
+                        value: sizeup.util.numbers.format.sigFig((data[indexes[x]].Value), 3)
                     };
                 }
             }

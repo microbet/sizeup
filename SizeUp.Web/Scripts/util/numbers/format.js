@@ -30,6 +30,13 @@
             var ord= n<21?(n<4 ? suff[n]:suff[0]): (n%10>4 ? suff[0] : suff[n%10]);
             return num + ord;
         },
+        sigFig: function (num, sigFigs) {
+            if (sigFigs == null || typeof sigFigs == 'undefined') {
+                sigFigs = 1;
+            }
+            var n = new Number(num);
+            return n.toPrecision(sigFigs);
+        },
         abbreviate: function (num, places) {
             if (places == null || typeof places == 'undefined') {
                 places = 1;

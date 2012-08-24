@@ -274,6 +274,13 @@
                 return get('/api/workersComp/percentage/', params, callback);
             },
 
+            getCostEffectivenessChart: function (params, callback) {
+                return get('/api/CostEffectiveness/', params, callback);
+            },
+
+            getCostEffectivenessPercentage: function (params, callback) {
+                return get('/api/CostEffectiveness/percentage/', params, callback);
+            },
 
             getHealthcareCostChart: function (params, callback) {
                 return get('/api/healthcare/', params, callback);

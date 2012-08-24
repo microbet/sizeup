@@ -183,7 +183,6 @@
     <Compile Include="Areas\Api\Models\EmployeesPerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\EmployeesPerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Healthcare\Chart.cs" />
-    <Compile Include="Areas\Api\Models\Healthcare\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Place\Place.cs" />
     <Compile Include="Areas\Api\Models\County\County.cs" />
     <Compile Include="Areas\Api\Models\Industry\Industry.cs" />
@@ -363,7 +362,6 @@
     <Content Include="Scripts\views\dashboard\dashboard.js" />
     <Content Include="Scripts\views\dashboard\employees.js" />
     <Content Include="Scripts\views\dashboard\healthcareCost.js" />
-    <Content Include="Scripts\views\dashboard\jobChange.js" />
     <Content Include="Scripts\views\dashboard\reportContainer.js" />
     <Content Include="Scripts\views\dashboard\revenue.js" />
     <Content Include="Scripts\views\dashboard\revenuePerCapita.js" />

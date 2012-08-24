@@ -193,7 +193,7 @@
 
         var hashChanged = function (e) {
             var index = e.getState('employees');
-            if (index != me.data.enteredEmployees) {
+            if (index != me.data.enteredEmployees && me.data.enteredValue) {
                 me.data.enteredEmployees = index;
                 runReport({ callback: function () { } });
             }

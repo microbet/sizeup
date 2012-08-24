@@ -393,6 +393,12 @@ namespace SizeUp.Web.Areas.Api
             );
 
             context.MapRoute(
+                "CostEffectivenessPrecentage",
+                "Api/CostEffectiveness/percentage",
+                new { controller = "CostEffectiveness", action = "Percentage" }
+            );
+
+            context.MapRoute(
                 "CostEffectivenessBandsCounty",
                 "Api/CostEffectiveness/Bands/County",
                 new { controller = "CostEffectiveness", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }

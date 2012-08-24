@@ -86,7 +86,7 @@ a.button.medium { font-size: 1.9em; }
 .heatmap .range {font-size: 1em; line-height: 1.5em; vertical-align: top; }
 .heatmap .range { font-size:1.1em; padding: 0 0 0 0.5em; }
 .heatmap .backdrop {position: absolute; background-image:url(images/heatmaplegend.png);background-repeat:no-repeat;z-index:9999;   }
-.heatmap .title { font-size: 1.2em; background-position: -23px -133px; height: 2em; min-width: 15em; max-width: 90%; padding: 0.25em 1em; right: 0; top: 0; z-index: 9999; }
+.heatmap .title { font-size: 1.2em; background-position: -23px -133px; height: 2em; min-width: 15em; max-width: 85%; padding: 0.25em 1em; right: 0; top: 0; z-index: 9999; }
 .heatmap .legend { background-position: 0px 0px; min-width: 3.5em; padding: 0.5em 1.5em 0 4em; right: 0; top: 2.7em; }
 .heatmap .legend .bottom { background-position: 0 -150px; height: 1em; left: 0; width: 100%; }
 .heatmap .legend ul li { line-height: 1.5em; }

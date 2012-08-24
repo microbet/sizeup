@@ -74,6 +74,34 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+        public ActionResult Percentage(int industryId, int placeId, int revenue, int employees, int salary)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var locations = Locations.Get(context, placeId).FirstOrDefault();
+
+                var ce = revenue / (double)(employees * salary);
+
+
+                var county = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                    .Select(i => i.CostEffectiveness)
+                    .FirstOrDefault();
+
+                object obj = null;
+                if (county != null && county != 0)
+                {
+                    obj = new
+                    {
+                        Percentage = (int)(((ce - county) / county) * 100)
+                    };
+                }
+                return Json(obj, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+
         public ActionResult BandsByCounty(long industryId, int bands, string boundingEntityId)
         {
             using (var context = ContextFactory.SizeUpContext)
