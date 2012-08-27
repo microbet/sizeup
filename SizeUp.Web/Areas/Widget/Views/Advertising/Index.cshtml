@@ -32,6 +32,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/imageMarker.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/circle.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")"></script>
 
@@ -286,7 +287,7 @@
             <ul class="results">
                 <li data-template="listItem">
                     {{#city.SEOKey}}
-                    <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a>
+                    <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name" target="_blank">{{name}}</a>
                     {{/city.SEOKey}}
                     {{^city.SEOKey}}
                     <a class="name noCommunity">{{name}}</a>

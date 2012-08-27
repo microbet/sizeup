@@ -1,4 +1,6 @@
-﻿#competition #tabs { left: 0em; }
+﻿#header { height: 8em; }
+#competition { padding: 0 1em 1em 1em; }
+#competition #tabs { left: 0em; }
 #competition .question a span { font-size: 0.85em; }
 #competition .mapContent { width: 100%; }
 #competition .list.wrapper { width: 100%; margin: 1em 1em 0 0; }

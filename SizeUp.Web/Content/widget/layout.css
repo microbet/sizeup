@@ -31,7 +31,7 @@ body { width: 100%; }
 
 /********contenty things go here*************/
 #content {height: auto; min-height: 25em; position: relative; }
-#contentWrap {padding:2em;}
+#contentWrap {overflow:auto; overflow-x:hidden;}
 
 
 
