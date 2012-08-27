@@ -180,6 +180,10 @@
             me.map.addMarker(marker);
         };
 
+        var setZoom = function (zoom) {
+            me.map.setZoom(zoom);
+        };
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -207,6 +211,9 @@
             },
             addMarker: function (marker) {
                 addMarker(marker);
+            },
+            setZoom: function (zoom) {
+                setZoom(zoom);
             }
         };
         init();

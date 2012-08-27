@@ -183,7 +183,7 @@
                     ]
                 });
                 me.revenuePerCapitaMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
-
+                me.revenuePerCapitaMap.setZoom(12);
 
                 me.totalRevenueMap = new sizeup.maps.heatMap({
                     legendItemTemplate: templates.get('legendItem'),
@@ -265,7 +265,7 @@
                     ]
                 });
                 me.totalRevenueMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
-
+                me.totalRevenueMap.setZoom(12);
 
                 me.chart = new sizeup.charts.barChart({
 

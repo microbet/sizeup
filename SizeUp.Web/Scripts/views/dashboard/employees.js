@@ -319,6 +319,8 @@
                     ]
                 });
                 me.averageEmployees.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+                me.averageEmployees.map.setZoom(12);
+
 
                 me.averageEmployees.chart = new sizeup.charts.barChart({
 
@@ -457,6 +459,8 @@
                     ]
                 });
                 me.employeesPerCapita.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+                me.employeesPerCapita.map.setZoom(12);
+
 
                 me.employeesPerCapita.chart = new sizeup.charts.barChart({
 

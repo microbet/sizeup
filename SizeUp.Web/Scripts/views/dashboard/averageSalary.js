@@ -226,6 +226,8 @@
                     ]
                 });
                 me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+                me.map.setZoom(12);
+
                 me.chart = new sizeup.charts.barChart({
 
                     valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
