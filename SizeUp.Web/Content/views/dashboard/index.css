@@ -63,7 +63,7 @@
 
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart .container {width:57em; height:37em; }
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul { text-align: center; }
-#dashboard #yearStarted.report .body .reportContainer .reportContent .chart  ul li{ display:inline-block; width:8em;}
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart  ul li{ display:inline-block; width:10em; margin:0 0 1em 0;}
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li label { font-size: 1.1em; font-weight: normal; display:inline-block; position:relative; top:-0.3em; }
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li .labelBox { height:1.2em; width:1.2em; display:inline-block; border: solid 1px #606060; }
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li input[type=checkbox] { display:inline-block; }

@@ -483,7 +483,14 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "Advertising", action = "Bands" }
            );
 
-  
+
+            /****demographics*****/
+
+            context.MapRoute(
+                "Demographics",
+                "Api/Demographics/",
+                new { controller = "Demographics", action = "Demographics" }
+            );
 
 
 

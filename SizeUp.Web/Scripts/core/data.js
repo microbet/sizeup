@@ -308,7 +308,7 @@
             },
 
             getDemographics: function (params, callback) {
-                return get('/api/place/centroid/', params, callback);
+                return get('/api/demographics/', params, callback);
             }
 
 

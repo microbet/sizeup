@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using System.Net;
 using System.Web;
 using SizeUp.Data;
-
+using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Core.Geo
 {
@@ -35,8 +35,7 @@ namespace SizeUp.Core.Geo
             long? id = null;
             var Cache = HttpContext.Current.Cache;
             var cacheKey = string.Format("SizeUp.Core.Geo.GeoCoder.IP{0}", ip);
-            try
-            {
+            
                 if (!IsLocalIpAddress(ip))
                 {
                     id = Cache[cacheKey] as long?;
@@ -61,27 +60,19 @@ namespace SizeUp.Core.Geo
                         {
                             using (var context = ContextFactory.SizeUpContext)
                             {
-                                var point = System.Data.Spatial.DbGeography.FromText(string.Format("POINT ({0} {1})", geo.Lng, geo.Lat));
-                                id = context.CityCountyMappings
-                                    .Select(i=> new {
-                                        Id = i.Id,
-                                        CityDistance = i.City.CityGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point),
-                                        CountyDistance = i.County.CountyGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point)
-                                    })
-                                    .Where(i=>i.CityDistance < 30000 && i.CityDistance < 30000)
+                                var lat = double.Parse(geo.Lat);
+                                var lng = double.Parse(geo.Lng);
+                                id  = Locations.GetWithDistance(context, lat, lng)
+                                    .Where(i=>i.CityDistance < 30000)
                                     .OrderBy(i=>i.CityDistance)
                                     .ThenBy(i=>i.CountyDistance)
-                                    //    .Where(i => i.City.CityGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point) < 30000/* && i.County.CountyGeographies.Where(g=>g.GeographyClass.Name =="Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point) < 30000*/)
-                                    //.OrderBy(i => i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography.GeographyPolygon.Distance(point))
-                                    //.ThenBy(i => i.County.Geography.Distance(point))
-                                    .Select(i => i.Id).FirstOrDefault();
+                                    .Select(i => i.Entity.Id).FirstOrDefault();
                                 Cache[cacheKey] = id;
                             }
                         }
                     }
                 }
-            }
-            catch (Exception e){ }
+   
             return id;
         }
 

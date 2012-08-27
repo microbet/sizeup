@@ -63,6 +63,7 @@
     <Compile Include="DataAccess\IndustryData.cs" />
     <Compile Include="DataAccess\Locations.cs" />
     <Compile Include="DataAccess\Math.cs" />
+    <Compile Include="DataAccess\Models\PlaceDistance.cs" />
     <Compile Include="DataAccess\Models\DisplayGeography.cs" />
     <Compile Include="DataAccess\Models\EntityDistance.cs" />
     <Compile Include="DataAccess\Models\Locations.cs" />

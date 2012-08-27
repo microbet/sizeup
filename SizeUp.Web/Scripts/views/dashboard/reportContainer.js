@@ -40,6 +40,8 @@
             me.toggle.click(function () { reportToggleClicked(); });
             me.valueBox.blur(function () { onTextboxBlur(); });
             me.valueBox.keydown(function (e) { onTextboxKeypress(e); });
+
+            me.valueBox.val('');
         };
 
 
@@ -214,6 +216,12 @@
             hideReport();
         };
 
+        var clearReport = function () {
+            setValue('');
+            hideAllControls();
+            hideReport();
+            fadeInPrompt(0);
+        };
 
         var publicObj = {
             fadeInPrompt: function (delay, callback) {
@@ -239,6 +247,9 @@
             },
             doGetReport: function () {
                 doGetReport();
+            },
+            clearReport: function () {
+                clearReport();
             }
         };
         init();

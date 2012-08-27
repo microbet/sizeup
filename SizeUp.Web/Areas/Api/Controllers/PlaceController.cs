@@ -159,6 +159,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+        public JsonResult Ip()
+        {
+           
+                return Json(Request.UserHostAddress, JsonRequestBehavior.AllowGet);
+        }
+       
 
         public JsonResult Get(long id)
         {

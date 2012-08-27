@@ -10,6 +10,7 @@ namespace SizeUp.Core.DataAccess.Models
 {
     public class Locations
     {
+        public long Id { get; set; }
         public City City { get; set; }
         public County County { get; set; }
         public Metro Metro { get; set; }

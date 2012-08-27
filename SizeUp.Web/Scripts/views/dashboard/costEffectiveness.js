@@ -67,6 +67,18 @@
                     onClick: function () { toggleResources(); }
                 });
 
+            me.mapToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.mapToggle'),
+                    onClick: function () { toggleMap(); }
+                });
+
+            me.chartToggle = new sizeup.controls.toggleButton(
+                {
+                    button: me.container.find('.chartToggle'),
+                    onClick: function () { toggleChart(); }
+                });
+
 
             me.sourceContent = me.container.find('.reportContainer .sourceContent').hide();
             me.considerations = me.container.find('.reportContainer .considerations');
@@ -98,6 +110,15 @@
                 me.data.enteredRevenue = revenue;
                 setupReport();
             }
+            else if (!(employees != null &&
+                salary != null &&
+                revenue != null)) {
+                me.reportContainer.clearReport();
+            }
+        };
+
+        var toggleMap = function () {
+            me.map.getContainer().toggle("slide", { direction: "up" }, 350);
         };
 
         var toggleSource = function () {
@@ -112,7 +133,18 @@
             me.resources.toggleClass('collapsed', 1000);
         };
 
-
+        var toggleChart = function () {
+            if (me.chart.getContainer().is(':visible')) {
+                me.chart.getContainer().toggle("slide", { direction: "up" }, 350, function () {
+                    me.table.getContainer().toggle("slide", { direction: "up" }, 350);
+                });
+            }
+            else {
+                me.table.getContainer().toggle("slide", { direction: "up" }, 350, function () {
+                    me.chart.getContainer().toggle("slide", { direction: "up" }, 350);
+                });
+            }
+        };
 
 
         var displayReport = function () {
@@ -214,24 +246,24 @@
                     bars: me.data.chart.bars
                 });
                 me.chart.draw();
-
+                
                 me.table = new sizeup.charts.tableChart({
                     container: me.container.find('.table').hide(),
                     rowTemplate: templates.get('tableRow'),
                     rows: me.data.table
                 });
 
-
+                
                 me.data.description = {
                     Percentage: me.data.gauge.tooltip,
                     NAICS6: me.opts.report.IndustryDetails.NAICS6,
                     Industry: me.opts.report.IndustryDetails.Industry
                 };
-
+                
                 me.description.html(templates.bind(templates.get("description"), me.data.description));
 
 
-
+                
 
 
 
@@ -300,12 +332,7 @@
                     };
                 }
             }
-            me.data.table['median'] =
-              {
-                  name: 'National Median',
-                  value: '$' + sizeup.util.numbers.format.sigFig(data['Nation'].Median, 3)
-              };
-
+            
 
 
 

@@ -76,7 +76,7 @@
             me.content.mapPins = [];
             me.content.map = new sizeup.maps.map({
                 container: me.content.container.find('.mapContent .map'),
-                mapSettings: me.opts.mapSettings,
+                mapSettings: $.extend(me.opts.mapSettings, {maxZoom: 16}),
                 styles: me.opts.styles
             });
 
@@ -504,15 +504,18 @@
                 me.content.map.removeMarker(me.content.mapPins[x]);
             }
             me.content.mapPins = [];
+            var latLngBounds = new sizeup.maps.latLngBounds();
             for (var x in data.zips.Items) {
                 var pin = new sizeup.maps.heatPin({
                     position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Lat, lng: data.zips.Items[x].Long }),
                     color: getColor(getValue(data.zips.Items[x], attribute), data.bands),
                     title: data.zips.Items[x].Name
                 });
+                latLngBounds.extend(pin.getPosition());
                 me.content.mapPins.push(pin);
                 me.content.map.addMarker(pin);
             };
+            me.content.map.fitBounds(latLngBounds);
         };
 
         var getColor = function (value, bandData) {

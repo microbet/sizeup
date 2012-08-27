@@ -150,6 +150,7 @@
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\CostEffectivenessController.cs" />
+    <Compile Include="Areas\Api\Controllers\DemographicsController.cs" />
     <Compile Include="Areas\Api\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Api\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Areas\Api\Models\City\City.cs" />
     <Compile Include="Areas\Api\Models\CostEffectiveness\Band.cs" />
     <Compile Include="Areas\Api\Models\CostEffectiveness\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Demographics\Place.cs" />
     <Compile Include="Areas\Api\Models\EmployeesPerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\EmployeesPerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Healthcare\Chart.cs" />
