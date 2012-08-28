@@ -336,6 +336,7 @@
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
+    <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\businessMap.js" />
     <Content Include="Scripts\maps\circle.js" />
