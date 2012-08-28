@@ -28,6 +28,11 @@
         dataLayer.getCityCentroid({ id: opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
         var init = function () {
             
+            me.signinPanel = new sizeup.views.shared.signin({
+                container: me.container.find('#signin .signinPanel.form'),
+                toggle: me.container.find('#signin .signinToggle')
+            });
+
             me.resourceToggle = new sizeup.controls.toggleButton(
                 {
                     button: me.container.find('#summaryView'),

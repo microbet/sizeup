@@ -41,6 +41,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/healthcareCost.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/workersComp.js")"></script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/dashboard.js")"></script>
 
@@ -89,11 +90,13 @@
     }
 
     @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-    <div class="report">
-        <p class="info">
-            <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more reports.</span>
-            <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
-        </p>
+    <div id="signin" class="report">
+        <div class="header">
+            <h2><a href="javascript:void(0);" class="signinToggle" >See More Reports</a></h2>
+        </div>
+        <div class="body">
+        @Html.Partial("Signin")  
+        </div>     
     </div>    
     }
 

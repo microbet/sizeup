@@ -1,6 +1,6 @@
 ﻿#contentWrap { padding: 0 0.5em;}
 
-#dashboard { padding: 0 1.5em 0 0; }
+#dashboard { padding: 0 1.5em 10em 0; }
 #dashboard h1 {text-align:left; left:0; top:0; position:relative; }
 #dashboard .report {border:none; border-radius:0; width:100%; }
 #dashboard .report .header .hint { left: 7.75em; top: 4.5em; }

@@ -1,6 +1,6 @@
 ﻿
 
-#advertising { position:relative; }
+#advertising { position:relative; margin:0 0 4em 0; }
 #advertising .content{ position: relative; margin: 0 0 5em 0; }
 
 #advertising .heading { position: relative; margin: 0 0 1em 0; text-align:right;}
@@ -51,7 +51,7 @@
 #advertising .sort .value #valueMenu {width:15em;  }
 
 
-#advertising ul.results {border-top:#eee solid 1px; margin:0 0 4em 0; }
+#advertising ul.results {border-top:#eee solid 1px;  }
 #advertising ul.results li {border-bottom:#eee solid 1px; padding:1em 0; }
 #advertising ul.results li .name { font-size: 1.5em; font-weight:bold; }
 #advertising ul.results li .name.noCommunity { color: #606060; }
@@ -86,4 +86,16 @@
 #advertising .pager ul li {display:inline;  font-weight:bold; }
 #advertising .pager li.current a,
 #advertising .pager li.current a:hover { color: #606060; }
+
+
+
+
+#advertising .signinWrapper { padding: 1em 1em 0 2.75em; }
+#advertising .signinWrapper .signinToggle { font-size:1.5em;  }
+#advertising .signinWrapper .signinToggle .viewing { float: right; }
+#advertising .signinWrapper .signinPanel.form input[type="text"],
+#advertising .signinWrapper .signinPanel.form input[type="password"] {width: 13em;}
+#advertising .signinWrapper .signinPanel.form a.button { left: 2em; }
+
+
 

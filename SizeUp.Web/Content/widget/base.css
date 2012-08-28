@@ -102,3 +102,14 @@ a.button.medium { font-size: 1.9em; }
 a.sorter { font-size:1em; display: inline-block; background: url(/content/images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0; }
 a.sorter.asc { background-position:right -2.2em; }
 a.sorter.desc { background-position:right 0.3em; }
+
+
+.signinPanel.form p { margin: 1em 0; }
+.signinPanel.form label { font-size:1.3em; width:7em; }
+.signinPanel.form input[type=text],
+.signinPanel.form input[type=password] { width:15em; padding:0.5em; font-size:1.5em; }
+.signinPanel.form ul li { margin: 0.5em 0; }
+.signinPanel.form a.button { position: relative; left: 5.25em; font-size:1.75em; }
+
+
+

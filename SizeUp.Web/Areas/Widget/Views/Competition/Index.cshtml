@@ -25,7 +25,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMap.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")"></script>
 
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")"></script>
 
 }
@@ -204,10 +204,13 @@
 
 
                 @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-                <p class="signinPanel info">
-                    <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
-                    <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
-                </p>
+                <div class="signinWrapper">
+                        <a href="javascript:void(0);" class="signinToggle inverse hidden" >
+                            <span class="prompt">See all {{totalItems}} businesses</span>
+                            <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                        </a>
+                        @Html.Partial("Signin")  
+                </div>   
                 }
             </div>             
             </div>
@@ -305,10 +308,13 @@
                         </div>
                     </div>
                     @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-                    <p class="signinPanel info">
-                        <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
-                        <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
-                    </p>
+                    <div class="signinWrapper">
+                            <a href="javascript:void(0);" class="signinToggle inverse hidden" >
+                                <span class="prompt">See all {{totalItems}} businesses</span>
+                                <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                            </a>
+                            @Html.Partial("Signin")  
+                    </div>   
                     }
                 </div>
              </div>   
@@ -403,10 +409,13 @@
                         </div>
                     </div>
                     @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-                    <p class="signinPanel info">
-                        <span>Please <a href="/user/signin?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a> to see more results.</span>
-                        <span>Don't have an account? Complete a <a href="/user/register?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">free registration</a>.</span>
-                    </p>
+                    <div class="signinWrapper">
+                            <a href="javascript:void(0);" class="signinToggle inverse hidden" >
+                                <span class="prompt">See all {{totalItems}} businesses</span>
+                                <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                            </a>
+                            @Html.Partial("Signin")  
+                    </div>   
                     }
                 </div>
                 
@@ -422,7 +431,10 @@
 @section scripts{
 
     <script type="text/javascript">
-        var opts = @Html.Raw(ViewBag.CurrentInfoJSON) ;
+        var opts = {
+            CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON) ,
+            itemsPerPage: 5
+        };
         var driver = new sizeup.views.competition.competition(opts);
     </script>
 

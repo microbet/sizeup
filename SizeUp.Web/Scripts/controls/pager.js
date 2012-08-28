@@ -8,7 +8,7 @@
             itemsPerPage: 10,
             totalItems: 0,
             currentPage: 1,
-            pagesToShow: 10,
+            pagesToShow: 5,
             templates: new sizeup.core.templates(),
             templateId: '',
             onUpdate: function () { }

@@ -156,6 +156,13 @@
             me.filterSettings.cancelButton.click(function () { cancelClicked(); });
 
 
+            me.signinPanel = new sizeup.views.shared.signin({
+                container: me.container.find('.signinWrapper .signinPanel'),
+                toggle: me.container.find('.signinWrapper .signinToggle')
+            });
+      
+
+
             initFilterSliders();
             setOptionMenu(params.template);
             setSliderValues(params);

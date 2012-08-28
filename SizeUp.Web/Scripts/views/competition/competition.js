@@ -14,7 +14,7 @@
         me.opts = $.extend(true, defaults, opts);
 
         me.data = {};
-        me.container = $('#competition');
+        me.container = $('#competition');me.opts.CurrentInfo.CurrentIndustry
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
 
@@ -30,13 +30,16 @@
         {
             industries: {},
             pickerIndustries: {},
-            primaryIndustry: me.opts.CurrentIndustry.Id,
+            primaryIndustry: me.opts.CurrentInfo.CurrentIndustry.Id,
             businesses: {
                 items: {},
                 markers: {},
                 pins: {},
                 infoWindow: null,
                 isStale: true
+            },
+            signinPanel:{
+                templateText: ''
             },
             color: 'FF5522'
         };
@@ -51,6 +54,9 @@
                 infoWindow: null,
                 isStale: true
             },
+            signinPanel: {
+                templateText: ''
+            },
             color: '66EE00'
         };
         me.data.supplier = 
@@ -64,12 +70,15 @@
                 infoWindow: null,
                 isStale: true
             },
+            signinPanel: {
+                templateText: ''
+            },
             color: '11AAFF'
         };
 
         var notifier = new sizeup.core.notifier(function () { init(); });
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-        dataLayer.getCityBoundingBox({id: opts.CurrentPlace.City.Id}, notifier.getNotifier(function (data) { 
+        dataLayer.getCityBoundingBox({id: opts.CurrentInfo.CurrentPlace.City.Id}, notifier.getNotifier(function (data) { 
             me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[0].Lat, lng: data[0].Lng}));
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[1].Lat, lng: data[1].Lng}));
@@ -156,6 +165,17 @@
             });
             me[index].content.pager.hide();
 
+            me[index].content.signinPanel = {
+                toggle: me[index].content.container.find('.signinWrapper .signinToggle').hide().removeClass('hidden'),
+                control: new sizeup.views.shared.signin({
+                    container: me[index].content.container.find('.signinWrapper .signinPanel'),
+                    toggle: me[index].content.container.find('.signinWrapper .signinToggle')
+                })
+            };
+
+            me.data[index].signinPanel.templateText = me[index].content.signinPanel.toggle.html();
+
+
             me[index].content.changer = me[index].content.container.find('.change');
             me[index].content.changer.click(function () { changeClicked(index); });
 
@@ -186,7 +206,7 @@
             me[index].content.map = new sizeup.maps.businessMap({
                 container: me[index].content.container.find('.mapContent'),
                 radius: me.opts.mapRadius,
-                cityId: me.opts.CurrentPlace.City.Id,
+                cityId: me.opts.CurrentInfo.CurrentPlace.City.Id,
                 primaryIndex: index
             });
             me[index].content.map.fitBounds(me.data.cityBoundingBox);
@@ -446,7 +466,7 @@
             var pagerData = me[index].content.pager.getPageData();
             dataLayer.getBusinessesByIndustry({
                 industryIds: getIndustryIds(index),
-                placeId: me.opts.CurrentPlace.Id,
+                placeId: me.opts.CurrentInfo.CurrentPlace.Id,
                 itemCount: me.opts.itemsPerPage,
                 page: pagerData.page
             }, function (data) {
@@ -458,6 +478,11 @@
 
         var bindBusinesses = function (index, data) {
             me[index].content.pager.setState(data);
+            if (me.data[index].signinPanel.templateText) {
+                me[index].content.signinPanel.toggle.html(templates.bind(me.data[index].signinPanel.templateText, me[index].content.pager.getPageData()));
+                me[index].content.signinPanel.toggle.show();
+            }
+
             if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
                 me[index].content.pager.show();
             }

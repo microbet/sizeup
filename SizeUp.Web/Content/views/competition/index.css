@@ -70,11 +70,11 @@
 #competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
 
 
-#competition .pager { text-align: right; margin:1em 0 0 0; }
+#competition .pager {  margin:1em 0 0 1em; }
 #competition .pager,
 #competition .pager span,
-#competition .pager a { font-size: 0.95em; }
-#competition .pager span { margin:0 1em 0 0; }
+#competition .pager a { font-size: 1.2em; }
+#competition .pager span { display:block; margin:0 1em 0 0; }
 #competition .pager a,
 #competition .pager ul,
 #competition .pager ul li {display:inline;  font-weight:bold; }
@@ -83,7 +83,12 @@
 
 
 
-#competition .signinPanel {margin: 7em auto;  }
+#competition .signinWrapper { padding: 0 1em 0 2.75em; }
+#competition .signinWrapper .signinToggle { font-size:1.5em;  }
+#competition .signinWrapper .signinToggle .viewing { float: right; }
+#competition .signinWrapper .signinPanel.form input[type="text"],
+#competition .signinWrapper .signinPanel.form input[type="password"] {width: 13em;}
+#competition .signinWrapper .signinPanel.form a.button { left: 2em; }
 
 
 #competition .infoWindow { font-family: Arial,Verdana,sans-serif; padding: 0.5em 0; }

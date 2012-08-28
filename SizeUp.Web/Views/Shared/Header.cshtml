@@ -30,9 +30,9 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces){
     -->
 }
 @if(SizeUp.Core.Identity.Identity.CurrentUser==null){
-<li><a href="/user/signin/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
+<li><a href="javascript:sizeup.core.profile.signIn();">Sign In</a></li>
 }else{
-<li><a href="/user/signout/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign Out (@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName)</a></li>
+<li><a href="javascript:sizeup.core.profile.signOut();">Sign Out (@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName)</a></li>
 }
 </ul>
 </div>
