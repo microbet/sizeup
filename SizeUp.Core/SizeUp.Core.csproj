@@ -59,6 +59,7 @@
     <Compile Include="DataAccess\BusinessData.cs" />
     <Compile Include="DataAccess\Cities.cs" />
     <Compile Include="DataAccess\Counties.cs" />
+    <Compile Include="DataAccess\DemographicsData.cs" />
     <Compile Include="DataAccess\Geography.cs" />
     <Compile Include="DataAccess\IndustryData.cs" />
     <Compile Include="DataAccess\Locations.cs" />

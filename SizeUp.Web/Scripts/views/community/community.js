@@ -22,7 +22,7 @@
 
 
         dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        dataLayer.getDemographics({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.Demographics = data; }));
+        dataLayer.getDemographics({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 
 
@@ -35,13 +35,20 @@
 
             me.content.report = me.container.find('.report').hide().removeClass('hidden');
 
-
+            me.content.report.html(templates.bind(templates.get('demographics'), me.data.demographics));
 
             me.content.report.show();
             me.container.find('.loading').remove();
 
         };
 
+
+        var formatDemographics = function (data) {
+            data.Population = sizeup.util.numbers.format.addCommas(data.Population);
+            data.LaborForce = sizeup.util.numbers.format.addCommas(data.LaborForce);
+
+            return data;
+        };
 
 
 

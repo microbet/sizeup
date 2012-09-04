@@ -46,51 +46,46 @@
 
     <div class="report wrapper hidden">
         <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation <span>Community Details</span></h1>
-        <div class="col">
-            <h2>People</h2>
-            <ul>
-                <li><span class="label">Population:</span><span class="value">15,955</span></li>
-                <li><span class="label">Labor Force:</span><span class="value">15,955</span></li>
-                <li><span class="label">Job Growth (2000-2010):</span><span class="value">15,955</span></li>
-                <li><span class="label">Unemployment Rate:</span><span class="value">15,955</span></li>
-                <li><span class="label">Median Age:</span><span class="value">15,955</span></li>
-            </ul>
-            <h2>Labor Force Quality</h2>
-            <ul>
-                <li><span class="label">Bachelors Degree or Higher:</span><span class="value">15,955</span></li>
-                <li><span class="label">Highschool Degree or Highere:</span><span class="value">15,955</span></li>
-                <li><span class="label">White Collar Workers:</span><span class="value">15,955</span></li>
-                <li><span class="label">Blue Collar Workers:</span><span class="value">15,955</span></li>
-                <li><span class="label">Very Creative Professionals:</span><span class="value">15,955</span></li>
-                <li><span class="label">Creative Professionals:</span><span class="value">15,955</span></li>
-                <li><span class="label">Young and Educated:</span><span class="value">15,955</span></li>
-                <li><span class="label">International Talent:</span><span class="value">15,955</span></li>
-                <li><span class="label">Universities in Community:</span><span class="value">15,955</span></li>
-                <li><span class="label">Universities in County + 50 miles:</span><span class="value">15,955</span></li>
-                <li><span class="label">Commute Time:</span><span class="value">15,955</span></li>
-            </ul>
-        </div>
-        <div class="col">
-            <h2>Entrepreneurs &amp; Innovation</h2>
-            <ul>
-                <li><span class="label">Patents per 10,000 residents:</span><span class="value">15,955</span></li>
-                <li><span class="label">Patents Issued:</span><span class="value">15,955</span></li>
-                <li><span class="label">Venture Capital Invested:</span><span class="value">15,955</span></li>
-                <li><span class="label">Companies Receiving VC Funding:</span><span class="value">15,955</span></li>
-                <li><span class="label">Small Businesses:</span><span class="value">15,955</span></li>
-            </ul>
-            <h2>Budgets</h2>
-            <ul>
-                <li><span class="label">Household Expenditures (Average):</span><span class="value">15,955</span></li>
-                <li><span class="label">Household Income:</span><span class="value">15,955</span></li>
-                <li><span class="label">Top State Personal Income Tax:</span><span class="value">15,955</span></li>
-                <li><span class="label">Top State Personal Capital Gains Tax:</span><span class="value">15,955</span></li>
-                <li><span class="label">Top State Corporate Income Tax:</span><span class="value">15,955</span></li>
-                <li><span class="label">Top State Corporate Capital Gains Tax:</span><span class="value">15,955</span></li>
-                <li><span class="label">State Sales Tax:</span><span class="value">15,955</span></li>
-                <li><span class="label">Property Tax:</span><span class="value">15,955</span></li>            
-                <li><span class="label">Home Value:</span><span class="value">15,955</span></li>
-            </ul>
+        <div data-template="demographics">
+            <div class="col">
+                <h2>People</h2>
+                <ul>
+                    <li><span class="label">Population:</span><span class="value">{{Population}}</span></li>
+                    <li><span class="label">Labor Force:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Small Businesses:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Job Growth (2000-2010):</span><span class="value">15,955</span></li>
+                    <li><span class="label">Unemployment Rate:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Median Age:</span><span class="value">15,955</span></li>
+                </ul>
+                <h2>Budgets</h2>
+                <ul>
+                    <li><span class="label">Household Expenditures (Average):</span><span class="value">15,955</span></li>
+                    <li><span class="label">Household Income:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Top State Personal Income Tax:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Top State Personal Capital Gains Tax:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Top State Corporate Income Tax:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Top State Corporate Capital Gains Tax:</span><span class="value">15,955</span></li>
+                    <li><span class="label">State Sales Tax:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Property Tax:</span><span class="value">15,955</span></li>            
+                    <li><span class="label">Home Value:</span><span class="value">15,955</span></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h2>Labor Force Quality</h2>
+                <ul>
+                    <li><span class="label">Bachelors Degree or Higher:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Highschool Degree or Highere:</span><span class="value">15,955</span></li>
+                    <li><span class="label">White Collar Workers:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Blue Collar Workers:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Very Creative Professionals:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Creative Professionals:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Young and Educated:</span><span class="value">15,955</span></li>
+                    <li><span class="label">International Talent:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Universities in Community:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Universities in County + 50 miles:</span><span class="value">15,955</span></li>
+                    <li><span class="label">Commute Time:</span><span class="value">15,955</span></li>
+                </ul>
+            </div>
         </div>
     </div>
 

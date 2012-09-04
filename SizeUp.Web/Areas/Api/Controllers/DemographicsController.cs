@@ -24,12 +24,41 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var locations = Locations.Get(context, id).FirstOrDefault();
-                //IQueryable<Models.AverageRevenue.ChartItem> m = null;
-
-                var data = new Models.Demographics.Place()
+  
+                var data = DemographicsData.GetCity(context, locations.City.Id)
+                    .Join(DemographicsData.GetStates(context), i => i.City.StateId, o => o.StateId, (i, o) => new { CityData = i, StateData = o })
+                    .Select(i => new Models.Demographics.Place()
                 {
-                    PlaceId = locations.Id
-                };
+                    PlaceId = locations.Id,
+                    AverageHouseholdExpenditures = i.CityData.AverageHouseholdExpenditure,
+                    BachelorsOrHigherPercentage = i.CityData.BachelorsOrHigherPercentage,
+                    BlueCollarWorkersPercentage = i.CityData.BlueCollarWorkersPercentage,
+                    CommuteTime = i.CityData.AverageCommuteTime,
+                    CorporateCapitalGainsTax = i.StateData.CorporateCapitalGainsTax,
+                    CorporateIncomeTax = i.StateData.CorporateIncomeTax,
+                    CreativeProfessionalsPercentage = i.CityData.CreativePercentage,
+                    HighschoolOrHigherPercentage = i.CityData.HighSchoolOrHigherPercentage,
+                    HomeValue = i.CityData.HomeValue,
+                    HouseholdIncome = i.CityData.MedianHouseholdIncome,
+                    InternationalTalentPercentage = i.CityData.InternationalTalent,
+                    JobGrowth = i.CityData.JobGrowth,
+                    LaborForce = i.CityData.LaborForce,
+                    MedianAge = i.CityData.MedianAge,
+                    PersonalCapitalGainsTax = i.StateData.PersonalCapitalGainsTax,
+                    PersonalIncomeTax = i.StateData.PersonalIncomeTax,
+                    Population = i.CityData.TotalPopulation,
+                    PropertyTax = i.CityData.PropertyTax,
+                    SalesTax = i.StateData.SalesTax,
+                    SmallBusinesses = i.CityData.TotalEstablishments,
+                    Unemployment = i.CityData.Unemployment,
+                    Universities = i.CityData.UniversitiesWithinHalfMile,
+                    Universities50Miles = i.CityData.UniversitiesWithin50Miles,
+                    VeryCreativeProfessionalsPercentage = i.CityData.VeryCreativePercentage,
+                    WhiteCollarWorkersPercentage = i.CityData.WhiteCollarWorkersPercentage,
+                    YoungEducatedPercentage = i.CityData.YoungEducatedPercentage
+
+                })
+                .FirstOrDefault();
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

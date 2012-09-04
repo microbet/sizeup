@@ -92,22 +92,23 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var zips = ZipCodes.GetWithDistance(context, center.lat, center.lng);
 
                 var data = IndustryData.GetZipCodes(context, industryId)
+                    .Join(DemographicsData.GetZipCodes(context), i=>i.ZipCodeId, o=>o.ZipCodeId, (i,o)=> new { IndustryData = i, Demographics = o})
                     .Select(i => new
                     {
-                        ZipCodeId = i.ZipCode.Id,
-                        Name = i.ZipCode.Name,
-                        Center = i.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                        AverageRevenue = (long)i.AverageRevenue,
-                        TotalRevenue = (long)i.TotalRevenue,
-                        TotalEmployees = (long)i.TotalEmployees,
-                        RevenuePerCapita = (long)i.RevenuePerCapita,
-                        BachelorsDegreeOrHigher = (double)i.BachelorsOrHigher,
-                        HighSchoolOrHigher = (double)i.HighSchoolOrHigher,
-                        MedianAge = (int)i.MedianAge,
-                        HouseholdIncome = (long)i.MedianHouseholdIncome,
-                        HouseholdExpenditures = (long)i.AverageHouseholdExpenditure,
-                        WhiteCollarWorkers = (double)i.WhiteCollarWorkers,
-                        TotalPopulation = (long)i.TotalPopulation
+                        ZipCodeId = i.IndustryData.ZipCode.Id,
+                        Name = i.IndustryData.ZipCode.Name,
+                        Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                        AverageRevenue = (long)i.IndustryData.AverageRevenue,
+                        TotalRevenue = (long)i.IndustryData.TotalRevenue,
+                        TotalEmployees = (long)i.IndustryData.TotalEmployees,
+                        RevenuePerCapita = (long)i.IndustryData.RevenuePerCapita,
+                        BachelorsDegreeOrHigher = (double)i.Demographics.BachelorsOrHigherPercentage,
+                        HighSchoolOrHigher = (double)i.Demographics.HighSchoolOrHigherPercentage,
+                        MedianAge = (int)i.Demographics.MedianAge,
+                        HouseholdIncome = (long)i.Demographics.MedianHouseholdIncome,
+                        HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
+                        WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
+                        TotalPopulation = (long)i.Demographics.TotalPopulation
                     })
                     .Join(zips, i => i.ZipCodeId, i => i.Entity.Id, (i, o) => new { Data = i, ZipCode = o });
 
@@ -454,20 +455,23 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var zips = ZipCodes.GetWithDistance(context, center.lat, center.lng);
 
                 var data = IndustryData.GetZipCodes(context, industryId)
+                    .Join(DemographicsData.GetZipCodes(context), i => i.ZipCodeId, o => o.ZipCodeId, (i, o) => new { IndustryData = i, Demographics = o })
                     .Select(i => new
                     {
-                        ZipCodeId = i.ZipCode.Id,
-                        AverageRevenue = (long)i.AverageRevenue,
-                        TotalRevenue = (long)i.TotalRevenue,
-                        TotalEmployees = (long)i.TotalEmployees,
-                        RevenuePerCapita = (long)i.RevenuePerCapita,
-                        BachelorsDegreeOrHigher = (double)i.BachelorsOrHigher,
-                        HighSchoolOrHigher = (double)i.HighSchoolOrHigher,
-                        MedianAge = (int)i.MedianAge,
-                        HouseholdIncome = (long)i.MedianHouseholdIncome,
-                        HouseholdExpenditures = (long)i.AverageHouseholdExpenditure,
-                        WhiteCollarWorkers = (double)i.WhiteCollarWorkers,
-                        TotalPopulation = (long)i.TotalPopulation
+                        ZipCodeId = i.IndustryData.ZipCode.Id,
+                        Name = i.IndustryData.ZipCode.Name,
+                        Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                        AverageRevenue = (long)i.IndustryData.AverageRevenue,
+                        TotalRevenue = (long)i.IndustryData.TotalRevenue,
+                        TotalEmployees = (long)i.IndustryData.TotalEmployees,
+                        RevenuePerCapita = (long)i.IndustryData.RevenuePerCapita,
+                        BachelorsDegreeOrHigher = (double)i.Demographics.BachelorsOrHigherPercentage,
+                        HighSchoolOrHigher = (double)i.Demographics.HighSchoolOrHigherPercentage,
+                        MedianAge = (int)i.Demographics.MedianAge,
+                        HouseholdIncome = (long)i.Demographics.MedianHouseholdIncome,
+                        HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
+                        WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
+                        TotalPopulation = (long)i.Demographics.TotalPopulation
                     })
                     .Join(zips, i => i.ZipCodeId, i => i.Entity.Id, (i, o) => new { Data = i, ZipCode = o });
 
@@ -638,20 +642,23 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var zips = ZipCodes.GetWithDistance(context, center.lat, center.lng);
 
                 var data = IndustryData.GetZipCodes(context, industryId)
+                    .Join(DemographicsData.GetZipCodes(context), i => i.ZipCodeId, o => o.ZipCodeId, (i, o) => new { IndustryData = i, Demographics = o })
                     .Select(i => new
                     {
-                        ZipCodeId = i.ZipCode.Id,
-                        AverageRevenue = (long)i.AverageRevenue,
-                        TotalRevenue = (long)i.TotalRevenue,
-                        TotalEmployees = (long)i.TotalEmployees,
-                        RevenuePerCapita = (long)i.RevenuePerCapita,
-                        BachelorsDegreeOrHigher = (double)i.BachelorsOrHigher,
-                        HighSchoolOrHigher = (double)i.HighSchoolOrHigher,
-                        MedianAge = (int)i.MedianAge,
-                        HouseholdIncome = (long)i.MedianHouseholdIncome,
-                        HouseholdExpenditures = (long)i.AverageHouseholdExpenditure,
-                        WhiteCollarWorkers = (double)i.WhiteCollarWorkers,
-                        TotalPopulation = (long)i.TotalPopulation
+                        ZipCodeId = i.IndustryData.ZipCode.Id,
+                        Name = i.IndustryData.ZipCode.Name,
+                        Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                        AverageRevenue = (long)i.IndustryData.AverageRevenue,
+                        TotalRevenue = (long)i.IndustryData.TotalRevenue,
+                        TotalEmployees = (long)i.IndustryData.TotalEmployees,
+                        RevenuePerCapita = (long)i.IndustryData.RevenuePerCapita,
+                        BachelorsDegreeOrHigher = (double)i.Demographics.BachelorsOrHigherPercentage,
+                        HighSchoolOrHigher = (double)i.Demographics.HighSchoolOrHigherPercentage,
+                        MedianAge = (int)i.Demographics.MedianAge,
+                        HouseholdIncome = (long)i.Demographics.MedianHouseholdIncome,
+                        HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
+                        WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
+                        TotalPopulation = (long)i.Demographics.TotalPopulation
                     })
                     .Join(zips, i => i.ZipCodeId, i => i.Entity.Id, (i, o) => new { Data = i, ZipCode = o });
 
