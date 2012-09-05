@@ -219,7 +219,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     })
                     .FirstOrDefault();
 
-               
+
                 Models.Maps.LatLng output = new Models.Maps.LatLng();
                 if (data != null)
                 {
@@ -229,6 +229,32 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
                     output.Lat = (double)geo.STPointN(1).Lat;
                     output.Lng = (double)geo.STPointN(1).Long;
+                }
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult BoundingBox(int id)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = context.CityCountyMappings.Where(i => i.Id == id)
+                    .Select(i => new
+                    {
+                        City = i.City.CityGeographies.Where(g => g.CityId == i.CityId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                        County = i.County.CountyGeographies.Where(g => g.CountyId == i.CountyId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()
+                    })
+                    .FirstOrDefault();
+
+                List<Models.Maps.LatLng> output = new List<Models.Maps.LatLng>();
+                if (data != null)
+                {
+                    var geo = SqlGeography.Parse(data.City.Intersection(data.County).AsText());
+                    var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
+                    geom = geom.STEnvelope();
+                    geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
+                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.STPointN(1).Lat, Lng = (double)geo.STPointN(1).Long });
+                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.STPointN(3).Lat, Lng = (double)geo.STPointN(3).Long });
                 }
                 return Json(output, JsonRequestBehavior.AllowGet);
             }

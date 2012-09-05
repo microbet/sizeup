@@ -60,7 +60,7 @@
                 return get('/api/city/', params, callback);
             },
             getCityBoundingBox: function (params, callback) {
-                return get('/api/city/boundingbox/', params, callback);
+                return get('/api/place/boundingbox/', params, callback);
             },
             getCityCentroid: function (params, callback) {
                 return get('/api/place/centroid/', params, callback);
