@@ -1719,6 +1719,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'SizeUp2.dbo.AdvertisingView' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="AdvertisingView">
+        <Property Name="ZipCodeId" Type="bigint" />
+        <Property Name="IndustryId" Type="bigint" />
+        <Property Name="TotalEmployees" Type="bigint" />
+        <Property Name="AverageEmployees" Type="bigint" />
+        <Property Name="EmployeesPerCapita" Type="float" />
+        <Property Name="TotalRevenue" Type="bigint" />
+        <Property Name="AverageRevenue" Type="bigint" />
+        <Property Name="RevenuePerCapita" Type="bigint" />
+        <Property Name="BachelorsOrHigherPercentage" Type="float" />
+        <Property Name="HighSchoolOrHigherPercentage" Type="float" />
+        <Property Name="WhiteCollarWorkersPercentage" Type="float" />
+        <Property Name="BlueCollarWorkersPercentage" Type="float" />
+        <Property Name="TotalPopulation" Type="bigint" />
+        <Property Name="PopulationAge25PlusBachelorsDegree" Type="bigint" />
+        <Property Name="PopulationAge25PlusGraduateDegree" Type="bigint" />
+        <Property Name="PopulationAge25Plus" Type="bigint" />
+        <Property Name="PopulationAge25PlusHighSchoolGrad" Type="bigint" />
+        <Property Name="PopulationAge25PlusCollegeNoDiploma" Type="bigint" />
+        <Property Name="PopulationAge25PlusAssociatesDegree" Type="bigint" />
+        <Property Name="PopulationWhite" Type="bigint" />
+        <Property Name="PopulationBlack" Type="bigint" />
+        <Property Name="PopulationNativeAmerican" Type="bigint" />
+        <Property Name="PopulationAsian" Type="bigint" />
+        <Property Name="PopulationHawaiian" Type="bigint" />
+        <Property Name="PopulationOtherRace" Type="bigint" />
+        <Property Name="PopulationMixedRace" Type="bigint" />
+        <Property Name="PopulationHispanic" Type="bigint" />
+        <Property Name="PopulationNonHispanic" Type="bigint" />
+        <Property Name="MedianHouseholdIncome" Type="bigint" />
+        <Property Name="TotalHouseholdExpenditure" Type="bigint" />
+        <Property Name="AverageHouseholdExpenditure" Type="float" />
+        <Property Name="MuseumsZoos" Type="bigint" />
+        <Property Name="Bars" Type="bigint" />
+        <Property Name="Restaurants" Type="bigint" />
+        <Property Name="WhiteCollarEmployees" Type="bigint" />
+        <Property Name="BlueCollarEmployees" Type="bigint" />
+        <Property Name="TotalEstablishments" Type="bigint" />
+        <Property Name="EstablishmentsEmployees1to4" Type="bigint" />
+        <Property Name="EstablishmentsEmployees5to9" Type="bigint" />
+        <Property Name="EstablishmentsEmployees10to19" Type="bigint" />
+        <Property Name="MedianAge" Type="float" />
+        <Property Name="MedianCommuteTime" Type="float" />
+        <Property Name="AverageCommuteTime" Type="float" />
+        <Property Name="AveragePropertyTax" Type="bigint" />
+        <Property Name="AverageAnnualTemperature" Type="float" />
+        <Property Name="AverageAnnualHighTemperature" Type="float" />
+        <Property Name="AverageAnnualLowTemperature" Type="float" />
+        <Property Name="AnnualRainfall" Type="float" />
+        <Property Name="AnnualSnowfall" Type="float" />
+        <Property Name="LaborForce" Type="bigint" />
+        <Property Name="LaborForceAge16Plus" Type="bigint" />
+        <Property Name="PopulationEmployed" Type="bigint" />
+        <Property Name="PopulationEmployedCurrentYear" Type="bigint" />
+      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>

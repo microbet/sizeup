@@ -89,12 +89,32 @@ namespace SizeUp.Web.Areas.Api.Controllers
               
 
 
-                var zips = ZipCodes.GetWithDistance(context, center.lat, center.lng);
+                var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
+                    .Select(i=> new {
+                        IndustryData = i.Entity.IndustryDataByZips.Where(id=>id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                        Demographics = i.Entity.DemographicsByZips.Where(d=> d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault(),
+                        ZipCode  = i
+                    })
+                
+                /*
+                var data = context.DemographicsByZips
+                    .Join(context.IndustryDataByZips, i=> i.ZipCodeId , o=>o.ZipCodeId, (i,o)=> new { Demographics = i, IndustryData = o})
+                    .Join(zips, i => i.IndustryData.ZipCodeId, o => o.Entity.Id, (i, o) => new { ZipCode = o, IndustryData = i.IndustryData, Demographics = i.Demographics })
+                    .Where(i=>i.Demographics.Year == TimeSlice.Year &&
+                            i.Demographics.Quarter == TimeSlice.Quarter &&
+                            i.IndustryData.Year == TimeSlice.Year &&
+                            i.IndustryData.Quarter == TimeSlice.Quarter &&
+                            i.IndustryData.IndustryId == industryId)
+                */
 
-                var data = IndustryData.GetZipCodes(context, industryId)
-                    .Join(DemographicsData.GetZipCodes(context), i=>i.ZipCodeId, o=>o.ZipCodeId, (i,o)=> new { IndustryData = i, Demographics = o})
+
+
+                //var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
+                //    .Join(IndustryData.GetZipCodes(context, industryId), i => i.Entity.Id, o => o.ZipCodeId, (i, o) => new { ZipCode = i, IndustryData = o })
+               //     .Join(DemographicsData.GetZipCodes(context), i => i.IndustryData.ZipCodeId, o => o.ZipCodeId, (i, o) => new { ZipCode = i.ZipCode, IndustryData = i.IndustryData, Demographics = o })
                     .Select(i => new
                     {
+                        ZipCode = i.ZipCode,
                         ZipCodeId = i.IndustryData.ZipCode.Id,
                         Name = i.IndustryData.ZipCode.Name,
                         Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
@@ -109,8 +129,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
                         WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
                         TotalPopulation = (long)i.Demographics.TotalPopulation
-                    })
-                    .Join(zips, i => i.ZipCodeId, i => i.Entity.Id, (i, o) => new { Data = i, ZipCode = o });
+                    });
+                   
 
 
 
@@ -118,11 +138,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (averageRevenue.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.AverageRevenue >= averageRevenue.Min);
+                        data = data.Where(i => i.AverageRevenue >= averageRevenue.Min);
                     }
                     if (averageRevenue.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.AverageRevenue <= averageRevenue.Max);
+                        data = data.Where(i => i.AverageRevenue <= averageRevenue.Max);
                     }
                 }
 
@@ -130,11 +150,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (totalRevenue.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalRevenue >= totalRevenue.Min);
+                        data = data.Where(i => i.TotalRevenue >= totalRevenue.Min);
                     }
                     if (totalRevenue.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalRevenue <= totalRevenue.Max);
+                        data = data.Where(i => i.TotalRevenue <= totalRevenue.Max);
                     }
                 }
 
@@ -142,11 +162,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (totalEmployees.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalEmployees >= totalEmployees.Min);
+                        data = data.Where(i => i.TotalEmployees >= totalEmployees.Min);
                     }
                     if (totalEmployees.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalEmployees <= totalEmployees.Max);
+                        data = data.Where(i => i.TotalEmployees <= totalEmployees.Max);
                     }
                 }
 
@@ -154,11 +174,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (revenuePerCapita.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.RevenuePerCapita >= revenuePerCapita.Min);
+                        data = data.Where(i => i.RevenuePerCapita >= revenuePerCapita.Min);
                     }
                     if (revenuePerCapita.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.RevenuePerCapita <= revenuePerCapita.Max);
+                        data = data.Where(i => i.RevenuePerCapita <= revenuePerCapita.Max);
                     }
                 }
 
@@ -166,11 +186,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (householdIncome.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdIncome >= householdIncome.Min);
+                        data = data.Where(i => i.HouseholdIncome >= householdIncome.Min);
                     }
                     if (householdIncome.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdIncome <= householdIncome.Max);
+                        data = data.Where(i => i.HouseholdIncome <= householdIncome.Max);
                     }
                 }
 
@@ -178,11 +198,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (householdExpenditures.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdExpenditures >= householdExpenditures.Min);
+                        data = data.Where(i => i.HouseholdExpenditures >= householdExpenditures.Min);
                     }
                     if (householdExpenditures.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdExpenditures <= householdExpenditures.Max);
+                        data = data.Where(i => i.HouseholdExpenditures <= householdExpenditures.Max);
                     }
                 }
 
@@ -190,30 +210,30 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (medianAge.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.MedianAge >= medianAge.Min);
+                        data = data.Where(i => i.MedianAge >= medianAge.Min);
                     }
                     if (medianAge.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.MedianAge <= medianAge.Max);
+                        data = data.Where(i => i.MedianAge <= medianAge.Max);
                     }
                 }
 
                 if (bachelorOrHigher != null)
                 {
                     var v = bachelorOrHigher / 100.0d;
-                    data = data.Where(i => i.Data.BachelorsDegreeOrHigher >= v);
+                    data = data.Where(i => i.BachelorsDegreeOrHigher >= v);
                 }
 
                 if (highSchoolOrHigher != null)
                 {
                     var v = highSchoolOrHigher / 100.0d;
-                    data = data.Where(i => i.Data.HighSchoolOrHigher >= v);
+                    data = data.Where(i => i.HighSchoolOrHigher >= v);
                 }
 
                 if (whiteCollar != null)
                 {
                     var v = whiteCollar / 100.0d;
-                    data = data.Where(i => i.Data.WhiteCollarWorkers >= v);
+                    data = data.Where(i => i.WhiteCollarWorkers >= v);
                 }
 
 
@@ -230,8 +250,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    {
                        ZipCodeId = i.ZipCode.Entity.Id,
                        Name = i.ZipCode.Entity.Name,
-                       Lat = (double)i.Data.Center.Lat,
-                       Long = (double)i.Data.Center.Lng,
+                       Lat = (double)i.Center.Lat,
+                       Long = (double)i.Center.Lng,
                        City = context.ZipCodePlaceMappings.Where(o=>o.ZipCodeId == i.ZipCode.Entity.Id)
                        .Select(o=> new Models.City.City()
                        {
@@ -256,17 +276,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                            Name = o.CityCountyMapping.County.State.Name,
                            SEOKey = o.CityCountyMapping.County.State.SEOKey
                        }).FirstOrDefault(),
-                       AverageRevenue = i.Data.AverageRevenue,
-                       TotalRevenue = i.Data.TotalRevenue,
-                       TotalEmployees = i.Data.TotalEmployees,
-                       RevenuePerCapita = i.Data.RevenuePerCapita,
-                       BachelorsDegreeOrHigher = i.Data.BachelorsDegreeOrHigher,
-                       HighSchoolOrHigher = i.Data.HighSchoolOrHigher,
-                       MedianAge = i.Data.MedianAge,
-                       HouseholdIncome = i.Data.HouseholdIncome,
-                       HouseholdExpenditures = i.Data.HouseholdExpenditures,
-                       WhiteCollarWorkers = i.Data.WhiteCollarWorkers,
-                       TotalPopulation = i.Data.TotalPopulation
+                       AverageRevenue = i.AverageRevenue,
+                       TotalRevenue = i.TotalRevenue,
+                       TotalEmployees = i.TotalEmployees,
+                       RevenuePerCapita = i.RevenuePerCapita,
+                       BachelorsDegreeOrHigher = i.BachelorsDegreeOrHigher,
+                       HighSchoolOrHigher = i.HighSchoolOrHigher,
+                       MedianAge = i.MedianAge,
+                       HouseholdIncome = i.HouseholdIncome,
+                       HouseholdExpenditures = i.HouseholdExpenditures,
+                       WhiteCollarWorkers = i.WhiteCollarWorkers,
+                       TotalPopulation = i.TotalPopulation
                    });
 
                 switch (sortAttribute)
@@ -452,12 +472,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 };
 
 
-                var zips = ZipCodes.GetWithDistance(context, center.lat, center.lng);
-
-                var data = IndustryData.GetZipCodes(context, industryId)
-                    .Join(DemographicsData.GetZipCodes(context), i => i.ZipCodeId, o => o.ZipCodeId, (i, o) => new { IndustryData = i, Demographics = o })
+                var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
                     .Select(i => new
                     {
+                        IndustryData = i.Entity.IndustryDataByZips.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                        Demographics = i.Entity.DemographicsByZips.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault(),
+                        ZipCode = i
+                    })
+                    .Select(i => new
+                    {
+                        ZipCode = i.ZipCode,
                         ZipCodeId = i.IndustryData.ZipCode.Id,
                         Name = i.IndustryData.ZipCode.Name,
                         Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
@@ -472,20 +496,19 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
                         WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
                         TotalPopulation = (long)i.Demographics.TotalPopulation
-                    })
-                    .Join(zips, i => i.ZipCodeId, i => i.Entity.Id, (i, o) => new { Data = i, ZipCode = o });
-
+                    });
+                   
 
 
                 if (averageRevenue != null)
                 {
                     if (averageRevenue.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.AverageRevenue >= averageRevenue.Min);
+                        data = data.Where(i => i.AverageRevenue >= averageRevenue.Min);
                     }
                     if (averageRevenue.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.AverageRevenue <= averageRevenue.Max);
+                        data = data.Where(i => i.AverageRevenue <= averageRevenue.Max);
                     }
                 }
 
@@ -493,11 +516,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (totalRevenue.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalRevenue >= totalRevenue.Min);
+                        data = data.Where(i => i.TotalRevenue >= totalRevenue.Min);
                     }
                     if (totalRevenue.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalRevenue <= totalRevenue.Max);
+                        data = data.Where(i => i.TotalRevenue <= totalRevenue.Max);
                     }
                 }
 
@@ -505,11 +528,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (totalEmployees.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalEmployees >= totalEmployees.Min);
+                        data = data.Where(i => i.TotalEmployees >= totalEmployees.Min);
                     }
                     if (totalEmployees.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalEmployees <= totalEmployees.Max);
+                        data = data.Where(i => i.TotalEmployees <= totalEmployees.Max);
                     }
                 }
 
@@ -517,11 +540,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (revenuePerCapita.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.RevenuePerCapita >= revenuePerCapita.Min);
+                        data = data.Where(i => i.RevenuePerCapita >= revenuePerCapita.Min);
                     }
                     if (revenuePerCapita.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.RevenuePerCapita <= revenuePerCapita.Max);
+                        data = data.Where(i => i.RevenuePerCapita <= revenuePerCapita.Max);
                     }
                 }
 
@@ -529,11 +552,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (householdIncome.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdIncome >= householdIncome.Min);
+                        data = data.Where(i => i.HouseholdIncome >= householdIncome.Min);
                     }
                     if (householdIncome.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdIncome <= householdIncome.Max);
+                        data = data.Where(i => i.HouseholdIncome <= householdIncome.Max);
                     }
                 }
 
@@ -541,11 +564,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (householdExpenditures.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdExpenditures >= householdExpenditures.Min);
+                        data = data.Where(i => i.HouseholdExpenditures >= householdExpenditures.Min);
                     }
                     if (householdExpenditures.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdExpenditures <= householdExpenditures.Max);
+                        data = data.Where(i => i.HouseholdExpenditures <= householdExpenditures.Max);
                     }
                 }
 
@@ -553,30 +576,30 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (medianAge.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.MedianAge >= medianAge.Min);
+                        data = data.Where(i => i.MedianAge >= medianAge.Min);
                     }
                     if (medianAge.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.MedianAge <= medianAge.Max);
+                        data = data.Where(i => i.MedianAge <= medianAge.Max);
                     }
                 }
 
                 if (bachelorOrHigher != null)
                 {
                     var v = bachelorOrHigher / 100.0d;
-                    data = data.Where(i => i.Data.BachelorsDegreeOrHigher >= v);
+                    data = data.Where(i => i.BachelorsDegreeOrHigher >= v);
                 }
 
                 if (highSchoolOrHigher != null)
                 {
                     var v = highSchoolOrHigher / 100.0d;
-                    data = data.Where(i => i.Data.HighSchoolOrHigher >= v);
+                    data = data.Where(i => i.HighSchoolOrHigher >= v);
                 }
 
                 if (whiteCollar != null)
                 {
                     var v = whiteCollar / 100.0d;
-                    data = data.Where(i => i.Data.WhiteCollarWorkers >= v);
+                    data = data.Where(i => i.WhiteCollarWorkers >= v);
                 }
 
                 var results = data.Select(i => new
@@ -639,12 +662,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
 
 
-                var zips = ZipCodes.GetWithDistance(context, center.lat, center.lng);
-
-                var data = IndustryData.GetZipCodes(context, industryId)
-                    .Join(DemographicsData.GetZipCodes(context), i => i.ZipCodeId, o => o.ZipCodeId, (i, o) => new { IndustryData = i, Demographics = o })
+                var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
+                      .Select(i => new
+                      {
+                          IndustryData = i.Entity.IndustryDataByZips.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                          Demographics = i.Entity.DemographicsByZips.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault(),
+                          ZipCode = i
+                      })
                     .Select(i => new
                     {
+                        ZipCode = i.ZipCode,
                         ZipCodeId = i.IndustryData.ZipCode.Id,
                         Name = i.IndustryData.ZipCode.Name,
                         Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
@@ -659,8 +686,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
                         WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
                         TotalPopulation = (long)i.Demographics.TotalPopulation
-                    })
-                    .Join(zips, i => i.ZipCodeId, i => i.Entity.Id, (i, o) => new { Data = i, ZipCode = o });
+                    });
 
 
 
@@ -668,11 +694,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (averageRevenue.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.AverageRevenue >= averageRevenue.Min);
+                        data = data.Where(i => i.AverageRevenue >= averageRevenue.Min);
                     }
                     if (averageRevenue.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.AverageRevenue <= averageRevenue.Max);
+                        data = data.Where(i => i.AverageRevenue <= averageRevenue.Max);
                     }
                 }
 
@@ -680,11 +706,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (totalRevenue.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalRevenue >= totalRevenue.Min);
+                        data = data.Where(i => i.TotalRevenue >= totalRevenue.Min);
                     }
                     if (totalRevenue.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalRevenue <= totalRevenue.Max);
+                        data = data.Where(i => i.TotalRevenue <= totalRevenue.Max);
                     }
                 }
 
@@ -692,11 +718,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (totalEmployees.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalEmployees >= totalEmployees.Min);
+                        data = data.Where(i => i.TotalEmployees >= totalEmployees.Min);
                     }
                     if (totalEmployees.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.TotalEmployees <= totalEmployees.Max);
+                        data = data.Where(i => i.TotalEmployees <= totalEmployees.Max);
                     }
                 }
 
@@ -704,11 +730,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (revenuePerCapita.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.RevenuePerCapita >= revenuePerCapita.Min);
+                        data = data.Where(i => i.RevenuePerCapita >= revenuePerCapita.Min);
                     }
                     if (revenuePerCapita.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.RevenuePerCapita <= revenuePerCapita.Max);
+                        data = data.Where(i => i.RevenuePerCapita <= revenuePerCapita.Max);
                     }
                 }
 
@@ -716,11 +742,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (householdIncome.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdIncome >= householdIncome.Min);
+                        data = data.Where(i => i.HouseholdIncome >= householdIncome.Min);
                     }
                     if (householdIncome.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdIncome <= householdIncome.Max);
+                        data = data.Where(i => i.HouseholdIncome <= householdIncome.Max);
                     }
                 }
 
@@ -728,11 +754,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (householdExpenditures.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdExpenditures >= householdExpenditures.Min);
+                        data = data.Where(i => i.HouseholdExpenditures >= householdExpenditures.Min);
                     }
                     if (householdExpenditures.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.HouseholdExpenditures <= householdExpenditures.Max);
+                        data = data.Where(i => i.HouseholdExpenditures <= householdExpenditures.Max);
                     }
                 }
 
@@ -740,30 +766,30 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (medianAge.Min.HasValue)
                     {
-                        data = data.Where(i => i.Data.MedianAge >= medianAge.Min);
+                        data = data.Where(i => i.MedianAge >= medianAge.Min);
                     }
                     if (medianAge.Max.HasValue)
                     {
-                        data = data.Where(i => i.Data.MedianAge <= medianAge.Max);
+                        data = data.Where(i => i.MedianAge <= medianAge.Max);
                     }
                 }
 
                 if (bachelorOrHigher != null)
                 {
                     var v = bachelorOrHigher / 100.0d;
-                    data = data.Where(i => i.Data.BachelorsDegreeOrHigher >= v);
+                    data = data.Where(i => i.BachelorsDegreeOrHigher >= v);
                 }
 
                 if (highSchoolOrHigher != null)
                 {
                     var v = highSchoolOrHigher / 100.0d;
-                    data = data.Where(i => i.Data.HighSchoolOrHigher >= v);
+                    data = data.Where(i => i.HighSchoolOrHigher >= v);
                 }
 
                 if (whiteCollar != null)
                 {
                     var v = whiteCollar / 100.0d;
-                    data = data.Where(i => i.Data.WhiteCollarWorkers >= v);
+                    data = data.Where(i => i.WhiteCollarWorkers >= v);
                 }
 
                 if (distance != null)
@@ -773,17 +799,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
                 var results = data
                    .Select(i => new Advertising(){
-                       AverageRevenue = i.Data.AverageRevenue,
-                       TotalRevenue = i.Data.TotalRevenue,
-                       TotalEmployees = i.Data.TotalEmployees,
-                       RevenuePerCapita = i.Data.RevenuePerCapita,
-                       BachelorsDegreeOrHigher = i.Data.BachelorsDegreeOrHigher,
-                       HighSchoolOrHigher = i.Data.HighSchoolOrHigher,
-                       MedianAge = i.Data.MedianAge,
-                       HouseholdIncome = i.Data.HouseholdIncome,
-                       HouseholdExpenditures = i.Data.HouseholdExpenditures,
-                       WhiteCollarWorkers = i.Data.WhiteCollarWorkers,
-                       TotalPopulation = i.Data.TotalPopulation
+                       AverageRevenue = i.AverageRevenue,
+                       TotalRevenue = i.TotalRevenue,
+                       TotalEmployees = i.TotalEmployees,
+                       RevenuePerCapita = i.RevenuePerCapita,
+                       BachelorsDegreeOrHigher = i.BachelorsDegreeOrHigher,
+                       HighSchoolOrHigher = i.HighSchoolOrHigher,
+                       MedianAge = i.MedianAge,
+                       HouseholdIncome = i.HouseholdIncome,
+                       HouseholdExpenditures = i.HouseholdExpenditures,
+                       WhiteCollarWorkers = i.WhiteCollarWorkers,
+                       TotalPopulation = i.TotalPopulation
                    });
 
                 List<object> output = null;
