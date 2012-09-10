@@ -228,6 +228,7 @@
     <Compile Include="Areas\Widget\Controllers\SelectController.cs" />
     <Compile Include="Areas\Widget\Controllers\UserController.cs" />
     <Compile Include="Areas\Widget\WidgetAreaRegistration.cs" />
+    <Compile Include="Controllers\AccessibilityController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
@@ -290,6 +291,7 @@
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
+    <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\business\find.css" />
@@ -490,6 +492,7 @@
     <Content Include="Views\Community\Find.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
     <Content Include="Views\Shared\Signin.cshtml" />
+    <Content Include="Views\Accessibility\Heatmap.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

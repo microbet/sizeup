@@ -26,12 +26,28 @@
                 mapSettings: me.opts.mapSettings,
                 styles: me.opts.styles
             });
+            me.textAlternative = me.container.find('.textAlternative');
+            me.textAlternative.click(function () { textAlternativeClicked(); });
             buildOverlays(me.opts.overlays);
             me.map.addEventListener('zoom_changed', zoomChanged);
             setOverlay();
         };
 
-        
+        var textAlternativeClicked = function () {
+            var overlay = me.overlays[me.currentOverlayIndex];
+            var url = overlay.textAlternativeUrl;
+            var bounds = me.map.getBounds();
+            var data = {
+                industryId: overlay.industryId,
+                boundingEntityId: overlay.boundingEntityId,
+                southWest: bounds.getSouthWest().toString(),
+                northEast: bounds.getNorthEast().toString()
+            };
+
+            window.open(jQuery.param.querystring(url, data), '_blank');
+
+        };
+
         var buildOverlays = function (overlays) {
             for (var x in overlays) {
                 var func = function(){
@@ -54,6 +70,9 @@
 
                 var overlay =
                 {
+                    industryId: overlays[x].industryId,
+                    boundingEntityId: overlays[x].boundingEntityId,
+                    textAlternativeUrl: overlays[x].textAlternativeUrl,
                     legendSource: overlays[x].legendSource,
                     legendTitle: overlays[x].legendTitle,
                     legendFormat: overlays[x].legendFormat,

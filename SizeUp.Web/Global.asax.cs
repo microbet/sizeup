@@ -108,6 +108,14 @@ namespace SizeUp.Web
                 new { controller = "Error", action = "Error404" } // Parameter defaults
             );
 
+
+            routes.MapRoute(
+              "accessibility", // Route name
+              "accessibility/{action}/{levelOfDetail}", // URL with parameters
+              new { controller = "Accessibility" } // Parameter defaults
+          );
+
+
             /*
             routes.MapHttpRoute(
                 name: "DefaultApi",

@@ -65,6 +65,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             int? whiteCollar = QueryString.IntValue("whiteCollarWorkers");
             string sort = QueryString.StringValue("sort");
             string sortAttribute = QueryString.StringValue("sortAttribute");
+            string attribute = QueryString.StringValue("attribute");
 
 
             using (var context = ContextFactory.SizeUpContext)
@@ -83,8 +84,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
                     var center = new
                     {
-                        lat = (double)geo.STPointN(1).Lat,
-                        lng = (double)geo.STPointN(1).Long
+                        lat = geo.STPointN(1).Lat.Value,
+                        lng = geo.STPointN(1).Long.Value
                     };
               
 
@@ -94,41 +95,24 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         IndustryData = i.Entity.IndustryDataByZips.Where(id=>id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
                         Demographics = i.Entity.DemographicsByZips.Where(d=> d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault(),
                         ZipCode  = i
-                    })
-                
-                /*
-                var data = context.DemographicsByZips
-                    .Join(context.IndustryDataByZips, i=> i.ZipCodeId , o=>o.ZipCodeId, (i,o)=> new { Demographics = i, IndustryData = o})
-                    .Join(zips, i => i.IndustryData.ZipCodeId, o => o.Entity.Id, (i, o) => new { ZipCode = o, IndustryData = i.IndustryData, Demographics = i.Demographics })
-                    .Where(i=>i.Demographics.Year == TimeSlice.Year &&
-                            i.Demographics.Quarter == TimeSlice.Quarter &&
-                            i.IndustryData.Year == TimeSlice.Year &&
-                            i.IndustryData.Quarter == TimeSlice.Quarter &&
-                            i.IndustryData.IndustryId == industryId)
-                */
-
-
-
-                //var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
-                //    .Join(IndustryData.GetZipCodes(context, industryId), i => i.Entity.Id, o => o.ZipCodeId, (i, o) => new { ZipCode = i, IndustryData = o })
-               //     .Join(DemographicsData.GetZipCodes(context), i => i.IndustryData.ZipCodeId, o => o.ZipCodeId, (i, o) => new { ZipCode = i.ZipCode, IndustryData = i.IndustryData, Demographics = o })
+                    })              
                     .Select(i => new
                     {
                         ZipCode = i.ZipCode,
                         ZipCodeId = i.IndustryData.ZipCode.Id,
                         Name = i.IndustryData.ZipCode.Name,
-                        Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                        AverageRevenue = (long)i.IndustryData.AverageRevenue,
-                        TotalRevenue = (long)i.IndustryData.TotalRevenue,
-                        TotalEmployees = (long)i.IndustryData.TotalEmployees,
-                        RevenuePerCapita = (long)i.IndustryData.RevenuePerCapita,
-                        BachelorsDegreeOrHigher = (double)i.Demographics.BachelorsOrHigherPercentage,
-                        HighSchoolOrHigher = (double)i.Demographics.HighSchoolOrHigherPercentage,
-                        MedianAge = (int)i.Demographics.MedianAge,
-                        HouseholdIncome = (long)i.Demographics.MedianHouseholdIncome,
-                        HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
-                        WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
-                        TotalPopulation = (long)i.Demographics.TotalPopulation
+                        Center = i.ZipCode.Entity.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
+                        HighSchoolOrHigher = i.Demographics.HighSchoolOrHigherPercentage,
+                        MedianAge = i.Demographics.MedianAge,
+                        HouseholdIncome = i.Demographics.MedianHouseholdIncome,
+                        HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditure,
+                        WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
+                        TotalPopulation = i.Demographics.TotalPopulation
                     });
                    
 
@@ -243,15 +227,58 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     data = data.Where(i => i.ZipCode.Distance < distance.Value);
                 }
 
-
+                if (attribute == "totalRevenue")
+                {
+                    data = data.Where(i => i.TotalRevenue != null);
+                }
+                else if (attribute == "averageRevenue")
+                {
+                    data = data.Where(i => i.AverageRevenue != null);
+                }
+                else if (attribute == "revenuePerCapita")
+                {
+                    data = data.Where(i => i.RevenuePerCapita != null);
+                }
+                else if (attribute == "householdIncome")
+                {
+                    data = data.Where(i => i.HouseholdIncome != null);
+                }
+                else if (attribute == "totalPopulation")
+                {
+                    data = data.Where(i => i.TotalPopulation != null);
+                }
+                else if (attribute == "whiteCollarWorkers")
+                {
+                    data = data.Where(i => i.WhiteCollarWorkers != null);
+                }
+                else if (attribute == "totalEmployees")
+                {
+                    data = data.Where(i => i.TotalEmployees != null);
+                }
+                else if (attribute == "householdExpenditures")
+                {
+                    data = data.Where(i => i.HouseholdExpenditures != null);
+                }
+                else if (attribute == "medianAge")
+                {
+                    data = data.Where(i => i.MedianAge != null);
+                }
+                else if (attribute == "bachelorsDegreeOrHigher")
+                {
+                    data = data.Where(i => i.BachelorsDegreeOrHigher != null);
+                }
+                else if (attribute == "highSchoolOrHigher")
+                {
+                    data = data.Where(i => i.HighSchoolOrHigher != null);
+                }
 
                 var results = data
                    .Select(i=> new Advertising()
                    {
                        ZipCodeId = i.ZipCode.Entity.Id,
                        Name = i.ZipCode.Entity.Name,
-                       Lat = (double)i.Center.Lat,
-                       Long = (double)i.Center.Lng,
+                       Lat = i.Center.Lat,
+                       Long = i.Center.Lng,
                        City = context.ZipCodePlaceMappings.Where(o=>o.ZipCodeId == i.ZipCode.Entity.Id)
                        .Select(o=> new Models.City.City()
                        {
@@ -288,7 +315,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                        WhiteCollarWorkers = i.WhiteCollarWorkers,
                        TotalPopulation = i.TotalPopulation
                    });
-
+                
                 switch (sortAttribute)
                 {
                     case "name":
@@ -449,6 +476,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             int? bachelorOrHigher = QueryString.IntValue("bachelorsDegreeOrHigher");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
             int? whiteCollar = QueryString.IntValue("whiteCollarWorkers");
+            string attribute = QueryString.StringValue("attribute");
 
 
             using (var context = ContextFactory.SizeUpContext)
@@ -602,10 +630,56 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     data = data.Where(i => i.WhiteCollarWorkers >= v);
                 }
 
+                if (attribute == "totalRevenue")
+                {
+                    data = data.Where(i => i.TotalRevenue != null);
+                }
+                else if (attribute == "averageRevenue")
+                {
+                    data = data.Where(i => i.AverageRevenue != null);
+                }
+                else if (attribute == "revenuePerCapita")
+                {
+                    data = data.Where(i => i.RevenuePerCapita != null);
+                }
+                else if (attribute == "householdIncome")
+                {
+                    data = data.Where(i => i.HouseholdIncome != null);
+                }
+                else if (attribute == "totalPopulation")
+                {
+                    data = data.Where(i => i.TotalPopulation != null);
+                }
+                else if (attribute == "whiteCollarWorkers")
+                {
+                    data = data.Where(i => i.WhiteCollarWorkers != null);
+                }
+                else if (attribute == "totalEmployees")
+                {
+                    data = data.Where(i => i.TotalEmployees != null);
+                }
+                else if (attribute == "householdExpenditures")
+                {
+                    data = data.Where(i => i.HouseholdExpenditures != null);
+                }
+                else if (attribute == "medianAge")
+                {
+                    data = data.Where(i => i.MedianAge != null);
+                }
+                else if (attribute == "bachelorsDegreeOrHigher")
+                {
+                    data = data.Where(i => i.BachelorsDegreeOrHigher != null);
+                }
+                else if (attribute == "highSchoolOrHigher")
+                {
+                    data = data.Where(i => i.HighSchoolOrHigher != null);
+                }
+
                 var results = data.Select(i => new
                 {
                     i.ZipCode.Distance
                 });
+
 
                 results = results.OrderBy(i => i.Distance);
 
@@ -675,17 +749,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         ZipCodeId = i.IndustryData.ZipCode.Id,
                         Name = i.IndustryData.ZipCode.Name,
                         Center = i.IndustryData.ZipCode.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                        AverageRevenue = (long)i.IndustryData.AverageRevenue,
-                        TotalRevenue = (long)i.IndustryData.TotalRevenue,
-                        TotalEmployees = (long)i.IndustryData.TotalEmployees,
-                        RevenuePerCapita = (long)i.IndustryData.RevenuePerCapita,
-                        BachelorsDegreeOrHigher = (double)i.Demographics.BachelorsOrHigherPercentage,
-                        HighSchoolOrHigher = (double)i.Demographics.HighSchoolOrHigherPercentage,
-                        MedianAge = (int)i.Demographics.MedianAge,
-                        HouseholdIncome = (long)i.Demographics.MedianHouseholdIncome,
-                        HouseholdExpenditures = (long)i.Demographics.AverageHouseholdExpenditure,
-                        WhiteCollarWorkers = (double)i.Demographics.WhiteCollarWorkersPercentage,
-                        TotalPopulation = (long)i.Demographics.TotalPopulation
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
+                        HighSchoolOrHigher = i.Demographics.HighSchoolOrHigherPercentage,
+                        MedianAge = i.Demographics.MedianAge,
+                        HouseholdIncome = i.Demographics.MedianHouseholdIncome,
+                        HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditure,
+                        WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
+                        TotalPopulation = i.Demographics.TotalPopulation
                     });
 
 
@@ -816,6 +890,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (attribute == "totalRevenue")
                 {
                     output = results
+                        .Where(i=>i.TotalRevenue != null)
                         .Select(i => i.TotalRevenue ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
@@ -836,6 +911,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "averageRevenue")
                 {
                     output = results
+                        .Where(i => i.AverageRevenue != null)
                         .Select(i => i.AverageRevenue ??0)
                         .ToList()
                         .NTile(i => i, bands)
@@ -856,6 +932,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "revenuePerCapita")
                 {
                     output = results
+                        .Where(i => i.RevenuePerCapita != null)
                         .Select(i => i.RevenuePerCapita ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
@@ -876,6 +953,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "householdIncome")
                 {
                     output = results
+                        .Where(i => i.HouseholdIncome != null)
                         .Select(i => i.HouseholdIncome ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
@@ -896,6 +974,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "totalPopulation")
                 {
                     output = results
+                        .Where(i => i.TotalPopulation != null)
                         .Select(i => i.TotalPopulation ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
@@ -916,6 +995,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "whiteCollarWorkers")
                 {
                     output = results
+                        .Where(i => i.WhiteCollarWorkers != null)
                         .Select(i => i.WhiteCollarWorkers ?? 0 )
                         .ToList()
                         .NTile(i => i, bands)
@@ -936,6 +1016,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "totalEmployees")
                 {
                     output = results
+                        .Where(i => i.TotalEmployees != null)
                         .Select(i => i.TotalEmployees ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
@@ -956,15 +1037,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "householdExpenditures")
                 {
                     output = results
+                        .Where(i => i.HouseholdExpenditures != null)
                         .Select(i => i.HouseholdExpenditures ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
-                        .Select(b => new Models.Advertising.Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .Select(b => new Models.Advertising.Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
                         .Cast<object>()
                         .ToList();
 
-                    Models.Advertising.Band<long> old = null;
-                    foreach (Models.Advertising.Band<long> band in output)
+                    Models.Advertising.Band<double> old = null;
+                    foreach (Models.Advertising.Band<double> band in output)
                     {
                         if (old != null)
                         {
@@ -976,15 +1058,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "medianAge")
                 {
                     output = results
+                        .Where(i => i.MedianAge != null)
                         .Select(i => i.MedianAge ?? 0)
                         .ToList()
                         .NTile(i => i, bands)
-                        .Select(b => new Models.Advertising.Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .Select(b => new Models.Advertising.Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
                         .Cast<object>()
                         .ToList();
 
-                    Models.Advertising.Band<long> old = null;
-                    foreach (Models.Advertising.Band<long> band in output)
+                    Models.Advertising.Band<double> old = null;
+                    foreach (Models.Advertising.Band<double> band in output)
                     {
                         if (old != null)
                         {
@@ -996,6 +1079,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "bachelorsDegreeOrHigher")
                 {
                     output = results
+                        .Where(i => i.BachelorsDegreeOrHigher != null)
                        .Select(i => i.BachelorsDegreeOrHigher ?? 0)
                        .ToList()
                        .NTile(i => i, bands)
@@ -1016,6 +1100,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 else if (attribute == "highSchoolOrHigher")
                 {
                     output = results
+                        .Where(i => i.HighSchoolOrHigher != null)
                         .Select(i => i.HighSchoolOrHigher ?? 0)
                         .ToList()
                         .NTile(i => i, bands)

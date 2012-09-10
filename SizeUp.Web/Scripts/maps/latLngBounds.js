@@ -18,12 +18,30 @@
             me.bounds.extend(latLng.getNative());
         };
 
+        var getSouthWest = function () {
+            var sw = me._native.getSouthWest();
+            return new sizeup.maps.latLng({ lat: sw.lat(), lng: sw.lng() });
+        };
+
+
+        var getNorthEast = function () {
+            var sw = me._native.getNorthEast();
+            return new sizeup.maps.latLng({ lat: sw.lat(), lng: sw.lng() });
+        };
+
+
         var publicObj = {
             getNative: function () {
                 return me._native;
             },
             extend: function (latLng) {
                 extend(latLng);
+            },
+            getSouthWest: function () {
+                return getSouthWest();
+            },
+            getNorthEast: function () {
+                return getNorthEast();
             }
         };
         return publicObj;

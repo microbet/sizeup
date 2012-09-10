@@ -108,6 +108,7 @@
                     container: me.container.find('.reportContainer .map.revenuePerCapita'),
                     overlays: [
                         {
+                            textAlternativeUrl: '/accessibility/revenuePerCapita/state/?bands=7',
                             tileUrl: "/tiles/revenuePerCapita/state/",
                             legendSource: function (callback) {
                                 dataLayer.getRevenuePerCapitaBandsByState({
@@ -131,6 +132,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/revenuePerCapita/county/?bands=7',
                             tileUrl: "/tiles/revenuePerCapita/county/",
                             legendSource: function (callback) {
                                 dataLayer.getRevenuePerCapitaBandsByCounty({
@@ -156,6 +158,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/revenuePerCapita/county/?bands=7',
                             tileUrl: "/tiles/revenuePerCapita/county/",
                             legendSource: function (callback) {
                                 dataLayer.getRevenuePerCapitaBandsByCounty({
@@ -190,6 +193,7 @@
                     container: me.container.find('.reportContainer .map.totalRevenue'),
                     overlays: [
                         {
+                            textAlternativeUrl: '/accessibility/totalRevenue/state/?bands=7',
                             tileUrl: "/tiles/totalRevenue/state/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalRevenueBandsByState({
@@ -213,6 +217,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/totalRevenue/county/?bands=7',
                             tileUrl: "/tiles/totalRevenue/county/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalRevenueBandsByCounty({
@@ -238,6 +243,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/totalRevenue/county/?bands=7',
                             tileUrl: "/tiles/totalRevenue/county/",
                             legendSource: function (callback) {
                                 dataLayer.getTotalRevenueBandsByCounty({

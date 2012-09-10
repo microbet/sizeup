@@ -107,7 +107,7 @@
             me.content.optionMenu.menu.change(optionMenuChanged);
             
            
-
+            me.content.description = me.container.find('.description');
             me.content.list = {};
             me.content.list.container = me.content.container.find('.listWrapper');
 
@@ -473,7 +473,7 @@
                 bindCircle(params.distance);
                 bindZipList(formattedData);
                 bindBands(formattedBands);
-
+                bindDescription();
 
                 bindMap(reportData, params.attribute);
 
@@ -675,35 +675,35 @@
             newItem['lat'] = item.Lat;
             newItem['long'] = item.Long;
             newItem['name'] = item.Name;
-            newItem['totalPopulation'] = sizeup.util.numbers.format.addCommas(item.TotalPopulation == null ? 0 : item.TotalPopulation);
-            newItem['totalRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue == null ? 0 : item.TotalRevenue);
+            newItem['totalPopulation'] = item.TotalPopulation == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.TotalPopulation) };
+            newItem['totalRevenue'] = item.TotalRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue)};
 
             if (me.opts.filterOptions['averageRevenue'] != null || me.opts.filterOptions.attribute == 'averageRevenue') {
-                newItem['averageRevenue'] = '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue == null ? 0 : item.AverageRevenue);
+                newItem['averageRevenue'] = item.AverageRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue)};
             }
             if (me.opts.filterOptions['totalEmployees'] != null || me.opts.filterOptions.attribute == 'totalEmployees') {
-                newItem['totalEmployees'] = sizeup.util.numbers.format.addCommas(item.TotalEmployees == null ? 0 : item.TotalEmployees);
+                newItem['totalEmployees'] = item.TotalEmployees == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.TotalEmployees)};
             }
             if (me.opts.filterOptions['revenuePerCapita'] != null || me.opts.filterOptions.attribute == 'revenuePerCapita') {
-                newItem['revenuePerCapita'] = '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita == null ? 0 : item.RevenuePerCapita);
+                newItem['revenuePerCapita'] = item.RevenuePerCapita == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita)};
             }
             if (me.opts.filterOptions['householdIncome'] != null || me.opts.filterOptions.attribute == 'householdIncome') {
-                newItem['householdIncome'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome == null ? 0 : item.HouseholdIncome);
+                newItem['householdIncome'] = item.HouseholdIncome == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome)};
             }
             if (me.opts.filterOptions['householdExpenditures'] != null || me.opts.filterOptions.attribute == 'householdExpenditures') {
-                newItem['householdExpenditures'] = '$' + sizeup.util.numbers.format.addCommas(item.HouseholdExpenditures == null ? 0 : item.HouseholdExpenditures);
+                newItem['householdExpenditures'] = item.HouseholdExpenditures == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(sizeup.util.numbers.format.round(item.HouseholdExpenditures,0)) };
             }
             if (me.opts.filterOptions['medianAge'] != null || me.opts.filterOptions.attribute == 'medianAge') {
-                newItem['medianAge'] = item.MedianAge == null ? 0 : item.MedianAge;
+                newItem['medianAge'] = item.MedianAge == null ? { value: null } : { value: item.MedianAge};
             }
             if (me.opts.filterOptions['highSchoolOrHigher'] != null || me.opts.filterOptions.attribute == 'highSchoolOrHigher') {
-                newItem['highSchoolOrHigher'] = (item.HighSchoolOrHigher == null ? 0 : item.HighSchoolOrHigher * 100).toFixed(1) + '%';
+                newItem['highSchoolOrHigher'] = item.HighSchoolOrHigher == null ? { value: null } :{ value:  (item.HighSchoolOrHigher * 100).toFixed(1) + '%'};
             }
             if (me.opts.filterOptions['whiteCollarWorkers'] != null || me.opts.filterOptions.attribute == 'whiteCollarWorkers') {
-                newItem['whiteCollarWorkers'] = (item.WhiteCollarWorkers == null ? 0 : item.WhiteCollarWorkers * 100).toFixed(1) + '%';
+                newItem['whiteCollarWorkers'] = item.WhiteCollarWorkers == null ? { value: null } : { value: (item.WhiteCollarWorkers * 100).toFixed(1) + '%'};
             }
             if (me.opts.filterOptions['bachelorsDegreeOrHigher'] != null || me.opts.filterOptions.attribute == 'bachelorsDegreeOrHigher') {
-                newItem['bachelorsDegreeOrHigher'] = (item.BachelorsDegreeOrHigher == null ? 0 : item.BachelorsDegreeOrHigher * 100).toFixed(1) + '%';
+                newItem['bachelorsDegreeOrHigher'] = item.BachelorsDegreeOrHigher == null ? { value: null } : { value: (item.BachelorsDegreeOrHigher * 100).toFixed(1) + '%' };
             }
 
   
@@ -724,7 +724,15 @@
             me.content.list.body.html(html);
         };
 
-      
+        var bindDescription = function () {
+            var x = me.content.optionMenu.option.val();
+            var template = templates.get(x + 'Description');
+            var data = {
+                industry: me.opts.CurrentIndustry.Name
+            };
+            me.content.description.html(templates.bind(template, data));
+        };
+
 
         var nameSortClicked = function () {
             if (me.content.list.sort.name.hasClass('asc')) {

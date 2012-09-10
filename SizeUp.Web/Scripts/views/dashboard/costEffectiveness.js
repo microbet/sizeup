@@ -161,6 +161,7 @@
                     container: me.container.find('.reportContainer .map'),
                     overlays: [
                         {
+                            textAlternativeUrl: '/accessibility/costEffectiveness/state/?bands=7',
                             tileUrl: "/tiles/costEffectiveness/state/",
                             legendSource: function (callback) {
                                 dataLayer.getCostEffectivenessBandsByState({
@@ -184,6 +185,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/costEffectiveness/county/?bands=7',
                             tileUrl: "/tiles/costEffectiveness/county/",
                             legendSource: function (callback) {
                                 dataLayer.getCostEffectivenessBandsByCounty({
@@ -209,6 +211,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/costEffectiveness/county/?bands=7',
                             tileUrl: "/tiles/costEffectiveness/county/",
                             legendSource: function (callback) {
                                 dataLayer.getCostEffectivenessBandsByCounty({

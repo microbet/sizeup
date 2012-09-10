@@ -156,6 +156,7 @@
                     container: me.container.find('.reportContainer .map'),
                     overlays: [
                         {
+                            textAlternativeUrl: '/accessibility/revenue/state/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/state/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageRevenueBandsByState({
@@ -179,6 +180,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/revenue/county/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageRevenueBandsByCounty({
@@ -204,6 +206,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/revenue/county/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageRevenueBandsByCounty({
@@ -229,6 +232,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/revenue/zip/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/zip/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageRevenueBandsByZip({

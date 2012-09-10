@@ -219,6 +219,7 @@
                     container: me.container.find('.reportContainer .averageEmployees .map'),
                     overlays: [
                        {
+                           textAlternativeUrl: '/accessibility/averageEmployees/state/?bands=7',
                            tileUrl: "/tiles/AverageEmployees/state/",
                            legendSource: function (callback) {
                                dataLayer.getAverageEmployeesBandsByState({
@@ -242,6 +243,7 @@
                            ]
                        },
                         {
+                            textAlternativeUrl: '/accessibility/averageEmployees/county/?bands=7',
                             tileUrl: "/tiles/AverageEmployees/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageEmployeesBandsByCounty({
@@ -267,6 +269,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/averageEmployees/county/?bands=7',
                             tileUrl: "/tiles/AverageEmployees/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageEmployeesBandsByCounty({
@@ -292,6 +295,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/averageEmployees/zip/?bands=7',
                             tileUrl: "/tiles/AverageEmployees/zip/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageEmployeesBandsByZip({
@@ -359,6 +363,7 @@
                     container: me.container.find('.reportContainer .employeesPerCapita .map'),
                     overlays: [
                        {
+                           textAlternativeUrl: '/accessibility/EmployeesPerCapita/state/?bands=7',
                            tileUrl: "/tiles/EmployeesPerCapita/state/",
                            legendSource: function (callback) {
                                dataLayer.getEmployeesPerCapitaBandsByState({
@@ -382,6 +387,7 @@
                            ]
                        },
                         {
+                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/county/?bands=7',
                             tileUrl: "/tiles/EmployeesPerCapita/county/",
                             legendSource: function (callback) {
                                 dataLayer.getEmployeesPerCapitaBandsByCounty({
@@ -407,6 +413,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/county/?bands=7',
                             tileUrl: "/tiles/EmployeesPerCapita/county/",
                             legendSource: function (callback) {
                                 dataLayer.getEmployeesPerCapitaBandsByCounty({
@@ -432,6 +439,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/zip/?bands=7',
                             tileUrl: "/tiles/EmployeesPerCapita/zip/",
                             legendSource: function (callback) {
                                 dataLayer.getEmployeesPerCapitaBandsByZip({

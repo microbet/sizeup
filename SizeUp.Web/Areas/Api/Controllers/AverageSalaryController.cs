@@ -120,7 +120,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (old != null)
                     {
-                        old.Max = band.Min - 1;
+                        old.Max = band.Min;
                     }
                     old = band;
                 }
@@ -147,7 +147,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     if (old != null)
                     {
-                        old.Max = band.Min - 1;
+                        old.Max = band.Min;
                     }
                     old = band;
                 }

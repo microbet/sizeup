@@ -241,7 +241,38 @@
             </div>
         </div>
 
-        <p class="description">This is a list of zip codes showing data for the <strong>Pharmacies</strong> industry.</p>
+        <div class="description">
+            <p data-template="revenuePerCapitaDescription">
+                This is a list of zip codes with the highest amount of revenue generated per resident in the <strong>{{industry}}</strong> industry.
+                If the industry serves the local area, then residents or businesses within the area are spending more than average.
+                Central business districts will have inflated revenue per capita figures because they serve as destinations for 
+                commerce and they have few residents.
+            </p>
+            <p data-template="underservedMarketsDescription">
+                This is a list of zip codes with the lowest amount of revenue generated per resident in the <strong>{{industry}}</strong> industry.
+                If the industry serves the local area, then residents or businesses within the area are spending less than average,
+                which may mean that that there is opportunity for new businesses within that industry to take advantage of untapped markets.
+            </p>
+            <p data-template="averageRevenueDescription">
+                This is a list of zip codes with the highest average business revenue in the <strong>{{industry}}</strong> industry.
+                You should consider using this list if you are selling to businesses and want to target areas where
+                 the average business is very successful.
+            </p>
+            <p data-template="totalRevenueDescription">
+                This is a list of zip codes with the highest combined business revenue in the <strong>{{industry}}</strong> industry.
+                You should consider using this list if you are selling to businesses or consumers and want to know where the most
+                money is being made in your industry.
+            </p>
+            <p data-template="householdIncomeDescription">
+                This is a list of zip codes with the highest median household incomes. Use this list if your products or 
+                services are targeted at consumers with specific income levels.
+            </p>
+            <p data-template="customDescription">
+                This is a list of zip codes showing Household Income data for the <strong>{{industry}}</strong> industry.
+            </p>
+        </div>
+  
+
 
         <div class="listWrapper">
             <div class="pager hidden">
@@ -291,19 +322,19 @@
                     {{^city.SEOKey}}
                     <a class="name noCommunity">{{name}}</a>
                     {{/city.SEOKey}}
-                    <span class="value">{{value}}</span>
+                    <span class="value">{{#value.value}}{{value.value}}{{/value.value}}{{^value.value}}no data{{/value.value}}</span>
                     <ul class="details">
-                        {{#totalPopulation}}<li>Total Population: {{totalPopulation}}</li>{{/totalPopulation}}
-                        {{#totalRevenue}}<li>Total Annual Revenue: {{totalRevenue}}</li>{{/totalRevenue}}
-                        {{#averageRevenue}}<li>Average Annual Revenue: {{averageRevenue}}</li>{{/averageRevenue}}
-                        {{#totalEmployees}}<li>Total Employees: {{totalEmployees}}</li>{{/totalEmployees}}
-                        {{#revenuePerCapita}}<li>Revenue Per Capita: {{revenuePerCapita}}</li>{{/revenuePerCapita}}
-                        {{#householdIncome}}<li>Household Income: {{householdIncome}}</li>{{/householdIncome}}
-                        {{#householdExpenditures}}<li>Household Expenditures (Average): {{householdExpenditures}}</li>{{/householdExpenditures}}
-                        {{#medianAge}}<li>Median Age: {{medianAge}}</li>{{/medianAge}}
-                        {{#bachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{bachelorsDegreeOrHigher}}</li>{{/bachelorsDegreeOrHigher}}
-                        {{#highSchoolOrHigher}}<li>Highschool Degree or Higher: {{highSchoolOrHigher}}</li>{{/highSchoolOrHigher}}
-                        {{#whiteCollarWorkers}}<li>White Collar Workers: {{whiteCollarWorkers}}</li>{{/whiteCollarWorkers}}             
+                        {{#totalPopulation}}<li>Total Population: {{#totalPopulation.value}}{{totalPopulation.value}}{{/totalPopulation.value}}{{^totalPopulation.value}}no data{{/totalPopulation.value}}</li>{{/totalPopulation}}
+                        {{#totalRevenue}}<li>Total Annual Revenue: {{#totalRevenue.value}}{{totalRevenue.value}}{{/totalRevenue.value}}{{^totalRevenue.value}}no data{{/totalRevenue.value}}</li>{{/totalRevenue}}
+                        {{#averageRevenue}}<li>Average Annual Revenue: {{#averageRevenue.value}}{{averageRevenue.value}}{{/averageRevenue.value}}{{^averageRevenue.value}}no data{{/averageRevenue.value}}</li>{{/averageRevenue}}
+                        {{#totalEmployees}}<li>Total Employees: {{#totalEmployees.value}}{{totalEmployees.value}}{{/totalEmployees.value}}{{^totalEmployees.value}}no data{{/totalEmployees.value}}</li>{{/totalEmployees}}
+                        {{#revenuePerCapita}}<li>Revenue Per Capita: {{#revenuePerCapita.value}}{{revenuePerCapita.value}}{{/revenuePerCapita.value}}{{^revenuePerCapita.value}}no data{{/revenuePerCapita.value}}</li>{{/revenuePerCapita}}
+                        {{#householdIncome}}<li>Household Income: {{#householdIncome.value}}{{householdIncome.value}}{{/householdIncome.value}}{{^householdIncome.value}}no data{{/householdIncome.value}}</li>{{/householdIncome}}
+                        {{#householdExpenditures}}<li>Household Expenditures (Average): {{#householdExpenditures.value}}{{householdExpenditures.value}}{{/householdExpenditures.value}}{{^householdExpenditures.value}}no data{{/householdExpenditures.value}}</li>{{/householdExpenditures}}
+                        {{#medianAge}}<li>Median Age: {{#medianAge.value}}{{medianAge.value}}{{/medianAge.value}}{{^medianAge.value}}no data{{/medianAge.value}}</li>{{/medianAge}}
+                        {{#bachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{#bachelorsDegreeOrHigher.value}}{{bachelorsDegreeOrHigher.value}}{{/bachelorsDegreeOrHigher.value}}{{^bachelorsDegreeOrHigher.value}}no data{{/bachelorsDegreeOrHigher.value}}</li>{{/bachelorsDegreeOrHigher}}
+                        {{#highSchoolOrHigher}}<li>Highschool Degree or Higher: {{#highSchoolOrHigher.value}}{{highSchoolOrHigher.value}}{{/highSchoolOrHigher.value}}{{^highSchoolOrHigher.value}}no data{{/highSchoolOrHigher.value}}</li>{{/highSchoolOrHigher}}
+                        {{#whiteCollarWorkers}}<li>White Collar Workers: {{#whiteCollarWorkers.value}}{{whiteCollarWorkers.value}}{{/whiteCollarWorkers.value}}{{^whiteCollarWorkers.value}}no data{{/whiteCollarWorkers.value}}</li>{{/whiteCollarWorkers}}
                     </ul>
                 </li>
             </ul>

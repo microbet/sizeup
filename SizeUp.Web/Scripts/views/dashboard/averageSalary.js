@@ -151,6 +151,7 @@
                     container: me.container.find('.reportContainer .map'),
                     overlays:[
                         {
+                            textAlternativeUrl: '/accessibility/averageSalary/state/?bands=7',
                             tileUrl: "/tiles/averageSalary/state/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageSalaryBandsByState({ 
@@ -174,6 +175,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/averageSalary/county/?bands=7',
                             tileUrl: "/tiles/averageSalary/county/",
                             legendSource: function (callback) {
                                 dataLayer.getAverageSalaryBandsByCounty({
@@ -199,6 +201,7 @@
                             ]
                         },
                         {
+                            textAlternativeUrl: '/accessibility/averageSalary/county/?bands=7',
                             tileUrl: "/tiles/averageSalary/county/",
                             legendSource:function (callback) {
                                 dataLayer.getAverageSalaryBandsByCounty({
