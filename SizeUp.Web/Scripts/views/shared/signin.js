@@ -16,10 +16,11 @@
             passwordBox: me.container.find('.signInPassword'),
             rememberMeBox: me.container.find('.remeberMe'),
             submit: me.container.find('.button'),
-            error: me.container.find('.error').hide().removeClass('hidden')
+            error: me.container.find('.error').hide().removeClass('hidden'),
+            form: me.container.find('.signinForm')
         };
 
-        me.signinForm.submit.click(function () { signinPressed(); });
+        me.signinForm.form.submit(function (e) { signinPressed(); return false; });
 
         me.toggle.click(function () { toggleSigninForm(); });
        

@@ -3,6 +3,7 @@
         <span>Please Sign In to see more results.</span>
         <span>Don't have an account? Complete a <a href="javascript:sizeup.core.profile.register();">free registration</a>. </span>
     </p>
+    <form class="signinForm" action="">
     <ul>
         <li>
             <label>Email:</label>
@@ -15,9 +16,10 @@
         <li>
             <label>Remember Me:</label>
             <input type="checkbox" class="remeberMe" />
-            <a class="button">Sign In</a>
+            <input type="submit" class="button" value="Sign In" />
         </li>
     </ul>
+    </form>
     <p class="info error hidden failed">Your email address or your password was incorrect. Try again or complete a <a href="javascript:sizeup.core.profile.register();">free registration</a>.</p>
     <p class="info error hidden unvalidated">An error occured signing in. Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.</p>
     <p class="info error hidden locked">An error occured signing in. Please <a href="/help/contact" target="_blank">Contact Support</a>.</p>
