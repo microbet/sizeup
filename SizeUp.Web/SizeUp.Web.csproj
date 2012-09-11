@@ -245,6 +245,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Accessibility\Table.cs" />
     <Compile Include="Models\Business\BusinessResult.cs" />
     <Compile Include="Models\Business\IndustryDetails.cs" />
     <Compile Include="Models\Business\Report.cs" />
@@ -493,6 +494,7 @@
     <Content Include="Views\Business\Business.cshtml" />
     <Content Include="Views\Shared\Signin.cshtml" />
     <Content Include="Views\Accessibility\Heatmap.cshtml" />
+    <Content Include="Views\Accessibility\LineChart.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

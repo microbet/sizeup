@@ -68,6 +68,17 @@
                         }
                 ]
             });
+
+            
+            me.container.find('.chart .textAlternative').click(function () {
+                var url = '/accessibility/yearStarted/';
+                var data = { industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear };
+                url = jQuery.param.querystring(url, data)
+                window.open(url,'_blank');                
+            });
+
+
+
             var index = jQuery.bbq.getState('businessType');
             if (index) {
                 me.question.showAnswer(index);
@@ -128,7 +139,6 @@
                 xBounds: { min: me.opts.startYear, max: me.opts.maxYear }
             });
             me.chart.draw();
-
 
             me.container.find('.chart .legend input[type=checkbox]')
                 .attr('checked', 'checked')
