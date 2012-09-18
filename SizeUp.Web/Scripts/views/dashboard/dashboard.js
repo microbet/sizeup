@@ -25,7 +25,7 @@
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
 
-        dataLayer.getCityCentroid({ id: opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
+        dataLayer.getPlaceCentroid({ id: opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
         var init = function () {
             
             me.signinPanel = new sizeup.views.shared.signin({

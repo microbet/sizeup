@@ -119,7 +119,7 @@
             var z = me.map.getNative().getZoom();
             var newOverlay = null;
             for(var x in me.overlays){
-                if (z >= me.overlays[x].minZoom && z <= me.overlays[x].maxZoom && me.currentOverlayIndex != x) {
+                if (z >= me.overlays[x].minZoom && z <= me.overlays[x].maxZoom) {
                     newOverlay = {
                         overlay: me.overlays[x],
                         index: x
