@@ -78,7 +78,7 @@
 
         var notifier = new sizeup.core.notifier(function () { init(); });
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-        dataLayer.getPlaceBoundingBox({id: opts.CurrentInfo.CurrentPlace.City.Id}, notifier.getNotifier(function (data) { 
+        dataLayer.getPlaceBoundingBox({id: opts.CurrentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) { 
             me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[0].Lat, lng: data[0].Lng}));
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[1].Lat, lng: data[1].Lng}));
@@ -133,6 +133,7 @@
             me[index].content = {};
             me[index].content.container = me.container.find('.content.' + index).removeClass('hidden').hide();
             me[index].content.loader = me[index].content.container.find('.loading').removeClass('hidden').hide();
+            me[index].content.noResults = me[index].content.container.find('.noResults').removeClass('hidden').hide();
             me[index].content.businessList = me[index].content.container.find('.businessList');
             me[index].content.industryList = me[index].content.container.find('.industryList');
             me[index].content.industryMessage = me[index].content.container.find('.industryMessage');
@@ -477,6 +478,7 @@
         };
 
         var bindBusinesses = function (index, data) {
+            me[index].content.noResults.hide();
             me[index].content.pager.setState(data);
             if (me.data[index].signinPanel.templateText) {
                 me[index].content.signinPanel.toggle.html(templates.bind(me.data[index].signinPanel.templateText, me[index].content.pager.getPageData()));
@@ -504,6 +506,9 @@
             };
             if (data.Count == 0) {
                 viewBounds = me.data.cityBoundingBox;
+                me[index].content.noResults.show();
+                me[index].content.signinPanel.toggle.hide();
+                me[index].content.pager.hide();
             }
             me[index].content.map.fitBounds(viewBounds);
             me[index].content.businessList.html(html);

@@ -135,6 +135,9 @@
                         <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
                         <p class="message">Loading Businesses</p>
                     </div>
+                    <div class="noResults hidden">
+                        <p>There are no businesses in your area</p>
+                    </div>
                     <ul class="businessList">
                         <li data-template="competitorBusinessItem">
                             <a href="javascript:void(0);" data-id="{{business.Id}}">
@@ -234,7 +237,9 @@
 
             <div class="wrapper">
                 <div class="list wrapper">
-
+                    <div class="noResults hidden">
+                        <p>There are no businesses in your area</p>
+                    </div>
                     <div class="loading">
                         <p class="title"></p>
                         <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -337,7 +342,9 @@
 
             <div class="wrapper">
                 <div class="list wrapper">
-
+                    <div class="noResults hidden">
+                        <p>There are no businesses in your area</p>
+                    </div>
                     <div class="loading">
                         <p class="title"></p>
                         <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />

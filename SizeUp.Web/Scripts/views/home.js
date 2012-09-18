@@ -15,6 +15,7 @@
 
         var init = function () {
             me.hasData = false;
+            me.checkedForData = false;
             me.form = {};
             me.selector = {};
             me.errors = {};
@@ -68,10 +69,6 @@
                 me.form.industry.industrySelector.setSelection(me.data.currentIndustry);
             }
 
-            if (me.data.currentIndustry && (me.data.currentCity || me.data.detectedCity)) {
-                me.hasData = true;
-            }
-
             me.form.submit.click(onSubmit);
 
             me.form.container.hide().removeClass('hidden');
@@ -112,6 +109,8 @@
         };
 
         var onIndustryChange = function (item) {
+            me.hasData = false;
+            me.checkedForData = false;
             if (!item) {
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
             }
@@ -122,6 +121,8 @@
         };
 
         var onCityChange = function (item) {
+            me.hasData = false;
+            me.checkedForData = false;
             if (!item) {
                 me.errors.invalidCity.hide().fadeIn('slow');
             }
@@ -138,13 +139,17 @@
         };
 
         var onSubmit = function () {
-            if (me.hasData) {
-                var currentCity = me.form.location.placeSelector.getSelection();
-                var currentIndustry = me.form.industry.industrySelector.getSelection();
-                dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
-                dataLayer.setCurrentPlace({ id: currentCity.Id });
-                setSelectorLinks();
-                showSelector();
+            if (!me.checkedForData) {
+                checkForData(function () {
+                    if (me.hasData) {
+                        var currentCity = me.form.location.placeSelector.getSelection();
+                        var currentIndustry = me.form.industry.industrySelector.getSelection();
+                        dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
+                        dataLayer.setCurrentPlace({ id: currentCity.Id });
+                        setSelectorLinks();
+                        showSelector();
+                    }
+                });
             }
         };
 
@@ -158,7 +163,7 @@
         };
 
 
-        var checkForData = function () {
+        var checkForData = function (callback) {
             var currentCity = me.form.location.placeSelector.getSelection();
             var currentIndustry = me.form.industry.industrySelector.getSelection();
             if (currentCity && currentIndustry) {
@@ -174,6 +179,10 @@
                         me.errors.noData.fadeOut('slow');
                     }
                     me.hasData = isValid;
+
+                    if (callback) {
+                        callback();
+                    }
                 });
             }
         };

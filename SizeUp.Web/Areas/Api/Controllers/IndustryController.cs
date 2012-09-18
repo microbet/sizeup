@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Web.Areas.Api.Models;
+using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -76,7 +77,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public JsonResult SearchIndustries(string term, int maxResults = 35)
         {
-            //going to have to rewrite this to work for dynamic filtering
             using (var context = ContextFactory.SizeUpContext)
             {
                 var keywords = context.IndustryKeywords.AsQueryable();
@@ -131,12 +131,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var c = context.CityCountyMappings.Where(i => i.Id == placeId).FirstOrDefault();
-                if (c != null)
-                {
-                    WebContext.Current.CurrentIndustryId = id;
-                }
-                return Json(c != null, JsonRequestBehavior.AllowGet);
+                var location = Locations.Get(context, placeId).FirstOrDefault();
+                var rev = IndustryData.GetCity(context, id, location.City.Id).Select(i => i.AverageRevenue).FirstOrDefault();
+                return Json(rev.HasValue, JsonRequestBehavior.AllowGet);
             }
         }
     }
