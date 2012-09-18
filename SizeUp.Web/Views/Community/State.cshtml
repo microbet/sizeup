@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>Communities by State</title>
+<link href="@Url.Content("~/Content/views/community/find.css")" rel="stylesheet" type="text/css" />
+
+}
+
+<div id="community" class="state">
+    <h1>Communities by State</h1>
+ 
+    @foreach(var col in ViewBag.States)
+    {
+    <div class="col">
+        <ul>
+            @foreach(var item in col)
+            {
+            <li>
+                <a href="/find-community/@item.SEOKey/" class="inverse">@item.Name</a>
+            </li>
+            }
+        </ul>
+    </div>
+    }
+
+</div>
+
+
+
+
+

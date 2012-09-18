@@ -21,17 +21,23 @@
         me.content = {};
 
 
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
 
         var init = function () {
 
 
             me.content.map = new sizeup.maps.heatMap({
                 legendItemTemplate: templates.get('legendItem'),
-                container: me.container.find('.map').removeClass('hidden').show()
+                container: me.container.find('.map').removeClass('hidden').show(),
+                borderUrl: '/tiles/geographyboundary',
+                borderId: 'c' + me.opts.CurrentPlace.City.Id
             });
             me.content.map.setCenter(me.data.CityCenter);
             me.content.map.hideLegend();
+
+            me.content.map.showCityBorder();
+
+
 
             dataLayer.getAverageRevenueChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initAverageRevenueChart);
             dataLayer.getTotalRevenueChart({ industryId: me.opts.CurrentIndustry.Id, placeId: me.opts.CurrentPlace.Id }, initTotalRevenueChart);
@@ -376,7 +382,7 @@
                           }, callback);
                       },
                       legendTitle: 'Total Employees by state in the USA',
-                      legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                      legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
                       industryId: me.opts.CurrentIndustry.Id,
                       minZoom: 0,
                       maxZoom: 4,
@@ -400,7 +406,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Total Employees by county in ' + me.opts.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            legendFormat: function (val) { return  sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.CurrentIndustry.Id,
                             minZoom: 5,
                             maxZoom: 8,
@@ -425,7 +431,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Total Employees by county in ' + (me.opts.CurrentPlace.Metro ? me.opts.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
@@ -450,7 +456,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Total Employees by ZIP code in ' + me.opts.CurrentPlace.County.Name + ', ' + me.opts.CurrentPlace.State.Abbreviation,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.CurrentIndustry.Id,
                             minZoom: 12,
                             maxZoom: 32,
@@ -637,8 +643,10 @@
 
         var formatChartData = function (data, indexes) {
             var formattedData = {};
+            var hasData = false;
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
+                    hasData = true;
                     formattedData[indexes[x]] =
                     {
                         value: data[indexes[x]].Value,
@@ -648,7 +656,7 @@
                     };
                 }
             }
-            return formattedData;
+            return hasData ? formattedData : null;
         };
 
         var initAverageRevenueChart = function (data) {
@@ -656,26 +664,31 @@
             container.find('.loading').remove();
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
 
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getAverageRevenueOverlays());
+                });
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getAverageRevenueOverlays());
-            });
-
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
         var initTotalRevenueChart = function (data) {
@@ -684,26 +697,32 @@
             var indexes = ['City', 'County', 'Metro', 'State'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getTotalRevenueOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getTotalRevenueOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
-            
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+
+            }
         };
 
         var initAverageEmployeesChart = function (data) {
@@ -712,25 +731,30 @@
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getAverageEmployeesOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getAverageEmployeesOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
-
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
         var initTotalEmployeesChart = function (data) {
@@ -739,24 +763,30 @@
             var indexes = ['City', 'County', 'Metro', 'State'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getTotalEmployeesOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getTotalEmployeesOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
 
@@ -766,24 +796,30 @@
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getAverageSalaryOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getAverageSalaryOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
 
@@ -793,24 +829,30 @@
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return sizeup.util.numbers.format.round(val, 1); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return sizeup.util.numbers.format.round(val, 1); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getCostEffectivenessOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getCostEffectivenessOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
 

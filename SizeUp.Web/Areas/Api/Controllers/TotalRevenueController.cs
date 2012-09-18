@@ -23,6 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
                 IQueryable<Models.TotalRevenue.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
+                                        .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
                     .Select(i => new Models.TotalRevenue.ChartItem()
                     {
                         Value = (long)i.TotalRevenue,
@@ -30,6 +31,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     });
 
                 var s = IndustryData.GetState(context, industryId, locations.State.Id)
+                    .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
                     .Select(i => new Models.TotalRevenue.ChartItem()
                     {
                         Value = (long)i.TotalRevenue,
@@ -39,6 +41,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (locations.Metro != null)
                 {
                     m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                        .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
                         .Select(i => new Models.TotalRevenue.ChartItem()
                         {
                             Value = (long)i.TotalRevenue,
@@ -47,6 +50,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                    .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
                    .Select(i => new Models.TotalRevenue.ChartItem()
                    {
                        Value = (long)i.TotalRevenue,
@@ -54,6 +58,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    });
 
                 var c = IndustryData.GetCity(context, industryId, locations.City.Id)
+                    .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
                    .Select(i => new Models.TotalRevenue.ChartItem()
                    {
                        Value = (long)i.TotalRevenue,

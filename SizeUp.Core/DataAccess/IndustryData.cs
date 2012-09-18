@@ -95,7 +95,13 @@ namespace SizeUp.Core.DataAccess
         public static IQueryable<IndustryDataByCity> GetCity(SizeUpContext context, long industryId, long cityId)
         {
             return context.IndustryDataByCities
-                .Where(i =>i.CityId == cityId && i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter);
+                .Where(i => i.CityId == cityId && i.IndustryId == industryId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter);
+        }
+
+        public static IQueryable<IndustryDataByCity> GetCity(SizeUpContext context, long cityId)
+        {
+            return context.IndustryDataByCities
+                .Where(i => i.CityId == cityId && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter);
         }
 
 

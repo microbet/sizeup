@@ -26,6 +26,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
                 IQueryable<Models.AverageSalary.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
+                    .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
                     .Select(i => new Models.AverageSalary.ChartItem()
                     {
                         Value = (long)i.AverageAnnualSalary,

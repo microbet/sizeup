@@ -9,6 +9,8 @@ using SizeUp.Core.Geo;
 using SizeUp.Web.Areas.Api.Models.City;
 using Microsoft.SqlServer.Types;
 using System.Data.Objects;
+using System.Data.Spatial;
+
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class CityController : Controller
@@ -26,7 +28,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         Id = i.Id,
                         Name = i.Name,
                         SEOKey = i.SEOKey,
-                        State = i.State.Abbreviation
+                        State = i.State.Abbreviation,
+                        TypeName = i.CityType.Name
                     }).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -41,12 +44,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 List<Models.Maps.LatLng> output = new List<Models.Maps.LatLng>();
                 if (data != null)
                 {
-                    var geo = SqlGeography.Parse(data.AsText());
-                    var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                    geom = geom.STEnvelope();
-                    geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
-                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.STPointN(1).Lat, Lng = (double)geo.STPointN(1).Long });
-                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.STPointN(3).Lat, Lng = (double)geo.STPointN(3).Long });
+                    var geom = DbGeometry.FromBinary(data.AsBinary());
+                    geom = geom.Envelope;
+                    var geo = DbGeography.FromBinary(geom.AsBinary());
+                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.PointAt(1).Latitude, Lng = (double)geo.PointAt(1).Longitude });
+                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.PointAt(3).Latitude, Lng = (double)geo.PointAt(3).Longitude });
                 }
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
@@ -61,12 +63,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 Models.Maps.LatLng output = new Models.Maps.LatLng();
                 if (data != null)
                 {
-                    var geo = SqlGeography.Parse(data.AsText());
-                    var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                    geom = geom.STCentroid();
-                    geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
-                    output.Lat = (double)geo.STPointN(1).Lat;
-                    output.Lng = (double)geo.STPointN(1).Long;
+                    var geom = DbGeometry.FromBinary(data.AsBinary());
+                    geom = geom.ConvexHull.Centroid;
+                    var geo = DbGeography.FromBinary(geom.AsBinary());
+                    output.Lat = (double)geo.Latitude;
+                    output.Lng = (double)geo.Longitude;
                 }
                 return Json(output, JsonRequestBehavior.AllowGet);
             }

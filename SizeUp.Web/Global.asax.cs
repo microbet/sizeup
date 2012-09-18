@@ -27,11 +27,32 @@ namespace SizeUp.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "FindBusiness", // Route name
+                "FindBusinessState", // Route name
                 "find-business/", // URL with parameters
-                new { controller = "Business", action = "Find" }, // Parameter defaults
+                new { controller = "Business", action = "FindState" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
             );
+
+            routes.MapRoute(
+                "FindBusinessCounty", // Route name
+                "find-business/{state}", // URL with parameters
+                new { controller = "Business", action = "FindCity" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+               "FindBusinessIndustry", // Route name
+               "find-business/{state}/{county}/{city}", // URL with parameters
+               new { controller = "Business", action = "FindIndustry" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
+           );
+
+            routes.MapRoute(
+               "FindBusiness", // Route name
+               "find-business/{state}/{county}/{city}/{industry}", // URL with parameters
+               new { controller = "Business", action = "Find" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
+           );
 
             routes.MapRoute(
               "Business", // Route name
@@ -40,12 +61,32 @@ namespace SizeUp.Web
                new string[] { "SizeUp.Web.Controllers" }
           );
 
+
+
             routes.MapRoute(
-               "FindCommunity", // Route name
-               "find-community/", // URL with parameters
-               new { controller = "Community", action = "Find" }, // Parameter defaults
+                "FindCommunityState", // Route name
+                "find-community/", // URL with parameters
+                new { controller = "Community", action = "FindState" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                "FindCommunityCounty", // Route name
+                "find-community/{state}", // URL with parameters
+                new { controller = "Community", action = "FindCity" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+               "FindCommunityIndustry", // Route name
+               "find-community/{state}/{county}/{city}", // URL with parameters
+               new { controller = "Community", action = "FindIndustry" }, // Parameter defaults
                new string[] { "SizeUp.Web.Controllers" }
            );
+
+           
+
+           
 
 
             routes.MapRoute(

@@ -17,19 +17,19 @@ namespace SizeUp.Core.DataAccess
             if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.County)
             {
                 entity = context.CityCountyMappings
-                    .Where(i => i.CountyId == boundingEntity.EntityId)
+                    .Where(i => i.CountyId == boundingEntity.EntityId && i.City.CityType.IsActive)
                     .Select(i => i.City);
             }
             else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.Metro)
             {
                 entity = context.CityCountyMappings
-                    .Where(i => i.County.MetroId == boundingEntity.EntityId)
+                    .Where(i => i.County.MetroId == boundingEntity.EntityId && i.City.CityType.IsActive)
                     .Select(i => i.City);
             }
             else if (boundingEntity.EntityType == BoundingEntity.BoundingEntityType.State)
             {
                 entity = context.CityCountyMappings
-                    .Where(i => i.County.StateId == boundingEntity.EntityId)
+                    .Where(i => i.County.StateId == boundingEntity.EntityId && i.City.CityType.IsActive)
                     .Select(i => i.City);
             }
             return entity;
@@ -39,7 +39,7 @@ namespace SizeUp.Core.DataAccess
         {
             var scalar = 69.1 * System.Math.Cos(lat / 57.3);
             IQueryable<Models.EntityDistance<Data.City>> entity = context.CityGeographies
-                .Where(i => i.GeographyClass.Name == "Calculation")
+                .Where(i => i.GeographyClass.Name == "Calculation" && i.City.CityType.IsActive)
                 .Select(i => new Models.EntityDistance<Data.City>()
                 {
                     Distance = System.Math.Pow(System.Math.Pow(((double)i.Geography.CenterLat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Geography.CenterLong.Value - lng) * scalar, 2), 0.5),

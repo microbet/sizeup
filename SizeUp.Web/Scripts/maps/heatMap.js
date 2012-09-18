@@ -6,7 +6,10 @@
             mapSettings: sizeup.maps.mapOptions.getDefaults(),
             styles: sizeup.maps.mapStyles.getDefaults(),
             colors: [],
-            overlays:[]
+            overlays: [],
+            borderId: null,
+            showBorders: false,
+            borderUrl: ''
         };
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates();
@@ -15,6 +18,7 @@
         me.container = opts.container;
         me.overlays = [];
         me.currentOverlayIndex=null;
+        me.borderOverlay = null;
 
         var init = function () {
 
@@ -28,6 +32,7 @@
             });
             me.textAlternative = me.container.find('.textAlternative');
             me.textAlternative.click(function () { textAlternativeClicked(); });
+            buildBorderOverlay();
             buildOverlays(me.opts.overlays);
             me.map.addEventListener('zoom_changed', zoomChanged);
             setOverlay();
@@ -47,6 +52,28 @@
             window.open(jQuery.param.querystring(url, data), '_blank');
 
         };
+
+        var buildBorderOverlay = function () {
+            var func = function () {
+                return function (point, zoom) {
+                    var url = me.opts.borderUrl;
+                    var params = {
+                        x: point.x,
+                        y: point.y,
+                        zoom: zoom,
+                        entityId: me.opts.borderId
+                    };
+                    return jQuery.param.querystring(url, params);
+                };
+            };
+
+            me.borderOverlay = new google.maps.ImageMapType({
+                getTileUrl: func(),
+                tileSize: new google.maps.Size(256, 256)
+            });
+
+        };
+
 
         var buildOverlays = function (overlays) {
             for (var x in overlays) {
@@ -99,14 +126,17 @@
                     };
                 }
             }
-
+            me.map.getNative().overlayMapTypes.clear();
             if (newOverlay != null) {
-                me.map.getNative().overlayMapTypes.clear();
+                
                 me.map.getNative().overlayMapTypes.push(newOverlay.overlay.imageMap);
                 me.currentOverlayIndex = newOverlay.index;
                 newOverlay.overlay.legendSource(function (data) {
                     updateLegend({ overlay: newOverlay.overlay, data: data });
                 });
+            }
+            if (me.opts.showBorders && me.opts.borderId != null) {
+                me.map.getNative().overlayMapTypes.push(me.borderOverlay);
             }
         };
 
@@ -203,6 +233,16 @@
             me.map.setZoom(zoom);
         };
 
+        var showCityBorder = function () {
+            me.opts.showBorders = true;
+            setOverlay();
+        };
+
+        var hideCityBorder = function () {
+            me.opts.showBorders = false;
+            setOverlay();
+        };
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -233,6 +273,12 @@
             },
             setZoom: function (zoom) {
                 setZoom(zoom);
+            },
+            showCityBorder: function () {
+                showCityBorder();
+            },
+            hideCityBorder: function () {
+                hideCityBorder();
             }
         };
         init();

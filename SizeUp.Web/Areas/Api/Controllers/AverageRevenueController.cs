@@ -25,7 +25,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
                 IQueryable<Models.AverageRevenue.ChartItem> m = null;
-                var n = IndustryData.GetNational(context,industryId)
+                var n = IndustryData.GetNational(context, industryId)
+                                        .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
                     .Select(i => new Models.AverageRevenue.ChartItem()
                     {
                         Value = (long)i.AverageRevenue,
@@ -34,6 +35,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     });
 
                 var s = IndustryData.GetState(context, industryId, locations.State.Id)
+                    .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
                     .Select(i => new Models.AverageRevenue.ChartItem()
                     {
                         Value = (long)i.AverageRevenue,
@@ -43,6 +45,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (locations.Metro != null)
                 {
                     m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                                            .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
                         .Select(i => new Models.AverageRevenue.ChartItem()
                         {
                             Value = (long)i.AverageRevenue,
@@ -51,6 +54,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                                        .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
                    .Select(i => new Models.AverageRevenue.ChartItem()
                    {
                        Value = (long)i.AverageRevenue,
@@ -58,6 +62,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    });
 
                 var c = IndustryData.GetCity(context, industryId, locations.City.Id)
+                                        .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
                    .Select(i => new Models.AverageRevenue.ChartItem()
                    {
                        Value = (long)i.AverageRevenue,
@@ -73,7 +78,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Metro = m == null ? null : m.FirstOrDefault(),
                     County = co.FirstOrDefault()
                 };
-            
+
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -84,7 +89,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var revenues = BusinessData.GetByNation(context, industryId)
-                    .Where(i=>i.Revenue != null)
+                    .Where(i => i.Revenue != null)
                     .Select(i => i.Revenue);
 
 
@@ -94,7 +99,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     Percentile = percentile
                 };
-              
+
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
@@ -112,12 +117,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var data = IndustryData.GetZipCodes(context, industryId)
                     .Where(i => i.AverageRevenue > 0)
                     .Join(zips, i => i.ZipCodeId, i => i, (i, o) => i)
-                    .Select(i=>i.AverageRevenue)
+                    .Select(i => i.AverageRevenue)
                     .ToList()
                     .NTile(i => i, bands)
                     .Select(b => new Models.AverageRevenue.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
                     .ToList();
-           
+
                 Models.AverageRevenue.Band old = null;
                 foreach (var band in data)
                 {
@@ -168,7 +173,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
 
                 var data = IndustryData.GetStates(context, industryId)
-                    .Where(i =>  i.AverageRevenue > 0)
+                    .Where(i => i.AverageRevenue > 0)
                     .Select(i => i.AverageRevenue)
                     .ToList()
                     .NTile(i => i, bands)
@@ -187,6 +192,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-     
+
     }
 }

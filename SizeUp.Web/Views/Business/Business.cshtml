@@ -69,8 +69,11 @@
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
         <div id="averageRevenue" class="chartContainer">
             <h3>Average Estimated Revenue</h3>
-            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
-            <div class="chart"></div>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
             <div class="loading">
                 <p class="title">Average Estimated Revenue</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -80,8 +83,11 @@
 
         <div id="totalRevenue" class="chartContainer">
             <h3>Total Estimated Revenue</h3>
-            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
-            <div class="chart"></div>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
             <div class="loading">
                 <p class="title">Total Estimated Revenue</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -91,8 +97,11 @@
 
         <div id="averageEmployees" class="chartContainer">
             <h3>Average Estimated Employees</h3>
-            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
-            <div class="chart"></div>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
             <div class="loading">
                 <p class="title">Average Estimated Employees</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -102,8 +111,11 @@
 
         <div id="totalEmployees" class="chartContainer">
             <h3>Total Estimated Employees</h3>
-            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
-            <div class="chart"></div>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
             <div class="loading">
                 <p class="title">Total Estimated Employees</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -113,8 +125,11 @@
 
         <div id="averageSalary" class="chartContainer">
             <h3>Average Salary</h3>
-            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
-            <div class="chart"></div>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
             <div class="loading">
                 <p class="title">Average Salary</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -124,8 +139,11 @@
 
         <div id="costEffectiveness" class="chartContainer">
             <h3>Cost Effectiveness</h3>
-            <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
-            <div class="chart"></div>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
             <div class="loading">
                 <p class="title">Cost Effectiveness</p>
                 <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />

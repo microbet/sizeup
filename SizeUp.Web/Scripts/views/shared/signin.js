@@ -17,11 +17,13 @@
             rememberMeBox: me.container.find('.remeberMe'),
             submit: me.container.find('.button'),
             error: me.container.find('.error').hide().removeClass('hidden'),
-            form: me.container.find('.signinForm')
+            form: me.container.find('.signinForm'),
+            resetLink: me.container.find('.error.failed .resetLink'),
+            resetMessage : me.container.find('.error.failed .passwordReset').hide().removeClass('hidden')
         };
 
-        me.signinForm.form.submit(function (e) { signinPressed(); return false; });
-
+        me.signinForm.form.submit(function (e) { signinPressed(); e.preventDefault(); return false; });
+        me.signinForm.resetLink.click(function () { resetPassword(); });
         me.toggle.click(function () { toggleSigninForm(); });
        
 
@@ -33,6 +35,8 @@
 
         var signinPressed = function () {
             me.signinForm.error.hide();
+            me.signinForm.resetMessage.hide();
+
             var obj = {
                 email: me.signinForm.emailBox.val(),
                 password: me.signinForm.passwordBox.val(),
@@ -72,6 +76,26 @@
             else {
                 me.container.find('.error.failed').show();
             }
+        };
+
+        var resetPassword = function () {
+
+            var obj = {
+                email: me.signinForm.emailBox.val()
+            };
+
+            if (obj.email != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/user/resetPassword',
+                    data: obj,
+                    success: function () { resetPasswordComplete(); }
+                });
+            }
+        };
+
+        var resetPasswordComplete = function () {
+            me.signinForm.resetMessage.show();
         };
 
         var publicObj = {

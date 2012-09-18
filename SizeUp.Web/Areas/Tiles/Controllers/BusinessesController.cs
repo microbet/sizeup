@@ -80,7 +80,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 GeographyCollection competitorCollection = new GeographyCollection()
                 {
                     Color = "#ff5522",
-                    Opacity = Math.Max(0, Math.Min(255, (zoom - 5) * 25 + 50)),
+                    Opacity = Math.Max(128, Math.Min(255, (zoom - 5) * 25)),
                     BorderWidth = 1,
                     BorderColor = "#000000",
                     BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
@@ -91,7 +91,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 GeographyCollection buyerCollection = new GeographyCollection()
                 {
                     Color = "#66ee00",
-                    Opacity = Math.Max(0, Math.Min(255, (zoom - 5) * 25 + 50)),
+                    Opacity = Math.Max(128, Math.Min(255, (zoom - 5) * 25)),
                     BorderWidth = 1,
                     BorderColor = "#000000",
                     BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),
@@ -102,7 +102,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 GeographyCollection supplierCollection = new GeographyCollection()
                 {
                     Color = "#11aaff",
-                    Opacity = Math.Max(0, Math.Min(255, (zoom - 5) * 25 + 50)),
+                    Opacity = Math.Max(128, Math.Min(255, (zoom - 5) * 25)),
                     BorderWidth = 1,
                     BorderColor = "#000000",
                     BorderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125)),

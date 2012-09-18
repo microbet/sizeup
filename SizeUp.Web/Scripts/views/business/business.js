@@ -29,10 +29,15 @@
 
             me.content.map = new sizeup.maps.heatMap({
                 legendItemTemplate: templates.get('legendItem'),
-                container: me.container.find('.map').removeClass('hidden').show()
+                container: me.container.find('.map').removeClass('hidden').show(),
+                borderUrl: '/tiles/geographyboundary',
+                borderId: 'c' + me.opts.location.CurrentPlace.City.Id
             });
             me.content.map.setCenter(businessPoint);
             me.content.map.hideLegend();
+
+            me.content.map.showCityBorder();
+
 
             me.content.businessPin = new sizeup.maps.imagePin({
                 color: 'ff5522',
@@ -117,15 +122,15 @@
                         dataLayer.getAverageRevenueBandsByCounty({
                             industryId: me.opts.location.CurrentIndustry.Id,
                             bands: 7,
-                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                         }, callback);
                     },
-                    legendTitle: 'Average Business Annual Revenue by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
+                    legendTitle: 'Average Business Annual Revenue by county in ' + (me.opts.location.CurrentPlace.Metro.Id ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                     legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                     industryId: me.opts.location.CurrentIndustry.Id,
                     minZoom: 9,
                     maxZoom: 11,
-                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
+                    boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                     colors: [
                         '#F5F500',
                         '#F5CC00',
@@ -221,15 +226,15 @@
                                 dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Revenue by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
+                            legendTitle: 'Total Revenue by county in ' + (me.opts.location.CurrentPlace.Metro.Id ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
-                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -325,15 +330,15 @@
                                 dataLayer.getAverageEmployeesBandsByCounty({
                                     industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Employees per business by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
+                            legendTitle: 'Average Employees per business by county in ' + (me.opts.location.CurrentPlace.Metro.Id ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
                             industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
-                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -384,7 +389,7 @@
                           }, callback);
                       },
                       legendTitle: 'Total Employees by state in the USA',
-                      legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                      legendFormat: function (val) { return  sizeup.util.numbers.format.abbreviate(val); },
                       industryId: me.opts.location.CurrentIndustry.Id,
                       minZoom: 0,
                       maxZoom: 4,
@@ -408,7 +413,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Total Employees by county in ' + me.opts.location.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            legendFormat: function (val) { return  sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 5,
                             maxZoom: 8,
@@ -429,15 +434,15 @@
                                 dataLayer.getTotalEmployeesBandsByCounty({
                                     industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Total Employees by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            legendTitle: 'Total Employees by county in ' + (me.opts.location.CurrentPlace.Metro.Id ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
+                            legendFormat: function (val) { return  sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 11,
-                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -458,7 +463,7 @@
                                 }, callback);
                             },
                             legendTitle: 'Total Employees by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                            legendFormat: function (val) { return  sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 12,
                             maxZoom: 32,
@@ -533,15 +538,15 @@
                                 dataLayer.getAverageSalaryBandsByCounty({
                                     industryId: me.opts.location.CurrentIndustry.Id,
                                     bands: 7,
-                                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
+                                    boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                                 }, callback);
                             },
-                            legendTitle: 'Average Salary by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
+                            legendTitle: 'Average Salary by county in ' + (me.opts.location.CurrentPlace.Metro.Id ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                             legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
                             industryId: me.opts.location.CurrentIndustry.Id,
                             minZoom: 9,
                             maxZoom: 32,
-                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                             colors: [
                                 '#F5F500',
                                 '#F5CC00',
@@ -614,15 +619,15 @@
                         dataLayer.getCostEffectivenessBandsByCounty({
                             industryId: me.opts.location.CurrentIndustry.Id,
                             bands: 7,
-                            boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
+                            boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id
                         }, callback);
                     },
-                    legendTitle: 'Cost Effectiveness by county in ' + (me.opts.location.CurrentPlace.Metro ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
+                    legendTitle: 'Cost Effectiveness by county in ' + (me.opts.location.CurrentPlace.Metro.Id ? me.opts.location.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.location.CurrentPlace.State.Name),
                     legendFormat: function (val) { return sizeup.util.numbers.format.round(val, 2); },
                     industryId: me.opts.location.CurrentIndustry.Id,
                     minZoom: 9,
                     maxZoom: 32,
-                    boundingEntityId: me.opts.location.CurrentPlace.Metro ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
+                    boundingEntityId: me.opts.location.CurrentPlace.Metro.Id ? 'm' + me.opts.location.CurrentPlace.Metro.Id : 's' + me.opts.location.CurrentPlace.State.Id,
                     colors: [
                         '#F5F500',
                         '#F5CC00',
@@ -645,8 +650,10 @@
 
         var formatChartData = function (data, indexes) {
             var formattedData = {};
+            var hasData = false;
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
+                    hasData = true;
                     formattedData[indexes[x]] =
                     {
                         value: data[indexes[x]].Value,
@@ -656,7 +663,7 @@
                     };
                 }
             }
-            return formattedData;
+            return hasData ? formattedData : null;
         };
 
         var initAverageRevenueChart = function (data) {
@@ -664,26 +671,31 @@
             container.find('.loading').remove();
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
 
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getAverageRevenueOverlays());
+                });
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getAverageRevenueOverlays());
-            });
-
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
         var initTotalRevenueChart = function (data) {
@@ -692,25 +704,31 @@
             var indexes = ['City', 'County', 'Metro', 'State'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getTotalRevenueOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getTotalRevenueOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
             
         };
 
@@ -720,25 +738,30 @@
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getAverageEmployeesOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getAverageEmployeesOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
-
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
         var initTotalEmployeesChart = function (data) {
@@ -747,24 +770,30 @@
             var indexes = ['City', 'County', 'Metro', 'State'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getTotalEmployeesOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getTotalEmployeesOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
 
@@ -774,24 +803,30 @@
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getAverageSalaryOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getAverageSalaryOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
 
@@ -801,24 +836,30 @@
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             var formattedData = formatChartData(data, indexes);
 
-            var chart = new sizeup.charts.barChart({
-                valueFormat: function (val) { return sizeup.util.numbers.format.round(val, 1); },
-                bar: { height: 13, padding: 4 },
-                gutters: { left: 50, top: 1 },
-                fillRight: false,
-                container: container.find('.chart'),
-                title: null,
-                bars: formattedData
-            });
-            chart.draw();
+            if (formattedData == null) {
+                container.find('.noData').removeClass('hidden');
+                container.find('.chartWrapper').remove();
+            }
+            else {
+                var chart = new sizeup.charts.barChart({
+                    valueFormat: function (val) { return sizeup.util.numbers.format.round(val, 1); },
+                    bar: { height: 13, padding: 4 },
+                    gutters: { left: 50, top: 1 },
+                    fillRight: false,
+                    container: container.find('.chart'),
+                    title: null,
+                    bars: formattedData
+                });
+                chart.draw();
 
-            container.find('.buttons .mapActivate').click(function () {
-                setOverlays(getCostEffectivenessOverlays());
-            });
+                container.find('.buttons .mapActivate').click(function () {
+                    setOverlays(getCostEffectivenessOverlays());
+                });
 
-            container.find('.buttons .mapClear').click(function () {
-                clearOverlays();
-            });
+                container.find('.buttons .mapClear').click(function () {
+                    clearOverlays();
+                });
+            }
         };
 
 

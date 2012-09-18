@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>Business Listings by Industry in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</title>
+<link href="@Url.Content("~/Content/views/community/find.css")" rel="stylesheet" type="text/css" />
+
+}
+
+
+   
+
+<div id="community" class="industry">
+    <h1>@ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</h1>
+    <a href="/community/@ViewBag.Place.StateSEOKey/@ViewBag.Place.CountySEOKey/@ViewBag.Place.CitySEOKey" class="inverse details">View Detailed Community Report</a>
+
+    <h1>Industry Reports for @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</h1>
+
+
+    @foreach(var col in ViewBag.Industries)
+    {
+    <div class="col">
+        @foreach(var list in col){
+        <h2>@list.Key</h2>
+        <ul>
+            @foreach(var item in list.Industries)
+            {
+            <li>
+                <a href="/community/@ViewBag.Place.StateSEOKey/@ViewBag.Place.CountySEOKey/@ViewBag.Place.CitySEOKey/@item.SEOKey" class="inverse">@item.Name </a>
+            </li>
+            }
+        </ul>
+        }
+    </div>
+
+    }
+
+</div>
+
+
+
+
+

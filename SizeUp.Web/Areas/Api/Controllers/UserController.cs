@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-
+using SizeUp.Core;
+using SizeUp.Core.Identity;
+using SizeUp.Core.Email;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -67,6 +69,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             FormsAuthentication.SignOut();
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(string email)
+        {
+            var i = Identity.GetUser(email);
+            if (i != null)
+            {
+                Singleton<Mailer>.Instance.SendResetPasswordEmail(i);
+            }
+
+            return Json(true);
         }
 
     }

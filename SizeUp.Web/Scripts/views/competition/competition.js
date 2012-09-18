@@ -78,7 +78,7 @@
 
         var notifier = new sizeup.core.notifier(function () { init(); });
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-        dataLayer.getCityBoundingBox({id: opts.CurrentInfo.CurrentPlace.City.Id}, notifier.getNotifier(function (data) { 
+        dataLayer.getPlaceBoundingBox({id: opts.CurrentInfo.CurrentPlace.City.Id}, notifier.getNotifier(function (data) { 
             me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[0].Lat, lng: data[0].Lng}));
             me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[1].Lat, lng: data[1].Lng}));

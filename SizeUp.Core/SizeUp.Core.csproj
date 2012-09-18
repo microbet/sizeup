@@ -85,6 +85,7 @@
     <Compile Include="Geo\BoundingEntity.cs" />
     <Compile Include="Geo\BoundingBox.cs" />
     <Compile Include="Tiles\Businesses.cs" />
+    <Compile Include="Tiles\GeographyBoundary.cs" />
     <Compile Include="Tiles\GeographyCollection.cs" />
     <Compile Include="Tiles\GeoSink.cs" />
     <Compile Include="Tiles\GoogleMapsAPIProjection.cs" />

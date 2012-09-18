@@ -279,15 +279,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                        Name = i.ZipCode.Entity.Name,
                        Lat = i.Center.Lat,
                        Long = i.Center.Lng,
-                       City = context.ZipCodePlaceMappings.Where(o=>o.ZipCodeId == i.ZipCode.Entity.Id)
+                       City = context.ZipCodePlaceMappings.Where(o=>o.ZipCodeId == i.ZipCode.Entity.Id && o.CityCountyMapping.City.CityType.IsActive)
                        .Select(o=> new Models.City.City()
                        {
                            Id = o.CityCountyMapping.City.Id,
                            Name = o.CityCountyMapping.City.Name,
                            SEOKey = o.CityCountyMapping.City.SEOKey,
-                           State = o.CityCountyMapping.City.State.Abbreviation
+                           State = o.CityCountyMapping.City.State.Abbreviation,
+                           TypeName = o.CityCountyMapping.City.CityType.Name
                        }).FirstOrDefault(),
-                       County = context.ZipCodePlaceMappings.Where(o => o.ZipCodeId == i.ZipCode.Entity.Id)
+                       County = context.ZipCodePlaceMappings.Where(o => o.ZipCodeId == i.ZipCode.Entity.Id && o.CityCountyMapping.City.CityType.IsActive)
                        .Select(o => new Models.County.County()
                        {
                            Id = o.CityCountyMapping.County.Id,
@@ -295,7 +296,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                            SEOKey = o.CityCountyMapping.County.SEOKey,
                            State = o.CityCountyMapping.County.State.Abbreviation
                        }).FirstOrDefault(),
-                       State = context.ZipCodePlaceMappings.Where(o => o.ZipCodeId == i.ZipCode.Entity.Id)
+                       State = context.ZipCodePlaceMappings.Where(o => o.ZipCodeId == i.ZipCode.Entity.Id && o.CityCountyMapping.City.CityType.IsActive)
                        .Select(o => new Models.State.State()
                        {
                            Id = o.CityCountyMapping.County.State.Id,

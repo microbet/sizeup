@@ -59,11 +59,17 @@
             getCity: function (params, callback) {
                 return get('/api/city/', params, callback);
             },
-            getCityBoundingBox: function (params, callback) {
+            getPlaceBoundingBox: function (params, callback) {
                 return get('/api/place/boundingbox/', params, callback);
             },
-            getCityCentroid: function (params, callback) {
+            getPlaceCentroid: function (params, callback) {
                 return get('/api/place/centroid/', params, callback);
+            },
+            getCityBoundingBox: function (params, callback) {
+                return get('/api/city/boundingbox/', params, callback);
+            },
+            getCityCentroid: function (params, callback) {
+                return get('/api/city/centroid/', params, callback);
             },
            
             getCounty: function (params, callback) {

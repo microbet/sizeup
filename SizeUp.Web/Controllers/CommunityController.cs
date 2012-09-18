@@ -32,80 +32,136 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Community()
         {
-
             return View();
         }
 
-        public ActionResult Find()
-        {
 
+
+
+        public ActionResult FindState()
+        {
             using (var context = ContextFactory.SizeUpContext)
             {
-                int pagesize = 21;
-                string stateId = Request["stateId"];
-                string industryId = Request["industryId"];
-                string page = Request["page"];
-                ViewBag.States = context.States.Select(i => new Option<long>{ Id = i.Id, Name = i.Name }).ToList();
-
-                var results = IndustryData.GetCities(context)
-                    .Join(context.CityCountyMappings, i => i.CityId, o => o.CityId, (i, o) => new { Place = o, i.Industry })
-                    .Where(i => i.Industry != null);
-
-                int p = 0;
-                if (!string.IsNullOrWhiteSpace(page))
-                {
-                    p = int.Parse(page);
-                }
-
-                if (!string.IsNullOrWhiteSpace(stateId))
-                {
-                    var id = long.Parse(stateId);
-                    results = results.Where(i => i.Place.County.StateId == id);
-                }
-
-                if (!string.IsNullOrWhiteSpace(industryId))
-                {
-                    var id = long.Parse(industryId);
-                    results = results.Where(i => i.Industry.Id == id);
-                }
-
-                int total = results.Count();
-
-                ViewBag.LastPage = pagesize * (p + 1) >= total;
-                ViewBag.FirstPage = p == 0;
-
-
-                ViewBag.Communities = results
-                    .OrderBy(i=>i.Place.Id)
-                    .ThenBy(i=>i.Industry.Id)
-                    .Skip(pagesize * p)
-                    .Take(pagesize)
-                    .Select(i => new Models.Community.Community()
+                ViewBag.States = context.States
+                    .Select(i => new Models.Business.State()
                     {
-                        City = i.Place.City.Name,
-                        County = i.Place.County.Name,
-                        State = i.Place.County.State.Abbreviation,
-                        Industry = i.Industry.Name,
-                        CitySEO = i.Place.City.SEOKey,
-                        CountySEO = i.Place.County.SEOKey,
-                        StateSEO = i.Place.County.State.SEOKey,
-                        IndustrySEO = i.Industry.SEOKey
+                        Name = i.Name,
+                        SEOKey = i.SEOKey
                     })
+                    .OrderBy(i => i.Name)
                     .ToList()
-                    .InSetsOf(pagesize / 3).ToList();
+                    .InSetsOf(14);
 
-                var prev = new NameValueCollection(Request.QueryString);
-                var next = new NameValueCollection(Request.QueryString);
-
-                prev["page"] = (p - 1).ToString();
-                next["page"] = (p + 1).ToString(); ;
-
-                ViewBag.Prev = string.Join("&", Array.ConvertAll(prev.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(prev[key]))));
-                ViewBag.Next = string.Join("&", Array.ConvertAll(next.AllKeys, key => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(next[key])))); ;
-
-                return View();
+                return View("State");
             }
         }
+
+
+        public ActionResult FindCity(string state)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var s = context.States
+                    .Select(i => new Models.Business.State()
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        SEOKey = i.SEOKey
+                    })
+                    .Where(i => i.SEOKey == state)
+                    .FirstOrDefault();
+
+                ViewBag.State = s;
+
+
+                var data = context.CityCountyMappings
+                    .Where(i => i.County.StateId == s.Id && i.City.CityType.IsActive)
+                    .Select(i => new Models.Business.Place()
+                    {
+                        CityName = i.City.Name,
+                        CitySEOKey = i.City.SEOKey,
+                        CityType = i.City.CityType.Name,
+                        CountyName = i.County.Name,
+                        CountySEOKey = i.County.SEOKey
+                    })
+                    .OrderBy(i => i.CityName)
+                    .ThenBy(i => i.CountyName)
+                    .ToList();
+
+                data.ForEach(i => i.DisplayType = data.Count(p => p.CityName == i.CityName && p.CityName == i.CityName && p.CountyName == i.CountyName) > 1);
+
+
+                var groups = data
+                   .GroupBy(i => i.CityName.Substring(0, 1))
+                   .Select(i => new Models.Business.PlaceList()
+                   {
+                       Key = i.Key,
+                       Places = i.ToList()
+                   })
+                   .ToList();
+
+
+                ViewBag.Cities = groups.InSetsOf((int)System.Math.Ceiling(groups.Count / 2d))
+                    .ToList();
+                return View("City");
+            }
+        }
+
+
+        public ActionResult FindIndustry(string state, string county, string city)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var location = context.CityCountyMappings
+                   .Where(i => i.County.State.SEOKey == state
+                       && i.City.CityType.IsActive
+                       && i.City.SEOKey == city
+                       && i.County.SEOKey == county)
+                   .Select(i => new Models.Business.Place()
+                   {
+                       CityId = i.City.Id,
+                       CityName = i.City.Name,
+                       CitySEOKey = i.City.SEOKey,
+                       CountyName = i.County.Name,
+                       CountySEOKey = i.County.SEOKey,
+                       CityType = i.City.CityType.Name,
+                       StateName = i.County.State.Name,
+                       StateSEOKey = i.County.State.SEOKey
+                   })
+                   .FirstOrDefault();
+
+                ViewBag.Place = location;
+
+                var industries = context.Industries
+                    .Where(i => i.Businesses.Any(b => b.BusinessCityMappings.Any(m => m.CityId == location.CityId) && b.IsActive))
+                    .Join(context.Industries, i => i.SicCode.Substring(0, 4), o => o.SicCode, (i, o) => new { Industry = i, Parent = o })
+                    .ToList()
+                    .GroupBy(i => i.Parent)
+                    .Select(i => new Models.Business.IndustryList()
+                    {
+                        Key = i.Key.Name,
+                        Industries = i.Select(o => new Models.Business.Industry()
+                        {
+                            Name = o.Industry.Name,
+                            SEOKey = o.Industry.SEOKey
+                        }).OrderBy(o => o.Name).ToList()
+                    })
+                    .OrderBy(i => i.Key)
+                    .ToList();
+
+
+
+                ViewBag.Industries = industries
+                    .InSetsOf((int)System.Math.Ceiling(industries.Count() / 2d))
+                    .ToList();
+
+
+                return View("Industry");
+            }
+        }
+
+
+       
 
 
         public ActionResult RedirectWithIndustry(string oldSEO, string industry)

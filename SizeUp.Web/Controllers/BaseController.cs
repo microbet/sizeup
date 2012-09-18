@@ -34,7 +34,7 @@ namespace SizeUp.Web.Controllers
                 if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["industry"]))
                 {
                     var industry = (string)requestContext.RouteData.Values["industry"];
-                    WebContext.Current.CurrentIndustryId = context.Industries.Where(i => i.SEOKey == industry).Select(i => i.Id).FirstOrDefault();
+                    WebContext.Current.CurrentIndustryId = context.Industries.Where(i => i.SEOKey == industry && i.SicCode.Length == 6).Select(i => i.Id).FirstOrDefault();
                 }
 
                 CurrentInfo = new Models.CurrentInfo()
@@ -47,7 +47,8 @@ namespace SizeUp.Web.Controllers
                             Id = i.City.Id,
                             Name = i.City.Name,
                             SEOKey = i.City.SEOKey,
-                            State = i.City.State.Abbreviation
+                            State = i.City.State.Abbreviation,
+                            TypeName = i.City.CityType.Name
                         },
                         County = new Api.Models.County.County()
                         {

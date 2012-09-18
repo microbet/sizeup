@@ -20,8 +20,8 @@
 
         me.content = {};
 
-        dataLayer.getCityBoundingBox({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.getCityBoundingBox({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+        dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         dataLayer.getDemographics({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 

@@ -10,6 +10,6 @@ namespace SizeUp.Web.Models.Business
     public class Report
     {
         public IndustryDetails IndustryDetails { get; set; }
-        public Place CurrentPlace { get; set; }
+        public SizeUp.Web.Areas.Api.Models.Place.Place CurrentPlace { get; set; }
     }
 }

@@ -25,6 +25,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
                 IQueryable<Models.AverageEmployees.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
+                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
                     .Select(i => new Models.AverageEmployees.ChartItem()
                     {
                         Value = (long)i.AverageEmployees,
@@ -33,6 +34,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     });
 
                 var s = IndustryData.GetState(context, industryId, locations.State.Id)
+                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
                     .Select(i => new Models.AverageEmployees.ChartItem()
                     {
                         Value = (long)i.AverageEmployees,
@@ -42,6 +44,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (locations.Metro != null)
                 {
                     m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                        .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
                         .Select(i => new Models.AverageEmployees.ChartItem()
                         {
                             Value = (long)i.AverageEmployees,
@@ -50,6 +53,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
                    .Select(i => new Models.AverageEmployees.ChartItem()
                    {
                        Value = (long)i.AverageEmployees,
@@ -57,6 +61,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    });
 
                 var c = IndustryData.GetCity(context, industryId, locations.City.Id)
+                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
                    .Select(i => new Models.AverageEmployees.ChartItem()
                    {
                        Value = (long)i.AverageEmployees,

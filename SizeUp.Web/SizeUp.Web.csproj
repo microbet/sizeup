@@ -215,6 +215,7 @@
     <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\CostEffectivenessController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\GeographyBoundaryController.cs" />
     <Compile Include="Areas\Tiles\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
@@ -247,8 +248,13 @@
     </Compile>
     <Compile Include="Models\Accessibility\Table.cs" />
     <Compile Include="Models\Business\BusinessResult.cs" />
+    <Compile Include="Models\Business\Industry.cs" />
     <Compile Include="Models\Business\IndustryDetails.cs" />
+    <Compile Include="Models\Business\IndustryList.cs" />
+    <Compile Include="Models\Business\Place.cs" />
+    <Compile Include="Models\Business\PlaceList.cs" />
     <Compile Include="Models\Business\Report.cs" />
+    <Compile Include="Models\Business\State.cs" />
     <Compile Include="Models\Community\Community.cs" />
     <Compile Include="Models\CurrentInfo.cs" />
     <Compile Include="Models\Header.cs" />
@@ -490,11 +496,16 @@
     <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
     <Content Include="Views\Community\Community.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
-    <Content Include="Views\Community\Find.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
     <Content Include="Views\Shared\Signin.cshtml" />
     <Content Include="Views\Accessibility\Heatmap.cshtml" />
     <Content Include="Views\Accessibility\LineChart.cshtml" />
+    <Content Include="Views\Business\State.cshtml" />
+    <None Include="Views\Business\City.cshtml" />
+    <Content Include="Views\Business\Industry.cshtml" />
+    <Content Include="Views\Community\State.cshtml" />
+    <Content Include="Views\Community\City.cshtml" />
+    <Content Include="Views\Community\Industry.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

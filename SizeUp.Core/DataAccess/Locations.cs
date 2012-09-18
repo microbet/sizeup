@@ -13,7 +13,7 @@ namespace SizeUp.Core.DataAccess
         public static IQueryable<Models.Locations> Get(SizeUpContext context, long placeId)
         {
             return context.CityCountyMappings
-                   .Where(i => i.Id == placeId)
+                   .Where(i => i.Id == placeId && i.City.CityType.IsActive)
                    .Select(i => new Models.Locations()
                    {
                        Id = i.Id,
@@ -36,13 +36,14 @@ namespace SizeUp.Core.DataAccess
                        Metro = i.County.Metro,
                        State = i.County.State
                    })
-                   .Where(i => i.County.Id == countyId && i.City.Id == cityId);
+                   .Where(i => i.County.Id == countyId && i.City.Id == cityId && i.City.CityType.IsActive);
         }
 
         public static IQueryable<Models.PlaceDistance> GetWithDistance(SizeUpContext context, double lat, double lng)
         {
             var scalar = 69.1 * System.Math.Cos(lat / 57.3);
             IQueryable<Models.PlaceDistance> entity = context.CityCountyMappings
+                .Where(i=> i.City.CityType.IsActive)
                 .Select(i=> new {
                     CityGeo = i.City.CityGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography,
                     CountyGeo = i.County.CountyGeographies.Where(g=>g.GeographyClass.Name == "Calculation").FirstOrDefault().Geography,

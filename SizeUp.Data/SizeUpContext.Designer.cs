@@ -83,6 +83,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_CityType", "CityType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.CityType), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
 
 #endregion
 
@@ -757,6 +758,22 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<DemographicsByState> _DemographicsByStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CityType> CityTypes
+        {
+            get
+            {
+                if ((_CityTypes == null))
+                {
+                    _CityTypes = base.CreateObjectSet<CityType>("CityTypes");
+                }
+                return _CityTypes;
+            }
+        }
+        private ObjectSet<CityType> _CityTypes;
 
         #endregion
 
@@ -1072,6 +1089,14 @@ namespace SizeUp.Data
         public void AddToDemographicsByStates(DemographicsByState demographicsByState)
         {
             base.AddObject("DemographicsByStates", demographicsByState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CityTypes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCityTypes(CityType cityType)
+        {
+            base.AddObject("CityTypes", cityType);
         }
 
         #endregion
@@ -3776,15 +3801,13 @@ namespace SizeUp.Data
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="fIPS">Initial value of the FIPS property.</param>
-        /// <param name="censusClassCode">Initial value of the CensusClassCode property.</param>
         /// <param name="stateId">Initial value of the StateId property.</param>
-        public static City CreateCity(global::System.Int64 id, global::System.String name, global::System.String fIPS, global::System.String censusClassCode, global::System.Int64 stateId)
+        public static City CreateCity(global::System.Int64 id, global::System.String name, global::System.String fIPS, global::System.Int64 stateId)
         {
             City city = new City();
             city.Id = id;
             city.Name = name;
             city.FIPS = fIPS;
-            city.CensusClassCode = censusClassCode;
             city.StateId = stateId;
             return city;
         }
@@ -3871,30 +3894,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String CensusClassCode
-        {
-            get
-            {
-                return _CensusClassCode;
-            }
-            set
-            {
-                OnCensusClassCodeChanging(value);
-                ReportPropertyChanging("CensusClassCode");
-                _CensusClassCode = StructuralObject.SetValidValue(value, false, "CensusClassCode");
-                ReportPropertyChanged("CensusClassCode");
-                OnCensusClassCodeChanged();
-            }
-        }
-        private global::System.String _CensusClassCode;
-        partial void OnCensusClassCodeChanging(global::System.String value);
-        partial void OnCensusClassCodeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String SEOKey
@@ -3945,48 +3944,24 @@ namespace SizeUp.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LegalStatisticalAreaDescriptionCode
+        public Nullable<global::System.Int64> CityTypeId
         {
             get
             {
-                return _LegalStatisticalAreaDescriptionCode;
+                return _CityTypeId;
             }
             set
             {
-                OnLegalStatisticalAreaDescriptionCodeChanging(value);
-                ReportPropertyChanging("LegalStatisticalAreaDescriptionCode");
-                _LegalStatisticalAreaDescriptionCode = StructuralObject.SetValidValue(value, true, "LegalStatisticalAreaDescriptionCode");
-                ReportPropertyChanged("LegalStatisticalAreaDescriptionCode");
-                OnLegalStatisticalAreaDescriptionCodeChanged();
+                OnCityTypeIdChanging(value);
+                ReportPropertyChanging("CityTypeId");
+                _CityTypeId = StructuralObject.SetValidValue(value, "CityTypeId");
+                ReportPropertyChanged("CityTypeId");
+                OnCityTypeIdChanged();
             }
         }
-        private global::System.String _LegalStatisticalAreaDescriptionCode;
-        partial void OnLegalStatisticalAreaDescriptionCodeChanging(global::System.String value);
-        partial void OnLegalStatisticalAreaDescriptionCodeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String SourceId
-        {
-            get
-            {
-                return _SourceId;
-            }
-            set
-            {
-                OnSourceIdChanging(value);
-                ReportPropertyChanging("SourceId");
-                _SourceId = StructuralObject.SetValidValue(value, true, "SourceId");
-                ReportPropertyChanged("SourceId");
-                OnSourceIdChanged();
-            }
-        }
-        private global::System.String _SourceId;
-        partial void OnSourceIdChanging(global::System.String value);
-        partial void OnSourceIdChanged();
+        private Nullable<global::System.Int64> _CityTypeId;
+        partial void OnCityTypeIdChanging(Nullable<global::System.Int64> value);
+        partial void OnCityTypeIdChanged();
 
         #endregion
 
@@ -4180,6 +4155,44 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByCity>("SizeUp.Data.FK_IndustryDataByCity_City", "IndustryDataByCity", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_City_CityType", "CityType")]
+        public CityType CityType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityType>("SizeUp.Data.FK_City_CityType", "CityType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityType>("SizeUp.Data.FK_City_CityType", "CityType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CityType> CityTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityType>("SizeUp.Data.FK_City_CityType", "CityType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CityType>("SizeUp.Data.FK_City_CityType", "CityType", value);
                 }
             }
         }
@@ -4642,6 +4655,210 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GeographyClass>("SizeUp.Data.FK_CityGeography_GeographyClass", "GeographyClass", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="CityType")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class CityType : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new CityType object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static CityType CreateCityType(global::System.Int64 id, global::System.Boolean isActive)
+        {
+            CityType cityType = new CityType();
+            cityType.Id = id;
+            cityType.IsActive = isActive;
+            return cityType;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, true, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CensusClassCode
+        {
+            get
+            {
+                return _CensusClassCode;
+            }
+            set
+            {
+                OnCensusClassCodeChanging(value);
+                ReportPropertyChanging("CensusClassCode");
+                _CensusClassCode = StructuralObject.SetValidValue(value, true, "CensusClassCode");
+                ReportPropertyChanged("CensusClassCode");
+                OnCensusClassCodeChanged();
+            }
+        }
+        private global::System.String _CensusClassCode;
+        partial void OnCensusClassCodeChanging(global::System.String value);
+        partial void OnCensusClassCodeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LegalStatisticalAreaDescriptionCode
+        {
+            get
+            {
+                return _LegalStatisticalAreaDescriptionCode;
+            }
+            set
+            {
+                OnLegalStatisticalAreaDescriptionCodeChanging(value);
+                ReportPropertyChanging("LegalStatisticalAreaDescriptionCode");
+                _LegalStatisticalAreaDescriptionCode = StructuralObject.SetValidValue(value, true, "LegalStatisticalAreaDescriptionCode");
+                ReportPropertyChanged("LegalStatisticalAreaDescriptionCode");
+                OnLegalStatisticalAreaDescriptionCodeChanged();
+            }
+        }
+        private global::System.String _LegalStatisticalAreaDescriptionCode;
+        partial void OnLegalStatisticalAreaDescriptionCodeChanging(global::System.String value);
+        partial void OnLegalStatisticalAreaDescriptionCodeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SourceId
+        {
+            get
+            {
+                return _SourceId;
+            }
+            set
+            {
+                OnSourceIdChanging(value);
+                ReportPropertyChanging("SourceId");
+                _SourceId = StructuralObject.SetValidValue(value, true, "SourceId");
+                ReportPropertyChanged("SourceId");
+                OnSourceIdChanged();
+            }
+        }
+        private global::System.String _SourceId;
+        partial void OnSourceIdChanging(global::System.String value);
+        partial void OnSourceIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value, "IsActive");
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_City_CityType", "City")]
+        public EntityCollection<City> Cities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<City>("SizeUp.Data.FK_City_CityType", "City");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<City>("SizeUp.Data.FK_City_CityType", "City", value);
                 }
             }
         }

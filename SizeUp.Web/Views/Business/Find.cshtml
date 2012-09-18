@@ -3,39 +3,18 @@
 }
 
 @section head{
-<title>Business Listings</title>
+<title>@ViewBag.Industry.Name in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</title>
 <link href="@Url.Content("~/Content/views/business/find.css")" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/business/find.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
+
 }
 
-<div id="businessListings">
-    <h1>Business Listings</h1>
-    <form action="/find-business" method="get" id="form" class="hidden" >
-        <ul>
-            <li>
-                <label for="business">Business Name:</label>
-                <input type="text" id="business" name="name" value="" class="" />
-            </li>
-            <li>
-                <label for="industry">Industry:</label>
-                <input type="text" id="industry"  value="enter an industry" class="blank" />
-            </li>
-            <li>
-                <label for="city">City:</label>
-                <input type="text" id="city"  value="enter a city" class="blank" />
-            </li>
-        </ul>
-        <input type="hidden" name="page" value="0" />
-        <input type="hidden" id="cityId" name="placeId" value="@Request.QueryString["placeId"]" />
-        <input type="hidden" id="industryId" name="industryId" value="@Request.QueryString["industryId"]" />
-        <input type="submit" id="submit" class="button" value="Filter" />
-        <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
-        <p id="invalidCityMessage" class="info hidden">Please enter a valid city name.</p>
-    </form>
+<div id="businessListings" class="find">
+    <h1>@ViewBag.Industry.Name in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</h1>
+
+    <a href="/community/@ViewBag.Place.StateSEOKey/@ViewBag.Place.CountySEOKey/@ViewBag.Place.CitySEOKey/@ViewBag.Industry.SEOKey" class="inverse details">View Detailed Industry Report</a>
+
+    <h1>Businesses in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType) categorized under @ViewBag.Industry.Name</h1>
 
 
     @foreach(var col in ViewBag.Businesses)
@@ -45,7 +24,7 @@
             @foreach(var item in col)
             {
             <li>
-                <a href="/business/@item.StateSEO/@item.CountySEO/@item.CitySEO/@item.IndustrySEO/@item.Id/@item.SEOKey">@item.Name</a>
+                <a href="/business/@ViewBag.Place.StateSEOKey/@ViewBag.Place.CountySEOKey/@ViewBag.Place.CitySEOKey/@ViewBag.Industry.SEOKey/@item.Id/@item.SEOKey">@item.Name</a>
                 <address>
                     @if(!string.IsNullOrWhiteSpace(item.Address)){
                     <span class="address1">@item.Address</span>
@@ -58,31 +37,8 @@
     </div>
     }
 
-    <div id="buttonContainer">
-        @if(!ViewBag.FirstPage){
-        <a href="/find-business?@ViewBag.Prev.ToString()" id="prev" class="button small">Last Page</a>
-        }
-        @if(!ViewBag.LastPage){
-        <a href="/find-business?@ViewBag.Next.ToString()" id="next" class="button small">Next Page</a>
-        }
-    </div>
 </div>
 
-
-
-@section scripts{
-
-    <script type="text/javascript">
-    var options = {
-        placeId: '@Request.QueryString["placeId"]',
-        industryId: '@Request.QueryString["industryId"]',
-        name: '@Server.UrlDecode(Request.QueryString["name"])'
-    };
-    var driver = new sizeup.views.business.find(options);
-    </script>
-
-
-}
 
 
 

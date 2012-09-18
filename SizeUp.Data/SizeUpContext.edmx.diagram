@@ -18,11 +18,11 @@
         <EntityTypeShape EntityType="SizeUp.Data.APIKeyDomain" Width="1.5" PointX="2.5" PointY="8" />
         <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="4.75" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="11.25" PointY="0.5" />
-        <EntityTypeShape EntityType="SizeUp.Data.CityGeography" Width="1.5" PointX="11.25" PointY="4.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.CityGeography" Width="1.5" PointX="11.75" PointY="9.5" />
         <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="13.375" PointY="0.5" />
-        <EntityTypeShape EntityType="SizeUp.Data.CountyGeography" Width="2" PointX="13.375" PointY="5.75" />
-        <EntityTypeShape EntityType="SizeUp.Data.Geography" Width="1.5" PointX="12" PointY="9.625" />
-        <EntityTypeShape EntityType="SizeUp.Data.GeographyClass" Width="1.5" PointX="13.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.CountyGeography" Width="2" PointX="13.625" PointY="5.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.Geography" Width="1.5" PointX="13.875" PointY="10.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographyClass" Width="1.5" PointX="15.75" PointY="10.875" />
         <EntityTypeShape EntityType="SizeUp.Data.GeographySource" Width="2.375" PointX="12" PointY="13.875" />
         <EntityTypeShape EntityType="SizeUp.Data.Metro" Width="1.5" PointX="15.75" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.MetroGeography" Width="2.125" PointX="15.75" PointY="4.875" />
@@ -108,6 +108,8 @@
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByZip_ZipCode" />
         <EntityTypeShape EntityType="SizeUp.Data.DemographicsByState" Width="2.5" PointX="40.625" PointY="12.75" />
         <AssociationConnector Association="SizeUp.Data.FK_DemographicsByState_State" />
+        <EntityTypeShape EntityType="SizeUp.Data.CityType" Width="2.375" PointX="11.125" PointY="4.875" />
+        <AssociationConnector Association="SizeUp.Data.FK_City_CityType" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>Communities in @ViewBag.State.Name</title>
+<link href="@Url.Content("~/Content/views/community/find.css")" rel="stylesheet" type="text/css" />
+
+}
+
+<div id="community" class="city">
+    <h1>Communities in @ViewBag.State.Name</h1>
+ 
+    @foreach(var col in ViewBag.Cities)
+    {
+    <div class="col">
+        @foreach(var list in col){
+        <h2>@list.Key</h2>
+        <ul>
+            @foreach(var item in list.Places)
+            {
+            <li>
+                <a href="/find-community/@ViewBag.State.SEOKey/@item.CountySEOKey/@item.CitySEOKey" class="inverse">@item.CityName <span>(@(item.DisplayType ? item.CountyName + " County - " + item.CityType : item.CountyName + " County" ))</span></a>
+            </li>
+            }
+        </ul>
+        }
+    </div>
+
+    }
+
+</div>
+
+
+
+
+

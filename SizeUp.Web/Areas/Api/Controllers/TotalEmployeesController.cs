@@ -25,6 +25,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var locations = Locations.Get(context, placeId).FirstOrDefault();
                 IQueryable<Models.TotalEmployees.ChartItem> m = null;
                 var n = IndustryData.GetNational(context, industryId)
+                    .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
                     .Select(i => new Models.TotalEmployees.ChartItem()
                     {
                         Value = (long)i.TotalEmployees,
@@ -32,6 +33,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     });
 
                 var s = IndustryData.GetState(context, industryId, locations.State.Id)
+                    .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
                     .Select(i => new Models.TotalEmployees.ChartItem()
                     {
                         Value = (long)i.TotalEmployees,
@@ -41,6 +43,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (locations.Metro != null)
                 {
                     m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
+                        .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
                         .Select(i => new Models.TotalEmployees.ChartItem()
                         {
                             Value = (long)i.TotalEmployees,
@@ -49,6 +52,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
                 var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
+                    .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
                    .Select(i => new Models.TotalEmployees.ChartItem()
                    {
                        Value = (long)i.TotalEmployees,
@@ -56,6 +60,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    });
 
                 var c = IndustryData.GetCity(context, industryId, locations.City.Id)
+                    .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
                    .Select(i => new Models.TotalEmployees.ChartItem()
                    {
                        Value = (long)i.TotalEmployees,
