@@ -22,8 +22,13 @@
 
 
         dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.getCityBoundingBox({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
 
         var init = function () {
+
+            var bounds = new sizeup.maps.latLngBounds();
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox[0].Lat, lng: me.data.BoundingBox[0].Lng }));
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox[1].Lat, lng: me.data.BoundingBox[1].Lng }));
 
 
             me.content.map = new sizeup.maps.heatMap({
@@ -33,6 +38,8 @@
                 borderId: 'c' + me.opts.CurrentPlace.City.Id
             });
             me.content.map.setCenter(me.data.CityCenter);
+            me.content.map.fitBounds(bounds);
+
             me.content.map.hideLegend();
 
             me.content.map.showCityBorder();

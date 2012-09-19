@@ -39,6 +39,7 @@
             me.content.map.setCenter(me.data.CityCenter);
             me.content.map.fitBounds(bounds);
 
+ 
             me.content.report = me.container.find('.report').hide().removeClass('hidden');
 
             me.content.report.html(templates.bind(templates.get('demographics'), me.data.Demographics));

@@ -15,17 +15,22 @@
         me.container = $('#business');
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
-        //var notifier = new sizeup.core.notifier(function () { init(); });
+        var notifier = new sizeup.core.notifier(function () { init(); });
 
 
         me.content = {};
 
 
         //dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.getCityBoundingBox({ id: opts.location.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
 
         var init = function () {
 
             var businessPoint = new sizeup.maps.latLng(me.opts.businessLocation);
+            var bounds = new sizeup.maps.latLngBounds();
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox[0].Lat, lng: me.data.BoundingBox[0].Lng }));
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox[1].Lat, lng: me.data.BoundingBox[1].Lng }));
+
 
             me.content.map = new sizeup.maps.heatMap({
                 legendItemTemplate: templates.get('legendItem'),
@@ -34,6 +39,8 @@
                 borderId: 'c' + me.opts.location.CurrentPlace.City.Id
             });
             me.content.map.setCenter(businessPoint);
+            me.content.map.fitBounds(bounds);
+
             me.content.map.hideLegend();
 
             me.content.map.showCityBorder();
@@ -867,7 +874,6 @@
         var publicObj = {
 
         };
-        init();
         return publicObj;
 
     };
