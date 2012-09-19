@@ -5,7 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="15989ca06b5b47e8a95dc6b504801b61" Name="Diagram1">
-        <EntityTypeShape EntityType="SizeUp.Data.Analytics.UserRegistration" Width="1.5" PointX="2.8962103197799114" PointY="1.6330952502941225" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.UserRegistration" Width="2.5" PointX="1.125" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.LongRequest" Width="1.5" PointX="4.25" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

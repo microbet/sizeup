@@ -33,5 +33,22 @@ namespace SizeUp.Data.Analytics
                 context.SaveChanges();
             }
         }
+
+        public void LongRequest(LongRequest reg)
+        {
+            reg.Day = Day;
+            reg.Hour = Hour;
+            reg.Minute = Minute;
+            reg.Month = Month;
+            reg.Quarter = Quarter;
+            reg.Year = Year;
+            reg.Week = Week;
+            reg.Timestamp = DateTime.Now;
+            using (var context = new AnalyticsContext())
+            {
+                context.LongRequests.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
     }
 }

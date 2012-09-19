@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Web;
+using SizeUp.Data;
+using SizeUp.Data.Analytics;
 
 namespace SizeUp.Core.Diagnostics
 {
@@ -30,9 +32,19 @@ namespace SizeUp.Core.Diagnostics
             {
                 stopwatch.Stop();
                 TimeSpan ts = stopwatch.Elapsed;
-                if (ts.TotalMilliseconds > 1000)
+                if (ts.TotalMilliseconds > 1500)
                 {
-                    //add logging here, write to DB
+                    using (var context = ContextFactory.AnalyticsContext)
+                    {
+                        LongRequest reg = new LongRequest()
+                        {
+
+                            RequestUrl = HttpContext.Current.Request.Url.OriginalString,
+                            RequestTime = (int)ts.TotalMilliseconds
+                        };
+
+                        Singleton<Tracker>.Instance.LongRequest(reg);
+                    }
                 }
             }
             catch (Exception) { }

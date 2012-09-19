@@ -80,6 +80,22 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<UserRegistration> _UserRegistrations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LongRequest> LongRequests
+        {
+            get
+            {
+                if ((_LongRequests == null))
+                {
+                    _LongRequests = base.CreateObjectSet<LongRequest>("LongRequests");
+                }
+                return _LongRequests;
+            }
+        }
+        private ObjectSet<LongRequest> _LongRequests;
 
         #endregion
 
@@ -92,6 +108,14 @@ namespace SizeUp.Data.Analytics
         {
             base.AddObject("UserRegistrations", userRegistration);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LongRequests EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLongRequests(LongRequest longRequest)
+        {
+            base.AddObject("LongRequests", longRequest);
+        }
 
         #endregion
 
@@ -100,6 +124,322 @@ namespace SizeUp.Data.Analytics
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.Analytics", Name="LongRequest")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LongRequest : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LongRequest object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="timestamp">Initial value of the Timestamp property.</param>
+        /// <param name="minute">Initial value of the Minute property.</param>
+        /// <param name="hour">Initial value of the Hour property.</param>
+        /// <param name="day">Initial value of the Day property.</param>
+        /// <param name="week">Initial value of the Week property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="quarter">Initial value of the Quarter property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="requestUrl">Initial value of the RequestUrl property.</param>
+        /// <param name="requestTime">Initial value of the RequestTime property.</param>
+        public static LongRequest CreateLongRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String requestUrl, global::System.Int32 requestTime)
+        {
+            LongRequest longRequest = new LongRequest();
+            longRequest.Id = id;
+            longRequest.Timestamp = timestamp;
+            longRequest.Minute = minute;
+            longRequest.Hour = hour;
+            longRequest.Day = day;
+            longRequest.Week = week;
+            longRequest.Month = month;
+            longRequest.Quarter = quarter;
+            longRequest.Year = year;
+            longRequest.RequestUrl = requestUrl;
+            longRequest.RequestTime = requestTime;
+            return longRequest;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Timestamp
+        {
+            get
+            {
+                return _Timestamp;
+            }
+            set
+            {
+                OnTimestampChanging(value);
+                ReportPropertyChanging("Timestamp");
+                _Timestamp = StructuralObject.SetValidValue(value, "Timestamp");
+                ReportPropertyChanged("Timestamp");
+                OnTimestampChanged();
+            }
+        }
+        private global::System.DateTime _Timestamp;
+        partial void OnTimestampChanging(global::System.DateTime value);
+        partial void OnTimestampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Minute
+        {
+            get
+            {
+                return _Minute;
+            }
+            set
+            {
+                OnMinuteChanging(value);
+                ReportPropertyChanging("Minute");
+                _Minute = StructuralObject.SetValidValue(value, "Minute");
+                ReportPropertyChanged("Minute");
+                OnMinuteChanged();
+            }
+        }
+        private global::System.Int32 _Minute;
+        partial void OnMinuteChanging(global::System.Int32 value);
+        partial void OnMinuteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Hour
+        {
+            get
+            {
+                return _Hour;
+            }
+            set
+            {
+                OnHourChanging(value);
+                ReportPropertyChanging("Hour");
+                _Hour = StructuralObject.SetValidValue(value, "Hour");
+                ReportPropertyChanged("Hour");
+                OnHourChanged();
+            }
+        }
+        private global::System.Int32 _Hour;
+        partial void OnHourChanging(global::System.Int32 value);
+        partial void OnHourChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Day
+        {
+            get
+            {
+                return _Day;
+            }
+            set
+            {
+                OnDayChanging(value);
+                ReportPropertyChanging("Day");
+                _Day = StructuralObject.SetValidValue(value, "Day");
+                ReportPropertyChanged("Day");
+                OnDayChanged();
+            }
+        }
+        private global::System.Int32 _Day;
+        partial void OnDayChanging(global::System.Int32 value);
+        partial void OnDayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Week
+        {
+            get
+            {
+                return _Week;
+            }
+            set
+            {
+                OnWeekChanging(value);
+                ReportPropertyChanging("Week");
+                _Week = StructuralObject.SetValidValue(value, "Week");
+                ReportPropertyChanged("Week");
+                OnWeekChanged();
+            }
+        }
+        private global::System.Int32 _Week;
+        partial void OnWeekChanging(global::System.Int32 value);
+        partial void OnWeekChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value, "Month");
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.Int32 _Month;
+        partial void OnMonthChanging(global::System.Int32 value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private global::System.Int32 _Quarter;
+        partial void OnQuarterChanging(global::System.Int32 value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int32 _Year;
+        partial void OnYearChanging(global::System.Int32 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String RequestUrl
+        {
+            get
+            {
+                return _RequestUrl;
+            }
+            set
+            {
+                OnRequestUrlChanging(value);
+                ReportPropertyChanging("RequestUrl");
+                _RequestUrl = StructuralObject.SetValidValue(value, false, "RequestUrl");
+                ReportPropertyChanged("RequestUrl");
+                OnRequestUrlChanged();
+            }
+        }
+        private global::System.String _RequestUrl;
+        partial void OnRequestUrlChanging(global::System.String value);
+        partial void OnRequestUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RequestTime
+        {
+            get
+            {
+                return _RequestTime;
+            }
+            set
+            {
+                OnRequestTimeChanging(value);
+                ReportPropertyChanging("RequestTime");
+                _RequestTime = StructuralObject.SetValidValue(value, "RequestTime");
+                ReportPropertyChanged("RequestTime");
+                OnRequestTimeChanged();
+            }
+        }
+        private global::System.Int32 _RequestTime;
+        partial void OnRequestTimeChanging(global::System.Int32 value);
+        partial void OnRequestTimeChanged();
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
