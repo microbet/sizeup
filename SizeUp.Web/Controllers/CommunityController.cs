@@ -161,17 +161,31 @@ namespace SizeUp.Web.Controllers
         }
 
 
-       
+
 
 
         public ActionResult RedirectWithIndustry(string oldSEO, string industry)
         {
-            return View();
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                //community/idaho/bingham/atomic-city/industry
+
+
+                string url = "";
+                return RedirectPermanent(url);
+            }
         }
 
         public ActionResult Redirect(string oldSEO)
         {
-            return View();
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                //community/idaho/bingham/atomic-city
+
+
+                string url = "";
+                return RedirectPermanent(url);
+            }
         }
 
 
