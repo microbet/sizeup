@@ -238,5 +238,31 @@ namespace SizeUp.Web.Controllers
                 return View();
             }
         }
+
+
+
+        public ActionResult Redirect(string oldSEO)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var place = context.LegacyBusinessSEOKeys.Where(i => i.SEOKey == oldSEO)
+                    .Select(i => new
+                    {
+                        State = i.Business.State.SEOKey,
+                        County = i.Business.BusinessCityMappings.FirstOrDefault().City.CityCountyMappings.FirstOrDefault().County.SEOKey,
+                        City = i.Business.BusinessCityMappings.FirstOrDefault().City.SEOKey,
+                        Business = i.Business.SEOKey,
+                        BusinessId = i.businessId,
+                        Industry = i.Business.Industry.SEOKey
+                    })
+                    .FirstOrDefault();
+
+                string url = string.Format("/business/{0}/{1}/{2}/{3}/{4}/{5}", place.State, place.County, place.City,place.Industry, place.BusinessId, place.Business);
+                return RedirectPermanent(url);
+            }
+        }
+
+
+
     }
 }

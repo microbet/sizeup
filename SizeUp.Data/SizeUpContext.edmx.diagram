@@ -110,6 +110,12 @@
         <AssociationConnector Association="SizeUp.Data.FK_DemographicsByState_State" />
         <EntityTypeShape EntityType="SizeUp.Data.CityType" Width="2.375" PointX="11.125" PointY="4.875" />
         <AssociationConnector Association="SizeUp.Data.FK_City_CityType" />
+        <EntityTypeShape EntityType="SizeUp.Data.LegacyCommunitySEOKey" Width="2.75" PointX="0.5" PointY="12" />
+        <EntityTypeShape EntityType="SizeUp.Data.LegacyIndustrySEOKey" Width="2.75" PointX="0.5" PointY="14" />
+        <AssociationConnector Association="SizeUp.Data.FK_LegacyCommunitySEOKey_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" />
+        <EntityTypeShape EntityType="SizeUp.Data.LegacyBusinessSEOKey" Width="2.75" PointX="0.5" PointY="16.375" />
+        <AssociationConnector Association="SizeUp.Data.FK_LegacyBusinessSEOKey_Business" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

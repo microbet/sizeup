@@ -168,10 +168,20 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                //community/idaho/bingham/atomic-city/industry
+                var place = context.LegacyCommunitySEOKeys.Where(i => i.SEOKey == oldSEO)
+                    .Select(i => new
+                    {
+                        State = i.City.State.SEOKey,
+                        County = i.City.CityCountyMappings.FirstOrDefault().County.SEOKey,
+                        City = i.City.SEOKey
+                    })
+                    .FirstOrDefault();
 
+                var ind = context.LegacyIndustrySEOKeys.Where(i => i.SEOKey == industry)
+                    .Select(i => i.Industry.SEOKey)
+                    .FirstOrDefault();
 
-                string url = "";
+                string url = string.Format("/community/{0}/{1}/{2}/{3}", place.State,place.County,place.City, ind);
                 return RedirectPermanent(url);
             }
         }
@@ -180,10 +190,17 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                //community/idaho/bingham/atomic-city
+                var place = context.LegacyCommunitySEOKeys.Where(i => i.SEOKey == oldSEO)
+                 .Select(i => new
+                 {
+                     State = i.City.State.SEOKey,
+                     County = i.City.CityCountyMappings.FirstOrDefault().County.SEOKey,
+                     City = i.City.SEOKey
+                 })
+                 .FirstOrDefault();
 
-
-                string url = "";
+  
+                string url = string.Format("/community/{0}/{1}/{2}", place.State, place.County, place.City);
                 return RedirectPermanent(url);
             }
         }

@@ -342,6 +342,7 @@
     <Content Include="Scripts\controls\pager.js" />
     <Content Include="Scripts\controls\placeSelector.js" />
     <Content Include="Scripts\controls\toggleButton.js" />
+    <Content Include="Scripts\core\analytics.js" />
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
@@ -472,6 +473,7 @@
     <Content Include="Areas\Widget\Views\Dashboard\Turnover.cshtml" />
     <Content Include="Areas\Widget\Views\Dashboard\WorkersComp.cshtml" />
     <Content Include="Areas\Widget\Views\Dashboard\YearStarted.cshtml" />
+    <Content Include="Areas\Widget\Views\Shared\Analytics.cshtml" />
     <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />
@@ -505,6 +507,7 @@
     <Content Include="Views\Community\State.cshtml" />
     <Content Include="Views\Community\City.cshtml" />
     <Content Include="Views\Community\Industry.cshtml" />
+    <Content Include="Views\Shared\Analytics.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

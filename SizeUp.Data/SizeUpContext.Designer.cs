@@ -84,6 +84,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_CityType", "CityType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.CityType), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyCommunitySEOKey_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "LegacyCommunitySEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyCommunitySEOKey), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyIndustrySEOKey_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "LegacyIndustrySEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyIndustrySEOKey), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyBusinessSEOKey_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "LegacyBusinessSEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyBusinessSEOKey), true)]
 
 #endregion
 
@@ -774,6 +777,54 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<CityType> _CityTypes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LegacyCommunitySEOKey> LegacyCommunitySEOKeys
+        {
+            get
+            {
+                if ((_LegacyCommunitySEOKeys == null))
+                {
+                    _LegacyCommunitySEOKeys = base.CreateObjectSet<LegacyCommunitySEOKey>("LegacyCommunitySEOKeys");
+                }
+                return _LegacyCommunitySEOKeys;
+            }
+        }
+        private ObjectSet<LegacyCommunitySEOKey> _LegacyCommunitySEOKeys;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LegacyIndustrySEOKey> LegacyIndustrySEOKeys
+        {
+            get
+            {
+                if ((_LegacyIndustrySEOKeys == null))
+                {
+                    _LegacyIndustrySEOKeys = base.CreateObjectSet<LegacyIndustrySEOKey>("LegacyIndustrySEOKeys");
+                }
+                return _LegacyIndustrySEOKeys;
+            }
+        }
+        private ObjectSet<LegacyIndustrySEOKey> _LegacyIndustrySEOKeys;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LegacyBusinessSEOKey> LegacyBusinessSEOKeys
+        {
+            get
+            {
+                if ((_LegacyBusinessSEOKeys == null))
+                {
+                    _LegacyBusinessSEOKeys = base.CreateObjectSet<LegacyBusinessSEOKey>("LegacyBusinessSEOKeys");
+                }
+                return _LegacyBusinessSEOKeys;
+            }
+        }
+        private ObjectSet<LegacyBusinessSEOKey> _LegacyBusinessSEOKeys;
 
         #endregion
 
@@ -1097,6 +1148,30 @@ namespace SizeUp.Data
         public void AddToCityTypes(CityType cityType)
         {
             base.AddObject("CityTypes", cityType);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LegacyCommunitySEOKeys EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLegacyCommunitySEOKeys(LegacyCommunitySEOKey legacyCommunitySEOKey)
+        {
+            base.AddObject("LegacyCommunitySEOKeys", legacyCommunitySEOKey);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LegacyIndustrySEOKeys EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLegacyIndustrySEOKeys(LegacyIndustrySEOKey legacyIndustrySEOKey)
+        {
+            base.AddObject("LegacyIndustrySEOKeys", legacyIndustrySEOKey);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LegacyBusinessSEOKeys EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLegacyBusinessSEOKeys(LegacyBusinessSEOKey legacyBusinessSEOKey)
+        {
+            base.AddObject("LegacyBusinessSEOKeys", legacyBusinessSEOKey);
         }
 
         #endregion
@@ -2275,6 +2350,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<BusinessDataByZip>("SizeUp.Data.FK_BusinessDataByZip_Business", "BusinessDataByZip", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LegacyBusinessSEOKey_Business", "LegacyBusinessSEOKey")]
+        public EntityCollection<LegacyBusinessSEOKey> LegacyBusinessSEOKeys
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LegacyBusinessSEOKey>("SizeUp.Data.FK_LegacyBusinessSEOKey_Business", "LegacyBusinessSEOKey");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LegacyBusinessSEOKey>("SizeUp.Data.FK_LegacyBusinessSEOKey_Business", "LegacyBusinessSEOKey", value);
                 }
             }
         }
@@ -4193,6 +4290,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CityType>("SizeUp.Data.FK_City_CityType", "CityType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LegacyCommunitySEOKey_City", "LegacyCommunitySEOKey")]
+        public EntityCollection<LegacyCommunitySEOKey> LegacyCommunitySEOKeys
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LegacyCommunitySEOKey>("SizeUp.Data.FK_LegacyCommunitySEOKey_City", "LegacyCommunitySEOKey");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LegacyCommunitySEOKey>("SizeUp.Data.FK_LegacyCommunitySEOKey_City", "LegacyCommunitySEOKey", value);
                 }
             }
         }
@@ -11364,6 +11483,28 @@ namespace SizeUp.Data
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LegacyIndustrySEOKey_Industry", "LegacyIndustrySEOKey")]
+        public EntityCollection<LegacyIndustrySEOKey> LegacyIndustrySEOKeys
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<LegacyIndustrySEOKey>("SizeUp.Data.FK_LegacyIndustrySEOKey_Industry", "LegacyIndustrySEOKey");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<LegacyIndustrySEOKey>("SizeUp.Data.FK_LegacyIndustrySEOKey_Industry", "LegacyIndustrySEOKey", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -15035,6 +15176,456 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_IndustryKeyword_Industry", "Industry", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LegacyBusinessSEOKey")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LegacyBusinessSEOKey : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LegacyBusinessSEOKey object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="sEOKey">Initial value of the SEOKey property.</param>
+        /// <param name="businessId">Initial value of the businessId property.</param>
+        public static LegacyBusinessSEOKey CreateLegacyBusinessSEOKey(global::System.Int64 id, global::System.String sEOKey, global::System.Int64 businessId)
+        {
+            LegacyBusinessSEOKey legacyBusinessSEOKey = new LegacyBusinessSEOKey();
+            legacyBusinessSEOKey.Id = id;
+            legacyBusinessSEOKey.SEOKey = sEOKey;
+            legacyBusinessSEOKey.businessId = businessId;
+            return legacyBusinessSEOKey;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, false, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 businessId
+        {
+            get
+            {
+                return _businessId;
+            }
+            set
+            {
+                OnbusinessIdChanging(value);
+                ReportPropertyChanging("businessId");
+                _businessId = StructuralObject.SetValidValue(value, "businessId");
+                ReportPropertyChanged("businessId");
+                OnbusinessIdChanged();
+            }
+        }
+        private global::System.Int64 _businessId;
+        partial void OnbusinessIdChanging(global::System.Int64 value);
+        partial void OnbusinessIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LegacyBusinessSEOKey_Business", "Business")]
+        public Business Business
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_LegacyBusinessSEOKey_Business", "Business").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_LegacyBusinessSEOKey_Business", "Business").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Business> BusinessReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Business>("SizeUp.Data.FK_LegacyBusinessSEOKey_Business", "Business");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Business>("SizeUp.Data.FK_LegacyBusinessSEOKey_Business", "Business", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LegacyCommunitySEOKey")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LegacyCommunitySEOKey : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LegacyCommunitySEOKey object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="sEOKey">Initial value of the SEOKey property.</param>
+        /// <param name="cityId">Initial value of the CityId property.</param>
+        public static LegacyCommunitySEOKey CreateLegacyCommunitySEOKey(global::System.Int64 id, global::System.String sEOKey, global::System.Int64 cityId)
+        {
+            LegacyCommunitySEOKey legacyCommunitySEOKey = new LegacyCommunitySEOKey();
+            legacyCommunitySEOKey.Id = id;
+            legacyCommunitySEOKey.SEOKey = sEOKey;
+            legacyCommunitySEOKey.CityId = cityId;
+            return legacyCommunitySEOKey;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, false, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 CityId
+        {
+            get
+            {
+                return _CityId;
+            }
+            set
+            {
+                OnCityIdChanging(value);
+                ReportPropertyChanging("CityId");
+                _CityId = StructuralObject.SetValidValue(value, "CityId");
+                ReportPropertyChanged("CityId");
+                OnCityIdChanged();
+            }
+        }
+        private global::System.Int64 _CityId;
+        partial void OnCityIdChanging(global::System.Int64 value);
+        partial void OnCityIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LegacyCommunitySEOKey_City", "City")]
+        public City City
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_LegacyCommunitySEOKey_City", "City").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_LegacyCommunitySEOKey_City", "City").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<City> CityReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_LegacyCommunitySEOKey_City", "City");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<City>("SizeUp.Data.FK_LegacyCommunitySEOKey_City", "City", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="LegacyIndustrySEOKey")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LegacyIndustrySEOKey : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LegacyIndustrySEOKey object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="sEOKey">Initial value of the SEOKey property.</param>
+        /// <param name="industryId">Initial value of the IndustryId property.</param>
+        public static LegacyIndustrySEOKey CreateLegacyIndustrySEOKey(global::System.Int64 id, global::System.String sEOKey, global::System.Int64 industryId)
+        {
+            LegacyIndustrySEOKey legacyIndustrySEOKey = new LegacyIndustrySEOKey();
+            legacyIndustrySEOKey.Id = id;
+            legacyIndustrySEOKey.SEOKey = sEOKey;
+            legacyIndustrySEOKey.IndustryId = industryId;
+            return legacyIndustrySEOKey;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, false, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private global::System.Int64 _IndustryId;
+        partial void OnIndustryIdChanging(global::System.Int64 value);
+        partial void OnIndustryIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_LegacyIndustrySEOKey_Industry", "Industry")]
+        public Industry Industry
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_LegacyIndustrySEOKey_Industry", "Industry").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_LegacyIndustrySEOKey_Industry", "Industry").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Industry> IndustryReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_LegacyIndustrySEOKey_Industry", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_LegacyIndustrySEOKey_Industry", "Industry", value);
                 }
             }
         }

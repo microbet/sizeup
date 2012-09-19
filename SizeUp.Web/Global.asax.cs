@@ -145,6 +145,13 @@ namespace SizeUp.Web
            );
 
             routes.MapRoute(
+               "RedirectBusiness", // Route name
+               "business/{oldSEO}", // URL with parameters
+               new { controller = "Business", action = "Redirect" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
+           );
+
+            routes.MapRoute(
                 "404", // Route name
                 "error/404", // URL with parameters
                 new { controller = "Error", action = "Error404" } // Parameter defaults

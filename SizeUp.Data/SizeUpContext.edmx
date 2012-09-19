@@ -34,6 +34,9 @@
           <EntitySet Name="IndustryDataByState" EntityType="SizeUp.Data.Store.IndustryDataByState" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByZip" EntityType="SizeUp.Data.Store.IndustryDataByZip" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LegacyBusinessSEOKey" EntityType="SizeUp.Data.Store.LegacyBusinessSEOKey" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LegacyCommunitySEOKey" EntityType="SizeUp.Data.Store.LegacyCommunitySEOKey" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LegacyIndustrySEOKey" EntityType="SizeUp.Data.Store.LegacyIndustrySEOKey" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Metro" EntityType="SizeUp.Data.Store.Metro" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MetroGeography" EntityType="SizeUp.Data.Store.MetroGeography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="NAICS" EntityType="SizeUp.Data.Store.NAICS" store:Type="Tables" Schema="dbo" />
@@ -237,6 +240,18 @@
           <AssociationSet Name="FK_IndustryKeyword_Industry" Association="SizeUp.Data.Store.FK_IndustryKeyword_Industry">
             <End Role="Industry" EntitySet="Industry" />
             <End Role="IndustryKeyword" EntitySet="IndustryKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegacyBusinessSEOKey_Business" Association="SizeUp.Data.Store.FK_LegacyBusinessSEOKey_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="LegacyBusinessSEOKey" EntitySet="LegacyBusinessSEOKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegacyCommunitySEOKey_City" Association="SizeUp.Data.Store.FK_LegacyCommunitySEOKey_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="LegacyCommunitySEOKey" EntitySet="LegacyCommunitySEOKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegacyIndustrySEOKey_Industry" Association="SizeUp.Data.Store.FK_LegacyIndustrySEOKey_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="LegacyIndustrySEOKey" EntitySet="LegacyIndustrySEOKey" />
           </AssociationSet>
           <AssociationSet Name="FK_MetroGeography_Geography" Association="SizeUp.Data.Store.FK_MetroGeography_Geography">
             <End Role="Geography" EntitySet="Geography" />
@@ -863,6 +878,30 @@
           <Property Name="IndustryId" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LegacyBusinessSEOKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="businessId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LegacyCommunitySEOKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="CityId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LegacyIndustrySEOKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="IndustryId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Metro">
           <Key>
@@ -1541,6 +1580,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LegacyBusinessSEOKey_Business">
+          <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+          <End Role="LegacyBusinessSEOKey" Type="SizeUp.Data.Store.LegacyBusinessSEOKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegacyBusinessSEOKey">
+              <PropertyRef Name="businessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegacyCommunitySEOKey_City">
+          <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+          <End Role="LegacyCommunitySEOKey" Type="SizeUp.Data.Store.LegacyCommunitySEOKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegacyCommunitySEOKey">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegacyIndustrySEOKey_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
+          <End Role="LegacyIndustrySEOKey" Type="SizeUp.Data.Store.LegacyIndustrySEOKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegacyIndustrySEOKey">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MetroGeography_Geography">
           <End Role="Geography" Type="SizeUp.Data.Store.Geography" Multiplicity="1" />
           <End Role="MetroGeography" Type="SizeUp.Data.Store.MetroGeography" Multiplicity="*" />
@@ -2050,6 +2125,21 @@
             <End Role="CityType" EntitySet="CityTypes" />
             <End Role="City" EntitySet="Cities" />
           </AssociationSet>
+          <EntitySet Name="LegacyCommunitySEOKeys" EntityType="SizeUp.Data.LegacyCommunitySEOKey" />
+          <EntitySet Name="LegacyIndustrySEOKeys" EntityType="SizeUp.Data.LegacyIndustrySEOKey" />
+          <AssociationSet Name="FK_LegacyCommunitySEOKey_City" Association="SizeUp.Data.FK_LegacyCommunitySEOKey_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="LegacyCommunitySEOKey" EntitySet="LegacyCommunitySEOKeys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LegacyIndustrySEOKey_Industry" Association="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="LegacyIndustrySEOKey" EntitySet="LegacyIndustrySEOKeys" />
+          </AssociationSet>
+          <EntitySet Name="LegacyBusinessSEOKeys" EntityType="SizeUp.Data.LegacyBusinessSEOKey" />
+          <AssociationSet Name="FK_LegacyBusinessSEOKey_Business" Association="SizeUp.Data.FK_LegacyBusinessSEOKey_Business">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="LegacyBusinessSEOKey" EntitySet="LegacyBusinessSEOKeys" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -2072,6 +2162,7 @@
           <NavigationProperty Name="IndustryDataByCities" Relationship="SizeUp.Data.FK_IndustryDataByCity_Industry" FromRole="Industry" ToRole="IndustryDataByCity" />
           <NavigationProperty Name="IndustryDataByCounties" Relationship="SizeUp.Data.FK_IndustryDataByCounty_Industry" FromRole="Industry" ToRole="IndustryDataByCounty" />
           <NavigationProperty Name="IndustryDataByZips" Relationship="SizeUp.Data.FK_IndustryDataByZip_Industry" FromRole="Industry" ToRole="IndustryDataByZip" />
+          <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -2212,6 +2303,7 @@
           <NavigationProperty Name="BusinessDataByZips" Relationship="SizeUp.Data.FK_BusinessDataByZip_Business" FromRole="Business" ToRole="BusinessDataByZip" />
           <Property Type="String" Name="SEOKey" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <NavigationProperty Name="LegacyBusinessSEOKeys" Relationship="SizeUp.Data.FK_LegacyBusinessSEOKey_Business" FromRole="Business" ToRole="LegacyBusinessSEOKey" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -2232,6 +2324,7 @@
           <NavigationProperty Name="IndustryDataByCities" Relationship="SizeUp.Data.FK_IndustryDataByCity_City" FromRole="City" ToRole="IndustryDataByCity" />
           <Property Type="Int64" Name="CityTypeId" />
           <NavigationProperty Name="CityType" Relationship="SizeUp.Data.FK_City_CityType" FromRole="City" ToRole="CityType" />
+          <NavigationProperty Name="LegacyCommunitySEOKeys" Relationship="SizeUp.Data.FK_LegacyCommunitySEOKey_City" FromRole="City" ToRole="LegacyCommunitySEOKey" />
         </EntityType>
         <EntityType Name="CityGeography">
           <Key>
@@ -3619,6 +3712,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LegacyCommunitySEOKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SEOKey" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="CityId" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_LegacyCommunitySEOKey_City" FromRole="LegacyCommunitySEOKey" ToRole="City" />
+        </EntityType>
+        <EntityType Name="LegacyIndustrySEOKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SEOKey" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="IndustryId" Nullable="false" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="LegacyIndustrySEOKey" ToRole="Industry" />
+        </EntityType>
+        <Association Name="FK_LegacyCommunitySEOKey_City">
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="1" />
+          <End Type="SizeUp.Data.LegacyCommunitySEOKey" Role="LegacyCommunitySEOKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegacyCommunitySEOKey">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LegacyIndustrySEOKey_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="1" />
+          <End Type="SizeUp.Data.LegacyIndustrySEOKey" Role="LegacyIndustrySEOKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegacyIndustrySEOKey">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LegacyBusinessSEOKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="SEOKey" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="businessId" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="SizeUp.Data.FK_LegacyBusinessSEOKey_Business" FromRole="LegacyBusinessSEOKey" ToRole="Business" />
+        </EntityType>
+        <Association Name="FK_LegacyBusinessSEOKey_Business">
+          <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="1" />
+          <End Type="SizeUp.Data.LegacyBusinessSEOKey" Role="LegacyBusinessSEOKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LegacyBusinessSEOKey">
+              <PropertyRef Name="businessId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4319,6 +4475,33 @@
                 <ScalarProperty Name="LegalStatisticalAreaDescriptionCode" ColumnName="LegalStatisticalAreaDescriptionCode" />
                 <ScalarProperty Name="CensusClassCode" ColumnName="CensusClassCode" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LegacyCommunitySEOKeys">
+            <EntityTypeMapping TypeName="SizeUp.Data.LegacyCommunitySEOKey">
+              <MappingFragment StoreEntitySet="LegacyCommunitySEOKey">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LegacyIndustrySEOKeys">
+            <EntityTypeMapping TypeName="SizeUp.Data.LegacyIndustrySEOKey">
+              <MappingFragment StoreEntitySet="LegacyIndustrySEOKey">
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LegacyBusinessSEOKeys">
+            <EntityTypeMapping TypeName="SizeUp.Data.LegacyBusinessSEOKey">
+              <MappingFragment StoreEntitySet="LegacyBusinessSEOKey">
+                <ScalarProperty Name="businessId" ColumnName="businessId" />
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
