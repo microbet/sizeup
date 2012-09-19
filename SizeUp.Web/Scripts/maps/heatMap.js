@@ -19,6 +19,7 @@
         me.overlays = [];
         me.currentOverlayIndex=null;
         me.borderOverlay = null;
+        me.legendRequest = null;
 
         var init = function () {
 
@@ -131,7 +132,11 @@
                 
                 me.map.getNative().overlayMapTypes.push(newOverlay.overlay.imageMap);
                 me.currentOverlayIndex = newOverlay.index;
-                newOverlay.overlay.legendSource(function (data) {
+                if (me.legendRequest != null) {
+                    me.legendRequest.abort();
+                }
+                me.legendRequest = newOverlay.overlay.legendSource(function (data) {
+                    me.legendRequest = null;
                     updateLegend({ overlay: newOverlay.overlay, data: data });
                 });
             }

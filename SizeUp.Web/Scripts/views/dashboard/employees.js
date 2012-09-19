@@ -221,8 +221,8 @@
                        {
                            textAlternativeUrl: '/accessibility/averageEmployees/state/?bands=7',
                            tileUrl: "/tiles/AverageEmployees/state/",
-                           legendSource: function (callback) {
-                               dataLayer.getAverageEmployeesBandsByState({
+                           legendSource: function (callback) { 
+                               return dataLayer.getAverageEmployeesBandsByState({
                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
                                    bands: 7
                                }, callback);
@@ -245,8 +245,8 @@
                         {
                             textAlternativeUrl: '/accessibility/averageEmployees/county/?bands=7',
                             tileUrl: "/tiles/AverageEmployees/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getAverageEmployeesBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getAverageEmployeesBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -271,8 +271,8 @@
                         {
                             textAlternativeUrl: '/accessibility/averageEmployees/county/?bands=7',
                             tileUrl: "/tiles/AverageEmployees/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getAverageEmployeesBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getAverageEmployeesBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
@@ -297,8 +297,8 @@
                         {
                             textAlternativeUrl: '/accessibility/averageEmployees/zip/?bands=7',
                             tileUrl: "/tiles/AverageEmployees/zip/",
-                            legendSource: function (callback) {
-                                dataLayer.getAverageEmployeesBandsByZip({
+                            legendSource: function (callback) { 
+                                return dataLayer.getAverageEmployeesBandsByZip({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id
@@ -365,8 +365,8 @@
                        {
                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/state/?bands=7',
                            tileUrl: "/tiles/EmployeesPerCapita/state/",
-                           legendSource: function (callback) {
-                               dataLayer.getEmployeesPerCapitaBandsByState({
+                           legendSource: function (callback) { 
+                               return dataLayer.getEmployeesPerCapitaBandsByState({
                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
                                    bands: 7
                                }, callback);
@@ -389,8 +389,8 @@
                         {
                             textAlternativeUrl: '/accessibility/EmployeesPerCapita/county/?bands=7',
                             tileUrl: "/tiles/EmployeesPerCapita/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getEmployeesPerCapitaBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getEmployeesPerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -415,8 +415,8 @@
                         {
                             textAlternativeUrl: '/accessibility/EmployeesPerCapita/county/?bands=7',
                             tileUrl: "/tiles/EmployeesPerCapita/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getEmployeesPerCapitaBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getEmployeesPerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
@@ -441,8 +441,8 @@
                         {
                             textAlternativeUrl: '/accessibility/EmployeesPerCapita/zip/?bands=7',
                             tileUrl: "/tiles/EmployeesPerCapita/zip/",
-                            legendSource: function (callback) {
-                                dataLayer.getEmployeesPerCapitaBandsByZip({
+                            legendSource: function (callback) { 
+                                return dataLayer.getEmployeesPerCapitaBandsByZip({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id

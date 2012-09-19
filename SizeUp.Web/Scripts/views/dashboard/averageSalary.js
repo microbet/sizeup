@@ -154,7 +154,7 @@
                             textAlternativeUrl: '/accessibility/averageSalary/state/?bands=7',
                             tileUrl: "/tiles/averageSalary/state/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByState({ 
+                                return dataLayer.getAverageSalaryBandsByState({ 
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7 
                                 }, callback);
@@ -178,7 +178,7 @@
                             textAlternativeUrl: '/accessibility/averageSalary/county/?bands=7',
                             tileUrl: "/tiles/averageSalary/county/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageSalaryBandsByCounty({
+                                return dataLayer.getAverageSalaryBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -204,7 +204,7 @@
                             textAlternativeUrl: '/accessibility/averageSalary/county/?bands=7',
                             tileUrl: "/tiles/averageSalary/county/",
                             legendSource:function (callback) {
-                                dataLayer.getAverageSalaryBandsByCounty({
+                                return dataLayer.getAverageSalaryBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id

@@ -164,7 +164,7 @@
                             textAlternativeUrl: '/accessibility/costEffectiveness/state/?bands=7',
                             tileUrl: "/tiles/costEffectiveness/state/",
                             legendSource: function (callback) {
-                                dataLayer.getCostEffectivenessBandsByState({
+                                return dataLayer.getCostEffectivenessBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
@@ -187,8 +187,8 @@
                         {
                             textAlternativeUrl: '/accessibility/costEffectiveness/county/?bands=7',
                             tileUrl: "/tiles/costEffectiveness/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getCostEffectivenessBandsByCounty({
+                            legendSource: function (callback) { 
+                               return dataLayer.getCostEffectivenessBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -213,8 +213,8 @@
                         {
                             textAlternativeUrl: '/accessibility/costEffectiveness/county/?bands=7',
                             tileUrl: "/tiles/costEffectiveness/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getCostEffectivenessBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getCostEffectivenessBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id

@@ -159,7 +159,7 @@
                             textAlternativeUrl: '/accessibility/revenue/state/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/state/",
                             legendSource: function (callback) {
-                                dataLayer.getAverageRevenueBandsByState({
+                                return dataLayer.getAverageRevenueBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
@@ -182,8 +182,8 @@
                         {
                             textAlternativeUrl: '/accessibility/revenue/county/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getAverageRevenueBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getAverageRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -208,8 +208,8 @@
                         {
                             textAlternativeUrl: '/accessibility/revenue/county/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getAverageRevenueBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getAverageRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
@@ -234,8 +234,8 @@
                         {
                             textAlternativeUrl: '/accessibility/revenue/zip/?bands=7',
                             tileUrl: "/tiles/AverageRevenue/zip/",
-                            legendSource: function (callback) {
-                                dataLayer.getAverageRevenueBandsByZip({
+                            legendSource: function (callback) { 
+                                return dataLayer.getAverageRevenueBandsByZip({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id

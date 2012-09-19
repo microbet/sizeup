@@ -7,14 +7,22 @@
 
         var get = function (url, params, callback) {
             return $.get(url, params, 'json')
-            .success(function (data) { if (callback) { callback(data); } })
-            .error(function (e) { if (callback) { callback(null); } });
+            .success(function (data, status) {
+                if (status == 'success' && callback) { callback(data); }
+            })
+            .error(function (e, status) {
+                if (status != 'abort' && callback) { callback(null); }
+            });
         };
 
         var post = function (url, params, callback) {
             return $.post(url, params)
-            .success(function (data) { if (callback) { callback(data); } })
-            .error(function (e) { if (error) { callback(null); } });
+            .success(function (data, status) {
+                if (status == 'success' && callback) { callback(data); }
+            })
+            .error(function (e, status) {
+                if (status != 'abort' && callback) { callback(null); }
+            });
         };
 
         var publicObj = {

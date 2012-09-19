@@ -110,8 +110,8 @@
                         {
                             textAlternativeUrl: '/accessibility/revenuePerCapita/state/?bands=7',
                             tileUrl: "/tiles/revenuePerCapita/state/",
-                            legendSource: function (callback) {
-                                dataLayer.getRevenuePerCapitaBandsByState({
+                            legendSource: function (callback) { 
+                                return dataLayer.getRevenuePerCapitaBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
@@ -134,8 +134,8 @@
                         {
                             textAlternativeUrl: '/accessibility/revenuePerCapita/county/?bands=7',
                             tileUrl: "/tiles/revenuePerCapita/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getRevenuePerCapitaBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getRevenuePerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -160,8 +160,8 @@
                         {
                             textAlternativeUrl: '/accessibility/revenuePerCapita/county/?bands=7',
                             tileUrl: "/tiles/revenuePerCapita/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getRevenuePerCapitaBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getRevenuePerCapitaBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
@@ -195,8 +195,8 @@
                         {
                             textAlternativeUrl: '/accessibility/totalRevenue/state/?bands=7',
                             tileUrl: "/tiles/totalRevenue/state/",
-                            legendSource: function (callback) {
-                                dataLayer.getTotalRevenueBandsByState({
+                            legendSource: function (callback) { 
+                                return dataLayer.getTotalRevenueBandsByState({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7
                                 }, callback);
@@ -219,8 +219,8 @@
                         {
                             textAlternativeUrl: '/accessibility/totalRevenue/county/?bands=7',
                             tileUrl: "/tiles/totalRevenue/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getTotalRevenueBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
@@ -245,8 +245,8 @@
                         {
                             textAlternativeUrl: '/accessibility/totalRevenue/county/?bands=7',
                             tileUrl: "/tiles/totalRevenue/county/",
-                            legendSource: function (callback) {
-                                dataLayer.getTotalRevenueBandsByCounty({
+                            legendSource: function (callback) { 
+                                return dataLayer.getTotalRevenueBandsByCounty({
                                     industryId: me.opts.report.IndustryDetails.Industry.Id,
                                     bands: 7,
                                     boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
