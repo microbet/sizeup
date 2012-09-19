@@ -205,7 +205,7 @@ namespace SizeUp.Web.Controllers
                 var user = Identity.DecryptToken(key);
                 ViewBag.UserName = user.UserName;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 ViewBag.BadCode = true;
             }
@@ -237,7 +237,7 @@ namespace SizeUp.Web.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 ViewBag.Error = true;
                 returnAction = View();
@@ -268,7 +268,7 @@ namespace SizeUp.Web.Controllers
                 user.Save();
                 ViewBag.Verified = true;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 ViewBag.VerificationError = true;
             }
@@ -291,7 +291,7 @@ namespace SizeUp.Web.Controllers
                 ViewBag.OptOut = user.IsOptOut;
                 ViewBag.Email = user.Email;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 ViewBag.BadCode = true;
             }
@@ -315,7 +315,7 @@ namespace SizeUp.Web.Controllers
                 ViewBag.OptOut = user.IsOptOut;
                 ViewBag.Email = user.Email;
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 ViewBag.BadCode = true;
             }

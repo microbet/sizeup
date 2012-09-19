@@ -50,5 +50,22 @@ namespace SizeUp.Data.Analytics
                 context.SaveChanges();
             }
         }
+
+        public void Exception(Exception reg)
+        {
+            reg.Day = Day;
+            reg.Hour = Hour;
+            reg.Minute = Minute;
+            reg.Month = Month;
+            reg.Quarter = Quarter;
+            reg.Year = Year;
+            reg.Week = Week;
+            reg.Timestamp = DateTime.Now;
+            using (var context = new AnalyticsContext())
+            {
+                context.Exceptions.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -48,6 +48,10 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SizeUp.Web\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,6 +74,7 @@
     <Compile Include="DataAccess\Models\EntityDistance.cs" />
     <Compile Include="DataAccess\Models\Locations.cs" />
     <Compile Include="DataAccess\ZipCodes.cs" />
+    <Compile Include="Diagnostics\HandleErrorAndLogAttribute.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />
     <Compile Include="Email\Mailer.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />

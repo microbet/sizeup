@@ -33,7 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PrecompileBeforePublish>false</PrecompileBeforePublish>
+    <PrecompileBeforePublish>true</PrecompileBeforePublish>
     <PublishDatabases>false</PublishDatabases>
     <DeployIisAppPath>Default Web Site</DeployIisAppPath>
     <EnableUpdateable>true</EnableUpdateable>
@@ -361,7 +361,6 @@
     <Content Include="Scripts\maps\imageMarker.js" />
     <Content Include="Scripts\thirdParty\chosen.jquery.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
-    <Content Include="Scripts\thirdParty\jquery.linkselect.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
     <Content Include="Scripts\util\numbers\format.js" />
@@ -501,7 +500,7 @@
     <Content Include="Views\Accessibility\Heatmap.cshtml" />
     <Content Include="Views\Accessibility\LineChart.cshtml" />
     <Content Include="Views\Business\State.cshtml" />
-    <None Include="Views\Business\City.cshtml" />
+    <Content Include="Views\Business\City.cshtml" />
     <Content Include="Views\Business\Industry.cshtml" />
     <Content Include="Views\Community\State.cshtml" />
     <Content Include="Views\Community\City.cshtml" />

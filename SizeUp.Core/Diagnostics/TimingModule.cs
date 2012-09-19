@@ -47,7 +47,7 @@ namespace SizeUp.Core.Diagnostics
                     }
                 }
             }
-            catch (Exception) { }
+            catch (System.Exception) { }
         }
     }
 }
