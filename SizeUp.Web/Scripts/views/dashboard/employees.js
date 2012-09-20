@@ -194,7 +194,7 @@
         };
 
         var answerClicked = function (index) {
-            jQuery.bbq.pushState({ businessType: index });
+            jQuery.bbq.pushState({ businessSize: index });
         };
 
         var answerCleared = function () {
@@ -501,6 +501,8 @@
 
 
         var runReport = function (e) {
+            new sizeup.core.analytics().dashboardReportLoaded({ report: 'employees' });
+
             var notifier = new sizeup.core.notifier(function () {
                 e.callback();
                 displayReport();

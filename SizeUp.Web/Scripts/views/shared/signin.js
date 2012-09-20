@@ -65,6 +65,7 @@
 
         var signinPostComplete = function (data) {
             if (data == 'ok') {
+                new sizeup.core.analytics().userSignin({ label: 'quickSignin' });
                 window.location.reload();
             }
             else if (data == 'locked') {

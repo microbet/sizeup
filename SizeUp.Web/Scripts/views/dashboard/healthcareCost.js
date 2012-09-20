@@ -83,6 +83,8 @@
         };
 
         var runReport = function (e) {
+            new sizeup.core.analytics().dashboardReportLoaded({ report: 'healthcareCost' });
+
             var notifier = new sizeup.core.notifier(function () {
                 e.callback();
                 displayReport();

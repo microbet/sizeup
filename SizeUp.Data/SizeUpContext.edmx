@@ -460,6 +460,7 @@
           <Property Name="LegalStatisticalAreaDescriptionCode" Type="nvarchar" MaxLength="5" />
           <Property Name="SourceId" Type="nvarchar" MaxLength="1" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="SEOKey" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="County">
           <Key>
@@ -720,6 +721,7 @@
           <Property Name="IndustrySpecificCode" Type="nvarchar" MaxLength="2" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryDataByCity">
           <Key>
@@ -2163,6 +2165,7 @@
           <NavigationProperty Name="IndustryDataByCounties" Relationship="SizeUp.Data.FK_IndustryDataByCounty_Industry" FromRole="Industry" ToRole="IndustryDataByCounty" />
           <NavigationProperty Name="IndustryDataByZips" Relationship="SizeUp.Data.FK_IndustryDataByZip_Industry" FromRole="Industry" ToRole="IndustryDataByZip" />
           <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -3699,6 +3702,7 @@
           <Property Type="String" Name="SourceId" MaxLength="1" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.FK_City_CityType" FromRole="CityType" ToRole="City" />
+          <Property Type="String" Name="SEOKey" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_City_CityType">
           <End Type="SizeUp.Data.CityType" Role="CityType" Multiplicity="0..1" />
@@ -3784,6 +3788,7 @@
           <EntitySetMapping Name="Industries">
             <EntityTypeMapping TypeName="SizeUp.Data.Industry">
               <MappingFragment StoreEntitySet="Industry">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SicCode" ColumnName="SicCode" />
                 <ScalarProperty Name="IndustrySpecificCode" ColumnName="IndustrySpecificCode" />
@@ -4470,6 +4475,7 @@
           <EntitySetMapping Name="CityTypes">
             <EntityTypeMapping TypeName="SizeUp.Data.CityType">
               <MappingFragment StoreEntitySet="CityType">
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="SourceId" ColumnName="SourceId" />
                 <ScalarProperty Name="LegalStatisticalAreaDescriptionCode" ColumnName="LegalStatisticalAreaDescriptionCode" />

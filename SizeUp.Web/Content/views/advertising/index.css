@@ -87,7 +87,7 @@
 #advertising .pager li.current a,
 #advertising .pager li.current a:hover { color: #606060; }
 
-
+#advertising .noResults {margin:1em 3em; }
 
 
 #advertising .signinWrapper { padding: 1em 1em 0 2.75em; }

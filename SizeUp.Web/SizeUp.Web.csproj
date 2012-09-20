@@ -149,6 +149,7 @@
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
+    <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Api\Controllers\CostEffectivenessController.cs" />
     <Compile Include="Areas\Api\Controllers\DemographicsController.cs" />
     <Compile Include="Areas\Api\Controllers\TotalEmployeesController.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Profile\DashboardValues.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />

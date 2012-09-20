@@ -53,7 +53,6 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.ZipCodeId, i => i.Id, (i, o) => o).ToList()).ToList();
                 var noData = displayGeos.Where(g => !data.Select(ig => ig.ZipCodeId).Contains(g.Id)).ToList();
 
-
                 var collection = Heatmap.CreateCollections(colorArray, bandedGeos, noData);
 
                 tile.Draw(collection);

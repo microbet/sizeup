@@ -398,6 +398,8 @@
 
 
         var setupPicker = function (index) {
+            new sizeup.core.analytics().competitionIndustryPickerClicked({ tab: index });
+
             me.data[index].pickerIndustries = me.data[index].industries;
             me[index].picker.list.empty();
             for (var x in me.data[index].pickerIndustries) {
@@ -478,6 +480,8 @@
         };
 
         var bindBusinesses = function (index, data) {
+            new sizeup.core.analytics().competitionTabLoaded({ tab: index });
+
             me[index].content.noResults.hide();
             me[index].content.pager.setState(data);
             if (me.data[index].signinPanel.templateText) {

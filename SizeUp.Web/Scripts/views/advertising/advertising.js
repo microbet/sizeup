@@ -57,7 +57,7 @@
         me.opts.filterOptions = {};
         
         dataLayer.getBestPlacesToAdvertiseMinimumDistance({ placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage }, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
+        dataLayer.getPlaceCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
         var init = function () {
             
@@ -145,6 +145,8 @@
 
             me.content.list.sort.name.click(function () { nameSortClicked(); });
             me.content.list.sort.value.direction.click(function () { valueSortClicked(); });
+
+            me.content.list.noResults = me.container.find('.noResults').hide().removeClass('hidden');
 
             me.filterSettings = {};
             me.filterSettings.container = me.container.find('#filterSettings').hide().removeClass('hidden');
@@ -451,6 +453,9 @@
         };
 
         var loadReport = function () {
+
+            new sizeup.core.analytics().advertisingReportLoaded();
+
             me.listLoader.show();
             me.content.list.body.hide();
             var params = getParameters();
@@ -512,6 +517,7 @@
             }
             me.content.mapPins = [];
             var latLngBounds = new sizeup.maps.latLngBounds();
+            var hasResults = false;
             for (var x in data.zips.Items) {
                 var pin = new sizeup.maps.heatPin({
                     position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Lat, lng: data.zips.Items[x].Long }),
@@ -519,10 +525,17 @@
                     title: data.zips.Items[x].Name
                 });
                 latLngBounds.extend(pin.getPosition());
+                hasResults = true;
                 me.content.mapPins.push(pin);
                 me.content.map.addMarker(pin);
             };
-            me.content.map.fitBounds(latLngBounds);
+            if (hasResults) {
+                me.content.map.fitBounds(latLngBounds);
+                me.content.list.noResults.hide();
+            }
+            else {
+                me.content.list.noResults.show();
+            }
         };
 
         var getColor = function (value, bandData) {
@@ -820,6 +833,8 @@
         };
 
         var submitClicked = function () {
+            new sizeup.core.analytics().advertisingFiltersClicked();
+
             var p = getParameters();
             var params = getSliderValues();
             if (params[p.attribute]) {

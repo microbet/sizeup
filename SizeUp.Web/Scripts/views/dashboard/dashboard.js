@@ -26,8 +26,12 @@
         me.reportsCollapsed = false;
 
         dataLayer.getPlaceCentroid({ id: opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
+        dataLayer.getDashboardValues(notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
+            jQuery.bbq.pushState(me.data.dashboardValues, 1);
+            dataLayer.setDashboardValues(jQuery.bbq.getState());
+
             me.signinPanel = new sizeup.views.shared.signin({
                 container: me.container.find('#signin .signinPanel.form'),
                 toggle: me.container.find('#signin .signinToggle')
@@ -38,6 +42,8 @@
                     button: me.container.find('#summaryView'),
                     onClick: function () { toggleAllReports(); }
                 });
+
+            $(window).bind('hashchange', function (e) { hashChanged(e); });
 
 
             me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.report });
@@ -52,11 +58,13 @@
                 me.reports['turnover'] = new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.report });
             }
 
-            //revenuePerCapita.setupReport();
-            
-
             $('#dashboard').removeClass('hidden');
             initAllReports();
+        };
+
+        var hashChanged = function (e) {
+            var values = e.getState();
+            dataLayer.setDashboardValues(values);
         };
 
 

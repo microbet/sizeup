@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace SizeUp.Web.Areas.Api
 {
@@ -493,6 +494,26 @@ namespace SizeUp.Web.Areas.Api
             );
 
 
+              /****profile*****/
+
+            context.MapRoute(
+                "DashboardValuesGet",
+                "Api/profile/dashboardValues",
+                new { controller = "Profile", action = "GetDashboardValues" },
+                 new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.MapRoute(
+               "DashboardValuesSet",
+               "Api/profile/dashboardValues",
+               new { controller = "Profile", action = "SetDashboardValues" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+           );
+
+
+
+
+           
 
             /*****************default*****************/
             context.MapRoute(

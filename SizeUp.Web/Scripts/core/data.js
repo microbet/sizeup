@@ -323,6 +323,14 @@
 
             getDemographics: function (params, callback) {
                 return get('/api/demographics/', params, callback);
+            },
+
+            getDashboardValues: function (callback) {
+                return get('/api/profile/dashboardValues/', null, callback);
+            },
+
+            setDashboardValues: function (params, callback) {
+                return post('/api/profile/dashboardValues/', params, callback);
             }
 
 

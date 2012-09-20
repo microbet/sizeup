@@ -187,6 +187,8 @@
         };
 
         var runReport = function (e) {
+            new sizeup.core.analytics().dashboardReportLoaded({ report: 'yearStarted' });
+
             var notifier = new sizeup.core.notifier(function () {
                 e.callback();
                 displayReport();

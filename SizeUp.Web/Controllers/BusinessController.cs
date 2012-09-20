@@ -110,7 +110,8 @@ namespace SizeUp.Web.Controllers
                 ViewBag.Place = location;
 
                 var industries = context.Industries
-                    .Where(i=> i.Businesses.Any(b=>b.BusinessCityMappings.Any(m=>m.CityId == location.CityId) && b.IsActive))
+                    .Where(i=>i.IsActive)
+                    .Where(i => i.IndustryDataByCities.Any(m => m.CityId == location.CityId))
                     .Join(context.Industries, o => o.SicCode.Substring(0, 4), i => i.SicCode, (i, o) => new { Industry = i, Parent = o })
                     .ToList()
                     .GroupBy(i => i.Parent)

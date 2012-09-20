@@ -4955,6 +4955,30 @@ namespace SizeUp.Data
         private global::System.Boolean _IsActive;
         partial void OnIsActiveChanging(global::System.Boolean value);
         partial void OnIsActiveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, true, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
 
         #endregion
 
@@ -11079,13 +11103,15 @@ namespace SizeUp.Data
         /// <param name="sicCode">Initial value of the SicCode property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="sEOKey">Initial value of the SEOKey property.</param>
-        public static Industry CreateIndustry(global::System.Int64 id, global::System.String sicCode, global::System.String name, global::System.String sEOKey)
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static Industry CreateIndustry(global::System.Int64 id, global::System.String sicCode, global::System.String name, global::System.String sEOKey, global::System.Boolean isActive)
         {
             Industry industry = new Industry();
             industry.Id = id;
             industry.SicCode = sicCode;
             industry.Name = name;
             industry.SEOKey = sEOKey;
+            industry.IsActive = isActive;
             return industry;
         }
 
@@ -11215,6 +11241,30 @@ namespace SizeUp.Data
         private global::System.String _SEOKey;
         partial void OnSEOKeyChanging(global::System.String value);
         partial void OnSEOKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value, "IsActive");
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
 
         #endregion
 

@@ -79,22 +79,21 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var keywords = context.IndustryKeywords.AsQueryable();
-                var industries = context.Industries.AsQueryable();
-
-                var searchSpace = context.Industries.Select(i=> new
-                {
-                    Id = i.Id,
-                    i.Name,
-                    i.SEOKey,
-                    SortOrder = 1
-                }).Concat(context.IndustryKeywords.Select(i => new
-                {
-                    Id = i.IndustryId,
-                    i.Name,
-                    i.Industry.SEOKey,
-                    i.SortOrder
-                }));
+                var searchSpace = context.Industries
+                    .Where(i=>i.IsActive)
+                    .Select(i=> new
+                    {
+                        Id = i.Id,
+                        i.Name,
+                        i.SEOKey,
+                        SortOrder = 1
+                    }).Concat(context.IndustryKeywords.Select(i => new
+                    {
+                        Id = i.IndustryId,
+                        i.Name,
+                        i.Industry.SEOKey,
+                        i.SortOrder
+                    }));
 
                 foreach (var qs in term.Split(' '))
                 {
@@ -103,15 +102,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         searchSpace = searchSpace.Where(i => i.Name.Contains(qs));
                     }
                 }
-
-                var validIndustries = context.Businesses
-                    .GroupBy(i => i.IndustryId)
-                    .Select(g => new { Id = g.Key, Count = g.Count() })
-                    .Where(i => i.Count >= 1000)
-                    .Select(i => i.Id);
-
-                searchSpace = searchSpace.Where(i => validIndustries.Contains(i.Id));
-
 
                 var data = searchSpace
                     .OrderBy(i => i.SortOrder)

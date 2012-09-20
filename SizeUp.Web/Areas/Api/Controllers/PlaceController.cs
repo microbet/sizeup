@@ -10,6 +10,7 @@ using SizeUp.Web.Areas.Api.Models.City;
 using Microsoft.SqlServer.Types;
 using System.Data.Objects;
 using System.Data.Spatial;
+using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -27,6 +28,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 .Where(i => i.City.Name.StartsWith(term) && i.City.CityType.IsActive)
                 .OrderBy(i => i.City.Name)
                 .ThenBy(i=>i.City.State.Abbreviation)
+                .ThenByDescending(i=>i.City.DemographicsByCities.Where(d=>d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault().TotalPopulation)
                 .Take(maxResults)
                 .Select(i => new Api.Models.Place.Place()
                 {
