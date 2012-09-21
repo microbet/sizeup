@@ -25,7 +25,11 @@
                     events:
                     {
                         runReport: runReport,
-                        valueChanged: function () { }
+                        valueChanged: function (val) {
+                            if (val.value == '') {
+                                jQuery.bbq.removeState('employees');
+                            }
+                        }
                     },
                     inputFormat: function (val) {
                         return val;

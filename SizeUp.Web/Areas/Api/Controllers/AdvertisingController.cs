@@ -77,17 +77,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    })
                    .FirstOrDefault();
 
-                    var geo = SqlGeography.Parse(placePolys.City.Intersection(placePolys.County).AsText());
-                    var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                    geom = geom.STCentroid();
-                    geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
-                    var center = new
-                    {
-                        lat = geo.STPointN(1).Lat.Value,
-                        lng = geo.STPointN(1).Long.Value
-                    };
+                var geom = DbGeometry.FromBinary(placePolys.City.Intersection(placePolys.County).AsBinary());
+                geom = geom.ConvexHull.Centroid;
+                var geo = DbGeography.FromBinary(geom.AsBinary());
+                var center = new
+                {
+                    lat = (double)geo.Latitude,
+                    lng = (double)geo.Longitude
+                };
               
-
+              
 
                 var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
                     .Select(i=> new {
@@ -489,16 +488,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    })
                    .FirstOrDefault();
 
-                var geo = SqlGeography.Parse(placePolys.City.Intersection(placePolys.County).AsText());
-                var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                geom = geom.STCentroid();
-                geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
+                var geom = DbGeometry.FromBinary(placePolys.City.Intersection(placePolys.County).AsBinary());
+                geom = geom.ConvexHull.Centroid;
+                var geo = DbGeography.FromBinary(geom.AsBinary());
                 var center = new
                 {
-                    lat = (double)geo.STPointN(1).Lat,
-                    lng = (double)geo.STPointN(1).Long
+                    lat = (double)geo.Latitude,
+                    lng = (double)geo.Longitude
                 };
-
+              
 
                 var data = ZipCodes.GetWithDistance(context, center.lat, center.lng)
                     .Select(i => new
@@ -724,15 +722,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                    })
                    .FirstOrDefault();
 
-                var geo = SqlGeography.Parse(placePolys.City.Intersection(placePolys.County).AsText());
-                var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                geom = geom.STCentroid();
-                geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
+                var geom = DbGeometry.FromBinary(placePolys.City.Intersection(placePolys.County).AsBinary());
+                geom = geom.ConvexHull.Centroid;
+                var geo = DbGeography.FromBinary(geom.AsBinary());
                 var center = new
                 {
-                    lat = (double)geo.STPointN(1).Lat,
-                    lng = (double)geo.STPointN(1).Long
+                    lat = (double)geo.Latitude,
+                    lng = (double)geo.Longitude
                 };
+              
 
 
 

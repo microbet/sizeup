@@ -21,7 +21,11 @@
                     events:
                     {
                         runReport: runReport,
-                        valueChanged: function (val) {  }
+                        valueChanged: function (val) {
+                            if (val.value == '') {
+                                jQuery.bbq.removeState('salary');
+                            }
+                        }
                     },
                     inputFormat: function (val) {
                         return '$' + sizeup.util.numbers.format.addCommas(val);

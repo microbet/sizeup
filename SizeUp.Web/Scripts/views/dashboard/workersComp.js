@@ -22,7 +22,11 @@
                     events:
                     {
                         runReport: runReport,
-                        valueChanged: function () { }
+                        valueChanged: function (val) {
+                            if (val.value == '') {
+                                jQuery.bbq.removeState('workersComp');
+                            }
+                        }
                     },
                     inputFormat: function (val) {
                         return '$' + sizeup.util.numbers.format.addCommas(val);

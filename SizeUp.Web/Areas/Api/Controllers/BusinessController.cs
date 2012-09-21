@@ -8,6 +8,9 @@ using System.Linq.Expressions;
 using System.Data.Objects.SqlClient;
 using Microsoft.SqlServer.Types;
 using SizeUp.Core.DataAccess;
+using System.Data.Spatial;
+
+
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -85,19 +88,22 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId);
+ 
+                var placePolys = context.CityCountyMappings.Where(i => i.Id == placeId)
+                  .Select(i => new
+                  {
+                      City = i.City.CityGeographies.Where(g => g.CityId == i.CityId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                      County = i.County.CountyGeographies.Where(g => g.CountyId == i.CountyId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()
+                  })
+                  .FirstOrDefault();
 
-                var city = context.CityGeographies
-                    .Where(i => i.CityId == locations.FirstOrDefault().City.Id && i.GeographyClass.Name == "Calculation")
-                    .Select(i => i.Geography.GeographyPolygon).FirstOrDefault();
-
-                var geo = SqlGeography.Parse(city.AsText());
-                var geom = SqlGeometry.STGeomFromWKB(geo.STAsBinary(), (int)geo.STSrid);
-                geom = geom.STCentroid();
-                geo = SqlGeography.Parse(geom.STAsText().ToSqlString());
-                var lat = (double)geo.STPointN(1).Lat;
-                var lng = (double)geo.STPointN(1).Long;
-
+                var geom = DbGeometry.FromBinary(placePolys.City.Intersection(placePolys.County).AsBinary());
+                geom = geom.ConvexHull.Centroid;
+                var geo = DbGeography.FromBinary(geom.AsBinary());
+                var lat = (double)geo.Latitude;
+                var lng = (double)geo.Longitude;
+             
+         
                 var scalar = 69.1 * System.Math.Cos(lat / 57.3);
 
                 var year = DateTime.Now.Year;

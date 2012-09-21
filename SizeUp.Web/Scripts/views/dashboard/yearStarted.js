@@ -25,7 +25,12 @@
                     inputCleaning: /[%]/g,
                     events:
                     {
-                        runReport: runReport
+                        runReport: runReport,
+                        valueChanged: function (val) {
+                            if (val.value == '') {
+                                jQuery.bbq.removeState('yearStarted');
+                            }
+                        }
                     },
                     inputFormat: function (val) {
                         return val;
