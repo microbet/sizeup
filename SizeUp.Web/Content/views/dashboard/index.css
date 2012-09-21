@@ -15,6 +15,7 @@
 #dashboard .report .header .icon { width:60px; height:60px; background-image:url(/content/images/dashboardIcons.png);background-repeat:no-repeat; }
 #dashboard .report .header h2 { font-size: 2.4em; font-weight: normal;  position: absolute; top: 1em; left: 3.5em;  }
 #dashboard .report .header .hint {font-size:1.1em; position: absolute; top: 5em; left: 8.5em;   }
+#dashboard .report .header textarea,
 #dashboard .report .header input[type="text"] {font-family:  Trebuchet MS,Arial,Sans-Serif;  position: absolute;top: 1em;left: 21em;  font-weight: bold; padding: 0.5em;  width: 8em; text-align: right;}
 #dashboard .report .header .prompt {position: absolute; top: 1.25em;right: 4.75em; background-image: url("/content/images/dashbuttons.png"); background-repeat: no-repeat; color: #FFFFFF; display: block; font-size: 1.1em; font-weight: bold; height: 38px; line-height: 1.2em; padding: 11px 10px 0 35px; text-align: center; text-transform: uppercase; width: 270px; }
 #dashboard .report .header .gauge { position: absolute; top: 1em; right: 28em;  }

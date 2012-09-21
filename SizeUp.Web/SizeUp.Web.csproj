@@ -224,6 +224,7 @@
     <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
     <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
     <Compile Include="Areas\Widget\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Widget\Controllers\GetController.cs" />
@@ -299,6 +300,7 @@
     <Content Include="Content\images\up-down.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
+    <Content Include="Content\themes\highContrast.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />

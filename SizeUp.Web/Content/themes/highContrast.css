@@ -1,0 +1,29 @@
+﻿
+    
+    
+.highContrast .error { color: #21649E;}
+
+.highContrast a {color: #C54602;text-decoration: none;font-weight: bold;}
+.highContrast a:hover {color: #0099cc;}
+
+.highContrast a.button{color:#fff; background-color:#C54602; border-color:#fff #fff #fff #fff; background-image:none;}
+.highContrast a.button:hover,
+.highContrast .button:hover{color:#fff;text-shadow: 0 0 0.1em #fff;}
+
+
+.highContrast a.linkButton {}
+.highContrast a.linkButton:hover {color:#fff; border:1px solid #C54602; background-color:#C54602; background-image:none;}
+
+
+
+
+#competition .businessList li .name{color:#C54602;}
+
+#advertising .heading .filter { background-image: url(images/actionbutton.png); }
+
+#dashboard .report .header .reportToggle,
+#dashboard .report .header .prompt,
+#dashboard .report .header .prompt:before { background-image: url(images/dashbuttons.png); }
+    
+
+    

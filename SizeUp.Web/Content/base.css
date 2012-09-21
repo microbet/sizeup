@@ -26,6 +26,7 @@ h2 {font-size:1.75em; font-weight: bold;}
 h3 {font-size:1.5em;}
 h4 {font-size:1.25em; font-weight:bold;}
 
+
 input[type=password],
 input[type=text] {border: 1px solid #CCC; color:#606060; font-size: 1.9em;margin: 0;padding: 0.25em;}
 input[type=password].blank,
