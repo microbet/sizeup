@@ -40,7 +40,7 @@ namespace SizeUp.Core.Tiles
 
                     gp.FillMode = FillMode.Winding;
                     gp.Transform(TranslationMatrix);
-                    Color c = Color.FromArgb(100/*geo.Opacity*/, ColorTranslator.FromHtml(geo.Color));
+                    Color c = Color.FromArgb(geo.Opacity, ColorTranslator.FromHtml(geo.Color));
                     SolidBrush brush = new SolidBrush(c);
                     Graphics.FillPath(brush, gp);
                     if (geo.BorderWidth > 0)
