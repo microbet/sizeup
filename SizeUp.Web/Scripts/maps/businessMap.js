@@ -101,8 +101,30 @@
             });
         };
 
+        var buildConsumerExpenditureOverlay = function () {
+            me.consumerExpenditureOverlay = new google.maps.ImageMapType({
+                getTileUrl: function (point, zoom) {
+                    var url = '/tiles/consumerExpenditures/zip';
+                    var params = {
+                        x: point.x,
+                        y: point.y,
+                        zoom: zoom,
+                        variableId: me.data.consumerExpenditure.variableId,
+                        boundingEntityId: me.data.consumerExpenditure.boundingEntityId,
+                        colors: me.data.consumerExpenditure.colors.join(',')
+                    };
+
+                    return jQuery.param.querystring(url, params);
+                },
+                tileSize: new google.maps.Size(256, 256)
+            });
+        };
+
         var setOverlay = function () {
             me.map.getNative().overlayMapTypes.clear();
+            if (me.consumerExpenditureOverlay) {
+                me.map.getNative().overlayMapTypes.push(me.consumerExpenditureOverlay);
+            }
             me.map.getNative().overlayMapTypes.push(me.overlay);
         };
 
@@ -175,6 +197,11 @@
             setOverlay();
         };
 
+        var setConsumerExpenditureId = function (obj) {
+            me.data.consumerExpenditure = obj;
+            buildConsumerExpenditureOverlay();
+        };
+
         var addEventListener = function (event, callback) {
             me.map.addEventListener(event, callback);
         };
@@ -220,6 +247,9 @@
             },
             setCenter: function (latLng) {
                 setCenter(latLng);
+            },
+            setConsumerExpenditure: function (obj) {
+                setConsumerExpenditureId(obj);
             }
         };
         init();

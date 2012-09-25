@@ -210,6 +210,20 @@
                 cityId: me.opts.CurrentInfo.CurrentPlace.City.Id,
                 primaryIndex: index
             });
+
+            me[index].content.map.setConsumerExpenditure({
+                variableId: Math.floor(Math.random() * 850) + 1,
+                colors: [
+                    '#F5F500',
+                    '#F5CC00',
+                    '#F5A300',
+                    '#F57A00',
+                    '#F55200',
+                    '#F52900',
+                    '#F50000'
+                ],
+               boundingEntityId: 'co222' 
+        });
             me[index].content.map.fitBounds(me.data.cityBoundingBox);
             me[index].content.map.addEventListener('click', function (e) { mapClicked(index, { lat: e.latLng.lat(), lng: e.latLng.lng() }); });
 
@@ -650,3 +664,6 @@
         
     };
 })();
+
+
+

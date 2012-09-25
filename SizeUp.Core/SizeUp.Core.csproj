@@ -62,6 +62,8 @@
     <Compile Include="Crypto\Crypto.cs" />
     <Compile Include="DataAccess\BusinessData.cs" />
     <Compile Include="DataAccess\Cities.cs" />
+    <Compile Include="DataAccess\ConsumerExpenditureData.cs" />
+    <Compile Include="DataAccess\Models\ConsumerExpenditureBandItem.cs" />
     <Compile Include="DataAccess\States.cs" />
     <Compile Include="DataAccess\Counties.cs" />
     <Compile Include="DataAccess\DemographicsData.cs" />

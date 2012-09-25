@@ -512,6 +512,19 @@ namespace SizeUp.Web.Areas.Api
 
 
 
+            /****consumerEpenditures*****/
+
+            context.MapRoute(
+                "ConsumerExpendituresBands",
+                "Api/ConsumerExpenditures/Bands/{aggregationLevel}",
+                new { controller = "ConsumerExpenditures", action = "Index", boundingEntityId = UrlParameter.Optional }
+            );
+
+            context.MapRoute(
+                "ConsumerExpendituresVariables",
+                "Api/ConsumerExpenditures/Variables",
+                new { controller = "ConsumerExpenditures", action = "Variables", parentId = UrlParameter.Optional }
+            );
 
            
 

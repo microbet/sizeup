@@ -149,6 +149,7 @@
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
+    <Compile Include="Areas\Api\Controllers\ConsumerExpendituresController.cs" />
     <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Api\Controllers\CostEffectivenessController.cs" />
     <Compile Include="Areas\Api\Controllers\DemographicsController.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Areas\Api\Models\Charts\LineChart.cs" />
     <Compile Include="Areas\Api\Models\Charts\LineChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
+    <Compile Include="Areas\Api\Models\ConsumerExpenditures\Band.cs" />
     <Compile Include="Areas\Api\Models\CostEffectiveness\Band.cs" />
     <Compile Include="Areas\Api\Models\CostEffectiveness\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\Demographics\Place.cs" />
@@ -216,6 +218,7 @@
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\ConsumerExpendituresController.cs" />
     <Compile Include="Areas\Tiles\Controllers\CostEffectivenessController.cs" />
     <Compile Include="Areas\Tiles\Controllers\GeographyBoundaryController.cs" />
     <Compile Include="Areas\Tiles\Controllers\TotalEmployeesController.cs" />
