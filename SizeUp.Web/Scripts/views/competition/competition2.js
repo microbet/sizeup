@@ -13,68 +13,34 @@
         
         me.opts = $.extend(true, defaults, opts);
 
-        me.data = {};
-        me.container = $('#competition');me.opts.CurrentInfo.CurrentIndustry
+        me.data = {
+            activeIndex: 'competitor',
+            competitor: {
+                pageData:null,
+                businesses:{},
+                industries: {},
+                primaryIndustry: me.opts.CurrentInfo.CurrentIndustry
+            },
+            buyer: {
+                pageData: null,
+                businesses: {},
+                industries: {}
+            },
+            supplier: {
+                pageData: null,
+                businesses: {},
+                industries: {}
+            },
+            consumerExpenditures: {
+                activeOverlays: []
+            }
+        };
+        me.container = $('#competition');
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
 
-        me.activePickerIndex = null;
-        me.activeContentIndex = null;
+       
 
-
-        me.competitor = {};
-        me.buyer = {};
-        me.supplier = {};
-
-        me.data.competitor =
-        {
-            industries: {},
-            pickerIndustries: {},
-            primaryIndustry: me.opts.CurrentInfo.CurrentIndustry.Id,
-            businesses: {
-                items: {},
-                markers: {},
-                pins: {},
-                infoWindow: null,
-                isStale: true
-            },
-            signinPanel:{
-                templateText: ''
-            },
-            color: 'FF5522'
-        };
-        me.data.buyer =
-        {
-            industries: {},
-            pickerIndustries: {},
-            businesses: {
-                items: {},
-                markers: {},
-                pins: {},
-                infoWindow: null,
-                isStale: true
-            },
-            signinPanel: {
-                templateText: ''
-            },
-            color: '66EE00'
-        };
-        me.data.supplier = 
-        {
-            industries: {},
-            pickerIndustries: {},
-            businesses: {
-                items: {},
-                markers: {},
-                pins: {},
-                infoWindow: null,
-                isStale: true
-            },
-            signinPanel: {
-                templateText: ''
-            },
-            color: '11AAFF'
-        };
 
         var notifier = new sizeup.core.notifier(function () { init(); });
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
@@ -103,26 +69,375 @@
         }
       
 
+
         var init = function () {
-            initGeneral('competitor');
-            initGeneral('supplier');
-            initGeneral('buyer');
+            me.content = {};
 
-            showTab('competitor');
-            activateTab('competitor');
-            showContent('competitor');
+            me.content.container = me.container.find('.content.container');
+            me.content.loader = me.content.container.find('.loading').removeClass('hidden').hide();
+            me.content.noResults = me.content.container.find('.noResults').removeClass('hidden').hide();
+            me.content.businessList = me.content.container.find('.businessList').removeClass('hidden').hide();
+            me.content.industryList = me.content.container.find('.industryList');
 
-            if (params.buyer) {
-                showTab('buyer');
-                hideQuestion('buyer');
-            }
-            if (params.supplier) {
-                showTab('supplier');
-                hideQuestion('supplier');
-            }
-            updateMaps();
+  
+            me.content.map = new sizeup.maps.map({
+                container: me.container.find('.map.container .map')
+            });
+            me.content.map.fitBounds(me.data.cityBoundingBox);
+    
+
+
+
+
+            me.content.ConsumerExpenditure = {
+                menuContent: me.content.container.find('.map.container .consumerExpenditurePicker').hide().removeClass('hidden'),
+                startOver: me.content.container.find('.map.container .consumerExpenditurePicker .startOver'),
+                menu: me.content.container.find('.map.container .menu.button'),
+                selectionList: me.content.container.find('.map.container .consumerExpenditurePicker .selection'),
+                childList: me.content.container.find('.map.container .consumerExpenditurePicker .children')
+            };
+
+            $('body').click(function (e) {
+                if (!$(e.target).parents().is(me.content.ConsumerExpenditure.menuContent) && me.content.ConsumerExpenditure.menuContent.is(':visible')) {
+                    me.content.ConsumerExpenditure.menuContent.hide();
+                }
+            });
+
+
+            var loadCsVariables = function (parentId) {
+                me.content.ConsumerExpenditure.childList.empty();
+                //toggle load icon
+                dataLayer.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
+                    var html = '';
+                    for (var x in data) {
+                        html = html + templates.bind(templates.get('consumerExpenditureListItem'), data[x]);
+                    }
+                    me.content.ConsumerExpenditure.childList.html(html);
+                });
+            };
+
+            var setHeatmap = function (id) {
+
+                for (var x in me.data.consumerExpenditures.activeOverlays) {
+                    me.content.map.removeOverlay(me.data.consumerExpenditures.activeOverlays[x]);
+                }
+                me.data.consumerExpenditures.activeOverlays = [];
+
+                if (id != null) {
+                    me.data.consumerExpenditures.activeOverlays.push(new sizeup.maps.overlay({
+                        tileUrl: '/tiles/consumerExpenditures/zip/',
+                        tileParams: {
+                            colors: [
+                                        '#F5F500',
+                                        '#F5CC00',
+                                        '#F5A300',
+                                        '#F57A00',
+                                        '#F55200',
+                                        '#F52900',
+                                        '#F50000'
+                            ].join(','),
+                            variableId: id,
+                            boundingEntityId: 'co222'
+                        },
+                        minZoom: 12,
+                        maxZoom: 14
+                    }));
+
+                    me.data.consumerExpenditures.activeOverlays.push(new sizeup.maps.overlay({
+                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        tileParams: {
+                            colors: [
+                                        '#F5F500',
+                                        '#F5CC00',
+                                        '#F5A300',
+                                        '#F57A00',
+                                        '#F55200',
+                                        '#F52900',
+                                        '#F50000'
+                            ].join(','),
+                            variableId: id,
+                            boundingEntityId: 's5'
+                        },
+                        minZoom: 0,
+                        maxZoom: 11
+                    }));
+
+
+                    for (var x in me.data.consumerExpenditures.activeOverlays) {
+                        me.content.map.addOverlay(me.data.consumerExpenditures.activeOverlays[x]);
+                    }
+                }
+            };
+
+            me.content.ConsumerExpenditure.menu.click(function (e) {
+                me.content.ConsumerExpenditure.menuContent.toggle();
+                e.stopPropagation();
+            });
+
+    
+            me.content.ConsumerExpenditure.selectionList.delegate('a', 'click', function (e) {
+                var a = $(this);
+                var item = a.parent();
+                item.nextAll().remove();
+                var id = a.attr('data-id');
+                setHeatmap(id);
+                loadCsVariables(id);
+                e.stopPropagation();
+            });
+
+            me.content.ConsumerExpenditure.childList.delegate('a', 'click', function (e) {
+                var a = $(this);
+                a.addClass('inverse');
+                var item = a.parent();
+                item.remove();
+                var id = a.attr('data-id');
+                me.content.ConsumerExpenditure.selectionList.append(item);
+                setHeatmap(id);
+                loadCsVariables(id);
+                e.stopPropagation();
+            });
+
+            me.content.ConsumerExpenditure.startOver.click(function (e) {
+                me.content.ConsumerExpenditure.selectionList.empty();
+                loadCsVariables(null);
+                setHeatmap(null);
+
+                e.stopPropagation();
+            });
+
+            loadCsVariables(null);
+
+
+
+
+
+            me.content.pager = new sizeup.controls.pager({
+                container: me.content.container.find('.pager').removeClass('hidden').hide(),
+                templates: templates,
+                templateId: 'pager',
+                onUpdate: function (data) { pagerOnUpdate(data); }
+            });
+
+
+            me.content.signinPanel = {
+                container: me.content.container.find('.signinWrapper').removeClass('hidden').hide(),
+                toggle: me.content.container.find('.signinWrapper .signinToggle'),
+                control: new sizeup.views.shared.signin({
+                    container: me.content.container.find('.signinWrapper .signinPanel'),
+                    toggle: me.content.container.find('.signinWrapper .signinToggle')
+                })
+            };
+            me.content.signinPanel.templateText = me.content.signinPanel.toggle.html();
+
+
+
+            me.filters = {};
+            me.filters.container = me.container.find('.filters.container').removeClass('hidden').hide();
+           
+
+            me.filters.picker = new sizeup.controls.industrySelector({
+                textbox: me.filters.container.find('.pickerInput'),
+                onChange: function (item) { industryPicked(item); }
+            });
+
+
+
+            me.addIndustries = me.container.find('.change');
+            me.addIndustries.click(addIndustryClicked);
+
+
+            me.data[me.data.activeIndex].pageData = me.content.pager.getPageData();
+            loadBusinesses();
         };
+
+         
        
+        var addIndustryClicked = function () {
+            var item = $(this);
+            var type = item.attr('data-type');
+            showFilters();
+
+        };
+
+
+        var showFilters = function (e) {
+            me.filters.container.slideToggle(me.opts.slideTime);
+        };
+
+
+
+        var pushUrlState = function () {
+
+            var getIds = function (data) {
+                var ids = [];
+                for (var x in data) {
+                    ids.push(data[x].Id);
+                }
+                return ids;
+            };
+
+            var data = {};
+            var competitors = getIds(me.data.competitor.industries);
+            var suppliers = getIds(me.data.supplier.industries);
+            var buyers = getIds(me.data.buyer.industries);
+            if (competitors.length > 0) {
+                data.competitor = competitors;
+            }
+            if (suppliers.length > 0) {
+                data.supplier = suppliers;
+            }
+            if (buyers.length > 0) {
+                data.buyer = buyers;
+            }
+
+            jQuery.bbq.pushState(data);
+        };
+
+
+        var industryPicked = function (data) {
+            me.data[me.data.activeIndex].industries[data.Id] = data;
+            var element = me.content.industryList.find('.item[data-id="' + data.Id + '"]');
+            if (element.length > 0) {
+                element.addClass('highlight', 250, function () {
+                    element.removeClass('highlight', 1000);
+                });
+            }
+            else {
+                pushUrlState();
+                bindIndustryList();
+                loadBusinesses();
+            }
+        };
+
+
+        var loadBusinesses = function () {
+            var industries = $.extend({}, me.data[me.data.activeIndex].industries);
+            if (me.data[me.data.activeIndex].primaryIndustry) {
+                industries[me.data[me.data.activeIndex].primaryIndustry.Id] = me.data[me.data.activeIndex].primaryIndustry;
+            }
+            var ids = [];
+            for (var x in industries) {
+                ids.push(industries[x].Id);
+            }
+
+            me.content.loader.show();
+            me.content.businessList.hide();
+            me.content.noResults.hide();
+            me.content.pager.getContainer().hide();
+
+
+            dataLayer.getBusinessesByIndustry({
+                industryIds: ids,
+                placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                itemCount: me.opts.itemsPerPage,
+                page: me.data[me.data.activeIndex].pageData.page
+            }, function (data) {
+                me.data[me.data.activeIndex].businesses = data;
+                bindBusinesses();
+                me.content.loader.hide();
+                me.content.businessList.show();
+            });
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var bindIndustryList = function () {
+            var data = me.data[me.data.activeIndex].industries;
+            var html = '';
+            for (var x in data) {
+                html = html + templates.bind(templates.get('industryItem'), data[x]);
+            }
+            me.content.industryList.html(html);
+        };
+
+
+        var bindBusinesses = function () {
+            new sizeup.core.analytics().competitionTabLoaded({ tab: me.data.activeIndex });
+            var data = me.data[me.data.activeIndex].businesses;
+            me.content.pager.setState(data);
+            if (data.Count == 0) {
+                me.content.noResults.show();
+                me.content.signinPanel.container.hide();
+            }
+            else {
+                me.content.noResults.hide();
+                if (!me.isAuthenticated) {
+                    me.content.signinPanel.container.show();
+                    me.content.signinPanel.toggle.html(templates.bind(me.content.signinPanel.templateText, me.content.pager.getPageData()));
+                }
+            }
+            
+            if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
+                me.content.pager.getContainer().show();
+            }
+            else {
+                me.content.pager.getContainer().hide();
+            }
+
+
+
+
+            var html = '';
+            for (var x = 0; x < data.Items.length; x++) {
+                var template = templates.get('businessItem');
+                html = html + templates.bind(template, { index: x + 1, business: data.Items[x] });
+
+                //var marker = createMarker(index, data.Items[x], x + 1);
+                //me.data[index].businesses.items[data.Items[x].Id] = data.Items[x];
+                //me.data[index].businesses.markers[data.Items[x].Id] = marker;
+                //viewBounds.extend(marker.getPosition());
+            };
+            me.content.businessList.html(html);
+
+
+
+
+
+
+            /*
+            if (me.data[index].signinPanel.templateText) {
+                me[index].content.signinPanel.toggle.html(templates.bind(me.data[index].signinPanel.templateText, me[index].content.pager.getPageData()));
+                me[index].content.signinPanel.toggle.show();
+            }
+
+        
+            me.data[index].businesses.items = {};
+            clearMarkers(index);
+            var viewBounds = new sizeup.maps.latLngBounds();
+       
+           
+            if (data.Count == 0) {
+                viewBounds = me.data.cityBoundingBox;
+                me[index].content.noResults.show();
+                me[index].content.signinPanel.toggle.hide();
+                me[index].content.pager.hide();
+            }
+            me[index].content.map.fitBounds(viewBounds);
+           */
+           
+
+
+
+        };
+
+        var pagerOnUpdate = function (data) {
+            me.data[me.data.activeIndex].pageData = data;
+
+            //
+        };
+
+        /*
+
         var initGeneral = function (index) {
             me[index].tab = me.container.find('#tabs .' + index).removeClass('hidden').hide();
             me[index].tab.click(function () { tabClicked(index); });
@@ -254,11 +569,11 @@
         };
 
         var slideInPicker = function (index, callback) {
-            /*me[index].picker.container.show(
+            me[index].picker.container.show(
                "slide",
                { direction: "right" },
                me.opts.slideTime,
-           callback);*/
+           callback);
 
             me[index].picker.container.slideDown(me.opts.slideTime, callback);
             me.activePickerIndex = index;
@@ -266,11 +581,11 @@
         };
 
         var slideOutPicker = function (index, callback) {
-            /*me[index].picker.container.hide(
+            me[index].picker.container.hide(
               "slide",
               { direction: "right" },
               me.opts.slideTime,
-          callback);*/
+          callback);
 
             me[index].picker.container.slideUp(me.opts.slideTime, callback);
             me.activePickerIndex = null;
@@ -294,7 +609,7 @@
             if (me.data[index].businesses.isStale) {
                 loadBusinesses(index);
             }
-           /* me[index].content.container.show(
+            me[index].content.container.show(
                "slide",
                { direction: "left" },
                me.opts.slideTime,
@@ -304,7 +619,7 @@
                        callback();
                    }
                }
-           );*/
+           );
             if (callback) {
                 callback();
             }
@@ -314,11 +629,11 @@
         };
 
         var slideOutContent = function (index, callback) {
-            /*me[index].content.container.hide(
+            me[index].content.container.hide(
                 "slide",
                 { direction: "left" },
                 me.opts.slideTime,
-            callback);*/
+            callback);
 
             if (callback) {
                 callback();
@@ -662,6 +977,7 @@
             me[index].content.map.removeMarker(me.data[index].businesses.pins[id].pin);
             delete me.data[index].businesses.pins[id];
         };
+        */
 
         var publicObj = {
 

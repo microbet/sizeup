@@ -1,4 +1,4 @@
-﻿#header { height: 11em; }
+﻿/*#header { height: 11em; }
 #compeition { position: relative; }
 
 #competition h2 { font-size: 2.1em; display: inline-block; font-weight: normal; }
@@ -103,6 +103,85 @@
 #competition .infoWindow ul li span.value {float:right; color:#606060; }
 #competition .infoWindow ul li a.value {float:right; }
 #competition .infoWindow .tools .remove { float: right; }
+
+
+    */
+
+/****New Styles*****/
+select { }
+select option,
+select optgroup { padding: 0.25em; }
+
+select optgroup {font-weight:bold; }
+select optgroup option { }
+select optgroup optgroup {margin:0 0 0 1em; }
+select optgroup optgroup option{margin:0 0 0 1em; }
+
+.debug { border: 1px solid #666; }
+
+#competition { }
+
+#competition h2 { font-size: 2.1em; display: inline-block; font-weight: normal; }
+
+#competition a.change { font-weight: normal; font-size: 1.2em; display: inline-block; position: relative; left: 0.5em;top: -0.25em;  }
+
+
+
+#competition .filters.container { }
+#competition .content.container {margin:3em 0 1em 0; }
+
+#competition .list.container { width:41.5em; display:inline-block; vertical-align: top;}
+#competition .map.container { display: inline-block; vertical-align: top; }
+
+
+#competition .map.container .map { height: 40em; width: 50em; }
+#competition .map.container .header {text-align:right; position:relative; }
+#competition .map.container .header .menu { margin:0.25em;}
+#competition .map.container .header .consumerExpenditurePicker {background-color:#fff; padding:0.25em; min-width:20em; border:1px solid #606060; position:absolute; right:0em; z-index:9999; }
+#competition .map.container .header .consumerExpenditurePicker ul { text-align: left; }
+#competition .map.container .header .consumerExpenditurePicker .selection li {border:1px solid #999; background-color:#ccc; }
+#competition .map.container .header .consumerExpenditurePicker .selection li:last-child { background-color: #aaa; }
+
+
+#competition .pager {  margin:1em 0 0 1em; }
+#competition .pager,
+#competition .pager span,
+#competition .pager a { font-size: 1.2em; }
+#competition .pager span { display:block; margin:0 1em 0 0; }
+#competition .pager a,
+#competition .pager ul,
+#competition .pager ul li {display:inline;  font-weight:bold; }
+#competition .pager li.current a,
+#competition .pager li.current a:hover { color: #606060; }
+
+#competition .pager,
+#competition .businessList {font-family: Arial,Verdana,sans-serif;  }
+#competition .businessList li a {display:block; padding:0.5em; height:3em; font-size: 1em;  }
+#competition .businessList li a:hover {background-color:#f6f6f0;}
+#competition .businessList li dl { display: inline-block;}
+#competition .businessList li .name { font-size:1.5em; font-weight:bold; color:#E78500; }
+#competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
+
+
+#competition .signinWrapper { padding: 0 1em 0 2.75em; }
+#competition .signinWrapper .signinToggle { font-size:1.5em;  }
+#competition .signinWrapper .signinToggle .viewing { float: right; }
+#competition .signinWrapper .signinPanel.form input[type="text"],
+#competition .signinWrapper .signinPanel.form input[type="password"] {width: 13em;}
+#competition .signinWrapper .signinPanel.form a.button { left: 2em; }
+
+
+#competition .industryList { margin: 1em 0 0 1em; }
+#competition .industryList li.highlight { background-color: #ff0000; }
+#competition .industryList a { margin: 0 0 0 1em; }
+#competition .industryList .remove {color:transparent; padding: 14px 0 0 14px; position: relative; top: 2px; font-size: 0; background:url('/content/images/btn_close.gif') no-repeat 0 0 transparent;  }
+
+
+
+
+#competition .filters p { font-size: 1.1em; text-indent: 1em; }
+#competition .filters input { font-size: 1.3em; padding: 0.1em; margin:1em; width: 30em; display: block;}
+
 
 
 

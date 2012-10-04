@@ -15,6 +15,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/tree.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
@@ -22,17 +23,132 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/imagePin.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlng.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlngBounds.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMap.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition2.js")"></script>
 
 }
 
-
 <div id="competition">
+     <h2>You are in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
+     <a href="javascript:void(0);" class="change inverse" data-type="competitor">[Do you COMPETE with businesses in other industries?]</a>
+
+    <div class="filters container hidden"> 
+        <h2>Select categories of businesses that you compete with</h2>
+        <p>Map the potential competitors in your area.</p>
+        
+
+        <input type="text" class="pickerInput" value="enter a keyword" />
+    </div>
+
+
+    <div class="content container">
+
+        <ul class="industryList">
+            <li data-template="industryItem" class="item" data-id="{{Id}}">
+                <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
+                <span>{{Name}}</span>
+            </li>
+        </ul>
+
+        <div class="list container">
+
+            <div class="loading hidden">
+                <p class="title"></p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Loading Businesses</p>
+            </div>
+
+            <div class="noResults hidden">
+                <p>There are no businesses that meet your criteria</p>
+            </div>
+
+
+            <ul class="businessList hidden">
+                <li data-template="businessItem">
+                    <a href="javascript:void(0);" data-id="{{business.Id}}">
+                        <img data-override-src="/pins/business/marker/competitor/{{index}}" />
+                        <dl>
+                            <dt class="name">{{business.Name}}</dt>
+                            <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
+                        </dl>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="pager hidden">
+                <div data-template="pager">
+                    <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                    {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
+                    {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
+                    <ul>
+                        {{#pages}}
+                        <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
+                        {{#seperator}}<li class="seperator">|</li>{{/seperator}}
+                        {{/pages}}
+                    </ul>
+                    {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
+                    {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
+                </div>
+            </div>
+
+            @if(!HttpContext.Current.User.Identity.IsAuthenticated){
+            <div class="signinWrapper hidden">
+                    <a href="javascript:void(0);" class="signinToggle inverse" >
+                        <span class="prompt">See all {{totalItems}} businesses</span>
+                        <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                    </a>
+                    @Html.Partial("Signin")  
+            </div>   
+            }
+
+          
+
+        </div>
+
+        <div class="map container">
+            <div class="header">
+                <h3>Consumer Expenditures</h3>
+                <a href="javascript:void(0);" class="button menu">Select a category</a>
+                <div class="consumerExpenditurePicker hidden">
+                    <a class="inverse startOver" href="javascript:void(0);">Start over</a>
+                    <ul class="selection">
+                        <li data-template="consumerExpenditureListItem"><a href="javascript:void(0);" data-id="{{Id}}">{{Description}}</a></li>                  
+                    </ul>
+                    <ul class="children">
+                    </ul>
+                </div>
+            </div>
+     
+            <div class="legend">
+                <p class="title backdrop"></p>
+                <div class="legend backdrop">
+                    <ul class="legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
+                    </ul>
+                    <div class="bottom backdrop"></div>
+                </div>
+            </div>
+
+
+            <div class="map"></div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+<!--
+<div id="competitionOld" class="hidden">
     <ul id="tabs">
         <li class="tab active competitor">
             <a href="javascript:void(0);" class="inverse">
@@ -433,16 +549,17 @@
 
     </div>
 </div>
-
+    -->
 
 
 @section scripts{
 
     <script type="text/javascript">
         var opts = {
-            CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON) 
+            CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON) ,
+            ConsumerExpenditureVariables: @Html.Raw(ViewBag.ConsumerExpenditureVariablesJSON)
         };
-    var driver = new sizeup.views.competition.competition(opts);
+        var driver = new sizeup.views.competition.competition(opts);
     </script>
 
 

@@ -331,6 +331,10 @@
 
             setDashboardValues: function (params, callback) {
                 return post('/api/profile/dashboardValues/', params, callback);
+            },
+
+            getConsumerExpenditureVariables: function (params, callback) {
+                return get('/api/consumerExpenditures/variables/', params, callback);
             }
 
 

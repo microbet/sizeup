@@ -119,13 +119,6 @@
             return data;
         }
 
-        var hide = function () {
-            me.container.hide();
-        };
-
-        var show = function () {
-            me.container.show();
-        };
 
         var publicObj = {
             gotoPage: function (index) {
@@ -137,11 +130,8 @@
             getPageData: function (index) {
                 return getPageData(index);
             },
-            hide: function () {
-                hide();
-            },
-            show: function () {
-                show();
+            getContainer: function () {
+                return me.container;
             }
         };
         init();

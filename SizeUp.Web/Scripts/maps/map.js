@@ -35,6 +35,23 @@
         };
 
 
+        var addOverlay = function (overlay) {
+            me._native.overlayMapTypes.push(overlay.getNative());
+        };
+
+        var removeOverlay = function (overlay) {
+            var overlays = me._native.overlayMapTypes.getArray();
+            var index = -1;
+            for (var x = 0; x < overlays.length; x++) {
+                if (overlays[x] === overlay.getNative()) {
+                    index = x;
+                }
+            }
+            if(index >=0){
+                me._native.overlayMapTypes.removeAt(index);
+            }
+        };
+
         var addPolygon = function (p) {
             p.getNative().setMap(me.map);
         };
@@ -128,7 +145,14 @@
             },
             removeMarker: function (marker) {
                 removeMarker(marker);
+            },
+            addOverlay: function (overlay) {
+                addOverlay(overlay);
+            },
+            removeOverlay: function (overlay) {
+                removeOverlay(overlay);
             }
+
         };
         init();
         return publicObj;
