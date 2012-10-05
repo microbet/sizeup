@@ -33,7 +33,10 @@ namespace SizeUp.Core.Tiles
                         {
                             foreach (var figure in geography)
                             {
-                                gp.AddPolygon(figure.ToArray());
+                                if (figure.Count > 1)
+                                {
+                                    gp.AddPolygon(figure.ToArray());
+                                }
                             }
                         }
                     }

@@ -73,6 +73,8 @@ a.button.medium { font-size: 1.9em; }
 
 
 
+a.menu {color: #fff;display:inline-block;padding: 0.25em 1em 0.25em 0.5em; cursor: pointer; border-radius:0.4em;-moz-border-radius:0.4em;-webkit-border-radius: 0.4em; background-color: #e78500; background-size: 100% 100%; font-size:1.6em; border:none; box-shadow: 1px 1px 1px #aaa; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==);}
+a.menu:after {content: "."; color:transparent; background :url(images/menuTriangle.png) no-repeat 0.3em 0.4em; position:relative; left:0.5em; border-left:solid 0.1em #fff; display:inline-block; width:1em;}
 /**** experimental base styles*****/
 
 

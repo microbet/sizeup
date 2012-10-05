@@ -81,7 +81,7 @@
 
   
             me.content.map = new sizeup.maps.map({
-                container: me.container.find('.map.container .map')
+                container: me.container.find('.mapWrapper.container .map')
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
     
@@ -90,11 +90,11 @@
 
 
             me.content.ConsumerExpenditure = {
-                menuContent: me.content.container.find('.map.container .consumerExpenditurePicker').hide().removeClass('hidden'),
-                startOver: me.content.container.find('.map.container .consumerExpenditurePicker .startOver'),
-                menu: me.content.container.find('.map.container .menu.button'),
-                selectionList: me.content.container.find('.map.container .consumerExpenditurePicker .selection'),
-                childList: me.content.container.find('.map.container .consumerExpenditurePicker .children')
+                menuContent: me.content.container.find('.mapWrapper.container .consumerExpenditurePicker').hide().removeClass('hidden'),
+                startOver: me.content.container.find('.mapWrapper.container .consumerExpenditurePicker .startOver'),
+                menu: me.content.container.find('.mapWrapper.container .menu'),
+                selectionList: me.content.container.find('.mapWrapper.container .consumerExpenditurePicker .selection'),
+                childList: me.content.container.find('.mapWrapper.container .consumerExpenditurePicker .children')
             };
 
             $('body').click(function (e) {
@@ -137,10 +137,11 @@
                                         '#F50000'
                             ].join(','),
                             variableId: id,
-                            boundingEntityId: 'co222'
+                            //boundingEntityId: 'co222'
+                            boundingEntityId: 'm755'
                         },
-                        minZoom: 12,
-                        maxZoom: 14
+                        minZoom: 10,
+                        maxZoom: 20
                     }));
 
                     me.data.consumerExpenditures.activeOverlays.push(new sizeup.maps.overlay({
@@ -159,7 +160,7 @@
                             boundingEntityId: 's5'
                         },
                         minZoom: 0,
-                        maxZoom: 11
+                        maxZoom: 9
                     }));
 
 
@@ -232,7 +233,7 @@
 
 
             me.filters = {};
-            me.filters.container = me.container.find('.filters.container').removeClass('hidden').hide();
+            me.filters.container = me.container.find('.filters.container');//.removeClass('hidden').hide();
            
 
             me.filters.picker = new sizeup.controls.industrySelector({

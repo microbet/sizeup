@@ -25,6 +25,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
+                
                 string[] colorArray = colors.Split(',');
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
@@ -46,7 +47,8 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .Join(ids, i => i.ZipCodeId, i => i, (i, o) => i)
                     .Select(i => i.ZipCodeId);
 
-                var displayGeos = Core.DataAccess.Geography.GetDisplayZips(context, geoIds).ToList();
+                var displayGeos = Core.DataAccess.Geography.GetDisplayZips(context, geoIds, zoom).ToList();
+
 
                 var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.EntityId, i => i.Id, (i, o) => o).ToList()).ToList();
                 var noData = displayGeos.Where(g => !data.Select(ig => ig.EntityId).Contains(g.Id)).ToList();
@@ -84,7 +86,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Select(i => i.CountyId);
 
-                var displayGeos = Core.DataAccess.Geography.GetDisplayCounties(context, geoIds).ToList();
+                var displayGeos = Core.DataAccess.Geography.GetDisplayCounties(context, geoIds, zoom).ToList();
 
                 var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.EntityId, i => i.Id, (i, o) => o).ToList()).ToList();
                 var noData = displayGeos.Where(g => !data.Select(ig => ig.EntityId).Contains(g.Id)).ToList();
@@ -117,7 +119,8 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 var geoIds = Core.DataAccess.Geography.GetBoundingBoxedStates(context, BoundingBox)
                      .Select(i => i.StateId);
 
-                var displayGeos = Core.DataAccess.Geography.GetDisplayStates(context, geoIds).ToList();
+                var displayGeos = Core.DataAccess.Geography.GetDisplayStates(context, geoIds, zoom).ToList();
+
 
 
                 var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.EntityId, i => i.Id, (i, o) => o).ToList()).ToList();
