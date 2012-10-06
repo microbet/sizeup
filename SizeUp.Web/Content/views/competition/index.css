@@ -134,7 +134,7 @@
 #competition .mapWrapper.container .map { height: 52em; width: 50em; }
 
 
-#competition .mapControls.container {width:50em; display:inline-block;vertical-align: top; background-color:#e6e6e0;  }
+#competition .mapControls.container {width:50em; display:inline-block;vertical-align: top; background-color:#e6e6e0; padding:0.25em 0; }
 
 #competition .mapControls.container .consumerExpenditures.container { position:relative; float:right; top:0.5em; left:-0.5em; }
 #competition .mapControls.container .consumerExpenditures.container .menu {  }
