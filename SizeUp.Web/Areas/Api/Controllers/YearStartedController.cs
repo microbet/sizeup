@@ -13,7 +13,7 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class YearStartedController : Controller
+    public class YearStartedController : BaseController
     {
         //
         // GET: /Api/YearStarted/

@@ -14,7 +14,7 @@ using SizeUp.Core.DataAccess.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class ConsumerExpendituresController : Controller
+    public class ConsumerExpendituresController : BaseController
     {
 
         public ActionResult Index(string aggregationLevel, int variableId, int bands, string boundingEntityId)

@@ -14,7 +14,7 @@ using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class PlaceController : Controller
+    public class PlaceController : BaseController
     {
         //
         // GET: /Api/Place/

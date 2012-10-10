@@ -9,7 +9,7 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class StateController : Controller
+    public class StateController : BaseController
     {
         //
         // GET: /Api/State/

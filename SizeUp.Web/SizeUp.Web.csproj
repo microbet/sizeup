@@ -147,6 +147,7 @@
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Api\Controllers\BaseController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Areas\Api\Controllers\ConsumerExpendituresController.cs" />
@@ -352,7 +353,6 @@
     <Content Include="Scripts\controls\pager.js" />
     <Content Include="Scripts\controls\placeSelector.js" />
     <Content Include="Scripts\controls\toggleButton.js" />
-    <Content Include="Scripts\controls\tree.js" />
     <Content Include="Scripts\core\analytics.js" />
     <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
@@ -370,7 +370,7 @@
     <Content Include="Scripts\maps\map.js" />
     <Content Include="Scripts\maps\mapOptions.js" />
     <Content Include="Scripts\maps\mapStyles.js" />
-    <Content Include="Scripts\maps\imageMarker.js" />
+    <Content Include="Scripts\maps\businessMarker.js" />
     <Content Include="Scripts\maps\overlay.js" />
     <Content Include="Scripts\thirdParty\chosen.jquery.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />

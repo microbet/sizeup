@@ -14,7 +14,7 @@ using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class TotalRevenueController : Controller
+    public class TotalRevenueController : BaseController
     {
         public ActionResult TotalRevenue(long industryId, long placeId)
         {

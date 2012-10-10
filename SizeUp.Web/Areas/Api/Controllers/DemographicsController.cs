@@ -14,7 +14,7 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class DemographicsController : Controller
+    public class DemographicsController : BaseController
     {
         //
         // GET: /Api/Demographics/

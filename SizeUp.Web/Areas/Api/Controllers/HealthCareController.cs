@@ -13,7 +13,7 @@ using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class HealthCareController : Controller
+    public class HealthCareController : BaseController
     {
         //
         // GET: /Api/HealthCare/

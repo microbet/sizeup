@@ -87,9 +87,8 @@
         </div>
 
         <div class="list container">
-
             <div class="industryPicker container"> 
-                <p class="currentIndustry">Your Industry: @ViewBag.CurrentInfo.CurrentIndustry.Name</p>
+                <p class="currentIndustry competitor">Your Industry: @ViewBag.CurrentInfo.CurrentIndustry.Name</p>
                 <ul class="industryList">
                     <li data-template="industryItem" class="item" data-id="{{Id}}">
                         <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
@@ -97,10 +96,11 @@
                     </li>
                 </ul>
         
-                <p>Add additional categories of businesses that compete with you:</p>
-                <input type="text" class="pickerInput" value="enter industries you compete with" />
+                <p class="competitor">Add additional categories of businesses that compete with you:</p>
+                <p class="buyer">NEED BUYER TEXT:</p>
+                <p class="supplier">NEED SUPPLIER TEXT:</p>
+                <input type="text" class="pickerInput" value="enter an industry" />
             </div>
-
 
             <div class="loading hidden">
                 <p class="title"></p>
@@ -112,6 +112,9 @@
                 <p>There are no businesses that meet your criteria</p>
             </div>
 
+            <div class="addIndustries hidden">
+                <p>Add industries to populate this list of businesses</p>
+            </div>
 
             <ul class="businessList hidden">
                 <li data-template="businessItem">
@@ -150,9 +153,6 @@
                     @Html.Partial("Signin")  
             </div>   
             }
-
-          
-
         </div>
 
         <div class="mapWrapper container">
@@ -181,423 +181,11 @@
                     <a class="remove" href="javascript:void(0);">Remove Pin</a>
                 </div>
             </div>
-
-
             <div class="map"></div>
-
         </div>
     </div>
-
 </div>
 
-
-
-
-
-
-<!--
-<div id="competitionOld" class="hidden">
-    <ul id="tabs">
-        <li class="tab active competitor">
-            <a href="javascript:void(0);" class="inverse">
-                <span>Competitors</span>
-            </a>
-        </li>
-        <li class="tab hidden buyer">
-            <a href="javascript:void(0);" class="inverse">
-                <span>Customers</span>
-            </a>
-        </li>
-        <li class="tab hidden supplier">
-            <a href="javascript:void(0);" class="inverse">
-                <span>Suppliers</span>
-            </a>
-        </li>
-    </ul>
-
-    <ul id="questions">
-        <li class="question buyer" >
-            <a href="javascript:void(0);" class="inverse"><span>Do you SELL to other businesses?</span></a>
-        </li>
-        <li class="question supplier" >
-            <a href="javascript:void(0);" class="inverse"><span>Do you BUY from other businesses?</span></a>
-        </li>
-    </ul>
-
-    <div class="tabContent wrapper">
-        <div class="picker wrapper competitor hidden">
-            <h2>Select categories of businesses that you compete with</h2>
-            <p>Map the potential competitors in your area.</p>
-            <ul class="industryList">
-                <li data-template="competitorPickerItem">
-                    <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
-                    <span>{{Name}}</span>
-                </li>
-            </ul>
-
-            <input type="text" class="pickerInput" value="enter a keyword" />
-            <a href="javascript:void(0);" class="button small submit">Done</a>
-            <a href="javascript:void(0);" class="cancel inverse">Cancel</a>
-        </div>
-
-
-
-        <div class="picker wrapper buyer hidden">
-            <h2>Select categories of businesses to whom you sell</h2>
-            <p>Map the potential customers in your area.</p>
-            <ul class="industryList">
-                <li data-template="buyerPickerItem">
-                    <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
-                    <span>{{Name}}</span>
-                </li>
-            </ul>
-
-            <input type="text" class="pickerInput" value="enter a keyword" />
-            <a href="javascript:void(0);" class="button small submit">Done</a>
-            <a href="javascript:void(0);" class="cancel inverse">Cancel</a>
-        </div>
-
-
-
-        <div class="picker wrapper supplier hidden">
-            <h2>Select categories of businesses from which you buy</h2>
-            <p>Map the businesses in your area that provide goods and services necessary for your business.</p>
-            <ul class="industryList">
-                <li data-template="supplierPickerItem">
-                    <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>
-                    <span>{{Name}}</span>
-                </li>
-            </ul>
-
-            <input type="text" class="pickerInput" value="enter a keyword" />
-            <a href="javascript:void(0);" class="button small submit">Done</a>
-            <a href="javascript:void(0);" class="cancel inverse">Cancel</a>
-        </div>
-        
-
-
-
-
-
-
-
-
-
-
-
-        <div class="content competitor hidden">
-            <h2>You are in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
-            <a href="javascript:void(0);" class="change">[Do you COMPETE with businesses in other industries?]</a>
-            <p class="industryMessage">Additional categories of businesses that compete with you:</p>
-            <ul class="industryList">
-                <li data-template="competitorIndustryItem"><span>{{Name}}</span></li>
-            </ul>
-            <div class="main wrapper">
-                <div class="list wrapper">
-                    <div class="loading">
-                        <p class="title"></p>
-                        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
-                        <p class="message">Loading Businesses</p>
-                    </div>
-                    <div class="noResults hidden">
-                        <p>There are no businesses in your area</p>
-                    </div>
-                    <ul class="businessList">
-                        <li data-template="competitorBusinessItem">
-                            <a href="javascript:void(0);" data-id="{{business.Id}}">
-                                <img data-override-src="/pins/business/marker/competitor/{{index}}" />
-                                <dl>
-                                    <dt class="name">{{business.Name}}</dt>
-                                    <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
-                                </dl>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <div class="pager hidden">
-                        <div data-template="competitorPager">
-                            <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
-                            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
-                            <ul>
-                                {{#pages}}
-                                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
-                                {{#seperator}}<li class="seperator">|</li>{{/seperator}}
-                                {{/pages}}
-                            </ul>
-                            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
-                            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
-                        </div>
-                    </div>
-
-
-
-                    @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-                    <div class="signinWrapper">
-                            <a href="javascript:void(0);" class="signinToggle inverse hidden" >
-                                <span class="prompt">See all {{totalItems}} businesses</span>
-                                <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            </a>
-                            @Html.Partial("Signin")  
-                    </div>   
-                    }
-                </div>
-                <div class="mapContent wrapper">
-                    <div class="map"></div>
-                    <div class="footer">
-                       <ul>
-                            <li><label>Show:</label></li>
-                            <li class="competitor">
-                                <input type="radio" id="competitorCompetitorBox" data-index="competitor" name="competitorFilter">
-                                <label for="competitorCompetitorBox"><span class="legendItem"></span>Competitors</label>
-                            </li>
-                            <li class="buyer">
-                                <input type="radio" id="competitorBuyerBox" data-index="buyer" name="competitorFilter">
-                                <label for="competitorBuyerBox"><span class="legendItem"></span>Customers</label>
-                            </li>
-                            <li class="supplier">
-                                <input type="radio" id="competitorSupplierBox" data-index="supplier" name="competitorFilter">
-                                <label for="competitorSupplierBox"><span class="legendItem"></span>Suppliers</label>
-                            </li>
-                            <li class="all">
-                                <input type="radio" id="competitorAllBox" data-index="all" name="competitorFilter" checked="checked" >
-                                <label for="competitorAllBox">All <span class="zoomMessage">(Zoom In)</span></label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div data-template="competitorInfoWindow" class="infoWindow">
-                        <h3>{{Name}}</h3>
-                        <span>{{Address}}{{^Address}}Street address not provided{{/Address}}</span>
-                        <ul>
-                            <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
-                            <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
-                            <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                            <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
-                            <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
-                        </ul>
-                        <div class="tools">
-                        <a class="zoom" href="javascript:void(0);">Zoom</a>
-                        <a class="remove" href="javascript:void(0);">Remove Pin</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-        <div class="content buyer hidden">
-            <h2>Categories of businesses that buy from you</h2>
-            <a href="javascript:void(0);" class="change">[Change]</a>
-
-            <ul class="industryList">
-                <li data-template="buyerIndustryItem"><span>{{Name}}</span></li>
-            </ul>
-
-            <div class="wrapper">
-                <div class="list wrapper">
-                    <div class="noResults hidden">
-                        <p>There are no businesses in your area</p>
-                    </div>
-                    <div class="loading">
-                        <p class="title"></p>
-                        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
-                        <p class="message">Loading Businesses</p>
-                    </div>
-
-                    <ul class="businessList">
-                        <li data-template="buyerBusinessItem">
-                            <a href="javascript:void(0);" data-id="{{business.Id}}">
-                                <img data-override-src="/pins/business/marker/buyer/{{index}}" />
-                                <dl>
-                                    <dt class="name">{{business.Name}}</dt>
-                                    <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
-                                </dl>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <div class="pager hidden">
-                        <div data-template="buyerPager">
-                            <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
-                            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
-                            <ul>
-                                {{#pages}}
-                                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
-                                {{#seperator}}<li class="seperator">|</li>{{/seperator}}
-                                {{/pages}}
-                            </ul>
-                            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
-                            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
-                        </div>
-                    </div>
-                    
-                    @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-                    <div class="signinWrapper">
-                            <a href="javascript:void(0);" class="signinToggle inverse hidden" >
-                                <span class="prompt">See all {{totalItems}} businesses</span>
-                                <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            </a>
-                            @Html.Partial("Signin")  
-                    </div>   
-                    }
-                </div>
-                <div class="mapContent wrapper">
-                    <div class="map">map</div>
-                    <div class="footer">
-                       <ul>
-                            <li><label>Show:</label></li>
-                            <li class="competitor">
-                                <input type="radio" id="buyerCompetitorBox" data-index="competitor" name="buyerFilter"/>
-                                <label for="buyerCompetitorBox"><span class="legendItem"></span>Competitors</label>
-                            </li>
-                            <li class="buyer">
-                                <input type="radio" id="buyerBuyerBox" data-index="buyer" name="buyerFilter"/>
-                                <label for="buyerBuyerBox"><span class="legendItem"></span>Customers</label>
-                            </li>
-                            <li class="supplier">
-                                <input type="radio" id="buyerSupplierBox" data-index="supplier" name="buyerFilter"/>
-                                <label for="buyerSupplierBox"><span class="legendItem"></span>Suppliers</label>
-                            </li>
-                            <li class="all">
-                                <input type="radio" id="buyerAllBox" data-index="all" name="buyerFilter" checked="checked" />
-                                <label for="buyerAllBox">All <span class="zoomMessage">(Zoom In)</span></label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div data-template="buyerInfoWindow" class="infoWindow">
-                        <h3>{{Name}}</h3>
-                        <span>{{Address}}{{^Address}}Street address not provided{{/Address}}</span>
-                        <ul>
-                            <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
-                            <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
-                            <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                            <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
-                            <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
-                        </ul>
-                        <div class="tools">
-                            <a class="zoom" href="javascript:void(0);">Zoom</a>
-                            <a class="remove" href="javascript:void(0);">Remove Pin</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-        <div class="content supplier hidden">
-            <h2>Categories of businesses from which you buy</h2>
-            <a href="javascript:void(0);" class="change">[Change]</a>
-            <ul class="industryList">
-                <li data-template="supplierIndustryItem"><span>{{Name}}</span></li>
-            </ul>
-
-            <div class="wrapper">
-                <div class="list wrapper">
-                    <div class="noResults hidden">
-                        <p>There are no businesses in your area</p>
-                    </div>
-                    <div class="loading">
-                        <p class="title"></p>
-                        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
-                        <p class="message">Loading Businesses</p>
-                    </div>
-
-                    <ul class="businessList">
-                        <li data-template="supplierBusinessItem">
-                            <a href="javascript:void(0);" data-id="{{business.Id}}">
-                                <img data-override-src="/pins/business/marker/supplier/{{index}}" />
-                                <dl>
-                                    <dt class="name">{{business.Name}}</dt>
-                                    <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
-                                </dl>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="pager hidden">
-                        <div data-template="supplierPager">
-                            <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
-                            {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
-                            <ul>
-                                {{#pages}}
-                                <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
-                                {{#seperator}}<li class="seperator">|</li>{{/seperator}}
-                                {{/pages}}
-                            </ul>
-                            {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
-                            {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
-                        </div>
-                    </div>
-                    
-                    @if(!HttpContext.Current.User.Identity.IsAuthenticated){
-                    <div class="signinWrapper">
-                            <a href="javascript:void(0);" class="signinToggle inverse hidden" >
-                                <span class="prompt">See all {{totalItems}} businesses</span>
-                                <span class="viewing">Viewing {{start}}-{{end}} of {{totalItems}}</span>
-                            </a>
-                            @Html.Partial("Signin")  
-                    </div>   
-                    }
-                </div>
-                <div class="mapContent wrapper">
-                    <div class="map">map</div>
-                    <div class="footer">
-                       <ul>
-                            <li><label>Show:</label></li>
-                            <li class="competitor">
-                                <input type="radio" id="supplierCompetitorBox" data-index="competitor" name="supplierFilter"/>
-                                <label for="supplierCompetitorBox"><span class="legendItem"></span>Competitors</label>
-                            </li>
-                            <li class="buyer">
-                                <input type="radio" id="supplierBuyerBox" data-index="buyer" name="supplierFilter"/>
-                                <label for="supplierBuyerBox"><span class="legendItem"></span>Customers</label>
-                            </li>
-                            <li class="supplier">
-                                <input type="radio" id="supplierSupplierBox" data-index="supplier" name="supplierFilter"/>
-                                <label for="supplierSupplierBox"><span class="legendItem"></span>Suppliers</label>
-                            </li>
-                            <li class="all">
-                                <input type="radio" id="supplierAllBox" data-index="all" name="supplierFilter" checked="checked"/ >
-                                <label for="supplierAllBox">All <span class="zoomMessage">(Zoom In)</span></label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div data-template="supplierInfoWindow" class="infoWindow">
-                        <h3>{{Name}}</h3>
-                        <span>{{Address}}{{^Address}}Street address not provided{{/Address}}</span>
-                        <ul>
-                            <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
-                            <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
-                            <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                            <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
-                            <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
-                        </ul>
-                        <div class="tools">
-                            <a class="zoom" href="javascript:void(0);">Zoom</a>
-                            <a class="remove" href="javascript:void(0);">Remove Pin</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</div>
-    -->
 
 
 @section scripts{

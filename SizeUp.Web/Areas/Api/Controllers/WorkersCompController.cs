@@ -14,7 +14,7 @@ using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class WorkersCompController : Controller
+    public class WorkersCompController : BaseController
     {
         //
         // GET: /Api/WorkersComp/

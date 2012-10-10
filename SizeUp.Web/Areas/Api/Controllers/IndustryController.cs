@@ -10,7 +10,7 @@ using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class IndustryController : Controller
+    public class IndustryController : BaseController
     {
         //
         // GET: /Api/Industry/

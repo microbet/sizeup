@@ -14,7 +14,7 @@ using System.Data.Spatial;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class BusinessController : Controller
+    public class BusinessController : BaseController
     {
         //
         // GET: /Api/Business/

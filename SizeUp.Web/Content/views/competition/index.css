@@ -118,7 +118,7 @@
 
 #competition .questions {padding:1em 0;   }
 #competition .questions li { display: inline-block; text-align: center;vertical-align: bottom; width: 30em; }
-
+#competition .questions li a.disabled { color: #ccc; cursor: default; }
 #competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative; z-index:1; border-bottom:2px solid #ccc; position:relative; top:0.2em;  }
 #competition .tabs li {display:inline-block; vertical-align:bottom; position:relative; top:0.2em;  }
 #competition .tabs li a { padding:1em; border:2px solid #ccc; background-color:#eee; display:block; text-align:center; width:6em; }
@@ -222,6 +222,17 @@
 #competition .infoWindow ul li span.value {float:right; color:#606060; }
 #competition .infoWindow ul li a.value {float:right; }
 #competition .infoWindow .tools .remove { float: right; }
+
+
+
+#competition.competitor .buyer,
+#competition.competitor .supplier { display: none; }
+
+#competition.buyer .competitor,
+#competition.buyer .supplier { display: none; }
+
+#competition.supplier .competitor,
+#competition.supplier .buyer { display: none; }
 
 
 

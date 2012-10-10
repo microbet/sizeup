@@ -12,7 +12,7 @@ using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class TurnoverController : Controller
+    public class TurnoverController : BaseController
     {
         //
         // GET: /Api/Turnover/

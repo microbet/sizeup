@@ -37,7 +37,7 @@
                 industries: {},
                 pinColor: '11AAFF'
             },
-            consumerExpenditures: {
+            consumerExpenditure: {
                 activeOverlays: [],
                 rootId: 1,
                 currentSelection:null
@@ -76,10 +76,10 @@
             dataLayer.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
         }
         if (params.rootId) {
-            me.data.consumerExpenditures.rootId = params.rootId;
+            me.data.consumerExpenditure.rootId = params.rootId;
         }
         if (params.consumerExpenditureVariable) {
-            me.data.consumerExpenditures.currentSelection = params.consumerExpenditureVariable;
+            me.data.consumerExpenditure.currentSelection = params.consumerExpenditureVariable;
             //fire request for path
         }
         if (params.activeTab) {
@@ -94,6 +94,7 @@
             me.content.container = me.container.find('.content.container');
             me.content.loader = me.content.container.find('.loading').removeClass('hidden').hide();
             me.content.noResults = me.content.container.find('.noResults').removeClass('hidden').hide();
+            me.content.addIndustries = me.content.container.find('.addIndustries').removeClass('hidden').hide();
             me.content.businessList = me.content.container.find('.businessList').removeClass('hidden').hide();
             me.content.industryList = me.content.container.find('.industryList');
 
@@ -115,18 +116,17 @@
                 }
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
-            me.content.map.addEventListener('click', function (e) { mapClicked({ lat: e.latLng.lat(), lng: e.latLng.lng() }); });
 
             me.content.questions = {
-                buyers: me.container.find('.questions .buyers'),
-                suppliers: me.container.find('.questions .suppliers'),
-                consumers: me.container.find('.questions .consumers')
+                buyer: me.container.find('.questions .buyers'),
+                supplier: me.container.find('.questions .suppliers'),
+                consumer: me.container.find('.questions .consumers')
             };
 
             me.content.tabs = {
-                competitors: me.content.container.find('.tabs .competitors'),
-                suppliers: me.content.container.find('.tabs .suppliers').hide().removeClass('hidden'),
-                buyers: me.content.container.find('.tabs .buyers').hide().removeClass('hidden')
+                competitor: me.content.container.find('.tabs .competitors'),
+                supplier: me.content.container.find('.tabs .suppliers').hide().removeClass('hidden'),
+                buyer: me.content.container.find('.tabs .buyers').hide().removeClass('hidden')
             };
 
             me.content.ConsumerExpenditure = {
@@ -171,19 +171,61 @@
             me.content.ConsumerExpenditure.close.click(consumerExpenditureCloseClicked);
 
             me.content.industryList.delegate('a', 'click', removeIndustryClicked);
+            me.content.map.addEventListener('click', function (e) { mapClicked({ lat: e.latLng.lat(), lng: e.latLng.lng() }); });
 
-            me.data[me.data.activeIndex].pageData = me.content.pager.getPageData();
+            me.content.questions.buyer.click(buyerQuestionClicked);
+            me.content.questions.supplier.click(supplierQuestionClicked);
+            me.content.questions.consumer.click();
 
-            loadCsVariables(me.data.consumerExpenditures.rootId);
-            bindIndustryList();
-            loadBusinesses();
-            setBusinessOverlay();
-            pushUrlState();
+            me.content.tabs.buyer.click(function () { activateTab('buyer'); });
+            me.content.tabs.supplier.click(function () { activateTab('supplier'); });
+            me.content.tabs.competitor.click(function () { activateTab('competitor'); });
+
+
+
+            
+
+            me.data.competitor.pageData = me.content.pager.getPageData();
+            me.data.supplier.pageData = me.content.pager.getPageData();
+            me.data.buyer.pageData = me.content.pager.getPageData();
+
+           
+            if (getIndustryIdArray('buyer').length > 0) {
+                showTab('buyer');
+            }
+            else if(me.data.activeIndex == 'buyer'){
+                me.data.activeIndex = 'competitor';
+            }
+            if (getIndustryIdArray('supplier').length > 0) {
+                showTab('supplier');
+            }
+            else if (me.data.activeIndex == 'supplier') {
+                me.data.activeIndex = 'competitor';
+            }
+            activateTab(me.data.activeIndex);
         };
 
          
         //////event actions//////////////////
      
+        var buyerQuestionClicked = function () {
+            me.content.questions.buyer.addClass('disabled');
+            var doActivate = !me.content.tabs.buyer.is(':visible');
+            showTab('buyer');
+            if (doActivate) {
+                activateTab('buyer');
+            }
+        };
+
+        var supplierQuestionClicked = function () {
+            me.content.questions.supplier.addClass('disabled');
+            var doActivate = !me.content.tabs.supplier.is(':visible');
+            showTab('supplier');
+            if (doActivate) {
+                activateTab('supplier');
+            }
+        };
+
         var businessItemDoubleClicked = function () {
             var a = $(this);
             var id = a.attr('data-id');
@@ -221,7 +263,7 @@
 
         var consumerExpenditureStartOverClicked = function (e) {
             me.content.ConsumerExpenditure.selectionList.empty();
-            loadCsVariables(me.data.consumerExpenditures.rootId);
+            loadCsVariables(me.data.consumerExpenditure.rootId);
             setHeatmap(null);
             e.stopPropagation();
         };
@@ -266,6 +308,7 @@
                 });
             }
             else {
+                me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
                 pushUrlState();
                 bindIndustryList();
                 loadBusinesses();
@@ -277,6 +320,7 @@
             var a = $(this);
             var id = a.attr('data-id');
             delete me.data[me.data.activeIndex].industries[id];
+            me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
             pushUrlState();
             bindIndustryList();
             loadBusinesses();
@@ -312,11 +356,54 @@
 
         
         //////////end event actions/////////////////////////////
+        var getIndustryIdArray = function (index) {
+            var industries = $.extend({}, me.data[index].industries);
+            if (me.data[index].primaryIndustry) {
+                industries[me.data[index].primaryIndustry.Id] = me.data[index].primaryIndustry;
+            }
+            var ids = [];
+            for (var x in industries) {
+                ids.push(industries[x].Id);
+            }
+            return ids;
+        };
 
 
+        var showTab = function (tabIndex) {
+            me.content.tabs[tabIndex].show();
+        };
+
+        var activateTab = function (tabIndex) {
+            for (var x in me.content.tabs) {
+                me.content.tabs[x].removeClass('active');
+            };
+            me.content.tabs[tabIndex].addClass('active');
+            me.data.activeIndex = tabIndex; 
+
+            me.container.removeClass('competitor').removeClass('supplier').removeClass('buyer').addClass(me.data.activeIndex);
+
+            var ids = getIndustryIdArray(me.data.activeIndex);
+
+            if (ids.length > 0) {
+                bindIndustryList();
+                loadBusinesses();
+                setBusinessOverlay();
+                pushUrlState();
+            }
+            else {
+                //show the you need to add industries text
+                me.content.addIndustries.show();
+                me.content.pager.getContainer().hide();
+                me.content.signinPanel.container.hide();
+                clearIndustryList();
+                clearBusinessList();
+                clearMarkers();
+                pushUrlState();
+            }
+        };
 
         var loadCsVariables = function (parentId) {
-            me.data.consumerExpenditures.currentSelection = parentId;
+            me.data.consumerExpenditure.currentSelection = parentId;
             me.content.ConsumerExpenditure.childList.empty();
             //toggle load icon
             dataLayer.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
@@ -330,13 +417,13 @@
 
         var setHeatmap = function (id) {
 
-            for (var x in me.data.consumerExpenditures.activeOverlays) {
-                me.content.map.removeOverlay(me.data.consumerExpenditures.activeOverlays[x]);
+            for (var x in me.data.consumerExpenditure.activeOverlays) {
+                me.content.map.removeOverlay(me.data.consumerExpenditure.activeOverlays[x]);
             }
-            me.data.consumerExpenditures.activeOverlays = [];
+            me.data.consumerExpenditure.activeOverlays = [];
 
             if (id != null) {
-                me.data.consumerExpenditures.activeOverlays.push(new sizeup.maps.overlay({
+                me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
                     tileUrl: '/tiles/consumerExpenditures/zip/',
                     tileParams: {
                         colors: [
@@ -356,7 +443,7 @@
                     maxZoom: 20
                 }));
 
-                me.data.consumerExpenditures.activeOverlays.push(new sizeup.maps.overlay({
+                me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
                     tileUrl: '/tiles/consumerExpenditures/county/',
                     tileParams: {
                         colors: [
@@ -376,8 +463,8 @@
                 }));
 
 
-                for (var x in me.data.consumerExpenditures.activeOverlays) {
-                    me.content.map.addOverlay(me.data.consumerExpenditures.activeOverlays[x]);
+                for (var x in me.data.consumerExpenditure.activeOverlays) {
+                    me.content.map.addOverlay(me.data.consumerExpenditure.activeOverlays[x]);
                 }
             }
         };
@@ -388,16 +475,16 @@
    
             var state = jQuery.bbq.getState();
             var data = {};
-            data.competitorIndustryIds = [];
-            data.competitorIndustryIds.push(me.data.competitor.primaryIndustry.Id);
-            if (state.competitors && state.competitors.length > 0) {
-                data.competitorIndustryIds.push(state.competitors);
+            data.competitorIndustryIds = getIndustryIdArray('competitor');
+            data.supplierIndustryIds = getIndustryIdArray('supplier');
+            data.buyerIndustryIds = getIndustryIdArray('buyer');
+
+
+            if (data.supplierIndustryIds.length == 0) {
+                delete data.supplierIndustryIds;
             }
-            if (state.suppliers && state.suppliers.length > 0) {
-                data.supplierIndustryIds = state.suppliers;
-            }
-            if (state.buyers && state.buyers.length > 0) {
-                data.buyerIndustryIds = state.buyers;
+            if (data.buyerIndustryIds.length == 0) {
+                delete data.buyerIndustryIds;
             }
 
             me.data.businessOverlay = new sizeup.maps.overlay({
@@ -411,18 +498,11 @@
 
         var pushUrlState = function () {
 
-            var getIds = function (data) {
-                var ids = [];
-                for (var x in data) {
-                    ids.push(data[x].Id);
-                }
-                return ids;
-            };
-
             var data = {};
-            var competitors = getIds(me.data.competitor.industries);
-            var suppliers = getIds(me.data.supplier.industries);
-            var buyers = getIds(me.data.buyer.industries);
+            var competitors = getIndustryIdArray('competitor');
+            competitors.splice(competitors.indexOf(me.data.competitor.primaryIndustry.Id), 1);
+            var suppliers = getIndustryIdArray('supplier');
+            var buyers = getIndustryIdArray('buyer');
             if (competitors.length > 0) {
                 data.competitor = competitors;
             }
@@ -451,7 +531,7 @@
             me.content.businessList.hide();
             me.content.noResults.hide();
             me.content.pager.getContainer().hide();
-
+            me.content.addIndustries.hide();
 
             dataLayer.getBusinessesByIndustry({
                 industryIds: ids,
@@ -508,6 +588,13 @@
             me.content.businessList.html(html);
         };
 
+        var clearIndustryList = function () {
+            me.content.industryList.empty();
+        };
+
+        var clearBusinessList = function () {
+            me.content.businessList.empty();
+        };
 
         var bindBusinessMarkers = function () {
             var data = me.data[me.data.activeIndex].businesses;
@@ -541,27 +628,26 @@
 
         var getPinColor = function (business) {
             var color = '';
-            for (var x in me.data.supplier.industries) {
-                if (business.IndustryId == me.data.supplier.industries[x].IndustryId) {
+            var ids = getIndustryIdArray('supplier');
+            for (var x in ids) {
+                if (business.IndustryId == ids[x]) {
                     color = me.data.supplier.pinColor;
                 }
             };
 
-            for (var x in me.data.buyer.industries) {
-                if (business.IndustryId == me.data.buyer.industries[x].IndustryId) {
+            ids = getIndustryIdArray('buyer');
+            for (var x in ids) {
+                if (business.IndustryId == ids[x]) {
                     color = me.data.buyer.pinColor;
                 }
             };
 
-            for (var x in me.data.competitor.industries) {
-                if (business.IndustryId == me.data.competitor.industries[x].IndustryId) {
+            ids = getIndustryIdArray('competitor');
+            for (var x in ids) {
+                if (business.IndustryId == ids[x]) {
                     color = me.data.competitor.pinColor;
                 }
             };
-
-            if (business.IndustryId == me.data.competitor.primaryIndustry.Id) {
-                color = me.data.competitor.pinColor;
-            }
             return color;
         };
 

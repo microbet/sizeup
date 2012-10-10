@@ -8,7 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Web.Areas.Api.Models;
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class MetroController : Controller
+    public class MetroController : BaseController
     {
         //
         // GET: /Api/Metro/

@@ -8,7 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Web.Areas.Api.Models;
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class CountyController : Controller
+    public class CountyController : BaseController
     {
         //
         // GET: /Api/County/

@@ -10,7 +10,7 @@ using SizeUp.Core.Email;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         //
         // GET: /Api/User/

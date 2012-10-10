@@ -10,7 +10,7 @@ using System.Dynamic;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         //
         // GET: /Api/User/

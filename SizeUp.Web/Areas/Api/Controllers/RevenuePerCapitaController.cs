@@ -15,7 +15,7 @@ using SizeUp.Core;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class RevenuePerCapitaController : Controller
+    public class RevenuePerCapitaController : BaseController
     {
         //
         // GET: /Api/RevenuePerCapita/

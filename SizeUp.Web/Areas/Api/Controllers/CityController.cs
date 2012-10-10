@@ -13,7 +13,7 @@ using System.Data.Spatial;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class CityController : Controller
+    public class CityController : BaseController
     {
         //
         // GET: /Api/City/

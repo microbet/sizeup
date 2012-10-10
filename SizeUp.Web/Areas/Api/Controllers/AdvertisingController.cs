@@ -21,7 +21,7 @@ using SizeUp.Core.Extensions;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class AdvertisingController : Controller
+    public class AdvertisingController : BaseController
     {
         //
         // GET: /Api/Advertising/

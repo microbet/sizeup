@@ -14,7 +14,7 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class AverageRevenueController : Controller
+    public class AverageRevenueController : BaseController
     {
         //
         // GET: /Api/AverageRevenue/

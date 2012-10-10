@@ -13,7 +13,7 @@ using SizeUp.Web.Areas.Api.Models;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class AverageEmployeesController : Controller
+    public class AverageEmployeesController : BaseController
     {
         //
         // GET: /Api/Employee/
