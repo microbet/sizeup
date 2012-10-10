@@ -68,7 +68,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     {
                         i.Id,
                         i.ParentId,
-                        i.Description
+                        i.Description,
+                        i.Variable,
+                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
                     })
                     .ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);

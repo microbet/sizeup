@@ -1,6 +1,6 @@
 ﻿(function () {
     sizeup.core.namespace('sizeup.maps');
-    sizeup.maps.imageMarker = function (opts) {
+    sizeup.maps.businessMarker = function (opts) {
 
         var defaults = {
             section: '',

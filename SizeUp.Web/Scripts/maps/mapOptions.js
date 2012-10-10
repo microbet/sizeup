@@ -8,6 +8,7 @@
                 return {
                     zoom: 10,
                     minZoom: 4,
+                    maxZoom:16,
                     center: new google.maps.LatLng(37.012, -122.01),
                     mapTypeControl: false,
                     streetViewControl: false,
