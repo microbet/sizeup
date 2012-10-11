@@ -20,6 +20,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.Header.ActiveTab = NavItems.Competition;
             using (var context = ContextFactory.SizeUpContext)
             {
+                /*
                  var raw = context.ConsumerExpenditureVariables.Select(i => new Models.ConsumerExpenditures.Variable(){
                          Id = i.Id,
                          ParentId = i.ParentId,
@@ -37,7 +38,7 @@ namespace SizeUp.Web.Controllers
                  }
 
                  ViewBag.ConsumerExpenditureVariables = data;
-                 ViewBag.ConsumerExpenditureVariablesJSON = Serializer.ToJSON(data);
+                 ViewBag.ConsumerExpenditureVariablesJSON = Serializer.ToJSON(data);*/
                 return View();
             }
 

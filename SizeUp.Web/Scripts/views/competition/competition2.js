@@ -106,14 +106,14 @@
                 .delegate('a', 'dblclick', businessItemDoubleClicked);
 
 
+            me.content.mapControls = {
+                container: me.container.find('.mapControls.container').hide().removeClass('hidden'),
+                filter: me.container.find('.mapControls.container .mapFilter').hide().removeClass('hidden'),
+                consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures').hide().removeClass('hidden')
+            };
 
             me.content.map = new sizeup.maps.map({
-                container: me.container.find('.mapWrapper.container .map'),
-                controls: {
-                    container: me.container.find('.mapControls.container').hide().removeClass('hidden'),
-                    filter: me.container.find('.mapControls.container .mapFilter').hide().removeClass('hidden'),
-                    consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures').hide().removeClass('hidden')
-                }
+                container: me.container.find('.mapWrapper.container .map')
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
 
@@ -175,7 +175,7 @@
 
             me.content.questions.buyer.click(buyerQuestionClicked);
             me.content.questions.supplier.click(supplierQuestionClicked);
-            me.content.questions.consumer.click();
+            me.content.questions.consumer.click(consumerExpenditureQuestionClicked);
 
             me.content.tabs.buyer.click(function () { activateTab('buyer'); });
             me.content.tabs.supplier.click(function () { activateTab('supplier'); });
@@ -226,6 +226,11 @@
             }
         };
 
+        var consumerExpenditureQuestionClicked = function () {
+            me.content.questions.consumer.addClass('disabled');
+            showConsumerExpenditures();
+        };
+
         var businessItemDoubleClicked = function () {
             var a = $(this);
             var id = a.attr('data-id');
@@ -263,8 +268,10 @@
 
         var consumerExpenditureStartOverClicked = function (e) {
             me.content.ConsumerExpenditure.selectionList.empty();
+            me.data.consumerExpenditure.currentSelection = null;
             loadCsVariables(me.data.consumerExpenditure.rootId);
             setHeatmap(null);
+            pushUrlState();
             e.stopPropagation();
         };
 
@@ -278,8 +285,10 @@
             var item = a.parent();
             item.nextAll().remove();
             var id = a.attr('data-id');
+            me.data.consumerExpenditure.currentSelection = id;
             setHeatmap(id);
             loadCsVariables(id);
+            pushUrlState();
             e.stopPropagation();
         };
 
@@ -288,9 +297,11 @@
             var item = a.parent();
             item.remove();
             var id = a.attr('data-id');
+            me.data.consumerExpenditure.currentSelection = id;
             me.content.ConsumerExpenditure.selectionList.append(item);
             setHeatmap(id);
             loadCsVariables(id);
+            pushUrlState();
             e.stopPropagation();
         };
 
@@ -368,6 +379,16 @@
             return ids;
         };
 
+        var showConsumerExpenditures = function () {
+            me.content.mapControls.container.show();
+            me.content.mapControls.consumerExpenditures.show();
+            loadCsVariables(me.data.consumerExpenditure.rootId);
+        };
+
+        var showMapFilters = function () {
+            me.content.mapControls.container.show();
+            me.content.mapControls.mapFilter.show();
+        };
 
         var showTab = function (tabIndex) {
             me.content.tabs[tabIndex].show();
@@ -403,7 +424,6 @@
         };
 
         var loadCsVariables = function (parentId) {
-            me.data.consumerExpenditure.currentSelection = parentId;
             me.content.ConsumerExpenditure.childList.empty();
             //toggle load icon
             dataLayer.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
@@ -512,8 +532,11 @@
             if (buyers.length > 0) {
                 data.buyer = buyers;
             }
+            if (me.data.consumerExpenditure.currentSelection != null) {
+                data.consumerExpenditure = me.data.consumerExpenditure.currentSelection;
+            }
             data.activeTab = me.data.activeIndex;
-
+ 
             jQuery.bbq.pushState(data, 2);
         };
 
