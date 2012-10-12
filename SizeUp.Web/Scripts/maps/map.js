@@ -103,6 +103,11 @@
             marker.getNative().setMap(null);
         };
 
+        var addLegend = function (control) {
+            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(control.getContainer().get(0));
+        };
+
+
         var publicObj = {
             getContainer: function () {
                 return me.container;
@@ -151,6 +156,9 @@
             },
             removeOverlay: function (overlay) {
                 removeOverlay(overlay);
+            },
+            addLegend: function (control) {
+                addLegend(control);
             }
 
         };

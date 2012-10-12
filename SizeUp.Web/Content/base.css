@@ -73,7 +73,7 @@ a.button.medium { font-size: 1.9em; }
 
 
 
-a.menu {color: #fff;display:inline-block;padding: 0.25em 1em 0.25em 0.75em; cursor: pointer; border-radius:0.4em;-moz-border-radius:0.4em;-webkit-border-radius: 0.4em; background-color: #e78500; background-size: 100% 100%; font-size:1.6em; border:none; box-shadow: 1px 1px 1px #aaa; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==);}
+a.menu {color: #fff;display:inline-block;padding: 0.6em 1em 0.6em 0.75em; cursor: pointer; border-radius:0.4em;-moz-border-radius:0.4em;-webkit-border-radius: 0.4em; background-color: #e78500; background-size: 100% 100%; font-size:1.6em; border:none; box-shadow: 1px 1px 1px #aaa; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==);}
 a.menu:after {content: "."; color:transparent; background :url(images/menuTriangle.png) no-repeat 0.3em 0.4em; position:relative; left:0.5em; border-left:solid 0.1em #fff; display:inline-block; width:1.25em;}
 /**** experimental base styles*****/
 
@@ -114,6 +114,16 @@ a.sorter.desc { background-position:right 0.3em; }
 .signinPanel.form a.button { position: relative; left: 7em; }
 
 
+
+
+.map .legendWrapper .titleWrap {display:block; }
+.map .legendWrapper .backdrop {background-color:#444; opacity:0.8; border-bottom-left-radius:1em;float:right;  }
+.map .legendWrapper .text {color:#fff; line-height: 1.5em; opacity:1; }
+.map .legendWrapper .title { font-size: 1.2em;text-align:left;  min-width: 15em; max-width: 80%; padding: 0.25em 1em;  }
+.map .legendWrapper ul { max-width:60%; padding:0.25em 1em 1em; clear:both; }
+.map .legendWrapper .range { font-size:1.1em; padding: 0 0 0 0.5em; text-align:left;  display:inline-block;  }
+.map .legendWrapper ul li { line-height: 1.5em; padding:0 1em; }
+.map .legendWrapper ul .block { width: 1em; height: 1.5em; display: inline-block; position:relative; top:0.25em; opacity:1; }
 
 
 

@@ -107,20 +107,40 @@
 
 
             me.content.mapControls = {
-                container: me.container.find('.mapControls.container').hide().removeClass('hidden'),
+                container: me.container.find('.mapControls.container'),
                 filter: me.container.find('.mapControls.container .mapFilter').hide().removeClass('hidden'),
-                consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures').hide().removeClass('hidden')
+                consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures')
             };
+
 
             me.content.map = new sizeup.maps.map({
                 container: me.container.find('.mapWrapper.container .map')
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
 
+            me.content.mapLegend = new sizeup.maps.legend({
+                container: $(templates.get('legendWrapper')),
+                templates: templates,
+                legendItemTemplateId: 'legendItem'
+            });
+
+            me.content.map.addLegend(me.content.mapLegend);
+            me.content.mapLegend.setTitle('HAAAAzdfjgh zdfjkghzjdfgkzxjdfg kxd;fjg xzkldfg jxdf gkxjdg klxdj fgxkdljg xkldfgj xklfg jdfgklxdjfg lkxdjfg kldzxfjg xkldfg jxdklfgjxdfgAAAAR');
+            me.content.mapLegend.setLegend([
+                { Min: 10, Max: 20 },
+                { Min: 20, Max: 30 },
+                { Min: 30, Max: 40 },
+                { Min: 40, Max: 50 },
+                { Min: 50, Max: 60 },
+                { Min: 60, Max: 70 },
+                { Min: 70, Max: 80 }
+   
+            ]);
+
+
             me.content.questions = {
-                buyer: me.container.find('.questions .buyers'),
-                supplier: me.container.find('.questions .suppliers'),
-                consumer: me.container.find('.questions .consumers')
+                buyer: me.content.container.find('.tabs .buyerQuestion'),
+                supplier: me.content.container.find('.tabs .supplierQuestion')
             };
 
             me.content.tabs = {
@@ -173,17 +193,15 @@
             me.content.industryList.delegate('a', 'click', removeIndustryClicked);
             me.content.map.addEventListener('click', function (e) { mapClicked({ lat: e.latLng.lat(), lng: e.latLng.lng() }); });
 
-            me.content.questions.buyer.click(buyerQuestionClicked);
-            me.content.questions.supplier.click(supplierQuestionClicked);
-            me.content.questions.consumer.click(consumerExpenditureQuestionClicked);
+            me.content.questions.buyer.find('a').click(buyerQuestionClicked);
+            me.content.questions.supplier.find('a').click(supplierQuestionClicked);
 
-            me.content.tabs.buyer.click(function () { activateTab('buyer'); });
-            me.content.tabs.supplier.click(function () { activateTab('supplier'); });
-            me.content.tabs.competitor.click(function () { activateTab('competitor'); });
-
+            me.content.tabs.buyer.find('a').click(function () { activateTab('buyer'); });
+            me.content.tabs.supplier.find('a').click(function () { activateTab('supplier'); });
+            me.content.tabs.competitor.find('a').click(function () { activateTab('competitor'); });
 
 
-            
+            me.content.mapControls.filter.find('input[name=mapFilter]').click(mapFilterClicked);
 
             me.data.competitor.pageData = me.content.pager.getPageData();
             me.data.supplier.pageData = me.content.pager.getPageData();
@@ -208,8 +226,11 @@
          
         //////event actions//////////////////
      
+        var mapFilterClicked = function () {
+            setBusinessOverlay();
+        };
+
         var buyerQuestionClicked = function () {
-            me.content.questions.buyer.addClass('disabled');
             var doActivate = !me.content.tabs.buyer.is(':visible');
             showTab('buyer');
             if (doActivate) {
@@ -218,7 +239,6 @@
         };
 
         var supplierQuestionClicked = function () {
-            me.content.questions.supplier.addClass('disabled');
             var doActivate = !me.content.tabs.supplier.is(':visible');
             showTab('supplier');
             if (doActivate) {
@@ -313,6 +333,7 @@
         var industryPicked = function (data) {
             me.data[me.data.activeIndex].industries[data.Id] = data;
             var element = me.content.industryList.find('.item[data-id="' + data.Id + '"]');
+            me.picker.setSelection(null);
             if (element.length > 0) {
                 element.addClass('highlight', 250, function () {
                     element.removeClass('highlight', 1000);
@@ -320,6 +341,7 @@
             }
             else {
                 me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
+                checkMapFilter();
                 pushUrlState();
                 bindIndustryList();
                 loadBusinesses();
@@ -367,6 +389,27 @@
 
         
         //////////end event actions/////////////////////////////
+
+        var checkMapFilter = function () {
+            if (getIndustryIdArray('buyer').length > 0 || getIndustryIdArray('supplier').length > 0) {
+                me.content.mapControls.filter.show();
+            }
+        };
+
+        var checkMapFilterZoom = function () {
+            var z = me.content.map.getZoom();
+            //TODO map 12 a parameter
+
+            //persist current selection so that we can set value if they zoom in again 
+            //need to change state of all text and disable everything
+            if (z < 12) {
+                me.content.mapControls.filter.find('input[name=mapFilter]').val('all');
+            }
+            else {
+
+            }
+        };
+
         var getIndustryIdArray = function (index) {
             var industries = $.extend({}, me.data[index].industries);
             if (me.data[index].primaryIndustry) {
@@ -392,6 +435,7 @@
 
         var showTab = function (tabIndex) {
             me.content.tabs[tabIndex].show();
+            me.content.questions[tabIndex].hide();
         };
 
         var activateTab = function (tabIndex) {
@@ -405,22 +449,11 @@
 
             var ids = getIndustryIdArray(me.data.activeIndex);
 
-            if (ids.length > 0) {
-                bindIndustryList();
-                loadBusinesses();
-                setBusinessOverlay();
-                pushUrlState();
-            }
-            else {
-                //show the you need to add industries text
-                me.content.addIndustries.show();
-                me.content.pager.getContainer().hide();
-                me.content.signinPanel.container.hide();
-                clearIndustryList();
-                clearBusinessList();
-                clearMarkers();
-                pushUrlState();
-            }
+            checkMapFilter();
+            bindIndustryList();
+            loadBusinesses();
+            setBusinessOverlay();
+            pushUrlState();
         };
 
         var loadCsVariables = function (parentId) {
@@ -499,12 +532,16 @@
             data.supplierIndustryIds = getIndustryIdArray('supplier');
             data.buyerIndustryIds = getIndustryIdArray('buyer');
 
+            var filterValue = me.content.mapControls.filter.find('input[name=mapFilter]:checked').val();
 
-            if (data.supplierIndustryIds.length == 0) {
+            if (data.supplierIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'supplier')) {
                 delete data.supplierIndustryIds;
             }
-            if (data.buyerIndustryIds.length == 0) {
+            if (data.buyerIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'buyer')) {
                 delete data.buyerIndustryIds;
+            }
+            if (!(filterValue == 'all' || filterValue == 'competitor')) {
+                delete data.competitorIndustryIds;
             }
 
             me.data.businessOverlay = new sizeup.maps.overlay({
@@ -550,24 +587,36 @@
                 ids.push(industries[x].Id);
             }
 
-            me.content.loader.show();
-            me.content.businessList.hide();
-            me.content.noResults.hide();
-            me.content.pager.getContainer().hide();
-            me.content.addIndustries.hide();
+            if (ids.length > 0) {
 
-            dataLayer.getBusinessesByIndustry({
-                industryIds: ids,
-                placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                itemCount: me.opts.itemsPerPage,
-                page: me.data[me.data.activeIndex].pageData.page
-            }, function (data) {
-                me.data[me.data.activeIndex].businesses = data;
-                bindBusinesses();
-                bindBusinessMarkers();
-                me.content.loader.hide();
-                me.content.businessList.show();
-            });
+                me.content.loader.show();
+                me.content.businessList.hide();
+                me.content.noResults.hide();
+                me.content.pager.getContainer().hide();
+                me.content.addIndustries.hide();
+
+                dataLayer.getBusinessesByIndustry({
+                    industryIds: ids,
+                    placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                    itemCount: me.opts.itemsPerPage,
+                    page: me.data[me.data.activeIndex].pageData.page
+                }, function (data) {
+                    me.data[me.data.activeIndex].businesses = data;
+                    bindBusinesses();
+                    bindBusinessMarkers();
+                    me.content.loader.hide();
+                    me.content.businessList.show();
+                });
+            }
+            else {
+                me.content.addIndustries.show();
+                me.content.pager.getContainer().hide();
+                me.content.signinPanel.container.hide();
+                clearIndustryList();
+                clearBusinessList();
+                clearMarkers();
+                pushUrlState();
+            }
         };
 
         var bindIndustryList = function () {
@@ -606,7 +655,7 @@
             var html = '';
             for (var x = 0; x < data.Items.length; x++) {
                 var template = templates.get('businessItem');
-                html = html + templates.bind(template, { index: x + 1, business: data.Items[x] });
+                html = html + templates.bind(template, { index: me.data.activeIndex, number: x + 1, business: data.Items[x] });
             };
             me.content.businessList.html(html);
         };
@@ -623,11 +672,16 @@
             var data = me.data[me.data.activeIndex].businesses;
             var index = 1;
             clearMarkers();
+            var bounds = new sizeup.maps.latLngBounds();
             for (var x in data.Items) {
                 var marker = createMarker(data.Items[x], index);
                 me.data.markers[data.Items[x].Id] = marker;
                 me.content.map.addMarker(marker);
+                bounds.extend(marker.getPosition());
                 index = index + 1;
+            }
+            if (data.Items.length > 0) {
+                me.content.map.fitBounds(bounds);
             }
         };
 

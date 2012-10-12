@@ -23,7 +23,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlng.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlngBounds.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMap.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
@@ -34,37 +34,35 @@
 
 <div id="competition">
 
-    <ul class="questions">
-        <li><a href="javascript:void(0);" class="inverse suppliers">Do you BUY from other businesses?</a></li>
-        <li><a href="javascript:void(0);" class="inverse buyers">Do you SELL to other businesses?</a></li>
-        <li><a href="javascript:void(0);" class="inverse consumers">Do you SELL to consumers?</a></li>
-    </ul>
+   
 
     <div class="content container">
         <div class="controls container">
              <ul class="tabs">
-                <li><a href="javascript:void(0);" class="active competitors">Competition</a></li>
-                <li><a href="javascript:void(0);" class="suppliers hidden">Suppliers</a></li>
-                <li><a href="javascript:void(0);" class="buyers hidden" >Buyers</a></li>
+                <li class="active competitors"><a href="javascript:void(0);" class="inverse">Competitors</a></li>
+                <li class="supplierQuestion question"><a href="javascript:void(0);" class="inverse">Buy from other businesses?</a></li>
+                <li class="suppliers hidden"><a href="javascript:void(0);" class="inverse">Suppliers</a></li>
+                <li class="buyerQuestion question"><a href="javascript:void(0);" class="inverse" >Sell to other businesses?</a></li>
+                <li class="buyers hidden"><a href="javascript:void(0);" class="inverse" >Customers</a></li>
              </ul>
 
-            <div class="mapControls container hidden">
-                <div class="mapFilter container">
+            <div class="mapControls container">
+                <div class="mapFilter container hidden">
                     <ul>
                         <li class="competitor">
-                            <input type="radio" id="competitorBox" data-index="competitor" name="mapFilter">
+                            <input type="radio" id="competitorBox" data-index="competitor" name="mapFilter" value="competitor">
                             <label for="competitorBox"><span class="legendItem"></span>Competitors</label>
                         </li>
                         <li class="buyer">
-                            <input type="radio" id="buyerBox" data-index="buyer" name="mapFilter">
+                            <input type="radio" id="buyerBox" data-index="buyer" name="mapFilter" value="buyer">
                             <label for="buyerBox"><span class="legendItem"></span>Customers</label>
                         </li>
                         <li class="supplier">
-                            <input type="radio" id="supplierBox" data-index="supplier" name="mapFilter">
+                            <input type="radio" id="supplierBox" data-index="supplier" name="mapFilter" value="supplier">
                             <label for="supplierBox"><span class="legendItem"></span>Suppliers</label>
                         </li>
                         <li class="all">
-                            <input type="radio" id="allBox" data-index="all" name="mapFilter" checked="checked" >
+                            <input type="radio" id="allBox" data-index="all" name="mapFilter" checked="checked" value="all" >
                             <label for="allBox">All <span class="zoomMessage">(Zoom In)</span></label>
                         </li>
                     </ul>
@@ -74,7 +72,7 @@
                     <a href="javascript:void(0);" class="menu">Consumer Expenditures</a>
                     <div class="consumerExpenditurePicker hidden">
                         <ul class="selection">
-                            <li data-template="consumerExpenditureListItem"><a href="javascript:void(0);" data-id="{{Id}}" class="inverse">{{Description}}</a></li>                  
+                            <li data-template="consumerExpenditureListItem"><a href="javascript:void(0);" data-id="{{Id}}" class="inverse {{^HasChildren}}leaf{{/HasChildren}}">{{Description}}</a></li>                  
                         </ul>
                         <ul class="children">
                         </ul>
@@ -108,18 +106,10 @@
                 <p class="message">Loading Businesses</p>
             </div>
 
-            <div class="noResults hidden">
-                <p>There are no businesses that meet your criteria</p>
-            </div>
-
-            <div class="addIndustries hidden">
-                <p>Add industries to populate this list of businesses</p>
-            </div>
-
             <ul class="businessList hidden">
                 <li data-template="businessItem">
                     <a href="javascript:void(0);" data-id="{{business.Id}}">
-                        <img data-override-src="/pins/business/marker/competitor/{{index}}" />
+                        <img data-override-src="/pins/business/marker/{{index}}/{{number}}" />
                         <dl>
                             <dt class="name">{{business.Name}}</dt>
                             <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
@@ -127,6 +117,14 @@
                     </a>
                 </li>
             </ul>
+
+            <div class="noResults hidden">
+                <p>There are no businesses that meet your criteria</p>
+            </div>
+
+            <div class="addIndustries hidden">
+                <p>Add industries to populate this list of businesses</p>
+            </div>
 
             <div class="pager hidden">
                 <div data-template="pager">
@@ -156,15 +154,14 @@
         </div>
 
         <div class="mapWrapper container">
-            <div class="legend">
-                <p class="title backdrop"></p>
-                <div class="legend backdrop">
-                    <ul class="legendContainer">
-                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
-                    </ul>
-                    <div class="bottom backdrop"></div>
+            <div data-template="legendWrapper" class="legendWrapper">
+                <div class="titleWrap">
+                    <p class="backdrop title"><span class="text"></span></p>
                 </div>
-            </div>
+                <ul class="legendContainer backdrop">
+                    <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                </ul>
+           </div>
 
             <div data-template="infoWindow" class="infoWindow">
                 <h3>{{Name}}</h3>

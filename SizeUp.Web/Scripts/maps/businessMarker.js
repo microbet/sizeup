@@ -64,7 +64,8 @@
         var publicObj = {
             getNative: function () {
                 return me._native;
-            }, getPosition: function () {
+            },
+            getPosition: function () {
                 return getPosition();
             },
             triggerEvent: function (event) {
