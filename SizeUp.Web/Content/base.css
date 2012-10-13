@@ -116,14 +116,14 @@ a.sorter.desc { background-position:right 0.3em; }
 
 
 
-.map .legendWrapper .titleWrap {display:block; }
-.map .legendWrapper .backdrop {background-color:#444; opacity:0.8; border-bottom-left-radius:1em;float:right;  }
-.map .legendWrapper .text {color:#fff; line-height: 1.5em; opacity:1; }
-.map .legendWrapper .title { font-size: 1.2em;text-align:left;  min-width: 15em; max-width: 80%; padding: 0.25em 1em;  }
-.map .legendWrapper ul { max-width:60%; padding:0.25em 1em 1em; clear:both; }
-.map .legendWrapper .range { font-size:1.1em; padding: 0 0 0 0.5em; text-align:left;  display:inline-block;  }
-.map .legendWrapper ul li { line-height: 1.5em; padding:0 1em; }
-.map .legendWrapper ul .block { width: 1em; height: 1.5em; display: inline-block; position:relative; top:0.25em; opacity:1; }
+.map .titleWrap {display:block; }
+.map .backdrop {background-color:#444; opacity:0.8; border-bottom-left-radius:1em;float:right;  }
+.map .legend .text {color:#fff; line-height: 1.5em; opacity:1; }
+.map .legend .title { font-size: 1.2em;text-align:left;  min-width: 15em; max-width: 80%; padding: 0.25em 1em;  }
+.map ul.legend { padding:0.25em 1em 1em; clear:both; }
+.map .legend .range { font-size:1.1em; padding: 0 0 0 0.5em; text-align:left;  display:inline-block;  }
+.map ul.legend li { line-height: 1.5em; padding:0 1em; }
+.map ul.legend .block { width: 1em; height: 1.5em; display: inline-block; position:relative; top:0.25em; opacity:1; }
 
 
 

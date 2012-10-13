@@ -40,7 +40,9 @@
             consumerExpenditure: {
                 activeOverlays: [],
                 rootId: 1,
-                currentSelection:null
+                currentSelection: null,
+                legendZoomLevel: 0,
+                legend: null
             }
         };
         me.container = $('#competition');
@@ -118,25 +120,7 @@
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
 
-            me.content.mapLegend = new sizeup.maps.legend({
-                container: $(templates.get('legendWrapper')),
-                templates: templates,
-                legendItemTemplateId: 'legendItem'
-            });
-
-            me.content.map.addLegend(me.content.mapLegend);
-            me.content.mapLegend.setTitle('HAAAAzdfjgh zdfjkghzjdfgkzxjdfg kxd;fjg xzkldfg jxdf gkxjdg klxdj fgxkdljg xkldfgj xklfg jdfgklxdjfg lkxdjfg kldzxfjg xkldfg jxdklfgjxdfgAAAAR');
-            me.content.mapLegend.setLegend([
-                { Min: 10, Max: 20 },
-                { Min: 20, Max: 30 },
-                { Min: 30, Max: 40 },
-                { Min: 40, Max: 50 },
-                { Min: 50, Max: 60 },
-                { Min: 60, Max: 70 },
-                { Min: 70, Max: 80 }
-   
-            ]);
-
+ 
 
             me.content.questions = {
                 buyer: me.content.container.find('.tabs .buyerQuestion'),
@@ -192,7 +176,9 @@
 
             me.content.industryList.delegate('a', 'click', removeIndustryClicked);
             me.content.map.addEventListener('click', function (e) { mapClicked({ lat: e.latLng.lat(), lng: e.latLng.lng() }); });
+            me.content.map.addEventListener('zoom_changed', mapZoomUpdated);
 
+            
             me.content.questions.buyer.find('a').click(buyerQuestionClicked);
             me.content.questions.supplier.find('a').click(supplierQuestionClicked);
 
@@ -221,11 +207,22 @@
                 me.data.activeIndex = 'competitor';
             }
             activateTab(me.data.activeIndex);
+
+
+
+            ///temp to get cs menu loading
+            loadCsVariables(me.data.consumerExpenditure.rootId);
         };
 
          
         //////event actions//////////////////
      
+        var mapZoomUpdated = function () {
+            checkMapFilterZoom();
+            
+            getLegendData();
+        };
+
         var mapFilterClicked = function () {
             setBusinessOverlay();
         };
@@ -244,11 +241,6 @@
             if (doActivate) {
                 activateTab('supplier');
             }
-        };
-
-        var consumerExpenditureQuestionClicked = function () {
-            me.content.questions.consumer.addClass('disabled');
-            showConsumerExpenditures();
         };
 
         var businessItemDoubleClicked = function () {
@@ -306,7 +298,9 @@
             item.nextAll().remove();
             var id = a.attr('data-id');
             me.data.consumerExpenditure.currentSelection = id;
+            me.data.consumerExpenditure.legendZoomLevel = 0;
             setHeatmap(id);
+            getLegendData();
             loadCsVariables(id);
             pushUrlState();
             e.stopPropagation();
@@ -318,8 +312,10 @@
             item.remove();
             var id = a.attr('data-id');
             me.data.consumerExpenditure.currentSelection = id;
+            me.data.consumerExpenditure.legendZoomLevel = 0;
             me.content.ConsumerExpenditure.selectionList.append(item);
             setHeatmap(id);
+            getLegendData();
             loadCsVariables(id);
             pushUrlState();
             e.stopPropagation();
@@ -390,6 +386,36 @@
         
         //////////end event actions/////////////////////////////
 
+        var showLegend = function () {
+            if (me.data.consumerExpenditure.legend != null) {
+                me.content.map.setLegend(me.data.consumerExpenditure.legend);
+            }
+        };
+
+        var hideLegned = function () {
+            me.content.map.clearLegend();
+        };
+
+        var setLegend = function (data) {
+            me.data.consumerExpenditure.legend = new sizeup.maps.legend({
+                templates: templates,
+                title: data.title,
+                items: data.items,
+                colors: [
+                '#F5F500',
+                '#F5CC00',
+                '#F5A300',
+                '#F57A00',
+                '#F55200',
+                '#F52900',
+                '#F50000'
+                ],
+                format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
+            });
+            me.content.map.setLegend(me.data.consumerExpenditure.legend);
+
+        };
+
         var checkMapFilter = function () {
             if (getIndustryIdArray('buyer').length > 0 || getIndustryIdArray('supplier').length > 0) {
                 me.content.mapControls.filter.show();
@@ -422,17 +448,7 @@
             return ids;
         };
 
-        var showConsumerExpenditures = function () {
-            me.content.mapControls.container.show();
-            me.content.mapControls.consumerExpenditures.show();
-            loadCsVariables(me.data.consumerExpenditure.rootId);
-        };
-
-        var showMapFilters = function () {
-            me.content.mapControls.container.show();
-            me.content.mapControls.mapFilter.show();
-        };
-
+       
         var showTab = function (tabIndex) {
             me.content.tabs[tabIndex].show();
             me.content.questions[tabIndex].hide();
@@ -475,9 +491,11 @@
             }
             me.data.consumerExpenditure.activeOverlays = [];
 
+
             if (id != null) {
                 me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
                     tileUrl: '/tiles/consumerExpenditures/zip/',
+                    opacity: 0.7,
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -489,15 +507,81 @@
                                     '#F50000'
                         ].join(','),
                         variableId: id,
-                        //boundingEntityId: 'co222'
-                        boundingEntityId: 'm755'
+                        boundingEntityId: 'co' + me.opts.CurrentInfo.CurrentPlace.County.Id
                     },
-                    minZoom: 10,
-                    maxZoom: 20
+                    minZoom: 12,
+                    maxZoom: 16
                 }));
 
+
+                if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
+
+                    me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
+                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        opacity: 0.7,
+                        tileParams: {
+                            colors: [
+                                        '#F5F500',
+                                        '#F5CC00',
+                                        '#F5A300',
+                                        '#F57A00',
+                                        '#F55200',
+                                        '#F52900',
+                                        '#F50000'
+                            ].join(','),
+                            variableId: id,
+                            boundingEntityId: 'm' + me.opts.CurrentInfo.CurrentPlace.Metro.Id
+                        },
+                        minZoom: 10,
+                        maxZoom: 11
+                    }));
+
+                    me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
+                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        opacity: 0.7,
+                        tileParams: {
+                            colors: [
+                                        '#F5F500',
+                                        '#F5CC00',
+                                        '#F5A300',
+                                        '#F57A00',
+                                        '#F55200',
+                                        '#F52900',
+                                        '#F50000'
+                            ].join(','),
+                            variableId: id,
+                            boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id
+                        },
+                        minZoom: 5,
+                        maxZoom: 9
+                    }));
+                }
+                else {
+                    me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
+                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        opacity: 0.7,
+                        tileParams: {
+                            colors: [
+                                        '#F5F500',
+                                        '#F5CC00',
+                                        '#F5A300',
+                                        '#F57A00',
+                                        '#F55200',
+                                        '#F52900',
+                                        '#F50000'
+                            ].join(','),
+                            variableId: id,
+                            boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id
+                        },
+                        minZoom: 5,
+                        maxZoom: 11
+                    }));
+                }
+
+
                 me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/consumerExpenditures/county/',
+                    tileUrl: '/tiles/consumerExpenditures/state/',
+                    opacity: 0.7,
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -508,20 +592,104 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        variableId: id,
-                        boundingEntityId: 's5'
+                        variableId: id
                     },
                     minZoom: 0,
-                    maxZoom: 9
+                    maxZoom: 4
                 }));
 
 
                 for (var x in me.data.consumerExpenditure.activeOverlays) {
-                    me.content.map.addOverlay(me.data.consumerExpenditure.activeOverlays[x]);
+                    me.content.map.addOverlay(me.data.consumerExpenditure.activeOverlays[x], 0);
                 }
+                showLegend();
+            }
+            else {
+                me.data.consumerExpenditure.legend = null;
+                hideLegned();
             }
         };
 
+        var getLegendData = function () {
+            var z = me.content.map.getZoom();
+
+            if (me.data.consumerExpenditure.currentSelection != null && z != me.data.consumerExpenditure.legendZoomLevel) {
+                me.data.consumerExpenditure.legendZoomLevel = z;
+                var data = {
+                    title: '',
+                    items:[]
+                };
+                var notify = new sizeup.core.notifier(function () {
+                    setLegend(data);
+                });
+                var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
+
+                if (z <= 16 && z >= 12) {
+
+                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by zip code in ' + me.opts.CurrentInfo.CurrentPlace.County.Name + ', ' +  me.opts.CurrentInfo.CurrentPlace.State.Name; });
+
+
+                    dataLayer.getConsumerExpenditureBandsByZip(
+                            { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 'co' + me.opts.CurrentInfo.CurrentPlace.County.Id },
+                            itemsNotify
+                    );
+                }
+
+
+                if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
+                    if (z <= 11 && z >= 10) {
+
+                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.Metro.Name; });
+
+
+
+                        dataLayer.getConsumerExpenditureBandsByCounty(
+                           { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 'm' + me.opts.CurrentInfo.CurrentPlace.Metro.Id },
+                           itemsNotify);
+                    }
+
+                    if (z <= 9 && z >= 5) {
+
+                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
+
+
+
+                        dataLayer.getConsumerExpenditureBandsByCounty(
+                           { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id },
+                           itemsNotify);
+                    }
+                }
+                else {
+                    if (z <= 11 && z >= 5) {
+
+                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
+
+
+
+                        dataLayer.getConsumerExpenditureBandsByCounty(
+                            { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id },
+                            itemsNotify);
+                    }
+                }
+
+                
+                if (z <= 4 && z >= 0) {
+
+                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by state in USA' });
+
+
+                    dataLayer.getConsumerExpenditureBandsByState(
+                            { bands: 7, variableId: me.data.consumerExpenditure.currentSelection },
+                            itemsNotify);
+                }
+
+
+                dataLayer.getConsumerExpenditureVariable({ id: me.data.consumerExpenditure.currentSelection }, titleNotify);
+
+
+            }
+        };
+ 
 
         var setBusinessOverlay = function () {
             me.content.map.removeOverlay(me.data.businessOverlay);
@@ -548,7 +716,7 @@
                 tileUrl: '/tiles/businesses/',
                 tileParams: data
             });
-            me.content.map.addOverlay(me.data.businessOverlay);
+            me.content.map.addOverlay(me.data.businessOverlay, 1);
         };
 
 
@@ -801,465 +969,6 @@
 
         };
       
-
-        /*
-
-      
-
-          
-
-            me[index].content.map.fitBounds(me.data.cityBoundingBox);
-            me[index].content.map.addEventListener('click', function (e) { mapClicked(index, { lat: e.latLng.lat(), lng: e.latLng.lng() }); });
-
-            bindIndustryList(index);
-        };
-
-
-        var activateTab = function (index) {
-            me['competitor'].tab.removeClass('active');
-            me['buyer'].tab.removeClass('active');
-            me['supplier'].tab.removeClass('active');
-            me['supplier'].content.container.hide();
-            me['buyer'].content.container.hide();
-            me['competitor'].content.container.hide();
-            me[index].content.container.show();
-            me[index].tab.addClass('active');
-        };
-
-
-        var showTab = function (index) {
-            me[index].tab.show();
-        };
-
-        var hideTab = function (index) {
-            me[index].tab.hide();
-        };
-
-        var showQuestion = function (index) {
-            me[index].question.show();
-        };
-
-        var hideQuestion = function (index) {
-            me[index].question.hide();
-        };
-
-
-        var showPicker = function (index) {
-            me[index].picker.container.show();
-            me.activePickerIndex = index;
-            setupPicker(index);
-        };
-
-        var slideInPicker = function (index, callback) {
-            me[index].picker.container.show(
-               "slide",
-               { direction: "right" },
-               me.opts.slideTime,
-           callback);
-
-            me[index].picker.container.slideDown(me.opts.slideTime, callback);
-            me.activePickerIndex = index;
-            setupPicker(index);
-        };
-
-        var slideOutPicker = function (index, callback) {
-            me[index].picker.container.hide(
-              "slide",
-              { direction: "right" },
-              me.opts.slideTime,
-          callback);
-
-            me[index].picker.container.slideUp(me.opts.slideTime, callback);
-            me.activePickerIndex = null;
-        };
-
-
-        var showContent = function (index) {
-            if (me.data[index].businesses.isStale) {
-                loadBusinesses(index);
-            }
-            me[index].content.container.show();
-            me[index].content.map.triggerEvent('resize');
-            me.activeContentIndex = index;
-        };
-
-        var hideContent = function (index) {
-            me[index].content.container.hide();
-        };
-
-        var slideInContent = function (index, callback) {
-            if (me.data[index].businesses.isStale) {
-                loadBusinesses(index);
-            }
-            me[index].content.container.show(
-               "slide",
-               { direction: "left" },
-               me.opts.slideTime,
-               function () {
-                   me[index].content.map.triggerEvent('resize');
-                   if (callback) {
-                       callback();
-                   }
-               }
-           );
-            if (callback) {
-                callback();
-            }
-            me[index].content.container.show();
-            me[index].content.map.triggerEvent('resize');
-           me.activeContentIndex = index;
-        };
-
-        var slideOutContent = function (index, callback) {
-            me[index].content.container.hide(
-                "slide",
-                { direction: "left" },
-                me.opts.slideTime,
-            callback);
-
-            if (callback) {
-                callback();
-            }
-        };
-
-        var getActiveIds = function (index) {
-            var activeIndexes = me[index].content.map.getActiveIndexes();
-            var ids = [];
-            for (var x in activeIndexes) {
-                if (activeIndexes[x]) {
-                    ids = ids.concat(getIndustryIds(x));
-                }
-            }
-            return ids;
-        };
-
-        var mapClicked = function (index, latLng) {
-            var ids = getActiveIds(index);
-            dataLayer.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(index, data); });
-        };
-
-
-        var tabClicked = function (index) {
-            if (me.activePickerIndex != null) {
-                slideOutPicker(me.activePickerIndex, function () {
-                    slideInContent(index);
-                });
-            }
-            else {
-                hideContent(me.activeContentIndex);
-                showContent(index);
-            }
-            activateTab(index);
-        };
-
-        var changeClicked = function (index) {
-            slideOutContent(index, function () {
-                slideInPicker(index);
-            });
-        };
-
-        var cancelClicked = function (index) {
-            slideOutPicker(index, function () {
-                slideInContent(me.activeContentIndex);
-            });
-        };
-
-        var submitClicked = function (index) {
-            if (me.data[index].businesses.isStale) {
-                me.data[index].industries = me.data[index].pickerIndustries;
-                var ids = extractIds(me.data[index].industries);
-                var obj = {};
-                obj[index] = ids;
-                jQuery.bbq.pushState(obj);
-                me[index].content.pager.gotoPage(1);
-                bindIndustryList(index);
-                updateMaps();           
-            }
-            slideOutPicker(index, function () {
-                slideInContent(index, function () {
-                    showTab(index);
-                    activateTab(index);
-                    hideQuestion(index);
-                });
-            });
-
-           
-        };
-
-        var questionClicked = function (index) {
-            if (me.activePickerIndex != null) {
-                slideOutPicker(me.activePickerIndex, function () {
-                    slideInPicker(index);
-                });
-            }
-            else {
-                slideOutContent(me.activeContentIndex, function () {
-                    slideInPicker(index);
-                });
-            }
-        };
-
-        var updateMaps = function () {
-            var obj = {
-                competitorIndustryIds: getIndustryIds('competitor'),
-                buyerIndustryIds: getIndustryIds('buyer'),
-                supplierIndustryIds: getIndustryIds('supplier')
-            };
-            clearPins('competitor');
-            clearPins('buyer');
-            clearPins('supplier');
-            me['competitor'].content.map.setIndustryIds(obj);
-            me['buyer'].content.map.setIndustryIds(obj);
-            me['supplier'].content.map.setIndustryIds(obj);
-        };
-
-
-        var setupPicker = function (index) {
-            new sizeup.core.analytics().competitionIndustryPickerClicked({ tab: index });
-
-            me.data[index].pickerIndustries = me.data[index].industries;
-            me[index].picker.list.empty();
-            for (var x in me.data[index].pickerIndustries) {
-                bindPickerIndustry(index, me.data[index].pickerIndustries[x]);
-            }
-        };
-
-        var bindPickerIndustry = function (index, item) {
-            var i = templates.bind(templates.get(index + 'PickerItem'), item);
-            me[index].picker.list.append(i);
-        };
-
-        var industryPicked = function (index, item) {
-            if(!me.data[index].pickerIndustries[item.Id]){
-                me.data[index].pickerIndustries[item.Id] = item;
-                bindPickerIndustry(index, item);
-                me.data[index].businesses.isStale = true;
-            }
-            me[index].picker.selector.setSelection(null);
-        };
-
-        var industryRemoved = function (index, id) {
-            me.data[index].businesses.isStale = true;
-            delete me.data[index].pickerIndustries[id];
-        };
-
-        var pagerOnUpdate = function (index, data) {
-            loadBusinesses(index);
-        };
-
-        var extractIds = function (array) {
-            var ar = new Array();
-            for (var x in array) {
-                ar.push(array[x].Id);
-            }
-            return ar;
-        };
-
-        var getIndustryIds = function (index) {
-            var ar = new Array();
-            ar = ar.concat(extractIds(me.data[index].industries));
-            if (me.data[index].primaryIndustry) {
-                ar.push(me.data[index].primaryIndustry);
-            }
-            return ar;
-        };
-
-
-        var bindIndustryList = function (index) {           
-            var html = '';
-            for (var x in me.data[index].industries) {
-                html = html + templates.bind(templates.get(index + 'IndustryItem'), me.data[index].industries[x]);
-            }
-            if (me.data[index].industries.length > 0) {
-                me[index].content.industryMessage.show();
-            }
-            else {
-                me[index].content.industryMessage.hide();
-            }
-            me[index].content.industryList.html(html);
-        };
-
-        var loadBusinesses = function (index) {
-            me[index].content.loader.show();
-            me[index].content.businessList.hide();
-            me[index].content.pager.hide();
-            var pagerData = me[index].content.pager.getPageData();
-            dataLayer.getBusinessesByIndustry({
-                industryIds: getIndustryIds(index),
-                placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                itemCount: me.opts.itemsPerPage,
-                page: pagerData.page
-            }, function (data) {
-                me.data[index].businesses.isStale = false;
-                bindBusinesses(index, data);
-                me[index].content.loader.hide();
-            });
-        };
-
-        var bindBusinesses = function (index, data) {
-            new sizeup.core.analytics().competitionTabLoaded({ tab: index });
-
-            me[index].content.noResults.hide();
-            me[index].content.pager.setState(data);
-            if (me.data[index].signinPanel.templateText) {
-                me[index].content.signinPanel.toggle.html(templates.bind(me.data[index].signinPanel.templateText, me[index].content.pager.getPageData()));
-                me[index].content.signinPanel.toggle.show();
-            }
-
-            if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
-                me[index].content.pager.show();
-            }
-            else {
-                me[index].content.pager.hide();
-            }
-            me.data[index].businesses.items = {};
-            clearMarkers(index);
-            var viewBounds = new sizeup.maps.latLngBounds();
-            var html = '';
-            for (var x = 0; x < data.Items.length;x++) {
-                var template = templates.get(index + 'BusinessItem');
-                html = html + templates.bind(template, { index: x + 1, business: data.Items[x] });
-
-                var marker = createMarker(index, data.Items[x], x + 1);
-                me.data[index].businesses.items[data.Items[x].Id] = data.Items[x];
-                me.data[index].businesses.markers[data.Items[x].Id] = marker;
-                viewBounds.extend(marker.getPosition());
-            };
-            if (data.Count == 0) {
-                viewBounds = me.data.cityBoundingBox;
-                me[index].content.noResults.show();
-                me[index].content.signinPanel.toggle.hide();
-                me[index].content.pager.hide();
-            }
-            me[index].content.map.fitBounds(viewBounds);
-            me[index].content.businessList.html(html);
-            me[index].content.businessList.show();
-        };
-
-        var getPinColor = function (index, id) {
-            var color = '';
-            var activeIndexes = me[index].content.map.getActiveIndexes();
-            if (activeIndexes['supplier']) {
-                var ids = getIndustryIds('supplier');
-                for (var x in ids) {
-                    if (ids[x] == id) {
-                        color = me.data['supplier'].color;
-                    }
-                }
-            }
-            if (activeIndexes['buyer']) {
-                ids = getIndustryIds('buyer');
-                for (var x in ids) {
-                    if (ids[x] == id) {
-                        color = me.data['buyer'].color;
-                    }
-                }
-            }
-            if (activeIndexes['competitor']) {
-                ids = getIndustryIds('competitor');
-                for (var x in ids) {
-                    if (ids[x] == id) {
-                        color = me.data['competitor'].color;
-                    }
-                }
-            }
-            return color;
-        };
-
-        var createPin = function(index, business){
-            var marker = new sizeup.maps.imagePin({
-                position: new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }),
-                color: getPinColor(index, business.IndustryId)
-            });
-            me.data[index].businesses.pins[business.Id] = { business: business, pin: marker };
-            me[index].content.map.addMarker(marker);
-            createInfoWindow(index, business, marker, true);
-            marker.bindEvent('click', function () {
-                createInfoWindow(index, business, marker, true);
-
-            });
-        };
-
-        var createMarker = function (index, business, label) {
-            var marker = new sizeup.maps.imageMarker({
-                position: new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }),
-                section: index,
-                index: label
-            });
-            marker.bindEvent('click', function () {
-                createInfoWindow(index, business, marker);
-                
-            });
-            marker.bindEvent('dblclick', function () {
-                me[index].content.map.setZoom(28);
-                createInfoWindow(index, business, marker);
-            });
-            me[index].content.map.addMarker(marker);
-            return marker;
-        };
-
-
-
-        var createInfoWindow = function (index, business, marker, isPin) {
-            var content = templates.bind(templates.get(index + 'InfoWindow'), business);
-            var jContent = $(content);
-            if (me.data[index].businesses.infoWindow) {
-                me.data[index].businesses.infoWindow.close();
-            }
-            me.data[index].businesses.infoWindow = new sizeup.maps.infoWindow({
-                content: jContent.get(0)
-            });
-            me.data[index].businesses.infoWindow.open(me[index].content.map, marker);
-
-            jContent.find('.tools .zoom').click(function (e) {
-                e.stopPropagation();
-                me[index].content.map.setCenter(new sizeup.maps.latLng({ lat: business.Lat, lng: business.Lng }));
-                me[index].content.map.setZoom(24);
-            });
-
-            if (isPin) {
-                jContent.find('.tools .remove').click(function (e) {
-                    e.stopPropagation();
-                    removePin(index, business.Id);
-                });
-            }
-            else {
-                jContent.find('.tools .remove').remove();
-            }
-        };
-
-        var clearMarkers = function (index) {
-            for (var x in me.data[index].businesses.markers) {
-                me[index].content.map.removeMarker(me.data[index].businesses.markers[x]);
-            }
-            me.data[index].businesses.markers = {};
-        };
-
-        var collectAllIndustryIds = function () {
-            var ids = [];
-            ids = ids.concat(getIndustryIds('competitor'));
-            ids = ids.concat(getIndustryIds('buyer'));
-            ids = ids.concat(getIndustryIds('supplier'));
-            return ids;
-        };
-
-        var clearPins = function (index) {
-            var ids = collectAllIndustryIds();
-            for (var x in me.data[index].businesses.pins) {
-                for (var y in ids) {
-                    if (me.data[index].businesses.pins[x].business.IndustryId == ids[y]) {
-                        me[index].content.map.removeMarker(me.data[index].businesses.pins[x].pin);
-                        delete me.data[index].businesses.pins[x];
-                    }
-                }
-            }
-        };
-
-        var removePin = function(index, id){
-            me[index].content.map.removeMarker(me.data[index].businesses.pins[id].pin);
-            delete me.data[index].businesses.pins[id];
-        };
-        */
 
         var publicObj = {
 

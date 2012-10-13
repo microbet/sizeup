@@ -11,6 +11,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
@@ -95,8 +96,8 @@
                 </ul>
         
                 <p class="competitor">Add additional categories of businesses that compete with you:</p>
-                <p class="buyer">NEED BUYER TEXT:</p>
-                <p class="supplier">NEED SUPPLIER TEXT:</p>
+                <p class="buyer">Add categories of businesses that buy from you:</p>
+                <p class="supplier">Add categories of businesses that sell to you:</p>
                 <input type="text" class="pickerInput" value="enter an industry" />
             </div>
 
@@ -154,14 +155,14 @@
         </div>
 
         <div class="mapWrapper container">
-            <div data-template="legendWrapper" class="legendWrapper">
-                <div class="titleWrap">
+
+                <div data-template="legendTitle" class="legend titleWrap">
                     <p class="backdrop title"><span class="text"></span></p>
                 </div>
-                <ul class="legendContainer backdrop">
+                <ul data-template="legendContainer" class="legend legendContainer backdrop">
                     <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
                 </ul>
-           </div>
+         
 
             <div data-template="infoWindow" class="infoWindow">
                 <h3>{{Name}}</h3>

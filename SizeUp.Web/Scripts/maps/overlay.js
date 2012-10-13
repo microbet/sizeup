@@ -5,7 +5,7 @@
 
 
         var defaults = {
-
+            opacity: 1
         };
         var me = {};
         me.opts = $.extend(true, defaults, opts);
@@ -24,7 +24,8 @@
                 }
                 return url;
             },
-            tileSize: new google.maps.Size(256, 256)
+            tileSize: new google.maps.Size(256, 256),
+            opacity: me.opts.opacity
         };
 
         me._native = new google.maps.ImageMapType(params)

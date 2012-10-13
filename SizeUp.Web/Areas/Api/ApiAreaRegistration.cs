@@ -526,6 +526,12 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "ConsumerExpenditures", action = "Variables", parentId = UrlParameter.Optional }
             );
 
+            context.MapRoute(
+                "ConsumerExpendituresVariable",
+                "Api/ConsumerExpenditures/Variable",
+                new { controller = "ConsumerExpenditures", action = "Variable" }
+            );
+
            
 
             /*****************default*****************/

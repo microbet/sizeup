@@ -12,6 +12,8 @@
         me.map = new google.maps.Map(me.container.get(0), me.opts.mapSettings);
         me._native = me.map;
 
+        me.overlays = {};
+
         var init = function () {
             google.maps.event.trigger(me.map, 'resize');
             if (me.opts.styles) {
@@ -35,8 +37,19 @@
         };
 
 
-        var addOverlay = function (overlay) {
+        var addOverlay = function (overlay, index) {
+            if (index == null) {
+                index = 0;
+            }
+
+            if (typeof (me.overlays[index]) == "undefined") {
+                me.overlays[index] = [];
+            }
+            me.overlays[index].push(overlay);
+            //see if we can implement some sort of zindexing thing here
             me._native.overlayMapTypes.push(overlay.getNative());
+
+            //for(
         };
 
         var removeOverlay = function (overlay) {
@@ -103,8 +116,14 @@
             marker.getNative().setMap(null);
         };
 
-        var addLegend = function (control) {
-            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(control.getContainer().get(0));
+        var addLegend = function (legend) {
+            clearLegend();
+            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend.getTitle().get(0));
+            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend.getLegend().get(0));
+        };
+
+        var clearLegend = function () {
+            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].clear();
         };
 
 
@@ -151,14 +170,17 @@
             removeMarker: function (marker) {
                 removeMarker(marker);
             },
-            addOverlay: function (overlay) {
-                addOverlay(overlay);
+            addOverlay: function (overlay, index) {
+                addOverlay(overlay, index);
             },
             removeOverlay: function (overlay) {
                 removeOverlay(overlay);
             },
-            addLegend: function (control) {
+            setLegend: function (control) {
                 addLegend(control);
+            },
+            clearLegend: function () {
+                clearLegend();
             }
 
         };

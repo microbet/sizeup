@@ -335,7 +335,24 @@
 
             getConsumerExpenditureVariables: function (params, callback) {
                 return get('/api/consumerExpenditures/variables/', params, callback);
-            }
+            },
+
+            getConsumerExpenditureVariable: function (params, callback) {
+                return get('/api/consumerExpenditures/variable/', params, callback);
+            },
+
+            getConsumerExpenditureBandsByState: function (params, callback) {
+                return get('/api/consumerExpenditures/bands/state/', params, callback);
+            },
+
+            getConsumerExpenditureBandsByCounty: function (params, callback) {
+                return get('/api/consumerExpenditures/bands/county/', params, callback);
+            },
+
+            getConsumerExpenditureBandsByZip: function (params, callback) {
+                return get('/api/consumerExpenditures/bands/zip/', params, callback);
+            },
+
 
 
 

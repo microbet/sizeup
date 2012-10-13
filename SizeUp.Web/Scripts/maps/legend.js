@@ -3,9 +3,7 @@
     sizeup.maps.legend = function (opts) {
 
         var defaults = {
-            container: $('<div></div>'),
             templates: new sizeup.core.templates(),
-            legendItemTemplateId: '',
             colors: [
                 '#F5F500',
                 '#F5CC00',
@@ -14,49 +12,50 @@
                 '#F55200',
                 '#F52900',
                 '#F50000'
-            ]
+            ],
+            title: '',
+            items:[],
+            format: function (val) { return val; }
         };
+
+    
 
         var me = {};
         me.opts = $.extend(true, defaults, opts);
+
+        me.legendContainer =  $(me.opts.templates.get('legendContainer'));
+        me.titleContainer = $(me.opts.templates.get('legendTitle'));
+        me.title = me.titleContainer.find('.title .text');
+
+
         
-        me.title = me.opts.container.find('.title .text');
-        me.legendContainer = me.opts.container.find('.legendContainer');
-
-        var getContainer = function () {
-            return me.opts.container;
-        };
-
-        var setLegend = function (items) {
-            var list = [];
-            if (items.length < me.opts.colors.length) {
-                for (var x = 0; x < items.length; x++) {
-                    var t = me.opts.templates.get(me.opts.legendItemTemplateId);
-                    list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: items[x].Min }));
-                }
+        var list = [];
+        if (me.opts.items.length < me.opts.colors.length) {
+            for (var x = 0; x < me.opts.items.length; x++) {
+                var t = me.opts.templates.get('legendItem');
+                list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) }));
             }
-            else {
-                for (var x = 0; x < items.length; x++) {
-                    var t = me.opts.templates.get(me.opts.legendItemTemplateId);
-                    list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: items[x].Min + ' - ' + items[x].Max }));
-                }
+        }
+        else {
+            for (var x = 0; x < me.opts.items.length; x++) {
+                var t = me.opts.templates.get('legendItem');
+                list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
             }
-            me.legendContainer.html(list.reverse().join(''));
-        };
+        }
+        me.legendContainer.html(list.reverse().join(''));
+        me.title.html(me.opts.title);
+      
+      
+       
 
-        var setTitle = function (title) {
-            me.title.html(title);
-        };
+
 
         var publicObj = {
-            getContainer: function () {
-                return getContainer();
+            getLegend: function () {
+                return me.legendContainer;
             },
-            setLegend: function (items) {
-                setLegend(items);
-            },
-            setTitle: function (title) {
-                setTitle(title);
+            getTitle: function () {
+                return me.titleContainer;
             }
 
         };

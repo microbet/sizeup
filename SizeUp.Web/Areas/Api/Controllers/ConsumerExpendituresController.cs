@@ -76,6 +76,25 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult Variable(int id)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = context.ConsumerExpenditureVariables
+                    .Where(i => i.Id == id)
+                    .Select(i => new
+                    {
+                        i.Id,
+                        i.ParentId,
+                        i.Description,
+                        i.Variable,
+                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
+                    })
+                    .FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
 
