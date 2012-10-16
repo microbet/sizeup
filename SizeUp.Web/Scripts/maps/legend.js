@@ -26,7 +26,7 @@
         me.legendContainer =  $(me.opts.templates.get('legendContainer'));
         me.titleContainer = $(me.opts.templates.get('legendTitle'));
         me.title = me.titleContainer.find('.title .text');
-
+        me.legend = me.legendContainer.find('.legendContainer');
 
         
         var list = [];
@@ -42,7 +42,7 @@
                 list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
             }
         }
-        me.legendContainer.html(list.reverse().join(''));
+        me.legend.html(list.reverse().join(''));
         me.title.html(me.opts.title);
       
       

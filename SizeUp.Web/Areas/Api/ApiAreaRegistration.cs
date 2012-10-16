@@ -538,6 +538,12 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "ConsumerExpenditures", action = "VariablePath" }
             );
 
+            context.MapRoute(
+                "ConsumerExpendituresVariableCrosswalk",
+                "Api/ConsumerExpenditures/VariableCrosswalk",
+                new { controller = "ConsumerExpenditures", action = "VariableCrosswalk" }
+            );
+
            
 
             /*****************default*****************/

@@ -160,11 +160,20 @@
         <div class="mapWrapper container">
 
                 <div data-template="legendTitle" class="legend titleWrap">
-                    <p class="backdrop title"><span class="text"></span></p>
+                    <p class="backdrop edge title"><span class="text"></span></p>
                 </div>
-                <ul data-template="legendContainer" class="legend legendContainer backdrop">
-                    <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
-                </ul>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <label for="ceTotals">Totals</label>
+                    <input type="radio" id="ceTotals" name="ceRoot" value="1" class="ceType" />
+
+                     <label for="ceAverage">Averages</label>
+                    <input type="radio" id="ceAverage" name="ceRoot" value="2" class="ceType" />
+
+
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
          
 
             <div data-template="infoWindow" class="infoWindow">

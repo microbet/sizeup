@@ -140,6 +140,31 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        public ActionResult VariableCrosswalk(int id)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var current = context.ConsumerExpenditureVariables
+                    .Where(i => i.Id == id)
+                    .Select(i =>i.Variable);
+
+
+                var data = context.ConsumerExpenditureVariables
+                    .Where(i => i.Variable == (current.FirstOrDefault().Substring(0,1) == "X" ? "T" + current.FirstOrDefault().Substring(1) : "X" + current.FirstOrDefault().Substring(1)))
+                    .Select(i => new
+                    {
+                        i.Id,
+                        i.ParentId,
+                        i.Description,
+                        i.Variable,
+                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
+                    })
+                    .FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
 

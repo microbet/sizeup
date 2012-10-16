@@ -345,6 +345,10 @@
                 return get('/api/consumerExpenditures/variablePath/', params, callback);
             },
 
+            getConsumerExpenditureVariableCrosswalk: function (params, callback) {
+                return get('/api/consumerExpenditures/variableCrosswalk/', params, callback);
+            },
+
             getConsumerExpenditureBandsByState: function (params, callback) {
                 return get('/api/consumerExpenditures/bands/state/', params, callback);
             },

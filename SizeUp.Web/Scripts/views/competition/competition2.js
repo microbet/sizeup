@@ -94,6 +94,9 @@
 
       
 
+        dataLayer.getConsumerExpenditureVariableCrosswalk({ id: 5 });
+
+
 
         var init = function () {
             me.content = {};
@@ -193,6 +196,7 @@
             me.content.tabs.supplier.find('a').click(function () { activateTab('supplier'); });
             me.content.tabs.competitor.find('a').click(function () { activateTab('competitor'); });
 
+            me.container.find('.map').delegate('input[name=ceRoot]', 'change', consumerExpenditureTypeChanged);
 
             me.content.mapControls.filterItems.change(mapFilterChanged);
 
@@ -219,6 +223,7 @@
             me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').attr('checked', 'checked');
             me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').change();
           
+
             if (me.data.consumerExpenditure.currentSelection != null) {
                 loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
                 setHeatmap(me.data.consumerExpenditure.currentSelection);
@@ -232,6 +237,19 @@
          
         //////event actions//////////////////
      
+        var consumerExpenditureTypeChanged = function (e) {
+            var target = $(e.target);
+            me.data.consumerExpenditure.rootId = target.attr('value');
+
+            dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection }, function (data) {
+                me.data.consumerExpenditure.currentSelection = data.Id;
+                loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
+                setHeatmap(me.data.consumerExpenditure.currentSelection);
+                getLegendData();
+                pushUrlState();
+            });
+        };
+
         var mapZoomUpdated = function () {
             checkMapFilterZoom();          
             getLegendData();
@@ -428,6 +446,10 @@
                 format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
             });
             me.content.map.setLegend(me.data.consumerExpenditure.legend);
+
+
+            var radio = me.container.find('.map input[name=ceRoot][value=' + me.data.consumerExpenditure.rootId + ']');
+            radio.attr('checked', 'checked');
 
         };
 
@@ -648,7 +670,7 @@
         var getLegendData = function () {
             var z = me.content.map.getZoom();
             var ceType = me.data.consumerExpenditure.rootId == 1 ? 'Totals' : 'Averages';
-            if (me.data.consumerExpenditure.currentSelection != null && z != me.data.consumerExpenditure.legendZoomLevel) {
+            if (me.data.consumerExpenditure.currentSelection != null /*&& z != me.data.consumerExpenditure.legendZoomLevel*/) {
                 me.data.consumerExpenditure.legendZoomLevel = z;
                 var data = {
                     title: '',
