@@ -6,7 +6,8 @@
         var defaults = {
             itemsPerPage: 10,
             dblClickZoom: 18,
-            mapRadius:100
+            mapRadius: 100,
+            mapFilterZoomThreshold: 12
         };
         var me = {};
         
@@ -16,6 +17,8 @@
             activeIndex: 'competitor',
             businessOverlay: null,
             infoWindow: null,
+            activeMapFilter: 'all',
+            currentMapFilter: 'all', 
             pins: {},
             markers:{},
             competitor: {
@@ -41,7 +44,6 @@
                 activeOverlays: [],
                 rootId: 1,
                 currentSelection: null,
-                legendZoomLevel: 0,
                 legend: null
             }
         };
@@ -82,11 +84,14 @@
         }
         if (params.consumerExpenditureVariable) {
             me.data.consumerExpenditure.currentSelection = params.consumerExpenditureVariable;
-            //fire request for path
         }
         if (params.activeTab) {
             me.data.activeIndex = params.activeTab;
         }
+        if (params.activeMapFilter) {
+            me.data.activeMapFilter = params.activeMapFilter;
+        }
+
       
 
 
@@ -111,9 +116,10 @@
             me.content.mapControls = {
                 container: me.container.find('.mapControls.container'),
                 filter: me.container.find('.mapControls.container .mapFilter').hide().removeClass('hidden'),
+                filterItems: me.container.find('.mapControls.container .mapFilter input[name=mapFilter]'),
                 consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures')
             };
-
+            me.content.mapControls.filter.find('.zoomMessage').hide();
 
             me.content.map = new sizeup.maps.map({
                 container: me.container.find('.mapWrapper.container .map')
@@ -139,7 +145,8 @@
                 close: me.content.container.find('.mapControls.container .consumerExpenditurePicker .close'),
                 menu: me.content.container.find('.mapControls.container .menu'),
                 selectionList: me.content.container.find('.mapControls.container .consumerExpenditurePicker .selection'),
-                childList: me.content.container.find('.mapControls.container .consumerExpenditurePicker .children')
+                childList: me.content.container.find('.mapControls.container .consumerExpenditurePicker .children'),
+                loading: me.content.container.find('.mapControls.container .consumerExpenditurePicker .loading').hide().removeClass('hidden')
             };
 
 
@@ -187,7 +194,7 @@
             me.content.tabs.competitor.find('a').click(function () { activateTab('competitor'); });
 
 
-            me.content.mapControls.filter.find('input[name=mapFilter]').click(mapFilterClicked);
+            me.content.mapControls.filterItems.change(mapFilterChanged);
 
             me.data.competitor.pageData = me.content.pager.getPageData();
             me.data.supplier.pageData = me.content.pager.getPageData();
@@ -208,22 +215,32 @@
             }
             activateTab(me.data.activeIndex);
 
-
-
-            ///temp to get cs menu loading
-            loadCsVariables(me.data.consumerExpenditure.rootId);
+            
+            me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').attr('checked', 'checked');
+            me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').change();
+          
+            if (me.data.consumerExpenditure.currentSelection != null) {
+                loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
+                setHeatmap(me.data.consumerExpenditure.currentSelection);
+                getLegendData();
+            }
+            else {
+                loadConsumerExpenditureVariables(me.data.consumerExpenditure.rootId);
+            }
         };
 
          
         //////event actions//////////////////
      
         var mapZoomUpdated = function () {
-            checkMapFilterZoom();
-            
+            checkMapFilterZoom();          
             getLegendData();
         };
 
-        var mapFilterClicked = function () {
+        var mapFilterChanged = function (e) {
+            var target = $(e.target);
+            me.data.activeMapFilter = target.attr('data-index');
+            pushUrlState();
             setBusinessOverlay();
         };
 
@@ -281,7 +298,7 @@
         var consumerExpenditureStartOverClicked = function (e) {
             me.content.ConsumerExpenditure.selectionList.empty();
             me.data.consumerExpenditure.currentSelection = null;
-            loadCsVariables(me.data.consumerExpenditure.rootId);
+            loadConsumerExpenditureVariables(me.data.consumerExpenditure.rootId);
             setHeatmap(null);
             pushUrlState();
             e.stopPropagation();
@@ -298,10 +315,9 @@
             item.nextAll().remove();
             var id = a.attr('data-id');
             me.data.consumerExpenditure.currentSelection = id;
-            me.data.consumerExpenditure.legendZoomLevel = 0;
             setHeatmap(id);
             getLegendData();
-            loadCsVariables(id);
+            loadConsumerExpenditureVariables(id);
             pushUrlState();
             e.stopPropagation();
         };
@@ -312,11 +328,10 @@
             item.remove();
             var id = a.attr('data-id');
             me.data.consumerExpenditure.currentSelection = id;
-            me.data.consumerExpenditure.legendZoomLevel = 0;
             me.content.ConsumerExpenditure.selectionList.append(item);
             setHeatmap(id);
             getLegendData();
-            loadCsVariables(id);
+            loadConsumerExpenditureVariables(id);
             pushUrlState();
             e.stopPropagation();
         };
@@ -424,15 +439,20 @@
 
         var checkMapFilterZoom = function () {
             var z = me.content.map.getZoom();
-            //TODO map 12 a parameter
-
-            //persist current selection so that we can set value if they zoom in again 
-            //need to change state of all text and disable everything
-            if (z < 12) {
-                me.content.mapControls.filter.find('input[name=mapFilter]').val('all');
+            var allBox = me.content.mapControls.filter.find('input[data-index=all]');
+            if (z < me.opts.mapFilterZoomThreshold) {
+               
+                me.content.mapControls.filter.find('.zoomMessage').show();
+                allBox.attr('disabled', 'disabled');
+                if (me.data.activeMapFilter == 'all') {
+                    me.content.mapControls.filter.find('input[data-index=' + me.data.activeIndex + ']').attr('checked','checked');
+                    me.content.mapControls.filter.find('input[data-index=' + me.data.activeIndex + ']').change();
+                }
             }
-            else {
-
+            else if (z >= me.opts.mapFilterZoomThreshold) {
+     
+                allBox.removeAttr('disabled');
+                me.content.mapControls.filter.find('.zoomMessage').hide();
             }
         };
 
@@ -472,10 +492,25 @@
             pushUrlState();
         };
 
-        var loadCsVariables = function (parentId) {
+        var loadConsumerExpenditureSelection = function (id) {
+
+            dataLayer.getConsumerExpenditureVariablePath({ id: id }, function (data) {
+                var html = '';
+                //removes the root node as we arent using that
+                data.shift();
+                for (var x in data) {
+                    html = html + templates.bind(templates.get('consumerExpenditureListItem'), data[x]);
+                }
+                me.content.ConsumerExpenditure.selectionList.html(html);
+            });
+            loadConsumerExpenditureVariables(id);
+        };
+
+        var loadConsumerExpenditureVariables = function (parentId) {
             me.content.ConsumerExpenditure.childList.empty();
-            //toggle load icon
+            me.content.ConsumerExpenditure.loading.show();
             dataLayer.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
+                me.content.ConsumerExpenditure.loading.hide();
                 var html = '';
                 for (var x in data) {
                     html = html + templates.bind(templates.get('consumerExpenditureListItem'), data[x]);
@@ -612,7 +647,7 @@
 
         var getLegendData = function () {
             var z = me.content.map.getZoom();
-
+            var ceType = me.data.consumerExpenditure.rootId == 1 ? 'Totals' : 'Averages';
             if (me.data.consumerExpenditure.currentSelection != null && z != me.data.consumerExpenditure.legendZoomLevel) {
                 me.data.consumerExpenditure.legendZoomLevel = z;
                 var data = {
@@ -626,7 +661,7 @@
 
                 if (z <= 16 && z >= 12) {
 
-                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by zip code in ' + me.opts.CurrentInfo.CurrentPlace.County.Name + ', ' +  me.opts.CurrentInfo.CurrentPlace.State.Name; });
+                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by zip code in ' + me.opts.CurrentInfo.CurrentPlace.County.Name + ', ' +  me.opts.CurrentInfo.CurrentPlace.State.Name; });
 
 
                     dataLayer.getConsumerExpenditureBandsByZip(
@@ -639,7 +674,7 @@
                 if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
                     if (z <= 11 && z >= 10) {
 
-                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.Metro.Name; });
+                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.Metro.Name; });
 
 
 
@@ -650,7 +685,7 @@
 
                     if (z <= 9 && z >= 5) {
 
-                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
+                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
 
 
 
@@ -662,7 +697,7 @@
                 else {
                     if (z <= 11 && z >= 5) {
 
-                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
+                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
 
 
 
@@ -675,7 +710,7 @@
                 
                 if (z <= 4 && z >= 0) {
 
-                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure Totals for ' + d.Description + ' by state in USA' });
+                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by state in USA' });
 
 
                     dataLayer.getConsumerExpenditureBandsByState(
@@ -700,7 +735,7 @@
             data.supplierIndustryIds = getIndustryIdArray('supplier');
             data.buyerIndustryIds = getIndustryIdArray('buyer');
 
-            var filterValue = me.content.mapControls.filter.find('input[name=mapFilter]:checked').val();
+            var filterValue = me.data.activeMapFilter;
 
             if (data.supplierIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'supplier')) {
                 delete data.supplierIndustryIds;
@@ -738,10 +773,17 @@
                 data.buyer = buyers;
             }
             if (me.data.consumerExpenditure.currentSelection != null) {
-                data.consumerExpenditure = me.data.consumerExpenditure.currentSelection;
+                data.consumerExpenditureVariable = me.data.consumerExpenditure.currentSelection;
+            }
+            if (me.data.consumerExpenditure.rootId != null) {
+                data.rootId = me.data.consumerExpenditure.rootId;
+            }
+            if (me.data.activeMapFilter != null) {
+                data.activeMapFilter = me.data.activeMapFilter;
             }
             data.activeTab = me.data.activeIndex;
- 
+
+
             jQuery.bbq.pushState(data, 2);
         };
 

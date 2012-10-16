@@ -273,7 +273,7 @@
     <Content Include="Content\base.css" />
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
-    <Content Include="Content\images\btn_close.gif" />
+    <Content Include="Content\images\btn_close.png" />
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\dashboardIcons.png" />
     <Content Include="Content\images\dashbuttons.png" />
@@ -298,6 +298,8 @@
     <Content Include="Content\images\markerHighlightSupplier.png" />
     <Content Include="Content\images\markerShadow.png" />
     <Content Include="Content\images\markerSupplier.png" />
+    <Content Include="Content\images\menuArrow.png" />
+    <Content Include="Content\images\menuTriangle.png" />
     <Content Include="Content\images\mybusiness.png" />
     <Content Include="Content\images\pinShadow.png" />
     <Content Include="Content\images\PinTemplate.png" />

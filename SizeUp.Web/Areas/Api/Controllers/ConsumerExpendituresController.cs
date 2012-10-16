@@ -95,6 +95,51 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult VariablePath(int id)
+        {
+            /* 
+                i know what youre thinking.... and you are absolutely correct. I should be shot/hung/beaten/tortured/unthinkable
+                i hated myself while i did this
+                i wanted to commit sepiku
+                i died a little inside
+                it does work...and its not unbearibly slow
+                so unless something comes to light that this is breaking the server....ill leave as is
+                trying to pretend that it was only a dream
+                hoping noone will notice
+                wishing there was another way (without stored sprocs)
+                OMG LOOK UNICORNS!
+                arent you supposed to be looking at some other method?
+                i think so....
+                nothing to see here, move along
+                        
+            */
+ 
+
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                List<ConsumerExpenditureVariable> vars = new List<ConsumerExpenditureVariable>();
+                ConsumerExpenditureVariable v = context.ConsumerExpenditureVariables.Where(i => i.Id == id).FirstOrDefault();
+                vars.Add(v);
+                while(v.ParentId!=null){
+                v = context.ConsumerExpenditureVariables.Where(i => i.Id == v.ParentId).FirstOrDefault();
+                    vars.Add(v);
+                }
+
+                var data = vars.Select(i => new
+                    {
+                        i.Id,
+                        i.ParentId,
+                        i.Description,
+                        i.Variable,
+                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
+                    })
+                    .Reverse()
+                    .ToList();
+                    
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
 
