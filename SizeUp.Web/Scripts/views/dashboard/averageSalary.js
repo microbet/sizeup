@@ -142,7 +142,215 @@
                 });
             }
         };
-      
+
+
+        var setHeatmap = function () {
+            
+            var overlays = [];
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/averageSalary/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 8,
+                    maxZoom: 32
+                }));
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/averageSalary/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 7
+                }));
+            }
+            else {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/averageSalary/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 32
+                }));
+            }
+
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/averageSalary/state/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 0,
+                maxZoom: 4
+            }));
+
+
+            me.map = new sizeup.maps.map({
+                container: me.container.find('.mapWrapper.container .map')
+            });
+            me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.map.setZoom(12);
+            me.map.addEventListener('zoom_changed', mapZoomUpdated);
+
+            for (var x in overlays) {
+                me.map.addOverlay(overlays[x], 0);
+            }
+
+            setLegend();
+
+            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
+            me.textAlternative.click(textAlternativeClicked);
+        };
+
+        var setLegend = function () {
+
+            var data = {
+                    title: '',
+                    items:[]
+                };
+            var z = me.map.getZoom();
+
+            var notify = new sizeup.core.notifier(function () {
+
+                    var legend = new sizeup.maps.legend({
+                        templates: templates,
+                        title: data.title,
+                        items: data.items,
+                        colors: [
+                        '#F5F500',
+                        '#F5CC00',
+                        '#F5A300',
+                        '#F57A00',
+                        '#F55200',
+                        '#F52900',
+                        '#F50000'
+                        ],
+                        format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
+                    });
+                    me.map.setLegend(legend);
+            });
+
+
+
+            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
+
+
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+                if (z <= 32 && z >= 8) {
+                    data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
+                    me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
+                    me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
+                    dataLayer.getAverageSalaryBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        bands: 7
+                    }, itemsNotify);
+         
+           
+                }
+
+                if (z <= 7 && z >= 5) {
+                    data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
+                    dataLayer.getAverageSalaryBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+                }
+            }
+            else {
+                if (z <= 32 && z >= 5) {
+
+                    data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
+                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    dataLayer.getAverageSalaryBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+                     
+                }
+            }
+
+            if (z <= 4 && z >= 0) {
+
+                data.title = 'Average Salary by state in the USA';
+                me.data.textAlternativeUrl = '/accessibility/averageSalary/state/';
+                me.data.currentBoundingEntityId = null;
+                dataLayer.getAverageSalaryBandsByState({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+        };
+
+        var mapZoomUpdated = function () {
+            setLegend();
+        };
+
+        var textAlternativeClicked = function () {
+            var url = me.data.textAlternativeUrl;
+            var bounds = me.map.getBounds();
+            var data = {
+                bands: 7,
+                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                boundingEntityId: me.data.currentBoundingEntityId,
+                southWest: bounds.getSouthWest().toString(),
+                northEast: bounds.getNorthEast().toString()
+            };
+
+            window.open(jQuery.param.querystring(url, data), '_blank');
+
+        };
+
+
+
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
@@ -150,91 +358,8 @@
                 me.noData.hide();
                 me.reportData.show();
 
-                me.map = new sizeup.maps.heatMap({
-                    legendItemTemplate: templates.get('legendItem'),
-                    container: me.container.find('.reportContainer .map'),
-                    overlays:[
-                        {
-                            textAlternativeUrl: '/accessibility/averageSalary/state/?bands=7',
-                            tileUrl: "/tiles/averageSalary/state/",
-                            legendSource: function (callback) {
-                                return dataLayer.getAverageSalaryBandsByState({ 
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7 
-                                }, callback);
-                            },
-                            legendTitle: 'Average Salary by state in the USA',
-                            legendFormat: function(val){ return '$' + sizeup.util.numbers.format.abbreviate(val);},
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 0,
-                            maxZoom: 4,
-                            colors:[
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/averageSalary/county/?bands=7',
-                            tileUrl: "/tiles/averageSalary/county/",
-                            legendSource: function (callback) {
-                                return dataLayer.getAverageSalaryBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 5,
-                            maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/averageSalary/county/?bands=7',
-                            tileUrl: "/tiles/averageSalary/county/",
-                            legendSource:function (callback) {
-                                return dataLayer.getAverageSalaryBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback); 
-                            },
-                            legendTitle: 'Average Salary by county in ' + (me.opts.report.CurrentPlace.Metro.Id ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 9,
-                            maxZoom: 32,
-                            boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        }
-                    ]
-                });
-                me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
-                me.map.setZoom(12);
-
+                setHeatmap();
+                
                 me.chart = new sizeup.charts.barChart({
 
                     valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},

@@ -52,15 +52,16 @@
             <div class="sourceContent " data-expandedClass="expanded">
                 @Html.Raw(ViewBag.Strings["Dashboard.AverageEmployees.Source"])
             </div>
-            <div class="map heatmap">
-                <p class="title backdrop"></p>
-                <div class="legend backdrop">
-                    <ul class="legendContainer">
-                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
-                    </ul>
-                    <div class="bottom backdrop"></div>
+            <div class="mapWrapper container">
+                <div data-template="legendTitle" class="legend titleWrap">
+                    <p class="backdrop edge title"><span class="text"></span></p>
                 </div>
-                <div class="container"></div>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
+                <div class="map"></div>
                 <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
             </div>
         </div>
@@ -157,15 +158,16 @@
             <div class="sourceContent " data-expandedClass="expanded">
                 @Html.Raw(ViewBag.Strings["Dashboard.EmployeesPerCapita.Source"])
             </div>
-            <div class="map heatmap">
-                <p class="title backdrop"></p>
-                <div class="legend backdrop">
-                    <ul class="legendContainer">
-                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
-                    </ul>
-                    <div class="bottom backdrop"></div>
+            <div class="mapWrapper container">
+                <div data-template="legendTitle" class="legend titleWrap">
+                    <p class="backdrop edge title"><span class="text"></span></p>
                 </div>
-                <div class="container"></div>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
+                <div class="map"></div>
                 <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
             </div>
         </div>

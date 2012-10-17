@@ -47,7 +47,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Select(i => i.CountyId);
 
-                var displayGeos = Core.DataAccess.Geography.GetDisplayCounties(context, geoIds).ToList();
+                var displayGeos = Core.DataAccess.Geography.GetDisplayCounties(context, geoIds, zoom).ToList();
 
                 var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.CountyId, i => i.Id, (i, o) => o).ToList()).ToList();
                 var noData = displayGeos.Where(g => !data.Select(ig => ig.CountyId).Contains(g.Id)).ToList();
@@ -81,7 +81,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 var geoIds = Core.DataAccess.Geography.GetBoundingBoxedStates(context, BoundingBox)
                      .Select(i => i.StateId);
 
-                var displayGeos = Core.DataAccess.Geography.GetDisplayStates(context, geoIds).ToList();
+                var displayGeos = Core.DataAccess.Geography.GetDisplayStates(context, geoIds, zoom).ToList();
 
 
                 var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.StateId, i => i.Id, (i, o) => o).ToList()).ToList();

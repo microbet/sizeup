@@ -42,7 +42,7 @@
                 places = 1;
             }
             if (num < 10) {
-                return this.addCommas(num.toFixed(places));
+                return this.addCommas(Math.round(num));
             }
             else if (num >= 10 && num < 10000) {
                 return this.addCommas(Math.round(num));

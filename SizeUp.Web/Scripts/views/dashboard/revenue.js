@@ -148,6 +148,242 @@
             }
         };
 
+        var setHeatmap = function () {
+
+            var overlays = [];
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/averageRevenue/zip/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 12,
+                maxZoom: 32
+            }));
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/AverageRevenue/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 8,
+                    maxZoom: 11
+                }));
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/AverageRevenue/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 7
+                }));
+            }
+            else {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/AverageRevenue/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 11
+                }));
+            }
+
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/AverageRevenue/state/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 0,
+                maxZoom: 4
+            }));
+
+
+            me.map = new sizeup.maps.map({
+                container: me.container.find('.mapWrapper.container .map')
+            });
+            me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.map.setZoom(12);
+            me.map.addEventListener('zoom_changed', mapZoomUpdated);
+
+            for (var x in overlays) {
+                me.map.addOverlay(overlays[x], 0);
+            }
+
+            setLegend();
+
+            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
+            me.textAlternative.click(textAlternativeClicked);
+        };
+
+        var setLegend = function () {
+
+            var data = {
+                title: '',
+                items: []
+            };
+            var z = me.map.getZoom();
+
+            var notify = new sizeup.core.notifier(function () {
+
+                var legend = new sizeup.maps.legend({
+                    templates: templates,
+                    title: data.title,
+                    items: data.items,
+                    colors: [
+                    '#F5F500',
+                    '#F5CC00',
+                    '#F5A300',
+                    '#F57A00',
+                    '#F55200',
+                    '#F52900',
+                    '#F50000'
+                    ],
+                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
+                });
+                me.map.setLegend(legend);
+            });
+
+
+
+            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
+
+
+            if (z <= 32 && z >= 12) {
+                data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
+                me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.textAlternativeUrl = '/accessibility/revenue/zip/';
+                dataLayer.getAverageRevenueBandsByZip({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+                if (z <= 11 && z >= 8) {
+                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
+                    me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
+                    me.data.textAlternativeUrl = '/accessibility/revenue/county/';
+                    dataLayer.getAverageRevenueBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        bands: 7
+                    }, itemsNotify);
+
+
+                }
+
+                if (z <= 7 && z >= 5) {
+                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.textAlternativeUrl = '/accessibility/revenue/county/';
+                    dataLayer.getAverageRevenueBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+                }
+            }
+            else {
+                if (z <= 11 && z >= 5) {
+
+                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.textAlternativeUrl = '/accessibility/revenue/county/';
+                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    dataLayer.getAverageRevenueBandsByState({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+
+                }
+            }
+
+            if (z <= 4 && z >= 0) {
+
+                data.title = 'Average Business Annual Revenue by state in the USA';
+                me.data.textAlternativeUrl = '/accessibility/revenue/state/';
+                me.data.currentBoundingEntityId = null;
+                dataLayer.getAverageRevenueBandsByState({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+        };
+
+        var mapZoomUpdated = function () {
+            setLegend();
+        };
+
+        var textAlternativeClicked = function () {
+            var url = me.data.textAlternativeUrl;
+            var bounds = me.map.getBounds();
+            var data = {
+                bands: 7,
+                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                boundingEntityId: me.data.currentBoundingEntityId,
+                southWest: bounds.getSouthWest().toString(),
+                northEast: bounds.getNorthEast().toString()
+            };
+
+            window.open(jQuery.param.querystring(url, data), '_blank');
+
+        };
+
+
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
@@ -155,116 +391,9 @@
                 me.noData.hide();
                 me.reportData.show();
 
-                me.map = new sizeup.maps.heatMap({
-                    legendItemTemplate: templates.get('legendItem'),
-                    container: me.container.find('.reportContainer .map'),
-                    overlays: [
-                        {
-                            textAlternativeUrl: '/accessibility/revenue/state/?bands=7',
-                            tileUrl: "/tiles/AverageRevenue/state/",
-                            legendSource: function (callback) {
-                                return dataLayer.getAverageRevenueBandsByState({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7
-                                }, callback);
-                            },
-                            legendTitle: 'Average Business Annual Revenue by state in the USA',
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 0,
-                            maxZoom: 4,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/revenue/county/?bands=7',
-                            tileUrl: "/tiles/AverageRevenue/county/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getAverageRevenueBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 5,
-                            maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/revenue/county/?bands=7',
-                            tileUrl: "/tiles/AverageRevenue/county/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getAverageRevenueBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Business Annual Revenue by county in ' + (me.opts.report.CurrentPlace.Metro.Id ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 9,
-                            maxZoom: 11,
-                            boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/revenue/zip/?bands=7',
-                            tileUrl: "/tiles/AverageRevenue/zip/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getAverageRevenueBandsByZip({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation,
-                            legendFormat: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 12,
-                            maxZoom: 32,
-                            boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        }
-                    ]
-                });
-                me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
-                me.map.setZoom(12);
+                setHeatmap();
+
+
                 me.chart = new sizeup.charts.barChart({
 
                     valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },

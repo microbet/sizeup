@@ -54,8 +54,8 @@
 #dashboard .report .body .reportContainer .reportContent { display: inline-block; width: 56em; padding: 1em; margin:  0 0 1em 0; }
 #dashboard .report .body .reportContainer .reportContent .chart { display:block; text-align:right; margin: 1em 0 0 0; }
 #dashboard .report .body .reportContainer .reportContent .chart a {font-size: 0.9em; font-weight:bold; display: inline-block; margin: 0 0 0 1em; }
-#dashboard .report .body .reportContainer .reportContent .map{margin:  1em 0 0 0; display: block; }
-#dashboard .report .body .reportContainer .reportContent .map .container { height: 36em; }
+#dashboard .report .body .reportContainer .reportContent .mapWrapper.container {margin:  1em 0 0 0; display: block; }
+#dashboard .report .body .reportContainer .reportContent .mapWrapper.container .map { height: 36em; }
 #dashboard .report .body .reportContainer .reportContent .table { width: 100%; font-size: 1.3em; margin: 1em 0; }
 #dashboard .report .body .reportContainer .reportContent .table thead { font-weight: bold; border-bottom: 2px solid #ccc; color:#aaa; }
 #dashboard .report .body .reportContainer .reportContent .table thead .hint { font-size: 0.85em; }
@@ -145,4 +145,4 @@
 
 
 
-
+#dashboard .textAlternative { font-size: 1em; }

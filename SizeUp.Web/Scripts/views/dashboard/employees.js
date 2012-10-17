@@ -211,6 +211,481 @@
         };
 
 
+        var setAverageEmployeesHeatmap = function () {
+
+            var overlays = [];
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/averageEmployees/zip/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 12,
+                maxZoom: 32
+            }));
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/averageEmployees/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 8,
+                    maxZoom: 11
+                }));
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/averageEmployees/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 7
+                }));
+            }
+            else {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/averageEmployees/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 11
+                }));
+            }
+
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/averageEmployees/state/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 0,
+                maxZoom: 4
+            }));
+
+
+            me.averageEmployees.map = new sizeup.maps.map({
+                container: me.container.find('.averageEmployees .mapWrapper.container .map')
+            });
+            me.averageEmployees.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.averageEmployees.map.setZoom(12);
+            me.averageEmployees.map.addEventListener('zoom_changed', mapZoomAverageEmployeesUpdated);
+
+            for (var x in overlays) {
+                me.averageEmployees.map.addOverlay(overlays[x], 0);
+            }
+
+            setAverageEmployeesLegend();
+
+            me.averageEmployees.textAlternative = me.container.find('.averageEmployees .mapWrapper .textAlternative');
+            me.averageEmployees.textAlternative.click(textAlternativeAverageEmployeesClicked);
+        };
+
+        var setAverageEmployeesLegend = function () {
+
+            var data = {
+                title: '',
+                items: []
+            };
+            var z = me.averageEmployees.map.getZoom();
+
+            var notify = new sizeup.core.notifier(function () {
+
+                var legend = new sizeup.maps.legend({
+                    templates: templates,
+                    title: data.title,
+                    items: data.items,
+                    colors: [
+                    '#F5F500',
+                    '#F5CC00',
+                    '#F5A300',
+                    '#F57A00',
+                    '#F55200',
+                    '#F52900',
+                    '#F50000'
+                    ],
+                    format: function (val) { return sizeup.util.numbers.format.abbreviate(val); }
+                });
+                me.averageEmployees.map.setLegend(legend);
+            });
+
+
+
+            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
+
+
+            if (z <= 32 && z >= 12) {
+                data.title = 'Average Employees per business by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
+                me.data.averageEmployees.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/zip/';
+                dataLayer.getAverageEmployeesBandsByZip({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+                if (z <= 11 && z >= 8) {
+                    data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
+                    me.data.averageEmployees.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
+                    me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
+                    dataLayer.getAverageEmployeesBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        bands: 7
+                    }, itemsNotify);
+
+
+                }
+
+                if (z <= 7 && z >= 5) {
+                    data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.averageEmployees.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
+                    dataLayer.getAverageEmployeesBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+                }
+            }
+            else {
+                if (z <= 11 && z >= 5) {
+
+                    data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
+                    me.data.averageEmployees.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    dataLayer.getAverageEmployeesBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+
+                }
+            }
+
+            if (z <= 4 && z >= 0) {
+
+                data.title = 'Average Employees per business by state in the USA';
+                me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/state/';
+                me.data.averageEmployees.currentBoundingEntityId = null;
+                dataLayer.getAverageEmployeesBandsByState({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+        };
+
+        var mapZoomAverageEmployeesUpdated = function () {
+            setAverageEmployeesLegend();
+        };
+
+        var textAlternativeAverageEmployeesClicked = function () {
+            var url = me.data.averageEmployees.textAlternativeUrl;
+            var bounds = me.averageEmployees.map.getBounds();
+            var data = {
+                bands: 7,
+                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                boundingEntityId: me.data.averageEmployees.currentBoundingEntityId,
+                southWest: bounds.getSouthWest().toString(),
+                northEast: bounds.getNorthEast().toString()
+            };
+
+            window.open(jQuery.param.querystring(url, data), '_blank');
+
+        };
+
+
+
+
+        var setEmployeesPerCapitaHeatmap = function () {
+
+            var overlays = [];
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/EmployeesPerCapita/zip/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 12,
+                maxZoom: 32
+            }));
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/EmployeesPerCapita/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 8,
+                    maxZoom: 11
+                }));
+
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/EmployeesPerCapita/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 7
+                }));
+            }
+            else {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: '/tiles/EmployeesPerCapita/county/',
+                    tileParams: {
+                        colors: [
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                        ].join(','),
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                    },
+                    minZoom: 5,
+                    maxZoom: 11
+                }));
+            }
+
+
+            overlays.push(new sizeup.maps.overlay({
+                tileUrl: '/tiles/EmployeesPerCapita/state/',
+                tileParams: {
+                    colors: [
+                                '#F5F500',
+                                '#F5CC00',
+                                '#F5A300',
+                                '#F57A00',
+                                '#F55200',
+                                '#F52900',
+                                '#F50000'
+                    ].join(','),
+                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                },
+                minZoom: 0,
+                maxZoom: 4
+            }));
+
+
+            me.employeesPerCapita.map = new sizeup.maps.map({
+                container: me.container.find('.employeesPerCapita .mapWrapper.container .map')
+            });
+            me.employeesPerCapita.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.employeesPerCapita.map.setZoom(12);
+            me.employeesPerCapita.map.addEventListener('zoom_changed', mapZoomEmployeesPerCapitaUpdated);
+
+            for (var x in overlays) {
+                me.employeesPerCapita.map.addOverlay(overlays[x], 0);
+            }
+
+            setEmployeesPerCapitaLegend();
+
+            me.employeesPerCapita.textAlternative = me.container.find('.averageEmployees .mapWrapper .textAlternative');
+            me.employeesPerCapita.textAlternative.click(textAlternativeEmployeesPerCapitaClicked);
+        };
+
+        var setEmployeesPerCapitaLegend = function () {
+
+            var data = {
+                title: '',
+                items: []
+            };
+            var z = me.employeesPerCapita.map.getZoom();
+
+            var notify = new sizeup.core.notifier(function () {
+
+                var legend = new sizeup.maps.legend({
+                    templates: templates,
+                    title: data.title,
+                    items: data.items,
+                    colors: [
+                    '#F5F500',
+                    '#F5CC00',
+                    '#F5A300',
+                    '#F57A00',
+                    '#F55200',
+                    '#F52900',
+                    '#F50000'
+                    ],
+                    format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); }
+                });
+                me.employeesPerCapita.map.setLegend(legend);
+            });
+
+
+
+            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
+
+
+            if (z <= 32 && z >= 12) {
+                data.title = 'Employees Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
+                me.data.employeesPerCapita.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/zip/';
+                dataLayer.getEmployeesPerCapitaBandsByZip({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+
+            if (me.opts.report.CurrentPlace.Metro.Id != null) {
+                if (z <= 11 && z >= 8) {
+                    data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
+                    me.data.employeesPerCapita.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
+                    me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
+                    dataLayer.getEmployeesPerCapitaBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        bands: 7
+                    }, itemsNotify);
+
+
+                }
+
+                if (z <= 7 && z >= 5) {
+                    data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.employeesPerCapita.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
+                    dataLayer.getEmployeesPerCapitaBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+                }
+            }
+            else {
+                if (z <= 11 && z >= 5) {
+
+                    data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
+                    me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
+                    me.data.employeesPerCapita.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    dataLayer.getEmployeesPerCapitaBandsByCounty({
+                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        bands: 7
+                    }, itemsNotify);
+
+                }
+            }
+
+            if (z <= 4 && z >= 0) {
+
+                data.title = 'Employees Per Capita by state in the USA';
+                me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/state/';
+                me.data.employeesPerCapita.currentBoundingEntityId = null;
+                dataLayer.getEmployeesPerCapitaBandsByState({
+                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    bands: 7
+                }, itemsNotify);
+            }
+        };
+
+        var mapZoomEmployeesPerCapitaUpdated = function () {
+            setEmployeesPerCapitaLegend();
+        };
+
+        var textAlternativeEmployeesPerCapitaClicked = function () {
+            var url = me.data.employeesPerCapita.textAlternativeUrl;
+            var bounds = me.employeesPerCapita.map.getBounds();
+            var data = {
+                bands: 7,
+                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                boundingEntityId: me.data.employeesPerCapita.currentBoundingEntityId,
+                southWest: bounds.getSouthWest().toString(),
+                northEast: bounds.getNorthEast().toString()
+            };
+
+            window.open(jQuery.param.querystring(url, data), '_blank');
+
+        };
+
+
+
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
@@ -218,117 +693,7 @@
                 me.averageEmployees.noData.hide();
                 me.averageEmployees.reportData.show();
 
-                me.averageEmployees.map = new sizeup.maps.heatMap({
-                    legendItemTemplate: templates.get('legendItem'),
-                    container: me.container.find('.reportContainer .averageEmployees .map'),
-                    overlays: [
-                       {
-                           textAlternativeUrl: '/accessibility/averageEmployees/state/?bands=7',
-                           tileUrl: "/tiles/AverageEmployees/state/",
-                           legendSource: function (callback) { 
-                               return dataLayer.getAverageEmployeesBandsByState({
-                                   industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                   bands: 7
-                               }, callback);
-                           },
-                           legendTitle: 'Average Employees per business by state in the USA',
-                           legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                           industryId: me.opts.report.IndustryDetails.Industry.Id,
-                           minZoom: 0,
-                           maxZoom: 4,
-                           colors: [
-                               '#F5F500',
-                               '#F5CC00',
-                               '#F5A300',
-                               '#F57A00',
-                               '#F55200',
-                               '#F52900',
-                               '#F50000'
-                           ]
-                       },
-                        {
-                            textAlternativeUrl: '/accessibility/averageEmployees/county/?bands=7',
-                            tileUrl: "/tiles/AverageEmployees/county/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getAverageEmployeesBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 5,
-                            maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/averageEmployees/county/?bands=7',
-                            tileUrl: "/tiles/AverageEmployees/county/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getAverageEmployeesBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Employees per business by county in ' + (me.opts.report.CurrentPlace.Metro.Id ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 9,
-                            maxZoom: 11,
-                            boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/averageEmployees/zip/?bands=7',
-                            tileUrl: "/tiles/AverageEmployees/zip/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getAverageEmployeesBandsByZip({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Average Employees per business by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation,
-                            legendFormat: function (val) { return sizeup.util.numbers.format.abbreviate(val, 0); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 12,
-                            maxZoom: 32,
-                            boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        }
-                    ]
-                });
-                me.averageEmployees.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
-                me.averageEmployees.map.setZoom(12);
-
+                setAverageEmployeesHeatmap();
 
                 me.averageEmployees.chart = new sizeup.charts.barChart({
 
@@ -362,117 +727,7 @@
                 me.employeesPerCapita.noData.hide();
                 me.employeesPerCapita.reportData.show();
 
-                me.employeesPerCapita.map = new sizeup.maps.heatMap({
-                    legendItemTemplate: templates.get('legendItem'),
-                    container: me.container.find('.reportContainer .employeesPerCapita .map'),
-                    overlays: [
-                       {
-                           textAlternativeUrl: '/accessibility/EmployeesPerCapita/state/?bands=7',
-                           tileUrl: "/tiles/EmployeesPerCapita/state/",
-                           legendSource: function (callback) { 
-                               return dataLayer.getEmployeesPerCapitaBandsByState({
-                                   industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                   bands: 7
-                               }, callback);
-                           },
-                           legendTitle: 'Employees Per Capita per business by state in the USA',
-                           legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                           industryId: me.opts.report.IndustryDetails.Industry.Id,
-                           minZoom: 0,
-                           maxZoom: 4,
-                           colors: [
-                               '#F5F500',
-                               '#F5CC00',
-                               '#F5A300',
-                               '#F57A00',
-                               '#F55200',
-                               '#F52900',
-                               '#F50000'
-                           ]
-                       },
-                        {
-                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/county/?bands=7',
-                            tileUrl: "/tiles/EmployeesPerCapita/county/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getEmployeesPerCapitaBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Employees Per Capita per business by county in ' + me.opts.report.CurrentPlace.State.Name,
-                            legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 5,
-                            maxZoom: 8,
-                            boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/county/?bands=7',
-                            tileUrl: "/tiles/EmployeesPerCapita/county/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getEmployeesPerCapitaBandsByCounty({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Employees Per Capita per business by county in ' + (me.opts.report.CurrentPlace.Metro.Id ? me.opts.report.CurrentPlace.Metro.Name + ' (Metro)' : me.opts.report.CurrentPlace.State.Name),
-                            legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 9,
-                            maxZoom: 11,
-                            boundingEntityId: me.opts.report.CurrentPlace.Metro.Id ? 'm' + me.opts.report.CurrentPlace.Metro.Id : 's' + me.opts.report.CurrentPlace.State.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        },
-                        {
-                            textAlternativeUrl: '/accessibility/EmployeesPerCapita/zip/?bands=7',
-                            tileUrl: "/tiles/EmployeesPerCapita/zip/",
-                            legendSource: function (callback) { 
-                                return dataLayer.getEmployeesPerCapitaBandsByZip({
-                                    industryId: me.opts.report.IndustryDetails.Industry.Id,
-                                    bands: 7,
-                                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id
-                                }, callback);
-                            },
-                            legendTitle: 'Employees Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation,
-                            legendFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                            industryId: me.opts.report.IndustryDetails.Industry.Id,
-                            minZoom: 12,
-                            maxZoom: 32,
-                            boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
-                            colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                            ]
-                        }
-                    ]
-                });
-                me.employeesPerCapita.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
-                me.employeesPerCapita.map.setZoom(12);
-
+                setEmployeesPerCapitaHeatmap();
 
                 me.employeesPerCapita.chart = new sizeup.charts.barChart({
 

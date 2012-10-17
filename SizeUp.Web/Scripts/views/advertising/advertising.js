@@ -90,7 +90,7 @@
                 templateId: 'pager',
                 onUpdate: function (data) { pagerOnUpdate( data); }
             });
-            me.content.pager.hide();
+            me.content.pager.getContainer().hide();
 
 
             me.content.bands = me.content.container.find('.mapContent .footer .bandContainer');
@@ -601,10 +601,10 @@
         var setPager = function (data) {
             me.content.pager.setState(data);
             if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
-                me.content.pager.show();
+                me.content.pager.getContainer().show();
             }
             else {
-                me.content.pager.hide();
+                me.content.pager.getContainer().hide();
             }
         };
       
