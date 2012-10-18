@@ -99,6 +99,7 @@ namespace SizeUp.Web.Controllers
                            CityId = i.City.Id,
                            CityName = i.City.Name,
                            CitySEOKey = i.City.SEOKey,
+                           CountyId = i.County.Id,
                            CountyName = i.County.Name,
                            CountySEOKey = i.County.SEOKey,
                            CityType = i.City.CityType.Name,
@@ -111,7 +112,7 @@ namespace SizeUp.Web.Controllers
 
                 var industries = context.Industries
                     .Where(i=>i.IsActive)
-                    .Where(i => i.IndustryDataByCities.Any(m => m.CityId == location.CityId))
+                    .Where(i=>i.BusinessDataByCities.Any(b=> b.IndustryId == i.Id && b.City.Id == location.CityId && b.City.CityCountyMappings.Any(c=>c.CountyId == location.CountyId)))
                     .Join(context.Industries, o => o.SicCode.Substring(0, 4), i => i.SicCode, (i, o) => new { Industry = i, Parent = o })
                     .ToList()
                     .GroupBy(i => i.Parent)
@@ -155,9 +156,11 @@ namespace SizeUp.Web.Controllers
                        CityId = i.City.Id,
                        CityName = i.City.Name,
                        CitySEOKey = i.City.SEOKey,
+                       CountyId = i.County.Id,
                        CountyName = i.County.Name,
                        CountySEOKey = i.County.SEOKey,
                        CityType = i.City.CityType.Name,
+                       StateId = i.County.State.Id,
                        StateName = i.County.State.Name,
                        StateSEOKey = i.County.State.SEOKey
                    })
@@ -179,7 +182,7 @@ namespace SizeUp.Web.Controllers
 
 
                 var businesses = context.Businesses
-                    .Where(i => i.BusinessCityMappings.Any(m => m.CityId == location.CityId) && i.IndustryId == ind.IndustryId && i.IsActive)
+                    .Where(i => i.BusinessCityMappings.Any(m => m.CityId == location.CityId && m.City.CityCountyMappings.Any(c=>c.CountyId == location.CountyId)) && i.IndustryId == ind.IndustryId && i.IsActive)
                     .Select(i => new Models.Business.BusinessResult()
                     {
                         Id = i.Id,
@@ -213,7 +216,7 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var business = context.Businesses.Where(i => i.Id == id && i.SEOKey == name && i.State.SEOKey == state && i.County.SEOKey == county && i.Industry.SEOKey == industry)
+                var business = context.Businesses.Where(i => i.Id == id && i.SEOKey == name && i.State.SEOKey == state && i.Industry.SEOKey == industry && i.BusinessCityMappings.Any(b=>b.City.SEOKey == city && b.City.CityCountyMappings.Any(c=>c.County.SEOKey == county)))
                     .Select(i=> new Models.Business.BusinessResult()
                     {
                         Name = i.Name,

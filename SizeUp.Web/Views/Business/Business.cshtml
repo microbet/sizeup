@@ -21,7 +21,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatMap.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/imagePin.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
@@ -55,15 +56,16 @@
     <p>
         @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation is a @(ViewBag.Business.IsPublic ? "public" : "private") company categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
     </p>
-    <div class="map heatmap hidden">
-        <p class="title backdrop"></p>
-        <div class="legend backdrop">
-            <ul class="legendContainer">
-                <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
-            </ul>
-            <div class="bottom backdrop"></div>
+    <div class="mapWrapper container">
+        <div data-template="legendTitle" class="legend titleWrap">
+            <p class="backdrop edge title"><span class="text"></span></p>
         </div>
-        <div class="container"></div>
+        <div data-template="legendContainer" class="legend backdrop edge">
+            <ul class="legend legendContainer">
+                <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+            </ul>
+        </div>
+        <div class="map"></div>
     </div>
     <div class="report wrapper">
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>

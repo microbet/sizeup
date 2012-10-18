@@ -21,7 +21,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatMap.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
 
@@ -38,17 +39,18 @@
 <div id="community">
     <h2>Community Information</h2>
     <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
-    <p>There @(ViewBag.BusinessCount == 1 ? "is " +  @ViewBag.BusinessCount+ " business" : "are " + @ViewBag.BusinessCount + " businesses") in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
+    <p>There @(ViewBag.BusinessCount == 1 ? "is " +  @ViewBag.BusinessCount+ " business" : "are " + @ViewBag.BusinessCount + " businesses") in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name. </a>
          A comprehensive <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name </a> is available.</p>
-    <div class="map heatmap hidden">
-        <p class="title backdrop"></p>
-        <div class="legend backdrop">
-            <ul class="legendContainer">
-                <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range">{{label}}</span></li>
-            </ul>
-            <div class="bottom backdrop"></div>
+     <div class="mapWrapper container">
+        <div data-template="legendTitle" class="legend titleWrap">
+            <p class="backdrop edge title"><span class="text"></span></p>
         </div>
-        <div class="container"></div>
+        <div data-template="legendContainer" class="legend backdrop edge">
+            <ul class="legend legendContainer">
+                <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+            </ul>
+        </div>
+        <div class="map"></div>
     </div>
     <div class="report wrapper">
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
@@ -150,7 +152,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
+        var opts =  { location : @Html.Raw(ViewBag.CurrentInfoJSON) }; 
         var driver = new sizeup.views.community.communityWithIndustry(opts);
     });
 </script>
