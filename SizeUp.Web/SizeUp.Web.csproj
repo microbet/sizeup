@@ -365,7 +365,6 @@
     <Content Include="Scripts\maps\legend.js" />
     <Content Include="Scripts\maps\heatPin.js" />
     <Content Include="Scripts\maps\imagePin.js" />
-    <Content Include="Scripts\maps\heatMap.js" />
     <Content Include="Scripts\maps\infoWindow.js" />
     <Content Include="Scripts\maps\latLng.js" />
     <Content Include="Scripts\maps\latLngBounds.js" />
