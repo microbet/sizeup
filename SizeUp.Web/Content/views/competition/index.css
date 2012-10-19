@@ -102,7 +102,7 @@
 #competition .industryPicker input { font-size: 1.3em; padding: 0.6em; margin:0.25em 0.5em 1.5em; width: 28em; display: block;}
 
 
-#competition .infoWindow { font-family: Arial,Verdana,sans-serif; padding: 0.5em 0; }
+#competition .infoWindow { font-family: Arial,Verdana,sans-serif; padding: 0.5em 0; text-align:left; }
 #competition .infoWindow h3 { font-size:1.5em; color:#99BB66; font-weight:bold;}
 #competition .infoWindow span { font-size:1.05em; color:#A6A6A0;}
 #competition .infoWindow ul { margin: 0.5em 0; }
