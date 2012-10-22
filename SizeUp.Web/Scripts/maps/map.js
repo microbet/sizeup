@@ -12,6 +12,7 @@
         me.map = new google.maps.Map(me.container.get(0), me.opts.mapSettings);
         me._native = me.map;
         me.overlays = {};
+        me.legend = null;
 
         var init = function () {
             google.maps.event.trigger(me.map, 'resize');
@@ -116,13 +117,32 @@
         };
 
         var addLegend = function (legend) {
-            clearLegend();
-            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, legend.getTitle().get(0));
-            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, legend.getLegend().get(0));
+            if (me.legend == null) {
+                me.legend = {
+                    title: $('<div></div>'),
+                    legend: $('<div></div>')
+                }
+                me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, me.legend.title.get(0));
+                me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, me.legend.legend.get(0));
+                replaceLegend(legend);
+            }
+            else {
+                replaceLegend(legend);
+            }
         };
 
+        var replaceLegend = function (legend) {
+
+            me.legend.title.html(legend.getTitle());
+            me.legend.legend.html(legend.getLegend());
+            //me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, legend.getTitle().get(0));
+            //me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, legend.getLegend().get(0));
+
+
+        };
         var clearLegend = function () {
             me.map.controls[google.maps.ControlPosition.RIGHT_TOP].clear();
+            me.legend = null;
         };
 
 

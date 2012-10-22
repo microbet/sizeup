@@ -102,7 +102,7 @@ a.sorter.desc { background-position:right 0.3em; }
 
 
 .mapWrapper { text-align: right; }
-.mapWrapper .map .titleWrap {display:block; max-width: 80%; }
+.mapWrapper .map .titleWrap {display:block; max-width: 80%; float:right; }
 .mapWrapper .map .backdrop {background-color:#444; opacity:0.8; float:right;  }
 .mapWrapper .map .backdrop.edge { border-bottom-left-radius: 1em; }
 .mapWrapper .map .legend .text {color:#fff; line-height: 1.5em; opacity:1; }
