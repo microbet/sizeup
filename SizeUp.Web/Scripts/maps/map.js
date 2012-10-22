@@ -11,7 +11,7 @@
         me.container = opts.container;
         me.map = new google.maps.Map(me.container.get(0), me.opts.mapSettings);
         me._native = me.map;
-        me.overlays = {};
+        me.overlays = [];
         me.legend = null;
 
         var init = function () {
@@ -38,6 +38,9 @@
 
 
         var addOverlay = function (overlay, index) {
+            //all this complicated stuff is to create a z indexing for overlays
+            //we cache each overlay in me.overlays where me.overlays[x] where x is the z-index. multiple overlays can be placed on the same zindex and
+            //the order that they are on top of each other is arbitrary. However, all overlays with a zindex of 0 are GARAUNTEED to be below those with a zindex of 1
             if (index == null) {
                 index = 0;
             }
@@ -46,10 +49,14 @@
                 me.overlays[index] = [];
             }
             me.overlays[index].push(overlay);
-            //see if we can implement some sort of zindexing thing here
-            me._native.overlayMapTypes.push(overlay.getNative());
-
-            //for(
+            me._native.overlayMapTypes.clear();
+            for (var x = 0;x < me.overlays.length; x++) {
+                if (me.overlays[x] != null) {
+                    for (var y = 0; y < me.overlays[x].length; y++) {
+                        me._native.overlayMapTypes.push(me.overlays[x][y].getNative());
+                    }
+                }
+            }
         };
 
         var removeOverlay = function (overlay) {
@@ -63,6 +70,22 @@
             if(index >=0){
                 me._native.overlayMapTypes.removeAt(index);
             }
+
+            //remove from cache too
+            for (var x = 0; x < me.overlays.length; x++) {
+                if (me.overlays[x] != null) {
+                    var i = me.overlays[x].indexOf(overlay);
+                    if (i >= 0) {
+                        me.overlays[x].splice(i, 1);
+                        if (me.overlays[x].length == 0) {
+                            delete me.overlays[x];
+                        }
+                    }
+                }
+            }
+
+
+
         };
 
         var addPolygon = function (p) {
@@ -132,14 +155,10 @@
         };
 
         var replaceLegend = function (legend) {
-
             me.legend.title.html(legend.getTitle());
             me.legend.legend.html(legend.getLegend());
-            //me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, legend.getTitle().get(0));
-            //me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, legend.getLegend().get(0));
-
-
         };
+
         var clearLegend = function () {
             me.map.controls[google.maps.ControlPosition.RIGHT_TOP].clear();
             me.legend = null;
