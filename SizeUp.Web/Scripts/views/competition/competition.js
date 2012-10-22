@@ -242,6 +242,9 @@
             var rootId = target.attr('data-value');
 
             if (me.data.consumerExpenditure.rootId != rootId) {
+                me.container.find('.map .ceType').removeClass('active');
+               target.addClass('active');
+
                 me.data.consumerExpenditure.rootId = rootId;
                 dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection }, function (data) {
                     me.data.consumerExpenditure.currentSelection = data.Id;
@@ -452,9 +455,7 @@
 
 
             me.container.find('.map .ceType').removeClass('active');
-
-
-            var radio = me.container.find('.map .ceType[data-value=' + me.data.consumerExpenditure.rootId + ']').addClass('active');
+            me.container.find('.map .ceType[data-value=' + me.data.consumerExpenditure.rootId + ']').addClass('active');
         };
 
         var checkMapFilter = function () {

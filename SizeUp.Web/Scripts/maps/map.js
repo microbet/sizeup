@@ -11,7 +11,6 @@
         me.container = opts.container;
         me.map = new google.maps.Map(me.container.get(0), me.opts.mapSettings);
         me._native = me.map;
-
         me.overlays = {};
 
         var init = function () {
@@ -118,8 +117,8 @@
 
         var addLegend = function (legend) {
             clearLegend();
-            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend.getTitle().get(0));
-            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend.getLegend().get(0));
+            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, legend.getTitle().get(0));
+            me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, legend.getLegend().get(0));
         };
 
         var clearLegend = function () {
