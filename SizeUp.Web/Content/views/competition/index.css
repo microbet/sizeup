@@ -2,7 +2,7 @@
 
 #competition h2 { font-size: 2.1em; display: inline-block; font-weight: normal; }
 
-#competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative; z-index:1; border-bottom:2px solid #ccc; position:relative; top:0.2em;  }
+#competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative; z-index:1; /*border-bottom:2px solid #ccc; position:relative; top:0.2em;*/  }
 #competition .tabs li {display:inline-block; vertical-align:bottom; position:relative; top:0.2em;  }
 #competition .tabs li.question a {border-top-left-radius:1em; border-top-right-radius:1em; padding: 0.85em 1em; border: 2px solid #ccc; background-color: #F5F5F5; display: block; text-align: center; width: 7.7em; min-height: 2.5em; line-height:inherit;}
 #competition .tabs li a {border-top-left-radius:1em; border-top-right-radius:1em; padding:1em 0.5em 1em 1.5em; border:2px solid #ccc; background-color:#F5F5F5; display:block; text-align:center; width:7.7em; min-height:2.5em; line-height:2.4em; background-position:0.5em 1.25em; background-repeat:no-repeat; }
@@ -19,6 +19,7 @@
 
 #competition .list.container { width:41em; display:inline-block; vertical-align: top; }
 
+#competition .list.container:before { border-left: 2px solid #CCCCCC; border-top: 2px solid #CCCCCC; border-top-left-radius: 2em; content: " "; display: block; height: 1em; left: -2.2em; position: relative; width: 43.5em; }
 
 #competition .mapWrapper.container { display: inline-block; vertical-align: top; width:50em;}
 #competition .mapWrapper.container .map { height: 57em; width: 50em; }
@@ -97,7 +98,7 @@
 
 
 
-#competition .industryPicker .currentIndustry { font-size: 1.5em; font-weight:bold; margin:0 1em 0 0; padding:1em 0 1em 0.5em; border-bottom:1px dashed #ccc; }
+#competition .industryPicker .currentIndustry { font-size: 1.5em; font-weight:bold; margin:0 1em 0 0; padding:0 0 1em 0.5em; border-bottom:1px dashed #ccc; }
 #competition .industryPicker p { margin:0.5em 0 0 0.5em; }
 #competition .industryPicker input { font-size: 1.3em; padding: 0.6em; margin:0.25em 0.5em 1.5em; width: 28em; display: block;}
 

@@ -196,7 +196,7 @@
             me.content.tabs.supplier.find('a').click(function () { activateTab('supplier'); });
             me.content.tabs.competitor.find('a').click(function () { activateTab('competitor'); });
 
-            me.container.find('.map').delegate('input[name=ceRoot]', 'change', consumerExpenditureTypeChanged);
+            me.container.find('.map').delegate('.ceType', 'click', consumerExpenditureTypeChanged);
 
             me.content.mapControls.filterItems.change(mapFilterChanged);
 
@@ -223,7 +223,7 @@
             me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').attr('checked', 'checked');
             me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').change();
           
-
+         
             if (me.data.consumerExpenditure.currentSelection != null) {
                 loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
                 setHeatmap(me.data.consumerExpenditure.currentSelection);
@@ -239,15 +239,18 @@
      
         var consumerExpenditureTypeChanged = function (e) {
             var target = $(e.target);
-            me.data.consumerExpenditure.rootId = target.attr('value');
+            var rootId = target.attr('data-value');
 
-            dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection }, function (data) {
-                me.data.consumerExpenditure.currentSelection = data.Id;
-                loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
-                setHeatmap(me.data.consumerExpenditure.currentSelection);
-                getLegendData();
-                pushUrlState();
-            });
+            if (me.data.consumerExpenditure.rootId != rootId) {
+                me.data.consumerExpenditure.rootId = rootId;
+                dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection }, function (data) {
+                    me.data.consumerExpenditure.currentSelection = data.Id;
+                    loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
+                    setHeatmap(me.data.consumerExpenditure.currentSelection);
+                    getLegendData();
+                    pushUrlState();
+                });
+            }
         };
 
         var mapZoomUpdated = function () {
@@ -448,9 +451,10 @@
             me.content.map.setLegend(me.data.consumerExpenditure.legend);
 
 
-            var radio = me.container.find('.map input[name=ceRoot][value=' + me.data.consumerExpenditure.rootId + ']');
-            radio.attr('checked', 'checked');
+            me.container.find('.map .ceType').removeClass('active');
 
+
+            var radio = me.container.find('.map .ceType[data-value=' + me.data.consumerExpenditure.rootId + ']').addClass('active');
         };
 
         var checkMapFilter = function () {
