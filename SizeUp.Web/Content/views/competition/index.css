@@ -2,12 +2,12 @@
 
 #competition h2 { font-size: 2.1em; display: inline-block; font-weight: normal; }
 
-#competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative; z-index:1; /*border-bottom:2px solid #ccc; position:relative; top:0.2em;*/  }
+#competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative; z-index:1;  }
 #competition .tabs li {display:inline-block; vertical-align:bottom; position:relative; top:0.2em;  }
-#competition .tabs li.question a {border-top-left-radius:1em; border-top-right-radius:1em; padding: 0.85em 1em; border: 2px solid #ccc; background-color: #F5F5F5; display: block; text-align: center; width: 7.7em; min-height: 2.5em; line-height:inherit;}
-#competition .tabs li a {border-top-left-radius:1em; border-top-right-radius:1em; padding:1em 0.5em 1em 1.5em; border:2px solid #ccc; background-color:#F5F5F5; display:block; text-align:center; width:7.7em; min-height:2.5em; line-height:2.4em; background-position:0.5em 1.25em; background-repeat:no-repeat; }
+#competition .tabs li.question a {border-top-left-radius:1em; border-top-right-radius:1em; padding: 1em; border: 2px solid #ccc; background-color: #F5F5F5; display: block; text-align: center; width: 7.7em; min-height: 2.75em; line-height:inherit;}
+#competition .tabs li a {border-top-left-radius:1em; border-top-right-radius:1em; padding:1em 0.5em 1em 1.5em; border:2px solid #ccc; background-color:#F5F5F5; display:block; text-align:center; width:7.7em; min-height:2.75em; line-height:2.4em; background-position:0.5em 1.25em; background-repeat:no-repeat; }
 
-#competition .tabs li.active a { border-bottom: none; background-color:#fff; padding:1.16em 0.5em 1em 1.5em; color: #e78500;  }
+#competition .tabs li.active a { border-bottom: none; background-color:#fff;  color: #e78500; min-height:2.9em;  }
 #competition .tabs li.active a:hover { color:#0099cc; }
 #competition .tabs li.competitors a  {background-image :url(/content/images/markerCompetitor.png); }
 #competition .tabs li.suppliers a {background-image :url(/content/images/markerSupplier.png); }
