@@ -88,7 +88,7 @@ a.menu:after {content: "."; color:transparent; background :url(/content/images/m
 .map span { font-size: 1em; }
 
 
-a.sorter { font-size:1em; display: inline-block; background: url(/content/images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0; }
+a.sorter { font-size:1em; display: inline-block; background: url(/content/images/up-down.png) no-repeat right -1em; padding:0 1.5em 0 0;vertical-align:top; }
 a.sorter.asc { background-position:right -2.2em; }
 a.sorter.desc { background-position:right 0.3em; }
 
@@ -102,7 +102,8 @@ a.sorter.desc { background-position:right 0.3em; }
 
 
 .mapWrapper { text-align: right; }
-.mapWrapper .map .titleWrap {display:block; max-width: 80%; float:right; }
+.mapWrapper .map .titleContainer { max-width: 80%; }
+.mapWrapper .map .titleWrap {display:block; float:right; }
 .mapWrapper .map .backdrop {background-color:rgba(0, 0, 0, 0.6); float:right;  }
 .mapWrapper .map .backdrop.edge { border-bottom-left-radius: 1em; }
 .mapWrapper .map .legend .text {color:#fff; line-height: 1.5em; opacity:1; }

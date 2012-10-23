@@ -9,5 +9,5 @@
 #competition .industryPicker input { width: 40%; }
 
 
-#competition .tabs:after { border-radius: 0; width:100%; border-left:none; left:0; }
+#competition .tabs:after { border-radius: 0; width:100%; border-left:none; left:0; border-right:none; }
 #competition .tabs li { left: 2.2em; }
