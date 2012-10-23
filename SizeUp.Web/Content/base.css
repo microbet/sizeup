@@ -104,7 +104,7 @@ a.sorter.desc { background-position:right 3px; }
 .mapWrapper { text-align: right; }
 .mapWrapper .map .titleContainer { max-width: 80%; }
 .mapWrapper .map .titleWrap {display:block; float:right; }
-.mapWrapper .map .backdrop {background-color:rgba(0, 0, 0, 0.6);  float:right; display:block; background-color/*\**/: #444\9; }
+.mapWrapper .map .backdrop {background-color:rgba(0, 0, 0, 0.6);  float:right; display:block; background-color: #444\0/; }
 .mapWrapper .map .backdrop.edge { border-bottom-left-radius: 1em; }
 .mapWrapper .map .legend .text {color:#fff; line-height: 1.5em; }
 .mapWrapper .map .legend .title { font-size: 1.2em;text-align:left;  min-width: 15em; padding: 0.5em 1em; }

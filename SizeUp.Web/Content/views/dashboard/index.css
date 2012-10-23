@@ -2,7 +2,7 @@
 #content { margin-bottom: 3em; }
 
 #dashboard { position: relative; text-align: center; }
-#dashboard h1 {font-size: 1.8em; position: absolute;   left: 14em; top: -1.4em;}
+#dashboard h1 {font-size: 1.85em; position: absolute;   left: 13em; top: -1.4em; font-weight:normal;}
 #dashboard h3 { color:#6EAB24; font-size: 1.7em; }
 #dashboard h4 { font-size: 1.7em; font-weight: normal; }
 #dashboard h5 { font-size: 1.3em; font-weight: bold; padding: 0 0 0 1em; }
@@ -59,7 +59,7 @@
 #dashboard .report .body .reportContainer .reportContent .table { width: 100%; font-size: 1.3em; margin: 1em 0; }
 #dashboard .report .body .reportContainer .reportContent .table thead { font-weight: bold; border-bottom: 2px solid #ccc; color:#aaa; }
 #dashboard .report .body .reportContainer .reportContent .table thead .hint { font-size: 0.85em; }
-
+#dashboard .report .body .reportContainer .reportContent .description {margin:0 0 0 1em; padding:0.25em 0; }
 
 
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart .container {width:57em; height:37em; }
@@ -109,7 +109,7 @@
 
 
 #dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; margin:  0 0 1em 0; vertical-align:top; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
-#dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 1em; }
+#dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 0.5em; }
 #dashboard .report .body .reportContainer .reportSidebar .section p { padding: 0 1em; margin: 0 0 1em 0; line-height: 1.5em; }
 #dashboard .report .body .reportContainer .reportSidebar .section p.notice { text-align: right; }
 #dashboard .report .body .reportContainer .reportSidebar a[target=_blank] { background: url("/content/images/externalLink.gif") no-repeat right top; padding-right: 0.8em; }
