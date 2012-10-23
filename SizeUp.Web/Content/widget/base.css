@@ -104,21 +104,20 @@ a.sorter.desc { background-position:right 0.3em; }
 .mapWrapper { text-align: right; }
 .mapWrapper .map .titleContainer { max-width: 80%; }
 .mapWrapper .map .titleWrap {display:block; float:right; }
-.mapWrapper .map .backdrop {background-color:rgba(0, 0, 0, 0.6); float:right;  }
+.mapWrapper .map .backdrop {background-color:rgba(0, 0, 0, 0.6);  float:right; display:block; background-color: #444\0/; }
 .mapWrapper .map .backdrop.edge { border-bottom-left-radius: 1em; }
-.mapWrapper .map .legend .text {color:#fff; line-height: 1.5em; opacity:1; }
-.mapWrapper .map .legend .title { font-size: 1.2em;text-align:left;  min-width: 15em; padding: 0.5em 1em;  }
-.mapWrapper .map ul.legend { padding:0.25em 1em 1em; clear:both; text-align:left; }
+.mapWrapper .map .legend .text {color:#fff; line-height: 1.5em; }
+.mapWrapper .map .legend .title { font-size: 1.2em;text-align:left;  min-width: 15em; padding: 0.5em 1em; }
+.mapWrapper .map ul.legend { padding:0.25em 1em 1em; text-align:left; }
 .mapWrapper .map .legend .range { font-size:1.1em; padding: 0 0 0 0.5em; text-align:left;  display:inline-block;  }
 .mapWrapper .map ul.legend li { line-height: 1.5em; padding:0 1em; }
-.mapWrapper .map ul.legend .block { width: 1em; height: 1.5em; display: inline-block; position:relative; top:0.25em; opacity:1; }
+.mapWrapper .map ul.legend .block { width: 1em; height: 1.5em; display: inline-block; position:relative; top:0.25em;  }
 
 .mapWrapper .map .legend .options {background-color:#333; }
 
 .mapWrapper .map .legend .radio {color:#fff; font-size:1.1em; padding:0.5em 1em 0.5em 0; display:inline-block; }
 .mapWrapper .map .legend .radio:before { background: url(/content/images/onoff.png) no-repeat 0 0; content:" "; display:inline-block; width:10px; height:10px; margin:0 0.5em 0 1em;position:relative; top:-0.1em; }
 .mapWrapper .map .legend .radio.active:before {background-position: 0 -13px; }
-
 
 /**** experimental base styles*****/
 
