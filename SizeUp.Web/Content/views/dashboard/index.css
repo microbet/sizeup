@@ -132,7 +132,7 @@
 #dashboard .collapsable.collapsed {height: 3em;  }
 
 #dashboard #summaryView {  display: inline-block; position:relative; padding: 0.25em 4em 0.25em 4em; top: 3.5em; opacity: 0.9; background-color: #ddd; border-bottom-right-radius: 1em;border-bottom-left-radius: 1em; }
-#dashboard #summaryView {top:3.25em\9; *top: 3.5em; }
+#dashboard #summaryView {top:3.25em\0/;}
 
 
 #dashboard .question { background-color:#FFFFF0; border-radius:1em; border:solid 1px #DDDDDD; text-align:center; padding:1.5em;}
