@@ -34,8 +34,8 @@
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker a {font-size:1.1em;  }
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul { text-align: left; }
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li { }
-#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a {border-bottom:1px solid #e2e2e2; display:block; padding:0.5em;  }
-#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a:hover {background-color:#f6f6f0; color:#606060; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a {border-bottom:1px solid #e2e2e2; display:block; padding:0.75em;  }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a:hover {background-color:#f5f5f5; color:#606060; }
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a:after {content: "."; color:transparent; background :url(/content/images/menuArrow.png) no-repeat 0 -9px; display:inline-block; width:13px; height:9px; float:right; position:relative; top:0.3em;}
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li { }
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li a{border-bottom:1px solid #666; background-color:#333; color:#fff; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==); }
@@ -43,7 +43,7 @@
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li a:hover {border-bottom:1px solid #666; background-color: #666; }
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a.leaf:after { background: none; }
 
-#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker .menuOptions {padding:1em; text-align:center; border-bottom:1px solid #E2E2E2; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker .menuOptions {padding:1em; text-align:center; border-bottom:1px solid #E2E2E2; background-color:#f0f0f0; }
 #competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker .menuOptions a { padding: 0 1em; font-weight:normal; }
 
 
@@ -81,7 +81,7 @@
 #competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
 
 
-#competition .signinWrapper { padding: 2em 1em 0 2.75em; }
+#competition .signinWrapper { padding: 2em 1em 0 1.75em; }
 #competition .signinWrapper .signinToggle { font-size:1.5em;  }
 #competition .signinWrapper .signinToggle .viewing { float: right; }
 #competition .signinWrapper .signinPanel.form input[type="text"],
@@ -98,8 +98,9 @@
 
 
 
+#competition .industryPicker.container { padding: 1.5em 0 0 0; }
 
-#competition .industryPicker .currentIndustry { font-size: 1.5em; font-weight:bold; margin:0 1em 0 0; padding:1em 0 1em 0.5em; border-bottom:1px dashed #ccc; }
+#competition .industryPicker .currentIndustry { font-size: 1.5em; font-weight:bold; margin:0 1em 0 0; padding:0 0 1em 0.5em; border-bottom:1px dashed #ccc; }
 #competition .industryPicker p { margin:0.5em 0 0 0.5em; }
 #competition .industryPicker input { font-size: 1.3em; padding: 0.6em; margin:0.25em 0.5em 1.5em; width: 28em; display: block;}
 

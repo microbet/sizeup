@@ -79,7 +79,7 @@
                             <p>Loading...</p>
                         </div>
                         <div class="menuOptions">
-                            <a class="inverse startOver" href="javascript:void(0);">Start Over</a> | <a class="inverse close" href="javascript:void(0);">Close</a> 
+                            <a class="inverse startOver" href="javascript:void(0);">Reset</a> | <a class="inverse close" href="javascript:void(0);">Close</a> 
                         </div>
                     </div>
                 </div>
@@ -162,11 +162,11 @@
                     <p class="backdrop edge title"><span class="text"></span></p>
                 </div>
                 <div data-template="legendContainer" class="legend backdrop edge">
-                    <a href="javascript:void(0)" data-value="1" class="ceType radio">Totals</a>
+                    <div class="options">
+                        <a href="javascript:void(0)" data-value="1" class="ceType radio">TOTALS</a>
 
-                    <a href="javascript:void(0);" data-value="2" class="ceType radio">Averages</a>
-
-
+                        <a href="javascript:void(0);" data-value="2" class="ceType radio">AVERAGES</a>
+                    </div>
                     <ul class="legend legendContainer">
                         <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
                     </ul>
