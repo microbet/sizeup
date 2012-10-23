@@ -488,7 +488,7 @@
             if (me.data[index].primaryIndustry) {
                 industries[me.data[index].primaryIndustry.Id] = me.data[index].primaryIndustry;
             }
-            var ids = [];
+            var ids = new Array();
             for (var x in industries) {
                 ids.push(industries[x].Id);
             }
@@ -787,7 +787,7 @@
 
             var data = {};
             var competitors = getIndustryIdArray('competitor');
-            competitors.splice(competitors.indexOf(me.data.competitor.primaryIndustry.Id), 1);
+            competitors.splice($.inArray(me.data.competitor.primaryIndustry.Id, competitors), 1);
             var suppliers = getIndustryIdArray('supplier');
             var buyers = getIndustryIdArray('buyer');
             if (competitors.length > 0) {

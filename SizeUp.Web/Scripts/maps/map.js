@@ -74,7 +74,7 @@
             //remove from cache too
             for (var x = 0; x < me.overlays.length; x++) {
                 if (me.overlays[x] != null) {
-                    var i = me.overlays[x].indexOf(overlay);
+                    var i = $.inArray(overlay, me.overlays[x]);
                     if (i >= 0) {
                         me.overlays[x].splice(i, 1);
                         if (me.overlays[x].length == 0) {
@@ -142,8 +142,8 @@
         var addLegend = function (legend) {
             if (me.legend == null) {
                 me.legend = {
-                    title: $('<div></div>'),
-                    legend: $('<div></div>')
+                    title: $('<div class="titleContainer"></div>'),
+                    legend: $('<div class="legendContainer"></div>')
                 }
                 me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, me.legend.title.get(0));
                 me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, me.legend.legend.get(0));
