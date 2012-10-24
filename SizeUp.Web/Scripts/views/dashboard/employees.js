@@ -366,7 +366,7 @@
 
             if (z <= 32 && z >= 12) {
                 data.title = 'Average Employees per business by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.averageEmployees.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.averageEmployees.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/zip/';
                 dataLayer.getAverageEmployeesBandsByZip({
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
@@ -604,7 +604,7 @@
 
             if (z <= 32 && z >= 12) {
                 data.title = 'Employees Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.employeesPerCapita.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.employeesPerCapita.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/zip/';
                 dataLayer.getEmployeesPerCapitaBandsByZip({
                     industryId: me.opts.report.IndustryDetails.Industry.Id,

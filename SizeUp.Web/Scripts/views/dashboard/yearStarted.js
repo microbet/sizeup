@@ -75,7 +75,7 @@
             });
 
             
-            me.container.find('.chart .textAlternative').click(function () {
+            me.container.find('.links .textAlternative').click(function () {
                 var url = '/accessibility/yearStarted/';
                 var data = { industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear };
                 url = jQuery.param.querystring(url, data)

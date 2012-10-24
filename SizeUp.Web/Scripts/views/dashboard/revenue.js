@@ -303,7 +303,7 @@
 
             if (z <= 32 && z >= 12) {
                 data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeUrl = '/accessibility/revenue/zip/';
                 dataLayer.getAverageRevenueBandsByZip({
                     industryId: me.opts.report.IndustryDetails.Industry.Id,

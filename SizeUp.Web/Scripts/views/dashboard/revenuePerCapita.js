@@ -249,7 +249,7 @@
 
             if (z <= 32 && z >= 12) {
                 data.title = 'Revenue Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.currentRevenuePerCapitaBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.currentRevenuePerCapitaBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/zip/';
                 dataLayer.getRevenuePerCapitaBandsByZip({
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
@@ -486,7 +486,7 @@
 
             if (z <= 32 && z >= 12) {
                 data.title = 'Total Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.currentTotalRevenueBoundingEntityId = 'm' + me.opts.report.CurrentPlace.County.Id;
+                me.data.currentTotalRevenueBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/zip/';
                 dataLayer.getTotalRevenueBandsByZip({
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
