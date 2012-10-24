@@ -60,6 +60,9 @@ a.button,
 a.button:hover,
 .button:hover{text-shadow: 0 0 0.1em #fff;}
 
+a.button.inverse { background-color: #aaa; }
+a.button.inverse:hover {background-color:#e78500; color:#fff; text-shadow:none; }
+
 input[type=submit].button { font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; font-weight: bold; }
 
 .button.tiny,
