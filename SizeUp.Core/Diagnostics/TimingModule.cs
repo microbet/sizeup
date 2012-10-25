@@ -33,18 +33,15 @@ namespace SizeUp.Core.Diagnostics
                 stopwatch.Stop();
                 TimeSpan ts = stopwatch.Elapsed;
                 if (ts.TotalMilliseconds > 1500)
-                {
-                    using (var context = ContextFactory.AnalyticsContext)
+                {                
+                    LongRequest reg = new LongRequest()
                     {
-                        LongRequest reg = new LongRequest()
-                        {
 
-                            RequestUrl = HttpContext.Current.Request.Url.OriginalString,
-                            RequestTime = (int)ts.TotalMilliseconds
-                        };
+                        RequestUrl = HttpContext.Current.Request.Url.OriginalString,
+                        RequestTime = (int)ts.TotalMilliseconds
+                    };
 
-                        Singleton<Tracker>.Instance.LongRequest(reg);
-                    }
+                    Singleton<Tracker>.Instance.LongRequest(reg);
                 }
             }
             catch (System.Exception) { }

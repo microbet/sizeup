@@ -502,6 +502,7 @@
         };
 
         var activateTab = function (tabIndex) {
+            new sizeup.core.analytics().competitionTabLoaded({ tab: tabIndex });
             for (var x in me.content.tabs) {
                 me.content.tabs[x].removeClass('active');
             };
@@ -867,7 +868,6 @@
 
 
         var bindBusinesses = function () {
-            new sizeup.core.analytics().competitionTabLoaded({ tab: me.data.activeIndex });
             var data = me.data[me.data.activeIndex].businesses;
             me.content.pager.setState(data);
             if (data.Count == 0) {

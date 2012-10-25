@@ -27,7 +27,7 @@ namespace SizeUp.Data.Analytics
             reg.Year = Year;
             reg.Week = Week;
             reg.Timestamp = DateTime.Now;
-            using (var context = new AnalyticsContext())
+            using (var context = ContextFactory.AnalyticsContext)
             {
                 context.UserRegistrations.AddObject(reg);
                 context.SaveChanges();
@@ -44,7 +44,7 @@ namespace SizeUp.Data.Analytics
             reg.Year = Year;
             reg.Week = Week;
             reg.Timestamp = DateTime.Now;
-            using (var context = new AnalyticsContext())
+            using (var context = ContextFactory.AnalyticsContext)
             {
                 context.LongRequests.AddObject(reg);
                 context.SaveChanges();
@@ -61,9 +61,26 @@ namespace SizeUp.Data.Analytics
             reg.Year = Year;
             reg.Week = Week;
             reg.Timestamp = DateTime.Now;
-            using (var context = new AnalyticsContext())
+            using (var context = ContextFactory.AnalyticsContext)
             {
                 context.Exceptions.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
+
+        public void PlaceIndustrySearch(PlaceIndustrySearch reg)
+        {
+            reg.Day = Day;
+            reg.Hour = Hour;
+            reg.Minute = Minute;
+            reg.Month = Month;
+            reg.Quarter = Quarter;
+            reg.Year = Year;
+            reg.Week = Week;
+            reg.Timestamp = DateTime.Now;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.PlaceIndustrySearches.AddObject(reg);
                 context.SaveChanges();
             }
         }

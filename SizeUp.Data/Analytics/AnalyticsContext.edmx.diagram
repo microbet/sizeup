@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.UserRegistration" Width="2.5" PointX="1.125" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.LongRequest" Width="1.5" PointX="4.25" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.Exception" Width="3.875" PointX="6.375" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.PlaceIndustrySearch" Width="2.25" PointX="10.875" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

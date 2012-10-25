@@ -14,6 +14,7 @@
 
         var init = function () {
             me.hasData = false;
+            me.checkedForData = false;
             me.form = {};
             me.selector = {};
             me.errors = {};
@@ -74,11 +75,16 @@
         };
 
         var showSelector = function () {
+            var currentCity = me.form.location.placeSelector.getSelection();
+            var currentIndustry = me.form.industry.industrySelector.getSelection();
+            new sizeup.core.analytics().placeIndustry({ placeId: currentCity.Id, industryId: currentIndustry.Id });
             me.form.container.hide("slide", { direction: "left" }, 500);
             me.selector.container.show("slide", { direction: "right" }, 500);
         };
 
         var onIndustryChange = function (item) {
+            me.hasData = false;
+            me.checkedForData = false;
             if (!item) {
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
             }
@@ -89,6 +95,8 @@
         };
 
         var onCityChange = function (item) {
+            me.hasData = false;
+            me.checkedForData = false;
             if (!item) {
                 me.errors.invalidCity.hide().fadeIn('slow');
             }
@@ -98,14 +106,19 @@
             }
         };
 
+
         var onSubmit = function () {
-            if (me.hasData) {
-                var currentCity = me.form.location.placeSelector.getSelection();
-                var currentIndustry = me.form.industry.industrySelector.getSelection();
-                dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
-                dataLayer.setCurrentPlace({ id: currentCity.Id });
-                setSelectorLinks();
-                showSelector();
+            if (!me.checkedForData) {
+                checkForData(function () {
+                    if (me.hasData) {
+                        var currentCity = me.form.location.placeSelector.getSelection();
+                        var currentIndustry = me.form.industry.industrySelector.getSelection();
+                        dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
+                        dataLayer.setCurrentPlace({ id: currentCity.Id });
+                        setSelectorLinks();
+                        showSelector();
+                    }
+                });
             }
         };
 
@@ -119,7 +132,7 @@
         };
 
 
-        var checkForData = function () {
+        var checkForData = function (callback) {
             var currentCity = me.form.location.placeSelector.getSelection();
             var currentIndustry = me.form.industry.industrySelector.getSelection();
             if (currentCity && currentIndustry) {
@@ -127,6 +140,7 @@
                     id: currentIndustry.Id,
                     placeId: currentCity.Id
                 }
+
                 dataLayer.hasData(params, function (isValid) {
                     if (!isValid) {
                         me.errors.noData.hide().fadeIn('slow');
@@ -135,6 +149,10 @@
                         me.errors.noData.fadeOut('slow');
                     }
                     me.hasData = isValid;
+
+                    if (callback) {
+                        callback();
+                    }
                 });
             }
         };

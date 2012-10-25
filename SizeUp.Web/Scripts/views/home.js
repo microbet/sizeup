@@ -104,6 +104,9 @@
         };
 
         var showSelector = function () {
+            var currentCity = me.form.location.placeSelector.getSelection();
+            var currentIndustry = me.form.industry.industrySelector.getSelection();
+            new sizeup.core.analytics().placeIndustry({ placeId: currentCity.Id, industryId: currentIndustry.Id });
             me.form.container.hide("slide", { direction: "left" }, 500);
             me.selector.container.show("slide", { direction: "right" }, 500);
         };

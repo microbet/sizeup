@@ -144,6 +144,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Analytics\AnalyticsAreaRegistration.cs" />
+    <Compile Include="Areas\Analytics\Controllers\PlaceIndustryController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />
@@ -414,6 +416,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Analytics\Models\" />
+    <Folder Include="Areas\Analytics\Views\Shared\" />
     <Folder Include="Areas\Api\Models\Shared\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Pins\Models\" />
@@ -488,6 +492,7 @@
     <Content Include="Areas\Widget\Views\Dashboard\WorkersComp.cshtml" />
     <Content Include="Areas\Widget\Views\Dashboard\YearStarted.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\Analytics.cshtml" />
+    <Content Include="Areas\Analytics\Views\Web.config" />
     <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />

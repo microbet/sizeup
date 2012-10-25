@@ -362,6 +362,13 @@
             },
 
 
+            ///analytics
+
+            trackPlaceIndustry: function (params) {
+                return get('/analytics/placeIndustry/', params);
+            }
+
+
 
 
         };
