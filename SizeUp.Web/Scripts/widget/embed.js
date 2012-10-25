@@ -57,6 +57,13 @@
         span.insertBefore(textNode, anchor);
         textNode = document.createTextNode(" Patent Pending.");
         span.appendChild(textNode);
+
+        var terms = document.createElement("a");
+        terms.setAttribute("href", loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + "/product/terms/");
+        terms.setAttribute("target", "_blank");
+        terms.innerHTML = "Terms of Use";
+        span.appendChild(terms);
+
         span.style["width"] = ((loc.query['width'] || me.defaultWidth) - 10) + 'px';
         span.style["height"] = '20px';
         span.style["backgroundColor"] = '#F8F8F8';
@@ -71,7 +78,9 @@
         anchor.style["textDecoration"] = 'none';
         anchor.style["color"] = '#e78500';
 
-
+        terms.style["textDecoration"] = 'none';
+        terms.style["color"] = '#e78500';
+        terms.style["margin"] = '0 0 0 5px';
     };
 
     var getThisScript = function () {
