@@ -18,7 +18,7 @@
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
                 {
                     container: me.container,
-                    inputValidation: /^[0-9]+$/g,
+                    inputValidation: /^[0-9\.]+$/g,
                     inputCleaning: /[\$\,]/g,
                     events:
                     {
@@ -30,7 +30,7 @@
                         }
                     },
                     inputFormat: function (val) {
-                        return '$' + sizeup.util.numbers.format.addCommas(val);
+                        return '$' + sizeup.util.numbers.format.addCommas(sizeup.util.numbers.format.round(val, 0));
                     }
                 });
 

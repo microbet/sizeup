@@ -74,7 +74,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Percentage(int industryId, int placeId, int revenue, int employees, int salary)
+        public ActionResult Percentage(int industryId, int placeId, double revenue, int employees, double salary)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
