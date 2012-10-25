@@ -91,23 +91,15 @@
         <EntityTypeShape EntityType="SizeUp.Data.ZipCodePlaceMapping" Width="2.375" PointX="7" PointY="11.375" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode" />
-        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByCity" Width="3.125" PointX="33.5" PointY="12.75" />
-        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByCounty" Width="3.125" PointX="37.125" PointY="12.75" />
-        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByZip" Width="3.125" PointX="29.875" PointY="12.75" />
         <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByCity" Width="3.125" PointX="26.625" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByCounty" Width="3.125" PointX="30.125" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByZip" Width="3.125" PointX="22.875" PointY="0.5" />
-        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByCity_City" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCity_City" />
-        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByCounty_County" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCounty_County" />
-        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByZip_Zip" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCity_Industry" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCounty_Industry" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByZip_Industry" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByZip_ZipCode" />
-        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByState" Width="2.5" PointX="40.625" PointY="12.75" />
-        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByState_State" />
         <EntityTypeShape EntityType="SizeUp.Data.CityType" Width="2.375" PointX="11.125" PointY="4.875" />
         <AssociationConnector Association="SizeUp.Data.FK_City_CityType" />
         <EntityTypeShape EntityType="SizeUp.Data.LegacyCommunitySEOKey" Width="2.75" PointX="0.5" PointY="12" />
@@ -125,6 +117,14 @@
         <AssociationConnector Association="SizeUp.Data.FK_ConsumerExpendituresByCounty_County" />
         <AssociationConnector Association="SizeUp.Data.FK_ConsumerExpendituresByState_State" />
         <AssociationConnector Association="SizeUp.Data.FK_ConsumerExpendituresByZip_Zip" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByCity" Width="4" PointX="34.5" PointY="12.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByCounty" Width="4" PointX="38.875" PointY="12.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByState" Width="4" PointX="43.125" PointY="12.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.DemographicsByZip" Width="4" PointX="30.125" PointY="12.625" />
+        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByCity_City" />
+        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByCounty_County" />
+        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByState_State" />
+        <AssociationConnector Association="SizeUp.Data.FK_DemographicsByZip_Zip" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

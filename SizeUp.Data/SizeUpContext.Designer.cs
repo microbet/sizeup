@@ -73,16 +73,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "IndustryDataByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_CityCountyMapping", "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.CityCountyMapping), "ZipCodePlaceMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCodePlaceMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCodePlaceMapping_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "ZipCodePlaceMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCodePlaceMapping), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "DemographicsByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCity), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.City), "IndustryDataByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "IndustryDataByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCity_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCity), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByCounty_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByCounty), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "IndustryDataByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryDataByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_CityType", "CityType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.CityType), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyCommunitySEOKey_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "LegacyCommunitySEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyCommunitySEOKey), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyIndustrySEOKey_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "LegacyIndustrySEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyIndustrySEOKey), true)]
@@ -91,6 +87,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpendituresByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "ConsumerExpendituresByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpendituresByCounty), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpendituresByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "ConsumerExpendituresByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpendituresByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpendituresByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "ConsumerExpendituresByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpendituresByZip), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "DemographicsByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCity), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
 
 #endregion
 
@@ -657,54 +657,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DemographicsByCity> DemographicsByCities
-        {
-            get
-            {
-                if ((_DemographicsByCities == null))
-                {
-                    _DemographicsByCities = base.CreateObjectSet<DemographicsByCity>("DemographicsByCities");
-                }
-                return _DemographicsByCities;
-            }
-        }
-        private ObjectSet<DemographicsByCity> _DemographicsByCities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DemographicsByCounty> DemographicsByCounties
-        {
-            get
-            {
-                if ((_DemographicsByCounties == null))
-                {
-                    _DemographicsByCounties = base.CreateObjectSet<DemographicsByCounty>("DemographicsByCounties");
-                }
-                return _DemographicsByCounties;
-            }
-        }
-        private ObjectSet<DemographicsByCounty> _DemographicsByCounties;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DemographicsByZip> DemographicsByZips
-        {
-            get
-            {
-                if ((_DemographicsByZips == null))
-                {
-                    _DemographicsByZips = base.CreateObjectSet<DemographicsByZip>("DemographicsByZips");
-                }
-                return _DemographicsByZips;
-            }
-        }
-        private ObjectSet<DemographicsByZip> _DemographicsByZips;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<IndustryDataByCity> IndustryDataByCities
         {
             get
@@ -749,22 +701,6 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<IndustryDataByZip> _IndustryDataByZips;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DemographicsByState> DemographicsByStates
-        {
-            get
-            {
-                if ((_DemographicsByStates == null))
-                {
-                    _DemographicsByStates = base.CreateObjectSet<DemographicsByState>("DemographicsByStates");
-                }
-                return _DemographicsByStates;
-            }
-        }
-        private ObjectSet<DemographicsByState> _DemographicsByStates;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -909,6 +845,70 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<ConsumerExpenditureVariable> _ConsumerExpenditureVariables;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByCity> DemographicsByCities
+        {
+            get
+            {
+                if ((_DemographicsByCities == null))
+                {
+                    _DemographicsByCities = base.CreateObjectSet<DemographicsByCity>("DemographicsByCities");
+                }
+                return _DemographicsByCities;
+            }
+        }
+        private ObjectSet<DemographicsByCity> _DemographicsByCities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByCounty> DemographicsByCounties
+        {
+            get
+            {
+                if ((_DemographicsByCounties == null))
+                {
+                    _DemographicsByCounties = base.CreateObjectSet<DemographicsByCounty>("DemographicsByCounties");
+                }
+                return _DemographicsByCounties;
+            }
+        }
+        private ObjectSet<DemographicsByCounty> _DemographicsByCounties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByState> DemographicsByStates
+        {
+            get
+            {
+                if ((_DemographicsByStates == null))
+                {
+                    _DemographicsByStates = base.CreateObjectSet<DemographicsByState>("DemographicsByStates");
+                }
+                return _DemographicsByStates;
+            }
+        }
+        private ObjectSet<DemographicsByState> _DemographicsByStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByZip> DemographicsByZips
+        {
+            get
+            {
+                if ((_DemographicsByZips == null))
+                {
+                    _DemographicsByZips = base.CreateObjectSet<DemographicsByZip>("DemographicsByZips");
+                }
+                return _DemographicsByZips;
+            }
+        }
+        private ObjectSet<DemographicsByZip> _DemographicsByZips;
 
         #endregion
 
@@ -1171,30 +1171,6 @@ namespace SizeUp.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByCities(DemographicsByCity demographicsByCity)
-        {
-            base.AddObject("DemographicsByCities", demographicsByCity);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByCounties(DemographicsByCounty demographicsByCounty)
-        {
-            base.AddObject("DemographicsByCounties", demographicsByCounty);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByZips(DemographicsByZip demographicsByZip)
-        {
-            base.AddObject("DemographicsByZips", demographicsByZip);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the IndustryDataByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToIndustryDataByCities(IndustryDataByCity industryDataByCity)
@@ -1216,14 +1192,6 @@ namespace SizeUp.Data
         public void AddToIndustryDataByZips(IndustryDataByZip industryDataByZip)
         {
             base.AddObject("IndustryDataByZips", industryDataByZip);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByStates(DemographicsByState demographicsByState)
-        {
-            base.AddObject("DemographicsByStates", demographicsByState);
         }
     
         /// <summary>
@@ -1296,6 +1264,38 @@ namespace SizeUp.Data
         public void AddToConsumerExpenditureVariables(ConsumerExpenditureVariable consumerExpenditureVariable)
         {
             base.AddObject("ConsumerExpenditureVariables", consumerExpenditureVariable);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByCities(DemographicsByCity demographicsByCity)
+        {
+            base.AddObject("DemographicsByCities", demographicsByCity);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByCounties(DemographicsByCounty demographicsByCounty)
+        {
+            base.AddObject("DemographicsByCounties", demographicsByCounty);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByStates(DemographicsByState demographicsByState)
+        {
+            base.AddObject("DemographicsByStates", demographicsByState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByZips(DemographicsByZip demographicsByZip)
+        {
+            base.AddObject("DemographicsByZips", demographicsByZip);
         }
 
         #endregion
@@ -4342,28 +4342,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCity_City", "DemographicsByCity")]
-        public EntityCollection<DemographicsByCity> DemographicsByCities
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCity>("SizeUp.Data.FK_DemographicsByCity_City", "DemographicsByCity");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCity>("SizeUp.Data.FK_DemographicsByCity_City", "DemographicsByCity", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCity_City", "IndustryDataByCity")]
         public EntityCollection<IndustryDataByCity> IndustryDataByCities
         {
@@ -4458,6 +4436,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpendituresByCity>("SizeUp.Data.FK_ConsumerExpendituresByCity_City", "ConsumerExpendituresByCity", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCity_City", "DemographicsByCity")]
+        public EntityCollection<DemographicsByCity> DemographicsByCities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCity>("SizeUp.Data.FK_DemographicsByCity_City", "DemographicsByCity");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCity>("SizeUp.Data.FK_DemographicsByCity_City", "DemographicsByCity", value);
                 }
             }
         }
@@ -95840,28 +95840,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "DemographicsByCounty")]
-        public EntityCollection<DemographicsByCounty> DemographicsByCounties
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_County", "DemographicsByCounty");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_County", "DemographicsByCounty", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByCounty_County", "IndustryDataByCounty")]
         public EntityCollection<IndustryDataByCounty> IndustryDataByCounties
         {
@@ -95896,6 +95874,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpendituresByCounty>("SizeUp.Data.FK_ConsumerExpendituresByCounty_County", "ConsumerExpendituresByCounty", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "DemographicsByCounty")]
+        public EntityCollection<DemographicsByCounty> DemographicsByCounties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_County", "DemographicsByCounty");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByCounty>("SizeUp.Data.FK_DemographicsByCounty_County", "DemographicsByCounty", value);
                 }
             }
         }
@@ -96573,6 +96573,222 @@ namespace SizeUp.Data
         private Nullable<global::System.Double> _BlueCollarWorkersPercentage;
         partial void OnBlueCollarWorkersPercentageChanging(Nullable<global::System.Double> value);
         partial void OnBlueCollarWorkersPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> YoungEducatedPercentage
+        {
+            get
+            {
+                return _YoungEducatedPercentage;
+            }
+            set
+            {
+                OnYoungEducatedPercentageChanging(value);
+                ReportPropertyChanging("YoungEducatedPercentage");
+                _YoungEducatedPercentage = StructuralObject.SetValidValue(value, "YoungEducatedPercentage");
+                ReportPropertyChanged("YoungEducatedPercentage");
+                OnYoungEducatedPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _YoungEducatedPercentage;
+        partial void OnYoungEducatedPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnYoungEducatedPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> VeryCreativePercentage
+        {
+            get
+            {
+                return _VeryCreativePercentage;
+            }
+            set
+            {
+                OnVeryCreativePercentageChanging(value);
+                ReportPropertyChanging("VeryCreativePercentage");
+                _VeryCreativePercentage = StructuralObject.SetValidValue(value, "VeryCreativePercentage");
+                ReportPropertyChanged("VeryCreativePercentage");
+                OnVeryCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _VeryCreativePercentage;
+        partial void OnVeryCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnVeryCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CreativePercentage
+        {
+            get
+            {
+                return _CreativePercentage;
+            }
+            set
+            {
+                OnCreativePercentageChanging(value);
+                ReportPropertyChanging("CreativePercentage");
+                _CreativePercentage = StructuralObject.SetValidValue(value, "CreativePercentage");
+                ReportPropertyChanged("CreativePercentage");
+                OnCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CreativePercentage;
+        partial void OnCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> HomeValue
+        {
+            get
+            {
+                return _HomeValue;
+            }
+            set
+            {
+                OnHomeValueChanging(value);
+                ReportPropertyChanging("HomeValue");
+                _HomeValue = StructuralObject.SetValidValue(value, "HomeValue");
+                ReportPropertyChanged("HomeValue");
+                OnHomeValueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _HomeValue;
+        partial void OnHomeValueChanging(Nullable<global::System.Int64> value);
+        partial void OnHomeValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> PropertyTax
+        {
+            get
+            {
+                return _PropertyTax;
+            }
+            set
+            {
+                OnPropertyTaxChanging(value);
+                ReportPropertyChanging("PropertyTax");
+                _PropertyTax = StructuralObject.SetValidValue(value, "PropertyTax");
+                ReportPropertyChanged("PropertyTax");
+                OnPropertyTaxChanged();
+            }
+        }
+        private Nullable<global::System.Double> _PropertyTax;
+        partial void OnPropertyTaxChanging(Nullable<global::System.Double> value);
+        partial void OnPropertyTaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> InternationalTalent
+        {
+            get
+            {
+                return _InternationalTalent;
+            }
+            set
+            {
+                OnInternationalTalentChanging(value);
+                ReportPropertyChanging("InternationalTalent");
+                _InternationalTalent = StructuralObject.SetValidValue(value, "InternationalTalent");
+                ReportPropertyChanged("InternationalTalent");
+                OnInternationalTalentChanged();
+            }
+        }
+        private Nullable<global::System.Double> _InternationalTalent;
+        partial void OnInternationalTalentChanging(Nullable<global::System.Double> value);
+        partial void OnInternationalTalentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> Unemployment
+        {
+            get
+            {
+                return _Unemployment;
+            }
+            set
+            {
+                OnUnemploymentChanging(value);
+                ReportPropertyChanging("Unemployment");
+                _Unemployment = StructuralObject.SetValidValue(value, "Unemployment");
+                ReportPropertyChanged("Unemployment");
+                OnUnemploymentChanged();
+            }
+        }
+        private Nullable<global::System.Double> _Unemployment;
+        partial void OnUnemploymentChanging(Nullable<global::System.Double> value);
+        partial void OnUnemploymentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> JobGrowth
+        {
+            get
+            {
+                return _JobGrowth;
+            }
+            set
+            {
+                OnJobGrowthChanging(value);
+                ReportPropertyChanging("JobGrowth");
+                _JobGrowth = StructuralObject.SetValidValue(value, "JobGrowth");
+                ReportPropertyChanged("JobGrowth");
+                OnJobGrowthChanged();
+            }
+        }
+        private Nullable<global::System.Double> _JobGrowth;
+        partial void OnJobGrowthChanging(Nullable<global::System.Double> value);
+        partial void OnJobGrowthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CommuteTime
+        {
+            get
+            {
+                return _CommuteTime;
+            }
+            set
+            {
+                OnCommuteTimeChanging(value);
+                ReportPropertyChanging("CommuteTime");
+                _CommuteTime = StructuralObject.SetValidValue(value, "CommuteTime");
+                ReportPropertyChanged("CommuteTime");
+                OnCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CommuteTime;
+        partial void OnCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnCommuteTimeChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -97275,54 +97491,6 @@ namespace SizeUp.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Double> MedianCommuteTime
-        {
-            get
-            {
-                return _MedianCommuteTime;
-            }
-            set
-            {
-                OnMedianCommuteTimeChanging(value);
-                ReportPropertyChanging("MedianCommuteTime");
-                _MedianCommuteTime = StructuralObject.SetValidValue(value, "MedianCommuteTime");
-                ReportPropertyChanged("MedianCommuteTime");
-                OnMedianCommuteTimeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _MedianCommuteTime;
-        partial void OnMedianCommuteTimeChanging(Nullable<global::System.Double> value);
-        partial void OnMedianCommuteTimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> AverageCommuteTime
-        {
-            get
-            {
-                return _AverageCommuteTime;
-            }
-            set
-            {
-                OnAverageCommuteTimeChanging(value);
-                ReportPropertyChanging("AverageCommuteTime");
-                _AverageCommuteTime = StructuralObject.SetValidValue(value, "AverageCommuteTime");
-                ReportPropertyChanged("AverageCommuteTime");
-                OnAverageCommuteTimeChanged();
-            }
-        }
-        private Nullable<global::System.Double> _AverageCommuteTime;
-        partial void OnAverageCommuteTimeChanging(Nullable<global::System.Double> value);
-        partial void OnAverageCommuteTimeChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int64> AveragePropertyTax
         {
             get
@@ -97533,198 +97701,6 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _PopulationEmployed;
         partial void OnPopulationEmployedChanging(Nullable<global::System.Int64> value);
         partial void OnPopulationEmployedChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> YoungEducatedPercentage
-        {
-            get
-            {
-                return _YoungEducatedPercentage;
-            }
-            set
-            {
-                OnYoungEducatedPercentageChanging(value);
-                ReportPropertyChanging("YoungEducatedPercentage");
-                _YoungEducatedPercentage = StructuralObject.SetValidValue(value, "YoungEducatedPercentage");
-                ReportPropertyChanged("YoungEducatedPercentage");
-                OnYoungEducatedPercentageChanged();
-            }
-        }
-        private Nullable<global::System.Double> _YoungEducatedPercentage;
-        partial void OnYoungEducatedPercentageChanging(Nullable<global::System.Double> value);
-        partial void OnYoungEducatedPercentageChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> VeryCreativePercentage
-        {
-            get
-            {
-                return _VeryCreativePercentage;
-            }
-            set
-            {
-                OnVeryCreativePercentageChanging(value);
-                ReportPropertyChanging("VeryCreativePercentage");
-                _VeryCreativePercentage = StructuralObject.SetValidValue(value, "VeryCreativePercentage");
-                ReportPropertyChanged("VeryCreativePercentage");
-                OnVeryCreativePercentageChanged();
-            }
-        }
-        private Nullable<global::System.Double> _VeryCreativePercentage;
-        partial void OnVeryCreativePercentageChanging(Nullable<global::System.Double> value);
-        partial void OnVeryCreativePercentageChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> HomeValue
-        {
-            get
-            {
-                return _HomeValue;
-            }
-            set
-            {
-                OnHomeValueChanging(value);
-                ReportPropertyChanging("HomeValue");
-                _HomeValue = StructuralObject.SetValidValue(value, "HomeValue");
-                ReportPropertyChanged("HomeValue");
-                OnHomeValueChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _HomeValue;
-        partial void OnHomeValueChanging(Nullable<global::System.Int64> value);
-        partial void OnHomeValueChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> PropertyTax
-        {
-            get
-            {
-                return _PropertyTax;
-            }
-            set
-            {
-                OnPropertyTaxChanging(value);
-                ReportPropertyChanging("PropertyTax");
-                _PropertyTax = StructuralObject.SetValidValue(value, "PropertyTax");
-                ReportPropertyChanged("PropertyTax");
-                OnPropertyTaxChanged();
-            }
-        }
-        private Nullable<global::System.Double> _PropertyTax;
-        partial void OnPropertyTaxChanging(Nullable<global::System.Double> value);
-        partial void OnPropertyTaxChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> InternationalTalent
-        {
-            get
-            {
-                return _InternationalTalent;
-            }
-            set
-            {
-                OnInternationalTalentChanging(value);
-                ReportPropertyChanging("InternationalTalent");
-                _InternationalTalent = StructuralObject.SetValidValue(value, "InternationalTalent");
-                ReportPropertyChanged("InternationalTalent");
-                OnInternationalTalentChanged();
-            }
-        }
-        private Nullable<global::System.Double> _InternationalTalent;
-        partial void OnInternationalTalentChanging(Nullable<global::System.Double> value);
-        partial void OnInternationalTalentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> Unemployment
-        {
-            get
-            {
-                return _Unemployment;
-            }
-            set
-            {
-                OnUnemploymentChanging(value);
-                ReportPropertyChanging("Unemployment");
-                _Unemployment = StructuralObject.SetValidValue(value, "Unemployment");
-                ReportPropertyChanged("Unemployment");
-                OnUnemploymentChanged();
-            }
-        }
-        private Nullable<global::System.Double> _Unemployment;
-        partial void OnUnemploymentChanging(Nullable<global::System.Double> value);
-        partial void OnUnemploymentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> CreativePercentage
-        {
-            get
-            {
-                return _CreativePercentage;
-            }
-            set
-            {
-                OnCreativePercentageChanging(value);
-                ReportPropertyChanging("CreativePercentage");
-                _CreativePercentage = StructuralObject.SetValidValue(value, "CreativePercentage");
-                ReportPropertyChanged("CreativePercentage");
-                OnCreativePercentageChanged();
-            }
-        }
-        private Nullable<global::System.Double> _CreativePercentage;
-        partial void OnCreativePercentageChanging(Nullable<global::System.Double> value);
-        partial void OnCreativePercentageChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Double> JobGrowth
-        {
-            get
-            {
-                return _JobGrowth;
-            }
-            set
-            {
-                OnJobGrowthChanging(value);
-                ReportPropertyChanging("JobGrowth");
-                _JobGrowth = StructuralObject.SetValidValue(value, "JobGrowth");
-                ReportPropertyChanged("JobGrowth");
-                OnJobGrowthChanged();
-            }
-        }
-        private Nullable<global::System.Double> _JobGrowth;
-        partial void OnJobGrowthChanging(Nullable<global::System.Double> value);
-        partial void OnJobGrowthChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -107362,28 +107338,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByState_State", "DemographicsByState")]
-        public EntityCollection<DemographicsByState> DemographicsByStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ConsumerExpendituresByState_State", "ConsumerExpendituresByState")]
         public EntityCollection<ConsumerExpendituresByState> ConsumerExpendituresByStates
         {
@@ -107396,6 +107350,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpendituresByState>("SizeUp.Data.FK_ConsumerExpendituresByState_State", "ConsumerExpendituresByState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByState_State", "DemographicsByState")]
+        public EntityCollection<DemographicsByState> DemographicsByStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState", value);
                 }
             }
         }
@@ -107902,28 +107878,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "DemographicsByZip")]
-        public EntityCollection<DemographicsByZip> DemographicsByZips
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByZip>("SizeUp.Data.FK_DemographicsByZip_Zip", "DemographicsByZip");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByZip>("SizeUp.Data.FK_DemographicsByZip_Zip", "DemographicsByZip", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_IndustryDataByZip_ZipCode", "IndustryDataByZip")]
         public EntityCollection<IndustryDataByZip> IndustryDataByZips
         {
@@ -107958,6 +107912,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpendituresByZip>("SizeUp.Data.FK_ConsumerExpendituresByZip_Zip", "ConsumerExpendituresByZip", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "DemographicsByZip")]
+        public EntityCollection<DemographicsByZip> DemographicsByZips
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByZip>("SizeUp.Data.FK_DemographicsByZip_Zip", "DemographicsByZip");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByZip>("SizeUp.Data.FK_DemographicsByZip_Zip", "DemographicsByZip", value);
                 }
             }
         }

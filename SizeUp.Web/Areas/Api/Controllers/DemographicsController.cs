@@ -33,7 +33,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     AverageHouseholdExpenditures = i.CityData.AverageHouseholdExpenditure,
                     BachelorsOrHigherPercentage = i.CityData.BachelorsOrHigherPercentage * 100,
                     BlueCollarWorkersPercentage = i.CityData.BlueCollarWorkersPercentage * 100,
-                    CommuteTime = i.CityData.AverageCommuteTime,
+                    CommuteTime = i.CityData.CommuteTime,
                     CorporateCapitalGainsTax = i.StateData.CorporateCapitalGainsTax,
                     CorporateIncomeTax = i.StateData.CorporateIncomeTax,
                     CreativeProfessionalsPercentage = i.CityData.CreativePercentage * 100,
