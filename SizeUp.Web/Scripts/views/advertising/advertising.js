@@ -56,11 +56,20 @@
         me.data = {};
         me.opts.filterOptions = {};
         
-        dataLayer.getBestPlacesToAdvertiseMinimumDistance({ placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage }, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
+        
+        var params = jQuery.bbq.getState();
+        var minDistanceParams = { placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
+        if (params.template == null) {
+            minDistanceParams = $.extend(true, minDistanceParams, me.opts.filterTemplates.totalRevenue);
+        }
+
+
+        dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
         dataLayer.getPlaceCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
         var init = function () {
             
+         
             var params = jQuery.bbq.getState();
             if (params.template == null) {
                 var d = $.extend(me.opts.filterTemplates.totalRevenue, { distance: me.data.defaultDistance });
@@ -68,8 +77,8 @@
             }
             params = jQuery.bbq.getState();
             me.opts.filterOptions = params;
-
-
+           
+  
             me.content = {};
             me.content.container = me.container.find('.content').hide().removeClass('hidden');
 
@@ -380,7 +389,7 @@
                 me.content.optionMenu.custom.remove();
             }
             me.content.optionMenu.option.find('option[value=' + index + ']').attr('selected','selected');
-            me.content.optionMenu.menu.trigger('liszt:updated');
+            me.content.optionMenu.menu.trigger('list:updated');
             me.content.optionMenu.option.val(index);
         };
 

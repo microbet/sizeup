@@ -475,8 +475,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
             int? bachelorOrHigher = QueryString.IntValue("bachelorsDegreeOrHigher");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
             int? whiteCollar = QueryString.IntValue("whiteCollarWorkers");
+            string sort = QueryString.StringValue("sort");
+            string sortAttribute = QueryString.StringValue("sortAttribute");
             string attribute = QueryString.StringValue("attribute");
-
 
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -672,6 +673,143 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     data = data.Where(i => i.HighSchoolOrHigher != null);
                 }
+
+
+
+
+
+                switch (sortAttribute)
+                {
+                    case "name":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.Name);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.Name);
+                        }
+                        break;
+                    case "totalRevenue":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.TotalRevenue);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.TotalRevenue);
+                        }
+                        break;
+                    case "averageRevenue":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.AverageRevenue);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.AverageRevenue);
+                        }
+                        break;
+                    case "revenuePerCapita":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.RevenuePerCapita);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.RevenuePerCapita);
+                        }
+                        break;
+                    case "householdIncome":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.HouseholdIncome);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.HouseholdIncome);
+                        }
+                        break;
+
+                    case "totalPopulation":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.TotalPopulation);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.TotalPopulation);
+                        }
+                        break;
+
+                    case "whiteCollarWorkers":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.WhiteCollarWorkers);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.WhiteCollarWorkers);
+                        }
+                        break;
+
+                    case "totalEmployees":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.TotalEmployees);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.TotalEmployees);
+                        }
+                        break;
+                    case "householdExpenditures":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.HouseholdExpenditures);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.HouseholdExpenditures);
+                        }
+                        break;
+                    case "medianAge":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.MedianAge);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.MedianAge);
+                        }
+                        break;
+                    case "bachelorsDegreeOrHigher":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.BachelorsDegreeOrHigher);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.BachelorsDegreeOrHigher);
+                        }
+                        break;
+                    case "highSchoolOrHigher":
+                        if (sort == "desc")
+                        {
+                            data = data.OrderByDescending(i => i.HighSchoolOrHigher);
+                        }
+                        else
+                        {
+                            data = data.OrderBy(i => i.HighSchoolOrHigher);
+                        }
+                        break;
+
+                    default:
+                        data = data.OrderBy(i => i.Name);
+                        break;
+
+                }
+
 
                 var results = data.Select(i => new
                 {

@@ -26,7 +26,14 @@
                             { saturation: -100 },
                             { lightness: 50 }
                         ]
-                    }
+                    }/*,
+                    {
+                        featureType: "water",
+                        elementType: "geometry",
+                        stylers: [
+                            { color: '#BBDAFA' }
+                        ]
+                    }*/
             ]
         };
 
