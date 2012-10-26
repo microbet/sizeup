@@ -56,6 +56,7 @@
             else {
                 me.textbox.val('');
                 me.textbox.addClass('blank');
+                me.textbox.blur();
             }
         };
 
