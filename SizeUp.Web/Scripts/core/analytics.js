@@ -33,7 +33,10 @@
             },
             placeIndustry: function (params) {
                 trackInternal(params, 'trackPlaceIndustry');
-            }
+            },
+            topPlacesReportLoaded: function () {
+                trackEvent({ category: 'TopPlaces', action: 'reportLoaded', label: null, isInteraction: true });
+            },
         };
         return publicObj;
     };

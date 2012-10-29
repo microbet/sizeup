@@ -21,14 +21,14 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 }else{
 <li><a href="/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Advertising</a></li>
 }
-<!--
+
 <li><span>|</span></li>
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.TopPlaces){
 <li class="lastMenuItem"><a class="disabled">Top Places</a></li>
 }else{
 <li class="lastMenuItem"><a href="/topPlaces/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Top Places</a></li>
 }
-    -->
+
 }
 @if(SizeUp.Core.Identity.Identity.CurrentUser==null){
 <li><a href="javascript:sizeup.core.profile.signIn();">Sign In</a></li>

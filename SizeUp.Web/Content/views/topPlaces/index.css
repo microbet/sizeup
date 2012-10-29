@@ -1,21 +1,25 @@
 ﻿
+#topPlaces { position:relative; margin:0 0 4em 0; }
+#topPlaces .content.container { }
 
-#topPlaces { position:relative; margin: 0 0 5em 0;}
-#topPlaces .heading { position: relative; height:5em; margin: 0 0 1em 0;}
-#topPlaces .heading h2 { font-size: 2.4em; font-weight:normal; position:absolute; top:0.35em;}
-
-
-#topPlaces .mapContent { }
-#topPlaces .mapContent .map{width:100%;height:40em; border:solid 1px black;}
-#topPlaces .mapContent .footer{background-color:#F6F6F0; padding:0.5em; }
-#topPlaces .mapContent .footer ul li { display: inline-block; width: 33%; }
-
-
-#topPlaces .message { color: #aaa; padding: 0.5em 3em; display:inline-block; }
+#topPlaces .heading { text-align:right;}
+#topPlaces .heading h2 { font-size: 2.2em; font-weight:normal; margin: 0 0 0.5em 0; text-align:left;}
+#topPlaces .heading .filter.container { margin: 0 0 0 0.5em;}
+#topPlaces .heading .filter.container .filterMenu { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: relative; right: 0; top:0;  cursor:pointer;display:inline-block;text-align:left;}
 
 
 
+#topPlaces #optionMenu { width: 24em; position:relative; top:1em; }
+#topPlaces #filterSettingsButton { color: transparent; height: 3.75em; position: absolute; right: 0; top: 0; width: 4.5em; }
 
+#topPlaces .heading .filter #optionMenu_chzn { left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left;}
+#topPlaces .heading .filter #optionMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block;line-height:2.75em; }
+#topPlaces .heading .filter #optionMenu_chzn .chzn-single:hover { color: #fff; }
+  
+
+
+#topPlaces .mapContent.container {  margin:1em 0 0 0;}
+#topPlaces .mapContent.container .map{width:100%;height:40em;}
 
 
 

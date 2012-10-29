@@ -127,7 +127,12 @@ a.sorter.desc { background-position:right 3px; }
 /**** experimental base styles*****/
 
 
-
+.chzn-container {position:relative; z-index:9999999; }
+.chzn-container .chzn-drop {position:absolute; background-color:#fff; border:1px solid #ccc; }
+.chzn-container .chzn-drop .chzn-search { display: none; }
+.chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; }
+.chzn-container .chzn-drop .chzn-results .active-result.result-selected {background-color:#E6E6E6; }
+.chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; }
 
 
 

@@ -9,60 +9,153 @@
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/chosen.jquery.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/slider.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")"></script>
+  
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/topPlaces/topPlaces.js")"></script>
 
 
 }
 
 
 <div id="topPlaces">
-    <div class="wrapper heading">
-        <h2>Top cities for total sales in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
-    </div>
-
-    <div class="mapContent wrapper">
-        <div class="map"></div>
-        <div class="footer">
-            <ul>
-                <li><img src="" /><span>12-166</span></li>
-                <li><img src="" /><span>200-1555</span></li>
-                <li><img src="" /><span>2000-4564</span></li>
-            </ul>
+    <div class="content container hidden">
+        <div class="heading">
+            <h2>Top cities for total sales in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
+            <div class="filter container">
+                <div class="filterMenu">
+                    <select id="optionMenu">
+                        <option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                        <option value="underservedMarkets">Most Underserved Markets</option>
+                        <option value="averageRevenue">Highest Average Revenue</option>
+                        <option value="totalRevenue">Highest Total Revenue</option>
+                        <option value="householdIncome">Highest Household Income</option>
+                        <option class="custom" value="custom">Custom Filter</option>
+                    </select>
+                    <a href="javascript:void(0);" id="filterSettingsButton">Settings</a>
+                </div>
+            </div>
         </div>
+
+
+
+        <div id="filterSettings" class="hidden">
+            <h2>Best Places to Advertise</h2>
+            <p>
+                Find the best places to target your next advertising campaign.
+                 Adjust business and demographic parameters to find the best advertising locations.
+            </p>
+            <div class="section">
+                 <ul class="options">
+                    <li id="distance">
+                        <span class="label">Search distance:</span>
+                        <span class="valueLabel">
+                            <span class="value">at most <span class="val">{{value}}</span> miles</span>
+                            <span class="off"><span class="val">Nationwide</span></span>
+                        </span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <a href="javascript:void(0);" class="button small submit">Search</a>
+            <a href="javascript:void(0);"  class="inverse cancel">Cancel</a>
+        </div>
+
+
+
+        <div class="mapContent container">
+            <div class="map"></div>
+            <div class="footer">
+                <ul class="bandContainer">
+                    <li data-template="bandItem"><img data-override-src="/content/images/heatPin{{color}}.png" /><span>{{label}}</span></li>
+                </ul>
+            </div>
+        </div>
+
+   
+        <div class="list container">
+            <ul class="results">
+                <li data-template="listItem">
+                    {{#city.SEOKey}}
+                    <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a>
+                    {{/city.SEOKey}}
+                    {{^city.SEOKey}}
+                    <a class="name noCommunity">{{name}}</a>
+                    {{/city.SEOKey}}
+                    <span class="value">{{#value.value}}{{value.value}}{{/value.value}}{{^value.value}}no data{{/value.value}}</span>
+                    <ul class="details">
+                        {{#totalPopulation}}<li>Total Population: {{#totalPopulation.value}}{{totalPopulation.value}}{{/totalPopulation.value}}{{^totalPopulation.value}}no data{{/totalPopulation.value}}</li>{{/totalPopulation}}
+                        {{#totalRevenue}}<li>Total Annual Revenue: {{#totalRevenue.value}}{{totalRevenue.value}}{{/totalRevenue.value}}{{^totalRevenue.value}}no data{{/totalRevenue.value}}</li>{{/totalRevenue}}
+                        {{#averageRevenue}}<li>Average Annual Revenue: {{#averageRevenue.value}}{{averageRevenue.value}}{{/averageRevenue.value}}{{^averageRevenue.value}}no data{{/averageRevenue.value}}</li>{{/averageRevenue}}
+                        {{#totalEmployees}}<li>Total Employees: {{#totalEmployees.value}}{{totalEmployees.value}}{{/totalEmployees.value}}{{^totalEmployees.value}}no data{{/totalEmployees.value}}</li>{{/totalEmployees}}
+                        {{#revenuePerCapita}}<li>Revenue Per Capita: {{#revenuePerCapita.value}}{{revenuePerCapita.value}}{{/revenuePerCapita.value}}{{^revenuePerCapita.value}}no data{{/revenuePerCapita.value}}</li>{{/revenuePerCapita}}
+                        {{#householdIncome}}<li>Household Income: {{#householdIncome.value}}{{householdIncome.value}}{{/householdIncome.value}}{{^householdIncome.value}}no data{{/householdIncome.value}}</li>{{/householdIncome}}
+                        {{#householdExpenditures}}<li>Household Expenditures (Average): {{#householdExpenditures.value}}{{householdExpenditures.value}}{{/householdExpenditures.value}}{{^householdExpenditures.value}}no data{{/householdExpenditures.value}}</li>{{/householdExpenditures}}
+                        {{#medianAge}}<li>Median Age: {{#medianAge.value}}{{medianAge.value}}{{/medianAge.value}}{{^medianAge.value}}no data{{/medianAge.value}}</li>{{/medianAge}}
+                        {{#bachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{#bachelorsDegreeOrHigher.value}}{{bachelorsDegreeOrHigher.value}}{{/bachelorsDegreeOrHigher.value}}{{^bachelorsDegreeOrHigher.value}}no data{{/bachelorsDegreeOrHigher.value}}</li>{{/bachelorsDegreeOrHigher}}
+                        {{#highSchoolOrHigher}}<li>Highschool Degree or Higher: {{#highSchoolOrHigher.value}}{{highSchoolOrHigher.value}}{{/highSchoolOrHigher.value}}{{^highSchoolOrHigher.value}}no data{{/highSchoolOrHigher.value}}</li>{{/highSchoolOrHigher}}
+                        {{#whiteCollarWorkers}}<li>White Collar Workers: {{#whiteCollarWorkers.value}}{{whiteCollarWorkers.value}}{{/whiteCollarWorkers.value}}{{^whiteCollarWorkers.value}}no data{{/whiteCollarWorkers.value}}</li>{{/whiteCollarWorkers}}
+                    </ul>
+                </li>
+            </ul>
+
+
+            <div class="noResults hidden">
+                <p>No Results Returned.</p>
+            </div>
+            <div class="loading list hidden">
+                <p class="title"></p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Loading Next Set of Communities</p>
+            </div>
+   
+        </div>
+
+   
+
+
+    
+        <div class="loading page">
+            <p class="title"></p>
+            <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+            <p class="message">Locating Communities</p>
+        </div>
+
     </div>
-
-    <p class="message">This is a list of zip codes showing data for the <strong>Pharmacies</strong> industry.</p>
-
-
-
-    <div class="sort">
-        <div class="direction"></div>
-        <div class="value"></div>
-    </div>
-
-
-    <ul class="results">
-        <li>
-            <a href="#" class="name">San Francisco, CA 94104</a>
-            <span class="value">564</span>
-            <p class="details">Revenue Per Capita: $9,194 per capita</p>
-        </li>
-        <li>
-            <a href="#" class="name">San Francisco, CA 94104</a>
-            <span class="value">564</span>
-            <p class="details">Revenue Per Capita: $9,194 per capita</p>
-        </li>
-        <li>
-            <a href="#" class="name">San Francisco, CA 94104</a>
-            <span class="value">564</span>
-            <p class="details">Revenue Per Capita: $9,194 per capita</p>
-        </li>
-    </ul>
-
 </div>
 
 
 
 
 
+@section scripts{
+
+    <script type="text/javascript">
+        var opts = {
+            CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
+        };
+        var driver = new sizeup.views.topPlaces.topPlaces(opts);
+    </script>
+
+
+}
 
 

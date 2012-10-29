@@ -544,6 +544,36 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "ConsumerExpenditures", action = "VariableCrosswalk" }
             );
 
+
+
+            context.MapRoute(
+               "TopPlacesCity",
+               "Api/TopPlaces/City",
+               new { controller = "TopPlaces", action = "City" },
+               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+           );
+
+            context.MapRoute(
+              "TopPlacesCounty",
+              "Api/TopPlaces/County",
+              new { controller = "TopPlaces", action = "County" },
+              new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+          );
+
+            context.MapRoute(
+              "TopPlacesMetro",
+              "Api/TopPlaces/Metro",
+              new { controller = "TopPlaces", action = "Metro" },
+              new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+          );
+
+            context.MapRoute(
+              "TopPlacesState",
+              "Api/TopPlaces/State",
+              new { controller = "TopPlaces", action = "State" },
+              new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+          );
+
            
 
             /*****************default*****************/

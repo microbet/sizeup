@@ -362,6 +362,20 @@
             },
 
 
+            getTopPlacesByCity: function (params, callback) {
+                return get('/api/topPlaces/city/', params, callback);
+            },
+            getTopPlacesByCounty: function (params, callback) {
+                return get('/api/topPlaces/county/', params, callback);
+            },
+            getTopPlacesByMetro: function (params, callback) {
+                return get('/api/topPlaces/metro/', params, callback);
+            },
+            getTopPlacesByState: function (params, callback) {
+                return get('/api/topPlaces/state/', params, callback);
+            },
+
+
             ///analytics
 
             trackPlaceIndustry: function (params) {

@@ -156,6 +156,7 @@
     <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Api\Controllers\CostEffectivenessController.cs" />
     <Compile Include="Areas\Api\Controllers\DemographicsController.cs" />
+    <Compile Include="Areas\Api\Controllers\TopPlacesController.cs" />
     <Compile Include="Areas\Api\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Api\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
@@ -401,6 +402,7 @@
     <Content Include="Scripts\views\community\community.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\shared\signin.js" />
+    <Content Include="Scripts\views\topPlaces\topPlaces.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
