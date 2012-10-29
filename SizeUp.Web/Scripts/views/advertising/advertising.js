@@ -389,7 +389,7 @@
                 me.content.optionMenu.custom.remove();
             }
             me.content.optionMenu.option.find('option[value=' + index + ']').attr('selected','selected');
-            me.content.optionMenu.menu.trigger('list:updated');
+            me.content.optionMenu.menu.trigger('liszt:updated');
             me.content.optionMenu.option.val(index);
         };
 

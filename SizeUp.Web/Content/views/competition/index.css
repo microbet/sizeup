@@ -22,7 +22,7 @@
 #competition .tabs:after { border-left: 2px solid #CCCCCC; border-right: 2px solid #CCCCCC; border-top: 2px solid #CCCCCC; border-top-left-radius: 2em;border-top-right-radius: 2em; content: " "; display: block; height: 1em; left: -2.2em; position: absolute; width: 96em; }
 
 
-#competition .mapWrapper.container { display: inline-block; vertical-align: top; width:50em;}
+#competition .mapWrapper.container { display: inline-block; vertical-align: top; width:50em; margin:1.8em 0 0 0;}
 #competition .mapWrapper.container .map { height: 57em; width: 50em; }
 
 
