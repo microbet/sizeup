@@ -388,6 +388,7 @@
             else {
                 me.noData.show();
                 me.reportData.hide();
+                me.reportContainer.hideGauge();
             }
         };
 
