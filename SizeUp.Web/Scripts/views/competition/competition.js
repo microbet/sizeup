@@ -349,6 +349,11 @@
             var item = a.parent();
             item.remove();
             var id = a.attr('data-id');
+            var hasChildren = a.attr('data-hasChildren');
+            if (hasChildren == "false") {
+                me.content.ConsumerExpenditure.menuContent.toggle();
+            }
+
             me.data.consumerExpenditure.currentSelection = id;
             me.content.ConsumerExpenditure.selectionList.append(item);
             setHeatmap(id);
