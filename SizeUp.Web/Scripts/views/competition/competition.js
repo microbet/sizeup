@@ -46,7 +46,8 @@
                 rootId: 1,
                 currentSelection: null,
                 legend: null
-            }
+            },
+            businessListXHR: null
         };
         me.container = $('#competition');
         var dataLayer = new sizeup.core.data();
@@ -537,6 +538,8 @@
         };
 
         var activateTab = function (tabIndex) {
+            abortLoadBusinesses();
+
             new sizeup.core.analytics().competitionTabLoaded({ tab: tabIndex });
             for (var x in me.content.tabs) {
                 me.content.tabs[x].removeClass('active');
@@ -850,6 +853,13 @@
             jQuery.bbq.pushState(data, 2);
         };
 
+        var abortLoadBusinesses = function () {
+            if (me.data.businessListXHR != null) {
+                me.data.businessListXHR.abort();
+            }
+            me.content.loader.hide();
+        };
+
         var loadBusinesses = function () {
             var industries = $.extend({}, me.data[me.data.activeIndex].industries);
             if (me.data[me.data.activeIndex].primaryIndustry) {
@@ -868,13 +878,17 @@
                 me.content.pager.getContainer().hide();
                 me.content.addIndustries.hide();
 
-                dataLayer.getBusinessesByIndustry({
+                if (me.data.businessListXHR != null) {
+                    me.data.businessListXHR.abort();
+                }
+                me.data.businessListXHR = dataLayer.getBusinessesByIndustry({
                     industryIds: ids,
                     placeId: me.opts.CurrentInfo.CurrentPlace.Id,
                     itemCount: me.opts.itemsPerPage,
                     page: me.data[me.data.activeIndex].pageData.page
                 }, function (data) {
                     me.data[me.data.activeIndex].businesses = data;
+                    me.data.businessListXHR = null;
                     bindBusinesses();
                     bindBusinessMarkers();
                     me.content.loader.hide();
