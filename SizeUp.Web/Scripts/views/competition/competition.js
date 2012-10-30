@@ -7,7 +7,8 @@
             itemsPerPage: 10,
             dblClickZoom: 18,
             mapRadius: 100,
-            mapFilterZoomThreshold: 12
+            mapFilterZoomThreshold: 12,
+            maxAutoZoom: 16
         };
         var me = {};
         
@@ -919,6 +920,9 @@
             }
             if (data.Items.length > 0) {
                 me.content.map.fitBounds(bounds);
+            }
+            if(me.content.map.getZoom() > me.opts.maxAutoZoom){
+                me.content.map.setZoom(me.opts.maxAutoZoom);
             }
         };
 
