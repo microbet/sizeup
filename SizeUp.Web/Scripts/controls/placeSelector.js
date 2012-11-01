@@ -8,7 +8,7 @@
         me.textbox = opts.textbox;
         me.promptText = opts.promptText || me.textbox.val();
         me.maxResults = opts.maxResults || 35;
-        me.minLength = opts.minLength || 2;
+        me.minLength = opts.minLength || 1;
         me.onChange = opts.onChange || function () { };
         me.selection = null;
        

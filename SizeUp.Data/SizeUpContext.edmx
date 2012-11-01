@@ -45,6 +45,7 @@
           <EntitySet Name="Metro" EntityType="SizeUp.Data.Store.Metro" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MetroGeography" EntityType="SizeUp.Data.Store.MetroGeography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="NAICS" EntityType="SizeUp.Data.Store.NAICS" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PlaceKeyword" EntityType="SizeUp.Data.Store.PlaceKeyword" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ResourceString" EntityType="SizeUp.Data.Store.ResourceString" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SicToNAICSMapping" EntityType="SizeUp.Data.Store.SicToNAICSMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
@@ -285,6 +286,10 @@
           <AssociationSet Name="FK_MetroGeography_Metro" Association="SizeUp.Data.Store.FK_MetroGeography_Metro">
             <End Role="Metro" EntitySet="Metro" />
             <End Role="MetroGeography" EntitySet="MetroGeography" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceKeyword_Place" Association="SizeUp.Data.Store.FK_PlaceKeyword_Place">
+            <End Role="CityCountyMapping" EntitySet="CityCountyMapping" />
+            <End Role="PlaceKeyword" EntitySet="PlaceKeyword" />
           </AssociationSet>
           <AssociationSet Name="FK_SicToNAICSMapping_Industry" Association="SizeUp.Data.Store.FK_SicToNAICSMapping_Industry">
             <End Role="Industry" EntitySet="Industry" />
@@ -4723,6 +4728,14 @@
           <Property Name="NAICSCode" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
         </EntityType>
+        <EntityType Name="PlaceKeyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
         <EntityType Name="ResourceString">
           <Key>
             <PropertyRef Name="Id" />
@@ -5495,6 +5508,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PlaceKeyword_Place">
+          <End Role="CityCountyMapping" Type="SizeUp.Data.Store.CityCountyMapping" Multiplicity="1" />
+          <End Role="PlaceKeyword" Type="SizeUp.Data.Store.PlaceKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityCountyMapping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlaceKeyword">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SicToNAICSMapping_Industry">
           <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
           <End Role="SicToNAICSMapping" Type="SizeUp.Data.Store.SicToNAICSMapping" Multiplicity="*" />
@@ -6004,6 +6029,11 @@
             <End Role="ZipCode" EntitySet="ZipCodes" />
             <End Role="DemographicsByZip" EntitySet="DemographicsByZips" />
           </AssociationSet>
+          <EntitySet Name="PlaceKeywords" EntityType="SizeUp.Data.PlaceKeyword" />
+          <AssociationSet Name="FK_PlaceKeyword_Place" Association="SizeUp.Data.FK_PlaceKeyword_Place">
+            <End Role="CityCountyMapping" EntitySet="CityCountyMappings" />
+            <End Role="PlaceKeyword" EntitySet="PlaceKeywords" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -6112,6 +6142,7 @@
           <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_CityCountyMapping_City" FromRole="CityCountyMapping" ToRole="City" />
           <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_CityCountyMapping_County" FromRole="CityCountyMapping" ToRole="County" />
           <NavigationProperty Name="ZipCodePlaceMappings" Relationship="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping" FromRole="CityCountyMapping" ToRole="ZipCodePlaceMapping" />
+          <NavigationProperty Name="PlaceKeywords" Relationship="SizeUp.Data.FK_PlaceKeyword_Place" FromRole="CityCountyMapping" ToRole="PlaceKeyword" />
         </EntityType>
         <EntityType Name="APIKey">
           <Key>
@@ -11469,6 +11500,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PlaceKeyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CityCountyMapping" Relationship="SizeUp.Data.FK_PlaceKeyword_Place" FromRole="PlaceKeyword" ToRole="CityCountyMapping" />
+        </EntityType>
+        <Association Name="FK_PlaceKeyword_Place">
+          <End Type="SizeUp.Data.CityCountyMapping" Role="CityCountyMapping" Multiplicity="1" />
+          <End Type="SizeUp.Data.PlaceKeyword" Role="PlaceKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityCountyMapping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlaceKeyword">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15975,6 +16027,15 @@
                 <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaceKeywords">
+            <EntityTypeMapping TypeName="SizeUp.Data.PlaceKeyword">
+              <MappingFragment StoreEntitySet="PlaceKeyword">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

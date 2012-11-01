@@ -57,7 +57,7 @@
         <AssociationConnector Association="SizeUp.Data.FK_MetroGeography_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_StateGeography_State" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodeGeography_ZipCode" />
-        <EntityTypeShape EntityType="SizeUp.Data.ZipCodeCityMapping" Width="1.875" PointX="6.875" PointY="6.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCodeCityMapping" Width="1.875" PointX="9" PointY="8.875" />
         <EntityTypeShape EntityType="SizeUp.Data.ZipCodeCountyMapping" Width="1.875" PointX="9.125" PointY="6.25" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodeCityMapping_City" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodeCountyMapping_County" />
@@ -125,6 +125,8 @@
         <AssociationConnector Association="SizeUp.Data.FK_DemographicsByCounty_County" />
         <AssociationConnector Association="SizeUp.Data.FK_DemographicsByState_State" />
         <AssociationConnector Association="SizeUp.Data.FK_DemographicsByZip_Zip" />
+        <EntityTypeShape EntityType="SizeUp.Data.PlaceKeyword" Width="1.5" PointX="6.5" PointY="5.5" />
+        <AssociationConnector Association="SizeUp.Data.FK_PlaceKeyword_Place" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
