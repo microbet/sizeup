@@ -153,7 +153,8 @@ namespace SizeUp.Web.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(email, false);
                 }
-                FormsAuthentication.RedirectFromLoginPage(email, persist);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+                return Redirect(ReturnUrl);
             }
             return View();
         }

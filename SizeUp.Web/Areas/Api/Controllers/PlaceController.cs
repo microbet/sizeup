@@ -24,9 +24,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = context.CityCountyMappings
-                    .OrderBy(i => i.City.Name)
-                    .ThenBy(i => i.City.State.Abbreviation)
-                    .ThenByDescending(i => i.City.DemographicsByCities.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault().TotalPopulation)     
                     .Where(i => i.City.CityType.IsActive);
 
                 var search = term.Split(',');
@@ -40,6 +37,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     data = data.Where(i => i.County.State.Abbreviation.StartsWith(state));
                 }
 
+                data = data
+                    .OrderBy(i => i.City.Name)
+                    .ThenBy(i => i.City.State.Abbreviation)
+                    .ThenByDescending(i => i.City.DemographicsByCities.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault().TotalPopulation);
+ 
                 var temp = data.Select(i => new Models.Place.Place()
                 {
                     Id = i.Id,
