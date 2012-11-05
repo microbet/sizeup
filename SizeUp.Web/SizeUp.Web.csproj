@@ -493,7 +493,6 @@
     <Content Include="Areas\Widget\Views\Dashboard\YearStarted.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\Analytics.cshtml" />
     <Content Include="Areas\Analytics\Views\Web.config" />
-    <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />
     <Content Include="Views\Dashboard\YearStarted.cshtml" />
@@ -513,7 +512,7 @@
     </Content>
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
+    <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\Community.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
@@ -527,7 +526,7 @@
     <Content Include="Views\Community\City.cshtml" />
     <Content Include="Views\Community\Industry.cshtml" />
     <Content Include="Views\Shared\Analytics.cshtml" />
-    <None Include="Properties\PublishProfiles\Profile.pubxml" />
+    <None Include="Properties\PublishProfiles\sizeup.com.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
