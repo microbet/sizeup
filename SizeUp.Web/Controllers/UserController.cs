@@ -90,7 +90,7 @@ namespace SizeUp.Web.Controllers
 
         [HttpGet]
         public ActionResult Signin()
-        {
+        {         
             ViewBag.Header = new Models.Header()
             {
                 HideMenu = true

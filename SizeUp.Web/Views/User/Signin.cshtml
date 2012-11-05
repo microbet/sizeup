@@ -11,7 +11,7 @@
 <h1>Returning users</h1>
 <p class="details">Please enter your e-mail address and password.</p>
 
-<form id="signinForm" action="/user/signin/?returnurl=@Request.QueryString["returnurl"]" method="post">
+<form id="signinForm" action="/user/signin/?returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])" method="post">
     <ul id="form">
         <li>
             <label for="emailBox">Email:</label>
@@ -58,7 +58,7 @@
         </li> 
         } 
         <li>
-            <p class="info">No account? No problem! Click to <a href="/user/register/?returnurl=@Request.QueryString["returnurl"]">register</a>. It's free and takes only moments.</p>
+            <p class="info">No account? No problem! Click to <a href="/user/register/?returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])">register</a>. It's free and takes only moments.</p>
         </li>
     </ul>
 
