@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             {
                 theme = c.Value;
             }
-            ViewBag.Theme = theme;
+            ViewBag.Theme = theme.ToLower();
             base.Initialize(requestContext);
         }
 

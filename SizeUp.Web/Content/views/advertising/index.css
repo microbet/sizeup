@@ -69,7 +69,7 @@
 .chzn-container .chzn-drop .chzn-search { display: none; }
 .chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; }
 .chzn-container .chzn-drop .chzn-results .active-result.result-selected {background-color:#E6E6E6; }
-.chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; }
+.chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; color:#020202; }
 
 #advertising .sort .value a { font-size: 1em;  }
 #advertising .sort .value .chzn-container .chzn-drop { }

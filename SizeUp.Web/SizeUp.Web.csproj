@@ -527,6 +527,7 @@
     <Content Include="Views\Community\City.cshtml" />
     <Content Include="Views\Community\Industry.cshtml" />
     <Content Include="Views\Shared\Analytics.cshtml" />
+    <None Include="Properties\PublishProfiles\Profile.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
