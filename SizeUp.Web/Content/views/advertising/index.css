@@ -4,7 +4,7 @@
 #advertising .content{ position: relative; margin: 0 0 5em 0; }
 
 #advertising .heading { position: relative; margin: 0 0 1em 0; text-align:right;}
-#advertising .heading h2 { font-size: 2.4em; font-weight:normal; position:relative; top:0.35em; float:left; margin: 0 0 0.5em 0;}
+#advertising .heading h2 { font-size: 2.2em; font-weight:normal; position:relative; top:0.35em; float:left; margin: 0 0 0.5em 0;}
 #advertising .heading .filterWrapper {float:right; margin: 0 0 0 0.5em;}
 #advertising .heading label { color: #ccc; position: relative; display:inline-block; line-height:2.65em; vertical-align:top;}
 #advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: relative; right: 0; top:0;  cursor:pointer;display:inline-block;}

@@ -5,7 +5,7 @@
 #community h2{color:#6EAB24; font-size:2em; }
 
 
-#community .map { width: 100%; height: 34em; }
+#community .map { width: 100%; height: 34em; margin: 1em 0 0 0; }
 #community .mapLegend {display:block; width: 100%; height: 3em; background: url("/content/images/mapBar.png") repeat-x scroll 0 0 transparent; margin:0 0 1em 0; }
 #community .report { padding: 0 1em; text-align:center;  }
 #community .report .col { width: 45%; display:inline-block; vertical-align:top; margin:2em 1em; text-align:left; }

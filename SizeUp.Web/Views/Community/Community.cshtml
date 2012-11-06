@@ -38,8 +38,8 @@
 
 
 <div id="community">
+    <h1>Community Details for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
     <div class="map"></div>
-    <div class="mapLegend"></div>
     <div class="loading">
         <p class="title">Community Demographics Report</p>
         <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
@@ -48,7 +48,6 @@
 
     <div class="report wrapper hidden">
         <div data-template="demographics">
-            <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation <span>Community Details</span></h1>
             <div class="col">
                 <h2>People</h2>
                 <ul>

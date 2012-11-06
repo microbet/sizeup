@@ -37,11 +37,27 @@
 
 
 <div id="community">
-    <h2>Community Information</h2>
-    <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
-    <p>There @(ViewBag.BusinessCount == 1 ? "is " +  @ViewBag.BusinessCount+ " business" : "are " + @ViewBag.BusinessCount + " businesses") in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name. </a>
+    <h1>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
+    <p class="description">There @(ViewBag.BusinessCount == 1 ? "is " +  @ViewBag.BusinessCount+ " business" : "are " + @ViewBag.BusinessCount + " businesses") in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name. </a>
          A comprehensive <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name </a> is available.</p>
-     <div class="mapWrapper container">
+     <ul class="features">
+        <li class="dashboard">
+            <img src="@Url.Content("~/Content/images/mybusiness.png")" alt="My Business" />
+            <a href="#" id="myBusiness" class="button small" >My Business</a>
+            <p>Compare your business to your industry competitors.</p>
+        </li>
+        <li class="competition">
+            <img src="@Url.Content("~/Content/images/compete.png")" alt="Competition" />
+            <a href="#" id="competition" class="button small" >Competition</a>
+            <p>Map your competitors, customers, and suppliers.</p>
+        </li>
+        <li class="advertising">
+            <img src="@Url.Content("~/Content/images/advertise.png")" alt="Advertising" />
+            <a href="#" id="advertising" class="button small" >Advertising</a>
+            <p>Find best places to target your next advertising campaign.</p>
+        </li>
+    </ul>
+    <div class="mapWrapper container">
         <div data-template="legendTitle" class="legend titleWrap">
             <p class="backdrop edge title"><span class="text"></span></p>
         </div>
@@ -51,23 +67,6 @@
             </ul>
         </div>
         <div class="map"></div>
-        <ul class="features">
-            <li class="dashboard">
-                <img src="@Url.Content("~/Content/images/mybusiness.png")" alt="My Business" />
-                <a href="#" id="myBusiness" class="button" >My Business</a>
-                <p>Compare your business to your industry competitors.</p>
-            </li>
-            <li class="competition">
-                <img src="@Url.Content("~/Content/images/compete.png")" alt="Competition" />
-                <a href="#" id="competition" class="button" >Competition</a>
-                <p>Map your competitors, customers, and suppliers.</p>
-            </li>
-            <li class="advertising">
-                <img src="@Url.Content("~/Content/images/advertise.png")" alt="Advertising" />
-                <a href="#" id="advertising" class="button" >Advertising</a>
-                <p>Find best places to target your next advertising campaign.</p>
-            </li>
-        </ul>
     </div>
     <div class="report wrapper">
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
