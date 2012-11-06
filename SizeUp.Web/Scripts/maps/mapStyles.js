@@ -20,20 +20,27 @@
                         ]
                     },
                     {
-                        featureType: "poi.park",
+                        featureType: "poi",
                         elementType: "geometry",
                         stylers: [
-                            { saturation: -100 },
-                            { lightness: 50 }
+                            { visibility: 'off' }
                         ]
-                    }/*,
+                    },
                     {
                         featureType: "water",
                         elementType: "geometry",
                         stylers: [
-                            { color: '#BBDAFA' }
+                            { color: '#ABC3DB' }
                         ]
-                    }*/
+                    },
+                    {
+                        featureType: "landscape",
+                        elementType: "all",
+                        stylers: [
+                            { visibility: 'off' }
+                        ]
+                    }
+                    
             ]
         };
 
