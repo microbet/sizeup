@@ -29,8 +29,10 @@
         dataLayer.getDashboardValues(notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
-            jQuery.bbq.pushState(me.data.dashboardValues, 1);
-            dataLayer.setDashboardValues(jQuery.bbq.getState());
+            if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
+                jQuery.bbq.pushState(me.data.dashboardValues, 1);
+                dataLayer.setDashboardValues(jQuery.bbq.getState());
+            }
 
             me.signinPanel = new sizeup.views.shared.signin({
                 container: me.container.find('#signin .signinPanel.form'),
