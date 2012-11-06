@@ -43,7 +43,7 @@
                 tileParams: {
                     entityId: 'c' + opts.location.CurrentPlace.City.Id
                 }
-            })
+            });
 
 
 

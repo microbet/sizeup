@@ -32,13 +32,19 @@
 
 
             me.content.map = new sizeup.maps.map({
-                container: me.container.find('.map'),
-                mapSettings: me.opts.mapSettings,
-                styles: me.opts.styles
+                container: me.container.find('.map')
             });
+
+            var borderOverlay = new sizeup.maps.overlay({
+                tileUrl: '/tiles/geographyBoundary/',
+                tileParams: {
+                    entityId: 'c' + opts.CurrentPlace.City.Id
+                }
+            });
+
             me.content.map.setCenter(me.data.CityCenter);
             me.content.map.fitBounds(bounds);
-
+            me.content.map.addOverlay(borderOverlay);
  
             me.content.report = me.container.find('.report').hide().removeClass('hidden');
 
