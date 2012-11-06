@@ -51,6 +51,23 @@
             </ul>
         </div>
         <div class="map"></div>
+        <ul class="features">
+            <li class="dashboard">
+                <img src="@Url.Content("~/Content/images/mybusiness.png")" alt="My Business" />
+                <a href="#" id="myBusiness" class="button" >My Business</a>
+                <p>Compare your business to your industry competitors.</p>
+            </li>
+            <li class="competition">
+                <img src="@Url.Content("~/Content/images/compete.png")" alt="Competition" />
+                <a href="#" id="competition" class="button" >Competition</a>
+                <p>Map your competitors, customers, and suppliers.</p>
+            </li>
+            <li class="advertising">
+                <img src="@Url.Content("~/Content/images/advertise.png")" alt="Advertising" />
+                <a href="#" id="advertising" class="button" >Advertising</a>
+                <p>Find best places to target your next advertising campaign.</p>
+            </li>
+        </ul>
     </div>
     <div class="report wrapper">
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
