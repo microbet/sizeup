@@ -44,7 +44,7 @@ ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F81
 ul.ui-autocomplete li.ui-menu-item a {color:#303030; text-decoration: none; font-weight: normal;display:block;padding: 0.25em 0.5em;}
 ul.ui-autocomplete li.ui-menu-item{ cursor: default;display: block; line-height: 1.5em; margin: 0;overflow: hidden;}
 ul.ui-autocomplete li.ui-menu-item.odd {background:#EEEEEE;}
-ul.ui-autocomplete li.ui-menu-item .ui-state-hover {background:#FFD86A;}
+ul.ui-autocomplete li.ui-menu-item .ui-state-hover {background:#FFD86A;border:none;}
 
 
 

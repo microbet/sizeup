@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.Core", "SizeUp.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.Data", "SizeUp.Data\SizeUp.Data.csproj", "{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.WidgetSandbox", "SizeUp.WidgetSandbox\SizeUp.WidgetSandbox.csproj", "{97DEEE16-4A05-457B-820E-B9041D064AD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,16 @@ Global
 		{210E4AD2-CC4C-4B6A-8AA3-C4C2C2E2C1A7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{210E4AD2-CC4C-4B6A-8AA3-C4C2C2E2C1A7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{210E4AD2-CC4C-4B6A-8AA3-C4C2C2E2C1A7}.Release|x86.ActiveCfg = Release|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{97DEEE16-4A05-457B-820E-B9041D064AD1}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

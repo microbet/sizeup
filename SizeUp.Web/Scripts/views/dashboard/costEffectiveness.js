@@ -388,15 +388,11 @@
                 
                 me.description.html(templates.bind(templates.get("description"), me.data.description));
 
-
-                
-
-
-
             }
             else {
                 me.noData.show();
                 me.reportData.hide();
+                me.reportContainer.hideGauge();
             }
         };
 

@@ -114,6 +114,10 @@
             me.runReport.hide();
         };
 
+        var hideGauge = function () {
+            me.gauge.hide();
+        };
+
         var fadeInPrompt = function (delay, callback) {
             me.fadeTimeout = setTimeout(function () {
                 me.prompt.fadeIn(500, callback);
@@ -235,6 +239,9 @@
             },
             setGauge: function (data) {
                 setGauge(data);
+            },
+            hideGauge: function(){
+                hideGauge();
             },
             doSubmit: function () {
                 forceSubmit();

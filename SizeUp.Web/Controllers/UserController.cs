@@ -60,6 +60,7 @@ namespace SizeUp.Web.Controllers
                 i.Save();
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
                 FormsAuthentication.SetAuthCookie(i.UserName, false);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
                 UserRegistration reg = new UserRegistration()
                 {
                     APIKeyId = null,
@@ -67,11 +68,11 @@ namespace SizeUp.Web.Controllers
                     IndustryId = WebContext.Current.CurrentIndustryId,
                     UserId = i.UserId,
                     Email = i.Email,
-                    ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "" : Request["returnurl"]
+                    ReturnUrl = ReturnUrl
                 };
 
                 Singleton<Tracker>.Instance.UserRegisteration(reg);
-                FormsAuthentication.RedirectFromLoginPage(i.UserName, false);
+                return Redirect(ReturnUrl);
             }
             catch (MembershipCreateUserException ex)
             {
@@ -89,7 +90,7 @@ namespace SizeUp.Web.Controllers
 
         [HttpGet]
         public ActionResult Signin()
-        {
+        {         
             ViewBag.Header = new Models.Header()
             {
                 HideMenu = true
@@ -152,7 +153,8 @@ namespace SizeUp.Web.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(email, false);
                 }
-                FormsAuthentication.RedirectFromLoginPage(email, persist);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+                return Redirect(ReturnUrl);
             }
             return View();
         }

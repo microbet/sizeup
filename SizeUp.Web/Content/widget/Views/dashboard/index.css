@@ -1,7 +1,7 @@
 ﻿#contentWrap { padding: 0 0.5em;}
 
 #dashboard { padding: 0 1em 10em 0; }
-#dashboard h1 {text-align:left; left:0; top:0; position:relative; }
+#dashboard h1 {text-align:left; left:0; top:0; position:relative; margin:0.5em; }
 #dashboard .report {border:none; border-radius:0; width:100%; }
 #dashboard .report .header .hint { left: 7.75em; top: 4.5em; }
 #dashboard .report .header .prompt { width:40px; right:3.25em; padding:5px 10px 6px 35px; font-size:1.5em; text-transform:none; }

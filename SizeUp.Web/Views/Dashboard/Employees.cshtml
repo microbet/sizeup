@@ -16,7 +16,7 @@
     </div>
     <div class="reportContainer ">
          <div class="reportContent averageEmployees noDataError">
-            <p>There is no data available for this report with this industry and city</p>
+            <p>Full analysis could not be completed because there is insufficient data for this industry in this city.</p>
         </div>
         <div class="reportContent averageEmployees reportData">
             <h3>How you size up</h3>
@@ -65,7 +65,7 @@
                 <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
             </div>
         </div>
-        <div class="reportSidebar  averageEmployees">
+        <div class="reportSidebar  averageEmployees reportData">
             <div class="section considerations collapsable">
                 @Html.Raw(ViewBag.Strings["Dashboard.AverageEmployees.Considerations"])
                 <div class="question">
@@ -122,7 +122,7 @@
 
 
         <div class="reportContent employeesPerCapita noDataError">
-            <p>There is no data available for this report with this industry and city</p>
+            <p>Full analysis could not be completed because there is insufficient data for this industry in this city.</p>
         </div>
         <div class="reportContent employeesPerCapita reportData">
             <h3>How your community sizes up</h3>
@@ -171,7 +171,7 @@
                 <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
             </div>
         </div>
-         <div class="reportSidebar  employeesPerCapita">
+         <div class="reportSidebar  employeesPerCapita reportData">
             <div class="section considerations collapsable">
                 @Html.Raw(ViewBag.Strings["Dashboard.EmployeesPerCapita.Considerations"])
             </div>

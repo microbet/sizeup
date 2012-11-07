@@ -276,8 +276,10 @@
     <Content Include="Content\base.css" />
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
+    <Content Include="Content\images\advertiseSmall.png" />
     <Content Include="Content\images\btn_close.png" />
     <Content Include="Content\images\compete.png" />
+    <Content Include="Content\images\competeSmall.png" />
     <Content Include="Content\images\dashboardIcons.png" />
     <Content Include="Content\images\dashbuttons.png" />
     <Content Include="Content\images\externalLink.gif" />
@@ -304,6 +306,7 @@
     <Content Include="Content\images\menuArrow.png" />
     <Content Include="Content\images\menuTriangle.png" />
     <Content Include="Content\images\mybusiness.png" />
+    <Content Include="Content\images\mybusinessSmall.png" />
     <Content Include="Content\images\onoff.png" />
     <Content Include="Content\images\pinShadow.png" />
     <Content Include="Content\images\PinTemplate.png" />
@@ -348,6 +351,7 @@
     <Content Include="Content\widget\Views\user\signin.css" />
     <Content Include="Global.asax" />
     <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
@@ -495,7 +499,6 @@
     <Content Include="Areas\Widget\Views\Dashboard\YearStarted.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\Analytics.cshtml" />
     <Content Include="Areas\Analytics\Views\Web.config" />
-    <None Include="Properties\PublishProfiles\Amazon.SizeUp.com.pubxml" />
     <Content Include="Views\Dashboard\AverageSalary.cshtml" />
     <Content Include="Views\Dashboard\Revenue.cshtml" />
     <Content Include="Views\Dashboard\YearStarted.cshtml" />
@@ -515,7 +518,7 @@
     </Content>
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <None Include="Properties\PublishProfiles\new.sizeup.com.pubxml" />
+    <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\Community.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
@@ -529,6 +532,7 @@
     <Content Include="Views\Community\City.cshtml" />
     <Content Include="Views\Community\Industry.cshtml" />
     <Content Include="Views\Shared\Analytics.cshtml" />
+    <None Include="Properties\PublishProfiles\sizeup.com.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -554,7 +558,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>39252</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:10000/</IISUrl>
+          <IISUrl>http://localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

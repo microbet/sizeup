@@ -15,7 +15,7 @@
     </div>
     <div class="reportContainer">
         <div class="reportContent noDataError">
-            <p>There is no data available for this report with this industry and city</p>
+            <p>Full analysis could not be completed because there is insufficient data for this industry in this city.</p>
         </div>
         <div class="reportContent turnover reportData">
             <h3>Turnover Rate</h3>
@@ -51,7 +51,7 @@
              @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Source"]) 
             </div>
         </div>
-        <div class="reportSidebar turnover">
+        <div class="reportSidebar turnover reportData">
             <div class="section considerations collapsable">
                 @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Considerations"])
             </div>
@@ -64,7 +64,7 @@
         </div>
 
 
-        <div class="reportContent jobChange">
+        <div class="reportContent jobChange  reportData">
             <h3>Net Job Change</h3>
             <p class="description">
                 <div data-template="jobChangeDescription">
@@ -98,7 +98,7 @@
              @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Source"]) 
             </div>
         </div>
-        <div class="reportSidebar jobChange">
+        <div class="reportSidebar jobChange reportData">
             <div class="section considerations collapsable">
                 @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Considerations"])
 

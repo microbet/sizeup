@@ -28,6 +28,7 @@
         iframe.style["minWidth"] = (me.defaultMinWidth) + 'px';
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
+        iframe["scrolling"] = 'no';
         var src = loc.protocol + '://' + loc.host + (loc.port? ':' + loc.port : '') + me.wigetSource;
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);

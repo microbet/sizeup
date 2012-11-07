@@ -7,7 +7,8 @@
             itemsPerPage: 10,
             dblClickZoom: 18,
             mapRadius: 100,
-            mapFilterZoomThreshold: 12
+            mapFilterZoomThreshold: 12,
+            maxAutoZoom: 16
         };
         var me = {};
         
@@ -45,7 +46,8 @@
                 rootId: 1,
                 currentSelection: null,
                 legend: null
-            }
+            },
+            businessListXHR: null
         };
         me.container = $('#competition');
         var dataLayer = new sizeup.core.data();
@@ -92,11 +94,7 @@
             me.data.activeMapFilter = params.activeMapFilter;
         }
 
-      
-
-        dataLayer.getConsumerExpenditureVariableCrosswalk({ id: 5 });
-
-
+  
 
         var init = function () {
             me.content = {};
@@ -198,7 +196,7 @@
 
             me.container.find('.map').delegate('.ceType', 'click', consumerExpenditureTypeChanged);
 
-            me.content.mapControls.filterItems.change(mapFilterChanged);
+            me.content.mapControls.filterItems.click(mapFilterClicked);
 
             me.data.competitor.pageData = me.content.pager.getPageData();
             me.data.supplier.pageData = me.content.pager.getPageData();
@@ -220,8 +218,7 @@
             activateTab(me.data.activeIndex);
 
             
-            me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').attr('checked', 'checked');
-            me.content.mapControls.filter.find('input[data-index=' + me.data.activeMapFilter + ']').change();
+            setMapFilter(me.data.activeMapFilter);
           
          
             if (me.data.consumerExpenditure.currentSelection != null) {
@@ -261,13 +258,14 @@
             getLegendData();
         };
 
-        var mapFilterChanged = function (e) {
+        var mapFilterClicked = function (e) {
             var target = $(e.target);
+            me.data.oldMapFilter = null;
             me.data.activeMapFilter = target.attr('data-index');
             pushUrlState();
             setBusinessOverlay();
         };
-
+        
         var buyerQuestionClicked = function () {
             var doActivate = !me.content.tabs.buyer.is(':visible');
             showTab('buyer');
@@ -351,6 +349,11 @@
             var item = a.parent();
             item.remove();
             var id = a.attr('data-id');
+            var hasChildren = a.attr('data-hasChildren');
+            if (hasChildren == "false") {
+                me.content.ConsumerExpenditure.menuContent.toggle();
+            }
+
             me.data.consumerExpenditure.currentSelection = id;
             me.content.ConsumerExpenditure.selectionList.append(item);
             setHeatmap(id);
@@ -366,21 +369,24 @@
         };
 
         var industryPicked = function (data) {
-            me.data[me.data.activeIndex].industries[data.Id] = data;
-            var element = me.content.industryList.find('.item[data-id="' + data.Id + '"]');
             me.picker.setSelection(null);
-            if (element.length > 0) {
-                element.addClass('highlight', 250, function () {
-                    element.removeClass('highlight', 1000);
-                });
-            }
-            else {
-                me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
-                checkMapFilter();
-                pushUrlState();
-                bindIndustryList();
-                loadBusinesses();
-                setBusinessOverlay();
+            if (data != null) {
+                me.data[me.data.activeIndex].industries[data.Id] = data;
+                var element = me.content.industryList.find('.item[data-id="' + data.Id + '"]');
+
+                if (element.length > 0) {
+                    element.addClass('highlight', 250, function () {
+                        element.removeClass('highlight', 1000);
+                    });
+                }
+                else {
+                    me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
+                    checkMapFilter();
+                    pushUrlState();
+                    bindIndustryList();
+                    loadBusinesses();
+                    setBusinessOverlay();
+                }
             }
         };
 
@@ -393,6 +399,7 @@
             bindIndustryList();
             loadBusinesses();
             setBusinessOverlay();
+            checkMapFilter();
         };
 
         var mapClicked = function (latLng) {
@@ -424,7 +431,7 @@
 
         
         //////////end event actions/////////////////////////////
-
+       
         var showLegend = function () {
             if (me.data.consumerExpenditure.legend != null) {
                 me.content.map.setLegend(me.data.consumerExpenditure.legend);
@@ -458,9 +465,40 @@
             me.container.find('.map .ceType[data-value=' + me.data.consumerExpenditure.rootId + ']').addClass('active');
         };
 
+        
+        var setMapFilter = function (index) {
+            me.data.activeMapFilter = index;
+            me.content.mapControls.filter.find('input[data-index=' + index + ']').attr('checked', 'checked');
+            pushUrlState();
+            setBusinessOverlay();
+        };
+
         var checkMapFilter = function () {
             if (getIndustryIdArray('buyer').length > 0 || getIndustryIdArray('supplier').length > 0) {
                 me.content.mapControls.filter.show();
+            }
+            else {
+                me.content.mapControls.filter.hide();
+            }
+
+            if (getIndustryIdArray('buyer').length > 0) {
+                me.content.mapControls.filter.find('.buyer').show();
+            } else {
+                var item = me.content.mapControls.filter.find('.buyer').hide();
+                if (item.find('input').is(':checked')) {
+                    me.data.oldMapFilter = null;
+                    setMapFilter('competitor');
+                }
+            }
+
+            if (getIndustryIdArray('supplier').length > 0) {
+                me.content.mapControls.filter.find('.supplier').show();
+            } else {
+                var item = me.content.mapControls.filter.find('.supplier').hide();
+                if (item.find('input').is(':checked')) {
+                    me.data.oldMapFilter = null;
+                    setMapFilter('competitor');
+                }
             }
         };
 
@@ -472,14 +510,17 @@
                 me.content.mapControls.filter.find('.zoomMessage').show();
                 allBox.attr('disabled', 'disabled');
                 if (me.data.activeMapFilter == 'all') {
-                    me.content.mapControls.filter.find('input[data-index=' + me.data.activeIndex + ']').attr('checked','checked');
-                    me.content.mapControls.filter.find('input[data-index=' + me.data.activeIndex + ']').change();
+                    me.data.oldMapFilter = 'all';
+                    setMapFilter(me.data.activeIndex);
                 }
             }
             else if (z >= me.opts.mapFilterZoomThreshold) {
      
                 allBox.removeAttr('disabled');
                 me.content.mapControls.filter.find('.zoomMessage').hide();
+                if (me.data.oldMapFilter != null) {
+                    setMapFilter(me.data.oldMapFilter);
+                }
             }
         };
 
@@ -502,6 +543,8 @@
         };
 
         var activateTab = function (tabIndex) {
+            abortLoadBusinesses();
+
             new sizeup.core.analytics().competitionTabLoaded({ tab: tabIndex });
             for (var x in me.content.tabs) {
                 me.content.tabs[x].removeClass('active');
@@ -815,6 +858,13 @@
             jQuery.bbq.pushState(data, 2);
         };
 
+        var abortLoadBusinesses = function () {
+            if (me.data.businessListXHR != null) {
+                me.data.businessListXHR.abort();
+            }
+            me.content.loader.hide();
+        };
+
         var loadBusinesses = function () {
             var industries = $.extend({}, me.data[me.data.activeIndex].industries);
             if (me.data[me.data.activeIndex].primaryIndustry) {
@@ -833,13 +883,17 @@
                 me.content.pager.getContainer().hide();
                 me.content.addIndustries.hide();
 
-                dataLayer.getBusinessesByIndustry({
+                if (me.data.businessListXHR != null) {
+                    me.data.businessListXHR.abort();
+                }
+                me.data.businessListXHR = dataLayer.getBusinessesByIndustry({
                     industryIds: ids,
                     placeId: me.opts.CurrentInfo.CurrentPlace.Id,
                     itemCount: me.opts.itemsPerPage,
                     page: me.data[me.data.activeIndex].pageData.page
                 }, function (data) {
                     me.data[me.data.activeIndex].businesses = data;
+                    me.data.businessListXHR = null;
                     bindBusinesses();
                     bindBusinessMarkers();
                     me.content.loader.hide();
@@ -919,6 +973,9 @@
             }
             if (data.Items.length > 0) {
                 me.content.map.fitBounds(bounds);
+            }
+            if(me.content.map.getZoom() > me.opts.maxAutoZoom){
+                me.content.map.setZoom(me.opts.maxAutoZoom);
             }
         };
 

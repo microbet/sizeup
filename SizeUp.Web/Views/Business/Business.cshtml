@@ -38,24 +38,46 @@
 
 
 <div id="business">
-    <h2>Business Information</h2>
-    <h1>@ViewBag.Business.Name</h1>
+    <h1>Business Information for @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
     <address>
-        @ViewBag.Business.Address <br />
-        @ViewBag.Business.City, @ViewBag.Business.State @ViewBag.Business.Zip
+        <span>@ViewBag.Business.Name</span>
+        <span>| @ViewBag.Business.Address, @ViewBag.Business.City, @ViewBag.Business.State @ViewBag.Business.Zip</span>
         @if (!string.IsNullOrWhiteSpace(ViewBag.Business.Phone))
         {
-            <br />@System.Text.RegularExpressions.Regex.Replace(ViewBag.Business.Phone, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3");
+            <span>| @System.Text.RegularExpressions.Regex.Replace(ViewBag.Business.Phone, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3")</span>
         }
         @if (!string.IsNullOrWhiteSpace(ViewBag.Business.WebSite))
         {
-            <br /><a href="@ViewBag.Business.WebSite" target="_blank" >@ViewBag.Business.WebSite</a>
+            <span>| <a href="@ViewBag.Business.WebSite" target="_blank" >@ViewBag.Business.WebSite</a></span>
         }
 
     </address>
-    <p>
+    <p class="description">
         @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation is a @(ViewBag.Business.IsPublic ? "public" : "private") company categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
     </p>
+    <ul class="features">
+        <li class="dashboard">
+            <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+                <img src="@Url.Content("~/Content/images/mybusinessSmall.png")" alt="My Business" />    
+                <p>Compare your business to your industry competitors.</p>
+                <span class="button small" >My Business</span>
+            </a>
+        </li>
+        <li class="competition">
+            <a href="/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+                <img src="@Url.Content("~/Content/images/competeSmall.png")" alt="Competition" />
+                <p>Map your competitors, customers, and suppliers.</p>
+                <span class="button small" >Competition</span>
+            </a>
+        </li>
+        <li class="advertising">
+            <a href="/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+                <img src="@Url.Content("~/Content/images/advertiseSmall.png")" alt="Advertising" />
+                <p>Find best places to target your next advertising campaign.</p>
+                <span class="button small" >Advertising</span>
+            </a>
+        </li>
+    </ul>
     <div class="mapWrapper container">
         <div data-template="legendTitle" class="legend titleWrap">
             <p class="backdrop edge title"><span class="text"></span></p>

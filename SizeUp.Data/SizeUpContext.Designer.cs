@@ -91,6 +91,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_PlaceKeyword_Place", "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.CityCountyMapping), "PlaceKeyword", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.PlaceKeyword), true)]
 
 #endregion
 
@@ -909,6 +910,22 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<DemographicsByZip> _DemographicsByZips;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PlaceKeyword> PlaceKeywords
+        {
+            get
+            {
+                if ((_PlaceKeywords == null))
+                {
+                    _PlaceKeywords = base.CreateObjectSet<PlaceKeyword>("PlaceKeywords");
+                }
+                return _PlaceKeywords;
+            }
+        }
+        private ObjectSet<PlaceKeyword> _PlaceKeywords;
 
         #endregion
 
@@ -1296,6 +1313,14 @@ namespace SizeUp.Data
         public void AddToDemographicsByZips(DemographicsByZip demographicsByZip)
         {
             base.AddObject("DemographicsByZips", demographicsByZip);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PlaceKeywords EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPlaceKeywords(PlaceKeyword placeKeyword)
+        {
+            base.AddObject("PlaceKeywords", placeKeyword);
         }
 
         #endregion
@@ -4668,6 +4693,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ZipCodePlaceMapping>("SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping", "ZipCodePlaceMapping", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_PlaceKeyword_Place", "PlaceKeyword")]
+        public EntityCollection<PlaceKeyword> PlaceKeywords
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<PlaceKeyword>("SizeUp.Data.FK_PlaceKeyword_Place", "PlaceKeyword");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<PlaceKeyword>("SizeUp.Data.FK_PlaceKeyword_Place", "PlaceKeyword", value);
                 }
             }
         }
@@ -106736,6 +106783,156 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SicToNAICSMapping>("SizeUp.Data.FK_SicToNAICSMapping_NAICS", "SicToNAICSMapping", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="PlaceKeyword")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class PlaceKeyword : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new PlaceKeyword object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="placeId">Initial value of the PlaceId property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static PlaceKeyword CreatePlaceKeyword(global::System.Int64 id, global::System.Int64 placeId, global::System.String name)
+        {
+            PlaceKeyword placeKeyword = new PlaceKeyword();
+            placeKeyword.Id = id;
+            placeKeyword.PlaceId = placeId;
+            placeKeyword.Name = name;
+            return placeKeyword;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 PlaceId
+        {
+            get
+            {
+                return _PlaceId;
+            }
+            set
+            {
+                OnPlaceIdChanging(value);
+                ReportPropertyChanging("PlaceId");
+                _PlaceId = StructuralObject.SetValidValue(value, "PlaceId");
+                ReportPropertyChanged("PlaceId");
+                OnPlaceIdChanged();
+            }
+        }
+        private global::System.Int64 _PlaceId;
+        partial void OnPlaceIdChanging(global::System.Int64 value);
+        partial void OnPlaceIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_PlaceKeyword_Place", "CityCountyMapping")]
+        public CityCountyMapping CityCountyMapping
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityCountyMapping>("SizeUp.Data.FK_PlaceKeyword_Place", "CityCountyMapping").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityCountyMapping>("SizeUp.Data.FK_PlaceKeyword_Place", "CityCountyMapping").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<CityCountyMapping> CityCountyMappingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<CityCountyMapping>("SizeUp.Data.FK_PlaceKeyword_Place", "CityCountyMapping");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<CityCountyMapping>("SizeUp.Data.FK_PlaceKeyword_Place", "CityCountyMapping", value);
                 }
             }
         }

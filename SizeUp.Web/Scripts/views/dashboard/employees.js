@@ -721,6 +721,7 @@
             else {
                 me.averageEmployees.noData.show();
                 me.averageEmployees.reportData.hide();
+                me.reportContainer.hideGauge();
             }
 
             if (me.data.employeesPerCapita.hasData) {

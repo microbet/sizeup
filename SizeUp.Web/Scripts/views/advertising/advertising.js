@@ -114,7 +114,6 @@
             me.content.optionMenu.custom.remove();
             me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
             me.content.optionMenu.menu.change(optionMenuChanged);
-            
            
             me.content.description = me.container.find('.description');
             me.content.list = {};
@@ -375,6 +374,8 @@
             var params = getParameters();
             params.attribute = x;
             params.sortAttribute = x;
+            params.template = 'custom';
+            setOptionMenu('custom');
             setParameters(params);
             loadReport();
         };
@@ -389,7 +390,7 @@
                 me.content.optionMenu.custom.remove();
             }
             me.content.optionMenu.option.find('option[value=' + index + ']').attr('selected','selected');
-            me.content.optionMenu.menu.trigger('list:updated');
+            me.content.optionMenu.menu.trigger('liszt:updated');
             me.content.optionMenu.option.val(index);
         };
 
