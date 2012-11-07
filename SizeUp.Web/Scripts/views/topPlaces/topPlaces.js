@@ -4,7 +4,12 @@
 
 
         var defaults = {
-            itemsPerPage: 25
+            itemsPerPage: 25,
+            bands: 5,
+            params: {
+                placeType: 'city',
+                attribute:'totalRevenue'
+            }
         };
         var me = {};
         
@@ -13,7 +18,6 @@
         me.data = {
             
         };
-        me.opts.filterOptions = {};
 
 
         me.container = $('#topPlaces');
@@ -23,21 +27,19 @@
        
 
 
-        var notifier = new sizeup.core.notifier(function () { init(); });
-        
-        dataLayer.getPlaceBoundingBox({id: opts.CurrentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) { 
-            me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
-            me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[0].Lat, lng: data[0].Lng}));
-            me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[1].Lat, lng: data[1].Lng}));
-        }));
-
-        var params = jQuery.bbq.getState();
-
-       
+    
 
  
 
         var init = function () {
+
+            var params = getParameters();
+            params = $.extend(true, me.opts.params, params);
+            setParameters(params);
+
+
+
+
             me.content = {};
 
             me.loader = me.container.find('.loading.page');
@@ -56,20 +58,18 @@
             //set bounds to be USA
  
 
-
+            
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
-            me.content.optionMenu = {};
-            me.content.optionMenu.option = me.content.container.find('#optionMenu');
-            me.content.optionMenu.custom = me.content.optionMenu.option.find('.custom');
-            me.content.optionMenu.custom.remove();
-            me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
-            me.content.optionMenu.menu.change(optionMenuChanged);
+            me.content.optionMenu = me.content.container.find('#optionMenu').chosen();
+            //me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
+            me.content.optionMenu.change(optionMenuChanged);
 
+            /*
             me.content.filters = {};
             me.content.filters.container = me.content.container.find('#filterSettings').hide().removeClass('hidden');
-
+            */
 
 
 
@@ -95,7 +95,6 @@
         //////////end event actions/////////////////////////////
       
         var setParameters = function (params) {
-            me.opts.filterOptions = $.extend(true, {}, params);
             jQuery.bbq.pushState(params, 2);
         };
 
@@ -115,7 +114,6 @@
            
             var params = getParameters();
 
-            //setValueMenu();
             params.industryId = me.opts.CurrentInfo.CurrentIndustry.Id;
             params.itemCount = me.opts.itemsPerPage;
            
@@ -126,11 +124,11 @@
             };
             var notifier = new sizeup.core.notifier(function () {
 
-               // var formattedData = formatData(reportData.zips);
+                var formattedData = formatData(reportData.list);
                 //var formattedBands = formatBands(reportData.bands, params.attribute);
 
 
-                //bindList(formattedData);
+                bindList(formattedData);
                 //bindBands(formattedBands);
                 //bindDescription();
 
@@ -142,9 +140,31 @@
                 me.content.results.show();
             });
 
-            dataLayer.getTopPlacesByCity(params, notifier.getNotifier(function (data) {
-                reportData.list = data;
-            }));
+            if (params.placeType == 'city') {
+                dataLayer.getTopPlacesByCity(params, notifier.getNotifier(function (data) {
+                    reportData.list = data;
+                }));
+            }
+            else if (params.placeType == 'county') {
+                dataLayer.getTopPlacesByCounty(params, notifier.getNotifier(function (data) {
+                    reportData.list = data;
+                }));
+            }
+            else if (params.placeType == 'metro') {
+                dataLayer.getTopPlacesByMetro(params, notifier.getNotifier(function (data) {
+                    reportData.list = data;
+                }));
+            }
+            else if (params.placeType == 'state') {
+                dataLayer.getTopPlacesByState(params, notifier.getNotifier(function (data) {
+                    reportData.list = data;
+                }));
+            }
+            else {
+                notifier.getNotifier(function () {
+                    reportData.list = [];
+                })();
+            }
 
            /* params.bands = me.opts.bandCount;
             dataLayer.getBestPlacesToAdvertiseBands(params, notifier.getNotifier(function (data) {
@@ -152,9 +172,43 @@
             }));*/
         };
 
+        var bindList = function (data) {
+            var params = getParameters();
+
+            me.content.results.empty();
+            me.content.noResults.hide();
+            var html = '';
+            for (var x = 0; x < data.length; x++) {
+                html = html + templates.bind(templates.get('cityItem'), data[x]);
+            }
+
+            me.content.results.html(html);
+            if (data.length == 0) {
+                me.content.noResults.show();
+            }
+        };
+
+        var bindMap = function (data) {
+
+        };
+
+        var formatData = function (data) {
+            var newData = [];
+            for (var x = 0; x < data.length;x++){
+                newData.push({
+                    rank: x + 1,
+                    name: data[x].Name,
+                    value: data[x].Value
+
+                });
+            }
+            return newData;
+        };
+
         var publicObj = {
 
         };
+        init();
         return publicObj;
         
     };

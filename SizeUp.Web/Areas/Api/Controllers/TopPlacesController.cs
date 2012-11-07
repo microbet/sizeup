@@ -13,7 +13,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/TopPlaces/
 
-        public ActionResult City()
+        public ActionResult City(int itemCount, int industryId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -29,7 +29,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         i.State.SEOKey
                     }
                     
-                }).Take(25).ToList();
+                }).Take(itemCount).ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

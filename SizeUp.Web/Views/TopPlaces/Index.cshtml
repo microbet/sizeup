@@ -35,16 +35,18 @@
 <div id="topPlaces">
     <div class="content container hidden">
         <div class="heading">
-            <h2>Top cities for total sales in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
+            <h2>Top cities for XXXXX in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
             <div class="filter container">
                 <div class="filterMenu">
                     <select id="optionMenu">
+                        <option value="totalRevenue">Total Annual Revenue</option>
+                        <option value="totalEmployees">Total Employees</option>
+                        <option value="averageRevenue">Average Annual Revenue</option>
+                        <option value="costEffectiveness">Worker Productivity</option>
+                        <option value="averageEmployees">Average Employees</option>
+                        <option value="employeesPerCapita">Employees Per Capita</option>
                         <option value="revenuePerCapita">Highest Revenue Per Capita</option>
                         <option value="underservedMarkets">Most Underserved Markets</option>
-                        <option value="averageRevenue">Highest Average Revenue</option>
-                        <option value="totalRevenue">Highest Total Revenue</option>
-                        <option value="householdIncome">Highest Household Income</option>
-                        <option class="custom" value="custom">Custom Filter</option>
                     </select>
                     <a href="javascript:void(0);" id="filterSettingsButton">Settings</a>
                 </div>
@@ -92,30 +94,38 @@
 
    
         <div class="list container">
-            <ul class="results">
-                <li data-template="listItem">
-                    {{#city.SEOKey}}
-                    <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a>
-                    {{/city.SEOKey}}
-                    {{^city.SEOKey}}
-                    <a class="name noCommunity">{{name}}</a>
-                    {{/city.SEOKey}}
-                    <span class="value">{{#value.value}}{{value.value}}{{/value.value}}{{^value.value}}no data{{/value.value}}</span>
-                    <ul class="details">
-                        {{#totalPopulation}}<li>Total Population: {{#totalPopulation.value}}{{totalPopulation.value}}{{/totalPopulation.value}}{{^totalPopulation.value}}no data{{/totalPopulation.value}}</li>{{/totalPopulation}}
-                        {{#totalRevenue}}<li>Total Annual Revenue: {{#totalRevenue.value}}{{totalRevenue.value}}{{/totalRevenue.value}}{{^totalRevenue.value}}no data{{/totalRevenue.value}}</li>{{/totalRevenue}}
-                        {{#averageRevenue}}<li>Average Annual Revenue: {{#averageRevenue.value}}{{averageRevenue.value}}{{/averageRevenue.value}}{{^averageRevenue.value}}no data{{/averageRevenue.value}}</li>{{/averageRevenue}}
-                        {{#totalEmployees}}<li>Total Employees: {{#totalEmployees.value}}{{totalEmployees.value}}{{/totalEmployees.value}}{{^totalEmployees.value}}no data{{/totalEmployees.value}}</li>{{/totalEmployees}}
-                        {{#revenuePerCapita}}<li>Revenue Per Capita: {{#revenuePerCapita.value}}{{revenuePerCapita.value}}{{/revenuePerCapita.value}}{{^revenuePerCapita.value}}no data{{/revenuePerCapita.value}}</li>{{/revenuePerCapita}}
-                        {{#householdIncome}}<li>Household Income: {{#householdIncome.value}}{{householdIncome.value}}{{/householdIncome.value}}{{^householdIncome.value}}no data{{/householdIncome.value}}</li>{{/householdIncome}}
-                        {{#householdExpenditures}}<li>Household Expenditures (Average): {{#householdExpenditures.value}}{{householdExpenditures.value}}{{/householdExpenditures.value}}{{^householdExpenditures.value}}no data{{/householdExpenditures.value}}</li>{{/householdExpenditures}}
-                        {{#medianAge}}<li>Median Age: {{#medianAge.value}}{{medianAge.value}}{{/medianAge.value}}{{^medianAge.value}}no data{{/medianAge.value}}</li>{{/medianAge}}
-                        {{#bachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{#bachelorsDegreeOrHigher.value}}{{bachelorsDegreeOrHigher.value}}{{/bachelorsDegreeOrHigher.value}}{{^bachelorsDegreeOrHigher.value}}no data{{/bachelorsDegreeOrHigher.value}}</li>{{/bachelorsDegreeOrHigher}}
-                        {{#highSchoolOrHigher}}<li>Highschool Degree or Higher: {{#highSchoolOrHigher.value}}{{highSchoolOrHigher.value}}{{/highSchoolOrHigher.value}}{{^highSchoolOrHigher.value}}no data{{/highSchoolOrHigher.value}}</li>{{/highSchoolOrHigher}}
-                        {{#whiteCollarWorkers}}<li>White Collar Workers: {{#whiteCollarWorkers.value}}{{whiteCollarWorkers.value}}{{/whiteCollarWorkers.value}}{{^whiteCollarWorkers.value}}no data{{/whiteCollarWorkers.value}}</li>{{/whiteCollarWorkers}}
-                    </ul>
-                </li>
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                    <td class="rank">Rank</td>
+                    <td class="name">Name</td>
+                    <td class="value">XXXXX</td>
+                    </tr>
+                </thead>
+                <tbody class="results">
+                    <tr data-template="cityItem">
+                        <td class="rank">{{rank}}</td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                    <tr data-template="countyItem">
+                        <td class="rank">{{rank}}</td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                    <tr data-template="metroItem">
+                        <td class="rank">{{rank}}</td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                    <tr data-template="stateItem">
+                        <td class="rank">{{rank}}</td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
 
 
             <div class="noResults hidden">

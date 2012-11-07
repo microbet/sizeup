@@ -22,6 +22,16 @@
 #topPlaces .mapContent.container .map{width:100%;height:40em;}
 
 
+#topPlaces .list.container {width:100%; }
+#topPlaces .list.container table{width:100%; margin:2em 0; }
+#topPlaces .list.container table .rank{width:5%; text-align: right; padding:0 1em 0 0; }
+#topPlaces .list.container table .name{width:85%; }
+#topPlaces .list.container table .value{ width:10%; text-align:right;}
 
+#topPlaces .list.container table thead tr td { color: #aaa; padding:0.25em 0; font-size:1.1em; }
+
+#topPlaces .list.container table tbody tr {border-top: 1px solid #ccc;}
+#topPlaces .list.container table tbody tr td a { font-size: 1em; }
+#topPlaces .list.container table tbody tr td { padding: 0.5em 0; font-size:1.5em;}
 
 
