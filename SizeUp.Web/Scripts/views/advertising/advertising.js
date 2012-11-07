@@ -114,7 +114,6 @@
             me.content.optionMenu.custom.remove();
             me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
             me.content.optionMenu.menu.change(optionMenuChanged);
-            
            
             me.content.description = me.container.find('.description');
             me.content.list = {};
@@ -375,6 +374,8 @@
             var params = getParameters();
             params.attribute = x;
             params.sortAttribute = x;
+            params.template = 'custom';
+            setOptionMenu('custom');
             setParameters(params);
             loadReport();
         };
