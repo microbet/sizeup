@@ -78,7 +78,6 @@
     <None Include="Analytics\AnalyticsContext.edmx.diagram">
       <DependentUpon>AnalyticsContext.edmx</DependentUpon>
     </None>
-    <None Include="App.Config" />
     <None Include="packages.config" />
     <None Include="SizeUpContext.edmx.diagram">
       <DependentUpon>SizeUpContext.edmx</DependentUpon>

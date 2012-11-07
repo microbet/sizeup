@@ -12,9 +12,9 @@
             me.form.email = $('#emailBox');
             me.form.password = $('#passwordBox');
 
-            me.error.emailRequired = $('#emailRequired');
-            me.error.invalidEmail = $('#emailInvalid');
-            me.error.passwordRequired = $('#passwordRequired');
+            me.error.emailRequired = $('.emailRequired');
+            me.error.invalidEmail = $('.emailInvalid');
+            me.error.passwordRequired = $('.passwordRequired');
 
             me.form.email.blur(validateEmail);
             me.form.password.blur(validatePassword);
