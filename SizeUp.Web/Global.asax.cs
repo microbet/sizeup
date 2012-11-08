@@ -157,6 +157,12 @@ namespace SizeUp.Web
                 new { controller = "Error", action = "Error404" } // Parameter defaults
             );
 
+            routes.MapRoute(
+               "500", // Route name
+               "error/500", // URL with parameters
+               new { controller = "Error", action = "Error500" } // Parameter defaults
+           );
+
 
             routes.MapRoute(
               "accessibility", // Route name

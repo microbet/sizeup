@@ -5,6 +5,8 @@ of elements and some common classes. Nothing more!
 
 body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; text-align: left; color: #606060; background-image:url(images/home-gradient.png); background-repeat:repeat-x; background-color:#0099CC;  }
 
+[data-template] { display: none; }
+
 ol, ol li { list-style: decimal outside none; }
 a,
 p,
