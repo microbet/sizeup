@@ -200,9 +200,16 @@ namespace SizeUp.Web.Controllers
                  })
                  .FirstOrDefault();
 
-  
-                string url = string.Format("/community/{0}/{1}/{2}", place.State, place.County, place.City);
-                return RedirectPermanent(url);
+
+                if (place == null)
+                {
+                    throw new HttpException(404, "Page Not Found");
+                }
+                else
+                {
+                    string url = string.Format("/community/{0}/{1}/{2}", place.State, place.County, place.City);
+                    return RedirectPermanent(url);
+                }
             }
         }
 

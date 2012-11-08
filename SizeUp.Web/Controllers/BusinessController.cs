@@ -261,8 +261,15 @@ namespace SizeUp.Web.Controllers
                     })
                     .FirstOrDefault();
 
-                string url = string.Format("/business/{0}/{1}/{2}/{3}/{4}/{5}", place.State, place.County, place.City,place.Industry, place.BusinessId, place.Business);
-                return RedirectPermanent(url);
+                if (place == null)
+                {
+                    throw new HttpException(404, "Page Not found");
+                }
+                else
+                {
+                    string url = string.Format("/business/{0}/{1}/{2}/{3}/{4}/{5}", place.State, place.County, place.City, place.Industry, place.BusinessId, place.Business);
+                    return RedirectPermanent(url);
+                }
             }
         }
 
