@@ -33,9 +33,13 @@
             },
             placeIndustry: function (params) {
                 trackInternal(params, 'trackPlaceIndustry');
+            },
+            outgoingLink: function (params) {
+                trackEvent({ category: 'outgoingLinks', label: params.label, isInteraction: true });
             }
         };
         return publicObj;
     };
+
 })();
 
