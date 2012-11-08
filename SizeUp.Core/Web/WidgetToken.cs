@@ -81,10 +81,8 @@ namespace SizeUp.Core.Web
             var cipher = Crypto.Crypto.Encrypt(s.ToArray(), WidgetCryptoPassword, WidgetCryptoSalt);
             HttpCookie c = new HttpCookie(_widgetTokenCookie);
             c.Value = cipher;
-            c.Expires = DateTime.Now.AddDays(-1d);
             HttpCookie kc = new HttpCookie(_widgetKeyCookie);
             kc.Value = Key.ToString();
-            kc.Expires = DateTime.Now.AddDays(-1d);
             HttpContext.Current.Response.Cookies.Add(c);
             HttpContext.Current.Response.Cookies.Add(kc);
         }

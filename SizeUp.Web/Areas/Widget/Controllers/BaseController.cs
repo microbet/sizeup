@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using SizeUp.Data;
+using SizeUp.Core.DataAccess;
+using SizeUp.Core.Web;
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -21,6 +23,14 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 theme = c.Value;
             }
             ViewBag.Theme = theme.ToLower();
+
+
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var currentKey = WidgetToken.APIKey;
+                var api = context.APIKeys.Where(i => i.KeyValue == currentKey).Select(i=>i.Name).FirstOrDefault();
+                ViewBag.APIName = api;
+            }
             base.Initialize(requestContext);
         }
 
