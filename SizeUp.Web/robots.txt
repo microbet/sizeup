@@ -1,4 +1,8 @@
-﻿User-agent: *
+﻿﻿#
+# robots.txt for http://www.sizeup.com/ 
+#
+
+User-agent: *
 Disallow: /dashboard/
 Disallow: /competition/
 Disallow: /advertising/
