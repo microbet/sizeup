@@ -110,6 +110,11 @@ namespace SizeUp.Web.Controllers
 
                 ViewBag.Place = location;
 
+                if (location == null)
+                {
+                    throw new HttpException(404, "Page not found");
+                }
+
                 var industries = context.Industries
                     .Where(i=>i.IsActive)
                     .Where(i=>i.BusinessDataByCities.Any(b=> b.IndustryId == i.Id && b.City.Id == location.CityId && b.City.CityCountyMappings.Any(c=>c.CountyId == location.CountyId)))

@@ -182,6 +182,11 @@ namespace SizeUp.Web.Controllers
                     .Select(i => i.Industry.SEOKey)
                     .FirstOrDefault();
 
+                if (place == null)
+                {
+                    throw new HttpException(404, "Page Not Found");
+                }
+
                 string url = string.Format("/community/{0}/{1}/{2}/{3}", place.State,place.County,place.City, ind);
                 return RedirectPermanent(url);
             }

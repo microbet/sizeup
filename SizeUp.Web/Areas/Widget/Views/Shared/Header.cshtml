@@ -2,6 +2,7 @@
 <div id="menu">
 <ul>
 @if(!ViewBag.Header.HideNavigation){
+if(ViewBag.CurrentInfo.CurrentPlace != null){
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
 <li class="dashboard"><a class="disabled">My Business</a></li>
 }else{
@@ -16,6 +17,7 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 <li class="advertising"><a class="disabled">Advertising</a></li>
 }else{
 <li class="advertising"><a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Advertising</a></li>
+}
 }
 <li class="startOver"><a href="/widget/select">Start Over</a></li>
 }
