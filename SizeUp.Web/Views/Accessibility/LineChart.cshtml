@@ -2,12 +2,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section head{
-<title>Text Alternative for Heatmap of @ViewBag.Attribute by @ViewBag.LevelOfDetail in @ViewBag.BoundingEntity</title>
+<title>Text Alternative for Years in Business Report for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</title>
 <link href="@Url.Content("~/Content/views/accessibility/index.css")" rel="stylesheet" type="text/css" />
 }
 
 <div id="yearStarted">
-<h1>Text Alternative for Years in Business Report for Pharmacies in San Francisco</h1>
+<h1>Text Alternative for Years in Business Report for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
 <table>
     <thead>
         <tr>
