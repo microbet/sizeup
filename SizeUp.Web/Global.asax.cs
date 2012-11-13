@@ -152,11 +152,28 @@ namespace SizeUp.Web
                new string[] { "SizeUp.Web.Controllers" }
            );
 
+
+            routes.MapRoute(
+              "SigninRedirect", // Route name
+              "signin", // URL with parameters
+              new { controller = "User", action = "SigninRedirect" }, // Parameter defaults
+              new string[] { "SizeUp.Web.Controllers" }
+          );
+
+
+
+
             routes.MapRoute(
                 "404", // Route name
                 "error/404", // URL with parameters
                 new { controller = "Error", action = "Error404" } // Parameter defaults
             );
+
+            routes.MapRoute(
+               "500", // Route name
+               "error/500", // URL with parameters
+               new { controller = "Error", action = "Error500" } // Parameter defaults
+           );
 
 
             routes.MapRoute(

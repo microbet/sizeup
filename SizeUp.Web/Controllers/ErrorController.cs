@@ -20,5 +20,14 @@ namespace SizeUp.Web.Controllers
             return View();
         }
 
+        public ActionResult Error500()
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            return View();
+        }
+
     }
 }

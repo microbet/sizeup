@@ -110,6 +110,11 @@ namespace SizeUp.Web.Controllers
 
                 ViewBag.Place = location;
 
+                if (location == null)
+                {
+                    throw new HttpException(404, "Page not found");
+                }
+
                 var industries = context.Industries
                     .Where(i=>i.IsActive)
                     .Where(i=>i.BusinessDataByCities.Any(b=> b.IndustryId == i.Id && b.City.Id == location.CityId && b.City.CityCountyMappings.Any(c=>c.CountyId == location.CountyId)))
@@ -261,8 +266,15 @@ namespace SizeUp.Web.Controllers
                     })
                     .FirstOrDefault();
 
-                string url = string.Format("/business/{0}/{1}/{2}/{3}/{4}/{5}", place.State, place.County, place.City,place.Industry, place.BusinessId, place.Business);
-                return RedirectPermanent(url);
+                if (place == null)
+                {
+                    throw new HttpException(404, "Page Not found");
+                }
+                else
+                {
+                    string url = string.Format("/business/{0}/{1}/{2}/{3}/{4}/{5}", place.State, place.County, place.City, place.Industry, place.BusinessId, place.Business);
+                    return RedirectPermanent(url);
+                }
             }
         }
 

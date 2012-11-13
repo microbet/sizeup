@@ -49,6 +49,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var year = DateTime.Now.Year;
                 var item = context.Businesses.Where(i => industryIds.Contains(i.IndustryId.Value));
                 item = item.Where(i => i.IsActive);
+                item = item.Where(i => i.MatchLevel == "0");
                 var data = item.Select(i => new
                 {
                     Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
@@ -109,6 +110,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var year = DateTime.Now.Year;
                 var item = context.Businesses.Where(i => industryIds.Contains(i.IndustryId.Value));
                 item = item.Where(i => i.IsActive);
+                item = item.Where(i => i.MatchLevel == "0");
                 var projection = item.Select(i => new {
                     Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - lng) * scalar, 2), 0.5),
                     Business = new Models.Business.Business()

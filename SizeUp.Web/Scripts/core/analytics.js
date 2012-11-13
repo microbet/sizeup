@@ -4,8 +4,8 @@
         var dataLayer = new sizeup.core.data();
 
         var trackEvent = function (params) {
-            if (!typeof _gaq === 'undefined') {
-                _gaq._trackEvent(params.category, params.action, params.label, params.value, !params.isInteraction);
+            if (!(typeof _gaq === 'undefined')) {
+                _gaq.push(['_trackEvent',params.category, params.action, params.label, params.value]);
             }
         };
 
@@ -37,6 +37,9 @@
             topPlacesReportLoaded: function () {
                 trackEvent({ category: 'TopPlaces', action: 'reportLoaded', label: null, isInteraction: true });
             },
+            outgoingLink: function (params) {
+                trackEvent({ category: 'outgoingLinks',action:'clicked', label: params.label, isInteraction: true });
+            }
         };
         return publicObj;
     };

@@ -14,6 +14,15 @@
 
 <form id="registerForm" action="/user/register/?returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])" method="post">
     <ul id="form">
+        <li class="emailRequired hidden">
+            <span class="error">Email is required</span>
+        </li>
+         <li class="emailInvalid hidden">
+            <span class="error">A valid email address is required</span>
+        </li>
+         <li class="passwordRequired hidden">
+            <span class="error">Password is required</span>
+        </li>
         <li>
             <label for="nameBox">Name:</label>
             <input id="nameBox" type="text" name="name" value="@ViewBag.Name" />
@@ -22,13 +31,13 @@
         <li>
             <label for="emailBox">Email:</label>
             <input id="emailBox" type="text" name="email" value="@ViewBag.Email" />
-            <span id="emailRequired" class="error hidden" title="Email is required">*</span>
-            <span id="emailInvalid" class="error hidden" title="A valid email address is required">*</span>
+            <span class="error hidden emailRequired" title="Email is required">*</span>
+            <span class="error hidden emailInvalid" title="A valid email address is required">*</span>
         </li>
         <li>
             <label for="passwordBox">Password:</label>
             <input id="passwordBox" type="password" name="password" />
-            <span id="passwordRequired" class="error hidden" title="Password is required">*</span>
+            <span class="error hidden passwordRequired" title="Password is required">*</span>
         </li>
     </ul>
 
