@@ -90,7 +90,7 @@ namespace SizeUp.Web.Controllers
 
         [HttpGet]
         public ActionResult Signin()
-        {         
+        {
             ViewBag.Header = new Models.Header()
             {
                 HideMenu = true
@@ -104,6 +104,12 @@ namespace SizeUp.Web.Controllers
             ViewBag.Email = "";
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult SigninRedirect()
+        {
+            return RedirectPermanent("/user/signin");
         }
 
         [HttpPost]
