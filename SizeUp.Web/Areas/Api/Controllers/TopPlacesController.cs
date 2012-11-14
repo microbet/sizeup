@@ -87,7 +87,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
 
 
-                var outData = data.Take(itemCount).ToList();
+                var outData = data
+                .Take(itemCount)
+                .ToList()
+                .Select((i, index) => new
+                {
+                    i.City,
+                    i.IndustryData.TotalRevenue,
+                    i.IndustryData.TotalEmployees,
+                    i.IndustryData.EmployeesPerCapita,
+                    i.IndustryData.AverageRevenue,
+                    i.IndustryData.AverageEmployees,
+                    Rank = index + 1
+                })
+                .ToList();
                 return Json(outData, JsonRequestBehavior.AllowGet);
             }
         }
