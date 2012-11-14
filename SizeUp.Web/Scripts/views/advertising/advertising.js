@@ -17,30 +17,35 @@
                     attribute: 'averageRevenue',
                     sortAttribute: 'averageRevenue',
                     sort: 'desc',
+                    order: 'highToLow',
                     template: 'averageRevenue'
                 },
                 totalRevenue: {
                     attribute: 'totalRevenue',
                     sortAttribute: 'totalRevenue',
                     sort: 'desc',
+                    order: 'highToLow',
                     template: 'totalRevenue'
                 },
                 underservedMarkets: {
                     attribute: 'revenuePerCapita',
                     sortAttribute: 'revenuePerCapita',
                     sort: 'asc',
+                    order: 'lowToHigh',
                     template: 'underservedMarkets'
                 },
                 revenuePerCapita: {
                     attribute: 'revenuePerCapita',
                     sortAttribute: 'revenuePerCapita',
                     sort: 'desc',
+                    order: 'highToLow',
                     template: 'revenuePerCapita'
                 },
                 householdIncome: {
                     attribute: 'householdIncome',
                     sortAttribute: 'householdIncome',
                     sort: 'desc',
+                    order: 'highToLow',
                     template: 'householdIncome'
                 }
             }
@@ -374,6 +379,7 @@
             var params = getParameters();
             params.attribute = x;
             params.sortAttribute = x;
+            params.order = 'highToLow';
             params.template = 'custom';
             setOptionMenu('custom');
             setParameters(params);
@@ -508,12 +514,20 @@
         };
 
         var bindBands = function (data) {
+            var params = getParameters();
             var html = '';
             for (var x = 0 ;x < data.length; x++) {
                 var d = {
-                    label: x == data.length - 1 ? data[x].Max + ' and below' : data[x].Max + ' - ' + data[x].Min,
                     color: me.opts.bandColors[x]
                 };
+
+                if (params.order == 'highToLow') {
+                    d.label = x == data.length - 1 ? data[x].Max + ' and below' : data[x].Max + ' - ' + data[x].Min;
+                }
+                else {
+                    d.label = x == data.length - 1 ? data[x].Min + ' and above' : data[x].Min + ' - ' + data[x].Max;
+                }
+
                 var template = templates.get('bandItem');
                 html = html + templates.bind(template, d);
             }

@@ -167,7 +167,7 @@
                     boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id
                 },
-                minZoom: 12,
+                minZoom: 11,
                 maxZoom: 32
             }));
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
@@ -188,7 +188,7 @@
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 8,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
 
                 overlays.push(new sizeup.maps.overlay({
@@ -227,7 +227,7 @@
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
 
@@ -301,7 +301,7 @@
             var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
 
-            if (z <= 32 && z >= 12) {
+            if (z <= 32 && z >= 11) {
                 data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
                 me.data.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeUrl = '/accessibility/revenue/zip/';
@@ -313,7 +313,7 @@
             }
 
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
-                if (z <= 11 && z >= 8) {
+                if (z <= 10 && z >= 8) {
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.textAlternativeUrl = '/accessibility/revenue/county/';
@@ -338,7 +338,7 @@
                 }
             }
             else {
-                if (z <= 11 && z >= 5) {
+                if (z <= 10 && z >= 5) {
 
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.textAlternativeUrl = '/accessibility/revenue/county/';

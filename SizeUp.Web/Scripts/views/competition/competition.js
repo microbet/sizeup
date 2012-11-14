@@ -615,8 +615,8 @@
                         variableId: id,
                         boundingEntityId: 'co' + me.opts.CurrentInfo.CurrentPlace.County.Id
                     },
-                    minZoom: 12,
-                    maxZoom: 16
+                    minZoom: 11,
+                    maxZoom: 32
                 }));
 
 
@@ -638,8 +638,8 @@
                             variableId: id,
                             boundingEntityId: 'm' + me.opts.CurrentInfo.CurrentPlace.Metro.Id
                         },
-                        minZoom: 10,
-                        maxZoom: 11
+                        minZoom: 8,
+                        maxZoom: 10
                     }));
 
                     me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
@@ -659,7 +659,7 @@
                             boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id
                         },
                         minZoom: 5,
-                        maxZoom: 9
+                        maxZoom: 7
                     }));
                 }
                 else {
@@ -680,7 +680,7 @@
                             boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id
                         },
                         minZoom: 5,
-                        maxZoom: 11
+                        maxZoom: 10
                     }));
                 }
 
@@ -730,7 +730,7 @@
                 });
                 var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
-                if (z <= 16 && z >= 12) {
+                if (z <= 32 && z >= 11) {
 
                     var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by zip code in ' + me.opts.CurrentInfo.CurrentPlace.County.Name + ', ' +  me.opts.CurrentInfo.CurrentPlace.State.Name; });
 
@@ -743,7 +743,7 @@
 
 
                 if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
-                    if (z <= 11 && z >= 10) {
+                    if (z <= 10 && z >= 8) {
 
                         var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.Metro.Name; });
 
@@ -754,7 +754,7 @@
                            itemsNotify);
                     }
 
-                    if (z <= 9 && z >= 5) {
+                    if (z <= 8 && z >= 5) {
 
                         var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
 
@@ -766,7 +766,7 @@
                     }
                 }
                 else {
-                    if (z <= 11 && z >= 5) {
+                    if (z <= 10 && z >= 5) {
 
                         var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
 

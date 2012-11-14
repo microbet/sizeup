@@ -849,6 +849,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             string sort = QueryString.StringValue("sort");
             string sortAttribute = QueryString.StringValue("sortAttribute");
             string attribute = QueryString.StringValue("attribute");
+            string order = QueryString.StringValue("order");
 
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -1254,7 +1255,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         old = band;
                     }
                 }
-                output.Reverse();
+                if (order == "highToLow")
+                {
+                    output.Reverse();
+                }
+
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }

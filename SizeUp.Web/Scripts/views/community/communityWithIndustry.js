@@ -154,7 +154,7 @@
             var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
 
-            if (z <= 32 && z >= 12) {
+            if (z <= 32 && z >= 11) {
                 data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation;
                 dataLayer.getAverageRevenueBandsByZip({
                     industryId: me.opts.location.CurrentIndustry.Id,
@@ -164,7 +164,7 @@
             }
 
             if (me.opts.location.CurrentPlace.Metro.Id != null) {
-                if (z <= 11 && z >= 8) {
+                if (z <= 10 && z >= 8) {
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.location.CurrentPlace.Metro.Name + ' (Metro)';
                     dataLayer.getAverageRevenueBandsByCounty({
                         industryId: me.opts.location.CurrentIndustry.Id,
@@ -185,7 +185,7 @@
                 }
             }
             else {
-                if (z <= 11 && z >= 5) {
+                if (z <= 10 && z >= 5) {
 
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.location.CurrentPlace.State.Name;
                     dataLayer.getAverageRevenueBandsByState({
@@ -264,7 +264,7 @@
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 8,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
             else {
@@ -280,11 +280,11 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
 
@@ -303,7 +303,7 @@
                     boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                     industryId: me.opts.location.CurrentIndustry.Id
                 },
-                minZoom: 12,
+                minZoom: 11,
                 maxZoom: 32
             }));
 
@@ -347,7 +347,7 @@
             var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
 
-            if (z <= 32 && z >= 12) {
+            if (z <= 32 && z >= 11) {
                 data.title = 'Total Revenue by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation;
                 dataLayer.getTotalRevenueBandsByZip({
                     industryId: me.opts.location.CurrentIndustry.Id,
@@ -357,7 +357,7 @@
             }
 
             if (me.opts.location.CurrentPlace.Metro.Id != null) {
-                if (z <= 11 && z >= 8) {
+                if (z <= 10 && z >= 8) {
                     data.title = 'Total Revenue by county in ' + me.opts.location.CurrentPlace.Metro.Name + ' (Metro)';
                     dataLayer.getTotalRevenueBandsByCounty({
                         industryId: me.opts.location.CurrentIndustry.Id,
@@ -378,7 +378,7 @@
                 }
             }
             else {
-                if (z <= 11 && z >= 5) {
+                if (z <= 10 && z >= 5) {
 
                     data.title = 'Total Revenue by county in ' + me.opts.location.CurrentPlace.State.Name;
                     dataLayer.getTotalRevenueBandsByState({
@@ -457,7 +457,7 @@
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 8,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
             else {
@@ -473,11 +473,11 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
 
@@ -496,7 +496,7 @@
                     boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                     industryId: me.opts.location.CurrentIndustry.Id
                 },
-                minZoom: 12,
+                minZoom: 11,
                 maxZoom: 32
             }));
 
@@ -541,7 +541,7 @@
             var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
 
-            if (z <= 32 && z >= 12) {
+            if (z <= 32 && z >= 11) {
                 data.title = 'Average Employees per business by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation;
                 dataLayer.getAverageEmployeesBandsByZip({
                     industryId: me.opts.location.CurrentIndustry.Id,
@@ -551,7 +551,7 @@
             }
 
             if (me.opts.location.CurrentPlace.Metro.Id != null) {
-                if (z <= 11 && z >= 8) {
+                if (z <= 10 && z >= 8) {
                     data.title = 'Average Employees per business by county in ' + me.opts.location.CurrentPlace.Metro.Name + ' (Metro)';
                     dataLayer.getAverageEmployeesBandsByCounty({
                         industryId: me.opts.location.CurrentIndustry.Id,
@@ -572,7 +572,7 @@
                 }
             }
             else {
-                if (z <= 11 && z >= 5) {
+                if (z <= 10 && z >= 5) {
 
                     data.title = 'Average Employees per business by county in ' + me.opts.location.CurrentPlace.State.Name;
                     dataLayer.getAverageEmployeesBandsByState({
@@ -651,7 +651,7 @@
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 8,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
             else {
@@ -667,11 +667,11 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
 
@@ -690,7 +690,7 @@
                     boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                     industryId: me.opts.location.CurrentIndustry.Id
                 },
-                minZoom: 12,
+                minZoom: 11,
                 maxZoom: 32
             }));
 
@@ -737,7 +737,7 @@
             var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
 
-            if (z <= 32 && z >= 12) {
+            if (z <= 32 && z >= 11) {
                 data.title = 'Total Employees by ZIP code in ' + me.opts.location.CurrentPlace.County.Name + ', ' + me.opts.location.CurrentPlace.State.Abbreviation;
                 dataLayer.getAverageEmployeesBandsByZip({
                     industryId: me.opts.location.CurrentIndustry.Id,
@@ -747,7 +747,7 @@
             }
 
             if (me.opts.location.CurrentPlace.Metro.Id != null) {
-                if (z <= 11 && z >= 8) {
+                if (z <= 10 && z >= 8) {
                     data.title = 'Total Employees by county in ' + me.opts.location.CurrentPlace.Metro.Name + ' (Metro)';
                     dataLayer.getAverageEmployeesBandsByCounty({
                         industryId: me.opts.location.CurrentIndustry.Id,
@@ -768,7 +768,7 @@
                 }
             }
             else {
-                if (z <= 11 && z >= 5) {
+                if (z <= 10 && z >= 5) {
 
                     data.title = 'Total Employees by county in ' + me.opts.location.CurrentPlace.State.Name;
                     dataLayer.getAverageEmployeesBandsByState({
@@ -847,7 +847,7 @@
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 8,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
             else {
@@ -863,11 +863,11 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
-                    maxZoom: 11
+                    maxZoom: 10
                 }));
             }
 
@@ -886,7 +886,7 @@
                     boundingEntityId: 'co' + me.opts.location.CurrentPlace.County.Id,
                     industryId: me.opts.location.CurrentIndustry.Id
                 },
-                minZoom: 12,
+                minZoom: 11,
                 maxZoom: 32
             }));
 
@@ -1049,7 +1049,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
@@ -1216,7 +1216,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
