@@ -288,7 +288,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
@@ -481,7 +481,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
@@ -675,7 +675,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
@@ -871,7 +871,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
@@ -1057,7 +1057,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
@@ -1224,7 +1224,7 @@
                                     '#F52900',
                                     '#F50000'
                         ].join(','),
-                        boundingEntityId: 'm' + me.opts.location.CurrentPlace.Metro.Id,
+                        boundingEntityId: 's' + me.opts.location.CurrentPlace.State.Id,
                         industryId: me.opts.location.CurrentIndustry.Id
                     },
                     minZoom: 5,
