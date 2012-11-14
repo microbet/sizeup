@@ -5,7 +5,8 @@
 
         var defaults = {
             itemsPerPage: 25,
-            bands: 5,
+            bandCount: 5,
+            bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             params: {
                 placeType: 'city',
                 attribute:'totalRevenue'
@@ -54,16 +55,13 @@
             me.content.map = new sizeup.maps.map({
                 container: me.content.container.find('.mapContent.container .map')
             });
-           // me.content.map.fitBounds(me.data.cityBoundingBox);
-            //set bounds to be USA
- 
+           
 
             
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
             me.content.optionMenu = me.content.container.find('#optionMenu').chosen();
-            //me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
             me.content.optionMenu.change(optionMenuChanged);
 
             /*
