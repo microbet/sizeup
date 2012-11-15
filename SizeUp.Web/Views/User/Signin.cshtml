@@ -45,9 +45,7 @@
         }
         @if (ViewBag.NotActive){
         <li>
-            <p class="info error">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.
-                Never received your acctivation email? <a href="/user/SendVerification/?email=@Server.UrlEncode(ViewBag.Email)&returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])">Resend it.</a>
-            </p>
+            <p class="info error">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received or <a href="/user/SendVerification/?email=@Server.UrlEncode(ViewBag.Email)&returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])">resend the verification email.</a></p>
         </li>
         }
         @if(ViewBag.Verified){
