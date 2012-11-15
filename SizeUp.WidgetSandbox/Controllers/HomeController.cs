@@ -30,6 +30,11 @@ namespace SizeUp.WidgetSandbox.Controllers
             return View();
         }
 
+        public ActionResult Inc()
+        {
+            return View();
+        }
+
 
     }
 }

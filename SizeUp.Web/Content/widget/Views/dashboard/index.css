@@ -10,7 +10,7 @@
 #dashboard .report .header .gauge { right: 4em; }
 #dashboard .report .header .reportToggle { right: 0.25em; }
 
-#dashboard .report .header input[type="text"] { width: 5em; left:17em; }
+#dashboard .report .header input[type="text"] { width: 5em; left:16em; }
 #dashboard #summaryView { background: none; border-radius: 0; padding:0; font-size:1.5em;}
 #dashboard .report .body .reportContainer .reportContent { width: 100%; padding:0; }
 #dashboard .report .body .reportContainer .reportSidebar { width: 100%; }
@@ -19,7 +19,7 @@
 #dashboard #yearStarted.report .body .reportContainer .reportContent .chart .container { width: 100%; }
 #dashboard #costEffectiveness .header .prompt { display: none; }
 
-#dashboard #costEffectiveness.report .header input[type="text"]  {  width:8em; left:14.5em;  }
+#dashboard #costEffectiveness.report .header input[type="text"]  {  width:8em; left:14em;  }
 
 
 
