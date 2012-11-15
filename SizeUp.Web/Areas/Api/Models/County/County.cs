@@ -12,5 +12,6 @@ namespace SizeUp.Web.Areas.Api.Models.County
         public string Name { get; set; }
         public string State { get; set; }
         public string SEOKey { get; set; }
+        public Models.Shared.LatLng Centroid { get; set; }
     }
 }

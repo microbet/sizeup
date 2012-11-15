@@ -17,7 +17,7 @@
         me.opts = $.extend(true, defaults, opts);
 
         me.data = {
-            
+            xhr: {}
         };
 
 
@@ -58,7 +58,7 @@
            
 
             me.content.filters = {};
-            me.content.filters.placeType = me.content.container.find('#filterSettings input[name=placeType]');
+            me.content.filters.placeTypeOption = me.content.container.find('#filterSettings #placeTypeOption');
 
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
@@ -71,8 +71,12 @@
             me.content.filters.container = me.content.container.find('#filterSettings').hide().removeClass('hidden');
             */
 
+            //init state
+            me.content.filters.placeTypeOption.find('input[data-index=' + params.placeType + ']').attr('checked', 'checked');
+
+
             //events
-            me.content.filters.placeType.click(placeTypeClicked);
+            me.content.filters.placeTypeOption.find('input[name=placeType]').click(placeTypeClicked);
 
             me.loader.hide();
             me.content.container.show();
@@ -85,10 +89,13 @@
         //////event actions//////////////////
      
         var placeTypeClicked = function (e) {
+            e.stopPropagation();
             //var target = $(e.target);
             
             //me.data.activeMapFilter = target.attr('value');
             pushUrlState();
+            loadReport();
+
         };
 
         var optionMenuChanged = function (e) {
@@ -104,10 +111,12 @@
       
         var pushUrlState = function () {
             var params = getParameters();
+            params.placeType = me.content.filters.placeTypeOption.find('input:checked').attr('data-index');
 
             jQuery.bbq.pushState(params, 2);
         };
 
+      
 
         var getParameters = function () {
             var params = jQuery.bbq.getState();
@@ -134,6 +143,7 @@
             };
             var notifier = new sizeup.core.notifier(function () {
 
+                me.data.xhr['list'] = null;
                 //var formattedData = formatData(reportData.list);
                 //var formattedBands = formatBands(reportData.bands, params.attribute);
 
@@ -150,23 +160,27 @@
                 me.content.results.show();
             });
 
+            if (me.data.xhr['list'] != null) {
+                me.data.xhr['list'].abort();
+            }
+
             if (params.placeType == 'city') {
-                dataLayer.getTopPlacesByCity(params, notifier.getNotifier(function (data) {
-                    reportData.list = data;
+                me.data.xhr['list'] = dataLayer.getTopPlacesByCity(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatCityList(data);
                 }));
             }
             else if (params.placeType == 'county') {
-                dataLayer.getTopPlacesByCounty(params, notifier.getNotifier(function (data) {
-                    reportData.list = data;
+                me.data.xhr['list'] = dataLayer.getTopPlacesByCounty(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatCountyList(data);
                 }));
             }
             else if (params.placeType == 'metro') {
-                dataLayer.getTopPlacesByMetro(params, notifier.getNotifier(function (data) {
-                    reportData.list = data;
+                me.data.xhr['list'] = dataLayer.getTopPlacesByMetro(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatMetroList(data);
                 }));
             }
             else if (params.placeType == 'state') {
-                dataLayer.getTopPlacesByState(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = dataLayer.getTopPlacesByState(params, notifier.getNotifier(function (data) {
                     reportData.list = formatStateList(data);
                 }));
             }
@@ -189,7 +203,7 @@
             me.content.noResults.hide();
             var html = '';
             for (var x = 0; x < data.length; x++) {
-                html = html + templates.bind(templates.get('stateItem'), data[x]);
+                html = html + templates.bind(templates.get(params.placeType + 'Item'), data[x]);
             }
 
             me.content.results.html(html);
@@ -204,9 +218,51 @@
 
         var formatStateList = function (data) {
             var newData = [];
-            for (var x = 0; x < data.length;x++){
+            for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
+                    state: data[x].State,
+                    value: extractValue(data[x])
+
+                });
+            }
+            return newData;
+        };
+
+        var formatMetroList = function (data) {
+            var newData = [];
+            for (var x = 0; x < data.length; x++) {
+                newData.push({
+                    rank: x + 1,
+                    metro: data[x].Metro,
+                    value: extractValue(data[x])
+
+                });
+            }
+            return newData;
+        };
+
+        var formatCountyList = function (data) {
+            var newData = [];
+            for (var x = 0; x < data.length; x++) {
+                newData.push({
+                    rank: x + 1,
+                    county: data[x].County,
+                    state: data[x].State,
+                    value: extractValue(data[x])
+
+                });
+            }
+            return newData;
+        };
+
+        var formatCityList = function (data) {
+            var newData = [];
+            for (var x = 0; x < data.length; x++) {
+                newData.push({
+                    rank: x + 1,
+                    city: data[x].City,
+                    county: data[x].County,
                     state: data[x].State,
                     value: extractValue(data[x])
 

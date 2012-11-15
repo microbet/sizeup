@@ -58,22 +58,22 @@
 
 
         <div id="filterSettings" class="">
-            <ul>
+            <ul id="placeTypeOption">
                 <li>
                     <label for="cityOption">City</label>
-                    <input type="radio" id="cityOption" value="city" name="placeType" />
+                    <input type="radio" id="cityOption" data-index="city" name="placeType" checked="checked" />
                 </li>
                 <li>
                     <label for="countyOption">County</label>
-                    <input type="radio" id="countyOption" value="county" name="placeType" />
+                    <input type="radio" id="countyOption" data-index="county" name="placeType" />
                 </li>
                 <li>
                     <label for="metroOption">Metro</label>
-                    <input type="radio" id="metroOption" value="metro" name="placeType" />
+                    <input type="radio" id="metroOption" data-index="metro" name="placeType" />
                 </li>
                 <li>
                     <label for="stateOption">State</label>
-                    <input type="radio" id="stateOption" value="state" name="placeType" />
+                    <input type="radio" id="stateOption" data-index="state" name="placeType" />
                 </li>
             </ul>
 
@@ -103,17 +103,17 @@
                 <tbody class="results">
                     <tr data-template="cityItem">
                         <td class="rank">{{Rank}}</td>
-                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{city.Name}}, {{state.Abbreviation}}</a></td>
                         <td class="value">{{value}}</td>
                     </tr>
                     <tr data-template="countyItem">
                         <td class="rank">{{rank}}</td>
-                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}" class="name">{{county.Name}} County, {{state.Abbreviation}}</a></td>
                         <td class="value">{{value}}</td>
                     </tr>
                     <tr data-template="metroItem">
                         <td class="rank">{{rank}}</td>
-                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="name"><a data-override-href="/community/metro/{{metro.SEOKey}}" class="name">{{metro.Name}}</a></td>
                         <td class="value">{{value}}</td>
                     </tr>
                     <tr data-template="stateItem">

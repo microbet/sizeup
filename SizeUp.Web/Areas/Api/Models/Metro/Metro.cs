@@ -10,5 +10,6 @@ namespace SizeUp.Web.Areas.Api.Models.Metro
     {
         public long? Id { get; set; }
         public string Name { get; set; }
+        public Models.Shared.LatLng Centroid { get; set; }
     }
 }
