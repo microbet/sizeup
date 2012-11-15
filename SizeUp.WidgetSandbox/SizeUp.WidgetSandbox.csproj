@@ -152,6 +152,7 @@
     <None Include="Properties\PublishProfiles\WidgetSandbox.SizeUp.com.pubxml" />
     <Content Include="Views\Home\Prod.cshtml" />
     <Content Include="Views\Home\SBA.cshtml" />
+    <Content Include="Views\Home\INC.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
