@@ -15,6 +15,9 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+
+
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/slider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")"></script>
   
@@ -42,7 +45,6 @@
                         <option value="totalRevenue">Total Annual Revenue</option>
                         <option value="totalEmployees">Total Employees</option>
                         <option value="averageRevenue">Average Annual Revenue</option>
-                        <option value="costEffectiveness">Worker Productivity</option>
                         <option value="averageEmployees">Average Employees</option>
                         <option value="employeesPerCapita">Employees Per Capita</option>
                         <option value="revenuePerCapita">Highest Revenue Per Capita</option>
@@ -55,30 +57,26 @@
 
 
 
-        <div id="filterSettings" class="hidden">
-            <h2>Best Places to Advertise</h2>
-            <p>
-                Find the best places to target your next advertising campaign.
-                 Adjust business and demographic parameters to find the best advertising locations.
-            </p>
-            <div class="section">
-                 <ul class="options">
-                    <li id="distance">
-                        <span class="label">Search distance:</span>
-                        <span class="valueLabel">
-                            <span class="value">at most <span class="val">{{value}}</span> miles</span>
-                            <span class="off"><span class="val">Nationwide</span></span>
-                        </span>
-                        <div class="sliderWrap">
-                            <span class="sliderLabel less">less</span>
-                            <div class="slider"></div>
-                            <span class="sliderLabel more">more</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <a href="javascript:void(0);" class="button small submit">Search</a>
-            <a href="javascript:void(0);"  class="inverse cancel">Cancel</a>
+        <div id="filterSettings" class="">
+            <ul>
+                <li>
+                    <label for="cityOption">City</label>
+                    <input type="radio" id="cityOption" value="city" name="placeType" />
+                </li>
+                <li>
+                    <label for="countyOption">County</label>
+                    <input type="radio" id="countyOption" value="county" name="placeType" />
+                </li>
+                <li>
+                    <label for="metroOption">Metro</label>
+                    <input type="radio" id="metroOption" value="metro" name="placeType" />
+                </li>
+                <li>
+                    <label for="stateOption">State</label>
+                    <input type="radio" id="stateOption" value="state" name="placeType" />
+                </li>
+            </ul>
+
         </div>
 
 
@@ -120,7 +118,7 @@
                     </tr>
                     <tr data-template="stateItem">
                         <td class="rank">{{rank}}</td>
-                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{name}}</a></td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}" class="name">{{state.Name}}</a></td>
                         <td class="value">{{value}}</td>
                     </tr>
                 </tbody>

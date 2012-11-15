@@ -31,12 +31,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult City(int itemCount, int industryId, string attribute)
         {
-            Range averageRevenue = ParseQueryString("averageRevenue");
-            Range totalRevenue = ParseQueryString("totalRevenue");
-            Range totalEmployees = ParseQueryString("totalEmployees");
-            Range revenuePerCapita = ParseQueryString("revenuePerCapita");
-
-
+            
 
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -123,12 +118,143 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult State()
+        public ActionResult State(int itemCount, int industryId, string attribute)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.States.Take(25).ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
+                var raw = context.States
+                    .Select(i => new
+                    {
+                        State = new Models.State.State()
+                        {
+                            Id = i.Id,
+                            Name = i.Name,
+                            Abbreviation = i.Abbreviation,
+                            SEOKey = i.SEOKey,
+                            Centroid = i.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng{ Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                        },
+                        IndustryData = i.IndustryDataByStates.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter && d.IndustryId == industryId).Select(d => new
+                        {
+                            d.TotalRevenue,
+                            d.AverageRevenue,
+                            d.TotalEmployees,
+                            d.AverageEmployees,
+                            d.EmployeesPerCapita,
+                            d.RevenuePerCapita
+                        }).FirstOrDefault()
+                    });
+
+                IQueryable<Models.TopPlaces.TopPlace> data = null;
+                if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    data = raw
+                        .Where(i=>i.IndustryData.TotalRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
+                        .Select(i => new Models.TopPlaces.TopPlace
+                        {
+                            State = i.State,
+                            TotalRevenue = i.IndustryData.TotalRevenue,
+                            TotalEmployees = i.IndustryData.TotalEmployees,
+                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                            AverageRevenue = i.IndustryData.AverageRevenue,
+                            AverageEmployees = i.IndustryData.AverageEmployees
+                        })
+                        .AsQueryable();
+                }
+                else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    data = raw
+                        .Where(i => i.IndustryData.AverageRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
+                        .Select(i => new Models.TopPlaces.TopPlace
+                        {
+                            State = i.State,
+                            TotalRevenue = i.IndustryData.TotalRevenue,
+                            TotalEmployees = i.IndustryData.TotalEmployees,
+                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                            AverageRevenue = i.IndustryData.AverageRevenue,
+                            AverageEmployees = i.IndustryData.AverageEmployees
+                        })
+                        .AsQueryable();
+                }
+                else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    data = raw
+                        .Where(i => i.IndustryData.TotalEmployees > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
+                        .Select(i => new Models.TopPlaces.TopPlace
+                        {
+                            State = i.State,
+                            TotalRevenue = i.IndustryData.TotalRevenue,
+                            TotalEmployees = i.IndustryData.TotalEmployees,
+                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                            AverageRevenue = i.IndustryData.AverageRevenue,
+                            AverageEmployees = i.IndustryData.AverageEmployees
+                        })
+                        .AsQueryable();
+                }
+                else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    data = raw
+                        .Where(i => i.IndustryData.AverageEmployees > 0)
+                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
+                        .Select(i => new Models.TopPlaces.TopPlace
+                        {
+                            State = i.State,
+                            TotalRevenue = i.IndustryData.TotalRevenue,
+                            TotalEmployees = i.IndustryData.TotalEmployees,
+                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                            AverageRevenue = i.IndustryData.AverageRevenue,
+                            AverageEmployees = i.IndustryData.AverageEmployees
+                        })
+                        .AsQueryable();
+                }
+                else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    data = raw
+                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
+                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
+                        .Select(i => new Models.TopPlaces.TopPlace
+                        {
+                            State = i.State,
+                            TotalRevenue = i.IndustryData.TotalRevenue,
+                            TotalEmployees = i.IndustryData.TotalEmployees,
+                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                            AverageRevenue = i.IndustryData.AverageRevenue,
+                            AverageEmployees = i.IndustryData.AverageEmployees
+                        })
+                        .AsQueryable();
+                }
+                else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    data = raw
+                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
+                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
+                        .Select(i => new Models.TopPlaces.TopPlace
+                        {
+                            State = i.State,
+                            TotalRevenue = i.IndustryData.TotalRevenue,
+                            TotalEmployees = i.IndustryData.TotalEmployees,
+                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                            AverageRevenue = i.IndustryData.AverageRevenue,
+                            AverageEmployees = i.IndustryData.AverageEmployees
+                        })
+                        .AsQueryable();
+                }
+
+
+                var outData = data
+                    .Take(itemCount)
+                    .ToList();
+                    
+
+                return Json(outData, JsonRequestBehavior.AllowGet);
             }
         }
 

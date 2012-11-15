@@ -8,7 +8,7 @@
             bandCount: 5,
             bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             params: {
-                placeType: 'city',
+                placeType: 'state',
                 attribute:'totalRevenue'
             }
         };
@@ -36,7 +36,7 @@
 
             var params = getParameters();
             params = $.extend(true, me.opts.params, params);
-            setParameters(params);
+            jQuery.bbq.pushState(params, 2);
 
 
 
@@ -57,7 +57,9 @@
             });
            
 
-            
+            me.content.filters = {};
+            me.content.filters.placeType = me.content.container.find('#filterSettings input[name=placeType]');
+
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
@@ -69,7 +71,8 @@
             me.content.filters.container = me.content.container.find('#filterSettings').hide().removeClass('hidden');
             */
 
-
+            //events
+            me.content.filters.placeType.click(placeTypeClicked);
 
             me.loader.hide();
             me.content.container.show();
@@ -81,6 +84,13 @@
          
         //////event actions//////////////////
      
+        var placeTypeClicked = function (e) {
+            //var target = $(e.target);
+            
+            //me.data.activeMapFilter = target.attr('value');
+            pushUrlState();
+        };
+
         var optionMenuChanged = function (e) {
 
         };
@@ -92,7 +102,9 @@
         
         //////////end event actions/////////////////////////////
       
-        var setParameters = function (params) {
+        var pushUrlState = function () {
+            var params = getParameters();
+
             jQuery.bbq.pushState(params, 2);
         };
 
@@ -122,11 +134,11 @@
             };
             var notifier = new sizeup.core.notifier(function () {
 
-                var formattedData = formatData(reportData.list);
+                //var formattedData = formatData(reportData.list);
                 //var formattedBands = formatBands(reportData.bands, params.attribute);
 
 
-                bindList(formattedData);
+                bindList(reportData.list);
                 //bindBands(formattedBands);
                 //bindDescription();
 
@@ -155,7 +167,7 @@
             }
             else if (params.placeType == 'state') {
                 dataLayer.getTopPlacesByState(params, notifier.getNotifier(function (data) {
-                    reportData.list = data;
+                    reportData.list = formatStateList(data);
                 }));
             }
             else {
@@ -177,7 +189,7 @@
             me.content.noResults.hide();
             var html = '';
             for (var x = 0; x < data.length; x++) {
-                html = html + templates.bind(templates.get('cityItem'), data[x]);
+                html = html + templates.bind(templates.get('stateItem'), data[x]);
             }
 
             me.content.results.html(html);
@@ -190,18 +202,42 @@
 
         };
 
-        var formatData = function (data) {
+        var formatStateList = function (data) {
             var newData = [];
             for (var x = 0; x < data.length;x++){
                 newData.push({
                     rank: x + 1,
-                    name: data[x].Name,
-                    value: data[x].Value
+                    state: data[x].State,
+                    value: extractValue(data[x])
 
                 });
             }
             return newData;
         };
+
+        var extractValue = function (data) {
+            var formattedVal = '';
+            var attr = getParameters().attribute;
+            if (attr == 'totalRevenue') {
+                formattedVal = '$' + sizeup.util.numbers.format.addCommas(data.TotalRevenue);
+            }
+            else if (attr == 'averageRevenue') {
+                formattedVal = '$' + sizeup.util.numbers.format.addCommas(data.AverageRevenue);
+            }
+            else if (attr == 'totalEmployees') {
+                formattedVal = sizeup.util.numbers.format.addCommas(data.TotalEmployees);
+            }
+            else if (attr == 'averageEmployees') {
+                formattedVal = sizeup.util.numbers.format.addCommas(data.AverageEmployees);
+            }
+            else if (attr == 'employeesPerCapita') {
+                formattedVal = sizeup.util.numbers.format.addCommas(data.EmployeesPerCapita);
+            }
+            return formattedVal;
+        };
+
+       
+
 
         var publicObj = {
 

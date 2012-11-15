@@ -207,8 +207,10 @@
     <Compile Include="Areas\Api\Models\Profile\DashboardValues.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Shared\LatLng.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\TopPlaces\Range.cs" />
+    <Compile Include="Areas\Api\Models\TopPlaces\TopPlace.cs" />
     <Compile Include="Areas\Api\Models\TotalEmployees\Band.cs" />
     <Compile Include="Areas\Api\Models\TotalEmployees\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\TotalRevenue\Band.cs" />
@@ -426,7 +428,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Analytics\Models\" />
     <Folder Include="Areas\Analytics\Views\Shared\" />
-    <Folder Include="Areas\Api\Models\Shared\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Pins\Models\" />
     <Folder Include="Areas\Pins\Views\Shared\" />
