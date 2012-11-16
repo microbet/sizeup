@@ -84,5 +84,57 @@ namespace SizeUp.Data.Analytics
                 context.SaveChanges();
             }
         }
+
+
+        public void RelatedCompetitor(RelatedCompetitor reg)
+        {
+            reg.Day = Day;
+            reg.Hour = Hour;
+            reg.Minute = Minute;
+            reg.Month = Month;
+            reg.Quarter = Quarter;
+            reg.Year = Year;
+            reg.Week = Week;
+            reg.Timestamp = DateTime.Now;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.RelatedCompetitors.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
+
+        public void RelatedBuyer(RelatedBuyer reg)
+        {
+            reg.Day = Day;
+            reg.Hour = Hour;
+            reg.Minute = Minute;
+            reg.Month = Month;
+            reg.Quarter = Quarter;
+            reg.Year = Year;
+            reg.Week = Week;
+            reg.Timestamp = DateTime.Now;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.RelatedBuyers.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
+
+        public void RelatedSupplier(RelatedSupplier reg)
+        {
+            reg.Day = Day;
+            reg.Hour = Hour;
+            reg.Minute = Minute;
+            reg.Month = Month;
+            reg.Quarter = Quarter;
+            reg.Year = Year;
+            reg.Week = Week;
+            reg.Timestamp = DateTime.Now;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.RelatedSuppliers.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -366,6 +366,16 @@
 
             trackPlaceIndustry: function (params) {
                 return get('/analytics/placeIndustry/', params);
+            },
+
+            trackRelatedCompetitor: function (params) {
+                return get('/analytics/relatedIndustry/competitor/', params);
+            },
+            trackRelatedSupplier: function (params) {
+                return get('/analytics/relatedIndustry/supplier/', params);
+            },
+            trackRelatedBuyer: function (params) {
+                return get('/analytics/relatedIndustry/buyer/', params);
             }
 
 

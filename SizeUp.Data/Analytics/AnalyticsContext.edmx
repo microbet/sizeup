@@ -9,6 +9,9 @@
           <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Store.Exceptions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.Store.LongRequests" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PlaceIndustrySearches" EntityType="SizeUp.Data.Analytics.Store.PlaceIndustrySearches" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RelatedBuyer" EntityType="SizeUp.Data.Analytics.Store.RelatedBuyer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RelatedCompetitor" EntityType="SizeUp.Data.Analytics.Store.RelatedCompetitor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RelatedSupplier" EntityType="SizeUp.Data.Analytics.Store.RelatedSupplier" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRegistration" EntityType="SizeUp.Data.Analytics.Store.UserRegistration" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="Exceptions">
@@ -63,6 +66,63 @@
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="UserId" Type="uniqueidentifier" />
         </EntityType>
+        <EntityType Name="RelatedBuyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Minute" Type="int" Nullable="false" />
+          <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PlaceId" Type="bigint" Nullable="false" />
+          <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
+          <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelatedCompetitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Minute" Type="int" Nullable="false" />
+          <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PlaceId" Type="bigint" Nullable="false" />
+          <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
+          <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelatedSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Minute" Type="int" Nullable="false" />
+          <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PlaceId" Type="bigint" Nullable="false" />
+          <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
+          <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserRegistration">
           <Key>
             <PropertyRef Name="Id" />
@@ -92,6 +152,9 @@
           <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.LongRequest" />
           <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Exception" />
           <EntitySet Name="PlaceIndustrySearches" EntityType="SizeUp.Data.Analytics.PlaceIndustrySearch" />
+          <EntitySet Name="RelatedBuyers" EntityType="SizeUp.Data.Analytics.RelatedBuyer" />
+          <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
+          <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
         </EntityContainer>
         <EntityType Name="UserRegistration">
           <Key>
@@ -165,6 +228,63 @@
           <Property Type="Int64" Name="IndustryId" />
           <Property Type="Guid" Name="UserId" />
         </EntityType>
+        <EntityType Name="RelatedBuyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelatedCompetitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelatedSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -234,6 +354,66 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedBuyers">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedBuyer">
+              <MappingFragment StoreEntitySet="RelatedBuyer">
+                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedCompetitors">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedCompetitor">
+              <MappingFragment StoreEntitySet="RelatedCompetitor">
+                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedSuppliers">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedSupplier">
+              <MappingFragment StoreEntitySet="RelatedSupplier">
+                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />

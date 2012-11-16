@@ -384,6 +384,7 @@
                     });
                 }
                 else {
+                    trackIndustry(data.Id);
                     me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
                     checkMapFilter();
                     pushUrlState();
@@ -391,6 +392,19 @@
                     loadBusinesses();
                     setBusinessOverlay();
                 }
+            }
+        };
+
+        var trackIndustry = function (id) {
+            var params = { primaryIndustryId: me.opts.CurrentInfo.CurrentIndustry.Id, relatedIndustryId: id, placeId: me.opts.CurrentInfo.CurrentPlace.Id };
+            if (me.data.activeIndex == 'competitor') {
+                new sizeup.core.analytics().relatedCompetitor(params);
+            }
+            else if (me.data.activeIndex == 'buyer') {
+                new sizeup.core.analytics().relatedBuyer(params);
+            }
+            else if (me.data.activeIndex == 'supplier') {
+                new sizeup.core.analytics().relatedSupplier(params);
             }
         };
 

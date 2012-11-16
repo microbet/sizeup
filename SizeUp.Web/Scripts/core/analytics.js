@@ -19,9 +19,7 @@
             dashboardReportLoaded: function (params) {
                 trackEvent({ category: 'Dashboard', action: 'reportLoaded', label: params.report, isInteraction: true });
             },
-            competitionTabLoaded: function (params) {
-                trackEvent({ category: 'Competition', action: 'tabLoaded', label: params.tab, isInteraction: true });
-            },
+
             advertisingReportLoaded: function () {
                 trackEvent({ category: 'Advertising', action: 'reportLoaded', label: null, isInteraction: true });
             },
@@ -33,6 +31,18 @@
             },
             consumerExpenditureTypeChanged: function (params) {
                 trackEvent({ category: 'Competition', action: 'consumerExpendituresTypeChanged', label: params.label, isInteraction: true });
+            },
+            competitionTabLoaded: function (params) {
+                trackEvent({ category: 'Competition', action: 'tabLoaded', label: params.tab, isInteraction: true });
+            },
+            relatedCompetitor: function (params) {
+                trackInternal(params, 'trackRelatedCompetitor');
+            },
+            relatedSupplier: function (params) {
+                trackInternal(params, 'trackRelatedSupplier');
+            },
+            relatedBuyer: function (params) {
+                trackInternal(params, 'trackRelatedBuyer');
             },
             userSignin: function (params) {
                 trackEvent({ category: 'User', action: 'signin', label: params.label, isInteraction: true });
