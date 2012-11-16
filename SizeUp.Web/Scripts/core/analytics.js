@@ -28,6 +28,12 @@
             advertisingFiltersClicked: function () {
                 trackEvent({ category: 'Advertising', action: 'filtersClicked', label: null, isInteraction: true });
             },
+            consumerExpenditureSelected: function (params) {
+                trackEvent({ category: 'Competition', action: 'consumerExpendituresClicked', label: params.label, isInteraction: true });
+            },
+            consumerExpenditureTypeChanged: function (params) {
+                trackEvent({ category: 'Competition', action: 'consumerExpendituresTypeChanged', label: params.label, isInteraction: true });
+            },
             userSignin: function (params) {
                 trackEvent({ category: 'User', action: 'signin', label: params.label, isInteraction: true });
             },
