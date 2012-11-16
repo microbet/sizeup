@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="Areas\Analytics\AnalyticsAreaRegistration.cs" />
     <Compile Include="Areas\Analytics\Controllers\PlaceIndustryController.cs" />
+    <Compile Include="Areas\Analytics\Controllers\RelatedIndustryController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Api\Controllers\AverageSalaryController.cs" />

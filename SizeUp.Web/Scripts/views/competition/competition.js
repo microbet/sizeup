@@ -238,6 +238,8 @@
             var target = $(e.target);
             var rootId = target.attr('data-value');
 
+            new sizeup.core.analytics().consumerExpenditureTypeChanged({ label: rootId });
+
             if (me.data.consumerExpenditure.rootId != rootId) {
                 me.container.find('.map .ceType').removeClass('active');
                target.addClass('active');
@@ -336,6 +338,7 @@
             var item = a.parent();
             item.nextAll().remove();
             var id = a.attr('data-id');
+            new sizeup.core.analytics().consumerExpenditureSelected({ label: a.html() });
             me.data.consumerExpenditure.currentSelection = id;
             setHeatmap(id);
             getLegendData();
@@ -349,6 +352,7 @@
             var item = a.parent();
             item.remove();
             var id = a.attr('data-id');
+            new sizeup.core.analytics().consumerExpenditureSelected({ label: a.html() });
             var hasChildren = a.attr('data-hasChildren');
             if (hasChildren == "false") {
                 me.content.ConsumerExpenditure.menuContent.toggle();
@@ -380,6 +384,7 @@
                     });
                 }
                 else {
+                    trackIndustry(data.Id);
                     me.data[me.data.activeIndex].pageData = me.content.pager.gotoPage(1);
                     checkMapFilter();
                     pushUrlState();
@@ -387,6 +392,19 @@
                     loadBusinesses();
                     setBusinessOverlay();
                 }
+            }
+        };
+
+        var trackIndustry = function (id) {
+            var params = { primaryIndustryId: me.opts.CurrentInfo.CurrentIndustry.Id, relatedIndustryId: id, placeId: me.opts.CurrentInfo.CurrentPlace.Id };
+            if (me.data.activeIndex == 'competitor') {
+                new sizeup.core.analytics().relatedCompetitor(params);
+            }
+            else if (me.data.activeIndex == 'buyer') {
+                new sizeup.core.analytics().relatedBuyer(params);
+            }
+            else if (me.data.activeIndex == 'supplier') {
+                new sizeup.core.analytics().relatedSupplier(params);
             }
         };
 

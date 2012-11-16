@@ -19,11 +19,14 @@
             error: me.container.find('.error').hide().removeClass('hidden'),
             form: me.container.find('.signinForm'),
             resetLink: me.container.find('.error.failed .resetLink'),
-            resetMessage : me.container.find('.error.failed .passwordReset').hide().removeClass('hidden')
+            resetMessage: me.container.find('.error.failed .passwordReset').hide().removeClass('hidden'),
+            resendVerifiyLink: me.container.find('.error.unvalidated .resendVerifiyLink'),
+            resendVerifiyMessage: me.container.find('.error.unvalidated .resendVerifyMessage').hide().removeClass('hidden')
         };
 
         me.signinForm.form.submit(function (e) { signinPressed(); e.preventDefault(); return false; });
         me.signinForm.resetLink.click(function () { resetPassword(); });
+        me.signinForm.resendVerifiyLink.click(function () { resendVerification(); });
         me.toggle.click(function () { toggleSigninForm(); });
        
 
@@ -36,6 +39,7 @@
         var signinPressed = function () {
             me.signinForm.error.hide();
             me.signinForm.resetMessage.hide();
+            me.signinForm.resendVerifiyMessage.hide();
 
             var obj = {
                 email: me.signinForm.emailBox.val(),
@@ -97,6 +101,26 @@
 
         var resetPasswordComplete = function () {
             me.signinForm.resetMessage.show();
+        };
+
+        var resendVerification = function () {
+
+            var obj = {
+                email: me.signinForm.emailBox.val()
+            };
+
+            if (obj.email != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/user/SendVerification',
+                    data: obj,
+                    success: function () { resendVerificationComplete(); }
+                });
+            }
+        };
+
+        var resendVerificationComplete = function () {
+            me.signinForm.resendVerifiyMessage.show();
         };
 
         var publicObj = {

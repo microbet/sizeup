@@ -83,5 +83,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
             return Json(true);
         }
 
+        [HttpPost]
+        public ActionResult SendVerification(string email)
+        {
+            var i = Identity.GetUser(email);
+            if (i != null)
+            {
+                Singleton<Mailer>.Instance.SendRegistrationEmail(i);
+            }
+
+            return Json(true);
+        }
+
     }
 }

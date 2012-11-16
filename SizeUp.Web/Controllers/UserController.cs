@@ -101,6 +101,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.PasswordReset = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = false;
             ViewBag.Email = "";
 
             return View();
@@ -126,6 +127,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.PasswordReset = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = false;
             ViewBag.Email = email;
 
             if (!Identity.ValidateUser(email, password))
@@ -185,12 +187,39 @@ namespace SizeUp.Web.Controllers
             ViewBag.PasswordReset = true;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = false;
             ViewBag.Email = email;
 
             var i = Identity.GetUser(email);
             if (i != null)
             {
                 Singleton<Mailer>.Instance.SendResetPasswordEmail(i);
+            }
+
+
+            return View("Signin");
+        }
+
+        [HttpGet]
+        public ActionResult SendVerification(string email)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideMenu = true
+            };
+            ViewBag.InvalidPassword = false;
+            ViewBag.NotActive = false;
+            ViewBag.LockedOut = false;
+            ViewBag.PasswordReset = false;
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = true;
+            ViewBag.Email = email;
+
+            var i = Identity.GetUser(email);
+            if (i != null)
+            {
+                Singleton<Mailer>.Instance.SendRegistrationEmail(i);
             }
 
 
@@ -268,6 +297,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.PasswordReset = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = false;
 
             try
             {
