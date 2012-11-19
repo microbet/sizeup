@@ -8,8 +8,8 @@
             bandCount: 5,
             bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             params: {
-                placeType: 'state',
-                attribute:'totalRevenue'
+                placeType: 'city',
+                attribute: 'totalRevenue'
             }
         };
         var me = {};
@@ -17,7 +17,8 @@
         me.opts = $.extend(true, defaults, opts);
 
         me.data = {
-            xhr: {}
+            xhr: {},
+            mapPins: []
         };
 
 
@@ -58,25 +59,71 @@
            
 
             me.content.filters = {};
-            me.content.filters.placeTypeOption = me.content.container.find('#filterSettings #placeTypeOption');
+            me.content.filters.sliders = {};
+            me.content.filters.placeTypeOption = me.content.container.find('#placeTypeOption');
 
-            me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
-            me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
-            me.content.optionMenu = me.content.container.find('#optionMenu').chosen();
-            me.content.optionMenu.change(optionMenuChanged);
 
-            /*
-            me.content.filters = {};
-            me.content.filters.container = me.content.container.find('#filterSettings').hide().removeClass('hidden');
-            */
+            me.content.attributeMenu = me.content.container.find('#attributeMenu').chosen();
+            me.content.regionMenu = me.content.container.find('#regionMenu').chosen();
+           
+
+
+
+
+
+
+            me.content.filters.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .options #averageRevenue'),
+                values: params['averageRevenue'],
+                min: 0,
+                max: 11,
+                mapping: [
+                    { range: { min: 0, max: 1 }, mappedValue: 50000, mappedLabel: '$50,000' },
+                    { range: { min: 1, max: 2 }, mappedValue: 100000, mappedLabel: '$100,000' },
+                    { range: { min: 2, max: 3 }, mappedValue: 250000, mappedLabel: '$250,000' },
+                    { range: { min: 3, max: 4 }, mappedValue: 500000, mappedLabel: '$500,000' },
+                    { range: { min: 4, max: 5 }, mappedValue: 750000, mappedLabel: '$750,000' },
+                    { range: { min: 5, max: 6 }, mappedValue: 1000000, mappedLabel: '$1 million' },
+                    { range: { min: 6, max: 7 }, mappedValue: 2500000, mappedLabel: '$2.5 million' },
+                    { range: { min: 7, max: 8 }, mappedValue: 5000000, mappedLabel: '$5 million' },
+                    { range: { min: 8, max: 9 }, mappedValue: 7500000, mappedLabel: '$7.5 million' },
+                    { range: { min: 9, max: 10 }, mappedValue: 10000000, mappedLabel: '$10 million' },
+                    { range: { min: 10, max: 11 }, mappedValue: 50000000, mappedLabel: '$50 million' }
+                ],
+                onChange: function () { sliderChanged(); }
+            });
+            me.content.filters.sliders['averageRevenue'].setParam(null);
+
+
+
+
+
+
+
+
+
 
             //init state
             me.content.filters.placeTypeOption.find('input[data-index=' + params.placeType + ']').attr('checked', 'checked');
-
+            me.content.attributeMenu.val(params.attribute);
+            me.content.attributeMenu.trigger('liszt:updated');
+            if (params.regionId) {
+                me.content.regionMenu.val('r' + params.regionId);
+            }
+            if (params.stateId) {
+                me.content.regionMenu.val('s' + params.stateId);
+            }
+            me.content.regionMenu.trigger('liszt:updated');
 
             //events
             me.content.filters.placeTypeOption.find('input[name=placeType]').click(placeTypeClicked);
+            me.content.attributeMenu.change(attributeMenuChanged);
+            me.content.regionMenu.change(regionMenuChanged);
+
+
+
+
 
             me.loader.hide();
             me.content.container.show();
@@ -98,20 +145,46 @@
 
         };
 
-        var optionMenuChanged = function (e) {
-
+        var attributeMenuChanged = function (e) {
+            pushUrlState();
+            loadReport();
         };
 
-        var filterSettingsButtonClicked = function () {
-            me.content.filters.container.slideToggle();
+        var regionMenuChanged = function (e) {
+            pushUrlState();
+            loadReport();
         };
+
+        var sliderChanged = function () {
+            pushUrlState();
+            loadReport();
+        }
+     
 
         
         //////////end event actions/////////////////////////////
       
         var pushUrlState = function () {
-            var params = getParameters();
+            var params = {};
+            var region = me.content.regionMenu.val();
             params.placeType = me.content.filters.placeTypeOption.find('input:checked').attr('data-index');
+            params.attribute = me.content.attributeMenu.val();
+            if (region != '') {
+                if (region.charAt(0) == 's') {
+                    params.stateId = region.substring(1, region.length);
+                }
+                else if (region.charAt(0) == 'r') {
+                    params.regionId = region.substring(1, region.length);
+                }
+            }
+
+            var p;
+
+            p = me.content.filters.sliders['averageRevenue'].getParam();
+            if (p != null) {
+                params.averageRevenue = p;
+            }
+
 
             jQuery.bbq.pushState(params, 2);
         };
@@ -149,6 +222,7 @@
 
 
                 bindList(reportData.list);
+                bindMap(reportData.list);
                 //bindBands(formattedBands);
                 //bindDescription();
 
@@ -213,16 +287,38 @@
         };
 
         var bindMap = function (data) {
+            for (var x in me.data.mapPins) {
+                me.content.map.removeMarker(me.data.mapPins[x]);
+            }
+            me.data.mapPins = [];
+            var latLngBounds = new sizeup.maps.latLngBounds();
 
+            for (var x in data) {
+                var pin = new sizeup.maps.heatPin({
+                    position: new sizeup.maps.latLng({ lat: data[x].latLng.Lat, lng: data[x].latLng.Lng }),
+                    color: 'ff0000',//getColor(getValue(data.zips.Items[x], attribute), data.bands),
+                    title: data[x].label
+                });
+                latLngBounds.extend(pin.getPosition());
+                me.data.mapPins.push(pin);
+                me.content.map.addMarker(pin);
+            };
+            if (me.data.mapPins.length > 0) {
+                me.content.map.fitBounds(latLngBounds);
+            }
         };
 
         var formatStateList = function (data) {
             var newData = [];
+            var attr = getParameters().attribute;
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
+                    latLng: data[x].State.Centroid,
+                    label: data[x].State.Name,
                     state: data[x].State,
-                    value: extractValue(data[x])
+                    value: extractValue(data[x], attr),
+                    formattedValue: formatValue(extractValue(data[x], attr), attr)
 
                 });
             }
@@ -231,11 +327,15 @@
 
         var formatMetroList = function (data) {
             var newData = [];
+            var attr = getParameters().attribute;
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
+                    latLng: data[x].Metro.Centroid,
+                    label: data[x].Metro.Name,
                     metro: data[x].Metro,
-                    value: extractValue(data[x])
+                    value: extractValue(data[x], attr),
+                    formattedValue: formatValue(extractValue(data[x], attr), attr)
 
                 });
             }
@@ -244,12 +344,16 @@
 
         var formatCountyList = function (data) {
             var newData = [];
+            var attr = getParameters().attribute;
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
+                    latLng: data[x].County.Centroid,
+                    label: data[x].County.Name + ' County , ' +data[x].State.Abbreviation,
                     county: data[x].County,
                     state: data[x].State,
-                    value: extractValue(data[x])
+                    value: extractValue(data[x], attr),
+                    formattedValue: formatValue(extractValue(data[x], attr), attr)
 
                 });
             }
@@ -258,41 +362,70 @@
 
         var formatCityList = function (data) {
             var newData = [];
+            var attr = getParameters().attribute;
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
+                    latLng: data[x].City.Centroid,
+                    label: data[x].City.Name + ', ' + data[x].State.Abbreviation,
                     city: data[x].City,
                     county: data[x].County,
                     state: data[x].State,
-                    value: extractValue(data[x])
+                    value: extractValue(data[x], attr),
+                    formattedValue: formatValue(extractValue(data[x], attr), attr)
 
                 });
             }
             return newData;
         };
 
-        var extractValue = function (data) {
-            var formattedVal = '';
-            var attr = getParameters().attribute;
+        var extractValue = function (data, attr) {
+            var val = '';
             if (attr == 'totalRevenue') {
-                formattedVal = '$' + sizeup.util.numbers.format.addCommas(data.TotalRevenue);
+                val = data.TotalRevenue;
             }
             else if (attr == 'averageRevenue') {
-                formattedVal = '$' + sizeup.util.numbers.format.addCommas(data.AverageRevenue);
+                val = data.AverageRevenue;
             }
             else if (attr == 'totalEmployees') {
-                formattedVal = sizeup.util.numbers.format.addCommas(data.TotalEmployees);
+                val = data.TotalEmployees;
             }
             else if (attr == 'averageEmployees') {
-                formattedVal = sizeup.util.numbers.format.addCommas(data.AverageEmployees);
+                val = data.AverageEmployees;
             }
             else if (attr == 'employeesPerCapita') {
-                formattedVal = sizeup.util.numbers.format.addCommas(data.EmployeesPerCapita);
+                val = data.EmployeesPerCapita;
+            }
+            else if (attr == 'revenuePerCapita') {
+                val = data.RevenuePerCapita;
+            }
+            return val;
+        };
+
+        var formatValue = function (val, attr) {
+            var formattedVal = '';
+            if (attr == 'totalRevenue') {
+                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
+            }
+            else if (attr == 'averageRevenue') {
+                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
+            }
+            else if (attr == 'totalEmployees') {
+                formattedVal = sizeup.util.numbers.format.addCommas(val);
+            }
+            else if (attr == 'averageEmployees') {
+                formattedVal = sizeup.util.numbers.format.addCommas(val);
+            }
+            else if (attr == 'employeesPerCapita') {
+                formattedVal = sizeup.util.numbers.format.sigFig(val, 3);
+            }
+            else if (attr == 'revenuePerCapita') {
+                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
             }
             return formattedVal;
         };
 
-       
+      
 
 
         var publicObj = {

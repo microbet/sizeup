@@ -28,6 +28,7 @@
           <EntitySet Name="DemographicsByCounty" EntityType="SizeUp.Data.Store.DemographicsByCounty" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DemographicsByState" EntityType="SizeUp.Data.Store.DemographicsByState" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DemographicsByZip" EntityType="SizeUp.Data.Store.DemographicsByZip" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Division" EntityType="SizeUp.Data.Store.Division" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Geography" EntityType="SizeUp.Data.Store.Geography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GeographyClass" EntityType="SizeUp.Data.Store.GeographyClass" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GeographySource" EntityType="SizeUp.Data.Store.GeographySource" store:Type="Tables" Schema="dbo" />
@@ -46,6 +47,7 @@
           <EntitySet Name="MetroGeography" EntityType="SizeUp.Data.Store.MetroGeography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="NAICS" EntityType="SizeUp.Data.Store.NAICS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PlaceKeyword" EntityType="SizeUp.Data.Store.PlaceKeyword" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Region" EntityType="SizeUp.Data.Store.Region" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ResourceString" EntityType="SizeUp.Data.Store.ResourceString" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SicToNAICSMapping" EntityType="SizeUp.Data.Store.SicToNAICSMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
@@ -211,6 +213,10 @@
             <End Role="ZipCode" EntitySet="ZipCode" />
             <End Role="DemographicsByZip" EntitySet="DemographicsByZip" />
           </AssociationSet>
+          <AssociationSet Name="FK_Division_Region" Association="SizeUp.Data.Store.FK_Division_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Division" EntitySet="Division" />
+          </AssociationSet>
           <AssociationSet Name="FK_Geography_GeographySource" Association="SizeUp.Data.Store.FK_Geography_GeographySource">
             <End Role="GeographySource" EntitySet="GeographySource" />
             <End Role="Geography" EntitySet="Geography" />
@@ -298,6 +304,10 @@
           <AssociationSet Name="FK_SicToNAICSMapping_NAICS" Association="SizeUp.Data.Store.FK_SicToNAICSMapping_NAICS">
             <End Role="NAICS" EntitySet="NAICS" />
             <End Role="SicToNAICSMapping" EntitySet="SicToNAICSMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Division" Association="SizeUp.Data.Store.FK_State_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="State" EntitySet="State" />
           </AssociationSet>
           <AssociationSet Name="FK_StateGeography_Geography" Association="SizeUp.Data.Store.FK_StateGeography_Geography">
             <End Role="Geography" EntitySet="Geography" />
@@ -4480,6 +4490,14 @@
           <Property Name="PopulationEmployed" Type="bigint" />
           <Property Name="PopulationEmployedCurrentYear" Type="bigint" />
         </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RegionId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Geography">
           <Key>
             <PropertyRef Name="Id" />
@@ -4736,6 +4754,13 @@
           <Property Name="PlaceId" Type="bigint" Nullable="false" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
         </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ResourceString">
           <Key>
             <PropertyRef Name="Id" />
@@ -4761,6 +4786,7 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Abbreviation" Type="nvarchar" Nullable="false" MaxLength="2" />
           <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="DivisionId" Type="bigint" />
         </EntityType>
         <EntityType Name="StateGeography">
           <Key>
@@ -5280,6 +5306,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Division_Region">
+          <End Role="Region" Type="SizeUp.Data.Store.Region" Multiplicity="1" />
+          <End Role="Division" Type="SizeUp.Data.Store.Division" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Division">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Geography_GeographySource">
           <End Role="GeographySource" Type="SizeUp.Data.Store.GeographySource" Multiplicity="1" />
           <End Role="Geography" Type="SizeUp.Data.Store.Geography" Multiplicity="*" />
@@ -5541,6 +5579,18 @@
             </Principal>
             <Dependent Role="SicToNAICSMapping">
               <PropertyRef Name="NAICSId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Division">
+          <End Role="Division" Type="SizeUp.Data.Store.Division" Multiplicity="0..1" />
+          <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="DivisionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6034,6 +6084,16 @@
             <End Role="CityCountyMapping" EntitySet="CityCountyMappings" />
             <End Role="PlaceKeyword" EntitySet="PlaceKeywords" />
           </AssociationSet>
+          <EntitySet Name="Divisions" EntityType="SizeUp.Data.Division" />
+          <EntitySet Name="Regions" EntityType="SizeUp.Data.Region" />
+          <AssociationSet Name="FK_Division_Region" Association="SizeUp.Data.FK_Division_Region">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="Division" EntitySet="Divisions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Division" Association="SizeUp.Data.FK_State_Division">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
           <Key>
@@ -6352,6 +6412,8 @@
           <NavigationProperty Name="IndustryDataByStates" Relationship="SizeUp.Data.FK_IndustryDataByState_State" FromRole="State" ToRole="IndustryDataByState" />
           <NavigationProperty Name="ConsumerExpendituresByStates" Relationship="SizeUp.Data.FK_ConsumerExpendituresByState_State" FromRole="State" ToRole="ConsumerExpendituresByState" />
           <NavigationProperty Name="DemographicsByStates" Relationship="SizeUp.Data.FK_DemographicsByState_State" FromRole="State" ToRole="DemographicsByState" />
+          <Property Type="Int64" Name="DivisionId" />
+          <NavigationProperty Name="Division" Relationship="SizeUp.Data.FK_State_Division" FromRole="State" ToRole="Division" />
         </EntityType>
         <EntityType Name="StateGeography">
           <Key>
@@ -11521,6 +11583,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="RegionId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Region" Relationship="SizeUp.Data.FK_Division_Region" FromRole="Division" ToRole="Region" />
+          <NavigationProperty Name="States" Relationship="SizeUp.Data.FK_State_Division" FromRole="Division" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Divisions" Relationship="SizeUp.Data.FK_Division_Region" FromRole="Region" ToRole="Division" />
+        </EntityType>
+        <Association Name="FK_Division_Region">
+          <End Type="SizeUp.Data.Region" Role="Region" Multiplicity="1" />
+          <End Type="SizeUp.Data.Division" Role="Division" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Division">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Division">
+          <End Type="SizeUp.Data.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11732,6 +11836,7 @@
           <EntitySetMapping Name="States">
             <EntityTypeMapping TypeName="SizeUp.Data.State">
               <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
                 <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -16036,6 +16141,23 @@
               <MappingFragment StoreEntitySet="PlaceKeyword">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="SizeUp.Data.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="SizeUp.Data.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

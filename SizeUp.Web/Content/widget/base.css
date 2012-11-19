@@ -32,7 +32,9 @@ input[type=text] {border: 1px solid #CCC; color:#606060; font-size: 1.9em;margin
 input[type=password].blank,
 input[type=text].blank {color:#A0A0A0;}
 label { font-size: 1.85em; display: inline-block; }
-
+select,
+option,
+optgroup {color:#606060; }
 
 
 

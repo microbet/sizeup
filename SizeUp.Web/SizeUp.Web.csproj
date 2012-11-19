@@ -274,6 +274,8 @@
     <Compile Include="Models\CurrentInfo.cs" />
     <Compile Include="Models\Header.cs" />
     <Compile Include="Models\Option.cs" />
+    <Compile Include="Models\TopPlaces\Division.cs" />
+    <Compile Include="Models\TopPlaces\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

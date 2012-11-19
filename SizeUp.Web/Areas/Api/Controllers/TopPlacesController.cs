@@ -29,20 +29,54 @@ namespace SizeUp.Web.Areas.Api.Controllers
             return v;
         }
 
-        public ActionResult City(int itemCount, int industryId, string attribute)
+
+        public ActionResult City(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
+            Range averageRevenue = ParseQueryString("averageRevenue");
+
             using (var context = ContextFactory.SizeUpContext)
             {
-                var raw = context.Cities
-                    .Select(i => new
+
+                var entities = context.Cities.Select(i => new
+                {
+                    City = i,
+                    IndustryData = i.IndustryDataByCities.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                    Demographics = i.DemographicsByCities.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
+                });
+
+                if (regionId != null)
+                {
+                    entities = entities.Where(i => i.City.State.DivisionId == regionId.Value);
+                }
+                if (stateId != null)
+                {
+                    entities = entities.Where(i => i.City.StateId == stateId.Value);
+                }
+
+
+                if (averageRevenue != null)
+                {
+                    if (averageRevenue.Min.HasValue)
                     {
-                        City = new Models.City.City(){
-                            Id = i.Id,
-                            Name = i.Name,
-                            SEOKey = i.SEOKey,
-                            Centroid = i.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                    }
+                    if (averageRevenue.Max.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                    }
+                }
+
+
+                var raw = entities.Select(i => new
+                    {
+                        City = new Models.City.City()
+                        {
+                            Id = i.City.Id,
+                            Name = i.City.Name,
+                            SEOKey = i.City.SEOKey,
+                            Centroid = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
                         },
-                        County = i.CityCountyMappings.Select(c=> new Models.County.County()
+                        County = i.City.CityCountyMappings.Select(c => new Models.County.County()
                         {
                             Id = c.County.Id,
                             Name = c.County.Name,
@@ -51,22 +85,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }).FirstOrDefault(),
                         State = new Models.State.State()
                         {
-                            Id = i.State.Id,
-                            Name = i.State.Name,
-                            Abbreviation = i.State.Abbreviation,
-                            SEOKey = i.State.SEOKey,
-                            Centroid = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            Id = i.City.State.Id,
+                            Name = i.City.State.Name,
+                            Abbreviation = i.City.State.Abbreviation,
+                            SEOKey = i.City.State.SEOKey,
+                            Centroid = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
                         },
-                        IndustryData = i.IndustryDataByCities.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter && d.IndustryId == industryId).Select(d => new
-                        {
-                            d.TotalRevenue,
-                            d.AverageRevenue,
-                            d.TotalEmployees,
-                            d.AverageEmployees,
-                            d.EmployeesPerCapita,
-                            d.RevenuePerCapita
-                        }).FirstOrDefault()
+                        IndustryData = i.IndustryData,
+                        Demographics = i.Demographics
                     });
+
+
 
                 IQueryable<Models.TopPlaces.TopPlace> data = null;
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
@@ -193,37 +222,65 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(outData, JsonRequestBehavior.AllowGet);
             }
         }
+      
 
-        public ActionResult County(int itemCount, int industryId, string attribute)
+        public ActionResult County(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
+            Range averageRevenue = ParseQueryString("averageRevenue");
+
             using (var context = ContextFactory.SizeUpContext)
             {
-                var raw = context.Counties
+
+                var entities = context.Counties.Select(i => new
+                {
+                    County = i,
+                    IndustryData = i.IndustryDataByCounties.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                    Demographics = i.DemographicsByCounties.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
+                });
+
+                if (regionId != null)
+                {
+                    entities = entities.Where(i => i.County.State.DivisionId == regionId.Value);
+                }
+                if (stateId != null)
+                {
+                    entities = entities.Where(i => i.County.StateId == stateId.Value);
+                }
+
+                
+                if (averageRevenue != null)
+                {
+                    if (averageRevenue.Min.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                    }
+                    if (averageRevenue.Max.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                    }
+                }
+
+
+
+                var raw = entities
                     .Select(i => new
                     {
                         County = new Models.County.County(){
-                            Id = i.Id,
-                            Name = i.Name,
-                            SEOKey = i.SEOKey,
-                            Centroid = i.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
+                            Id = i.County.Id,
+                            Name = i.County.Name,
+                            SEOKey = i.County.SEOKey,
+                            Centroid = i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
                         },
                         State = new Models.State.State()
                         {
-                            Id = i.State.Id,
-                            Name = i.State.Name,
-                            Abbreviation = i.State.Abbreviation,
-                            SEOKey = i.State.SEOKey,
-                            Centroid = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            Id = i.County.State.Id,
+                            Name = i.County.State.Name,
+                            Abbreviation = i.County.State.Abbreviation,
+                            SEOKey = i.County.State.SEOKey,
+                            Centroid = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
                         },
-                        IndustryData = i.IndustryDataByCounties.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter && d.IndustryId == industryId).Select(d => new
-                        {
-                            d.TotalRevenue,
-                            d.AverageRevenue,
-                            d.TotalEmployees,
-                            d.AverageEmployees,
-                            d.EmployeesPerCapita,
-                            d.RevenuePerCapita
-                        }).FirstOrDefault()
+                        IndustryData = i.IndustryData,
+                        Demographics = i.Demographics
                     });
 
                 IQueryable<Models.TopPlaces.TopPlace> data = null;
@@ -346,28 +403,54 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Metro(int itemCount, int industryId, string attribute)
+        public ActionResult Metro(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
+
+            Range averageRevenue = ParseQueryString("averageRevenue");
+
             using (var context = ContextFactory.SizeUpContext)
             {
-                var raw = context.Metroes
+                var entities = context.Metroes.Select(i => new
+                {
+                    Metro = i,
+                    IndustryData = i.IndustryDataByMetroes.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault()//,
+                    //Demographics = i.de.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
+                });
+
+                
+
+                if (regionId != null)
+                {
+                    entities = entities.Where(i => i.Metro.Counties.Any(c=>c.State.DivisionId == regionId.Value));
+                }
+                if (stateId != null)
+                {
+                    entities = entities.Where(i => i.Metro.Counties.Any(c=>c.StateId == stateId.Value));
+                }
+
+                if (averageRevenue != null)
+                {
+                    if (averageRevenue.Min.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                    }
+                    if (averageRevenue.Max.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                    }
+                }
+
+
+                var raw = entities
                     .Select(i => new
                     {
                         Metro = new Models.Metro.Metro()
                         {
-                            Id = i.Id,
-                            Name = i.Name,
-                            Centroid = i.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            Id = i.Metro.Id,
+                            Name = i.Metro.Name,
+                            Centroid = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
                         },
-                        IndustryData = i.IndustryDataByMetroes.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter && d.IndustryId == industryId).Select(d => new
-                        {
-                            d.TotalRevenue,
-                            d.AverageRevenue,
-                            d.TotalEmployees,
-                            d.AverageEmployees,
-                            d.EmployeesPerCapita,
-                            d.RevenuePerCapita
-                        }).FirstOrDefault()
+                        IndustryData = i.IndustryData
                     });
 
                 IQueryable<Models.TopPlaces.TopPlace> data = null;
@@ -484,30 +567,55 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult State(int itemCount, int industryId, string attribute)
+        public ActionResult State(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
+
+            Range averageRevenue = ParseQueryString("averageRevenue");
             using (var context = ContextFactory.SizeUpContext)
             {
-                var raw = context.States
+                var entities = context.States.Select(i => new
+                {
+                    State = i,
+                    IndustryData = i.IndustryDataByStates.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault()//,
+                    //Demographics = i.de.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
+                });
+
+
+
+                if (regionId != null)
+                {
+                    entities = entities.Where(i => i.State.DivisionId == regionId.Value);
+                }
+                if (stateId != null)
+                {
+                    entities = entities.Where(i => i.State.Id == stateId.Value);
+                }
+
+                if (averageRevenue != null)
+                {
+                    if (averageRevenue.Min.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                    }
+                    if (averageRevenue.Max.HasValue)
+                    {
+                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                    }
+                }
+
+
+                var raw = entities
                     .Select(i => new
                     {
                         State = new Models.State.State()
                         {
-                            Id = i.Id,
-                            Name = i.Name,
-                            Abbreviation = i.Abbreviation,
-                            SEOKey = i.SEOKey,
-                            Centroid = i.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng{ Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            Id = i.State.Id,
+                            Name = i.State.Name,
+                            Abbreviation = i.State.Abbreviation,
+                            SEOKey = i.State.SEOKey,
+                            Centroid = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
                         },
-                        IndustryData = i.IndustryDataByStates.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter && d.IndustryId == industryId).Select(d => new
-                        {
-                            d.TotalRevenue,
-                            d.AverageRevenue,
-                            d.TotalEmployees,
-                            d.AverageEmployees,
-                            d.EmployeesPerCapita,
-                            d.RevenuePerCapita
-                        }).FirstOrDefault()
+                        IndustryData = i.IndustryData
                     });
 
                 IQueryable<Models.TopPlaces.TopPlace> data = null;

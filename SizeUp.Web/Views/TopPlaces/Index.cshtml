@@ -37,46 +37,83 @@
 
 <div id="topPlaces">
     <div class="content container hidden">
-        <div class="heading">
-            <h2>Top cities for XXXXX in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry</h2>
-            <div class="filter container">
-                <div class="filterMenu">
-                    <select id="optionMenu">
-                        <option value="totalRevenue">Total Annual Revenue</option>
-                        <option value="totalEmployees">Total Employees</option>
-                        <option value="averageRevenue">Average Annual Revenue</option>
-                        <option value="averageEmployees">Average Employees</option>
-                        <option value="employeesPerCapita">Employees Per Capita</option>
-                        <option value="revenuePerCapita">Highest Revenue Per Capita</option>
-                        <option value="underservedMarkets">Most Underserved Markets</option>
-                    </select>
-                    <a href="javascript:void(0);" id="filterSettingsButton">Settings</a>
-                </div>
+    
+        <h2>Top <a href="#">cities</a> for <a href="#">Total Revenue</a> in the <a href="#">@ViewBag.CurrentInfo.CurrentIndustry.Name industry </a> in <a href="#">The United States</a></h2>
+            
+       
+        <div class="filter container">
+            <div class="filterMenu">
+                <select id="attributeMenu">
+                    <option value="totalRevenue">Total Annual Revenue</option>
+                    <option value="totalEmployees">Total Employees</option>
+                    <option value="averageRevenue">Average Annual Revenue</option>
+                    <option value="averageEmployees">Average Employees</option>
+                    <option value="employeesPerCapita">Employees Per Capita</option>
+                    <option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                    <option value="underservedMarkets">Most Underserved Markets</option>
+                </select>
+                <a href="javascript:void(0);" id="filterSettingsButton">Settings</a>
             </div>
         </div>
+       
 
+ 
 
+        <ul id="placeTypeOption">
+            <li>
+                <label for="cityOption">City</label>
+                <input type="radio" id="cityOption" data-index="city" name="placeType" checked="checked" />
+            </li>
+            <li>
+                <label for="countyOption">County</label>
+                <input type="radio" id="countyOption" data-index="county" name="placeType" />
+            </li>
+            <li>
+                <label for="metroOption">Metro</label>
+                <input type="radio" id="metroOption" data-index="metro" name="placeType" />
+            </li>
+            <li>
+                <label for="stateOption">State</label>
+                <input type="radio" id="stateOption" data-index="state" name="placeType" />
+            </li>
+        </ul>
 
-        <div id="filterSettings" class="">
-            <ul id="placeTypeOption">
-                <li>
-                    <label for="cityOption">City</label>
-                    <input type="radio" id="cityOption" data-index="city" name="placeType" checked="checked" />
-                </li>
-                <li>
-                    <label for="countyOption">County</label>
-                    <input type="radio" id="countyOption" data-index="county" name="placeType" />
-                </li>
-                <li>
-                    <label for="metroOption">Metro</label>
-                    <input type="radio" id="metroOption" data-index="metro" name="placeType" />
-                </li>
-                <li>
-                    <label for="stateOption">State</label>
-                    <input type="radio" id="stateOption" data-index="state" name="placeType" />
+        <select id="regionMenu">
+            <option value="">All</option>
+            <optgroup label="Regions">
+                @foreach (var r in ViewBag.Regions)
+                {
+                <option value="@("r" + r.Id)">@r.RegionName - @r.Name</option>
+                }
+            </optgroup>
+
+            <optgroup label="States">
+                @foreach (var r in ViewBag.States)
+                {
+                <option value="@("s" + r.Id)">@r.Name</option>
+                }
+            </optgroup>
+        </select>
+
+   
+        <div class="filters">
+
+            <ul class="options">
+                <li id="averageRevenue">
+                    <span class="label">Annual Revenue (Avg. Business):</span>
+                    <span class="valueLabel">
+                        <span class="max">at most <span class="val">{{max}}</span></span>
+                        <span class="min">at least <span class="val">{{min}}</span></span>
+                        <span class="range">between <span class="val">{{min}}</span> and <span class="val">{{max}}</span></span>
+                        <span class="off"><span class="val">No Preference</span></span>
+                    </span>
+                    <div class="sliderWrap">
+                        <span class="sliderLabel less">less</span>
+                        <div class="slider"></div>
+                        <span class="sliderLabel more">more</span>
+                    </div>
                 </li>
             </ul>
-
         </div>
 
 
@@ -102,24 +139,24 @@
                 </thead>
                 <tbody class="results">
                     <tr data-template="cityItem">
-                        <td class="rank">{{Rank}}</td>
+                        <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{city.Name}}, {{state.Abbreviation}}</a></td>
-                        <td class="value">{{value}}</td>
+                        <td class="value">{{formattedValue}}</td>
                     </tr>
                     <tr data-template="countyItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}" class="name">{{county.Name}} County, {{state.Abbreviation}}</a></td>
-                        <td class="value">{{value}}</td>
+                        <td class="value">{{formattedValue}}</td>
                     </tr>
                     <tr data-template="metroItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/metro/{{metro.SEOKey}}" class="name">{{metro.Name}}</a></td>
-                        <td class="value">{{value}}</td>
+                        <td class="value">{{formattedValue}}</td>
                     </tr>
                     <tr data-template="stateItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/{{state.SEOKey}}" class="name">{{state.Name}}</a></td>
-                        <td class="value">{{value}}</td>
+                        <td class="value">{{formattedValue}}</td>
                     </tr>
                 </tbody>
             </table>

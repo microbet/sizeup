@@ -92,6 +92,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_PlaceKeyword_Place", "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.CityCountyMapping), "PlaceKeyword", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.PlaceKeyword), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Division_Region", "Region", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Region), "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Division), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_State_Division", "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Division), "State", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.State), true)]
 
 #endregion
 
@@ -926,6 +928,38 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<PlaceKeyword> _PlaceKeywords;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Division> Divisions
+        {
+            get
+            {
+                if ((_Divisions == null))
+                {
+                    _Divisions = base.CreateObjectSet<Division>("Divisions");
+                }
+                return _Divisions;
+            }
+        }
+        private ObjectSet<Division> _Divisions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Region> Regions
+        {
+            get
+            {
+                if ((_Regions == null))
+                {
+                    _Regions = base.CreateObjectSet<Region>("Regions");
+                }
+                return _Regions;
+            }
+        }
+        private ObjectSet<Region> _Regions;
 
         #endregion
 
@@ -1321,6 +1355,22 @@ namespace SizeUp.Data
         public void AddToPlaceKeywords(PlaceKeyword placeKeyword)
         {
             base.AddObject("PlaceKeywords", placeKeyword);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Divisions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDivisions(Division division)
+        {
+            base.AddObject("Divisions", division);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Regions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRegions(Region region)
+        {
+            base.AddObject("Regions", region);
         }
 
         #endregion
@@ -100822,6 +100872,178 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="Division")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Division : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Division object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="regionId">Initial value of the RegionId property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static Division CreateDivision(global::System.Int64 id, global::System.Int64 regionId, global::System.String name)
+        {
+            Division division = new Division();
+            division.Id = id;
+            division.RegionId = regionId;
+            division.Name = name;
+            return division;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 RegionId
+        {
+            get
+            {
+                return _RegionId;
+            }
+            set
+            {
+                OnRegionIdChanging(value);
+                ReportPropertyChanging("RegionId");
+                _RegionId = StructuralObject.SetValidValue(value, "RegionId");
+                ReportPropertyChanged("RegionId");
+                OnRegionIdChanged();
+            }
+        }
+        private global::System.Int64 _RegionId;
+        partial void OnRegionIdChanging(global::System.Int64 value);
+        partial void OnRegionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Division_Region", "Region")]
+        public Region Region
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Region>("SizeUp.Data.FK_Division_Region", "Region").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Region>("SizeUp.Data.FK_Division_Region", "Region").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Region> RegionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Region>("SizeUp.Data.FK_Division_Region", "Region");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Region>("SizeUp.Data.FK_Division_Region", "Region", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_State_Division", "State")]
+        public EntityCollection<State> States
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<State>("SizeUp.Data.FK_State_Division", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<State>("SizeUp.Data.FK_State_Division", "State", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="Geography")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -106944,6 +107166,114 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="Region")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Region : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Region object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        public static Region CreateRegion(global::System.Int64 id, global::System.String name)
+        {
+            Region region = new Region();
+            region.Id = id;
+            region.Name = name;
+            return region;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Division_Region", "Division")]
+        public EntityCollection<Division> Divisions
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Division>("SizeUp.Data.FK_Division_Region", "Division");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Division>("SizeUp.Data.FK_Division_Region", "Division", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="ResourceString")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -107392,6 +107722,30 @@ namespace SizeUp.Data
         private global::System.String _SEOKey;
         partial void OnSEOKeyChanging(global::System.String value);
         partial void OnSEOKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> DivisionId
+        {
+            get
+            {
+                return _DivisionId;
+            }
+            set
+            {
+                OnDivisionIdChanging(value);
+                ReportPropertyChanging("DivisionId");
+                _DivisionId = StructuralObject.SetValidValue(value, "DivisionId");
+                ReportPropertyChanged("DivisionId");
+                OnDivisionIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _DivisionId;
+        partial void OnDivisionIdChanging(Nullable<global::System.Int64> value);
+        partial void OnDivisionIdChanged();
 
         #endregion
 
@@ -107569,6 +107923,44 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_State_Division", "Division")]
+        public Division Division
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Division>("SizeUp.Data.FK_State_Division", "Division").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Division>("SizeUp.Data.FK_State_Division", "Division").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Division> DivisionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Division>("SizeUp.Data.FK_State_Division", "Division");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Division>("SizeUp.Data.FK_State_Division", "Division", value);
                 }
             }
         }

@@ -9,13 +9,24 @@
 
 
 
-#topPlaces #optionMenu { width: 24em; position:relative; top:1em; }
+
+
+
+
+#topPlaces #attributeMenu { width: 24em; position:relative; top:1em; }
 #topPlaces #filterSettingsButton { color: transparent; height: 3.75em; position: absolute; right: 0; top: 0; width: 4.5em; }
 
-#topPlaces .heading .filter #optionMenu_chzn { left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left;}
-#topPlaces .heading .filter #optionMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block;line-height:2.75em; }
-#topPlaces .heading .filter #optionMenu_chzn .chzn-single:hover { color: #fff; }
-  
+#topPlaces .heading .filter #attributeMenu_chzn { left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left;}
+#topPlaces .heading .filter #attributeMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block;line-height:2.75em; }
+#topPlaces .heading .filter #attributeMenu_chzn .chzn-single:hover { color: #fff; }
+
+
+#topPlaces #regionMenu { width:30em; }
+
+
+
+
+
 
 
 #topPlaces .mapContent.container {  margin:1em 0 0 0;}
@@ -33,5 +44,16 @@
 #topPlaces .list.container table tbody tr {border-top: 1px solid #ccc;}
 #topPlaces .list.container table tbody tr td a { font-size: 1em; }
 #topPlaces .list.container table tbody tr td { padding: 0.5em 0; font-size:1.5em;}
+
+
+
+
+
+
+
+#topPlaces .filters ul.options li.noFilter .slider .ui-widget-header { background: none; }
+
+
+
 
 

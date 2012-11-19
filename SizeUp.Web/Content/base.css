@@ -34,8 +34,9 @@ input[type=text] {border: 1px solid #CCC; color:#606060; font-size: 1.9em;margin
 input[type=password].blank,
 input[type=text].blank {color:#A0A0A0;}
 label { font-size: 1.85em; display: inline-block; }
-
-
+select,
+option,
+optgroup {color:#606060; }
 
 
 .clear { clear: both; }
@@ -130,10 +131,12 @@ a.sorter.desc { background-position:right 3px; }
 /**** experimental base styles*****/
 
 
-.chzn-container {position:relative; z-index:9999999; }
-.chzn-container .chzn-drop {position:absolute; background-color:#fff; border:1px solid #ccc; }
+.chzn-container {position:relative; }
+.chzn-container .chzn-drop {position:absolute; background-color:#fff; border:1px solid #ccc; z-index:1000; }
 .chzn-container .chzn-drop .chzn-search { display: none; }
-.chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; }
+.chzn-container .chzn-drop .chzn-results { max-height: 30em; overflow:auto; }
+.chzn-container .chzn-drop .chzn-results .group-result {font-size:1.65em; padding:0.1em; color:#aaa; text-align:right; white-space:nowrap; font-weight:bold; }
+.chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; white-space:nowrap; }
 .chzn-container .chzn-drop .chzn-results .active-result.result-selected {background-color:#E6E6E6; }
 .chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; }
 

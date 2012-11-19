@@ -127,6 +127,10 @@
         <AssociationConnector Association="SizeUp.Data.FK_DemographicsByZip_Zip" />
         <EntityTypeShape EntityType="SizeUp.Data.PlaceKeyword" Width="1.5" PointX="6.5" PointY="5.5" />
         <AssociationConnector Association="SizeUp.Data.FK_PlaceKeyword_Place" />
+        <EntityTypeShape EntityType="SizeUp.Data.Division" Width="1.5" PointX="20" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Region" Width="1.5" PointX="20" PointY="2.875" />
+        <AssociationConnector Association="SizeUp.Data.FK_Division_Region" />
+        <AssociationConnector Association="SizeUp.Data.FK_State_Division" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
