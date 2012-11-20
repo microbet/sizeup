@@ -93,8 +93,58 @@
                 ],
                 onChange: function () { sliderChanged(); }
             });
-            me.content.filters.sliders['averageRevenue'].setParam(null);
+            
 
+            me.content.filters.sliders['totalRevenue'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .options #totalRevenue'),
+                values: params['totalRevenue'],
+                min: 0,
+                max: 10,
+                mapping: [
+                    { range: { min: 0, max: 1 }, mappedValue: 100000, mappedLabel: '$100,000' },
+                    { range: { min: 1, max: 2 }, mappedValue: 500000, mappedLabel: '$500,000' },
+                    { range: { min: 2, max: 3 }, mappedValue: 1000000, mappedLabel: '$1 million' },
+                    { range: { min: 3, max: 4 }, mappedValue: 5000000, mappedLabel: '$5 million' },
+                    { range: { min: 4, max: 5 }, mappedValue: 10000000, mappedLabel: '$10 million' },
+                    { range: { min: 5, max: 6 }, mappedValue: 50000000, mappedLabel: '$50 million' },
+                    { range: { min: 6, max: 7 }, mappedValue: 100000000, mappedLabel: '$100 million' },
+                    { range: { min: 7, max: 8 }, mappedValue: 500000000, mappedLabel: '$500 million' },
+                    { range: { min: 8, max: 9 }, mappedValue: 1000000000, mappedLabel: '$1 billion' },
+                    { range: { min: 9, max: 10 }, mappedValue: 50000000000, mappedLabel: '$50 billion' },
+                    { range: { min: 10, max: 11 }, mappedValue: 100000000000, mappedLabel: '$100 billion+' }
+                ],
+                onChange: function () { sliderChanged(); }
+            });
+
+            me.content.filters.sliders['totalEmployees'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .options #totalEmployees'),
+                values: params['totalEmployees'],
+                min: 0,
+                max: 10,
+                mapping: [
+                    { range: { min: 0, max: 1 }, mappedValue: 10, mappedLabel: '10' },
+                    { range: { min: 1, max: 2 }, mappedValue: 50, mappedLabel: '50' },
+                    { range: { min: 2, max: 3 }, mappedValue: 100, mappedLabel: '100' },
+                    { range: { min: 3, max: 4 }, mappedValue: 500, mappedLabel: '500' },
+                    { range: { min: 4, max: 5 }, mappedValue: 1000, mappedLabel: '1,000' },
+                    { range: { min: 5, max: 6 }, mappedValue: 5000, mappedLabel: '5,000' },
+                    { range: { min: 6, max: 7 }, mappedValue: 10000, mappedLabel: '10,000' },
+                    { range: { min: 7, max: 8 }, mappedValue: 50000, mappedLabel: '50,000' },
+                    { range: { min: 8, max: 9 }, mappedValue: 100000, mappedLabel: '100,000' },
+                    { range: { min: 9, max: 10 }, mappedValue: 500000, mappedLabel: '500,000' },
+                    { range: { min: 10, max: 11 }, mappedValue: 1000000, mappedLabel: '1 million+' }
+                ],
+                onChange: function () { sliderChanged(); }
+            });
+
+
+            me.content.filters.sliders['averageEmployees'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .options #averageEmployees'),
+                values: params['averageEmployees'],
+                min: 0,
+                max: 150,
+                onChange: function () { sliderChanged(); }
+            });
 
 
 
@@ -183,6 +233,18 @@
             p = me.content.filters.sliders['averageRevenue'].getParam();
             if (p != null) {
                 params.averageRevenue = p;
+            }
+            p = me.content.filters.sliders['totalRevenue'].getParam();
+            if (p != null) {
+                params.totalRevenue = p;
+            }
+            p = me.content.filters.sliders['averageEmployees'].getParam();
+            if (p != null) {
+                params.averageEmployees = p;
+            }
+            p = me.content.filters.sliders['totalEmployees'].getParam();
+            if (p != null) {
+                params.totalEmployees = p;
             }
 
 
