@@ -155,6 +155,7 @@
                 container: me.content.container.find('.pager').removeClass('hidden').hide(),
                 templates: templates,
                 templateId: 'pager',
+                itemsPerPage: me.opts.itemsPerPage,
                 onUpdate: function (data) { pagerOnUpdate(data); }
             });
 
