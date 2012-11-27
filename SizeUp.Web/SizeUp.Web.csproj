@@ -320,9 +320,9 @@
     <Content Include="Content\images\up-down.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\reset.css" />
-    <Content Include="Content\themes\highContrast.css" />
-    <Content Include="Content\themes\images\actionbutton.png" />
-    <Content Include="Content\themes\images\dashbuttons.png" />
+    <Content Include="Content\themes\highContrast\highContrast.css" />
+    <Content Include="Content\themes\highContrast\images\actionbutton.png" />
+    <Content Include="Content\themes\highContrast\images\dashbuttons.png" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />

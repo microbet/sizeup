@@ -470,11 +470,11 @@
 
         var loadReport = function () {
 
-            new sizeup.core.analytics().advertisingReportLoaded();
+            var params = getParameters();
+            new sizeup.core.analytics().advertisingReportLoaded({ attribute: params.template });
 
             me.listLoader.show();
             me.content.list.body.hide();
-            var params = getParameters();
             var pagerData = me.content.pager.getPageData();
             setValueMenu();
             params.placeId = me.opts.CurrentPlace.Id;

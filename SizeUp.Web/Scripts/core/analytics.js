@@ -19,9 +19,8 @@
             dashboardReportLoaded: function (params) {
                 trackEvent({ category: 'Dashboard', action: 'reportLoaded', label: params.report, isInteraction: true });
             },
-
-            advertisingReportLoaded: function () {
-                trackEvent({ category: 'Advertising', action: 'reportLoaded', label: null, isInteraction: true });
+            advertisingReportLoaded: function (params) {
+                trackEvent({ category: 'Advertising', action: 'reportLoaded', label: params.attribute, isInteraction: true });
             },
             advertisingFiltersClicked: function () {
                 trackEvent({ category: 'Advertising', action: 'filtersClicked', label: null, isInteraction: true });

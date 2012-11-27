@@ -99,6 +99,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
             ViewBag.VerificationSent = false;
@@ -125,6 +126,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
             ViewBag.VerificationSent = false;
@@ -184,7 +186,8 @@ namespace SizeUp.Web.Controllers
             ViewBag.InvalidPassword = false;
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
-            ViewBag.PasswordReset = true;
+            ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = true;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
             ViewBag.VerificationSent = false;
@@ -211,6 +214,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
             ViewBag.VerificationSent = true;
@@ -263,7 +267,9 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
+            ViewBag.VerificationSent = false;
             ViewBag.VerificationError = false;
             try
             {
@@ -271,6 +277,7 @@ namespace SizeUp.Web.Controllers
                 if (user != null)
                 {
                     user.ResetPassword(password);
+                    ViewBag.PasswordReset = true;
                 }
 
             }
@@ -295,6 +302,7 @@ namespace SizeUp.Web.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
             ViewBag.VerificationSent = false;

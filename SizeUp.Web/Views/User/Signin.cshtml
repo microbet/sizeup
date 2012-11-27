@@ -58,9 +58,14 @@
             <p class="info error">We could not verify your e-mail address using the code you supplied.<br/><br/> Please check the link and try again.</p>
         </li>
         }
-        @if (ViewBag.PasswordReset){
+        @if (ViewBag.PasswordResetSent){
         <li>
             <p class="info">We've sent you a password reset e-mail. Please open it to complete resetting your password.</p>
+        </li> 
+        } 
+        @if (ViewBag.PasswordReset){
+        <li>
+            <p class="info">Your password has been reset. Please login with your new password.</p>
         </li> 
         } 
         @if (ViewBag.VerificationSent){
