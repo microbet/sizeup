@@ -106,6 +106,11 @@
             bindTemplate();
         };
 
+        var setItemsPerPage = function (count) {
+            me.opts.itemsPerPage = count;
+            bindTemplate();
+        };
+
         var bindTemplate = function () {
             var template = me.opts.templates.get(me.opts.templateId);
             var data = getPageData();
@@ -126,6 +131,9 @@
             },
             setState: function (obj) {
                 setState(obj);
+            },
+            setItemsPerPage: function(count){
+                setItemsPerPage(count);
             },
             getPageData: function (index) {
                 return getPageData(index);
