@@ -87,13 +87,14 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpendituresByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "ConsumerExpendituresByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpendituresByCounty), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpendituresByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "ConsumerExpendituresByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpendituresByState), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpendituresByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "ConsumerExpendituresByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpendituresByZip), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "DemographicsByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCity), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_PlaceKeyword_Place", "CityCountyMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.CityCountyMapping), "PlaceKeyword", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.PlaceKeyword), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Division_Region", "Region", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Region), "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Division), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_State_Division", "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Division), "State", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.State), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCity_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "DemographicsByCity", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCity), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByCounty_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "DemographicsByCounty", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByCounty), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByMetro_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Metro), "DemographicsByMetro", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByMetro), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByState_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "DemographicsByState", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByState), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_DemographicsByZip_Zip", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.ZipCode), "DemographicsByZip", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.DemographicsByZip), true)]
 
 #endregion
 
@@ -852,70 +853,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<DemographicsByCity> DemographicsByCities
-        {
-            get
-            {
-                if ((_DemographicsByCities == null))
-                {
-                    _DemographicsByCities = base.CreateObjectSet<DemographicsByCity>("DemographicsByCities");
-                }
-                return _DemographicsByCities;
-            }
-        }
-        private ObjectSet<DemographicsByCity> _DemographicsByCities;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DemographicsByCounty> DemographicsByCounties
-        {
-            get
-            {
-                if ((_DemographicsByCounties == null))
-                {
-                    _DemographicsByCounties = base.CreateObjectSet<DemographicsByCounty>("DemographicsByCounties");
-                }
-                return _DemographicsByCounties;
-            }
-        }
-        private ObjectSet<DemographicsByCounty> _DemographicsByCounties;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DemographicsByState> DemographicsByStates
-        {
-            get
-            {
-                if ((_DemographicsByStates == null))
-                {
-                    _DemographicsByStates = base.CreateObjectSet<DemographicsByState>("DemographicsByStates");
-                }
-                return _DemographicsByStates;
-            }
-        }
-        private ObjectSet<DemographicsByState> _DemographicsByStates;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DemographicsByZip> DemographicsByZips
-        {
-            get
-            {
-                if ((_DemographicsByZips == null))
-                {
-                    _DemographicsByZips = base.CreateObjectSet<DemographicsByZip>("DemographicsByZips");
-                }
-                return _DemographicsByZips;
-            }
-        }
-        private ObjectSet<DemographicsByZip> _DemographicsByZips;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<PlaceKeyword> PlaceKeywords
         {
             get
@@ -960,6 +897,86 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<Region> _Regions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByCity> DemographicsByCities
+        {
+            get
+            {
+                if ((_DemographicsByCities == null))
+                {
+                    _DemographicsByCities = base.CreateObjectSet<DemographicsByCity>("DemographicsByCities");
+                }
+                return _DemographicsByCities;
+            }
+        }
+        private ObjectSet<DemographicsByCity> _DemographicsByCities;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByCounty> DemographicsByCounties
+        {
+            get
+            {
+                if ((_DemographicsByCounties == null))
+                {
+                    _DemographicsByCounties = base.CreateObjectSet<DemographicsByCounty>("DemographicsByCounties");
+                }
+                return _DemographicsByCounties;
+            }
+        }
+        private ObjectSet<DemographicsByCounty> _DemographicsByCounties;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByMetro> DemographicsByMetroes
+        {
+            get
+            {
+                if ((_DemographicsByMetroes == null))
+                {
+                    _DemographicsByMetroes = base.CreateObjectSet<DemographicsByMetro>("DemographicsByMetroes");
+                }
+                return _DemographicsByMetroes;
+            }
+        }
+        private ObjectSet<DemographicsByMetro> _DemographicsByMetroes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByState> DemographicsByStates
+        {
+            get
+            {
+                if ((_DemographicsByStates == null))
+                {
+                    _DemographicsByStates = base.CreateObjectSet<DemographicsByState>("DemographicsByStates");
+                }
+                return _DemographicsByStates;
+            }
+        }
+        private ObjectSet<DemographicsByState> _DemographicsByStates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DemographicsByZip> DemographicsByZips
+        {
+            get
+            {
+                if ((_DemographicsByZips == null))
+                {
+                    _DemographicsByZips = base.CreateObjectSet<DemographicsByZip>("DemographicsByZips");
+                }
+                return _DemographicsByZips;
+            }
+        }
+        private ObjectSet<DemographicsByZip> _DemographicsByZips;
 
         #endregion
 
@@ -1318,38 +1335,6 @@ namespace SizeUp.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByCities(DemographicsByCity demographicsByCity)
-        {
-            base.AddObject("DemographicsByCities", demographicsByCity);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByCounties(DemographicsByCounty demographicsByCounty)
-        {
-            base.AddObject("DemographicsByCounties", demographicsByCounty);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByStates(DemographicsByState demographicsByState)
-        {
-            base.AddObject("DemographicsByStates", demographicsByState);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DemographicsByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDemographicsByZips(DemographicsByZip demographicsByZip)
-        {
-            base.AddObject("DemographicsByZips", demographicsByZip);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the PlaceKeywords EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToPlaceKeywords(PlaceKeyword placeKeyword)
@@ -1371,6 +1356,46 @@ namespace SizeUp.Data
         public void AddToRegions(Region region)
         {
             base.AddObject("Regions", region);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByCities EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByCities(DemographicsByCity demographicsByCity)
+        {
+            base.AddObject("DemographicsByCities", demographicsByCity);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByCounties EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByCounties(DemographicsByCounty demographicsByCounty)
+        {
+            base.AddObject("DemographicsByCounties", demographicsByCounty);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByMetroes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByMetroes(DemographicsByMetro demographicsByMetro)
+        {
+            base.AddObject("DemographicsByMetroes", demographicsByMetro);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByStates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByStates(DemographicsByState demographicsByState)
+        {
+            base.AddObject("DemographicsByStates", demographicsByState);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DemographicsByZips EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDemographicsByZips(DemographicsByZip demographicsByZip)
+        {
+            base.AddObject("DemographicsByZips", demographicsByZip);
         }
 
         #endregion
@@ -97588,6 +97613,54 @@ namespace SizeUp.Data
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Double> MedianCommuteTime
+        {
+            get
+            {
+                return _MedianCommuteTime;
+            }
+            set
+            {
+                OnMedianCommuteTimeChanging(value);
+                ReportPropertyChanging("MedianCommuteTime");
+                _MedianCommuteTime = StructuralObject.SetValidValue(value, "MedianCommuteTime");
+                ReportPropertyChanged("MedianCommuteTime");
+                OnMedianCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _MedianCommuteTime;
+        partial void OnMedianCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnMedianCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageCommuteTime
+        {
+            get
+            {
+                return _AverageCommuteTime;
+            }
+            set
+            {
+                OnAverageCommuteTimeChanging(value);
+                ReportPropertyChanging("AverageCommuteTime");
+                _AverageCommuteTime = StructuralObject.SetValidValue(value, "AverageCommuteTime");
+                ReportPropertyChanged("AverageCommuteTime");
+                OnAverageCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageCommuteTime;
+        partial void OnAverageCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnAverageCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public Nullable<global::System.Int64> AveragePropertyTax
         {
             get
@@ -98286,6 +98359,198 @@ namespace SizeUp.Data
         private Nullable<global::System.Double> _BlueCollarWorkersPercentage;
         partial void OnBlueCollarWorkersPercentageChanging(Nullable<global::System.Double> value);
         partial void OnBlueCollarWorkersPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> YoungEducatedPercentage
+        {
+            get
+            {
+                return _YoungEducatedPercentage;
+            }
+            set
+            {
+                OnYoungEducatedPercentageChanging(value);
+                ReportPropertyChanging("YoungEducatedPercentage");
+                _YoungEducatedPercentage = StructuralObject.SetValidValue(value, "YoungEducatedPercentage");
+                ReportPropertyChanged("YoungEducatedPercentage");
+                OnYoungEducatedPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _YoungEducatedPercentage;
+        partial void OnYoungEducatedPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnYoungEducatedPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> VeryCreativePercentage
+        {
+            get
+            {
+                return _VeryCreativePercentage;
+            }
+            set
+            {
+                OnVeryCreativePercentageChanging(value);
+                ReportPropertyChanging("VeryCreativePercentage");
+                _VeryCreativePercentage = StructuralObject.SetValidValue(value, "VeryCreativePercentage");
+                ReportPropertyChanged("VeryCreativePercentage");
+                OnVeryCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _VeryCreativePercentage;
+        partial void OnVeryCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnVeryCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CreativePercentage
+        {
+            get
+            {
+                return _CreativePercentage;
+            }
+            set
+            {
+                OnCreativePercentageChanging(value);
+                ReportPropertyChanging("CreativePercentage");
+                _CreativePercentage = StructuralObject.SetValidValue(value, "CreativePercentage");
+                ReportPropertyChanged("CreativePercentage");
+                OnCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CreativePercentage;
+        partial void OnCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> HomeValue
+        {
+            get
+            {
+                return _HomeValue;
+            }
+            set
+            {
+                OnHomeValueChanging(value);
+                ReportPropertyChanging("HomeValue");
+                _HomeValue = StructuralObject.SetValidValue(value, "HomeValue");
+                ReportPropertyChanged("HomeValue");
+                OnHomeValueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _HomeValue;
+        partial void OnHomeValueChanging(Nullable<global::System.Int64> value);
+        partial void OnHomeValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> PropertyTax
+        {
+            get
+            {
+                return _PropertyTax;
+            }
+            set
+            {
+                OnPropertyTaxChanging(value);
+                ReportPropertyChanging("PropertyTax");
+                _PropertyTax = StructuralObject.SetValidValue(value, "PropertyTax");
+                ReportPropertyChanged("PropertyTax");
+                OnPropertyTaxChanged();
+            }
+        }
+        private Nullable<global::System.Double> _PropertyTax;
+        partial void OnPropertyTaxChanging(Nullable<global::System.Double> value);
+        partial void OnPropertyTaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> InternationalTalent
+        {
+            get
+            {
+                return _InternationalTalent;
+            }
+            set
+            {
+                OnInternationalTalentChanging(value);
+                ReportPropertyChanging("InternationalTalent");
+                _InternationalTalent = StructuralObject.SetValidValue(value, "InternationalTalent");
+                ReportPropertyChanged("InternationalTalent");
+                OnInternationalTalentChanged();
+            }
+        }
+        private Nullable<global::System.Double> _InternationalTalent;
+        partial void OnInternationalTalentChanging(Nullable<global::System.Double> value);
+        partial void OnInternationalTalentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> JobGrowth
+        {
+            get
+            {
+                return _JobGrowth;
+            }
+            set
+            {
+                OnJobGrowthChanging(value);
+                ReportPropertyChanging("JobGrowth");
+                _JobGrowth = StructuralObject.SetValidValue(value, "JobGrowth");
+                ReportPropertyChanged("JobGrowth");
+                OnJobGrowthChanged();
+            }
+        }
+        private Nullable<global::System.Double> _JobGrowth;
+        partial void OnJobGrowthChanging(Nullable<global::System.Double> value);
+        partial void OnJobGrowthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CommuteTime
+        {
+            get
+            {
+                return _CommuteTime;
+            }
+            set
+            {
+                OnCommuteTimeChanging(value);
+                ReportPropertyChanging("CommuteTime");
+                _CommuteTime = StructuralObject.SetValidValue(value, "CommuteTime");
+                ReportPropertyChanged("CommuteTime");
+                OnCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CommuteTime;
+        partial void OnCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnCommuteTimeChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -99320,6 +99585,1646 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="DemographicsByMetro")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DemographicsByMetro : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DemographicsByMetro object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="quarter">Initial value of the Quarter property.</param>
+        /// <param name="metroId">Initial value of the MetroId property.</param>
+        public static DemographicsByMetro CreateDemographicsByMetro(global::System.Int64 id, global::System.Int32 year, global::System.Int32 quarter, global::System.Int64 metroId)
+        {
+            DemographicsByMetro demographicsByMetro = new DemographicsByMetro();
+            demographicsByMetro.Id = id;
+            demographicsByMetro.Year = year;
+            demographicsByMetro.Quarter = quarter;
+            demographicsByMetro.MetroId = metroId;
+            return demographicsByMetro;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int32 _Year;
+        partial void OnYearChanging(global::System.Int32 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private global::System.Int32 _Quarter;
+        partial void OnQuarterChanging(global::System.Int32 value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 MetroId
+        {
+            get
+            {
+                return _MetroId;
+            }
+            set
+            {
+                OnMetroIdChanging(value);
+                ReportPropertyChanging("MetroId");
+                _MetroId = StructuralObject.SetValidValue(value, "MetroId");
+                ReportPropertyChanged("MetroId");
+                OnMetroIdChanged();
+            }
+        }
+        private global::System.Int64 _MetroId;
+        partial void OnMetroIdChanging(global::System.Int64 value);
+        partial void OnMetroIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AirPortsWithinHalfMile
+        {
+            get
+            {
+                return _AirPortsWithinHalfMile;
+            }
+            set
+            {
+                OnAirPortsWithinHalfMileChanging(value);
+                ReportPropertyChanging("AirPortsWithinHalfMile");
+                _AirPortsWithinHalfMile = StructuralObject.SetValidValue(value, "AirPortsWithinHalfMile");
+                ReportPropertyChanged("AirPortsWithinHalfMile");
+                OnAirPortsWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AirPortsWithinHalfMile;
+        partial void OnAirPortsWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnAirPortsWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AirPortsWithin50Miles
+        {
+            get
+            {
+                return _AirPortsWithin50Miles;
+            }
+            set
+            {
+                OnAirPortsWithin50MilesChanging(value);
+                ReportPropertyChanging("AirPortsWithin50Miles");
+                _AirPortsWithin50Miles = StructuralObject.SetValidValue(value, "AirPortsWithin50Miles");
+                ReportPropertyChanged("AirPortsWithin50Miles");
+                OnAirPortsWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AirPortsWithin50Miles;
+        partial void OnAirPortsWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnAirPortsWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TradeSchoolsWithinHalfMile
+        {
+            get
+            {
+                return _TradeSchoolsWithinHalfMile;
+            }
+            set
+            {
+                OnTradeSchoolsWithinHalfMileChanging(value);
+                ReportPropertyChanging("TradeSchoolsWithinHalfMile");
+                _TradeSchoolsWithinHalfMile = StructuralObject.SetValidValue(value, "TradeSchoolsWithinHalfMile");
+                ReportPropertyChanged("TradeSchoolsWithinHalfMile");
+                OnTradeSchoolsWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TradeSchoolsWithinHalfMile;
+        partial void OnTradeSchoolsWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnTradeSchoolsWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TradeSchoolsWithin50Miles
+        {
+            get
+            {
+                return _TradeSchoolsWithin50Miles;
+            }
+            set
+            {
+                OnTradeSchoolsWithin50MilesChanging(value);
+                ReportPropertyChanging("TradeSchoolsWithin50Miles");
+                _TradeSchoolsWithin50Miles = StructuralObject.SetValidValue(value, "TradeSchoolsWithin50Miles");
+                ReportPropertyChanged("TradeSchoolsWithin50Miles");
+                OnTradeSchoolsWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TradeSchoolsWithin50Miles;
+        partial void OnTradeSchoolsWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnTradeSchoolsWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CommunityCollegesWithinHalfMile
+        {
+            get
+            {
+                return _CommunityCollegesWithinHalfMile;
+            }
+            set
+            {
+                OnCommunityCollegesWithinHalfMileChanging(value);
+                ReportPropertyChanging("CommunityCollegesWithinHalfMile");
+                _CommunityCollegesWithinHalfMile = StructuralObject.SetValidValue(value, "CommunityCollegesWithinHalfMile");
+                ReportPropertyChanged("CommunityCollegesWithinHalfMile");
+                OnCommunityCollegesWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CommunityCollegesWithinHalfMile;
+        partial void OnCommunityCollegesWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnCommunityCollegesWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CommunityCollegesWithin50Miles
+        {
+            get
+            {
+                return _CommunityCollegesWithin50Miles;
+            }
+            set
+            {
+                OnCommunityCollegesWithin50MilesChanging(value);
+                ReportPropertyChanging("CommunityCollegesWithin50Miles");
+                _CommunityCollegesWithin50Miles = StructuralObject.SetValidValue(value, "CommunityCollegesWithin50Miles");
+                ReportPropertyChanged("CommunityCollegesWithin50Miles");
+                OnCommunityCollegesWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CommunityCollegesWithin50Miles;
+        partial void OnCommunityCollegesWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnCommunityCollegesWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UniversitiesWithinHalfMile
+        {
+            get
+            {
+                return _UniversitiesWithinHalfMile;
+            }
+            set
+            {
+                OnUniversitiesWithinHalfMileChanging(value);
+                ReportPropertyChanging("UniversitiesWithinHalfMile");
+                _UniversitiesWithinHalfMile = StructuralObject.SetValidValue(value, "UniversitiesWithinHalfMile");
+                ReportPropertyChanged("UniversitiesWithinHalfMile");
+                OnUniversitiesWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UniversitiesWithinHalfMile;
+        partial void OnUniversitiesWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnUniversitiesWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UniversitiesWithin50Miles
+        {
+            get
+            {
+                return _UniversitiesWithin50Miles;
+            }
+            set
+            {
+                OnUniversitiesWithin50MilesChanging(value);
+                ReportPropertyChanging("UniversitiesWithin50Miles");
+                _UniversitiesWithin50Miles = StructuralObject.SetValidValue(value, "UniversitiesWithin50Miles");
+                ReportPropertyChanged("UniversitiesWithin50Miles");
+                OnUniversitiesWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UniversitiesWithin50Miles;
+        partial void OnUniversitiesWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnUniversitiesWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> BachelorsOrHigherPercentage
+        {
+            get
+            {
+                return _BachelorsOrHigherPercentage;
+            }
+            set
+            {
+                OnBachelorsOrHigherPercentageChanging(value);
+                ReportPropertyChanging("BachelorsOrHigherPercentage");
+                _BachelorsOrHigherPercentage = StructuralObject.SetValidValue(value, "BachelorsOrHigherPercentage");
+                ReportPropertyChanged("BachelorsOrHigherPercentage");
+                OnBachelorsOrHigherPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _BachelorsOrHigherPercentage;
+        partial void OnBachelorsOrHigherPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnBachelorsOrHigherPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> HighSchoolOrHigherPercentage
+        {
+            get
+            {
+                return _HighSchoolOrHigherPercentage;
+            }
+            set
+            {
+                OnHighSchoolOrHigherPercentageChanging(value);
+                ReportPropertyChanging("HighSchoolOrHigherPercentage");
+                _HighSchoolOrHigherPercentage = StructuralObject.SetValidValue(value, "HighSchoolOrHigherPercentage");
+                ReportPropertyChanged("HighSchoolOrHigherPercentage");
+                OnHighSchoolOrHigherPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _HighSchoolOrHigherPercentage;
+        partial void OnHighSchoolOrHigherPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnHighSchoolOrHigherPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> WhiteCollarWorkersPercentage
+        {
+            get
+            {
+                return _WhiteCollarWorkersPercentage;
+            }
+            set
+            {
+                OnWhiteCollarWorkersPercentageChanging(value);
+                ReportPropertyChanging("WhiteCollarWorkersPercentage");
+                _WhiteCollarWorkersPercentage = StructuralObject.SetValidValue(value, "WhiteCollarWorkersPercentage");
+                ReportPropertyChanged("WhiteCollarWorkersPercentage");
+                OnWhiteCollarWorkersPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _WhiteCollarWorkersPercentage;
+        partial void OnWhiteCollarWorkersPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnWhiteCollarWorkersPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> BlueCollarWorkersPercentage
+        {
+            get
+            {
+                return _BlueCollarWorkersPercentage;
+            }
+            set
+            {
+                OnBlueCollarWorkersPercentageChanging(value);
+                ReportPropertyChanging("BlueCollarWorkersPercentage");
+                _BlueCollarWorkersPercentage = StructuralObject.SetValidValue(value, "BlueCollarWorkersPercentage");
+                ReportPropertyChanged("BlueCollarWorkersPercentage");
+                OnBlueCollarWorkersPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _BlueCollarWorkersPercentage;
+        partial void OnBlueCollarWorkersPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnBlueCollarWorkersPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> YoungEducatedPercentage
+        {
+            get
+            {
+                return _YoungEducatedPercentage;
+            }
+            set
+            {
+                OnYoungEducatedPercentageChanging(value);
+                ReportPropertyChanging("YoungEducatedPercentage");
+                _YoungEducatedPercentage = StructuralObject.SetValidValue(value, "YoungEducatedPercentage");
+                ReportPropertyChanged("YoungEducatedPercentage");
+                OnYoungEducatedPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _YoungEducatedPercentage;
+        partial void OnYoungEducatedPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnYoungEducatedPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> VeryCreativePercentage
+        {
+            get
+            {
+                return _VeryCreativePercentage;
+            }
+            set
+            {
+                OnVeryCreativePercentageChanging(value);
+                ReportPropertyChanging("VeryCreativePercentage");
+                _VeryCreativePercentage = StructuralObject.SetValidValue(value, "VeryCreativePercentage");
+                ReportPropertyChanged("VeryCreativePercentage");
+                OnVeryCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _VeryCreativePercentage;
+        partial void OnVeryCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnVeryCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CreativePercentage
+        {
+            get
+            {
+                return _CreativePercentage;
+            }
+            set
+            {
+                OnCreativePercentageChanging(value);
+                ReportPropertyChanging("CreativePercentage");
+                _CreativePercentage = StructuralObject.SetValidValue(value, "CreativePercentage");
+                ReportPropertyChanged("CreativePercentage");
+                OnCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CreativePercentage;
+        partial void OnCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> HomeValue
+        {
+            get
+            {
+                return _HomeValue;
+            }
+            set
+            {
+                OnHomeValueChanging(value);
+                ReportPropertyChanging("HomeValue");
+                _HomeValue = StructuralObject.SetValidValue(value, "HomeValue");
+                ReportPropertyChanged("HomeValue");
+                OnHomeValueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _HomeValue;
+        partial void OnHomeValueChanging(Nullable<global::System.Int64> value);
+        partial void OnHomeValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> PropertyTax
+        {
+            get
+            {
+                return _PropertyTax;
+            }
+            set
+            {
+                OnPropertyTaxChanging(value);
+                ReportPropertyChanging("PropertyTax");
+                _PropertyTax = StructuralObject.SetValidValue(value, "PropertyTax");
+                ReportPropertyChanged("PropertyTax");
+                OnPropertyTaxChanged();
+            }
+        }
+        private Nullable<global::System.Double> _PropertyTax;
+        partial void OnPropertyTaxChanging(Nullable<global::System.Double> value);
+        partial void OnPropertyTaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> InternationalTalent
+        {
+            get
+            {
+                return _InternationalTalent;
+            }
+            set
+            {
+                OnInternationalTalentChanging(value);
+                ReportPropertyChanging("InternationalTalent");
+                _InternationalTalent = StructuralObject.SetValidValue(value, "InternationalTalent");
+                ReportPropertyChanged("InternationalTalent");
+                OnInternationalTalentChanged();
+            }
+        }
+        private Nullable<global::System.Double> _InternationalTalent;
+        partial void OnInternationalTalentChanging(Nullable<global::System.Double> value);
+        partial void OnInternationalTalentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> JobGrowth
+        {
+            get
+            {
+                return _JobGrowth;
+            }
+            set
+            {
+                OnJobGrowthChanging(value);
+                ReportPropertyChanging("JobGrowth");
+                _JobGrowth = StructuralObject.SetValidValue(value, "JobGrowth");
+                ReportPropertyChanged("JobGrowth");
+                OnJobGrowthChanged();
+            }
+        }
+        private Nullable<global::System.Double> _JobGrowth;
+        partial void OnJobGrowthChanging(Nullable<global::System.Double> value);
+        partial void OnJobGrowthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CommuteTime
+        {
+            get
+            {
+                return _CommuteTime;
+            }
+            set
+            {
+                OnCommuteTimeChanging(value);
+                ReportPropertyChanging("CommuteTime");
+                _CommuteTime = StructuralObject.SetValidValue(value, "CommuteTime");
+                ReportPropertyChanged("CommuteTime");
+                OnCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CommuteTime;
+        partial void OnCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalPopulation
+        {
+            get
+            {
+                return _TotalPopulation;
+            }
+            set
+            {
+                OnTotalPopulationChanging(value);
+                ReportPropertyChanging("TotalPopulation");
+                _TotalPopulation = StructuralObject.SetValidValue(value, "TotalPopulation");
+                ReportPropertyChanged("TotalPopulation");
+                OnTotalPopulationChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalPopulation;
+        partial void OnTotalPopulationChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalPopulationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusBachelorsDegree
+        {
+            get
+            {
+                return _PopulationAge25PlusBachelorsDegree;
+            }
+            set
+            {
+                OnPopulationAge25PlusBachelorsDegreeChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusBachelorsDegree");
+                _PopulationAge25PlusBachelorsDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusBachelorsDegree");
+                ReportPropertyChanged("PopulationAge25PlusBachelorsDegree");
+                OnPopulationAge25PlusBachelorsDegreeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusBachelorsDegree;
+        partial void OnPopulationAge25PlusBachelorsDegreeChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusBachelorsDegreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusGraduateDegree
+        {
+            get
+            {
+                return _PopulationAge25PlusGraduateDegree;
+            }
+            set
+            {
+                OnPopulationAge25PlusGraduateDegreeChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusGraduateDegree");
+                _PopulationAge25PlusGraduateDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusGraduateDegree");
+                ReportPropertyChanged("PopulationAge25PlusGraduateDegree");
+                OnPopulationAge25PlusGraduateDegreeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusGraduateDegree;
+        partial void OnPopulationAge25PlusGraduateDegreeChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusGraduateDegreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25Plus
+        {
+            get
+            {
+                return _PopulationAge25Plus;
+            }
+            set
+            {
+                OnPopulationAge25PlusChanging(value);
+                ReportPropertyChanging("PopulationAge25Plus");
+                _PopulationAge25Plus = StructuralObject.SetValidValue(value, "PopulationAge25Plus");
+                ReportPropertyChanged("PopulationAge25Plus");
+                OnPopulationAge25PlusChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25Plus;
+        partial void OnPopulationAge25PlusChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusHighSchoolGrad
+        {
+            get
+            {
+                return _PopulationAge25PlusHighSchoolGrad;
+            }
+            set
+            {
+                OnPopulationAge25PlusHighSchoolGradChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusHighSchoolGrad");
+                _PopulationAge25PlusHighSchoolGrad = StructuralObject.SetValidValue(value, "PopulationAge25PlusHighSchoolGrad");
+                ReportPropertyChanged("PopulationAge25PlusHighSchoolGrad");
+                OnPopulationAge25PlusHighSchoolGradChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusHighSchoolGrad;
+        partial void OnPopulationAge25PlusHighSchoolGradChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusHighSchoolGradChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusCollegeNoDiploma
+        {
+            get
+            {
+                return _PopulationAge25PlusCollegeNoDiploma;
+            }
+            set
+            {
+                OnPopulationAge25PlusCollegeNoDiplomaChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusCollegeNoDiploma");
+                _PopulationAge25PlusCollegeNoDiploma = StructuralObject.SetValidValue(value, "PopulationAge25PlusCollegeNoDiploma");
+                ReportPropertyChanged("PopulationAge25PlusCollegeNoDiploma");
+                OnPopulationAge25PlusCollegeNoDiplomaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusCollegeNoDiploma;
+        partial void OnPopulationAge25PlusCollegeNoDiplomaChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusCollegeNoDiplomaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusAssociatesDegree
+        {
+            get
+            {
+                return _PopulationAge25PlusAssociatesDegree;
+            }
+            set
+            {
+                OnPopulationAge25PlusAssociatesDegreeChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusAssociatesDegree");
+                _PopulationAge25PlusAssociatesDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusAssociatesDegree");
+                ReportPropertyChanged("PopulationAge25PlusAssociatesDegree");
+                OnPopulationAge25PlusAssociatesDegreeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusAssociatesDegree;
+        partial void OnPopulationAge25PlusAssociatesDegreeChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusAssociatesDegreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationWhite
+        {
+            get
+            {
+                return _PopulationWhite;
+            }
+            set
+            {
+                OnPopulationWhiteChanging(value);
+                ReportPropertyChanging("PopulationWhite");
+                _PopulationWhite = StructuralObject.SetValidValue(value, "PopulationWhite");
+                ReportPropertyChanged("PopulationWhite");
+                OnPopulationWhiteChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationWhite;
+        partial void OnPopulationWhiteChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationWhiteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationBlack
+        {
+            get
+            {
+                return _PopulationBlack;
+            }
+            set
+            {
+                OnPopulationBlackChanging(value);
+                ReportPropertyChanging("PopulationBlack");
+                _PopulationBlack = StructuralObject.SetValidValue(value, "PopulationBlack");
+                ReportPropertyChanged("PopulationBlack");
+                OnPopulationBlackChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationBlack;
+        partial void OnPopulationBlackChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationBlackChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationNativeAmerican
+        {
+            get
+            {
+                return _PopulationNativeAmerican;
+            }
+            set
+            {
+                OnPopulationNativeAmericanChanging(value);
+                ReportPropertyChanging("PopulationNativeAmerican");
+                _PopulationNativeAmerican = StructuralObject.SetValidValue(value, "PopulationNativeAmerican");
+                ReportPropertyChanged("PopulationNativeAmerican");
+                OnPopulationNativeAmericanChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationNativeAmerican;
+        partial void OnPopulationNativeAmericanChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationNativeAmericanChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAsian
+        {
+            get
+            {
+                return _PopulationAsian;
+            }
+            set
+            {
+                OnPopulationAsianChanging(value);
+                ReportPropertyChanging("PopulationAsian");
+                _PopulationAsian = StructuralObject.SetValidValue(value, "PopulationAsian");
+                ReportPropertyChanged("PopulationAsian");
+                OnPopulationAsianChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAsian;
+        partial void OnPopulationAsianChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAsianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationHawaiian
+        {
+            get
+            {
+                return _PopulationHawaiian;
+            }
+            set
+            {
+                OnPopulationHawaiianChanging(value);
+                ReportPropertyChanging("PopulationHawaiian");
+                _PopulationHawaiian = StructuralObject.SetValidValue(value, "PopulationHawaiian");
+                ReportPropertyChanged("PopulationHawaiian");
+                OnPopulationHawaiianChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationHawaiian;
+        partial void OnPopulationHawaiianChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationHawaiianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationOtherRace
+        {
+            get
+            {
+                return _PopulationOtherRace;
+            }
+            set
+            {
+                OnPopulationOtherRaceChanging(value);
+                ReportPropertyChanging("PopulationOtherRace");
+                _PopulationOtherRace = StructuralObject.SetValidValue(value, "PopulationOtherRace");
+                ReportPropertyChanged("PopulationOtherRace");
+                OnPopulationOtherRaceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationOtherRace;
+        partial void OnPopulationOtherRaceChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationOtherRaceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationMixedRace
+        {
+            get
+            {
+                return _PopulationMixedRace;
+            }
+            set
+            {
+                OnPopulationMixedRaceChanging(value);
+                ReportPropertyChanging("PopulationMixedRace");
+                _PopulationMixedRace = StructuralObject.SetValidValue(value, "PopulationMixedRace");
+                ReportPropertyChanged("PopulationMixedRace");
+                OnPopulationMixedRaceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationMixedRace;
+        partial void OnPopulationMixedRaceChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationMixedRaceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationHispanic
+        {
+            get
+            {
+                return _PopulationHispanic;
+            }
+            set
+            {
+                OnPopulationHispanicChanging(value);
+                ReportPropertyChanging("PopulationHispanic");
+                _PopulationHispanic = StructuralObject.SetValidValue(value, "PopulationHispanic");
+                ReportPropertyChanged("PopulationHispanic");
+                OnPopulationHispanicChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationHispanic;
+        partial void OnPopulationHispanicChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationHispanicChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationNonHispanic
+        {
+            get
+            {
+                return _PopulationNonHispanic;
+            }
+            set
+            {
+                OnPopulationNonHispanicChanging(value);
+                ReportPropertyChanging("PopulationNonHispanic");
+                _PopulationNonHispanic = StructuralObject.SetValidValue(value, "PopulationNonHispanic");
+                ReportPropertyChanged("PopulationNonHispanic");
+                OnPopulationNonHispanicChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationNonHispanic;
+        partial void OnPopulationNonHispanicChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationNonHispanicChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MedianHouseholdIncome
+        {
+            get
+            {
+                return _MedianHouseholdIncome;
+            }
+            set
+            {
+                OnMedianHouseholdIncomeChanging(value);
+                ReportPropertyChanging("MedianHouseholdIncome");
+                _MedianHouseholdIncome = StructuralObject.SetValidValue(value, "MedianHouseholdIncome");
+                ReportPropertyChanged("MedianHouseholdIncome");
+                OnMedianHouseholdIncomeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MedianHouseholdIncome;
+        partial void OnMedianHouseholdIncomeChanging(Nullable<global::System.Int64> value);
+        partial void OnMedianHouseholdIncomeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalHouseholdExpenditure
+        {
+            get
+            {
+                return _TotalHouseholdExpenditure;
+            }
+            set
+            {
+                OnTotalHouseholdExpenditureChanging(value);
+                ReportPropertyChanging("TotalHouseholdExpenditure");
+                _TotalHouseholdExpenditure = StructuralObject.SetValidValue(value, "TotalHouseholdExpenditure");
+                ReportPropertyChanged("TotalHouseholdExpenditure");
+                OnTotalHouseholdExpenditureChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalHouseholdExpenditure;
+        partial void OnTotalHouseholdExpenditureChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalHouseholdExpenditureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageHouseholdExpenditure
+        {
+            get
+            {
+                return _AverageHouseholdExpenditure;
+            }
+            set
+            {
+                OnAverageHouseholdExpenditureChanging(value);
+                ReportPropertyChanging("AverageHouseholdExpenditure");
+                _AverageHouseholdExpenditure = StructuralObject.SetValidValue(value, "AverageHouseholdExpenditure");
+                ReportPropertyChanged("AverageHouseholdExpenditure");
+                OnAverageHouseholdExpenditureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageHouseholdExpenditure;
+        partial void OnAverageHouseholdExpenditureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageHouseholdExpenditureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MuseumsZoos
+        {
+            get
+            {
+                return _MuseumsZoos;
+            }
+            set
+            {
+                OnMuseumsZoosChanging(value);
+                ReportPropertyChanging("MuseumsZoos");
+                _MuseumsZoos = StructuralObject.SetValidValue(value, "MuseumsZoos");
+                ReportPropertyChanged("MuseumsZoos");
+                OnMuseumsZoosChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MuseumsZoos;
+        partial void OnMuseumsZoosChanging(Nullable<global::System.Int64> value);
+        partial void OnMuseumsZoosChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Bars
+        {
+            get
+            {
+                return _Bars;
+            }
+            set
+            {
+                OnBarsChanging(value);
+                ReportPropertyChanging("Bars");
+                _Bars = StructuralObject.SetValidValue(value, "Bars");
+                ReportPropertyChanged("Bars");
+                OnBarsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Bars;
+        partial void OnBarsChanging(Nullable<global::System.Int64> value);
+        partial void OnBarsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Restaurants
+        {
+            get
+            {
+                return _Restaurants;
+            }
+            set
+            {
+                OnRestaurantsChanging(value);
+                ReportPropertyChanging("Restaurants");
+                _Restaurants = StructuralObject.SetValidValue(value, "Restaurants");
+                ReportPropertyChanged("Restaurants");
+                OnRestaurantsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Restaurants;
+        partial void OnRestaurantsChanging(Nullable<global::System.Int64> value);
+        partial void OnRestaurantsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WhiteCollarEmployees
+        {
+            get
+            {
+                return _WhiteCollarEmployees;
+            }
+            set
+            {
+                OnWhiteCollarEmployeesChanging(value);
+                ReportPropertyChanging("WhiteCollarEmployees");
+                _WhiteCollarEmployees = StructuralObject.SetValidValue(value, "WhiteCollarEmployees");
+                ReportPropertyChanged("WhiteCollarEmployees");
+                OnWhiteCollarEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WhiteCollarEmployees;
+        partial void OnWhiteCollarEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnWhiteCollarEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> BlueCollarEmployees
+        {
+            get
+            {
+                return _BlueCollarEmployees;
+            }
+            set
+            {
+                OnBlueCollarEmployeesChanging(value);
+                ReportPropertyChanging("BlueCollarEmployees");
+                _BlueCollarEmployees = StructuralObject.SetValidValue(value, "BlueCollarEmployees");
+                ReportPropertyChanged("BlueCollarEmployees");
+                OnBlueCollarEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _BlueCollarEmployees;
+        partial void OnBlueCollarEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnBlueCollarEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEstablishments
+        {
+            get
+            {
+                return _TotalEstablishments;
+            }
+            set
+            {
+                OnTotalEstablishmentsChanging(value);
+                ReportPropertyChanging("TotalEstablishments");
+                _TotalEstablishments = StructuralObject.SetValidValue(value, "TotalEstablishments");
+                ReportPropertyChanged("TotalEstablishments");
+                OnTotalEstablishmentsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEstablishments;
+        partial void OnTotalEstablishmentsChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEstablishmentsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EstablishmentsEmployees1to4
+        {
+            get
+            {
+                return _EstablishmentsEmployees1to4;
+            }
+            set
+            {
+                OnEstablishmentsEmployees1to4Changing(value);
+                ReportPropertyChanging("EstablishmentsEmployees1to4");
+                _EstablishmentsEmployees1to4 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees1to4");
+                ReportPropertyChanged("EstablishmentsEmployees1to4");
+                OnEstablishmentsEmployees1to4Changed();
+            }
+        }
+        private Nullable<global::System.Int64> _EstablishmentsEmployees1to4;
+        partial void OnEstablishmentsEmployees1to4Changing(Nullable<global::System.Int64> value);
+        partial void OnEstablishmentsEmployees1to4Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EstablishmentsEmployees5to9
+        {
+            get
+            {
+                return _EstablishmentsEmployees5to9;
+            }
+            set
+            {
+                OnEstablishmentsEmployees5to9Changing(value);
+                ReportPropertyChanging("EstablishmentsEmployees5to9");
+                _EstablishmentsEmployees5to9 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees5to9");
+                ReportPropertyChanged("EstablishmentsEmployees5to9");
+                OnEstablishmentsEmployees5to9Changed();
+            }
+        }
+        private Nullable<global::System.Int64> _EstablishmentsEmployees5to9;
+        partial void OnEstablishmentsEmployees5to9Changing(Nullable<global::System.Int64> value);
+        partial void OnEstablishmentsEmployees5to9Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EstablishmentsEmployees10to19
+        {
+            get
+            {
+                return _EstablishmentsEmployees10to19;
+            }
+            set
+            {
+                OnEstablishmentsEmployees10to19Changing(value);
+                ReportPropertyChanging("EstablishmentsEmployees10to19");
+                _EstablishmentsEmployees10to19 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees10to19");
+                ReportPropertyChanged("EstablishmentsEmployees10to19");
+                OnEstablishmentsEmployees10to19Changed();
+            }
+        }
+        private Nullable<global::System.Int64> _EstablishmentsEmployees10to19;
+        partial void OnEstablishmentsEmployees10to19Changing(Nullable<global::System.Int64> value);
+        partial void OnEstablishmentsEmployees10to19Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> MedianAge
+        {
+            get
+            {
+                return _MedianAge;
+            }
+            set
+            {
+                OnMedianAgeChanging(value);
+                ReportPropertyChanging("MedianAge");
+                _MedianAge = StructuralObject.SetValidValue(value, "MedianAge");
+                ReportPropertyChanged("MedianAge");
+                OnMedianAgeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _MedianAge;
+        partial void OnMedianAgeChanging(Nullable<global::System.Double> value);
+        partial void OnMedianAgeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> MedianCommuteTime
+        {
+            get
+            {
+                return _MedianCommuteTime;
+            }
+            set
+            {
+                OnMedianCommuteTimeChanging(value);
+                ReportPropertyChanging("MedianCommuteTime");
+                _MedianCommuteTime = StructuralObject.SetValidValue(value, "MedianCommuteTime");
+                ReportPropertyChanged("MedianCommuteTime");
+                OnMedianCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _MedianCommuteTime;
+        partial void OnMedianCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnMedianCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageCommuteTime
+        {
+            get
+            {
+                return _AverageCommuteTime;
+            }
+            set
+            {
+                OnAverageCommuteTimeChanging(value);
+                ReportPropertyChanging("AverageCommuteTime");
+                _AverageCommuteTime = StructuralObject.SetValidValue(value, "AverageCommuteTime");
+                ReportPropertyChanged("AverageCommuteTime");
+                OnAverageCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageCommuteTime;
+        partial void OnAverageCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnAverageCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AveragePropertyTax
+        {
+            get
+            {
+                return _AveragePropertyTax;
+            }
+            set
+            {
+                OnAveragePropertyTaxChanging(value);
+                ReportPropertyChanging("AveragePropertyTax");
+                _AveragePropertyTax = StructuralObject.SetValidValue(value, "AveragePropertyTax");
+                ReportPropertyChanged("AveragePropertyTax");
+                OnAveragePropertyTaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AveragePropertyTax;
+        partial void OnAveragePropertyTaxChanging(Nullable<global::System.Int64> value);
+        partial void OnAveragePropertyTaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageAnnualTemperature
+        {
+            get
+            {
+                return _AverageAnnualTemperature;
+            }
+            set
+            {
+                OnAverageAnnualTemperatureChanging(value);
+                ReportPropertyChanging("AverageAnnualTemperature");
+                _AverageAnnualTemperature = StructuralObject.SetValidValue(value, "AverageAnnualTemperature");
+                ReportPropertyChanged("AverageAnnualTemperature");
+                OnAverageAnnualTemperatureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageAnnualTemperature;
+        partial void OnAverageAnnualTemperatureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageAnnualTemperatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageAnnualHighTemperature
+        {
+            get
+            {
+                return _AverageAnnualHighTemperature;
+            }
+            set
+            {
+                OnAverageAnnualHighTemperatureChanging(value);
+                ReportPropertyChanging("AverageAnnualHighTemperature");
+                _AverageAnnualHighTemperature = StructuralObject.SetValidValue(value, "AverageAnnualHighTemperature");
+                ReportPropertyChanged("AverageAnnualHighTemperature");
+                OnAverageAnnualHighTemperatureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageAnnualHighTemperature;
+        partial void OnAverageAnnualHighTemperatureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageAnnualHighTemperatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageAnnualLowTemperature
+        {
+            get
+            {
+                return _AverageAnnualLowTemperature;
+            }
+            set
+            {
+                OnAverageAnnualLowTemperatureChanging(value);
+                ReportPropertyChanging("AverageAnnualLowTemperature");
+                _AverageAnnualLowTemperature = StructuralObject.SetValidValue(value, "AverageAnnualLowTemperature");
+                ReportPropertyChanged("AverageAnnualLowTemperature");
+                OnAverageAnnualLowTemperatureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageAnnualLowTemperature;
+        partial void OnAverageAnnualLowTemperatureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageAnnualLowTemperatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AnnualRainfall
+        {
+            get
+            {
+                return _AnnualRainfall;
+            }
+            set
+            {
+                OnAnnualRainfallChanging(value);
+                ReportPropertyChanging("AnnualRainfall");
+                _AnnualRainfall = StructuralObject.SetValidValue(value, "AnnualRainfall");
+                ReportPropertyChanged("AnnualRainfall");
+                OnAnnualRainfallChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AnnualRainfall;
+        partial void OnAnnualRainfallChanging(Nullable<global::System.Double> value);
+        partial void OnAnnualRainfallChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AnnualSnowfall
+        {
+            get
+            {
+                return _AnnualSnowfall;
+            }
+            set
+            {
+                OnAnnualSnowfallChanging(value);
+                ReportPropertyChanging("AnnualSnowfall");
+                _AnnualSnowfall = StructuralObject.SetValidValue(value, "AnnualSnowfall");
+                ReportPropertyChanged("AnnualSnowfall");
+                OnAnnualSnowfallChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AnnualSnowfall;
+        partial void OnAnnualSnowfallChanging(Nullable<global::System.Double> value);
+        partial void OnAnnualSnowfallChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> LaborForce
+        {
+            get
+            {
+                return _LaborForce;
+            }
+            set
+            {
+                OnLaborForceChanging(value);
+                ReportPropertyChanging("LaborForce");
+                _LaborForce = StructuralObject.SetValidValue(value, "LaborForce");
+                ReportPropertyChanged("LaborForce");
+                OnLaborForceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _LaborForce;
+        partial void OnLaborForceChanging(Nullable<global::System.Int64> value);
+        partial void OnLaborForceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> LaborForceAge16Plus
+        {
+            get
+            {
+                return _LaborForceAge16Plus;
+            }
+            set
+            {
+                OnLaborForceAge16PlusChanging(value);
+                ReportPropertyChanging("LaborForceAge16Plus");
+                _LaborForceAge16Plus = StructuralObject.SetValidValue(value, "LaborForceAge16Plus");
+                ReportPropertyChanged("LaborForceAge16Plus");
+                OnLaborForceAge16PlusChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _LaborForceAge16Plus;
+        partial void OnLaborForceAge16PlusChanging(Nullable<global::System.Int64> value);
+        partial void OnLaborForceAge16PlusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationEmployed
+        {
+            get
+            {
+                return _PopulationEmployed;
+            }
+            set
+            {
+                OnPopulationEmployedChanging(value);
+                ReportPropertyChanging("PopulationEmployed");
+                _PopulationEmployed = StructuralObject.SetValidValue(value, "PopulationEmployed");
+                ReportPropertyChanged("PopulationEmployed");
+                OnPopulationEmployedChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationEmployed;
+        partial void OnPopulationEmployedChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationEmployedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationEmployedCurrentYear
+        {
+            get
+            {
+                return _PopulationEmployedCurrentYear;
+            }
+            set
+            {
+                OnPopulationEmployedCurrentYearChanging(value);
+                ReportPropertyChanging("PopulationEmployedCurrentYear");
+                _PopulationEmployedCurrentYear = StructuralObject.SetValidValue(value, "PopulationEmployedCurrentYear");
+                ReportPropertyChanged("PopulationEmployedCurrentYear");
+                OnPopulationEmployedCurrentYearChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationEmployedCurrentYear;
+        partial void OnPopulationEmployedCurrentYearChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationEmployedCurrentYearChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByMetro_Metro", "Metro")]
+        public Metro Metro
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByMetro_Metro", "Metro").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByMetro_Metro", "Metro").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Metro> MetroReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByMetro_Metro", "Metro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_DemographicsByMetro_Metro", "Metro", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="DemographicsByState")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -99446,6 +101351,1470 @@ namespace SizeUp.Data
         private global::System.Int64 _StateId;
         partial void OnStateIdChanging(global::System.Int64 value);
         partial void OnStateIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AirPortsWithinHalfMile
+        {
+            get
+            {
+                return _AirPortsWithinHalfMile;
+            }
+            set
+            {
+                OnAirPortsWithinHalfMileChanging(value);
+                ReportPropertyChanging("AirPortsWithinHalfMile");
+                _AirPortsWithinHalfMile = StructuralObject.SetValidValue(value, "AirPortsWithinHalfMile");
+                ReportPropertyChanged("AirPortsWithinHalfMile");
+                OnAirPortsWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AirPortsWithinHalfMile;
+        partial void OnAirPortsWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnAirPortsWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> AirPortsWithin50Miles
+        {
+            get
+            {
+                return _AirPortsWithin50Miles;
+            }
+            set
+            {
+                OnAirPortsWithin50MilesChanging(value);
+                ReportPropertyChanging("AirPortsWithin50Miles");
+                _AirPortsWithin50Miles = StructuralObject.SetValidValue(value, "AirPortsWithin50Miles");
+                ReportPropertyChanged("AirPortsWithin50Miles");
+                OnAirPortsWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _AirPortsWithin50Miles;
+        partial void OnAirPortsWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnAirPortsWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TradeSchoolsWithinHalfMile
+        {
+            get
+            {
+                return _TradeSchoolsWithinHalfMile;
+            }
+            set
+            {
+                OnTradeSchoolsWithinHalfMileChanging(value);
+                ReportPropertyChanging("TradeSchoolsWithinHalfMile");
+                _TradeSchoolsWithinHalfMile = StructuralObject.SetValidValue(value, "TradeSchoolsWithinHalfMile");
+                ReportPropertyChanged("TradeSchoolsWithinHalfMile");
+                OnTradeSchoolsWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TradeSchoolsWithinHalfMile;
+        partial void OnTradeSchoolsWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnTradeSchoolsWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TradeSchoolsWithin50Miles
+        {
+            get
+            {
+                return _TradeSchoolsWithin50Miles;
+            }
+            set
+            {
+                OnTradeSchoolsWithin50MilesChanging(value);
+                ReportPropertyChanging("TradeSchoolsWithin50Miles");
+                _TradeSchoolsWithin50Miles = StructuralObject.SetValidValue(value, "TradeSchoolsWithin50Miles");
+                ReportPropertyChanged("TradeSchoolsWithin50Miles");
+                OnTradeSchoolsWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TradeSchoolsWithin50Miles;
+        partial void OnTradeSchoolsWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnTradeSchoolsWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CommunityCollegesWithinHalfMile
+        {
+            get
+            {
+                return _CommunityCollegesWithinHalfMile;
+            }
+            set
+            {
+                OnCommunityCollegesWithinHalfMileChanging(value);
+                ReportPropertyChanging("CommunityCollegesWithinHalfMile");
+                _CommunityCollegesWithinHalfMile = StructuralObject.SetValidValue(value, "CommunityCollegesWithinHalfMile");
+                ReportPropertyChanged("CommunityCollegesWithinHalfMile");
+                OnCommunityCollegesWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CommunityCollegesWithinHalfMile;
+        partial void OnCommunityCollegesWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnCommunityCollegesWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CommunityCollegesWithin50Miles
+        {
+            get
+            {
+                return _CommunityCollegesWithin50Miles;
+            }
+            set
+            {
+                OnCommunityCollegesWithin50MilesChanging(value);
+                ReportPropertyChanging("CommunityCollegesWithin50Miles");
+                _CommunityCollegesWithin50Miles = StructuralObject.SetValidValue(value, "CommunityCollegesWithin50Miles");
+                ReportPropertyChanged("CommunityCollegesWithin50Miles");
+                OnCommunityCollegesWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CommunityCollegesWithin50Miles;
+        partial void OnCommunityCollegesWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnCommunityCollegesWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UniversitiesWithinHalfMile
+        {
+            get
+            {
+                return _UniversitiesWithinHalfMile;
+            }
+            set
+            {
+                OnUniversitiesWithinHalfMileChanging(value);
+                ReportPropertyChanging("UniversitiesWithinHalfMile");
+                _UniversitiesWithinHalfMile = StructuralObject.SetValidValue(value, "UniversitiesWithinHalfMile");
+                ReportPropertyChanged("UniversitiesWithinHalfMile");
+                OnUniversitiesWithinHalfMileChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UniversitiesWithinHalfMile;
+        partial void OnUniversitiesWithinHalfMileChanging(Nullable<global::System.Int32> value);
+        partial void OnUniversitiesWithinHalfMileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UniversitiesWithin50Miles
+        {
+            get
+            {
+                return _UniversitiesWithin50Miles;
+            }
+            set
+            {
+                OnUniversitiesWithin50MilesChanging(value);
+                ReportPropertyChanging("UniversitiesWithin50Miles");
+                _UniversitiesWithin50Miles = StructuralObject.SetValidValue(value, "UniversitiesWithin50Miles");
+                ReportPropertyChanged("UniversitiesWithin50Miles");
+                OnUniversitiesWithin50MilesChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UniversitiesWithin50Miles;
+        partial void OnUniversitiesWithin50MilesChanging(Nullable<global::System.Int32> value);
+        partial void OnUniversitiesWithin50MilesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> BachelorsOrHigherPercentage
+        {
+            get
+            {
+                return _BachelorsOrHigherPercentage;
+            }
+            set
+            {
+                OnBachelorsOrHigherPercentageChanging(value);
+                ReportPropertyChanging("BachelorsOrHigherPercentage");
+                _BachelorsOrHigherPercentage = StructuralObject.SetValidValue(value, "BachelorsOrHigherPercentage");
+                ReportPropertyChanged("BachelorsOrHigherPercentage");
+                OnBachelorsOrHigherPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _BachelorsOrHigherPercentage;
+        partial void OnBachelorsOrHigherPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnBachelorsOrHigherPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> HighSchoolOrHigherPercentage
+        {
+            get
+            {
+                return _HighSchoolOrHigherPercentage;
+            }
+            set
+            {
+                OnHighSchoolOrHigherPercentageChanging(value);
+                ReportPropertyChanging("HighSchoolOrHigherPercentage");
+                _HighSchoolOrHigherPercentage = StructuralObject.SetValidValue(value, "HighSchoolOrHigherPercentage");
+                ReportPropertyChanged("HighSchoolOrHigherPercentage");
+                OnHighSchoolOrHigherPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _HighSchoolOrHigherPercentage;
+        partial void OnHighSchoolOrHigherPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnHighSchoolOrHigherPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> WhiteCollarWorkersPercentage
+        {
+            get
+            {
+                return _WhiteCollarWorkersPercentage;
+            }
+            set
+            {
+                OnWhiteCollarWorkersPercentageChanging(value);
+                ReportPropertyChanging("WhiteCollarWorkersPercentage");
+                _WhiteCollarWorkersPercentage = StructuralObject.SetValidValue(value, "WhiteCollarWorkersPercentage");
+                ReportPropertyChanged("WhiteCollarWorkersPercentage");
+                OnWhiteCollarWorkersPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _WhiteCollarWorkersPercentage;
+        partial void OnWhiteCollarWorkersPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnWhiteCollarWorkersPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> BlueCollarWorkersPercentage
+        {
+            get
+            {
+                return _BlueCollarWorkersPercentage;
+            }
+            set
+            {
+                OnBlueCollarWorkersPercentageChanging(value);
+                ReportPropertyChanging("BlueCollarWorkersPercentage");
+                _BlueCollarWorkersPercentage = StructuralObject.SetValidValue(value, "BlueCollarWorkersPercentage");
+                ReportPropertyChanged("BlueCollarWorkersPercentage");
+                OnBlueCollarWorkersPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _BlueCollarWorkersPercentage;
+        partial void OnBlueCollarWorkersPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnBlueCollarWorkersPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> YoungEducatedPercentage
+        {
+            get
+            {
+                return _YoungEducatedPercentage;
+            }
+            set
+            {
+                OnYoungEducatedPercentageChanging(value);
+                ReportPropertyChanging("YoungEducatedPercentage");
+                _YoungEducatedPercentage = StructuralObject.SetValidValue(value, "YoungEducatedPercentage");
+                ReportPropertyChanged("YoungEducatedPercentage");
+                OnYoungEducatedPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _YoungEducatedPercentage;
+        partial void OnYoungEducatedPercentageChanging(Nullable<global::System.Double> value);
+        partial void OnYoungEducatedPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> VeryCreativePercentage
+        {
+            get
+            {
+                return _VeryCreativePercentage;
+            }
+            set
+            {
+                OnVeryCreativePercentageChanging(value);
+                ReportPropertyChanging("VeryCreativePercentage");
+                _VeryCreativePercentage = StructuralObject.SetValidValue(value, "VeryCreativePercentage");
+                ReportPropertyChanged("VeryCreativePercentage");
+                OnVeryCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _VeryCreativePercentage;
+        partial void OnVeryCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnVeryCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CreativePercentage
+        {
+            get
+            {
+                return _CreativePercentage;
+            }
+            set
+            {
+                OnCreativePercentageChanging(value);
+                ReportPropertyChanging("CreativePercentage");
+                _CreativePercentage = StructuralObject.SetValidValue(value, "CreativePercentage");
+                ReportPropertyChanged("CreativePercentage");
+                OnCreativePercentageChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CreativePercentage;
+        partial void OnCreativePercentageChanging(Nullable<global::System.Double> value);
+        partial void OnCreativePercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> HomeValue
+        {
+            get
+            {
+                return _HomeValue;
+            }
+            set
+            {
+                OnHomeValueChanging(value);
+                ReportPropertyChanging("HomeValue");
+                _HomeValue = StructuralObject.SetValidValue(value, "HomeValue");
+                ReportPropertyChanged("HomeValue");
+                OnHomeValueChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _HomeValue;
+        partial void OnHomeValueChanging(Nullable<global::System.Int64> value);
+        partial void OnHomeValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> PropertyTax
+        {
+            get
+            {
+                return _PropertyTax;
+            }
+            set
+            {
+                OnPropertyTaxChanging(value);
+                ReportPropertyChanging("PropertyTax");
+                _PropertyTax = StructuralObject.SetValidValue(value, "PropertyTax");
+                ReportPropertyChanged("PropertyTax");
+                OnPropertyTaxChanged();
+            }
+        }
+        private Nullable<global::System.Double> _PropertyTax;
+        partial void OnPropertyTaxChanging(Nullable<global::System.Double> value);
+        partial void OnPropertyTaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> InternationalTalent
+        {
+            get
+            {
+                return _InternationalTalent;
+            }
+            set
+            {
+                OnInternationalTalentChanging(value);
+                ReportPropertyChanging("InternationalTalent");
+                _InternationalTalent = StructuralObject.SetValidValue(value, "InternationalTalent");
+                ReportPropertyChanged("InternationalTalent");
+                OnInternationalTalentChanged();
+            }
+        }
+        private Nullable<global::System.Double> _InternationalTalent;
+        partial void OnInternationalTalentChanging(Nullable<global::System.Double> value);
+        partial void OnInternationalTalentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> JobGrowth
+        {
+            get
+            {
+                return _JobGrowth;
+            }
+            set
+            {
+                OnJobGrowthChanging(value);
+                ReportPropertyChanging("JobGrowth");
+                _JobGrowth = StructuralObject.SetValidValue(value, "JobGrowth");
+                ReportPropertyChanged("JobGrowth");
+                OnJobGrowthChanged();
+            }
+        }
+        private Nullable<global::System.Double> _JobGrowth;
+        partial void OnJobGrowthChanging(Nullable<global::System.Double> value);
+        partial void OnJobGrowthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> CommuteTime
+        {
+            get
+            {
+                return _CommuteTime;
+            }
+            set
+            {
+                OnCommuteTimeChanging(value);
+                ReportPropertyChanging("CommuteTime");
+                _CommuteTime = StructuralObject.SetValidValue(value, "CommuteTime");
+                ReportPropertyChanged("CommuteTime");
+                OnCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _CommuteTime;
+        partial void OnCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalPopulation
+        {
+            get
+            {
+                return _TotalPopulation;
+            }
+            set
+            {
+                OnTotalPopulationChanging(value);
+                ReportPropertyChanging("TotalPopulation");
+                _TotalPopulation = StructuralObject.SetValidValue(value, "TotalPopulation");
+                ReportPropertyChanged("TotalPopulation");
+                OnTotalPopulationChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalPopulation;
+        partial void OnTotalPopulationChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalPopulationChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusBachelorsDegree
+        {
+            get
+            {
+                return _PopulationAge25PlusBachelorsDegree;
+            }
+            set
+            {
+                OnPopulationAge25PlusBachelorsDegreeChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusBachelorsDegree");
+                _PopulationAge25PlusBachelorsDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusBachelorsDegree");
+                ReportPropertyChanged("PopulationAge25PlusBachelorsDegree");
+                OnPopulationAge25PlusBachelorsDegreeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusBachelorsDegree;
+        partial void OnPopulationAge25PlusBachelorsDegreeChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusBachelorsDegreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusGraduateDegree
+        {
+            get
+            {
+                return _PopulationAge25PlusGraduateDegree;
+            }
+            set
+            {
+                OnPopulationAge25PlusGraduateDegreeChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusGraduateDegree");
+                _PopulationAge25PlusGraduateDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusGraduateDegree");
+                ReportPropertyChanged("PopulationAge25PlusGraduateDegree");
+                OnPopulationAge25PlusGraduateDegreeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusGraduateDegree;
+        partial void OnPopulationAge25PlusGraduateDegreeChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusGraduateDegreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25Plus
+        {
+            get
+            {
+                return _PopulationAge25Plus;
+            }
+            set
+            {
+                OnPopulationAge25PlusChanging(value);
+                ReportPropertyChanging("PopulationAge25Plus");
+                _PopulationAge25Plus = StructuralObject.SetValidValue(value, "PopulationAge25Plus");
+                ReportPropertyChanged("PopulationAge25Plus");
+                OnPopulationAge25PlusChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25Plus;
+        partial void OnPopulationAge25PlusChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusHighSchoolGrad
+        {
+            get
+            {
+                return _PopulationAge25PlusHighSchoolGrad;
+            }
+            set
+            {
+                OnPopulationAge25PlusHighSchoolGradChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusHighSchoolGrad");
+                _PopulationAge25PlusHighSchoolGrad = StructuralObject.SetValidValue(value, "PopulationAge25PlusHighSchoolGrad");
+                ReportPropertyChanged("PopulationAge25PlusHighSchoolGrad");
+                OnPopulationAge25PlusHighSchoolGradChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusHighSchoolGrad;
+        partial void OnPopulationAge25PlusHighSchoolGradChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusHighSchoolGradChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusCollegeNoDiploma
+        {
+            get
+            {
+                return _PopulationAge25PlusCollegeNoDiploma;
+            }
+            set
+            {
+                OnPopulationAge25PlusCollegeNoDiplomaChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusCollegeNoDiploma");
+                _PopulationAge25PlusCollegeNoDiploma = StructuralObject.SetValidValue(value, "PopulationAge25PlusCollegeNoDiploma");
+                ReportPropertyChanged("PopulationAge25PlusCollegeNoDiploma");
+                OnPopulationAge25PlusCollegeNoDiplomaChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusCollegeNoDiploma;
+        partial void OnPopulationAge25PlusCollegeNoDiplomaChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusCollegeNoDiplomaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAge25PlusAssociatesDegree
+        {
+            get
+            {
+                return _PopulationAge25PlusAssociatesDegree;
+            }
+            set
+            {
+                OnPopulationAge25PlusAssociatesDegreeChanging(value);
+                ReportPropertyChanging("PopulationAge25PlusAssociatesDegree");
+                _PopulationAge25PlusAssociatesDegree = StructuralObject.SetValidValue(value, "PopulationAge25PlusAssociatesDegree");
+                ReportPropertyChanged("PopulationAge25PlusAssociatesDegree");
+                OnPopulationAge25PlusAssociatesDegreeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAge25PlusAssociatesDegree;
+        partial void OnPopulationAge25PlusAssociatesDegreeChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAge25PlusAssociatesDegreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationWhite
+        {
+            get
+            {
+                return _PopulationWhite;
+            }
+            set
+            {
+                OnPopulationWhiteChanging(value);
+                ReportPropertyChanging("PopulationWhite");
+                _PopulationWhite = StructuralObject.SetValidValue(value, "PopulationWhite");
+                ReportPropertyChanged("PopulationWhite");
+                OnPopulationWhiteChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationWhite;
+        partial void OnPopulationWhiteChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationWhiteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationBlack
+        {
+            get
+            {
+                return _PopulationBlack;
+            }
+            set
+            {
+                OnPopulationBlackChanging(value);
+                ReportPropertyChanging("PopulationBlack");
+                _PopulationBlack = StructuralObject.SetValidValue(value, "PopulationBlack");
+                ReportPropertyChanged("PopulationBlack");
+                OnPopulationBlackChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationBlack;
+        partial void OnPopulationBlackChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationBlackChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationNativeAmerican
+        {
+            get
+            {
+                return _PopulationNativeAmerican;
+            }
+            set
+            {
+                OnPopulationNativeAmericanChanging(value);
+                ReportPropertyChanging("PopulationNativeAmerican");
+                _PopulationNativeAmerican = StructuralObject.SetValidValue(value, "PopulationNativeAmerican");
+                ReportPropertyChanged("PopulationNativeAmerican");
+                OnPopulationNativeAmericanChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationNativeAmerican;
+        partial void OnPopulationNativeAmericanChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationNativeAmericanChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationAsian
+        {
+            get
+            {
+                return _PopulationAsian;
+            }
+            set
+            {
+                OnPopulationAsianChanging(value);
+                ReportPropertyChanging("PopulationAsian");
+                _PopulationAsian = StructuralObject.SetValidValue(value, "PopulationAsian");
+                ReportPropertyChanged("PopulationAsian");
+                OnPopulationAsianChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationAsian;
+        partial void OnPopulationAsianChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationAsianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationHawaiian
+        {
+            get
+            {
+                return _PopulationHawaiian;
+            }
+            set
+            {
+                OnPopulationHawaiianChanging(value);
+                ReportPropertyChanging("PopulationHawaiian");
+                _PopulationHawaiian = StructuralObject.SetValidValue(value, "PopulationHawaiian");
+                ReportPropertyChanged("PopulationHawaiian");
+                OnPopulationHawaiianChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationHawaiian;
+        partial void OnPopulationHawaiianChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationHawaiianChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationOtherRace
+        {
+            get
+            {
+                return _PopulationOtherRace;
+            }
+            set
+            {
+                OnPopulationOtherRaceChanging(value);
+                ReportPropertyChanging("PopulationOtherRace");
+                _PopulationOtherRace = StructuralObject.SetValidValue(value, "PopulationOtherRace");
+                ReportPropertyChanged("PopulationOtherRace");
+                OnPopulationOtherRaceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationOtherRace;
+        partial void OnPopulationOtherRaceChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationOtherRaceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationMixedRace
+        {
+            get
+            {
+                return _PopulationMixedRace;
+            }
+            set
+            {
+                OnPopulationMixedRaceChanging(value);
+                ReportPropertyChanging("PopulationMixedRace");
+                _PopulationMixedRace = StructuralObject.SetValidValue(value, "PopulationMixedRace");
+                ReportPropertyChanged("PopulationMixedRace");
+                OnPopulationMixedRaceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationMixedRace;
+        partial void OnPopulationMixedRaceChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationMixedRaceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationHispanic
+        {
+            get
+            {
+                return _PopulationHispanic;
+            }
+            set
+            {
+                OnPopulationHispanicChanging(value);
+                ReportPropertyChanging("PopulationHispanic");
+                _PopulationHispanic = StructuralObject.SetValidValue(value, "PopulationHispanic");
+                ReportPropertyChanged("PopulationHispanic");
+                OnPopulationHispanicChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationHispanic;
+        partial void OnPopulationHispanicChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationHispanicChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationNonHispanic
+        {
+            get
+            {
+                return _PopulationNonHispanic;
+            }
+            set
+            {
+                OnPopulationNonHispanicChanging(value);
+                ReportPropertyChanging("PopulationNonHispanic");
+                _PopulationNonHispanic = StructuralObject.SetValidValue(value, "PopulationNonHispanic");
+                ReportPropertyChanged("PopulationNonHispanic");
+                OnPopulationNonHispanicChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationNonHispanic;
+        partial void OnPopulationNonHispanicChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationNonHispanicChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MedianHouseholdIncome
+        {
+            get
+            {
+                return _MedianHouseholdIncome;
+            }
+            set
+            {
+                OnMedianHouseholdIncomeChanging(value);
+                ReportPropertyChanging("MedianHouseholdIncome");
+                _MedianHouseholdIncome = StructuralObject.SetValidValue(value, "MedianHouseholdIncome");
+                ReportPropertyChanged("MedianHouseholdIncome");
+                OnMedianHouseholdIncomeChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MedianHouseholdIncome;
+        partial void OnMedianHouseholdIncomeChanging(Nullable<global::System.Int64> value);
+        partial void OnMedianHouseholdIncomeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalHouseholdExpenditure
+        {
+            get
+            {
+                return _TotalHouseholdExpenditure;
+            }
+            set
+            {
+                OnTotalHouseholdExpenditureChanging(value);
+                ReportPropertyChanging("TotalHouseholdExpenditure");
+                _TotalHouseholdExpenditure = StructuralObject.SetValidValue(value, "TotalHouseholdExpenditure");
+                ReportPropertyChanged("TotalHouseholdExpenditure");
+                OnTotalHouseholdExpenditureChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalHouseholdExpenditure;
+        partial void OnTotalHouseholdExpenditureChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalHouseholdExpenditureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageHouseholdExpenditure
+        {
+            get
+            {
+                return _AverageHouseholdExpenditure;
+            }
+            set
+            {
+                OnAverageHouseholdExpenditureChanging(value);
+                ReportPropertyChanging("AverageHouseholdExpenditure");
+                _AverageHouseholdExpenditure = StructuralObject.SetValidValue(value, "AverageHouseholdExpenditure");
+                ReportPropertyChanged("AverageHouseholdExpenditure");
+                OnAverageHouseholdExpenditureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageHouseholdExpenditure;
+        partial void OnAverageHouseholdExpenditureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageHouseholdExpenditureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> MuseumsZoos
+        {
+            get
+            {
+                return _MuseumsZoos;
+            }
+            set
+            {
+                OnMuseumsZoosChanging(value);
+                ReportPropertyChanging("MuseumsZoos");
+                _MuseumsZoos = StructuralObject.SetValidValue(value, "MuseumsZoos");
+                ReportPropertyChanged("MuseumsZoos");
+                OnMuseumsZoosChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _MuseumsZoos;
+        partial void OnMuseumsZoosChanging(Nullable<global::System.Int64> value);
+        partial void OnMuseumsZoosChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Bars
+        {
+            get
+            {
+                return _Bars;
+            }
+            set
+            {
+                OnBarsChanging(value);
+                ReportPropertyChanging("Bars");
+                _Bars = StructuralObject.SetValidValue(value, "Bars");
+                ReportPropertyChanged("Bars");
+                OnBarsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Bars;
+        partial void OnBarsChanging(Nullable<global::System.Int64> value);
+        partial void OnBarsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Restaurants
+        {
+            get
+            {
+                return _Restaurants;
+            }
+            set
+            {
+                OnRestaurantsChanging(value);
+                ReportPropertyChanging("Restaurants");
+                _Restaurants = StructuralObject.SetValidValue(value, "Restaurants");
+                ReportPropertyChanged("Restaurants");
+                OnRestaurantsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Restaurants;
+        partial void OnRestaurantsChanging(Nullable<global::System.Int64> value);
+        partial void OnRestaurantsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WhiteCollarEmployees
+        {
+            get
+            {
+                return _WhiteCollarEmployees;
+            }
+            set
+            {
+                OnWhiteCollarEmployeesChanging(value);
+                ReportPropertyChanging("WhiteCollarEmployees");
+                _WhiteCollarEmployees = StructuralObject.SetValidValue(value, "WhiteCollarEmployees");
+                ReportPropertyChanged("WhiteCollarEmployees");
+                OnWhiteCollarEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WhiteCollarEmployees;
+        partial void OnWhiteCollarEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnWhiteCollarEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> BlueCollarEmployees
+        {
+            get
+            {
+                return _BlueCollarEmployees;
+            }
+            set
+            {
+                OnBlueCollarEmployeesChanging(value);
+                ReportPropertyChanging("BlueCollarEmployees");
+                _BlueCollarEmployees = StructuralObject.SetValidValue(value, "BlueCollarEmployees");
+                ReportPropertyChanged("BlueCollarEmployees");
+                OnBlueCollarEmployeesChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _BlueCollarEmployees;
+        partial void OnBlueCollarEmployeesChanging(Nullable<global::System.Int64> value);
+        partial void OnBlueCollarEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEstablishments
+        {
+            get
+            {
+                return _TotalEstablishments;
+            }
+            set
+            {
+                OnTotalEstablishmentsChanging(value);
+                ReportPropertyChanging("TotalEstablishments");
+                _TotalEstablishments = StructuralObject.SetValidValue(value, "TotalEstablishments");
+                ReportPropertyChanged("TotalEstablishments");
+                OnTotalEstablishmentsChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEstablishments;
+        partial void OnTotalEstablishmentsChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEstablishmentsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EstablishmentsEmployees1to4
+        {
+            get
+            {
+                return _EstablishmentsEmployees1to4;
+            }
+            set
+            {
+                OnEstablishmentsEmployees1to4Changing(value);
+                ReportPropertyChanging("EstablishmentsEmployees1to4");
+                _EstablishmentsEmployees1to4 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees1to4");
+                ReportPropertyChanged("EstablishmentsEmployees1to4");
+                OnEstablishmentsEmployees1to4Changed();
+            }
+        }
+        private Nullable<global::System.Int64> _EstablishmentsEmployees1to4;
+        partial void OnEstablishmentsEmployees1to4Changing(Nullable<global::System.Int64> value);
+        partial void OnEstablishmentsEmployees1to4Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EstablishmentsEmployees5to9
+        {
+            get
+            {
+                return _EstablishmentsEmployees5to9;
+            }
+            set
+            {
+                OnEstablishmentsEmployees5to9Changing(value);
+                ReportPropertyChanging("EstablishmentsEmployees5to9");
+                _EstablishmentsEmployees5to9 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees5to9");
+                ReportPropertyChanged("EstablishmentsEmployees5to9");
+                OnEstablishmentsEmployees5to9Changed();
+            }
+        }
+        private Nullable<global::System.Int64> _EstablishmentsEmployees5to9;
+        partial void OnEstablishmentsEmployees5to9Changing(Nullable<global::System.Int64> value);
+        partial void OnEstablishmentsEmployees5to9Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> EstablishmentsEmployees10to19
+        {
+            get
+            {
+                return _EstablishmentsEmployees10to19;
+            }
+            set
+            {
+                OnEstablishmentsEmployees10to19Changing(value);
+                ReportPropertyChanging("EstablishmentsEmployees10to19");
+                _EstablishmentsEmployees10to19 = StructuralObject.SetValidValue(value, "EstablishmentsEmployees10to19");
+                ReportPropertyChanged("EstablishmentsEmployees10to19");
+                OnEstablishmentsEmployees10to19Changed();
+            }
+        }
+        private Nullable<global::System.Int64> _EstablishmentsEmployees10to19;
+        partial void OnEstablishmentsEmployees10to19Changing(Nullable<global::System.Int64> value);
+        partial void OnEstablishmentsEmployees10to19Changed();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> MedianAge
+        {
+            get
+            {
+                return _MedianAge;
+            }
+            set
+            {
+                OnMedianAgeChanging(value);
+                ReportPropertyChanging("MedianAge");
+                _MedianAge = StructuralObject.SetValidValue(value, "MedianAge");
+                ReportPropertyChanged("MedianAge");
+                OnMedianAgeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _MedianAge;
+        partial void OnMedianAgeChanging(Nullable<global::System.Double> value);
+        partial void OnMedianAgeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> MedianCommuteTime
+        {
+            get
+            {
+                return _MedianCommuteTime;
+            }
+            set
+            {
+                OnMedianCommuteTimeChanging(value);
+                ReportPropertyChanging("MedianCommuteTime");
+                _MedianCommuteTime = StructuralObject.SetValidValue(value, "MedianCommuteTime");
+                ReportPropertyChanged("MedianCommuteTime");
+                OnMedianCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _MedianCommuteTime;
+        partial void OnMedianCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnMedianCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageCommuteTime
+        {
+            get
+            {
+                return _AverageCommuteTime;
+            }
+            set
+            {
+                OnAverageCommuteTimeChanging(value);
+                ReportPropertyChanging("AverageCommuteTime");
+                _AverageCommuteTime = StructuralObject.SetValidValue(value, "AverageCommuteTime");
+                ReportPropertyChanged("AverageCommuteTime");
+                OnAverageCommuteTimeChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageCommuteTime;
+        partial void OnAverageCommuteTimeChanging(Nullable<global::System.Double> value);
+        partial void OnAverageCommuteTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AveragePropertyTax
+        {
+            get
+            {
+                return _AveragePropertyTax;
+            }
+            set
+            {
+                OnAveragePropertyTaxChanging(value);
+                ReportPropertyChanging("AveragePropertyTax");
+                _AveragePropertyTax = StructuralObject.SetValidValue(value, "AveragePropertyTax");
+                ReportPropertyChanged("AveragePropertyTax");
+                OnAveragePropertyTaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AveragePropertyTax;
+        partial void OnAveragePropertyTaxChanging(Nullable<global::System.Int64> value);
+        partial void OnAveragePropertyTaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageAnnualTemperature
+        {
+            get
+            {
+                return _AverageAnnualTemperature;
+            }
+            set
+            {
+                OnAverageAnnualTemperatureChanging(value);
+                ReportPropertyChanging("AverageAnnualTemperature");
+                _AverageAnnualTemperature = StructuralObject.SetValidValue(value, "AverageAnnualTemperature");
+                ReportPropertyChanged("AverageAnnualTemperature");
+                OnAverageAnnualTemperatureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageAnnualTemperature;
+        partial void OnAverageAnnualTemperatureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageAnnualTemperatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageAnnualHighTemperature
+        {
+            get
+            {
+                return _AverageAnnualHighTemperature;
+            }
+            set
+            {
+                OnAverageAnnualHighTemperatureChanging(value);
+                ReportPropertyChanging("AverageAnnualHighTemperature");
+                _AverageAnnualHighTemperature = StructuralObject.SetValidValue(value, "AverageAnnualHighTemperature");
+                ReportPropertyChanged("AverageAnnualHighTemperature");
+                OnAverageAnnualHighTemperatureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageAnnualHighTemperature;
+        partial void OnAverageAnnualHighTemperatureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageAnnualHighTemperatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AverageAnnualLowTemperature
+        {
+            get
+            {
+                return _AverageAnnualLowTemperature;
+            }
+            set
+            {
+                OnAverageAnnualLowTemperatureChanging(value);
+                ReportPropertyChanging("AverageAnnualLowTemperature");
+                _AverageAnnualLowTemperature = StructuralObject.SetValidValue(value, "AverageAnnualLowTemperature");
+                ReportPropertyChanged("AverageAnnualLowTemperature");
+                OnAverageAnnualLowTemperatureChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AverageAnnualLowTemperature;
+        partial void OnAverageAnnualLowTemperatureChanging(Nullable<global::System.Double> value);
+        partial void OnAverageAnnualLowTemperatureChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AnnualRainfall
+        {
+            get
+            {
+                return _AnnualRainfall;
+            }
+            set
+            {
+                OnAnnualRainfallChanging(value);
+                ReportPropertyChanging("AnnualRainfall");
+                _AnnualRainfall = StructuralObject.SetValidValue(value, "AnnualRainfall");
+                ReportPropertyChanged("AnnualRainfall");
+                OnAnnualRainfallChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AnnualRainfall;
+        partial void OnAnnualRainfallChanging(Nullable<global::System.Double> value);
+        partial void OnAnnualRainfallChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Double> AnnualSnowfall
+        {
+            get
+            {
+                return _AnnualSnowfall;
+            }
+            set
+            {
+                OnAnnualSnowfallChanging(value);
+                ReportPropertyChanging("AnnualSnowfall");
+                _AnnualSnowfall = StructuralObject.SetValidValue(value, "AnnualSnowfall");
+                ReportPropertyChanged("AnnualSnowfall");
+                OnAnnualSnowfallChanged();
+            }
+        }
+        private Nullable<global::System.Double> _AnnualSnowfall;
+        partial void OnAnnualSnowfallChanging(Nullable<global::System.Double> value);
+        partial void OnAnnualSnowfallChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> LaborForce
+        {
+            get
+            {
+                return _LaborForce;
+            }
+            set
+            {
+                OnLaborForceChanging(value);
+                ReportPropertyChanging("LaborForce");
+                _LaborForce = StructuralObject.SetValidValue(value, "LaborForce");
+                ReportPropertyChanged("LaborForce");
+                OnLaborForceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _LaborForce;
+        partial void OnLaborForceChanging(Nullable<global::System.Int64> value);
+        partial void OnLaborForceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> LaborForceAge16Plus
+        {
+            get
+            {
+                return _LaborForceAge16Plus;
+            }
+            set
+            {
+                OnLaborForceAge16PlusChanging(value);
+                ReportPropertyChanging("LaborForceAge16Plus");
+                _LaborForceAge16Plus = StructuralObject.SetValidValue(value, "LaborForceAge16Plus");
+                ReportPropertyChanged("LaborForceAge16Plus");
+                OnLaborForceAge16PlusChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _LaborForceAge16Plus;
+        partial void OnLaborForceAge16PlusChanging(Nullable<global::System.Int64> value);
+        partial void OnLaborForceAge16PlusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationEmployed
+        {
+            get
+            {
+                return _PopulationEmployed;
+            }
+            set
+            {
+                OnPopulationEmployedChanging(value);
+                ReportPropertyChanging("PopulationEmployed");
+                _PopulationEmployed = StructuralObject.SetValidValue(value, "PopulationEmployed");
+                ReportPropertyChanged("PopulationEmployed");
+                OnPopulationEmployedChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationEmployed;
+        partial void OnPopulationEmployedChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationEmployedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> PopulationEmployedCurrentYear
+        {
+            get
+            {
+                return _PopulationEmployedCurrentYear;
+            }
+            set
+            {
+                OnPopulationEmployedCurrentYearChanging(value);
+                ReportPropertyChanging("PopulationEmployedCurrentYear");
+                _PopulationEmployedCurrentYear = StructuralObject.SetValidValue(value, "PopulationEmployedCurrentYear");
+                ReportPropertyChanged("PopulationEmployedCurrentYear");
+                OnPopulationEmployedCurrentYearChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _PopulationEmployedCurrentYear;
+        partial void OnPopulationEmployedCurrentYearChanging(Nullable<global::System.Int64> value);
+        partial void OnPopulationEmployedCurrentYearChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -106508,6 +109877,30 @@ namespace SizeUp.Data
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SEOKey
+        {
+            get
+            {
+                return _SEOKey;
+            }
+            set
+            {
+                OnSEOKeyChanging(value);
+                ReportPropertyChanging("SEOKey");
+                _SEOKey = StructuralObject.SetValidValue(value, true, "SEOKey");
+                ReportPropertyChanged("SEOKey");
+                OnSEOKeyChanged();
+            }
+        }
+        private global::System.String _SEOKey;
+        partial void OnSEOKeyChanging(global::System.String value);
+        partial void OnSEOKeyChanged();
 
         #endregion
 
@@ -106619,6 +110012,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IndustryDataByMetro>("SizeUp.Data.FK_IndustryDataByMetro_Metro", "IndustryDataByMetro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByMetro_Metro", "DemographicsByMetro")]
+        public EntityCollection<DemographicsByMetro> DemographicsByMetroes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByMetro>("SizeUp.Data.FK_DemographicsByMetro_Metro", "DemographicsByMetro");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByMetro>("SizeUp.Data.FK_DemographicsByMetro_Metro", "DemographicsByMetro", value);
                 }
             }
         }
@@ -107911,28 +111326,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByState_State", "DemographicsByState")]
-        public EntityCollection<DemographicsByState> DemographicsByStates
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_State_Division", "Division")]
         public Division Division
         {
@@ -107961,6 +111354,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Division>("SizeUp.Data.FK_State_Division", "Division", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_DemographicsByState_State", "DemographicsByState")]
+        public EntityCollection<DemographicsByState> DemographicsByStates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DemographicsByState>("SizeUp.Data.FK_DemographicsByState_State", "DemographicsByState", value);
                 }
             }
         }

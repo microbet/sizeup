@@ -11,6 +11,8 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
+using SizeUp.Core.Serialization;
+
 
 namespace SizeUp.Web.Controllers
 {
@@ -30,10 +32,106 @@ namespace SizeUp.Web.Controllers
         }
 
 
-        public ActionResult Community()
+        public ActionResult CityCommunity()
         {
-            return View();
+            return View();     
         }
+
+        public ActionResult CountyCommunity(string state, string county)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+
+                CurrentInfo = new Models.CurrentInfo()
+                {
+                    CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
+                    {
+                        County = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.County.County()
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            SEOKey = c.SEOKey,
+                            State = c.State.Abbreviation
+                        })
+                        .FirstOrDefault(),
+                        Metro = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.Metro.Metro()
+                        {
+                            Id = c.Metro.Id,
+                            Name = c.Metro.Name
+                        })
+                        .FirstOrDefault(),
+                        State = new Areas.Api.Models.State.State()
+                        {
+                            Id = i.Id,
+                            Name = i.Name,
+                            Abbreviation = i.Abbreviation,
+                            SEOKey = i.SEOKey
+                        }
+                    }).FirstOrDefault(),
+
+                    CurrentIndustry = null
+                };
+
+                ViewBag.CurrentInfo = CurrentInfo;
+                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+
+
+                return View();
+            }
+        }
+
+        public ActionResult MetroCommunity(string metro)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                CurrentInfo = new Models.CurrentInfo()
+                {
+                    CurrentPlace = context.Metroes.Where(i => i.SEOKey == metro).Select(i => new Areas.Api.Models.Place.Place()
+                    {
+                        
+                        Metro =  new Areas.Api.Models.Metro.Metro()
+                        {
+                            Id = i.Id,
+                            Name = i.Name,
+                            SEOKey = i.SEOKey
+                        }
+                    }).FirstOrDefault(),
+
+                    CurrentIndustry = null
+                };
+
+                ViewBag.CurrentInfo = CurrentInfo;
+                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                return View();
+            }
+        }
+
+        public ActionResult StateCommunity(string state)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                CurrentInfo = new Models.CurrentInfo()
+                {
+                    CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
+                    {
+                        State = new Areas.Api.Models.State.State()
+                        {
+                            Id = i.Id,
+                            Name = i.Name,
+                            Abbreviation = i.Abbreviation,
+                            SEOKey = i.SEOKey
+                        }
+                    }).FirstOrDefault(),
+
+                    CurrentIndustry = null
+                };
+
+                ViewBag.CurrentInfo = CurrentInfo;
+                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                return View();
+            }
+        }
+
 
 
 

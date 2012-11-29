@@ -397,6 +397,9 @@
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
+    <Content Include="Scripts\views\community\stateCommunity.js" />
+    <Content Include="Scripts\views\community\metroCommunity.js" />
+    <Content Include="Scripts\views\community\countyCommunity.js" />
     <Content Include="Scripts\views\community\find.js" />
     <Content Include="Scripts\views\competition\competition.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
@@ -410,7 +413,7 @@
     <Content Include="Scripts\views\dashboard\turnover.js" />
     <Content Include="Scripts\views\dashboard\workersComp.js" />
     <Content Include="Scripts\views\dashboard\yearStarted.js" />
-    <Content Include="Scripts\views\community\community.js" />
+    <Content Include="Scripts\views\community\cityCommunity.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\shared\signin.js" />
     <Content Include="Scripts\views\topPlaces\topPlaces.js" />
@@ -525,7 +528,7 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
-    <Content Include="Views\Community\Community.cshtml" />
+    <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
     <Content Include="Views\Shared\Signin.cshtml" />
@@ -540,6 +543,9 @@
     <Content Include="Views\Shared\Analytics.cshtml" />
     <None Include="Properties\PublishProfiles\sizeup.com.pubxml" />
     <Content Include="Views\Error\Error500.cshtml" />
+    <Content Include="Views\Community\CountyCommunity.cshtml" />
+    <Content Include="Views\Community\MetroCommunity.cshtml" />
+    <Content Include="Views\Community\StateCommunity.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -114,6 +114,18 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "County", action = "County" }
             );
 
+            context.MapRoute(
+              "BoundingBoxCounty",
+              "Api/County/BoundingBox",
+              new { controller = "County", action = "BoundingBox" }
+          );
+
+            context.MapRoute(
+             "CentroidCounty",
+             "Api/County/Centroid",
+             new { controller = "County", action = "Centroid" }
+         );
+
             
 
             /***********metro**********/
@@ -123,12 +135,36 @@ namespace SizeUp.Web.Areas.Api
                 new { controller = "Metro", action = "Metro" }
             );
 
+            context.MapRoute(
+              "BoundingBoxMetro",
+              "Api/Metro/BoundingBox",
+              new { controller = "Metro", action = "BoundingBox" }
+          );
+
+            context.MapRoute(
+             "CentroidMetro",
+             "Api/Metro/Centroid",
+             new { controller = "Metro", action = "Centroid" }
+         );
+
             /***********state**********/
             context.MapRoute(
                 "SingleState",
                 "Api/State/",
                 new { controller = "State", action = "State" }
             );
+
+            context.MapRoute(
+              "BoundingBoxState",
+              "Api/State/BoundingBox",
+              new { controller = "State", action = "BoundingBox" }
+          );
+
+            context.MapRoute(
+             "CentroidState",
+             "Api/State/Centroid",
+             new { controller = "State", action = "Centroid" }
+         );
 
 
             /***********business**********/
@@ -488,9 +524,27 @@ namespace SizeUp.Web.Areas.Api
             /****demographics*****/
 
             context.MapRoute(
-                "Demographics",
-                "Api/Demographics/",
-                new { controller = "Demographics", action = "Demographics" }
+                "CityDemographics",
+                "Api/Demographics/city",
+                new { controller = "Demographics", action = "City" }
+            );
+
+            context.MapRoute(
+                "CountyDemographics",
+                "Api/Demographics/county",
+                new { controller = "Demographics", action = "County" }
+            );
+
+            context.MapRoute(
+                "MetroDemographics",
+                "Api/Demographics/metro",
+                new { controller = "Demographics", action = "Metro" }
+            );
+
+            context.MapRoute(
+                "StateDemographics",
+                "Api/Demographics/state",
+                new { controller = "Demographics", action = "State" }
             );
 
 

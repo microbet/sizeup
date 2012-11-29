@@ -26,6 +26,7 @@
           <EntitySet Name="CountyGeography" EntityType="SizeUp.Data.Store.CountyGeography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DemographicsByCity" EntityType="SizeUp.Data.Store.DemographicsByCity" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DemographicsByCounty" EntityType="SizeUp.Data.Store.DemographicsByCounty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DemographicsByMetro" EntityType="SizeUp.Data.Store.DemographicsByMetro" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DemographicsByState" EntityType="SizeUp.Data.Store.DemographicsByState" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DemographicsByZip" EntityType="SizeUp.Data.Store.DemographicsByZip" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Division" EntityType="SizeUp.Data.Store.Division" store:Type="Tables" Schema="dbo" />
@@ -204,6 +205,10 @@
           <AssociationSet Name="FK_DemographicsByCounty_County" Association="SizeUp.Data.Store.FK_DemographicsByCounty_County">
             <End Role="County" EntitySet="County" />
             <End Role="DemographicsByCounty" EntitySet="DemographicsByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DemographicsByMetro_Metro" Association="SizeUp.Data.Store.FK_DemographicsByMetro_Metro">
+            <End Role="Metro" EntitySet="Metro" />
+            <End Role="DemographicsByMetro" EntitySet="DemographicsByMetro" />
           </AssociationSet>
           <AssociationSet Name="FK_DemographicsByState_State" Association="SizeUp.Data.Store.FK_DemographicsByState_State">
             <End Role="State" EntitySet="State" />
@@ -4349,6 +4354,8 @@
           <Property Name="EstablishmentsEmployees5to9" Type="bigint" />
           <Property Name="EstablishmentsEmployees10to19" Type="bigint" />
           <Property Name="MedianAge" Type="float" />
+          <Property Name="MedianCommuteTime" Type="float" />
+          <Property Name="AverageCommuteTime" Type="float" />
           <Property Name="AveragePropertyTax" Type="bigint" />
           <Property Name="AverageAnnualTemperature" Type="float" />
           <Property Name="AverageAnnualHighTemperature" Type="float" />
@@ -4380,6 +4387,84 @@
           <Property Name="HighSchoolOrHigherPercentage" Type="float" />
           <Property Name="WhiteCollarWorkersPercentage" Type="float" />
           <Property Name="BlueCollarWorkersPercentage" Type="float" />
+          <Property Name="YoungEducatedPercentage" Type="float" />
+          <Property Name="VeryCreativePercentage" Type="float" />
+          <Property Name="CreativePercentage" Type="float" />
+          <Property Name="HomeValue" Type="bigint" />
+          <Property Name="PropertyTax" Type="float" />
+          <Property Name="InternationalTalent" Type="float" />
+          <Property Name="JobGrowth" Type="float" />
+          <Property Name="CommuteTime" Type="float" />
+          <Property Name="TotalPopulation" Type="bigint" />
+          <Property Name="PopulationAge25PlusBachelorsDegree" Type="bigint" />
+          <Property Name="PopulationAge25PlusGraduateDegree" Type="bigint" />
+          <Property Name="PopulationAge25Plus" Type="bigint" />
+          <Property Name="PopulationAge25PlusHighSchoolGrad" Type="bigint" />
+          <Property Name="PopulationAge25PlusCollegeNoDiploma" Type="bigint" />
+          <Property Name="PopulationAge25PlusAssociatesDegree" Type="bigint" />
+          <Property Name="PopulationWhite" Type="bigint" />
+          <Property Name="PopulationBlack" Type="bigint" />
+          <Property Name="PopulationNativeAmerican" Type="bigint" />
+          <Property Name="PopulationAsian" Type="bigint" />
+          <Property Name="PopulationHawaiian" Type="bigint" />
+          <Property Name="PopulationOtherRace" Type="bigint" />
+          <Property Name="PopulationMixedRace" Type="bigint" />
+          <Property Name="PopulationHispanic" Type="bigint" />
+          <Property Name="PopulationNonHispanic" Type="bigint" />
+          <Property Name="MedianHouseholdIncome" Type="bigint" />
+          <Property Name="TotalHouseholdExpenditure" Type="bigint" />
+          <Property Name="AverageHouseholdExpenditure" Type="float" />
+          <Property Name="MuseumsZoos" Type="bigint" />
+          <Property Name="Bars" Type="bigint" />
+          <Property Name="Restaurants" Type="bigint" />
+          <Property Name="WhiteCollarEmployees" Type="bigint" />
+          <Property Name="BlueCollarEmployees" Type="bigint" />
+          <Property Name="TotalEstablishments" Type="bigint" />
+          <Property Name="EstablishmentsEmployees1to4" Type="bigint" />
+          <Property Name="EstablishmentsEmployees5to9" Type="bigint" />
+          <Property Name="EstablishmentsEmployees10to19" Type="bigint" />
+          <Property Name="MedianAge" Type="float" />
+          <Property Name="MedianCommuteTime" Type="float" />
+          <Property Name="AverageCommuteTime" Type="float" />
+          <Property Name="AveragePropertyTax" Type="bigint" />
+          <Property Name="AverageAnnualTemperature" Type="float" />
+          <Property Name="AverageAnnualHighTemperature" Type="float" />
+          <Property Name="AverageAnnualLowTemperature" Type="float" />
+          <Property Name="AnnualRainfall" Type="float" />
+          <Property Name="AnnualSnowfall" Type="float" />
+          <Property Name="LaborForce" Type="bigint" />
+          <Property Name="LaborForceAge16Plus" Type="bigint" />
+          <Property Name="PopulationEmployed" Type="bigint" />
+          <Property Name="PopulationEmployedCurrentYear" Type="bigint" />
+        </EntityType>
+        <EntityType Name="DemographicsByMetro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="MetroId" Type="bigint" Nullable="false" />
+          <Property Name="AirPortsWithinHalfMile" Type="int" />
+          <Property Name="AirPortsWithin50Miles" Type="int" />
+          <Property Name="TradeSchoolsWithinHalfMile" Type="int" />
+          <Property Name="TradeSchoolsWithin50Miles" Type="int" />
+          <Property Name="CommunityCollegesWithinHalfMile" Type="int" />
+          <Property Name="CommunityCollegesWithin50Miles" Type="int" />
+          <Property Name="UniversitiesWithinHalfMile" Type="int" />
+          <Property Name="UniversitiesWithin50Miles" Type="int" />
+          <Property Name="BachelorsOrHigherPercentage" Type="float" />
+          <Property Name="HighSchoolOrHigherPercentage" Type="float" />
+          <Property Name="WhiteCollarWorkersPercentage" Type="float" />
+          <Property Name="BlueCollarWorkersPercentage" Type="float" />
+          <Property Name="YoungEducatedPercentage" Type="float" />
+          <Property Name="VeryCreativePercentage" Type="float" />
+          <Property Name="CreativePercentage" Type="float" />
+          <Property Name="HomeValue" Type="bigint" />
+          <Property Name="PropertyTax" Type="float" />
+          <Property Name="InternationalTalent" Type="float" />
+          <Property Name="JobGrowth" Type="float" />
+          <Property Name="CommuteTime" Type="float" />
           <Property Name="TotalPopulation" Type="bigint" />
           <Property Name="PopulationAge25PlusBachelorsDegree" Type="bigint" />
           <Property Name="PopulationAge25PlusGraduateDegree" Type="bigint" />
@@ -4430,6 +4515,67 @@
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="Quarter" Type="int" Nullable="false" />
           <Property Name="StateId" Type="bigint" Nullable="false" />
+          <Property Name="AirPortsWithinHalfMile" Type="int" />
+          <Property Name="AirPortsWithin50Miles" Type="int" />
+          <Property Name="TradeSchoolsWithinHalfMile" Type="int" />
+          <Property Name="TradeSchoolsWithin50Miles" Type="int" />
+          <Property Name="CommunityCollegesWithinHalfMile" Type="int" />
+          <Property Name="CommunityCollegesWithin50Miles" Type="int" />
+          <Property Name="UniversitiesWithinHalfMile" Type="int" />
+          <Property Name="UniversitiesWithin50Miles" Type="int" />
+          <Property Name="BachelorsOrHigherPercentage" Type="float" />
+          <Property Name="HighSchoolOrHigherPercentage" Type="float" />
+          <Property Name="WhiteCollarWorkersPercentage" Type="float" />
+          <Property Name="BlueCollarWorkersPercentage" Type="float" />
+          <Property Name="YoungEducatedPercentage" Type="float" />
+          <Property Name="VeryCreativePercentage" Type="float" />
+          <Property Name="CreativePercentage" Type="float" />
+          <Property Name="HomeValue" Type="bigint" />
+          <Property Name="PropertyTax" Type="float" />
+          <Property Name="InternationalTalent" Type="float" />
+          <Property Name="JobGrowth" Type="float" />
+          <Property Name="CommuteTime" Type="float" />
+          <Property Name="TotalPopulation" Type="bigint" />
+          <Property Name="PopulationAge25PlusBachelorsDegree" Type="bigint" />
+          <Property Name="PopulationAge25PlusGraduateDegree" Type="bigint" />
+          <Property Name="PopulationAge25Plus" Type="bigint" />
+          <Property Name="PopulationAge25PlusHighSchoolGrad" Type="bigint" />
+          <Property Name="PopulationAge25PlusCollegeNoDiploma" Type="bigint" />
+          <Property Name="PopulationAge25PlusAssociatesDegree" Type="bigint" />
+          <Property Name="PopulationWhite" Type="bigint" />
+          <Property Name="PopulationBlack" Type="bigint" />
+          <Property Name="PopulationNativeAmerican" Type="bigint" />
+          <Property Name="PopulationAsian" Type="bigint" />
+          <Property Name="PopulationHawaiian" Type="bigint" />
+          <Property Name="PopulationOtherRace" Type="bigint" />
+          <Property Name="PopulationMixedRace" Type="bigint" />
+          <Property Name="PopulationHispanic" Type="bigint" />
+          <Property Name="PopulationNonHispanic" Type="bigint" />
+          <Property Name="MedianHouseholdIncome" Type="bigint" />
+          <Property Name="TotalHouseholdExpenditure" Type="bigint" />
+          <Property Name="AverageHouseholdExpenditure" Type="float" />
+          <Property Name="MuseumsZoos" Type="bigint" />
+          <Property Name="Bars" Type="bigint" />
+          <Property Name="Restaurants" Type="bigint" />
+          <Property Name="WhiteCollarEmployees" Type="bigint" />
+          <Property Name="BlueCollarEmployees" Type="bigint" />
+          <Property Name="TotalEstablishments" Type="bigint" />
+          <Property Name="EstablishmentsEmployees1to4" Type="bigint" />
+          <Property Name="EstablishmentsEmployees5to9" Type="bigint" />
+          <Property Name="EstablishmentsEmployees10to19" Type="bigint" />
+          <Property Name="MedianAge" Type="float" />
+          <Property Name="MedianCommuteTime" Type="float" />
+          <Property Name="AverageCommuteTime" Type="float" />
+          <Property Name="AveragePropertyTax" Type="bigint" />
+          <Property Name="AverageAnnualTemperature" Type="float" />
+          <Property Name="AverageAnnualHighTemperature" Type="float" />
+          <Property Name="AverageAnnualLowTemperature" Type="float" />
+          <Property Name="AnnualRainfall" Type="float" />
+          <Property Name="AnnualSnowfall" Type="float" />
+          <Property Name="LaborForce" Type="bigint" />
+          <Property Name="LaborForceAge16Plus" Type="bigint" />
+          <Property Name="PopulationEmployed" Type="bigint" />
+          <Property Name="PopulationEmployedCurrentYear" Type="bigint" />
           <Property Name="PersonalIncomeTax" Type="float" />
           <Property Name="PersonalCapitalGainsTax" Type="float" />
           <Property Name="CorporateIncomeTax" Type="float" />
@@ -4728,6 +4874,7 @@
           <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="5" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="SEOKey" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="MetroGeography">
           <Key>
@@ -5279,6 +5426,18 @@
             </Principal>
             <Dependent Role="DemographicsByCounty">
               <PropertyRef Name="CountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DemographicsByMetro_Metro">
+          <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="1" />
+          <End Role="DemographicsByMetro" Type="SizeUp.Data.Store.DemographicsByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DemographicsByMetro">
+              <PropertyRef Name="MetroId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6059,26 +6218,6 @@
             <End Role="ZipCode" EntitySet="ZipCodes" />
             <End Role="ConsumerExpendituresByZip" EntitySet="ConsumerExpendituresByZips" />
           </AssociationSet>
-          <EntitySet Name="DemographicsByCities" EntityType="SizeUp.Data.DemographicsByCity" />
-          <EntitySet Name="DemographicsByCounties" EntityType="SizeUp.Data.DemographicsByCounty" />
-          <EntitySet Name="DemographicsByStates" EntityType="SizeUp.Data.DemographicsByState" />
-          <EntitySet Name="DemographicsByZips" EntityType="SizeUp.Data.DemographicsByZip" />
-          <AssociationSet Name="FK_DemographicsByCity_City" Association="SizeUp.Data.FK_DemographicsByCity_City">
-            <End Role="City" EntitySet="Cities" />
-            <End Role="DemographicsByCity" EntitySet="DemographicsByCities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DemographicsByCounty_County" Association="SizeUp.Data.FK_DemographicsByCounty_County">
-            <End Role="County" EntitySet="Counties" />
-            <End Role="DemographicsByCounty" EntitySet="DemographicsByCounties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DemographicsByState_State" Association="SizeUp.Data.FK_DemographicsByState_State">
-            <End Role="State" EntitySet="States" />
-            <End Role="DemographicsByState" EntitySet="DemographicsByStates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DemographicsByZip_Zip" Association="SizeUp.Data.FK_DemographicsByZip_Zip">
-            <End Role="ZipCode" EntitySet="ZipCodes" />
-            <End Role="DemographicsByZip" EntitySet="DemographicsByZips" />
-          </AssociationSet>
           <EntitySet Name="PlaceKeywords" EntityType="SizeUp.Data.PlaceKeyword" />
           <AssociationSet Name="FK_PlaceKeyword_Place" Association="SizeUp.Data.FK_PlaceKeyword_Place">
             <End Role="CityCountyMapping" EntitySet="CityCountyMappings" />
@@ -6093,6 +6232,31 @@
           <AssociationSet Name="FK_State_Division" Association="SizeUp.Data.FK_State_Division">
             <End Role="Division" EntitySet="Divisions" />
             <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <EntitySet Name="DemographicsByCities" EntityType="SizeUp.Data.DemographicsByCity" />
+          <EntitySet Name="DemographicsByCounties" EntityType="SizeUp.Data.DemographicsByCounty" />
+          <EntitySet Name="DemographicsByMetroes" EntityType="SizeUp.Data.DemographicsByMetro" />
+          <EntitySet Name="DemographicsByStates" EntityType="SizeUp.Data.DemographicsByState" />
+          <EntitySet Name="DemographicsByZips" EntityType="SizeUp.Data.DemographicsByZip" />
+          <AssociationSet Name="FK_DemographicsByCity_City" Association="SizeUp.Data.FK_DemographicsByCity_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="DemographicsByCity" EntitySet="DemographicsByCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DemographicsByCounty_County" Association="SizeUp.Data.FK_DemographicsByCounty_County">
+            <End Role="County" EntitySet="Counties" />
+            <End Role="DemographicsByCounty" EntitySet="DemographicsByCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DemographicsByMetro_Metro" Association="SizeUp.Data.FK_DemographicsByMetro_Metro">
+            <End Role="Metro" EntitySet="Metroes" />
+            <End Role="DemographicsByMetro" EntitySet="DemographicsByMetroes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DemographicsByState_State" Association="SizeUp.Data.FK_DemographicsByState_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="DemographicsByState" EntitySet="DemographicsByStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DemographicsByZip_Zip" Association="SizeUp.Data.FK_DemographicsByZip_Zip">
+            <End Role="ZipCode" EntitySet="ZipCodes" />
+            <End Role="DemographicsByZip" EntitySet="DemographicsByZips" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
@@ -6382,6 +6546,8 @@
           <NavigationProperty Name="MetroGeographies" Relationship="SizeUp.Data.FK_MetroGeography_Metro" FromRole="Metro" ToRole="MetroGeography" />
           <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_Metro" FromRole="Metro" ToRole="BusinessDataByCounty" />
           <NavigationProperty Name="IndustryDataByMetroes" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Metro" FromRole="Metro" ToRole="IndustryDataByMetro" />
+          <NavigationProperty Name="DemographicsByMetroes" Relationship="SizeUp.Data.FK_DemographicsByMetro_Metro" FromRole="Metro" ToRole="DemographicsByMetro" />
+          <Property Type="String" Name="SEOKey" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="MetroGeography">
           <Key>
@@ -6411,9 +6577,9 @@
           <NavigationProperty Name="BusinessDataByCounties" Relationship="SizeUp.Data.FK_BusinessDataByCounty_State" FromRole="State" ToRole="BusinessDataByCounty" />
           <NavigationProperty Name="IndustryDataByStates" Relationship="SizeUp.Data.FK_IndustryDataByState_State" FromRole="State" ToRole="IndustryDataByState" />
           <NavigationProperty Name="ConsumerExpendituresByStates" Relationship="SizeUp.Data.FK_ConsumerExpendituresByState_State" FromRole="State" ToRole="ConsumerExpendituresByState" />
-          <NavigationProperty Name="DemographicsByStates" Relationship="SizeUp.Data.FK_DemographicsByState_State" FromRole="State" ToRole="DemographicsByState" />
           <Property Type="Int64" Name="DivisionId" />
           <NavigationProperty Name="Division" Relationship="SizeUp.Data.FK_State_Division" FromRole="State" ToRole="Division" />
+          <NavigationProperty Name="DemographicsByStates" Relationship="SizeUp.Data.FK_DemographicsByState_State" FromRole="State" ToRole="DemographicsByState" />
         </EntityType>
         <EntityType Name="StateGeography">
           <Key>
@@ -11311,6 +11477,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PlaceKeyword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CityCountyMapping" Relationship="SizeUp.Data.FK_PlaceKeyword_Place" FromRole="PlaceKeyword" ToRole="CityCountyMapping" />
+        </EntityType>
+        <Association Name="FK_PlaceKeyword_Place">
+          <End Type="SizeUp.Data.CityCountyMapping" Role="CityCountyMapping" Multiplicity="1" />
+          <End Type="SizeUp.Data.PlaceKeyword" Role="PlaceKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityCountyMapping">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlaceKeyword">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="RegionId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Region" Relationship="SizeUp.Data.FK_Division_Region" FromRole="Division" ToRole="Region" />
+          <NavigationProperty Name="States" Relationship="SizeUp.Data.FK_State_Division" FromRole="Division" ToRole="State" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Divisions" Relationship="SizeUp.Data.FK_Division_Region" FromRole="Region" ToRole="Division" />
+        </EntityType>
+        <Association Name="FK_Division_Region">
+          <End Type="SizeUp.Data.Region" Role="Region" Multiplicity="1" />
+          <End Type="SizeUp.Data.Division" Role="Division" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Division">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Division">
+          <End Type="SizeUp.Data.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.State" Role="State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="DemographicsByCity">
           <Key>
             <PropertyRef Name="Id" />
@@ -11369,6 +11598,8 @@
           <Property Type="Int64" Name="EstablishmentsEmployees5to9" />
           <Property Type="Int64" Name="EstablishmentsEmployees10to19" />
           <Property Type="Double" Name="MedianAge" />
+          <Property Type="Double" Name="MedianCommuteTime" />
+          <Property Type="Double" Name="AverageCommuteTime" />
           <Property Type="Int64" Name="AveragePropertyTax" />
           <Property Type="Double" Name="AverageAnnualTemperature" />
           <Property Type="Double" Name="AverageAnnualHighTemperature" />
@@ -11401,6 +11632,14 @@
           <Property Type="Double" Name="HighSchoolOrHigherPercentage" />
           <Property Type="Double" Name="WhiteCollarWorkersPercentage" />
           <Property Type="Double" Name="BlueCollarWorkersPercentage" />
+          <Property Type="Double" Name="YoungEducatedPercentage" />
+          <Property Type="Double" Name="VeryCreativePercentage" />
+          <Property Type="Double" Name="CreativePercentage" />
+          <Property Type="Int64" Name="HomeValue" />
+          <Property Type="Double" Name="PropertyTax" />
+          <Property Type="Double" Name="InternationalTalent" />
+          <Property Type="Double" Name="JobGrowth" />
+          <Property Type="Double" Name="CommuteTime" />
           <Property Type="Int64" Name="TotalPopulation" />
           <Property Type="Int64" Name="PopulationAge25PlusBachelorsDegree" />
           <Property Type="Int64" Name="PopulationAge25PlusGraduateDegree" />
@@ -11444,6 +11683,77 @@
           <Property Type="Int64" Name="PopulationEmployedCurrentYear" />
           <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_DemographicsByCounty_County" FromRole="DemographicsByCounty" ToRole="County" />
         </EntityType>
+        <EntityType Name="DemographicsByMetro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int64" Name="MetroId" Nullable="false" />
+          <Property Type="Int32" Name="AirPortsWithinHalfMile" />
+          <Property Type="Int32" Name="AirPortsWithin50Miles" />
+          <Property Type="Int32" Name="TradeSchoolsWithinHalfMile" />
+          <Property Type="Int32" Name="TradeSchoolsWithin50Miles" />
+          <Property Type="Int32" Name="CommunityCollegesWithinHalfMile" />
+          <Property Type="Int32" Name="CommunityCollegesWithin50Miles" />
+          <Property Type="Int32" Name="UniversitiesWithinHalfMile" />
+          <Property Type="Int32" Name="UniversitiesWithin50Miles" />
+          <Property Type="Double" Name="BachelorsOrHigherPercentage" />
+          <Property Type="Double" Name="HighSchoolOrHigherPercentage" />
+          <Property Type="Double" Name="WhiteCollarWorkersPercentage" />
+          <Property Type="Double" Name="BlueCollarWorkersPercentage" />
+          <Property Type="Double" Name="YoungEducatedPercentage" />
+          <Property Type="Double" Name="VeryCreativePercentage" />
+          <Property Type="Double" Name="CreativePercentage" />
+          <Property Type="Int64" Name="HomeValue" />
+          <Property Type="Double" Name="PropertyTax" />
+          <Property Type="Double" Name="InternationalTalent" />
+          <Property Type="Double" Name="JobGrowth" />
+          <Property Type="Double" Name="CommuteTime" />
+          <Property Type="Int64" Name="TotalPopulation" />
+          <Property Type="Int64" Name="PopulationAge25PlusBachelorsDegree" />
+          <Property Type="Int64" Name="PopulationAge25PlusGraduateDegree" />
+          <Property Type="Int64" Name="PopulationAge25Plus" />
+          <Property Type="Int64" Name="PopulationAge25PlusHighSchoolGrad" />
+          <Property Type="Int64" Name="PopulationAge25PlusCollegeNoDiploma" />
+          <Property Type="Int64" Name="PopulationAge25PlusAssociatesDegree" />
+          <Property Type="Int64" Name="PopulationWhite" />
+          <Property Type="Int64" Name="PopulationBlack" />
+          <Property Type="Int64" Name="PopulationNativeAmerican" />
+          <Property Type="Int64" Name="PopulationAsian" />
+          <Property Type="Int64" Name="PopulationHawaiian" />
+          <Property Type="Int64" Name="PopulationOtherRace" />
+          <Property Type="Int64" Name="PopulationMixedRace" />
+          <Property Type="Int64" Name="PopulationHispanic" />
+          <Property Type="Int64" Name="PopulationNonHispanic" />
+          <Property Type="Int64" Name="MedianHouseholdIncome" />
+          <Property Type="Int64" Name="TotalHouseholdExpenditure" />
+          <Property Type="Double" Name="AverageHouseholdExpenditure" />
+          <Property Type="Int64" Name="MuseumsZoos" />
+          <Property Type="Int64" Name="Bars" />
+          <Property Type="Int64" Name="Restaurants" />
+          <Property Type="Int64" Name="WhiteCollarEmployees" />
+          <Property Type="Int64" Name="BlueCollarEmployees" />
+          <Property Type="Int64" Name="TotalEstablishments" />
+          <Property Type="Int64" Name="EstablishmentsEmployees1to4" />
+          <Property Type="Int64" Name="EstablishmentsEmployees5to9" />
+          <Property Type="Int64" Name="EstablishmentsEmployees10to19" />
+          <Property Type="Double" Name="MedianAge" />
+          <Property Type="Double" Name="MedianCommuteTime" />
+          <Property Type="Double" Name="AverageCommuteTime" />
+          <Property Type="Int64" Name="AveragePropertyTax" />
+          <Property Type="Double" Name="AverageAnnualTemperature" />
+          <Property Type="Double" Name="AverageAnnualHighTemperature" />
+          <Property Type="Double" Name="AverageAnnualLowTemperature" />
+          <Property Type="Double" Name="AnnualRainfall" />
+          <Property Type="Double" Name="AnnualSnowfall" />
+          <Property Type="Int64" Name="LaborForce" />
+          <Property Type="Int64" Name="LaborForceAge16Plus" />
+          <Property Type="Int64" Name="PopulationEmployed" />
+          <Property Type="Int64" Name="PopulationEmployedCurrentYear" />
+          <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_DemographicsByMetro_Metro" FromRole="DemographicsByMetro" ToRole="Metro" />
+        </EntityType>
         <EntityType Name="DemographicsByState">
           <Key>
             <PropertyRef Name="Id" />
@@ -11452,6 +11762,67 @@
           <Property Type="Int32" Name="Year" Nullable="false" />
           <Property Type="Int32" Name="Quarter" Nullable="false" />
           <Property Type="Int64" Name="StateId" Nullable="false" />
+          <Property Type="Int32" Name="AirPortsWithinHalfMile" />
+          <Property Type="Int32" Name="AirPortsWithin50Miles" />
+          <Property Type="Int32" Name="TradeSchoolsWithinHalfMile" />
+          <Property Type="Int32" Name="TradeSchoolsWithin50Miles" />
+          <Property Type="Int32" Name="CommunityCollegesWithinHalfMile" />
+          <Property Type="Int32" Name="CommunityCollegesWithin50Miles" />
+          <Property Type="Int32" Name="UniversitiesWithinHalfMile" />
+          <Property Type="Int32" Name="UniversitiesWithin50Miles" />
+          <Property Type="Double" Name="BachelorsOrHigherPercentage" />
+          <Property Type="Double" Name="HighSchoolOrHigherPercentage" />
+          <Property Type="Double" Name="WhiteCollarWorkersPercentage" />
+          <Property Type="Double" Name="BlueCollarWorkersPercentage" />
+          <Property Type="Double" Name="YoungEducatedPercentage" />
+          <Property Type="Double" Name="VeryCreativePercentage" />
+          <Property Type="Double" Name="CreativePercentage" />
+          <Property Type="Int64" Name="HomeValue" />
+          <Property Type="Double" Name="PropertyTax" />
+          <Property Type="Double" Name="InternationalTalent" />
+          <Property Type="Double" Name="JobGrowth" />
+          <Property Type="Double" Name="CommuteTime" />
+          <Property Type="Int64" Name="TotalPopulation" />
+          <Property Type="Int64" Name="PopulationAge25PlusBachelorsDegree" />
+          <Property Type="Int64" Name="PopulationAge25PlusGraduateDegree" />
+          <Property Type="Int64" Name="PopulationAge25Plus" />
+          <Property Type="Int64" Name="PopulationAge25PlusHighSchoolGrad" />
+          <Property Type="Int64" Name="PopulationAge25PlusCollegeNoDiploma" />
+          <Property Type="Int64" Name="PopulationAge25PlusAssociatesDegree" />
+          <Property Type="Int64" Name="PopulationWhite" />
+          <Property Type="Int64" Name="PopulationBlack" />
+          <Property Type="Int64" Name="PopulationNativeAmerican" />
+          <Property Type="Int64" Name="PopulationAsian" />
+          <Property Type="Int64" Name="PopulationHawaiian" />
+          <Property Type="Int64" Name="PopulationOtherRace" />
+          <Property Type="Int64" Name="PopulationMixedRace" />
+          <Property Type="Int64" Name="PopulationHispanic" />
+          <Property Type="Int64" Name="PopulationNonHispanic" />
+          <Property Type="Int64" Name="MedianHouseholdIncome" />
+          <Property Type="Int64" Name="TotalHouseholdExpenditure" />
+          <Property Type="Double" Name="AverageHouseholdExpenditure" />
+          <Property Type="Int64" Name="MuseumsZoos" />
+          <Property Type="Int64" Name="Bars" />
+          <Property Type="Int64" Name="Restaurants" />
+          <Property Type="Int64" Name="WhiteCollarEmployees" />
+          <Property Type="Int64" Name="BlueCollarEmployees" />
+          <Property Type="Int64" Name="TotalEstablishments" />
+          <Property Type="Int64" Name="EstablishmentsEmployees1to4" />
+          <Property Type="Int64" Name="EstablishmentsEmployees5to9" />
+          <Property Type="Int64" Name="EstablishmentsEmployees10to19" />
+          <Property Type="Double" Name="MedianAge" />
+          <Property Type="Double" Name="MedianCommuteTime" />
+          <Property Type="Double" Name="AverageCommuteTime" />
+          <Property Type="Int64" Name="AveragePropertyTax" />
+          <Property Type="Double" Name="AverageAnnualTemperature" />
+          <Property Type="Double" Name="AverageAnnualHighTemperature" />
+          <Property Type="Double" Name="AverageAnnualLowTemperature" />
+          <Property Type="Double" Name="AnnualRainfall" />
+          <Property Type="Double" Name="AnnualSnowfall" />
+          <Property Type="Int64" Name="LaborForce" />
+          <Property Type="Int64" Name="LaborForceAge16Plus" />
+          <Property Type="Int64" Name="PopulationEmployed" />
+          <Property Type="Int64" Name="PopulationEmployedCurrentYear" />
           <Property Type="Double" Name="PersonalIncomeTax" />
           <Property Type="Double" Name="PersonalCapitalGainsTax" />
           <Property Type="Double" Name="CorporateIncomeTax" />
@@ -11538,6 +11909,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DemographicsByMetro_Metro">
+          <End Type="SizeUp.Data.Metro" Role="Metro" Multiplicity="1" />
+          <End Type="SizeUp.Data.DemographicsByMetro" Role="DemographicsByMetro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DemographicsByMetro">
+              <PropertyRef Name="MetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DemographicsByState_State">
           <End Type="SizeUp.Data.State" Role="State" Multiplicity="1" />
           <End Type="SizeUp.Data.DemographicsByState" Role="DemographicsByState" Multiplicity="*" />
@@ -11559,69 +11942,6 @@
             </Principal>
             <Dependent Role="DemographicsByZip">
               <PropertyRef Name="ZipCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="PlaceKeyword">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="PlaceId" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CityCountyMapping" Relationship="SizeUp.Data.FK_PlaceKeyword_Place" FromRole="PlaceKeyword" ToRole="CityCountyMapping" />
-        </EntityType>
-        <Association Name="FK_PlaceKeyword_Place">
-          <End Type="SizeUp.Data.CityCountyMapping" Role="CityCountyMapping" Multiplicity="1" />
-          <End Type="SizeUp.Data.PlaceKeyword" Role="PlaceKeyword" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CityCountyMapping">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PlaceKeyword">
-              <PropertyRef Name="PlaceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Division">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="RegionId" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Region" Relationship="SizeUp.Data.FK_Division_Region" FromRole="Division" ToRole="Region" />
-          <NavigationProperty Name="States" Relationship="SizeUp.Data.FK_State_Division" FromRole="Division" ToRole="State" />
-        </EntityType>
-        <EntityType Name="Region">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Divisions" Relationship="SizeUp.Data.FK_Division_Region" FromRole="Region" ToRole="Division" />
-        </EntityType>
-        <Association Name="FK_Division_Region">
-          <End Type="SizeUp.Data.Region" Role="Region" Multiplicity="1" />
-          <End Type="SizeUp.Data.Division" Role="Division" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Region">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Division">
-              <PropertyRef Name="RegionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_State_Division">
-          <End Type="SizeUp.Data.Division" Role="Division" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.State" Role="State" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Division">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="State">
-              <PropertyRef Name="DivisionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -11817,6 +12137,7 @@
           <EntitySetMapping Name="Metroes">
             <EntityTypeMapping TypeName="SizeUp.Data.Metro">
               <MappingFragment StoreEntitySet="Metro">
+                <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FIPS" ColumnName="FIPS" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -15933,6 +16254,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PlaceKeywords">
+            <EntityTypeMapping TypeName="SizeUp.Data.PlaceKeyword">
+              <MappingFragment StoreEntitySet="PlaceKeyword">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="SizeUp.Data.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="SizeUp.Data.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DemographicsByCities">
             <EntityTypeMapping TypeName="SizeUp.Data.DemographicsByCity">
               <MappingFragment StoreEntitySet="DemographicsByCity">
@@ -15946,6 +16293,8 @@
                 <ScalarProperty Name="AverageAnnualHighTemperature" ColumnName="AverageAnnualHighTemperature" />
                 <ScalarProperty Name="AverageAnnualTemperature" ColumnName="AverageAnnualTemperature" />
                 <ScalarProperty Name="AveragePropertyTax" ColumnName="AveragePropertyTax" />
+                <ScalarProperty Name="AverageCommuteTime" ColumnName="AverageCommuteTime" />
+                <ScalarProperty Name="MedianCommuteTime" ColumnName="MedianCommuteTime" />
                 <ScalarProperty Name="MedianAge" ColumnName="MedianAge" />
                 <ScalarProperty Name="EstablishmentsEmployees10to19" ColumnName="EstablishmentsEmployees10to19" />
                 <ScalarProperty Name="EstablishmentsEmployees5to9" ColumnName="EstablishmentsEmployees5to9" />
@@ -16047,6 +16396,14 @@
                 <ScalarProperty Name="PopulationAge25PlusGraduateDegree" ColumnName="PopulationAge25PlusGraduateDegree" />
                 <ScalarProperty Name="PopulationAge25PlusBachelorsDegree" ColumnName="PopulationAge25PlusBachelorsDegree" />
                 <ScalarProperty Name="TotalPopulation" ColumnName="TotalPopulation" />
+                <ScalarProperty Name="CommuteTime" ColumnName="CommuteTime" />
+                <ScalarProperty Name="JobGrowth" ColumnName="JobGrowth" />
+                <ScalarProperty Name="InternationalTalent" ColumnName="InternationalTalent" />
+                <ScalarProperty Name="PropertyTax" ColumnName="PropertyTax" />
+                <ScalarProperty Name="HomeValue" ColumnName="HomeValue" />
+                <ScalarProperty Name="CreativePercentage" ColumnName="CreativePercentage" />
+                <ScalarProperty Name="VeryCreativePercentage" ColumnName="VeryCreativePercentage" />
+                <ScalarProperty Name="YoungEducatedPercentage" ColumnName="YoungEducatedPercentage" />
                 <ScalarProperty Name="BlueCollarWorkersPercentage" ColumnName="BlueCollarWorkersPercentage" />
                 <ScalarProperty Name="WhiteCollarWorkersPercentage" ColumnName="WhiteCollarWorkersPercentage" />
                 <ScalarProperty Name="HighSchoolOrHigherPercentage" ColumnName="HighSchoolOrHigherPercentage" />
@@ -16066,6 +16423,77 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DemographicsByMetroes">
+            <EntityTypeMapping TypeName="SizeUp.Data.DemographicsByMetro">
+              <MappingFragment StoreEntitySet="DemographicsByMetro">
+                <ScalarProperty Name="PopulationEmployedCurrentYear" ColumnName="PopulationEmployedCurrentYear" />
+                <ScalarProperty Name="PopulationEmployed" ColumnName="PopulationEmployed" />
+                <ScalarProperty Name="LaborForceAge16Plus" ColumnName="LaborForceAge16Plus" />
+                <ScalarProperty Name="LaborForce" ColumnName="LaborForce" />
+                <ScalarProperty Name="AnnualSnowfall" ColumnName="AnnualSnowfall" />
+                <ScalarProperty Name="AnnualRainfall" ColumnName="AnnualRainfall" />
+                <ScalarProperty Name="AverageAnnualLowTemperature" ColumnName="AverageAnnualLowTemperature" />
+                <ScalarProperty Name="AverageAnnualHighTemperature" ColumnName="AverageAnnualHighTemperature" />
+                <ScalarProperty Name="AverageAnnualTemperature" ColumnName="AverageAnnualTemperature" />
+                <ScalarProperty Name="AveragePropertyTax" ColumnName="AveragePropertyTax" />
+                <ScalarProperty Name="AverageCommuteTime" ColumnName="AverageCommuteTime" />
+                <ScalarProperty Name="MedianCommuteTime" ColumnName="MedianCommuteTime" />
+                <ScalarProperty Name="MedianAge" ColumnName="MedianAge" />
+                <ScalarProperty Name="EstablishmentsEmployees10to19" ColumnName="EstablishmentsEmployees10to19" />
+                <ScalarProperty Name="EstablishmentsEmployees5to9" ColumnName="EstablishmentsEmployees5to9" />
+                <ScalarProperty Name="EstablishmentsEmployees1to4" ColumnName="EstablishmentsEmployees1to4" />
+                <ScalarProperty Name="TotalEstablishments" ColumnName="TotalEstablishments" />
+                <ScalarProperty Name="BlueCollarEmployees" ColumnName="BlueCollarEmployees" />
+                <ScalarProperty Name="WhiteCollarEmployees" ColumnName="WhiteCollarEmployees" />
+                <ScalarProperty Name="Restaurants" ColumnName="Restaurants" />
+                <ScalarProperty Name="Bars" ColumnName="Bars" />
+                <ScalarProperty Name="MuseumsZoos" ColumnName="MuseumsZoos" />
+                <ScalarProperty Name="AverageHouseholdExpenditure" ColumnName="AverageHouseholdExpenditure" />
+                <ScalarProperty Name="TotalHouseholdExpenditure" ColumnName="TotalHouseholdExpenditure" />
+                <ScalarProperty Name="MedianHouseholdIncome" ColumnName="MedianHouseholdIncome" />
+                <ScalarProperty Name="PopulationNonHispanic" ColumnName="PopulationNonHispanic" />
+                <ScalarProperty Name="PopulationHispanic" ColumnName="PopulationHispanic" />
+                <ScalarProperty Name="PopulationMixedRace" ColumnName="PopulationMixedRace" />
+                <ScalarProperty Name="PopulationOtherRace" ColumnName="PopulationOtherRace" />
+                <ScalarProperty Name="PopulationHawaiian" ColumnName="PopulationHawaiian" />
+                <ScalarProperty Name="PopulationAsian" ColumnName="PopulationAsian" />
+                <ScalarProperty Name="PopulationNativeAmerican" ColumnName="PopulationNativeAmerican" />
+                <ScalarProperty Name="PopulationBlack" ColumnName="PopulationBlack" />
+                <ScalarProperty Name="PopulationWhite" ColumnName="PopulationWhite" />
+                <ScalarProperty Name="PopulationAge25PlusAssociatesDegree" ColumnName="PopulationAge25PlusAssociatesDegree" />
+                <ScalarProperty Name="PopulationAge25PlusCollegeNoDiploma" ColumnName="PopulationAge25PlusCollegeNoDiploma" />
+                <ScalarProperty Name="PopulationAge25PlusHighSchoolGrad" ColumnName="PopulationAge25PlusHighSchoolGrad" />
+                <ScalarProperty Name="PopulationAge25Plus" ColumnName="PopulationAge25Plus" />
+                <ScalarProperty Name="PopulationAge25PlusGraduateDegree" ColumnName="PopulationAge25PlusGraduateDegree" />
+                <ScalarProperty Name="PopulationAge25PlusBachelorsDegree" ColumnName="PopulationAge25PlusBachelorsDegree" />
+                <ScalarProperty Name="TotalPopulation" ColumnName="TotalPopulation" />
+                <ScalarProperty Name="CommuteTime" ColumnName="CommuteTime" />
+                <ScalarProperty Name="JobGrowth" ColumnName="JobGrowth" />
+                <ScalarProperty Name="InternationalTalent" ColumnName="InternationalTalent" />
+                <ScalarProperty Name="PropertyTax" ColumnName="PropertyTax" />
+                <ScalarProperty Name="HomeValue" ColumnName="HomeValue" />
+                <ScalarProperty Name="CreativePercentage" ColumnName="CreativePercentage" />
+                <ScalarProperty Name="VeryCreativePercentage" ColumnName="VeryCreativePercentage" />
+                <ScalarProperty Name="YoungEducatedPercentage" ColumnName="YoungEducatedPercentage" />
+                <ScalarProperty Name="BlueCollarWorkersPercentage" ColumnName="BlueCollarWorkersPercentage" />
+                <ScalarProperty Name="WhiteCollarWorkersPercentage" ColumnName="WhiteCollarWorkersPercentage" />
+                <ScalarProperty Name="HighSchoolOrHigherPercentage" ColumnName="HighSchoolOrHigherPercentage" />
+                <ScalarProperty Name="BachelorsOrHigherPercentage" ColumnName="BachelorsOrHigherPercentage" />
+                <ScalarProperty Name="UniversitiesWithin50Miles" ColumnName="UniversitiesWithin50Miles" />
+                <ScalarProperty Name="UniversitiesWithinHalfMile" ColumnName="UniversitiesWithinHalfMile" />
+                <ScalarProperty Name="CommunityCollegesWithin50Miles" ColumnName="CommunityCollegesWithin50Miles" />
+                <ScalarProperty Name="CommunityCollegesWithinHalfMile" ColumnName="CommunityCollegesWithinHalfMile" />
+                <ScalarProperty Name="TradeSchoolsWithin50Miles" ColumnName="TradeSchoolsWithin50Miles" />
+                <ScalarProperty Name="TradeSchoolsWithinHalfMile" ColumnName="TradeSchoolsWithinHalfMile" />
+                <ScalarProperty Name="AirPortsWithin50Miles" ColumnName="AirPortsWithin50Miles" />
+                <ScalarProperty Name="AirPortsWithinHalfMile" ColumnName="AirPortsWithinHalfMile" />
+                <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DemographicsByStates">
             <EntityTypeMapping TypeName="SizeUp.Data.DemographicsByState">
               <MappingFragment StoreEntitySet="DemographicsByState">
@@ -16074,6 +16502,67 @@
                 <ScalarProperty Name="CorporateIncomeTax" ColumnName="CorporateIncomeTax" />
                 <ScalarProperty Name="PersonalCapitalGainsTax" ColumnName="PersonalCapitalGainsTax" />
                 <ScalarProperty Name="PersonalIncomeTax" ColumnName="PersonalIncomeTax" />
+                <ScalarProperty Name="PopulationEmployedCurrentYear" ColumnName="PopulationEmployedCurrentYear" />
+                <ScalarProperty Name="PopulationEmployed" ColumnName="PopulationEmployed" />
+                <ScalarProperty Name="LaborForceAge16Plus" ColumnName="LaborForceAge16Plus" />
+                <ScalarProperty Name="LaborForce" ColumnName="LaborForce" />
+                <ScalarProperty Name="AnnualSnowfall" ColumnName="AnnualSnowfall" />
+                <ScalarProperty Name="AnnualRainfall" ColumnName="AnnualRainfall" />
+                <ScalarProperty Name="AverageAnnualLowTemperature" ColumnName="AverageAnnualLowTemperature" />
+                <ScalarProperty Name="AverageAnnualHighTemperature" ColumnName="AverageAnnualHighTemperature" />
+                <ScalarProperty Name="AverageAnnualTemperature" ColumnName="AverageAnnualTemperature" />
+                <ScalarProperty Name="AveragePropertyTax" ColumnName="AveragePropertyTax" />
+                <ScalarProperty Name="AverageCommuteTime" ColumnName="AverageCommuteTime" />
+                <ScalarProperty Name="MedianCommuteTime" ColumnName="MedianCommuteTime" />
+                <ScalarProperty Name="MedianAge" ColumnName="MedianAge" />
+                <ScalarProperty Name="EstablishmentsEmployees10to19" ColumnName="EstablishmentsEmployees10to19" />
+                <ScalarProperty Name="EstablishmentsEmployees5to9" ColumnName="EstablishmentsEmployees5to9" />
+                <ScalarProperty Name="EstablishmentsEmployees1to4" ColumnName="EstablishmentsEmployees1to4" />
+                <ScalarProperty Name="TotalEstablishments" ColumnName="TotalEstablishments" />
+                <ScalarProperty Name="BlueCollarEmployees" ColumnName="BlueCollarEmployees" />
+                <ScalarProperty Name="WhiteCollarEmployees" ColumnName="WhiteCollarEmployees" />
+                <ScalarProperty Name="Restaurants" ColumnName="Restaurants" />
+                <ScalarProperty Name="Bars" ColumnName="Bars" />
+                <ScalarProperty Name="MuseumsZoos" ColumnName="MuseumsZoos" />
+                <ScalarProperty Name="AverageHouseholdExpenditure" ColumnName="AverageHouseholdExpenditure" />
+                <ScalarProperty Name="TotalHouseholdExpenditure" ColumnName="TotalHouseholdExpenditure" />
+                <ScalarProperty Name="MedianHouseholdIncome" ColumnName="MedianHouseholdIncome" />
+                <ScalarProperty Name="PopulationNonHispanic" ColumnName="PopulationNonHispanic" />
+                <ScalarProperty Name="PopulationHispanic" ColumnName="PopulationHispanic" />
+                <ScalarProperty Name="PopulationMixedRace" ColumnName="PopulationMixedRace" />
+                <ScalarProperty Name="PopulationOtherRace" ColumnName="PopulationOtherRace" />
+                <ScalarProperty Name="PopulationHawaiian" ColumnName="PopulationHawaiian" />
+                <ScalarProperty Name="PopulationAsian" ColumnName="PopulationAsian" />
+                <ScalarProperty Name="PopulationNativeAmerican" ColumnName="PopulationNativeAmerican" />
+                <ScalarProperty Name="PopulationBlack" ColumnName="PopulationBlack" />
+                <ScalarProperty Name="PopulationWhite" ColumnName="PopulationWhite" />
+                <ScalarProperty Name="PopulationAge25PlusAssociatesDegree" ColumnName="PopulationAge25PlusAssociatesDegree" />
+                <ScalarProperty Name="PopulationAge25PlusCollegeNoDiploma" ColumnName="PopulationAge25PlusCollegeNoDiploma" />
+                <ScalarProperty Name="PopulationAge25PlusHighSchoolGrad" ColumnName="PopulationAge25PlusHighSchoolGrad" />
+                <ScalarProperty Name="PopulationAge25Plus" ColumnName="PopulationAge25Plus" />
+                <ScalarProperty Name="PopulationAge25PlusGraduateDegree" ColumnName="PopulationAge25PlusGraduateDegree" />
+                <ScalarProperty Name="PopulationAge25PlusBachelorsDegree" ColumnName="PopulationAge25PlusBachelorsDegree" />
+                <ScalarProperty Name="TotalPopulation" ColumnName="TotalPopulation" />
+                <ScalarProperty Name="CommuteTime" ColumnName="CommuteTime" />
+                <ScalarProperty Name="JobGrowth" ColumnName="JobGrowth" />
+                <ScalarProperty Name="InternationalTalent" ColumnName="InternationalTalent" />
+                <ScalarProperty Name="PropertyTax" ColumnName="PropertyTax" />
+                <ScalarProperty Name="HomeValue" ColumnName="HomeValue" />
+                <ScalarProperty Name="CreativePercentage" ColumnName="CreativePercentage" />
+                <ScalarProperty Name="VeryCreativePercentage" ColumnName="VeryCreativePercentage" />
+                <ScalarProperty Name="YoungEducatedPercentage" ColumnName="YoungEducatedPercentage" />
+                <ScalarProperty Name="BlueCollarWorkersPercentage" ColumnName="BlueCollarWorkersPercentage" />
+                <ScalarProperty Name="WhiteCollarWorkersPercentage" ColumnName="WhiteCollarWorkersPercentage" />
+                <ScalarProperty Name="HighSchoolOrHigherPercentage" ColumnName="HighSchoolOrHigherPercentage" />
+                <ScalarProperty Name="BachelorsOrHigherPercentage" ColumnName="BachelorsOrHigherPercentage" />
+                <ScalarProperty Name="UniversitiesWithin50Miles" ColumnName="UniversitiesWithin50Miles" />
+                <ScalarProperty Name="UniversitiesWithinHalfMile" ColumnName="UniversitiesWithinHalfMile" />
+                <ScalarProperty Name="CommunityCollegesWithin50Miles" ColumnName="CommunityCollegesWithin50Miles" />
+                <ScalarProperty Name="CommunityCollegesWithinHalfMile" ColumnName="CommunityCollegesWithinHalfMile" />
+                <ScalarProperty Name="TradeSchoolsWithin50Miles" ColumnName="TradeSchoolsWithin50Miles" />
+                <ScalarProperty Name="TradeSchoolsWithinHalfMile" ColumnName="TradeSchoolsWithinHalfMile" />
+                <ScalarProperty Name="AirPortsWithin50Miles" ColumnName="AirPortsWithin50Miles" />
+                <ScalarProperty Name="AirPortsWithinHalfMile" ColumnName="AirPortsWithinHalfMile" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
@@ -16132,32 +16621,6 @@
                 <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlaceKeywords">
-            <EntityTypeMapping TypeName="SizeUp.Data.PlaceKeyword">
-              <MappingFragment StoreEntitySet="PlaceKeyword">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Divisions">
-            <EntityTypeMapping TypeName="SizeUp.Data.Division">
-              <MappingFragment StoreEntitySet="Division">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="SizeUp.Data.Region">
-              <MappingFragment StoreEntitySet="Region">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

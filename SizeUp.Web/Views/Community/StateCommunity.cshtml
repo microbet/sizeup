@@ -1,0 +1,110 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>
+    @ViewBag.CurrentInfo.CurrentPlace.State.Name – Demographic and Business Profile – population, industries, labor force, business, relocation, real estate, map, taxes, transportation, quality of life
+</title>
+
+
+
+
+<link href="@Url.Content("~/Content/views/community/community.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
+
+
+
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/stateCommunity.js")"></script>
+
+}
+
+
+<div id="community">
+    <h1>Community Details for @ViewBag.CurrentInfo.CurrentPlace.State.Name</h1>
+    <div class="map"></div>
+    <div class="loading">
+        <p class="title">Community Demographics Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+
+    <div class="report wrapper hidden">
+        <div data-template="demographics">
+            <div class="col">
+                <h2>People</h2>
+                <ul>
+                    <li><span class="label">Population:</span><span class="value">{{#Population}}{{Population}}{{/Population}}{{^Population}}No Data{{/Population}}</span></li>
+                    <li><span class="label">Labor Force:</span><span class="value">{{#LaborForce}}{{LaborForce}}{{/LaborForce}}{{^LaborForce}}No Data{{/LaborForce}}</span></li>
+                    <li><span class="label">Small Businesses:</span><span class="value">{{#SmallBusinesses}}{{SmallBusinesses}}{{/SmallBusinesses}}{{^SmallBusinesses}}No Data{{/SmallBusinesses}}</span></li>
+                    <li><span class="label">Job Growth (2000-2010):</span><span class="value">{{#JobGrowth}}{{JobGrowth}}{{/JobGrowth}}{{^JobGrowth}}No Data{{/JobGrowth}}</span></li>
+                    <li><span class="label">Unemployment Rate:</span><span class="value">{{#Unemployment}}{{Unemployment}}{{/Unemployment}}{{^Unemployment}}No Data{{/Unemployment}}</span></li>
+                    <li><span class="label">Median Age:</span><span class="value">{{#MedianAge}}{{MedianAge}}{{/MedianAge}}{{^MedianAge}}No Data{{/MedianAge}}</span></li>
+                </ul>
+                <h2>Budgets</h2>
+                <ul>
+                    <li><span class="label">Household Expenditures (Average):</span><span class="value">{{#AverageHouseholdExpenditures}}{{AverageHouseholdExpenditures}}{{/AverageHouseholdExpenditures}}{{^AverageHouseholdExpenditures}}No Data{{/AverageHouseholdExpenditures}}</span></li>
+                    <li><span class="label">Household Income:</span><span class="value">{{#HouseholdIncome}}{{HouseholdIncome}}{{/HouseholdIncome}}{{^HouseholdIncome}}No Data{{/HouseholdIncome}}</span></li>
+                    <li><span class="label">Top State Personal Income Tax:</span><span class="value">{{#PersonalIncomeTax}}{{PersonalIncomeTax}}{{/PersonalIncomeTax}}{{^PersonalIncomeTax}}No Data{{/PersonalIncomeTax}}</span></li>
+                    <li><span class="label">Top State Personal Capital Gains Tax:</span><span class="value">{{#PersonalCapitalGainsTax}}{{PersonalCapitalGainsTax}}{{/PersonalCapitalGainsTax}}{{^PersonalCapitalGainsTax}}No Data{{/PersonalCapitalGainsTax}}</span></li>
+                    <li><span class="label">Top State Corporate Income Tax:</span><span class="value">{{#CorporateIncomeTax}}{{CorporateIncomeTax}}{{/CorporateIncomeTax}}{{^CorporateIncomeTax}}No Data{{/CorporateIncomeTax}}</span></li>
+                    <li><span class="label">Top State Corporate Capital Gains Tax:</span><span class="value">{{#CorporateCapitalGainsTax}}{{CorporateCapitalGainsTax}}{{/CorporateCapitalGainsTax}}{{^CorporateCapitalGainsTax}}No Data{{/CorporateCapitalGainsTax}}</span></li>
+                    <li><span class="label">State Sales Tax:</span><span class="value">{{#SalesTax}}{{SalesTax}}{{/SalesTax}}{{^SalesTax}}No Data{{/SalesTax}}</span></li>
+                    <li><span class="label">Property Tax:</span><span class="value">{{#PropertyTax}}{{PropertyTax}}{{/PropertyTax}}{{^PropertyTax}}No Data{{/PropertyTax}}</span></li>            
+                    <li><span class="label">Home Value:</span><span class="value">{{#HomeValue}}{{HomeValue}}{{/HomeValue}}{{^HomeValue}}No Data{{/HomeValue}}</span></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h2>Labor Force Quality</h2>
+                <ul>
+                    <li><span class="label">Bachelors Degree or Higher:</span><span class="value">{{#BachelorsOrHigherPercentage}}{{BachelorsOrHigherPercentage}}{{/BachelorsOrHigherPercentage}}{{^BachelorsOrHigherPercentage}}No Data{{/BachelorsOrHigherPercentage}}</span></li>
+                    <li><span class="label">Highschool Degree or Highere:</span><span class="value">{{#HighschoolOrHigherPercentage}}{{HighschoolOrHigherPercentage}}{{/HighschoolOrHigherPercentage}}{{^HighschoolOrHigherPercentage}}No Data{{/HighschoolOrHigherPercentage}}</span></li>
+                    <li><span class="label">White Collar Workers:</span><span class="value">{{#WhiteCollarWorkersPercentage}}{{WhiteCollarWorkersPercentage}}{{/WhiteCollarWorkersPercentage}}{{^WhiteCollarWorkersPercentage}}No Data{{/WhiteCollarWorkersPercentage}}</span></li>
+                    <li><span class="label">Blue Collar Workers:</span><span class="value">{{#BlueCollarWorkersPercentage}}{{BlueCollarWorkersPercentage}}{{/BlueCollarWorkersPercentage}}{{^BlueCollarWorkersPercentage}}No Data{{/BlueCollarWorkersPercentage}}</span></li>
+                    <li><span class="label">Very Creative Professionals:</span><span class="value">{{#VeryCreativeProfessionalsPercentage}}{{VeryCreativeProfessionalsPercentage}}{{/VeryCreativeProfessionalsPercentage}}{{^VeryCreativeProfessionalsPercentage}}No Data{{/VeryCreativeProfessionalsPercentage}}</span></li>
+                    <li><span class="label">Creative Professionals:</span><span class="value">{{#CreativeProfessionalsPercentage}}{{CreativeProfessionalsPercentage}}{{/CreativeProfessionalsPercentage}}{{^CreativeProfessionalsPercentage}}No Data{{/CreativeProfessionalsPercentage}}</span></li>
+                    <li><span class="label">Young and Educated:</span><span class="value">{{#YoungEducatedPercentage}}{{YoungEducatedPercentage}}{{/YoungEducatedPercentage}}{{^YoungEducatedPercentage}}No Data{{/YoungEducatedPercentage}}</span></li>
+                    <li><span class="label">International Talent:</span><span class="value">{{#InternationalTalentPercentage}}{{InternationalTalentPercentage}}{{/InternationalTalentPercentage}}{{^InternationalTalentPercentage}}No Data{{/InternationalTalentPercentage}}</span></li>
+                    <li><span class="label">Universities in Community:</span><span class="value">{{#Universities}}{{Universities}}{{/Universities}}{{^Universities}}No Data{{/Universities}}</span></li>
+                    <li><span class="label">Universities in County + 50 miles:</span><span class="value">{{#Universities50Miles}}{{Universities50Miles}}{{/Universities50Miles}}{{^Universities50Miles}}No Data{{/Universities50Miles}}</span></li>
+                    <li><span class="label">Commute Time:</span><span class="value">{{#CommuteTime}}{{CommuteTime}}{{/CommuteTime}}{{^CommuteTime}}No Data{{/CommuteTime}}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+@section scripts{
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
+        var driver = new sizeup.views.community.stateCommunity(opts);
+    });
+</script>
+}

@@ -83,13 +83,32 @@
             getCounty: function (params, callback) {
                 return get('/api/county/', params, callback);
             },
-            
+            getCountyBoundingBox: function (params, callback) {
+                return get('/api/county/boundingbox/', params, callback);
+            },
+            getCountyCentroid: function (params, callback) {
+                return get('/api/county/centroid/', params, callback);
+            },
+
             getMetro: function (params, callback) {
                 return get('/api/metro/', params, callback);
             },
+            getMetroBoundingBox: function (params, callback) {
+                return get('/api/metro/boundingbox/', params, callback);
+            },
+            getMetroCentroid: function (params, callback) {
+                return get('/api/metro/centroid/', params, callback);
+            },
+
 
             getState: function (params, callback) {
                 return get('/api/state/', params, callback);
+            },
+            getStateBoundingBox: function (params, callback) {
+                return get('/api/state/boundingbox/', params, callback);
+            },
+            getStateCentroid: function (params, callback) {
+                return get('/api/state/centroid/', params, callback);
             },
 
             getBusiness: function (params, callback) {
@@ -321,8 +340,20 @@
                 return get('/api/Advertising/MinimumDistance', params, callback);
             },
 
-            getDemographics: function (params, callback) {
-                return get('/api/demographics/', params, callback);
+            getCityDemographics: function (params, callback) {
+                return get('/api/demographics/city', params, callback);
+            },
+
+            getCountyDemographics: function (params, callback) {
+                return get('/api/demographics/county', params, callback);
+            },
+
+            getMetroDemographics: function (params, callback) {
+                return get('/api/demographics/metro', params, callback);
+            },
+
+            getStateDemographics: function (params, callback) {
+                return get('/api/demographics/state', params, callback);
             },
 
             getDashboardValues: function (callback) {

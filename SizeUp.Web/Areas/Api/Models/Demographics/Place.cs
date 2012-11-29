@@ -7,7 +7,7 @@ namespace SizeUp.Web.Areas.Api.Models.Demographics
 {
     public class Place
     {
-        public long PlaceId { get; set; }
+        public long Id { get; set; }
         public long? Population { get; set; }
         public long? LaborForce { get; set; }
         public double? JobGrowth { get; set; }
