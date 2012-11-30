@@ -66,13 +66,24 @@
 
             me.content.filters = {};
             me.content.filters.sliders = {};
-            me.content.filters.placeTypeOption = me.content.container.find('#placeTypeOption');
+           // me.content.filters.placeTypeOption = me.content.container.find('#placeTypeOption');
 
 
-
-            me.content.attributeMenu = me.content.container.find('#attributeMenu').chosen();
-            me.content.regionMenu = me.content.container.find('#regionMenu').chosen();
-           
+            me.content.attributeMenu = new sizeup.controls.selectList({
+                select: me.content.container.find('#attributeMenu'),
+                onChange: function () { attributeMenuChanged(); }
+            });
+            me.content.regionMenu = new sizeup.controls.selectList({
+                select: me.content.container.find('#regionMenu'),
+                onChange: function () { regionMenuChanged(); }
+            });
+            me.content.placeTypeMenu = new sizeup.controls.selectList({
+                select: me.content.container.find('#placeTypeMenu'),
+                onChange: function () { placeTypeMenuChanged(); }
+            });
+            //me.content.attributeMenu = me.content.container.find('#attributeMenu').chosen();
+            //me.content.regionMenu = me.content.container.find('#regionMenu').chosen();
+            //me.content.placeTypeMenu = me.content.container.find('#placeTypeMenu').chosen();
 
 
             for (var x in filterVars) {
@@ -88,24 +99,16 @@
 
 
             //init state
-            me.content.filters.placeTypeOption.find('input[data-index=' + params.placeType + ']').attr('checked', 'checked');
-            me.content.attributeMenu.val(params.attribute);
-            me.content.attributeMenu.trigger('liszt:updated');
+            me.content.placeTypeMenu.setValue(params.placeType);
+            me.content.attributeMenu.setValue(params.attribute);
+   
             if (params.regionId) {
-                me.content.regionMenu.val('r' + params.regionId);
+                me.content.regionMenu.setValue('r' + params.regionId);
             }
             if (params.stateId) {
-                me.content.regionMenu.val('s' + params.stateId);
+                me.content.regionMenu.setValue('s' + params.stateId);
             }
-            me.content.regionMenu.trigger('liszt:updated');
-
-            //events
-            me.content.filters.placeTypeOption.find('input[name=placeType]').click(placeTypeClicked);
-            me.content.attributeMenu.change(attributeMenuChanged);
-            me.content.regionMenu.change(regionMenuChanged);
-
-
-
+           
 
 
             me.loader.hide();
@@ -118,8 +121,8 @@
          
         //////event actions//////////////////
      
-        var placeTypeClicked = function (e) {
-            e.stopPropagation();
+        var placeTypeMenuChanged = function (e) {
+            //e.stopPropagation();
             //var target = $(e.target);
             
             //me.data.activeMapFilter = target.attr('value');
@@ -149,9 +152,9 @@
       
         var pushUrlState = function () {
             var params = {};
-            var region = me.content.regionMenu.val();
-            params.placeType = me.content.filters.placeTypeOption.find('input:checked').attr('data-index');
-            params.attribute = me.content.attributeMenu.val();
+            var region = me.content.regionMenu.getValue();
+            params.placeType = me.content.placeTypeMenu.getValue();
+            params.attribute = me.content.attributeMenu.getValue();
             if (region != '') {
                 if (region.charAt(0) == 's') {
                     params.stateId = region.substring(1, region.length);

@@ -17,7 +17,7 @@ namespace SizeUp.Web.Controllers
             base.Initialize(requestContext);
             var data = new Models.Header();
 
-            
+
             using (var context = ContextFactory.SizeUpContext)
             {
                 if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["city"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["county"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["state"]))
@@ -37,62 +37,57 @@ namespace SizeUp.Web.Controllers
                     WebContext.Current.CurrentIndustryId = context.Industries.Where(i => i.SEOKey == industry && i.SicCode.Length == 6).Select(i => i.Id).FirstOrDefault();
                 }
 
-                if (WebContext.Current.CurrentPlaceId != null && WebContext.Current.CurrentIndustryId != null)
-                {
-                    CurrentInfo = new Models.CurrentInfo()
-                    {
-                        CurrentPlace = context.CityCountyMappings.Where(i => i.Id == WebContext.Current.CurrentPlaceId).Select(i => new Api.Models.Place.Place()
-                        {
-                            Id = i.Id,
-                            City = new Api.Models.City.City()
-                            {
-                                Id = i.City.Id,
-                                Name = i.City.Name,
-                                SEOKey = i.City.SEOKey,
-                                State = i.City.State.Abbreviation,
-                                TypeName = i.City.CityType.Name
-                            },
-                            County = new Api.Models.County.County()
-                            {
-                                Id = i.County.Id,
-                                Name = i.County.Name,
-                                SEOKey = i.County.SEOKey,
-                                State = i.County.State.Abbreviation
-                            },
-                            Metro = new Api.Models.Metro.Metro()
-                            {
-                                Id = i.County.Metro.Id,
-                                Name = i.County.Metro.Name
-                            },
-                            State = new Api.Models.State.State()
-                            {
-                                Id = i.County.State.Id,
-                                Name = i.County.State.Name,
-                                Abbreviation = i.County.State.Abbreviation,
-                                SEOKey = i.County.State.SEOKey
-                            }
-                        }).FirstOrDefault(),
+                CurrentInfo = new Models.CurrentInfo();
 
-                        CurrentIndustry = context.Industries.Where(i => i.Id == WebContext.Current.CurrentIndustryId).Select(i => new Api.Models.Industry.Industry()
-                        {
-                            Id = i.Id,
-                            Name = i.Name,
-                            SEOKey = i.SEOKey
-                        }).FirstOrDefault()
-                    };
-                }
-                else
+                if (WebContext.Current.CurrentPlaceId != null)
                 {
-                    CurrentInfo = new Models.CurrentInfo();
+                    CurrentInfo.CurrentPlace = context.CityCountyMappings.Where(i => i.Id == WebContext.Current.CurrentPlaceId).Select(i => new Api.Models.Place.Place()
+                    {
+                        Id = i.Id,
+                        City = new Api.Models.City.City()
+                        {
+                            Id = i.City.Id,
+                            Name = i.City.Name,
+                            SEOKey = i.City.SEOKey,
+                            State = i.City.State.Abbreviation,
+                            TypeName = i.City.CityType.Name
+                        },
+                        County = new Api.Models.County.County()
+                        {
+                            Id = i.County.Id,
+                            Name = i.County.Name,
+                            SEOKey = i.County.SEOKey,
+                            State = i.County.State.Abbreviation
+                        },
+                        Metro = new Api.Models.Metro.Metro()
+                        {
+                            Id = i.County.Metro.Id,
+                            Name = i.County.Metro.Name
+                        },
+                        State = new Api.Models.State.State()
+                        {
+                            Id = i.County.State.Id,
+                            Name = i.County.State.Name,
+                            Abbreviation = i.County.State.Abbreviation,
+                            SEOKey = i.County.State.SEOKey
+                        }
+                    }).FirstOrDefault();
                 }
+
+                if (WebContext.Current.CurrentIndustryId != null)
+                {
+                    CurrentInfo.CurrentIndustry = context.Industries.Where(i => i.Id == WebContext.Current.CurrentIndustryId).Select(i => new Api.Models.Industry.Industry()
+                    {
+                        Id = i.Id,
+                        Name = i.Name,
+                        SEOKey = i.SEOKey
+                    }).FirstOrDefault();
+                }
+
                 ViewBag.CurrentInfo = CurrentInfo;
                 ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                ViewBag.Header = data;
             }
-
-            ViewBag.Header = data;
-           
-
-
         }
-    }
+    }      
 }

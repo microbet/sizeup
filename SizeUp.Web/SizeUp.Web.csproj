@@ -362,6 +362,7 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\selectList.js" />
     <Content Include="Scripts\controls\question.js" />
     <Content Include="Scripts\controls\rangeSlider.js" />
     <Content Include="Scripts\controls\slider.js" />

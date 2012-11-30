@@ -1,27 +1,19 @@
-﻿
+﻿#topPlaces h2 span,
+#topPlaces h2 a { font-size: 1em; }
+
 #topPlaces { position:relative; margin:0 0 4em 0; }
 #topPlaces .content.container { }
 
-#topPlaces .heading { text-align:right;}
-#topPlaces .heading h2 { font-size: 2.2em; font-weight:normal; margin: 0 0 0.5em 0; text-align:left;}
-#topPlaces .heading .filter.container { margin: 0 0 0 0.5em;}
-#topPlaces .heading .filter.container .filterMenu { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: relative; right: 0; top:0;  cursor:pointer;display:inline-block;text-align:left;}
+#topPlaces  { text-align:right;}
+#topPlaces  h2 { font-size: 2.2em; font-weight:normal; margin: 0 0 0.5em 0; text-align:left;}
+
+#topPlaces h2 .selectList-container {font-weight:normal; }
+#topPlaces h2 .selectList-list {font-size:0.75em; }
 
 
 
 
 
-
-
-#topPlaces #attributeMenu { width: 24em; position:relative; top:1em; }
-#topPlaces #filterSettingsButton { color: transparent; height: 3.75em; position: absolute; right: 0; top: 0; width: 4.5em; }
-
-#topPlaces .heading .filter #attributeMenu_chzn { left: 2em; font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left;}
-#topPlaces .heading .filter #attributeMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block;line-height:2.75em; }
-#topPlaces .heading .filter #attributeMenu_chzn .chzn-single:hover { color: #fff; }
-
-
-#topPlaces #regionMenu { width:30em; }
 
 
 
@@ -36,7 +28,7 @@
 #topPlaces .list.container {width:100%; }
 #topPlaces .list.container table{width:100%; margin:2em 0; }
 #topPlaces .list.container table .rank{width:5%; text-align: right; padding:0 1em 0 0; }
-#topPlaces .list.container table .name{width:85%; }
+#topPlaces .list.container table .name{width:85%; text-align:left; }
 #topPlaces .list.container table .value{ width:10%; text-align:right;}
 
 #topPlaces .list.container table thead tr td { color: #aaa; padding:0.25em 0; font-size:1.1em; }
@@ -50,6 +42,8 @@
 
 
 
+
+#topPlaces .filters { display: none; }
 
 #topPlaces .filters ul.options li.noFilter .slider .ui-widget-header { background: none; }
 

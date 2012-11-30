@@ -20,6 +20,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/slider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/selectList.js")"></script>
   
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
@@ -38,62 +39,59 @@
 <div id="topPlaces">
     <div class="content container hidden">
     
-        <h2>Top <a href="#">cities</a> for <a href="#">Total Revenue</a> in the <a href="#">@ViewBag.CurrentInfo.CurrentIndustry.Name industry </a> in <a href="#">The United States</a></h2>
-            
-       
-        <div class="filter container">
-            <div class="filterMenu">
-                <select id="attributeMenu">
-                    <option value="totalRevenue">Total Annual Revenue</option>
-                    <option value="totalEmployees">Total Employees</option>
-                    <option value="averageRevenue">Average Annual Revenue</option>
-                    <option value="averageEmployees">Average Employees</option>
-                    <option value="employeesPerCapita">Employees Per Capita</option>
-                    <option value="revenuePerCapita">Highest Revenue Per Capita</option>
-                    <option value="underservedMarkets">Most Underserved Markets</option>
-                </select>
-                <a href="javascript:void(0);" id="filterSettingsButton">Settings</a>
-            </div>
-        </div>
-       
+        <h2>
+            <span>Top </span>
+            <select id="placeTypeMenu">
+                <option value="city">Cities</option>
+                <option value="county">Counties</option>
+                <option value="metro">Metros</option>
+                <option value="state">States</option>
+            </select>
 
+
+            <span>for </span>         
+            <select id="attributeMenu">
+                <option value="totalRevenue">Total Annual Revenue</option>
+                <option value="totalEmployees">Total Employees</option>
+                <option value="averageRevenue">Average Annual Revenue</option>
+                <option value="averageEmployees">Average Employees</option>
+                <option value="employeesPerCapita">Employees Per Capita</option>
+                <option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                <option value="underservedMarkets">Most Underserved Markets</option>
+            </select>
+            
  
 
-        <ul id="placeTypeOption">
-            <li>
-                <label for="cityOption">City</label>
-                <input type="radio" id="cityOption" data-index="city" name="placeType" checked="checked" />
-            </li>
-            <li>
-                <label for="countyOption">County</label>
-                <input type="radio" id="countyOption" data-index="county" name="placeType" />
-            </li>
-            <li>
-                <label for="metroOption">Metro</label>
-                <input type="radio" id="metroOption" data-index="metro" name="placeType" />
-            </li>
-            <li>
-                <label for="stateOption">State</label>
-                <input type="radio" id="stateOption" data-index="state" name="placeType" />
-            </li>
-        </ul>
+            <span>in the </span>
+            
+            
+            <a href="#">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+            <span>industry </span>
+            <span>in </span>
+            
+            <select id="regionMenu">
+                <option value="">The United States</option>
+                <optgroup label="Regions">
+                    @foreach (var r in ViewBag.Regions)
+                    {
+                    <option value="@("r" + r.Id)">The @r.RegionName - @r.Name Region</option>
+                    }
+                </optgroup>
 
-        <select id="regionMenu">
-            <option value="">All</option>
-            <optgroup label="Regions">
-                @foreach (var r in ViewBag.Regions)
-                {
-                <option value="@("r" + r.Id)">@r.RegionName - @r.Name</option>
-                }
-            </optgroup>
+                <optgroup label="States">
+                    @foreach (var r in ViewBag.States)
+                    {
+                    <option value="@("s" + r.Id)">@r.Name</option>
+                    }
+                </optgroup>
+            </select>
 
-            <optgroup label="States">
-                @foreach (var r in ViewBag.States)
-                {
-                <option value="@("s" + r.Id)">@r.Name</option>
-                }
-            </optgroup>
-        </select>
+        </h2>
+            
+    
+            
+
+       
 
    
         <div class="filters">
