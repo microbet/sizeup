@@ -9,9 +9,9 @@
 
 #topPlaces h2 .selectList-container {font-weight:normal; }
 #topPlaces h2 .selectList-list {font-size:0.75em; }
-
-
-
+#topPlaces h2 #industryBox { font-size: 1em; width:12em; text-overflow:ellipsis; }
+#topPlaces h2 .ui-autocomplete { font-size: 0.75em; }
+#topPlaces h2 #selectList-regionMenu .selectList-list { max-height: 20em; overflow: auto; width: 25em;  }
 
 
 

@@ -97,7 +97,7 @@
         };
 
         createListGroup = function (node) {
-            return '<li class="selectList-listGroup"' + node.attr('label') + '></li>';
+            return '<li class="selectList-listGroup">' + node.attr('label') + '</li>';
         };
 
         var updateList = function () {

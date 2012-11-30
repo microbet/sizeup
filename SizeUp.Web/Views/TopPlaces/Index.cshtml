@@ -20,6 +20,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/slider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/selectList.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
   
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
@@ -63,8 +64,10 @@
 
             <span>in the </span>
             
-            
-            <a href="#">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+            <input type="text" id="industryBox" value="enter an industry" class="hidden" />
+            <a href="javascript:void(0);" id="changeIndustry">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+
+
             <span>industry </span>
             <span>in </span>
             

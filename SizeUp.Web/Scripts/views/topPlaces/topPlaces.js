@@ -18,7 +18,8 @@
 
         me.data = {
             xhr: {},
-            mapPins: []
+            mapPins: [],
+            activeIndustry: me.opts.CurrentInfo.CurrentIndustry
         };
 
 
@@ -66,8 +67,9 @@
 
             me.content.filters = {};
             me.content.filters.sliders = {};
-           // me.content.filters.placeTypeOption = me.content.container.find('#placeTypeOption');
 
+            me.content.industryBox = me.content.container.find('#industryBox').hide().removeClass('hidden');
+            me.content.changeIndustry = me.content.container.find('#changeIndustry');
 
             me.content.attributeMenu = new sizeup.controls.selectList({
                 select: me.content.container.find('#attributeMenu'),
@@ -81,9 +83,16 @@
                 select: me.content.container.find('#placeTypeMenu'),
                 onChange: function () { placeTypeMenuChanged(); }
             });
-            //me.content.attributeMenu = me.content.container.find('#attributeMenu').chosen();
-            //me.content.regionMenu = me.content.container.find('#regionMenu').chosen();
-            //me.content.placeTypeMenu = me.content.container.find('#placeTypeMenu').chosen();
+           
+            me.content.industrySelector = sizeup.controls.industrySelector({
+                textbox: me.content.industryBox,
+                onChange: function (item) { onIndustryChange(item); }
+            });
+
+            me.content.industrySelector.setSelection(me.data.activeIndustry);
+            //set current industry
+            //wire up the on select then set the anchor text and then hide textbox and show anchor
+            //change url
 
 
             for (var x in filterVars) {
@@ -97,6 +106,8 @@
                 });
             }
 
+            me.content.industryBox.blur(industryBoxBlur);
+            me.content.changeIndustry.click(changeIndustryClicked);
 
             //init state
             me.content.placeTypeMenu.setValue(params.placeType);
@@ -121,14 +132,30 @@
          
         //////event actions//////////////////
      
-        var placeTypeMenuChanged = function (e) {
-            //e.stopPropagation();
-            //var target = $(e.target);
-            
-            //me.data.activeMapFilter = target.attr('value');
+        var changeIndustryClicked = function () {
+            me.content.changeIndustry.hide();
+            me.content.industryBox.show();
+            me.content.industryBox.focus();
+        };
+
+        var onIndustryChange = function (i) {
+            me.data.activeIndustry = i;
+            me.content.changeIndustry.html(i.Name);
+            me.content.changeIndustry.show();
+            me.content.industryBox.hide();
             pushUrlState();
             loadReport();
+        };
 
+        var industryBoxBlur = function () {         
+            me.content.changeIndustry.show();
+            me.content.industryBox.hide();
+            me.content.industrySelector.setSelection(me.data.activeIndustry);
+        };
+
+        var placeTypeMenuChanged = function (e) {
+            pushUrlState();
+            loadReport();
         };
 
         var attributeMenuChanged = function (e) {
@@ -192,7 +219,7 @@
            
             var params = getParameters();
 
-            params.industryId = me.opts.CurrentInfo.CurrentIndustry.Id;
+            params.industryId = me.data.activeIndustry.Id;
             params.itemCount = me.opts.itemsPerPage;
            
 
