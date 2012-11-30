@@ -114,11 +114,14 @@
             me.content.filterSettingsButton.click(function () { filterSettingsButtonClicked(); });
 
             me.content.optionMenu = {};
-            me.content.optionMenu.option = me.content.container.find('#optionMenu');
-            me.content.optionMenu.custom = me.content.optionMenu.option.find('.custom');
+            me.content.optionMenu.option = new sizeup.controls.selectList({
+                select: me.content.container.find('#optionMenu'),
+                onChange: function () { optionMenuChanged(); }
+            });
+            me.content.optionMenu.custom = me.content.optionMenu.option.getSelectList().find('.custom');
             me.content.optionMenu.custom.remove();
-            me.content.optionMenu.menu = me.content.optionMenu.option.chosen();
-            me.content.optionMenu.menu.change(optionMenuChanged);
+            me.content.optionMenu.option.updateList();
+
            
             me.content.description = me.container.find('.description');
             me.content.list = {};
@@ -130,24 +133,28 @@
             };
 
             me.content.list.sort.value = {};
-            me.content.list.sort.value.option = me.content.list.container.find('.sort #valueMenu');
+            me.content.list.sort.value.option = new sizeup.controls.selectList({
+                select: me.content.list.container.find('.sort #valueMenu'),
+                onChange: function () { valueMenuChanged(); }
+            });
+
+
             me.content.list.sort.value.menuItems = {
-                totalPopulation: me.content.list.sort.value.option.find('option[value=totalPopulation]').remove(),
-                totalRevenue: me.content.list.sort.value.option.find('option[value=totalRevenue]').remove(),
-                averageRevenue: me.content.list.sort.value.option.find('option[value=averageRevenue]').remove(),
-                totalEmployees: me.content.list.sort.value.option.find('option[value=totalEmployees]').remove(),
-                revenuePerCapita: me.content.list.sort.value.option.find('option[value=revenuePerCapita]').remove(),
-                householdIncome: me.content.list.sort.value.option.find('option[value=householdIncome]').remove(),
-                householdExpenditures: me.content.list.sort.value.option.find('option[value=householdExpenditures]').remove(),
-                medianAge: me.content.list.sort.value.option.find('option[value=medianAge]').remove(),
-                bachelorsDegreeOrHigher: me.content.list.sort.value.option.find('option[value=bachelorsDegreeOrHigher]').remove(),
-                highSchoolOrHigher: me.content.list.sort.value.option.find('option[value=highSchoolOrHigher]').remove(),
-                whiteCollarWorkers: me.content.list.sort.value.option.find('option[value=whiteCollarWorkers]').remove()
+                totalPopulation: me.content.list.sort.value.option.getSelectList().find('option[value=totalPopulation]').remove(),
+                totalRevenue: me.content.list.sort.value.option.getSelectList().find('option[value=totalRevenue]').remove(),
+                averageRevenue: me.content.list.sort.value.option.getSelectList().find('option[value=averageRevenue]').remove(),
+                totalEmployees: me.content.list.sort.value.option.getSelectList().find('option[value=totalEmployees]').remove(),
+                revenuePerCapita: me.content.list.sort.value.option.getSelectList().find('option[value=revenuePerCapita]').remove(),
+                householdIncome: me.content.list.sort.value.option.getSelectList().find('option[value=householdIncome]').remove(),
+                householdExpenditures: me.content.list.sort.value.option.getSelectList().find('option[value=householdExpenditures]').remove(),
+                medianAge: me.content.list.sort.value.option.getSelectList().find('option[value=medianAge]').remove(),
+                bachelorsDegreeOrHigher: me.content.list.sort.value.option.getSelectList().find('option[value=bachelorsDegreeOrHigher]').remove(),
+                highSchoolOrHigher: me.content.list.sort.value.option.getSelectList().find('option[value=highSchoolOrHigher]').remove(),
+                whiteCollarWorkers: me.content.list.sort.value.option.getSelectList().find('option[value=whiteCollarWorkers]').remove()
             };
 
             me.content.list.sort.value.direction = me.content.list.container.find('.sort .value .sorter');
-            me.content.list.sort.value.menu = me.content.list.sort.value.option.chosen();
-            me.content.list.sort.value.menu.change(valueMenuChanged);
+            me.content.list.sort.value.option.updateList();
 
             if (params.sortAttribute == 'name') {
                 me.content.list.sort.name.addClass(params.sort);
@@ -364,7 +371,7 @@
         };
 
         var optionMenuChanged = function () {
-            var x = me.content.optionMenu.option.val();
+            var x = me.content.optionMenu.option.getValue();
             setOptionMenu(x);
             if (x != 'custom') {
                 var d = $.extend(me.opts.filterTemplates[x], { distance: me.data.defaultDistance });
@@ -375,7 +382,7 @@
         };
 
         var valueMenuChanged = function () {
-            var x = me.content.list.sort.value.option.val();
+            var x = me.content.list.sort.value.option.getValue();
             var params = getParameters();
             params.attribute = x;
             params.sortAttribute = x;
@@ -389,54 +396,53 @@
 
         var setOptionMenu = function (index) {
             if (index == 'custom') {
-                me.content.optionMenu.option.append(me.content.optionMenu.custom);
+                me.content.optionMenu.option.getSelectList().append(me.content.optionMenu.custom);
                 me.opts.filterOptions.template = 'custom';
             }
             else {
                 me.content.optionMenu.custom.remove();
-            }
-            me.content.optionMenu.option.find('option[value=' + index + ']').attr('selected','selected');
-            me.content.optionMenu.menu.trigger('liszt:updated');
-            me.content.optionMenu.option.val(index);
+            }       
+            me.content.optionMenu.option.updateList();
+            me.content.optionMenu.option.setValue(index);
         };
 
         var setValueMenu = function () {
-            me.content.list.sort.value.option.empty();
-            me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.totalPopulation);
-            me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.totalRevenue);
+            me.content.list.sort.value.option.getSelectList().empty();
+            me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.totalPopulation);
+            me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.totalRevenue);
             var params = me.opts.filterOptions;
             var p = getParameters();
 
             if(params.averageRevenue || p.attribute == 'averageRevenue'){
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.averageRevenue);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.averageRevenue);
             }
             if (params.totalEmployees || p.attribute == 'totalEmployees') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.totalEmployees);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.totalEmployees);
             }
             if (params.revenuePerCapita || p.attribute == 'revenuePerCapita') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.revenuePerCapita);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.revenuePerCapita);
             }
             if (params.householdIncome || p.attribute == 'householdIncome') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.householdIncome);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.householdIncome);
             }
             if (params.householdExpenditures || p.attribute == 'householdExpenditures') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.householdExpenditures);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.householdExpenditures);
             }
             if (params.medianAge || p.attribute == 'medianAge') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.medianAge);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.medianAge);
             }
             if (params.bachelorsDegreeOrHigher || p.attribute == 'bachelorsDegreeOrHigher') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.bachelorsDegreeOrHigher);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.bachelorsDegreeOrHigher);
             }
             if (params.highSchoolOrHigher || p.attribute == 'highSchoolOrHigher') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.highSchoolOrHigher);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.highSchoolOrHigher);
             }
             if (params.whiteCollarWorkers || p.attribute == 'whiteCollarWorkers') {
-                me.content.list.sort.value.option.append(me.content.list.sort.value.menuItems.whiteCollarWorkers);
+                me.content.list.sort.value.option.getSelectList().append(me.content.list.sort.value.menuItems.whiteCollarWorkers);
             }
 
-            me.content.list.sort.value.menuItems[p.attribute].attr('selected', 'selected');
-            me.content.list.sort.value.menu.trigger('liszt:updated');
+            me.content.list.sort.value.option.setValue(p.attribute);
+            me.content.list.sort.value.option.updateList();
         };
 
 
@@ -762,7 +768,7 @@
         };
 
         var bindDescription = function () {
-            var x = me.content.optionMenu.option.val();
+            var x = me.content.optionMenu.option.getValue();
             var template = templates.get(x + 'Description');
             var data = {
                 industry: me.opts.CurrentIndustry.Name

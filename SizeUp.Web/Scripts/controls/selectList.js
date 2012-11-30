@@ -61,47 +61,47 @@
 
         var onClickListItem = function (e) {
             var item = $(this);
-            me.list.find('li.selectList-listItem').removeClass('selectList-selected');
             setValue(item.attr('data-value'));
             me.list.hide();
             me.opts.onChange();
         };
 
         var createList = function () {
-            me.list.empty();
-            visitNode(me.opts.select);
+            var list = visitNode(me.opts.select);
+            me.list.html(list);
             setValue(me.opts.select.val());
         };
 
         var visitNode = function (node) {
+            var str = '';
             var children = node.children();
             if (node.is('select')) {
                 children.each(function (index) {
-                    visitNode($(this));
+                    str = str + visitNode($(this));
                 });
             }
             else if(node.is('option')){
-                createListItem(node);
+                str = str + createListItem(node);
             }
             else if (node.is('optgroup')) {
-                createListGroup(node);
+                str = str + createListGroup(node);
                 children.each(function (index) {
-                    visitNode($(this));
+                    str = str + visitNode($(this));
                 });
             }
+            return str;
         };
 
         createListItem = function (node) {
-            var item = $('<li class="selectList-listItem"></li>');
-            item.attr('data-value', node.attr('value'));
-            item.html(node.html());
-            me.list.append(item);
+            return '<li class="selectList-listItem" data-value="' + node.attr('value') + '">' + node.html() + '</li>';
         };
 
         createListGroup = function (node) {
-            var item = $('<li class="selectList-listGroup"></li>');
-            item.html(node.attr('label'));
-            me.list.append(item);
+            return '<li class="selectList-listGroup"' + node.attr('label') + '></li>';
+        };
+
+        var updateList = function () {
+            createList();
         };
 
         var getValue = function () {
@@ -110,9 +110,14 @@
 
         var setValue = function (val) {
             me.opts.select.val(val);
+            me.list.find('li.selectList-listItem').removeClass('selectList-selected');
             var item = me.list.find('li.selectList-listItem[data-value="' + val + '"]');
             item.addClass('selectList-selected');
             me.selector.html(item.html());
+        };
+
+        var getSelectList = function () {
+            return me.opts.select;
         };
 
         var publicObj = {
@@ -121,6 +126,12 @@
             },
             setValue: function (val) {
                 setValue(val);
+            },
+            updateList: function () {
+                updateList();
+            },
+            getSelectList: function () {
+                return getSelectList();
             }
         };
         init();

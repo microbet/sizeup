@@ -11,7 +11,6 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/chosen.jquery.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
 
@@ -70,7 +69,7 @@
             <span>in </span>
             
             <select id="regionMenu">
-                <option value="">The United States</option>
+                
                 <optgroup label="Regions">
                     @foreach (var r in ViewBag.Regions)
                     {
@@ -79,6 +78,7 @@
                 </optgroup>
 
                 <optgroup label="States">
+                    <option value="" selected="selected">The United States</option>
                     @foreach (var r in ViewBag.States)
                     {
                     <option value="@("s" + r.Id)">@r.Name</option>

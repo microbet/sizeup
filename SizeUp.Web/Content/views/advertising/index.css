@@ -9,10 +9,12 @@
 #advertising .heading label { color: #ccc; position: relative; display:inline-block; line-height:2.65em; vertical-align:top;}
 #advertising .heading .filter { background-image: url("/content/images/actionbutton.png"); background-repeat: no-repeat; height: 5em;width: 39.5em; position: relative; right: 0; top:0;  cursor:pointer;display:inline-block;}
 
-#advertising #optionMenu { width: 26em; position:relative; top:1em; font-size:1.3em; }
-#advertising .heading .filter #optionMenu_chzn {  font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left; display:block; }
-#advertising .heading .filter #optionMenu_chzn .chzn-single{font-size:1.8em; color:#fff; font-weight:normal; display:block; line-height:2.75em; padding:0 0 0 1em; }
-#advertising .heading .filter #optionMenu_chzn .chzn-single:hover { color: #fff; }
+#advertising .heading .filter #selectList-optionMenu {  font-family: "Trebuchet MS",Arial,Sans-Serif; text-align:left; display:block; width: 34em; position:relative;  }
+#advertising .heading .filter #selectList-optionMenu .selectList-selector{font-size:1.8em; color:#fff; font-weight:normal; display:block; line-height:2.75em; padding:0 0 0 1em; }
+#advertising .heading .filter #selectList-optionMenu .selectList-selector:hover { color: #fff; }
+#advertising .heading .filter #selectList-optionMenu .selectList-list { font-size: 1.5em; width: 22.25em; }
+
+
 
 #advertising #filterSettingsButton { color: transparent; height: 3.75em; position: absolute; right: 0; top: 0; width: 4.5em; }
 
