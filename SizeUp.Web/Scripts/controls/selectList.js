@@ -116,11 +116,20 @@
             me.selector.html(item.html());
         };
 
+        var getName = function () {
+            var val = me.opts.select.val();
+            var item = me.list.find('li.selectList-listItem[data-value="' + val + '"]');
+            return item.html();
+        };
+
         var getSelectList = function () {
             return me.opts.select;
         };
 
         var publicObj = {
+            getName: function(){
+                return getName();
+            },
             getValue: function () {
                 return getValue();
             },

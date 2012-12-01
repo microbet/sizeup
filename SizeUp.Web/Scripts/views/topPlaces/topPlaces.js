@@ -58,7 +58,8 @@
             me.content.noResults = me.content.container.find('.list.container .noResults').removeClass('hidden').hide();
            
             me.content.results = me.content.container.find('.list.container .results');
-  
+            me.content.variableHeader = me.content.container.find('#variableHeader');
+
 
             me.content.map = new sizeup.maps.map({
                 container: me.content.container.find('.mapContent.container .map')
@@ -90,10 +91,9 @@
             });
 
             me.content.industrySelector.setSelection(me.data.activeIndustry);
-            //set current industry
-            //wire up the on select then set the anchor text and then hide textbox and show anchor
-            //change url
 
+            me.content.filters.container = me.content.container.find('.filters').hide().removeClass('hidden');
+            me.content.filters.filtersToggle = me.content.container.find('.filtersToggle');
 
             for (var x in filterVars) {
                 me.content.filters.sliders[filterVars[x]] = new sizeup.controls.slider({
@@ -108,11 +108,13 @@
 
             me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
+            me.content.filters.filtersToggle.click(filtersToggleClicked);
 
             //init state
             me.content.placeTypeMenu.setValue(params.placeType);
             me.content.attributeMenu.setValue(params.attribute);
-   
+            me.content.variableHeader.html(me.content.attributeMenu.getName());
+
             if (params.regionId) {
                 me.content.regionMenu.setValue('r' + params.regionId);
             }
@@ -132,6 +134,10 @@
          
         //////event actions//////////////////
      
+        var filtersToggleClicked = function () {
+            me.content.filters.container.slideToggle(500);
+        };
+
         var changeIndustryClicked = function () {
             me.content.changeIndustry.hide();
             me.content.industryBox.show();
@@ -159,6 +165,7 @@
         };
 
         var attributeMenuChanged = function (e) {
+            me.content.variableHeader.html(me.content.attributeMenu.getName());
             pushUrlState();
             loadReport();
         };

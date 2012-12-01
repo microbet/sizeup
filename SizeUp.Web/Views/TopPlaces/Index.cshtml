@@ -91,13 +91,13 @@
 
         </h2>
             
-    
+        <a href="javascript:void(0);" id="advancedFilters" class="filtersToggle">Advanced Filters</a>
             
 
        
 
    
-        <div class="filters">
+        <div class="filters hidden">
 
             <input type="text" value="min" id="populationMin" />
             <input type="text" value="max" id="populationMax" />
@@ -208,11 +208,9 @@
                         <span class="sliderLabel more">more grads</span>
                     </div>
                 </li>
-                
-
-
-                
             </ul>
+
+            <a href="javascript:void(0);" class="button small filtersToggle">Close Filters</a>
         </div>
 
 
@@ -233,7 +231,7 @@
                     <tr>
                     <td class="rank">Rank</td>
                     <td class="name">Name</td>
-                    <td class="value">XXXXX</td>
+                    <td id="variableHeader" class="value"></td>
                     </tr>
                 </thead>
                 <tbody class="results">

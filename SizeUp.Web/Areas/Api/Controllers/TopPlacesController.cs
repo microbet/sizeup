@@ -78,19 +78,19 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
                 if (bachelorOrHigher != null)
                 {
-                    entities = entities.Where(i => i.Demographics.BachelorsOrHigherPercentage >= bachelorOrHigher / 100);
+                    entities = entities.Where(i => i.Demographics.BachelorsOrHigherPercentage >= (float)bachelorOrHigher / 100);
                 }
                 if (blueCollarWorkers != null)
                 {
-                    entities = entities.Where(i => i.Demographics.BlueCollarWorkersPercentage >= blueCollarWorkers / 100);
+                    entities = entities.Where(i => i.Demographics.BlueCollarWorkersPercentage >= (float)blueCollarWorkers / 100);
                 }
                 if (highSchoolOrHigher != null)
                 {
-                    entities = entities.Where(i => i.Demographics.HighSchoolOrHigherPercentage >= highSchoolOrHigher / 100);
+                    entities = entities.Where(i => i.Demographics.HighSchoolOrHigherPercentage >= (float)highSchoolOrHigher / 100);
                 }
                 if (whiteCollarWorkers != null)
                 {
-                    entities = entities.Where(i => i.Demographics.WhiteCollarWorkersPercentage >= whiteCollarWorkers / 100);
+                    entities = entities.Where(i => i.Demographics.WhiteCollarWorkersPercentage >= (float)whiteCollarWorkers / 100);
                 }
                 if (airportsNearby != null)
                 {
@@ -98,7 +98,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (youngEducated != null)
                 {
-                    entities = entities.Where(i => i.Demographics.YoungEducatedPercentage >= youngEducated / 100);
+                    entities = entities.Where(i => i.Demographics.YoungEducatedPercentage >= (float)youngEducated / 100);
                 }
                 if (universitiesNearby != null)
                 {
@@ -270,10 +270,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult County(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range averageRevenue = ParseQueryString("averageRevenue");
-            Range totalRevenue = ParseQueryString("totalRevenue");
-            Range averageEmployees = ParseQueryString("averageEmployees");
-            Range totalEmployees = ParseQueryString("totalEmployees");
+            Range population = ParseQueryString("population");
+
+            int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
+            int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
+            int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
+            int? whiteCollarWorkers = QueryString.IntValue("whiteCollarWorkers");
+            int? airportsNearby = QueryString.IntValue("airportsNearby");
+            int? youngEducated = QueryString.IntValue("youngEducated");
+            int? universitiesNearby = QueryString.IntValue("universitiesNearby");
+            int? commuteTime = QueryString.IntValue("commuteTime");
+           
 
 
             using (var context = ContextFactory.SizeUpContext)
@@ -296,52 +303,49 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
 
-                if (averageRevenue != null)
+                if (population != null)
                 {
-                    if (averageRevenue.Min.HasValue)
+                    if (population.Min.HasValue)
                     {
-                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
                     }
-                    if (averageRevenue.Max.HasValue)
+                    if (population.Max.HasValue)
                     {
-                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
                     }
                 }
 
-                if (totalRevenue != null)
+                if (bachelorOrHigher != null)
                 {
-                    if (totalRevenue.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalRevenue >= totalRevenue.Min);
-                    }
-                    if (totalRevenue.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalRevenue <= totalRevenue.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.BachelorsOrHigherPercentage >= (float)bachelorOrHigher / 100);
                 }
-
-                if (averageEmployees != null)
+                if (blueCollarWorkers != null)
                 {
-                    if (averageEmployees.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.AverageEmployees >= averageEmployees.Min);
-                    }
-                    if (averageEmployees.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.AverageEmployees <= averageEmployees.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.BlueCollarWorkersPercentage >= (float)blueCollarWorkers / 100);
                 }
-
-                if (totalEmployees != null)
+                if (highSchoolOrHigher != null)
                 {
-                    if (totalEmployees.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalEmployees >= totalEmployees.Min);
-                    }
-                    if (totalEmployees.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalEmployees <= totalEmployees.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.HighSchoolOrHigherPercentage >= (float)highSchoolOrHigher / 100);
+                }
+                if (whiteCollarWorkers != null)
+                {
+                    entities = entities.Where(i => i.Demographics.WhiteCollarWorkersPercentage >= (float)whiteCollarWorkers / 100);
+                }
+                if (airportsNearby != null)
+                {
+                    entities = entities.Where(i => i.Demographics.AirPortsWithin50Miles >= airportsNearby);
+                }
+                if (youngEducated != null)
+                {
+                    entities = entities.Where(i => i.Demographics.YoungEducatedPercentage >= (float)youngEducated / 100);
+                }
+                if (universitiesNearby != null)
+                {
+                    entities = entities.Where(i => i.Demographics.UniversitiesWithinHalfMile >= universitiesNearby);
+                }
+                if (commuteTime != null)
+                {
+                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
                 }
 
 
@@ -489,19 +493,26 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Metro(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
+            Range population = ParseQueryString("population");
 
-            Range averageRevenue = ParseQueryString("averageRevenue");
-            Range totalRevenue = ParseQueryString("totalRevenue");
-            Range averageEmployees = ParseQueryString("averageEmployees");
-            Range totalEmployees = ParseQueryString("totalEmployees");
+            int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
+            int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
+            int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
+            int? whiteCollarWorkers = QueryString.IntValue("whiteCollarWorkers");
+            int? airportsNearby = QueryString.IntValue("airportsNearby");
+            int? youngEducated = QueryString.IntValue("youngEducated");
+            int? universitiesNearby = QueryString.IntValue("universitiesNearby");
+            int? commuteTime = QueryString.IntValue("commuteTime");
+           
+
 
             using (var context = ContextFactory.SizeUpContext)
             {
                 var entities = context.Metroes.Select(i => new
                 {
                     Metro = i,
-                    IndustryData = i.IndustryDataByMetroes.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault()//,
-                    //Demographics = i.de.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
+                    IndustryData = i.IndustryDataByMetroes.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                    Demographics = i.DemographicsByMetroes.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
                 });
 
                 
@@ -515,52 +526,49 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.Metro.Counties.Any(c=>c.StateId == stateId.Value));
                 }
 
-                if (averageRevenue != null)
+                if (population != null)
                 {
-                    if (averageRevenue.Min.HasValue)
+                    if (population.Min.HasValue)
                     {
-                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
                     }
-                    if (averageRevenue.Max.HasValue)
+                    if (population.Max.HasValue)
                     {
-                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
                     }
                 }
 
-                if (totalRevenue != null)
+                if (bachelorOrHigher != null)
                 {
-                    if (totalRevenue.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalRevenue >= totalRevenue.Min);
-                    }
-                    if (totalRevenue.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalRevenue <= totalRevenue.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.BachelorsOrHigherPercentage >= (float)bachelorOrHigher / 100);
                 }
-
-                if (averageEmployees != null)
+                if (blueCollarWorkers != null)
                 {
-                    if (averageEmployees.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.AverageEmployees >= averageEmployees.Min);
-                    }
-                    if (averageEmployees.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.AverageEmployees <= averageEmployees.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.BlueCollarWorkersPercentage >= (float)blueCollarWorkers / 100);
                 }
-
-                if (totalEmployees != null)
+                if (highSchoolOrHigher != null)
                 {
-                    if (totalEmployees.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalEmployees >= totalEmployees.Min);
-                    }
-                    if (totalEmployees.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalEmployees <= totalEmployees.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.HighSchoolOrHigherPercentage >= (float)highSchoolOrHigher / 100);
+                }
+                if (whiteCollarWorkers != null)
+                {
+                    entities = entities.Where(i => i.Demographics.WhiteCollarWorkersPercentage >= (float)whiteCollarWorkers / 100);
+                }
+                if (airportsNearby != null)
+                {
+                    entities = entities.Where(i => i.Demographics.AirPortsWithin50Miles >= airportsNearby);
+                }
+                if (youngEducated != null)
+                {
+                    entities = entities.Where(i => i.Demographics.YoungEducatedPercentage >= (float)youngEducated / 100);
+                }
+                if (universitiesNearby != null)
+                {
+                    entities = entities.Where(i => i.Demographics.UniversitiesWithinHalfMile >= universitiesNearby);
+                }
+                if (commuteTime != null)
+                {
+                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
                 }
 
 
@@ -571,6 +579,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         {
                             Id = i.Metro.Id,
                             Name = i.Metro.Name,
+                            SEOKey = i.Metro.SEOKey,
                             Centroid = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
                         },
                         IndustryData = i.IndustryData
@@ -692,11 +701,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult State(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
+            Range population = ParseQueryString("population");
 
-            Range averageRevenue = ParseQueryString("averageRevenue");
-            Range totalRevenue = ParseQueryString("totalRevenue");
-            Range averageEmployees = ParseQueryString("averageEmployees");
-            Range totalEmployees = ParseQueryString("totalEmployees");
+            int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
+            int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
+            int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
+            int? whiteCollarWorkers = QueryString.IntValue("whiteCollarWorkers");
+            int? airportsNearby = QueryString.IntValue("airportsNearby");
+            int? youngEducated = QueryString.IntValue("youngEducated");
+            int? universitiesNearby = QueryString.IntValue("universitiesNearby");
+            int? commuteTime = QueryString.IntValue("commuteTime");
+           
 
 
             using (var context = ContextFactory.SizeUpContext)
@@ -704,8 +719,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var entities = context.States.Select(i => new
                 {
                     State = i,
-                    IndustryData = i.IndustryDataByStates.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault()//,
-                    //Demographics = i.de.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
+                    IndustryData = i.IndustryDataByStates.Where(id => id.Year == TimeSlice.Year && id.Quarter == TimeSlice.Quarter && id.IndustryId == industryId).FirstOrDefault(),
+                    Demographics = i.DemographicsByStates.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault()
                 });
 
 
@@ -719,52 +734,49 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.State.Id == stateId.Value);
                 }
 
-                if (averageRevenue != null)
+                if (population != null)
                 {
-                    if (averageRevenue.Min.HasValue)
+                    if (population.Min.HasValue)
                     {
-                        entities = entities.Where(i => i.IndustryData.AverageRevenue >= averageRevenue.Min);
+                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
                     }
-                    if (averageRevenue.Max.HasValue)
+                    if (population.Max.HasValue)
                     {
-                        entities = entities.Where(i => i.IndustryData.AverageRevenue <= averageRevenue.Max);
+                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
                     }
                 }
 
-                if (totalRevenue != null)
+                if (bachelorOrHigher != null)
                 {
-                    if (totalRevenue.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalRevenue >= totalRevenue.Min);
-                    }
-                    if (totalRevenue.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalRevenue <= totalRevenue.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.BachelorsOrHigherPercentage >= (float)bachelorOrHigher / 100);
                 }
-
-                if (averageEmployees != null)
+                if (blueCollarWorkers != null)
                 {
-                    if (averageEmployees.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.AverageEmployees >= averageEmployees.Min);
-                    }
-                    if (averageEmployees.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.AverageEmployees <= averageEmployees.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.BlueCollarWorkersPercentage >= (float)blueCollarWorkers / 100);
                 }
-
-                if (totalEmployees != null)
+                if (highSchoolOrHigher != null)
                 {
-                    if (totalEmployees.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalEmployees >= totalEmployees.Min);
-                    }
-                    if (totalEmployees.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.IndustryData.TotalEmployees <= totalEmployees.Max);
-                    }
+                    entities = entities.Where(i => i.Demographics.HighSchoolOrHigherPercentage >= (float)highSchoolOrHigher / 100);
+                }
+                if (whiteCollarWorkers != null)
+                {
+                    entities = entities.Where(i => i.Demographics.WhiteCollarWorkersPercentage >= (float)whiteCollarWorkers / 100);
+                }
+                if (airportsNearby != null)
+                {
+                    entities = entities.Where(i => i.Demographics.AirPortsWithin50Miles >= airportsNearby);
+                }
+                if (youngEducated != null)
+                {
+                    entities = entities.Where(i => i.Demographics.YoungEducatedPercentage >= (float)youngEducated / 100);
+                }
+                if (universitiesNearby != null)
+                {
+                    entities = entities.Where(i => i.Demographics.UniversitiesWithinHalfMile >= universitiesNearby);
+                }
+                if (commuteTime != null)
+                {
+                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
                 }
 
 
