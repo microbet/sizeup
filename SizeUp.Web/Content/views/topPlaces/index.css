@@ -41,5 +41,6 @@
 #topPlaces .filters ul.options li.noFilter .slider .ui-widget-header { background: none; }
 #topPlaces .filters .valueLabel .val { font-size: 1em; color:#e78500; font-weight:bold;}
 #topPlaces .filters .filtersToggle { margin: 1em 0 0 0; }
-
+#topPlaces .filters label { font-size: 1.3em; display:block; }
+#topPlaces .filters input[type=text] { font-size: 1.3em; }
 
