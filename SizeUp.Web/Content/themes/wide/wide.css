@@ -1,6 +1,6 @@
 ﻿#dashboard .report .body .reportContainer .reportContent { width: 60%; padding: 1em; margin:  0 0 1em 0; }
 #dashboard .report .body .reportContainer .reportSidebar { width: 37%; margin:  0 0 1em 0; }
-#dashboard .report .header input[type="text"] { width: 25%; }
+#dashboard .report .header input[type="text"] { width: 23%; left:17em; }
 #dashboard .report .header .prompt { right: 5em; }
 #dashboard .report .header a.button { right: 3em; }
 #dashboard .report .header .gauge { right: 5em; }
