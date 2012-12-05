@@ -28,20 +28,7 @@
         var templates = new sizeup.core.templates(me.container);
 
        
-        var filterVars = [
-            'bachelorOrHigher',
-            'blueCollarWorkers',
-            'highSchoolOrHigher',
-            'whiteCollarWorkers',
-            'airportsNearby',
-            'youngEducated',
-            'universitiesNearby',
-            'commuteTime',
-            'medianAge',
-            'householdExpenditures',
-            'householdIncome'
-        ];
-
+      
 
         var init = function () {
 
