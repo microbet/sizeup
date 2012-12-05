@@ -211,6 +211,7 @@
     <Compile Include="Areas\Api\Models\Profile\DashboardValues.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Shared\Band.cs" />
     <Compile Include="Areas\Api\Models\Shared\LatLng.cs" />
     <Compile Include="Areas\Api\Models\State\State.cs" />
     <Compile Include="Areas\Api\Models\TopPlaces\Range.cs" />
@@ -365,6 +366,7 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\promptBox.js" />
     <Content Include="Scripts\controls\selectList.js" />
     <Content Include="Scripts\controls\question.js" />
     <Content Include="Scripts\controls\rangeSlider.js" />

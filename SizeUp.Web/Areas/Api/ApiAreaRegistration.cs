@@ -628,6 +628,35 @@ namespace SizeUp.Web.Areas.Api
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
+
+            context.MapRoute(
+               "TopPlacesBandsCity",
+               "Api/TopPlaces/Bands/City",
+               new { controller = "TopPlaces", action = "CityBands" },
+               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+           );
+
+            context.MapRoute(
+              "TopPlacesBandsCounty",
+              "Api/TopPlaces/Bands/County",
+              new { controller = "TopPlaces", action = "CountyBands" },
+              new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+          );
+
+            context.MapRoute(
+              "TopPlacesBandsMetro",
+              "Api/TopPlaces/Bands/Metro",
+              new { controller = "TopPlaces", action = "MetroBands" },
+              new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+          );
+
+            context.MapRoute(
+              "TopPlacesBandsState",
+              "Api/TopPlaces/Bands/State",
+              new { controller = "TopPlaces", action = "StateBands" },
+              new string[] { "SizeUp.Web.Areas.Api.Controllers" }
+          );
+
            
 
             /*****************default*****************/

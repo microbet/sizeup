@@ -407,6 +407,20 @@
             },
 
 
+            getTopPlacesBandsByCity: function (params, callback) {
+                return get('/api/topPlaces/bands/city/', params, callback);
+            },
+            getTopPlacesBandsByCounty: function (params, callback) {
+                return get('/api/topPlaces/bands/county/', params, callback);
+            },
+            getTopPlacesBandsByMetro: function (params, callback) {
+                return get('/api/topPlaces/bands/metro/', params, callback);
+            },
+            getTopPlacesBandsByState: function (params, callback) {
+                return get('/api/topPlaces/bands/state/', params, callback);
+            },
+
+
             ///analytics
 
             trackPlaceIndustry: function (params) {

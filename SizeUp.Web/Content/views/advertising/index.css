@@ -50,7 +50,7 @@
 #advertising .sort {position:relative; margin:1em 0 0.5em; }
 #advertising .sort .name {  }
 #advertising .sort .value {font-size:1em; display :inline-block; float:right; }
-#advertising .sort .value #valueMenu {/*width:15em;*/  }
+
 
 
 #advertising ul.results {border-top:#eee solid 1px; font-family: Arial,Verdana,sans-serif;  }
@@ -62,21 +62,6 @@
 
 #advertising ul.results li ul.details li { border: none; font-size: 1.1em; padding: 0 0 0 3.5em; color: #aaa; }
 
-
-#valueMenu_chzn,
-#valueMenu_chzn a { font-size: 1em; }
-
-/*
-.chzn-container {position:relative; z-index:9999999; }
-.chzn-container .chzn-drop {position:absolute; background-color:#fff; border:1px solid #ccc; }
-.chzn-container .chzn-drop .chzn-search { display: none; }
-.chzn-container .chzn-drop .chzn-results .active-result {font-size:1.5em; padding:0.1em; color:#666; text-align:right; }
-.chzn-container .chzn-drop .chzn-results .active-result.result-selected {background-color:#E6E6E6; }
-.chzn-container .chzn-drop .chzn-results .active-result.highlighted {background-color:#FFD86A; color:#020202; }
-    */
-#advertising .sort .value a { /*font-size: 1em;*/  }
-#advertising .sort .value .chzn-container .chzn-drop { /*width: 25em !important;*/  }
-#advertising .sort .value .chzn-container .chzn-drop .chzn-results .active-result { /*font-size: 1em;*/ }
 
 
 #advertising .pager { position:relative; text-align: right; margin:1em 0 0 0; }

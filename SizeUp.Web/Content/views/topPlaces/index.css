@@ -1,6 +1,6 @@
 ﻿#topPlaces h2 span,
 #topPlaces h2 a { font-size: 1em; }
-
+#topPlaces h3 {font-weight:bold; margin:0 0 1em; }
 #topPlaces { position:relative; margin:0 0 4em 0; }
 #topPlaces .content.container { }
 
@@ -12,8 +12,12 @@
 #topPlaces h2 .ui-autocomplete { font-size: 0.75em; }
 #topPlaces h2 #selectList-regionMenu .selectList-list { max-height: 20em; overflow: auto; width: 25em;  }
 
-#topPlaces .mapContent.container {  margin:1em 0 0 0;}
+#topPlaces .mapContent.container {  margin:1em 0 0 0; text-align:left;}
 #topPlaces .mapContent.container .map{width:100%;height:40em;}
+#topPlaces .mapContent .footer{background-color:#F6F6F0; padding:0.5em; font-family: Arial,Verdana,sans-serif; }
+#topPlaces .mapContent .footer ul li { display: inline-block; width: 20%; }
+#topPlaces .mapContent .footer ul li img { width: 1.5em; height: 1.5em; }
+#topPlaces .mapContent .footer ul li span { font-size:1em; position:relative; top:-0.35em; }
 
 #topPlaces .list.container {width:100%; }
 #topPlaces .list.container table{width:100%; margin:2em 0; }
@@ -31,15 +35,16 @@
 
 
 
-#topPlaces .filters {margin:1em 0; text-align:left; }
-#topPlaces .filters ul.options {margin:1em 0 0 0; }
+#topPlaces .filters {margin:1em 0; text-align:left; overflow: auto; height:25em; border:1px solid #ccc; padding:1em; }
+#topPlaces .filters ul.options {margin:1em 0; }
 #topPlaces .filters ul.options li { display: inline-block; width: 49%; margin:0.5em 0; }
-#topPlaces .filters ul.options li .sliderWrap { width: 90%; margin: 0.5em 0 0 0;}
-#topPlaces .filters ul.options li .sliderWrap .slider { width: 64%; display:inline-block;}
+#topPlaces .filters ul.options li .sliderWrap { margin: 0.5em 0 0 0;}
+#topPlaces .filters ul.options li .sliderWrap .slider { width: 23em; display:inline-block;}
 #topPlaces .filters ul.options li .sliderWrap .sliderLabel { display:inline-block; font-size:0.85em; padding:0 1em;}
-
+#topPlaces .filters ul.options li .sliderWrap .sliderLabel.less {width:7em; text-align:right; }
+#topPlaces .filters ul.options li .sliderWrap .sliderLabel.more {width:7em; }
 #topPlaces .filters ul.options li.noFilter .slider .ui-widget-header { background: none; }
-#topPlaces .filters .valueLabel .val { font-size: 1em; color:#e78500; font-weight:bold;}
+#topPlaces .filters .valueLabel .val { font-size: 1.1em; color:#606060; font-weight:bold;}
 #topPlaces .filters .filtersToggle { margin: 1em 0 0 0; }
 #topPlaces .filters label { font-size: 1.3em; display:block; }
 #topPlaces .filters input[type=text] { font-size: 1.3em; }
