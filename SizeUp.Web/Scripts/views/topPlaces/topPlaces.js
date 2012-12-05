@@ -150,30 +150,6 @@
 
         var initSliders = function () {
             var params = getParameters();
-
-            /*
-            'bachelorOrHigher',
-'blueCollarWorkers',
-'highSchoolOrHigher',
-'whiteCollarWorkers',
-'airportsNearby',
-'youngEducated',
-'universitiesNearby',
-'commuteTime',
-'medianAge',
-'householdExpenditures',
-'householdIncome'
-
-            revenuePerCapita
-            totalEmployees
-            totalRevenue
-            averageRevenue
-
-            */
-
-
-
-
      
             me.content.filters.sliders['bachelorOrHigher'] = new sizeup.controls.slider({
                 container: me.content.container.find('#bachelorOrHigher'),
@@ -272,7 +248,8 @@
                     { range: { min: 7, max: 8 }, mappedValue: 150000, mappedLabel: '$150,000' },
                     { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
                     { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
-                ]
+                ],
+                onChange: function () { sliderChanged(); }
             });
 
             me.content.filters.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
@@ -292,7 +269,8 @@
                     { range: { min: 8, max: 9 }, mappedValue: 7500000, mappedLabel: '$7.5 million' },
                     { range: { min: 9, max: 10 }, mappedValue: 10000000, mappedLabel: '$10 million' },
                     { range: { min: 10, max: 11 }, mappedValue: 50000000, mappedLabel: '$50 million+' }
-                ]
+                ],
+                onChange: function () { sliderChanged(); }
             });
 
 
@@ -313,7 +291,8 @@
                     { range: { min: 8, max: 9 }, mappedValue: 1000000000, mappedLabel: '$1 billion' },
                     { range: { min: 9, max: 10 }, mappedValue: 50000000000, mappedLabel: '$50 billion' },
                     { range: { min: 10, max: 11 }, mappedValue: 100000000000, mappedLabel: '$100 billion+' }
-                ]
+                ],
+                onChange: function () { sliderChanged(); }
             });
 
             me.content.filters.sliders['totalEmployees'] = new sizeup.controls.rangeSlider({
@@ -333,7 +312,8 @@
                     { range: { min: 8, max: 9 }, mappedValue: 100000, mappedLabel: '100,000' },
                     { range: { min: 9, max: 10 }, mappedValue: 500000, mappedLabel: '500,000' },
                     { range: { min: 10, max: 11 }, mappedValue: 1000000, mappedLabel: '1 million+' }
-                ]
+                ],
+                onChange: function () { sliderChanged(); }
             });
 
             me.content.filters.sliders['revenuePerCapita'] = new sizeup.controls.rangeSlider({
@@ -353,7 +333,8 @@
                     { range: { min: 8, max: 9 }, mappedValue: 7500, mappedLabel: '$7,500' },
                     { range: { min: 9, max: 10 }, mappedValue: 10000, mappedLabel: '$10,000' },
                     { range: { min: 10, max: 11 }, mappedValue: 15000, mappedLabel: '$15,000+' }
-                ]
+                ],
+                onChange: function () { sliderChanged(); }
             });
 
 
@@ -373,7 +354,8 @@
                     { range: { min: 7, max: 8 }, mappedValue: 150000, mappedLabel: '$150,000' },
                     { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
                     { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
-                ]
+                ],
+                onChange: function () { sliderChanged(); }
             });
 
 
@@ -465,12 +447,82 @@
                 params.population = [minPop, maxPop];
             }
 
-            for (var x in filterVars) {
-                var p;
-                p = me.content.filters.sliders[filterVars[x]].getParam();
-                if (p != null) {
-                    params[filterVars[x]] = p;
-                }
+
+            var p;
+            p = me.content.filters.sliders['bachelorOrHigher'].getParam();
+            if (p != null) {
+                params['bachelorOrHigher'] = p;
+            }
+
+            p = me.content.filters.sliders['blueCollarWorkers'].getParam();
+            if (p != null) {
+                params['blueCollarWorkers'] = p;
+            }
+
+            p = me.content.filters.sliders['highSchoolOrHigher'].getParam();
+            if (p != null) {
+                params['highSchoolOrHigher'] = p;
+            }
+
+            p = me.content.filters.sliders['whiteCollarWorkers'].getParam();
+            if (p != null) {
+                params['whiteCollarWorkers'] = p;
+            }
+
+            p = me.content.filters.sliders['airportsNearby'].getParam();
+            if (p != null) {
+                params['airportsNearby'] = p;
+            }
+
+            p = me.content.filters.sliders['youngEducated'].getParam();
+            if (p != null) {
+                params['youngEducated'] = p;
+            }
+
+            p = me.content.filters.sliders['universitiesNearby'].getParam();
+            if (p != null) {
+                params['universitiesNearby'] = p;
+            }
+
+            p = me.content.filters.sliders['commuteTime'].getParam();
+            if (p != null) {
+                params['commuteTime'] = p;
+            }
+
+
+            p = me.content.filters.sliders['medianAge'].getParam();
+            if (p != null) {
+                params['medianAge'] = p;
+            }
+
+            p = me.content.filters.sliders['householdExpenditures'].getParam();
+            if (p != null) {
+                params['householdExpenditures'] = p;
+            }
+
+            p = me.content.filters.sliders['averageRevenue'].getParam();
+            if (p != null) {
+                params['averageRevenue'] = p;
+            }
+
+            p = me.content.filters.sliders['totalRevenue'].getParam();
+            if (p != null) {
+                params['totalRevenue'] = p;
+            }
+
+            p = me.content.filters.sliders['totalEmployees'].getParam();
+            if (p != null) {
+                params['totalEmployees'] = p;
+            }
+
+            p = me.content.filters.sliders['revenuePerCapita'].getParam();
+            if (p != null) {
+                params['revenuePerCapita'] = p;
+            }
+
+            p = me.content.filters.sliders['householdIncome'].getParam();
+            if (p != null) {
+                params['householdIncome'] = p;
             }
 
             jQuery.bbq.pushState(params, 2);
