@@ -37,5 +37,11 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             return File("~/Scripts/widget/embed.js", "text/javascript");
         }
 
+
+        public ActionResult TopPlaces()
+        {
+            return File("~/Scripts/widget/topPlaces.js", "text/javascript");
+        }
+
     }
 }

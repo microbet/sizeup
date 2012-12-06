@@ -40,6 +40,11 @@ namespace SizeUp.WidgetSandbox.Controllers
             return View();
         }
 
+        public ActionResult TopPlaces()
+        {
+            return View();
+        }
+
 
     }
 }
