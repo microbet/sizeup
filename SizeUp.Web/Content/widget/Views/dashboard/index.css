@@ -6,7 +6,7 @@
 #dashboard .report .header .hint { left: 7.75em; top: 4.5em; }
 #dashboard .report .header .prompt { width:40px; right:3.25em; padding:5px 10px 6px 35px; font-size:1.5em; text-transform:none; }
 #dashboard .report .header .prompt:before { height:50px; width:20px; position:absolute; right:-20px;top:0px; display:block; background-image: url("/content/images/dashbuttons.png"); background-repeat: no-repeat; content:" "; background-position:-295px 0px; }
-#dashboard .report .header a.button { right: 2.5em; display:none; }
+#dashboard .report .header a.button { right: 2.5em; display:none; width:2em; }
 #dashboard .report .header .gauge { right: 4em; }
 #dashboard .report .header .reportToggle { right: 0.25em; }
 
