@@ -30,6 +30,13 @@ namespace SizeUp.Web.Areas.Widget
             );
 
             context.MapRoute(
+               "Widget_TopPlaces",
+               "Widget/topPlaces/{industry}",
+               new { controller = "TopPlaces", action = "Index", id = UrlParameter.Optional },
+               new string[] { "SizeUp.Web.Areas.Widget.Controllers" }
+           );
+
+            context.MapRoute(
                 "Widget_default",
                 "Widget/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },

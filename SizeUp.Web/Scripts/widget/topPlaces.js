@@ -1,13 +1,12 @@
 ﻿(function () {
     var me = {};
 
-    me.wigetSource = '/widget/select';
-    me.defaultWidth = '600';
-    me.defaultHeight = '600';
-    me.defaultMinWidth = '580';
-    me.defaultMinHeight = '900';
+    me.wigetSource = '/widget/topPlaces';
     me.defaultColor = '#fff';
-
+    me.defaultWidth = '900';
+    me.defaultHeight = '1000';
+    me.defaultMinWidth = '900';
+    me.defaultMinHeight = '1000';
 
     var createIframe = function () {
         var loc = getScriptLocation();
@@ -26,12 +25,16 @@
         iframe.style["min-width"] = (me.defaultMinWidth) + 'px';
         iframe.style["minHeight"] = (me.defaultMinHeight) + 'px';
         iframe.style["minWidth"] = (me.defaultMinWidth) + 'px';
+        iframe.style["background"] = loc.query['color'] || me.defaultColor;
+        iframe.style["overflow"] = 'hidden';
+
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
         iframe["scrolling"] = 'no';
-        var src = loc.protocol + '://' + loc.host + (loc.port? ':' + loc.port : '') + me.wigetSource;
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + '/' + loc.query['industry'];
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
+        me.iframe = iframe;
     };
 
     var createCopyright = function () {
@@ -126,4 +129,12 @@
     };
     init();
 })();
+
+
+
+
+
+
+
+
 

@@ -368,7 +368,8 @@
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
                 var params = getParameters();
-                var url = '/topplaces/' + i.SEOKey + '/';
+                var url = document.location.pathname;
+                url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
                 url = jQuery.param.fragment(url, params, 2);
                 document.location = url;
             }

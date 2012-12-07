@@ -1,24 +1,19 @@
 ﻿@{
-    ViewBag.Title = "Wide";
+    ViewBag.Title = "Top Places";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Wide</h2>
+<h2>Top Places</h2>
 
 
 
 @section head{
-    <script type="text/javascript" src="http://@ViewData["url"]/widget/api"></script>
+   
 }
 
 
 <div id="container">
-
+    <span><a href="http://www.sizeup.com" target="_blank">SizeUp</a></span>
+    <script type="text/javascript" src="http://@ViewData["url"]/widget/get/topPlaces?industry=pharmacies"></script>
 </div>
 
-
-<script>
-    var driver = sizeup.widget.topPlaces({
-        container: 'container'
-    });
-</script>
