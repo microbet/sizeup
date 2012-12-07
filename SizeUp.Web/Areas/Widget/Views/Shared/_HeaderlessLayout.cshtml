@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/reset.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/thirdParty/jquery-ui-1.8.21.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/widget/base.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/widget/layout.css")" rel="stylesheet" type="text/css" />
+    @Html.Partial("Analytics")
+    <!--<script type="text/javascript" src="https://www.proxino.com/p.js"></script>
+    <script type="text/javascript">
+        Proxino.key = "3xIEXXa1IBVdiB-wMbcEOw";
+        Proxino.track_errors();
+    </script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/namespace.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/notifier.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/profile.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/analytics.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/tracking/outboundLinks.js")" type="text/javascript"></script>
+
+    @RenderSection("head",false)
+    @if (!string.IsNullOrEmpty(ViewBag.Theme))
+    {
+    <link href="@Url.Content("~/Content/themes/" + ViewBag.Theme + "/" + ViewBag.Theme + ".css")" rel="stylesheet" type="text/css" />
+    }
+
+    @if (ViewBag.APIName == "SBA")
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('body').on('click', 'a', function () {
+                    var me = $(this);
+                    var ok = false;
+                    if (me.attr('target') == '_blank') {
+                        ok = confirm("You are leaving the Small Business Administration (SBA) website… ");
+                    }
+                    else {
+                        ok = true;
+                    }
+                    return ok;
+                });
+            });
+        </script>
+    }
+</head>
+
+<body class="@ViewBag.Theme">
+    <div id="content">
+        <div id="contentWrap">
+        @RenderBody()
+        </div>
+    </div>
+    <script src="@Url.Content("~/Scripts/widget/messager.js")" type="text/javascript"></script>
+
+
+    @RenderSection("scripts",false)
+</body>
+</html>

@@ -429,6 +429,7 @@
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
+    <Content Include="Scripts\widget\messager.js" />
     <Content Include="Scripts\widget\topPlaces.js" />
     <Content Include="Scripts\widget\core.js" />
     <Content Include="Scripts\widget\embed.js" />
@@ -538,6 +539,7 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Areas\Widget\Views\TopPlaces\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Shared\_HeaderlessLayout.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />

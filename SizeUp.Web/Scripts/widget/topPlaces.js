@@ -4,9 +4,9 @@
     me.wigetSource = '/widget/topPlaces';
     me.defaultColor = '#fff';
     me.defaultWidth = '900';
-    me.defaultHeight = '1000';
-    me.defaultMinWidth = '900';
-    me.defaultMinHeight = '1000';
+    me.defaultMinWidth = '750';
+
+
 
     var createIframe = function () {
         var loc = getScriptLocation();
@@ -15,18 +15,14 @@
         iframe["frameBorder"] = "0";
         iframe["border"] = "0";
         iframe.style["border"] = "0";
-        iframe["height"] = (loc.query['height'] || me.defaultHeight) + 'px';
+        iframe.style["background"] = loc.query['color'] || me.defaultColor;
+        iframe.style["overflow"] = 'hidden';
+        iframe.style["background"] = loc.query['color'] || me.defaultColor;
+        iframe.style["overflow"] = 'hidden';
+
         iframe["width"] = (loc.query['width'] || me.defaultWidth) + 'px';
-        iframe.style["height"] = (loc.query['height'] || me.defaultHeight) + 'px';
-        iframe.style["width"] = (loc.query['width'] || me.defaultWidth) + 'px';
-        iframe.style["background"] = loc.query['color'] || me.defaultColor;
-        iframe.style["overflow"] = 'hidden';
-        iframe.style["min-height"] = (me.defaultMinHeight) + 'px';
         iframe.style["min-width"] = (me.defaultMinWidth) + 'px';
-        iframe.style["minHeight"] = (me.defaultMinHeight) + 'px';
         iframe.style["minWidth"] = (me.defaultMinWidth) + 'px';
-        iframe.style["background"] = loc.query['color'] || me.defaultColor;
-        iframe.style["overflow"] = 'hidden';
 
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
@@ -85,6 +81,8 @@
         terms.style["textDecoration"] = 'none';
         terms.style["color"] = '#e78500';
         terms.style["margin"] = '0 0 0 5px';
+
+        me.footer = span;
     };
 
     var getThisScript = function () {
@@ -123,9 +121,22 @@
         return ret;
     };
 
+    var receiveMessage = function (e) {
+        me.iframe.width = e.data.width;
+        me.iframe.height = e.data.height;
+        me.footer.style["width"] = (e.data.width - 10) + 'px';
+    };
+
     var init = function () {
         createCopyright();
         createIframe();
+
+        if (window.addEventListener) {
+            window.addEventListener("message", receiveMessage);
+        }
+        if (window.attachEvent) {
+            window.attachEvent("onmessage", receiveMessage);
+        }
     };
     init();
 })();
