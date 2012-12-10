@@ -42,7 +42,7 @@ optgroup {color:#606060; }
 .hidden {display:none !important;}
 
 
-ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA;border-style: solid;border-width: 1px; font-family: Arial,Sans-Serif; overflow:auto; max-height:19.5em; float: left; position:absolute; }
+ul.ui-autocomplete {background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA;border-style: solid;border-width: 1px; font-family: Arial,Sans-Serif; overflow:auto; max-height:19.5em; float: left; position:absolute; width:auto !important; }
 ul.ui-autocomplete li.ui-menu-item a {color:#303030; text-decoration: none; font-weight: normal;display:block;padding: 0.25em 0.5em;}
 ul.ui-autocomplete li.ui-menu-item{ cursor: default;display: block; line-height: 1.5em; margin: 0;overflow: hidden;}
 ul.ui-autocomplete li.ui-menu-item.odd {background:#EEEEEE;}
@@ -129,7 +129,7 @@ a.sorter.desc { background-position:right 0.3em; }
 
 .selectList-container { position: relative; display: inline-block; }
 .selectList-container .selectList-selector {font-size:1em; }
-.selectList-container .selectList-list { position:absolute; background-color: #fff; border: 1px solid #ccc; z-index: 1000; right:0; width:auto; }
+.selectList-container .selectList-list { position:absolute; background-color: #fff; border: 1px solid #ccc; z-index: 1000; width:auto; }
 .selectList-container .selectList-list .selectList-listGroup { text-align:left; color:#333; background-color:#ccc; border-bottom: #aaa solid 1px; padding: 0.1em 0.1em 0.1em 0.5em; }
 .selectList-container .selectList-list .selectList-listItem { color:#666; text-align:right; white-space:nowrap;padding: 0.1em 0.1em 0.1em 2em; }
 .selectList-container .selectList-list .selectList-listItem.selectList-hover {background-color:#FFD86A;  }
