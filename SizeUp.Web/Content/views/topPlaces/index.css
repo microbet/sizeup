@@ -38,7 +38,7 @@
 
 #topPlaces .filters {margin:1em 0; text-align:left; overflow: auto; height:25em; border:1px solid #ccc; padding:1em; }
 #topPlaces .filters ul.options {margin:1em 0; }
-#topPlaces .filters ul.options li { display: inline-block; width: 40em; margin:0.5em 0; }
+#topPlaces .filters ul.options li { display: inline-block; width: 43em; margin:0.5em 0; }
 #topPlaces .filters ul.options li .sliderWrap { margin: 0.5em 0 0 0;}
 #topPlaces .filters ul.options li .sliderWrap .slider { width: 23em; display:inline-block;}
 #topPlaces .filters ul.options li .sliderWrap .sliderLabel { display:inline-block; font-size:0.85em; padding:0 1em;}

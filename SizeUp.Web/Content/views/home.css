@@ -25,7 +25,7 @@ input[type=text] {width: 31.5em; padding: 0.5em; color: #303030;text-align: cent
 
 #form #continue {margin:0.25em 0 3em 0;}
 
-#form ul.ui-autocomplete { text-align: left; }
+#form ul.ui-autocomplete { text-align: left; width:100%; }
 
 
 #form p.info {  position: absolute; left: 1em; width: 43.5em; }
