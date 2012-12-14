@@ -33,7 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PrecompileBeforePublish>true</PrecompileBeforePublish>
+    <PrecompileBeforePublish>false</PrecompileBeforePublish>
     <PublishDatabases>false</PublishDatabases>
     <DeployIisAppPath>Default Web Site</DeployIisAppPath>
     <EnableUpdateable>true</EnableUpdateable>
@@ -48,6 +48,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PrecompileBeforePublish>false</PrecompileBeforePublish>
+    <DeployIisAppPath>SizeUp.com</DeployIisAppPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr4.StringTemplate">
@@ -559,6 +561,7 @@
     <Content Include="Views\Community\CountyCommunity.cshtml" />
     <Content Include="Views\Community\MetroCommunity.cshtml" />
     <Content Include="Views\Community\StateCommunity.cshtml" />
+    <None Include="Properties\PublishProfiles\test.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

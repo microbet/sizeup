@@ -19,7 +19,16 @@
         me.data = {
             xhr: {},
             mapPins: [],
-            activeIndustry: me.opts.CurrentInfo.CurrentIndustry
+            activeIndustry: me.opts.CurrentInfo.CurrentIndustry,
+            attributes: {
+                totalRevenue: 'Total Annual Revenue',
+                totalEmployees: 'Total Employees',
+                averageRevenue: 'Average Revenue',
+                averageEmployees: 'Average Employees',
+                employeesPerCapita: 'Employees Per Capita',
+                revenuePerCapita: 'Revenue Per Capita',
+                underservedMarkets: 'Revenue Per Capita'
+            }
         };
 
 
@@ -112,7 +121,7 @@
             //init state
             me.content.placeTypeMenu.setValue(params.placeType);
             me.content.attributeMenu.setValue(params.attribute);
-            me.content.variableHeader.html(me.content.attributeMenu.getName());
+            me.content.variableHeader.html(me.data.attributes[me.content.attributeMenu.getValue()]);
 
             if (params.regionId) {
                 me.content.regionMenu.setValue('r' + params.regionId);
@@ -395,7 +404,7 @@
         };
 
         var attributeMenuChanged = function (e) {
-            me.content.variableHeader.html(me.content.attributeMenu.getName());
+            me.content.variableHeader.html(me.data.attributes[me.content.attributeMenu.getValue()]);
             pushUrlState();
             loadReport();
         };
@@ -655,11 +664,16 @@
 
             for (var x in data.list) {
                 var pin = new sizeup.maps.heatPin({
-                    position: new sizeup.maps.latLng({ lat: data.list[x].latLng.Lat, lng: data.list[x].latLng.Lng }),
+                    position: new sizeup.maps.latLng({ lat: data.list[x].centroid.Lat, lng: data.list[x].centroid.Lng }),
                     color: getColor(data.list[x].value, data.bands),
                     title: data.list[x].label
                 });
-                latLngBounds.extend(pin.getPosition());
+                //create 2 new latlngs here
+                var sw = new sizeup.maps.latLng({ lat: data.list[x].southWest.Lat, lng: data.list[x].southWest.Lng });
+                var ne = new sizeup.maps.latLng({ lat: data.list[x].northEast.Lat, lng: data.list[x].northEast.Lng });
+                latLngBounds.extend(sw);
+                latLngBounds.extend(ne);
+
                 me.data.mapPins.push(pin);
                 me.content.map.addMarker(pin);
             };
@@ -684,7 +698,9 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    latLng: data[x].State.Centroid,
+                    centroid: data[x].State.Centroid,
+                    southWest: data[x].State.SouthWest,
+                    northEast: data[x].State.NorthEast,
                     label: data[x].State.Name,
                     state: data[x].State,
                     value: extractValue(data[x], attr),
@@ -701,7 +717,9 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    latLng: data[x].Metro.Centroid,
+                    centroid: data[x].Metro.Centroid,
+                    southWest: data[x].Metro.SouthWest,
+                    northEast: data[x].Metro.NorthEast,
                     label: data[x].Metro.Name,
                     metro: data[x].Metro,
                     value: extractValue(data[x], attr),
@@ -718,7 +736,9 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    latLng: data[x].County.Centroid,
+                    centroid: data[x].County.Centroid,
+                    southWest: data[x].County.SouthWest,
+                    northEast: data[x].County.NorthEast,
                     label: data[x].County.Name + ' County , ' +data[x].State.Abbreviation,
                     county: data[x].County,
                     state: data[x].State,
@@ -736,7 +756,9 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    latLng: data[x].City.Centroid,
+                    centroid: data[x].City.Centroid,
+                    southWest: data[x].City.SouthWest,
+                    northEast: data[x].City.NorthEast,
                     label: data[x].City.Name + ', ' + data[x].State.Abbreviation,
                     city: data[x].City,
                     county: data[x].County,

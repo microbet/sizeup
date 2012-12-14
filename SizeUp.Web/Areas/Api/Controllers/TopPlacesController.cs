@@ -213,14 +213,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Id = i.City.Id,
                             Name = i.City.Name,
                             SEOKey = i.City.SEOKey,
-                            Centroid = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
+                            Centroid = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
                         County = i.City.CityCountyMappings.Select(c => new Models.County.County()
                         {
                             Id = c.County.Id,
                             Name = c.County.Name,
                             SEOKey = c.County.SEOKey,
-                            Centroid = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
+                            Centroid = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         }).FirstOrDefault(),
                         State = new Models.State.State()
                         {
@@ -229,6 +233,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Abbreviation = i.City.State.Abbreviation,
                             SEOKey = i.City.State.SEOKey,
                             Centroid = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
                         IndustryData = i.IndustryData,
                         Demographics = i.Demographics
@@ -560,7 +566,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Id = i.County.Id,
                             Name = i.County.Name,
                             SEOKey = i.County.SEOKey,
-                            Centroid = i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault()
+                            Centroid = i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
                         State = new Models.State.State()
                         {
@@ -569,6 +577,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Abbreviation = i.County.State.Abbreviation,
                             SEOKey = i.County.State.SEOKey,
                             Centroid = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
                         IndustryData = i.IndustryData,
                         Demographics = i.Demographics
@@ -891,6 +901,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Name = i.Metro.Name,
                             SEOKey = i.Metro.SEOKey,
                             Centroid = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
                         IndustryData = i.IndustryData
                     });
@@ -1208,6 +1220,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Abbreviation = i.State.Abbreviation,
                             SEOKey = i.State.SEOKey,
                             Centroid = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                            NorthEast = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                            SouthWest = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
                         IndustryData = i.IndustryData
                     });

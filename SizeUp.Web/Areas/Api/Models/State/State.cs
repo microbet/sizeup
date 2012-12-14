@@ -13,5 +13,7 @@ namespace SizeUp.Web.Areas.Api.Models.State
         public string Abbreviation { get; set; }
         public string SEOKey { get; set; }
         public Models.Shared.LatLng Centroid { get; set; }
+        public Models.Shared.LatLng SouthWest { get; set; }
+        public Models.Shared.LatLng NorthEast { get; set; }
     }
 }
