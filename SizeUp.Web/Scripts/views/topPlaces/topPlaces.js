@@ -376,6 +376,8 @@
 
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
+                var p = { industry: me.data.activeIndustry.Name };
+                new sizeup.core.analytics().topPlacesIndustryChanged(p);
                 var params = getParameters();
                 var url = document.location.pathname;
                 url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
@@ -399,17 +401,23 @@
             loadReport();
         }; 
         var placeTypeMenuChanged = function (e) {
+            var p = { placeType: me.content.placeTypeMenu.getValue() };
+            new sizeup.core.analytics().topPlacesPlaceTypeChanged(p);
             pushUrlState();
             loadReport();
         };
 
         var attributeMenuChanged = function (e) {
             me.content.variableHeader.html(me.data.attributes[me.content.attributeMenu.getValue()]);
+            var p = { attribute: me.content.attributeMenu.getValue() };
+            new sizeup.core.analytics().topPlacesAttributeChanged(p);
             pushUrlState();
             loadReport();
         };
 
         var regionMenuChanged = function (e) {
+            var p = { region: me.content.regionMenu.getName() };
+            new sizeup.core.analytics().topPlacesRegionChanged(p);
             pushUrlState();
             loadReport();
         };
@@ -534,7 +542,6 @@
 
         var loadReport = function () {
 
-            new sizeup.core.analytics().topPlacesReportLoaded();
 
             me.content.loader.show();
             me.content.results.hide();
@@ -545,6 +552,12 @@
             params.industryId = me.data.activeIndustry.Id;
             params.itemCount = me.opts.itemsPerPage;
             params.bands = me.opts.bandCount;
+
+            var p = { label: params.attribute };
+            new sizeup.core.analytics().topPlacesReportLoaded(p);
+
+
+
 
             var reportData = {
                 list: null,
@@ -559,9 +572,6 @@
                 bindBands(formatBands(reportData.bands));
                 bindMap(reportData);
                
-                //bindDescription();
-
-
 
                 me.content.loader.hide();
                 me.content.results.show();

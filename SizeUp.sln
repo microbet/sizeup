@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.Data", "SizeUp.Data\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.WidgetSandbox", "SizeUp.WidgetSandbox\SizeUp.WidgetSandbox.csproj", "{97DEEE16-4A05-457B-820E-B9041D064AD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.Offline", "SizeUp.Offline\SizeUp.Offline.csproj", "{D7D95CF2-C616-4645-81BC-C41C0F57D830}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,16 +66,6 @@ Global
 		{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDDF3087-7D33-4A34-B72E-7DFEFC5DEA0E}.Release|x86.Build.0 = Release|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D7D95CF2-C616-4645-81BC-C41C0F57D830}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

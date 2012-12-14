@@ -49,8 +49,20 @@
             placeIndustry: function (params) {
                 trackInternal(params, 'trackPlaceIndustry');
             },
-            topPlacesReportLoaded: function () {
-                trackEvent({ category: 'TopPlaces', action: 'reportLoaded', label: null, isInteraction: true });
+            topPlacesReportLoaded: function (params) {
+                trackEvent({ category: 'TopPlaces', action: 'reportLoaded', label: params.label, isInteraction: true });
+            },
+            topPlacesPlaceTypeChanged: function (params) {
+                trackEvent({ category: 'TopPlaces', action: 'placeTypeChanged', label: params.placeType, isInteraction: true });
+            },
+            topPlacesAttributeChanged: function (params) {
+                trackEvent({ category: 'TopPlaces', action: 'attributeChanged', label: params.attribute, isInteraction: true });
+            },
+            topPlacesIndustryChanged: function (params) {
+                trackEvent({ category: 'TopPlaces', action: 'industryChanged', label: params.industry, isInteraction: true });
+            },
+            topPlacesRegionChanged: function (params) {
+                trackEvent({ category: 'TopPlaces', action: 'regionChanged', label: params.region, isInteraction: true });
             },
             outgoingLink: function (params) {
                 trackEvent({ category: 'outgoingLinks',action:'clicked', label: params.label, isInteraction: true });
