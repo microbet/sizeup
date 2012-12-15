@@ -153,7 +153,7 @@
                 min: 0,
                 max: 95,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('bachelorOrHigher'); }
             });
 
             me.content.filters.sliders['blueCollarWorkers'] = new sizeup.controls.slider({
@@ -162,7 +162,7 @@
                 min: 0,
                 max: 95,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('blueCollarWorkers'); }
             });
 
             me.content.filters.sliders['highSchoolOrHigher'] = new sizeup.controls.slider({
@@ -171,7 +171,7 @@
                 min: 0,
                 max: 95,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('highSchoolOrHigher'); }
             });
 
             me.content.filters.sliders['whiteCollarWorkers'] = new sizeup.controls.slider({
@@ -180,7 +180,7 @@
                 min: 0,
                 max: 95,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('whiteCollarWorkers'); }
             });
 
 
@@ -190,7 +190,7 @@
                 min: 0,
                 max: 9,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('airportsNearby'); }
             });
 
             me.content.filters.sliders['youngEducated'] = new sizeup.controls.slider({
@@ -199,7 +199,7 @@
                 min: 0,
                 max: 95,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('youngEducated'); }
             });
 
             me.content.filters.sliders['universitiesNearby'] = new sizeup.controls.slider({
@@ -208,7 +208,7 @@
                 min: 0,
                 max: 20,
                 range: 'max',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('universitiesNearby'); }
             });
 
             me.content.filters.sliders['commuteTime'] = new sizeup.controls.slider({
@@ -217,7 +217,7 @@
                 min: 0,
                 max: 60,
                 range: 'min',
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('commuteTime'); }
             });
 
             me.content.filters.sliders['medianAge'] = new sizeup.controls.rangeSlider({
@@ -225,7 +225,7 @@
                 values: params['medianAge'],
                 min: 0,
                 max: 82,
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('medianAge'); }
             });
           
             me.content.filters.sliders['householdExpenditures'] = new sizeup.controls.rangeSlider({
@@ -245,7 +245,7 @@
                     { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
                     { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
                 ],
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('householdExpenditures'); }
             });
 
             me.content.filters.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
@@ -266,7 +266,7 @@
                     { range: { min: 9, max: 10 }, mappedValue: 10000000, mappedLabel: '$10 million' },
                     { range: { min: 10, max: 11 }, mappedValue: 50000000, mappedLabel: '$50 million+' }
                 ],
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('averageRevenue'); }
             });
 
 
@@ -288,7 +288,7 @@
                     { range: { min: 9, max: 10 }, mappedValue: 50000000000, mappedLabel: '$50 billion' },
                     { range: { min: 10, max: 11 }, mappedValue: 100000000000, mappedLabel: '$100 billion+' }
                 ],
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('totalRevenue'); }
             });
 
             me.content.filters.sliders['totalEmployees'] = new sizeup.controls.rangeSlider({
@@ -309,7 +309,7 @@
                     { range: { min: 9, max: 10 }, mappedValue: 500000, mappedLabel: '500,000' },
                     { range: { min: 10, max: 11 }, mappedValue: 1000000, mappedLabel: '1 million+' }
                 ],
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('totalEmployees'); }
             });
 
             me.content.filters.sliders['revenuePerCapita'] = new sizeup.controls.rangeSlider({
@@ -330,7 +330,7 @@
                     { range: { min: 9, max: 10 }, mappedValue: 10000, mappedLabel: '$10,000' },
                     { range: { min: 10, max: 11 }, mappedValue: 15000, mappedLabel: '$15,000+' }
                 ],
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('revenuePerCapita'); }
             });
 
 
@@ -351,7 +351,7 @@
                     { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
                     { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
                 ],
-                onChange: function () { sliderChanged(); }
+                onChange: function () { sliderChanged('householdIncome'); }
             });
 
 
@@ -422,7 +422,9 @@
             loadReport();
         };
 
-        var sliderChanged = function () {
+        var sliderChanged = function (attribute) {
+            var p = { attribute: attribute  };
+            new sizeup.core.analytics().topPlacesAdvancedFilterChanged(p);
             pushUrlState();
             loadReport();
         }
@@ -764,6 +766,7 @@
             var newData = [];
             var attr = getParameters().attribute;
             for (var x = 0; x < data.length; x++) {
+                data[x].City.Counties[data[x].City.Counties.length - 1].last = true;
                 newData.push({
                     rank: x + 1,
                     centroid: data[x].City.Centroid,
@@ -774,8 +777,8 @@
                     county: data[x].County,
                     state: data[x].State,
                     value: extractValue(data[x], attr),
-                    formattedValue: formatValue(extractValue(data[x], attr), attr)
-
+                    formattedValue: formatValue(extractValue(data[x], attr), attr),
+                    counties: data[x].City.Counties
                 });
             }
             return newData;

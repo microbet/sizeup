@@ -104,7 +104,6 @@
             
 
             <div class="section">
-                <h2>Advanced Filters</h2>
                 <p>Adjust business and demographic parameters to limit the results of your top places report.</p>
                 <h3>Industry Performance</h3>
                 <ul class="options">
@@ -174,7 +173,7 @@
                 <input type="text" value="max" id="populationMax" data-prompt="max" />
                 <ul class="options">
                     <li id="householdIncome">
-                        <span class="label">Household Income:</span>
+                        <span class="label">Median Household Income:</span>
                         <span class="valueLabel">
                             <span class="max">at most <span class="val">{{max}}</span></span>
                             <span class="min">at least <span class="val">{{min}}</span></span>
@@ -188,7 +187,7 @@
                         </div>
                     </li>
                     <li id="householdExpenditures">
-                        <span class="label">Household Expenditures:</span>
+                        <span class="label">Average Household Expenditures:</span>
                         <span class="valueLabel">
                             <span class="max">at most <span class="val">{{max}}</span></span>
                             <span class="min">at least <span class="val">{{min}}</span></span>
@@ -311,7 +310,7 @@
                      <li id="commuteTime">
                         <span class="label">Commute Time:</span>
                         <span class="valueLabel">
-                            <span class="value">at least <span class="val">{{value}} minutes</span></span>
+                            <span class="value">at most <span class="val">{{value}} minutes</span></span>
                             <span class="off"><span class="val">No Preference</span></span>
                         </span>
                         <div class="sliderWrap">
@@ -348,7 +347,7 @@
                 <tbody class="results">
                     <tr data-template="cityItem">
                         <td class="rank">{{rank}}</td>
-                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name">{{city.Name}}, {{state.Abbreviation}}</a></td>
+                        <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name" title="{{city.Name}} {{city.TypeName}}, {{state.Abbreviation}} - Counties: ({{#counties}}{{Name}}{{^last}}, {{/last}}{{/counties}})">{{city.Name}}, {{state.Abbreviation}}</a></td>
                         <td class="value">{{formattedValue}}</td>
                     </tr>
                     <tr data-template="countyItem">

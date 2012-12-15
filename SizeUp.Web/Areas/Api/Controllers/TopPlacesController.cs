@@ -53,10 +53,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             Range averageRevenue = ParseQueryString("averageRevenue");
 
 
-       
-
-
-
             using (var context = ContextFactory.SizeUpContext)
             {
 
@@ -119,7 +115,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -208,34 +204,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
                 var raw = entities.Select(i => new
                     {
-                        City = new Models.City.City()
-                        {
-                            Id = i.City.Id,
-                            Name = i.City.Name,
-                            SEOKey = i.City.SEOKey,
-                            Centroid = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                            NorthEast = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
-                            SouthWest = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
-                        },
-                        County = i.City.CityCountyMappings.Select(c => new Models.County.County()
-                        {
-                            Id = c.County.Id,
-                            Name = c.County.Name,
-                            SEOKey = c.County.SEOKey,
-                            Centroid = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                            NorthEast = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
-                            SouthWest = c.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
-                        }).FirstOrDefault(),
-                        State = new Models.State.State()
-                        {
-                            Id = i.City.State.Id,
-                            Name = i.City.State.Name,
-                            Abbreviation = i.City.State.Abbreviation,
-                            SEOKey = i.City.State.SEOKey,
-                            Centroid = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                            NorthEast = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
-                            SouthWest = i.City.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
-                        },
+                        City = i.City,
                         IndustryData = i.IndustryData,
                         Demographics = i.Demographics
                     });
@@ -245,128 +214,73 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 IQueryable<Models.TopPlaces.TopPlace> data = null;
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.TotalRevenue);
                 }
                 else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.AverageRevenue);
                 }
                 else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.TotalEmployees);
                 }
                 else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.AverageEmployees);
                 }
                 else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita);
                 }
                 else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita);
                 }
                 else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
+                        .OrderBy(i => i.IndustryData.RevenuePerCapita);
+                }
+
+
+                data = raw.Select(i => new Models.TopPlaces.TopPlace
                         {
-                            City = i.City,
-                            County = i.County,
-                            State = i.State,
+                            City = new Models.City.City()
+                            {
+                                Id = i.City.Id,
+                                Name = i.City.Name,
+                                SEOKey = i.City.SEOKey,
+                                TypeName = i.City.CityType.Name,
+                                Centroid = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                                NorthEast = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                                SouthWest = i.City.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
+                            },
+                            County = i.City.CityCountyMappings.Select(c => new Models.County.County()
+                            {
+                                Id = c.County.Id,
+                                Name = c.County.Name,
+                                SEOKey = c.County.SEOKey
+                            }).FirstOrDefault(),
+                            State = new Models.State.State()
+                            {
+                                Id = i.City.State.Id,
+                                Name = i.City.State.Name,
+                                Abbreviation = i.City.State.Abbreviation,
+                                SEOKey = i.City.State.SEOKey 
+                            },
                             TotalRevenue = i.IndustryData.TotalRevenue,
                             TotalEmployees = i.IndustryData.TotalEmployees,
                             EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
@@ -375,13 +289,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             AverageEmployees = i.IndustryData.AverageEmployees
                         })
                         .AsQueryable();
-                }
-
 
                 var outData = data
                     .Take(itemCount)
                     .ToList();
 
+                 var cityids = outData.Select(i=>i.City.Id).ToList();
+
+                 var counties = context.CityCountyMappings.Where(i => cityids.Contains(i.CityId)).Select(i => new { i.CityId, i.County.Name }).ToList();
+                 outData.ForEach(i => i.City.Counties = counties.Where(c => c.CityId == i.City.Id).Select(c => new Models.County.County() { Name = c.Name }).ToList());
 
                 return Json(outData, JsonRequestBehavior.AllowGet);
             }
@@ -472,7 +388,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -562,7 +478,60 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var raw = entities
                     .Select(i => new
                     {
-                        County = new Models.County.County(){
+                        County = i.County,
+                        IndustryData = i.IndustryData,
+                        Demographics = i.Demographics
+                    });
+
+                IQueryable<Models.TopPlaces.TopPlace> data = null;
+                if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.TotalRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalRevenue);
+                }
+                else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.AverageRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.AverageRevenue);
+                }
+                else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.TotalEmployees > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalEmployees);
+                }
+                else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.AverageEmployees > 0)
+                        .OrderByDescending(i => i.IndustryData.AverageEmployees);
+                }
+                else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
+                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita);
+                }
+                else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
+                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita);
+                }
+                else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
+                        .OrderBy(i => i.IndustryData.RevenuePerCapita);
+                }
+
+
+                data = raw.Select(i => new Models.TopPlaces.TopPlace
+                    {
+                        County = new Models.County.County()
+                        {
                             Id = i.County.Id,
                             Name = i.County.Name,
                             SEOKey = i.County.SEOKey,
@@ -575,144 +544,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Id = i.County.State.Id,
                             Name = i.County.State.Name,
                             Abbreviation = i.County.State.Abbreviation,
-                            SEOKey = i.County.State.SEOKey,
-                            Centroid = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                            NorthEast = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
-                            SouthWest = i.County.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
+                            SEOKey = i.County.State.SEOKey
                         },
-                        IndustryData = i.IndustryData,
-                        Demographics = i.Demographics
-                    });
-
-                IQueryable<Models.TopPlaces.TopPlace> data = null;
-                if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            County = i.County,
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-
-
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        AverageEmployees = i.IndustryData.AverageEmployees
+                    });                    
+                    
+                    
                 var outData = data
                     .Take(itemCount)
                     .ToList();
@@ -805,7 +647,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -895,6 +737,57 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var raw = entities
                     .Select(i => new
                     {
+                        Metro = i.Metro,
+                        IndustryData = i.IndustryData
+                    });
+
+                IQueryable<Models.TopPlaces.TopPlace> data = null;
+                if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.TotalRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalRevenue);
+                }
+                else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.AverageRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.AverageRevenue);
+                }
+                else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.TotalEmployees > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalEmployees);
+                }
+                else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.AverageEmployees > 0)
+                        .OrderByDescending(i => i.IndustryData.AverageEmployees);
+                }
+                else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
+                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita);
+                }
+                else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
+                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita);
+                }
+                else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    raw = raw
+                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
+                        .OrderBy(i => i.IndustryData.RevenuePerCapita);
+                }
+
+
+                data = raw.Select(i => new Models.TopPlaces.TopPlace
+                    {
                         Metro = new Models.Metro.Metro()
                         {
                             Id = i.Metro.Id,
@@ -904,130 +797,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             NorthEast = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
                             SouthWest = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
-                        IndustryData = i.IndustryData
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        AverageEmployees = i.IndustryData.AverageEmployees
                     });
-
-                IQueryable<Models.TopPlaces.TopPlace> data = null;
-                if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-                else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    data = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            Metro = i.Metro,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
-
+                    
 
                 var outData = data
                     .Take(itemCount)
@@ -1123,7 +900,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -1213,139 +990,79 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var raw = entities
                     .Select(i => new
                     {
-                        State = new Models.State.State()
-                        {
-                            Id = i.State.Id,
-                            Name = i.State.Name,
-                            Abbreviation = i.State.Abbreviation,
-                            SEOKey = i.State.SEOKey,
-                            Centroid = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
-                            NorthEast = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
-                            SouthWest = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
-                        },
+                        State = i.State,
                         IndustryData = i.IndustryData
                     });
 
                 IQueryable<Models.TopPlaces.TopPlace> data = null;
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
-                        .Where(i=>i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                    raw = raw
+                        .Where(i => i.IndustryData.TotalRevenue > 0)
+                        .OrderByDescending(i => i.IndustryData.TotalRevenue);
                 }
                 else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.AverageRevenue);
                 }
                 else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.TotalEmployees);
                 }
                 else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.AverageEmployees);
                 }
                 else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita);
                 }
                 else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
-                        {
-                            State = i.State,
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
+                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita);
                 }
                 else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    data = raw
+                    raw = raw
                         .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => new Models.TopPlaces.TopPlace
+                        .OrderBy(i => i.IndustryData.RevenuePerCapita);
+                }
+
+
+                data = raw.Select(i => new Models.TopPlaces.TopPlace
                         {
-                            State = i.State,
+                            State = new Models.State.State()
+                            {
+                                Id = i.State.Id,
+                                Name = i.State.Name,
+                                Abbreviation = i.State.Abbreviation,
+                                SEOKey = i.State.SEOKey,
+                                Centroid = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.CenterLat, Lng = g.Geography.CenterLong }).FirstOrDefault(),
+                                NorthEast = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
+                                SouthWest = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
+                            },
                             TotalRevenue = i.IndustryData.TotalRevenue,
                             TotalEmployees = i.IndustryData.TotalEmployees,
                             EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
                             RevenuePerCapita = i.IndustryData.RevenuePerCapita,
                             AverageRevenue = i.IndustryData.AverageRevenue,
                             AverageEmployees = i.IndustryData.AverageEmployees
-                        })
-                        .AsQueryable();
-                }
+                        });
+
+
+
+                                            
+
 
 
                 var outData = data
@@ -1445,7 +1162,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -1799,7 +1516,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -2154,7 +1871,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
 
                 if (medianAge != null)
@@ -2508,7 +2225,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (commuteTime != null)
                 {
-                    entities = entities.Where(i => i.Demographics.CommuteTime >= commuteTime);
+                    entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
                 if (medianAge != null)
                 {

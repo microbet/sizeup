@@ -64,6 +64,9 @@
             topPlacesRegionChanged: function (params) {
                 trackEvent({ category: 'TopPlaces', action: 'regionChanged', label: params.region, isInteraction: true });
             },
+            topPlacesAdvancedFilterChanged: function (params) {
+                trackEvent({ category: 'TopPlaces', action: 'advancedFilters', label: params.attribute, isInteraction: true });
+            },
             outgoingLink: function (params) {
                 trackEvent({ category: 'outgoingLinks',action:'clicked', label: params.label, isInteraction: true });
             }
