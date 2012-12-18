@@ -326,6 +326,7 @@
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\images\up-down.png" />
     <Content Include="Content\layout.css" />
+    <Content Include="Content\print.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\themes\highContrast\highContrast.css" />
     <Content Include="Content\themes\highContrast\images\actionbutton.png" />
@@ -334,6 +335,7 @@
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
+    <Content Include="Content\views\advertising\print.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\business\find.css" />
     <Content Include="Content\views\community\communityWithIndustry.css" />
@@ -341,8 +343,10 @@
     <Content Include="Content\views\company\about.css" />
     <Content Include="Content\views\company\team.css" />
     <Content Include="Content\views\competition\index.css" />
+    <Content Include="Content\views\competition\print.css" />
     <Content Include="Content\views\dashboard\index.css" />
     <Content Include="Content\views\community\community.css" />
+    <Content Include="Content\views\dashboard\print.css" />
     <Content Include="Content\views\help\contact.css" />
     <Content Include="Content\views\help\faq.css" />
     <Content Include="Content\views\help\howitworks.css" />

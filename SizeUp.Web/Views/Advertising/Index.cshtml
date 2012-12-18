@@ -6,6 +6,7 @@
 @section head{
 <title>Best Places To Advertise - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation </title>
 <link href="@Url.Content("~/Content/views/advertising/index.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/advertising/print.css")" rel="stylesheet" type="text/css" media="print" />
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
