@@ -712,10 +712,6 @@
                 });
 
 
-                me.data.averageEmployees.description = {
-                    Percentiles: me.data.averageEmployees.percentiles
-                };
-
                 me.averageEmployees.description.html(templates.bind(templates.get("averageEmployeesDescription"), me.data.averageEmployees.description));
             }
             else {
@@ -747,9 +743,6 @@
                 });
 
 
-                me.data.employeesPerCapita.description = {
-                    Percentiles: me.data.employeesPerCapita.percentiles
-                };
 
                 me.employeesPerCapita.description.html(templates.bind(templates.get("employeesPerCapitaDescription"), me.data.employeesPerCapita.description));
             }
@@ -781,12 +774,31 @@
         var averageEmployeesPercentileDataReturned = function (data) {
             if (data) {
                 me.data.averageEmployees.hasData = true;
-                me.data.averageEmployees.percentiles = data;
+                
+                me.data.averageEmployees.percentiles = {
+                    City: data.City < 1 ? 'less employees than 1%' : data.City > 99 ? 'more employees than 99%' : 'more employees than ' + data.City + '%',
+                    County: data.County < 1 ? 'less employees than 1%' : data.County > 99 ? 'more employees than 99%' : 'more employees than ' + data.County + '%',
+                    State: data.State < 1 ? 'less employees than 1%' : data.State > 99 ? 'more employees than 99%' : 'more employees than ' + data.State + '%',
+                    Nation: data.Nation < 1 ? 'less employees than 1%' : data.Nation > 99 ? 'more employees than 99%' : 'more employees than ' + data.Nation + '%'
+                };
+
+                if (data.Metro) {
+                    me.data.averageEmployees.percentiles.Metro = data.Metro < 1 ? 'less employees than 1%' : data.Metro > 99 ? 'more employees than 99%' : 'more employees than ' + data.Metro + '%';
+                }
 
                 me.data.gauge = {
-                    value: me.data.averageEmployees.percentiles.Nation,
-                    tooltip: sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
+                    value: data.Nation,
+                    tooltip: data.Nation < 1 ? '<1st Percentile' : data.Nation > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
                 };
+
+
+
+
+                me.data.averageEmployees.description = {
+                    Percentiles: me.data.averageEmployees.percentiles
+                };
+
+             
             }
             else {
                 me.data.gauge = {
@@ -857,7 +869,31 @@
         var employeesPerCapitaPercentileDataReturned = function (data) {
             if (data) {
                 me.data.employeesPerCapita.hasData = true;
-                me.data.employeesPerCapita.percentiles = data;
+               
+
+
+                me.data.employeesPerCapita.percentiles = {
+                    City: data.City < 1 ? 'less than 1%' : data.City > 99 ? 'more than 99%' : 'more than ' + data.City + '%',
+                    County: data.County < 1 ? 'less than 1%' : data.County > 99 ? 'more than 99%' : 'more than ' + data.County + '%',
+                    State: data.State < 1 ? 'less than 1%' : data.State > 99 ? 'more than 99%' : 'more than ' + data.State + '%',
+                    Nation: data.Nation < 1 ? 'less than 1%' : data.Nation > 99 ? 'more than 99%' : 'more than ' + data.Nation + '%'
+                };
+
+                if (data.Metro) {
+                    me.data.employeesPerCapita.percentiles.Metro = data.Metro < 1 ? 'less than 1%' : data.Metro > 99 ? 'more than 99%' : 'more than ' + data.Metro + '%';
+                }
+
+                me.data.gauge = {
+                    value: data.Nation,
+                    tooltip: data.Nation < 1 ? '<1st Percentile' : data.Nation > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
+                };
+
+
+
+
+                me.data.employeesPerCapita.description = {
+                    Percentiles: me.data.employeesPerCapita.percentiles
+                };
             }
         };
 

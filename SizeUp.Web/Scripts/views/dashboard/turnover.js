@@ -217,7 +217,7 @@
                 var percentile = sizeup.util.numbers.format.ordinal(data.Percentile);
                 me.data.gauge = {
                     value: data.Percentile,
-                    tooltip: percentile + ' Percentile'
+                    tooltip: data.Percentile < 1 ? '<1st Percentile' : data.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
                 };
             }
             else {

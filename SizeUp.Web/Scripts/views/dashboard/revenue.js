@@ -411,10 +411,6 @@
                 });
 
 
-                me.data.description = {
-                    Percentile: me.data.gauge.value
-                };
-
                 me.description.html(templates.bind(templates.get("description"), me.data.description));
 
             }
@@ -445,8 +441,15 @@
                 var percentile = sizeup.util.numbers.format.ordinal(data.Percentile);
                 me.data.gauge = {
                     value: data.Percentile,
-                    tooltip: data.Percentile < 1 ? '<1st Percentile' : percentile + ' Percentile'
+                    tooltip: data.Percentile < 1 ? '<1st Percentile' :  data.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
                 };
+
+                me.data.description = {
+                    Percentile: data.Percentile < 1 ? 'less revenue than 1%' : data.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Percentile + '%'
+                };
+
+
+
             }
             else {
                 me.data.gauge = {

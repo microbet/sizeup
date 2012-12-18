@@ -413,7 +413,7 @@
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.Percentage < 0 ? percentage + ' Below Average' : percentage + ' Above Average'
+                    tooltip: data.Percentage < 0 ? percentage + ' Below Average' : data.Percentage == 0 ? 'Average' : percentage + ' Above Average'
                 };               
             }
             else {

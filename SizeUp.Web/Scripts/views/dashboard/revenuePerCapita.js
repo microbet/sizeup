@@ -597,10 +597,6 @@
                 });
 
 
-                me.data.description = {
-                    Percentiles: me.data.percentiles
-                };
-
                 me.description.html(templates.bind(templates.get("description"), me.data.description));
 
             }
@@ -628,12 +624,28 @@
         var percentileDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                me.data.percentiles = data;
+                
+
+                me.data.percentiles = {
+                    City: data.City < 1 ? 'less than 1%' : data.City > 99 ? 'more than 99%' : 'more than ' + data.City + '%',
+                    County: data.County < 1 ? 'less than 1%' : data.County > 99 ? 'more than 99%' : 'more than ' + data.County + '%',
+                    State: data.State < 1 ? 'less than 1%' : data.State > 99 ? 'more than 99%' : 'more than ' + data.State + '%',
+                    Nation: data.Nation < 1 ? 'less than 1%' : data.Nation > 99 ? 'more than 99%' : 'more than ' + data.Nation + '%'
+                };
+
+                if (data.Metro) {
+                    me.data.percentiles.Metro = data.Metro < 1 ? 'less than 1%' : data.Metro > 99 ? 'more than 99%' : 'more than ' + data.Metro + '%';
+                }
 
                 me.data.gauge = {
-                    value: me.data.percentiles.Nation,
-                    tooltip: sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
+                    value: data.Nation,
+                    tooltip: data.Nation < 1 ? '<1st Percentile' : data.Nation > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
                 };
+
+                me.data.description = {
+                    Percentiles: me.data.percentiles
+                };
+
             }
             else {
                 me.data.gauge = {

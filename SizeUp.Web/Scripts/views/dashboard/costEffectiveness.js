@@ -470,7 +470,7 @@
 
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.Percentage < 0 ? percentage + ' below average' : percentage + ' above average'
+                    tooltip: data.Percentage < 0 ? percentage + ' Below Average' : data.Percentage == 0 ? 'Average' : percentage + ' Above Average'
                 };
             }
             else {

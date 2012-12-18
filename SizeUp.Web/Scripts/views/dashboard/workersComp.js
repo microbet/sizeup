@@ -125,7 +125,7 @@
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
 
                 me.data.description = {
-                    Percentage: data.Percentage < 0 ? percentage + ' less' : percentage + ' greater'
+                    Percentage: data.Percentage < 0 ? percentage + ' less' :  data.Percentage == 0 ? 'the same' : percentage + ' greater'
                 };
 
                 me.data.gauge = {
