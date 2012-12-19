@@ -360,9 +360,12 @@
     <Content Include="Content\views\user\signin.css" />
     <Content Include="Content\widget\base.css" />
     <Content Include="Content\widget\layout.css" />
+    <Content Include="Content\widget\print.css" />
     <Content Include="Content\widget\Views\advertising\index.css" />
     <Content Include="Content\widget\Views\competition\index.css" />
+    <Content Include="Content\widget\Views\competition\print.css" />
     <Content Include="Content\widget\Views\dashboard\index.css" />
+    <Content Include="Content\widget\Views\dashboard\print.css" />
     <Content Include="Content\widget\Views\help\help.css" />
     <Content Include="Content\widget\Views\select\select.css" />
     <Content Include="Content\widget\Views\topPlaces\index.css" />
@@ -374,6 +377,7 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\printButton.js" />
     <Content Include="Scripts\controls\promptBox.js" />
     <Content Include="Scripts\controls\selectList.js" />
     <Content Include="Scripts\controls\question.js" />

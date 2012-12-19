@@ -6,6 +6,7 @@
     <link href="@Url.Content("~/Content/thirdParty/jquery-ui-1.8.21.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/widget/base.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/widget/layout.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/widget/print.css")" rel="stylesheet" type="text/css" media="print" />
     @Html.Partial("Analytics")
     <!--<script type="text/javascript" src="https://www.proxino.com/p.js"></script>
     <script type="text/javascript">
@@ -19,6 +20,7 @@
     <script src="@Url.Content("~/Scripts/core/profile.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/core/analytics.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/tracking/outboundLinks.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/controls/printButton.js")" type="text/javascript"></script>
 
     @RenderSection("head",false)
     @if (!string.IsNullOrEmpty(ViewBag.Theme))
