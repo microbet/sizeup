@@ -26,15 +26,15 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 }else{
 <li class="signin"><a href="/widget/user/signout/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign Out (@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName)</a></li>
 }
-<li class="help"><a href="/widget/help" class="button help" title="Help">?</a></li>
-<li class="print"><a href="javascript:void(0);" class="button" title="print">P</a></li>
+<li class="help"><a href="/widget/help" class="help" title="Help">?</a></li>
+<li class="print"><a href="javascript:void(0);" class="print" title="print">P</a></li>
 </ul>
 </div>
 }
 
 <script type="text/javascript">
     var print = new sizeup.controls.printButton({
-        button: $('#menu .print .button')
+        button: $('#menu .print .print')
     });
 </script>
 

@@ -18,16 +18,12 @@ body { width: 100%; }
 #header ul li.competition {float:left;  }
 #header ul li.advertising {float:left;  }
 
-#header ul li.help { position:relative; top:0.8em; }
 #header ul li.signin {  }
 #header ul li.startOver { }
     
 
-
-#header ul li a.button.help { background-color: #6699AA; display: inline; font-size: 1em; padding: 0.1em 0.7em; position: relative; border-radius: 4em; }
-#header ul li a.button.help:hover { background-color: #061f70;}
-.highContrast #header ul li a.button.help {background-color:#061f70;}
-
+#header ul li a.help {display:block; position:relative; top:-0.2em; font-family:Arial; font-size:1.75em; color:#6699AA; font-weight:bold;}
+#menu .print .print {display:block; background-image:url(/content/images/print.png); background-repeat:no-repeat; color:transparent; width:15px; height:15px; background-position:5px 10px; }
 
 /********contenty things go here*************/
 #content {height: auto; min-height: 25em; position: relative; }
