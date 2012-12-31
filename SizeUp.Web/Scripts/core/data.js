@@ -356,8 +356,8 @@
                 return get('/api/demographics/state', params, callback);
             },
 
-            getDashboardValues: function (callback) {
-                return get('/api/profile/dashboardValues/', null, callback);
+            getDashboardValues: function (params, callback) {
+                return get('/api/profile/dashboardValues/', params, callback);
             },
 
             setDashboardValues: function (params, callback) {

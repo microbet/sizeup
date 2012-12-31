@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.EntityClient;
 using System.Configuration;
 using SizeUp.Data.Analytics;
+using SizeUp.Data.UserData;
 
 namespace SizeUp.Data
 {
@@ -13,6 +14,9 @@ namespace SizeUp.Data
     {
         private static string SizeUpConnection = ConfigurationManager.ConnectionStrings["SizeUpContext"].ConnectionString;
         private static string AnalyticsConnection = ConfigurationManager.ConnectionStrings["AnalyticsContext"].ConnectionString;
+        private static string UserDataConnection = ConfigurationManager.ConnectionStrings["UserDataContext"].ConnectionString;
+
+
         public static SizeUpContext SizeUpContext
         {
             get
@@ -29,6 +33,16 @@ namespace SizeUp.Data
             {
                 var conn = new EntityConnection(AnalyticsConnection);
                 var context = new AnalyticsContext(conn);
+                return context;
+            }
+        }
+
+        public static UserDataContext UserDataContext
+        {
+            get
+            {
+                var conn = new EntityConnection(UserDataConnection);
+                var context = new UserDataContext(conn);
                 return context;
             }
         }
