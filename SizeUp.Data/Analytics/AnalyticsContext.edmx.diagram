@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedBuyer" Width="2.5" PointX="1.125" PointY="4.75" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedCompetitor" Width="2.5" PointX="4.125" PointY="4.75" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedSupplier" Width="2.5" PointX="7.125" PointY="4.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.BusinessAttribute" Width="2.25" PointX="1.125" PointY="9" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,6 +11,8 @@ using SizeUp.Data;
 using System.Web.Security;
 using SizeUp.Data.UserData;
 using SizeUp.Core.Web;
+using SizeUp.Data.Analytics;
+
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -116,9 +118,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
             HttpCookie cookie = new HttpCookie(key);
-            BusinessAttribute attr = new BusinessAttribute();
+            Data.UserData.BusinessAttribute attr = new Data.UserData.BusinessAttribute();
+            Data.Analytics.BusinessAttribute analyticsAttr = new Data.Analytics.BusinessAttribute();
             attr.PlaceId = placeId;
             attr.IndustryId = industryId;
+
+            analyticsAttr.PlaceId = placeId;
+            analyticsAttr.IndustryId = industryId;
 
             if (Request.Form.AllKeys.Contains("businessSize"))
             {
@@ -169,6 +175,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
+                    analyticsAttr.UserId = userid;
                     var item = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
                     {
@@ -192,8 +199,21 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             item.Revenue = attr.Revenue;
                             item.WorkersComp = attr.WorkersComp;
                             item.YearStarted = attr.YearStarted;
+
+                            analyticsAttr.AverageSalary = attr.AverageSalary;
+                            analyticsAttr.BusinessSize = attr.BusinessSize;
+                            analyticsAttr.BusinessType = attr.BusinessType;
+                            analyticsAttr.Employees = attr.Employees;
+                            analyticsAttr.HealthcareCost = attr.HealthcareCost;
+                            analyticsAttr.Revenue = attr.Revenue;
+                            analyticsAttr.WorkersComp = attr.WorkersComp;
+                            analyticsAttr.YearStarted = attr.YearStarted;
+                            analyticsAttr.APIKeyId = WidgetToken.APIKeyId;
+
                             context.SaveChanges();
-                            //fire analytics
+
+
+                            Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
                         }
                     }
                     else

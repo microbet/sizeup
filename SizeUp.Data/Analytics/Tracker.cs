@@ -9,10 +9,9 @@ namespace SizeUp.Data.Analytics
 {
     public class Tracker
     {
-        protected TimeStamp stamp = new TimeStamp();
-
         public void UserRegisteration(UserRegistration reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -30,6 +29,7 @@ namespace SizeUp.Data.Analytics
 
         public void LongRequest(LongRequest reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -47,6 +47,7 @@ namespace SizeUp.Data.Analytics
 
         public void Exception(Exception reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -64,6 +65,7 @@ namespace SizeUp.Data.Analytics
 
         public void PlaceIndustrySearch(PlaceIndustrySearch reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -82,6 +84,7 @@ namespace SizeUp.Data.Analytics
 
         public void RelatedCompetitor(RelatedCompetitor reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -99,6 +102,7 @@ namespace SizeUp.Data.Analytics
 
         public void RelatedBuyer(RelatedBuyer reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -116,6 +120,7 @@ namespace SizeUp.Data.Analytics
 
         public void RelatedSupplier(RelatedSupplier reg)
         {
+            TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
             reg.Hour = stamp.Hour;
             reg.Minute = stamp.Minute;
@@ -127,6 +132,24 @@ namespace SizeUp.Data.Analytics
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.RelatedSuppliers.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
+
+        public void BusinessAttribute(BusinessAttribute reg)
+        {
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.BusinessAttributes.AddObject(reg);
                 context.SaveChanges();
             }
         }

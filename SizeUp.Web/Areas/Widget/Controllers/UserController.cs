@@ -125,14 +125,9 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 i.Save();
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
                 FormsAuthentication.SetAuthCookie(i.UserName, false);
-                APIKey apiKey = null;
-                using (var context = ContextFactory.SizeUpContext)
-                {
-                    apiKey = context.APIKeys.Where(a =>a.KeyValue == SizeUp.Core.Web.WidgetToken.APIKey).FirstOrDefault();
-                }
                 UserRegistration reg = new UserRegistration()
                 {
-                    APIKeyId = apiKey != null ? apiKey.Id : (long?)null,
+                    APIKeyId = SizeUp.Core.Web.WidgetToken.APIKeyId,
                     CityId = WebContext.Current.CurrentPlaceId,
                     IndustryId = WebContext.Current.CurrentIndustryId,
                     UserId = i.UserId,

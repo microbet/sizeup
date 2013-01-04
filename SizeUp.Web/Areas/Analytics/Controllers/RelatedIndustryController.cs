@@ -19,22 +19,13 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Competitor(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            long? apikeyid = null;
+            long? apikeyid = WidgetToken.APIKeyId;
             Guid? userid = null;
-            using (var context = ContextFactory.SizeUpContext)
+
+            if (User.Identity.IsAuthenticated)
             {
-                var api = context.APIKeys.Where(i => i.KeyValue == WidgetToken.APIKey).FirstOrDefault();
-                if (api != null)
-                {
-                    apikeyid = api.Id;
-                }
-                if (User.Identity.IsAuthenticated)
-                {
-                    userid = (Guid)Membership.GetUser().ProviderUserKey;
-                }
+                userid = (Guid)Membership.GetUser().ProviderUserKey;
             }
-
-
 
             var item = new RelatedCompetitor()
             {
@@ -52,22 +43,13 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Buyer(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            long? apikeyid = null;
+            long? apikeyid = WidgetToken.APIKeyId;
             Guid? userid = null;
-            using (var context = ContextFactory.SizeUpContext)
+
+            if (User.Identity.IsAuthenticated)
             {
-                var api = context.APIKeys.Where(i => i.KeyValue == WidgetToken.APIKey).FirstOrDefault();
-                if (api != null)
-                {
-                    apikeyid = api.Id;
-                }
-                if (User.Identity.IsAuthenticated)
-                {
-                    userid = (Guid)Membership.GetUser().ProviderUserKey;
-                }
+                userid = (Guid)Membership.GetUser().ProviderUserKey;
             }
-
-
 
             var item = new RelatedBuyer()
             {
@@ -85,22 +67,13 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Supplier(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            long? apikeyid = null;
+            long? apikeyid = WidgetToken.APIKeyId;
             Guid? userid = null;
-            using (var context = ContextFactory.SizeUpContext)
+
+            if (User.Identity.IsAuthenticated)
             {
-                var api = context.APIKeys.Where(i => i.KeyValue == WidgetToken.APIKey).FirstOrDefault();
-                if (api != null)
-                {
-                    apikeyid = api.Id;
-                }
-                if (User.Identity.IsAuthenticated)
-                {
-                    userid = (Guid)Membership.GetUser().ProviderUserKey;
-                }
+                userid = (Guid)Membership.GetUser().ProviderUserKey;
             }
-
-
 
             var item = new RelatedSupplier()
             {

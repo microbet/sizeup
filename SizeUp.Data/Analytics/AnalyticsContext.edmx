@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="SizeUp.Data.Analytics.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SizeUpDataAnalyticsStoreContainer">
+          <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Store.Exceptions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.Store.LongRequests" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PlaceIndustrySearches" EntityType="SizeUp.Data.Analytics.Store.PlaceIndustrySearches" store:Type="Tables" Schema="dbo" />
@@ -14,6 +15,32 @@
           <EntitySet Name="RelatedSupplier" EntityType="SizeUp.Data.Analytics.Store.RelatedSupplier" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRegistration" EntityType="SizeUp.Data.Analytics.Store.UserRegistration" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="BusinessAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Minute" Type="int" Nullable="false" />
+          <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PlaceId" Type="bigint" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" Nullable="false" />
+          <Property Name="Revenue" Type="bigint" />
+          <Property Name="YearStarted" Type="int" />
+          <Property Name="AverageSalary" Type="bigint" />
+          <Property Name="Employees" Type="bigint" />
+          <Property Name="HealthcareCost" Type="bigint" />
+          <Property Name="WorkersComp" Type="decimal" />
+          <Property Name="BusinessType" Type="nvarchar" MaxLength="30" />
+          <Property Name="BusinessSize" Type="nvarchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="Exceptions">
           <Key>
             <PropertyRef Name="Id" />
@@ -155,6 +182,7 @@
           <EntitySet Name="RelatedBuyers" EntityType="SizeUp.Data.Analytics.RelatedBuyer" />
           <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
           <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
+          <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.BusinessAttribute" />
         </EntityContainer>
         <EntityType Name="UserRegistration">
           <Key>
@@ -285,6 +313,32 @@
           <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
           <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
         </EntityType>
+        <EntityType Name="BusinessAttribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="IndustryId" Nullable="false" />
+          <Property Type="Int64" Name="Revenue" />
+          <Property Type="Int32" Name="YearStarted" />
+          <Property Type="Int64" Name="AverageSalary" />
+          <Property Type="Int64" Name="Employees" />
+          <Property Type="Int64" Name="HealthcareCost" />
+          <Property Type="Decimal" Name="WorkersComp" Precision="18" Scale="0" />
+          <Property Type="String" Name="BusinessType" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BusinessSize" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -412,6 +466,33 @@
               <MappingFragment StoreEntitySet="RelatedSupplier">
                 <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
                 <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessAttributes">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.BusinessAttribute">
+              <MappingFragment StoreEntitySet="BusinessAttributes">
+                <ScalarProperty Name="BusinessSize" ColumnName="BusinessSize" />
+                <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+                <ScalarProperty Name="WorkersComp" ColumnName="WorkersComp" />
+                <ScalarProperty Name="HealthcareCost" ColumnName="HealthcareCost" />
+                <ScalarProperty Name="Employees" ColumnName="Employees" />
+                <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+                <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
+                <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
                 <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />

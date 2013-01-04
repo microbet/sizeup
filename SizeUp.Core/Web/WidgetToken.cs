@@ -30,6 +30,24 @@ namespace SizeUp.Core.Web
             }
         }
 
+        public static long? APIKeyId
+        {
+            get
+            {
+                APIKey apiKey = null;
+                using (var context = ContextFactory.SizeUpContext)
+                {
+                    apiKey = context.APIKeys.Where(a => a.KeyValue == SizeUp.Core.Web.WidgetToken.APIKey).FirstOrDefault();
+                }
+                long? ret = default(long?);
+                if (apiKey != null)
+                {
+                    ret = apiKey.Id;
+                }
+                return ret;
+            }
+        }
+
         protected static string WidgetCryptoPassword
         {
             get
