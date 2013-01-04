@@ -364,6 +364,14 @@
                 return post('/api/profile/dashboardValues/', params, callback);
             },
 
+            getCompetitionValues: function (params, callback) {
+                return get('/api/profile/competitionValues/', params, callback);
+            },
+
+            setCompetitionValues: function (params, callback) {
+                return post('/api/profile/competitionValues/', params, callback);
+            },
+
             getConsumerExpenditureVariables: function (params, callback) {
                 return get('/api/consumerExpenditures/variables/', params, callback);
             },

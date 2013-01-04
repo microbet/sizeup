@@ -564,6 +564,20 @@ namespace SizeUp.Web.Areas.Api
                 new { httpMethod = new HttpMethodConstraint("POST") }
            );
 
+            context.MapRoute(
+                "CompetitionValuesGet",
+                "Api/profile/competitionValues",
+                new { controller = "Profile", action = "GetCompetitionValues" },
+                 new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.MapRoute(
+               "CompetitionValuesSet",
+               "Api/profile/competitionValues",
+               new { controller = "Profile", action = "SetCompetitionValues" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+           );
+
 
 
             /****consumerEpenditures*****/

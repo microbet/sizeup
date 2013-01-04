@@ -466,19 +466,15 @@ namespace SizeUp.Data.UserData
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="primaryIndustryId">Initial value of the PrimaryIndustryId property.</param>
-        /// <param name="placeId">Initial value of the PlaceId property.</param>
         /// <param name="industryId">Initial value of the IndustryId property.</param>
-        /// <param name="type">Initial value of the Type property.</param>
-        public static CompetitorAttribute CreateCompetitorAttribute(global::System.Int64 id, global::System.Guid userId, global::System.Int64 primaryIndustryId, global::System.Int64 placeId, global::System.Int64 industryId, global::System.String type)
+        /// <param name="placeId">Initial value of the PlaceId property.</param>
+        public static CompetitorAttribute CreateCompetitorAttribute(global::System.Int64 id, global::System.Guid userId, global::System.Int64 industryId, global::System.Int64 placeId)
         {
             CompetitorAttribute competitorAttribute = new CompetitorAttribute();
             competitorAttribute.Id = id;
             competitorAttribute.UserId = userId;
-            competitorAttribute.PrimaryIndustryId = primaryIndustryId;
-            competitorAttribute.PlaceId = placeId;
             competitorAttribute.IndustryId = industryId;
-            competitorAttribute.Type = type;
+            competitorAttribute.PlaceId = placeId;
             return competitorAttribute;
         }
 
@@ -542,24 +538,24 @@ namespace SizeUp.Data.UserData
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 PrimaryIndustryId
+        public global::System.Int64 IndustryId
         {
             get
             {
-                return _PrimaryIndustryId;
+                return _IndustryId;
             }
             set
             {
-                OnPrimaryIndustryIdChanging(value);
-                ReportPropertyChanging("PrimaryIndustryId");
-                _PrimaryIndustryId = StructuralObject.SetValidValue(value, "PrimaryIndustryId");
-                ReportPropertyChanged("PrimaryIndustryId");
-                OnPrimaryIndustryIdChanged();
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
             }
         }
-        private global::System.Int64 _PrimaryIndustryId;
-        partial void OnPrimaryIndustryIdChanging(global::System.Int64 value);
-        partial void OnPrimaryIndustryIdChanged();
+        private global::System.Int64 _IndustryId;
+        partial void OnIndustryIdChanging(global::System.Int64 value);
+        partial void OnIndustryIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -588,50 +584,122 @@ namespace SizeUp.Data.UserData
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int64 IndustryId
+        public Nullable<global::System.Int64> ComsumerExpenditureId
         {
             get
             {
-                return _IndustryId;
+                return _ComsumerExpenditureId;
             }
             set
             {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
+                OnComsumerExpenditureIdChanging(value);
+                ReportPropertyChanging("ComsumerExpenditureId");
+                _ComsumerExpenditureId = StructuralObject.SetValidValue(value, "ComsumerExpenditureId");
+                ReportPropertyChanged("ComsumerExpenditureId");
+                OnComsumerExpenditureIdChanged();
             }
         }
-        private global::System.Int64 _IndustryId;
-        partial void OnIndustryIdChanging(global::System.Int64 value);
-        partial void OnIndustryIdChanged();
+        private Nullable<global::System.Int64> _ComsumerExpenditureId;
+        partial void OnComsumerExpenditureIdChanging(Nullable<global::System.Int64> value);
+        partial void OnComsumerExpenditureIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Type
+        public Nullable<global::System.Int64> RootId
         {
             get
             {
-                return _Type;
+                return _RootId;
             }
             set
             {
-                OnTypeChanging(value);
-                ReportPropertyChanging("Type");
-                _Type = StructuralObject.SetValidValue(value, false, "Type");
-                ReportPropertyChanged("Type");
-                OnTypeChanged();
+                OnRootIdChanging(value);
+                ReportPropertyChanging("RootId");
+                _RootId = StructuralObject.SetValidValue(value, "RootId");
+                ReportPropertyChanged("RootId");
+                OnRootIdChanged();
             }
         }
-        private global::System.String _Type;
-        partial void OnTypeChanging(global::System.String value);
-        partial void OnTypeChanged();
+        private Nullable<global::System.Int64> _RootId;
+        partial void OnRootIdChanging(Nullable<global::System.Int64> value);
+        partial void OnRootIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Competitors
+        {
+            get
+            {
+                return _Competitors;
+            }
+            set
+            {
+                OnCompetitorsChanging(value);
+                ReportPropertyChanging("Competitors");
+                _Competitors = StructuralObject.SetValidValue(value, true, "Competitors");
+                ReportPropertyChanged("Competitors");
+                OnCompetitorsChanged();
+            }
+        }
+        private global::System.String _Competitors;
+        partial void OnCompetitorsChanging(global::System.String value);
+        partial void OnCompetitorsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Suppliers
+        {
+            get
+            {
+                return _Suppliers;
+            }
+            set
+            {
+                OnSuppliersChanging(value);
+                ReportPropertyChanging("Suppliers");
+                _Suppliers = StructuralObject.SetValidValue(value, true, "Suppliers");
+                ReportPropertyChanged("Suppliers");
+                OnSuppliersChanged();
+            }
+        }
+        private global::System.String _Suppliers;
+        partial void OnSuppliersChanging(global::System.String value);
+        partial void OnSuppliersChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Buyers
+        {
+            get
+            {
+                return _Buyers;
+            }
+            set
+            {
+                OnBuyersChanging(value);
+                ReportPropertyChanging("Buyers");
+                _Buyers = StructuralObject.SetValidValue(value, true, "Buyers");
+                ReportPropertyChanged("Buyers");
+                OnBuyersChanged();
+            }
+        }
+        private global::System.String _Buyers;
+        partial void OnBuyersChanging(global::System.String value);
+        partial void OnBuyersChanged();
 
         #endregion
 

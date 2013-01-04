@@ -214,29 +214,33 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult GetCompetitionValues(long placeId, long industryId)
         {
+            dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
             var cookie = Request.Cookies[key];
-            Models.Profile.CompetitionValues Values = new Models.Profile.CompetitionValues();
-
+            object output = null;
             if (!User.Identity.IsAuthenticated)
             {
                 if (cookie != null)
                 {
-                    if (cookie.Values.AllKeys.Contains("competitorIds"))
+                    if (cookie.Values.AllKeys.Contains("competitor"))
                     {
-                        Values.CompetitorIds = cookie.Values["competitorIds"].Split(',').Select(i => long.Parse(i)).ToList();
+                        obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
                     }
-                    if (cookie.Values.AllKeys.Contains("supplierIds"))
+                    if (cookie.Values.AllKeys.Contains("supplier"))
                     {
-                        Values.SupplierIds = cookie.Values["supplierIds"].Split(',').Select(i => long.Parse(i)).ToList();
+                        obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
                     }
-                    if (cookie.Values.AllKeys.Contains("buyerIds"))
+                    if (cookie.Values.AllKeys.Contains("buyer"))
                     {
-                        Values.BuyerIds = cookie.Values["buyerIds"].Split(',').Select(i => long.Parse(i)).ToList();
+                        obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
                     }
-                    if (cookie.Values.AllKeys.Contains("consumerExpenditureId"))
+                    if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable"))
                     {
-                        Values.ConsumerExpenditureId = long.Parse(cookie.Values["consumerExpenditureId"]);
+                        obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
+                    }
+                    if (cookie.Values.AllKeys.Contains("rootId"))
+                    {
+                        obj.rootId = long.Parse(cookie.Values["rootId"]);
                     }
                 }
             }
@@ -246,11 +250,34 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
-
-                    //Values = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
+                    var item = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
+                    if (item != null)
+                    {
+                        if (!string.IsNullOrEmpty(item.Competitors))
+                        {
+                            obj.competitor = item.Competitors.Split(',').Select(i => long.Parse(i)).ToList();
+                        }
+                        if (!string.IsNullOrEmpty(item.Suppliers))
+                        {
+                            obj.supplier = item.Suppliers.Split(',').Select(i => long.Parse(i)).ToList();
+                        }
+                        if (!string.IsNullOrEmpty(item.Buyers))
+                        {
+                            obj.buyer = item.Buyers.Split(',').Select(i => long.Parse(i)).ToList();
+                        }
+                        if (item.RootId.HasValue)
+                        {
+                            obj.rootId = item.RootId;
+                        }
+                        if (item.ComsumerExpenditureId.HasValue)
+                        {
+                            obj.consumerExpenditureVariable = item.ComsumerExpenditureId;
+                        }
+                    }
                 }   
             }
-            return Json(Values, JsonRequestBehavior.AllowGet);
+            output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
+            return Json(output, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -259,30 +286,82 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
             HttpCookie cookie = new HttpCookie(key);
+            CompetitorAttribute attr = new CompetitorAttribute();
+            attr.PlaceId = placeId;
+            attr.IndustryId = industryId;
 
-
-
-            if (Request.Form.AllKeys.Contains("competitorIds"))
+            if (Request.Form.AllKeys.Contains("competitor"))
             {
-                var ids = QueryString.IntValues("competitorIds");
-                cookie.Values.Add("competitorIds", string.Join(",", ids));
-                //attr.BusinessSize = Request["businessSize"];
+                var ids = Form.IntValues("competitor");
+                cookie.Values.Add("competitor", string.Join(",", ids));
+                attr.Competitors = string.Join(",", ids);
             }
-            if (Request.Form.AllKeys.Contains("supplierIds"))
+            if (Request.Form.AllKeys.Contains("supplier"))
             {
-                var ids = QueryString.IntValues("supplierIds");
-                cookie.Values.Add("supplierIds", string.Join(",", ids));
-                //attr.BusinessSize = Request["businessSize"];
+                var ids = Form.IntValues("supplier");
+                cookie.Values.Add("supplier", string.Join(",", ids));
+                attr.Suppliers = string.Join(",", ids);
             }
-            if (Request.Form.AllKeys.Contains("buyerIds"))
+            if (Request.Form.AllKeys.Contains("buyer"))
             {
-                var ids = QueryString.IntValues("buyerIds");
-                cookie.Values.Add("buyerIds", string.Join(",", ids));
-                //attr.BusinessSize = Request["businessSize"];
+                var ids = Form.IntValues("buyer");
+                cookie.Values.Add("buyer", string.Join(",", ids));
+                attr.Buyers = string.Join(",", ids);
+            }
+            if (Request.Form.AllKeys.Contains("rootId"))
+            {
+                var id = Form.StringValue("rootId");
+                cookie.Values.Add("rootId", id);
+                attr.RootId = int.Parse(id);
+            }
+            if (Request.Form.AllKeys.Contains("consumerExpenditureVariable"))
+            {
+                var id = Form.StringValue("consumerExpenditureVariable");
+                cookie.Values.Add("consumerExpenditureVariable", id);
+                attr.ComsumerExpenditureId = int.Parse(id);
             }
 
 
             Response.Cookies.Add(cookie);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                using (var context = ContextFactory.UserDataContext)
+                {
+                    Func<string[],string[], bool> tester = (string[] a, string[] b) => (a.Length == b.Length && a.Intersect(b).Count() == a.Length);
+
+                    var user = Membership.GetUser(User.Identity.Name);
+                    Guid userid = (Guid)user.ProviderUserKey;
+                    attr.UserId = userid;
+                    var item = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
+                    if (item != null)
+                    {
+                        //test for changes... update if there are and then insert into analytics else ignore
+                        if (
+                            tester(item.Competitors != null ? item.Competitors.Split(',') : "".Split(','), attr.Competitors!=null ? attr.Competitors.Split(',') : "".Split(',')) ||
+                            tester(item.Suppliers != null ? item.Suppliers.Split(',') : "".Split(','), attr.Suppliers!=null ? attr.Suppliers.Split(',') : "".Split(',')) ||
+                            tester(item.Buyers != null ? item.Buyers.Split(',') : "".Split(','), attr.Buyers!=null ? attr.Buyers.Split(','): "".Split(',')) ||
+                            item.RootId != attr.RootId ||
+                            item.ComsumerExpenditureId != attr.ComsumerExpenditureId
+                            
+                            )
+                        {
+                            item.Competitors = attr.Competitors;
+                            item.Buyers = attr.Buyers;
+                            item.Suppliers = attr.Suppliers;
+                            item.RootId = attr.RootId;
+                            item.ComsumerExpenditureId = attr.ComsumerExpenditureId;
+                            context.SaveChanges();
+                            //fire analytics
+                        }
+                    }
+                    else
+                    {
+                        context.CompetitorAttributes.AddObject(attr);
+                        context.SaveChanges();
+                    }
+                }
+            }
 
 
             return Json(true, JsonRequestBehavior.AllowGet);

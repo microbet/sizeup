@@ -54,45 +54,52 @@
         var templates = new sizeup.core.templates(me.container);
 
        
-
-
-        var notifier = new sizeup.core.notifier(function () { init(); });
-        dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-        dataLayer.getPlaceBoundingBox({id: opts.CurrentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) { 
-            me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
-            me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[0].Lat, lng: data[0].Lng}));
-            me.data.cityBoundingBox.extend(new sizeup.maps.latLng({lat: data[1].Lat, lng: data[1].Lng}));
+      
+        var setupNotifier = new sizeup.core.notifier(function () { setup(); });
+        dataLayer.getCompetitionValues({ placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id }, setupNotifier.getNotifier(function (data) {
+            jQuery.bbq.pushState(data, 1);
         }));
 
-        var params = jQuery.bbq.getState();
+        var setup = function () {
 
-        var insertIndustries = function (index, data) {
-            for (var x in data) {
-                me.data[index].industries[data[x].Id] = data[x];
+            var notifier = new sizeup.core.notifier(function () { init(); });
+            dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
+            dataLayer.getPlaceBoundingBox({ id: opts.CurrentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) {
+                me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
+                me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data[0].Lat, lng: data[0].Lng }));
+                me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data[1].Lat, lng: data[1].Lng }));
+            }));
+
+            var params = jQuery.bbq.getState();
+
+            var insertIndustries = function (index, data) {
+                for (var x in data) {
+                    me.data[index].industries[data[x].Id] = data[x];
+                }
+            };
+
+            if (params.competitor) {
+                dataLayer.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
+            }
+            if (params.buyer) {
+                dataLayer.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
+            }
+            if (params.supplier) {
+                dataLayer.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
+            }
+            if (params.rootId) {
+                me.data.consumerExpenditure.rootId = params.rootId;
+            }
+            if (params.consumerExpenditureVariable) {
+                me.data.consumerExpenditure.currentSelection = params.consumerExpenditureVariable;
+            }
+            if (params.activeTab) {
+                me.data.activeIndex = params.activeTab;
+            }
+            if (params.activeMapFilter) {
+                me.data.activeMapFilter = params.activeMapFilter;
             }
         };
-
-        if (params.competitor) {
-            dataLayer.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
-        }
-        if (params.buyer) {
-            dataLayer.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
-        }
-        if (params.supplier) {
-            dataLayer.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
-        }
-        if (params.rootId) {
-            me.data.consumerExpenditure.rootId = params.rootId;
-        }
-        if (params.consumerExpenditureVariable) {
-            me.data.consumerExpenditure.currentSelection = params.consumerExpenditureVariable;
-        }
-        if (params.activeTab) {
-            me.data.activeIndex = params.activeTab;
-        }
-        if (params.activeMapFilter) {
-            me.data.activeMapFilter = params.activeMapFilter;
-        }
 
   
 
@@ -199,6 +206,9 @@
 
             me.content.mapControls.filterItems.click(mapFilterClicked);
 
+            $(window).bind('hashchange', function (e) { hashChanged(e); });
+
+
             me.data.competitor.pageData = me.content.pager.getPageData();
             me.data.supplier.pageData = me.content.pager.getPageData();
             me.data.buyer.pageData = me.content.pager.getPageData();
@@ -235,6 +245,11 @@
          
         //////event actions//////////////////
      
+        var hashChanged = function (e) {
+            var p = $.extend(true, { placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id, }, e.getState());
+            dataLayer.setCompetitionValues(p);
+        };
+
         var consumerExpenditureTypeChanged = function (e) {
             var target = $(e.target);
             var rootId = target.attr('data-value');
@@ -872,7 +887,6 @@
                 data.activeMapFilter = me.data.activeMapFilter;
             }
             data.activeTab = me.data.activeIndex;
-
 
             jQuery.bbq.pushState(data, 2);
         };
