@@ -338,9 +338,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     {
                         //test for changes... update if there are and then insert into analytics else ignore
                         if (
-                            tester(item.Competitors != null ? item.Competitors.Split(',') : "".Split(','), attr.Competitors!=null ? attr.Competitors.Split(',') : "".Split(',')) ||
-                            tester(item.Suppliers != null ? item.Suppliers.Split(',') : "".Split(','), attr.Suppliers!=null ? attr.Suppliers.Split(',') : "".Split(',')) ||
-                            tester(item.Buyers != null ? item.Buyers.Split(',') : "".Split(','), attr.Buyers!=null ? attr.Buyers.Split(','): "".Split(',')) ||
+                            !tester(item.Competitors != null ? item.Competitors.Split(',') : "".Split(','), attr.Competitors!=null ? attr.Competitors.Split(',') : "".Split(',')) ||
+                            !tester(item.Suppliers != null ? item.Suppliers.Split(',') : "".Split(','), attr.Suppliers!=null ? attr.Suppliers.Split(',') : "".Split(',')) ||
+                            !tester(item.Buyers != null ? item.Buyers.Split(',') : "".Split(','), attr.Buyers!=null ? attr.Buyers.Split(','): "".Split(',')) ||
                             item.RootId != attr.RootId ||
                             item.ComsumerExpenditureId != attr.ComsumerExpenditureId
                             
