@@ -153,5 +153,23 @@ namespace SizeUp.Data.Analytics
                 context.SaveChanges();
             }
         }
+
+        public void CompetitorAttribute(CompetitorAttribute reg)
+        {
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.CompetitorAttributes.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
     }
 }

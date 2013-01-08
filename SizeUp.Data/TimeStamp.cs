@@ -13,7 +13,7 @@ namespace SizeUp.Data
             Stamp = dateTime;
         }
 
-        public TimeStamp() : this(DateTime.Now)
+        public TimeStamp() : this(DateTime.UtcNow)
         {
 
         }

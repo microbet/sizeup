@@ -25,91 +25,90 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
-            var cookie = Request.Cookies[key];
-            object output = null;
-            if (!User.Identity.IsAuthenticated)
-            {
-                if (cookie != null)
-                {
-                    if (cookie.Values.AllKeys.Contains("businessSize"))
-                    {
-                        obj.businessSize = cookie.Values["businessSize"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("businessType"))
-                    {
-                        obj.businessType = cookie.Values["businessType"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("employees"))
-                    {
-                        obj.employees = cookie.Values["employees"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("healthcareCost"))
-                    {
-                        obj.healthcareCost = cookie.Values["healthcareCost"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("revenue"))
-                    {
-                        obj.revenue = cookie.Values["revenue"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("salary"))
-                    {
-                        obj.salary = cookie.Values["salary"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("workersComp"))
-                    {
-                        obj.workersComp = cookie.Values["workersComp"];
-                    }
-                    if (cookie.Values.AllKeys.Contains("yearStarted"))
-                    {
-                        obj.yearStarted = cookie.Values["yearStarted"];
-                    }
-                }
-            }
-            else
+            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : new HttpCookie(key);
+            Data.UserData.BusinessAttribute attr = new Data.UserData.BusinessAttribute();
+
+            if (User.Identity.IsAuthenticated)
             {
                 using (var context = ContextFactory.UserDataContext)
                 {
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
-                    var item = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
-                    if (item != null)
+                    attr = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
+                    if (attr == null)
                     {
-                        if (!string.IsNullOrEmpty(item.BusinessSize))
-                        {
-                            obj.businessSize = item.BusinessSize;
-                        }
-                        if (!string.IsNullOrEmpty(item.BusinessType))
-                        {
-                            obj.businessType = item.BusinessType;
-                        }
-                        if (item.Employees.HasValue)
-                        {
-                            obj.employees = item.Employees;
-                        }
-                        if (item.HealthcareCost.HasValue)
-                        {
-                            obj.healthcareCost = item.HealthcareCost;
-                        }
-                        if (item.Revenue.HasValue)
-                        {
-                            obj.revenue = item.Revenue;
-                        }
-                        if (item.AverageSalary.HasValue)
-                        {
-                            obj.salary = item.AverageSalary;
-                        }
-                        if (item.WorkersComp.HasValue)
-                        {
-                            obj.workersComp = item.WorkersComp;
-                        }
-                        if (item.YearStarted.HasValue)
-                        {
-                            obj.yearStarted = item.YearStarted;
-                        }
+                        attr = new Data.UserData.BusinessAttribute();
                     }
                 }
             }
-            output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
+
+            if (cookie.Values.AllKeys.Contains("businessSize"))
+            {
+                obj.businessSize = cookie.Values["businessSize"];
+            }
+            if (cookie.Values.AllKeys.Contains("businessType"))
+            {
+                obj.businessType = cookie.Values["businessType"];
+            }
+            if (cookie.Values.AllKeys.Contains("employees"))
+            {
+                obj.employees = cookie.Values["employees"];
+            }
+            if (cookie.Values.AllKeys.Contains("healthcareCost"))
+            {
+                obj.healthcareCost = cookie.Values["healthcareCost"];
+            }
+            if (cookie.Values.AllKeys.Contains("revenue"))
+            {
+                obj.revenue = cookie.Values["revenue"];
+            }
+            if (cookie.Values.AllKeys.Contains("salary"))
+            {
+                obj.salary = cookie.Values["salary"];
+            }
+            if (cookie.Values.AllKeys.Contains("workersComp"))
+            {
+                obj.workersComp = cookie.Values["workersComp"];
+            }
+            if (cookie.Values.AllKeys.Contains("yearStarted"))
+            {
+                obj.yearStarted = cookie.Values["yearStarted"];
+            }
+
+            if (!string.IsNullOrEmpty(attr.BusinessSize))
+            {
+                obj.businessSize = attr.BusinessSize;
+            }
+            if (!string.IsNullOrEmpty(attr.BusinessType))
+            {
+                obj.businessType = attr.BusinessType;
+            }
+            if (attr.Employees.HasValue)
+            {
+                obj.employees = attr.Employees;
+            }
+            if (attr.HealthcareCost.HasValue)
+            {
+                obj.healthcareCost = attr.HealthcareCost;
+            }
+            if (attr.Revenue.HasValue)
+            {
+                obj.revenue = attr.Revenue;
+            }
+            if (attr.AverageSalary.HasValue)
+            {
+                obj.salary = attr.AverageSalary;
+            }
+            if (attr.WorkersComp.HasValue)
+            {
+                obj.workersComp = attr.WorkersComp;
+            }
+            if (attr.YearStarted.HasValue)
+            {
+                obj.yearStarted = attr.YearStarted;
+            }
+
+            object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
 
@@ -166,7 +165,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 cookie.Values.Add("yearStarted", Request["yearStarted"]);
                 attr.YearStarted = int.Parse(Request["yearStarted"]);
             }
-            Response.Cookies.Add(cookie);
+
+
 
             if (User.Identity.IsAuthenticated)
             {
@@ -176,20 +176,28 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
                     analyticsAttr.UserId = userid;
+                    analyticsAttr.AverageSalary = attr.AverageSalary;
+                    analyticsAttr.BusinessSize = attr.BusinessSize;
+                    analyticsAttr.BusinessType = attr.BusinessType;
+                    analyticsAttr.Employees = attr.Employees;
+                    analyticsAttr.HealthcareCost = attr.HealthcareCost;
+                    analyticsAttr.Revenue = attr.Revenue;
+                    analyticsAttr.WorkersComp = attr.WorkersComp;
+                    analyticsAttr.YearStarted = attr.YearStarted;
+                    analyticsAttr.APIKeyId = WidgetToken.APIKeyId;
+
                     var item = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
                     {
                         //test for changes... update if there are and then insert into analytics else ignore
-                        if (
-                            item.AverageSalary != attr.AverageSalary ||
+                        if (item.AverageSalary != attr.AverageSalary ||
                             item.BusinessSize != attr.BusinessSize ||
                             item.BusinessType != attr.BusinessType ||
                             item.Employees != attr.Employees ||
                             item.HealthcareCost != attr.HealthcareCost ||
                             item.Revenue != attr.Revenue ||
                             item.WorkersComp != attr.WorkersComp ||
-                            item.YearStarted != attr.YearStarted
-                            )
+                            item.YearStarted != attr.YearStarted)
                         {
                             item.AverageSalary = attr.AverageSalary;
                             item.BusinessSize = attr.BusinessSize;
@@ -199,20 +207,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             item.Revenue = attr.Revenue;
                             item.WorkersComp = attr.WorkersComp;
                             item.YearStarted = attr.YearStarted;
-
-                            analyticsAttr.AverageSalary = attr.AverageSalary;
-                            analyticsAttr.BusinessSize = attr.BusinessSize;
-                            analyticsAttr.BusinessType = attr.BusinessType;
-                            analyticsAttr.Employees = attr.Employees;
-                            analyticsAttr.HealthcareCost = attr.HealthcareCost;
-                            analyticsAttr.Revenue = attr.Revenue;
-                            analyticsAttr.WorkersComp = attr.WorkersComp;
-                            analyticsAttr.YearStarted = attr.YearStarted;
-                            analyticsAttr.APIKeyId = WidgetToken.APIKeyId;
-
                             context.SaveChanges();
-
-
                             Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
                         }
                     }
@@ -220,10 +215,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     {
                         context.BusinessAttributes.AddObject(attr);
                         context.SaveChanges();
+                        Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
                     }
                 }
             }
+          
 
+            Response.Cookies.Add(cookie);      
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
@@ -236,69 +234,69 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
-            var cookie = Request.Cookies[key];
-            object output = null;
-            if (!User.Identity.IsAuthenticated)
-            {
-                if (cookie != null)
-                {
-                    if (cookie.Values.AllKeys.Contains("competitor"))
-                    {
-                        obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
-                    }
-                    if (cookie.Values.AllKeys.Contains("supplier"))
-                    {
-                        obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
-                    }
-                    if (cookie.Values.AllKeys.Contains("buyer"))
-                    {
-                        obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
-                    }
-                    if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable"))
-                    {
-                        obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
-                    }
-                    if (cookie.Values.AllKeys.Contains("rootId"))
-                    {
-                        obj.rootId = long.Parse(cookie.Values["rootId"]);
-                    }
-                }
-            }
-            else
+            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : new HttpCookie(key);
+            Data.UserData.CompetitorAttribute attr = new Data.UserData.CompetitorAttribute();
+
+            if (User.Identity.IsAuthenticated)
             {
                 using (var context = ContextFactory.UserDataContext)
                 {
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
-                    var item = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
-                    if (item != null)
+                    attr = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
+                    if (attr == null)
                     {
-                        if (!string.IsNullOrEmpty(item.Competitors))
-                        {
-                            obj.competitor = item.Competitors.Split(',').Select(i => long.Parse(i)).ToList();
-                        }
-                        if (!string.IsNullOrEmpty(item.Suppliers))
-                        {
-                            obj.supplier = item.Suppliers.Split(',').Select(i => long.Parse(i)).ToList();
-                        }
-                        if (!string.IsNullOrEmpty(item.Buyers))
-                        {
-                            obj.buyer = item.Buyers.Split(',').Select(i => long.Parse(i)).ToList();
-                        }
-                        if (item.RootId.HasValue)
-                        {
-                            obj.rootId = item.RootId;
-                        }
-                        if (item.ComsumerExpenditureId.HasValue)
-                        {
-                            obj.consumerExpenditureVariable = item.ComsumerExpenditureId;
-                        }
+                        attr = new Data.UserData.CompetitorAttribute();
                     }
-                }   
+                }
             }
-            output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
+
+            if (cookie.Values.AllKeys.Contains("competitor"))
+            {
+                obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (cookie.Values.AllKeys.Contains("supplier"))
+            {
+                obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (cookie.Values.AllKeys.Contains("buyer"))
+            {
+                obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable"))
+            {
+                obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
+            }
+            if (cookie.Values.AllKeys.Contains("rootId"))
+            {
+                obj.rootId = long.Parse(cookie.Values["rootId"]);
+            }
+
+            if (!string.IsNullOrEmpty(attr.Competitors))
+            {
+                obj.competitor = attr.Competitors.Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (!string.IsNullOrEmpty(attr.Suppliers))
+            {
+                obj.supplier = attr.Suppliers.Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (!string.IsNullOrEmpty(attr.Buyers))
+            {
+                obj.buyer = attr.Buyers.Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (attr.RootId.HasValue)
+            {
+                obj.rootId = attr.RootId;
+            }
+            if (attr.ComsumerExpenditureId.HasValue)
+            {
+                obj.consumerExpenditureVariable = attr.ComsumerExpenditureId;
+            }
+
+            object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
             return Json(output, JsonRequestBehavior.AllowGet);
         }
+
 
 
         [HttpPost]
@@ -306,9 +304,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
             HttpCookie cookie = new HttpCookie(key);
-            CompetitorAttribute attr = new CompetitorAttribute();
+            Data.UserData.CompetitorAttribute attr = new Data.UserData.CompetitorAttribute();
+            Data.Analytics.CompetitorAttribute analyticsAttr = new Data.Analytics.CompetitorAttribute();
             attr.PlaceId = placeId;
             attr.IndustryId = industryId;
+            analyticsAttr.PlaceId = placeId;
+            analyticsAttr.IndustryId = industryId;
 
             if (Request.Form.AllKeys.Contains("competitor"))
             {
@@ -342,29 +343,33 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
 
 
-            Response.Cookies.Add(cookie);
+
 
             if (User.Identity.IsAuthenticated)
             {
                 using (var context = ContextFactory.UserDataContext)
                 {
-                    Func<string[],string[], bool> tester = (string[] a, string[] b) => (a.Length == b.Length && a.Intersect(b).Count() == a.Length);
-
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
+                    analyticsAttr.UserId = userid;
+                    analyticsAttr.Competitors = attr.Competitors;
+                    analyticsAttr.Buyers = attr.Buyers;
+                    analyticsAttr.Suppliers = attr.Suppliers;
+                    analyticsAttr.RootId = attr.RootId;
+                    analyticsAttr.ComsumerExpenditureId = attr.ComsumerExpenditureId;
+                    analyticsAttr.APIKeyId = WidgetToken.APIKeyId;
+
                     var item = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
                     {
-                        //test for changes... update if there are and then insert into analytics else ignore
-                        if (
-                            !tester(item.Competitors != null ? item.Competitors.Split(',') : "".Split(','), attr.Competitors!=null ? attr.Competitors.Split(',') : "".Split(',')) ||
-                            !tester(item.Suppliers != null ? item.Suppliers.Split(',') : "".Split(','), attr.Suppliers!=null ? attr.Suppliers.Split(',') : "".Split(',')) ||
-                            !tester(item.Buyers != null ? item.Buyers.Split(',') : "".Split(','), attr.Buyers!=null ? attr.Buyers.Split(','): "".Split(',')) ||
+                        Func<string[], string[], bool> tester = (string[] a, string[] b) => (a.Length == b.Length && a.Intersect(b).Count() == a.Length);
+
+                        if (!tester(item.Competitors != null ? item.Competitors.Split(',') : "".Split(','), attr.Competitors != null ? attr.Competitors.Split(',') : "".Split(',')) ||
+                            !tester(item.Suppliers != null ? item.Suppliers.Split(',') : "".Split(','), attr.Suppliers != null ? attr.Suppliers.Split(',') : "".Split(',')) ||
+                            !tester(item.Buyers != null ? item.Buyers.Split(',') : "".Split(','), attr.Buyers != null ? attr.Buyers.Split(',') : "".Split(',')) ||
                             item.RootId != attr.RootId ||
-                            item.ComsumerExpenditureId != attr.ComsumerExpenditureId
-                            
-                            )
+                            item.ComsumerExpenditureId != attr.ComsumerExpenditureId)
                         {
                             item.Competitors = attr.Competitors;
                             item.Buyers = attr.Buyers;
@@ -372,22 +377,21 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             item.RootId = attr.RootId;
                             item.ComsumerExpenditureId = attr.ComsumerExpenditureId;
                             context.SaveChanges();
-                            //fire analytics
+                            Singleton<Tracker>.Instance.CompetitorAttribute(analyticsAttr);
                         }
                     }
                     else
                     {
                         context.CompetitorAttributes.AddObject(attr);
                         context.SaveChanges();
+                        Singleton<Tracker>.Instance.CompetitorAttribute(analyticsAttr);
                     }
                 }
             }
 
 
+            Response.Cookies.Add(cookie);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
-       
-
     }
 }
