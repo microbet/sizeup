@@ -127,9 +127,6 @@ a.sorter.desc { background-position:right 3px; }
 .mapWrapper .map .legend .radio.active:before {background-position: 0 -13px; }
 
 
-
-/**** experimental base styles*****/
-
 .selectList-container { display: inline-block; }
 .selectList-container .selectList-selector {font-size:1em; }
 .selectList-container .selectList-list { position:absolute; background-color: #fff; border: 1px solid #ccc; z-index: 1000; width:auto; }
@@ -137,5 +134,15 @@ a.sorter.desc { background-position:right 3px; }
 .selectList-container .selectList-list .selectList-listItem { color:#666; text-align:right; padding: 0.1em 0.1em 0.1em 2em; }
 .selectList-container .selectList-list .selectList-listItem.selectList-selected {background-color:#E6E6E6; font-weight:bold; }
 .selectList-container .selectList-list .selectList-listItem.selectList-hover {background-color:#FFD86A;  }
+
+
+/**** experimental base styles*****/
+
+
+
+.flash {position:absolute; left:0; top:10em; z-index:10; width:100%; }
+.flash .info {font-size:1.5em; padding:1.5em; display:block; border-radius:1em; border:1px solid #DDDDDD; background-color:#00ff00; margin:0 auto; width:50%;}
+
+
 
 

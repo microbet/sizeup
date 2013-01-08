@@ -15,6 +15,7 @@
         me.opts = $.extend(true, defaults, opts);
 
         me.data = {
+            restoredSession: false,
             activeIndex: 'competitor',
             businessOverlay: null,
             infoWindow: null,
@@ -57,6 +58,9 @@
       
         var setupNotifier = new sizeup.core.notifier(function () { setup(); });
         dataLayer.getCompetitionValues({ placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id }, setupNotifier.getNotifier(function (data) {
+            if (!jQuery.isEmptyObject(data)) {
+                me.data.restoredSession = true;
+            }
             jQuery.bbq.pushState(data, 1);
         }));
 
@@ -182,6 +186,10 @@
                 onChange: function (item) { industryPicked(item); }
             });
 
+            me.sessionLoadedBox = new sizeup.controls.flashBox(
+            {
+                container: me.container.find('#sessionLoadedBox')
+            });
 
             $('body').click(consumerExpenditureOnBodyClicked);
             me.content.ConsumerExpenditure.menu.click(consumerExpenditureMenuClicked);
@@ -239,6 +247,10 @@
             }
             else {
                 loadConsumerExpenditureVariables(me.data.consumerExpenditure.rootId);
+            }
+
+            if (me.data.restoredSession) {
+                me.sessionLoadedBox.flash();
             }
         };
 

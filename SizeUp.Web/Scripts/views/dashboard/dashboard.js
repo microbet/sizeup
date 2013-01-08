@@ -29,6 +29,8 @@
         dataLayer.getDashboardValues({placeId: opts.report.CurrentPlace.Id, industryId: opts.report.IndustryDetails.Industry.Id}, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
+           
+
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 jQuery.bbq.pushState(me.data.dashboardValues, 1);
                 var p = $.extend(true, { placeId: me.opts.report.CurrentPlace.Id, industryId: me.opts.report.IndustryDetails.Industry.Id }, jQuery.bbq.getState());
@@ -45,6 +47,13 @@
                     button: me.container.find('#summaryView'),
                     onClick: function () { toggleAllReports(); }
                 });
+
+            me.sessionLoadedBox = new sizeup.controls.flashBox(
+               {
+                   container: me.container.find('#sessionLoadedBox')
+               });
+
+            
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
@@ -63,6 +72,12 @@
 
             $('#dashboard').removeClass('hidden');
             initAllReports();
+
+                       
+
+            if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
+                me.sessionLoadedBox.flash();
+            }
         };
 
         var hashChanged = function (e) {

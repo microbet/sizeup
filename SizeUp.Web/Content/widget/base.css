@@ -125,8 +125,6 @@ a.sorter.desc { background-position:right 0.3em; }
 .mapWrapper .map .legend .radio:before { background: url(/content/images/onoff.png) no-repeat 0 0; content:" "; display:inline-block; width:10px; height:10px; margin:0 0.5em 0 1em;position:relative; top:-0.1em; }
 .mapWrapper .map .legend .radio.active:before {background-position: 0 -13px; }
 
-/**** experimental base styles*****/
-
 .selectList-container { display: inline-block; }
 .selectList-container .selectList-selector {font-size:1em; }
 .selectList-container .selectList-list { position:absolute; background-color: #fff; border: 1px solid #ccc; z-index: 1000; width:auto; }
@@ -136,4 +134,10 @@ a.sorter.desc { background-position:right 0.3em; }
 .selectList-container .selectList-list .selectList-listItem.selectList-hover {background-color:#FFD86A;  }
 .selectList-container .selectList-list .selectList-listItem.selectList-selected {background-color:#E6E6E6; font-weight:bold; }
 
+/**** experimental base styles*****/
+
+
+
+.flash {position:absolute; left:0; top:10em; z-index:10; width:100%; }
+.flash .info {font-size:1.5em; padding:1.5em; display:block; border-radius:1em; border:1px solid #DDDDDD; background-color:#00ff00; margin:0 auto; width:50%;}
 
