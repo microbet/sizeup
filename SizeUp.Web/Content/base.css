@@ -141,7 +141,7 @@ a.sorter.desc { background-position:right 3px; }
 
 
 .flash {position:absolute; left:0; top:10em; z-index:10; width:100%; }
-.flash .info {font-size:1.5em; padding:1.5em; display:block; border-radius:1em; border:1px solid #DDDDDD; background-color:#00ff00; margin:0 auto; width:50%;}
+.flash .info {font-size:1.3em; padding:1.5em; display:block; border-radius:1em; border:1px solid #DDDDDD; background-color:#00ff00; margin:0 auto; width:50%;}
 
 
 
