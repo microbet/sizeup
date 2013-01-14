@@ -4,7 +4,7 @@
 
         var defaults = {
             container: $('<div></div>'),
-            flashLength: 3000,
+            flashLength: 2500,
             fadeLength:1000
         };
         var me = {};
