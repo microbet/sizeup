@@ -715,8 +715,8 @@
                     northEast: data[x].State.NorthEast,
                     label: data[x].State.Name,
                     state: data[x].State,
-                    value: extractValue(data[x], attr),
-                    formattedValue: formatValue(extractValue(data[x], attr), attr)
+                    formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
+                    formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
 
                 });
             }
@@ -734,8 +734,8 @@
                     northEast: data[x].Metro.NorthEast,
                     label: data[x].Metro.Name,
                     metro: data[x].Metro,
-                    value: extractValue(data[x], attr),
-                    formattedValue: formatValue(extractValue(data[x], attr), attr)
+                    formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
+                    formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
 
                 });
             }
@@ -754,8 +754,8 @@
                     label: data[x].County.Name + ' County , ' +data[x].State.Abbreviation,
                     county: data[x].County,
                     state: data[x].State,
-                    value: extractValue(data[x], attr),
-                    formattedValue: formatValue(extractValue(data[x], attr), attr)
+                    formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
+                    formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
 
                 });
             }
@@ -776,9 +776,9 @@
                     city: data[x].City,
                     county: data[x].County,
                     state: data[x].State,
-                    value: extractValue(data[x], attr),
-                    formattedValue: formatValue(extractValue(data[x], attr), attr),
-                    counties: data[x].City.Counties
+                    counties: data[x].City.Counties,
+                    formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
+                    formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
                 });
             }
             return newData;

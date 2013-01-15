@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SizeUp.Web.Areas.Api.Models.Shared;
 
 namespace SizeUp.Web.Areas.Api.Models.TopPlaces
 {
@@ -11,12 +12,12 @@ namespace SizeUp.Web.Areas.Api.Models.TopPlaces
         public Models.County.County County { get; set; }
         public Models.Metro.Metro Metro { get; set; }
         public Models.State.State State { get; set; }
-        public long? TotalRevenue { get; set; }
-        public long? TotalEmployees { get; set; }
-        public double? EmployeesPerCapita { get; set; }
-        public long? RevenuePerCapita { get; set; }
-        public long? AverageRevenue { get; set; }
-        public long? AverageEmployees { get; set; }
 
+        public Band<long?> TotalRevenue { get; set; }
+        public Band<long?> TotalEmployees { get; set; }
+        public Band<decimal?> EmployeesPerCapita { get; set; }
+        public Band<long?> RevenuePerCapita { get; set; }
+        public Band<long?> AverageRevenue { get; set; }
+        public Band<long?> AverageEmployees { get; set; }
     }
 }

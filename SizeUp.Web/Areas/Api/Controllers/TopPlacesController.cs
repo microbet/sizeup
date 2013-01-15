@@ -279,14 +279,50 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 Id = i.City.State.Id,
                                 Name = i.City.State.Name,
                                 Abbreviation = i.City.State.Abbreviation,
-                                SEOKey = i.City.State.SEOKey 
+                                SEOKey = i.City.State.SEOKey
                             },
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
+                            TotalRevenue = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b => 
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null? (long?)b.Min: null,
+                                    Max = b.Max !=null? (long?)b.Max :null                         
+                                }
+                            ).FirstOrDefault(),
+                            TotalEmployees = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                                new Models.Shared.Band<decimal?>()
+                                {
+                                    Min = b.Min != null ? (decimal?)b.Min : null,
+                                    Max = b.Max != null ? (decimal?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            RevenuePerCapita = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            AverageEmployees = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault()                    
                         })
                         .AsQueryable();
 
@@ -546,12 +582,48 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             Abbreviation = i.County.State.Abbreviation,
                             SEOKey = i.County.State.SEOKey
                         },
-                        TotalRevenue = i.IndustryData.TotalRevenue,
-                        TotalEmployees = i.IndustryData.TotalEmployees,
-                        EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                        AverageRevenue = i.IndustryData.AverageRevenue,
-                        AverageEmployees = i.IndustryData.AverageEmployees
+                        TotalRevenue = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                        TotalEmployees = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                            new Models.Shared.Band<decimal?>()
+                            {
+                                Min = b.Min != null ? (decimal?)b.Min : null,
+                                Max = b.Max != null ? (decimal?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        RevenuePerCapita = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        AverageEmployees = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault() 
                     });                    
                     
                     
@@ -797,12 +869,48 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             NorthEast = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
                             SouthWest = i.Metro.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                         },
-                        TotalRevenue = i.IndustryData.TotalRevenue,
-                        TotalEmployees = i.IndustryData.TotalEmployees,
-                        EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                        AverageRevenue = i.IndustryData.AverageRevenue,
-                        AverageEmployees = i.IndustryData.AverageEmployees
+                        TotalRevenue = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                        TotalEmployees = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                            new Models.Shared.Band<decimal?>()
+                            {
+                                Min = b.Min != null ? (decimal?)b.Min : null,
+                                Max = b.Max != null ? (decimal?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        RevenuePerCapita = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        AverageEmployees = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault() 
                     });
                     
 
@@ -1051,12 +1159,48 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 NorthEast = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.North, Lng = g.Geography.East }).FirstOrDefault(),
                                 SouthWest = i.State.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => new Models.Shared.LatLng { Lat = g.Geography.South, Lng = g.Geography.West }).FirstOrDefault()
                             },
-                            TotalRevenue = i.IndustryData.TotalRevenue,
-                            TotalEmployees = i.IndustryData.TotalEmployees,
-                            EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
-                            RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                            AverageRevenue = i.IndustryData.AverageRevenue,
-                            AverageEmployees = i.IndustryData.AverageEmployees
+                            TotalRevenue = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            TotalEmployees = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                                new Models.Shared.Band<decimal?>()
+                                {
+                                    Min = b.Min != null ? (decimal?)b.Min : null,
+                                    Max = b.Max != null ? (decimal?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            RevenuePerCapita = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault(),
+                            AverageEmployees = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                                new Models.Shared.Band<long?>()
+                                {
+                                    Min = b.Min != null ? (long?)b.Min : null,
+                                    Max = b.Max != null ? (long?)b.Max : null
+                                }
+                            ).FirstOrDefault() 
                         });
 
 

@@ -348,22 +348,22 @@
                     <tr data-template="cityItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name" title="{{city.Name}} {{city.TypeName}}, {{state.Abbreviation}} - Counties: ({{#counties}}{{Name}}{{^last}}, {{/last}}{{/counties}})">{{city.Name}}, {{state.Abbreviation}}</a></td>
-                        <td class="value">{{formattedValue}}</td>
+                        <td class="value">{{formattedMin}} - {{formattedMax}}</td>
                     </tr>
                     <tr data-template="countyItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}" class="name">{{county.Name}} County, {{state.Abbreviation}}</a></td>
-                        <td class="value">{{formattedValue}}</td>
+                        <td class="value">{{formattedMin}} - {{formattedMax}}</td>
                     </tr>
                     <tr data-template="metroItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/communitymetro/{{metro.SEOKey}}" class="name">{{metro.Name}}</a></td>
-                        <td class="value">{{formattedValue}}</td>
+                        <td class="value">{{formattedMin}} - {{formattedMax}}</td>
                     </tr>
                     <tr data-template="stateItem">
                         <td class="rank">{{rank}}</td>
                         <td class="name"><a data-override-href="/community/{{state.SEOKey}}" class="name">{{state.Name}}</a></td>
-                        <td class="value">{{formattedValue}}</td>
+                        <td class="value">{{formattedMin}} - {{formattedMax}}</td>
                     </tr>
                 </tbody>
             </table>
