@@ -307,6 +307,7 @@
     <Content Include="Content\images\heatPinffff00.png" />
     <Content Include="Content\images\heatPinShadow.png" />
     <Content Include="Content\images\home-gradient.png" />
+    <Content Include="Content\images\info.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\logosmall.gif" />
     <Content Include="Content\images\mapBar.png" />
