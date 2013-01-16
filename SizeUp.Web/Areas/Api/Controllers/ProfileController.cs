@@ -263,12 +263,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
             }
-            if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable"))
+            if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable")  && cookie.Values.AllKeys.Contains("rootId"))
             {
                 obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
-            }
-            if (cookie.Values.AllKeys.Contains("rootId"))
-            {
                 obj.rootId = long.Parse(cookie.Values["rootId"]);
             }
 
@@ -284,13 +281,10 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 obj.buyer = attr.Buyers.Split(',').Select(i => long.Parse(i)).ToList();
             }
-            if (attr.RootId.HasValue)
-            {
-                obj.rootId = attr.RootId;
-            }
-            if (attr.ComsumerExpenditureId.HasValue)
+            if (attr.ComsumerExpenditureId.HasValue && attr.RootId.HasValue)
             {
                 obj.consumerExpenditureVariable = attr.ComsumerExpenditureId;
+                obj.rootId = attr.RootId;
             }
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
@@ -329,15 +323,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 cookie.Values.Add("buyer", string.Join(",", ids));
                 attr.Buyers = string.Join(",", ids);
             }
-            if (Request.Form.AllKeys.Contains("rootId"))
+            if (Request.Form.AllKeys.Contains("rootId") && Request.Form.AllKeys.Contains("consumerExpenditureVariable"))
             {
                 var id = Form.StringValue("rootId");
                 cookie.Values.Add("rootId", id);
                 attr.RootId = int.Parse(id);
-            }
-            if (Request.Form.AllKeys.Contains("consumerExpenditureVariable"))
-            {
-                var id = Form.StringValue("consumerExpenditureVariable");
+                id = Form.StringValue("consumerExpenditureVariable");
                 cookie.Values.Add("consumerExpenditureVariable", id);
                 attr.ComsumerExpenditureId = int.Parse(id);
             }
