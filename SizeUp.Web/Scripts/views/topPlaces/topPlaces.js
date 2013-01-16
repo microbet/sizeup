@@ -827,25 +827,25 @@
         var formatValue = function (val, attr) {
             var formattedVal = '';
             if (attr == 'totalRevenue') {
-                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
+                formattedVal = '$' + sizeup.util.numbers.format.abbreviate(val, 2);
             }
             else if (attr == 'averageRevenue') {
-                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
+                formattedVal = '$' + sizeup.util.numbers.format.abbreviate(val, 2);
             }
             else if (attr == 'totalEmployees') {
-                formattedVal = sizeup.util.numbers.format.addCommas(val);
+                formattedVal = sizeup.util.numbers.format.abbreviate(val, 2);
             }
             else if (attr == 'averageEmployees') {
-                formattedVal = sizeup.util.numbers.format.addCommas(val);
+                formattedVal = sizeup.util.numbers.format.abbreviate(val, 2);
             }
             else if (attr == 'employeesPerCapita') {
                 formattedVal = sizeup.util.numbers.format.sigFig(val, 3);
             }
             else if (attr == 'revenuePerCapita') {
-                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
+                formattedVal = '$' + sizeup.util.numbers.format.abbreviate(val, 2);
             }
             else if (attr == 'underservedMarkets') {
-                formattedVal = '$' + sizeup.util.numbers.format.addCommas(val);
+                formattedVal = '$' + sizeup.util.numbers.format.abbreviate(val, 2);
             }
             return formattedVal;
         };

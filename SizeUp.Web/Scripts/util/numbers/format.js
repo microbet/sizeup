@@ -41,23 +41,33 @@
             if (places == null || typeof places == 'undefined') {
                 places = 1;
             }
+            num = Math.round(num);
+
             if (num < 10) {
-                return this.addCommas(Math.round(num));
+                return Math.round(num);
             }
-            else if (num >= 10 && num < 10000) {
-                return this.addCommas(Math.round(num));
+            else if (num >= 10 && num <= 9999) {
+                return this.addCommas(num);
             }
-            else if (num >= 10000 && num < 100000) {
-                return this.addCommas((num / 1000).toFixed(places)) + "K";
+            else if (num >= 10000 && num <= 999999) {
+                var n = num / 1000;
+                n = this.round(n, places);
+                return n + "K";
             }
-            else if (num >= 100000 && num < 1000000) {
-                return this.addCommas(Math.round(num / 1000)) + "K";
+            else if (num >= 1000000 && num <= 999999999) {
+                var n = num / 1000000;
+                n = this.round(n, places);
+                return n + "M";
             }
-            else if (num >= 1000000 && num < 1000000000) {
-                return this.addCommas((num / 1000000).toFixed(places)) + "M";
+            else if (num >= 1000000000 && num <= 999999999999) {
+                var n = num / 1000000000;
+                n = this.round(n, places);
+                return n + "B";
             }
-            else if (num >= 1000000000) {
-                return this.addCommas((num / 1000000000).toFixed(places)) + "B";
+            else if (num >= 1000000000000) {
+                var n = num / 1000000000000;
+                n = this.round(n, places);
+                return n + "T";
             }
         }
     };
