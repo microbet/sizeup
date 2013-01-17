@@ -42,7 +42,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
             }
 
-            if (cookie.Values.AllKeys.Contains("businessSize"))
+            if (cookie.Values.AllKeys.Contains("businessSize") && User.Identity.IsAuthenticated)
             {
                 obj.businessSize = cookie.Values["businessSize"];
             }
@@ -50,11 +50,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 obj.businessType = cookie.Values["businessType"];
             }
-            if (cookie.Values.AllKeys.Contains("employees"))
+            if (cookie.Values.AllKeys.Contains("employees") && User.Identity.IsAuthenticated)
             {
                 obj.employees = cookie.Values["employees"];
             }
-            if (cookie.Values.AllKeys.Contains("healthcareCost"))
+            if (cookie.Values.AllKeys.Contains("healthcareCost") && User.Identity.IsAuthenticated)
             {
                 obj.healthcareCost = cookie.Values["healthcareCost"];
             }
@@ -66,7 +66,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 obj.salary = cookie.Values["salary"];
             }
-            if (cookie.Values.AllKeys.Contains("workersComp"))
+            if (cookie.Values.AllKeys.Contains("workersComp") && User.Identity.IsAuthenticated)
             {
                 obj.workersComp = cookie.Values["workersComp"];
             }

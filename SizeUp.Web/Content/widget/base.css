@@ -138,7 +138,7 @@ a.sorter.desc { background-position:right 0.3em; }
 
 
 
-.flash {position:absolute; right:1em; top:12em; z-index:10;  }
+.flash {position:fixed; right:10em; top:12em; z-index:10;  }
 .flash .info {text-align:left; font-family: Tahoma; color:#fff; font-size:1em; line-height:1.8em; padding:2em 1em 2em 5em; display:block; border-radius:0.5em; margin:0 auto; width:17em; box-shadow: 0.25em 0.25em 2em #070808; background:#1f1f1f url(/content/images/info.png) no-repeat 1.5em 2em;}
 
 
