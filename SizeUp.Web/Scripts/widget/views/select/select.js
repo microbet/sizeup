@@ -31,6 +31,7 @@
             me.errors.noData = $('#noDataMessage');
             me.errors.noIndustryMatches = $('#noIndustryMatchesMessage');
             me.errors.invalidCity = $('#invalidCityMessage');
+            me.errors.noValuesEntered = $('#noValuesEntered');
             me.form.submit = $('#continue');
             me.form.location.cityTextbox = $('#searchCommunity');
 
@@ -66,6 +67,7 @@
             me.errors.noIndustryMatches.hide().removeClass('hidden');
             me.errors.invalidCity.hide().removeClass('hidden');
             me.errors.noData.hide().removeClass('hidden');
+            me.errors.noValuesEntered.hide().removeClass('hidden');
             showForm();
         };
 
@@ -83,6 +85,7 @@
         };
 
         var onIndustryChange = function (item) {
+            me.errors.noValuesEntered.hide();
             me.hasData = false;
             me.checkedForData = false;
             if (!item) {
@@ -95,6 +98,7 @@
         };
 
         var onCityChange = function (item) {
+            me.errors.noValuesEntered.hide();
             me.hasData = false;
             me.checkedForData = false;
             if (!item) {
@@ -108,6 +112,13 @@
 
 
         var onSubmit = function () {
+            me.errors.noValuesEntered.hide();
+            var currentCity = me.form.location.placeSelector.getSelection();
+            var currentIndustry = me.form.industry.industrySelector.getSelection();
+            if (currentCity == null || currentIndustry == null) {
+                me.errors.invalidCity.hide();
+                me.errors.noValuesEntered.fadeIn("slow");
+            }
             if (!me.checkedForData) {
                 checkForData(function () {
                     if (me.hasData) {
