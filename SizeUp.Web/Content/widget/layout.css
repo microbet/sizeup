@@ -7,7 +7,7 @@ body { width: 100%; }
 #content {width:100%; clear:both; }
 
 /****headery things goes here******/
-#header {background-color: #F8F8F8; border-bottom: 2px solid #EEEEEE; height:3.1em; }
+#header {background-color: #F8F8F8; border-bottom: 2px solid #EEEEEE; /*height:3.1em;*/ }
 #header ul { position: relative; text-align:right; margin: 0 1em;}
 #header ul li { display: inline-block; vertical-align: top; }
 #header ul li a { display: block; padding:0.5em; }
