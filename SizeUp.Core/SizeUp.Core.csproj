@@ -34,6 +34,10 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="FSharp.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\FSharp\3.0\Runtime\v4.0\FSharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="MailChimp">
       <HintPath>..\packages\mcapi.net.1.3.0.4\lib\net40\MailChimp.dll</HintPath>
     </Reference>
@@ -81,6 +85,8 @@
     <Compile Include="DataAccess\ZipCodes.cs" />
     <Compile Include="Diagnostics\HandleErrorAndLogAttribute.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />
+    <Compile Include="Email\IMailingList.cs" />
+    <Compile Include="Email\MailChimp.cs" />
     <Compile Include="Email\Mailer.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\IQueryableExtensions.cs" />

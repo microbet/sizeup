@@ -8,9 +8,9 @@ namespace SizeUp.Core.Email
 {
     public interface IMailingList
     {
-        public bool Subscribe(string email);
-        public bool Unsubscribe(string email);
-        public bool Subscribe(List<string> emails);
-        public bool Unsubscribe(List<string> emails);
+        bool Subscribe(string email);
+        bool Unsubscribe(string email);
+        bool Subscribe(List<string> emails);
+        bool Unsubscribe(List<string> emails);
     }
 }
