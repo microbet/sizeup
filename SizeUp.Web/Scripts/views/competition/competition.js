@@ -118,7 +118,8 @@
                 container: me.container.find('.mapControls.container'),
                 filter: me.container.find('.mapControls.container .mapFilter').hide().removeClass('hidden'),
                 filterItems: me.container.find('.mapControls.container .mapFilter input[name=mapFilter]'),
-                consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures')
+                consumerExpenditures: me.container.find('.mapControls.container .consumerExpenditures'),
+                filterMessage: me.container.find('.mapControls.container .filterMessage').hide().removeClass('hidden')
             };
             me.content.mapControls.filter.find('.zoomMessage').hide();
 
@@ -495,9 +496,11 @@
         var checkMapFilter = function () {
             if (getIndustryIdArray('buyer').length > 0 || getIndustryIdArray('supplier').length > 0) {
                 me.content.mapControls.filter.show();
+                me.content.mapControls.filterMessage.hide();
             }
             else {
                 me.content.mapControls.filter.hide();
+                me.content.mapControls.filterMessage.show();
             }
 
             if (getIndustryIdArray('buyer').length > 0) {
