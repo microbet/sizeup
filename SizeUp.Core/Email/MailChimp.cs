@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using MailChimp;
-
+//using MailChimp;
+using PerceptiveMCAPI;
+using SizeUp.Core.Identity;
 
 namespace SizeUp.Core.Email
 {
     public class MailChimpMailingList : IMailingList
     {
-        protected MCApi API { get; set; }
         protected string APIKey
         {
             get
@@ -28,36 +28,43 @@ namespace SizeUp.Core.Email
             }
         }
 
-        public MailChimpMailingList()
+        protected bool IsAvailable
         {
-            if (!string.IsNullOrEmpty(APIKey) && !string.IsNullOrEmpty(ListId))
+            get
             {
-                API = new MCApi(APIKey, true);
+                return !string.IsNullOrEmpty(APIKey) && !string.IsNullOrEmpty(ListId);
             }
         }
+
+       
         
-        public bool Subscribe(string email)
+        public bool Subscribe(Identity.Identity identity)
         {
             bool r = false;
-            if(API!=null){
-                r = API.ListSubscribe(ListId, email, null, new MailChimp.Types.Opt<MailChimp.Types.List.SubscribeOptions>(new MailChimp.Types.List.SubscribeOptions(){ SendWelcome = false, UpdateExisting = true}));
+            if (IsAvailable)
+            {
+                Dictionary<string, object> mergeVars = new Dictionary<string,object>();
+                mergeVars.Add("FullName", identity.FullName);
+                var input = new PerceptiveMCAPI.Types.listSubscribeInput(APIKey, ListId, identity.Email, mergeVars, EnumValues.emailType.html, false, true, true, false);
+                var output = new PerceptiveMCAPI.Methods.listSubscribe(input).Execute();
+                r = output.result;
+
             }
             return r;
         }
 
-        public bool Unsubscribe(string email)
+        public bool Unsubscribe(Identity.Identity identity)
         {
-            throw new NotImplementedException();
+            bool r = false;
+            if (IsAvailable)
+            {
+                var input = new PerceptiveMCAPI.Types.listUnsubscribeInput(APIKey, ListId, identity.Email, false, false, false);
+                var output = new PerceptiveMCAPI.Methods.listUnsubscribe(input).Execute();
+                r = output.result;
+            }
+            return r;
         }
 
-        public bool Subscribe(List<string> emails)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Unsubscribe(List<string> emails)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

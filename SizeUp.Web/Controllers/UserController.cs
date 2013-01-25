@@ -310,8 +310,10 @@ namespace SizeUp.Web.Controllers
             try
             {
                 var user = Identity.DecryptToken(key);
-                user.IsApproved = true;
+                user.IsApproved = true;            
                 user.Save();
+                MailChimpMailingList list = new MailChimpMailingList();
+                list.Subscribe(user);
                 ViewBag.Verified = true;
             }
             catch (System.Exception e)
@@ -360,6 +362,16 @@ namespace SizeUp.Web.Controllers
                 user.Save();
                 ViewBag.OptOut = user.IsOptOut;
                 ViewBag.Email = user.Email;
+
+                MailChimpMailingList list = new MailChimpMailingList();
+                if (OptOut)
+                {
+                    list.Unsubscribe(user);
+                }
+                else
+                {
+                    list.Subscribe(user);
+                }
             }
             catch (System.Exception e)
             {
