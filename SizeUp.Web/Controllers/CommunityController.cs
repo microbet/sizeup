@@ -37,46 +37,54 @@ namespace SizeUp.Web.Controllers
             return View();     
         }
 
-        public ActionResult CountyCommunity(string state, string county)
+        public ActionResult CountyCommunity(string state, string county) 
         {
+            ActionResult action = View();
             using (var context = ContextFactory.SizeUpContext)
             {
-
-                CurrentInfo = new Models.CurrentInfo()
+                if (context.States.Where(i => i.SEOKey == state).Count() == 0)
                 {
-                    CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
+                    //hack becuase we have route collisions
+                    action = RedirectWithIndustry(state, county);
+                }
+                else
+                {
+
+                    CurrentInfo = new Models.CurrentInfo()
                     {
-                        County = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.County.County()
+                        CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
                         {
-                            Id = c.Id,
-                            Name = c.Name,
-                            SEOKey = c.SEOKey,
-                            State = c.State.Abbreviation
-                        })
-                        .FirstOrDefault(),
-                        Metro = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.Metro.Metro()
-                        {
-                            Id = c.Metro.Id,
-                            Name = c.Metro.Name
-                        })
-                        .FirstOrDefault(),
-                        State = new Areas.Api.Models.State.State()
-                        {
-                            Id = i.Id,
-                            Name = i.Name,
-                            Abbreviation = i.Abbreviation,
-                            SEOKey = i.SEOKey
-                        }
-                    }).FirstOrDefault(),
+                            County = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.County.County()
+                            {
+                                Id = c.Id,
+                                Name = c.Name,
+                                SEOKey = c.SEOKey,
+                                State = c.State.Abbreviation
+                            })
+                            .FirstOrDefault(),
+                            Metro = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.Metro.Metro()
+                            {
+                                Id = c.Metro.Id,
+                                Name = c.Metro.Name
+                            })
+                            .FirstOrDefault(),
+                            State = new Areas.Api.Models.State.State()
+                            {
+                                Id = i.Id,
+                                Name = i.Name,
+                                Abbreviation = i.Abbreviation,
+                                SEOKey = i.SEOKey
+                            }
+                        }).FirstOrDefault(),
 
-                    CurrentIndustry = null
-                };
+                        CurrentIndustry = null
+                    };
 
-                ViewBag.CurrentInfo = CurrentInfo;
-                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                    ViewBag.CurrentInfo = CurrentInfo;
+                    ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                }
 
-
-                return View();
+                return action;
             }
         }
 

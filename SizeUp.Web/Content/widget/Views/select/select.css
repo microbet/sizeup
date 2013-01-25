@@ -1,4 +1,5 @@
-﻿#select { text-align: center; position:relative;}
+﻿#contentWrap { overflow-y: auto; }
+#select { text-align: center; position:relative;}
 #select h2 { text-align: left; }
 #form {text-align:center; width:100%; position: absolute; }
 #form ul li { text-align: left; margin:1em 0; }

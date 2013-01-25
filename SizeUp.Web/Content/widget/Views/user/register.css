@@ -1,4 +1,5 @@
-﻿#header li.signin { display: none; }
+﻿#contentWrap { overflow-y: auto; }
+#header li.signin { display: none; }
 #register h1 { font-size: 2em; }
 #register form { margin: 1em 0; }
 
