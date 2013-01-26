@@ -113,18 +113,16 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
             Identity i = new Identity()
             {
-                UserName = email,
                 Email = email,
                 FullName = name
             };
 
             try
             {
-                i = Identity.CreateUser(i, password);
                 i.IsApproved = false;
-                i.Save();
+                i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-                FormsAuthentication.SetAuthCookie(i.UserName, false);
+                FormsAuthentication.SetAuthCookie(i.Email, false);
                 APIKey apiKey = null;
                 using (var context = ContextFactory.SizeUpContext)
                 {
@@ -141,7 +139,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 };
 
                 Singleton<Tracker>.Instance.UserRegisteration(reg);
-                FormsAuthentication.RedirectFromLoginPage(i.UserName, false);
+                FormsAuthentication.RedirectFromLoginPage(i.Email, false);
             }
             catch (MembershipCreateUserException ex)
             {

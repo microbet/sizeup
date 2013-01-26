@@ -1,0 +1,12 @@
+﻿#profile { }
+#profile form {text-align:center; }
+#profile .section{ text-align:left;}
+#profile label { width:11em; }
+#profile input[type=text],
+#profile input[type=password] { width: 15em; }
+#profile ul { margin: 2em 0; }
+#profile ul li {margin:0 0 1em 3em; }
+
+#profile p.note { margin:0.25em 0 0.25em 1em; }
+#profile #messages { margin: 1em 0; height:5em; }
+

@@ -11,5 +11,6 @@ namespace SizeUp.Core.Email
     {
         bool Subscribe(Identity.Identity identity);
         bool Unsubscribe(Identity.Identity identity);
+        bool IsSubscribed(Identity.Identity identity);
     }
 }

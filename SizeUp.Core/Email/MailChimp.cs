@@ -65,6 +65,16 @@ namespace SizeUp.Core.Email
             return r;
         }
 
-       
+        public bool IsSubscribed(Identity.Identity identity)
+        {
+            bool r = false;
+            if (IsAvailable)
+            {
+                var input = new PerceptiveMCAPI.Types.listMemberInfoInput(APIKey, ListId, identity.Email);
+                var output = new PerceptiveMCAPI.Methods.listMemberInfo(input).Execute();
+                r = output.result.status == EnumValues.listMembers_status.subscribed;
+            }
+            return r;
+        }
     }
 }

@@ -26,8 +26,14 @@
         };
 
         var publicObj = {
-            isAuthenticated: function ( callback) {
+            isAuthenticated: function (callback) {
                 return get('/api/user/authenticated/', null, callback);
+            },
+            updateUserProfile: function (params, callback) {
+                return post('/api/user/profile/', params, callback);
+            },
+            setPassword: function (params, callback) {
+                return post('/api/user/password/', params, callback);
             },
             searchIndustries: function (params, callback) {
                 return get('/api/industry/search/', params, callback);
