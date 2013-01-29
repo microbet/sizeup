@@ -24,6 +24,15 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         // GET: /Wiget/Signin/
 
         [HttpGet]
+        [Authorize]
+        public ActionResult Profile()
+        {
+            ViewBag.CurrentUser = Identity.CurrentUser;
+
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Signin()
         {
             ViewBag.InvalidPassword = false;
