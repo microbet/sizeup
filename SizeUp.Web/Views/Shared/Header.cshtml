@@ -1,6 +1,6 @@
 ﻿<a id="logo" href="/"><img src="@Url.Content("~/Content/images/sizeup.png")" alt="SizeUp Logo"/></a>
 @if(!ViewBag.Header.HideMenu){
-<div id="menu">
+<div id="menu" class="@(SizeUp.Core.Identity.Identity.CurrentUser!=null ? "signinIn" : "")  ">
 <ul>
 @if (!ViewBag.Header.HideNavigation && ViewBag.CurrentInfo.CurrentPlace != null && ViewBag.CurrentInfo.CurrentIndustry != null)
 {

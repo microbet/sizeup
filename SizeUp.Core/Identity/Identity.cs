@@ -97,7 +97,7 @@ namespace SizeUp.Core.Identity
             var user = Membership.GetUser(Email);
             if (user != null)
             {
-                i = GetIdentity(user);
+                i = GetUser(user);
             }
             return i;
         }
@@ -108,12 +108,12 @@ namespace SizeUp.Core.Identity
             var user = Membership.GetUser(UserId);
             if (user != null)
             {
-                i = GetIdentity(user);
+                i = GetUser(user);
             }
             return i;
         }
-        
-        protected static Identity GetIdentity(MembershipUser membership)
+
+        public static Identity GetUser(MembershipUser membership)
         {
             MailChimpMailingList ml = new MailChimpMailingList();
             Identity user = new Identity();
