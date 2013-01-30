@@ -116,27 +116,37 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult StateCommunity(string state)
         {
+            ActionResult action = View();
             using (var context = ContextFactory.SizeUpContext)
             {
-                CurrentInfo = new Models.CurrentInfo()
+
+                if (context.States.Where(i => i.SEOKey == state).Count() == 0)
                 {
-                    CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
+                    //hack becuase we have route collisions
+                    action = Redirect(state);
+                }
+                else
+                {
+                    CurrentInfo = new Models.CurrentInfo()
                     {
-                        State = new Areas.Api.Models.State.State()
+                        CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
                         {
-                            Id = i.Id,
-                            Name = i.Name,
-                            Abbreviation = i.Abbreviation,
-                            SEOKey = i.SEOKey
-                        }
-                    }).FirstOrDefault(),
+                            State = new Areas.Api.Models.State.State()
+                            {
+                                Id = i.Id,
+                                Name = i.Name,
+                                Abbreviation = i.Abbreviation,
+                                SEOKey = i.SEOKey
+                            }
+                        }).FirstOrDefault(),
 
-                    CurrentIndustry = null
-                };
+                        CurrentIndustry = null
+                    };
 
-                ViewBag.CurrentInfo = CurrentInfo;
-                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
-                return View();
+                    ViewBag.CurrentInfo = CurrentInfo;
+                    ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                }
+                return action;
             }
         }
 
