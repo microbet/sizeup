@@ -40,7 +40,7 @@
                 <li> 
                     <label for="optInBox">Send me updates</label>
                     <input id="optInBox" type="checkbox"  name="optIn" @if(ViewBag.CurrentUser.IsSubscribed){ @Html.Raw("checked=\"checked\"");}    />
-                    <p class="note">Periodically we will send you reports how your business is doing. Don't worry we won't sell your email address to spammers, hackers or Identity Theives. Have a look at our <a href="/product/privacy-policy">Privacy Policy</a> for more details.</p>
+                    <p class="note">Periodically we will send you reports on how your business is doing. We will never share your email address with third parties, as per our <a href="/product/privacy-policy">Privacy Policy</a>.</p>
                 </li>
             }
             else{
