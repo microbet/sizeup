@@ -25,7 +25,7 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 <li class="signin"><a href="/widget/user/signin/?returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
 }else{
 <li id="userMenu" class="signin">
-    <a href="javascript:void(0);">@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName</a>
+    <a href="javascript:void(0);"><span>@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName</span></a>
     <ul>
         <li><a href="/widget/user/profile">Account Settings</a></li>
         <li><a href="/widget/user/signout/?returnurl=/widget/select">Sign Out</a></li>
