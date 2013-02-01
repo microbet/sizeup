@@ -58,9 +58,6 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="MailChimp">
-      <HintPath>..\packages\mcapi.net.1.3.0.4\lib\net40\MailChimp.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -210,6 +207,7 @@
     <Compile Include="Areas\Api\Models\AverageSalary\ChartItem.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\Band.cs" />
     <Compile Include="Areas\Api\Models\AverageRevenue\ChartItem.cs" />
+    <Compile Include="Areas\Api\Models\Profile\CompetitionValues.cs" />
     <Compile Include="Areas\Api\Models\Profile\DashboardValues.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\Band.cs" />
     <Compile Include="Areas\Api\Models\ReveunePerCapita\ChartItem.cs" />
@@ -306,6 +304,7 @@
     <Content Include="Content\images\heatPinffff00.png" />
     <Content Include="Content\images\heatPinShadow.png" />
     <Content Include="Content\images\home-gradient.png" />
+    <Content Include="Content\images\info.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\logosmall.gif" />
     <Content Include="Content\images\mapBar.png" />
@@ -354,6 +353,7 @@
     <Content Include="Content\views\product\privacy.css" />
     <Content Include="Content\views\product\terms.css" />
     <Content Include="Content\views\topPlaces\index.css" />
+    <Content Include="Content\views\user\profile.css" />
     <Content Include="Content\views\user\optout.css" />
     <Content Include="Content\views\user\register.css" />
     <Content Include="Content\views\user\resetpassword.css" />
@@ -377,6 +377,7 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\flashBox.js" />
     <Content Include="Scripts\controls\promptBox.js" />
     <Content Include="Scripts\controls\selectList.js" />
     <Content Include="Scripts\controls\question.js" />
@@ -435,6 +436,7 @@
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\shared\signin.js" />
     <Content Include="Scripts\views\topPlaces\topPlaces.js" />
+    <Content Include="Scripts\views\user\profile.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
@@ -549,6 +551,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Areas\Widget\Views\TopPlaces\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\_HeaderlessLayout.cshtml" />
+    <Content Include="Areas\Widget\Views\User\Profile.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
@@ -569,6 +572,7 @@
     <Content Include="Views\Community\MetroCommunity.cshtml" />
     <Content Include="Views\Community\StateCommunity.cshtml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
+    <Content Include="Views\User\Profile.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -594,7 +598,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>39252</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/</IISUrl>
+          <IISUrl>http://sizeup.localhost/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

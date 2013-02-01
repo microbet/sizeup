@@ -26,8 +26,14 @@
         };
 
         var publicObj = {
-            isAuthenticated: function ( callback) {
+            isAuthenticated: function (callback) {
                 return get('/api/user/authenticated/', null, callback);
+            },
+            updateUserProfile: function (params, callback) {
+                return post('/api/user/profile/', params, callback);
+            },
+            setPassword: function (params, callback) {
+                return post('/api/user/password/', params, callback);
             },
             searchIndustries: function (params, callback) {
                 return get('/api/industry/search/', params, callback);
@@ -356,12 +362,20 @@
                 return get('/api/demographics/state', params, callback);
             },
 
-            getDashboardValues: function (callback) {
-                return get('/api/profile/dashboardValues/', null, callback);
+            getDashboardValues: function (params, callback) {
+                return get('/api/profile/dashboardValues/', params, callback);
             },
 
             setDashboardValues: function (params, callback) {
                 return post('/api/profile/dashboardValues/', params, callback);
+            },
+
+            getCompetitionValues: function (params, callback) {
+                return get('/api/profile/competitionValues/', params, callback);
+            },
+
+            setCompetitionValues: function (params, callback) {
+                return post('/api/profile/competitionValues/', params, callback);
             },
 
             getConsumerExpenditureVariables: function (params, callback) {

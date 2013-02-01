@@ -3,30 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SizeUp.Data;
 
 namespace SizeUp.Data.Analytics
 {
     public class Tracker
     {
-        protected int Second { get { return DateTime.Now.Second; } }
-        protected int Minute { get { return DateTime.Now.Minute; } }
-        protected int Hour { get { return DateTime.Now.Hour; } }
-        protected int Day { get { return DateTime.Now.Day; } }
-        protected int Week { get { return new System.Globalization.GregorianCalendar().GetWeekOfYear(DateTime.Now, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Sunday); } }
-        protected int Month { get { return DateTime.Now.Month; } }
-        protected int Quarter { get { return (DateTime.Now.Month - 1) / 3 + 1; } }
-        protected int Year { get { return DateTime.Now.Year; } }
-
         public void UserRegisteration(UserRegistration reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.UserRegistrations.AddObject(reg);
@@ -36,14 +29,15 @@ namespace SizeUp.Data.Analytics
 
         public void LongRequest(LongRequest reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.LongRequests.AddObject(reg);
@@ -53,14 +47,15 @@ namespace SizeUp.Data.Analytics
 
         public void Exception(Exception reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.Exceptions.AddObject(reg);
@@ -70,14 +65,15 @@ namespace SizeUp.Data.Analytics
 
         public void PlaceIndustrySearch(PlaceIndustrySearch reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.PlaceIndustrySearches.AddObject(reg);
@@ -88,14 +84,15 @@ namespace SizeUp.Data.Analytics
 
         public void RelatedCompetitor(RelatedCompetitor reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.RelatedCompetitors.AddObject(reg);
@@ -105,14 +102,15 @@ namespace SizeUp.Data.Analytics
 
         public void RelatedBuyer(RelatedBuyer reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.RelatedBuyers.AddObject(reg);
@@ -122,17 +120,54 @@ namespace SizeUp.Data.Analytics
 
         public void RelatedSupplier(RelatedSupplier reg)
         {
-            reg.Day = Day;
-            reg.Hour = Hour;
-            reg.Minute = Minute;
-            reg.Month = Month;
-            reg.Quarter = Quarter;
-            reg.Year = Year;
-            reg.Week = Week;
-            reg.Timestamp = DateTime.Now;
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
             using (var context = ContextFactory.AnalyticsContext)
             {
                 context.RelatedSuppliers.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
+
+        public void BusinessAttribute(BusinessAttribute reg)
+        {
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.BusinessAttributes.AddObject(reg);
+                context.SaveChanges();
+            }
+        }
+
+        public void CompetitorAttribute(CompetitorAttribute reg)
+        {
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
+            using (var context = ContextFactory.AnalyticsContext)
+            {
+                context.CompetitorAttributes.AddObject(reg);
                 context.SaveChanges();
             }
         }

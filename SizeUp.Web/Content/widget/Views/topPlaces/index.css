@@ -1,4 +1,4 @@
 ﻿#topPlaces .filters ul.options li .sliderWrap .slider { width: 21em; }
 #topPlaces .filters ul.options li { width: 49%; }
-#topPlaces h2 #selectList-regionMenu .selectList-list { width:auto; }
+#topPlaces h2 #selectList-regionMenu .selectList-list { width:22em; right:0; }
 #topPlaces h2 .ui-autocomplete { width: auto !important; }

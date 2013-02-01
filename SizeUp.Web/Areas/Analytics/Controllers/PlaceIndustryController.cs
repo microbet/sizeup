@@ -18,21 +18,12 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Index(long placeId, long industryId)
         {
-            long? apikeyid = null;
+            long? apikeyid = WidgetToken.APIKeyId;
             Guid? userid = null;
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var api = context.APIKeys.Where(i => i.KeyValue == WidgetToken.APIKey).FirstOrDefault();
-                if (api != null)
-                {
-                    apikeyid = api.Id;
-                }
-                if(User.Identity.IsAuthenticated){
-                    userid = (Guid)Membership.GetUser().ProviderUserKey;
-                }
+            
+            if(User.Identity.IsAuthenticated){
+                userid = (Guid)Membership.GetUser().ProviderUserKey;
             }
-
-
 
             var item = new PlaceIndustrySearch(){
                 IndustryId = industryId,

@@ -36,6 +36,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SqlServer.Types.10.50.1600.1\lib\Net20\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -65,6 +69,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="TimeStamp.cs" />
+    <Compile Include="UserData\UserDataContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserDataContext.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="SizeUpContext.edmx">
@@ -82,6 +92,13 @@
     <None Include="packages.config" />
     <None Include="SizeUpContext.edmx.diagram">
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="UserData\UserDataContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UserDataContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="UserData\UserDataContext.edmx.diagram">
+      <DependentUpon>UserDataContext.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

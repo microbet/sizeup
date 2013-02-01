@@ -7,8 +7,6 @@
 #dashboard h4 { font-size: 1.7em; font-weight: normal; }
 #dashboard h5 { font-size: 1.3em; font-weight: bold; padding: 0 0 0 1em; }
 
-#dashboard .info { margin: 1em 1em 3em 1em; }
-
 #dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; text-align: left; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
 
 

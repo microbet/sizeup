@@ -17,6 +17,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
@@ -34,6 +35,12 @@
 }
 
 <div id="competition">
+
+    <div id="sessionLoadedBox" class="flash hidden">
+        <div class="info">
+            <p>Your previously entered values for this city and industry have been loaded.</p>
+        </div>
+    </div>
 
     <div class="content container">
         <div class="controls container">

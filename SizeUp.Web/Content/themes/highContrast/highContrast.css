@@ -19,7 +19,7 @@ a.menu:hover { color: #fff; }
 
 #header ul li a.disabled:hover { color: #0099cc; }
 #header ul li a.button.help { background-color: #061F70; }
-
+#header ul li#userMenu > a:after { border-top-color: #C54602; }
 
 
 #dashboard .report .header .reportToggle,

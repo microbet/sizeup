@@ -95,5 +95,29 @@ namespace SizeUp.Web.Areas.Api.Controllers
             return Json(true);
         }
 
+
+        [HttpPost]
+        public ActionResult Password(string password)
+        {
+
+            Identity.CurrentUser.ResetPassword(password);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult Profile(Identity identity)
+        {
+            identity.UserId = Identity.CurrentUser.UserId;
+            identity.Email = Identity.CurrentUser.Email;
+            identity.IsApproved = Identity.CurrentUser.IsApproved;
+            identity.IsLockedOut = Identity.CurrentUser.IsLockedOut;
+            identity.Save();
+
+            return Json(true);
+        }
+
+
+    
+
     }
 }

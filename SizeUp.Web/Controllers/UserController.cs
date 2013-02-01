@@ -20,6 +20,19 @@ namespace SizeUp.Web.Controllers
     {
         //
         // GET: /User/
+
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Profile()
+        {
+            ViewBag.CurrentUser = Identity.CurrentUser;
+
+            return View();
+        }
+
+
+
         [HttpGet]
         public ActionResult Register()
         {
@@ -48,18 +61,16 @@ namespace SizeUp.Web.Controllers
 
             Identity i = new Identity()
             {
-                UserName = email,
                 Email = email,
                 FullName = name
             };
 
             try
             {
-                i = Identity.CreateUser(i, password);
                 i.IsApproved = false;
-                i.Save();
+                i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-                FormsAuthentication.SetAuthCookie(i.UserName, false);
+                FormsAuthentication.SetAuthCookie(i.Email, false);
                 string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
                 UserRegistration reg = new UserRegistration()
                 {
@@ -244,7 +255,7 @@ namespace SizeUp.Web.Controllers
             try
             {
                 var user = Identity.DecryptToken(key);
-                ViewBag.UserName = user.UserName;
+                ViewBag.UserName = user.Email;
             }
             catch (System.Exception e)
             {
@@ -311,6 +322,7 @@ namespace SizeUp.Web.Controllers
             {
                 var user = Identity.DecryptToken(key);
                 user.IsApproved = true;
+                user.IsSubscribed = true;
                 user.Save();
                 ViewBag.Verified = true;
             }
@@ -334,7 +346,6 @@ namespace SizeUp.Web.Controllers
             try
             {
                 var user = Identity.DecryptToken(key);
-                ViewBag.OptOut = user.IsOptOut;
                 ViewBag.Email = user.Email;
             }
             catch (System.Exception e)
@@ -356,9 +367,8 @@ namespace SizeUp.Web.Controllers
             try
             {
                 var user = Identity.DecryptToken(key);
-                user.IsOptOut = OptOut;
+                user.IsSubscribed = !OptOut;
                 user.Save();
-                ViewBag.OptOut = user.IsOptOut;
                 ViewBag.Email = user.Email;
             }
             catch (System.Exception e)

@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Configuration;
 using System.IO;
@@ -29,6 +25,24 @@ namespace SizeUp.Core.Web
                 if (cookie != null)
                 {
                     ret = Guid.Parse(cookie.Value);
+                }
+                return ret;
+            }
+        }
+
+        public static long? APIKeyId
+        {
+            get
+            {
+                APIKey apiKey = null;
+                using (var context = ContextFactory.SizeUpContext)
+                {
+                    apiKey = context.APIKeys.Where(a => a.KeyValue == SizeUp.Core.Web.WidgetToken.APIKey).FirstOrDefault();
+                }
+                long? ret = default(long?);
+                if (apiKey != null)
+                {
+                    ret = apiKey.Id;
                 }
                 return ret;
             }

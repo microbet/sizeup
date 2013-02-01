@@ -32,6 +32,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/question.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/reportContainer.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenue.js")"></script>
@@ -103,6 +104,12 @@
         </div>     
     </div>    
      }
+
+    <div id="sessionLoadedBox" class="flash hidden">
+        <div class="info">
+            <p>Your previously entered values for this city and industry have been loaded.</p>
+        </div>
+    </div>
 
     <a href="javascript:void(0);" id="summaryView" data-toggleText="Detailed View">Summary View</a>
 </div>

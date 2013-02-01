@@ -24,6 +24,15 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         // GET: /Wiget/Signin/
 
         [HttpGet]
+        [Authorize]
+        public ActionResult Profile()
+        {
+            ViewBag.CurrentUser = Identity.CurrentUser;
+
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Signin()
         {
             ViewBag.InvalidPassword = false;
@@ -113,26 +122,19 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
             Identity i = new Identity()
             {
-                UserName = email,
                 Email = email,
                 FullName = name
             };
 
             try
             {
-                i = Identity.CreateUser(i, password);
                 i.IsApproved = false;
-                i.Save();
+                i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-                FormsAuthentication.SetAuthCookie(i.UserName, false);
-                APIKey apiKey = null;
-                using (var context = ContextFactory.SizeUpContext)
-                {
-                    apiKey = context.APIKeys.Where(a =>a.KeyValue == SizeUp.Core.Web.WidgetToken.APIKey).FirstOrDefault();
-                }
+                FormsAuthentication.SetAuthCookie(i.Email, false);
                 UserRegistration reg = new UserRegistration()
                 {
-                    APIKeyId = apiKey != null ? apiKey.Id : (long?)null,
+                    APIKeyId = SizeUp.Core.Web.WidgetToken.APIKeyId,
                     CityId = WebContext.Current.CurrentPlaceId,
                     IndustryId = WebContext.Current.CurrentIndustryId,
                     UserId = i.UserId,
@@ -141,7 +143,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 };
 
                 Singleton<Tracker>.Instance.UserRegisteration(reg);
-                FormsAuthentication.RedirectFromLoginPage(i.UserName, false);
+                FormsAuthentication.RedirectFromLoginPage(i.Email, false);
             }
             catch (MembershipCreateUserException ex)
             {
