@@ -42,38 +42,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
             }
 
-            if (cookie.Values.AllKeys.Contains("businessSize") && User.Identity.IsAuthenticated)
-            {
-                obj.businessSize = cookie.Values["businessSize"];
-            }
-            if (cookie.Values.AllKeys.Contains("businessType"))
-            {
-                obj.businessType = cookie.Values["businessType"];
-            }
-            if (cookie.Values.AllKeys.Contains("employees") && User.Identity.IsAuthenticated)
-            {
-                obj.employees = cookie.Values["employees"];
-            }
-            if (cookie.Values.AllKeys.Contains("healthcareCost") && User.Identity.IsAuthenticated)
-            {
-                obj.healthcareCost = cookie.Values["healthcareCost"];
-            }
-            if (cookie.Values.AllKeys.Contains("revenue"))
-            {
-                obj.revenue = cookie.Values["revenue"];
-            }
-            if (cookie.Values.AllKeys.Contains("salary"))
-            {
-                obj.salary = cookie.Values["salary"];
-            }
-            if (cookie.Values.AllKeys.Contains("workersComp") && User.Identity.IsAuthenticated)
-            {
-                obj.workersComp = cookie.Values["workersComp"];
-            }
-            if (cookie.Values.AllKeys.Contains("yearStarted"))
-            {
-                obj.yearStarted = cookie.Values["yearStarted"];
-            }
+            
 
             if (!string.IsNullOrEmpty(attr.BusinessSize))
             {
@@ -106,6 +75,39 @@ namespace SizeUp.Web.Areas.Api.Controllers
             if (attr.YearStarted.HasValue)
             {
                 obj.yearStarted = attr.YearStarted;
+            }
+
+            if (cookie.Values.AllKeys.Contains("businessSize") && User.Identity.IsAuthenticated)
+            {
+                obj.businessSize = cookie.Values["businessSize"];
+            }
+            if (cookie.Values.AllKeys.Contains("businessType"))
+            {
+                obj.businessType = cookie.Values["businessType"];
+            }
+            if (cookie.Values.AllKeys.Contains("employees") && User.Identity.IsAuthenticated)
+            {
+                obj.employees = cookie.Values["employees"];
+            }
+            if (cookie.Values.AllKeys.Contains("healthcareCost") && User.Identity.IsAuthenticated)
+            {
+                obj.healthcareCost = cookie.Values["healthcareCost"];
+            }
+            if (cookie.Values.AllKeys.Contains("revenue"))
+            {
+                obj.revenue = cookie.Values["revenue"];
+            }
+            if (cookie.Values.AllKeys.Contains("salary"))
+            {
+                obj.salary = cookie.Values["salary"];
+            }
+            if (cookie.Values.AllKeys.Contains("workersComp") && User.Identity.IsAuthenticated)
+            {
+                obj.workersComp = cookie.Values["workersComp"];
+            }
+            if (cookie.Values.AllKeys.Contains("yearStarted"))
+            {
+                obj.yearStarted = cookie.Values["yearStarted"];
             }
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
@@ -251,23 +253,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
             }
 
-            if (cookie.Values.AllKeys.Contains("competitor"))
-            {
-                obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
-            }
-            if (cookie.Values.AllKeys.Contains("supplier"))
-            {
-                obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
-            }
-            if (cookie.Values.AllKeys.Contains("buyer"))
-            {
-                obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
-            }
-            if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable")  && cookie.Values.AllKeys.Contains("rootId"))
-            {
-                obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
-                obj.rootId = long.Parse(cookie.Values["rootId"]);
-            }
+
 
             if (!string.IsNullOrEmpty(attr.Competitors))
             {
@@ -285,6 +271,24 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 obj.consumerExpenditureVariable = attr.ComsumerExpenditureId;
                 obj.rootId = attr.RootId;
+            }
+
+            if (cookie.Values.AllKeys.Contains("competitor"))
+            {
+                obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (cookie.Values.AllKeys.Contains("supplier"))
+            {
+                obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (cookie.Values.AllKeys.Contains("buyer"))
+            {
+                obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
+            }
+            if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable") && cookie.Values.AllKeys.Contains("rootId"))
+            {
+                obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
+                obj.rootId = long.Parse(cookie.Values["rootId"]);
             }
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
