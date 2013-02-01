@@ -18,7 +18,18 @@ body { width: 100%; }
 #header ul li.competition {float:left;  }
 #header ul li.advertising {float:left;  }
 
-#header ul li.signin {  }
+
+#header ul li#userMenu {position:relative; }
+
+#header ul li#userMenu > a {padding:0.5em 1em 0.75em 0.5em; }
+#header ul li#userMenu > a:after {content: ""; width:0; height:0; border-left: 0.5em solid transparent; border-right:0.5em solid transparent; border-top: 0.5em solid #E78500; position:relative; top:1em; left:0.5em; }
+#header ul li#userMenu ul { background-color: #F8F8F8; position: absolute; width: 15em; right:0; z-index: 10000; padding:0.5em 0 0 0; display:none; border:2px solid #eee; }
+#header ul li#userMenu ul li { display: block; text-align:right; padding: 0 1em; border-bottom:1px solid #eee; }
+
+#header ul li#userMenu > a:hover + ul {display:block; }
+#header ul li#userMenu ul:hover {display:block; }
+
+
 #header ul li.startOver { }
 #header ul li.help { top: 0.8em;position:relative; }
 #header ul li a.button.help { background-color: #6699AA; border-radius: 4em 4em 4em 4em; display: inline; font-size: 1em; padding: 0.1em 0.7em; position: relative; }

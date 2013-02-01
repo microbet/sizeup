@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Web;
 using System.Web.Profile;
 using System.Web.Security;
-
+using SizeUp.Core.Email;
 
 
 
@@ -16,12 +16,12 @@ namespace SizeUp.Core.Identity
     {
         public Guid UserId { get; set; }
         public string FullName { get; set; }
-        public string UserName { get; set; }
         public string Email { get; set; }
         public bool IsApproved { get; set; }
         public bool IsLockedOut { get; set; }
-        public bool IsOptOut { get; set; }
-        public string DisplayName { get { return string.IsNullOrWhiteSpace(FullName) ? UserName : FullName; } }
+        public bool IsSubscribed { get; set; }
+        public string DisplayName { get { return string.IsNullOrWhiteSpace(FullName) ? Email : FullName; } }
+
 
         /// <summary>
         /// Gets a unique base64 encoded, encrypted token representing the userId
@@ -53,40 +53,51 @@ namespace SizeUp.Core.Identity
 
         public void ResetPassword(string password)
         {
-            var u = Membership.GetUser(UserName);
+            var u = Membership.GetUser(UserId);
             string tempPassword = u.ResetPassword();
             u.ChangePassword(tempPassword, password);
         }
 
         public void Save()
         {
-            var u = Membership.GetUser(UserName);
-            SaveIdentity(u, this);
+            MailChimpMailingList ml = new MailChimpMailingList();
+            var u = Membership.GetUser(UserId);
+            var profile = ProfileBase.Create(u.UserName);
+            u.Email = Email;
+            u.IsApproved = IsApproved;
+            profile["FullName"] = FullName;
+            profile.Save();
+            if (IsSubscribed)
+            {
+                ml.Subscribe(this);
+            }
+            else
+            {
+                ml.Unsubscribe(this);
+            }
+            Membership.UpdateUser(u);
         }
-       
 
-        /*AVAST! Static methods be yonder this point....ARRRG!**/
-
-        public static Identity CreateUser(Identity User, string Password)
+        public void CreateUser(string password)
         {
-            var u = Membership.CreateUser(User.UserName, Password, User.Email);
-            SaveIdentity(u, User);
-            return BindIdentity(u, User);
+            var u = Membership.CreateUser(Email, password, Email);
+            UserId = (Guid)u.ProviderUserKey;
+            Save();
         }
 
-        public static bool ValidateUser(string username, string password)
+        public static bool ValidateUser(string email, string password)
         {
-            return Membership.ValidateUser(username, password);
+            return Membership.ValidateUser(email, password);
         }
 
 
-        public static Identity GetUser(string Username)
+        public static Identity GetUser(string Email)
         {
             Identity i = null;
-            var user = Membership.GetUser(Username);
+            var user = Membership.GetUser(Email);
             if (user != null)
             {
-                i = BindIdentity(user, new Identity());
+                i = GetUser(user);
             }
             return i;
         }
@@ -97,34 +108,22 @@ namespace SizeUp.Core.Identity
             var user = Membership.GetUser(UserId);
             if (user != null)
             {
-                i = BindIdentity(user, new Identity());
+                i = GetUser(user);
             }
             return i;
         }
 
-        protected static Identity BindIdentity(MembershipUser membership, Identity user)
+        public static Identity GetUser(MembershipUser membership)
         {
+            MailChimpMailingList ml = new MailChimpMailingList();
+            Identity user = new Identity();
             var profile = ProfileBase.Create(membership.UserName);
-            user.UserName = membership.UserName;
-            user.Email = membership.Email;
+            user.Email = membership.UserName;
             user.IsApproved = membership.IsApproved;
             user.IsLockedOut = membership.IsLockedOut;
             user.FullName = profile["FullName"] as string;
-            user.IsOptOut = string.IsNullOrWhiteSpace(profile["OptOut"] as string) ? false : bool.Parse(profile["OptOut"] as string);
             user.UserId = (Guid)membership.ProviderUserKey;
-            return user;
-        }
-
-        protected static Identity SaveIdentity(MembershipUser membership, Identity user)
-        {
-            var profile = ProfileBase.Create(membership.UserName);
-            membership.Email = user.Email;
-            membership.IsApproved = user.IsApproved;
-            profile["FullName"] = user.FullName;
-            profile["OptOut"] = user.IsOptOut.ToString();
-            user.UserId = (Guid)membership.ProviderUserKey;
-            profile.Save();
-            Membership.UpdateUser(membership);
+            user.IsSubscribed = ml.IsSubscribed(user);
             return user;
         }
 
