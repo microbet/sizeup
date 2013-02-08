@@ -1,10 +1,20 @@
 ﻿#topPlaces h2 span,
 #topPlaces h2 a { font-size: 1em; }
-#topPlaces h3 {font-weight:bold; margin:0 0 1em; }
+#topPlaces h3 {margin:0.5em 0 0.25em 1em; display:inline-block;  }
+#topPlaces .filterLabels .fixed {display:inline-block; font-size: 1.6em; margin:0 0 1em; }
+#topPlaces .filterLabels .editable {display:inline-block; font-size:1.6em; padding: 0.25em 0.5em; background-color:#eee; min-width:32em; margin: 0.25em 0;}
+#topPlaces .filterLabels .editable a { }
+#topPlaces .filterLabels .emphasis{font-size:1em; }
+
+
 #topPlaces { position:relative; margin:0 0 4em 0; }
 #topPlaces .content.container { }
 
-#topPlaces  { text-align:right;}
+
+
+#topPlaces #advancedFilters {display:inline-block; padding:0 0 0 1em; }
+
+#topPlaces  { }
 #topPlaces  h2 { font-size: 2em; font-weight:normal; text-align:left;}
 #topPlaces h2 .selectList-container {font-weight:normal; }
 #topPlaces h2 .selectList-list {font-size:0.75em; }
@@ -45,7 +55,7 @@
 #topPlaces .filters ul.options li .sliderWrap .sliderLabel { display:inline-block; font-size:0.85em; padding:0 1em;}
 #topPlaces .filters ul.options li .sliderWrap .sliderLabel.less {width:7em; text-align:right; }
 #topPlaces .filters ul.options li .sliderWrap .sliderLabel.more {width:7em; }
-#topPlaces .filters ul.options li.noFilter .slider .ui-widget-header { background: none; }
+#topPlaces .filters ul.options li .slider.off .ui-widget-header { background: none; }
 #topPlaces .filters .valueLabel .val { font-size: 1.1em; color:#606060; font-weight:bold;}
 #topPlaces .filters .filtersToggle { margin: 1em 0 0 0; }
 #topPlaces .filters label { font-size: 1.3em; display:block; }

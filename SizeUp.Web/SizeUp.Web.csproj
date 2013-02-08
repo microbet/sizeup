@@ -377,6 +377,8 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\Copy of rangeSlider.js" />
+    <Content Include="Scripts\controls\rangeLabel.js" />
     <Content Include="Scripts\controls\flashBox.js" />
     <Content Include="Scripts\controls\promptBox.js" />
     <Content Include="Scripts\controls\selectList.js" />

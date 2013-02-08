@@ -67,6 +67,7 @@
 
             me.content.filters = {};
             me.content.filters.sliders = {};
+            me.content.filters.labels = {};
 
             me.content.industryBox = me.content.container.find('#industryBox').hide().removeClass('hidden');
             me.content.changeIndustry = me.content.container.find('#changeIndustry');
@@ -99,20 +100,9 @@
                    onClick: filtersToggleClicked
                });
 
-
+            initFilterLabels();
             initSliders();
 
-
-
-            me.content.populationMin = new sizeup.controls.promptBox({
-                textbox: me.content.container.find('#populationMin'),
-                onChange: populationChanged
-            });
-
-            me.content.populationMax = new sizeup.controls.promptBox({
-                textbox: me.content.container.find('#populationMax'),
-                onChange: populationChanged
-            });
 
 
             me.content.industryBox.blur(industryBoxBlur);
@@ -129,12 +119,6 @@
             if (params.stateId) {
                 me.content.regionMenu.setValue('s' + params.stateId);
             }
-            if (params.population) {
-                me.content.populationMin.setValue(params.population[0]);
-                me.content.populationMax.setValue(params.population[1]);
-            }
-           
-           
 
 
             me.loader.hide();
@@ -144,218 +128,294 @@
 
         };
 
+        var initFilterLabels = function () {
+            var params = getParameters();
+
+            me.content.filters.labels['bachelorOrHigher'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['blueCollarWorkers'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['highSchoolOrHigher'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['whiteCollarWorkers'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['airportsNearby'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['youngEducated'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['universitiesNearby'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['commuteTime'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['medianAge'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['householdExpenditures'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['averageRevenue'] = new sizeup.controls.rangeLabel({
+                container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+            me.content.filters.labels['totalRevenue'] = new sizeup.controls.rangeLabel({
+                container: me.content.container.find('.filterLabels .totalRevenue')
+            });
+
+            me.content.filters.labels['totalEmployees'] = new sizeup.controls.rangeLabel({
+                container: me.content.container.find('.filterLabels .totalEmployees')
+            });
+
+            me.content.filters.labels['revenuePerCapita'] = new sizeup.controls.rangeLabel({
+                container: me.content.container.find('.filterLabels .revenuePerCapita')
+            });
+
+            me.content.filters.labels['householdIncome'] = new sizeup.controls.rangeLabel({
+                //container: me.content.container.find('.filterLabels .averageRevenue')
+            });
+
+
+
+        };
+
         var initSliders = function () {
             var params = getParameters();
-     
-            me.content.filters.sliders['bachelorOrHigher'] = new sizeup.controls.slider({
-                container: me.content.container.find('#bachelorOrHigher'),
+
+            me.content.filters.sliders['bachelorOrHigher'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .bachelorOrHigher'),
+                label: me.content.container.find('.filters .bachelorOrHigher .valueLabel'),
+                range: {  min: 0,  max: 95 },
+                mode: 'min',
                 value: params['bachelorOrHigher'],
-                min: 0,
-                max: 95,
-                range: 'max',
                 onChange: function () { sliderChanged('bachelorOrHigher'); }
             });
 
-            me.content.filters.sliders['blueCollarWorkers'] = new sizeup.controls.slider({
-                container: me.content.container.find('#blueCollarWorkers'),
+            me.content.filters.sliders['blueCollarWorkers'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .blueCollarWorkers'),
+                label: me.content.container.find('.filters .blueCollarWorkers .valueLabel'),
+                range: { min: 0, max: 95 },
+                mode: 'min',
                 value: params['blueCollarWorkers'],
-                min: 0,
-                max: 95,
-                range: 'max',
                 onChange: function () { sliderChanged('blueCollarWorkers'); }
             });
 
-            me.content.filters.sliders['highSchoolOrHigher'] = new sizeup.controls.slider({
-                container: me.content.container.find('#highSchoolOrHigher'),
+            me.content.filters.sliders['highSchoolOrHigher'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .highSchoolOrHigher'),
+                label: me.content.container.find('.filters .highSchoolOrHigher .valueLabel'),
+                range: { min: 0, max: 95 },
+                mode: 'min',
                 value: params['highSchoolOrHigher'],
-                min: 0,
-                max: 95,
-                range: 'max',
                 onChange: function () { sliderChanged('highSchoolOrHigher'); }
             });
 
-            me.content.filters.sliders['whiteCollarWorkers'] = new sizeup.controls.slider({
-                container: me.content.container.find('#whiteCollarWorkers'),
+            me.content.filters.sliders['whiteCollarWorkers'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .whiteCollarWorkers'),
+                label: me.content.container.find('.filters .whiteCollarWorkers .valueLabel'),
+                range: { min: 0, max: 95 },
+                mode: 'min',
                 value: params['whiteCollarWorkers'],
-                min: 0,
-                max: 95,
-                range: 'max',
                 onChange: function () { sliderChanged('whiteCollarWorkers'); }
             });
 
 
-            me.content.filters.sliders['airportsNearby'] = new sizeup.controls.slider({
-                container: me.content.container.find('#airportsNearby'),
+            me.content.filters.sliders['airportsNearby'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .airportsNearby'),
+                label: me.content.container.find('.filters .airportsNearby .valueLabel'),
+                range: { min: 0, max: 9 },
+                mode: 'min',
                 value: params['airportsNearby'],
-                min: 0,
-                max: 9,
-                range: 'max',
                 onChange: function () { sliderChanged('airportsNearby'); }
             });
 
-            me.content.filters.sliders['youngEducated'] = new sizeup.controls.slider({
-                container: me.content.container.find('#youngEducated'),
+            me.content.filters.sliders['youngEducated'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .youngEducated'),
+                label: me.content.container.find('.filters .youngEducated .valueLabel'),
+                range: { min: 0, max: 95 },
+                mode: 'min',
                 value: params['youngEducated'],
-                min: 0,
-                max: 95,
-                range: 'max',
                 onChange: function () { sliderChanged('youngEducated'); }
             });
 
-            me.content.filters.sliders['universitiesNearby'] = new sizeup.controls.slider({
-                container: me.content.container.find('#universitiesNearby'),
+            me.content.filters.sliders['universitiesNearby'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .universitiesNearby'),
+                label: me.content.container.find('.filters .universitiesNearby .valueLabel'),
+                range: { min: 0, max: 20 },
+                mode: 'min',
                 value: params['universitiesNearby'],
-                min: 0,
-                max: 20,
-                range: 'max',
                 onChange: function () { sliderChanged('universitiesNearby'); }
             });
 
-            me.content.filters.sliders['commuteTime'] = new sizeup.controls.slider({
-                container: me.content.container.find('#commuteTime'),
+            me.content.filters.sliders['commuteTime'] = new sizeup.controls.rangeSlider({
+                container: me.content.container.find('.filters .commuteTime'),
+                label: me.content.container.find('.filters .commuteTime .valueLabel'),
+                range: { min: 0, max: 60 },
+                mode: 'max',
                 value: params['commuteTime'],
-                min: 0,
-                max: 60,
-                range: 'min',
                 onChange: function () { sliderChanged('commuteTime'); }
             });
 
             me.content.filters.sliders['medianAge'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#medianAge'),
-                values: params['medianAge'],
-                min: 0,
-                max: 82,
+                container: me.content.container.find('.filters .medianAge'),
+                label: me.content.container.find('.filters .medianAge .valueLabel'),
+                range: { min: 0, max: 82 },
+                mode: 'range',
+                value: params['medianAge'],
                 onChange: function () { sliderChanged('medianAge'); }
             });
           
             me.content.filters.sliders['householdExpenditures'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#householdExpenditures'),
-                values: params['householdExpenditures'],
-                min: 0,
-                max: 9,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 10000, mappedLabel: '$10,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 20000, mappedLabel: '$20,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 30000, mappedLabel: '$30,000' },
-                    { range: { min: 3, max: 4 }, mappedValue: 40000, mappedLabel: '$40,000' },
-                    { range: { min: 4, max: 5 }, mappedValue: 50000, mappedLabel: '$50,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 75000, mappedLabel: '$75,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 7, max: 8 }, mappedValue: 150000, mappedLabel: '$150,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
-                    { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
+                container: me.content.container.find('.filters .householdExpenditures'),
+                label: me.content.container.find('.filters .householdExpenditures .valueLabel'),
+                mode: 'range',
+                value: params['householdExpenditures'],
+                range: [
+                    { value: 10000, label: '$10,000' },
+                    { value: 20000, label: '$20,000' },
+                    { value: 30000, label: '$30,000' },
+                    { value: 40000, label: '$40,000' },
+                    { value: 50000, label: '$50,000' },
+                    { value: 75000, label: '$75,000' },
+                    { value: 100000, label: '$100,000' },
+                    { value: 150000, label: '$150,000' },
+                    { value: 200000, label: '$200,000' },
+                    { value: 250000, label: '$250,000' }
                 ],
                 onChange: function () { sliderChanged('householdExpenditures'); }
             });
 
             me.content.filters.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#averageRevenue'),
-                values: params['averageRevenue'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 50000, mappedLabel: '$50,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 250000, mappedLabel: '$250,000' },
-                    { range: { min: 3, max: 4 }, mappedValue: 500000, mappedLabel: '$500,000' },
-                    { range: { min: 4, max: 5 }, mappedValue: 750000, mappedLabel: '$750,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 1000000, mappedLabel: '$1 million' },
-                    { range: { min: 6, max: 7 }, mappedValue: 2500000, mappedLabel: '$2.5 million' },
-                    { range: { min: 7, max: 8 }, mappedValue: 5000000, mappedLabel: '$5 million' },
-                    { range: { min: 8, max: 9 }, mappedValue: 7500000, mappedLabel: '$7.5 million' },
-                    { range: { min: 9, max: 10 }, mappedValue: 10000000, mappedLabel: '$10 million' },
-                    { range: { min: 10, max: 11 }, mappedValue: 50000000, mappedLabel: '$50 million+' }
+                container: me.content.container.find('.filters .averageRevenue'),
+                label: me.content.container.find('.filters .averageRevenue .valueLabel'),
+                mode: 'range',
+                value: params['averageRevenue'],
+                range: [
+                    { value: 50000, label: '$50,000' },
+                    { value: 100000, label: '$100,000' },
+                    { value: 250000, label: '$250,000' },
+                    { value: 500000, label: '$500,000' },
+                    { value: 750000, label: '$750,000' },
+                    { value: 1000000, label: '$1 million' },
+                    { value: 2500000, label: '$2.5 million' },
+                    { value: 5000000, label: '$5 million' },
+                    { value: 7500000, label: '$7.5 million' },
+                    { value: 10000000, label: '$10 million' },
+                    { value: 50000000, label: '$50 million' }
                 ],
                 onChange: function () { sliderChanged('averageRevenue'); }
             });
 
-
             me.content.filters.sliders['totalRevenue'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#totalRevenue'),
-                values: params['totalRevenue'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 500000, mappedLabel: '$500,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 1000000, mappedLabel: '$1 million' },
-                    { range: { min: 3, max: 4 }, mappedValue: 5000000, mappedLabel: '$5 million' },
-                    { range: { min: 4, max: 5 }, mappedValue: 10000000, mappedLabel: '$10 million' },
-                    { range: { min: 5, max: 6 }, mappedValue: 50000000, mappedLabel: '$50 million' },
-                    { range: { min: 6, max: 7 }, mappedValue: 100000000, mappedLabel: '$100 million' },
-                    { range: { min: 7, max: 8 }, mappedValue: 500000000, mappedLabel: '$500 million' },
-                    { range: { min: 8, max: 9 }, mappedValue: 1000000000, mappedLabel: '$1 billion' },
-                    { range: { min: 9, max: 10 }, mappedValue: 50000000000, mappedLabel: '$50 billion' },
-                    { range: { min: 10, max: 11 }, mappedValue: 100000000000, mappedLabel: '$100 billion+' }
+                container: me.content.container.find('.filters .totalRevenue'),
+                label: me.content.container.find('.filters .totalRevenue .valueLabel'),
+                mode: 'range',
+                value: params['totalRevenue'],
+                range: [
+                    { value: 100000, label: '$100,000' },
+                    { value: 500000, label: '$500,000' },
+                    { value: 1000000, label: '$1 million' },
+                    { value: 5000000, label: '$5 million' },
+                    { value: 10000000, label: '$10 million' },
+                    { value: 50000000, label: '$50 million' },
+                    { value: 100000000, label: '$100 million' },
+                    { value: 500000000, label: '$500 million' },
+                    { value: 1000000000, label: '$1 billion' },
+                    { value: 50000000000, label: '$50 billion' },
+                    { value: 100000000000, label: '$100 billion' }
                 ],
                 onChange: function () { sliderChanged('totalRevenue'); }
             });
 
             me.content.filters.sliders['totalEmployees'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#totalEmployees'),
-                values: params['totalEmployees'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 10, mappedLabel: '10' },
-                    { range: { min: 1, max: 2 }, mappedValue: 50, mappedLabel: '50' },
-                    { range: { min: 2, max: 3 }, mappedValue: 100, mappedLabel: '100' },
-                    { range: { min: 3, max: 4 }, mappedValue: 500, mappedLabel: '500' },
-                    { range: { min: 4, max: 5 }, mappedValue: 1000, mappedLabel: '1,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 5000, mappedLabel: '5,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 10000, mappedLabel: '10,000' },
-                    { range: { min: 7, max: 8 }, mappedValue: 50000, mappedLabel: '50,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 100000, mappedLabel: '100,000' },
-                    { range: { min: 9, max: 10 }, mappedValue: 500000, mappedLabel: '500,000' },
-                    { range: { min: 10, max: 11 }, mappedValue: 1000000, mappedLabel: '1 million+' }
+                container: me.content.container.find('.filters .totalEmployees'),
+                label: me.content.container.find('.filters .totalEmployees .valueLabel'),
+                mode: 'range',
+                value: params['totalEmployees'],
+                range: [
+                    { value: 10, label: '10' },
+                    { value: 50, label: '50' },
+                    { value: 100, label: '100' },
+                    { value: 500, label: '500' },
+                    { value: 1000, label: '1,000' },
+                    { value: 5000, label: '5,000' },
+                    { value: 10000, label: '10,000' },
+                    { value: 50000, label: '50,000' },
+                    { value: 100000, label: '100,000' },
+                    { value: 500000, label: '500,000' },
+                    { value: 1000000, label: '1 million' }
                 ],
                 onChange: function () { sliderChanged('totalEmployees'); }
             });
 
             me.content.filters.sliders['revenuePerCapita'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#revenuePerCapita'),
-                values: params['revenuePerCapita'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 5, mappedLabel: '$5' },
-                    { range: { min: 1, max: 2 }, mappedValue: 10, mappedLabel: '$10' },
-                    { range: { min: 2, max: 3 }, mappedValue: 50, mappedLabel: '$50' },
-                    { range: { min: 3, max: 4 }, mappedValue: 100, mappedLabel: '$100' },
-                    { range: { min: 4, max: 5 }, mappedValue: 500, mappedLabel: '$500' },
-                    { range: { min: 5, max: 6 }, mappedValue: 1000, mappedLabel: '$1,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 2500, mappedLabel: '$2,500' },
-                    { range: { min: 7, max: 8 }, mappedValue: 5000, mappedLabel: '$5,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 7500, mappedLabel: '$7,500' },
-                    { range: { min: 9, max: 10 }, mappedValue: 10000, mappedLabel: '$10,000' },
-                    { range: { min: 10, max: 11 }, mappedValue: 15000, mappedLabel: '$15,000+' }
+                container: me.content.container.find('.filters .revenuePerCapita'),
+                label: me.content.container.find('.filters .revenuePerCapita .valueLabel'),
+                mode: 'range',
+                value: params['revenuePerCapita'],
+                range: [
+                    { value: 5, label: '$5' },
+                    { value: 10, label: '$10' },
+                    { value: 50, label: '$50' },
+                    { value: 100, label: '$100' },
+                    { value: 500, label: '$500' },
+                    { value: 1000, label: '$1,000' },
+                    { value: 2500, label: '$2,500' },
+                    { value: 5000, label: '$5,000' },
+                    { value: 7500, label: '$7,500' },
+                    { value: 10000, label: '$10,000' },
+                    { value: 15000, label: '$15,000' }
                 ],
                 onChange: function () { sliderChanged('revenuePerCapita'); }
             });
 
 
             me.content.filters.sliders['householdIncome'] = new sizeup.controls.rangeSlider({
-                container: me.content.container.find('#householdIncome'),
-                values: params['householdIncome'],
-                min: 0,
-                max: 9,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 10000, mappedLabel: '$10,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 20000, mappedLabel: '$20,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 30000, mappedLabel: '$30,000' },
-                    { range: { min: 3, max: 4 }, mappedValue: 40000, mappedLabel: '$40,000' },
-                    { range: { min: 4, max: 5 }, mappedValue: 50000, mappedLabel: '$50,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 75000, mappedLabel: '$75,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 7, max: 8 }, mappedValue: 150000, mappedLabel: '$150,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
-                    { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
+                container: me.content.container.find('.filters .householdIncome'),
+                label: me.content.container.find('.filters .householdIncome .valueLabel'),
+                mode: 'range',
+                value: params['householdIncome'],
+                range: [
+                    { value: 10000, label: '$10,000' },
+                    { value: 20000, label: '$20,000' },
+                    { value: 30000, label: '$30,000' },
+                    { value: 40000, label: '$40,000' },
+                    { value: 50000, label: '$50,000' },
+                    { value: 75000, label: '$75,000' },
+                    { value: 100000, label: '$100,000' },
+                    { value: 150000, label: '$150,000' },
+                    { value: 200000, label: '$200,000' },
+                    { value: 250000, label: '$250,000' }
                 ],
                 onChange: function () { sliderChanged('householdIncome'); }
             });
 
 
-
+            for (var x in me.content.filters.labels) {
+                var v = me.content.filters.sliders[x].getValue();
+                me.content.filters.labels[x].setValues(v);
+                if (v == null) {
+                    me.content.filters.labels[x].hide();
+                }
+                else {
+                    me.content.filters.labels[x].show();
+                }
+            }
 
 
         };
@@ -396,10 +456,6 @@
             me.content.industrySelector.setSelection(me.data.activeIndustry);
         };
 
-        var populationChanged = function () {
-            pushUrlState();
-            loadReport();
-        }; 
         var placeTypeMenuChanged = function (e) {
             var p = { placeType: me.content.placeTypeMenu.getValue() };
             new sizeup.core.analytics().topPlacesPlaceTypeChanged(p);
@@ -423,16 +479,39 @@
         };
 
         var sliderChanged = function (attribute) {
-            var p = { attribute: attribute  };
+            var v = me.content.filters.sliders[attribute].getValue();
+            me.content.filters.labels[attribute].setValues(v);
+            if (v == null) {
+                me.content.filters.labels[attribute].hide();
+            }
+            else {
+                me.content.filters.labels[attribute].show();
+            }
+            var p = { attribute: attribute };
             new sizeup.core.analytics().topPlacesAdvancedFilterChanged(p);
             pushUrlState();
             loadReport();
-        }
-     
+        };
 
-        
         //////////end event actions/////////////////////////////
       
+        var formatSliderData = function (data) {
+            var obj = null;
+            if (data.length == 2) {
+                obj = {
+                    min: data[0],
+                    max: data[1]
+                };
+            }
+            else if (data.length == 1) {
+                obj = {
+                    value: data[0]
+                };
+            }
+            return obj;
+        };
+
+
         var pushUrlState = function () {
             var params = {};
             var region = me.content.regionMenu.getValue();
@@ -447,91 +526,13 @@
                 }
             }
 
-            var maxPop = me.content.populationMax.getValue();
-            var minPop = me.content.populationMin.getValue();
-
-            if (maxPop != '' || minPop != '') {
-                params.population = [minPop, maxPop];
-            }
-
-
             var p;
-            p = me.content.filters.sliders['bachelorOrHigher'].getParam();
-            if (p != null) {
-                params['bachelorOrHigher'] = p;
-            }
-
-            p = me.content.filters.sliders['blueCollarWorkers'].getParam();
-            if (p != null) {
-                params['blueCollarWorkers'] = p;
-            }
-
-            p = me.content.filters.sliders['highSchoolOrHigher'].getParam();
-            if (p != null) {
-                params['highSchoolOrHigher'] = p;
-            }
-
-            p = me.content.filters.sliders['whiteCollarWorkers'].getParam();
-            if (p != null) {
-                params['whiteCollarWorkers'] = p;
-            }
-
-            p = me.content.filters.sliders['airportsNearby'].getParam();
-            if (p != null) {
-                params['airportsNearby'] = p;
-            }
-
-            p = me.content.filters.sliders['youngEducated'].getParam();
-            if (p != null) {
-                params['youngEducated'] = p;
-            }
-
-            p = me.content.filters.sliders['universitiesNearby'].getParam();
-            if (p != null) {
-                params['universitiesNearby'] = p;
-            }
-
-            p = me.content.filters.sliders['commuteTime'].getParam();
-            if (p != null) {
-                params['commuteTime'] = p;
-            }
-
-
-            p = me.content.filters.sliders['medianAge'].getParam();
-            if (p != null) {
-                params['medianAge'] = p;
-            }
-
-            p = me.content.filters.sliders['householdExpenditures'].getParam();
-            if (p != null) {
-                params['householdExpenditures'] = p;
-            }
-
-            p = me.content.filters.sliders['averageRevenue'].getParam();
-            if (p != null) {
-                params['averageRevenue'] = p;
-            }
-
-            p = me.content.filters.sliders['totalRevenue'].getParam();
-            if (p != null) {
-                params['totalRevenue'] = p;
-            }
-
-            p = me.content.filters.sliders['totalEmployees'].getParam();
-            if (p != null) {
-                params['totalEmployees'] = p;
-            }
-
-            p = me.content.filters.sliders['revenuePerCapita'].getParam();
-            if (p != null) {
-                params['revenuePerCapita'] = p;
-            }
-
-            p = me.content.filters.sliders['householdIncome'].getParam();
-            if (p != null) {
-                params['householdIncome'] = p;
-            }
-
+            for (var x in me.content.filters.sliders) {
+                p = me.content.filters.sliders[x].getParam();
+                if (p != null) {
+                    params[x] = p;
+                }
+            }          
             jQuery.bbq.pushState(params, 2);
         };
 
@@ -677,7 +678,7 @@
             for (var x in data.list) {
                 var pin = new sizeup.maps.heatPin({
                     position: new sizeup.maps.latLng({ lat: data.list[x].centroid.Lat, lng: data.list[x].centroid.Lng }),
-                    color: getColor(data.list[x].value, data.bands),
+                    color: getColor(data.list[x], data.bands),
                     title: data.list[x].label
                 });
                 //create 2 new latlngs here
@@ -697,7 +698,7 @@
         var getColor = function (value, bandData) {
             var color = null;
             for (var x = 0; x < bandData.length; x++) {
-                if (value >= bandData[x].Min && value <= bandData[x].Max) {
+                if (value.minValue >= bandData[x].Min && value.maxValue <= bandData[x].Max) {
                     color = me.opts.bandColors[x];
                 }
             }
@@ -715,6 +716,8 @@
                     northEast: data[x].State.NorthEast,
                     label: data[x].State.Name,
                     state: data[x].State,
+                    minValue: extractValue(data[x], attr).Min,
+                    maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
                     formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
 
@@ -734,6 +737,8 @@
                     northEast: data[x].Metro.NorthEast,
                     label: data[x].Metro.Name,
                     metro: data[x].Metro,
+                    minValue: extractValue(data[x], attr).Min,
+                    maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
                     formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
 
@@ -754,6 +759,8 @@
                     label: data[x].County.Name + ' County , ' +data[x].State.Abbreviation,
                     county: data[x].County,
                     state: data[x].State,
+                    minValue: extractValue(data[x], attr).Min,
+                    maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
                     formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
 
@@ -777,6 +784,8 @@
                     county: data[x].County,
                     state: data[x].State,
                     counties: data[x].City.Counties,
+                    minValue: extractValue(data[x], attr).Min,
+                    maxValue : extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
                     formattedMax: formatValue(extractValue(data[x], attr).Max, attr)
                 });

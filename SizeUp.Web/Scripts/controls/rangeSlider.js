@@ -4,11 +4,11 @@
     window.sizeup.controls.rangeSlider = function (opts) {
 
         var defaults = {
+            container: $('<div></div>'),
+            label: $('<div></div>'),
             onChange: function () { },
-            min: 0,
-            max: 4,
-            values: [null,null],
-            mapping: [ ]
+            range: {min: 0, max: 99},
+            mode: 'max'
         };
 
 
@@ -16,157 +16,292 @@
         me.container = opts.container;
         me.opts = $.extend(true, defaults, opts);
         var templates = new sizeup.core.templates();
-        me.data = {};
+        
+
 
 
         var init = function () {
+            me.slider = me.container.find('.slider').addClass('off');
+            me.label = new sizeup.controls.rangeLabel({
+                container: me.opts.label
+            });
+
             var opts = {
                 slide: function (event, ui) { onSlide(event, ui); },
-                change: function (event, ui) { onChange(event, ui); },
-                min: me.opts.min,
-                max: me.opts.max,
-                values: getMappingValues(me.opts.values, [me.opts.min,me.opts.max]),
-                range: true
+                change: function (event, ui) { onChange(event, ui); }
             };
 
-            me.data.valueLabels = {};
-            me.valueLabel = me.container.find('.valueLabel');
-            me.valueLabel.children().each(function () {
-                var i = $(this);
-                me.data.valueLabels[i.attr('class')] = i.html();
-                i.remove();
-            });
-            me.slider = me.container.find('.slider').slider(opts);
-            var vals = getValues();
-            setValueLabel(vals);
-        };
-
-        var getValues = function () {
-            var val = me.slider.slider('values');
-            return val;
-        };
-
-        var setValues = function (vals) {
-            me.slider.slider('values', vals);
-        };
-
-        var getState = function (vals) {
-            var state = null;
-            if (vals[0] == me.opts.min && vals[1] == me.opts.max) {
-                state = 'off';
-            }
-            else if (vals[0] != me.opts.min && vals[1] == me.opts.max) {
-                state = 'min';
-            }
-            else if (vals[0] == me.opts.min && vals[1] != me.opts.max) {
-                state = 'max';
+            if ($.isArray(me.opts.range)) {
+                opts.min = 0;
+                opts.max = me.opts.range.length - 1;
+                me.isMapped = true;
             }
             else {
-                state = 'range';
+                opts.min = me.opts.range.min;
+                opts.max = me.opts.range.max;
+                me.isMapped = false;
             }
-            return state;
+
+            if (me.opts.mode == 'range') {
+                opts.range = true;
+                opts.min = opts.min - 1;
+                opts.max = opts.max + 1;
+                me.min = opts.min;
+                me.max = opts.max;
+                me.mode = me.opts.mode;
+                if (me.isMapped) {
+                    me.mappings = {};
+                    me.mappings[opts.min] = { label: null, value: null };
+                    for (var x in me.opts.range) {
+                        me.mappings[x] = me.opts.range[x];
+                    }
+                    me.mappings[opts.max] = { label: null, value: null };
+                }
+                opts.values = getIndex(me.opts.value);
+                if (opts.values[0] != me.min || opts.values[1] != me.max) {
+                    me.slider.removeClass('off');
+                }
+                setLabel(opts.values);
+            }
+            else if (me.opts.mode == 'min') {
+                opts.range = 'min';
+                opts.min = opts.min - 1;
+                me.min = opts.min;
+                me.max = opts.max;
+                me.mode = me.opts.mode;
+                if (me.isMapped) {
+                    me.mappings = {};
+                    me.mappings[opts.min] = { label: null, value: null };
+                    for (var x in me.opts.range) {
+                        me.mappings[x] = me.opts.range[x];
+                    }
+                }
+                opts.value = getIndex(me.opts.value);
+                if (opts.value != me.min) {
+                    me.slider.removeClass('off');
+                }
+                setLabel(opts.value);
+            }
+            else if (me.opts.mode == 'max') {
+                opts.range = 'max';
+                opts.max = opts.max + 1;
+                me.min = opts.min;
+                me.max = opts.max;
+                me.mode = me.opts.mode;
+                if (me.isMapped) {
+                    me.mappings = {};
+                    for (var x in me.opts.range) {
+                        me.mappings[x] = me.opts.range[x];
+                    }
+                    me.mappings[opts.max] = { label: null, value: null };
+                }
+                opts.value = getIndex(me.opts.value);
+                if (opts.value != me.max) {
+                    me.slider.removeClass('off');
+                }
+                setLabel(opts.value);
+            }
+
+
+     
+            me.slider.slider(opts);
+            
+
+     
         };
 
-       
-  
-
         var onSlide = function (event, ui) {
-            setValueLabel(ui.values);
+            var index = 0;
+            if (me.mode == 'range') {
+                if(ui.values[0] == me.min && ui.values[1] == me.max){
+                    me.slider.addClass('off');
+                }
+                else{
+                    me.slider.removeClass('off');
+                }
+                index = ui.values;
+            }
+            else if(me.mode =='min') {
+                if(ui.value == me.min){
+                    me.slider.addClass('off');
+                }
+                else{
+                    me.slider.removeClass('off');
+                }
+                index = ui.value;
+            }
+            else if (me.mode == 'max') {
+                if (ui.value == me.max) {
+                    me.slider.addClass('off');
+                }
+                else {
+                    me.slider.removeClass('off');
+                }
+                index = ui.value;
+            }
+            setLabel(index);
         };
 
         var onChange = function (event, ui) {
-            setValueLabel(ui.values);
+            onSlide(event, ui);
             if (me.opts.onChange) {
                 me.opts.onChange();
             }
         };
 
-        var getMappingValue = function (value, defaults) {
-            var index = null;
-            for (var x = 0; x < me.opts.mapping.length; x++) {
-                i = me.opts.mapping[x];
-                if (value == i.mappedValue) {
-                    index = x;
-                }
-            }
-            return index ? index : !isNaN(value) && value ? value : defaults;
-        };
-
-        var getMappingValues = function (values, defaults) {
-            if (!values) {
-                values = [null, null];
-            }
-            var vals = [getMappingValue(values[0], defaults[0]), getMappingValue(values[1], defaults[1])];
-            return vals;
-        };
-
-
-        var getMapping = function(value){
-            var mapping = null;
-            var i = null;
-            for (var x = 0; x < me.opts.mapping.length; x++) {
-                i = me.opts.mapping[x];
-                if (value >= i.range.min && value < i.range.max) {
-                    mapping = i;
-                }
-            }
-            return mapping;
-        }
-
-        var getMappings = function (vals) {
-            var mappings = { min: null, max: null };
-            mappings.min = getMapping(vals[0]);
-            mappings.max = getMapping(vals[1]);
-            return mappings;
-        };
-
-
-        var setValueLabel = function (vals) {
-            var state = getState(vals);
-            if (state === 'off') {
-                me.container.addClass('noFilter');
-            }
-            else {
-                me.container.removeClass('noFilter');
-            }
-            var label = me.data.valueLabels[state];
-            var mappings = getMappings(vals);
-            var obj = { min: mappings.min ? mappings.min.mappedLabel : vals[0], max: mappings.max ? mappings.max.mappedLabel : vals[1] };
-            label = templates.bind(label, obj);
-            me.valueLabel.html(label);
-        };
-
-        var getSliderValues = function () {
-            var vals = getValues();
-            var state = getState(vals);
-            var mappings = getMappings(vals);
-            var obj = [mappings.min ? mappings.min.mappedValue : vals[0], mappings.max ? mappings.max.mappedValue : vals[1]];
-            if (state === 'min') {
-                obj[1] = null;
-            }
-            else if (state === 'max') {
-                obj[0] = null;
-            }
-            else if (state === 'off') {
-                obj = null;
-            }
-            return obj;
-        };
-
-        var setSliderValues = function (param) {
-            var mappings = getMappingValues(param, [me.opts.min, me.opts.max]);
-            setValues(mappings);
-            setValueLabel(mappings);
+        var setLabel = function (index) {
+            me.label.setValues(getLabelValue(index));
         };
 
        
+      
+
+        var getLabelValue = function (index) {
+            var mapping = getMapping(index);
+            var labelObj = null;
+
+            if (me.mode == 'range' && mapping != null) {
+                labelObj = { min: mapping[0].label, max: mapping[1].label };
+            }
+            else if (mapping != null) {
+                labelObj = { value: mapping.label };
+            }
+            return labelObj;
+        };
+
+        var getMapping = function (index) {
+            var val = null;
+            if (me.mode == 'range') {
+                if (me.isMapped) {
+                    val = [me.mappings[index[0]], me.mappings[index[1]]];
+                }
+                else {
+                    var min = index[0] == me.min ? null : index[0];
+                    var max = index[1] == me.max ? null : index[1];
+                    val = [{ value: min, label: min }, { value: max, label: max }];
+                }
+                if (val[0].value == null && val[1].value == null) {
+                    val = null;
+                }
+            }
+            else {
+                if (me.isMapped) {
+                    if (me.mappings[index] != null) {
+                        val = me.mappings[index];
+                    }
+                }
+                else {
+                    if (me.mode == 'min') {
+                        var v = index == me.min ? null : index;
+                        val = { value: v, label: v };
+                    }
+                    else if (me.mode == 'max') {
+                        var v = index == me.max ? null : index;
+                        val = { value: v, label: v };
+                    }
+                }
+                if (val.value == null) {
+                    val = null;
+                }
+            }
+            return val;
+        };
+
+
+
+        var getIndexByValue = function (val) {
+            var index = null;
+            if (val != null) {
+                if (me.isMapped) {
+                    for (var x in me.mappings) {
+                        if (me.mappings[x].value == val) {
+                            index = x;
+                        }
+                    }
+                }
+                else {
+                    index = val;
+                }
+            }
+            return index;
+        };
+
+
+        var getIndex = function (value) {
+            var index = null;
+            if (me.mode == 'range') {
+                index = [me.min, me.max];
+                if(value!=null){
+                    var min = getIndexByValue(value[0]);
+                    var max = getIndexByValue(value[1]);
+                    index[0] = min != null ? min : index[0];
+                    index[1] = max != null ? max : index[1];
+                }
+            }
+            else if (me.mode == 'min') {
+                index = getIndexByValue(value);
+                if (index == null) {
+                    index = me.min;
+                }
+            }
+            else if (me.mode == 'max') {
+                index = getIndexByValue(value);
+                if (index == null) {
+                    index = me.max;
+                }
+            }
+            return index;
+        };
+
+
+
+        var getValue = function () {
+            var p = null;
+            if (me.mode == 'range') {
+                p = getLabelValue(me.slider.slider("values"));
+            }
+            else {
+                p = getLabelValue(me.slider.slider("value"));
+            }
+            return p;
+        };
+
+        var getParam = function () {
+            var p = null;
+            if (me.mode == 'range') {
+                var mapping = getMapping(me.slider.slider("values"));
+                if (mapping != null) {
+                    p = [mapping[0].value, mapping[1].value];
+                }
+            }
+            else {
+                var mapping = getMapping(me.slider.slider("value"));
+                if (mapping != null) {
+                    p = mapping.value;
+                }
+            }
+            return p;
+        };
+
+        var setParam = function (param) {
+            if (me.mode == 'range') {
+                me.slider.slider("values", getIndex(param));
+            }
+            else {
+                me.slider.slider("value", getIndex(param));
+            }
+        };
+
 
         var publicObj = {
-            getParam: function () {
-                return getSliderValues();
+            getParam: function(){
+                return getParam();
             },
-            setParam: function (param) {
-                setSliderValues(param);
+            setParam: function(param){
+                setParam(param);
+            },
+            getValue: function () {
+                return getValue();
             }
         };
         init();

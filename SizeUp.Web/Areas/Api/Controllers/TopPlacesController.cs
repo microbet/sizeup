@@ -29,12 +29,10 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
             return v;
         }
-
+        private readonly int POPULATION_MIN = 100000;
 
         public ActionResult City(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -72,18 +70,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.City.StateId == stateId.Value);
                 }
 
-
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -295,7 +283,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                     Max = b.Max != null ? (long?)b.Max : null
                                 }
                             ).FirstOrDefault(),
-                            EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                            EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
                                 new Models.Shared.Band<decimal?>()
                                 {
                                     Min = b.Min != null ? (decimal?)b.Min : null,
@@ -309,7 +297,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                     Max = b.Max != null ? (long?)b.Max : null
                                 }
                             ).FirstOrDefault(),
-                            AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                            AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
                                 new Models.Shared.Band<long?>()
                                 {
                                     Min = b.Min != null ? (long?)b.Min : null,
@@ -342,8 +330,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult County(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -382,17 +368,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -596,7 +573,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 Max = b.Max != null ? (long?)b.Max : null
                             }
                         ).FirstOrDefault(),
-                        EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                        EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
                             new Models.Shared.Band<decimal?>()
                             {
                                 Min = b.Min != null ? (decimal?)b.Min : null,
@@ -610,7 +587,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 Max = b.Max != null ? (long?)b.Max : null
                             }
                         ).FirstOrDefault(),
-                        AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                        AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
                             new Models.Shared.Band<long?>()
                             {
                                 Min = b.Min != null ? (long?)b.Min : null,
@@ -638,8 +615,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Metro(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -677,17 +652,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.Metro.Counties.Any(c=>c.StateId == stateId.Value));
                 }
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -883,7 +849,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 Max = b.Max != null ? (long?)b.Max : null
                             }
                         ).FirstOrDefault(),
-                        EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                        EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
                             new Models.Shared.Band<decimal?>()
                             {
                                 Min = b.Min != null ? (decimal?)b.Min : null,
@@ -897,7 +863,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 Max = b.Max != null ? (long?)b.Max : null
                             }
                         ).FirstOrDefault(),
-                        AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                        AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
                             new Models.Shared.Band<long?>()
                             {
                                 Min = b.Min != null ? (long?)b.Min : null,
@@ -925,8 +891,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult State(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -966,17 +930,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.State.Id == stateId.Value);
                 }
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -1173,7 +1128,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                     Max = b.Max != null ? (long?)b.Max : null
                                 }
                             ).FirstOrDefault(),
-                            EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && i.IndustryData.EmployeesPerCapita >= (double)b.Min && i.IndustryData.EmployeesPerCapita <= (double)b.Max).Select(b =>
+                            EmployeesPerCapita = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
                                 new Models.Shared.Band<decimal?>()
                                 {
                                     Min = b.Min != null ? (decimal?)b.Min : null,
@@ -1187,7 +1142,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                     Max = b.Max != null ? (long?)b.Max : null
                                 }
                             ).FirstOrDefault(),
-                            AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && i.IndustryData.AverageRevenue >= b.Min && i.IndustryData.AverageRevenue <= b.Max).Select(b =>
+                            AverageRevenue = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
                                 new Models.Shared.Band<long?>()
                                 {
                                     Min = b.Min != null ? (long?)b.Min : null,
@@ -1202,12 +1157,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                                 }
                             ).FirstOrDefault() 
                         });
-
-
-
-                                            
-
-
 
                 var outData = data
                     .Take(itemCount)
@@ -1224,8 +1173,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult CityBands(int bands, int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -1264,18 +1211,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
-
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
                 if (bachelorOrHigher != null)
                 {
                     entities = entities.Where(i => i.Demographics.BachelorsOrHigherPercentage >= (float)bachelorOrHigher / 100);
@@ -1393,12 +1330,59 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     }
                 }
 
-
                 var raw = entities.Select(i => new
                 {
-                    IndustryData = i.IndustryData,
-                    Demographics = i.Demographics
-                });
+                    TotalRevenue = i.IndustryData.TotalRevenue,
+                    TotalRevenueBand = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    TotalEmployees = i.IndustryData.TotalEmployees,
+                    TotalEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                    EmployeesPerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
+                        new Models.Shared.Band<double?>()
+                        {
+                            Min = b.Min != null ? (double?)b.Min : null,
+                            Max = b.Max != null ? (double?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                    RevenuePerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    AverageRevenue = i.IndustryData.AverageRevenue,
+                    AverageRevenueBand = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    AverageEmployees = i.IndustryData.AverageEmployees,
+                    AverageEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault()
+                })
+                .AsQueryable();
+
 
 
 
@@ -1406,13 +1390,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => i.IndustryData.TotalRevenue)
+                        .Where(i => i.TotalRevenue > 0)
+                        .OrderByDescending(i => i.TotalRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.TotalRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalRevenueBand.Min), Max = b.Max(i => i.TotalRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -1425,18 +1408,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => i.IndustryData.AverageRevenue)
+                        .Where(i => i.AverageRevenue > 0)
+                        .OrderByDescending(i => i.AverageRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.AverageRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageRevenueBand.Min), Max = b.Max(i => i.AverageRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -1449,20 +1432,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => i.IndustryData.TotalEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.TotalEmployees > 0)
+                         .OrderByDescending(i => i.TotalEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.TotalEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalEmployeesBand.Min), Max = b.Max(i => i.TotalEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1473,20 +1456,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => i.IndustryData.AverageEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.AverageEmployees > 0)
+                         .OrderByDescending(i => i.AverageEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.AverageEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageEmployeesBand.Min), Max = b.Max(i => i.AverageEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1497,20 +1480,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => i.IndustryData.EmployeesPerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.EmployeesPerCapita > 0)
+                         .OrderByDescending(i => i.EmployeesPerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.EmployeesPerCapita, bands)
+                         .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i.EmployeesPerCapitaBand.Min), Max = b.Max(i => i.EmployeesPerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<double?> old = null;
                     foreach (Models.Shared.Band<double?> band in output)
@@ -1521,20 +1504,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<double?>)i).Min == ((Models.Shared.Band<double?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderByDescending(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1545,20 +1528,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderBy(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1569,6 +1552,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                 }
 
 
@@ -1577,10 +1561,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
 
+
         public ActionResult CountyBands(int bands, int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -1597,6 +1580,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             Range totalEmployees = ParseQueryString("totalEmployees");
             Range totalRevenue = ParseQueryString("totalRevenue");
             Range averageRevenue = ParseQueryString("averageRevenue");
+
 
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -1618,17 +1602,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -1748,24 +1723,67 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
 
                 var raw = entities.Select(i => new
-                {
-                    IndustryData = i.IndustryData,
-                    Demographics = i.Demographics
-                });
-
-
+                    {
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        TotalRevenueBand = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        TotalEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                        EmployeesPerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
+                            new Models.Shared.Band<double?>()
+                            {
+                                Min = b.Min != null ? (double?)b.Min : null,
+                                Max = b.Max != null ? (double?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        RevenuePerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        AverageRevenueBand = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault(),
+                        AverageEmployees = i.IndustryData.AverageEmployees,
+                        AverageEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                            new Models.Shared.Band<long?>()
+                            {
+                                Min = b.Min != null ? (long?)b.Min : null,
+                                Max = b.Max != null ? (long?)b.Max : null
+                            }
+                        ).FirstOrDefault()
+                    });
 
                 List<object> output = null;
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => i.IndustryData.TotalRevenue)
+                        .Where(i => i.TotalRevenue > 0)
+                        .OrderByDescending(i => i.TotalRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.TotalRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalRevenueBand.Min), Max = b.Max(i => i.TotalRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -1778,18 +1796,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => i.IndustryData.AverageRevenue)
+                        .Where(i => i.AverageRevenue > 0)
+                        .OrderByDescending(i => i.AverageRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.AverageRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageRevenueBand.Min), Max = b.Max(i => i.AverageRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -1802,20 +1820,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => i.IndustryData.TotalEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.TotalEmployees > 0)
+                         .OrderByDescending(i => i.TotalEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.TotalEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalEmployeesBand.Min), Max = b.Max(i => i.TotalEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1826,20 +1844,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => i.IndustryData.AverageEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.AverageEmployees > 0)
+                         .OrderByDescending(i => i.AverageEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.AverageEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageEmployeesBand.Min), Max = b.Max(i => i.AverageEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1850,20 +1868,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => i.IndustryData.EmployeesPerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.EmployeesPerCapita > 0)
+                         .OrderByDescending(i => i.EmployeesPerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.EmployeesPerCapita, bands)
+                         .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i.EmployeesPerCapitaBand.Min), Max = b.Max(i => i.EmployeesPerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<double?> old = null;
                     foreach (Models.Shared.Band<double?> band in output)
@@ -1874,20 +1892,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<double?>)i).Min == ((Models.Shared.Band<double?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderByDescending(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1898,20 +1916,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderBy(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -1922,8 +1940,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                 }
-
 
 
                 return Json(output, JsonRequestBehavior.AllowGet);
@@ -1932,8 +1950,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult MetroBands(int bands, int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -1973,17 +1989,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.Metro.Counties.Any(c => c.StateId == stateId.Value));
                 }
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -2104,23 +2111,66 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
                 var raw = entities.Select(i => new
                 {
-                    IndustryData = i.IndustryData,
-                    Demographics = i.Demographics
+                    TotalRevenue = i.IndustryData.TotalRevenue,
+                    TotalRevenueBand = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    TotalEmployees = i.IndustryData.TotalEmployees,
+                    TotalEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                    EmployeesPerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
+                        new Models.Shared.Band<double?>()
+                        {
+                            Min = b.Min != null ? (double?)b.Min : null,
+                            Max = b.Max != null ? (double?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                    RevenuePerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    AverageRevenue = i.IndustryData.AverageRevenue,
+                    AverageRevenueBand = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    AverageEmployees = i.IndustryData.AverageEmployees,
+                    AverageEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault()
                 });
-
-
 
                 List<object> output = null;
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => i.IndustryData.TotalRevenue)
+                        .Where(i => i.TotalRevenue > 0)
+                        .OrderByDescending(i => i.TotalRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.TotalRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalRevenueBand.Min), Max = b.Max(i => i.TotalRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -2133,18 +2183,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => i.IndustryData.AverageRevenue)
+                        .Where(i => i.AverageRevenue > 0)
+                        .OrderByDescending(i => i.AverageRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.AverageRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageRevenueBand.Min), Max = b.Max(i => i.AverageRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -2157,20 +2207,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => i.IndustryData.TotalEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.TotalEmployees > 0)
+                         .OrderByDescending(i => i.TotalEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.TotalEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalEmployeesBand.Min), Max = b.Max(i => i.TotalEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2181,20 +2231,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => i.IndustryData.AverageEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.AverageEmployees > 0)
+                         .OrderByDescending(i => i.AverageEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.AverageEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageEmployeesBand.Min), Max = b.Max(i => i.AverageEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2205,20 +2255,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => i.IndustryData.EmployeesPerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.EmployeesPerCapita > 0)
+                         .OrderByDescending(i => i.EmployeesPerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.EmployeesPerCapita, bands)
+                         .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i.EmployeesPerCapitaBand.Min), Max = b.Max(i => i.EmployeesPerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<double?> old = null;
                     foreach (Models.Shared.Band<double?> band in output)
@@ -2229,20 +2279,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<double?>)i).Min == ((Models.Shared.Band<double?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderByDescending(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2253,20 +2303,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderBy(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2277,8 +2327,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                 }
-
 
 
                 return Json(output, JsonRequestBehavior.AllowGet);
@@ -2287,8 +2337,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult StateBands(int bands, int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
-            Range population = ParseQueryString("population");
-
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
             int? blueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
             int? highSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
@@ -2327,17 +2375,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     entities = entities.Where(i => i.State.Id == stateId.Value);
                 }
 
-                if (population != null)
-                {
-                    if (population.Min.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation >= population.Min);
-                    }
-                    if (population.Max.HasValue)
-                    {
-                        entities = entities.Where(i => i.Demographics.TotalPopulation <= population.Max);
-                    }
-                }
+                entities = entities.Where(i => i.Demographics.TotalPopulation >= POPULATION_MIN);
+                   
 
                 if (bachelorOrHigher != null)
                 {
@@ -2371,6 +2410,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     entities = entities.Where(i => i.Demographics.CommuteTime <= commuteTime);
                 }
+
                 if (medianAge != null)
                 {
                     if (medianAge.Min.HasValue)
@@ -2455,26 +2495,68 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     }
                 }
 
-
                 var raw = entities.Select(i => new
                 {
-                    IndustryData = i.IndustryData,
-                    Demographics = i.Demographics
+                    TotalRevenue = i.IndustryData.TotalRevenue,
+                    TotalRevenueBand = context.Bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.IndustryData.TotalRevenue >= b.Min && i.IndustryData.TotalRevenue <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    TotalEmployees = i.IndustryData.TotalEmployees,
+                    TotalEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.IndustryData.TotalEmployees >= b.Min && i.IndustryData.TotalEmployees <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                    EmployeesPerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.IndustryData.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.IndustryData.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
+                        new Models.Shared.Band<double?>()
+                        {
+                            Min = b.Min != null ? (double?)b.Min : null,
+                            Max = b.Max != null ? (double?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                    RevenuePerCapitaBand = context.Bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.IndustryData.RevenuePerCapita >= b.Min && i.IndustryData.RevenuePerCapita <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    AverageRevenue = i.IndustryData.AverageRevenue,
+                    AverageRevenueBand = context.Bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.IndustryData.AverageRevenue.Value, -3) <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault(),
+                    AverageEmployees = i.IndustryData.AverageEmployees,
+                    AverageEmployeesBand = context.Bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.IndustryData.AverageEmployees >= b.Min && i.IndustryData.AverageEmployees <= b.Max).Select(b =>
+                        new Models.Shared.Band<long?>()
+                        {
+                            Min = b.Min != null ? (long?)b.Min : null,
+                            Max = b.Max != null ? (long?)b.Max : null
+                        }
+                    ).FirstOrDefault()
                 });
-
-
 
                 List<object> output = null;
                 if (attribute.Equals("totalRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalRevenue)
-                        .Select(i => i.IndustryData.TotalRevenue)
+                        .Where(i => i.TotalRevenue > 0)
+                        .OrderByDescending(i => i.TotalRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.TotalRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalRevenueBand.Min), Max = b.Max(i => i.TotalRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -2487,18 +2569,18 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageRevenue", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageRevenue > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageRevenue)
-                        .Select(i => i.IndustryData.AverageRevenue)
+                        .Where(i => i.AverageRevenue > 0)
+                        .OrderByDescending(i => i.AverageRevenue)
                         .Take(itemCount)
                         .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                        .NTile(i => i.AverageRevenue, bands)
+                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageRevenueBand.Min), Max = b.Max(i => i.AverageRevenueBand.Max) })
                         .Cast<object>()
                         .ToList();
 
@@ -2511,20 +2593,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("totalEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.TotalEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.TotalEmployees)
-                        .Select(i => i.IndustryData.TotalEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.TotalEmployees > 0)
+                         .OrderByDescending(i => i.TotalEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.TotalEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.TotalEmployeesBand.Min), Max = b.Max(i => i.TotalEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2535,20 +2617,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("averageEmployees", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.AverageEmployees > 0)
-                        .OrderByDescending(i => i.IndustryData.AverageEmployees)
-                        .Select(i => i.IndustryData.AverageEmployees)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.AverageEmployees > 0)
+                         .OrderByDescending(i => i.AverageEmployees)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.AverageEmployees, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.AverageEmployeesBand.Min), Max = b.Max(i => i.AverageEmployeesBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2559,20 +2641,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("employeesPerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.EmployeesPerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.EmployeesPerCapita)
-                        .Select(i => i.IndustryData.EmployeesPerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.EmployeesPerCapita > 0)
+                         .OrderByDescending(i => i.EmployeesPerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.EmployeesPerCapita, bands)
+                         .Select(b => new Models.Shared.Band<double?>() { Min = b.Min(i => i.EmployeesPerCapitaBand.Min), Max = b.Max(i => i.EmployeesPerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<double?> old = null;
                     foreach (Models.Shared.Band<double?> band in output)
@@ -2583,20 +2665,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<double?>)i).Min == ((Models.Shared.Band<double?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("revenuePerCapita", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderByDescending(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderByDescending(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2607,20 +2689,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                     output.Reverse();
                 }
                 else if (attribute.Equals("underservedMarkets", StringComparison.CurrentCultureIgnoreCase))
                 {
                     output = raw
-                        .Where(i => i.IndustryData.RevenuePerCapita > 0)
-                        .OrderBy(i => i.IndustryData.RevenuePerCapita)
-                        .Select(i => i.IndustryData.RevenuePerCapita)
-                        .Take(itemCount)
-                        .ToList()
-                        .NTile(i => i, bands)
-                        .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                        .Cast<object>()
-                        .ToList();
+                         .Where(i => i.RevenuePerCapita > 0)
+                         .OrderBy(i => i.RevenuePerCapita)
+                         .Take(itemCount)
+                         .ToList()
+                         .NTile(i => i.RevenuePerCapita, bands)
+                         .Select(b => new Models.Shared.Band<long?>() { Min = b.Min(i => i.RevenuePerCapitaBand.Min), Max = b.Max(i => i.RevenuePerCapitaBand.Max) })
+                         .Cast<object>()
+                         .ToList();
 
                     Models.Shared.Band<long?> old = null;
                     foreach (Models.Shared.Band<long?> band in output)
@@ -2631,8 +2713,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         }
                         old = band;
                     }
+                    output.RemoveAll(i => ((Models.Shared.Band<long?>)i).Min == ((Models.Shared.Band<long?>)i).Max);
                 }
-
 
 
                 return Json(output, JsonRequestBehavior.AllowGet);
