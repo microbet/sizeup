@@ -95,14 +95,31 @@
         </h2>
             
          <div class="filterLabels">
-             <span class="fixed">Filtered for places where: <span class="emphasis">Population</span> is greater than <span class="emphasis">100,000 people</span></span>
+             <span class="fixed">Filtered for places where: <em>Population</em> is greater than <em>100,000 people</em></span>
                <a href="javascript:void(0);" id="advancedFilters" class="filtersToggle" data-toggleText="Hide Filters">More Filters</a>
             
 
-             <span class="averageRevenue editable" data-max="&lt;span class='emphasis'&gt;Average Annual Revenue&lt;/span&gt; is at most &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-min="&lt;span class='emphasis'&gt;Average Annual Revenue&lt;/span&gt; is at least &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt;" data-range="&lt;span class='emphasis'&gt;Average Annual Revenue&lt;/span&gt; is between &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt; and &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-off=""></span>
-             <span class="totalRevenue editable" data-max="&lt;span class='emphasis'&gt;Total Annual Revenue&lt;/span&gt; is at most &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-min="&lt;span class='emphasis'&gt;Total Annual Revenue&lt;/span&gt; is at least &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt;" data-range="&lt;span class='emphasis'&gt;Total Annual Revenue&lt;/span&gt; is between &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt; and &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-off=""></span>
-             <span class="totalEmployees editable" data-max="&lt;span class='emphasis'&gt;Employees&lt;/span&gt; is at most &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-min="&lt;span class='emphasis'&gt;Employees&lt;/span&gt; is at least &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt;" data-range="&lt;span class='emphasis'&gt;Employees&lt;/span&gt; is between &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt; and &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-off=""></span>
-             <span class="revenuePerCapita editable" data-max="&lt;span class='emphasis'&gt;Revenue Per Capita&lt;/span&gt; is at most &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-min="&lt;span class='emphasis'&gt;Revenue Per Capita&lt;/span&gt; is at least &lt;span class='emphasis'&gt;{{min}}&lt;/span&gt;" data-range="&lt;span class='emphasis'&gt;Revenue Per Capita&lt;/span&gt; is between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='emphasis'&gt;{{max}}&lt;/span&gt;" data-off=""></span>
+             <span class="averageRevenue editable" data-max="<em>Average Annual Revenue</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Average Annual Revenue</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Average Annual Revenue</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="totalRevenue editable" data-max="<em>Total Annual Revenue</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Total Annual Revenue</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Total Annual Revenue</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="totalEmployees editable" data-max="<em>Total Employees</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Total Employees</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Total Employees</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="revenuePerCapita editable" data-max="<em>Revenue Per Capita</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Revenue Per Capita</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Revenue Per Capita</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+        
+             
+             <span class="householdIncome editable" data-max="<em>Median Household Income</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Median Household Income</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Median Household Income</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="householdExpenditures editable" data-max="<em>Average Household Expenditures</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Average Household Expenditures</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Average Household Expenditures</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="medianAge editable" data-max="<em>Median Age</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Median Age</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Median Age</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+        
+
+             <span class="bachelorOrHigher editable" data-value="<em>Bachelor's Degree or Higher</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="highSchoolOrHigher editable" data-value="<em>High School Education or Higher</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="blueCollarWorkers editable" data-value="<em>Blue Collar Workers</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="whiteCollarWorkers editable" data-value="<em>White Collar Workers</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="airportsNearby editable" data-value="<em>Airports Nearby</em> is at least <em>{{value}} airports</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="youngEducated editable" data-value="<em>Young and Educated</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+             <span class="universitiesNearby editable" data-value="<em>Universities Nearby</em> is at least <em>{{value}} universities</em><a href='javascript:void(0);'></a>" data-off=""></span>
+        
+             <span class="commuteTime editable" data-value="<em>Commute Time</em> is at most <em>{{value}} minutes</em><a href='javascript:void(0);'></a>" data-off=""></span>
+        
          </div>
       
         
@@ -117,7 +134,7 @@
                 <ul class="options">
                     <li class="averageRevenue">
                         <span class="label">Average Annual Revenue:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">less</span>
                             <div class="slider"></div>
@@ -126,7 +143,7 @@
                     </li>
                     <li class="totalRevenue">
                         <span class="label">Total Annual Revenue:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">less</span>
                             <div class="slider"></div>
@@ -135,7 +152,7 @@
                     </li>
                     <li class="totalEmployees">
                         <span class="label">Total Employees:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">less</span>
                             <div class="slider"></div>
@@ -144,7 +161,7 @@
                     </li>
                     <li class="revenuePerCapita">
                         <span class="label">Revenue Per Capita:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">less</span>
                             <div class="slider"></div>
@@ -158,7 +175,7 @@
                 <ul class="options">
                     <li class="householdIncome">
                         <span class="label">Median Household Income:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">lower</span>
                             <div class="slider"></div>
@@ -167,7 +184,7 @@
                     </li>
                     <li class="householdExpenditures">
                         <span class="label">Average Household Expenditures:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">lower</span>
                             <div class="slider"></div>
@@ -176,7 +193,7 @@
                     </li>
                     <li class="medianAge">
                         <span class="label">Median Age:</span>
-                        <span class="valueLabel" data-max="at most &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-min="at least &lt;span class='val'&gt;{{min}}&lt;/span&gt;" data-range="between &lt;span class='val'&gt;{{min}}&lt;/span&gt; and &lt;span class='val'&gt;{{max}}&lt;/span&gt;" data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">lower</span>
                             <div class="slider"></div>
@@ -187,7 +204,7 @@
 
                     <li class="bachelorOrHigher">
                         <span class="label">Bachelor's Degree or Higher:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}}%&lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer grads</span>
                             <div class="slider"></div>
@@ -196,7 +213,7 @@
                     </li>
                     <li class="highSchoolOrHigher">
                         <span class="label">High School Education or Higher:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}}%&lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer grads</span>
                             <div class="slider"></div>
@@ -207,7 +224,7 @@
 
                     <li class="blueCollarWorkers">
                         <span class="label">Blue Collar Workers:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}}%&lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer</span>
                             <div class="slider"></div>
@@ -217,7 +234,7 @@
 
                     <li class="whiteCollarWorkers">
                         <span class="label">White Collar Workers:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}}%&lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer</span>
                             <div class="slider"></div>
@@ -227,7 +244,7 @@
 
                     <li class="airportsNearby">
                         <span class="label">Airports Nearby:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}} apirports &lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}} apirports </em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer</span>
                             <div class="slider"></div>
@@ -237,7 +254,7 @@
 
                     <li class="youngEducated">
                         <span class="label">Young and Educated:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}}%&lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer</span>
                             <div class="slider"></div>
@@ -247,7 +264,7 @@
                 
                     <li class="universitiesNearby">
                         <span class="label">Universities Nearby:</span>
-                        <span class="valueLabel" data-value="at least &lt;span class='val'&gt;{{value}} universities&lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at least <em>{{value}} universities</em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer</span>
                             <div class="slider"></div>
@@ -257,7 +274,7 @@
 
                      <li class="commuteTime">
                         <span class="label">Commute Time:</span>
-                        <span class="valueLabel" data-value="at most &lt;span class='val'&gt;{{value}} minutes &lt;/span&gt;"  data-off="&lt;span class='val'&gt;No Preference&lt;/span&gt;"></span>
+                        <span class="valueLabel" data-value="at most <em>{{value}} minutes </em>"  data-off="<em>No Preference</em>"></span>
                         <div class="sliderWrap">
                             <span class="sliderLabel less">fewer</span>
                             <div class="slider"></div>

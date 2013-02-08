@@ -132,43 +132,43 @@
             var params = getParameters();
 
             me.content.filters.labels['bachelorOrHigher'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .bachelorOrHigher')
             });
 
             me.content.filters.labels['blueCollarWorkers'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .blueCollarWorkers')
             });
 
             me.content.filters.labels['highSchoolOrHigher'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .highSchoolOrHigher')
             });
 
             me.content.filters.labels['whiteCollarWorkers'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .whiteCollarWorkers')
             });
 
             me.content.filters.labels['airportsNearby'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .airportsNearby')
             });
 
             me.content.filters.labels['youngEducated'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .youngEducated')
             });
 
             me.content.filters.labels['universitiesNearby'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .universitiesNearby')
             });
 
             me.content.filters.labels['commuteTime'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .commuteTime')
             });
 
             me.content.filters.labels['medianAge'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .medianAge')
             });
 
             me.content.filters.labels['householdExpenditures'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .householdExpenditures')
             });
 
             me.content.filters.labels['averageRevenue'] = new sizeup.controls.rangeLabel({
@@ -188,8 +188,13 @@
             });
 
             me.content.filters.labels['householdIncome'] = new sizeup.controls.rangeLabel({
-                //container: me.content.container.find('.filterLabels .averageRevenue')
+                container: me.content.container.find('.filterLabels .householdIncome')
             });
+
+
+            for (var x in me.content.filters.labels) {
+                me.content.filters.labels[x].getContainer().delegate('a', 'click', x, function (e) {clearSlider(e.data);});
+            }
 
 
 
@@ -238,7 +243,7 @@
             me.content.filters.sliders['airportsNearby'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .airportsNearby'),
                 label: me.content.container.find('.filters .airportsNearby .valueLabel'),
-                range: { min: 0, max: 9 },
+                range: { min: 1, max: 9 },
                 mode: 'min',
                 value: params['airportsNearby'],
                 onChange: function () { sliderChanged('airportsNearby'); }
@@ -247,7 +252,7 @@
             me.content.filters.sliders['youngEducated'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .youngEducated'),
                 label: me.content.container.find('.filters .youngEducated .valueLabel'),
-                range: { min: 0, max: 95 },
+                range: { min: 0, max: 15 },
                 mode: 'min',
                 value: params['youngEducated'],
                 onChange: function () { sliderChanged('youngEducated'); }
@@ -256,7 +261,7 @@
             me.content.filters.sliders['universitiesNearby'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .universitiesNearby'),
                 label: me.content.container.find('.filters .universitiesNearby .valueLabel'),
-                range: { min: 0, max: 20 },
+                range: { min: 1, max: 20 },
                 mode: 'min',
                 value: params['universitiesNearby'],
                 onChange: function () { sliderChanged('universitiesNearby'); }
@@ -422,7 +427,9 @@
          
         //////event actions//////////////////
      
-       
+        var clearSlider = function (index) {
+            me.content.filters.sliders[index].setParam(null);
+        };
 
         var filtersToggleClicked = function () {
             me.content.filters.container.slideToggle(500);

@@ -43,6 +43,11 @@
             me.container.hide();
         };
 
+        var getContainer = function () {
+            return me.container;
+        };
+
+
         var publicObj = {
             setValues: function (values) {
                 setValues(values);
@@ -52,6 +57,9 @@
             },
             hide: function () {
                 hide();
+            },
+            getContainer: function () {
+                return getContainer();
             }
         };
         init();
