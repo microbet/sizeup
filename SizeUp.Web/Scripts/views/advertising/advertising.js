@@ -201,36 +201,36 @@
         var initFilterSliders = function () {
             var params = getParameters();
             me.filterSettings.sliders = {};
-            me.filterSettings.sliders['distance'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#distance'),
+            me.filterSettings.sliders['distance'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.distance'),
+                label: me.filterSettings.container.find('.distance .valueLabel'),
                 value: params['distance'],
-                min: 1,
-                max: 150,
-                range: 'min'
+                mode: 'min',
+                range: {min: 1, max: 150}
             });
 
-            me.filterSettings.sliders['bachelorsDegreeOrHigher'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#bachelorOrHigher'),
+            me.filterSettings.sliders['bachelorsDegreeOrHigher'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.bachelorsDegreeOrHigher'),
+                label: me.filterSettings.container.find('.bachelorsDegreeOrHigher .valueLabel'),
                 value: params['bachelorsDegreeOrHigher'],
-                min: 0,
-                max: 95,
-                range: 'max'
+                mode: 'min',
+                range:{ min: 0, max: 95}
             });
 
-            me.filterSettings.sliders['highSchoolOrHigher'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#highSchoolOrHigher'),
+            me.filterSettings.sliders['highSchoolOrHigher'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.highSchoolOrHigher'),
+                label: me.filterSettings.container.find('.highSchoolOrHigher .valueLabel'),
                 value: params['highSchoolOrHigher'],
-                min: 0,
-                max: 98,
-                range: 'max'
+                mode: 'min',
+                range: { min: 0, max: 95 }
             });
 
-            me.filterSettings.sliders['whiteCollarWorkers'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#whiteCollar'),
+            me.filterSettings.sliders['whiteCollarWorkers'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.whiteCollarWorkers'),
+                label: me.filterSettings.container.find('.whiteCollarWorkers .valueLabel'),
                 value: params['whiteCollarWorkers'],
-                min: 0,
-                max: 95,
-                range: 'max'
+                mode: 'min',
+                range: { min: 0, max: 95 }
             });
 
             me.filterSettings.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
