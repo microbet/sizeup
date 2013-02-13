@@ -1,7 +1,7 @@
 ﻿(function () {
     var me = {};
 
-    me.wigetSource = '/widget/topPlaces';
+    me.wigetSource = '/widget/bestPlaces';
     me.defaultColor = '#fff';
     me.defaultWidth = '900';
     me.defaultMinWidth = '750';

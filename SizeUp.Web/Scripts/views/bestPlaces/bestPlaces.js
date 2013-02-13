@@ -1,6 +1,6 @@
 ﻿(function () {
-    sizeup.core.namespace('sizeup.views.topPlaces');
-    sizeup.views.topPlaces.topPlaces = function (opts) {
+    sizeup.core.namespace('sizeup.views.bestPlaces');
+    sizeup.views.bestPlaces.bestPlaces = function (opts) {
 
 
         var defaults = {
@@ -32,7 +32,7 @@
         };
 
 
-        me.container = $('#topPlaces');
+        me.container = $('#bestPlaces');
         var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
 
@@ -595,38 +595,38 @@
             }
 
             if (params.placeType == 'city') {
-                me.data.xhr['list'] = dataLayer.getTopPlacesByCity(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = dataLayer.getBestPlacesByCity(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCityList(data);
                 }));
 
-                me.data.xhr['bands'] = dataLayer.getTopPlacesBandsByCity(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCity(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
             else if (params.placeType == 'county') {
-                me.data.xhr['list'] = dataLayer.getTopPlacesByCounty(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = dataLayer.getBestPlacesByCounty(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCountyList(data);
                 }));
 
-                me.data.xhr['bands'] = dataLayer.getTopPlacesBandsByCounty(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCounty(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
             else if (params.placeType == 'metro') {
-                me.data.xhr['list'] = dataLayer.getTopPlacesByMetro(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = dataLayer.getBestPlacesByMetro(params, notifier.getNotifier(function (data) {
                     reportData.list = formatMetroList(data);
                 }));
 
-                me.data.xhr['bands'] = dataLayer.getTopPlacesBandsByMetro(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByMetro(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
             else if (params.placeType == 'state') {
-                me.data.xhr['list'] = dataLayer.getTopPlacesByState(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = dataLayer.getBestPlacesByState(params, notifier.getNotifier(function (data) {
                     reportData.list = formatStateList(data);
                 }));
 
-                me.data.xhr['bands'] = dataLayer.getTopPlacesBandsByState(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByState(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }

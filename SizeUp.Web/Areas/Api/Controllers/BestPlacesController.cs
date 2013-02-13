@@ -12,7 +12,7 @@ using SizeUp.Core.Extensions;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class TopPlacesController : Controller
+    public class BestPlacesController : Controller
     {
         //
         // GET: /Api/TopPlaces/

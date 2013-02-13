@@ -8,7 +8,8 @@
             label: $('<div></div>'),
             onChange: function () { },
             range: {min: 0, max: 99},
-            mode: 'max'
+            mode: 'max',
+            invert: false
         };
 
 
@@ -63,8 +64,8 @@
                 }
                 setLabel(opts.values);
             }
-            else if (me.opts.mode == 'min') {
-                opts.range = 'min';
+            else if (!me.opts.invert && me.opts.mode == 'min' || me.opts.invert && me.opts.mode == 'max') {
+                opts.range = me.opts.mode;
                 opts.min = opts.min - 1;
                 me.min = opts.min;
                 me.max = opts.max;
@@ -82,8 +83,8 @@
                 }
                 setLabel(opts.value);
             }
-            else if (me.opts.mode == 'max') {
-                opts.range = 'max';
+            else if (!me.opts.invert && me.opts.mode == 'max' || me.opts.invert && me.opts.mode == 'min') {
+                opts.range = me.opts.mode;
                 opts.max = opts.max + 1;
                 me.min = opts.min;
                 me.max = opts.max;
@@ -121,7 +122,7 @@
                 }
                 index = ui.values;
             }
-            else if(me.mode =='min') {
+            else if (!me.opts.invert && me.opts.mode == 'min' || me.opts.invert && me.opts.mode == 'max') {
                 if(ui.value == me.min){
                     me.slider.addClass('off');
                 }
@@ -130,7 +131,7 @@
                 }
                 index = ui.value;
             }
-            else if (me.mode == 'max') {
+            else if (!me.opts.invert && me.opts.mode == 'max' || me.opts.invert && me.opts.mode == 'min') {
                 if (ui.value == me.max) {
                     me.slider.addClass('off');
                 }
@@ -191,11 +192,11 @@
                     }
                 }
                 else {
-                    if (me.mode == 'min') {
+                    if (!me.opts.invert && me.opts.mode == 'min' || me.opts.invert && me.opts.mode == 'max') {
                         var v = index == me.min ? null : index;
                         val = { value: v, label: v };
                     }
-                    else if (me.mode == 'max') {
+                    else if (!me.opts.invert && me.opts.mode == 'max' || me.opts.invert && me.opts.mode == 'min') {
                         var v = index == me.max ? null : index;
                         val = { value: v, label: v };
                     }
@@ -238,13 +239,13 @@
                     index[1] = max != null ? max : index[1];
                 }
             }
-            else if (me.mode == 'min') {
+            else if (!me.opts.invert && me.opts.mode == 'min' || me.opts.invert && me.opts.mode == 'max') {
                 index = getIndexByValue(value);
                 if (index == null) {
                     index = me.min;
                 }
             }
-            else if (me.mode == 'max') {
+            else if (!me.opts.invert && me.opts.mode == 'max' || me.opts.invert && me.opts.mode == 'min') {
                 index = getIndexByValue(value);
                 if (index == null) {
                     index = me.max;

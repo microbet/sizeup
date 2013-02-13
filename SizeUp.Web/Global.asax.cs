@@ -91,9 +91,9 @@ namespace SizeUp.Web
 
 
             routes.MapRoute(
-               "TopPlaces", // Route name
-               "topplaces/{industry}", // URL with parameters
-               new { controller = "TopPlaces", action = "Index" }, // Parameter defaults
+               "BestPlaces", // Route name
+               "bestPlaces/{industry}", // URL with parameters
+               new { controller = "BestPlaces", action = "Index" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
            );
 

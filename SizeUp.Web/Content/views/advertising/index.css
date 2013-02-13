@@ -27,7 +27,7 @@
 
 #advertising #filterSettings ul.options li { display: inline-block; padding: 1em; text-align: left; width: 43em; }
 #advertising #filterSettings ul.options li .valueLabel {font-size:1em; color:#aaa; }
-#advertising #filterSettings ul.options li .valueLabel .val{font-size:1.4em; color:#FFA500; font-weight:bold; }
+#advertising #filterSettings ul.options li .valueLabel em{font-size:1.4em; color:#FFA500; font-weight:bold; font-style:normal; }
 #advertising #filterSettings ul.options li .label { }
 #advertising #filterSettings ul.options li .sliderLabel {font-size:1em; display:inline-block; }
 #advertising #filterSettings ul.options li .sliderLabel.less { text-align: right; width:7em; }
@@ -35,7 +35,7 @@
 #advertising #filterSettings ul.options li .sliderWrap { text-align: right; padding: 0.25em 0 0 0;}
 #advertising #filterSettings ul.options li .slider { font-size: 0.85em; width:29em;  display:inline-block; margin: 0 1em;}
 
-#advertising #filterSettings ul.options li.noFilter .slider .ui-widget-header { background: none; }
+#advertising #filterSettings ul.options li .slider.off .ui-widget-header { background: none; }
 
 #advertising .mapContent {clear:both; }
 #advertising .mapContent .map{width:100%;height:40em;}
