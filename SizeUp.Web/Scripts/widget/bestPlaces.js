@@ -122,9 +122,29 @@
     };
 
     var receiveMessage = function (e) {
-        me.iframe.width = e.data.width;
-        me.iframe.height = e.data.height;
-        me.footer.style["width"] = (e.data.width - 10) + 'px';
+        var obj = {};
+        var msg = new String(e.data).split(':');
+        var tokens;
+        if (msg[0] == 'resizeIframe') {
+            obj = parseTokens(msg[1]);
+            resize(obj);
+        }
+    };
+
+    var parseTokens = function (msg) {
+        var obj = {};
+        var tokens = msg.split('&');
+        for (var x in tokens) {
+            var t = tokens[x].split('=');
+            obj[t[0]] = decodeURI(t[1]);
+        }
+        return obj;
+    };
+
+    var resize = function(obj){
+        me.iframe.width = obj.width;
+        me.iframe.height = obj.height;
+        me.footer.style["width"] = (obj.width - 10) + 'px';
     };
 
     var init = function () {
