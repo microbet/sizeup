@@ -18,7 +18,7 @@
         me.opts = $.extend(true, defaults, opts);
         var templates = new sizeup.core.templates();
         
-
+        me.test = 1;
 
 
         var init = function () {
@@ -102,13 +102,7 @@
                 }
                 setLabel(opts.value);
             }
-
-
-     
-            me.slider.slider(opts);
-            
-
-     
+            me.slider.slider(opts);   
         };
 
         var onSlide = function (event, ui) {
@@ -160,7 +154,6 @@
         var getLabelValue = function (index) {
             var mapping = getMapping(index);
             var labelObj = null;
-
             if (me.mode == 'range' && mapping != null) {
                 labelObj = { min: mapping[0].label, max: mapping[1].label };
             }

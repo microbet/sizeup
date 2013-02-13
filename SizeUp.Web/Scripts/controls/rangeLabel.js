@@ -12,27 +12,38 @@
 
         var init = function () {
             me.container = me.opts.container;
+            me.labels = {};
+            
+            me.labels['range'] = me.container.attr('data-range');
+            me.labels['min'] = me.container.attr('data-min');
+            me.labels['max'] = me.container.attr('data-max');
+            me.labels['value'] = me.container.attr('data-value');
+            me.labels['off'] = me.container.attr('data-off');
         };
 
         
         var setValues = function (values) {
             var html = '';
             if (values && values.min && values.max) {
-                html = unescape(me.container.attr('data-range'));
+                html = me.labels['range'];
             }
             else if (values && values.min) {
-                html = unescape(me.container.attr('data-min'));
+                html = me.labels['min'];
             }
             else if (values && values.max) {
-                html = unescape(me.container.attr('data-max'));
+                html = me.labels['max'];
             }
             else if (values && values.value) {
-                html = unescape(me.container.attr('data-value'));
+                html = me.labels['value'];
             }
             else {
-                html = unescape(me.container.attr('data-off'));
+                html = me.labels['off'];
             }
-            me.container.html(me.templates.bind(html, values));
+            var text = me.templates.bind(html, values);
+            var delay = function () { me.container.html(text); };
+            //this is done becuase ie is a real peice of crap. turns out it doesnt like to update the dom so we have to
+            //do this stupid setTimeout shenanigans
+            setTimeout(delay ,1);
         };
         
         var show = function () {

@@ -4,10 +4,10 @@
         <li><a href="/find-business">Business Directory</a></li>
         <li><a href="/find-community">Community Information</a></li>
         @if(ViewBag.CurrentInfo.CurrentIndustry!=null){
-        <li><a href="/topPlaces/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Top Places</a></li>
+        <li><a href="/bestPlaces/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Best Places</a></li>
         }
         else{
-        <li><a href="/topPlaces/">Top Places</a></li>
+        <li><a href="/bestPlaces/">Best Places</a></li>
         }
     </ul>
 </div>

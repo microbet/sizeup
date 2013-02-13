@@ -217,7 +217,7 @@
                 mode: 'min',
                 range:{ min: 0, max: 95}
             });
-
+            
             me.filterSettings.sliders['highSchoolOrHigher'] = new sizeup.controls.rangeSlider({
                 container: me.filterSettings.container.find('.highSchoolOrHigher'),
                 label: me.filterSettings.container.find('.highSchoolOrHigher .valueLabel'),
