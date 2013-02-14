@@ -95,6 +95,7 @@
             });
 
             me.content.map.setCenter(me.data.CityCenter);
+            me.content.map.setZoom(10);
 
             me.content.pager = new sizeup.controls.pager({
                 container: me.content.container.find('.pager'),
