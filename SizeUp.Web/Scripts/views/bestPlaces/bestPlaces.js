@@ -206,7 +206,7 @@
             me.content.filters.sliders['bachelorOrHigher'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .bachelorOrHigher'),
                 label: me.content.container.find('.filters .bachelorOrHigher .valueLabel'),
-                range: {  min: 0,  max: 95 },
+                range: {  min: 1,  max: 95 },
                 mode: 'min',
                 value: params['bachelorOrHigher'],
                 onChange: function () { sliderChanged('bachelorOrHigher'); }
@@ -215,7 +215,7 @@
             me.content.filters.sliders['blueCollarWorkers'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .blueCollarWorkers'),
                 label: me.content.container.find('.filters .blueCollarWorkers .valueLabel'),
-                range: { min: 0, max: 95 },
+                range: { min: 1, max: 95 },
                 mode: 'min',
                 value: params['blueCollarWorkers'],
                 onChange: function () { sliderChanged('blueCollarWorkers'); }
@@ -224,7 +224,7 @@
             me.content.filters.sliders['highSchoolOrHigher'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .highSchoolOrHigher'),
                 label: me.content.container.find('.filters .highSchoolOrHigher .valueLabel'),
-                range: { min: 0, max: 95 },
+                range: { min: 1, max: 95 },
                 mode: 'min',
                 value: params['highSchoolOrHigher'],
                 onChange: function () { sliderChanged('highSchoolOrHigher'); }
@@ -233,7 +233,7 @@
             me.content.filters.sliders['whiteCollarWorkers'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .whiteCollarWorkers'),
                 label: me.content.container.find('.filters .whiteCollarWorkers .valueLabel'),
-                range: { min: 0, max: 95 },
+                range: { min: 1, max: 95 },
                 mode: 'min',
                 value: params['whiteCollarWorkers'],
                 onChange: function () { sliderChanged('whiteCollarWorkers'); }
@@ -252,7 +252,7 @@
             me.content.filters.sliders['youngEducated'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .youngEducated'),
                 label: me.content.container.find('.filters .youngEducated .valueLabel'),
-                range: { min: 0, max: 15 },
+                range: { min: 1, max: 15 },
                 mode: 'min',
                 value: params['youngEducated'],
                 onChange: function () { sliderChanged('youngEducated'); }
@@ -270,7 +270,7 @@
             me.content.filters.sliders['commuteTime'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .commuteTime'),
                 label: me.content.container.find('.filters .commuteTime .valueLabel'),
-                range: { min: 0, max: 60 },
+                range: { min: 1, max: 60 },
                 mode: 'max',
                 value: params['commuteTime'],
                 onChange: function () { sliderChanged('commuteTime'); }
@@ -279,7 +279,7 @@
             me.content.filters.sliders['medianAge'] = new sizeup.controls.rangeSlider({
                 container: me.content.container.find('.filters .medianAge'),
                 label: me.content.container.find('.filters .medianAge .valueLabel'),
-                range: { min: 0, max: 82 },
+                range: { min: 1, max: 82 },
                 mode: 'range',
                 value: params['medianAge'],
                 onChange: function () { sliderChanged('medianAge'); }

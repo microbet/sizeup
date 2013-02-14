@@ -108,7 +108,11 @@
         var onSlide = function (event, ui) {
             var index = 0;
             if (me.mode == 'range') {
-                if(ui.values[0] == me.min && ui.values[1] == me.max){
+                if (ui.values[0] == ui.values[1]) {
+                    event.preventDefault();
+                    return;
+                }
+                else if(ui.values[0] == me.min && ui.values[1] == me.max){
                     me.slider.addClass('off');
                 }
                 else{

@@ -24,16 +24,16 @@
         
         var setValues = function (values) {
             var html = '';
-            if (values && values.min && values.max) {
+            if (values != null && values.min != null && values.max != null) {
                 html = me.labels['range'];
             }
-            else if (values && values.min) {
+            else if (values != null && values.min != null) {
                 html = me.labels['min'];
             }
-            else if (values && values.max) {
+            else if (values != null && values.max != null) {
                 html = me.labels['max'];
             }
-            else if (values && values.value) {
+            else if (values != null && values.value != null) {
                 html = me.labels['value'];
             }
             else {

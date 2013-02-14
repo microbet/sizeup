@@ -85,15 +85,22 @@ namespace SizeUp.Web
                new string[] { "SizeUp.Web.Controllers" }
            );
 
-           
 
-           
+
+
 
 
             routes.MapRoute(
                "BestPlaces", // Route name
                "bestPlaces/{industry}", // URL with parameters
                new { controller = "BestPlaces", action = "Index" }, // Parameter defaults
+                new string[] { "SizeUp.Web.Controllers" }
+           );
+
+            routes.MapRoute(
+               "BestPlacesPickIndustry", // Route name
+               "bestPlaces/", // URL with parameters
+               new { controller = "BestPlaces", action = "PickIndustry" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
            );
 

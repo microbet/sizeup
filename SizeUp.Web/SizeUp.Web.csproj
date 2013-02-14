@@ -335,6 +335,7 @@
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
     <Content Include="Content\views\advertising\print.css" />
+    <Content Include="Content\views\bestPlaces\pickIndustry.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\business\find.css" />
     <Content Include="Content\views\community\communityWithIndustry.css" />
@@ -413,6 +414,7 @@
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />
+    <Content Include="Scripts\views\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
@@ -573,6 +575,7 @@
     <Content Include="Views\Community\StateCommunity.cshtml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\BestPlaces\PickIndustry.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
