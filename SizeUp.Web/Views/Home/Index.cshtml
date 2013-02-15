@@ -33,7 +33,7 @@
         <label for="searchIndustry">Enter Your Industry</label>
         <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
         <p id="noDataMessage" class="info hidden">There is not enough data for your industry in that city.<br />Please try a more common industry or a larger city.</p>
-        <input type="text" id="searchIndustry" value="enter your industry"  />
+        <input type="text" id="searchIndustry" data-prompt="enter your industry"  />
         <p class="tagCloud bottom">
             <span class="c1">Retail Bakeries</span>
             <span class="c3">Electric Contractors</span>
@@ -49,7 +49,7 @@
         
         <p id="invalidCityMessage" class="info hidden">Please enter a valid city name.</p>
         <p id="noValuesEntered" class="info hidden">Please enter a city and industry.</p>
-        <input type="text" id="searchCommunity" class="blank hidden" value="enter your city" />
+        <input type="text" id="searchCommunity" class="blank hidden" data-prompt="enter your city" />
         <p id="enteredLocation" class="location hidden">Your city is <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
         <p id="detectedLocation" class="location hidden" >We think you are in <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
         

@@ -6,7 +6,7 @@
         var me = {};
         var dataLayer = new sizeup.core.data();
         me.textbox = opts.textbox;
-        me.promptText = opts.promptText || me.textbox.val();
+        me.promptText = me.textbox.attr('data-prompt');
         me.maxResults = opts.maxResults || 35;
         me.minLength = opts.minLength || 1;
         me.onChange = opts.onChange || function () { };
@@ -26,7 +26,7 @@
         };
 
         var onBlur = function () {
-            if ($.trim(me.textbox.val()) == '') {
+            if ($.trim(me.textbox.val()) == '' || $.trim(me.textbox.val()) == me.promptText) {
                 me.textbox.val(me.promptText);
                 me.textbox.addClass('blank');
             }
@@ -96,20 +96,6 @@
             open: function (event, ui) {
                 $("ul.ui-autocomplete.ui-menu .ui-menu-item:even").addClass('odd');
             },
-            change: function (event, ui) {
-                if (ui.item) {
-                    me.selection = ui.item.value;
-                }
-                else {
-                    me.selection = null;
-                }
-                if (!ui.item || me.selection != ui.item.value) {
-                    if ($.trim(me.textbox.val()) != '' && me.textbox.val() != me.promptText) {
-                        me.onChange(me.selection);
-                    }
-                }
-                return false;
-            }
         }).data('autocomplete')._renderItem = function (ul, item) {
             return $("<li></li>")
                     .data("item.autocomplete", item)
