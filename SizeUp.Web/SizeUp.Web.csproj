@@ -292,6 +292,7 @@
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\competeSmall.png" />
     <Content Include="Content\images\dashboardIcons.png" />
+    <Content Include="Content\images\dashboardIcons_disabled.png" />
     <Content Include="Content\images\dashbuttons.png" />
     <Content Include="Content\images\externalLink.gif" />
     <Content Include="Content\images\favicon.ico" />
