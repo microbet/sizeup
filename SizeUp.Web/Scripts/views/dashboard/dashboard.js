@@ -53,7 +53,9 @@
                    container: me.container.find('#sessionLoadedBox')
                });
 
-            
+            me.quickSigninLinks = me.container.find('.report .message .quickSignin').click(function () {
+                me.signinPanel.openForm();
+            });
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 

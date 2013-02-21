@@ -35,6 +35,11 @@
             me.container.slideToggle();
         };
 
+        var openForm = function () {
+            if (!me.container.is(':visible')) {
+                me.container.slideToggle();
+            }
+        };
 
         var signinPressed = function () {
             me.signinForm.error.hide();
@@ -126,6 +131,9 @@
         var publicObj = {
             toggleSigninForm: function () {
                 toggleSigninForm();
+            },
+            openForm: function () {
+                openForm();
             }
         };
         return publicObj;
