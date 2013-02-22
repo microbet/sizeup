@@ -93,9 +93,10 @@
 #competition .industryList li { border: 1px solid #ccc; background-color: #eee; margin:0.25em; display:inline-block; padding:0.25em; }
 #competition .industryList li.highlight { background-color: #ff0000; }
 #competition .industryList li a { margin: 0 0 0 1em;  }
-#competition .industryList li span { display:inline-block; overflow: hidden; text-overflow: ellipsis; max-width:10em; white-space:nowrap; position:relative; top:0.15em; }
-#competition .industryList .remove {color:transparent; padding: 14px 0 0 14px; font-size: 0; background:url('/content/images/btn_close.png') no-repeat 0 0 transparent;  }
-
+#competition .industryList li>span { display:inline-block; position:relative; top:0.15em; }
+#competition .industryList li > span > span {overflow: hidden; text-overflow: ellipsis; max-width:10em; white-space:nowrap;display:inline-block; font-size:1em; }
+#competition .industryList .remove {color:transparent; width:14px; height:14px; background:url('/content/images/btn_close.png') no-repeat 0 0 transparent; position:relative; top: -0.1em; display:inline-block;  }
+#competition .industryList li > span:hover .remove {background-position:0 -19px; }
 
 
 #competition .industryPicker.container { padding: 1.5em 0 0 0; }

@@ -407,31 +407,31 @@
             },
 
 
-            getTopPlacesByCity: function (params, callback) {
-                return get('/api/topPlaces/city/', params, callback);
+            getBestPlacesByCity: function (params, callback) {
+                return get('/api/bestPlaces/city/', params, callback);
             },
-            getTopPlacesByCounty: function (params, callback) {
-                return get('/api/topPlaces/county/', params, callback);
+            getBestPlacesByCounty: function (params, callback) {
+                return get('/api/bestPlaces/county/', params, callback);
             },
-            getTopPlacesByMetro: function (params, callback) {
-                return get('/api/topPlaces/metro/', params, callback);
+            getBestPlacesByMetro: function (params, callback) {
+                return get('/api/bestPlaces/metro/', params, callback);
             },
-            getTopPlacesByState: function (params, callback) {
-                return get('/api/topPlaces/state/', params, callback);
+            getBestPlacesByState: function (params, callback) {
+                return get('/api/bestPlaces/state/', params, callback);
             },
 
 
-            getTopPlacesBandsByCity: function (params, callback) {
-                return get('/api/topPlaces/bands/city/', params, callback);
+            getBestPlacesBandsByCity: function (params, callback) {
+                return get('/api/bestPlaces/bands/city/', params, callback);
             },
-            getTopPlacesBandsByCounty: function (params, callback) {
-                return get('/api/topPlaces/bands/county/', params, callback);
+            getBestPlacesBandsByCounty: function (params, callback) {
+                return get('/api/bestPlaces/bands/county/', params, callback);
             },
-            getTopPlacesBandsByMetro: function (params, callback) {
-                return get('/api/topPlaces/bands/metro/', params, callback);
+            getBestPlacesBandsByMetro: function (params, callback) {
+                return get('/api/bestPlaces/bands/metro/', params, callback);
             },
-            getTopPlacesBandsByState: function (params, callback) {
-                return get('/api/topPlaces/bands/state/', params, callback);
+            getBestPlacesBandsByState: function (params, callback) {
+                return get('/api/bestPlaces/bands/state/', params, callback);
             },
 
 

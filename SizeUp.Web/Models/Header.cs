@@ -10,8 +10,7 @@ namespace SizeUp.Web.Models
     {
         Dashboard,
         Competition,
-        Advertising,
-        TopPlaces
+        Advertising
     }
 
     public class Header

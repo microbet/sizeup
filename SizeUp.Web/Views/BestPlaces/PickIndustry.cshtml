@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>SizeUp - Business Intelligence for All</title>
+<meta content="SizeUp is a free tool that shows how your business compares to competitors, identifies best places to advertise, and maps competitors, customers, and suppliers." name="description">
+<link href="@Url.Content("~/Content/views/bestPlaces/pickIndustry.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/bestPlaces/pickIndustry.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+}
+
+<div id="pickIndustry">
+    
+    <h1>Best Places</h1>
+        
+    <div class="form hidden">
+        <p class="message">Discover where the best performing places in the nation are for your industry.</p>
+        <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>
+        <input type="text" id="searchIndustry" data-prompt="enter your industry"  />
+    </div>
+        
+      
+
+    <a href="javascript:void(0);" id="continue" class="button" >Continue</a>
+
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+    var driver = new sizeup.views.bestPlaces.pickIndustry();
+    </script>
+
+
+}
+
+

@@ -615,59 +615,59 @@ namespace SizeUp.Web.Areas.Api
 
 
             context.MapRoute(
-               "TopPlacesCity",
-               "Api/TopPlaces/City",
-               new { controller = "TopPlaces", action = "City" },
+               "BestPlacesCity",
+               "Api/BestPlaces/City",
+               new { controller = "BestPlaces", action = "City" },
                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
            );
 
             context.MapRoute(
-              "TopPlacesCounty",
-              "Api/TopPlaces/County",
-              new { controller = "TopPlaces", action = "County" },
+              "BestPlacesCounty",
+              "Api/BestPlaces/County",
+              new { controller = "BestPlaces", action = "County" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
             context.MapRoute(
-              "TopPlacesMetro",
-              "Api/TopPlaces/Metro",
-              new { controller = "TopPlaces", action = "Metro" },
+              "BestPlacesMetro",
+              "Api/BestPlaces/Metro",
+              new { controller = "BestPlaces", action = "Metro" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
             context.MapRoute(
-              "TopPlacesState",
-              "Api/TopPlaces/State",
-              new { controller = "TopPlaces", action = "State" },
+              "BestPlacesState",
+              "Api/BestPlaces/State",
+              new { controller = "BestPlaces", action = "State" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
 
             context.MapRoute(
-               "TopPlacesBandsCity",
-               "Api/TopPlaces/Bands/City",
-               new { controller = "TopPlaces", action = "CityBands" },
+               "BestPlacesBandsCity",
+               "Api/BestPlaces/Bands/City",
+               new { controller = "BestPlaces", action = "CityBands" },
                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
            );
 
             context.MapRoute(
-              "TopPlacesBandsCounty",
-              "Api/TopPlaces/Bands/County",
-              new { controller = "TopPlaces", action = "CountyBands" },
+              "BestPlacesBandsCounty",
+              "Api/BestPlaces/Bands/County",
+              new { controller = "BestPlaces", action = "CountyBands" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
             context.MapRoute(
-              "TopPlacesBandsMetro",
-              "Api/TopPlaces/Bands/Metro",
-              new { controller = "TopPlaces", action = "MetroBands" },
+              "BestPlacesBandsMetro",
+              "Api/BestPlaces/Bands/Metro",
+              new { controller = "BestPlaces", action = "MetroBands" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
             context.MapRoute(
-              "TopPlacesBandsState",
-              "Api/TopPlaces/Bands/State",
-              new { controller = "TopPlaces", action = "StateBands" },
+              "BestPlacesBandsState",
+              "Api/BestPlaces/Bands/State",
+              new { controller = "BestPlaces", action = "StateBands" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 

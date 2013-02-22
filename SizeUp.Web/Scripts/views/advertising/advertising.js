@@ -95,6 +95,7 @@
             });
 
             me.content.map.setCenter(me.data.CityCenter);
+            me.content.map.setZoom(10);
 
             me.content.pager = new sizeup.controls.pager({
                 container: me.content.container.find('.pager'),
@@ -201,163 +202,165 @@
         var initFilterSliders = function () {
             var params = getParameters();
             me.filterSettings.sliders = {};
-            me.filterSettings.sliders['distance'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#distance'),
+            me.filterSettings.sliders['distance'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.distance'),
+                label: me.filterSettings.container.find('.distance .valueLabel'),
                 value: params['distance'],
-                min: 1,
-                max: 150,
-                range: 'min'
+                mode: 'min',
+                range: { min: 1, max: 150 },
+                invert: true
             });
 
-            me.filterSettings.sliders['bachelorsDegreeOrHigher'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#bachelorOrHigher'),
+            me.filterSettings.sliders['bachelorsDegreeOrHigher'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.bachelorsDegreeOrHigher'),
+                label: me.filterSettings.container.find('.bachelorsDegreeOrHigher .valueLabel'),
                 value: params['bachelorsDegreeOrHigher'],
-                min: 0,
-                max: 95,
-                range: 'max'
+                mode: 'min',
+                range:{ min: 0, max: 95}
             });
-
-            me.filterSettings.sliders['highSchoolOrHigher'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#highSchoolOrHigher'),
+            
+            me.filterSettings.sliders['highSchoolOrHigher'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.highSchoolOrHigher'),
+                label: me.filterSettings.container.find('.highSchoolOrHigher .valueLabel'),
                 value: params['highSchoolOrHigher'],
-                min: 0,
-                max: 98,
-                range: 'max'
+                mode: 'min',
+                range: { min: 0, max: 95 }
             });
 
-            me.filterSettings.sliders['whiteCollarWorkers'] = new sizeup.controls.slider({
-                container: me.filterSettings.container.find('#whiteCollar'),
+            me.filterSettings.sliders['whiteCollarWorkers'] = new sizeup.controls.rangeSlider({
+                container: me.filterSettings.container.find('.whiteCollarWorkers'),
+                label: me.filterSettings.container.find('.whiteCollarWorkers .valueLabel'),
                 value: params['whiteCollarWorkers'],
-                min: 0,
-                max: 95,
-                range: 'max'
+                mode: 'min',
+                range: { min: 0, max: 95 }
             });
 
             me.filterSettings.sliders['averageRevenue'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#averageRevenue'),
-                values: params['averageRevenue'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 50000, mappedLabel: '$50,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 250000, mappedLabel: '$250,000' },
-                    { range: { min: 3, max: 4 }, mappedValue: 500000, mappedLabel: '$500,000' },
-                    { range: { min: 4, max: 5 }, mappedValue: 750000, mappedLabel: '$750,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 1000000, mappedLabel: '$1 million' },
-                    { range: { min: 6, max: 7 }, mappedValue: 2500000, mappedLabel: '$2.5 million' },
-                    { range: { min: 7, max: 8 }, mappedValue: 5000000, mappedLabel: '$5 million' },
-                    { range: { min: 8, max: 9 }, mappedValue: 7500000, mappedLabel: '$7.5 million' },
-                    { range: { min: 9, max: 10 }, mappedValue: 10000000, mappedLabel: '$10 million' },
-                    { range: { min: 10, max: 11 }, mappedValue: 50000000, mappedLabel: '$50 million+' }
+                container: me.filterSettings.container.find('.averageRevenue'),
+                label: me.filterSettings.container.find('.averageRevenue .valueLabel'),
+                value: params['averageRevenue'],
+                mode: 'range',
+                range: [
+                    { value: 50000, label: '$50,000' },
+                    { value: 100000, label: '$100,000' },
+                    { value: 250000, label: '$250,000' },
+                    { value: 500000, label: '$500,000' },
+                    { value: 750000, label: '$750,000' },
+                    { value: 1000000, label: '$1 million' },
+                    { value: 2500000, label: '$2.5 million' },
+                    { value: 5000000, label: '$5 million' },
+                    { value: 7500000, label: '$7.5 million' },
+                    { value: 10000000, label: '$10 million' },
+                    { value: 50000000, label: '$50 million' }
                 ]
             });
 
 
             me.filterSettings.sliders['totalRevenue'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#totalRevenue'),
-                values: params['totalRevenue'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 500000, mappedLabel: '$500,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 1000000, mappedLabel: '$1 million' },
-                    { range: { min: 3, max: 4 }, mappedValue: 5000000, mappedLabel: '$5 million' },
-                    { range: { min: 4, max: 5 }, mappedValue: 10000000, mappedLabel: '$10 million' },
-                    { range: { min: 5, max: 6 }, mappedValue: 50000000, mappedLabel: '$50 million' },
-                    { range: { min: 6, max: 7 }, mappedValue: 100000000, mappedLabel: '$100 million' },
-                    { range: { min: 7, max: 8 }, mappedValue: 500000000, mappedLabel: '$500 million' },
-                    { range: { min: 8, max: 9 }, mappedValue: 1000000000, mappedLabel: '$1 billion' },
-                    { range: { min: 9, max: 10 }, mappedValue: 50000000000, mappedLabel: '$50 billion' },
-                    { range: { min: 10, max: 11 }, mappedValue: 100000000000, mappedLabel: '$100 billion+' }
+                container: me.filterSettings.container.find('.totalRevenue'),
+                label: me.filterSettings.container.find('.totalRevenue .valueLabel'),
+                value: params['totalRevenue'],
+                mode: 'range',
+                range: [
+                    { value: 100000, label: '$100,000' },
+                    { value: 500000, label: '$500,000' },
+                    { value: 1000000, label: '$1 million' },
+                    { value: 5000000, label: '$5 million' },
+                    { value: 10000000, label: '$10 million' },
+                    { value: 50000000, label: '$50 million' },
+                    { value: 100000000, label: '$100 million' },
+                    { value: 500000000, label: '$500 million' },
+                    { value: 1000000000, label: '$1 billion' },
+                    { value: 50000000000, label: '$50 billion' },
+                    { value: 100000000000, label: '$100 billion' }
                 ]
             });
 
             me.filterSettings.sliders['totalEmployees'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#totalEmployees'),
-                values: params['totalEmployees'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 10, mappedLabel: '10' },
-                    { range: { min: 1, max: 2 }, mappedValue: 50, mappedLabel: '50' },
-                    { range: { min: 2, max: 3 }, mappedValue: 100, mappedLabel: '100' },
-                    { range: { min: 3, max: 4 }, mappedValue: 500, mappedLabel: '500' },
-                    { range: { min: 4, max: 5 }, mappedValue: 1000, mappedLabel: '1,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 5000, mappedLabel: '5,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 10000, mappedLabel: '10,000' },
-                    { range: { min: 7, max: 8 }, mappedValue: 50000, mappedLabel: '50,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 100000, mappedLabel: '100,000' },
-                    { range: { min: 9, max: 10 }, mappedValue: 500000, mappedLabel: '500,000' },
-                    { range: { min: 10, max: 11 }, mappedValue: 1000000, mappedLabel: '1 million+' }
+                container: me.filterSettings.container.find('.totalEmployees'),
+                label: me.filterSettings.container.find('.totalEmployees .valueLabel'),
+                value: params['totalEmployees'],
+                mode: 'range',
+                range: [
+                    { value: 10, label: '10' },
+                    { value: 50, label: '50' },
+                    { value: 100, label: '100' },
+                    { value: 500, label: '500' },
+                    { value: 1000, label: '1,000' },
+                    { value: 5000, label: '5,000' },
+                    { value: 10000, label: '10,000' },
+                    { value: 50000, label: '50,000' },
+                    { value: 100000, label: '100,000' },
+                    { value: 500000, label: '500,000' },
+                    { value: 1000000, label: '1 million' }
                 ]
             });
 
             me.filterSettings.sliders['revenuePerCapita'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#revenuePerCapita'),
-                values: params['revenuePerCapita'],
-                min: 0,
-                max: 10,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 5, mappedLabel: '$5' },
-                    { range: { min: 1, max: 2 }, mappedValue: 10, mappedLabel: '$10' },
-                    { range: { min: 2, max: 3 }, mappedValue: 50, mappedLabel: '$50' },
-                    { range: { min: 3, max: 4 }, mappedValue: 100, mappedLabel: '$100' },
-                    { range: { min: 4, max: 5 }, mappedValue: 500, mappedLabel: '$500' },
-                    { range: { min: 5, max: 6 }, mappedValue: 1000, mappedLabel: '$1,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 2500, mappedLabel: '$2,500' },
-                    { range: { min: 7, max: 8 }, mappedValue: 5000, mappedLabel: '$5,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 7500, mappedLabel: '$7,500' },
-                    { range: { min: 9, max: 10 }, mappedValue: 10000, mappedLabel: '$10,000' },
-                    { range: { min: 10, max: 11 }, mappedValue: 15000, mappedLabel: '$15,000+' }
+                container: me.filterSettings.container.find('.revenuePerCapita'),
+                label: me.filterSettings.container.find('.revenuePerCapita .valueLabel'),
+                value: params['revenuePerCapita'],
+                mode: 'range',
+                range: [
+                    { value: 5, label: '$5' },
+                    { value: 10, label: '$10' },
+                    { value: 50, label: '$50' },
+                    { value: 100, label: '$100' },
+                    { value: 500, label: '$500' },
+                    { value: 1000, label: '$1,000' },
+                    { value: 2500, label: '$2,500' },
+                    { value: 5000, label: '$5,000' },
+                    { value: 7500, label: '$7,500' },
+                    { value: 10000, label: '$10,000' },
+                    { value: 15000, label: '$15,000' }
                 ]
             });
 
 
             me.filterSettings.sliders['householdIncome'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#householdIncome'),
-                values: params['householdIncome'],
-                min: 0,
-                max: 9,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 10000, mappedLabel: '$10,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 20000, mappedLabel: '$20,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 30000, mappedLabel: '$30,000' },
-                    { range: { min: 3, max: 4 }, mappedValue: 40000, mappedLabel: '$40,000' },
-                    { range: { min: 4, max: 5 }, mappedValue: 50000, mappedLabel: '$50,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 75000, mappedLabel: '$75,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 7, max: 8 }, mappedValue: 150000, mappedLabel: '$150,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
-                    { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
+                container: me.filterSettings.container.find('.householdIncome'),
+                label: me.filterSettings.container.find('.householdIncome .valueLabel'),
+                value: params['householdIncome'],
+                mode: 'range',
+                range: [
+                    { value: 10000, label: '$10,000' },
+                    { value: 20000, label: '$20,000' },
+                    { value: 30000, label: '$30,000' },
+                    { value: 40000, label: '$40,000' },
+                    { value: 50000, label: '$50,000' },
+                    { value: 75000, label: '$75,000' },
+                    { value: 100000, label: '$100,000' },
+                    { value: 150000, label: '$150,000' },
+                    { value: 200000, label: '$200,000' },
+                    { value: 250000, label: '$250,000' }
                 ]
             });
 
             me.filterSettings.sliders['householdExpenditures'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#householdExpenditures'),
-                values: params['householdExpenditures'],
-                min: 0,
-                max: 9,
-                mapping: [
-                    { range: { min: 0, max: 1 }, mappedValue: 10000, mappedLabel: '$10,000' },
-                    { range: { min: 1, max: 2 }, mappedValue: 20000, mappedLabel: '$20,000' },
-                    { range: { min: 2, max: 3 }, mappedValue: 30000, mappedLabel: '$30,000' },
-                    { range: { min: 3, max: 4 }, mappedValue: 40000, mappedLabel: '$40,000' },
-                    { range: { min: 4, max: 5 }, mappedValue: 50000, mappedLabel: '$50,000' },
-                    { range: { min: 5, max: 6 }, mappedValue: 75000, mappedLabel: '$75,000' },
-                    { range: { min: 6, max: 7 }, mappedValue: 100000, mappedLabel: '$100,000' },
-                    { range: { min: 7, max: 8 }, mappedValue: 150000, mappedLabel: '$150,000' },
-                    { range: { min: 8, max: 9 }, mappedValue: 200000, mappedLabel: '$200,000' },
-                    { range: { min: 9, max: 10 }, mappedValue: 250000, mappedLabel: '$250,000+' }
+                container: me.filterSettings.container.find('.householdExpenditures'),
+                label: me.filterSettings.container.find('.householdExpenditures .valueLabel'),
+                mode: 'range',
+                value: params['householdExpenditures'],
+                range: [
+                    { value: 10000, label: '$10,000' },
+                    { value: 20000, label: '$20,000' },
+                    { value: 30000, label: '$30,000' },
+                    { value: 40000, label: '$40,000' },
+                    { value: 50000, label: '$50,000' },
+                    { value: 75000, label: '$75,000' },
+                    { value: 100000, label: '$100,000' },
+                    { value: 150000, label: '$150,000' },
+                    { value: 200000, label: '$200,000' },
+                    { value: 250000, label: '$250,000' }
                 ]
             });
 
             me.filterSettings.sliders['medianAge'] = new sizeup.controls.rangeSlider({
-                container: me.filterSettings.container.find('#medianAge'),
-                values: params['medianAge'],
-                min: 0,
-                max: 82
+                container: me.filterSettings.container.find('.medianAge'),
+                label: me.filterSettings.container.find('.medianAge .valueLabel'),
+                value: params['medianAge'],
+                mode: 'range',
+                range:{ min: 0, max: 82}
             });
 
 

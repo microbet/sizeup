@@ -30,7 +30,7 @@ a.menu:hover { color: #fff; }
 
 #competition .tabs li.active a { color: #C54602; }
 #competition .businessList li .name{color:#C54602;}
-
+#competition .mapControls.container .consumerExpenditures.container .menu {background-color:#C54602; }
 
 #advertising .heading .filter { background-image: url(images/actionbutton.png); }
 

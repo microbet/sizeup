@@ -38,9 +38,9 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         }
 
 
-        public ActionResult TopPlaces()
+        public ActionResult BestPlaces()
         {
-            return File("~/Scripts/widget/topPlaces.js", "text/javascript");
+            return File("~/Scripts/widget/bestPlaces.js", "text/javascript");
         }
 
     }

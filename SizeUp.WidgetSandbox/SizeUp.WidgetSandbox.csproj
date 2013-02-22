@@ -158,7 +158,7 @@
     <Content Include="Views\Home\SBA.cshtml" />
     <Content Include="Views\Home\INC.cshtml" />
     <Content Include="Views\Home\Wide.cshtml" />
-    <Content Include="Views\Home\topPlaces.cshtml" />
+    <Content Include="Views\Home\BestPlaces.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

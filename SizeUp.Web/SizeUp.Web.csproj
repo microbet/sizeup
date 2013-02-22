@@ -159,7 +159,7 @@
     <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Api\Controllers\CostEffectivenessController.cs" />
     <Compile Include="Areas\Api\Controllers\DemographicsController.cs" />
-    <Compile Include="Areas\Api\Controllers\TopPlacesController.cs" />
+    <Compile Include="Areas\Api\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Api\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Api\Controllers\EmployeesPerCapitaController.cs" />
     <Compile Include="Areas\Api\Controllers\CountyController.cs" />
@@ -245,7 +245,7 @@
     <Compile Include="Areas\Widget\Controllers\GetController.cs" />
     <Compile Include="Areas\Widget\Controllers\HelpController.cs" />
     <Compile Include="Areas\Widget\Controllers\SelectController.cs" />
-    <Compile Include="Areas\Widget\Controllers\TopPlacesController.cs" />
+    <Compile Include="Areas\Widget\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Widget\Controllers\UserController.cs" />
     <Compile Include="Areas\Widget\WidgetAreaRegistration.cs" />
     <Compile Include="Controllers\AccessibilityController.cs" />
@@ -256,7 +256,7 @@
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\TopPlacesController.cs" />
+    <Compile Include="Controllers\BestPlacesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -336,6 +336,7 @@
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
     <Content Include="Content\views\advertising\print.css" />
+    <Content Include="Content\views\bestPlaces\pickIndustry.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\business\find.css" />
     <Content Include="Content\views\community\communityWithIndustry.css" />
@@ -353,7 +354,7 @@
     <Content Include="Content\views\home.css" />
     <Content Include="Content\views\product\privacy.css" />
     <Content Include="Content\views\product\terms.css" />
-    <Content Include="Content\views\topPlaces\index.css" />
+    <Content Include="Content\views\bestPlaces\index.css" />
     <Content Include="Content\views\user\profile.css" />
     <Content Include="Content\views\user\optout.css" />
     <Content Include="Content\views\user\register.css" />
@@ -369,7 +370,7 @@
     <Content Include="Content\widget\Views\dashboard\print.css" />
     <Content Include="Content\widget\Views\help\help.css" />
     <Content Include="Content\widget\Views\select\select.css" />
-    <Content Include="Content\widget\Views\topPlaces\index.css" />
+    <Content Include="Content\widget\Views\bestPlaces\index.css" />
     <Content Include="Content\widget\Views\user\register.css" />
     <Content Include="Content\widget\Views\user\signin.css" />
     <Content Include="Global.asax" />
@@ -378,12 +379,12 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\rangeLabel.js" />
     <Content Include="Scripts\controls\flashBox.js" />
     <Content Include="Scripts\controls\promptBox.js" />
     <Content Include="Scripts\controls\selectList.js" />
     <Content Include="Scripts\controls\question.js" />
     <Content Include="Scripts\controls\rangeSlider.js" />
-    <Content Include="Scripts\controls\slider.js" />
     <Content Include="Scripts\controls\gauge.js" />
     <Content Include="Scripts\controls\industrySelector.js" />
     <Content Include="Scripts\controls\pager.js" />
@@ -414,6 +415,7 @@
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />
+    <Content Include="Scripts\views\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
@@ -436,13 +438,13 @@
     <Content Include="Scripts\views\community\cityCommunity.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\shared\signin.js" />
-    <Content Include="Scripts\views\topPlaces\topPlaces.js" />
+    <Content Include="Scripts\views\bestPlaces\bestPlaces.js" />
     <Content Include="Scripts\views\user\profile.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
     <Content Include="Scripts\widget\messager.js" />
-    <Content Include="Scripts\widget\topPlaces.js" />
+    <Content Include="Scripts\widget\bestPlaces.js" />
     <Content Include="Scripts\widget\core.js" />
     <Content Include="Scripts\widget\embed.js" />
     <Content Include="Scripts\widget\views\select\select.js" />
@@ -541,7 +543,7 @@
     <Content Include="Views\Dashboard\HealthcareCost.cshtml" />
     <Content Include="Views\Dashboard\WorkersComp.cshtml" />
     <Content Include="Views\Advertising\Index.cshtml" />
-    <Content Include="Views\TopPlaces\Index.cshtml" />
+    <Content Include="Views\BestPlaces\Index.cshtml" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -550,7 +552,7 @@
     </Content>
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Areas\Widget\Views\TopPlaces\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\BestPlaces\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\_HeaderlessLayout.cshtml" />
     <Content Include="Areas\Widget\Views\User\Profile.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
@@ -574,6 +576,7 @@
     <Content Include="Views\Community\StateCommunity.cshtml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\BestPlaces\PickIndustry.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

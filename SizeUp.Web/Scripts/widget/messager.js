@@ -2,11 +2,8 @@
    
     var body = $('body');
     setInterval(function () {
-        var obj = {
-            width: body.width(),
-            height: body.height()
-        };
-        window.top.postMessage(obj, "*");
+        var msg = 'resizeIframe:width=' + body.width() + '&height=' + body.height();
+        window.top.postMessage(msg, "*");
     }, 125);
 
 

@@ -347,6 +347,7 @@ namespace SizeUp.Web.Controllers
             {
                 var user = Identity.DecryptToken(key);
                 ViewBag.Email = user.Email;
+                ViewBag.OptOut = !user.IsSubscribed;
             }
             catch (System.Exception e)
             {
@@ -363,13 +364,13 @@ namespace SizeUp.Web.Controllers
                 HideMenu = true
             };
             ViewBag.BadCode = false;
-            ViewBag.OptOut = false;
             try
             {
                 var user = Identity.DecryptToken(key);
                 user.IsSubscribed = !OptOut;
                 user.Save();
                 ViewBag.Email = user.Email;
+                ViewBag.OptOut = !user.IsSubscribed;
             }
             catch (System.Exception e)
             {

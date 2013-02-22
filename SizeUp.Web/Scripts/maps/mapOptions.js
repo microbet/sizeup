@@ -6,10 +6,10 @@
         var mapOptions = {
             defaults: function () {
                 return {
-                    zoom: 10,
+                    zoom: 4,
                     minZoom: 2,
                     maxZoom:24,
-                    center: new google.maps.LatLng(37.012, -122.01),
+                    center: new google.maps.LatLng(38.272689, -95.800781),
                     mapTypeControl: false,
                     streetViewControl: false,
                     scrollwheel: false,
