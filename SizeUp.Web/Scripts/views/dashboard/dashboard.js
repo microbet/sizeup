@@ -37,11 +37,9 @@
                 dataLayer.setDashboardValues(p);
             }
 
-            me.signinPanel = new sizeup.views.shared.signin({
-                container: me.container.find('#signin .signinPanel.form'),
-                toggle: me.container.find('#signin .signinToggle')
-            });
+            me.signinPanels = {};
 
+            
             me.resourceToggle = new sizeup.controls.toggleButton(
                 {
                     button: me.container.find('#summaryView'),
@@ -53,9 +51,7 @@
                    container: me.container.find('#sessionLoadedBox')
                });
 
-            me.quickSigninLinks = me.container.find('.report .message .quickSignin').click(function () {
-                me.signinPanel.openForm();
-            });
+           
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
@@ -71,6 +67,62 @@
                 me.reports['revenuePerCapita'] = new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), report: me.opts.report });
                 me.reports['turnover'] = new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.report });
             }
+            else {
+                me.signinPanels['employees'] = new sizeup.views.shared.signin({
+                    container: me.container.find('#employees .signinPanel.form')//,
+                    //toggle: me.container.find('#employees .header')
+                });
+                
+                me.signinPanels['costEffectiveness'] = new sizeup.views.shared.signin({
+                    container: me.container.find('#costEffectiveness .signinPanel.form')//,
+                   // toggle: me.container.find('#costEffectiveness .header')
+                });
+
+                me.signinPanels['healthcareCost'] = new sizeup.views.shared.signin({
+                    container: me.container.find('#healthcareCost .signinPanel.form')//,
+                    //toggle: me.container.find('#healthcareCost .header')
+                });
+
+                me.signinPanels['workersComp'] = new sizeup.views.shared.signin({
+                    container: me.container.find('#workersComp .signinPanel.form')//,
+                    //toggle: me.container.find('#workersComp .header')
+                });
+
+                me.signinPanels['revenuePerCapita'] = new sizeup.views.shared.signin({
+                    container: me.container.find('#revenuePerCapita .signinPanel.form')//,
+                    //toggle: me.container.find('#revenuePerCapita .header')
+                });
+
+                me.signinPanels['turnover'] = new sizeup.views.shared.signin({
+                    container: me.container.find('#turnover .signinPanel.form')//,
+                    //toggle: me.container.find('#turnover .header')
+                });
+
+
+                me.container.find('#employees .header').bind('click', 'employees', function (e) {
+                    signinFormClicked(e.data);
+                });
+
+                me.container.find('#costEffectiveness .header').bind('click', 'costEffectiveness', function (e) {
+                    signinFormClicked(e.data);
+                });
+
+                me.container.find('#healthcareCost .header').bind('click', 'healthcareCost', function (e) {
+                    signinFormClicked(e.data);
+                });
+
+                me.container.find('#workersComp .header').bind('click', 'workersComp', function (e) {
+                    signinFormClicked(e.data);
+                });
+
+                me.container.find('#revenuePerCapita .header').bind('click', 'revenuePerCapita', function (e) {
+                    signinFormClicked(e.data);
+                });
+
+                me.container.find('#turnover .header').bind('click', 'turnover', function (e) {
+                    signinFormClicked(e.data);
+                });
+            }
 
             $('#dashboard').removeClass('hidden');
             initAllReports();
@@ -80,6 +132,15 @@
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 me.sessionLoadedBox.flash();
             }
+        };
+
+        var signinFormClicked = function(data){
+            for (var x in me.signinPanels) {
+                if (x != data) {
+                    me.signinPanels[x].closeForm();
+                }
+            }
+            me.signinPanels[data].toggleSigninForm();
         };
 
         var hashChanged = function (e) {
