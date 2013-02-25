@@ -95,21 +95,16 @@
     }
     else
     {
-    <div id="signin" class="report">
-        <div class="header">
-            <h2><a name="quickSignin" href="javascript:void(0);" class="signinToggle" >Signin to view more reports below</a></h2>
-        </div>
-        <div class="body">
-        @Html.Partial("Signin")  
-        </div>     
-    </div>  
-        
+    
     <div id="employees" class="report disabled">
         <div class="header">
             <div class="icon"></div>
             <h2>Employees</h2>
             <span class="hint">Number of full-time equivalent employees</span>
-            <p class="message"><a class="quickSignin" href="#quickSignin">Sign in</a> to view this report.</p>
+            <p class="message"><a class="quickSignin" href="javascript:void(0);">Sign in</a> to view this report.</p>
+        </div>
+        <div class="body">
+            @Html.Partial("Signin")
         </div>
     </div>
 
@@ -118,7 +113,10 @@
             <div class="icon"></div>
             <h2>Cost Effectiveness</h2>
             <span class="hint">Revenue per employee divided by worker salary</span>
-            <p class="message"><a class="quickSignin" href="#quickSignin">Sign in</a> to view this report.</p>
+            <p class="message"><a class="quickSignin" href="javascript:void(0);">Sign in</a> to view this report.</p>
+        </div>
+        <div class="body">
+            @Html.Partial("Signin")
         </div>
     </div>
 
@@ -127,8 +125,11 @@
             <div class="icon"></div>
             <h2>Revenue Per Capita</h2>
             <span class="hint">Revenue generated per community resident</span> 
-            <p class="message"><a class="quickSignin" href="#quickSignin">Sign in</a> to view this report.</p>
-        </div>       
+            <p class="message"><a class="quickSignin" href="javascript:void(0);">Sign in</a> to view this report.</p>
+        </div>     
+        <div class="body">
+            @Html.Partial("Signin")
+        </div>  
     </div>
 
     <div id="turnover" class="report disabled">
@@ -136,8 +137,11 @@
             <div class="icon"></div>
             <h2>Local Turnover</h2>
             <span class="hint">Percentage of workers newly hired</span>  
-            <p class="message"><a class="quickSignin" href="#quickSignin">Sign in</a> to view this report.</p>
-        </div>         
+            <p class="message"><a class="quickSignin" href="javascript:void(0);">Sign in</a> to view this report.</p>
+        </div>   
+        <div class="body">
+            @Html.Partial("Signin")
+        </div>      
     </div>
 
     <div id="healthcareCost" class="report disabled">
@@ -145,7 +149,10 @@
             <div class="icon"></div>
             <h2>Healthcare Cost</h2>
             <span class="hint">Annual healthcare premium per employee</span> 
-            <p class="message"><a class="quickSignin" href="#quickSignin">Sign in</a> to view this report.</p>
+            <p class="message"><a class="quickSignin" href="javascript:void(0);">Sign in</a> to view this report.</p>
+        </div>
+        <div class="body">
+            @Html.Partial("Signin")
         </div>
     </div>
 
@@ -154,7 +161,10 @@
             <div class="icon"></div>
             <h2>Workers' Compensation</h2>
             <span class="hint">Premium per employee (per $100 of payroll)</span>  
-            <p class="message"><a class="quickSignin" href="#quickSignin">Sign in</a> to view this report.</p>
+            <p class="message"><a class="quickSignin" href="javascript:void(0);">Sign in</a> to view this report.</p>
+        </div>
+        <div class="body">
+            @Html.Partial("Signin")
         </div>
     </div>  
     }
