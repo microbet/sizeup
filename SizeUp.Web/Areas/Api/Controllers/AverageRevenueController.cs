@@ -23,61 +23,68 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.AverageRevenue.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                                        .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
-                    .Select(i => new Models.AverageRevenue.ChartItem()
+                var data = context.CityCountyMappings
+                    .Where(i => i.Id == placeId)
+                    .Select(i => new
                     {
-                        Value = (long)i.AverageRevenue,
-                        Median = i.MedianRevenue,
-                        Name = "USA"
-                    });
+                        City = i.City.IndustryDataByCities
+                            .Where(d => d.IndustryId == industryId)
+                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
+                            .Where(d => i.City.BusinessDataByCities.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
+                            .Select(d => new 
+                            {
+                                Value = (long)d.AverageRevenue,
+                                Name = i.City.Name + ", " + i.City.State.Abbreviation
+                            }).FirstOrDefault(),
 
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
-                    .Select(i => new Models.AverageRevenue.ChartItem()
-                    {
-                        Value = (long)i.AverageRevenue,
-                        Name = locations.State.Name
-                    });
+                        County = i.County.IndustryDataByCounties
+                            .Where(d => d.IndustryId == industryId)
+                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
+                            .Where(d => i.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
+                            .Select(d => new
+                            {
+                                Value = (long)d.AverageRevenue,
+                                Name = i.County.Name + ", " + i.City.State.Abbreviation
+                            }).FirstOrDefault(),
 
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                                            .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
-                        .Select(i => new Models.AverageRevenue.ChartItem()
-                        {
-                            Value = (long)i.AverageRevenue,
-                            Name = locations.Metro.Name
-                        });
-                }
+                        Metro = i.County.Metro.IndustryDataByMetroes
+                            .Where(d => d.IndustryId == industryId)
+                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
+                            .Where(d => i.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
+                            .Select(d => new
+                            {
+                                Value = (long)d.AverageRevenue,
+                                Name = i.County.Metro.Name
+                            }).FirstOrDefault(),
+                        
+                        State = i.County.State.IndustryDataByStates
+                            .Where(d => d.IndustryId == industryId)
+                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
+                            .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
+                            .Select(d => new
+                            {
+                                Value = (long)d.AverageRevenue,
+                                Name = i.City.State.Name
+                            }).FirstOrDefault(),
 
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                                        .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
-                   .Select(i => new Models.AverageRevenue.ChartItem()
-                   {
-                       Value = (long)i.AverageRevenue,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
-                                        .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0)
-                   .Select(i => new Models.AverageRevenue.ChartItem()
-                   {
-                       Value = (long)i.AverageRevenue,
-                       Name = locations.City.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    City = c.FirstOrDefault(),
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
+                        Nation = context.IndustryDataByNations
+                            .Where(d => d.IndustryId == industryId)
+                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
+                            .Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
+                            .Select(d => new
+                            {
+                                Value = (long)d.AverageRevenue,
+                                Median = (long)d.MedianRevenue,
+                                Name = "USA"
+                            }).FirstOrDefault()
+                    
+                    
+                    }).FirstOrDefault();
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);
