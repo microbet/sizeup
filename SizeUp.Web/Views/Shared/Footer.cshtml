@@ -3,12 +3,7 @@
     <ul>
         <li><a href="/find-business">Business Directory</a></li>
         <li><a href="/find-community">Community Information</a></li>
-        @if(ViewBag.CurrentInfo.CurrentIndustry!=null){
-        <li><a href="/bestPlaces/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">Best Places</a></li>
-        }
-        else{
         <li><a href="/bestPlaces/">Best Places</a></li>
-        }
     </ul>
 </div>
 <div class="col">

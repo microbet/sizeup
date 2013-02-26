@@ -9,7 +9,7 @@
             bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             params: {
                 placeType: 'city',
-                attribute: 'totalRevenue'
+                attribute: 'revenuePerCapita'
             }
         };
         var me = {};
