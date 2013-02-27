@@ -82,6 +82,15 @@
     <Compile Include="DataAccess\Models\EntityDistance.cs" />
     <Compile Include="DataAccess\Models\Locations.cs" />
     <Compile Include="DataAccess\ZipCodes.cs" />
+    <Compile Include="DataLayer\AverageRevenue.cs" />
+    <Compile Include="DataLayer\Base.cs" />
+    <Compile Include="DataLayer\BusinessData.cs" />
+    <Compile Include="DataLayer\IndustryData.cs" />
+    <Compile Include="DataLayer\Models\IndustryData.cs" />
+    <Compile Include="DataLayer\Models\PercentileItem.cs" />
+    <Compile Include="DataLayer\Models\PlaceValues.cs" />
+    <Compile Include="DataLayer\Models\BarChartItem.cs" />
+    <Compile Include="DataLayer\YearStarted.cs" />
     <Compile Include="Diagnostics\HandleErrorAndLogAttribute.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />
     <Compile Include="Email\IMailingList.cs" />

@@ -10,7 +10,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
-
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -23,91 +23,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.CityCountyMappings
-                    .Where(i => i.Id == placeId)
-                    .Select(i => new
-                    {
-                        City = i.City.IndustryDataByCities
-                            .Where(d => d.IndustryId == industryId)
-                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
-                            .Where(d => i.City.BusinessDataByCities.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
-                            .Select(d => new 
-                            {
-                                Value = (long)d.AverageRevenue,
-                                Name = i.City.Name + ", " + i.City.State.Abbreviation
-                            }).FirstOrDefault(),
-
-                        County = i.County.IndustryDataByCounties
-                            .Where(d => d.IndustryId == industryId)
-                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
-                            .Where(d => i.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
-                            .Select(d => new
-                            {
-                                Value = (long)d.AverageRevenue,
-                                Name = i.County.Name + ", " + i.City.State.Abbreviation
-                            }).FirstOrDefault(),
-
-                        Metro = i.County.Metro.IndustryDataByMetroes
-                            .Where(d => d.IndustryId == industryId)
-                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
-                            .Where(d => i.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
-                            .Select(d => new
-                            {
-                                Value = (long)d.AverageRevenue,
-                                Name = i.County.Metro.Name
-                            }).FirstOrDefault(),
-                        
-                        State = i.County.State.IndustryDataByStates
-                            .Where(d => d.IndustryId == industryId)
-                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
-                            .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
-                            .Select(d => new
-                            {
-                                Value = (long)d.AverageRevenue,
-                                Name = i.City.State.Name
-                            }).FirstOrDefault(),
-
-                        Nation = context.IndustryDataByNations
-                            .Where(d => d.IndustryId == industryId)
-                            .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter)
-                            .Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= 3)   
-                            .Select(d => new
-                            {
-                                Value = (long)d.AverageRevenue,
-                                Median = (long)d.MedianRevenue,
-                                Name = "USA"
-                            }).FirstOrDefault()
-                    
-                    
-                    }).FirstOrDefault();
-
-
+                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentile(long industryId, double value)
+        public ActionResult Percentile(long industryId, long placeId, long value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var revenues = BusinessData.GetByNation(context, industryId)
-                    .Where(i => i.Revenue != null)
-                    .Select(i => i.Revenue);
-
-
-                var percentile = Core.DataAccess.Math.Percentile(revenues, (long)value);
-
-                var obj = new
-                {
-                    Percentile = percentile
-                };
-
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 

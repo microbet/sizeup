@@ -432,24 +432,21 @@
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ revenue: me.data.enteredValue });
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
         };
 
         var percentileDataReturned = function (data) {
-            if (data) {
+            if (data.Nation.Percentile != null) {
                 me.data.hasData = true;
-                var percentile = sizeup.util.numbers.format.ordinal(data.Percentile);
+                var percentile = sizeup.util.numbers.format.ordinal(data.Nation.Percentile);
                 me.data.gauge = {
-                    value: data.Percentile,
-                    tooltip: data.Percentile < 1 ? '<1st Percentile' :  data.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
+                    value: data.Nation.Percentile,
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
                 };
 
                 me.data.description = {
-                    Percentile: data.Percentile < 1 ? 'less revenue than 1%' : data.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Percentile + '%'
+                    Percentile: data.Nation.Percentile < 1 ? 'less revenue than 1%' : data.Nation.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Nation.Percentile + '%'
                 };
-
-
-
             }
             else {
                 me.data.gauge = {
