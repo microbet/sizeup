@@ -3,13 +3,14 @@
     sizeup.views.shared.signin = function (opts) {
 
         var defaults = {
-            signinUrl: '/api/user/signin/'
+            signinUrl: '/api/user/signin/',
+            toggle: $('<a href="javascript:void(0);"></a>')
         };
         var me = {};
 
         me.opts = $.extend(true, defaults, opts);
         me.container = opts.container.hide().removeClass('hidden');
-        me.toggle = opts.toggle;
+        me.toggle = me.opts.toggle;
 
         me.signinForm = {
             emailBox: me.container.find('.signInEmail'),
@@ -35,6 +36,23 @@
             me.container.slideToggle();
         };
 
+        var openForm = function () {
+            if (!me.container.is(':visible')) {
+                me.container.slideToggle();
+            }
+        };
+
+        var closeForm = function () {
+            if (me.container.is(':visible')) {
+                me.container.slideToggle();
+                clearForm();
+            }
+        };
+
+        var clearForm = function () {
+            me.signinForm.emailBox.val('');
+            me.signinForm.passwordBox.val('');
+        };
 
         var signinPressed = function () {
             me.signinForm.error.hide();
@@ -126,6 +144,15 @@
         var publicObj = {
             toggleSigninForm: function () {
                 toggleSigninForm();
+            },
+            openForm: function () {
+                openForm();
+            },
+            closeForm: function(){
+                closeForm();
+            },
+            clearForm: function () {
+                clearForm();
             }
         };
         return publicObj;

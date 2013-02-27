@@ -9,8 +9,8 @@
 
 #dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; text-align: left; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
 
-
 #dashboard .report .header .icon { width:60px; height:60px; background-image:url(/content/images/dashboardIcons.png);background-repeat:no-repeat; }
+
 #dashboard .report .header h2 { font-size: 2.4em; font-weight: normal;  position: absolute; top: 1em; left: 3.5em;  }
 #dashboard .report .header .hint {font-size:1.1em; position: absolute; top: 5em; left: 8.5em;   }
 #dashboard .report .header textarea,
@@ -41,6 +41,15 @@
 #dashboard #costEffectiveness.report .header input[type="text"],
 #dashboard #revenuePerCapita.report .header input[type="text"],
 #dashboard #turnover.report .header input[type="text"]{ border: none; background-color: transparent; }
+
+
+#dashboard .report.disabled .header { cursor: pointer; }
+#dashboard .report.disabled .header .icon { background-image:url(/content/images/dashboardIcons_disabled.png);}
+#dashboard .report.disabled .header h2 {color:#909090; }
+#dashboard .report.disabled .header p.message { color: #606060; font-size: 1.5em; position: absolute; right: 6em; top: 2em; }
+#dashboard .report.disabled .body .signinPanel.form {margin: 0 0 0 7.5em; }
+
+#dashboard .report.disabled .header .valueBox { height: 4.25em; left: 40em; position: absolute; top: 1.75em; width: 17em; border: 1px solid #CCCCCC; background-color: transparent; }
 
 
 #dashboard .report .body ul.links { margin: 1em 0; text-align: right; }
@@ -114,12 +123,6 @@
 #dashboard .report .body .reportContainer .reportSidebar .section p { padding: 0 1em; margin: 0 0 1em 0; line-height: 1.5em; }
 #dashboard .report .body .reportContainer .reportSidebar .section p.notice { text-align: right; }
 #dashboard .report .body .reportContainer .reportSidebar a[target=_blank] { background: url("/content/images/externalLink.gif") no-repeat right top; padding-right: 0.8em; }
-
-
-#dashboard #signin.report { min-height: 3em; }
-#dashboard #signin.report .header { height: 6em; }
-#dashboard #signin.report .body { padding: 0 8em; }
-#dashboard #signin.report h2 a { font-size: 1em; font-weight: normal; }
 
 
 

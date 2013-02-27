@@ -22,6 +22,7 @@
 #dashboard #costEffectiveness.report .header input[type="text"]  {  width:8em; left:14em;  }
 
 
+#dashboard .report.disabled .header p.message {right:2.5em; }
 
 
 
