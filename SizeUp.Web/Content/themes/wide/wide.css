@@ -4,7 +4,7 @@
 #dashboard .report .header .prompt { left:62%; }
 #dashboard .report .header a.button { left:62%; }
 #dashboard .report .header .gauge { left: 62%; }
-    
+#dashboard .report.disabled .header p.message { left: 62%; }
     
     
     
