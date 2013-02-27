@@ -11,6 +11,7 @@ namespace SizeUp.Core.DataLayer
 {
     public class YearStarted : Base
     {
+        /*
         public IQueryable<PlaceValues<int>> Chart(SizeUpContext context, long industryId, long placeId, int startYear, int endYear)
         {
             var data = context.CityCountyMappings
@@ -100,5 +101,6 @@ namespace SizeUp.Core.DataLayer
                 });
                 
         }
+         * */
     }
 }

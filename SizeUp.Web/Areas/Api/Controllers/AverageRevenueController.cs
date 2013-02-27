@@ -12,6 +12,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core.DataLayer;
 
+
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class AverageRevenueController : BaseController
@@ -23,7 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId).FirstOrDefault();
+                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -47,7 +48,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var zips = ZipCodes.GetBounded(context, boundingEntity)
                     .Select(i => i.Id);
 
-                var data = IndustryData.GetZipCodes(context, industryId)
+                var data = SizeUp.Core.DataAccess.IndustryData.GetZipCodes(context, industryId)
                     .Where(i => i.AverageRevenue > 0)
                     .Join(zips, i => i.ZipCodeId, i => i, (i, o) => i)
                     .Select(i => i.AverageRevenue)
@@ -78,7 +79,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var ids = Counties.GetBounded(context, boundingEntity)
                     .Select(i => i.Id);
 
-                var data = IndustryData.GetCounties(context, industryId)
+                var data = SizeUp.Core.DataAccess.IndustryData.GetCounties(context, industryId)
                     .Where(i => i.AverageRevenue > 0)
                     .Join(ids, i => i.CountyId, i => i, (i, o) => i)
                     .Select(i => i.AverageRevenue)
@@ -105,7 +106,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
 
-                var data = IndustryData.GetStates(context, industryId)
+                var data = SizeUp.Core.DataAccess.IndustryData.GetStates(context, industryId)
                     .Where(i => i.AverageRevenue > 0)
                     .Select(i => i.AverageRevenue)
                     .ToList()

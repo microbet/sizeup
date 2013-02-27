@@ -10,81 +10,90 @@ namespace SizeUp.Core.DataLayer
 {
     public class AverageRevenue : Base
     {
-        public static /*IQueryable<PlaceValues<BarChartItem<long?>>>*/ object Chart(SizeUpContext context, long industryId, long placeId)
+        public static PlaceValues<BarChartItem<long?>> Chart(SizeUpContext context, long industryId, long placeId)
         {
+
             /*
             var data = context.CityCountyMappings
-                .Where(i => i.Id == placeId)
+               .Where(i => i.Id == placeId)
+              .Select(i => new PlaceValues<BarChartItem<long?>>
+              {
+
+                  City = i.City.IndustryDataByCities
+                       .Where(d => d.IndustryId == industryId)
+                       .Where(d => d.Year == Year && d.Quarter == Quarter)
+                       .Where(d => i.City.BusinessDataByCities.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                       .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                       .Select(d => new BarChartItem<long?>
+                       {
+                           Value = d.AverageRevenue,
+                           Median = null,
+                           Name = d.City.Name + ", " + d.City.State.Abbreviation
+                       }).FirstOrDefault(),
+
+                  County = i.County.IndustryDataByCounties
+                      .Where(d => d.IndustryId == industryId)
+                      .Where(d => d.Year == Year && d.Quarter == Quarter)
+                      .Where(d => i.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                      .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                      .Select(d => new BarChartItem<long?>
+                           {
+                               Value = d.AverageRevenue,
+                               Median = null,
+                               Name = d.County.Name + ", " + d.County.State.Abbreviation
+                           }).FirstOrDefault(),
+
+                  Metro = i.County.Metro.IndustryDataByMetroes
+                      .Where(d => d.IndustryId == industryId)
+                      .Where(d => d.Year == Year && d.Quarter == Quarter)
+                      .Where(d => i.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                      .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                      .Select(d => new BarChartItem<long?>
+                           {
+                               Value = d.AverageRevenue,
+                               Median = null,
+                               Name = d.Metro.Name
+                           }).FirstOrDefault(),
+
+                  State = i.County.State.IndustryDataByStates
+                      .Where(d => d.IndustryId == industryId)
+                      .Where(d => d.Year == Year && d.Quarter == Quarter)
+                      .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                      .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                      .Select(d => new BarChartItem<long?>
+                           {
+                               Value = d.AverageRevenue,
+                               Median = null,
+                               Name = d.State.Name
+                           }).FirstOrDefault(),
+
+                  Nation = context.IndustryDataByNations
+                      .Where(d => d.IndustryId == industryId)
+                      .Where(d => d.Year == Year && d.Quarter == Quarter)
+                      .Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                      .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                      .Select(d => new BarChartItem<long?>
+                           {
+                               Value = d.AverageRevenue,
+                               Median = d.MedianRevenue,
+                               Name = "USA"
+                           }).FirstOrDefault()
+              }).FirstOrDefault();
+
+            */
+
+
+             
+
+
+
+            
+            var data = IndustryData.Get(context, industryId)
+                .Where(i => i.Place.Id == placeId)
                 .Select(i => new PlaceValues<BarChartItem<long?>>
                 {
-                    City = i.City.IndustryDataByCities
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => i.City.BusinessDataByCities.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = null,
-                            Name = i.City.Name + ", " + i.City.State.Abbreviation
-                        }).FirstOrDefault(),
-
-                    County = i.County.IndustryDataByCounties
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => i.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = null,
-                            Name = i.County.Name + ", " + i.City.State.Abbreviation
-                        }).FirstOrDefault(),
-
-                    Metro = i.County.Metro.IndustryDataByMetroes
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => i.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = null,
-                            Name = i.County.Metro.Name
-                        }).FirstOrDefault(),
-
-                    State = i.County.State.IndustryDataByStates
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = null,
-                            Name = i.City.State.Name
-                        }).FirstOrDefault(),
-
-                    Nation = context.IndustryDataByNations
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = d.MedianRevenue,
-                            Name = "USA"
-                        }).FirstOrDefault()
-                });
-             * */
-
-            var data = IndustryData.Get(context, industryId)
-                .Where(i=>i.Place.Id == placeId)
-                .Select(i=> new PlaceValues<BarChartItem<long?>>
-                {
                     City = i.City.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Select(d=> new BarChartItem<long?>
+                            .Select(d => new BarChartItem<long?>
                             {
                                 Value = d.AverageRevenue,
                                 Median = null,
@@ -92,50 +101,37 @@ namespace SizeUp.Core.DataLayer
                             }).FirstOrDefault(),
 
                     County = i.County.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                            .Select(d=> new BarChartItem<long?>
+                            .Select(d => new BarChartItem<long?>
                             {
                                 Value = d.AverageRevenue,
                                 Median = null,
                                 Name = d.County.Name + ", " + d.County.State.Abbreviation
                             }).FirstOrDefault(),
-                          
-
-                       
-
-           
 
                     Metro = i.Metro.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                    
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = null,
-                            Name = i.Metro.
-                        }).FirstOrDefault(),
+                            .Select(d => new BarChartItem<long?>
+                            {
+                                Value = d.AverageRevenue,
+                                Median = null,
+                                Name = d.Metro.Name
+                            }).FirstOrDefault(),
 
-                    State = i.County.State.IndustryDataByStates
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = null,
-                            Name = i.City.State.Name
-                        }).FirstOrDefault(),
+                    State = i.State.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Select(d => new BarChartItem<long?>
+                            {
+                                Value = d.AverageRevenue,
+                                Median = null,
+                                Name = d.State.Name
+                            }).FirstOrDefault(),
 
-                    Nation = context.IndustryDataByNations
-                        .Where(d => d.IndustryId == industryId)
-                        .Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
-                        .Where(d => d.Year == Year && d.Quarter == Quarter)
-                        .Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                        .Select(d => new BarChartItem<long?>
-                        {
-                            Value = d.AverageRevenue,
-                            Median = d.MedianRevenue,
-                            Name = "USA"
-                        }).FirstOrDefault()*/
+                    Nation = i.Nation.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                            .Select(d => new BarChartItem<long?>
+                            {
+                                Value = d.AverageRevenue,
+                                Median = d.MedianRevenue,
+                                Name = "USA"
+                            }).FirstOrDefault()
+                }).FirstOrDefault();
             return data;
         }
 

@@ -15,6 +15,7 @@ namespace SizeUp.Core.DataLayer
         public static IQueryable<PlaceValues<IQueryable<IndustryDataByCity>, IQueryable<IndustryDataByCounty>, IQueryable<IndustryDataByMetro>, IQueryable<IndustryDataByState>, IQueryable<IndustryDataByNation>>> Get(SizeUpContext context, long industryId, long placeId)
         {
             var data = context.CityCountyMappings
+               .Where(i=>i.Id == placeId)
                .Select(i => new PlaceValues<IQueryable<IndustryDataByCity>, IQueryable<IndustryDataByCounty>, IQueryable<IndustryDataByMetro>, IQueryable<IndustryDataByState>, IQueryable<IndustryDataByNation>>
                {
                    City = i.City.IndustryDataByCities
