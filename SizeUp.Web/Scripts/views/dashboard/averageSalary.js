@@ -409,11 +409,11 @@
         var percentileDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var val = 50 + (data.Percentage / 2);
-                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
+                var val = 50 + (data.County.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.Percentage < 0 ? percentage + ' Below Average' : data.Percentage == 0 ? 'Average' : percentage + ' Above Average'
+                    tooltip: data.County.Percentage < 0 ? percentage + ' Below Average' : data.County.Percentage == 0 ? 'Average' : percentage + ' Above Average'
                 };               
             }
             else {

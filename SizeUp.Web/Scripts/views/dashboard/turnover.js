@@ -214,10 +214,10 @@
         var percentileDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var percentile = sizeup.util.numbers.format.ordinal(data.Percentile);
+                var percentile = sizeup.util.numbers.format.ordinal(data.County.Percentile);
                 me.data.gauge = {
-                    value: data.Percentile,
-                    tooltip: data.Percentile < 1 ? '<1st Percentile' : data.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
+                    value: data.County.Percentile,
+                    tooltip: data.County.Percentile < 1 ? '<1st Percentile' : data.County.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
                 };
             }
             else {

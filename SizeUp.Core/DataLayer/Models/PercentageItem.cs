@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class BarChartItem<T> : Base.ChartItem
+    public class PercentageItem : Base.ChartItem
     {
-        public T Value { get; set; }
-        public T Median { get; set; }
+        public int? Percentage { get; set; }
     }
 }

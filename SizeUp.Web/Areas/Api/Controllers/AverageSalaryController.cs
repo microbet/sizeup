@@ -10,6 +10,8 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
+using SizeUp.Core.DataLayer;
+
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -22,54 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.AverageSalary.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                    .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                    .Select(i => new Models.AverageSalary.ChartItem()
-                    {
-                        Value = (long)i.AverageAnnualSalary,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Where(i=>i.AverageAnnualSalary!=null && i.AverageAnnualSalary> 0)
-                    .Select(i => new Models.AverageSalary.ChartItem()
-                    {
-                        Value = (long)i.AverageAnnualSalary,
-                        Name = locations.State.Name
-                    });
-
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                        .Select(i => new Models.AverageSalary.ChartItem()
-                        {
-                            Value = (long)i.AverageAnnualSalary,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                   .Select(i => new Models.AverageSalary.ChartItem()
-                   {
-                       Value = (long)i.AverageAnnualSalary,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null :  m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-
-
+                var data = Core.DataLayer.AverageSalary.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -78,21 +33,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-                var salary = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                    .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
-                    .Select(i => i.AverageAnnualSalary)
-                    .FirstOrDefault();
-
-                object obj = null;
-                if (salary != null && salary != 0)
-                {
-                    obj = new
-                    {
-                        Percentage = (int)(((value - salary) / salary) * 100)
-                    };
-                }
+                var obj = Core.DataLayer.AverageSalary.Percentage(context, industryId, placeId, (int)value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

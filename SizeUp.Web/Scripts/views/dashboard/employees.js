@@ -776,19 +776,19 @@
                 me.data.averageEmployees.hasData = true;
                 
                 me.data.averageEmployees.percentiles = {
-                    City: data.City < 1 ? 'less employees than 1%' : data.City > 99 ? 'more employees than 99%' : 'more employees than ' + data.City + '%',
-                    County: data.County < 1 ? 'less employees than 1%' : data.County > 99 ? 'more employees than 99%' : 'more employees than ' + data.County + '%',
-                    State: data.State < 1 ? 'less employees than 1%' : data.State > 99 ? 'more employees than 99%' : 'more employees than ' + data.State + '%',
-                    Nation: data.Nation < 1 ? 'less employees than 1%' : data.Nation > 99 ? 'more employees than 99%' : 'more employees than ' + data.Nation + '%'
+                    City: data.City.Percentile < 1 ? 'less employees than 1%' : data.City.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.City.Percentile + '%',
+                    County: data.County.Percentile < 1 ? 'less employees than 1%' : data.County.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.County.Percentile + '%',
+                    State: data.State.Percentile < 1 ? 'less employees than 1%' : data.State.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.State.Percentile + '%',
+                    Nation: data.Nation.Percentile < 1 ? 'less employees than 1%' : data.Nation.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.Nation.Percentile + '%'
                 };
 
                 if (data.Metro) {
-                    me.data.averageEmployees.percentiles.Metro = data.Metro < 1 ? 'less employees than 1%' : data.Metro > 99 ? 'more employees than 99%' : 'more employees than ' + data.Metro + '%';
+                    me.data.averageEmployees.percentiles.Metro = data.Metro.Percentile < 1 ? 'less employees than 1%' : data.Metro.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.Metro.Percentile + '%';
                 }
 
                 me.data.gauge = {
-                    value: data.Nation,
-                    tooltip: data.Nation < 1 ? '<1st Percentile' : data.Nation > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
+                    value: data.Nation.Percentile,
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
 
 
@@ -873,19 +873,18 @@
 
 
                 me.data.employeesPerCapita.percentiles = {
-                    City: data.City < 1 ? 'less than 1%' : data.City > 99 ? 'more than 99%' : 'more than ' + data.City + '%',
-                    County: data.County < 1 ? 'less than 1%' : data.County > 99 ? 'more than 99%' : 'more than ' + data.County + '%',
-                    State: data.State < 1 ? 'less than 1%' : data.State > 99 ? 'more than 99%' : 'more than ' + data.State + '%',
-                    Nation: data.Nation < 1 ? 'less than 1%' : data.Nation > 99 ? 'more than 99%' : 'more than ' + data.Nation + '%'
+                    County: data.County.Percentile < 1 ? 'less than 1%' : data.County.Percentile > 99 ? 'more than 99%' : 'more than ' + data.County.Percentile + '%',
+                    State: data.State.Percentile < 1 ? 'less than 1%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%',
+                    Nation: data.Nation.Percentile < 1 ? 'less than 1%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%'
                 };
 
                 if (data.Metro) {
-                    me.data.employeesPerCapita.percentiles.Metro = data.Metro < 1 ? 'less than 1%' : data.Metro > 99 ? 'more than 99%' : 'more than ' + data.Metro + '%';
+                    me.data.employeesPerCapita.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 1%' : data.Metro.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Metro.Percentile + '%';
                 }
 
                 me.data.gauge = {
-                    value: data.Nation,
-                    tooltip: data.Nation < 1 ? '<1st Percentile' : data.Nation > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation) + ' Percentile'
+                    value: data.Nation.Percentile,
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
 
 

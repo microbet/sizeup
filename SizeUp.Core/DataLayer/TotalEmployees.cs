@@ -9,7 +9,7 @@ using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Core.DataLayer
 {
-    public class AverageRevenue : Base.Base
+    public class TotalEmployees : Base.Base
     {
         public static PlaceValues<BarChartItem<long?>> Chart(SizeUpContext context, long industryId, long placeId)
         {
@@ -17,49 +17,49 @@ namespace SizeUp.Core.DataLayer
                 .Where(i => i.Place.Id == placeId)
                 .Select(i => new PlaceValues<BarChartItem<long?>>
                 {
-                    City = i.City.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                    City = i.City.Where(d => d.TotalEmployees != null && d.TotalEmployees > 0)
                             .Select(d => new BarChartItem<long?>
                             {
-                                Value = d.AverageRevenue,
+                                Value = d.TotalEmployees,
                                 Median = null,
                                 Name = d.City.Name + ", " + d.City.State.Abbreviation
                             }).FirstOrDefault(),
 
-                    County = i.County.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                    County = i.County.Where(d => d.TotalEmployees != null && d.TotalEmployees > 0)
                             .Select(d => new BarChartItem<long?>
                             {
-                                Value = d.AverageRevenue,
+                                Value = d.TotalEmployees,
                                 Median = null,
                                 Name = d.County.Name + ", " + d.County.State.Abbreviation
                             }).FirstOrDefault(),
 
-                    Metro = i.Metro.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                    Metro = i.Metro.Where(d => d.TotalEmployees != null && d.TotalEmployees > 0)
                             .Select(d => new BarChartItem<long?>
                             {
-                                Value = d.AverageRevenue,
+                                Value = d.TotalEmployees,
                                 Median = null,
                                 Name = d.Metro.Name
                             }).FirstOrDefault(),
 
-                    State = i.State.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                    State = i.State.Where(d => d.TotalEmployees != null && d.TotalEmployees > 0)
                             .Select(d => new BarChartItem<long?>
                             {
-                                Value = d.AverageRevenue,
+                                Value = d.TotalEmployees,
                                 Median = null,
                                 Name = d.State.Name
                             }).FirstOrDefault(),
 
-                    Nation = i.Nation.Where(d => d.AverageRevenue != null && d.AverageRevenue > 0)
+                    Nation = i.Nation.Where(d => d.TotalEmployees != null && d.TotalEmployees > 0)
                             .Select(d => new BarChartItem<long?>
                             {
-                                Value = d.AverageRevenue,
-                                Median = d.MedianRevenue,
+                                Value = d.TotalEmployees,
+                                Median = null,
                                 Name = "USA"
                             }).FirstOrDefault()
                 }).FirstOrDefault();
             return data;
         }
-
+        /*
         public static PlaceValues<PercentileItem> Percentile(SizeUpContext context, long industryId, long placeId, long value)
         {
 
@@ -135,6 +135,6 @@ namespace SizeUp.Core.DataLayer
                     }
                 }).FirstOrDefault();
             return data;
-        }
+        }*/
     }
 }

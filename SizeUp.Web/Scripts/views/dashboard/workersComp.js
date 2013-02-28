@@ -121,16 +121,16 @@
         var percentageDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var val = 50 - (data.Percentage / 2);
-                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
+                var val = 50 - (data.State.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
 
                 me.data.description = {
-                    Percentage: data.Percentage < 0 ? percentage + ' less' :  data.Percentage == 0 ? 'the same' : percentage + ' greater'
+                    Percentage: data.State.Percentage < 0 ? percentage + ' less' : data.State.Percentage == 0 ? 'the same' : percentage + ' greater'
                 };
 
                 me.data.gauge = {
                     value: val,
-                    tooltip: 'You' + (data.Percentage < 0 ? ' save ' : ' overpay ') + percentage + ' compared to the average'
+                    tooltip: 'You' + (data.State.Percentage < 0 ? ' save ' : ' overpay ') + percentage + ' compared to the average'
                 };
             }
             else {

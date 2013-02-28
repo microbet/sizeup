@@ -10,7 +10,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.DataAccess;
-
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -20,62 +20,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.TotalRevenue.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                                        .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
-                    .Select(i => new Models.TotalRevenue.ChartItem()
-                    {
-                        Value = (long)i.TotalRevenue,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
-                    .Select(i => new Models.TotalRevenue.ChartItem()
-                    {
-                        Value = (long)i.TotalRevenue,
-                        Name = locations.State.Name
-                    });
-
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
-                        .Select(i => new Models.TotalRevenue.ChartItem()
-                        {
-                            Value = (long)i.TotalRevenue,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                    .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
-                   .Select(i => new Models.TotalRevenue.ChartItem()
-                   {
-                       Value = (long)i.TotalRevenue,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
-                    .Where(i => i.TotalRevenue != null && i.TotalRevenue > 0)
-                   .Select(i => new Models.TotalRevenue.ChartItem()
-                   {
-                       Value = (long)i.TotalRevenue,
-                       Name = locations.City.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    City = c.FirstOrDefault(),
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-
-
+                var data = Core.DataLayer.TotalRevenue.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

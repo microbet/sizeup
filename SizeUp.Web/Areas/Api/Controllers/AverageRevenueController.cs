@@ -33,7 +33,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value).FirstOrDefault();
+                var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

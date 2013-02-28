@@ -10,7 +10,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
-
+using SizeUp.Core.DataLayer;
 
 
 namespace SizeUp.Web.Areas.Api.Controllers
@@ -24,56 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-                IQueryable<Models.RevenuePerCapita.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                    .Select(i => new Models.RevenuePerCapita.ChartItem()
-                    {
-                        Value = i.RevenuePerCapita,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                     .Select(i => new Models.RevenuePerCapita.ChartItem()
-                     {
-                         Value = i.RevenuePerCapita,
-                         Name = locations.State.Name
-                     });
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                         .Where(i => i.IndustryId == industryId && i.MetroId == locations.Metro.Id && i.Year == TimeSlice.Year && i.Quarter == TimeSlice.Quarter)
-                        .Select(i => new Models.RevenuePerCapita.ChartItem()
-                        {
-                            Value = i.RevenuePerCapita,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Select(i => new Models.RevenuePerCapita.ChartItem()
-                   {
-                       Value = i.RevenuePerCapita,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
-                  .Select(i => new Models.RevenuePerCapita.ChartItem()
-                  {
-                      Value = (long)i.RevenuePerCapita,
-                      Name = locations.City.Name + ", " + locations.State.Abbreviation
-                  });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault(),
-                    City = c.FirstOrDefault()
-                };
+                var data = Core.DataLayer.RevenuePerCapita.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -84,44 +35,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-                IQueryable<long?> metro = null;
-                var raw = IndustryData.GetCities(context, industryId);
-
-                var coIds = Cities.GetBounded(context, locations.CountyBoundingEntity)
-                    .Select(i=>i.Id);
-                var sIds = Cities.GetBounded(context, locations.StateBoundingEntity)
-                    .Select(i=>i.Id);
-
-                if (locations.Metro != null)
-                {
-
-                    var mIds = Cities.GetBounded(context, locations.MetroBoundingEntity)
-                      .Select(i => i.Id);
-                    metro = raw.Join(mIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);
-                }
-
-                var county = raw.Join(coIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);    
-                var state = raw.Join(sIds, i => i.CityId, i => i, (i, o) => i.RevenuePerCapita);
-                var nation = raw.Select(i=>i.RevenuePerCapita);
-
-                var value = IndustryData.GetCity(context, industryId, locations.City.Id)
-                   .Select(i => i.RevenuePerCapita)
-                   .FirstOrDefault();
-
-                object obj = null;
-                if (value != null)
-                {
-                    obj = new
-                    {
-                        County = Core.DataAccess.Math.Percentile(county, (long)value),
-                        Metro = metro == null ? null : Core.DataAccess.Math.Percentile(metro, (long)value),
-                        State = Core.DataAccess.Math.Percentile(state, (long)value),
-                        Nation = Core.DataAccess.Math.Percentile(nation, (long)value)
-                    };
-                }
-
+                var obj = Core.DataLayer.RevenuePerCapita.Percentile(context, industryId, placeId);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

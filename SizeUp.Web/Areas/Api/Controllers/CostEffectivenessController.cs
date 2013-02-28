@@ -10,7 +10,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
-
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -23,53 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.CostEffectiveness.ChartItem> m = null;
-                var n = IndustryData.GetNational(context,industryId)
-                    .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0)
-                    .Select(i => new Models.CostEffectiveness.ChartItem()
-                    {
-                        Value = (double)i.CostEffectiveness,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0)
-                    .Select(i => new Models.CostEffectiveness.ChartItem()
-                    {
-                        Value = (double)i.CostEffectiveness,
-                        Name = locations.State.Name
-                    });
-
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0)
-                        .Select(i => new Models.CostEffectiveness.ChartItem()
-                        {
-                            Value = (double)i.CostEffectiveness,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0)
-                   .Select(i => new Models.CostEffectiveness.ChartItem()
-                   {
-                       Value = (double)i.CostEffectiveness,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-            
-
+                var data = Core.DataLayer.CostEffectiveness.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -78,23 +32,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
                 var ce = revenue / (double)(employees * salary);
-
-
-                var county = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                    .Select(i => i.CostEffectiveness)
-                    .FirstOrDefault();
-
-                object obj = null;
-                if (county != null && county != 0)
-                {
-                    obj = new
-                    {
-                        Percentage = (int)(((ce - county) / county) * 100)
-                    };
-                }
+                var obj = Core.DataLayer.CostEffectiveness.Percentage(context, industryId, placeId, ce);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

@@ -10,6 +10,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -22,56 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.EmployeesPerCapita.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                    .Select(i => new Models.EmployeesPerCapita.ChartItem()
-                    {
-                        Value = (double)i.EmployeesPerCapita,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Select(i => new Models.EmployeesPerCapita.ChartItem()
-                    {
-                        Value = (double)i.EmployeesPerCapita,
-                        Name = locations.State.Name
-                    });
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Select(i => new Models.EmployeesPerCapita.ChartItem()
-                        {
-                            Value = (double)i.EmployeesPerCapita,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Select(i => new Models.EmployeesPerCapita.ChartItem()
-                   {
-                       Value = (double)i.EmployeesPerCapita,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
-                   .Select(i => new Models.EmployeesPerCapita.ChartItem()
-                   {
-                       Value = (double)i.EmployeesPerCapita,
-                       Name = locations.City.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    City = c.FirstOrDefault(),
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null :  m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-
-
+                var data = Core.DataLayer.EmployeesPerCapita.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -80,46 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-                IQueryable<double?> metro = null;
-                var value = IndustryData.GetCity(context, industryId, locations.City.Id)
-                   .Where(i => i.EmployeesPerCapita != null)
-                   .Select(i => i.EmployeesPerCapita)
-                   .FirstOrDefault();
-
-
-
-                var county = IndustryData.GetCities(context, industryId)
-                    .Where(i => i.EmployeesPerCapita != null)
-                    .Where(i => i.City.CityCountyMappings.Any(m => m.CountyId == locations.County.Id))
-                    .Select(i => i.EmployeesPerCapita);
-
-                if (locations.Metro != null)
-                {
-                    metro = IndustryData.GetCities(context, industryId)
-                        .Where(i => i.EmployeesPerCapita != null)
-                        .Where(i => i.City.CityCountyMappings.Any(m => m.County.MetroId == locations.Metro.Id))
-                        .Select(i => i.EmployeesPerCapita);
-                }
-
-                var state = IndustryData.GetCities(context, industryId)
-                    .Where(i => i.EmployeesPerCapita != null)
-                    .Where(i => i.City.CityCountyMappings.Any(m => m.County.StateId == locations.State.Id))
-                    .Select(i => i.EmployeesPerCapita);
-
-                var nation = IndustryData.GetCities(context, industryId)
-                    .Where(i => i.EmployeesPerCapita != null)
-                    .Select(i => i.EmployeesPerCapita);
-
-                var obj = new
-                {
-                    County = Core.DataAccess.Math.Percentile(county, value),
-                    Metro = metro == null ? null : Core.DataAccess.Math.Percentile(metro, value),
-                    State = Core.DataAccess.Math.Percentile(state, value),
-                    Nation = Core.DataAccess.Math.Percentile(nation, value)
-                };
-
+                var obj = Core.DataLayer.EmployeesPerCapita.Percentile(context, industryId, placeId);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

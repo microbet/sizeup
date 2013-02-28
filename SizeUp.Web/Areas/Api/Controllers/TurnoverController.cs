@@ -9,6 +9,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.DataAccess;
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -20,57 +21,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.Turnover.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                    .Select(i => new Models.Turnover.ChartItem()
-                    {
-                        Hires = i.Hires,
-                        Separations = i.Separations,
-                        Turnover = i.TurnoverRate * 100,
-                        Name = "USA"
-                    });
-
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Select(i => new Models.Turnover.ChartItem()
-                    {
-                        Hires = i.Hires,
-                        Separations = i.Separations,
-                        Turnover = i.TurnoverRate * 100,
-                        Name = locations.State.Name
-                    });
-
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                         .Select(i => new Models.Turnover.ChartItem()
-                         {
-                             Hires = i.Hires,
-                             Separations = i.Separations,
-                             Turnover = i.TurnoverRate * 100,
-                             Name = locations.Metro.Name
-                         });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Select(i => new Models.Turnover.ChartItem()
-                   {
-                       Hires = i.Hires,
-                       Separations = i.Separations,
-                       Turnover = i.TurnoverRate * 100,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-                var data = new Models.Charts.BarChart()
-                {
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-
-
+                var data = Core.DataLayer.Turnover.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -79,21 +30,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-
-                var values = IndustryData.GetCounties(context, industryId)
-                    .Select(i => i.TurnoverRate);
-
-                var value = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Select(i => i.TurnoverRate)
-                   .FirstOrDefault();
-
-                var obj = new
-                {
-                    Percentile = Core.DataAccess.Math.Percentile(values, (double)value, Core.DataAccess.Math.Order.GreaterThan)
-                };
-
+                var obj = Core.DataLayer.Turnover.Percentile(context, industryId, placeId);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

@@ -9,7 +9,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.DataAccess;
-
+using SizeUp.Core.DataLayer;
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class JobChangeController : BaseController
@@ -21,59 +21,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.JobChange.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                    .Select(i => new Models.JobChange.ChartItem()
-                    {
-                        NetJobChange = i.NetJobChange,
-                        JobGains = i.JobGains,
-                        JobLosses = i.JobLosses,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                     .Select(i => new Models.JobChange.ChartItem()
-                    {
-                        NetJobChange = i.NetJobChange,
-                        JobGains = i.JobGains,
-                        JobLosses = i.JobLosses,
-                        Name = locations.State.Name
-                    });
-
-                if (locations.Metro != null)
-                {
-
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Select(i => new Models.JobChange.ChartItem()
-                        {
-                            NetJobChange = i.NetJobChange,
-                            JobGains = i.JobGains,
-                            JobLosses = i.JobLosses,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                   .Select(i => new Models.JobChange.ChartItem()
-                   {
-                       NetJobChange = i.NetJobChange,
-                       JobGains = i.JobGains,
-                       JobLosses = i.JobLosses,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-
-
+                var data = Core.DataLayer.JobChange.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

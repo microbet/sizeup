@@ -10,6 +10,8 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
+using SizeUp.Core.DataLayer;
+
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -22,63 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable<Models.AverageEmployees.ChartItem> m = null;
-                var n = IndustryData.GetNational(context, industryId)
-                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
-                    .Select(i => new Models.AverageEmployees.ChartItem()
-                    {
-                        Value = (long)i.AverageEmployees,
-                        Median = i.MedianEmployees,
-                        Name = "USA"
-                    });
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
-                    .Select(i => new Models.AverageEmployees.ChartItem()
-                    {
-                        Value = (long)i.AverageEmployees,
-                        Name = locations.State.Name
-                    });
-
-                if (locations.Metro != null)
-                {
-                    m = IndustryData.GetMetro(context, industryId, locations.Metro.Id)
-                        .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
-                        .Select(i => new Models.AverageEmployees.ChartItem()
-                        {
-                            Value = (long)i.AverageEmployees,
-                            Name = locations.Metro.Name
-                        });
-                }
-
-                var co = IndustryData.GetCounty(context, industryId, locations.County.Id)
-                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
-                   .Select(i => new Models.AverageEmployees.ChartItem()
-                   {
-                       Value = (long)i.AverageEmployees,
-                       Name = locations.County.Name + ", " + locations.State.Abbreviation
-                   });
-
-                var c = IndustryData.GetCity(context, industryId, locations.City.Id)
-                    .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
-                   .Select(i => new Models.AverageEmployees.ChartItem()
-                   {
-                       Value = (long)i.AverageEmployees,
-                       Name = locations.City.Name + ", " + locations.State.Abbreviation
-                   });
-
-
-                var data = new Models.Charts.BarChart()
-                {
-                    City = c.FirstOrDefault(),
-                    Nation = n.FirstOrDefault(),
-                    State = s.FirstOrDefault(),
-                    Metro = m == null ? null : m.FirstOrDefault(),
-                    County = co.FirstOrDefault()
-                };
-
-
+                var data = Core.DataLayer.AverageEmployees.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -87,41 +33,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-                IQueryable<long?> metro = null;
-                var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
-                   .Where(i => i.Employees != null)
-                   .Select(i => i.Employees);
-
-                var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
-                    .Where(i=>i.Employees != null)
-                    .Select(i=>i.Employees);
-
-                if (locations.Metro != null)
-                {
-                    metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
-                        .Where(i => i.Employees != null)
-                        .Select(i => i.Employees);
-                }
-
-                var state = BusinessData.GetByState(context, industryId, locations.State.Id)
-                    .Where(i => i.Employees != null)
-                    .Select(i => i.Employees);
-
-                var nation = BusinessData.GetByNation(context, industryId)
-                    .Where(i => i.Employees != null)
-                    .Select(i => i.Employees);
-
-                var obj = new
-                {
-                    City = Core.DataAccess.Math.Percentile(city, value),
-                    County = Core.DataAccess.Math.Percentile(county, value),
-                    Metro = metro == null ? null : Core.DataAccess.Math.Percentile(metro, value),
-                    State = Core.DataAccess.Math.Percentile(state, value),
-                    Nation = Core.DataAccess.Math.Percentile(nation, value)
-                };
-
+                var obj = Core.DataLayer.AverageEmployees.Percentile(context, industryId, placeId, value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

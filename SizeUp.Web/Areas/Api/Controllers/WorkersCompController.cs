@@ -10,7 +10,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
-
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -19,26 +19,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/WorkersComp/
 
-        public ActionResult WorkersComp(long industryId, long placeId, int? employees)
+        public ActionResult WorkersComp(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-
-                var s = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Select(i => new Models.WorkersComp.ChartItem()
-                    {
-                        Rank = i.WorkersCompRank.Value,
-                        Average = i.WorkersComp.Value,
-                        Name = locations.State.Name
-                    });
-
-                var data = new Models.Charts.BarChart()
-                {
-                    State = s.FirstOrDefault()
-                };
-
+                var data = Core.DataLayer.WorkersComp.Chart(context, industryId, placeId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -47,20 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-
-                var data = IndustryData.GetState(context, industryId, locations.State.Id)
-                    .Select(i => i.WorkersComp.Value)
-                    .FirstOrDefault();
-
-                object obj = null;
-                if (data != 0)
-                {
-                    obj = new
-                    {
-                        Percentage = (int)(((value - data) / data) * 100)
-                    };
-                }
+                var obj = Core.DataLayer.WorkersComp.Percentage(context, industryId, placeId, value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

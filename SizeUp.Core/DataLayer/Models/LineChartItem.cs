@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class BarChartItem<T> : Base.ChartItem
+    public class LineChartItem<T, V> : Base.ChartItem
     {
-        public T Value { get; set; }
-        public T Median { get; set; }
+        public T Key { get; set; }
+        public V Value { get; set; }
     }
 }

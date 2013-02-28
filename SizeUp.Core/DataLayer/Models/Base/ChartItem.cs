@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SizeUp.Core.DataLayer.Models
+namespace SizeUp.Core.DataLayer.Models.Base
 {
-    public class PercentileItem : Base.ChartItem
+    public class ChartItem
     {
-        public int? Percentile { get; set; }
+        public string Name { get; set; }
     }
 }

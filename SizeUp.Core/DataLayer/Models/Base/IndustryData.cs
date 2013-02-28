@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SizeUp.Data;
 
-namespace SizeUp.Core.DataLayer.Models
+namespace SizeUp.Core.DataLayer.Models.Base
 {
     public class IndustryData
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 
-namespace SizeUp.Core.DataLayer
+namespace SizeUp.Core.DataLayer.Base
 {
     public class Base
     {
