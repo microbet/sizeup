@@ -9,7 +9,7 @@ namespace SizeUp.Core.DataLayer.Base
 {
     public class Base
     {
-        public static int Year
+        protected static int Year
         {
             get
             {
@@ -17,7 +17,7 @@ namespace SizeUp.Core.DataLayer.Base
             }
         }
 
-        public static int Quarter
+        protected static int Quarter
         {
             get
             {
@@ -25,7 +25,7 @@ namespace SizeUp.Core.DataLayer.Base
             }
         }
 
-        public static int MinimumBusinessCount
+        protected static int MinimumBusinessCount
         {
             get
             {

@@ -136,16 +136,8 @@
                 return get('/api/averageRevenue/percentile/', params, callback);
             },
 
-            getAverageRevenueBandsByState: function (params, callback) {
-                return get('/api/averageRevenue/bands/state/', params, callback);
-            },
-
-            getAverageRevenueBandsByCounty: function (params, callback) {
-                return get('/api/averageRevenue/bands/county/', params, callback);
-            },
-
-            getAverageRevenueBandsByZip: function (params, callback) {
-                return get('/api/averageRevenue/bands/zip/', params, callback);
+            getAverageRevenueBands: function(params, callback){
+                return get('/api/averageRevenue/bands', params, callback);
             },
 
             getYearStartedChart: function (params, callback) {
@@ -168,12 +160,8 @@
                 return get('/api/averageSalary/percentage/', params, callback);
             },
 
-            getAverageSalaryBandsByState: function (params, callback) {
-                return get('/api/averageSalary/bands/state/', params, callback);
-            },
-
-            getAverageSalaryBandsByCounty: function (params, callback) {
-                return get('/api/averageSalary/bands/county/', params, callback);
+            getAverageSalaryBands: function (params, callback) {
+                return get('/api/averageSalary/bands/', params, callback);
             },
 
             getRevenuePerCapitaChart: function (params, callback) {

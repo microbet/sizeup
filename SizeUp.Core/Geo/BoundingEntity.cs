@@ -22,47 +22,46 @@ namespace SizeUp.Core.Geo
         }
 
         public string BoundingEntityId { get; protected set; }
-        public BoundingEntityType? EntityType { get; protected set;}
+        public BoundingEntityType? EntityType { get; protected set; }
         public long? EntityId { get; protected set; }
 
         public BoundingEntity(string entityIdCode)
         {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                BoundingEntityId = entityIdCode;
-                EntityType = null;
-                EntityId = null;
-                if (string.IsNullOrEmpty(entityIdCode))
-                {
-                    entityIdCode = string.Empty;
-                }
 
-                if (entityIdCode.StartsWith("z"))
-                {
-                    EntityId = long.Parse(entityIdCode.Substring(1));
-                    EntityType = BoundingEntityType.Zip;
-                }
-                else if (entityIdCode.StartsWith("co"))
-                {
-                    EntityId = long.Parse(entityIdCode.Substring(2));
-                    EntityType = BoundingEntityType.County;
-                }
-                else if (entityIdCode.StartsWith("c"))
-                {
-                    EntityId = long.Parse(entityIdCode.Substring(1));
-                    EntityType = BoundingEntityType.City;
-                }
-                else if (entityIdCode.StartsWith("m"))
-                {
-                    EntityId = long.Parse(entityIdCode.Substring(1));
-                    EntityType = BoundingEntityType.Metro;
-                }
-                else if (entityIdCode.StartsWith("s"))
-                {
-                    EntityId = long.Parse(entityIdCode.Substring(1));
-                    EntityType = BoundingEntityType.State;
-                }
+            BoundingEntityId = entityIdCode;
+            EntityType = null;
+            EntityId = null;
+            if (string.IsNullOrEmpty(entityIdCode))
+            {
+                entityIdCode = string.Empty;
             }
+
+            if (entityIdCode.StartsWith("z"))
+            {
+                EntityId = long.Parse(entityIdCode.Substring(1));
+                EntityType = BoundingEntityType.Zip;
+            }
+            else if (entityIdCode.StartsWith("co"))
+            {
+                EntityId = long.Parse(entityIdCode.Substring(2));
+                EntityType = BoundingEntityType.County;
+            }
+            else if (entityIdCode.StartsWith("c"))
+            {
+                EntityId = long.Parse(entityIdCode.Substring(1));
+                EntityType = BoundingEntityType.City;
+            }
+            else if (entityIdCode.StartsWith("m"))
+            {
+                EntityId = long.Parse(entityIdCode.Substring(1));
+                EntityType = BoundingEntityType.Metro;
+            }
+            else if (entityIdCode.StartsWith("s"))
+            {
+                EntityId = long.Parse(entityIdCode.Substring(1));
+                EntityType = BoundingEntityType.State;
+            }
+
         }
     }
 }

@@ -206,23 +206,10 @@ namespace SizeUp.Web.Areas.Api
             );
 
             context.MapRoute(
-                "AverageRevenueBandsZip",
-                "Api/AverageRevenue/Bands/Zip",
-                new { controller = "AverageRevenue", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+                "AverageRevenueBands",
+                "Api/AverageRevenue/Bands",
+                new { controller = "AverageRevenue", action = "Bands" }
             );
-
-            context.MapRoute(
-                "AverageRevenueBandsCounty",
-                "Api/AverageRevenue/Bands/County",
-                new { controller = "AverageRevenue", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
-            );
-
-            context.MapRoute(
-                "AverageRevenueBandsState",
-                "Api/AverageRevenue/Bands/State",
-                new { controller = "AverageRevenue", action = "BandsByState" }
-            );
-
 
 
             /*****year started *****/
@@ -261,15 +248,10 @@ namespace SizeUp.Web.Areas.Api
 
             context.MapRoute(
                 "AverageSalaryBands",
-                "Api/AverageSalary/Bands/County",
-                new { controller = "AverageSalary", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
+                "Api/AverageSalary/Bands",
+                new { controller = "AverageSalary", action = "Bands" }
             );
 
-            context.MapRoute(
-                "AverageSalaryState",
-                "Api/AverageSalary/Bands/State",
-                new { controller = "AverageSalary", action = "BandsByState" }
-            );
 
             /****AverageEmployees*****/
 

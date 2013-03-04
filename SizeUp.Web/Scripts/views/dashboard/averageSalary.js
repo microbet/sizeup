@@ -283,10 +283,12 @@
                     data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
-                    dataLayer.getAverageSalaryBandsByCounty({
+                    dataLayer.getAverageSalaryBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
-                        bands: 7
+                        bands: 7,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro'
                     }, itemsNotify);
          
            
@@ -296,10 +298,12 @@
                     data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
-                    dataLayer.getAverageSalaryBandsByCounty({
+                    dataLayer.getAverageSalaryBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
-                        bands: 7
+                        bands: 7,
+                        granularity: 'County',
+                        boundingGranularity: 'State'
                     }, itemsNotify);
                 }
             }
@@ -309,10 +313,12 @@
                     data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getAverageSalaryBandsByCounty({
+                    dataLayer.getAverageSalaryBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
-                        bands: 7
+                        bands: 7,
+                        granularity: 'County',
+                        boundingGranularity: 'State'
                     }, itemsNotify);
                      
                 }
@@ -323,9 +329,11 @@
                 data.title = 'Average Salary by state in the USA';
                 me.data.textAlternativeUrl = '/accessibility/averageSalary/state/';
                 me.data.currentBoundingEntityId = null;
-                dataLayer.getAverageSalaryBandsByState({
+                dataLayer.getAverageSalaryBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
-                    bands: 7
+                    bands: 7,
+                    granularity: 'State'
                 }, itemsNotify);
             }
         };
@@ -400,10 +408,23 @@
                 displayReport();
             });
 
+            var percentileData = {};
+            var chartData = {};
+            var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { percentileDataReturned(percentileData); }));
+            var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
+
+
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ salary: me.data.enteredValue });
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
+            /*dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
             dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+            */
+
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
         };
 
         var percentileDataReturned = function (data) {

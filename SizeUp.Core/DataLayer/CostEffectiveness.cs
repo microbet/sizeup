@@ -13,7 +13,7 @@ namespace SizeUp.Core.DataLayer
     {
         public static PlaceValues<BarChartItem<double?>> Chart(SizeUpContext context, long industryId, long placeId)
         {
-            var data = IndustryData.Get(context, industryId)
+            var data = IndustryData.GetMinimumBusinessCount(context, industryId)
                 .Where(i => i.Place.Id == placeId)
                 .Select(i => new PlaceValues<BarChartItem<double?>>
                 {
@@ -54,7 +54,7 @@ namespace SizeUp.Core.DataLayer
 
         public static PlaceValues<PercentageItem> Percentage(SizeUpContext context, long industryId, long placeId, double value)
         {
-            var data = IndustryData.Get(context, industryId)
+            var data = IndustryData.GetMinimumBusinessCount(context, industryId)
                 .Where(i=>i.Place.Id == placeId)
                 .Select(i => new
                 {

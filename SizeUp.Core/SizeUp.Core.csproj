@@ -85,9 +85,15 @@
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\Base\Base.cs" />
     <Compile Include="DataLayer\Base\BusinessData.cs" />
+    <Compile Include="DataLayer\Base\Granularity.cs" />
     <Compile Include="DataLayer\Base\IndustryData.cs" />
     <Compile Include="DataLayer\AverageSalary.cs" />
     <Compile Include="DataLayer\AverageEmployees.cs" />
+    <Compile Include="DataLayer\City.cs" />
+    <Compile Include="DataLayer\State.cs" />
+    <Compile Include="DataLayer\Metro.cs" />
+    <Compile Include="DataLayer\County.cs" />
+    <Compile Include="DataLayer\Models\Band.cs" />
     <Compile Include="DataLayer\Models\WorkersCompChartItem.cs" />
     <Compile Include="DataLayer\WorkersComp.cs" />
     <Compile Include="DataLayer\Healthcare.cs" />
@@ -110,6 +116,7 @@
     <Compile Include="DataLayer\Models\PlaceValues.cs" />
     <Compile Include="DataLayer\Models\BarChartItem.cs" />
     <Compile Include="DataLayer\YearStarted.cs" />
+    <Compile Include="DataLayer\ZipCode.cs" />
     <Compile Include="Diagnostics\HandleErrorAndLogAttribute.cs" />
     <Compile Include="Diagnostics\TimingModule.cs" />
     <Compile Include="Email\IMailingList.cs" />

@@ -305,9 +305,11 @@
                 data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
                 me.data.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeUrl = '/accessibility/revenue/zip/';
-                dataLayer.getAverageRevenueBandsByZip({
+                dataLayer.getAverageRevenueBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     bands: 7
                 }, itemsNotify);
             }
@@ -317,9 +319,11 @@
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.textAlternativeUrl = '/accessibility/revenue/county/';
-                    dataLayer.getAverageRevenueBandsByCounty({
+                    dataLayer.getAverageRevenueBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         bands: 7
                     }, itemsNotify);
 
@@ -330,9 +334,11 @@
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.textAlternativeUrl = '/accessibility/revenue/county/';
-                    dataLayer.getAverageRevenueBandsByCounty({
+                    dataLayer.getAverageRevenueBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
                 }
@@ -343,9 +349,11 @@
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.textAlternativeUrl = '/accessibility/revenue/county/';
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getAverageRevenueBandsByState({
+                    dataLayer.getAverageRevenueBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
 
@@ -357,8 +365,10 @@
                 data.title = 'Average Business Annual Revenue by state in the USA';
                 me.data.textAlternativeUrl = '/accessibility/revenue/state/';
                 me.data.currentBoundingEntityId = null;
-                dataLayer.getAverageRevenueBandsByState({
+                dataLayer.getAverageRevenueBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    granularity: 'State',
                     bands: 7
                 }, itemsNotify);
             }
@@ -429,10 +439,20 @@
                 displayReport();
             });
 
+            var percentileData = {};
+            var chartData = {};
+            var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function(){ percentileDataReturned(percentileData); }));
+            var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
+
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ revenue: me.data.enteredValue });
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
         var percentileDataReturned = function (data) {
@@ -478,7 +498,7 @@
                     color: '#f60'
                 };
 
-
+                
             me.data.table['me'] =
                 {
                     name: 'My Business',

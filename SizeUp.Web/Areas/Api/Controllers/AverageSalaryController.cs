@@ -11,7 +11,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core.DataLayer;
-
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -20,25 +20,35 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/AverageSalary/
 
-        public ActionResult AverageSalary(int industryId, int placeId)
+        public ActionResult AverageSalary(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageSalary.Chart(context, industryId, placeId);
+                var data = Core.DataLayer.AverageSalary.Chart(context, industryId, placeId, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentage(int industryId, int placeId, decimal value)
+        public ActionResult Percentage(int industryId, int placeId, int value, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.AverageSalary.Percentage(context, industryId, placeId, (int)value);
+                var obj = Core.DataLayer.AverageSalary.Percentage(context, industryId, placeId, value, granularity);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
+        public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = Core.DataLayer.AverageSalary.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
 
+
+        /*
         public ActionResult BandsByCounty(int industryId, int bands, string boundingEntityId)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -96,6 +106,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
+        */
     }
 }

@@ -13,7 +13,7 @@ namespace SizeUp.Core.DataLayer
     {
         public static PlaceValues<BarChartItem<double?>> Chart(SizeUpContext context, long industryId, long placeId)
         {
-            var data = IndustryData.Get(context, industryId)
+            var data = IndustryData.GetMinimumBusinessCount(context, industryId)
                 .Where(i => i.Place.Id == placeId)
                 .Select(i => new PlaceValues<BarChartItem<double?>>
                 {
@@ -69,11 +69,19 @@ namespace SizeUp.Core.DataLayer
                 .Select(i => new
                 {
                     Place = i,
-                    City = raw.Where(d => d.City.CityCountyMappings.Any(c => c.Id == placeId)),
-                    County = raw.Where(d => d.City.CityCountyMappings.Any(c => c.County.CityCountyMappings.Any(co => co.Id == placeId))),
-                    Metro = raw.Where(d => d.City.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId)))),
-                    State = raw.Where(d => d.City.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId))),
-                    Nation = raw
+                    City = raw.Where(d => d.City.CityCountyMappings.Any(c => c.Id == placeId))
+                                .Where(d => i.City.BusinessDataByCities.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
+
+                    County = raw.Where(d => d.City.CityCountyMappings.Any(c => c.County.CityCountyMappings.Any(co => co.Id == placeId)))
+                                .Where(d => i.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
+
+                    Metro = raw.Where(d => d.City.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
+                                .Where(d => i.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
+
+                    State = raw.Where(d => d.City.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
+                                .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
+
+                    Nation = raw.Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
                 })
                 .Select(i => new
                 {

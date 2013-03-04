@@ -6,111 +6,194 @@ using System.Threading.Tasks;
 using SizeUp.Core.DataLayer.Models;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.Extensions;
 
 namespace SizeUp.Core.DataLayer
 {
     public class AverageSalary : Base.Base
     {
-        public static PlaceValues<BarChartItem<long?>> Chart(SizeUpContext context, long industryId, long placeId)
+        public static BarChartItem<long?> Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = IndustryData.Get(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i => new PlaceValues<BarChartItem<long?>>
-                {
-                    County = i.County.Where(d => d.AverageAnnualSalary != null && d.AverageAnnualSalary > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.AverageAnnualSalary,
-                                Median = null,
-                                Name = d.County.Name + ", " + d.County.State.Abbreviation
-                            }).FirstOrDefault(),
+            BarChartItem<long?> output = null;
 
-                    Metro = i.Metro.Where(d => d.AverageAnnualSalary != null && d.AverageAnnualSalary > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.AverageAnnualSalary,
-                                Median = null,
-                                Name = d.Metro.Name
-                            }).FirstOrDefault(),
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId))
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
 
-                    State = i.State.Where(d => d.AverageAnnualSalary != null && d.AverageAnnualSalary > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.AverageAnnualSalary,
-                                Median = null,
-                                Name = d.State.Name
-                            }).FirstOrDefault(),
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
 
-                    Nation = i.Nation.Where(d => d.AverageAnnualSalary != null && d.AverageAnnualSalary > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.AverageAnnualSalary,
-                                Median = null,
-                                Name = "USA"
-                            }).FirstOrDefault()
-                }).FirstOrDefault();
-            return data;
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
+
+
+
+
+    
+            var county = countyData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.AverageAnnualSalary,
+                Median = null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.AverageAnnualSalary,
+                Median = null,
+                Name = i.Metro.Name
+            });
+
+            var state = stateData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.AverageAnnualSalary,
+                Median = null,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.AverageAnnualSalary,
+                Median = null,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+
+            return output;
         }
 
-        public static PlaceValues<PercentageItem> Percentage(SizeUpContext context, long industryId, long placeId, long value)
+        public static PercentageItem Percentage(SizeUpContext context, long industryId, long placeId, long value, Granularity granularity)
         {
+            PercentageItem output = null;
             decimal salary = (decimal)value;
-            var data = IndustryData.Get(context, industryId)
-                .Where(i=>i.Place.Id == placeId)
-                .Select(i => new
+
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId))
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
+
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
+
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0);
+
+
+            var county = countyData.Select(i => new PercentageItem
+            {
+                Percentage = i.AverageAnnualSalary != null ? (int?)(((salary - i.AverageAnnualSalary) / i.AverageAnnualSalary) * 100) : null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new PercentageItem
+            {
+                Percentage = i.AverageAnnualSalary != null ? (int?)(((salary - i.AverageAnnualSalary) / i.AverageAnnualSalary) * 100) : null,
+                Name = i.Metro.Name
+            });
+
+            var state = stateData.Select(i => new PercentageItem
+            {
+                Percentage = i.AverageAnnualSalary != null ? (int?)(((salary - i.AverageAnnualSalary) / i.AverageAnnualSalary) * 100) : null,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new PercentageItem
+            {
+                Percentage = i.AverageAnnualSalary != null ? (int?)(((salary - i.AverageAnnualSalary) / i.AverageAnnualSalary) * 100) : null,
+                Name = "USA"
+            });
+
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+            return output;
+        }
+
+        public static List<Band<long>> Bands(SizeUpContext context, long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
+        {
+            IQueryable<long?> values = context.IndustryDataByCounties.Where(i => 0 == 1).Select(i => i.AverageAnnualSalary);//empty set
+            if (granularity == Granularity.County)
+            {
+                var entities = County.In(context, placeId, boundingGranularity);
+                var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.CountyId, i => i.Id, (d, e) => d)
+                    .Select(i => i.AverageAnnualSalary);
+            }
+            else if (granularity == Granularity.State)
+            {
+                var entities = State.In(context, placeId, boundingGranularity);
+                var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.StateId, i => i.Id, (d, e) => d)
+                    .Select(i => i.AverageAnnualSalary);
+            }
+            var output = values
+                .Where(i => i != null && i > 0)
+                .ToList()
+                .NTile(i => i, bands)
+                .Select(i => new Band<long>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })
+                .ToList();
+
+            Band<long> old = null;
+            foreach (var band in output)
+            {
+                if (old != null)
                 {
-                    County = i.County.Where(v => v.AverageAnnualSalary != null && v.AverageAnnualSalary > 0)
-                            .Select(d => new
-                            {
-                                County = d.County,
-                                Value = d.AverageAnnualSalary
-                            }).FirstOrDefault(),
-
-                    Metro = i.Metro.Where(v => v.AverageAnnualSalary != null && v.AverageAnnualSalary > 0)
-                            .Select(d => new
-                            {
-                                Metro = d.Metro,
-                                Value = d.AverageAnnualSalary
-                            }).FirstOrDefault(),
-
-                    State = i.State.Where(v => v.AverageAnnualSalary != null && v.AverageAnnualSalary > 0)
-                            .Select(d => new
-                            {
-                                State = d.State,
-                                Value = d.AverageAnnualSalary
-                            }).FirstOrDefault(),
-
-                    Nation = i.Nation.Where(v => v.AverageAnnualSalary != null && v.AverageAnnualSalary > 0)
-                            .Select(d => new
-                            {
-                                Value = d.AverageAnnualSalary
-                            }).FirstOrDefault()
-                })
-                .Select(i => new PlaceValues<PercentageItem>
-                {
-                    County = new PercentageItem
-                    {
-                        Percentage = i.County.Value != null ? (int?)(((salary - i.County.Value) / i.County.Value) * 100) : null,
-                        Name = i.County.County.Name + ", " + i.County.County.State.Abbreviation
-                    },
-                    Metro = new PercentageItem
-                    {
-                        Percentage = i.Metro.Value != null ? (int?)(((salary - i.Metro.Value) / i.Metro.Value) * 100) : null,
-                        Name = i.Metro.Metro.Name
-                    },
-                    State = new PercentageItem
-                    {
-                        Percentage = i.State.Value != null ? (int?)(((salary - i.State.Value) / i.State.Value) * 100) : null,
-                        Name = i.State.State.Name
-                    },
-                    Nation = new PercentageItem
-                    {
-                        Percentage = i.Nation.Value != null ? (int?)(((salary - i.Nation.Value) / i.Nation.Value) * 100) : null,
-                        Name = "USA"
-                    }
-                }).FirstOrDefault();
-
-            return data;
+                    old.Max = band.Min;
+                }
+                old = band;
+            }
+            return output;
         }
     }
 }
