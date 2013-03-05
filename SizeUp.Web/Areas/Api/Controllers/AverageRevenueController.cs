@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/AverageRevenue/
 
-        public ActionResult AverageRevenue(long industryId, long placeId, Granularity granularity)
+        public ActionResult Chart(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

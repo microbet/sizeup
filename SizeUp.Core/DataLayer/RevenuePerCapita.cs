@@ -6,133 +6,251 @@ using System.Threading.Tasks;
 using SizeUp.Core.DataLayer.Models;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.Extensions;
 
 namespace SizeUp.Core.DataLayer
 {
     public class RevenuePerCapita : Base.Base
     {
-        public static PlaceValues<BarChartItem<long?>> Chart(SizeUpContext context, long industryId, long placeId)
+        public static BarChartItem<long?> Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = IndustryData.GetMinimumBusinessCount(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i => new PlaceValues<BarChartItem<long?>>
-                {
-                    City = i.City.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.RevenuePerCapita,
-                                Median = null,
-                                Name = d.City.Name + ", " + d.City.State.Abbreviation
-                            }).FirstOrDefault(),
+            BarChartItem<long?> output = null;
 
-                    County = i.County.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.RevenuePerCapita,
-                                Median = null,
-                                Name = d.County.Name + ", " + d.County.State.Abbreviation
-                            }).FirstOrDefault(),
+            var cityData = IndustryData.City(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.City.CityCountyMappings.Any(m => m.Id == placeId))
+                .Where(i => i.City.BusinessDataByCities.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                .Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
 
-                    Metro = i.Metro.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.RevenuePerCapita,
-                                Median = null,
-                                Name = d.Metro.Name
-                            }).FirstOrDefault(),
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId))
+                .Where(i => i.County.BusinessDataByCounties.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                .Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
 
-                    State = i.State.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.RevenuePerCapita,
-                                Median = null,
-                                Name = d.State.Name
-                            }).FirstOrDefault(),
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.Metro.BusinessDataByCounties.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                .Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
 
-                    Nation = i.Nation.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0)
-                            .Select(d => new BarChartItem<long?>
-                            {
-                                Value = d.RevenuePerCapita,
-                                Median = null,
-                                Name = "USA"
-                            }).FirstOrDefault()
-                }).FirstOrDefault();
-            return data;
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.State.BusinessDataByCounties.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
+                .Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
+
+
+
+
+            var city = cityData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.RevenuePerCapita,
+                Median = null,
+                Name = i.City.Name + ", " + i.City.State.Abbreviation
+            });
+
+            var county = countyData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.RevenuePerCapita,
+                Median = null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.RevenuePerCapita,
+                Median = null,
+                Name = i.Metro.Name
+            });
+
+            var state = stateData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.RevenuePerCapita,
+                Median = null,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new BarChartItem<long?>
+            {
+                Value = i.RevenuePerCapita,
+                Median = null,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.City)
+            {
+                output = city.FirstOrDefault();
+            }
+            else if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+
+            return output;
         }
 
-        public static PlaceValues<PercentileItem> Percentile(SizeUpContext context, long industryId, long placeId)
+        public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var raw = context.IndustryDataByCities.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter);
+            PercentileItem output = null;
+            var currentCity = IndustryData.City(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.City.CityCountyMappings.Any(c => c.Id == placeId));
 
-            var data = context.CityCountyMappings
-                .Where(i => i.Id == placeId)
-                .Select(i => new
+
+            var countyData = IndustryData.City(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.City.CityCountyMappings.Any(c => c.County.CityCountyMappings.Any(co => co.Id == placeId)))
+                .Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0);
+
+
+            var metroData = IndustryData.City(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.City.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
+                .Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0);
+
+            var stateData = IndustryData.City(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.City.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
+                .Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0);
+
+            var nationData = IndustryData.City(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0);
+
+
+
+
+
+            var county = countyData.Select(i => new
+            {
+                County = i.City.CityCountyMappings.Select(c => c.County).FirstOrDefault(),
+                Total = countyData.Count(),
+                Filtered = countyData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new
+            {
+                County = i.City.CityCountyMappings.Select(c => c.County).FirstOrDefault(),
+                Total = metroData.Count(),
+                Filtered = metroData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = i.County.Metro.Name
+            });
+
+            var state = stateData.Select(i => new
+            {
+                County = i.City.CityCountyMappings.Select(c => c.County).FirstOrDefault(),
+                Total = stateData.Count(),
+                Filtered = stateData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = i.County.State.Name
+            });
+
+            var nation = nationData.Select(i => new
+            {
+                County = i.City.CityCountyMappings.Select(c => c.County).FirstOrDefault(),
+                Total = nationData.Count(),
+                Filtered = nationData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+            return output;
+        }
+
+        public static List<Band<long>> Bands(SizeUpContext context, long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
+        {
+            IQueryable<long?> values = context.IndustryDataByZips.Where(i => 0 == 1).Select(i => i.RevenuePerCapita);//empty set
+            if (granularity == Granularity.ZipCode)
+            {
+                var entities = ZipCode.In(context, placeId, boundingGranularity);
+                var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.ZipCodeId, i => i.Id, (d, e) => d)
+                    .Select(i => i.RevenuePerCapita);
+            }
+            else if (granularity == Granularity.County)
+            {
+                var entities = County.In(context, placeId, boundingGranularity);
+                var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.CountyId, i => i.Id, (d, e) => d)
+                    .Select(i => i.RevenuePerCapita);
+            }
+            else if (granularity == Granularity.State)
+            {
+                var entities = State.In(context, placeId, boundingGranularity);
+                var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.StateId, i => i.Id, (d, e) => d)
+                    .Select(i => i.RevenuePerCapita);
+            }
+            var output = values
+                .Where(i => i != null && i > 0)
+                .ToList()
+                .NTile(i => i, bands)
+                .Select(i => new Band<long>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })
+                .ToList();
+
+            Band<long> old = null;
+            foreach (var band in output)
+            {
+                if (old != null)
                 {
-                    Place = i,
-                    City = raw.Where(d => d.City.CityCountyMappings.Any(c => c.Id == placeId))
-                                .Where(d=>i.City.BusinessDataByCities.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
-
-                    County = raw.Where(d => d.City.CityCountyMappings.Any(c => c.County.CityCountyMappings.Any(co => co.Id == placeId)))
-                                .Where(d => i.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
-
-                    Metro = raw.Where(d => d.City.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
-                                .Where(d => i.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
-
-                    State = raw.Where(d => d.City.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
-                                .Where(d => i.County.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount),
-
-                    Nation = raw.Where(d => context.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount)
-                })
-                .Select(i => new
-                {
-                    County = new
-                    {
-                        County = i.Place.County,
-                        Total = i.County.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Count(),
-                        Filtered = i.County.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Where(d => d.RevenuePerCapita <= i.City.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    },
-                    Metro = new
-                    {
-                        Metro = i.Place.County.Metro,
-                        Total = i.Metro.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Count(),
-                        Filtered = i.Metro.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Where(d => d.RevenuePerCapita <= i.City.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    },
-                    State = new
-                    {
-                        State = i.Place.County.State,
-                        Total = i.State.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Count(),
-                        Filtered = i.State.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Where(d => d.RevenuePerCapita <= i.City.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    },
-                    Nation = new
-                    {
-                        Total = i.Nation.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Count(),
-                        Filtered = i.Nation.Where(d => d.RevenuePerCapita != null && d.RevenuePerCapita > 0).Where(d => d.RevenuePerCapita <= i.City.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    }
-                })
-                .Select(i => new PlaceValues<PercentileItem>
-                {
-                    County = new PercentileItem
-                    {
-                        Percentile = i.County.Total > 0 ? (int?)(((decimal)i.County.Filtered / (decimal)i.County.Total) * 100) : null,
-                        Name = i.County.County.Name + ", " + i.County.County.State.Abbreviation
-                    },
-                    Metro = new PercentileItem
-                    {
-                        Percentile = i.Metro.Total > 0 ? (int?)(((decimal)i.Metro.Filtered / (decimal)i.Metro.Total) * 100) : null,
-                        Name = i.Metro.Metro.Name
-                    },
-                    State = new PercentileItem
-                    {
-                        Percentile = i.State.Total > 0 ? (int?)(((decimal)i.State.Filtered / (decimal)i.State.Total) * 100) : null,
-                        Name = i.State.State.Name
-                    },
-                    Nation = new PercentileItem
-                    {
-                        Percentile = i.Nation.Total > 0 ? (int?)(((decimal)i.Nation.Filtered / (decimal)i.Nation.Total) * 100) : null,
-                        Name = "USA"
-                    }
-                }).FirstOrDefault();
-            return data;
+                    old.Max = band.Min;
+                }
+                old = band;
+            }
+            return output;
         }
     }
 }

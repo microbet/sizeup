@@ -129,19 +129,23 @@
                 return get('/api/business/list', params, callback);
             },
 
+
+
             getAverageRevenueChart: function (params, callback) {
-                return get('/api/averageRevenue/', params, callback);
+                return get('/api/averageRevenue/chart/', params, callback);
             },
             getAverageRevenuePercentile: function (params, callback) {
                 return get('/api/averageRevenue/percentile/', params, callback);
             },
 
             getAverageRevenueBands: function(params, callback){
-                return get('/api/averageRevenue/bands', params, callback);
+                return get('/api/averageRevenue/bands/', params, callback);
             },
 
+
+
             getYearStartedChart: function (params, callback) {
-                return get('/api/yearStarted/', params, callback);
+                return get('/api/yearStarted/chart/', params, callback);
             },
 
             getYearStartedCount: function (params, callback) {
@@ -153,8 +157,9 @@
             },
 
 
+
             getAverageSalaryChart: function (params, callback) {
-                return get('/api/averageSalary/', params, callback);
+                return get('/api/averageSalary/chart/', params, callback);
             },
             getAverageSalaryPercentage: function (params, callback) {
                 return get('/api/averageSalary/percentage/', params, callback);
@@ -164,50 +169,32 @@
                 return get('/api/averageSalary/bands/', params, callback);
             },
 
-            getRevenuePerCapitaChart: function (params, callback) {
-                return get('/api/RevenuePerCapita/', params, callback);
-            },
 
-            getRevenuePerCapitaPercentage: function (params, callback) {
-                return get('/api/RevenuePerCapita/percentage/', params, callback);
+
+            getRevenuePerCapitaChart: function (params, callback) {
+                return get('/api/RevenuePerCapita/chart/', params, callback);
             },
 
             getRevenuePerCapitaPercentile: function (params, callback) {
                 return get('/api/RevenuePerCapita/percentile/', params, callback);
             },
 
-            getRevenuePerCapitaBandsByState: function (params, callback) {
-                return get('/api/RevenuePerCapita/bands/state/', params, callback);
+            getRevenuePerCapitaBands: function (params, callback) {
+                return get('/api/RevenuePerCapita/bands/', params, callback);
             },
 
-            getRevenuePerCapitaBandsByCounty: function (params, callback) {
-                return get('/api/RevenuePerCapita/bands/county/', params, callback);
-            },
-
-            getRevenuePerCapitaBandsByZip: function (params, callback) {
-                return get('/api/RevenuePerCapita/bands/zip/', params, callback);
-            },
 
             getTotalRevenueChart: function (params, callback) {
-                return get('/api/TotalRevenue/', params, callback);
+                return get('/api/TotalRevenue/chart/', params, callback);
             },
 
-            getTotalRevenueBandsByState: function (params, callback) {
-                return get('/api/TotalRevenue/bands/state/', params, callback);
+            getTotalRevenueBands: function (params, callback) {
+                return get('/api/TotalRevenue/bands/', params, callback);
             },
-
-            getTotalRevenueBandsByCounty: function (params, callback) {
-                return get('/api/TotalRevenue/bands/county/', params, callback);
-            },
-
-            getTotalRevenueBandsByZip: function (params, callback) {
-                return get('/api/TotalRevenue/bands/zip/', params, callback);
-            },
-
 
 
             getAverageEmployeesChart: function (params, callback) {
-                return get('/api/AverageEmployees/', params, callback);
+                return get('/api/AverageEmployees/chart/', params, callback);
             },
 
             getAverageEmployeesPercentile: function (params, callback) {
@@ -218,19 +205,21 @@
                 return get('/api/AverageEmployees/bands/', params, callback);
             },
 
+
+
             getTotalEmployeesChart: function (params, callback) {
-                return get('/api/TotalEmployees/', params, callback);
+                return get('/api/TotalEmployees/chart/', params, callback);
             },
 
             getTotalEmployeesBands: function (params, callback) {
                 return get('/api/TotalEmployees/bands/', params, callback);
             },
 
-           
+
 
 
             getEmployeesPerCapitaChart: function (params, callback) {
-                return get('/api/EmployeesPerCapita/', params, callback);
+                return get('/api/EmployeesPerCapita/chart/', params, callback);
             },
 
             getEmployeesPerCapitaPercentile: function (params, callback) {
@@ -241,20 +230,24 @@
                 return get('/api/EmployeesPerCapita/bands/', params, callback);
             },
 
+
+
             getCostEffectivenessChart: function (params, callback) {
-                return get('/api/CostEffectiveness/', params, callback);
+                return get('/api/CostEffectiveness/chart/', params, callback);
             },
 
-            getCostEffectivenessBandsByState: function (params, callback) {
-                return get('/api/CostEffectiveness/bands/state/', params, callback);
+            getCostEffectivenessPercentage: function (params, callback) {
+                return get('/api/CostEffectiveness/percentage/', params, callback);
             },
 
-            getCostEffectivenessBandsByCounty: function (params, callback) {
-                return get('/api/CostEffectiveness/bands/county/', params, callback);
+            getCostEffectivenessBands: function (params, callback) {
+                return get('/api/CostEffectiveness/bands/', params, callback);
             },
+
+
 
             getTurnoverChart: function (params, callback) {
-                return get('/api/turnover/', params, callback);
+                return get('/api/turnover/chart/', params, callback);
             },
 
             getTurnoverPercentile: function (params, callback) {
@@ -263,12 +256,10 @@
 
 
             getJobChangeChart: function (params, callback) {
-                return get('/api/jobchange/', params, callback);
+                return get('/api/jobchange/chart/', params, callback);
             },
 
-            getRevenuePerCapitaChart: function (params, callback) {
-                return get('/api/revenuePerCapita/', params, callback);
-            },
+            
 
 
             getWorkersCompChart: function (params, callback) {
@@ -279,13 +270,8 @@
                 return get('/api/workersComp/percentage/', params, callback);
             },
 
-            getCostEffectivenessChart: function (params, callback) {
-                return get('/api/CostEffectiveness/', params, callback);
-            },
 
-            getCostEffectivenessPercentage: function (params, callback) {
-                return get('/api/CostEffectiveness/percentage/', params, callback);
-            },
+
 
             getHealthcareCostChart: function (params, callback) {
                 return get('/api/healthcare/', params, callback);

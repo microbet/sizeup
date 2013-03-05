@@ -11,104 +11,75 @@ namespace SizeUp.Core.DataLayer
 {
     public class JobChange : Base.Base
     {
-        public static PlaceValues<JobChangeChartItem> Chart(SizeUpContext context, long industryId, long placeId)
+        public static JobChangeChartItem Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = IndustryData.Get(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i => new PlaceValues<JobChangeChartItem>
-                {
-                    County = i.County.Where(d => d.TotalRevenue != null && d.TotalRevenue > 0)
-                            .Select(d => new JobChangeChartItem
-                            {
-                                NetJobChange = d.NetJobChange,
-                                JobGains = d.JobGains,
-                                JobLosses = d.JobLosses,
-                                Name = d.County.Name + ", " + d.County.State.Abbreviation
-                            }).FirstOrDefault(),
+            JobChangeChartItem output = null;
 
-                    Metro = i.Metro.Where(d => d.TotalRevenue != null && d.TotalRevenue > 0)
-                            .Select(d => new JobChangeChartItem
-                            {
-                                NetJobChange = d.NetJobChange,
-                                JobGains = d.JobGains,
-                                JobLosses = d.JobLosses,
-                                Name = d.Metro.Name
-                            }).FirstOrDefault(),
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId));
 
-                    State = i.State.Where(d => d.TotalRevenue != null && d.TotalRevenue > 0)
-                            .Select(d => new JobChangeChartItem
-                            {
-                                NetJobChange = d.NetJobChange,
-                                JobGains = d.JobGains,
-                                JobLosses = d.JobLosses,
-                                Name = d.State.Name
-                            }).FirstOrDefault(),
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)));
 
-                    Nation = i.Nation.Where(d => d.TotalRevenue != null && d.TotalRevenue > 0)
-                            .Select(d => new JobChangeChartItem
-                            {
-                                NetJobChange = d.NetJobChange,
-                                JobGains = d.JobGains,
-                                JobLosses = d.JobLosses,
-                                Name = "USA"
-                            }).FirstOrDefault()
-                }).FirstOrDefault();
-            return data;
-        }
-        
-        public static PlaceValues<PercentileItem> Percentile(SizeUpContext context, long industryId, long placeId)
-        {
-            var raw = new 
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)));
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId);
+
+
+            var county = countyData.Select(i => new JobChangeChartItem
             {
-                County = context.IndustryDataByCounties.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter),
-                Metro = context.IndustryDataByMetroes.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter),
-                State = context.IndustryDataByStates.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter),
-                Nation = context.IndustryDataByNations.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter)
-            };
+                JobGains = i.JobGains,
+                JobLosses = i.JobLosses,
+                NetJobChange = i.NetJobChange,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
 
+            var metro = metroData.Select(i => new JobChangeChartItem
+            {
+                JobGains = i.JobGains,
+                JobLosses = i.JobLosses,
+                NetJobChange = i.NetJobChange,
+                Name = i.Metro.Name
+            });
 
-            var data = IndustryData.Get(context, industryId)
-                .Where(i=>i.Place.Id == placeId)
-                .Select(i=> new 
-                {
-                    County = new
-                    {
-                        County = i.Place.County,
-                        Total = raw.County.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Count(),
-                        Filtered = raw.County.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Where(d => d.TurnoverRate >= i.County.Select(v=>v.TurnoverRate).FirstOrDefault()).Count()
-                    },
-                    Metro = new
-                    {
-                        Metro = i.Place.County.Metro,
-                        Total = raw.Metro.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Count(),
-                        Filtered = raw.Metro.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Where(d => d.TurnoverRate >= i.Metro.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    },
-                    State = new
-                    {
-                        State = i.Place.County.State,
-                        Total = raw.State.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Count(),
-                        Filtered = raw.State.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Where(d => d.TurnoverRate >= i.State.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    }
-                })               
-                .Select(i => new PlaceValues<PercentileItem>
-                {
-                    County = new PercentileItem
-                    {
-                        Percentile = i.County.Total > 0 ? (int?)(((decimal)i.County.Filtered / (decimal)i.County.Total) * 100) : null,
-                        Name = i.County.County.Name + ", " + i.County.County.State.Abbreviation
-                    },
-                    Metro = new PercentileItem
-                    {
-                        Percentile = i.Metro.Total > 0 ? (int?)(((decimal)i.Metro.Filtered / (decimal)i.Metro.Total) * 100) : null,
-                        Name = i.Metro.Metro.Name
-                    },
-                    State = new PercentileItem
-                    {
-                        Percentile = i.State.Total > 0 ? (int?)(((decimal)i.State.Filtered / (decimal)i.State.Total) * 100) : null,
-                        Name = i.State.State.Name
-                    }
-                }).FirstOrDefault();
-            return data;
+            var state = stateData.Select(i => new JobChangeChartItem
+            {
+                JobGains = i.JobGains,
+                JobLosses = i.JobLosses,
+                NetJobChange = i.NetJobChange,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new JobChangeChartItem
+            {
+                JobGains = i.JobGains,
+                JobLosses = i.JobLosses,
+                NetJobChange = i.NetJobChange,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+            return output;
         }
     }
 }

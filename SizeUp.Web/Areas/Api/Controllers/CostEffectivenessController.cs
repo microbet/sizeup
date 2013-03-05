@@ -11,6 +11,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -18,82 +19,30 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/AverageRevenue/
-
-        public ActionResult CostEffectiveness(long industryId, long placeId)
+        public ActionResult Chart(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.CostEffectiveness.Chart(context, industryId, placeId);
+                var data = Core.DataLayer.CostEffectiveness.Chart(context, industryId, placeId, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentage(int industryId, int placeId, double revenue, int employees, double salary)
+        public ActionResult Percentage(int industryId, int placeId, int revenue, int employees, int salary, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var ce = revenue / (double)(employees * salary);
-                var obj = Core.DataLayer.CostEffectiveness.Percentage(context, industryId, placeId, ce);
+                var obj = Core.DataLayer.CostEffectiveness.Percentage(context, industryId, placeId, ce, granularity);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
-
-
-
-        public ActionResult BandsByCounty(long industryId, int bands, string boundingEntityId)
+        public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-
-                var ids = Counties.GetBounded(context, boundingEntity)
-                    .Select(i => i.Id);
-
-                var data = IndustryData.GetCounties(context, industryId)
-                    .Where(i => i.CostEffectiveness > 0)
-                    .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                    .Select(i => i.CostEffectiveness)
-                    .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Models.CostEffectiveness.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .ToList();
-
-                Models.CostEffectiveness.Band old = null;
-                foreach (var band in data)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public ActionResult BandsByState(long industryId, int bands)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-
-                var data = IndustryData.GetStates(context, industryId)
-                    .Where(i => i.CostEffectiveness > 0)
-                    .Select(i => i.CostEffectiveness)
-                    .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Models.CostEffectiveness.Band() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .ToList();
-
-                Models.CostEffectiveness.Band old = null;
-                foreach (var band in data)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
+                var data = Core.DataLayer.CostEffectiveness.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

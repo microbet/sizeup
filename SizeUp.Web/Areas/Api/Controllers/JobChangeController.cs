@@ -10,6 +10,8 @@ using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.DataAccess;
 using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
+
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class JobChangeController : BaseController
@@ -17,11 +19,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/JobChange/
 
-        public ActionResult JobChange(int industryId, int placeId)
+        public ActionResult Chart(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.JobChange.Chart(context, industryId, placeId);
+                var data = Core.DataLayer.JobChange.Chart(context, industryId, placeId, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

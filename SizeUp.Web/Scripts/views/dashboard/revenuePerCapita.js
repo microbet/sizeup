@@ -251,9 +251,11 @@
                 data.title = 'Revenue Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
                 me.data.currentRevenuePerCapitaBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/zip/';
-                dataLayer.getRevenuePerCapitaBandsByZip({
+                dataLayer.getRevenuePerCapitaBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     bands: 7
                 }, itemsNotify);
             }
@@ -263,9 +265,11 @@
                     data.title = 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.currentRevenuePerCapitaBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/county/';
-                    dataLayer.getRevenuePerCapitaBandsByCounty({
+                    dataLayer.getRevenuePerCapitaBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         bands: 7
                     }, itemsNotify);
 
@@ -276,9 +280,11 @@
                     data.title = 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.currentRevenuePerCapitaBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/county/';
-                    dataLayer.getRevenuePerCapitaBandsByCounty({
+                    dataLayer.getRevenuePerCapitaBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
                 }
@@ -289,9 +295,11 @@
                     data.title = 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/revenuePerCapita/county/';
                     me.data.currentRevenuePerCapitaBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getRevenuePerCapitaBandsByState({
+                    dataLayer.getRevenuePerCapitaBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
 
@@ -303,8 +311,10 @@
                 data.title = 'Revenue Per Capita by state in the USA';
                 me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/revenuePerCapita/state/';
                 me.data.currentRevenuePerCapitaBoundingEntityId = null;
-                dataLayer.getRevenuePerCapitaBandsByState({
+                dataLayer.getRevenuePerCapitaBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    granularity: 'State',
                     bands: 7
                 }, itemsNotify);
             }
@@ -488,9 +498,11 @@
                 data.title = 'Total Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
                 me.data.currentTotalRevenueBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/zip/';
-                dataLayer.getTotalRevenueBandsByZip({
+                dataLayer.getTotalRevenueBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     bands: 7
                 }, itemsNotify);
             }
@@ -500,9 +512,11 @@
                     data.title = 'Total Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.currentTotalRevenueBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/county/';
-                    dataLayer.getTotalRevenueBandsByCounty({
+                    dataLayer.getTotalRevenueBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         bands: 7
                     }, itemsNotify);
 
@@ -513,9 +527,11 @@
                     data.title = 'Total Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.currentTotalRevenueBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/county/';
-                    dataLayer.getTotalRevenueBandsByCounty({
+                    dataLayer.getTotalRevenueBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
                 }
@@ -526,9 +542,11 @@
                     data.title = 'Total Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/county/';
                     me.data.currentTotalRevenueBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getTotalRevenueBandsByState({
+                    dataLayer.getTotalRevenueBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
 
@@ -540,8 +558,10 @@
                 data.title = 'Total Revenue by state in the USA';
                 me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/state/';
                 me.data.currentTotalRevenueBoundingEntityId = null;
-                dataLayer.getTotalRevenueBandsByState({
+                dataLayer.getTotalRevenueBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    granularity: 'State',
                     bands: 7
                 }, itemsNotify);
             }
@@ -612,13 +632,29 @@
         var runReport = function (e) {
             new sizeup.core.analytics().dashboardReportLoaded({ report: 'revenuePerCapita' });
 
+
             var notifier = new sizeup.core.notifier(function () {
                 e.callback();
                 displayReport();
             });
 
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(percentileDataReturned));
+            var percentileData = {};
+            var chartData = {};
+            var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { percentileDataReturned(percentileData); }));
+            var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
+
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
+
+
         };
 
         var percentileDataReturned = function (data) {

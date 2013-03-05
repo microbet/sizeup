@@ -11,104 +11,170 @@ namespace SizeUp.Core.DataLayer
 {
     public class Turnover : Base.Base
     {
-        public static PlaceValues<TurnoverChartItem> Chart(SizeUpContext context, long industryId, long placeId)
+        public static TurnoverChartItem Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = IndustryData.Get(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i => new PlaceValues<TurnoverChartItem>
-                {
-                    County = i.County
-                            .Select(d => new TurnoverChartItem
-                            {
-                                Hires = d.Hires,
-                                Turnover = d.TurnoverRate * 100,
-                                Separations = d.Separations,
-                                Name = d.County.Name + ", " + d.County.State.Abbreviation
-                            }).FirstOrDefault(),
+            TurnoverChartItem output = null;
 
-                    Metro = i.Metro
-                            .Select(d => new TurnoverChartItem
-                            {
-                                Hires = d.Hires,
-                                Turnover = d.TurnoverRate * 100,
-                                Separations = d.Separations,
-                                Name = d.Metro.Name
-                            }).FirstOrDefault(),
 
-                    State = i.State
-                            .Select(d => new TurnoverChartItem
-                            {
-                                Hires = d.Hires,
-                                Turnover = d.TurnoverRate * 100,
-                                Separations = d.Separations,
-                                Name = d.State.Name
-                            }).FirstOrDefault(),
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId));
 
-                    Nation = i.Nation
-                            .Select(d => new TurnoverChartItem
-                            {                              
-                                Hires = d.Hires,
-                                Turnover = d.TurnoverRate * 100,
-                                Separations = d.Separations,
-                                Name = "USA"
-                            }).FirstOrDefault()
-                }).FirstOrDefault();
-            return data;
-        }
-        
-        public static PlaceValues<PercentileItem> Percentile(SizeUpContext context, long industryId, long placeId)
-        {
-            var raw = new 
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)));
+
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)));
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId);
+
+
+
+
+            var county = countyData.Select(i => new TurnoverChartItem
             {
-                County = context.IndustryDataByCounties.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter),
-                Metro = context.IndustryDataByMetroes.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter),
-                State = context.IndustryDataByStates.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter),
-                Nation = context.IndustryDataByNations.Where(i => i.IndustryId == industryId && i.Year == Year && i.Quarter == Quarter)
-            };
+                Hires = i.Hires,
+                Turnover = i.TurnoverRate * 100,
+                Separations = i.Separations,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new TurnoverChartItem
+            {
+                Hires = i.Hires,
+                Turnover = i.TurnoverRate * 100,
+                Separations = i.Separations,
+                Name = i.Metro.Name
+            });
+
+            var state = stateData.Select(i => new TurnoverChartItem
+            {
+                Hires = i.Hires,
+                Turnover = i.TurnoverRate * 100,
+                Separations = i.Separations,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new TurnoverChartItem
+            {
+                Hires = i.Hires,
+                Turnover = i.TurnoverRate * 100,
+                Separations = i.Separations,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
 
 
-            var data = IndustryData.Get(context, industryId)
-                .Where(i=>i.Place.Id == placeId)
-                .Select(i=> new 
-                {
-                    County = new
-                    {
-                        County = i.Place.County,
-                        Total = raw.County.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Count(),
-                        Filtered = raw.County.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Where(d => d.TurnoverRate >= i.County.Select(v=>v.TurnoverRate).FirstOrDefault()).Count()
-                    },
-                    Metro = new
-                    {
-                        Metro = i.Place.County.Metro,
-                        Total = raw.Metro.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Count(),
-                        Filtered = raw.Metro.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Where(d => d.TurnoverRate >= i.Metro.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    },
-                    State = new
-                    {
-                        State = i.Place.County.State,
-                        Total = raw.State.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Count(),
-                        Filtered = raw.State.Where(d => d.TurnoverRate != null && d.TurnoverRate > 0).Where(d => d.TurnoverRate >= i.State.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
-                    }
-                })               
-                .Select(i => new PlaceValues<PercentileItem>
-                {
-                    County = new PercentileItem
-                    {
-                        Percentile = i.County.Total > 0 ? (int?)(((decimal)i.County.Filtered / (decimal)i.County.Total) * 100) : null,
-                        Name = i.County.County.Name + ", " + i.County.County.State.Abbreviation
-                    },
-                    Metro = new PercentileItem
-                    {
-                        Percentile = i.Metro.Total > 0 ? (int?)(((decimal)i.Metro.Filtered / (decimal)i.Metro.Total) * 100) : null,
-                        Name = i.Metro.Metro.Name
-                    },
-                    State = new PercentileItem
-                    {
-                        Percentile = i.State.Total > 0 ? (int?)(((decimal)i.State.Filtered / (decimal)i.State.Total) * 100) : null,
-                        Name = i.State.State.Name
-                    }
-                }).FirstOrDefault();
-            return data;
+            return output;
+        }
+
+        public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, Granularity granularity)
+        {
+            PercentileItem output = null;
+            var currentCounty = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(c => c.Id == placeId));
+
+
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId);
+
+
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId);
+
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId);
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId);
+
+
+
+            var county = countyData.Select(i => new
+            {
+                County = currentCounty.Select(c=>c.County).FirstOrDefault(),
+                Total = countyData.Count(),
+                Filtered = countyData.Where(d => d.TurnoverRate >= currentCounty.Select(v => v.TurnoverRate).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new
+            {
+                County = currentCounty.Select(c => c.County).FirstOrDefault(),
+                Total = metroData.Count(),
+                Filtered = metroData.Where(d => d.TurnoverRate >= currentCounty.Select(v => v.TurnoverRate).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = i.County.Metro.Name
+            });
+
+            var state = stateData.Select(i => new
+            {
+                County = currentCounty.Select(c => c.County).FirstOrDefault(),
+                Total = stateData.Count(),
+                Filtered = stateData.Where(d => d.TurnoverRate >= currentCounty.Select(v => v.TurnoverRate).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = i.County.State.Name
+            });
+
+            var nation = nationData.Select(i => new
+            {
+                Total = nationData.Count(),
+                Filtered = nationData.Where(d => d.TurnoverRate >= currentCounty.Select(v => v.TurnoverRate).FirstOrDefault()).Count()
+            })
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+            return output;
         }
     }
 }

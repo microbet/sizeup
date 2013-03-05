@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/YearStarted/
 
-        public ActionResult YearStarted(long industryId, long placeId, int startYear, int endYear, Granularity granularity)
+        public ActionResult Chart(long industryId, long placeId, int startYear, int endYear, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -37,8 +37,5 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
-
-
-
     }
 }

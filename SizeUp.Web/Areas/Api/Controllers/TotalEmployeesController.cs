@@ -19,7 +19,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/Employee/
 
-        public ActionResult TotalEmployees(long industryId, long placeId)
+        public ActionResult Chart(long industryId, long placeId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

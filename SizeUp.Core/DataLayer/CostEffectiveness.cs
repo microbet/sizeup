@@ -6,110 +6,193 @@ using System.Threading.Tasks;
 using SizeUp.Core.DataLayer.Models;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.Extensions;
 
 namespace SizeUp.Core.DataLayer
 {
     public class CostEffectiveness : Base.Base
     {
-        public static PlaceValues<BarChartItem<double?>> Chart(SizeUpContext context, long industryId, long placeId)
+        public static BarChartItem<double?> Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = IndustryData.GetMinimumBusinessCount(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i => new PlaceValues<BarChartItem<double?>>
-                {
-                    County = i.County.Where(d => d.CostEffectiveness != null && d.CostEffectiveness > 0)
-                            .Select(d => new BarChartItem<double?>
-                            {
-                                Value = d.CostEffectiveness,
-                                Median = null,
-                                Name = d.County.Name + ", " + d.County.State.Abbreviation
-                            }).FirstOrDefault(),
+            BarChartItem<double?> output = null;
 
-                    Metro = i.Metro.Where(d => d.CostEffectiveness != null && d.CostEffectiveness > 0)
-                            .Select(d => new BarChartItem<double?>
-                            {
-                                Value = d.CostEffectiveness,
-                                Median = null,
-                                Name = d.Metro.Name
-                            }).FirstOrDefault(),
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId))
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
 
-                    State = i.State.Where(d => d.CostEffectiveness != null && d.CostEffectiveness > 0)
-                            .Select(d => new BarChartItem<double?>
-                            {
-                                Value = d.CostEffectiveness,
-                                Median = null,
-                                Name = d.State.Name
-                            }).FirstOrDefault(),
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
 
-                    Nation = i.Nation.Where(d => d.CostEffectiveness != null && d.CostEffectiveness > 0)
-                            .Select(d => new BarChartItem<double?>
-                            {
-                                Value = d.CostEffectiveness,
-                                Median = null,
-                                Name = "USA"
-                            }).FirstOrDefault()
-                }).FirstOrDefault();
-            return data;
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
+
+
+
+
+
+            var county = countyData.Select(i => new BarChartItem<double?>
+            {
+                Value = i.CostEffectiveness,
+                Median = null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new BarChartItem<double?>
+            {
+                Value = i.CostEffectiveness,
+                Median = null,
+                Name = i.Metro.Name
+            });
+
+            var state = stateData.Select(i => new BarChartItem<double?>
+            {
+                Value = i.CostEffectiveness,
+                Median = null,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new BarChartItem<double?>
+            {
+                Value = i.CostEffectiveness,
+                Median = null,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+
+            return output;
         }
 
-        public static PlaceValues<PercentageItem> Percentage(SizeUpContext context, long industryId, long placeId, double value)
+        public static PercentageItem Percentage(SizeUpContext context, long industryId, long placeId, double value, Granularity granularity)
         {
-            var data = IndustryData.GetMinimumBusinessCount(context, industryId)
-                .Where(i=>i.Place.Id == placeId)
-                .Select(i => new
+            PercentageItem output = null;
+
+            var countyData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId))
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
+
+            var metroData = IndustryData.Metro(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
+
+            var stateData = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
+
+            var nationData = IndustryData.Nation(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0);
+
+
+            var county = countyData.Select(i => new PercentageItem
+            {
+                Percentage = i.CostEffectiveness != null ? (int?)(((value - i.CostEffectiveness) / i.CostEffectiveness) * 100) : null,
+                Name = i.County.Name + ", " + i.County.State.Abbreviation
+            });
+
+            var metro = metroData.Select(i => new PercentageItem
+            {
+                Percentage = i.CostEffectiveness != null ? (int?)(((value - i.CostEffectiveness) / i.CostEffectiveness) * 100) : null,
+                Name = i.Metro.Name
+            });
+
+            var state = stateData.Select(i => new PercentageItem
+            {
+                Percentage = i.CostEffectiveness != null ? (int?)(((value - i.CostEffectiveness) / i.CostEffectiveness) * 100) : null,
+                Name = i.State.Name
+            });
+
+            var nation = nationData.Select(i => new PercentageItem
+            {
+                Percentage = i.CostEffectiveness != null ? (int?)(((value - i.CostEffectiveness) / i.CostEffectiveness) * 100) : null,
+                Name = "USA"
+            });
+
+
+            if (granularity == Granularity.County)
+            {
+                output = county.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+            return output;
+        }
+
+        public static List<Band<double>> Bands(SizeUpContext context, long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
+        {
+            IQueryable<double?> values = context.IndustryDataByCounties.Where(i => 0 == 1).Select(i => i.CostEffectiveness);//empty set
+            if (granularity == Granularity.County)
+            {
+                var entities = County.In(context, placeId, boundingGranularity);
+                var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.CountyId, i => i.Id, (d, e) => d)
+                    .Select(i => i.CostEffectiveness);
+            }
+            else if (granularity == Granularity.State)
+            {
+                var entities = State.In(context, placeId, boundingGranularity);
+                var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
+                values =
+                    data.Join(entities, i => i.StateId, i => i.Id, (d, e) => d)
+                    .Select(i => i.CostEffectiveness);
+            }
+            var output = values
+                .Where(i => i != null && i > 0)
+                .ToList()
+                .NTile(i => i, bands)
+                .Select(i => new Band<double>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })
+                .ToList();
+
+            Band<double> old = null;
+            foreach (var band in output)
+            {
+                if (old != null)
                 {
-                    County = i.County.Where(v => v.CostEffectiveness != null && v.CostEffectiveness > 0)
-                            .Select(d => new
-                            {
-                                County = d.County,
-                                Value = d.CostEffectiveness
-                            }).FirstOrDefault(),
-
-                    Metro = i.Metro.Where(v => v.CostEffectiveness != null && v.CostEffectiveness > 0)
-                            .Select(d => new
-                            {
-                                Metro = d.Metro,
-                                Value = d.CostEffectiveness
-                            }).FirstOrDefault(),
-
-                    State = i.State.Where(v => v.CostEffectiveness != null && v.CostEffectiveness > 0)
-                            .Select(d => new
-                            {
-                                State = d.State,
-                                Value = d.CostEffectiveness
-                            }).FirstOrDefault(),
-
-                    Nation = i.Nation.Where(v => v.CostEffectiveness != null && v.CostEffectiveness > 0)
-                            .Select(d => new
-                            {
-                                Value = d.CostEffectiveness
-                            }).FirstOrDefault()
-                })
-                .Select(i => new PlaceValues<PercentageItem>
-                {
-                    County = new PercentageItem
-                    {
-                        Percentage = i.County.Value != null ? (int?)(((value - i.County.Value) / i.County.Value) * 100) : null,
-                        Name = i.County.County.Name + ", " + i.County.County.State.Abbreviation
-                    },
-                    Metro = new PercentageItem
-                    {
-                        Percentage = i.Metro.Value != null ? (int?)(((value - i.Metro.Value) / i.Metro.Value) * 100) : null,
-                        Name = i.Metro.Metro.Name
-                    },
-                    State = new PercentageItem
-                    {
-                        Percentage = i.State.Value != null ? (int?)(((value - i.State.Value) / i.State.Value) * 100) : null,
-                        Name = i.State.State.Name
-                    },
-                    Nation = new PercentageItem
-                    {
-                        Percentage = i.Nation.Value != null ? (int?)(((value - i.Nation.Value) / i.Nation.Value) * 100) : null,
-                        Name = "USA"
-                    }
-                }).FirstOrDefault();
-
-            return data;
+                    old.Max = band.Min;
+                }
+                old = band;
+            }
+            return output;
         }
     }
 }

@@ -118,20 +118,17 @@ namespace SizeUp.Core.DataLayer
             var countyData = IndustryData.City(context)
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.City.CityCountyMappings.Any(c => c.County.CityCountyMappings.Any(co => co.Id == placeId)))
-                //.Where(i => i.City.CityCountyMappings.Any(c => c.County.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount))
                 .Where(d => d.EmployeesPerCapita != null && d.EmployeesPerCapita > 0);
 
 
             var metroData = IndustryData.City(context)
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.City.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
-                //.Where(i => i.City.CityCountyMappings.Any(c => c.County.Metro.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount))
                 .Where(d => d.EmployeesPerCapita != null && d.EmployeesPerCapita > 0);
 
             var stateData = IndustryData.City(context)
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.City.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
-                //.Where(i => i.City.State.Cities.Any(s => s.State.BusinessDataByCounties.Where(b => b.IndustryId == industryId && b.Business.IsActive).Count() >= MinimumBusinessCount))
                 .Where(d => d.EmployeesPerCapita != null && d.EmployeesPerCapita > 0);
 
             var nationData = IndustryData.City(context)

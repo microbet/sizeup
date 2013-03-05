@@ -286,9 +286,11 @@
                     data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.textAlternativeUrl = '/accessibility/costEffectiveness/county/';
-                    dataLayer.getCostEffectivenessBandsByCounty({
+                    dataLayer.getCostEffectivenessBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         bands: 7
                     }, itemsNotify);
 
@@ -299,9 +301,11 @@
                     data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.textAlternativeUrl = '/accessibility/costEffectiveness/county/';
-                    dataLayer.getCostEffectivenessBandsByCounty({
+                    dataLayer.getCostEffectivenessBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
                 }
@@ -312,9 +316,11 @@
                     data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.textAlternativeUrl = '/accessibility/costEffectiveness/county/';
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getCostEffectivenessBandsByState({
+                    dataLayer.getCostEffectivenessBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
 
@@ -326,8 +332,10 @@
                 data.title = 'Cost Effectiveness by state in the USA';
                 me.data.textAlternativeUrl = '/accessibility/costEffectiveness/state/';
                 me.data.currentBoundingEntityId = null;
-                dataLayer.getCostEffectivenessBandsByState({
+                dataLayer.getCostEffectivenessBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    granularity: 'State',
                     bands: 7
                 }, itemsNotify);
             }
@@ -407,11 +415,21 @@
                 displayReport();
             });
 
+            var percentileData = {};
+            var chartData = {};
+            var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { percentageDataReturned(percentileData); }));
+            var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
+
+
             if (me.data.enteredEmployees != null &&
                 me.data.enteredSalary != null &&
                 me.data.enteredRevenue != null) {
-                dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue }, notifier.getNotifier(percentageDataReturned));
+                
+                dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+                dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+                dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+                dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
             }
         };
 

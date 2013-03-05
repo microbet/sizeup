@@ -10,6 +10,7 @@ using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.DataAccess;
 using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -17,22 +18,25 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Turnover/
-        public ActionResult Turnover(long industryId, long placeId)
+
+        public ActionResult Chart(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Turnover.Chart(context, industryId, placeId);
+                var data = Core.DataLayer.Turnover.Chart(context, industryId, placeId, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentile(long industryId, int placeId)
+        public ActionResult Percentile(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.Turnover.Percentile(context, industryId, placeId);
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                var data = Core.DataLayer.Turnover.Percentile(context, industryId, placeId, granularity);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+
     }
 }
