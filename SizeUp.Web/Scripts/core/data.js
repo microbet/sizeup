@@ -214,33 +214,19 @@
                 return get('/api/AverageEmployees/percentile/', params, callback);
             },
 
-            getAverageEmployeesBandsByState: function (params, callback) {
-                return get('/api/AverageEmployees/bands/state/', params, callback);
-            },
-
-            getAverageEmployeesBandsByCounty: function (params, callback) {
-                return get('/api/AverageEmployees/bands/county/', params, callback);
-            },
-
-            getAverageEmployeesBandsByZip: function (params, callback) {
-                return get('/api/AverageEmployees/bands/zip/', params, callback);
+            getAverageEmployeesBands: function (params, callback) {
+                return get('/api/AverageEmployees/bands/', params, callback);
             },
 
             getTotalEmployeesChart: function (params, callback) {
                 return get('/api/TotalEmployees/', params, callback);
             },
 
-            getTotalEmployeesBandsByState: function (params, callback) {
-                return get('/api/TotalEmployees/bands/state/', params, callback);
+            getTotalEmployeesBands: function (params, callback) {
+                return get('/api/TotalEmployees/bands/', params, callback);
             },
 
-            getTotalEmployeesBandsByCounty: function (params, callback) {
-                return get('/api/TotalEmployees/bands/county/', params, callback);
-            },
-
-            getTotalEmployeesBandsByZip: function (params, callback) {
-                return get('/api/TotalEmployees/bands/zip/', params, callback);
-            },
+           
 
 
             getEmployeesPerCapitaChart: function (params, callback) {
@@ -251,16 +237,8 @@
                 return get('/api/EmployeesPerCapita/percentile/', params, callback);
             },
 
-            getEmployeesPerCapitaBandsByState: function (params, callback) {
-                return get('/api/EmployeesPerCapita/bands/state/', params, callback);
-            },
-
-            getEmployeesPerCapitaBandsByCounty: function (params, callback) {
-                return get('/api/EmployeesPerCapita/bands/county/', params, callback);
-            },
-
-            getEmployeesPerCapitaBandsByZip: function (params, callback) {
-                return get('/api/EmployeesPerCapita/bands/zip/', params, callback);
+            getEmployeesPerCapitaBands: function (params, callback) {
+                return get('/api/EmployeesPerCapita/bands/', params, callback);
             },
 
             getCostEffectivenessChart: function (params, callback) {

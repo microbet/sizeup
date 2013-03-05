@@ -225,13 +225,6 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "YearStarted", action = "Percentile" }
            );
 
-            context.MapRoute(
-               "YearStartedCount",
-               "Api/YearStarted/Count",
-               new { controller = "YearStarted", action = "YearStartedCount" }
-           );
-
-
             /****AverageSalary*****/
 
             context.MapRoute(
@@ -268,6 +261,13 @@ namespace SizeUp.Web.Areas.Api
             );
 
             context.MapRoute(
+                "AverageEmployeesBands",
+                "Api/AverageEmployees/Bands",
+                new { controller = "AverageEmployees", action = "Bands" }
+            );
+
+            /*
+            context.MapRoute(
                 "AverageEmployeesBandsZip",
                 "Api/AverageEmployees/Bands/Zip",
                 new { controller = "AverageEmployees", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
@@ -283,7 +283,7 @@ namespace SizeUp.Web.Areas.Api
                 "AverageEmployeesBandsState",
                 "Api/AverageEmployees/Bands/State",
                 new { controller = "AverageEmployees", action = "BandsByState" }
-            );
+            );*/
 
             /****TotalEmployees*****/
 
@@ -294,21 +294,9 @@ namespace SizeUp.Web.Areas.Api
             );
 
             context.MapRoute(
-                "TotalEmployeesBandsZip",
-                "Api/TotalEmployees/Bands/Zip",
-                new { controller = "TotalEmployees", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
-            );
-
-            context.MapRoute(
-                "TotalEmployeesBandsCounty",
-                "Api/TotalEmployees/Bands/County",
-                new { controller = "TotalEmployees", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
-            );
-
-            context.MapRoute(
-                "TotalEmployeesBandsState",
-                "Api/TotalEmployees/Bands/State",
-                new { controller = "TotalEmployees", action = "BandsByState" }
+                "TotalEmployeesBands",
+                "Api/TotalEmployees/Bands",
+                new { controller = "TotalEmployees", action = "Bands"}
             );
 
             /****EmployeesPerCapita*****/
@@ -326,23 +314,12 @@ namespace SizeUp.Web.Areas.Api
             );
 
             context.MapRoute(
-                "EmployeesPerCapitaBandsZip",
-                "Api/EmployeesPerCapita/Bands/Zip",
-                new { controller = "EmployeesPerCapita", action = "BandsByZip", boundingEntityId = UrlParameter.Optional }
+                "EmployeesPerCapitaBands",
+                "Api/EmployeesPerCapita/Bands",
+                new { controller = "EmployeesPerCapita", action = "Bands" }
             );
 
-            context.MapRoute(
-                "EmployeesPerCapitaBandsCounty",
-                "Api/EmployeesPerCapita/Bands/County",
-                new { controller = "EmployeesPerCapita", action = "BandsByCounty", boundingEntityId = UrlParameter.Optional }
-            );
-
-            context.MapRoute(
-                "EmployeesPerCapitaBandsState",
-                "Api/EmployeesPerCapita/Bands/State",
-                new { controller = "EmployeesPerCapita", action = "BandsByState" }
-            );
-
+           
            
 
             /****RevenuePerCapita*****/

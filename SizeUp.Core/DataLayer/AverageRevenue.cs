@@ -114,28 +114,28 @@ namespace SizeUp.Core.DataLayer
 
             var cityData = BusinessData.City(context)
                 .Where(i => i.Revenue != null && i.Revenue > 0)
-                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.IndustryId == industryId && i.Business.IndustryId == industryId)
                 .Where(i => i.City.CityCountyMappings.Any(m => m.Id == placeId));
 
             var countyData = BusinessData.County(context)
                 .Where(i => i.Revenue != null && i.Revenue > 0)
-                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.IndustryId == industryId && i.Business.IndustryId == industryId)
                 .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId));
 
             var metroData = BusinessData.County(context)
                 .Where(i => i.Revenue != null && i.Revenue > 0)
-                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.IndustryId == industryId && i.Business.IndustryId == industryId)
                 .Where(i => i.County.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)));
 
             var stateData = BusinessData.County(context)
                 .Where(i => i.Revenue != null && i.Revenue > 0)
-                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.IndustryId == industryId && i.Business.IndustryId == industryId)
                 .Where(i => i.County.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)));
 
 
             var nationData = BusinessData.County(context)
                 .Where(i => i.Revenue != null && i.Revenue > 0)
-                .Where(i => i.IndustryId == industryId);
+                .Where(i => i.IndustryId == industryId && i.Business.IndustryId == industryId);
 
             var city = cityData.Select(d => new
             {

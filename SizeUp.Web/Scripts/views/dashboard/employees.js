@@ -368,9 +368,11 @@
                 data.title = 'Average Employees per business by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
                 me.data.averageEmployees.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/zip/';
-                dataLayer.getAverageEmployeesBandsByZip({
+                dataLayer.getAverageEmployeesBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     bands: 7
                 }, itemsNotify);
             }
@@ -380,9 +382,11 @@
                     data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.averageEmployees.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
-                    dataLayer.getAverageEmployeesBandsByCounty({
+                    dataLayer.getAverageEmployeesBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        granularity: 'County',
+                        boundingGranularity:'Metro',
                         bands: 7
                     }, itemsNotify);
 
@@ -393,9 +397,11 @@
                     data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.averageEmployees.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
-                    dataLayer.getAverageEmployeesBandsByCounty({
+                    dataLayer.getAverageEmployeesBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity:'State',
                         bands: 7
                     }, itemsNotify);
                 }
@@ -406,9 +412,11 @@
                     data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
                     me.data.averageEmployees.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getAverageEmployeesBandsByCounty({
+                    dataLayer.getAverageEmployeesBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
 
@@ -420,8 +428,10 @@
                 data.title = 'Average Employees per business by state in the USA';
                 me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/state/';
                 me.data.averageEmployees.currentBoundingEntityId = null;
-                dataLayer.getAverageEmployeesBandsByState({
+                dataLayer.getAverageEmployeesBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    granularity: 'State',
                     bands: 7
                 }, itemsNotify);
             }
@@ -606,9 +616,11 @@
                 data.title = 'Employees Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
                 me.data.employeesPerCapita.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
                 me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/zip/';
-                dataLayer.getEmployeesPerCapitaBandsByZip({
+                dataLayer.getEmployeesPerCapitaBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     bands: 7
                 }, itemsNotify);
             }
@@ -618,9 +630,11 @@
                     data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
                     me.data.employeesPerCapita.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
                     me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
-                    dataLayer.getEmployeesPerCapitaBandsByCounty({
+                    dataLayer.getEmployeesPerCapitaBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         bands: 7
                     }, itemsNotify);
 
@@ -631,9 +645,11 @@
                     data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.employeesPerCapita.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
-                    dataLayer.getEmployeesPerCapitaBandsByCounty({
+                    dataLayer.getEmployeesPerCapitaBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
                 }
@@ -644,9 +660,11 @@
                     data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
                     me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
                     me.data.employeesPerCapita.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    dataLayer.getEmployeesPerCapitaBandsByCounty({
+                    dataLayer.getEmployeesPerCapitaBands({
+                        placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.IndustryDetails.Industry.Id,
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         bands: 7
                     }, itemsNotify);
 
@@ -658,8 +676,10 @@
                 data.title = 'Employees Per Capita by state in the USA';
                 me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/state/';
                 me.data.employeesPerCapita.currentBoundingEntityId = null;
-                dataLayer.getEmployeesPerCapitaBandsByState({
+                dataLayer.getEmployeesPerCapitaBands({
+                    placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    granularity: 'State',
                     bands: 7
                 }, itemsNotify);
             }
@@ -761,14 +781,47 @@
                 displayReport();
             });
 
+            var averageEmployeesPercentileData = {};
+            var averageEmployeesChartData = {};
+            var employeesPerCapitaPercentileData = {};
+            var employeesPerCapitaChartData = {};
+
+            var averageEmployeesPercentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { averageEmployeesPercentileDataReturned(averageEmployeesPercentileData); }));
+            var averageEmployeesChartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { averageEmployeesChartDataReturned(averageEmployeesChartData); }));
+
+            var employeesPerCapitaPercentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { employeesPerCapitaPercentileDataReturned(employeesPerCapitaPercentileData); }));
+            var employeesPerCapitaChartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { employeesPerCapitaChartDataReturned(employeesPerCapitaChartData); }));
+
+
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ employees: me.data.enteredValue });
 
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(averageEmployeesChartDataReturned));
-            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(averageEmployeesPercentileDataReturned));
 
-            dataLayer.getEmployeesPerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(employeesPerCapitaChartDataReturned));
-            dataLayer.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(employeesPerCapitaPercentileDataReturned));
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, averageEmployeesChartNotifier.getNotifier(function (data) { averageEmployeesChartData.City = data; }));
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, averageEmployeesChartNotifier.getNotifier(function (data) { averageEmployeesChartData.County = data; }));
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, averageEmployeesChartNotifier.getNotifier(function (data) { averageEmployeesChartData.Metro = data; }));
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, averageEmployeesChartNotifier.getNotifier(function (data) { averageEmployeesChartData.State = data; }));
+            dataLayer.getAverageEmployeesChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, averageEmployeesChartNotifier.getNotifier(function (data) { averageEmployeesChartData.Nation = data; }));
+
+            dataLayer.getEmployeesPerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, employeesPerCapitaChartNotifier.getNotifier(function (data) { employeesPerCapitaChartData.City = data; }));
+            dataLayer.getEmployeesPerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, employeesPerCapitaChartNotifier.getNotifier(function (data) { employeesPerCapitaChartData.County = data; }));
+            dataLayer.getEmployeesPerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, employeesPerCapitaChartNotifier.getNotifier(function (data) { employeesPerCapitaChartData.Metro = data; }));
+            dataLayer.getEmployeesPerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, employeesPerCapitaChartNotifier.getNotifier(function (data) { employeesPerCapitaChartData.State = data; }));
+            dataLayer.getEmployeesPerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, employeesPerCapitaChartNotifier.getNotifier(function (data) { employeesPerCapitaChartData.Nation = data; }));
+
+
+            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'City' }, averageEmployeesPercentileNotifier.getNotifier(function (data) { averageEmployeesPercentileData.City = data; }));
+            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, averageEmployeesPercentileNotifier.getNotifier(function (data) { averageEmployeesPercentileData.County = data; }));
+            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, averageEmployeesPercentileNotifier.getNotifier(function (data) { averageEmployeesPercentileData.Metro = data; }));
+            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, averageEmployeesPercentileNotifier.getNotifier(function (data) { averageEmployeesPercentileData.State = data; }));
+            dataLayer.getAverageEmployeesPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, averageEmployeesPercentileNotifier.getNotifier(function (data) { averageEmployeesPercentileData.Nation = data; }));
+
+
+            dataLayer.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.County = data; }));
+            dataLayer.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.Metro = data; }));
+            dataLayer.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.State = data; }));
+            dataLayer.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.Nation = data; }));
+
         };
 
         var averageEmployeesPercentileDataReturned = function (data) {

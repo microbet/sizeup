@@ -200,11 +200,26 @@
                 displayReport();
             });
 
+            var percentileData = {};
+            var chartData = {};
+            var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { percentileDataReturned(percentileData); }));
+            var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
+
+
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ yearStarted: me.data.enteredValue });
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear }, notifier.getNotifier(chartDataReturned));
-            dataLayer.getYearStartedCount({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, year: me.data.enteredValue }, notifier.getNotifier(countsDataReturned));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentileDataReturned));
+
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            dataLayer.getYearStartedChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'City' }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
+            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
 
@@ -235,10 +250,14 @@
             }
         };
 
-        var countsDataReturned = function (data) {
-            me.data.counts = data;
+        var getCounts = function (data, year) {
+            for (var x in data) {
+                if (data[x].Key == year) {
+                    return data[x].Value;
+                }
+            }
+            return null;
         };
-
 
         var chartDataReturned = function (data) {
 
@@ -250,6 +269,14 @@
                 color: '#5b0',
                 value: me.data.enteredValue,
                 label: 'your business started in ' + me.data.enteredValue
+            };
+
+            me.data.counts = {
+                City: getCounts(data.City, me.data.enteredValue),
+                County: getCounts(data.County, me.data.enteredValue),
+                Metro: getCounts(data.Metro, me.data.enteredValue),
+                State: getCounts(data.State, me.data.enteredValue),
+                Nation: getCounts(data.Nation, me.data.enteredValue),
             };
 
             if (data['City']) {

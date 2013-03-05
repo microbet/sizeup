@@ -11,7 +11,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core.DataLayer;
-
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -20,29 +20,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/YearStarted/
 
-        public ActionResult YearStarted(long industryId, long placeId, int startYear, int endYear)
+        public ActionResult YearStarted(long industryId, long placeId, int startYear, int endYear, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear);
+                var obj = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, granularity);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult YearStartedCount(long industryId, long placeId, int year)
+        public ActionResult Percentile(long industryId, long placeId, int value, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.YearStarted.Count(context, industryId, placeId, year);
-                return Json(obj, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public ActionResult Percentile(long industryId, long placeId, int value)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var obj = Core.DataLayer.YearStarted.Percentile(context, industryId, placeId, value);
+                var obj = Core.DataLayer.YearStarted.Percentile(context, industryId, placeId, value, granularity);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
