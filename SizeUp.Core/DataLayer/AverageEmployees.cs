@@ -155,7 +155,7 @@ namespace SizeUp.Core.DataLayer
             {
                 County = d.County,
                 Total = countyData.Count(),
-                Filtered = countyData.Where(v => v.Revenue <= value).Count()
+                Filtered = countyData.Where(v => v.Employees <= value).Count()
             })
             .Where(d => countyData.Count() >= MinimumBusinessCount)
             .Select(i => new PercentileItem
@@ -169,7 +169,7 @@ namespace SizeUp.Core.DataLayer
             {
                 Metro = d.County.Metro,
                 Total = metroData.Count(),
-                Filtered = metroData.Where(v => v.Revenue <= value).Count()
+                Filtered = metroData.Where(v => v.Employees <= value).Count()
             })
             .Where(d => metroData.Count() >= MinimumBusinessCount)
             .Select(i => new PercentileItem
@@ -183,7 +183,7 @@ namespace SizeUp.Core.DataLayer
             {
                 State = d.County.State,
                 Total = stateData.Count(),
-                Filtered = stateData.Where(v => v.Revenue <= value).Count()
+                Filtered = stateData.Where(v => v.Employees <= value).Count()
             })
             .Where(d => stateData.Count() >= MinimumBusinessCount)
             .Select(i => new PercentileItem
@@ -197,7 +197,7 @@ namespace SizeUp.Core.DataLayer
             var nation = nationData.Select(d => new
             {
                 Total = nationData.Count(),
-                Filtered = nationData.Where(v => v.Revenue <= value).Count()
+                Filtered = nationData.Where(v => v.Employees <= value).Count()
             })
             .Where(d => nationData.Count() >= MinimumBusinessCount)
             .Select(i => new PercentileItem
