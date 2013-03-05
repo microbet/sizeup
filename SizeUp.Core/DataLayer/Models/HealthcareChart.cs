@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class HealthcareChart
+    public class HealthcareChart : Base.ChartItem
     {
         public long? State { get; set; }
         public int? StateRank { get; set; }

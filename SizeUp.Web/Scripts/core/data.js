@@ -263,7 +263,7 @@
 
 
             getWorkersCompChart: function (params, callback) {
-                return get('/api/workersComp/', params, callback);
+                return get('/api/workersComp/chart/', params, callback);
             },
 
             getWorkersCompPercentage: function (params, callback) {
@@ -274,7 +274,7 @@
 
 
             getHealthcareCostChart: function (params, callback) {
-                return get('/api/healthcare/', params, callback);
+                return get('/api/healthcare/chart/', params, callback);
             },
 
             getHealthcareCostPercentage: function (params, callback) {

@@ -11,6 +11,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -19,20 +20,20 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/WorkersComp/
 
-        public ActionResult WorkersComp(long industryId, long placeId)
+        public ActionResult Chart(long industryId, long placeId, Granularity granularity = Granularity.State)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.WorkersComp.Chart(context, industryId, placeId);
+                var data = Core.DataLayer.WorkersComp.Chart(context, industryId, placeId, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public ActionResult Percentage(int industryId, long placeId, double value)
+        public ActionResult Percentage(int industryId, long placeId, double value, Granularity granularity = Granularity.State)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.WorkersComp.Percentage(context, industryId, placeId, value);
+                var obj = Core.DataLayer.WorkersComp.Percentage(context, industryId, placeId, value, granularity);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

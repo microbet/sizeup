@@ -11,47 +11,46 @@ namespace SizeUp.Core.DataLayer
 {
     public class WorkersComp : Base.Base
     {
-        public static PlaceValues<WorkersCompChartItem> Chart(SizeUpContext context, long industryId, long placeId)
+        public static WorkersCompChartItem Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
+            WorkersCompChartItem output = null;
 
-            var data = IndustryData.Get(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i => new PlaceValues<WorkersCompChartItem>
+
+            var data = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Cities.Any(c => c.CityCountyMappings.Any(m => m.Id == placeId)))
+                .Select(i => new WorkersCompChartItem
                 {
-                    State = i.State
-                            .Select(d => new WorkersCompChartItem
-                            {
-                                Average = d.WorkersComp,
-                                Rank = d.WorkersCompRank,
-                                Name = d.State.Name
-                            }).FirstOrDefault()
-                }).FirstOrDefault();
-            return data;
+                    Name = i.State.Name,
+                    Average = i.WorkersComp,
+                    Rank = i.WorkersCompRank
+                });
+
+            if (granularity == Granularity.State)
+            {
+                output = data.FirstOrDefault();
+            }
+            return output;
         }
 
-        public static PlaceValues<PercentageItem> Percentage(SizeUpContext context, long industryId, long placeId, double value)
+        public static PercentageItem Percentage(SizeUpContext context, long industryId, long placeId, double value, Granularity granularity)
         {
-            var data = IndustryData.Get(context, industryId)
-                .Where(i => i.Place.Id == placeId)
-                .Select(i=> new 
+            PercentageItem output = null;
+            var data = IndustryData.State(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.State.Cities.Any(c => c.CityCountyMappings.Any(m => m.Id == placeId)))
+                .Where(i => i.WorkersComp != null && i.WorkersComp > 0)
+                .Select(i => new PercentageItem
                 {
-                    State = i.State.Where(v => v.WorkersComp != null && v.WorkersComp > 0)
-                            .Select(d => new
-                            {
-                                State = d.State,
-                                Value = d.WorkersComp
-                            }).FirstOrDefault()
-                })
-                .Select(i => new PlaceValues<PercentageItem>
-                {
-                    State = new PercentageItem
-                    {
-                        Percentage = i.State.Value != null ? (int?)(((value - i.State.Value) / i.State.Value) * 100) : null,
-                        Name = i.State.State.Name
-                    }
-                }).FirstOrDefault();
+                    Percentage = i.WorkersComp > 0 ? (int?)(((value - i.WorkersComp) / i.WorkersComp) * 100) : null,
+                    Name = i.State.Name
+                });
 
-            return data;
+            if (granularity == Granularity.State)
+            {
+                output = data.FirstOrDefault();
+            }
+            return output;
         }
     }
 }

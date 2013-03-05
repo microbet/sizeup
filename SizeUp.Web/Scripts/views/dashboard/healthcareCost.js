@@ -109,11 +109,11 @@
         var percentageDataReturned = function (data) {
             if (data) {
                 me.data.hasData = true;
-                var val = 50 - (data.State.Percentage / 2);
-                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
+                var val = 50 - (data.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
                 me.data.gauge = {
                     value: val,
-                    tooltip: 'you' + (data.State.Percentage < 0 ? ' save ' : ' overpay ') + percentage + ' compared to the average'
+                    tooltip: 'you' + (data.Percentage < 0 ? ' save ' : ' overpay ') + percentage + ' compared to the average'
                 };
             }
             else {
