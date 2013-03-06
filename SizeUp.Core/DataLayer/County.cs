@@ -27,5 +27,6 @@ namespace SizeUp.Core.DataLayer
             }
             return output;
         }
+
     }
 }

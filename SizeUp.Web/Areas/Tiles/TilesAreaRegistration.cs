@@ -24,13 +24,7 @@ namespace SizeUp.Web.Areas.Tiles
            );
 
 
-            context.MapRoute(
-             "GeographyBoundary",
-             "Tiles/GeographyBoundary/",
-             new { controller = "GeographyBoundary", action = "Index", entityId = UrlParameter.Optional }
-         );
-
-
+         
 
 
             context.MapRoute(

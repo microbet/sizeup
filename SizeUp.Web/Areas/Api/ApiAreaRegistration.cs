@@ -216,31 +216,7 @@ namespace SizeUp.Web.Areas.Api
            );
 
 
-            /****demographics*****/
-
-            context.MapRoute(
-                "CityDemographics",
-                "Api/Demographics/city",
-                new { controller = "Demographics", action = "City" }
-            );
-
-            context.MapRoute(
-                "CountyDemographics",
-                "Api/Demographics/county",
-                new { controller = "Demographics", action = "County" }
-            );
-
-            context.MapRoute(
-                "MetroDemographics",
-                "Api/Demographics/metro",
-                new { controller = "Demographics", action = "Metro" }
-            );
-
-            context.MapRoute(
-                "StateDemographics",
-                "Api/Demographics/state",
-                new { controller = "Demographics", action = "State" }
-            );
+           
 
 
               /****profile*****/

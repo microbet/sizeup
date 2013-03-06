@@ -298,21 +298,11 @@
                 return get('/api/Advertising/MinimumDistance', params, callback);
             },
 
-            getCityDemographics: function (params, callback) {
-                return get('/api/demographics/city', params, callback);
+            getDemographics: function (params, callback) {
+                return get('/api/demographics/', params, callback);
             },
 
-            getCountyDemographics: function (params, callback) {
-                return get('/api/demographics/county', params, callback);
-            },
-
-            getMetroDemographics: function (params, callback) {
-                return get('/api/demographics/metro', params, callback);
-            },
-
-            getStateDemographics: function (params, callback) {
-                return get('/api/demographics/state', params, callback);
-            },
+           
 
             getDashboardValues: function (params, callback) {
                 return get('/api/profile/dashboardValues/', params, callback);

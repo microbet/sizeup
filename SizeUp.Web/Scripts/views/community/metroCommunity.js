@@ -22,7 +22,7 @@
 
         dataLayer.getMetroBoundingBox({ id: opts.CurrentPlace.Metro.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
         dataLayer.getMetroCentroid({ id: opts.CurrentPlace.Metro.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        dataLayer.getMetroDemographics({ id: opts.CurrentPlace.Metro.Id }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
+        dataLayer.getDemographics({ id: opts.CurrentPlace.Metro.Id, granularity: 'Metro' }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 
             var bounds = new sizeup.maps.latLngBounds();
@@ -38,7 +38,8 @@
             var borderOverlay = new sizeup.maps.overlay({
                 tileUrl: '/tiles/geographyBoundary/',
                 tileParams: {
-                    entityId: 'm' + opts.CurrentPlace.Metro.Id
+                    id: opts.CurrentPlace.Metro.Id,
+                    granularity: 'Metro'
                 }
             });
 

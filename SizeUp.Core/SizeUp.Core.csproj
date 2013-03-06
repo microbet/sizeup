@@ -70,7 +70,6 @@
     <Compile Include="DataAccess\Models\ConsumerExpenditureBandItem.cs" />
     <Compile Include="DataAccess\States.cs" />
     <Compile Include="DataAccess\Counties.cs" />
-    <Compile Include="DataAccess\DemographicsData.cs" />
     <Compile Include="DataAccess\Geography.cs" />
     <Compile Include="DataAccess\IndustryData.cs" />
     <Compile Include="DataAccess\Locations.cs" />
@@ -82,12 +81,15 @@
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\Base\Base.cs" />
     <Compile Include="DataLayer\Base\BusinessData.cs" />
+    <Compile Include="DataLayer\Base\DemographicsData.cs" />
     <Compile Include="DataLayer\Base\Granularity.cs" />
     <Compile Include="DataLayer\Base\IndustryData.cs" />
     <Compile Include="DataLayer\AverageSalary.cs" />
     <Compile Include="DataLayer\AverageEmployees.cs" />
     <Compile Include="DataLayer\City.cs" />
+    <Compile Include="DataLayer\Demographics.cs" />
     <Compile Include="DataLayer\Models\Base\KeyValue.cs" />
+    <Compile Include="DataLayer\Models\Demographics.cs" />
     <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\Metro.cs" />
     <Compile Include="DataLayer\County.cs" />
