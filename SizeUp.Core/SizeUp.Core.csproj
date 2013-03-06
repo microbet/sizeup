@@ -66,8 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Crypto.cs" />
-    <Compile Include="DataAccess\BusinessData.cs" />
-    <Compile Include="DataAccess\Cities.cs" />
     <Compile Include="DataAccess\ConsumerExpenditureData.cs" />
     <Compile Include="DataAccess\Models\ConsumerExpenditureBandItem.cs" />
     <Compile Include="DataAccess\States.cs" />
@@ -76,7 +74,6 @@
     <Compile Include="DataAccess\Geography.cs" />
     <Compile Include="DataAccess\IndustryData.cs" />
     <Compile Include="DataAccess\Locations.cs" />
-    <Compile Include="DataAccess\Math.cs" />
     <Compile Include="DataAccess\Models\PlaceDistance.cs" />
     <Compile Include="DataAccess\Models\DisplayGeography.cs" />
     <Compile Include="DataAccess\Models\EntityDistance.cs" />
@@ -90,6 +87,7 @@
     <Compile Include="DataLayer\AverageSalary.cs" />
     <Compile Include="DataLayer\AverageEmployees.cs" />
     <Compile Include="DataLayer\City.cs" />
+    <Compile Include="DataLayer\Models\Base\KeyValue.cs" />
     <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\Metro.cs" />
     <Compile Include="DataLayer\County.cs" />
@@ -108,12 +106,9 @@
     <Compile Include="DataLayer\RevenuePerCapita.cs" />
     <Compile Include="DataLayer\CostEffectiveness.cs" />
     <Compile Include="DataLayer\EmployeesPerCapita.cs" />
-    <Compile Include="DataLayer\Models\Base\BusinessData.cs" />
-    <Compile Include="DataLayer\Models\Base\IndustryData.cs" />
     <Compile Include="DataLayer\Models\PercentageItem.cs" />
     <Compile Include="DataLayer\Models\LineChartItem.cs" />
     <Compile Include="DataLayer\Models\PercentileItem.cs" />
-    <Compile Include="DataLayer\Models\PlaceValues.cs" />
     <Compile Include="DataLayer\Models\BarChartItem.cs" />
     <Compile Include="DataLayer\YearStarted.cs" />
     <Compile Include="DataLayer\ZipCode.cs" />
@@ -138,6 +133,7 @@
     <Compile Include="Tiles\Businesses.cs" />
     <Compile Include="Tiles\GeographyBoundary.cs" />
     <Compile Include="Tiles\GeographyCollection.cs" />
+    <Compile Include="Tiles\GeographyEntity.cs" />
     <Compile Include="Tiles\GeoSink.cs" />
     <Compile Include="Tiles\GoogleMapsAPIProjection.cs" />
     <Compile Include="Tiles\Heatmap.cs" />

@@ -216,7 +216,7 @@
             var overlays = [];
 
             overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/averageEmployees/zip/',
+                tileUrl: '/tiles/averageEmployees/',
                 tileParams: {
                     colors: [
                                 '#F5F500',
@@ -226,8 +226,10 @@
                                 '#F55200',
                                 '#F52900',
                                 '#F50000'
-                    ].join(','),
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    ],
+                    placeId: me.opts.report.CurrentPlace.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     industryId: me.opts.report.IndustryDetails.Industry.Id
                 },
                 minZoom: 11,
@@ -236,7 +238,7 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
 
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/averageEmployees/county/',
+                    tileUrl: '/tiles/averageEmployees/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -246,8 +248,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 8,
@@ -255,7 +259,7 @@
                 }));
 
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/averageEmployees/county/',
+                    tileUrl: '/tiles/averageEmployees/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -265,8 +269,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
@@ -275,7 +281,7 @@
             }
             else {
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/averageEmployees/county/',
+                    tileUrl: '/tiles/averageEmployees/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -285,8 +291,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
@@ -296,7 +304,7 @@
 
 
             overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/averageEmployees/state/',
+                tileUrl: '/tiles/averageEmployees/',
                 tileParams: {
                     colors: [
                                 '#F5F500',
@@ -306,7 +314,9 @@
                                 '#F55200',
                                 '#F52900',
                                 '#F50000'
-                    ].join(','),
+                    ],
+                    placeId: me.opts.report.CurrentPlace.Id,
+                    granularity: 'State',
                     industryId: me.opts.report.IndustryDetails.Industry.Id
                 },
                 minZoom: 0,
@@ -464,7 +474,7 @@
             var overlays = [];
 
             overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/EmployeesPerCapita/zip/',
+                tileUrl: '/tiles/EmployeesPerCapita/',
                 tileParams: {
                     colors: [
                                 '#F5F500',
@@ -474,8 +484,10 @@
                                 '#F55200',
                                 '#F52900',
                                 '#F50000'
-                    ].join(','),
-                    boundingEntityId: 'co' + me.opts.report.CurrentPlace.County.Id,
+                    ],
+                    placeId: me.opts.report.CurrentPlace.Id,
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County',
                     industryId: me.opts.report.IndustryDetails.Industry.Id
                 },
                 minZoom: 11,
@@ -484,7 +496,7 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
 
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/EmployeesPerCapita/county/',
+                    tileUrl: '/tiles/EmployeesPerCapita/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -494,8 +506,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 8,
@@ -503,7 +517,7 @@
                 }));
 
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/EmployeesPerCapita/county/',
+                    tileUrl: '/tiles/EmployeesPerCapita/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -513,8 +527,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
@@ -523,7 +539,7 @@
             }
             else {
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/EmployeesPerCapita/county/',
+                    tileUrl: '/tiles/EmployeesPerCapita/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -533,8 +549,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
@@ -544,7 +562,7 @@
 
 
             overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/EmployeesPerCapita/state/',
+                tileUrl: '/tiles/EmployeesPerCapita/',
                 tileParams: {
                     colors: [
                                 '#F5F500',
@@ -554,7 +572,9 @@
                                 '#F55200',
                                 '#F52900',
                                 '#F50000'
-                    ].join(','),
+                    ],
+                    placeId: me.opts.report.CurrentPlace.Id,
+                    granularity: 'State',
                     industryId: me.opts.report.IndustryDetails.Industry.Id
                 },
                 minZoom: 0,

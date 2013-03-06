@@ -749,48 +749,11 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-
-                var years = Enumerable.Range(startYear, (endYear - startYear) + 1).ToList();
-
-                
-                var locations = Locations.Get(context, placeId).FirstOrDefault();
-                IQueryable <int?> metro = null;
-
-
-                var city = BusinessData.GetByCity(context, industryId, locations.City.Id)
-                    .Select(i => i.YearEstablished ?? i.YearAppeared)
-                    .Where(i => i != null)
-                    .Where(i => i >= startYear && i <= endYear);
-
-                var county = BusinessData.GetByCounty(context, industryId, locations.County.Id)
-                    .Select(i => i.YearEstablished ?? i.YearAppeared)
-                    .Where(i => i != null)
-                    .Where(i => i >= startYear && i <= endYear);
-
-                if (locations.Metro != null)
-                {
-                    metro = BusinessData.GetByMetro(context, industryId, locations.Metro.Id)
-                        .Select(i => i.YearEstablished ?? i.YearAppeared)
-                        .Where(i => i != null)
-                        .Where(i => i >= startYear && i <= endYear);
-                }
-
-                var state = BusinessData.GetByState(context, industryId, locations.State.Id)
-                    .Select(i => i.YearEstablished ?? i.YearAppeared)
-                    .Where(i => i != null)
-                    .Where(i => i >= startYear && i <= endYear);
-
-                var nation = BusinessData.GetByNation(context, industryId)
-                    .Select(i => i.YearEstablished ?? i.YearAppeared)
-                    .Where(i => i != null)
-                    .Where(i => i >= startYear && i <= endYear);
-
-
-                var c = years.GroupJoin(city, o => o, i => i, (i, o) => new KeyValuePair<int, int>(i, o.Count())).ToList();
-                var co = years.GroupJoin(county, o => o, i => i, (i, o) => new KeyValuePair<int, int>(i, o.Count())).ToList();
-                var m = metro == null ? null : years.GroupJoin(metro, o => o, i => i, (i, o) => new KeyValuePair<int, int>(i, o.Count())).ToList();
-                var s = years.GroupJoin(state, o => o, i => i, (i, o) => new KeyValuePair<int, int>(i, o.Count())).ToList();
-                var n = years.GroupJoin(nation, o => o, i => i, (i, o) => new KeyValuePair<int, int>(i, o.Count())).ToList();
+                var c = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Base.Granularity.City);
+                var co = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Base.Granularity.County);
+                var m = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Base.Granularity.Metro);
+                var s = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Base.Granularity.State);
+                var n = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Base.Granularity.Nation);
 
                 List<Web.Models.Accessibility.Table> data =
                     c.Join(co, i => i.Key, o => o.Key, (i, o) => new { City = o, County = i })
@@ -798,7 +761,7 @@ namespace SizeUp.Web.Controllers
                     .Join(n, i => i.City.Key, o => o.Key, (i, o) => new Web.Models.Accessibility.Table() { Year = i.City.Key, City = i.City.Value, County = i.County.Value, State = i.State.Value, Nation = o.Value })
                     .ToList();
 
-                if (m != null)
+                if (context.CityCountyMappings.Any(cm=>cm.Id == placeId && cm.County.Metro != null))
                 {
                     data = data.Join(m, i => i.Year, o => o.Key, (i, o) => new Web.Models.Accessibility.Table() { Year = i.Year, City = i.City, County = i.County, State = i.State, Nation = i.Nation, Metro = o.Value })
                         .ToList();

@@ -227,6 +227,7 @@
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\BaseController.cs" />
     <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />

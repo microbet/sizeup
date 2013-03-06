@@ -5,13 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections.Specialized;
 using SizeUp.Web.Models;
-using SizeUp.Core.DataAccess;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.Serialization;
+using SizeUp.Core.DataLayer.Base;
 
 
 namespace SizeUp.Web.Controllers
@@ -25,8 +25,7 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var location = Locations.Get(context, WebContext.Current.CurrentPlaceId.Value).FirstOrDefault();
-                ViewBag.BusinessCount = BusinessData.GetByCity(context, WebContext.Current.CurrentIndustryId.Value, location.City.Id).Count();
+                ViewBag.BusinessCount = Core.DataLayer.Base.BusinessData.City(context).Count(i=> i.City.CityCountyMappings.Any(m=>m.Id == WebContext.Current.CurrentIndustryId.Value));
                 return View();
             }
         }

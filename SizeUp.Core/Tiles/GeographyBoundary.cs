@@ -18,7 +18,12 @@ namespace SizeUp.Core.Tiles
             
         }
 
-       
+
+        public override void Draw(List<GeographyEntity> Geographies)
+        {
+
+        }
+
         public override void Draw(List<GeographyCollection> Geographies)
         {     
             foreach (var geo in Geographies)

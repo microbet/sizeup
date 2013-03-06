@@ -154,7 +154,7 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
 
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/costEffectiveness/county/',
+                    tileUrl: '/tiles/costEffectiveness/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -164,8 +164,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 'm' + me.opts.report.CurrentPlace.Metro.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'Metro',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 8,
@@ -173,7 +175,7 @@
                 }));
 
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/costEffectiveness/county/',
+                    tileUrl: '/tiles/costEffectiveness/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -183,8 +185,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
@@ -193,7 +197,7 @@
             }
             else {
                 overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/costEffectiveness/county/',
+                    tileUrl: '/tiles/costEffectiveness/',
                     tileParams: {
                         colors: [
                                     '#F5F500',
@@ -203,8 +207,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        boundingEntityId: 's' + me.opts.report.CurrentPlace.State.Id,
+                        ],
+                        placeId: me.opts.report.CurrentPlace.Id,
+                        granularity: 'County',
+                        boundingGranularity: 'State',
                         industryId: me.opts.report.IndustryDetails.Industry.Id
                     },
                     minZoom: 5,
@@ -214,7 +220,7 @@
 
 
             overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/costEffectiveness/state/',
+                tileUrl: '/tiles/costEffectiveness/',
                 tileParams: {
                     colors: [
                                 '#F5F500',
@@ -224,7 +230,9 @@
                                 '#F55200',
                                 '#F52900',
                                 '#F50000'
-                    ].join(','),
+                    ],
+                    placeId: me.opts.report.CurrentPlace.Id,
+                    granularity: 'State',
                     industryId: me.opts.report.IndustryDetails.Industry.Id
                 },
                 minZoom: 0,

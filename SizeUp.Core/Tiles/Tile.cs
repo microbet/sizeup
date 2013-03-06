@@ -38,40 +38,6 @@ namespace SizeUp.Core.Tiles
             Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
         }
 
-        public SqlGeography GetBoundingGeography()
-        {
-            var box = GetBoundingBox();
-            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", box.SouthWest.X, box.NorthEast.X, box.SouthWest.Y, box.NorthEast.Y));
-        }
-
-        public SqlGeography GetBoundingGeography(SqlGeography geography)
-        {
-            var box = GetBoundingGeography();
-
-            if (geography != null)
-            {
-                box = box.STIntersection(geography);
-            }
-            return box;
-        }
-
-        public SqlGeography GetBoundingGeography(float bufferPercent)
-        {
-            var box = GetBoundingBox(bufferPercent);
-            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", box.SouthWest.X, box.NorthEast.X, box.SouthWest.Y, box.NorthEast.Y));
-        }
-
-        public SqlGeography GetBoundingGeography(SqlGeography geography, float bufferPercent)
-        {
-            var box = GetBoundingGeography(bufferPercent);
-
-            if (geography != null)
-            {
-                box = box.STIntersection(geography);
-            }
-            return box;
-        }
-
         public BoundingBox GetBoundingBox()
         {
             var ne = Projection.FromPixelToCoordinates(new PointF((X + 1) * Width, Y * Height));
@@ -93,5 +59,6 @@ namespace SizeUp.Core.Tiles
         }
 
         public abstract void Draw(List<GeographyCollection> Geographies);
+        public abstract void Draw(List<GeographyEntity> Geographies);
     }
 }
