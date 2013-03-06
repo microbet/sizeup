@@ -25,7 +25,10 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.BusinessCount = Core.DataLayer.Base.BusinessData.City(context).Count(i=> i.City.CityCountyMappings.Any(m=>m.Id == WebContext.Current.CurrentIndustryId.Value));
+                ViewBag.BusinessCount = Core.DataLayer.Base.BusinessData.City(context)
+                    .Where(i=> i.City.CityCountyMappings.Any(m=>m.Id == WebContext.Current.CurrentPlaceId.Value))
+                    .Where(i=>i.IndustryId == WebContext.Current.CurrentIndustryId.Value)
+                    .Count();
                 return View();
             }
         }

@@ -229,56 +229,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
 
-        public JsonResult Centroid(int id)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = context.CityCountyMappings.Where(i => i.Id == id)
-                    .Select(i => new
-                    {
-                        City = i.City.CityGeographies.Where(g => g.CityId == i.CityId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
-                        County = i.County.CountyGeographies.Where(g => g.CountyId == i.CountyId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()
-                    })
-                    .FirstOrDefault();
-
-
-                Models.Maps.LatLng output = new Models.Maps.LatLng();
-                if (data != null)
-                {
-                    var geom = DbGeometry.FromBinary(data.City.Intersection(data.County).AsBinary());
-                    geom = geom.ConvexHull.Centroid;
-                    var geo = DbGeography.FromBinary(geom.AsBinary());
-                    output.Lat = (double)geo.Latitude;
-                    output.Lng = (double)geo.Longitude;
-                }
-                return Json(output, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult BoundingBox(int id)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = context.CityCountyMappings.Where(i => i.Id == id)
-                    .Select(i => new
-                    {
-                        City = i.City.CityGeographies.Where(g => g.CityId == i.CityId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
-                        County = i.County.CountyGeographies.Where(g => g.CountyId == i.CountyId && g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()
-                    })
-                    .FirstOrDefault();
-
-                List<Models.Maps.LatLng> output = new List<Models.Maps.LatLng>();
-                if (data != null)
-                {
-                    var geom = DbGeometry.FromBinary(data.City.Intersection(data.County).AsBinary());
-                    geom = geom.Envelope;
-                    var geo = DbGeography.FromBinary(geom.AsBinary());
-                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.PointAt(1).Latitude, Lng = (double)geo.PointAt(1).Longitude });
-                    output.Add(new Models.Maps.LatLng() { Lat = (double)geo.PointAt(3).Latitude, Lng = (double)geo.PointAt(3).Longitude });
-                }
-                return Json(output, JsonRequestBehavior.AllowGet);
-            }
-        }
 
 
     }

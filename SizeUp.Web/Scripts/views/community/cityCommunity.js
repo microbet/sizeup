@@ -20,14 +20,14 @@
 
         me.content = {};
 
-        dataLayer.getCityBoundingBox({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-        dataLayer.getCityCentroid({ id: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        dataLayer.getBoundingBox({ id: opts.CurrentPlace.City.Id, granularity: 'City' }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+        dataLayer.getCentroid({ id: opts.CurrentPlace.City.Id, granularity: 'City' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         dataLayer.getDemographics({ id: opts.CurrentPlace.City.Id, granularity: 'City' }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 
             var bounds = new sizeup.maps.latLngBounds();
-            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox[0].Lat, lng: me.data.BoundingBox[0].Lng }));
-            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox[1].Lat, lng: me.data.BoundingBox[1].Lng }));
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox.SouthWest.Lat, lng: me.data.BoundingBox.SouthWest.Lng }));
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox.NorthEast.Lat, lng: me.data.BoundingBox.NorthEast.Lng }));
 
 
 

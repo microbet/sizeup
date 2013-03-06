@@ -88,83 +88,8 @@ namespace SizeUp.Web.Areas.Api
              new { controller = "Place", action = "Centroid" }
             );
 
-            /***********city**********/
-            context.MapRoute(
-                "SingleCity",
-                "Api/City/",
-                new { controller = "City", action = "City" }
-            );
-
-            context.MapRoute(
-              "BoundingBoxCity",
-              "Api/City/BoundingBox",
-              new { controller = "City", action = "BoundingBox" }
-          );
-
-            context.MapRoute(
-             "CentroidCity",
-             "Api/City/Centroid",
-             new { controller = "City", action = "Centroid" }
-         );
-
-            /***********county**********/
-            context.MapRoute(
-                "SingleCounty",
-                "Api/County/",
-                new { controller = "County", action = "County" }
-            );
-
-            context.MapRoute(
-              "BoundingBoxCounty",
-              "Api/County/BoundingBox",
-              new { controller = "County", action = "BoundingBox" }
-          );
-
-            context.MapRoute(
-             "CentroidCounty",
-             "Api/County/Centroid",
-             new { controller = "County", action = "Centroid" }
-         );
-
-            
-
-            /***********metro**********/
-            context.MapRoute(
-                "SingleMetro",
-                "Api/Metro/",
-                new { controller = "Metro", action = "Metro" }
-            );
-
-            context.MapRoute(
-              "BoundingBoxMetro",
-              "Api/Metro/BoundingBox",
-              new { controller = "Metro", action = "BoundingBox" }
-          );
-
-            context.MapRoute(
-             "CentroidMetro",
-             "Api/Metro/Centroid",
-             new { controller = "Metro", action = "Centroid" }
-         );
-
-            /***********state**********/
-            context.MapRoute(
-                "SingleState",
-                "Api/State/",
-                new { controller = "State", action = "State" }
-            );
-
-            context.MapRoute(
-              "BoundingBoxState",
-              "Api/State/BoundingBox",
-              new { controller = "State", action = "BoundingBox" }
-          );
-
-            context.MapRoute(
-             "CentroidState",
-             "Api/State/Centroid",
-             new { controller = "State", action = "Centroid" }
-         );
+    
+          
 
 
             /***********business**********/

@@ -11,6 +11,7 @@ namespace SizeUp.Core.DataLayer.Base
         ZipCode,
         City,
         County,
+        Place,
         Metro,
         State,
         Nation

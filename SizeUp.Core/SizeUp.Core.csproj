@@ -87,9 +87,12 @@
     <Compile Include="DataLayer\AverageSalary.cs" />
     <Compile Include="DataLayer\AverageEmployees.cs" />
     <Compile Include="DataLayer\City.cs" />
+    <Compile Include="DataLayer\Geography.cs" />
     <Compile Include="DataLayer\Demographics.cs" />
     <Compile Include="DataLayer\Models\Base\KeyValue.cs" />
+    <Compile Include="DataLayer\Models\BoundingBox.cs" />
     <Compile Include="DataLayer\Models\Demographics.cs" />
+    <Compile Include="DataLayer\Models\LatLng.cs" />
     <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\Metro.cs" />
     <Compile Include="DataLayer\County.cs" />

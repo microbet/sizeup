@@ -70,52 +70,21 @@
                 return get('/api/place/detected', null, callback);
             },
 
-            getCity: function (params, callback) {
-                return get('/api/city/', params, callback);
-            },
-            getPlaceBoundingBox: function (params, callback) {
-                return get('/api/place/boundingbox/', params, callback);
-            },
-            getPlaceCentroid: function (params, callback) {
-                return get('/api/place/centroid/', params, callback);
-            },
-            getCityBoundingBox: function (params, callback) {
-                return get('/api/city/boundingbox/', params, callback);
-            },
-            getCityCentroid: function (params, callback) {
-                return get('/api/city/centroid/', params, callback);
-            },
-           
-            getCounty: function (params, callback) {
-                return get('/api/county/', params, callback);
-            },
-            getCountyBoundingBox: function (params, callback) {
-                return get('/api/county/boundingbox/', params, callback);
-            },
-            getCountyCentroid: function (params, callback) {
-                return get('/api/county/centroid/', params, callback);
-            },
-
-            getMetro: function (params, callback) {
-                return get('/api/metro/', params, callback);
-            },
-            getMetroBoundingBox: function (params, callback) {
-                return get('/api/metro/boundingbox/', params, callback);
-            },
-            getMetroCentroid: function (params, callback) {
-                return get('/api/metro/centroid/', params, callback);
-            },
 
 
-            getState: function (params, callback) {
-                return get('/api/state/', params, callback);
+            getBoundingBox: function (params, callback) {
+                return get('/api/geography/boundingbox/', params, callback);
             },
-            getStateBoundingBox: function (params, callback) {
-                return get('/api/state/boundingbox/', params, callback);
+            getCentroid: function (params, callback) {
+                return get('/api/geography/centroid/', params, callback);
             },
-            getStateCentroid: function (params, callback) {
-                return get('/api/state/centroid/', params, callback);
-            },
+            
+
+
+
+
+
+
 
             getBusiness: function (params, callback) {
                 return get('/api/business/', params, callback);
