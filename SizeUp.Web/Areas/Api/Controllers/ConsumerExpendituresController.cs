@@ -62,6 +62,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
+
+
+                Core.DataLayer.ConsumerExpenditures.Bands(context, parentId.Value, 7, Core.DataLayer.Base.Granularity.Place, Core.DataLayer.Base.Granularity.Place);
+
+
+
+
+
                 var data = context.ConsumerExpenditureVariables
                     .Where(i => parentId == null ? i.ParentId == null : i.ParentId == parentId)
                     .Select(i => new
