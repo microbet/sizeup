@@ -66,8 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Crypto.cs" />
-    <Compile Include="DataAccess\ConsumerExpenditureData.cs" />
-    <Compile Include="DataAccess\Models\ConsumerExpenditureBandItem.cs" />
     <Compile Include="DataAccess\States.cs" />
     <Compile Include="DataAccess\Counties.cs" />
     <Compile Include="DataAccess\Geography.cs" />
@@ -97,6 +95,7 @@
     <Compile Include="DataLayer\Models\Base\KeyValue.cs" />
     <Compile Include="DataLayer\Models\BoundingBox.cs" />
     <Compile Include="DataLayer\Models\Business.cs" />
+    <Compile Include="DataLayer\Models\ConsumerExpenditure.cs" />
     <Compile Include="DataLayer\Models\Demographics.cs" />
     <Compile Include="DataLayer\Models\LatLng.cs" />
     <Compile Include="DataLayer\State.cs" />

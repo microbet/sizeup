@@ -13,122 +13,118 @@ using SizeUp.Core.Tiles;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
-using SizeUp.Core.DataAccess;
+using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.DataLayer.Models.Base;
+using System.Data.Objects.SqlClient;
+using System.Linq.Expressions;
 
 namespace SizeUp.Web.Areas.Tiles.Controllers
 {
-    public class ConsumerExpendituresController : Controller
+    public class ConsumerExpendituresController : BaseController
     {
         //
         // GET: /Tiles/Revenue/
-        public ActionResult Zip(int x, int y, int zoom, string colors, int variableId, string boundingEntityId)
+        public ActionResult Index(int x, int y, int zoom, long variableId, long placeId, string[] colors, Granularity granularity = Granularity.State, Granularity boundingGranularity = Granularity.Nation )
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                
-                string[] colorArray = colors.Split(',');
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-                BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-                var BoundingBox = tile.GetBoundingBox(0.2f);
+                BoundingBox boundingBox = tile.GetBoundingBox(.2f);
+                double tolerance = GetPolygonTolerance(zoom);
 
-                var variableName = context.ConsumerExpenditureVariables.Where(i => i.Id == variableId).Select(i => i.Variable).FirstOrDefault();
+                var variable = Core.DataLayer.ConsumerExpenditures.Variable(context, variableId);
 
+                IQueryable<KeyValue<DbGeography, long?>> values = new List<KeyValue<DbGeography,long?>>().AsQueryable();//empty set
+                if (granularity == Granularity.ZipCode)
+                {
+                    var entities = Core.DataLayer.ZipCode.In(context, placeId, boundingGranularity);
+                    var data = Core.DataLayer.Base.ConsumerExpenditures.ZipCode(context);
 
-                var data = ConsumerExpenditureData.GetZips(context, variableName, boundingEntity);
+                    var dataType = typeof(ConsumerExpendituresByZip);
+                    var constant = Expression.Constant(data);
+                    var param = Expression.Parameter(dataType, "c");
+                    var varSelector = Expression.Convert(Expression.Property(param, variable.Variable), typeof(long?)) as Expression;
+                    var idSelector = Expression.Property(param, "ZipCodeId") as Expression;
+                    var transType = typeof(KeyValue<long, long?>);
+                    var constructor = transType.GetConstructor(new Type[] {typeof(long), typeof(long?) });
+                    var selector = Expression.New(constructor, new Expression[]{idSelector, varSelector}.AsEnumerable(), new System.Reflection.MemberInfo[] {transType.GetProperty("Key"), transType.GetProperty("Value")} );
+                    var pred = Expression.Lambda(selector, param) as Expression;
+                    var expression = Expression.Call(typeof(Queryable), "Select", new Type[] { dataType, transType }, constant, pred);
+                    var transformedData = data.Provider.CreateQuery<KeyValue<long,long?>>(expression);
+                    values = entities.GroupJoin(transformedData, i => i.Id, i => i.Key, (e, d) => new KeyValue<DbGeography, long?>
+                    {
+                        Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Display")
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                        Value = d.Select(v=>v.Value).DefaultIfEmpty(null).FirstOrDefault()
+                    });
+                }
+                else if (granularity == Granularity.County)
+                {
+                    var entities = Core.DataLayer.County.In(context, placeId, boundingGranularity);
+                    var data = Core.DataLayer.Base.ConsumerExpenditures.County(context);
 
-                var bands = data.NTile(i => i.Value, colorArray.Length)
+                    var dataType = typeof(ConsumerExpendituresByCounty);
+                    var constant = Expression.Constant(data);
+                    var param = Expression.Parameter(dataType, "c");
+                    var varSelector = Expression.Convert(Expression.Property(param, variable.Variable), typeof(long?)) as Expression;
+                    var idSelector = Expression.Property(param, "CountyId") as Expression;
+                    var transType = typeof(KeyValue<long, long?>);
+                    var constructor = transType.GetConstructor(new Type[] { typeof(long), typeof(long?) });
+                    var selector = Expression.New(constructor, new Expression[] { idSelector, varSelector }.AsEnumerable(), new System.Reflection.MemberInfo[] { transType.GetProperty("Key"), transType.GetProperty("Value") });
+                    var pred = Expression.Lambda(selector, param) as Expression;
+                    var expression = Expression.Call(typeof(Queryable), "Select", new Type[] { dataType, transType }, constant, pred);
+                    var transformedData = data.Provider.CreateQuery<KeyValue<long, long?>>(expression);
+
+                    values = entities.GroupJoin(transformedData, i => i.Id, i => i.Key, (e, d) => new KeyValue<DbGeography, long?>
+                    {
+                        Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == "Display")
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                        Value = d.Select(v => v.Value).DefaultIfEmpty(null).FirstOrDefault()
+                    });
+                }
+                else if (granularity == Granularity.State)
+                {
+                    var entities = Core.DataLayer.State.In(context, placeId, boundingGranularity);
+                    var data = Core.DataLayer.Base.ConsumerExpenditures.State(context);
+
+                    var dataType = typeof(ConsumerExpendituresByState);
+                    var constant = Expression.Constant(data);
+                    var param = Expression.Parameter(dataType, "c");
+                    var varSelector = Expression.Convert(Expression.Property(param, variable.Variable), typeof(long?)) as Expression;
+                    var idSelector = Expression.Property(param, "StateId") as Expression;
+                    var transType = typeof(KeyValue<long, long?>);
+                    var constructor = transType.GetConstructor(new Type[] { typeof(long), typeof(long?) });
+                    var selector = Expression.New(constructor, new Expression[] { idSelector, varSelector }.AsEnumerable(), new System.Reflection.MemberInfo[] { transType.GetProperty("Key"), transType.GetProperty("Value") });
+                    var pred = Expression.Lambda(selector, param) as Expression;
+                    var expression = Expression.Call(typeof(Queryable), "Select", new Type[] { dataType, transType }, constant, pred);
+                    var transformedData = data.Provider.CreateQuery<KeyValue<long, long?>>(expression);
+
+                    values = entities.GroupJoin(transformedData, i => i.Id, i => i.Key, (e, d) => new KeyValue<DbGeography, long?>
+                    {
+                        Key = e.StateGeographies.Where(g => g.GeographyClass.Name == "Display")
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                        Value = d.Select(v => v.Value).DefaultIfEmpty(null).FirstOrDefault()
+                    });
+                }
+
+                var list = values.ToList();
+
+                var validValues = list
+                    .Where(i => i.Value != null && i.Value > 0)
+                    .NTile(i => i.Value, colors.Length)
+                    .Select((i, index) => i.Where(g=>g.Key!= null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
+                    .SelectMany(i => i)
                     .ToList();
 
-
-                IQueryable<long> ids = ZipCodes.GetBounded(context, boundingEntity)
-                    .Select(i => i.Id);
-
-                var geoIds = Core.DataAccess.Geography.GetBoundingBoxedZips(context, BoundingBox)
-                    .Join(ids, i => i.ZipCodeId, i => i, (i, o) => i)
-                    .Select(i => i.ZipCodeId);
-
-                var displayGeos = Core.DataAccess.Geography.GetDisplayZips(context, geoIds, zoom).ToList();
-
-
-                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.EntityId, i => i.Id, (i, o) => o).ToList()).ToList();
-                var noData = displayGeos.Where(g => !data.Select(ig => ig.EntityId).Contains(g.Id)).ToList();
-
-
-                var collection = Heatmap.CreateCollections(colorArray, bandedGeos, noData);
-
-                tile.Draw(collection);
-                var stream = new System.IO.MemoryStream();
-                tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return File(stream.GetBuffer(), "image/png");
-            }
-        }
-
-        public ActionResult County(int x, int y, int zoom, string colors, int variableId, string boundingEntityId)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                string[] colorArray = colors.Split(',');
-                Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-                BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-                var BoundingBox = tile.GetBoundingBox(0.2f);
-                               
-                var variableName = context.ConsumerExpenditureVariables.Where(i => i.Id == variableId).Select(i => i.Variable).FirstOrDefault();
-
-
-                var data = ConsumerExpenditureData.GetCounties(context, variableName, boundingEntity);
-                var bands = data.NTile(i => i.Value, colorArray.Length)
+                var invalidValues = list
+                    .Where(i => i.Value == null || i.Value <= 0 && i.Key !=null)
+                    .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();
 
-                IQueryable<long> ids = Counties.GetBounded(context, boundingEntity)
-                    .Select(i => i.Id);
+                var geos = validValues.Union(invalidValues).ToList();
 
-                var geoIds = Core.DataAccess.Geography.GetBoundingBoxedCounties(context, BoundingBox)
-                    .Join(ids, i => i.CountyId, i => i, (i, o) => i)
-                    .Select(i => i.CountyId);
-
-                var displayGeos = Core.DataAccess.Geography.GetDisplayCounties(context, geoIds, zoom).ToList();
-
-                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.EntityId, i => i.Id, (i, o) => o).ToList()).ToList();
-                var noData = displayGeos.Where(g => !data.Select(ig => ig.EntityId).Contains(g.Id)).ToList();
-
-
-                var collection = Heatmap.CreateCollections(colorArray, bandedGeos, noData);
-
-                tile.Draw(collection);
-                var stream = new System.IO.MemoryStream();
-                tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return File(stream.GetBuffer(), "image/png");
-            }
-        }
-
-        public ActionResult State(int x, int y, int zoom, string colors, int variableId)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                string[] colorArray = colors.Split(',');
-                Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-                var BoundingBox = tile.GetBoundingBox(0.2f);
-
-                var variableName = context.ConsumerExpenditureVariables.Where(i => i.Id == variableId).Select(i => i.Variable).FirstOrDefault();
-
-
-                var data = ConsumerExpenditureData.GetCounties(context, variableName);
-                var bands = data.NTile(i => i.Value, colorArray.Length)
-                    .ToList();
-
-                var geoIds = Core.DataAccess.Geography.GetBoundingBoxedStates(context, BoundingBox)
-                     .Select(i => i.StateId);
-
-                var displayGeos = Core.DataAccess.Geography.GetDisplayStates(context, geoIds, zoom).ToList();
-
-
-
-                var bandedGeos = bands.Select(b => b.Join(displayGeos, i => i.EntityId, i => i.Id, (i, o) => o).ToList()).ToList();
-                var noData = displayGeos.Where(g => !data.Select(ig => ig.EntityId).Contains(g.Id)).ToList();
-
-                var collection = Heatmap.CreateCollections(colorArray, bandedGeos, noData);
-
-                tile.Draw(collection);
+                tile.Draw(geos);
                 var stream = new System.IO.MemoryStream();
                 tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
                 return File(stream.GetBuffer(), "image/png");

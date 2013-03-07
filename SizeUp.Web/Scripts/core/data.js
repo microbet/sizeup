@@ -72,6 +72,9 @@
 
 
 
+
+
+
             getBoundingBox: function (params, callback) {
                 return get('/api/geography/boundingbox/', params, callback);
             },
@@ -268,7 +271,25 @@
             },
 
 
+            getConsumerExpenditureVariables: function (params, callback) {
+                return get('/api/consumerExpenditures/variables/', params, callback);
+            },
 
+            getConsumerExpenditureVariable: function (params, callback) {
+                return get('/api/consumerExpenditures/variable/', params, callback);
+            },
+
+            getConsumerExpenditureVariablePath: function (params, callback) {
+                return get('/api/consumerExpenditures/variablePath/', params, callback);
+            },
+
+            getConsumerExpenditureVariableCrosswalk: function (params, callback) {
+                return get('/api/consumerExpenditures/variableCrosswalk/', params, callback);
+            },
+
+            getConsumerExpenditureBands: function (params, callback) {
+                return get('/api/consumerExpenditures/bands/', params, callback);
+            },
 
 
 
@@ -291,45 +312,6 @@
             },
 
             
-
-
-
-
-
-
-
-
-
-
-            getConsumerExpenditureVariables: function (params, callback) {
-                return get('/api/consumerExpenditures/variables/', params, callback);
-            },
-
-            getConsumerExpenditureVariable: function (params, callback) {
-                return get('/api/consumerExpenditures/variable/', params, callback);
-            },
-
-            getConsumerExpenditureVariablePath: function (params, callback) {
-                return get('/api/consumerExpenditures/variablePath/', params, callback);
-            },
-
-            getConsumerExpenditureVariableCrosswalk: function (params, callback) {
-                return get('/api/consumerExpenditures/variableCrosswalk/', params, callback);
-            },
-
-            getConsumerExpenditureBandsByState: function (params, callback) {
-                return get('/api/consumerExpenditures/bands/state/', params, callback);
-            },
-
-            getConsumerExpenditureBandsByCounty: function (params, callback) {
-                return get('/api/consumerExpenditures/bands/county/', params, callback);
-            },
-
-            getConsumerExpenditureBandsByZip: function (params, callback) {
-                return get('/api/consumerExpenditures/bands/zip/', params, callback);
-            },
-
-
             getBestPlacesByCity: function (params, callback) {
                 return get('/api/bestPlaces/city/', params, callback);
             },

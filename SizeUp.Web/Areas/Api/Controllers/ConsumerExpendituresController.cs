@@ -11,49 +11,19 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core.DataAccess.Models;
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class ConsumerExpendituresController : BaseController
     {
 
-        public ActionResult Index(string aggregationLevel, int variableId, int bands, string boundingEntityId)
+        public ActionResult Bands(int variableId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var variableName = context.ConsumerExpenditureVariables.Where(i => i.Id == variableId).Select(i => i.Variable).FirstOrDefault();
-                BoundingEntity boundingEntity = new BoundingEntity(boundingEntityId);
-
-                IQueryable<ConsumerExpenditureBandItem> data = null;
-                if (aggregationLevel == "state")
-                {
-                    data = ConsumerExpenditureData.GetStates(context, variableName);
-                }
-                else if (aggregationLevel == "county")
-                {
-                    data = ConsumerExpenditureData.GetCounties(context, variableName, boundingEntity);
-                }
-                else if (aggregationLevel == "zip")
-                {
-                    data = ConsumerExpenditureData.GetZips(context, variableName, boundingEntity);
-                }
-
-                var bandData =
-                    data.NTile(i => i.Value, bands)
-                     .Select(b => new Models.ConsumerExpenditures.Band() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
-                     .ToList();
-
-                Models.ConsumerExpenditures.Band old = null;
-                foreach (var band in bandData)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
-
-                return Json(bandData, JsonRequestBehavior.AllowGet);
+                var output = Core.DataLayer.ConsumerExpenditures.Bands(context, variableId, placeId, bands, granularity, boundingGranularity);
+                return Json(output, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -62,25 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-
-
-                Core.DataLayer.ConsumerExpenditures.Bands(context, parentId.Value, 7, Core.DataLayer.Base.Granularity.Place, Core.DataLayer.Base.Granularity.Place);
-
-
-
-
-
-                var data = context.ConsumerExpenditureVariables
-                    .Where(i => parentId == null ? i.ParentId == null : i.ParentId == parentId)
-                    .Select(i => new
-                    {
-                        i.Id,
-                        i.ParentId,
-                        i.Description,
-                        i.Variable,
-                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
-                    })
-                    .ToList();
+                var data = Core.DataLayer.ConsumerExpenditures.Variables(context).Where(i => i.ParentId == parentId).ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -89,62 +41,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.ConsumerExpenditureVariables
-                    .Where(i => i.Id == id)
-                    .Select(i => new
-                    {
-                        i.Id,
-                        i.ParentId,
-                        i.Description,
-                        i.Variable,
-                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
-                    })
-                    .FirstOrDefault();
+                var data = Core.DataLayer.ConsumerExpenditures.Variable(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         public ActionResult VariablePath(int id)
         {
-            /* 
-                i know what youre thinking.... and you are absolutely correct. I should be shot/hung/beaten/tortured/unthinkable
-                i hated myself while i did this
-                i wanted to commit sepiku
-                i died a little inside
-                it does work...and its not unbearibly slow
-                so unless something comes to light that this is breaking the server....ill leave as is
-                trying to pretend that it was only a dream
-                hoping noone will notice
-                wishing there was another way (without stored sprocs)
-                OMG LOOK UNICORNS!
-                arent you supposed to be looking at some other method?
-                i think so....
-                nothing to see here, move along
-                        
-            */
- 
-
             using (var context = ContextFactory.SizeUpContext)
             {
-                List<ConsumerExpenditureVariable> vars = new List<ConsumerExpenditureVariable>();
-                ConsumerExpenditureVariable v = context.ConsumerExpenditureVariables.Where(i => i.Id == id).FirstOrDefault();
-                vars.Add(v);
-                while(v.ParentId!=null){
-                v = context.ConsumerExpenditureVariables.Where(i => i.Id == v.ParentId).FirstOrDefault();
-                    vars.Add(v);
-                }
-
-                var data = vars.Select(i => new
-                    {
-                        i.Id,
-                        i.ParentId,
-                        i.Description,
-                        i.Variable,
-                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
-                    })
-                    .Reverse()
-                    .ToList();
-                    
+                var data = Core.DataLayer.ConsumerExpenditures.VariablePath(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -154,22 +60,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var current = context.ConsumerExpenditureVariables
-                    .Where(i => i.Id == id)
-                    .Select(i =>i.Variable);
-
-
-                var data = context.ConsumerExpenditureVariables
-                    .Where(i => i.Variable == (current.FirstOrDefault().Substring(0,1) == "X" ? "T" + current.FirstOrDefault().Substring(1) : "X" + current.FirstOrDefault().Substring(1)))
-                    .Select(i => new
-                    {
-                        i.Id,
-                        i.ParentId,
-                        i.Description,
-                        i.Variable,
-                        HasChildren = context.ConsumerExpenditureVariables.Where(c => c.ParentId == i.Id).Count() > 0
-                    })
-                    .FirstOrDefault();
+                var data = Core.DataLayer.ConsumerExpenditures.VariableCrosswalk(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

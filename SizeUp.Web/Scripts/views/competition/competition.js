@@ -649,7 +649,7 @@
 
             if (id != null) {
                 me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/consumerExpenditures/zip/',
+                    tileUrl: '/tiles/consumerExpenditures/',
                     opacity: 0.7,
                     tileParams: {
                         colors: [
@@ -660,9 +660,11 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
+                        ],
                         variableId: id,
-                        boundingEntityId: 'co' + me.opts.CurrentInfo.CurrentPlace.County.Id
+                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                        granularity: 'ZipCode',
+                        boundingGranularity: 'County'
                     },
                     minZoom: 11,
                     maxZoom: 32
@@ -672,40 +674,44 @@
                 if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
 
                     me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        tileUrl: '/tiles/consumerExpenditures/',
                         opacity: 0.7,
                         tileParams: {
                             colors: [
-                                        '#F5F500',
-                                        '#F5CC00',
-                                        '#F5A300',
-                                        '#F57A00',
-                                        '#F55200',
-                                        '#F52900',
-                                        '#F50000'
-                            ].join(','),
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                            ],
                             variableId: id,
-                            boundingEntityId: 'm' + me.opts.CurrentInfo.CurrentPlace.Metro.Id
+                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                            granularity: 'County',
+                            boundingGranularity: 'Metro'
                         },
                         minZoom: 8,
                         maxZoom: 10
                     }));
 
                     me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        tileUrl: '/tiles/consumerExpenditures/',
                         opacity: 0.7,
                         tileParams: {
                             colors: [
-                                        '#F5F500',
-                                        '#F5CC00',
-                                        '#F5A300',
-                                        '#F57A00',
-                                        '#F55200',
-                                        '#F52900',
-                                        '#F50000'
-                            ].join(','),
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                            ],
                             variableId: id,
-                            boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id
+                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                            granularity: 'County',
+                            boundingGranularity: 'State'
                         },
                         minZoom: 5,
                         maxZoom: 7
@@ -713,20 +719,22 @@
                 }
                 else {
                     me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                        tileUrl: '/tiles/consumerExpenditures/county/',
+                        tileUrl: '/tiles/consumerExpenditures/',
                         opacity: 0.7,
                         tileParams: {
                             colors: [
-                                        '#F5F500',
-                                        '#F5CC00',
-                                        '#F5A300',
-                                        '#F57A00',
-                                        '#F55200',
-                                        '#F52900',
-                                        '#F50000'
-                            ].join(','),
+                                    '#F5F500',
+                                    '#F5CC00',
+                                    '#F5A300',
+                                    '#F57A00',
+                                    '#F55200',
+                                    '#F52900',
+                                    '#F50000'
+                            ],
                             variableId: id,
-                            boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id
+                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                            granularity: 'County',
+                            boundingGranularity: 'State'
                         },
                         minZoom: 5,
                         maxZoom: 10
@@ -735,7 +743,7 @@
 
 
                 me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/consumerExpenditures/state/',
+                    tileUrl: '/tiles/consumerExpenditures/',
                     opacity: 0.7,
                     tileParams: {
                         colors: [
@@ -746,8 +754,10 @@
                                     '#F55200',
                                     '#F52900',
                                     '#F50000'
-                        ].join(','),
-                        variableId: id
+                        ],
+                        variableId: id,
+                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                        granularity: 'State'
                     },
                     minZoom: 0,
                     maxZoom: 4
@@ -782,12 +792,14 @@
                 if (z <= 32 && z >= 11) {
 
                     var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by zip code in ' + me.opts.CurrentInfo.CurrentPlace.County.Name + ', ' +  me.opts.CurrentInfo.CurrentPlace.State.Name; });
-
-
-                    dataLayer.getConsumerExpenditureBandsByZip(
-                            { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 'co' + me.opts.CurrentInfo.CurrentPlace.County.Id },
-                            itemsNotify
-                    );
+                    dataLayer.getConsumerExpenditureBands({
+                        bands: 7,
+                        variableId: me.data.consumerExpenditure.currentSelection,
+                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                        granularity: 'ZipCode',
+                        boundingGranularity: 'County'
+                    },
+                    itemsNotify);
                 }
 
 
@@ -795,35 +807,41 @@
                     if (z <= 10 && z >= 8) {
 
                         var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.Metro.Name; });
-
-
-
-                        dataLayer.getConsumerExpenditureBandsByCounty(
-                           { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 'm' + me.opts.CurrentInfo.CurrentPlace.Metro.Id },
+                        dataLayer.getConsumerExpenditureBands({
+                               bands: 7,
+                               variableId: me.data.consumerExpenditure.currentSelection,
+                               placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                               granularity: 'County',
+                               boundingGranularity: 'Metro'
+                           },
                            itemsNotify);
                     }
 
                     if (z <= 8 && z >= 5) {
 
                         var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
-
-
-
-                        dataLayer.getConsumerExpenditureBandsByCounty(
-                           { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id },
-                           itemsNotify);
+                        dataLayer.getConsumerExpenditureBands({
+                            bands: 7,
+                            variableId: me.data.consumerExpenditure.currentSelection,
+                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                            granularity: 'County',
+                            boundingGranularity: 'State'
+                        },
+                        itemsNotify);
                     }
                 }
                 else {
                     if (z <= 10 && z >= 5) {
 
                         var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
-
-
-
-                        dataLayer.getConsumerExpenditureBandsByCounty(
-                            { bands: 7, variableId: me.data.consumerExpenditure.currentSelection, boundingEntityId: 's' + me.opts.CurrentInfo.CurrentPlace.State.Id },
-                            itemsNotify);
+                        dataLayer.getConsumerExpenditureBands({
+                            bands: 7,
+                            variableId: me.data.consumerExpenditure.currentSelection,
+                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                            granularity: 'County',
+                            boundingGranularity: 'State'
+                        },
+                        itemsNotify);
                     }
                 }
 
@@ -831,17 +849,15 @@
                 if (z <= 4 && z >= 0) {
 
                     var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by state in USA' });
-
-
-                    dataLayer.getConsumerExpenditureBandsByState(
-                            { bands: 7, variableId: me.data.consumerExpenditure.currentSelection },
-                            itemsNotify);
+                    dataLayer.getConsumerExpenditureBands({
+                        bands: 7,
+                        variableId: me.data.consumerExpenditure.currentSelection,
+                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                        granularity: 'State'
+                    },
+                    itemsNotify);
                 }
-
-
                 dataLayer.getConsumerExpenditureVariable({ id: me.data.consumerExpenditure.currentSelection }, titleNotify);
-
-
             }
         };
  

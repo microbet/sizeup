@@ -27,23 +27,7 @@ namespace SizeUp.Web.Areas.Tiles
          
 
 
-            context.MapRoute(
-              "ConsumerExpendituresTilesZip",
-              "Tiles/ConsumerExpenditures/Zip/",
-              new { controller = "ConsumerExpenditures", action = "Zip", boundingEntityId = UrlParameter.Optional }
-          );
-
-            context.MapRoute(
-               "ConsumerExpendituresTilesCounty",
-               "Tiles/ConsumerExpenditures/County/",
-               new { controller = "ConsumerExpenditures", action = "County", boundingEntityId = UrlParameter.Optional }
-           );
-
-            context.MapRoute(
-               "ConsumerExpendituresTilesState",
-               "Tiles/ConsumerExpenditures/State/",
-               new { controller = "ConsumerExpenditures", action = "State", boundingEntityId = UrlParameter.Optional }
-           );
+            
 
             context.MapRoute(
                 "Tiles_default",
