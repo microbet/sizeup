@@ -92,31 +92,7 @@ namespace SizeUp.Web.Areas.Api
           
 
 
-            /***********business**********/
-            context.MapRoute(
-                "Api.Business",
-                "Api/Business/",
-                new { controller = "Business", action = "Business" },
-                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
-            );
-
-            context.MapRoute(
-               "BusinessAt",
-               "Api/Business/At",
-               new { controller = "Business", action = "BusinessAt" },
-               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
-           );
-
-
-            context.MapRoute(
-                "BusinessList",
-                "Api/Business/List",
-                new { controller = "Business", action = "BusinessList", page = UrlParameter.Optional, radius = UrlParameter.Optional },
-                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
-            );
-
-
-
+          
            
 
 
@@ -145,7 +121,7 @@ namespace SizeUp.Web.Areas.Api
 
 
               /****profile*****/
-
+            //these are required
             context.MapRoute(
                 "DashboardValuesGet",
                 "Api/profile/dashboardValues",
@@ -173,7 +149,7 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "Profile", action = "SetCompetitionValues" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
            );
-
+            
 
 
             /****consumerEpenditures*****/

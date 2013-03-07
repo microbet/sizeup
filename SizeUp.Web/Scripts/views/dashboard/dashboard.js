@@ -25,7 +25,7 @@
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
 
-        dataLayer.getPlaceCentroid({ id: opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
+        dataLayer.getCentroid({ id: opts.report.CurrentPlace.Id, granularity : 'Place' }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
         dataLayer.getDashboardValues({placeId: opts.report.CurrentPlace.Id, industryId: opts.report.IndustryDetails.Industry.Id}, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             

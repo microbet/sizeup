@@ -78,13 +78,6 @@
             getCentroid: function (params, callback) {
                 return get('/api/geography/centroid/', params, callback);
             },
-            
-
-
-
-
-
-
 
             getBusiness: function (params, callback) {
                 return get('/api/business/', params, callback);
@@ -252,26 +245,11 @@
 
 
 
-
-
-
-            getBestPlacesToAdvertise: function (params, callback) {
-                return get('/api/Advertising/', params, callback);
-            },
-
-            getBestPlacesToAdvertiseBands: function (params, callback) {
-                return get('/api/Advertising/Bands', params, callback);
-            },
-
-            getBestPlacesToAdvertiseMinimumDistance: function (params, callback) {
-                return get('/api/Advertising/MinimumDistance', params, callback);
-            },
-
             getDemographics: function (params, callback) {
                 return get('/api/demographics/', params, callback);
             },
 
-           
+
 
             getDashboardValues: function (params, callback) {
                 return get('/api/profile/dashboardValues/', params, callback);
@@ -288,6 +266,40 @@
             setCompetitionValues: function (params, callback) {
                 return post('/api/profile/competitionValues/', params, callback);
             },
+
+
+
+
+
+
+
+
+
+
+
+
+            getBestPlacesToAdvertise: function (params, callback) {
+                return get('/api/Advertising/', params, callback);
+            },
+
+            getBestPlacesToAdvertiseBands: function (params, callback) {
+                return get('/api/Advertising/Bands', params, callback);
+            },
+
+            getBestPlacesToAdvertiseMinimumDistance: function (params, callback) {
+                return get('/api/Advertising/MinimumDistance', params, callback);
+            },
+
+            
+
+
+
+
+
+
+
+
+
 
             getConsumerExpenditureVariables: function (params, callback) {
                 return get('/api/consumerExpenditures/variables/', params, callback);

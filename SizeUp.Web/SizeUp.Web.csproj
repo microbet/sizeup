@@ -177,11 +177,6 @@
     <Compile Include="Areas\Api\Models\Advertising\Advertising.cs" />
     <Compile Include="Areas\Api\Models\Advertising\Band.cs" />
     <Compile Include="Areas\Api\Models\Advertising\Range.cs" />
-    <Compile Include="Areas\Api\Models\Business\Business.cs" />
-    <Compile Include="Areas\Api\Models\Charts\BarChart.cs" />
-    <Compile Include="Areas\Api\Models\Charts\BarChartItem.cs" />
-    <Compile Include="Areas\Api\Models\Charts\LineChart.cs" />
-    <Compile Include="Areas\Api\Models\Charts\LineChartItem.cs" />
     <Compile Include="Areas\Api\Models\City\City.cs" />
     <Compile Include="Areas\Api\Models\ConsumerExpenditures\Band.cs" />
     <Compile Include="Areas\Api\Models\Place\Place.cs" />

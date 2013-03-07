@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/User/
-
+        [HttpGet]
         public ActionResult GetDashboardValues(long placeId, long industryId)
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
@@ -231,7 +231,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
 
 
-
+        [HttpGet]
         public ActionResult GetCompetitionValues(long placeId, long industryId)
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
