@@ -8,7 +8,7 @@ namespace SizeUp.Core.DataLayer.Models
 {
     public class Place
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public string DisplayName { get; set; }
         public City City { get; set; }
         public County County { get; set; }

@@ -242,11 +242,7 @@
     <Compile Include="Models\Business\PlaceList.cs" />
     <Compile Include="Models\Business\Report.cs" />
     <Compile Include="Models\Business\State.cs" />
-    <Compile Include="Models\Community\Community.cs" />
-    <Compile Include="Models\ConsumerExpenditures\Variable.cs" />
-    <Compile Include="Models\CurrentInfo.cs" />
     <Compile Include="Models\Header.cs" />
-    <Compile Include="Models\Option.cs" />
     <Compile Include="Models\TopPlaces\Division.cs" />
     <Compile Include="Models\TopPlaces\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

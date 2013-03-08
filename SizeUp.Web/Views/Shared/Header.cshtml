@@ -2,7 +2,7 @@
 @if(!ViewBag.Header.HideMenu){
 <div id="menu" class="@(SizeUp.Core.Identity.Identity.CurrentUser!=null ? "signinIn" : "")  ">
 <ul>
-@if (!ViewBag.Header.HideNavigation && ViewBag.CurrentInfo.CurrentPlace != null && ViewBag.CurrentInfo.CurrentIndustry != null)
+@if (!ViewBag.Header.HideNavigation && ViewBag.CurrentInfo.CurrentPlace.Id != null && ViewBag.CurrentInfo.CurrentIndustry.Id != null)
 {
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
 <li><a class="disabled">My Business</a></li>

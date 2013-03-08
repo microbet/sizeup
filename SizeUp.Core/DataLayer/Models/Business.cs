@@ -8,7 +8,7 @@ namespace SizeUp.Core.DataLayer.Models
 {
     public class Business
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public string Name { get; set; }
         public decimal? Lat { get; set; }
         public decimal? Lng { get; set; }
@@ -23,6 +23,7 @@ namespace SizeUp.Core.DataLayer.Models
         public bool IsPublic { get; set; }
         public int? YearsInBusiness { get; set; }
         public long? IndustryId { get; set; }
+        public string SEOKey { get; set; }
         public string Address
         {
             get

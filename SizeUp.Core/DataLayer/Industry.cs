@@ -12,26 +12,95 @@ namespace SizeUp.Core.DataLayer
     {
         public static Models.Industry Get(SizeUpContext context, long? id)
         {
-            var data = Base.Industry.Get(context)
+            var all = Base.Industry.Get(context);
+            var raw = Base.Industry.GetActive(context);
+            var data = raw
                 .Where(i => i.Id == id)
                 .Select(i => new Models.Industry
                 {
                     Id = i.Id,
                     Name = i.Name,
-                    SEOKey = i.SEOKey
+                    SEOKey = i.SEOKey,
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+                        
                 }).FirstOrDefault();
             return data;
         }
 
+        public static Models.Industry Get(SizeUpContext context, string SEOKey)
+        {
+            var all = Base.Industry.Get(context);
+            var raw = Base.Industry.GetActive(context);
+            var data = raw
+                .Where(i => i.SEOKey == SEOKey)
+                .Select(i => new Models.Industry
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey,
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+
+                }).FirstOrDefault();
+            if (data == null)
+            {
+                data = new Models.Industry();
+            }
+            return data;
+        }
+
+        public static Models.Industry GetLegacy(SizeUpContext context, string SEOKey)
+        {
+            var all = Base.Industry.Get(context);
+            var raw = Base.Industry.GetActive(context);
+            var data = raw
+                .Where(i => i.LegacyIndustrySEOKeys.Any(l=>l.SEOKey == SEOKey))
+                .Select(i => new Models.Industry
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey,
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+
+                }).FirstOrDefault();
+            if (data == null)
+            {
+                data = new Models.Industry();
+            }
+            return data;
+        }
+
+
         public static List<Models.Industry> List(SizeUpContext context, List<long> industryIds)
         {
-            var data = Base.Industry.Get(context)
+            var all = Base.Industry.Get(context);
+            var raw = Base.Industry.GetActive(context);
+            var data = raw
                 .Where(i => industryIds.Contains(i.Id))
                 .Select(i => new Models.Industry
                 {
                     Id = i.Id,
                     Name = i.Name,
-                    SEOKey = i.SEOKey
+                    SEOKey = i.SEOKey,
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+
+                })
+                .ToList();
+            return data;
+        }
+
+        public static List<Models.Industry> ListInPlace(SizeUpContext context, long placeId)
+        {
+            var all = Base.Industry.Get(context);
+            var raw = Base.Industry.GetActive(context);
+            var data = raw
+                .Where(i => i.IndustryDataByCities.Any(c=>c.City.CityCountyMappings.Any(m=>m.Id == placeId)))
+                .Select(i => new Models.Industry
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    SEOKey = i.SEOKey,
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+
                 })
                 .ToList();
             return data;
@@ -40,7 +109,7 @@ namespace SizeUp.Core.DataLayer
 
         public static IQueryable<Models.Industry> Search(SizeUpContext context, string term)
         {
-            var searchSpace = Base.Industry.Get(context)
+            var searchSpace = Base.Industry.GetActive(context)
                     .Select(i => new
                     {
                         Id = i.Id,

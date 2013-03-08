@@ -14,7 +14,7 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<Data.Business> Get(SizeUpContext context)
         {
             var data = context.Businesses
-                       .Where(d => d.IsActive && d.MatchLevel == "0");
+                       .Where(d => d.IsActive);
             return data;
         }
 
@@ -22,6 +22,7 @@ namespace SizeUp.Core.DataLayer.Base
         {
             var scalar = 69.1 * System.Math.Cos(latLng.Lat / 57.3);
             var data = Get(context)
+                       .Where(i=> i.MatchLevel == "0")
                        .Select(i => new Models.Base.DistanceEntity<Data.Business>
                        {
                            Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - latLng.Lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - latLng.Lng) * scalar, 2), 0.5),
@@ -33,6 +34,7 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<Data.Business> In(SizeUpContext context, Core.Geo.BoundingBox boundingBox)
         {
             var data = Get(context)
+                       .Where(i => i.MatchLevel == "0")
                        .Where(i => i.Lat < (decimal)boundingBox.NorthEast.Lat && i.Lat > (decimal)boundingBox.SouthWest.Lat && i.Long > (decimal)boundingBox.SouthWest.Lng && i.Long < (decimal)boundingBox.NorthEast.Lng);
             return data;
         }

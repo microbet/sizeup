@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Serialization;
-using Api = SizeUp.Web.Areas.Api;
+using SizeUp.Core.DataLayer;
+
 namespace SizeUp.Web.Controllers
 {
     public class BaseController : Controller
     {
-        protected Models.CurrentInfo CurrentInfo { get; set; }
+        protected Core.DataLayer.Models.CurrentInfo CurrentInfo { get; set; }
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -20,68 +21,25 @@ namespace SizeUp.Web.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["city"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["county"]) && !string.IsNullOrEmpty((string)requestContext.RouteData.Values["state"]))
+
+                var city = (string)requestContext.RouteData.Values["city"];
+                var county = (string)requestContext.RouteData.Values["county"];
+                var state = (string)requestContext.RouteData.Values["state"];
+                var industry = (string)requestContext.RouteData.Values["industry"];
+
+                CurrentInfo = new Core.DataLayer.Models.CurrentInfo()
                 {
-                    var city = (string)requestContext.RouteData.Values["city"];
-                    var county = (string)requestContext.RouteData.Values["county"];
-                    var state = (string)requestContext.RouteData.Values["state"];
-                    WebContext.Current.CurrentPlaceId = context.CityCountyMappings
-                        .Where(i => i.County.SEOKey == county && i.City.State.SEOKey == state && i.City.SEOKey == city)
-                        .Select(i => i.Id)
-                        .FirstOrDefault();
+                    CurrentIndustry = Core.DataLayer.Industry.Get(context, industry),
+                    CurrentPlace = Core.DataLayer.Place.Get(context, state,county, city)
+                };
+
+                if (CurrentInfo.CurrentPlace.Id != null)
+                {
+                    WebContext.Current.CurrentPlaceId = CurrentInfo.CurrentPlace.Id;
                 }
-
-                if (!string.IsNullOrEmpty((string)requestContext.RouteData.Values["industry"]))
+                if (CurrentInfo.CurrentIndustry.Id != null)
                 {
-                    var industry = (string)requestContext.RouteData.Values["industry"];
-                    WebContext.Current.CurrentIndustryId = context.Industries.Where(i => i.SEOKey == industry && i.SicCode.Length == 6).Select(i => i.Id).FirstOrDefault();
-                }
-
-                CurrentInfo = new Models.CurrentInfo();
-
-                if (WebContext.Current.CurrentPlaceId != null)
-                {
-                    CurrentInfo.CurrentPlace = context.CityCountyMappings.Where(i => i.Id == WebContext.Current.CurrentPlaceId).Select(i => new Api.Models.Place.Place()
-                    {
-                        Id = i.Id,
-                        City = new Api.Models.City.City()
-                        {
-                            Id = i.City.Id,
-                            Name = i.City.Name,
-                            SEOKey = i.City.SEOKey,
-                            State = i.City.State.Abbreviation,
-                            TypeName = i.City.CityType.Name
-                        },
-                        County = new Api.Models.County.County()
-                        {
-                            Id = i.County.Id,
-                            Name = i.County.Name,
-                            SEOKey = i.County.SEOKey,
-                            State = i.County.State.Abbreviation
-                        },
-                        Metro = new Api.Models.Metro.Metro()
-                        {
-                            Id = i.County.Metro.Id,
-                            Name = i.County.Metro.Name
-                        },
-                        State = new Api.Models.State.State()
-                        {
-                            Id = i.County.State.Id,
-                            Name = i.County.State.Name,
-                            Abbreviation = i.County.State.Abbreviation,
-                            SEOKey = i.County.State.SEOKey
-                        }
-                    }).FirstOrDefault();
-                }
-
-                if (WebContext.Current.CurrentIndustryId != null)
-                {
-                    CurrentInfo.CurrentIndustry = context.Industries.Where(i => i.Id == WebContext.Current.CurrentIndustryId).Select(i => new Api.Models.Industry.Industry()
-                    {
-                        Id = i.Id,
-                        Name = i.Name,
-                        SEOKey = i.SEOKey
-                    }).FirstOrDefault();
+                    WebContext.Current.CurrentIndustryId = CurrentInfo.CurrentIndustry.Id;
                 }
 
                 ViewBag.CurrentInfo = CurrentInfo;

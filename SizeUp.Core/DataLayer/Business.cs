@@ -33,7 +33,64 @@ namespace SizeUp.Core.DataLayer
                     IsFirm = i.FirmCode == "2",
                     IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
                     YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
-                    IndustryId = i.IndustryId
+                    IndustryId = i.IndustryId,
+                    SEOKey = i.SEOKey
+                }).FirstOrDefault();
+            return data;
+        }
+
+        public static Models.Business GetLegacy(SizeUpContext context, string SEOKey)
+        {
+            var year = DateTime.UtcNow.Year;
+
+            var data = Base.Business.Get(context)
+                .Where(i => i.LegacyBusinessSEOKeys.Any(l=>l.SEOKey == SEOKey))
+                .Select(i => new Models.Business
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Lat = i.Lat,
+                    Lng = i.Long,
+                    Street = i.Address,
+                    City = i.City,
+                    State = i.State.Abbreviation,
+                    Zip = i.ZipCode.Zip,
+                    Phone = i.Phone,
+                    Url = i.PrimaryWebURL,
+                    IsHomeBased = i.WorkAtHomeFlag == "1",
+                    IsFirm = i.FirmCode == "2",
+                    IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
+                    YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
+                    IndustryId = i.IndustryId,
+                    SEOKey = i.SEOKey
+                }).FirstOrDefault();
+            return data;
+        }
+
+        public static Models.Business GetIn(SizeUpContext context, long id, long placeId)
+        {
+            var year = DateTime.UtcNow.Year;
+
+            var data = Base.Business.Get(context)
+                .Where(i => i.Id == id && i.BusinessCityMappings.Any(bc=>bc.City.CityCountyMappings.Any(m=>m.Id == placeId)))
+                .Select(i => new Models.Business
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Lat = i.Lat,
+                    Lng = i.Long,
+                    Street = i.Address,
+                    City = i.City,
+                    State = i.State.Abbreviation,
+                    Zip = i.ZipCode.Zip,
+                    Phone = i.Phone,
+                    Url = i.PrimaryWebURL,
+                    IsHomeBased = i.WorkAtHomeFlag == "1",
+                    IsFirm = i.FirmCode == "2",
+                    IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
+                    YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
+                    IndustryId = i.IndustryId,
+                    SEOKey = i.SEOKey
                 }).FirstOrDefault();
             return data;
         }
@@ -60,7 +117,8 @@ namespace SizeUp.Core.DataLayer
                     IsFirm = i.Entity.FirmCode == "2",
                     IsPublic = i.Entity.PublicCompanyIndicator == "1" || i.Entity.PublicCompanyIndicator == "2",
                     YearsInBusiness = year - (i.Entity.YearEstablished ?? i.Entity.YearAppeared) ?? null,
-                    IndustryId = i.Entity.IndustryId
+                    IndustryId = i.Entity.IndustryId,
+                    SEOKey = i.Entity.SEOKey
                 }).FirstOrDefault();
             return data;
         }
@@ -89,7 +147,8 @@ namespace SizeUp.Core.DataLayer
                         IsFirm = i.Entity.FirmCode == "2",
                         IsPublic = i.Entity.PublicCompanyIndicator == "1" || i.Entity.PublicCompanyIndicator == "2",
                         YearsInBusiness = year - (i.Entity.YearEstablished ?? i.Entity.YearAppeared) ?? null,
-                        IndustryId = i.Entity.IndustryId
+                        IndustryId = i.Entity.IndustryId,
+                        SEOKey = i.Entity.SEOKey
                     }
                 });
             return data;
@@ -117,9 +176,46 @@ namespace SizeUp.Core.DataLayer
                     IsFirm = i.FirmCode == "2",
                     IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
                     YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
-                    IndustryId = i.IndustryId
+                    IndustryId = i.IndustryId,
+                    SEOKey = i.SEOKey
 
                 });
+            return data;
+        }
+
+        public static IQueryable<Models.Business> ListIn(SizeUpContext context, long industryId, long placeId)
+        {
+            var year = DateTime.UtcNow.Year;
+            var data = Base.Business.Get(context)
+                .Where(i => i.IndustryId == industryId && i.BusinessCityMappings.Any(bc => bc.City.CityCountyMappings.Any(p => p.Id == placeId)))
+                .Select(i => new Models.Business
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Lat = i.Lat,
+                    Lng = i.Long,
+                    Street = i.Address,
+                    City = i.City,
+                    State = i.State.Abbreviation,
+                    Zip = i.ZipCode.Zip,
+                    Phone = i.Phone,
+                    Url = i.PrimaryWebURL,
+                    IsHomeBased = i.WorkAtHomeFlag == "1",
+                    IsFirm = i.FirmCode == "2",
+                    IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
+                    YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
+                    IndustryId = i.IndustryId,
+                    SEOKey = i.SEOKey
+
+                });
+            return data;
+        }
+
+        public static long CountIn(SizeUpContext context, long industryId, long placeId)
+        {
+            var data = Base.Business.Get(context)
+                .Where(i => i.IndustryId == industryId && i.BusinessCityMappings.Any(bc => bc.City.CityCountyMappings.Any(p => p.Id == placeId)))
+                .Count();
             return data;
         }
 

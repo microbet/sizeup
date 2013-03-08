@@ -3,24 +3,24 @@
 }
 
 @section head{
-<title>Business Listings by City in @ViewBag.State.Name</title>
+<title>Business Listings by City in @ViewBag.CurrentInfo.CurrentPlace.State.Name</title>
 <link href="@Url.Content("~/Content/views/business/find.css")" rel="stylesheet" type="text/css" />
 
 }
 
 <div id="businessListings" class="city">
-    <h1>Business Listings by City in @ViewBag.State.Name</h1>
+    <h1>Business Listings by City in @ViewBag.CurrentInfo.CurrentPlace.State.Name</h1>
  
     @foreach(var col in ViewBag.Cities)
     {
     <div class="col">
-        @foreach(var list in col){
-        <h2>@list.Key</h2>
+        @foreach(List<SizeUp.Core.DataLayer.Models.Place> list in col){
+        <h2>@list[0].City.Name.Substring(0,1)</h2>
         <ul>
-            @foreach(var item in list.Places)
+            @foreach(var item in list)
             {
             <li>
-                <a href="/find-business/@ViewBag.State.SEOKey/@item.CountySEOKey/@item.CitySEOKey" class="inverse">@item.CityName <span>(@(item.DisplayType ? item.CountyName + " County - " + item.CityType : item.CountyName + " County" ))</span></a>
+                <a href="/find-business/@item.State.SEOKey/@item.County.SEOKey/@item.City.SEOKey" class="inverse">@item.City.Name <span>(@item.DisplayName)</span></a>
             </li>
             }
         </ul>
@@ -30,6 +30,9 @@
     }
 
 </div>
+
+
+
 
 
 

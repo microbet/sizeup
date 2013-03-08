@@ -25,10 +25,7 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.BusinessCount = Core.DataLayer.Base.BusinessData.City(context)
-                    .Where(i=> i.City.CityCountyMappings.Any(m=>m.Id == WebContext.Current.CurrentPlaceId.Value))
-                    .Where(i=>i.IndustryId == WebContext.Current.CurrentIndustryId.Value)
-                    .Count();
+                ViewBag.BusinessCount = Core.DataLayer.Business.CountIn(context, WebContext.Current.CurrentIndustryId.Value, WebContext.Current.CurrentPlaceId.Value);
                 return View();
             }
         }
@@ -44,76 +41,18 @@ namespace SizeUp.Web.Controllers
             ActionResult action = View();
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (context.States.Where(i => i.SEOKey == state).Count() == 0)
+                if (CurrentInfo.CurrentPlace.State.Id == null)
                 {
                     //hack becuase we have route collisions
                     action = RedirectWithIndustry(state, county);
                 }
-                else
-                {
-
-                    CurrentInfo = new Models.CurrentInfo()
-                    {
-                        CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
-                        {
-                            County = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.County.County()
-                            {
-                                Id = c.Id,
-                                Name = c.Name,
-                                SEOKey = c.SEOKey,
-                                State = c.State.Abbreviation
-                            })
-                            .FirstOrDefault(),
-                            Metro = i.Counties.Where(c => c.SEOKey == county).Select(c => new Areas.Api.Models.Metro.Metro()
-                            {
-                                Id = c.Metro.Id,
-                                Name = c.Metro.Name
-                            })
-                            .FirstOrDefault(),
-                            State = new Areas.Api.Models.State.State()
-                            {
-                                Id = i.Id,
-                                Name = i.Name,
-                                Abbreviation = i.Abbreviation,
-                                SEOKey = i.SEOKey
-                            }
-                        }).FirstOrDefault(),
-
-                        CurrentIndustry = null
-                    };
-
-                    ViewBag.CurrentInfo = CurrentInfo;
-                    ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
-                }
-
                 return action;
             }
         }
 
         public ActionResult MetroCommunity(string metro)
         {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                CurrentInfo = new Models.CurrentInfo()
-                {
-                    CurrentPlace = context.Metroes.Where(i => i.SEOKey == metro).Select(i => new Areas.Api.Models.Place.Place()
-                    {
-                        
-                        Metro =  new Areas.Api.Models.Metro.Metro()
-                        {
-                            Id = i.Id,
-                            Name = i.Name,
-                            SEOKey = i.SEOKey
-                        }
-                    }).FirstOrDefault(),
-
-                    CurrentIndustry = null
-                };
-
-                ViewBag.CurrentInfo = CurrentInfo;
-                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
-                return View();
-            }
+            return View();
         }
 
         public ActionResult StateCommunity(string state)
@@ -121,33 +60,11 @@ namespace SizeUp.Web.Controllers
             ActionResult action = View();
             using (var context = ContextFactory.SizeUpContext)
             {
-
-                if (context.States.Where(i => i.SEOKey == state).Count() == 0)
+                if (CurrentInfo.CurrentPlace.State.Id == null)
                 {
                     //hack becuase we have route collisions
                     action = Redirect(state);
-                }
-                else
-                {
-                    CurrentInfo = new Models.CurrentInfo()
-                    {
-                        CurrentPlace = context.States.Where(i => i.SEOKey == state).Select(i => new Areas.Api.Models.Place.Place()
-                        {
-                            State = new Areas.Api.Models.State.State()
-                            {
-                                Id = i.Id,
-                                Name = i.Name,
-                                Abbreviation = i.Abbreviation,
-                                SEOKey = i.SEOKey
-                            }
-                        }).FirstOrDefault(),
-
-                        CurrentIndustry = null
-                    };
-
-                    ViewBag.CurrentInfo = CurrentInfo;
-                    ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
-                }
+                }              
                 return action;
             }
         }
@@ -160,16 +77,10 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.States = context.States
-                    .Select(i => new Models.Business.State()
-                    {
-                        Name = i.Name,
-                        SEOKey = i.SEOKey
-                    })
+                ViewBag.States = Core.DataLayer.State.Get(context)
                     .OrderBy(i => i.Name)
                     .ToList()
                     .InSetsOf(14);
-
                 return View("State");
             }
         }
@@ -177,49 +88,24 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult FindCity(string state)
         {
+            if (CurrentInfo.CurrentPlace.State.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
+
             using (var context = ContextFactory.SizeUpContext)
             {
-                var s = context.States
-                    .Select(i => new Models.Business.State()
-                    {
-                        Id = i.Id,
-                        Name = i.Name,
-                        SEOKey = i.SEOKey
-                    })
-                    .Where(i => i.SEOKey == state)
-                    .FirstOrDefault();
+                ViewBag.State = CurrentInfo.CurrentPlace.State;
 
-                ViewBag.State = s;
-
-
-                var data = context.CityCountyMappings
-                    .Where(i => i.County.StateId == s.Id && i.City.CityType.IsActive)
-                    .Select(i => new Models.Business.Place()
-                    {
-                        CityName = i.City.Name,
-                        CitySEOKey = i.City.SEOKey,
-                        CityType = i.City.CityType.Name,
-                        CountyName = i.County.Name,
-                        CountySEOKey = i.County.SEOKey
-                    })
-                    .OrderBy(i => i.CityName)
-                    .ThenBy(i => i.CountyName)
-                    .ToList();
-
-                data.ForEach(i => i.DisplayType = data.Count(p => p.CityName == i.CityName && p.CityName == i.CityName && p.CountyName == i.CountyName) > 1);
-
-
+                var data = Core.DataLayer.Place.ListInState(context, CurrentInfo.CurrentPlace.State.Id.Value).ToList();
+                data.ForEach(i => i.DisplayName = data.Count(s => s.City.Name == i.City.Name && s.County.Name == i.County.Name) > 1 ? (i.County.Name + " County - " + i.City.TypeName) : (i.County.Name + " County"));
                 var groups = data
-                   .GroupBy(i => i.CityName.Substring(0, 1))
-                   .Select(i => new Models.Business.PlaceList()
-                   {
-                       Key = i.Key,
-                       Places = i.ToList()
-                   })
-                   .ToList();
+                    .OrderBy(i=>i.City.Name)
+                    .GroupBy(i=>i.City.Name.Substring(0,1));
 
-
-                ViewBag.Cities = groups.InSetsOf((int)System.Math.Ceiling(groups.Count / 2d))
+                ViewBag.Cities = groups
+                    .Select(i=> i.ToList())
+                    .InSetsOf((int)System.Math.Ceiling(groups.Count() / 2d))
                     .ToList();
                 return View("City");
             }
@@ -230,47 +116,14 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var location = context.CityCountyMappings
-                   .Where(i => i.County.State.SEOKey == state
-                       && i.City.CityType.IsActive
-                       && i.City.SEOKey == city
-                       && i.County.SEOKey == county)
-                   .Select(i => new Models.Business.Place()
-                   {
-                       CityId = i.City.Id,
-                       CityName = i.City.Name,
-                       CitySEOKey = i.City.SEOKey,
-                       CountyName = i.County.Name,
-                       CountySEOKey = i.County.SEOKey,
-                       CityType = i.City.CityType.Name,
-                       StateName = i.County.State.Name,
-                       StateSEOKey = i.County.State.SEOKey
-                   })
-                   .FirstOrDefault();
-
-                ViewBag.Place = location;
-
-                var industries = context.Industries
-                    .Where(i => i.IsActive)
-                    .Where(i=>i.IndustryDataByCities.Any(m=>m.CityId == location.CityId))
-                    .Join(context.Industries, i => i.SicCode.Substring(0, 4), o => o.SicCode, (i, o) => new { Industry = i, Parent = o })
+                var industries = Core.DataLayer.Industry.ListInPlace(context, CurrentInfo.CurrentPlace.Id.Value)
                     .ToList()
-                    .GroupBy(i => i.Parent)
-                    .Select(i => new Models.Business.IndustryList()
-                    {
-                        Key = i.Key.Name,
-                        Industries = i.Select(o => new Models.Business.Industry()
-                        {
-                            Name = o.Industry.Name,
-                            SEOKey = o.Industry.SEOKey
-                        }).OrderBy(o => o.Name).ToList()
-                    })
-                    .OrderBy(i => i.Key)
+                    .OrderBy(i => i.ParentName)
+                    .GroupBy(i => i.ParentName)
                     .ToList();
 
-
-
                 ViewBag.Industries = industries
+                    .Select(i => i.ToList())
                     .InSetsOf((int)System.Math.Ceiling(industries.Count() / 2d))
                     .ToList();
 
@@ -287,25 +140,15 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var place = context.LegacyCommunitySEOKeys.Where(i => i.SEOKey == oldSEO)
-                    .Select(i => new
-                    {
-                        State = i.City.State.SEOKey,
-                        County = i.City.CityCountyMappings.FirstOrDefault().County.SEOKey,
-                        City = i.City.SEOKey
-                    })
-                    .FirstOrDefault();
-
-                var ind = context.LegacyIndustrySEOKeys.Where(i => i.SEOKey == industry)
-                    .Select(i => i.Industry.SEOKey)
-                    .FirstOrDefault();
+                var place = Core.DataLayer.Place.GetLegacy(context, oldSEO);
+                var ind = Core.DataLayer.Industry.GetLegacy(context, industry).SEOKey;
 
                 if (place == null)
                 {
                     throw new HttpException(404, "Page Not Found");
                 }
 
-                string url = string.Format("/community/{0}/{1}/{2}/{3}", place.State,place.County,place.City, ind);
+                string url = string.Format("/community/{0}/{1}/{2}/{3}", place.State.SEOKey,place.County.SEOKey,place.City.SEOKey, ind);
                 return RedirectPermanent(url);
             }
         }
@@ -314,14 +157,7 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var place = context.LegacyCommunitySEOKeys.Where(i => i.SEOKey == oldSEO)
-                 .Select(i => new
-                 {
-                     State = i.City.State.SEOKey,
-                     County = i.City.CityCountyMappings.FirstOrDefault().County.SEOKey,
-                     City = i.City.SEOKey
-                 })
-                 .FirstOrDefault();
+                var place = Core.DataLayer.Place.GetLegacy(context, oldSEO);
 
 
                 if (place == null)
@@ -330,7 +166,7 @@ namespace SizeUp.Web.Controllers
                 }
                 else
                 {
-                    string url = string.Format("/community/{0}/{1}/{2}", place.State, place.County, place.City);
+                    string url = string.Format("/community/{0}/{1}/{2}", place.State.SEOKey, place.County.SEOKey, place.City.SEOKey);
                     return RedirectPermanent(url);
                 }
             }

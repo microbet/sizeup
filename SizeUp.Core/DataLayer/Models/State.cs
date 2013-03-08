@@ -8,7 +8,7 @@ namespace SizeUp.Core.DataLayer.Models
 {
     public class State
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public string SEOKey { get; set; }

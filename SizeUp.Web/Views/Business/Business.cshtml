@@ -46,9 +46,9 @@
         {
             <span>| @System.Text.RegularExpressions.Regex.Replace(ViewBag.Business.Phone, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3")</span>
         }
-        @if (!string.IsNullOrWhiteSpace(ViewBag.Business.WebSite))
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Business.Url))
         {
-            <span>| <a href="http://@ViewBag.Business.WebSite" target="_blank" >@ViewBag.Business.WebSite</a></span>
+            <span>| <a href="http://@ViewBag.Business.Url" target="_blank" >@ViewBag.Business.Url</a></span>
         }
 
     </address>
@@ -193,7 +193,7 @@
             location: @Html.Raw(ViewBag.CurrentInfoJSON) ,
             businessLocation: { 
                 lat: @ViewBag.Business.Lat,
-                lng: @ViewBag.Business.Long
+                lng: @ViewBag.Business.Lng
             }
         };
         var driver = new sizeup.views.business.business(opts);

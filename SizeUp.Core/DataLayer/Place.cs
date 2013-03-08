@@ -10,7 +10,7 @@ namespace SizeUp.Core.DataLayer
 {
     public class Place : Base.Base
     {
-        
+
         public static Models.Place Get(SizeUpContext context, long? id)
         {
             var raw = Base.Place.Get(context);
@@ -49,6 +49,198 @@ namespace SizeUp.Core.DataLayer
                 })
                 .FirstOrDefault();
             return data;
+        }
+
+        public static Models.Place GetByBusiness(SizeUpContext context, long businessId)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Where(i => i.City.BusinessCityMappings.Any(bc=>bc.BusinessId == businessId))
+                .Select(i => new Models.Place
+                {
+                    Id = i.Id,
+                    DisplayName = raw.Count(s => s.City.Name == i.City.Name && s.County.State.Name == i.County.State.Name) > 1 ? (i.City.Name + ", " + i.County.State.Abbreviation + " (" + i.County.Name + " County - " + i.City.CityType.Name + ")") : (i.City.Name + ", " + i.County.State.Abbreviation),
+                    City = new Models.City()
+                    {
+                        Id = i.City.Id,
+                        Name = i.City.Name,
+                        SEOKey = i.City.SEOKey,
+                        TypeName = i.City.CityType.Name
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.County.Id,
+                        Name = i.County.Name,
+                        SEOKey = i.County.SEOKey
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.County.Metro.Id,
+                        Name = i.County.Metro.Name,
+                        SEOKey = i.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.County.State.Id,
+                        Abbreviation = i.County.State.Abbreviation,
+                        Name = i.County.State.Name,
+                        SEOKey = i.County.State.SEOKey
+                    }
+                })
+                .FirstOrDefault();
+            return data;
+        }
+
+        public static Models.Place GetLegacy(SizeUpContext context, string SEOKey)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Where(i => i.City.LegacyCommunitySEOKeys.Any(l=>l.SEOKey == SEOKey))
+                .Select(i => new Models.Place
+                {
+                    Id = i.Id,
+                    DisplayName = raw.Count(s => s.City.Name == i.City.Name && s.County.State.Name == i.County.State.Name) > 1 ? (i.City.Name + ", " + i.County.State.Abbreviation + " (" + i.County.Name + " County - " + i.City.CityType.Name + ")") : (i.City.Name + ", " + i.County.State.Abbreviation),
+                    City = new Models.City()
+                    {
+                        Id = i.City.Id,
+                        Name = i.City.Name,
+                        SEOKey = i.City.SEOKey,
+                        TypeName = i.City.CityType.Name
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.County.Id,
+                        Name = i.County.Name,
+                        SEOKey = i.County.SEOKey
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.County.Metro.Id,
+                        Name = i.County.Metro.Name,
+                        SEOKey = i.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.County.State.Id,
+                        Abbreviation = i.County.State.Abbreviation,
+                        Name = i.County.State.Name,
+                        SEOKey = i.County.State.SEOKey
+                    }
+                })
+                .FirstOrDefault();
+            return data;
+        }
+
+        public static Models.Place Get(SizeUpContext context, string stateSEOKey, string countySEOKey, string citySEOKey)
+        {
+            var raw = Base.Place.Get(context);
+            Models.Place output = new Models.Place() { City = new Models.City(), County = new Models.County(), Metro = new Models.Metro(), State = new Models.State() };
+            if (!string.IsNullOrEmpty(stateSEOKey) && !string.IsNullOrEmpty(countySEOKey) && !string.IsNullOrEmpty(citySEOKey))
+            {
+                var data = raw
+                    .Where(i => i.County.SEOKey == countySEOKey && i.County.State.SEOKey == stateSEOKey && i.City.SEOKey == citySEOKey)
+                    .Select(i => new Models.Place
+                    {
+                        Id = i.Id,
+                        DisplayName = raw.Count(s => s.City.Name == i.City.Name && s.County.State.Name == i.County.State.Name) > 1 ? (i.City.Name + ", " + i.County.State.Abbreviation + " (" + i.County.Name + " County - " + i.City.CityType.Name + ")") : (i.City.Name + ", " + i.County.State.Abbreviation),
+                        City = new Models.City()
+                        {
+                            Id = i.City.Id,
+                            Name = i.City.Name,
+                            SEOKey = i.City.SEOKey,
+                            TypeName = i.City.CityType.Name
+                        },
+                        County = new Models.County
+                        {
+                            Id = i.County.Id,
+                            Name = i.County.Name,
+                            SEOKey = i.County.SEOKey
+                        },
+                        Metro = new Models.Metro
+                        {
+                            Id = i.County.Metro.Id,
+                            Name = i.County.Metro.Name,
+                            SEOKey = i.County.Metro.SEOKey
+                        },
+                        State = new Models.State
+                        {
+                            Id = i.County.State.Id,
+                            Abbreviation = i.County.State.Abbreviation,
+                            Name = i.County.State.Name,
+                            SEOKey = i.County.State.SEOKey
+                        }
+                    })
+                    .FirstOrDefault();
+                if (data != null)
+                {
+                    output = data;
+                }
+            }
+            else if (!string.IsNullOrEmpty(stateSEOKey) && !string.IsNullOrEmpty(countySEOKey))
+            {
+                var data = raw
+                    .Where(i => i.County.SEOKey == countySEOKey && i.County.State.SEOKey == stateSEOKey)
+                    .Select(i => new Models.Place
+                    {
+                        City = new Models.City()
+                        {
+                        },
+                        County = new Models.County
+                        {
+                            Id = i.County.Id,
+                            Name = i.County.Name,
+                            SEOKey = i.County.SEOKey
+                        },
+                        Metro = new Models.Metro
+                        {
+                            Id = i.County.Metro.Id,
+                            Name = i.County.Metro.Name,
+                            SEOKey = i.County.Metro.SEOKey
+                        },
+                        State = new Models.State
+                        {
+                            Id = i.County.State.Id,
+                            Abbreviation = i.County.State.Abbreviation,
+                            Name = i.County.State.Name,
+                            SEOKey = i.County.State.SEOKey
+                        }
+                    })
+                    .FirstOrDefault();
+                if (data != null)
+                {
+                    output = data;
+                }
+            }
+            else if (!string.IsNullOrEmpty(stateSEOKey))
+            {
+                var data = raw
+                    .Where(i => i.County.State.SEOKey == stateSEOKey)
+                    .Select(i => new Models.Place
+                    {
+                        City = new Models.City()
+                        {
+                        },
+                        County = new Models.County
+                        {
+                        },
+                        Metro = new Models.Metro
+                        {
+                        },
+                        State = new Models.State
+                        {
+                            Id = i.County.State.Id,
+                            Abbreviation = i.County.State.Abbreviation,
+                            Name = i.County.State.Name,
+                            SEOKey = i.County.State.SEOKey
+                        }
+                    })
+                    .FirstOrDefault();
+                if (data != null)
+                {
+                    output = data;
+                }
+            }
+            return output;
         }
 
         public static IQueryable<Models.Base.DistanceEntity<Models.Place>> ListNear(SizeUpContext context, Core.Geo.LatLng latLng)
@@ -98,6 +290,46 @@ namespace SizeUp.Core.DataLayer
             var raw = Base.Place.Get(context);
             var data = raw
                 .Where(i => placeIds.Contains(i.Id))
+                .Select(i => new Models.Place
+                {
+                    Id = i.Id,
+                    DisplayName = raw.Count(s => s.City.Name == i.City.Name && s.County.State.Name == i.County.State.Name) > 1 ? (i.City.Name + ", " + i.County.State.Abbreviation + " (" + i.County.Name + " County - " + i.City.CityType.Name + ")") : (i.City.Name + ", " + i.County.State.Abbreviation),
+                    City = new Models.City()
+                    {
+                        Id = i.City.Id,
+                        Name = i.City.Name,
+                        SEOKey = i.City.SEOKey,
+                        TypeName = i.City.CityType.Name
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.County.Id,
+                        Name = i.County.Name,
+                        SEOKey = i.County.SEOKey
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.County.Metro.Id,
+                        Name = i.County.Metro.Name,
+                        SEOKey = i.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.County.State.Id,
+                        Abbreviation = i.County.State.Abbreviation,
+                        Name = i.County.State.Name,
+                        SEOKey = i.County.State.SEOKey
+                    }
+                })
+                .ToList();
+            return data;
+        }
+
+        public static List<Models.Place> ListInState(SizeUpContext context, long stateId)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Where(i => i.County.StateId == stateId)
                 .Select(i => new Models.Place
                 {
                     Id = i.Id,

@@ -3,18 +3,18 @@
 }
 
 @section head{
-<title>@ViewBag.Industry.Name in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</title>
+<title>@ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</title>
 <link href="@Url.Content("~/Content/views/business/find.css")" rel="stylesheet" type="text/css" />
 
 
 }
 
 <div id="businessListings" class="find">
-    <h1>@ViewBag.Industry.Name in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType)</h1>
+    <h1>@ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
 
-    <a href="/community/@ViewBag.Place.StateSEOKey/@ViewBag.Place.CountySEOKey/@ViewBag.Place.CitySEOKey/@ViewBag.Industry.SEOKey" class="inverse details">View Detailed Industry Report</a>
+    <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" class="inverse details">View Detailed Industry Report</a>
 
-    <h1>Businesses in @ViewBag.Place.CityName, @ViewBag.Place.StateName (@ViewBag.Place.CountyName County - @ViewBag.Place.CityType) categorized under @ViewBag.Industry.Name</h1>
+    <h1>Businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName) categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name</h1>
 
 
     @foreach(var col in ViewBag.Businesses)
@@ -24,10 +24,10 @@
             @foreach(var item in col)
             {
             <li>
-                <a href="/business/@ViewBag.Place.StateSEOKey/@ViewBag.Place.CountySEOKey/@ViewBag.Place.CitySEOKey/@ViewBag.Industry.SEOKey/@item.Id/@item.SEOKey">@item.Name</a>
+                <a href="/business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey/@item.Id/@item.SEOKey">@item.Name</a>
                 <address>
                     @if(!string.IsNullOrWhiteSpace(item.Address)){
-                    <span class="address1">@item.Address</span>
+                    <span class="address1">@item.Street</span>
                     }
                     <span class="address2">@item.City, @item.State @item.Zip</span>
                 </address>

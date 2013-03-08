@@ -12,6 +12,12 @@ namespace SizeUp.Core.DataLayer.Base
     {
         public static IQueryable<Data.Industry> Get(SizeUpContext context)
         {
+            var data = context.Industries;
+            return data;
+        }
+
+        public static IQueryable<Data.Industry> GetActive(SizeUpContext context)
+        {
             var data = context.Industries
                        .Where(d => d.IsActive);
             return data;

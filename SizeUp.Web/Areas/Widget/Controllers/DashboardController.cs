@@ -38,7 +38,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
                 ViewBag.Report = new Models.Business.Report()
                 {
-                    CurrentPlace = CurrentInfo.CurrentPlace,
+                    //CurrentPlace = CurrentInfo.CurrentPlace,
                     IndustryDetails = new Models.Business.IndustryDetails()
                     {
                         Industry = new Areas.Api.Models.Industry.Industry()
