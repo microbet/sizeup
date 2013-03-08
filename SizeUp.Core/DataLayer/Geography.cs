@@ -7,6 +7,7 @@ using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.DataLayer.Models.Base;
 using System.Data.Spatial;
+using SizeUp.Core.Geo;
 
 namespace SizeUp.Core.DataLayer
 {
@@ -85,13 +86,13 @@ namespace SizeUp.Core.DataLayer
             return output;
         }
 
-        public static Models.LatLng Centroid(SizeUpContext context, long id, Granularity granularity)
+        public static LatLng Centroid(SizeUpContext context, long id, Granularity granularity)
         {
             var data = CalculationPolygon(context, id, granularity)
                 .Where(i => i.Value == id)
                 .Select(i => DbGeometry.FromBinary(i.Key.AsBinary()).ConvexHull.Centroid)
                 .Select(i => DbGeography.FromBinary(i.AsBinary()))
-                .Select(i => new Models.LatLng
+                .Select(i => new LatLng
                 {
                     Lat = (double)i.Latitude,
                     Lng = (double)i.Longitude
@@ -109,12 +110,12 @@ namespace SizeUp.Core.DataLayer
                 .Select(i => DbGeography.FromBinary(i.AsBinary()))
                 .Select(i => new Models.BoundingBox
                 {
-                    SouthWest = new Models.LatLng
+                    SouthWest = new LatLng
                     {
                         Lat = (double)i.PointAt(1).Latitude,
                         Lng = (double)i.PointAt(1).Longitude
                     },
-                    NorthEast = new Models.LatLng
+                    NorthEast = new LatLng
                     {
                         Lat = (double)i.PointAt(3).Latitude,
                         Lng = (double)i.PointAt(3).Longitude

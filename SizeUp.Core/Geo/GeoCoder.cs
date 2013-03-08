@@ -62,10 +62,9 @@ namespace SizeUp.Core.Geo
                             {
                                 var lat = double.Parse(geo.Lat);
                                 var lng = double.Parse(geo.Lng);
-                                id  = Locations.GetWithDistance(context, lat, lng)
-                                    .Where(i=>i.CityDistance < 30000)
-                                    .OrderBy(i=>i.CityDistance)
-                                    .ThenBy(i=>i.CountyDistance)
+                                id = Core.DataLayer.Place.ListNear(context, new LatLng{ Lat = lat, Lng = lng})
+                                    .Where(i=>i.Distance < 30000)
+                                    .OrderBy(i=>i.Distance)
                                     .Select(i => i.Entity.Id).FirstOrDefault();
                                 Cache[cacheKey] = id;
                             }

@@ -16,21 +16,6 @@ namespace SizeUp.Web.Areas.Api
         public override void RegisterArea(AreaRegistrationContext context)
         {
 
-            /*********user***********/
-            context.MapRoute(
-                "UserAuthenticated",
-                "Api/User/Authenticated",
-                new { controller = "User", action = "Authenticated" },
-                new string[] { "SizeUp.Web.Areas.Api.Controllers" }
-            );
-
-
-
-
-
-
-
-
             /****advertising*****/
 
             context.MapRoute(

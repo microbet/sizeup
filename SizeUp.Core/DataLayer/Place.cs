@@ -51,6 +51,48 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
+        public static IQueryable<Models.Base.DistanceEntity<Models.Place>> ListNear(SizeUpContext context, Core.Geo.LatLng latLng)
+        {
+            var dist = Base.Place.Distance(context, latLng);
+            var raw = Base.Place.Get(context);
+            var data = dist.Select(i => new Models.Base.DistanceEntity<Models.Place>
+            {
+                Distance = i.Distance,
+                Entity = new Models.Place
+                {
+                    Id = i.Entity.Id,
+                    DisplayName = raw.Count(s => s.City.Name == i.Entity.City.Name && s.County.State.Name == i.Entity.County.State.Name) > 1 ? (i.Entity.City.Name + ", " + i.Entity.County.State.Abbreviation + " (" + i.Entity.County.Name + " County - " + i.Entity.City.CityType.Name + ")") : (i.Entity.City.Name + ", " + i.Entity.County.State.Abbreviation),
+                    City = new Models.City()
+                    {
+                        Id = i.Entity.City.Id,
+                        Name = i.Entity.City.Name,
+                        SEOKey = i.Entity.City.SEOKey,
+                        TypeName = i.Entity.City.CityType.Name
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.Entity.County.Id,
+                        Name = i.Entity.County.Name,
+                        SEOKey = i.Entity.County.SEOKey
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.Entity.County.Metro.Id,
+                        Name = i.Entity.County.Metro.Name,
+                        SEOKey = i.Entity.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.Entity.County.State.Id,
+                        Abbreviation = i.Entity.County.State.Abbreviation,
+                        Name = i.Entity.County.State.Name,
+                        SEOKey = i.Entity.County.State.SEOKey
+                    }
+                }
+            });
+            return data;
+        }
+
         public static List<Models.Place> List(SizeUpContext context, List<long> placeIds)
         {
             var raw = Base.Place.Get(context);

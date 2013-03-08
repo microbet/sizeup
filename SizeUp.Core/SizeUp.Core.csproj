@@ -70,11 +70,8 @@
     <Compile Include="DataAccess\Counties.cs" />
     <Compile Include="DataAccess\Geography.cs" />
     <Compile Include="DataAccess\IndustryData.cs" />
-    <Compile Include="DataAccess\Locations.cs" />
-    <Compile Include="DataAccess\Models\PlaceDistance.cs" />
     <Compile Include="DataAccess\Models\DisplayGeography.cs" />
     <Compile Include="DataAccess\Models\EntityDistance.cs" />
-    <Compile Include="DataAccess\Models\Locations.cs" />
     <Compile Include="DataAccess\ZipCodes.cs" />
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\Base\Base.cs" />
@@ -108,7 +105,6 @@
     <Compile Include="DataLayer\Models\Place.cs" />
     <Compile Include="DataLayer\Models\Industry.cs" />
     <Compile Include="DataLayer\Models\Demographics.cs" />
-    <Compile Include="DataLayer\Models\LatLng.cs" />
     <Compile Include="DataLayer\Base\State.cs" />
     <Compile Include="DataLayer\Base\Metro.cs" />
     <Compile Include="DataLayer\Base\County.cs" />

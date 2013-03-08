@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
+using System.Data.Spatial;
 
 namespace SizeUp.Core.DataLayer.Base
 {
@@ -14,6 +15,23 @@ namespace SizeUp.Core.DataLayer.Base
         {
             var data = context.CityCountyMappings
                        .Where(d => d.City.CityType.IsActive);
+            return data;
+        }
+
+        public static IQueryable<Models.Base.DistanceEntity<Data.CityCountyMapping>> Distance(SizeUpContext context, Core.Geo.LatLng latLng)
+        {
+            var scalar = 69.1 * System.Math.Cos(latLng.Lat / 57.3);      
+            var data = Get(context)
+                       .Select(i=> new 
+                       {
+                           Entity = i,
+                           LatLng = DbGeography.FromBinary(DbGeometry.FromBinary(i.City.CityGeographies.Where(cg => cg.GeographyClass.Name == "Calculation").Select(cg => cg.Geography.GeographyPolygon).FirstOrDefault().Intersection(i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()).AsBinary()).ConvexHull.Centroid.AsBinary())
+                       })
+                       .Select(i => new Models.Base.DistanceEntity<Data.CityCountyMapping>
+                       {
+                           Distance = System.Math.Pow(System.Math.Pow(((double)i.LatLng.Latitude - latLng.Lat) * 69.1, 2) + System.Math.Pow(((double)i.LatLng.Longitude - latLng.Lng) * scalar, 2), 0.5),
+                           Entity = i.Entity
+                       });
             return data;
         }
 

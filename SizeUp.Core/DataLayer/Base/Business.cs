@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.Geo;
 
 namespace SizeUp.Core.DataLayer.Base
 {
@@ -17,7 +18,7 @@ namespace SizeUp.Core.DataLayer.Base
             return data;
         }
 
-        public static IQueryable<Models.Base.DistanceEntity<Data.Business>> Distance(SizeUpContext context, Models.LatLng latLng)
+        public static IQueryable<Models.Base.DistanceEntity<Data.Business>> Distance(SizeUpContext context, LatLng latLng)
         {
             var scalar = 69.1 * System.Math.Cos(latLng.Lat / 57.3);
             var data = Get(context)

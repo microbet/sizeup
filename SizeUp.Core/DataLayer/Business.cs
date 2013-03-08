@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.DataLayer.Models;
+using SizeUp.Core.Geo;
 namespace SizeUp.Core.DataLayer
 {
     public class Business

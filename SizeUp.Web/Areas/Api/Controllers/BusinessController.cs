@@ -10,7 +10,7 @@ using Microsoft.SqlServer.Types;
 using SizeUp.Core.DataAccess;
 using System.Data.Spatial;
 
-
+using SizeUp.Core.Geo;
 using SizeUp.Core.DataLayer;
 
 
@@ -35,7 +35,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Business.GetAt(context, new Core.DataLayer.Models.LatLng() { Lat = lat, Lng = lng }, industryIds);
+                var data = Core.DataLayer.Business.GetAt(context, new LatLng() { Lat = lat, Lng = lng }, industryIds);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
