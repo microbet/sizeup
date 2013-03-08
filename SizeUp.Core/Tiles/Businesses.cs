@@ -22,11 +22,6 @@ namespace SizeUp.Core.Tiles
 
         public override void Draw(List<GeographyEntity> Geographies)
         {
-
-        }
-
-        public override void Draw(List<GeographyCollection> Geographies)
-        {
             float width = (float)(0.2f * Zoom + 0.5f);
             float height = (float)(0.2f * Zoom + 0.5f);
             Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -40,12 +35,10 @@ namespace SizeUp.Core.Tiles
                 Color borderc = Color.FromArgb(geo.BorderOpacity, ColorTranslator.FromHtml(geo.BorderColor));
                 Pen borderPen = new Pen(borderc, geo.BorderWidth);
 
-                foreach (var g in geo.Geographies)
-                {
-                    PointF p = this.Projection.FromCoordinatesToPixel(new PointF((float)g.Long.Value, (float)g.Lat.Value));
-                    Graphics.FillEllipse(brush, p.X - width + xoff, p.Y + height + yoff, width*2, height*2);
-                    Graphics.DrawEllipse(borderPen, p.X - width + xoff, p.Y + height + yoff, width * 2, height * 2);
-                }
+                PointF p = this.Projection.FromCoordinatesToPixel(new PointF((float)geo.Geography.Long, (float)geo.Geography.Lat));
+                Graphics.FillEllipse(brush, p.X - width + xoff, p.Y + height + yoff, width * 2, height * 2);
+                Graphics.DrawEllipse(borderPen, p.X - width + xoff, p.Y + height + yoff, width * 2, height * 2);
+               
             }
         }
     }

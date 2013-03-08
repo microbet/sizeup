@@ -47,35 +47,6 @@ namespace SizeUp.Core.Tiles
                 }
             }
         }
-
-        public override void Draw(List<GeographyCollection> Geographies)
-        {     
-            /*
-            foreach (var geo in Geographies)
-            {
-                using (GraphicsPath gp = new GraphicsPath())
-                {
-                    foreach (var g in geo.Geographies)
-                    {
-                        GeoSink sink = new GeoSink(this.Projection);
-                        g.Populate(sink);
-                        foreach (var geography in sink.Geographies)
-                        {
-                            foreach (var figure in geography)
-                            {
-                                gp.AddPolygon(figure.ToArray());
-                            }
-                        }
-                    }
-                    gp.Transform(TranslationMatrix);
-                    if (geo.BorderWidth > 0)
-                    {
-                        Pen p = new Pen(Color.FromArgb(geo.BorderOpacity, ColorTranslator.FromHtml(geo.BorderColor)), geo.BorderWidth);
-                        Graphics.DrawPath(p, gp);
-                    }
-                }
-            }*/
-        }
     }
 }
 

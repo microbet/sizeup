@@ -29,6 +29,13 @@ namespace SizeUp.Core.DataLayer.Base
             return data;
         }
 
+        public static IQueryable<Data.Business> In(SizeUpContext context, Core.Geo.BoundingBox boundingBox)
+        {
+            var data = Get(context)
+                       .Where(i => i.Lat < (decimal)boundingBox.NorthEast.Lat && i.Lat > (decimal)boundingBox.SouthWest.Lat && i.Long > (decimal)boundingBox.SouthWest.Lng && i.Long < (decimal)boundingBox.NorthEast.Lng);
+            return data;
+        }
+
 
     }
 }

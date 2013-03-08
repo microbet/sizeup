@@ -35,7 +35,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 IQueryable<KeyValue<DbGeography, double?>> values = new List<KeyValue<DbGeography, double?>>().AsQueryable();//empty set
                 if (granularity == Granularity.ZipCode)
                 {
-                    var entities = Core.DataLayer.ZipCode.In(context, placeId, boundingGranularity);
+                    var entities = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
                     var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.ZipCodeId, (e, d) => new KeyValue<DbGeography, double?>
                     {
@@ -46,7 +46,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 }
                 else if (granularity == Granularity.County)
                 {
-                    var entities = Core.DataLayer.County.In(context, placeId, boundingGranularity);
+                    var entities = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
                     var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.CountyId, (e, d) => new KeyValue<DbGeography, double?>
                     {
@@ -57,7 +57,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 }
                 else if (granularity == Granularity.State)
                 {
-                    var entities = Core.DataLayer.State.In(context, placeId, boundingGranularity);
+                    var entities = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
                     var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.StateId, (e, d) => new KeyValue<DbGeography, double?>
                     {

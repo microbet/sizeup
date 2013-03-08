@@ -51,7 +51,7 @@
         var setSelection = function (item) {
             me.selection = item;
             if (item != null) {
-                me.textbox.val(item.City.Name + ', ' + item.City.State);
+                me.textbox.val(item.City.Name + ', ' + item.State.Abbreviation);
                 me.textbox.removeClass('blank');
             }
             else {

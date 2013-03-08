@@ -7,6 +7,7 @@ using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core.DataAccess;
+using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -14,55 +15,37 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Industry/
-        public JsonResult Industry(int? id)
+        public JsonResult Industry(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var industry = context.Industries.Where(i => i.Id == id);
-                var data = industry.Select(i => new Models.Industry.Industry()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    SEOKey = i.SEOKey
-                }).FirstOrDefault();
+                var data = Core.DataLayer.Industry.Get(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult IndustryList(List<long> ids)
+        public JsonResult List(List<long> ids)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var industry = context.Industries.Where(i => ids.Contains(i.Id));
-                var data = industry.Select(i => new Models.Industry.Industry()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    SEOKey = i.SEOKey
-                }).ToList();
+                var data = Core.DataLayer.Industry.List(context, ids);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpGet]
-        public JsonResult CurrentIndustry()
+        public JsonResult Current()
         {
             var id = SizeUp.Core.Web.WebContext.Current.CurrentIndustryId;
             using (var context = ContextFactory.SizeUpContext)
             {
-                var industry = context.Industries.Where(i => i.Id == id);
-                var data = industry.Select(i => new Models.Industry.Industry()
-                {
-                    Id = i.Id,
-                    Name = i.Name,
-                    SEOKey = i.SEOKey
-                }).FirstOrDefault();
+                var data = Core.DataLayer.Industry.Get(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult CurrentIndustry(long id)
+        public JsonResult Current(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -75,55 +58,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public JsonResult SearchIndustries(string term, int maxResults = 35)
+        public JsonResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var searchSpace = context.Industries
-                    .Where(i=>i.IsActive)
-                    .Select(i=> new
-                    {
-                        Id = i.Id,
-                        i.Name,
-                        i.SEOKey,
-                        SortOrder = 1
-                    }).Concat(context.IndustryKeywords.Select(i => new
-                    {
-                        Id = i.IndustryId,
-                        i.Name,
-                        i.Industry.SEOKey,
-                        i.SortOrder
-                    }));
-
-                foreach (var qs in term.Split(' '))
-                {
-                    if (!string.IsNullOrWhiteSpace(qs))
-                    {
-                        searchSpace = searchSpace.Where(i => i.Name.Contains(qs));
-                    }
-                }
-
-                var data = searchSpace
-                    .OrderBy(i => i.SortOrder)
-                    .Take(maxResults)
-                    .Select(i => new Models.Industry.Industry()
-                    {
-                        Id = i.Id,
-                        Name = i.Name,
-                        SEOKey = i.SEOKey
-                    }).ToList();
-
+                var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();                  
                 return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public JsonResult HasData(int id, int placeId)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var location = Locations.Get(context, placeId).FirstOrDefault();
-                var rev = IndustryData.GetCity(context, id, location.City.Id).Select(i => i.AverageRevenue).FirstOrDefault();
-                return Json(rev.HasValue, JsonRequestBehavior.AllowGet);
             }
         }
     }

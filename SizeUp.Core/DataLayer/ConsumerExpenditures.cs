@@ -85,7 +85,7 @@ namespace SizeUp.Core.DataLayer
 
             if (granularity == Granularity.ZipCode)
             {
-                var entities = ZipCode.In(context, placeId, boundingGranularity);
+                var entities = Base.ZipCode.In(context, placeId, boundingGranularity);
                 var data = entities.Join(Base.ConsumerExpenditures.ZipCode(context), o => o.Id, i => i.ZipCodeId, (i, o) => o);
                 provider = data.Provider;
                 dataType = typeof(ConsumerExpendituresByZip);
@@ -93,7 +93,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (granularity == Granularity.City)
             {
-                var entities = City.In(context, placeId, boundingGranularity);
+                var entities = Base.City.In(context, placeId, boundingGranularity);
                 var data = entities.Join(Base.ConsumerExpenditures.City(context), o => o.Id, i => i.CityId, (i, o) => o);
                 provider = data.Provider;
                 dataType = typeof(ConsumerExpendituresByCity);
@@ -101,7 +101,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (granularity == Granularity.County)
             {
-                var entities = County.In(context, placeId, boundingGranularity);
+                var entities = Base.County.In(context, placeId, boundingGranularity);
                 var data = entities.Join(Base.ConsumerExpenditures.County(context), o => o.Id, i => i.CountyId, (i, o) => o);
                 provider = data.Provider;
                 dataType = typeof(ConsumerExpendituresByCounty);
@@ -109,7 +109,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (granularity == Granularity.State)
             {
-                var entities = State.In(context, placeId, boundingGranularity);
+                var entities = Base.State.In(context, placeId, boundingGranularity);
                 var data = entities.Join(Base.ConsumerExpenditures.State(context), o => o.Id, i => i.StateId, (i, o) => o);
                 provider = data.Provider;
                 dataType = typeof(ConsumerExpendituresByState);

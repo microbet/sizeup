@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SizeUp.Data;
-using SizeUp.Core.DataLayer.Base;
 
-
-namespace SizeUp.Core.DataLayer
+namespace SizeUp.Core.Geo
 {
-    public class Metro
+    public class LatLng
     {
+        public double Lat { get; set; }
+        public double Lng { get; set; }
     }
 }

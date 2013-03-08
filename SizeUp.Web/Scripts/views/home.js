@@ -14,8 +14,6 @@
         dataLayer.getDetectedPlace(notifier.getNotifier(function (i) { me.data.detectedCity = i; }));
 
         var init = function () {
-            me.hasData = false;
-            me.checkedForData = false;
             me.form = {};
             me.selector = {};
             me.errors = {};
@@ -29,7 +27,7 @@
             me.selector.competition = $('#competition');
             me.selector.advertising = $('#advertising');
 
-            me.errors.noData = $('#noDataMessage');
+            
             me.errors.noIndustryMatches = $('#noIndustryMatchesMessage');
             me.errors.invalidCity = $('#invalidCityMessage');
             me.errors.noValuesEntered = $('#noValuesEntered');
@@ -53,12 +51,12 @@
             });
 
             if (!me.data.currentCity && me.data.detectedCity) {
-                me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.City.Name + ', ' + me.data.detectedCity.City.State);
+                me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.City.Name + ', ' + me.data.detectedCity.State.Abbreviation);
                 me.form.location.placeSelector.setSelection(me.data.detectedCity);
                 showDetectedCity();
             }
             else if (me.data.currentCity) {
-                me.form.location.enteredLocation.find('.locationText').html(me.data.currentCity.City.Name + ', ' + me.data.currentCity.City.State);
+                me.form.location.enteredLocation.find('.locationText').html(me.data.currentCity.City.Name + ', ' + me.data.currentCity.State.Abbreviation);
                 me.form.location.placeSelector.setSelection(me.data.currentCity);
                 showCurrentCity();
             }
@@ -77,7 +75,6 @@
 
             me.errors.noIndustryMatches.hide().removeClass('hidden');
             me.errors.invalidCity.hide().removeClass('hidden');
-            me.errors.noData.hide().removeClass('hidden');
             me.errors.noValuesEntered.hide().removeClass('hidden');
             showForm();
         };
@@ -115,29 +112,23 @@
 
         var onIndustryChange = function (item) {
             me.errors.noValuesEntered.hide();
-            me.hasData = false;
-            me.checkedForData = false;
             if (!item) {
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
             }
             else {
                 me.errors.noIndustryMatches.fadeOut('slow');
-                checkForData();
             }
         };
 
         var onCityChange = function (item) {
             me.errors.noValuesEntered.hide();
-            me.hasData = false;
-            me.checkedForData = false;
             if (!item) {
                 me.errors.invalidCity.hide().fadeIn('slow');
             }
             else {
                 me.errors.invalidCity.fadeOut('slow');
-                me.form.location.enteredLocation.find('.locationText').html(item.City.Name + ', ' + item.City.State);
+                me.form.location.enteredLocation.find('.locationText').html(item.City.Name + ', ' + item.State.Abbreviation);
                 showCurrentCity();
-                checkForData();
             }
         };
 
@@ -154,16 +145,12 @@
                 me.errors.noValuesEntered.fadeIn("slow");
             }
             else if (!me.checkedForData) {
-                checkForData(function () {
-                    if (me.hasData) {
-                        var currentCity = me.form.location.placeSelector.getSelection();
-                        var currentIndustry = me.form.industry.industrySelector.getSelection();
-                        dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
-                        dataLayer.setCurrentPlace({ id: currentCity.Id });
-                        setSelectorLinks();
-                        showSelector();
-                    }
-                });
+                var currentCity = me.form.location.placeSelector.getSelection();
+                var currentIndustry = me.form.industry.industrySelector.getSelection();
+                dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
+                dataLayer.setCurrentPlace({ id: currentCity.Id });
+                setSelectorLinks();
+                showSelector();
             }
         };
 
@@ -176,32 +163,6 @@
             me.selector.advertising.attr('href', 'advertising/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
         };
 
-
-        var checkForData = function (callback) {
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-            if (currentCity && currentIndustry) {
-                var params = {
-                    id: currentIndustry.Id,
-                    placeId: currentCity.Id
-                }
-                dataLayer.hasData(params, function (isValid) {
-                    if (!isValid) {
-                        me.errors.noData.hide().fadeIn('slow');
-                    }
-                    else {
-                        me.errors.noData.fadeOut('slow');
-                    }
-                    me.hasData = isValid;
-
-                    if (callback) {
-                        callback();
-                    }
-                });
-            }
-        };
-
-       
         
 
         var publicObj = {

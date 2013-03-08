@@ -111,10 +111,10 @@ namespace SizeUp.Core.DataAccess
             return context.ZipCodeGeographies
                    .Where(i => i.GeographyClass.Name == "Calculation")
                    .Where(i =>
-                       i.Geography.West < BoundingBox.NorthEast.X &&
-                       i.Geography.East > BoundingBox.SouthWest.X &&
-                       i.Geography.South < BoundingBox.NorthEast.Y &&
-                       i.Geography.North > BoundingBox.SouthWest.Y);
+                       i.Geography.West < BoundingBox.NorthEast.Lng &&
+                       i.Geography.East > BoundingBox.SouthWest.Lng &&
+                       i.Geography.South < BoundingBox.NorthEast.Lat &&
+                       i.Geography.North > BoundingBox.SouthWest.Lat);
         }
 
         public static IQueryable<CityGeography> GetBoundingBoxedCities(SizeUpContext context, BoundingBox BoundingBox)
@@ -122,10 +122,10 @@ namespace SizeUp.Core.DataAccess
             return context.CityGeographies
                    .Where(i => i.GeographyClass.Name == "Calculation")
                    .Where(i =>
-                        i.Geography.West < BoundingBox.NorthEast.X &&
-                       i.Geography.East > BoundingBox.SouthWest.X &&
-                       i.Geography.South < BoundingBox.NorthEast.Y &&
-                       i.Geography.North > BoundingBox.SouthWest.Y);
+                       i.Geography.West < BoundingBox.NorthEast.Lng &&
+                       i.Geography.East > BoundingBox.SouthWest.Lng &&
+                       i.Geography.South < BoundingBox.NorthEast.Lat &&
+                       i.Geography.North > BoundingBox.SouthWest.Lat);
         }
 
         public static IQueryable<CountyGeography> GetBoundingBoxedCounties(SizeUpContext context, BoundingBox BoundingBox)
@@ -133,10 +133,10 @@ namespace SizeUp.Core.DataAccess
             return context.CountyGeographies
                    .Where(i => i.GeographyClass.Name == "Calculation")
                    .Where(i =>
-                        i.Geography.West < BoundingBox.NorthEast.X &&
-                       i.Geography.East > BoundingBox.SouthWest.X &&
-                       i.Geography.South < BoundingBox.NorthEast.Y &&
-                       i.Geography.North > BoundingBox.SouthWest.Y);
+                       i.Geography.West < BoundingBox.NorthEast.Lng &&
+                       i.Geography.East > BoundingBox.SouthWest.Lng &&
+                       i.Geography.South < BoundingBox.NorthEast.Lat &&
+                       i.Geography.North > BoundingBox.SouthWest.Lat);
         }
 
         public static IQueryable<MetroGeography> GetBoundingBoxedMetros(SizeUpContext context, BoundingBox BoundingBox)
@@ -144,10 +144,10 @@ namespace SizeUp.Core.DataAccess
             return context.MetroGeographies
                    .Where(i => i.GeographyClass.Name == "Calculation")
                    .Where(i =>
-                        i.Geography.West < BoundingBox.NorthEast.X &&
-                       i.Geography.East > BoundingBox.SouthWest.X &&
-                       i.Geography.South < BoundingBox.NorthEast.Y &&
-                       i.Geography.North > BoundingBox.SouthWest.Y);
+                       i.Geography.West < BoundingBox.NorthEast.Lng &&
+                       i.Geography.East > BoundingBox.SouthWest.Lng &&
+                       i.Geography.South < BoundingBox.NorthEast.Lat &&
+                       i.Geography.North > BoundingBox.SouthWest.Lat);
         }
 
         public static IQueryable<StateGeography> GetBoundingBoxedStates(SizeUpContext context, BoundingBox BoundingBox)
@@ -155,10 +155,10 @@ namespace SizeUp.Core.DataAccess
             return context.StateGeographies
                    .Where(i => i.GeographyClass.Name == "Calculation")
                    .Where(i =>
-                       i.Geography.West < BoundingBox.NorthEast.X &&
-                       i.Geography.East > BoundingBox.SouthWest.X &&
-                       i.Geography.South < BoundingBox.NorthEast.Y &&
-                       i.Geography.North > BoundingBox.SouthWest.Y);
+                       i.Geography.West < BoundingBox.NorthEast.Lng &&
+                       i.Geography.East > BoundingBox.SouthWest.Lng &&
+                       i.Geography.South < BoundingBox.NorthEast.Lat &&
+                       i.Geography.North > BoundingBox.SouthWest.Lat);
         }
 
 

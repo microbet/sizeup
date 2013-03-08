@@ -94,5 +94,33 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
+
+        public static IQueryable<Models.Business> ListIn(SizeUpContext context, Core.Geo.BoundingBox boundingBox, List<long> industryIds)
+        {
+            var year = DateTime.UtcNow.Year;
+            var data = Base.Business.In(context, boundingBox)
+                .Where(i => industryIds.Contains(i.IndustryId.Value))
+                .Select(i => new Models.Business
+                {
+                    Id = i.Id,
+                    Name = i.Name,
+                    Lat = i.Lat,
+                    Lng = i.Long,
+                    Street = i.Address,
+                    City = i.City,
+                    State = i.State.Abbreviation,
+                    Zip = i.ZipCode.Zip,
+                    Phone = i.Phone,
+                    Url = i.PrimaryWebURL,
+                    IsHomeBased = i.WorkAtHomeFlag == "1",
+                    IsFirm = i.FirmCode == "2",
+                    IsPublic = i.PublicCompanyIndicator == "1" || i.PublicCompanyIndicator == "2",
+                    YearsInBusiness = year - (i.YearEstablished ?? i.YearAppeared) ?? null,
+                    IndustryId = i.IndustryId
+
+                });
+            return data;
+        }
+
     }
 }

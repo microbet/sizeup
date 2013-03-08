@@ -38,7 +38,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 IQueryable<KeyValue<DbGeography, long?>> values = new List<KeyValue<DbGeography,long?>>().AsQueryable();//empty set
                 if (granularity == Granularity.ZipCode)
                 {
-                    var entities = Core.DataLayer.ZipCode.In(context, placeId, boundingGranularity);
+                    var entities = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
                     var data = Core.DataLayer.Base.ConsumerExpenditures.ZipCode(context);
 
                     var dataType = typeof(ConsumerExpendituresByZip);
@@ -61,7 +61,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 }
                 else if (granularity == Granularity.County)
                 {
-                    var entities = Core.DataLayer.County.In(context, placeId, boundingGranularity);
+                    var entities = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
                     var data = Core.DataLayer.Base.ConsumerExpenditures.County(context);
 
                     var dataType = typeof(ConsumerExpendituresByCounty);
@@ -85,7 +85,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 }
                 else if (granularity == Granularity.State)
                 {
-                    var entities = Core.DataLayer.State.In(context, placeId, boundingGranularity);
+                    var entities = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
                     var data = Core.DataLayer.Base.ConsumerExpenditures.State(context);
 
                     var dataType = typeof(ConsumerExpendituresByState);

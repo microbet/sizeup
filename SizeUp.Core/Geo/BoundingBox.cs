@@ -12,14 +12,14 @@ namespace SizeUp.Core.Geo
 {
     public class BoundingBox
     {
-        public PointF NorthEast { get; set; }
-        public PointF SouthWest { get; set; }
-        public SqlGeography SqlGeography { get { return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", SouthWest.X, NorthEast.X, SouthWest.Y, NorthEast.Y)); } }
-        public DbGeography DbGeography { get { return DbGeography.FromText(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", SouthWest.X, NorthEast.X, SouthWest.Y, NorthEast.Y)); } }
+        public LatLng NorthEast { get; set; }
+        public LatLng SouthWest { get; set; }
+        public SqlGeography SqlGeography { get { return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", SouthWest.Lng, NorthEast.Lng, SouthWest.Lat, NorthEast.Lat)); } }
+        public DbGeography DbGeography { get { return DbGeography.FromText(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", SouthWest.Lng, NorthEast.Lng, SouthWest.Lat, NorthEast.Lat)); } }
         public BoundingBox(PointF southWest, PointF northEast)
         {
-            SouthWest = southWest;
-            NorthEast = northEast;
+            SouthWest = new LatLng { Lat = southWest.Y, Lng = southWest.X };
+            NorthEast = new LatLng { Lat = northEast.Y, Lng = northEast.X }; ;
         }
     }
 }

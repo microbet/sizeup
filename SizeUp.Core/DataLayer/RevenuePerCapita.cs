@@ -212,7 +212,7 @@ namespace SizeUp.Core.DataLayer
             IQueryable<long?> values = context.IndustryDataByZips.Where(i => 0 == 1).Select(i => i.RevenuePerCapita);//empty set
             if (granularity == Granularity.ZipCode)
             {
-                var entities = ZipCode.In(context, placeId, boundingGranularity);
+                var entities = Base.ZipCode.In(context, placeId, boundingGranularity);
                 var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
                 values =
                     data.Join(entities, i => i.ZipCodeId, i => i.Id, (d, e) => d)
@@ -220,7 +220,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (granularity == Granularity.County)
             {
-                var entities = County.In(context, placeId, boundingGranularity);
+                var entities = Base.County.In(context, placeId, boundingGranularity);
                 var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
                 values =
                     data.Join(entities, i => i.CountyId, i => i.Id, (d, e) => d)
@@ -228,7 +228,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (granularity == Granularity.State)
             {
-                var entities = State.In(context, placeId, boundingGranularity);
+                var entities = Base.State.In(context, placeId, boundingGranularity);
                 var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
                 values =
                     data.Join(entities, i => i.StateId, i => i.Id, (d, e) => d)

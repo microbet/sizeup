@@ -19,113 +19,27 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/Place/
 
-        public JsonResult SearchPlaces(string term, int maxResults = 35)
+        public JsonResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.CityCountyMappings
-                    .Where(i => i.City.CityType.IsActive);
-
-                var search = term.Split(',');
-                string city = search[0].Trim();
-                string state = string.Empty;
-
-                data = data.Where(i => i.City.Name.StartsWith(city) || i.PlaceKeywords.Any(cc => cc.Name.StartsWith(city)));
-                if (search.Length > 1)
-                {
-                    state = search[1].Trim();
-                    data = data.Where(i => i.County.State.Abbreviation.StartsWith(state));
-                }
-
-                data = data
-                    .OrderBy(i => i.City.Name)
-                    .ThenBy(i => i.City.State.Abbreviation)
-                    .ThenByDescending(i => i.City.DemographicsByCities.Where(d => d.Year == TimeSlice.Year && d.Quarter == TimeSlice.Quarter).FirstOrDefault().TotalPopulation);
- 
-                var temp = data.Select(i => new Models.Place.Place()
-                {
-                    Id = i.Id,
-                    DisplayName = context.CityCountyMappings.Count(s => s.City.Name == i.City.Name && s.County.State.Name == i.County.State.Name) > 1 ? (i.City.Name + ", " + i.County.State.Abbreviation + " (" + i.County.Name + " County - " + i.City.CityType.Name + ")") : (i.City.Name + ", " + i.County.State.Abbreviation),
-                    City = new Models.City.City()
-                    {
-                        Id = i.City.Id,
-                        Name = i.City.Name,
-                        SEOKey = i.City.SEOKey,
-                        State = i.County.State.Abbreviation,
-                        TypeName = i.City.CityType.Name
-                    },
-                    County = new Models.County.County()
-                    {
-                        Id = i.County.Id,
-                        Name = i.County.Name,
-                        SEOKey = i.County.SEOKey,
-                        State = i.County.State.Abbreviation
-                    },
-                    Metro = new Models.Metro.Metro()
-                    {
-                        Id = i.County.Metro.Id,
-                        Name = i.County.Metro.Name
-                    },
-                    State = new Models.State.State()
-                    {
-                        Id = i.County.State.Id,
-                        Name = i.County.State.Name,
-                        Abbreviation = i.County.State.Abbreviation,
-                        SEOKey = i.County.State.SEOKey
-                    }
-                });
-
-                var dataOut = temp
-                   .Take(maxResults).ToList();
-            
-                return Json(dataOut, JsonRequestBehavior.AllowGet);
+                var data = Core.DataLayer.Place.Search(context, term).Take(maxResults).ToList();
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpGet]
-        public JsonResult CurrentPlace()
+        public JsonResult Current()
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.CityCountyMappings
-                    .Where(i => i.Id == SizeUp.Core.Web.WebContext.Current.CurrentPlaceId)
-                    .Select(i => new Api.Models.Place.Place()
-                    {
-                        Id = i.Id,
-                        City = new Api.Models.City.City()
-                        {
-                            Id = i.City.Id,
-                            Name = i.City.Name,
-                            SEOKey = i.City.SEOKey,
-                            State = i.City.State.Abbreviation,
-                            TypeName = i.City.CityType.Name
-                        },
-                        County = new Api.Models.County.County()
-                        {
-                            Id = i.County.Id,
-                            Name = i.County.Name,
-                            SEOKey = i.County.SEOKey,
-                            State = i.County.State.Abbreviation
-                        },
-                        Metro = new Api.Models.Metro.Metro()
-                        {
-                            Id = i.County.Metro.Id,
-                            Name = i.County.Metro.Name
-                        },
-                        State = new Api.Models.State.State()
-                        {
-                            Id = i.County.State.Id,
-                            Name = i.County.State.Name,
-                            Abbreviation = i.County.State.Abbreviation,
-                            SEOKey = i.County.State.SEOKey
-                        }
-                    }).FirstOrDefault();
+                 var data = Core.DataLayer.Place.Get(context, Core.Web.WebContext.Current.CurrentPlaceId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult CurrentPlace(long id)
+        public JsonResult Current(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -138,92 +52,22 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public JsonResult DetectedPlace()
+        public JsonResult Detected()
         {
             var id = GeoCoder.GetPlaceIdByIPAddress();
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.CityCountyMappings
-                    .Where(i => i.Id == id)
-                    .Select(i => new Api.Models.Place.Place()
-                    {
-                        Id = i.Id,
-                        City = new Api.Models.City.City()
-                        {
-                            Id = i.City.Id,
-                            Name = i.City.Name,
-                            SEOKey = i.City.SEOKey,
-                            State = i.City.State.Abbreviation,
-                            TypeName = i.City.CityType.Name
-                        },
-                        County = new Api.Models.County.County()
-                        {
-                            Id = i.County.Id,
-                            Name = i.County.Name,
-                            SEOKey = i.County.SEOKey,
-                            State = i.County.State.Abbreviation
-                        },
-                        Metro = new Api.Models.Metro.Metro()
-                        {
-                            Id = i.County.Metro.Id,
-                            Name = i.County.Metro.Name
-                        },
-                        State = new Api.Models.State.State()
-                        {
-                            Id = i.County.State.Id,
-                            Name = i.County.State.Name,
-                            Abbreviation = i.County.State.Abbreviation,
-                            SEOKey = i.County.State.SEOKey
-                        }
-                    }).FirstOrDefault();
+                var data = Core.DataLayer.Place.Get(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public JsonResult Ip()
-        {
-           
-                return Json(Request.UserHostAddress, JsonRequestBehavior.AllowGet);
-        }
        
 
-        public JsonResult Get(long id)
+        public JsonResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = context.CityCountyMappings
-                    .Where(i => i.Id == id)
-                    .Select(i => new Api.Models.Place.Place()
-                    {
-                        Id = i.Id,
-                        City = new Api.Models.City.City()
-                        {
-                            Id = i.City.Id,
-                            Name = i.City.Name,
-                            SEOKey = i.City.SEOKey,
-                            State = i.City.State.Abbreviation,
-                            TypeName = i.City.CityType.Name
-                        },
-                        County = new Api.Models.County.County()
-                        {
-                            Id = i.County.Id,
-                            Name = i.County.Name,
-                            SEOKey = i.County.SEOKey,
-                            State = i.County.State.Abbreviation
-                        },
-                        Metro = new Api.Models.Metro.Metro()
-                        {
-                            Id = i.County.Metro.Id,
-                            Name = i.County.Metro.Name
-                        },
-                        State = new Api.Models.State.State()
-                        {
-                            Id = i.County.State.Id,
-                            Name = i.County.State.Name,
-                            Abbreviation = i.County.State.Abbreviation,
-                            SEOKey = i.County.State.SEOKey
-                        }
-                    }).FirstOrDefault();
+                var data = Core.DataLayer.Place.Get(context, id);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

@@ -25,75 +25,10 @@ namespace SizeUp.Web.Areas.Api
             );
 
 
-            /*********industry***********/
-            context.MapRoute(
-                "SingleIndustry",
-                "Api/Industry/",
-                new { controller = "Industry", action = "Industry" }
-            );
-
-            context.MapRoute(
-               "IndustryList",
-               "Api/Industry/List",
-               new { controller = "Industry", action = "IndustryList" }
-           );
-
-            context.MapRoute(
-                "SearchIndustry",
-                "Api/Industry/Search",
-                new { controller = "Industry", action = "SearchIndustries" }
-            );
-
-            context.MapRoute(
-                "CurrentIndustry",
-                "Api/Industry/Current",
-                new { controller = "Industry", action = "CurrentIndustry" }
-            );
-
-            context.MapRoute(
-                "HasData",
-                "Api/Industry/HasData",
-                new { controller = "Industry", action = "HasData" }
-            );
-            
-            /***********place**********/
-
-            context.MapRoute(
-                "SearchPlace",
-                "Api/Place/Search",
-                new { controller = "Place", action = "SearchPlaces" }
-            );
-
-            context.MapRoute(
-               "CurrentPlace",
-               "Api/Place/Current",
-               new { controller = "Place", action = "CurrentPlace" }
-           );
-
-            context.MapRoute(
-               "DetectedPlace",
-               "Api/Place/Detected",
-               new { controller = "Place", action = "DetectedPlace" }
-           );
-
-            context.MapRoute(
-               "GetPlace",
-               "Api/Place/",
-               new { controller = "Place", action = "Get" }
-           );
-
-            context.MapRoute(
-             "CentroidPlace",
-             "Api/Place/Centroid",
-             new { controller = "Place", action = "Centroid" }
-            );
-
-    
-          
 
 
-          
-           
+
+
 
 
             /****advertising*****/
@@ -117,10 +52,10 @@ namespace SizeUp.Web.Areas.Api
            );
 
 
-           
 
 
-              /****profile*****/
+
+            /****profile*****/
             //these are required
             context.MapRoute(
                 "DashboardValuesGet",
@@ -149,36 +84,47 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "Profile", action = "SetCompetitionValues" },
                 new { httpMethod = new HttpMethodConstraint("POST") }
            );
-            
+            context.MapRoute(
+           "GetCurrentIndustry",
+           "Api/Industry/Current",
+           new { controller = "Industry", action = "Current" },
+            new { httpMethod = new HttpMethodConstraint("GET") }
+       );
+
+            context.MapRoute(
+               "SetCurrentIndustry",
+               "Api/Industry/Current",
+               new { controller = "Industry", action = "Current" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+           );
+
+
+            context.MapRoute(
+             "GetCurrentPlace",
+             "Api/Place/Current",
+             new { controller = "Place", action = "Current" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+         );
+
+            context.MapRoute(
+           "SetCurrentPlace",
+           "Api/Place/Current",
+           new { controller = "Place", action = "Current" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+       );
+
+
+
+
+
+
+
 
 
             /****consumerEpenditures*****/
 
 
 
-            context.MapRoute(
-                "ConsumerExpendituresVariables",
-                "Api/ConsumerExpenditures/Variables",
-                new { controller = "ConsumerExpenditures", action = "Variables", parentId = UrlParameter.Optional }
-            );
-
-            context.MapRoute(
-                "ConsumerExpendituresVariable",
-                "Api/ConsumerExpenditures/Variable",
-                new { controller = "ConsumerExpenditures", action = "Variable" }
-            );
-
-            context.MapRoute(
-                "ConsumerExpendituresVariablePath",
-                "Api/ConsumerExpenditures/VariablePath",
-                new { controller = "ConsumerExpenditures", action = "VariablePath" }
-            );
-
-            context.MapRoute(
-                "ConsumerExpendituresVariableCrosswalk",
-                "Api/ConsumerExpenditures/VariableCrosswalk",
-                new { controller = "ConsumerExpenditures", action = "VariableCrosswalk" }
-            );
 
 
 
@@ -239,7 +185,7 @@ namespace SizeUp.Web.Areas.Api
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
 
-           
+
 
             /*****************default*****************/
             context.MapRoute(

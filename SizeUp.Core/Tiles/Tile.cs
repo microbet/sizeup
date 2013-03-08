@@ -58,7 +58,6 @@ namespace SizeUp.Core.Tiles
             return new BoundingBox(sw, ne);
         }
 
-        public abstract void Draw(List<GeographyCollection> Geographies);
         public abstract void Draw(List<GeographyEntity> Geographies);
     }
 }
