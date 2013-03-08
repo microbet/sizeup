@@ -29,5 +29,11 @@ namespace SizeUp.Core.DataLayer.Base
                        .Where(d => d.Industry.IsActive);
             return data;
         }
+
+        public static IQueryable<Data.NAICS> GetNAICS(SizeUpContext context)
+        {
+            var data = context.NAICS;
+            return data;
+        }
     }
 }

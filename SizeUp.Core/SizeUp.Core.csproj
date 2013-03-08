@@ -89,6 +89,7 @@
     <Compile Include="DataLayer\Business.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
     <Compile Include="DataLayer\County.cs" />
+    <Compile Include="DataLayer\Models\NAICS.cs" />
     <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\Models\CurrentInfo.cs" />
     <Compile Include="DataLayer\Models\State.cs" />

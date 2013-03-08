@@ -114,8 +114,8 @@
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ workersComp: me.data.enteredValue });
 
-            dataLayer.getWorkersCompChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { chartDataReturned({ State: data }); }));
-            dataLayer.getWorkersCompPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(function (data) { percentageDataReturned({ State: data }); }));
+            dataLayer.getWorkersCompChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(function (data) { chartDataReturned({ State: data }); }));
+            dataLayer.getWorkersCompPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(function (data) { percentageDataReturned({ State: data }); }));
         };
 
         var percentageDataReturned = function (data) {

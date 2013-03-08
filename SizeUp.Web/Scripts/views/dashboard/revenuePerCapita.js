@@ -113,7 +113,7 @@
                     placeId: me.opts.report.CurrentPlace.Id,
                     granularity: 'ZipCode',
                     boundingGranularity: 'County',
-                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                    industryId: me.opts.report.CurrentIndustry.Id
                 },
                 minZoom: 11,
                 maxZoom: 32
@@ -135,7 +135,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'Metro',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 8,
                     maxZoom: 10
@@ -156,7 +156,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 5,
                     maxZoom: 7
@@ -178,7 +178,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 5,
                     maxZoom: 10
@@ -200,7 +200,7 @@
                     ],
                     placeId: me.opts.report.CurrentPlace.Id,
                     granularity: 'State',
-                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                    industryId: me.opts.report.CurrentIndustry.Id
                 },
                 minZoom: 0,
                 maxZoom: 4
@@ -210,7 +210,7 @@
             me.revenuePerCapitaMap = new sizeup.maps.map({
                 container: me.container.find('.mapWrapper.container.revenuePerCapita .map')
             });
-            me.revenuePerCapitaMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.revenuePerCapitaMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
             me.revenuePerCapitaMap.setZoom(12);
             me.revenuePerCapitaMap.addEventListener('zoom_changed', mapZoomRevenuePerCapitaUpdated);
 
@@ -263,7 +263,7 @@
                 me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/zip/';
                 dataLayer.getRevenuePerCapitaBands({
                     placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    industryId: me.opts.report.CurrentIndustry.Id,
                     granularity: 'ZipCode',
                     boundingGranularity: 'County',
                     bands: 7
@@ -277,7 +277,7 @@
                     me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/county/';
                     dataLayer.getRevenuePerCapitaBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         granularity: 'County',
                         boundingGranularity: 'Metro',
                         bands: 7
@@ -292,7 +292,7 @@
                     me.data.textAlternativeRevenuePerCapitaUrl = '/accessibility/reveuePerCapita/county/';
                     dataLayer.getRevenuePerCapitaBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
                         bands: 7
@@ -307,7 +307,7 @@
                     me.data.currentRevenuePerCapitaBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     dataLayer.getRevenuePerCapitaBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
                         bands: 7
@@ -323,7 +323,7 @@
                 me.data.currentRevenuePerCapitaBoundingEntityId = null;
                 dataLayer.getRevenuePerCapitaBands({
                     placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    industryId: me.opts.report.CurrentIndustry.Id,
                     granularity: 'State',
                     bands: 7
                 }, itemsNotify);
@@ -339,7 +339,7 @@
             var bounds = me.map.getBounds();
             var data = {
                 bands: 7,
-                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                industryId: me.opts.report.CurrentIndustry.Id,
                 boundingEntityId: me.data.currentRevenuePerCapitaBoundingEntityId,
                 southWest: bounds.getSouthWest().toString(),
                 northEast: bounds.getNorthEast().toString()
@@ -370,7 +370,7 @@
                     placeId: me.opts.report.CurrentPlace.Id,
                     granularity: 'ZipCode',
                     boundingGranularity: 'County',
-                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                    industryId: me.opts.report.CurrentIndustry.Id
                 },
                 minZoom: 11,
                 maxZoom: 32
@@ -392,7 +392,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'Metro',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 8,
                     maxZoom: 10
@@ -413,7 +413,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 5,
                     maxZoom: 7
@@ -435,7 +435,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 5,
                     maxZoom: 10
@@ -457,7 +457,7 @@
                     ],
                     placeId: me.opts.report.CurrentPlace.Id,
                     granularity: 'State',
-                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                    industryId: me.opts.report.CurrentIndustry.Id
                 },
                 minZoom: 0,
                 maxZoom: 4
@@ -467,7 +467,7 @@
             me.totalRevenueMap = new sizeup.maps.map({
                 container: me.container.find('.mapWrapper.container.totalRevenue .map')
             });
-            me.totalRevenueMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.totalRevenueMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
             me.totalRevenueMap.setZoom(12);
             me.totalRevenueMap.addEventListener('zoom_changed', mapZoomTotalRevenueUpdated);
 
@@ -520,7 +520,7 @@
                 me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/zip/';
                 dataLayer.getTotalRevenueBands({
                     placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    industryId: me.opts.report.CurrentIndustry.Id,
                     granularity: 'ZipCode',
                     boundingGranularity: 'County',
                     bands: 7
@@ -534,7 +534,7 @@
                     me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/county/';
                     dataLayer.getTotalRevenueBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         granularity: 'County',
                         boundingGranularity: 'Metro',
                         bands: 7
@@ -549,7 +549,7 @@
                     me.data.textAlternativeTotalRevenueUrl = '/accessibility/totalRevenue/county/';
                     dataLayer.getTotalRevenueBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
                         bands: 7
@@ -564,7 +564,7 @@
                     me.data.currentTotalRevenueBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     dataLayer.getTotalRevenueBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
                         bands: 7
@@ -580,7 +580,7 @@
                 me.data.currentTotalRevenueBoundingEntityId = null;
                 dataLayer.getTotalRevenueBands({
                     placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    industryId: me.opts.report.CurrentIndustry.Id,
                     granularity: 'State',
                     bands: 7
                 }, itemsNotify);
@@ -596,7 +596,7 @@
             var bounds = me.map.getBounds();
             var data = {
                 bands: 7,
-                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                industryId: me.opts.report.CurrentIndustry.Id,
                 boundingEntityId: me.data.currentTotalRevenueBoundingEntityId,
                 southWest: bounds.getSouthWest().toString(),
                 northEast: bounds.getNorthEast().toString()
@@ -663,16 +663,16 @@
             var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { percentileDataReturned(percentileData); }));
             var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
 
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
-            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            dataLayer.getRevenuePerCapitaChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
 
-            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
-            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
-            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
-            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
+            dataLayer.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
 
 
         };

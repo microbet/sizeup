@@ -162,8 +162,8 @@
 
                 me.data.turnover.description = {
                     Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,2),
-                    NAICS4: me.opts.report.IndustryDetails.NAICS4,
-                    Industry: me.opts.report.IndustryDetails.Industry
+                    NAICS4: me.opts.report.CurrentIndustry.NAICS4,
+                    Industry: me.opts.report.CurrentIndustry
                 };
 
                 me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
@@ -180,8 +180,8 @@
 
                 me.data.jobChange.description = {
                     NetJobChange: me.data.jobChange.raw['County'].netJobChange,
-                    NAICS4: me.opts.report.IndustryDetails.NAICS4,
-                    Industry: me.opts.report.IndustryDetails.Industry
+                    NAICS4: me.opts.report.CurrentIndustry.NAICS4,
+                    Industry: me.opts.report.CurrentIndustry
                 };
 
                 me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
@@ -214,17 +214,17 @@
 
 
             
-            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.County = data; }));
-            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Metro = data; }));
-            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.State = data; }));
-            dataLayer.getTurnoverChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Nation = data; }));
-            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.County = data; }));
+            dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.County = data; }));
+            dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Metro = data; }));
+            dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.State = data; }));
+            dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Nation = data; }));
+            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.County = data; }));
 
 
-            dataLayer.getJobChangeChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.County = data; }));
-            dataLayer.getJobChangeChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.Metro = data; }));
-            dataLayer.getJobChangeChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.State = data; }));
-            dataLayer.getJobChangeChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.Nation = data; }));
+            dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.County = data; }));
+            dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.Metro = data; }));
+            dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.State = data; }));
+            dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.Nation = data; }));
 
 
         };

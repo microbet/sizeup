@@ -12,5 +12,7 @@ namespace SizeUp.Core.DataLayer.Models
         public string Name { get; set; }
         public string SEOKey { get; set; }
         public string ParentName { get; set; }
+        public NAICS NAICS4 { get; set; }
+        public NAICS NAICS6 { get; set; }
     }
 }

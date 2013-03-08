@@ -14,6 +14,7 @@ namespace SizeUp.Core.DataLayer
         {
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);
+            var naics = Base.Industry.GetNAICS(context);
             var data = raw
                 .Where(i => i.Id == id)
                 .Select(i => new Models.Industry
@@ -21,7 +22,19 @@ namespace SizeUp.Core.DataLayer
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey,
-                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault(),
+                    NAICS6 = i.SicToNAICSMappings.Select(n=> new Models.NAICS
+                    {
+                        Id = n.NAICS.Id,
+                        Name = n.NAICS.Name,
+                        NAICSCode = n.NAICS.NAICSCode
+                    }).FirstOrDefault(),
+                    NAICS4 = naics.Where(n=>n.NAICSCode == i.SicToNAICSMappings.Select(m=>m.NAICS.NAICSCode).FirstOrDefault().Substring(0,4)).Select(n=> new Models.NAICS
+                    {
+                        Id = n.Id,
+                        Name = n.Name,
+                        NAICSCode = n.NAICSCode
+                    }).FirstOrDefault()
                         
                 }).FirstOrDefault();
             return data;
@@ -31,6 +44,7 @@ namespace SizeUp.Core.DataLayer
         {
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);
+            var naics = Base.Industry.GetNAICS(context);
             var data = raw
                 .Where(i => i.SEOKey == SEOKey)
                 .Select(i => new Models.Industry
@@ -38,7 +52,19 @@ namespace SizeUp.Core.DataLayer
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey,
-                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault(),
+                    NAICS6 = i.SicToNAICSMappings.Select(n => new Models.NAICS
+                    {
+                        Id = n.NAICS.Id,
+                        Name = n.NAICS.Name,
+                        NAICSCode = n.NAICS.NAICSCode
+                    }).FirstOrDefault(),
+                    NAICS4 = naics.Where(n => n.NAICSCode == i.SicToNAICSMappings.Select(m => m.NAICS.NAICSCode).FirstOrDefault().Substring(0, 4)).Select(n => new Models.NAICS
+                    {
+                        Id = n.Id,
+                        Name = n.Name,
+                        NAICSCode = n.NAICSCode
+                    }).FirstOrDefault()
 
                 }).FirstOrDefault();
             if (data == null)
@@ -52,6 +78,7 @@ namespace SizeUp.Core.DataLayer
         {
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);
+            var naics = Base.Industry.GetNAICS(context);
             var data = raw
                 .Where(i => i.LegacyIndustrySEOKeys.Any(l=>l.SEOKey == SEOKey))
                 .Select(i => new Models.Industry
@@ -59,7 +86,19 @@ namespace SizeUp.Core.DataLayer
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey,
-                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault(),
+                    NAICS6 = i.SicToNAICSMappings.Select(n => new Models.NAICS
+                    {
+                        Id = n.NAICS.Id,
+                        Name = n.NAICS.Name,
+                        NAICSCode = n.NAICS.NAICSCode
+                    }).FirstOrDefault(),
+                    NAICS4 = naics.Where(n => n.NAICSCode == i.SicToNAICSMappings.Select(m => m.NAICS.NAICSCode).FirstOrDefault().Substring(0, 4)).Select(n => new Models.NAICS
+                    {
+                        Id = n.Id,
+                        Name = n.Name,
+                        NAICSCode = n.NAICSCode
+                    }).FirstOrDefault()
 
                 }).FirstOrDefault();
             if (data == null)
@@ -74,6 +113,7 @@ namespace SizeUp.Core.DataLayer
         {
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);
+            var naics = Base.Industry.GetNAICS(context);
             var data = raw
                 .Where(i => industryIds.Contains(i.Id))
                 .Select(i => new Models.Industry
@@ -81,7 +121,19 @@ namespace SizeUp.Core.DataLayer
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey,
-                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault(),
+                    NAICS6 = i.SicToNAICSMappings.Select(n => new Models.NAICS
+                    {
+                        Id = n.NAICS.Id,
+                        Name = n.NAICS.Name,
+                        NAICSCode = n.NAICS.NAICSCode
+                    }).FirstOrDefault(),
+                    NAICS4 = naics.Where(n => n.NAICSCode == i.SicToNAICSMappings.Select(m => m.NAICS.NAICSCode).FirstOrDefault().Substring(0, 4)).Select(n => new Models.NAICS
+                    {
+                        Id = n.Id,
+                        Name = n.Name,
+                        NAICSCode = n.NAICSCode
+                    }).FirstOrDefault()
 
                 })
                 .ToList();
@@ -92,6 +144,7 @@ namespace SizeUp.Core.DataLayer
         {
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);
+            var naics = Base.Industry.GetNAICS(context);
             var data = raw
                 .Where(i => i.IndustryDataByCities.Any(c=>c.City.CityCountyMappings.Any(m=>m.Id == placeId)))
                 .Select(i => new Models.Industry
@@ -99,7 +152,19 @@ namespace SizeUp.Core.DataLayer
                     Id = i.Id,
                     Name = i.Name,
                     SEOKey = i.SEOKey,
-                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault()
+                    ParentName = all.Where(p => p.SicCode == i.SicCode.Substring(0, i.SicCode.Length - 2)).Select(p => p.Name).FirstOrDefault(),
+                    NAICS6 = i.SicToNAICSMappings.Select(n => new Models.NAICS
+                    {
+                        Id = n.NAICS.Id,                        
+                        Name = n.NAICS.Name,
+                        NAICSCode = n.NAICS.NAICSCode
+                    }).FirstOrDefault(),
+                    NAICS4 = naics.Where(n => n.NAICSCode == i.SicToNAICSMappings.Select(m => m.NAICS.NAICSCode).FirstOrDefault().Substring(0, 4)).Select(n => new Models.NAICS
+                    {
+                        Id = n.Id,
+                        Name = n.Name,
+                        NAICSCode = n.NAICSCode
+                    }).FirstOrDefault()
 
                 })
                 .ToList();

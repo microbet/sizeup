@@ -3,7 +3,7 @@
 }
 
 @section head{
-<title>Business Dashboard - @ViewBag.Report.IndustryDetails.Industry.Name in @ViewBag.Report.CurrentPlace.City.Name, @ViewBag.Report.CurrentPlace.State.Abbreviation</title>
+<title>Business Dashboard - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</title>
 <link href="@Url.Content("~/Content/views/dashboard/index.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/views/dashboard/print.css")" rel="stylesheet" type="text/css" media="print"  />
 
@@ -55,7 +55,7 @@
 
 
 <div id="dashboard" class="hidden">
-<h1>@ViewBag.Report.IndustryDetails.Industry.Name in @ViewBag.Report.CurrentPlace.City.Name, @ViewBag.Report.CurrentPlace.State.Abbreviation</h1>
+<h1>@ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
 
     <div id="revenue" class="report">
     @Html.Partial("Revenue")
@@ -193,7 +193,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var opts = {
-            report: @Html.Raw(ViewBag.ReportJSON),
+            currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
             isAuthenticated: @(HttpContext.Current.User.Identity.IsAuthenticated ? "true" : "false")
         };
         var driver = new sizeup.views.dashboard.dashboard(opts);

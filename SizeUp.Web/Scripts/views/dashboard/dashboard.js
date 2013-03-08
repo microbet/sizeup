@@ -25,15 +25,15 @@
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
 
-        dataLayer.getCentroid({ id: opts.report.CurrentPlace.Id, granularity : 'Place' }, notifier.getNotifier(function (data) { me.opts.report.MapCenter = data; }));
-        dataLayer.getDashboardValues({placeId: opts.report.CurrentPlace.Id, industryId: opts.report.IndustryDetails.Industry.Id}, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
+        dataLayer.getCentroid({ id: opts.currentInfo.CurrentPlace.Id, granularity : 'Place' }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }));
+        dataLayer.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
            
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 jQuery.bbq.pushState(me.data.dashboardValues, 1);
-                var p = $.extend(true, { placeId: me.opts.report.CurrentPlace.Id, industryId: me.opts.report.IndustryDetails.Industry.Id }, jQuery.bbq.getState());
+                var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id }, jQuery.bbq.getState());
                 dataLayer.setDashboardValues(p);
             }
 
@@ -56,16 +56,16 @@
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
 
-            me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.report });
-            me.reports['yearStarted'] = new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.report });
-            me.reports['salary'] = new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.report });
+            me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+            me.reports['yearStarted'] = new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+            me.reports['salary'] = new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
             if (me.opts.isAuthenticated) {
-                me.reports['employees'] = new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.report });
-                me.reports['costEffectiveness'] = new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), report: me.opts.report });
-                me.reports['healthcareCost'] = new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), report: me.opts.report });
-                me.reports['workersComp'] = new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), report: me.opts.report });
-                me.reports['revenuePerCapita'] = new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), report: me.opts.report });
-                me.reports['turnover'] = new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.report });
+                me.reports['employees'] = new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+                me.reports['costEffectiveness'] = new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+                me.reports['healthcareCost'] = new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+                me.reports['workersComp'] = new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+                me.reports['revenuePerCapita'] = new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+                me.reports['turnover'] = new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
             }
             else {
                 me.signinPanels['employees'] = new sizeup.views.shared.signin({
@@ -144,7 +144,7 @@
         };
 
         var hashChanged = function (e) {
-            var p = $.extend(true, { placeId: me.opts.report.CurrentPlace.Id, industryId: me.opts.report.IndustryDetails.Industry.Id }, e.getState());
+            var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id }, e.getState());
             dataLayer.setDashboardValues(p);
         };
 

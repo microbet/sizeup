@@ -164,7 +164,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'Metro',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 8,
                     maxZoom: 32
@@ -185,7 +185,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 5,
                     maxZoom: 7
@@ -207,7 +207,7 @@
                         placeId: me.opts.report.CurrentPlace.Id,
                         granularity: 'County',
                         boundingGranularity: 'State',
-                        industryId: me.opts.report.IndustryDetails.Industry.Id
+                        industryId: me.opts.report.CurrentIndustry.Id
                     },
                     minZoom: 5,
                     maxZoom: 32
@@ -229,7 +229,7 @@
                     ],
                     placeId: me.opts.report.CurrentPlace.Id,
                     granularity: 'State',
-                    industryId: me.opts.report.IndustryDetails.Industry.Id
+                    industryId: me.opts.report.CurrentIndustry.Id
                 },
                 minZoom: 0,
                 maxZoom: 4
@@ -239,7 +239,7 @@
             me.map = new sizeup.maps.map({
                 container: me.container.find('.mapWrapper.container .map')
             });
-            me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.report.MapCenter.Lat, lng: me.opts.report.MapCenter.Lng }));
+            me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
             me.map.setZoom(12);
             me.map.addEventListener('zoom_changed', mapZoomUpdated);
 
@@ -293,7 +293,7 @@
                     me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
                     dataLayer.getAverageSalaryBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         bands: 7,
                         granularity: 'County',
                         boundingGranularity: 'Metro'
@@ -308,7 +308,7 @@
                     me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
                     dataLayer.getAverageSalaryBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         bands: 7,
                         granularity: 'County',
                         boundingGranularity: 'State'
@@ -323,7 +323,7 @@
                     me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
                     dataLayer.getAverageSalaryBands({
                         placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.IndustryDetails.Industry.Id,
+                        industryId: me.opts.report.CurrentIndustry.Id,
                         bands: 7,
                         granularity: 'County',
                         boundingGranularity: 'State'
@@ -339,7 +339,7 @@
                 me.data.currentBoundingEntityId = null;
                 dataLayer.getAverageSalaryBands({
                     placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.IndustryDetails.Industry.Id,
+                    industryId: me.opts.report.CurrentIndustry.Id,
                     bands: 7,
                     granularity: 'State'
                 }, itemsNotify);
@@ -355,7 +355,7 @@
             var bounds = me.map.getBounds();
             var data = {
                 bands: 7,
-                industryId: me.opts.report.IndustryDetails.Industry.Id,
+                industryId: me.opts.report.CurrentIndustry.Id,
                 boundingEntityId: me.data.currentBoundingEntityId,
                 southWest: bounds.getSouthWest().toString(),
                 northEast: bounds.getNorthEast().toString()
@@ -394,7 +394,7 @@
 
                 me.data.description = {
                     Percentage: me.data.gauge.tooltip,
-                    NAICS6: me.opts.report.IndustryDetails.NAICS6,
+                    NAICS6: me.opts.report.CurrentIndustry.NAICS6,
                     Salary: me.data.table['County'].value
                 };
 
@@ -424,11 +424,11 @@
 
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ salary: me.data.enteredValue });
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
-            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.IndustryDetails.Industry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
         };
 
         var percentileDataReturned = function (data) {
