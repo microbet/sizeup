@@ -25,7 +25,7 @@ namespace SizeUp.Core.DataLayer.Base
                        .Select(i=> new 
                        {
                            Entity = i,
-                           LatLng = DbGeography.FromBinary(DbGeometry.FromBinary(i.City.CityGeographies.Where(cg => cg.GeographyClass.Name == "Calculation").Select(cg => cg.Geography.GeographyPolygon).FirstOrDefault().Intersection(i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()).AsBinary()).ConvexHull.Centroid.AsBinary())
+                           LatLng = DbGeography.FromBinary(DbGeometry.FromBinary(i.City.CityGeographies.Where(cg => cg.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(cg => cg.Geography.GeographyPolygon).FirstOrDefault().Intersection(i.County.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault()).AsBinary()).ConvexHull.Centroid.AsBinary())
                        })
                        .Select(i => new Models.Base.DistanceEntity<Data.CityCountyMapping>
                        {

@@ -39,7 +39,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.ZipCodeId, (e, d) => new KeyValue<DbGeography, double?>
                     {
-                        Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Display")
+                        Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                         .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                         Value = d.Select(v => v.EmployeesPerCapita).DefaultIfEmpty(null).FirstOrDefault()
                     });
@@ -50,7 +50,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.CountyId, (e, d) => new KeyValue<DbGeography, double?>
                     {
-                        Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == "Display")
+                        Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                         .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                         Value = d.Select(v => v.EmployeesPerCapita).DefaultIfEmpty(null).FirstOrDefault()
                     });
@@ -61,7 +61,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.StateId, (e, d) => new KeyValue<DbGeography, double?>
                     {
-                        Key = e.StateGeographies.Where(g => g.GeographyClass.Name == "Display")
+                        Key = e.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                         .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                         Value = d.Select(v => v.EmployeesPerCapita).DefaultIfEmpty(null).FirstOrDefault()
                     });

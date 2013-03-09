@@ -234,11 +234,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Accessibility\Table.cs" />
-    <Compile Include="Models\Business\IndustryDetails.cs" />
-    <Compile Include="Models\Business\Report.cs" />
     <Compile Include="Models\Header.cs" />
-    <Compile Include="Models\TopPlaces\Division.cs" />
-    <Compile Include="Models\TopPlaces\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

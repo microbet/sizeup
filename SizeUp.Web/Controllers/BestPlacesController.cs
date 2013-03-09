@@ -21,20 +21,8 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.Regions = context.Divisions.OrderBy(i => i.Region.Name).ThenBy(i => i.Name).Select(i => new Models.BestPlaces.Division()
-                {
-                    Id = i.Id,
-                    RegionName = i.Region.Name,
-                    Name = i.Name
-                }).ToList();
-
-                ViewBag.States = context.States.OrderBy(i => i.Name).Select(i => new Models.BestPlaces.State()
-                {
-                    Id = i.Id,
-                    Name = i.Name
-                }).ToList();
-
-
+                ViewBag.Regions = Core.DataLayer.Division.Get(context).ToList();
+                ViewBag.States = Core.DataLayer.State.Get(context).OrderBy(i => i.Name).ToList();
                 return View();
             }
         }
@@ -43,20 +31,8 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.Regions = context.Divisions.OrderBy(i => i.Region.Name).ThenBy(i => i.Name).Select(i => new Models.BestPlaces.Division()
-                {
-                    Id = i.Id,
-                    RegionName = i.Region.Name,
-                    Name = i.Name
-                }).ToList();
-
-                ViewBag.States = context.States.OrderBy(i => i.Name).Select(i => new Models.BestPlaces.State()
-                {
-                    Id = i.Id,
-                    Name = i.Name
-                }).ToList();
-
-
+                ViewBag.Regions = Core.DataLayer.Division.Get(context).ToList();
+                ViewBag.States = Core.DataLayer.State.Get(context).OrderBy(i => i.Name).ToList();
                 return View();
             }
         }

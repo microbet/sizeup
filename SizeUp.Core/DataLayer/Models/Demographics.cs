@@ -8,6 +8,7 @@ namespace SizeUp.Core.DataLayer.Models
 {
     public class Demographics : Base.ChartItem
     {
+        public long? Id { get; set; }
         public long? Population { get; set; }
         public long? LaborForce { get; set; }
         public double? JobGrowth { get; set; }

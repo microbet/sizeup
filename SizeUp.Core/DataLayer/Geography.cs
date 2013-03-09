@@ -13,34 +13,34 @@ namespace SizeUp.Core.DataLayer
 {
     public class Geography
     {
-        public static IQueryable<KeyValue<DbGeography, long>> CalculationPolygon(SizeUpContext context, long id, Granularity granularity)
+        public static IQueryable<KeyValue<DbGeography, long>> CalculationPolygon(SizeUpContext context, Granularity granularity)
         {
             IQueryable<KeyValue<DbGeography, long>> output = new List<KeyValue<DbGeography, long>>().AsQueryable();//wnpty set
             var zip = context.ZipCodes
                .Select(i => new KeyValue<DbGeography, long>
                {
-                   Key = i.ZipCodeGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                   Key = i.ZipCodeGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
                    Value = i.Id
                });
 
             var city = context.Cities
                .Select(i => new KeyValue<DbGeography, long>
                {
-                   Key = i.CityGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                   Key = i.CityGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
                    Value = i.Id
                });
 
             var county = context.Counties
                 .Select(i => new KeyValue<DbGeography, long>
                 {
-                    Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                    Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
                     Value = i.Id
                 });
 
             var place = context.CityCountyMappings
                 .Select(i => new KeyValue<DbGeography, long>
                 {
-                    Key = i.City.CityGeographies.Where(cg => cg.GeographyClass.Name == "Calculation").Select(cg => cg.Geography.GeographyPolygon).FirstOrDefault().Intersection(i.County.CountyGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault()),
+                    Key = i.City.CityGeographies.Where(cg => cg.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(cg => cg.Geography.GeographyPolygon).FirstOrDefault().Intersection(i.County.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault()),
                     Value = i.Id
                 });
 
@@ -48,14 +48,14 @@ namespace SizeUp.Core.DataLayer
             var metro = context.Metroes
                 .Select(i => new KeyValue<DbGeography, long>
                 {
-                    Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                    Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
                     Value = i.Id
                 });
 
             var state = context.States
                 .Select(i => new KeyValue<DbGeography, long>
                 {
-                    Key = i.StateGeographies.Where(g => g.GeographyClass.Name == "Calculation").Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
+                    Key = i.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault(),
                     Value = i.Id
                 });
 
@@ -88,7 +88,7 @@ namespace SizeUp.Core.DataLayer
 
         public static LatLng Centroid(SizeUpContext context, long id, Granularity granularity)
         {
-            var data = CalculationPolygon(context, id, granularity)
+            var data = CalculationPolygon(context, granularity)
                 .Where(i => i.Value == id)
                 .Select(i => DbGeometry.FromBinary(i.Key.AsBinary()).ConvexHull.Centroid)
                 .Select(i => DbGeography.FromBinary(i.AsBinary()))
@@ -104,7 +104,7 @@ namespace SizeUp.Core.DataLayer
         public static Models.BoundingBox BoundingBox(SizeUpContext context, long id, Granularity granularity)
         {
 
-            var data = CalculationPolygon(context, id, granularity)
+            var data = CalculationPolygon(context, granularity)
                 .Where(i => i.Value == id)
                 .Select(i => DbGeometry.FromBinary(i.Key.AsBinary()).Envelope)
                 .Select(i => DbGeography.FromBinary(i.AsBinary()))

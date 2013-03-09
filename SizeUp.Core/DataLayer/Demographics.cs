@@ -16,7 +16,18 @@ namespace SizeUp.Core.DataLayer
         public static Models.Demographics Get(SizeUpContext context, long id, Granularity granularity)
         {
             Models.Demographics output = null;
+            var data = Get(context, granularity)
+                .Where(i => i.Id == id);
+            return output;
+        }
 
+
+
+        public static IQueryable<Models.Demographics> Get(SizeUpContext context,  Granularity granularity)
+        {
+            IQueryable<Models.Demographics> output = new List<Models.Demographics>().AsQueryable();//empty
+
+            var zipData = DemographicsData.ZipCode(context);
             var cityData = DemographicsData.City(context);
             var countyData = DemographicsData.County(context);
             var metroData = DemographicsData.Metro(context);
@@ -24,11 +35,27 @@ namespace SizeUp.Core.DataLayer
 
 
 
+            var zip = zipData.Select(i => new Models.Demographics
+            {
+                Id = i.ZipCodeId,
+                AverageHouseholdExpenditures = i.AverageHouseholdExpenditure,
+                BachelorsOrHigherPercentage = i.BachelorsOrHigherPercentage * 100,
+                BlueCollarWorkersPercentage = i.BlueCollarWorkersPercentage * 100,
+                HighschoolOrHigherPercentage = i.HighSchoolOrHigherPercentage * 100,
+                HouseholdIncome = i.MedianHouseholdIncome,
+                LaborForce = i.LaborForce,
+                MedianAge = i.MedianAge,
+                SmallBusinesses = i.TotalEstablishments,
+                WhiteCollarWorkersPercentage = i.WhiteCollarWorkersPercentage * 100,
+                Name = i.ZipCode.Name,
+                Population = i.TotalPopulation
+            });
+
 
             var city = cityData.Join(stateData, i => i.City.StateId, o => o.StateId, (c, s) => new { City = c, State = s })
-                .Where(i=>i.City.Id == id)
                 .Select(i => new Models.Demographics
                 {
+                    Id = i.City.CityId,
                     AverageHouseholdExpenditures = i.City.AverageHouseholdExpenditure,
                     BachelorsOrHigherPercentage = i.City.BachelorsOrHigherPercentage * 100,
                     BlueCollarWorkersPercentage = i.City.BlueCollarWorkersPercentage * 100,
@@ -59,9 +86,9 @@ namespace SizeUp.Core.DataLayer
                 });
 
             var county = countyData.Join(stateData, i => i.County.StateId, o => o.StateId, (c, s) => new { County = c, State = s })
-                .Where(i=>i.County.Id == id)
                 .Select(i => new Models.Demographics
                 {
+                    Id = i.County.CountyId,
                     AverageHouseholdExpenditures = i.County.AverageHouseholdExpenditure,
                     BachelorsOrHigherPercentage = i.County.BachelorsOrHigherPercentage * 100,
                     BlueCollarWorkersPercentage = i.County.BlueCollarWorkersPercentage * 100,
@@ -91,9 +118,9 @@ namespace SizeUp.Core.DataLayer
                 });
 
             var metro = metroData
-                .Where(i=>i.Metro.Id == id)
                 .Select(i => new Models.Demographics
                 {
+                    Id = i.MetroId,
                     AverageHouseholdExpenditures = i.AverageHouseholdExpenditure,
                     BachelorsOrHigherPercentage = i.BachelorsOrHigherPercentage * 100,
                     BlueCollarWorkersPercentage = i.BlueCollarWorkersPercentage * 100,
@@ -119,9 +146,9 @@ namespace SizeUp.Core.DataLayer
 
 
             var state = stateData
-                .Where(i=>i.State.Id == id)
                 .Select(i => new Models.Demographics
                 {
+                    Id = i.StateId,
                     AverageHouseholdExpenditures = i.AverageHouseholdExpenditure,
                     BachelorsOrHigherPercentage = i.BachelorsOrHigherPercentage * 100,
                     BlueCollarWorkersPercentage = i.BlueCollarWorkersPercentage * 100,
@@ -151,22 +178,25 @@ namespace SizeUp.Core.DataLayer
                 });
 
 
-
-            if (granularity == Granularity.City)
+            if (granularity == Granularity.ZipCode)
             {
-                output = city.FirstOrDefault();
+                output = zip;
+            }
+            else if (granularity == Granularity.City)
+            {
+                output = city;
             }
             else if (granularity == Granularity.County)
             {
-                output = county.FirstOrDefault();
+                output = county;
             }
             else if (granularity == Granularity.Metro)
             {
-                output = metro.FirstOrDefault();
+                output = metro;
             }
             else if (granularity == Granularity.State)
             {
-                output = state.FirstOrDefault();
+                output = state;
             }
 
             return output;

@@ -42,7 +42,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     entity = context.Cities.Where(i=>i.Id == id)
                         .Select(i=> new KeyValue<DbGeography, long?>
                         {
-                            Key = i.CityGeographies.Where(g=>g.GeographyClass.Name == "Display")
+                            Key = i.CityGeographies.Where(g=>g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                             .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                             Value = i.Id
                         });
@@ -52,7 +52,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     entity = context.Counties.Where(i => i.Id == id)
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
-                            Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == "Display")
+                            Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                             .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                             Value = i.Id
                         });
@@ -62,7 +62,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     entity = context.Metroes.Where(i => i.Id == id)
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
-                            Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == "Display")
+                            Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                             .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                             Value = i.Id
                         });
@@ -72,7 +72,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     entity = context.States.Where(i => i.Id == id)
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
-                            Key = i.StateGeographies.Where(g => g.GeographyClass.Name == "Display")
+                            Key = i.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                             .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
                             Value = i.Id
                         });

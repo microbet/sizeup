@@ -8,6 +8,8 @@ namespace SizeUp.Core.DataLayer.Models
 {
     public class ZipCode
     {
-        
+        public long? Id { get; set; }
+        public string Name { get; set; }
+        public string Zip { get; set; }
     }
 }

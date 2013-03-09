@@ -47,7 +47,7 @@ namespace SizeUp.Core.DataAccess
         {
             var scalar = 69.1 * System.Math.Cos(lat / 57.3);
             IQueryable<Models.EntityDistance<Data.ZipCode>> entity = context.ZipCodeGeographies
-                .Where(i => i.GeographyClass.Name == "Calculation")
+                .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                 .Select(i => new Models.EntityDistance<Data.ZipCode>()
                 {
                     Distance = System.Math.Pow(System.Math.Pow(((double)i.Geography.CenterLat.Value - lat) * 69.1, 2) + System.Math.Pow(((double)i.Geography.CenterLong.Value - lng) * scalar, 2), 0.5),

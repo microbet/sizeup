@@ -70,7 +70,7 @@
 
 
         dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
-        dataLayer.getPlaceCentroid({ id: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
+        dataLayer.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
         var init = function () {
             
@@ -553,7 +553,7 @@
             var hasResults = false;
             for (var x in data.zips.Items) {
                 var pin = new sizeup.maps.heatPin({
-                    position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Lat, lng: data.zips.Items[x].Long }),
+                    position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Centroid.Lat, lng: data.zips.Items[x].Centroid.Lng }),
                     color: getColor(getValue(data.zips.Items[x], attribute), data.bands),
                     title: data.zips.Items[x].Name
                 });
@@ -715,12 +715,14 @@
 
         var formatDataItem = function (item) {
             var newItem = {};
-            newItem['city'] = item.City;
-            newItem['state'] = item.State;
-            newItem['county'] = item.County;
-            newItem['lat'] = item.Lat;
-            newItem['long'] = item.Long;
-            newItem['name'] = item.Name;
+            if (item.Place) {
+                newItem['city'] = item.Place.City;
+                newItem['state'] = item.Place.State;
+                newItem['county'] = item.Place.County;
+            }
+            newItem['lat'] = item.Centroid.Lat;
+            newItem['long'] = item.Centroid.Long;
+            newItem['name'] = item.ZipCode.Name;
             newItem['totalPopulation'] = item.TotalPopulation == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.TotalPopulation) };
             newItem['totalRevenue'] = item.TotalRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue)};
 

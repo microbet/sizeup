@@ -9,6 +9,9 @@ namespace SizeUp.Core.Web
 {
     public static class QueryString
     {
+        
+
+
         public static int? IntValue(string index)
         {
             int? v = null;

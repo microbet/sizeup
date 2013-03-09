@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections.Specialized;
 using SizeUp.Data;
-using SizeUp.Web.Models.Business;
 using SizeUp.Core.Extensions;
 using SizeUp.Core.DataAccess;
 

@@ -78,6 +78,7 @@
     <Compile Include="DataLayer\Base\BusinessData.cs" />
     <Compile Include="DataLayer\Base\Business.cs" />
     <Compile Include="DataLayer\Base\ConsumerExpenditures.cs" />
+    <Compile Include="DataLayer\Base\Division.cs" />
     <Compile Include="DataLayer\Base\Place.cs" />
     <Compile Include="DataLayer\Base\Industry.cs" />
     <Compile Include="DataLayer\Base\DemographicsData.cs" />
@@ -88,7 +89,12 @@
     <Compile Include="DataLayer\Base\City.cs" />
     <Compile Include="DataLayer\Business.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
+    <Compile Include="DataLayer\Advertising.cs" />
+    <Compile Include="DataLayer\Division.cs" />
     <Compile Include="DataLayer\County.cs" />
+    <Compile Include="DataLayer\Models\Advertising.cs" />
+    <Compile Include="DataLayer\Models\AdvertisingFilters.cs" />
+    <Compile Include="DataLayer\Models\Division.cs" />
     <Compile Include="DataLayer\Models\NAICS.cs" />
     <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\Models\CurrentInfo.cs" />
@@ -101,7 +107,7 @@
     <Compile Include="DataLayer\Industry.cs" />
     <Compile Include="DataLayer\Geography.cs" />
     <Compile Include="DataLayer\Demographics.cs" />
-    <Compile Include="DataLayer\Models\Base\Distance.cs" />
+    <Compile Include="DataLayer\Models\Base\DistanceEntity.cs" />
     <Compile Include="DataLayer\Models\Base\KeyValue.cs" />
     <Compile Include="DataLayer\Models\BoundingBox.cs" />
     <Compile Include="DataLayer\Models\Business.cs" />
@@ -141,6 +147,7 @@
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\IQueryableExtensions.cs" />
     <Compile Include="Geo\GeoCoder.cs" />
+    <Compile Include="Geo\GeographyClass.cs" />
     <Compile Include="Geo\LatLng.cs" />
     <Compile Include="Identity\Identity.cs" />
     <Compile Include="Pins\Marker.cs" />
