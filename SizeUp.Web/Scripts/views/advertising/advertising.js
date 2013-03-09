@@ -584,7 +584,7 @@
         var getValue = function(item, attribute){
             var val = null;
             if(attribute == 'totalPopulation'){
-                val = item.TotalPopulation;
+                val = item.Population;
             }
             else if (attribute == 'totalRevenue') {
                 val = item.TotalRevenue;
@@ -723,7 +723,7 @@
             newItem['lat'] = item.Centroid.Lat;
             newItem['long'] = item.Centroid.Long;
             newItem['name'] = item.ZipCode.Name;
-            newItem['totalPopulation'] = item.TotalPopulation == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.TotalPopulation) };
+            newItem['totalPopulation'] = item.Population == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.Population) };
             newItem['totalRevenue'] = item.TotalRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue)};
 
             if (me.opts.filterOptions['averageRevenue'] != null || me.opts.filterOptions.attribute == 'averageRevenue') {
