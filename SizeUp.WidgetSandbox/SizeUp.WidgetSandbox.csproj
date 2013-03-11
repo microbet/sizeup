@@ -159,6 +159,7 @@
     <Content Include="Views\Home\INC.cshtml" />
     <Content Include="Views\Home\Wide.cshtml" />
     <Content Include="Views\Home\BestPlaces.cshtml" />
+    <Content Include="Views\Home\Embed.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

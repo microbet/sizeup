@@ -9,7 +9,7 @@
             bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             params: {
                 placeType: 'city',
-                attribute: 'revenuePerCapita'
+                attribute: 'totalRevenue'
             }
         };
         var me = {};
@@ -88,6 +88,22 @@
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
                 onChange: function (item) { onIndustryChange(item); }
+            });
+
+            me.content.share = sizeup.controls.share({
+                container: me.content.container.find('.shareWrapper'),
+                options: {
+                    embed: {
+                        getCode: function () { return getEmbedCode(); },
+                        menuItem: me.content.container.find('.share.container .menu .embed'),
+                        contentItem: me.content.container.find('.share.container .content .embed')
+                    },
+                    link: {
+                        getCode: function () { return window.location.href; },
+                        menuItem: me.content.container.find('.share.container .menu .link'),
+                        contentItem: me.content.container.find('.share.container .content .link')
+                    }
+                }
             });
 
             me.content.industrySelector.setSelection(me.data.activeIndustry);
@@ -502,6 +518,21 @@
 
         //////////end event actions/////////////////////////////
       
+        var getEmbedCode = function () {
+            var base = '/widget/get/bestPlaces/?width=750';
+            var p = getParameters();
+            p.industry = me.data.activeIndustry.SEOKey;
+            var url = jQuery.param.fragment(base, p, 2);
+            var code =
+            '<div>' +
+            '<span><a href="http://' + window.location.host + '" target="_blank">SizeUp</a></span>' +
+            '<script src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
+            '</div>';
+
+            return code;
+        };
+
+
         var formatSliderData = function (data) {
             var obj = null;
             if (data.length == 2) {

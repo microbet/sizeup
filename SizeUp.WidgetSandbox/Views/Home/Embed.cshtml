@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Embed Tester</h2>
+
+
+@if(ViewBag.Code==null){
+<form action="/embed" method="POST" >
+<textarea id="embedCode" cols="50" rows="10" name="embedCode"></textarea>
+<br />
+<input id="doEmbed" type="submit" value="embed me"  />
+</form>
+}
+else{
+<div id="embedContainer">@Html.Raw(ViewBag.Code)</div>
+}
+
+
