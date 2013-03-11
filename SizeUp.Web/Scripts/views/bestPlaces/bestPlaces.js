@@ -90,6 +90,17 @@
                 onChange: function (item) { onIndustryChange(item); }
             });
 
+            me.content.share = sizeup.controls.share({
+                container: me.content.container.find('.shareWrapper'),
+                options: {
+                    embed: {
+                        getCode: function () { return getEmbedCode(); },
+                        menuItem: me.content.container.find('.share.container .menu .embed'),
+                        contentItem: me.content.container.find('.share.container .content .embed')
+                    }
+                }
+            });
+
             me.content.industrySelector.setSelection(me.data.activeIndustry);
 
             me.content.filters.container = me.content.container.find('.filters').hide().removeClass('hidden');
@@ -502,6 +513,21 @@
 
         //////////end event actions/////////////////////////////
       
+        var getEmbedCode = function () {
+            var base = '/widget/get/bestPlaces/';
+            var p = getParameters();
+            p.industry = me.data.activeIndustry.SEOKey;
+            var url = jQuery.param.fragment(base, p, 2);
+            var code =
+            '<div id="container" style="margin:0 auto; width:1000px" >' +
+            '<span><a href="http://' + window.location.host + '" target="_blank">SizeUp</a></span>' +
+            '<script type="text/javascript" src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
+            '</div>';
+
+            return code;
+        };
+
+
         var formatSliderData = function (data) {
             var obj = null;
             if (data.length == 2) {

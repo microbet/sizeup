@@ -1,7 +1,7 @@
 ﻿#bestPlaces h2 span,
 #bestPlaces h2 a { font-size: 1em; }
 #bestPlaces h3 {margin:0.5em 0 0.25em 1em; display:inline-block;  }
-#bestPlaces .filterLabels {margin:0 1em 2em; }
+#bestPlaces .filterLabels {margin:0 1em 2em; text-align:left; }
 #bestPlaces .filterLabels .fixed {display:inline-block; font-size: 1.3em; margin:0 0 0.5em; }
 #bestPlaces .filterLabels .editable {display:block; font-size:1.3em; padding: 0.25em 2.5em 0.25em 0.75em; background-color:#eee; width:29em; margin: 0.5em 0;position:relative;}
 #bestPlaces .filterLabels .editable a {height:14px; width:14px; color: transparent; background:transparent url(/content/images/btn_close.png) no-repeat 0 0; position:absolute; right:0.5em; top:0.45em;  }
@@ -10,7 +10,7 @@
 
 
 #bestPlaces { position:relative; margin:0 0 4em 0; }
-#bestPlaces .content.container { }
+#bestPlaces .content.container {text-align:right; }
 
 
 
@@ -48,7 +48,7 @@
 
 
 
-#bestPlaces .filters {margin:2em 0; text-align:left; overflow: auto; height:25em; border:1px solid #ccc; padding:1em; }
+#bestPlaces .filters {margin:2em 0; text-align:left; overflow: auto; height:25em; border:1px solid #ccc; padding:1em; text-align:left;}
 #bestPlaces .filters h3 {margin:1em 0; }
 #bestPlaces .filters ul.options {margin:0.5em 0; }
 #bestPlaces .filters ul.options li { display: inline-block; width: 43em; margin:0.5em 0; }
@@ -63,3 +63,6 @@
 #bestPlaces .filters label { font-size: 1.3em; display:block; }
 #bestPlaces .filters input[type=text] { font-size: 1.3em; }
 
+#bestPlaces .shareWrapper { display:inline-block; }
+#bestPlaces .shareWrapper .menu { text-align:left; }
+#bestPlaces .shareWrapper .menu li {display:inline-block; }

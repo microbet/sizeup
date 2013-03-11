@@ -45,6 +45,22 @@ namespace SizeUp.WidgetSandbox.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Embed()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Embed(string embedCode)
+        {
+            ViewBag.Code = embedCode;
+            return View();
+        }
+
+
+
 
     }
 }

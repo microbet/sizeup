@@ -27,7 +27,8 @@
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
         iframe["scrolling"] = 'no';
-        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + '/' + loc.query['industry'];
+        var hash = script.src.substring(script.src.indexOf('#') + 1, script.src.length);
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + '/' + loc.hash['industry'] + '#' + hash;
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
         me.iframe = iframe;

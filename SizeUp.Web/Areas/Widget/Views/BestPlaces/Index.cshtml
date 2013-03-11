@@ -25,7 +25,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeLabel.js")"></script>
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/share.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
@@ -285,7 +285,21 @@
             </div>
         </div>
 
-
+        <div class="shareWrapper">
+            <a href="javascript:void(0);" class="button tiny shareButton">Share</a>
+            <div class="share container hidden">
+                <ul class="menu">
+                    <li class="embed active">
+                        <a href="javascript:void(0);">Embed</a>
+                    </li>
+                </ul>
+                <ul class="content">
+                    <li class="embed">
+                        <textarea class="code"></textarea>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <div class="mapContent container">
             <div class="map"></div>

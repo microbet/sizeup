@@ -146,3 +146,20 @@ a.sorter.desc { background-position:right 3px; }
 
 
 
+
+
+.shareWrapper { position: relative; }
+.shareWrapper .shareButton {padding:0.1em 1.75em; text-transform:uppercase; }
+.shareWrapper  .share.container {padding: 0.5em; width:35em; margin: 1em 0 0 0; border:1px solid #ccc; box-shadow: 0.25em 0.25em 1em #070808; background-color:#fff; position:absolute; display:block; right:0; z-index:9999; }
+.shareWrapper  .share.container textarea,
+.shareWrapper  .share.container input[type=text] {width:100%; font-size:1.5em; resize:none; border:1px solid #ccc; }
+.shareWrapper  .share.container embed.textarea {font-family:'Times New Roman'; }
+
+.shareWrapper .share.container .menu a {color:#909090; }
+.shareWrapper .share.container .menu a:hover {color:#e78500; }
+.shareWrapper .share.container .menu .active a {color:#e78500; }
+
+
+
+
+
