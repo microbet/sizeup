@@ -3,7 +3,7 @@
 
     me.wigetSource = '/widget/bestPlaces';
     me.defaultColor = '#fff';
-    me.defaultWidth = '900';
+    me.defaultWidth = '750';
     me.defaultMinWidth = '750';
 
 

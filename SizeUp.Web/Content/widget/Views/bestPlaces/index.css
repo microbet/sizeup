@@ -1,4 +1,4 @@
-﻿#bestPlaces .filters ul.options li .sliderWrap .slider { width: 21em; }
+﻿#bestPlaces .filters ul.options li .sliderWrap .slider { width: 47%; }
 #bestPlaces .filters ul.options li { width: 49%; }
-#bestPlaces h2 #selectList-regionMenu .selectList-list { width:22em; right:0; }
+#bestPlaces h2 #selectList-regionMenu .selectList-list { width:22em; }
 #bestPlaces h2 .ui-autocomplete { width: auto !important; }

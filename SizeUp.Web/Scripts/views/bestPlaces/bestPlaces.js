@@ -97,6 +97,11 @@
                         getCode: function () { return getEmbedCode(); },
                         menuItem: me.content.container.find('.share.container .menu .embed'),
                         contentItem: me.content.container.find('.share.container .content .embed')
+                    },
+                    link: {
+                        getCode: function () { return window.location.href; },
+                        menuItem: me.content.container.find('.share.container .menu .link'),
+                        contentItem: me.content.container.find('.share.container .content .link')
                     }
                 }
             });
@@ -514,14 +519,14 @@
         //////////end event actions/////////////////////////////
       
         var getEmbedCode = function () {
-            var base = '/widget/get/bestPlaces/';
+            var base = '/widget/get/bestPlaces/?width=750';
             var p = getParameters();
             p.industry = me.data.activeIndustry.SEOKey;
             var url = jQuery.param.fragment(base, p, 2);
             var code =
-            '<div id="container" style="margin:0 auto; width:1000px" >' +
+            '<div>' +
             '<span><a href="http://' + window.location.host + '" target="_blank">SizeUp</a></span>' +
-            '<script type="text/javascript" src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
+            '<script src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
             '</div>';
 
             return code;
