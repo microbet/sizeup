@@ -35,6 +35,8 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 GeographyBoundary tile = new GeographyBoundary(256, 256, x, y, zoom);
                 BoundingBox boundingBox = tile.GetBoundingBox(.2f);
                 double tolerance = GetPolygonTolerance(zoom);
+                var boundingGeo = boundingBox.GetDbGeography();
+
 
                 IQueryable<KeyValue<DbGeography, long?>> entity = new List<KeyValue<DbGeography, long?>>().AsQueryable();
                 if (granularity == Granularity.City)
@@ -43,7 +45,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i=> new KeyValue<DbGeography, long?>
                         {
                             Key = i.CityGeographies.Where(g=>g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }
@@ -53,7 +55,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
                             Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }
@@ -63,7 +65,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
                             Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }
@@ -73,7 +75,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
                             Key = i.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }

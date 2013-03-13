@@ -26,7 +26,7 @@ namespace SizeUp.Core.DataLayer
         public static IQueryable<Models.County> GetInState(SizeUpContext context, long stateId)
         {
             var data = Base.Place.Get(context)
-                .Where(i=>i.County.StateId == stateId)
+                .Where(i => i.County.StateId == stateId)
                 .Select(i => new Models.County
                 {
                     Id = i.County.Id,

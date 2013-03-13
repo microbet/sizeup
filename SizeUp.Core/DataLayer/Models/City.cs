@@ -12,5 +12,6 @@ namespace SizeUp.Core.DataLayer.Models
         public string Name { get; set; }
         public string SEOKey { get; set; }
         public string TypeName { get; set; }
+        public List<County> Counties { get; set; }
     }
 }

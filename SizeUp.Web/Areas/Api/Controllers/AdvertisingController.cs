@@ -61,7 +61,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
 
-        public ActionResult Advertising(int industryId, long placeId, int page = 1, int itemCount = 20)
+        public ActionResult Index(int industryId, long placeId, int page = 1, int itemCount = 20)
         {
             if (!User.Identity.IsAuthenticated)
             {

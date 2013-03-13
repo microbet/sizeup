@@ -292,13 +292,6 @@
             },
 
 
-
-
-
-
-
-
-
             getBestPlacesToAdvertise: function (params, callback) {
                 return get('/api/Advertising/', params, callback);
             },
@@ -312,6 +305,13 @@
             },
 
             
+
+            getBestPlaces: function (params, callback) {
+                return get('/api/bestPlaces/', params, callback);
+            },
+
+
+
             getBestPlacesByCity: function (params, callback) {
                 return get('/api/bestPlaces/city/', params, callback);
             },

@@ -403,6 +403,89 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
+        public static IQueryable<Models.Place> ListCounty(SizeUpContext context)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Select(i => new Models.Place
+                {
+                    City = new Models.City()
+                    {
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.County.Id,
+                        Name = i.County.Name,
+                        SEOKey = i.County.SEOKey
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.County.Metro.Id,
+                        Name = i.County.Metro.Name,
+                        SEOKey = i.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.County.State.Id,
+                        Abbreviation = i.County.State.Abbreviation,
+                        Name = i.County.State.Name,
+                        SEOKey = i.County.State.SEOKey
+                    }
+                }).Distinct();
+            return data;
+        }
+
+        public static IQueryable<Models.Place> ListMetro(SizeUpContext context)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Select(i => new Models.Place
+                {
+                    City = new Models.City()
+                    {
+                    },
+                    County = new Models.County
+                    {
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.County.Metro.Id,
+                        Name = i.County.Metro.Name,
+                        SEOKey = i.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                    }
+                }).Distinct();
+            return data;
+        }
+
+        public static IQueryable<Models.Place> ListState(SizeUpContext context)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Select(i => new Models.Place
+                {
+                    City = new Models.City()
+                    {
+                    },
+                    County = new Models.County
+                    {
+                    },
+                    Metro = new Models.Metro
+                    {
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.County.State.Id,
+                        Abbreviation = i.County.State.Abbreviation,
+                        Name = i.County.State.Name,
+                        SEOKey = i.County.State.SEOKey
+                    }
+                }).Distinct();
+            return data;
+        }
+
 
         public static IQueryable<Models.Place> Search(SizeUpContext context, string term)
         {

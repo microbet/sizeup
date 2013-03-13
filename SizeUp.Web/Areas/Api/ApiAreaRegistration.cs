@@ -17,7 +17,7 @@ namespace SizeUp.Web.Areas.Api
         {
 
             /****advertising*****/
-
+            /*
             context.MapRoute(
                 "BestPlacesToAdvertise",
                 "Api/Advertising/",
@@ -36,7 +36,7 @@ namespace SizeUp.Web.Areas.Api
                new { controller = "Advertising", action = "Bands" }
            );
 
-
+            */
 
 
 
@@ -112,7 +112,7 @@ namespace SizeUp.Web.Areas.Api
 
 
 
-
+            /*
             context.MapRoute(
                "BestPlacesCity",
                "Api/BestPlaces/City",
@@ -169,7 +169,7 @@ namespace SizeUp.Web.Areas.Api
               new { controller = "BestPlaces", action = "StateBands" },
               new string[] { "SizeUp.Web.Areas.Api.Controllers" }
           );
-
+            */
 
 
             /*****************default*****************/

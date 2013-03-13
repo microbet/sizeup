@@ -31,7 +31,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
                 BoundingBox boundingBox = tile.GetBoundingBox(.2f);
                 double tolerance = GetPolygonTolerance(zoom);
-
+                var boundingGeo = boundingBox.GetDbGeography();
 
                 IQueryable<KeyValue<DbGeography, long?>> values = new List<KeyValue<DbGeography,long?>>().AsQueryable();//empty set
                 if (granularity == Granularity.ZipCode)
@@ -41,7 +41,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     values = entities.GroupJoin(data, i => i.Id, i => i.ZipCodeId, (e, d) => new KeyValue<DbGeography, long?>
                     {
                         Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                         Value = d.Select(v => v.AverageRevenue).DefaultIfEmpty(null).FirstOrDefault()
                     });
                 }
@@ -52,7 +52,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     values = entities.GroupJoin(data, i => i.Id, i => i.CountyId, (e, d) => new KeyValue<DbGeography, long?>
                     {
                         Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                         Value = d.Select(v => v.AverageRevenue).DefaultIfEmpty(null).FirstOrDefault()
                     });
                 }
@@ -63,7 +63,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     values = entities.GroupJoin(data, i => i.Id, i => i.StateId, (e, d) => new KeyValue<DbGeography, long?>
                     {
                         Key = e.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingBox.DbGeography)).FirstOrDefault(),
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                         Value = d.Select(v => v.AverageRevenue).DefaultIfEmpty(null).FirstOrDefault()
                     });
                 }

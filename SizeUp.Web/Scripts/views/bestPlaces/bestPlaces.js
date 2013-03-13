@@ -610,8 +610,8 @@
                 me.data.xhr['bands'] = null;
 
                 bindList(reportData.list);
-                bindBands(formatBands(reportData.bands));
-                bindMap(reportData);
+                //bindBands(formatBands(reportData.bands));
+                //bindMap(reportData);
                
 
                 me.content.loader.hide();
@@ -625,6 +625,59 @@
                 me.data.xhr['bands'].abort();
             }
 
+            params.granularity = params.placeType;
+
+
+            if (params.placeType == 'city') {
+                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatCityList(data);
+                }));
+                /*
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCity(params, notifier.getNotifier(function (data) {
+                    reportData.bands = data;
+                }));*/
+            }
+            else if (params.placeType == 'county') {
+                me.data.xhr['list'] = dataLayer.getBestPlacesBy(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatCountyList(data);
+                }));
+                /*
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCounty(params, notifier.getNotifier(function (data) {
+                    reportData.bands = data;
+                }));*/
+            }
+            else if (params.placeType == 'metro') {
+                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatMetroList(data);
+                }));
+
+                /*
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByMetro(params, notifier.getNotifier(function (data) {
+                    reportData.bands = data;
+                }));*/
+            }
+            else if (params.placeType == 'state') {
+                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                    reportData.list = formatStateList(data);
+                }));
+
+                /*
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByState(params, notifier.getNotifier(function (data) {
+                    reportData.bands = data;
+                }));*/
+            }
+            else {
+                notifier.getNotifier(function () {
+                    reportData.list = [];
+                    reportData.bands = [];
+                })();
+            }
+
+
+
+
+
+            /*
             if (params.placeType == 'city') {
                 me.data.xhr['list'] = dataLayer.getBestPlacesByCity(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCityList(data);
@@ -666,7 +719,7 @@
                     reportData.list = [];
                     reportData.bands = [];
                 })();
-            }
+            }*/
         };
 
         var bindList = function (data) {
@@ -749,11 +802,11 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    centroid: data[x].State.Centroid,
-                    southWest: data[x].State.SouthWest,
-                    northEast: data[x].State.NorthEast,
-                    label: data[x].State.Name,
-                    state: data[x].State,
+                    centroid: data[x].Centroid,
+                    southWest: data[x].BoundingBox.SouthWest,
+                    northEast: data[x].BoundingBox.NorthEast,
+                    label: data[x].Place.State.Name,
+                    state: data[x].Place.State,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
@@ -770,11 +823,11 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    centroid: data[x].Metro.Centroid,
-                    southWest: data[x].Metro.SouthWest,
-                    northEast: data[x].Metro.NorthEast,
-                    label: data[x].Metro.Name,
-                    metro: data[x].Metro,
+                    centroid: data[x].Centroid,
+                    southWest: data[x].BoundingBox.SouthWest,
+                    northEast: data[x].BoundingBox.NorthEast,
+                    label: data[x].Place.Metro.Name,
+                    metro: data[x].Place.Metro,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
@@ -791,12 +844,12 @@
             for (var x = 0; x < data.length; x++) {
                 newData.push({
                     rank: x + 1,
-                    centroid: data[x].County.Centroid,
-                    southWest: data[x].County.SouthWest,
-                    northEast: data[x].County.NorthEast,
-                    label: data[x].County.Name + ' County , ' +data[x].State.Abbreviation,
-                    county: data[x].County,
-                    state: data[x].State,
+                    centroid: data[x].Centroid,
+                    southWest: data[x].BoundingBox.SouthWest,
+                    northEast: data[x].BoundingBox.NorthEast,
+                    label: data[x].Place.County.Name + ' County , ' + data[x].Place.State.Abbreviation,
+                    county: data[x].Place.County,
+                    state: data[x].Place.State,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
@@ -811,17 +864,17 @@
             var newData = [];
             var attr = getParameters().attribute;
             for (var x = 0; x < data.length; x++) {
-                data[x].City.Counties[data[x].City.Counties.length - 1].last = true;
+                data[x].Place.City.Counties[data[x].Place.City.Counties.length - 1].last = true;
                 newData.push({
                     rank: x + 1,
-                    centroid: data[x].City.Centroid,
-                    southWest: data[x].City.SouthWest,
-                    northEast: data[x].City.NorthEast,
-                    label: data[x].City.Name + ', ' + data[x].State.Abbreviation,
-                    city: data[x].City,
-                    county: data[x].County,
-                    state: data[x].State,
-                    counties: data[x].City.Counties,
+                    centroid: data[x].Centroid,
+                    southWest: data[x].BoundingBox.SouthWest,
+                    northEast: data[x].BoundingBox.NorthEast,
+                    label: data[x].Place.City.Name + ', ' + data[x].Place.State.Abbreviation,
+                    city: data[x].Place.City,
+                    county: data[x].Place.County,
+                    state: data[x].Place.State,
+                    counties: data[x].Place.City.Counties,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue : extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),

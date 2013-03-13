@@ -90,10 +90,13 @@
     <Compile Include="DataLayer\Business.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
     <Compile Include="DataLayer\Advertising.cs" />
+    <Compile Include="DataLayer\BestPlaces.cs" />
     <Compile Include="DataLayer\Division.cs" />
     <Compile Include="DataLayer\County.cs" />
     <Compile Include="DataLayer\Models\Advertising.cs" />
     <Compile Include="DataLayer\Models\AdvertisingFilters.cs" />
+    <Compile Include="DataLayer\Models\BestPlaces.cs" />
+    <Compile Include="DataLayer\Models\BestPlacesFilters.cs" />
     <Compile Include="DataLayer\Models\Division.cs" />
     <Compile Include="DataLayer\Models\NAICS.cs" />
     <Compile Include="DataLayer\State.cs" />
@@ -109,7 +112,6 @@
     <Compile Include="DataLayer\Demographics.cs" />
     <Compile Include="DataLayer\Models\Base\DistanceEntity.cs" />
     <Compile Include="DataLayer\Models\Base\KeyValue.cs" />
-    <Compile Include="DataLayer\Models\BoundingBox.cs" />
     <Compile Include="DataLayer\Models\Business.cs" />
     <Compile Include="DataLayer\Models\ConsumerExpenditure.cs" />
     <Compile Include="DataLayer\Models\Place.cs" />

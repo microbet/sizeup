@@ -9,6 +9,11 @@ using SizeUp.Core;
 using SizeUp.Web.Areas.Api.Models.TopPlaces;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
+using SizeUp.Core.DataLayer.Models;
+using SizeUp.Core.DataLayer.Models.Base;
+using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
+
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -16,21 +21,58 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/TopPlaces/
-        private Range ParseQueryString(string index)
+
+        private BestPlacesFilters BuildFilters()
         {
-            Range v = null;
+            BestPlacesFilters f = new BestPlacesFilters();
+            f.AverageRevenue = ParseQueryString("averageRevenue");
+            f.TotalRevenue = ParseQueryString("totalRevenue");
+            f.TotalEmployees = ParseQueryString("totalEmployees");
+            f.RevenuePerCapita = ParseQueryString("revenuePerCapita");
+            f.HouseholdIncome = ParseQueryString("householdIncome");
+            f.HouseholdExpenditures = ParseQueryString("householdExpenditures");
+            f.MedianAge = ParseQueryString("medianAge");
+            f.BachelorOrHigher = QueryString.IntValue("bachelorsDegreeOrHigher");
+            f.HighSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
+            f.WhiteCollarWorkers = QueryString.IntValue("whiteCollarWorkers");
+            f.BlueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
+            f.AirportsNearby = QueryString.IntValue("airportsNearby");
+            f.YoungEducated = QueryString.IntValue("youngEducated");
+            f.UniversitiesNearby = QueryString.IntValue("universitiesNearby");
+            f.CommuteTime = QueryString.IntValue("commuteTime");
+            f.Attribute = QueryString.StringValue("attribute");
+            return f;
+        }
+
+
+        private Band<int?> ParseQueryString(string index)
+        {
+            Band<int?> v = null;
             int?[] ar = QueryString.IntValues(index);
 
             if (ar != null)
             {
-                v = new Models.TopPlaces.Range();
+                v = new Band<int?>();
                 v.Min = ar[0];
                 v.Max = ar[1];
             }
             return v;
         }
-        private readonly int POPULATION_MIN = 100000;
 
+        public ActionResult Index(int itemCount, int industryId, string attribute, Granularity granularity, long? regionId, long? stateId)
+        {
+            BestPlacesFilters filters = BuildFilters();        
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var output = Core.DataLayer.BestPlaces.Get(context, industryId, attribute, regionId, stateId, filters, granularity).Take(itemCount).ToList();
+                var cities = output.Select(i=>i.Place.City.Id).ToList();
+                var counties = Core.DataLayer.Base.Place.Get(context).Where(i => cities.Contains(i.CityId)).Select(i => new { Id = i.CityId, County = i.County.Name }).ToList();
+                output.ForEach(i => i.Place.City.Counties = counties.Where(c => c.Id == i.Place.City.Id).Select(c => new Core.DataLayer.Models.County { Name = c.County }).ToList());
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /*
         public ActionResult City(int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
@@ -1166,11 +1208,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(outData, JsonRequestBehavior.AllowGet);
             }
         }
+         * */
 
 
         ///BANDS
         ///
 
+        /*
         public ActionResult CityBands(int bands, int itemCount, int industryId, string attribute, long? regionId, long? stateId)
         {
             int? bachelorOrHigher = QueryString.IntValue("bachelorOrHigher");
@@ -2720,7 +2764,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }
-
+        */
 
     }
 }

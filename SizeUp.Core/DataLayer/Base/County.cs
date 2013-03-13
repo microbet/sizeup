@@ -11,10 +11,10 @@ namespace SizeUp.Core.DataLayer.Base
     {
         public static IQueryable<Data.County> In(SizeUpContext context, long placeId, Granularity boundingGranularity)
         {
-            IQueryable<Data.County> output = context.Counties.Where(i=>0==1);// creates empty set
+            IQueryable<Data.County> output = context.Counties.Where(i => 0 == 1);// creates empty set
             if (boundingGranularity == Granularity.Metro)
             {
-                output= context.Counties.Where(i => i.CityCountyMappings.Any(p => p.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))));
+                output = context.Counties.Where(i => i.CityCountyMappings.Any(p => p.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))));
             }
             else if (boundingGranularity == Granularity.State)
             {
@@ -25,6 +25,11 @@ namespace SizeUp.Core.DataLayer.Base
                 output = context.Counties;
             }
             return output;
+        }
+
+        public static IQueryable<Data.County> Get(SizeUpContext context)
+        {
+            return context.Counties;
         }
 
     }
