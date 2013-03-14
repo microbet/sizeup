@@ -292,8 +292,10 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
                 if (z <= 32 && z >= 8) {
                     data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
-                    me.data.textAlternativeUrl = '/accessibility/costEffectiveness/county/';
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'Metro'
+                    };
                     dataLayer.getCostEffectivenessBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -307,8 +309,10 @@
 
                 if (z <= 7 && z >= 5) {
                     data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    me.data.textAlternativeUrl = '/accessibility/costEffectiveness/county/';
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getCostEffectivenessBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -322,8 +326,10 @@
                 if (z <= 32 && z >= 5) {
 
                     data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternativeUrl = '/accessibility/costEffectiveness/county/';
-                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getCostEffectivenessBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -338,8 +344,10 @@
             if (z <= 4 && z >= 0) {
 
                 data.title = 'Cost Effectiveness by state in the USA';
-                me.data.textAlternativeUrl = '/accessibility/costEffectiveness/state/';
-                me.data.currentBoundingEntityId = null;
+                me.data.textAlternative = {
+                    granularity: 'State',
+                    boundingGranularity: 'Nation'
+                };
                 dataLayer.getCostEffectivenessBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -354,62 +362,53 @@
         };
 
         var textAlternativeClicked = function () {
-            var url = me.data.textAlternativeUrl;
-            var bounds = me.map.getBounds();
+            var url = '/accessibility/costEffectiveness/';
             var data = {
                 bands: 7,
                 industryId: me.opts.report.CurrentIndustry.Id,
-                boundingEntityId: me.data.currentBoundingEntityId,
-                southWest: bounds.getSouthWest().toString(),
-                northEast: bounds.getNorthEast().toString()
+                placeId: me.opts.report.CurrentPlace.Id,
+                granularity: me.data.textAlternative.granularity,
+                boundingGranularity: me.data.textAlternative.boundingGranularity
             };
-
             window.open(jQuery.param.querystring(url, data), '_blank');
-
         };
 
 
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            if (me.data.hasData) {
-                me.noData.hide();
-                me.reportData.show();
 
-                me.reportContainer.setValue(me.data.gauge.value);
+            me.reportData.show();
 
-                setHeatmap();
+            me.reportContainer.setValue(me.data.gauge.value);
 
-                me.chart = new sizeup.charts.barChart({
+            setHeatmap();
 
-                    valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                    container: me.container.find('.chart .container'),
-                    title: 'cost effectiveness ratio',
-                    bars: me.data.chart.bars
-                });
-                me.chart.draw();
+            me.chart = new sizeup.charts.barChart({
+
+                valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                container: me.container.find('.chart .container'),
+                title: 'cost effectiveness ratio',
+                bars: me.data.chart.bars
+            });
+            me.chart.draw();
                 
-                me.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.table').hide(),
-                    rowTemplate: templates.get('tableRow'),
-                    rows: me.data.table
-                });
+            me.table = new sizeup.charts.tableChart({
+                container: me.container.find('.table').hide(),
+                rowTemplate: templates.get('tableRow'),
+                rows: me.data.table
+            });
 
                 
-                me.data.description = {
-                    Percentage: me.data.gauge.tooltip,
-                    NAICS6: me.opts.report.CurrentIndustry.NAICS6,
-                    Industry: me.opts.report.CurrentIndustry
-                };
+            me.data.description = {
+                Percentage: me.data.gauge.tooltip,
+                NAICS6: me.opts.report.CurrentIndustry.NAICS6,
+                Industry: me.opts.report.CurrentIndustry
+            };
                 
-                me.description.html(templates.bind(templates.get("description"), me.data.description));
+            me.description.html(templates.bind(templates.get("description"), me.data.description));
 
-            }
-            else {
-                me.noData.show();
-                me.reportData.hide();
-                me.reportContainer.hideGauge();
-            }
+
         };
 
 
@@ -437,7 +436,7 @@
                 dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
                 dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
                 dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
-                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
             }
         };
 
@@ -489,14 +488,13 @@
         };
 
         var percentageDataReturned = function (data) {
-            if (data) {
-                me.data.hasData = true;
-                var val = 50 + (data.County.Percentage / 2);
-                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
+            if (data.Nation!=null) {
+                var val = 50 + (data.Nation.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
 
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.County.Percentage < 0 ? percentage + ' Below Average' : data.County.Percentage == 0 ? 'Average' : percentage + ' Above Average'
+                    tooltip: data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average'
                 };
             }
             else {

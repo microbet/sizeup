@@ -8,7 +8,6 @@ using SizeUp.Web.Models;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
-using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
 using SizeUp.Core.Serialization;
 using SizeUp.Core.DataLayer.Base;

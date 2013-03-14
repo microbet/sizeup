@@ -4,13 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
-using SizeUp.Core.DataAccess;
 using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
-using SizeUp.Web.Areas.Api.Models;
-using SizeUp.Core.DataAccess.Models;
 using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers

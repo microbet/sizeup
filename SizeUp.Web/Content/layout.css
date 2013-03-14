@@ -25,7 +25,7 @@ Main style page. Should only contain general layout styles for the layout page.
 #menu #userMenu > a { }
 #menu #userMenu > a span {font-size:1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 12em; display:inline-block; }
 #menu #userMenu > a:after {vertical-align: top; content: ""; width:0; height:0; border-left: 0.5em solid transparent; border-right:0.5em solid transparent; border-top: 0.5em solid #fff; position:relative; top:0.95em; left:0.5em; }
-#menu #userMenu ul { background-color: #00C5F8; border-radius: 0 0 1em 1em; position: absolute; width: 100%; z-index: 10000; padding: 1em 0 0 0; display: none; right: -1em; top: 2.5em; overflow:hidden; }
+#menu #userMenu ul { background-color: #00C5F8; border-radius: 0 0 1em 1em; position: absolute; width: 100%; z-index: 10000; padding: 1em 0 0 0; display: none; right: -1em; top: 2.4em; overflow:hidden; }
 #menu #userMenu ul li { display: block; text-align:right; }
 #menu #userMenu > a:hover + ul {display:block; }
 #menu #userMenu ul:hover {display:block; }

@@ -17,7 +17,7 @@
                 {
                     container: me.container,
                     inputValidation: /^[0-9\.]+$/g,
-                    inputCleaning: /[\$\,]/g,
+                    inputCleaning: /[\$\,]|\.[0-9]*/g,
                     events:
                     {
                         runReport: runReport,
@@ -92,8 +92,6 @@
             me.description = me.container.find('.reportContainer .description');
 
 
-
-            me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
@@ -313,7 +311,10 @@
 
             if (z <= 32 && z >= 11) {
                 data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
+                me.data.textAlternative = {
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County'
+                };
                 me.data.textAlternativeUrl = '/accessibility/revenue/zip/';
                 dataLayer.getAverageRevenueBands({
                     placeId: me.opts.report.CurrentPlace.Id,
@@ -327,8 +328,10 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
                 if (z <= 10 && z >= 8) {
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
-                    me.data.textAlternativeUrl = '/accessibility/revenue/county/';
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'Metro'
+                    };
                     dataLayer.getAverageRevenueBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -342,8 +345,10 @@
 
                 if (z <= 7 && z >= 5) {
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    me.data.textAlternativeUrl = '/accessibility/revenue/county/';
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getAverageRevenueBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -357,8 +362,10 @@
                 if (z <= 10 && z >= 5) {
 
                     data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternativeUrl = '/accessibility/revenue/county/';
-                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getAverageRevenueBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -373,8 +380,10 @@
             if (z <= 4 && z >= 0) {
 
                 data.title = 'Average Business Annual Revenue by state in the USA';
-                me.data.textAlternativeUrl = '/accessibility/revenue/state/';
-                me.data.currentBoundingEntityId = null;
+                me.data.textAlternative = {
+                    granularity: 'State',
+                    boundingGranularity: 'Nation'
+                };
                 dataLayer.getAverageRevenueBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -389,56 +398,43 @@
         };
 
         var textAlternativeClicked = function () {
-            var url = me.data.textAlternativeUrl;
-            var bounds = me.map.getBounds();
+            var url = '/accessibility/revenue/';
             var data = {
                 bands: 7,
                 industryId: me.opts.report.CurrentIndustry.Id,
-                boundingEntityId: me.data.currentBoundingEntityId,
-                southWest: bounds.getSouthWest().toString(),
-                northEast: bounds.getNorthEast().toString()
+                placeId: me.opts.report.CurrentPlace.Id,
+                granularity: me.data.textAlternative.granularity,
+                boundingGranularity: me.data.textAlternative.boundingGranularity
             };
-
             window.open(jQuery.param.querystring(url, data), '_blank');
-
         };
 
 
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            if (me.data.hasData) {
-                me.noData.hide();
-                me.reportData.show();
+            me.reportData.show();
 
-                setHeatmap();
+            setHeatmap();
 
+            me.chart = new sizeup.charts.barChart({
 
-                me.chart = new sizeup.charts.barChart({
+                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                container: me.container.find('.chart .container'),
+                title: 'average annual revenue per business',
+                bars: me.data.chart.bars,
+                marker: me.data.chart.marker
+            });
+            me.chart.draw();
 
-                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                    container: me.container.find('.chart .container'),
-                    title: 'average annual revenue per business',
-                    bars: me.data.chart.bars,
-                    marker: me.data.chart.marker
-                });
-                me.chart.draw();
-
-                me.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.table').hide(),
-                    rowTemplate: templates.get('tableRow'),
-                    rows: me.data.table
-                });
+            me.table = new sizeup.charts.tableChart({
+                container: me.container.find('.table').hide(),
+                rowTemplate: templates.get('tableRow'),
+                rows: me.data.table
+            });
 
 
-                me.description.html(templates.bind(templates.get("description"), me.data.description));
-
-            }
-            else {
-                me.noData.show();
-                me.reportData.hide();
-                me.reportContainer.hideGauge();
-            }
+            me.description.html(templates.bind(templates.get("description"), me.data.description));
         };
 
         var runReport = function (e) {
@@ -467,7 +463,6 @@
 
         var percentileDataReturned = function (data) {
             if (data.Nation.Percentile != null) {
-                me.data.hasData = true;
                 var percentile = sizeup.util.numbers.format.ordinal(data.Nation.Percentile);
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -479,6 +474,7 @@
                 };
             }
             else {
+                me.data.description = {};
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

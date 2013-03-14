@@ -11,15 +11,14 @@
         me.data.enteredValue = jQuery.bbq.getState().healthcareCost;
         me.data.enteredEmployees = jQuery.bbq.getState().employees;
         me.data.description = {};
-        me.data.hasData = false;
-
+      
         var init = function () {
 
             me.reportContainer = new sizeup.views.dashboard.reportContainer(
                 {
                     container: me.container,
                     inputValidation: /^[0-9\.]+$/g,
-                    inputCleaning: /[\$\,]/g,
+                    inputCleaning: /[\$\,]|\.[0-9]*/g,
                     events:
                     {
                         runReport: runReport,
@@ -66,7 +65,7 @@
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
-            me.noData = me.container.find('.noDataError').hide();
+
             me.reportData = me.container.find('.reportData');
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
@@ -108,7 +107,6 @@
 
         var percentageDataReturned = function (data) {
             if (data) {
-                me.data.hasData = true;
                 var val = 50 - (data.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Percentage));
                 me.data.gauge = {
@@ -161,40 +159,30 @@
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            if (me.data.hasData) {
-                me.noData.hide();
-                me.reportData.show();
+       
+            me.reportData.show();
 
 
-                me.tableContainer.html(templates.bind(templates.get("table"), me.data.table));
+            me.tableContainer.html(templates.bind(templates.get("table"), me.data.table));
 
                 
-                me.data.description = {
-                    firmSizeDifference: moreLessFormatter(me.data.enteredValue, me.data.raw.FirmSize),
-                    industryDifference: moreLessFormatter(me.data.enteredValue, me.data.raw.Industry)
-                };
+            me.data.description = {
+                firmSizeDifference: moreLessFormatter(me.data.enteredValue, me.data.raw.FirmSize),
+                industryDifference: moreLessFormatter(me.data.enteredValue, me.data.raw.Industry)
+            };
 
-                var description = '';
-                if (me.data.enteredEmployees == null) {
-                    description = templates.bind(templates.get("noEmployeeDescription"), me.data.description);
-                }
-                else
-                {
-                    description = templates.bind(templates.get("description"), me.data.description);
-                    if (me.data.enteredValue > me.data.raw.FirmSize) {
-                        description = description + templates.bind(templates.get("overpayDescription"), me.data.description);
-                    }
-                }
-                me.description.html(description);              
+            var description = '';
+            if (me.data.enteredEmployees == null) {
+                description = templates.bind(templates.get("noEmployeeDescription"), me.data.description);
             }
-            else {
-                me.noData.show();
-                me.reportData.hide();
-                me.reportContainer.hideGauge();
+            else
+            {
+                description = templates.bind(templates.get("description"), me.data.description);
+                if (me.data.enteredValue > me.data.raw.FirmSize) {
+                    description = description + templates.bind(templates.get("overpayDescription"), me.data.description);
+                }
             }
-
-
-
+            me.description.html(description);              
 
         };
 

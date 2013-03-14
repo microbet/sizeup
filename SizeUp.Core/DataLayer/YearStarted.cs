@@ -193,7 +193,7 @@ namespace SizeUp.Core.DataLayer
             })
             .Select(i=> new PercentileItem
             {
-                Percentile = i.Total > MinimumBusinessCount ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.City.Name + ", " + i.City.State.Abbreviation
             });
 
@@ -202,10 +202,10 @@ namespace SizeUp.Core.DataLayer
                 County = d.County,
                 Total = countyData.Count(),
                 Filtered = countyData.Where(f => f.YearStarted >= year).Count()
-            })           
+            })
             .Select(i=> new PercentileItem
             {
-                Percentile = i.Total > MinimumBusinessCount ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.Name + ", " + i.County.State.Abbreviation
             });
 
@@ -217,7 +217,7 @@ namespace SizeUp.Core.DataLayer
             })
             .Select(i=> new PercentileItem
             {
-                Percentile = i.Total > MinimumBusinessCount ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.Metro.Name
             });
 
@@ -230,7 +230,7 @@ namespace SizeUp.Core.DataLayer
             })
             .Select(i=> new PercentileItem
             {
-                Percentile = i.Total > MinimumBusinessCount ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.State.Name
             });
 
@@ -242,7 +242,7 @@ namespace SizeUp.Core.DataLayer
             })
             .Select(i=> new PercentileItem
             {
-                Percentile = i.Total > MinimumBusinessCount ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = "USA"
             });
 

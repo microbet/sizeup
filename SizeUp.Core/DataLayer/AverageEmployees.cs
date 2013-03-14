@@ -143,10 +143,10 @@ namespace SizeUp.Core.DataLayer
                 Total = cityData.Count(),
                 Filtered = cityData.Where(v => v.Employees <= value).Count()
             })
-            .Where(d => cityData.Count() >= MinimumBusinessCount)
+            .Where(d => d.Total >= MinimumBusinessCount)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.City.Name + ", " + i.City.State.Abbreviation
             });
 
@@ -157,10 +157,10 @@ namespace SizeUp.Core.DataLayer
                 Total = countyData.Count(),
                 Filtered = countyData.Where(v => v.Employees <= value).Count()
             })
-            .Where(d => countyData.Count() >= MinimumBusinessCount)
+            .Where(d => d.Total >= MinimumBusinessCount)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.Name + ", " + i.County.State.Abbreviation
             });
 
@@ -171,10 +171,10 @@ namespace SizeUp.Core.DataLayer
                 Total = metroData.Count(),
                 Filtered = metroData.Where(v => v.Employees <= value).Count()
             })
-            .Where(d => metroData.Count() >= MinimumBusinessCount)
+           .Where(d => d.Total >= MinimumBusinessCount)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.Metro.Name
             });
 
@@ -185,10 +185,10 @@ namespace SizeUp.Core.DataLayer
                 Total = stateData.Count(),
                 Filtered = stateData.Where(v => v.Employees <= value).Count()
             })
-            .Where(d => stateData.Count() >= MinimumBusinessCount)
+            .Where(d => d.Total >= MinimumBusinessCount)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.State.Name
             });
 
@@ -199,10 +199,10 @@ namespace SizeUp.Core.DataLayer
                 Total = nationData.Count(),
                 Filtered = nationData.Where(v => v.Employees <= value).Count()
             })
-            .Where(d => nationData.Count() >= MinimumBusinessCount)
+            .Where(d => d.Total >= MinimumBusinessCount)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = "USA"
             });
 

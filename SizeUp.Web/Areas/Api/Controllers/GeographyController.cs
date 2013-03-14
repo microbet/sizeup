@@ -23,7 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Geography.Centroid(context, id, granularity);
+                var data = Core.DataLayer.Geography.Centroid(context, granularity).Where(i => i.Key == id).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Geography.BoundingBox(context, id, granularity);
+                var data = Core.DataLayer.Geography.BoundingBox(context, granularity).Where(i => i.Key == id).FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

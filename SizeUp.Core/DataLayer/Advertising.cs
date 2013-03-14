@@ -305,7 +305,7 @@ namespace SizeUp.Core.DataLayer
         public static IQueryable<Models.Advertising> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
         {
 
-            var center = Core.DataLayer.Geography.Centroid(context, placeId, Core.DataLayer.Base.Granularity.Place);
+            var center = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i=>i.Value).FirstOrDefault();
             var zips = Core.DataLayer.Base.ZipCode.Distance(context, center);
             var demographics = Core.DataLayer.Demographics.Get(context, Core.DataLayer.Base.Granularity.ZipCode);
             var industry = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
@@ -349,7 +349,7 @@ namespace SizeUp.Core.DataLayer
         public static int MinimumDistance(SizeUpContext context, long industryId, long placeId, int items, AdvertisingFilters filters)
         {
 
-            var center = Core.DataLayer.Geography.Centroid(context, placeId, Core.DataLayer.Base.Granularity.Place);
+            var center = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
             var zips = Core.DataLayer.Base.ZipCode.Distance(context, center);
             var demographics = Core.DataLayer.Demographics.Get(context, Core.DataLayer.Base.Granularity.ZipCode);
             var industry = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
@@ -402,7 +402,7 @@ namespace SizeUp.Core.DataLayer
         public static List<object> Bands(SizeUpContext context, long industryId, long placeId, int bands, AdvertisingFilters filters)
         {
 
-            var center = Core.DataLayer.Geography.Centroid(context, placeId, Core.DataLayer.Base.Granularity.Place);
+            var center = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
             var zips = Core.DataLayer.Base.ZipCode.Distance(context, center);
             var demographics = Core.DataLayer.Demographics.Get(context, Core.DataLayer.Base.Granularity.ZipCode);
             var industry = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);

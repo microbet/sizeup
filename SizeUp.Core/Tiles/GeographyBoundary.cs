@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Microsoft.SqlServer.Types;
-using SizeUp.Core.DataAccess.Models;
+
 
 namespace SizeUp.Core.Tiles
 {

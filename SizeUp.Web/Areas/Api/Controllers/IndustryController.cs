@@ -5,8 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
-using SizeUp.Web.Areas.Api.Models;
-using SizeUp.Core.DataAccess;
 using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Api.Controllers

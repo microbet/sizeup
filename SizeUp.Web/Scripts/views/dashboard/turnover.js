@@ -105,9 +105,6 @@
             me.jobChange.description = me.container.find('.reportContainer .jobChange .description');
 
 
-
-
-            me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
        
             me.reportContainer.setValue('');
@@ -149,51 +146,50 @@
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            if (me.data.hasData) {
-                me.noData.hide();
-                me.reportData.show();
-                me.turnover.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.turnover .table'),
-                    rowTemplate: templates.get('turnoverTableRow'),
-                    rows: me.data.turnover.table
-                });
+          
+            me.reportData.show();
+            me.turnover.table = new sizeup.charts.tableChart({
+                container: me.container.find('.turnover .table'),
+                rowTemplate: templates.get('turnoverTableRow'),
+                rows: me.data.turnover.table
+            });
 
-                me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
+            me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
 
-                me.data.turnover.description = {
-                    Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,2),
-                    NAICS4: me.opts.report.CurrentIndustry.NAICS4,
-                    Industry: me.opts.report.CurrentIndustry
-                };
-
-                me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
-
-
-
-
-
-                me.jobChange.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.jobChange .table'),
-                    rowTemplate: templates.get('jobChangeTableRow'),
-                    rows: me.data.jobChange.table
-                });
-
-                me.data.jobChange.description = {
-                    NetJobChange: me.data.jobChange.raw['County'].netJobChange,
-                    NAICS4: me.opts.report.CurrentIndustry.NAICS4,
-                    Industry: me.opts.report.CurrentIndustry
-                };
-
-                me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
-
-
-            }
-            else {
-                me.noData.show();
-                me.reportData.hide();
-                me.reportContainer.hideGauge();
+            me.data.turnover.description = {
+                Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,2),
+                NAICS4: me.opts.report.CurrentIndustry.NAICS4,
+                Industry: me.opts.report.CurrentIndustry
+            };
+            if (me.data.turnover.raw['County'].turnover == 'no data') {
+                delete me.data.turnover.description.Turnover;
             }
 
+            me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
+
+
+
+
+            me.jobChange.table = new sizeup.charts.tableChart({
+                container: me.container.find('.jobChange .table'),
+                rowTemplate: templates.get('jobChangeTableRow'),
+                rows: me.data.jobChange.table
+            });
+
+            me.data.jobChange.description = {
+                NetJobChange: me.data.jobChange.raw['County'].netJobChange,
+                NAICS4: me.opts.report.CurrentIndustry.NAICS4,
+                Industry: me.opts.report.CurrentIndustry
+            };
+
+            if (me.data.jobChange.raw['County'].netJobChange == 'no data') {
+                delete me.data.jobChange.description.NetJobChange;
+            }
+
+            me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
+
+
+           
 
 
         };
@@ -231,8 +227,7 @@
 
 
         var turnoverPercentileDataReturned = function (data) {
-            if (data) {
-                me.data.hasData = true;
+            if (data.County) {
                 var percentile = sizeup.util.numbers.format.ordinal(data.County.Percentile);
                 me.data.gauge = {
                     value: data.County.Percentile,

@@ -174,17 +174,6 @@
     <Compile Include="Areas\Api\Controllers\UserController.cs" />
     <Compile Include="Areas\Api\Controllers\WorkersCompController.cs" />
     <Compile Include="Areas\Api\Controllers\YearStartedController.cs" />
-    <Compile Include="Areas\Api\Models\City\City.cs" />
-    <Compile Include="Areas\Api\Models\Place\Place.cs" />
-    <Compile Include="Areas\Api\Models\County\County.cs" />
-    <Compile Include="Areas\Api\Models\Metro\Metro.cs" />
-    <Compile Include="Areas\Api\Models\Profile\CompetitionValues.cs" />
-    <Compile Include="Areas\Api\Models\Profile\DashboardValues.cs" />
-    <Compile Include="Areas\Api\Models\Shared\Band.cs" />
-    <Compile Include="Areas\Api\Models\Shared\LatLng.cs" />
-    <Compile Include="Areas\Api\Models\State\State.cs" />
-    <Compile Include="Areas\Api\Models\TopPlaces\Range.cs" />
-    <Compile Include="Areas\Api\Models\TopPlaces\TopPlace.cs" />
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
@@ -408,6 +397,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Analytics\Models\" />
     <Folder Include="Areas\Analytics\Views\Shared\" />
+    <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Pins\Models\" />
     <Folder Include="Areas\Pins\Views\Shared\" />

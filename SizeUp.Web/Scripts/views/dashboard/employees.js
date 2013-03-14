@@ -90,7 +90,7 @@
                 ]
             });
 
-            me.averageEmployees.noData = me.container.find('.averageEmployees.noDataError').hide();
+         
             me.averageEmployees.reportData = me.container.find('.averageEmployees.reportData');
 
 
@@ -145,7 +145,7 @@
                 ]
             });
 
-            me.employeesPerCapita.noData = me.container.find('.employeesPerCapita.noDataError').hide();
+          
             me.employeesPerCapita.reportData = me.container.find('.employeesPerCapita.reportData');
 
 
@@ -376,8 +376,10 @@
 
             if (z <= 32 && z >= 11) {
                 data.title = 'Average Employees per business by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.averageEmployees.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
-                me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/zip/';
+                me.data.averageEmployeesTextAlternative = {
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County'
+                };
                 dataLayer.getAverageEmployeesBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -390,8 +392,10 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
                 if (z <= 10 && z >= 8) {
                     data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.averageEmployees.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
-                    me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
+                    me.data.averageEmployeesTextAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'Metro'
+                    };
                     dataLayer.getAverageEmployeesBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -405,8 +409,10 @@
 
                 if (z <= 7 && z >= 5) {
                     data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.averageEmployees.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
+                    me.data.averageEmployeesTextAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getAverageEmployeesBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -420,8 +426,10 @@
                 if (z <= 10 && z >= 5) {
 
                     data.title = 'Average Employees per business by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/county/';
-                    me.data.averageEmployees.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.averageEmployeesTextAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getAverageEmployeesBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -436,8 +444,10 @@
             if (z <= 4 && z >= 0) {
 
                 data.title = 'Average Employees per business by state in the USA';
-                me.data.averageEmployees.textAlternativeUrl = '/accessibility/averageEmployees/state/';
-                me.data.averageEmployees.currentBoundingEntityId = null;
+                me.data.averageEmployeesTextAlternative = {
+                    granularity: 'State',
+                    boundingGranularity: 'Nation'
+                };
                 dataLayer.getAverageEmployeesBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -452,16 +462,14 @@
         };
 
         var textAlternativeAverageEmployeesClicked = function () {
-            var url = me.data.averageEmployees.textAlternativeUrl;
-            var bounds = me.averageEmployees.map.getBounds();
+            var url = '/accessibility/averageEmployees/';
             var data = {
                 bands: 7,
                 industryId: me.opts.report.CurrentIndustry.Id,
-                boundingEntityId: me.data.averageEmployees.currentBoundingEntityId,
-                southWest: bounds.getSouthWest().toString(),
-                northEast: bounds.getNorthEast().toString()
+                placeId: me.opts.report.CurrentPlace.Id,
+                granularity: me.data.averageEmployeesTextAlternative.granularity,
+                boundingGranularity: me.data.averageEmployeesTextAlternative.boundingGranularity
             };
-
             window.open(jQuery.param.querystring(url, data), '_blank');
 
         };
@@ -634,8 +642,10 @@
 
             if (z <= 32 && z >= 11) {
                 data.title = 'Employees Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.employeesPerCapita.currentBoundingEntityId = 'co' + me.opts.report.CurrentPlace.County.Id;
-                me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/zip/';
+                me.data.employeesPerCapitaTextAlternative = {
+                    granularity: 'ZipCode',
+                    boundingGranularity: 'County'
+                };
                 dataLayer.getEmployeesPerCapitaBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -648,8 +658,10 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
                 if (z <= 10 && z >= 8) {
                     data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.employeesPerCapita.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
-                    me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
+                    me.data.employeesPerCapitaTextAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'Metro'
+                    };
                     dataLayer.getEmployeesPerCapitaBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -663,8 +675,10 @@
 
                 if (z <= 7 && z >= 5) {
                     data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.employeesPerCapita.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
+                    me.data.employeesPerCapitaTextAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getEmployeesPerCapitaBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -678,8 +692,10 @@
                 if (z <= 10 && z >= 5) {
 
                     data.title = 'Employees Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/county/';
-                    me.data.employeesPerCapita.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.employeesPerCapitaTextAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getEmployeesPerCapitaBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -694,8 +710,10 @@
             if (z <= 4 && z >= 0) {
 
                 data.title = 'Employees Per Capita by state in the USA';
-                me.data.employeesPerCapita.textAlternativeUrl = '/accessibility/employeesPerCapita/state/';
-                me.data.employeesPerCapita.currentBoundingEntityId = null;
+                me.data.employeesPerCapitaTextAlternative = {
+                    granularity: 'State',
+                    boundingGranularity: 'Nation'
+                };
                 dataLayer.getEmployeesPerCapitaBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -710,16 +728,14 @@
         };
 
         var textAlternativeEmployeesPerCapitaClicked = function () {
-            var url = me.data.employeesPerCapita.textAlternativeUrl;
-            var bounds = me.employeesPerCapita.map.getBounds();
+            var url = '/accessibility/employeesPerCapita/';
             var data = {
                 bands: 7,
                 industryId: me.opts.report.CurrentIndustry.Id,
-                boundingEntityId: me.data.employeesPerCapita.currentBoundingEntityId,
-                southWest: bounds.getSouthWest().toString(),
-                northEast: bounds.getNorthEast().toString()
+                placeId: me.opts.report.CurrentPlace.Id,
+                granularity: me.data.employeesPerCapitaTextAlternative.granularity,
+                boundingGranularity: me.data.employeesPerCapitaTextAlternative.boundingGranularity
             };
-
             window.open(jQuery.param.querystring(url, data), '_blank');
 
         };
@@ -729,67 +745,57 @@
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            if (me.data.averageEmployees.hasData) {
-                me.averageEmployees.noData.hide();
-                me.averageEmployees.reportData.show();
 
-                setAverageEmployeesHeatmap();
+            me.averageEmployees.reportData.show();
 
-                me.averageEmployees.chart = new sizeup.charts.barChart({
+            setAverageEmployeesHeatmap();
 
-                    valueFormat: function (val) { return Math.floor(val); },
-                    container: me.container.find('.averageEmployees .chart .container'),
-                    title: 'average employees',
-                    bars: me.data.averageEmployees.chart.bars,
-                    marker: me.data.averageEmployees.chart.marker
-                });
-                me.averageEmployees.chart.draw();
+            me.averageEmployees.chart = new sizeup.charts.barChart({
 
-                me.averageEmployees.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.averageEmployees .table').hide(),
-                    rowTemplate: templates.get('AverageEmployeesTableRow'),
-                    rows: me.data.averageEmployees.table
-                });
+                valueFormat: function (val) { return Math.floor(val); },
+                container: me.container.find('.averageEmployees .chart .container'),
+                title: 'average employees',
+                bars: me.data.averageEmployees.chart.bars,
+                marker: me.data.averageEmployees.chart.marker
+            });
+            me.averageEmployees.chart.draw();
+
+            me.averageEmployees.table = new sizeup.charts.tableChart({
+                container: me.container.find('.averageEmployees .table').hide(),
+                rowTemplate: templates.get('AverageEmployeesTableRow'),
+                rows: me.data.averageEmployees.table
+            });
 
 
-                me.averageEmployees.description.html(templates.bind(templates.get("averageEmployeesDescription"), me.data.averageEmployees.description));
-            }
-            else {
-                me.averageEmployees.noData.show();
-                me.averageEmployees.reportData.hide();
-                me.reportContainer.hideGauge();
-            }
-
-            if (me.data.employeesPerCapita.hasData) {
-                me.employeesPerCapita.noData.hide();
-                me.employeesPerCapita.reportData.show();
-
-                setEmployeesPerCapitaHeatmap();
-
-                me.employeesPerCapita.chart = new sizeup.charts.barChart({
-
-                    valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                    container: me.container.find('.employeesPerCapita .chart .container'),
-                    title: 'employees per capita',
-                    bars: me.data.employeesPerCapita.chart.bars,
-                    marker: me.data.employeesPerCapita.chart.marker
-                });
-                me.employeesPerCapita.chart.draw();
-
-                me.employeesPerCapita.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.employeesPerCapita .table').hide(),
-                    rowTemplate: templates.get('employeesPerCapitaTableRow'),
-                    rows: me.data.employeesPerCapita.table
-                });
+            me.averageEmployees.description.html(templates.bind(templates.get("averageEmployeesDescription"), me.data.averageEmployees.description));
+           
 
 
 
-                me.employeesPerCapita.description.html(templates.bind(templates.get("employeesPerCapitaDescription"), me.data.employeesPerCapita.description));
-            }
-            else {
-                me.employeesPerCapita.noData.show();
-                me.employeesPerCapita.reportData.hide();
-            }
+            me.employeesPerCapita.reportData.show();
+
+            setEmployeesPerCapitaHeatmap();
+
+            me.employeesPerCapita.chart = new sizeup.charts.barChart({
+
+                valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                container: me.container.find('.employeesPerCapita .chart .container'),
+                title: 'employees per capita',
+                bars: me.data.employeesPerCapita.chart.bars,
+                marker: me.data.employeesPerCapita.chart.marker
+            });
+            me.employeesPerCapita.chart.draw();
+
+            me.employeesPerCapita.table = new sizeup.charts.tableChart({
+                container: me.container.find('.employeesPerCapita .table').hide(),
+                rowTemplate: templates.get('employeesPerCapitaTableRow'),
+                rows: me.data.employeesPerCapita.table
+            });
+
+
+
+            me.employeesPerCapita.description.html(templates.bind(templates.get("employeesPerCapitaDescription"), me.data.employeesPerCapita.description));
+          
         };
 
 
@@ -845,40 +851,39 @@
         };
 
         var averageEmployeesPercentileDataReturned = function (data) {
-            if (data) {
-                me.data.averageEmployees.hasData = true;
-                
-                me.data.averageEmployees.percentiles = {
-                    City: data.City.Percentile < 1 ? 'less employees than 1%' : data.City.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.City.Percentile + '%',
-                    County: data.County.Percentile < 1 ? 'less employees than 1%' : data.County.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.County.Percentile + '%',
-                    State: data.State.Percentile < 1 ? 'less employees than 1%' : data.State.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.State.Percentile + '%',
-                    Nation: data.Nation.Percentile < 1 ? 'less employees than 1%' : data.Nation.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.Nation.Percentile + '%'
-                };
+  
+            me.data.averageEmployees.percentiles = {};
 
-                if (data.Metro) {
-                    me.data.averageEmployees.percentiles.Metro = data.Metro.Percentile < 1 ? 'less employees than 1%' : data.Metro.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.Metro.Percentile + '%';
-                }
-
+            if (data.City) {
+                me.data.averageEmployees.percentiles.City = data.City.Percentile < 1 ? 'less employees than 1%' : data.City.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.City.Percentile + '%';
+            }
+            if (data.County) {
+                me.data.averageEmployees.percentiles.County = data.County.Percentile < 1 ? 'less employees than 1%' : data.County.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.County.Percentile + '%';
+            }
+            if (data.Metro) {
+                me.data.averageEmployees.percentiles.Metro = data.Metro.Percentile < 1 ? 'less employees than 1%' : data.Metro.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.Metro.Percentile + '%';
+            }
+            if (data.State) {
+                me.data.averageEmployees.percentiles.State = data.State.Percentile < 1 ? 'less employees than 1%' : data.State.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.State.Percentile + '%';
+            }
+            if (data.Nation) {
+                me.data.averageEmployees.percentiles.Nation = data.Nation.Percentile < 1 ? 'less employees than 1%' : data.Nation.Percentile > 99 ? 'more employees than 99%' : 'more employees than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
                     tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
-
-
-
-
-                me.data.averageEmployees.description = {
-                    Percentiles: me.data.averageEmployees.percentiles
-                };
-
-             
             }
-            else {
+            else{
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
                 };
             }
+            me.data.averageEmployees.description = {
+                Percentiles: me.data.averageEmployees.percentiles
+            };
+
+
         };
 
         var averageEmployeesChartDataReturned = function (data) {
@@ -940,33 +945,27 @@
 
 
         var employeesPerCapitaPercentileDataReturned = function (data) {
-            if (data) {
-                me.data.employeesPerCapita.hasData = true;
-               
 
+            me.data.employeesPerCapita.percentiles = {};
 
-                me.data.employeesPerCapita.percentiles = {
-                    County: data.County.Percentile < 1 ? 'less than 1%' : data.County.Percentile > 99 ? 'more than 99%' : 'more than ' + data.County.Percentile + '%',
-                    State: data.State.Percentile < 1 ? 'less than 1%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%',
-                    Nation: data.Nation.Percentile < 1 ? 'less than 1%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%'
-                };
-
-                if (data.Metro) {
-                    me.data.employeesPerCapita.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 1%' : data.Metro.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Metro.Percentile + '%';
-                }
-
-                me.data.gauge = {
-                    value: data.Nation.Percentile,
-                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
-                };
-
-
-
-
-                me.data.employeesPerCapita.description = {
-                    Percentiles: me.data.employeesPerCapita.percentiles
-                };
+            if (data.County) {
+                me.data.employeesPerCapita.percentiles.County = data.County.Percentile < 1 ? 'less than 1%' : data.County.Percentile > 99 ? 'more than 99%' : 'more than ' + data.County.Percentile + '%';
             }
+            if (data.Metro) {
+                me.data.employeesPerCapita.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 1%' : data.Metro.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Metro.Percentile + '%';
+            }
+            if (data.State) {
+                me.data.employeesPerCapita.percentiles.State = data.State.Percentile < 1 ? 'less than 1%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%';
+            }
+            if (data.Nation) {
+                me.data.employeesPerCapita.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 1%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
+            }
+
+            me.data.employeesPerCapita.description = {
+                Percentiles: me.data.employeesPerCapita.percentiles,
+                HasData: me.data.employeesPerCapita.percentiles.County ||me.data.employeesPerCapita.percentiles.Metro ||me.data.employeesPerCapita.percentiles.State ||me.data.employeesPerCapita.percentiles.Nation
+            };
+
         };
 
         var employeesPerCapitaChartDataReturned = function (data) {

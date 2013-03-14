@@ -6,7 +6,6 @@ using System.Xml.Linq;
 using System.Net;
 using System.Web;
 using SizeUp.Data;
-using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Core.Geo
 {

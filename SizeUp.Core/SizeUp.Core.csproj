@@ -66,13 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto\Crypto.cs" />
-    <Compile Include="DataAccess\States.cs" />
-    <Compile Include="DataAccess\Counties.cs" />
-    <Compile Include="DataAccess\Geography.cs" />
-    <Compile Include="DataAccess\IndustryData.cs" />
-    <Compile Include="DataAccess\Models\DisplayGeography.cs" />
-    <Compile Include="DataAccess\Models\EntityDistance.cs" />
-    <Compile Include="DataAccess\ZipCodes.cs" />
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\Base\Base.cs" />
     <Compile Include="DataLayer\Base\BusinessData.cs" />

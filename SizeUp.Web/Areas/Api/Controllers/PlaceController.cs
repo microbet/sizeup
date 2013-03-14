@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
-using SizeUp.Web.Areas.Api.Models.City;
 using Microsoft.SqlServer.Types;
 using System.Data.Objects;
 using System.Data.Spatial;

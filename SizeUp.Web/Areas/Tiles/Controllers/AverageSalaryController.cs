@@ -43,7 +43,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     {
                         Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                         .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.AverageEmployees).DefaultIfEmpty(null).FirstOrDefault()
+                        Value = d.Select(v => v.AverageAnnualSalary).DefaultIfEmpty(null).FirstOrDefault()
                     });
                 }
                 else if (granularity == Granularity.State)
@@ -54,7 +54,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     {
                         Key = e.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                         .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.AverageEmployees).DefaultIfEmpty(null).FirstOrDefault()
+                        Value = d.Select(v => v.AverageAnnualSalary).DefaultIfEmpty(null).FirstOrDefault()
                     });
                 }
 

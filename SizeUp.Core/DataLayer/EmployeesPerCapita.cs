@@ -144,10 +144,12 @@ namespace SizeUp.Core.DataLayer
                 County = i.City.CityCountyMappings.Select(c=> c.County).FirstOrDefault(),
                 Total = countyData.Count(),
                 Filtered = countyData.Where(d => d.EmployeesPerCapita <= currentCity.Select(v=>v.EmployeesPerCapita).FirstOrDefault()).Count()
-            })            
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCity.Select(v => v.EmployeesPerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.Name + ", " + i.County.State.Abbreviation
             });
 
@@ -156,10 +158,12 @@ namespace SizeUp.Core.DataLayer
                 County = i.City.CityCountyMappings.Select(c=> c.County).FirstOrDefault(),
                 Total = metroData.Count(),
                 Filtered = metroData.Where(d => d.EmployeesPerCapita <= currentCity.Select(v=>v.EmployeesPerCapita).FirstOrDefault()).Count()
-            })            
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCity.Select(v => v.EmployeesPerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.Metro.Name
             });
 
@@ -168,10 +172,12 @@ namespace SizeUp.Core.DataLayer
                 County = i.City.CityCountyMappings.Select(c=> c.County).FirstOrDefault(),
                 Total = stateData.Count(),
                 Filtered = stateData.Where(d => d.EmployeesPerCapita <= currentCity.Select(v=>v.EmployeesPerCapita).FirstOrDefault()).Count()
-            })            
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCity.Select(v => v.EmployeesPerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.State.Name
             });
 
@@ -180,10 +186,12 @@ namespace SizeUp.Core.DataLayer
                 County = i.City.CityCountyMappings.Select(c=> c.County).FirstOrDefault(),
                 Total = nationData.Count(),
                 Filtered = nationData.Where(d => d.EmployeesPerCapita <= currentCity.Select(v=>v.EmployeesPerCapita).FirstOrDefault()).Count()
-            })            
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCity.Select(v => v.EmployeesPerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = "USA"
             });
 

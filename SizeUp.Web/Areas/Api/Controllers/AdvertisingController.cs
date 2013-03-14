@@ -6,16 +6,11 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
-using SizeUp.Web.Areas.Api.Models;
 using System.Data.Spatial;
 using Microsoft.SqlServer.Types;
 using SizeUp.Web;
 using SizeUp.Core;
-using SizeUp.Data;
-using SizeUp.Core.DataAccess;
-using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
-using SizeUp.Core.Extensions;
 using SizeUp.Core.DataLayer.Models;
 
 

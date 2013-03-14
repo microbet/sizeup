@@ -50,9 +50,6 @@
             setCurrentIndustry: function (params, callback) {
                 return post('/api/industry/current', params, callback);
             },
-            hasData: function (params, callback) {
-                return get('/api/industry/hasData/', params, callback);
-            },
 
             searchPlaces: function (params, callback) {
                 return get('/api/place/search/', params, callback);
@@ -311,22 +308,6 @@
             },
             getBestPlacesBands: function (params, callback) {
                 return get('/api/bestPlaces/bands/', params, callback);
-            },
-
-
-           
-
-            getBestPlacesBandsByCity: function (params, callback) {
-                return get('/api/bestPlaces/bands/city/', params, callback);
-            },
-            getBestPlacesBandsByCounty: function (params, callback) {
-                return get('/api/bestPlaces/bands/county/', params, callback);
-            },
-            getBestPlacesBandsByMetro: function (params, callback) {
-                return get('/api/bestPlaces/bands/metro/', params, callback);
-            },
-            getBestPlacesBandsByState: function (params, callback) {
-                return get('/api/bestPlaces/bands/state/', params, callback);
             },
 
 

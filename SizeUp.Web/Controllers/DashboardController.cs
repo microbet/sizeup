@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using SizeUp.Web.Models;
 using SizeUp.Data;
 using SizeUp.Core.Web;
-using SizeUp.Web.Areas.Api.Models;
 using Microsoft.SqlServer.Types;
 
 namespace SizeUp.Web.Controllers

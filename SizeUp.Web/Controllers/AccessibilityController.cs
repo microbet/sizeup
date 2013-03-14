@@ -7,11 +7,12 @@ using Microsoft.SqlServer.Types;
 using System.Data.Spatial;
 using SizeUp.Data;
 using SizeUp.Core.Geo;
-using SizeUp.Core.DataAccess;
 using SizeUp.Core;
 using SizeUp.Core.Extensions;
 using System.Drawing;
 
+using SizeUp.Core.DataLayer;
+using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Controllers
 {
@@ -19,56 +20,34 @@ namespace SizeUp.Web.Controllers
     {
         //
         // GET: /Accessibility/
-        protected BoundingEntity GetBoundingEntity()
-        {
-            var boundingEntityId = HttpContext.Request["boundingEntityId"];
-            BoundingEntity boundingEntity = null;
-            if (!string.IsNullOrEmpty(boundingEntityId))
-            {
-                boundingEntity = new BoundingEntity(boundingEntityId);
-            }
-            return boundingEntity;
-        }
 
-        protected string GetBoundingEntityName(SizeUpContext context)
+        protected string GetBoundingEntityName(SizeUpContext context, long placeId, Granularity boundingGranularity)
         {
-            var be = GetBoundingEntity();
-            string name = "USA";
-            if (be != null && be.EntityType == BoundingEntity.BoundingEntityType.City)
+            string name = "";
+            var place = Core.DataLayer.Place.Get(context, placeId);
+            if (boundingGranularity == Granularity.County)
             {
-                name = context.Cities.Where(i => i.Id == be.EntityId).Select(i => i.Name + ", " + i.State.Abbreviation).FirstOrDefault();
+                name = place.County.Name + " County, " + place.State.Abbreviation;
             }
-            else if (be != null && be.EntityType == BoundingEntity.BoundingEntityType.County)
+            else if (boundingGranularity == Granularity.Metro)
             {
-                name = context.Counties.Where(i => i.Id == be.EntityId).Select(i => i.Name + " County, " + i.State.Abbreviation).FirstOrDefault();
+                name = place.Metro.Name;
             }
-            else if (be != null && be.EntityType == BoundingEntity.BoundingEntityType.Metro)
+            else if (boundingGranularity == Granularity.State)
             {
-                name = context.Metroes.Where(i => i.Id == be.EntityId).Select(i => i.Name).FirstOrDefault();
+                name = place.State.Name;
             }
-            else if (be != null && be.EntityType == BoundingEntity.BoundingEntityType.State)
+            else if (boundingGranularity == Granularity.Nation)
             {
-                name = context.States.Where(i => i.Id == be.EntityId).Select(i => i.Name).FirstOrDefault();
+                name = "USA";
             }
             return name;
-        }
-
-
-        protected BoundingBox GetBoundingBox()
-        {
-            var southWest = HttpContext.Request["southWest"].Split(',');
-            var northEast = HttpContext.Request["northEast"].Split(',');
-            BoundingBox box = new BoundingBox(new PointF(float.Parse(southWest[1]), float.Parse(southWest[0])), new PointF(float.Parse(northEast[1]), float.Parse(northEast[0])));
-            return box;
         }
 
         public class Band
         {
             public string Min { get; set; }
             public string Max { get; set; }
-            //public string Template { get; set; }
-            //public string FormattedMin { get { return string.Format(Template, Format(Min)); } }
-            //public string FormattedMax { get { return string.Format(Template, Format(Max)); } }
             public List<string> Items { get; set; }
             
         }
@@ -139,90 +118,7 @@ namespace SizeUp.Web.Controllers
             return output;
         }
 
-
-
-        protected IQueryable<IndustryDataByZip> GetZipCodeData(SizeUpContext context, int industryId)
-        {
-            var boundingEntity = GetBoundingEntity();
-
-            IQueryable<long> ids = ZipCodes.GetBounded(context, boundingEntity)
-                .Select(i => i.Id);
-
-            var data = IndustryData.GetZipCodes(context, industryId)
-                .Join(ids, i => i.ZipCodeId, i => i, (i, o) => i);
-
-            return data;
-        }
-
-
-        protected IQueryable<long> GetZipsInBounds(SizeUpContext context)
-        {
-            var boundingBox = GetBoundingBox();
-            var boundingEntity = GetBoundingEntity();
-            IQueryable<long> ids = ZipCodes.GetBounded(context, boundingEntity)
-                .Select(i => i.Id);
-            var entities = Core.DataAccess.Geography.GetBoundingBoxedZips(context, boundingBox)
-                .Join(ids, i => i.ZipCodeId, o => o, (i, o) => o);
-
-            return entities;
-        }
-
-        protected IQueryable<IndustryDataByCounty> GetCountyData(SizeUpContext context, int industryId)
-        {
-            var boundingEntity = GetBoundingEntity();
-
-            IQueryable<long> ids = Counties.GetBounded(context, boundingEntity)
-                .Select(i => i.Id);
-
-            var data = IndustryData.GetCounties(context, industryId)
-                .Join(ids, i => i.CountyId, i => i, (i, o) => i);
-
-            return data;
-        }
-
-
-        protected IQueryable<long> GetCountiesInBounds(SizeUpContext context)
-        {
-            var boundingBox = GetBoundingBox();
-            var boundingEntity = GetBoundingEntity();
-            IQueryable<long> ids = Counties.GetBounded(context, boundingEntity)
-                .Select(i => i.Id);
-            var entities = Core.DataAccess.Geography.GetBoundingBoxedCounties(context, boundingBox)
-                .Join(ids, i => i.CountyId, o => o, (i, o) => o);
-
-            return entities;
-        }
-
-
-        protected IQueryable<IndustryDataByState> GetStateData(SizeUpContext context, int industryId)
-        {
-            var boundingEntity = GetBoundingEntity();
-
-            IQueryable<long> ids = States.GetBounded(context, boundingEntity)
-                .Select(i => i.Id);
-
-            var data = IndustryData.GetStates(context, industryId)
-                .Join(ids, i => i.StateId, i => i, (i, o) => i);
-
-            return data;
-        }
-
-
-        protected IQueryable<long> GetStatesInBounds(SizeUpContext context)
-        {
-            var boundingBox = GetBoundingBox();
-            var boundingEntity = GetBoundingEntity();
-            IQueryable<long> ids = States.GetBounded(context, boundingEntity)
-                .Select(i => i.Id);
-            var entities = Core.DataAccess.Geography.GetBoundingBoxedStates(context, boundingBox)
-                .Join(ids, i => i.StateId, o => o, (i, o) => o);
-
-            return entities;
-        }
-
-
-
-        public ActionResult Revenue(int bands, int industryId, string levelOfDetail)
+        public ActionResult Revenue(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -230,79 +126,59 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (levelOfDetail == "zip")
+                var zips = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.AverageRevenue.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i=>i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.ZipCode)
                 {
-                    var entities = GetZipsInBounds(context).ToList();
-
-                    var data = GetZipCodeData(context, industryId)
-                        .Where(i => i.AverageRevenue > 0)
-                        .Select(i => new { i.AverageRevenue, i.ZipCode })
-                        .ToList()
-                        .NTile(i => i.AverageRevenue, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.AverageRevenue.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.AverageRevenue.Value))),
-                            Items = i.Where(d => entities.Contains(d.ZipCode.Id)).Select(d => d.ZipCode.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = zips.Join(zipData, i => i.Id, o => o.ZipCodeId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageRevenue && i.Max >= e.Data.AverageRevenue).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "Zip Code";
                 }
-                else if (levelOfDetail == "county")
+                else if(granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.AverageRevenue > 0)
-                        .Select(i => new { i.AverageRevenue, i.County })
-                        .ToList()
-                        .NTile(i => i.AverageRevenue, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.AverageRevenue.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.AverageRevenue.Value))),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageRevenue && i.Max >= e.Data.AverageRevenue).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if(granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.AverageRevenue > 0)
-                        .Select(i => new { i.AverageRevenue, i.State })
-                        .ToList()
-                        .NTile(i => i.AverageRevenue, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.AverageRevenue.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.AverageRevenue.Value))),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageRevenue && i.Max >= e.Data.AverageRevenue).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Average Business Annual Revenue";
                 return View("Heatmap");
             }
         }
 
-        public ActionResult AverageSalary(int bands, int industryId, string levelOfDetail)
+        public ActionResult AverageSalary(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -310,58 +186,49 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (levelOfDetail == "county")
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.AverageSalary.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.AverageAnnualSalary > 0)
-                        .Select(i => new { i.AverageAnnualSalary, i.County })
-                        .ToList()
-                        .NTile(i => i.AverageAnnualSalary, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.AverageAnnualSalary.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.AverageAnnualSalary.Value))),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageAnnualSalary && i.Max >= e.Data.AverageAnnualSalary).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if (granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.AverageAnnualSalary > 0)
-                        .Select(i => new { i.AverageAnnualSalary, i.State })
-                        .ToList()
-                        .NTile(i => i.AverageAnnualSalary, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.AverageAnnualSalary.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.AverageAnnualSalary.Value))),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageAnnualSalary && i.Max >= e.Data.AverageAnnualSalary).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Average Salary";
                 return View("Heatmap");
             }
         }
 
 
-        public ActionResult AverageEmployees(int bands, int industryId, string levelOfDetail)
+        public ActionResult AverageEmployees(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -369,80 +236,61 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (levelOfDetail == "zip")
+                var zips = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.AverageEmployees.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.ZipCode)
                 {
-                    var entities = GetZipsInBounds(context).ToList();
-
-                    var data = GetZipCodeData(context, industryId)
-                        .Where(i => i.AverageEmployees > 0)
-                        .Select(i => new { i.AverageEmployees, i.ZipCode })
-                        .ToList()
-                        .NTile(i => i.AverageEmployees, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0}", Format(i.Min(d => d.AverageEmployees.Value))),
-                            Max = string.Format("{0}", Format(i.Max(d => d.AverageEmployees.Value))),
-                            Items = i.Where(d => entities.Contains(d.ZipCode.Id)).Select(d => d.ZipCode.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = zips.Join(zipData, i => i.Id, o => o.ZipCodeId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0}", Format(i.Min)),
+                        Max = string.Format("{0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageEmployees && i.Max >= e.Data.AverageEmployees).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "Zip Code";
                 }
-                else if (levelOfDetail == "county")
+                else if (granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.AverageEmployees > 0)
-                        .Select(i => new { i.AverageEmployees, i.County })
-                        .ToList()
-                        .NTile(i => i.AverageEmployees, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0}", Format(i.Min(d => d.AverageEmployees.Value))),
-                            Max = string.Format("{0}", Format(i.Max(d => d.AverageEmployees.Value))),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0}", Format(i.Min)),
+                        Max = string.Format("{0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageEmployees && i.Max >= e.Data.AverageEmployees).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if (granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.AverageEmployees > 0)
-                        .Select(i => new { i.AverageEmployees, i.State })
-                        .ToList()
-                        .NTile(i => i.AverageEmployees, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0}", Format(i.Min(d => d.AverageEmployees.Value))),
-                            Max = string.Format("{0}", Format(i.Max(d => d.AverageEmployees.Value))),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0}", Format(i.Min)),
+                        Max = string.Format("{0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.AverageEmployees && i.Max >= e.Data.AverageEmployees).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Average Employees Per Business";
                 return View("Heatmap");
             }
         }
 
 
-        public ActionResult EmployeesPerCapita(int bands, int industryId, string levelOfDetail)
+        public ActionResult EmployeesPerCapita(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -450,79 +298,60 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (levelOfDetail == "zip")
+                var zips = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.EmployeesPerCapita.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.ZipCode)
                 {
-                    var entities = GetZipsInBounds(context).ToList();
-
-                    var data = GetZipCodeData(context, industryId)
-                        .Where(i => i.EmployeesPerCapita > 0)
-                        .Select(i => new { i.EmployeesPerCapita, i.ZipCode })
-                        .ToList()
-                        .NTile(i => i.EmployeesPerCapita, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0:G3}", i.Min(d => d.EmployeesPerCapita.Value)),
-                            Max = string.Format("{0:G3}", i.Max(d => d.EmployeesPerCapita.Value)),
-                            Items = i.Where(d => entities.Contains(d.ZipCode.Id)).Select(d => d.ZipCode.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = zips.Join(zipData, i => i.Id, o => o.ZipCodeId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0:G3}", Format(i.Min)),
+                        Max = string.Format("{0:G3}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.EmployeesPerCapita && i.Max >= e.Data.EmployeesPerCapita).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "Zip Code";
                 }
-                else if (levelOfDetail == "county")
+                else if (granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.EmployeesPerCapita > 0)
-                        .Select(i => new { i.EmployeesPerCapita, i.County })
-                        .ToList()
-                        .NTile(i => i.EmployeesPerCapita, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0:G3}", i.Min(d => d.EmployeesPerCapita.Value)),
-                            Max = string.Format("{0:G3}", i.Max(d => d.EmployeesPerCapita.Value)),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0:G3}", Format(i.Min)),
+                        Max = string.Format("{0:G3}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.EmployeesPerCapita && i.Max >= e.Data.EmployeesPerCapita).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if (granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.EmployeesPerCapita > 0)
-                        .Select(i => new { i.EmployeesPerCapita, i.State })
-                        .ToList()
-                        .NTile(i => i.EmployeesPerCapita, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0:G3}", i.Min(d => d.EmployeesPerCapita.Value)),
-                            Max = string.Format("{0:G3}", i.Max(d => d.EmployeesPerCapita.Value)),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0:G3}", Format(i.Min)),
+                        Max = string.Format("{0:G3}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.EmployeesPerCapita && i.Max >= e.Data.EmployeesPerCapita).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Employees Per Capita";
                 return View("Heatmap");
             }
         }
 
-        public ActionResult CostEffectiveness(int bands, int industryId, string levelOfDetail)
+        public ActionResult CostEffectiveness(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -530,58 +359,50 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-               if (levelOfDetail == "county")
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.CostEffectiveness.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.CostEffectiveness > 0)
-                        .Select(i => new { i.CostEffectiveness, i.County })
-                        .ToList()
-                        .NTile(i => i.CostEffectiveness, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0:G3}", i.Min(d => d.CostEffectiveness.Value)),
-                            Max = string.Format("{0:G3}", i.Max(d => d.CostEffectiveness.Value)),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0:G3}", Format(i.Min)),
+                        Max = string.Format("{0:G3}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.CostEffectiveness && i.Max >= e.Data.CostEffectiveness).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if (granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.CostEffectiveness > 0)
-                        .Select(i => new { i.CostEffectiveness, i.State })
-                        .ToList()
-                        .NTile(i => i.CostEffectiveness, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("{0:G3}", i.Min(d => d.CostEffectiveness.Value)),
-                            Max = string.Format("{0:G3}", i.Max(d => d.CostEffectiveness.Value)),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("{0:G3}", Format(i.Min)),
+                        Max = string.Format("{0:G3}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.CostEffectiveness && i.Max >= e.Data.CostEffectiveness).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Cost Effectiveness";
                 return View("Heatmap");
             }
         }
 
 
-        public ActionResult RevenuePerCapita(int bands, int industryId, string levelOfDetail)
+        public ActionResult RevenuePerCapita(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -589,79 +410,59 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (levelOfDetail == "zip")
+                var zips = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.RevenuePerCapita.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.ZipCode)
                 {
-                    var entities = GetZipsInBounds(context).ToList();
-
-                    var data = GetZipCodeData(context, industryId)
-                        .Where(i => i.RevenuePerCapita > 0)
-                        .Select(i => new { i.RevenuePerCapita, i.ZipCode })
-                        .ToList()
-                        .NTile(i => i.RevenuePerCapita, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.RevenuePerCapita.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.RevenuePerCapita.Value))),
-                            Items = i.Where(d => entities.Contains(d.ZipCode.Id)).Select(d => d.ZipCode.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = zips.Join(zipData, i => i.Id, o => o.ZipCodeId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.RevenuePerCapita && i.Max >= e.Data.RevenuePerCapita).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "Zip Code";
                 }
-                else if (levelOfDetail == "county")
+                else if (granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.RevenuePerCapita > 0)
-                        .Select(i => new { i.RevenuePerCapita, i.County })
-                        .ToList()
-                        .NTile(i => i.RevenuePerCapita, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.RevenuePerCapita.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.RevenuePerCapita.Value))),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.RevenuePerCapita && i.Max >= e.Data.RevenuePerCapita).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if (granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.RevenuePerCapita > 0)
-                        .Select(i => new { i.RevenuePerCapita, i.State })
-                        .ToList()
-                        .NTile(i => i.RevenuePerCapita, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.RevenuePerCapita.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.RevenuePerCapita.Value))),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.RevenuePerCapita && i.Max >= e.Data.RevenuePerCapita).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Revenue Per Capita";
                 return View("Heatmap");
             }
         }
 
-        public ActionResult TotalRevenue(int bands, int industryId, string levelOfDetail)
+        public ActionResult TotalRevenue(int bands, int industryId, long placeId, Granularity granularity, Granularity boundingGranularity)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -669,73 +470,54 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                if (levelOfDetail == "zip")
+                var zips = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
+                var counties = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
+                var states = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
+
+                var data = Core.DataLayer.TotalRevenue.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+
+
+                var zipData = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                var countyData = Core.DataLayer.Base.IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                var stateData = Core.DataLayer.Base.IndustryData.State(context).Where(i => i.IndustryId == industryId);
+
+
+                List<Band> output = new List<Band>();
+                if (granularity == Granularity.ZipCode)
                 {
-                    var entities = GetZipsInBounds(context).ToList();
-
-                    var data = GetZipCodeData(context, industryId)
-                        .Where(i => i.TotalRevenue > 0)
-                        .Select(i => new { i.TotalRevenue, i.ZipCode })
-                        .ToList()
-                        .NTile(i => i.TotalRevenue, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.TotalRevenue.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.TotalRevenue.Value))),
-                            Items = i.Where(d => entities.Contains(d.ZipCode.Id)).Select(d => d.ZipCode.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = zips.Join(zipData, i => i.Id, o => o.ZipCodeId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.TotalRevenue && i.Max >= e.Data.TotalRevenue).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "Zip Code";
                 }
-                else if (levelOfDetail == "county")
+                else if (granularity == Granularity.County)
                 {
-                    var entities = GetCountiesInBounds(context).ToList();
-
-                    var data = GetCountyData(context, industryId)
-                        .Where(i => i.TotalRevenue > 0)
-                        .Select(i => new { i.TotalRevenue, i.County })
-                        .ToList()
-                        .NTile(i => i.TotalRevenue, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.TotalRevenue.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.TotalRevenue.Value))),
-                            Items = i.Where(d => entities.Contains(d.County.Id)).Select(d => d.County.Name + " County, " + d.County.State.Abbreviation).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = counties.Join(countyData, i => i.Id, o => o.CountyId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.TotalRevenue && i.Max >= e.Data.TotalRevenue).Select(e => e.Entity.Name + " County, " + e.Entity.State.Abbreviation).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "County";
                 }
-                else if (levelOfDetail == "state")
+                else if (granularity == Granularity.State)
                 {
-                    var entities = GetStatesInBounds(context).ToList();
-
-                    var data = GetStateData(context, industryId)
-                        .Where(i => i.TotalRevenue > 0)
-                        .Select(i => new { i.TotalRevenue, i.State })
-                        .ToList()
-                        .NTile(i => i.TotalRevenue, bands)
-                        .ToList()
-                        .Select(i => new Band
-                        {
-                            Min = string.Format("${0}", Format(i.Min(d => d.TotalRevenue.Value))),
-                            Max = string.Format("${0}", Format(i.Max(d => d.TotalRevenue.Value))),
-                            Items = i.Where(d => entities.Contains(d.State.Id)).Select(d => d.State.Name).ToList()
-                        })
-                        .Reverse()
-                        .ToList();
-
-                    ViewBag.Bands = FormatBands(data);
+                    var entity = states.Join(stateData, i => i.Id, o => o.StateId, (i, o) => new { Entity = i, Data = o });
+                    output = data.Select(i => new Band
+                    {
+                        Min = string.Format("${0}", Format(i.Min)),
+                        Max = string.Format("${0}", Format(i.Max)),
+                        Items = entity.Where(e => i.Min <= e.Data.TotalRevenue && i.Max >= e.Data.TotalRevenue).Select(e => e.Entity.Name).ToList()
+                    }).ToList();
                     ViewBag.LevelOfDetail = "State";
                 }
-                ViewBag.BoundingEntity = GetBoundingEntityName(context);
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
                 ViewBag.Attribute = "Total Revenue";
                 return View("Heatmap");
             }

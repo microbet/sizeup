@@ -17,7 +17,7 @@
                 {
                     container: me.container,
                     inputValidation: /^[0-9\.]+$/g,
-                    inputCleaning: /[\$\,]/g,
+                    inputCleaning: /[\$\,]|\.[0-9]*/g,
                     events:
                     {
                         runReport: runReport,
@@ -93,7 +93,6 @@
 
 
 
-            me.noData = me.container.find('.noDataError').hide();
             me.reportData = me.container.find('.reportData');
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
@@ -289,8 +288,10 @@
             if (me.opts.report.CurrentPlace.Metro.Id != null) {
                 if (z <= 32 && z >= 8) {
                     data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.currentBoundingEntityId = 'm' + me.opts.report.CurrentPlace.Metro.Id;
-                    me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'Metro'
+                    };
                     dataLayer.getAverageSalaryBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -304,8 +305,10 @@
 
                 if (z <= 7 && z >= 5) {
                     data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
-                    me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getAverageSalaryBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -319,8 +322,10 @@
                 if (z <= 32 && z >= 5) {
 
                     data.title = 'Average Salary by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternativeUrl = '/accessibility/averageSalary/county/';
-                    me.data.currentBoundingEntityId = 's' + me.opts.report.CurrentPlace.State.Id;
+                    me.data.textAlternative = {
+                        granularity: 'County',
+                        boundingGranularity: 'State'
+                    };
                     dataLayer.getAverageSalaryBands({
                         placeId: me.opts.report.CurrentPlace.Id,
                         industryId: me.opts.report.CurrentIndustry.Id,
@@ -335,8 +340,10 @@
             if (z <= 4 && z >= 0) {
 
                 data.title = 'Average Salary by state in the USA';
-                me.data.textAlternativeUrl = '/accessibility/averageSalary/state/';
-                me.data.currentBoundingEntityId = null;
+                me.data.textAlternative = {
+                    granularity: 'State',
+                    boundingGranularity: 'Nation'
+                };
                 dataLayer.getAverageSalaryBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,
@@ -351,18 +358,15 @@
         };
 
         var textAlternativeClicked = function () {
-            var url = me.data.textAlternativeUrl;
-            var bounds = me.map.getBounds();
+            var url = '/accessibility/averageSalary/';
             var data = {
                 bands: 7,
                 industryId: me.opts.report.CurrentIndustry.Id,
-                boundingEntityId: me.data.currentBoundingEntityId,
-                southWest: bounds.getSouthWest().toString(),
-                northEast: bounds.getNorthEast().toString()
+                placeId: me.opts.report.CurrentPlace.Id,
+                granularity: me.data.textAlternative.granularity,
+                boundingGranularity: me.data.textAlternative.boundingGranularity
             };
-
             window.open(jQuery.param.querystring(url, data), '_blank');
-
         };
 
 
@@ -370,42 +374,36 @@
         var displayReport = function () {
 
             me.reportContainer.setGauge(me.data.gauge);
-            if (me.data.hasData) {
-                me.noData.hide();
-                me.reportData.show();
+  
+            me.reportData.show();
 
-                setHeatmap();
+            setHeatmap();
                 
-                me.chart = new sizeup.charts.barChart({
+            me.chart = new sizeup.charts.barChart({
 
-                    valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
-                    container: me.container.find('.chart .container'),
-                    title: 'average annual salary',
-                    bars: me.data.chart
-                });
-                me.chart.draw();
+                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
+                container: me.container.find('.chart .container'),
+                title: 'average annual salary',
+                bars: me.data.chart
+            });
+            me.chart.draw();
 
-                me.table = new sizeup.charts.tableChart({
-                    container: me.container.find('.table').hide(),
-                    rowTemplate: templates.get('tableRow'),
-                    rows:me.data.table
-                });
+            me.table = new sizeup.charts.tableChart({
+                container: me.container.find('.table').hide(),
+                rowTemplate: templates.get('tableRow'),
+                rows:me.data.table
+            });
 
 
-                me.data.description = {
-                    Percentage: me.data.gauge.tooltip,
-                    NAICS6: me.opts.report.CurrentIndustry.NAICS6,
-                    Salary: me.data.table['County'].value
-                };
+            me.data.description = {
+                Percentage: me.data.gauge.tooltip,
+                NAICS6: me.opts.report.CurrentIndustry.NAICS6,
+                Salary: me.data.table['Nation'].value
+            };
 
-                me.description.html(templates.bind(templates.get("description"), me.data.description));
+            me.description.html(templates.bind(templates.get("description"), me.data.description));
 
-            }
-            else {
-                me.noData.show();
-                me.reportData.hide();
-                me.reportContainer.hideGauge();
-            }
+           
         };
 
         var runReport = function (e) {
@@ -428,17 +426,16 @@
             dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
             dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
             dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
-            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
         var percentileDataReturned = function (data) {
-            if (data) {
-                me.data.hasData = true;
-                var val = 50 + (data.County.Percentage / 2);
-                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
+            if (data.Nation!=null) {
+                var val = 50 + (data.Nation.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.County.Percentage < 0 ? percentage + ' Below Average' : data.County.Percentage == 0 ? 'Average' : percentage + ' Above Average'
+                    tooltip: data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average'
                 };               
             }
             else {

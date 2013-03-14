@@ -145,9 +145,10 @@ namespace SizeUp.Core.DataLayer
                 Total = countyData.Count(),
                 Filtered = countyData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
             })
+            .Where(i=> currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()!=null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.Name + ", " + i.County.State.Abbreviation
             });
 
@@ -157,9 +158,10 @@ namespace SizeUp.Core.DataLayer
                 Total = metroData.Count(),
                 Filtered = metroData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
             })
+            .Where(i => currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.Metro.Name
             });
 
@@ -169,9 +171,10 @@ namespace SizeUp.Core.DataLayer
                 Total = stateData.Count(),
                 Filtered = stateData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
             })
+            .Where(i => currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = i.County.State.Name
             });
 
@@ -181,9 +184,10 @@ namespace SizeUp.Core.DataLayer
                 Total = nationData.Count(),
                 Filtered = nationData.Where(d => d.RevenuePerCapita <= currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault()).Count()
             })
+            .Where(i => currentCity.Select(v => v.RevenuePerCapita).FirstOrDefault() != null)
             .Select(i => new PercentileItem
             {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : null,
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
                 Name = "USA"
             });
 

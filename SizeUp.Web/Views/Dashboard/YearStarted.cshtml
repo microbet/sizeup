@@ -15,9 +15,6 @@
         <p class="message">Generating Report</p>
     </div>
     <div class="reportContainer ">
-         <div class="reportContent noDataError">
-            <p>Full analysis could not be completed because there is insufficient data for this industry in this city.</p>
-        </div>
         <div class="reportContent reportData">
             <h3>How you size up</h3>
             <p class="description">
@@ -42,11 +39,13 @@
                         <div class="labelBox"></div>
                         <label>County</label>
                     </li>
+                    @if(ViewBag.CurrentInfo.CurrentPlace.Metro.Id != null){
                     <li class="metro">
                         <input type="checkbox" checked="checked" value="Metro" />
                         <div class="labelBox"></div>
                         <label>Metro</label>
                     </li>
+                    }
                     <li class="state">
                         <input type="checkbox" checked="checked" value="State" />
                         <div class="labelBox"></div>

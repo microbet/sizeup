@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Collections.Specialized;
 using SizeUp.Data;
 using SizeUp.Core.Extensions;
-using SizeUp.Core.DataAccess;
 
 namespace SizeUp.Web.Controllers
 {

@@ -6,9 +6,7 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
-using SizeUp.Web.Areas.Api.Models;
 using SizeUp.Core;
-using SizeUp.Core.DataAccess;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.DataLayer.Base;
 

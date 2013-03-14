@@ -7,7 +7,6 @@ using SizeUp.Data;
 using System.Linq.Expressions;
 using System.Data.Objects.SqlClient;
 using Microsoft.SqlServer.Types;
-using SizeUp.Core.DataAccess;
 using System.Data.Spatial;
 
 using SizeUp.Core.Geo;
@@ -50,7 +49,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var centroid = Core.DataLayer.Geography.Centroid(context, placeId, Core.DataLayer.Base.Granularity.Place);
+                var centroid = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
 
                 var data = Core.DataLayer.Business.ListNear(context, centroid, industryIds)
                     .Where(i => i.Distance < radius)
