@@ -309,22 +309,12 @@
             getBestPlaces: function (params, callback) {
                 return get('/api/bestPlaces/', params, callback);
             },
-
-
-
-            getBestPlacesByCity: function (params, callback) {
-                return get('/api/bestPlaces/city/', params, callback);
-            },
-            getBestPlacesByCounty: function (params, callback) {
-                return get('/api/bestPlaces/county/', params, callback);
-            },
-            getBestPlacesByMetro: function (params, callback) {
-                return get('/api/bestPlaces/metro/', params, callback);
-            },
-            getBestPlacesByState: function (params, callback) {
-                return get('/api/bestPlaces/state/', params, callback);
+            getBestPlacesBands: function (params, callback) {
+                return get('/api/bestPlaces/bands/', params, callback);
             },
 
+
+           
 
             getBestPlacesBandsByCity: function (params, callback) {
                 return get('/api/bestPlaces/bands/city/', params, callback);

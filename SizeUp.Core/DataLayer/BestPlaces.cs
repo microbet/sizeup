@@ -170,6 +170,14 @@ namespace SizeUp.Core.DataLayer
             {
                 data = data.Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
             }
+            else if (filters.Attribute == "underservedMarkets")
+            {
+                data = data.Where(i => i.RevenuePerCapita != null && i.RevenuePerCapita > 0);
+            }
+            else if (filters.Attribute == "employeesPerCapita")
+            {
+                data = data.Where(i => i.EmployeesPerCapita != null && i.EmployeesPerCapita > 0);
+            }
             else if (filters.Attribute == "householdIncome")
             {
                 data = data.Where(i => i.HouseholdIncome != null && i.HouseholdIncome > 0);
@@ -236,6 +244,12 @@ namespace SizeUp.Core.DataLayer
                 case "revenuePerCapita":
                     data = data.OrderByDescending(i => i.RevenuePerCapita);
                     break;
+                case "underservedMarkets":
+                    data = data.OrderBy(i => i.RevenuePerCapita);
+                    break;
+                case "employeesPerCapita":
+                    data = data.OrderByDescending(i => i.EmployeesPerCapita);
+                    break;
                 case "householdIncome":
                     data = data.OrderByDescending(i => i.HouseholdIncome);
                     break;
@@ -293,32 +307,18 @@ namespace SizeUp.Core.DataLayer
             if (granularity == Granularity.City)
             {
                 var place = Core.DataLayer.Place.List(context);
-                var industry = Core.DataLayer.Base.IndustryData.City(context).Where(i => i.IndustryId == industryId).Select(i => new
+                var industry = Core.DataLayer.Base.IndustryData.City(context).Where(i => i.IndustryId == industryId);
+                var demographics = Core.DataLayer.Base.DemographicsData.City(context);
+                if (regionId != null)
                 {
-                    i.CityId,
-                    i.AverageEmployees,
-                    i.AverageRevenue,
-                    i.TotalEmployees,
-                    i.TotalRevenue,
-                    i.RevenuePerCapita,
-                    i.EmployeesPerCapita
-                }).Distinct();
-                var demographics = Core.DataLayer.Base.DemographicsData.City(context).Select(i => new
+                    demographics = demographics.Where(i => i.City.State.DivisionId == regionId);
+                    industry = industry.Where(i => i.City.State.DivisionId == regionId);
+                }
+                if (stateId != null)
                 {
-                    i.CityId,
-                    i.AirPortsWithinHalfMile,
-                    i.BachelorsOrHigherPercentage,
-                    i.BlueCollarWorkersPercentage,
-                    i.CommuteTime,
-                    i.HighSchoolOrHigherPercentage,
-                    i.AverageHouseholdExpenditure,
-                    i.MedianHouseholdIncome,
-                    i.MedianAge,
-                    i.TotalPopulation,
-                    i.UniversitiesWithinHalfMile,
-                    i.WhiteCollarWorkersPercentage,
-                    i.YoungEducatedPercentage
-                }).Distinct();
+                    demographics = demographics.Where(i => i.City.State.Id == stateId);
+                    industry = industry.Where(i => i.City.State.Id == stateId);
+                }
 
 
                 data = geography.Join(industry, i => i.Id, o => o.CityId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = o })
@@ -353,7 +353,16 @@ namespace SizeUp.Core.DataLayer
                 var place = Core.DataLayer.Place.ListCounty(context);
                 var industry = Core.DataLayer.Base.IndustryData.County(context).Where(i=>i.IndustryId == industryId);
                 var demographics = Core.DataLayer.Base.DemographicsData.County(context);
-
+                if (regionId != null)
+                {
+                    demographics = demographics.Where(i => i.County.State.DivisionId == regionId);
+                    industry = industry.Where(i => i.County.State.DivisionId == regionId);
+                }
+                if (stateId != null)
+                {
+                    demographics = demographics.Where(i => i.County.State.Id == stateId);
+                    industry = industry.Where(i => i.County.State.Id == stateId);
+                }
 
                 data = geography.Join(industry, i => i.Id, o => o.CountyId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = o })
                     .Join(demographics, i => i.Id, o => o.CountyId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = i.IndustryData, Demographics = o })
@@ -387,7 +396,16 @@ namespace SizeUp.Core.DataLayer
                 var place = Core.DataLayer.Place.ListMetro(context);
                 var industry = Core.DataLayer.Base.IndustryData.Metro(context).Where(i=>i.IndustryId == industryId);
                 var demographics = Core.DataLayer.Base.DemographicsData.Metro(context);
-
+                if (regionId != null)
+                {
+                    demographics = demographics.Where(i => i.Metro.Counties.Any(co => co.State.DivisionId == regionId));
+                    industry = industry.Where(i => i.Metro.Counties.Any(co => co.State.DivisionId == regionId));
+                }
+                if (stateId != null)
+                {
+                    demographics = demographics.Where(i => i.Metro.Counties.Any(co => co.State.Id == stateId));
+                    industry = industry.Where(i => i.Metro.Counties.Any(co => co.State.Id == stateId));
+                }
 
                 data = geography.Join(industry, i => i.Id, o => o.MetroId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = o })
                     .Join(demographics, i => i.Id, o => o.MetroId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = i.IndustryData, Demographics = o })
@@ -421,6 +439,17 @@ namespace SizeUp.Core.DataLayer
                 var place = Core.DataLayer.Place.ListState(context);
                 var industry = Core.DataLayer.Base.IndustryData.State(context).Where(i=>i.IndustryId == industryId);
                 var demographics = Core.DataLayer.Base.DemographicsData.State(context);
+                if (regionId != null)
+                {
+                    demographics = demographics.Where(i => i.State.DivisionId == regionId);
+                    industry = industry.Where(i => i.State.DivisionId == regionId);
+                }
+                if (stateId != null)
+                {
+                    demographics = demographics.Where(i => i.State.Id == stateId);
+                    industry = industry.Where(i => i.State.Id == stateId);
+                }
+
 
                 data = geography.Join(industry, i => i.Id, o => o.StateId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = o })
                     .Join(demographics, i => i.Id, o => o.StateId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = i.IndustryData, Demographics = o })
@@ -450,7 +479,7 @@ namespace SizeUp.Core.DataLayer
                     });
             }
 
-            data = FilterQuery(data.Distinct(), filters);
+            data = FilterQuery(data, filters);
 
             IQueryable<Models.BestPlacesOutput> output = new List<Models.BestPlacesOutput>().AsQueryable();
             switch (filters.Attribute)
@@ -462,10 +491,10 @@ namespace SizeUp.Core.DataLayer
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         TotalRevenue = bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.TotalRevenue >= b.Min && i.TotalRevenue <= b.Max).Select(b =>
-                            new Band<long>()
+                            new Band<double>()
                             {
-                                Min = (long)b.Min,
-                                Max = (long)b.Max
+                                Min = (double)b.Min,
+                                Max = (double)b.Max
                             }
                         ).FirstOrDefault()
                     });
@@ -477,10 +506,10 @@ namespace SizeUp.Core.DataLayer
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         AverageRevenue = bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.AverageRevenue.Value, -3) <= b.Max).Select(b =>
-                             new Band<long>()
+                             new Band<double>()
                              {
-                                 Min = (long)b.Min,
-                                 Max = (long)b.Max
+                                 Min = (double)b.Min,
+                                 Max = (double)b.Max
                              }
                         ).FirstOrDefault()
                     });
@@ -492,14 +521,29 @@ namespace SizeUp.Core.DataLayer
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         RevenuePerCapita = bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.RevenuePerCapita >= b.Min && i.RevenuePerCapita <= b.Max).Select(b =>
-                             new Band<long>()
+                             new Band<double>()
                              {
-                                 Min = (long)b.Min,
-                                 Max = (long)b.Max
+                                 Min = (double)b.Min,
+                                 Max = (double)b.Max
                              }
                         ).FirstOrDefault()
                     });
-                    break;               
+                    break;
+                case "underservedMarkets":
+                    output = data.Select(i => new Models.BestPlacesOutput
+                    {
+                        Place = i.Place,
+                        Centroid = i.Centroid,
+                        BoundingBox = i.BoundingBox,
+                        RevenuePerCapita = bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.RevenuePerCapita >= b.Min && i.RevenuePerCapita <= b.Max).Select(b =>
+                             new Band<double>()
+                             {
+                                 Min = (double)b.Min,
+                                 Max = (double)b.Max
+                             }
+                        ).FirstOrDefault()
+                    });
+                    break;     
                 case "totalEmployees":
                     output = data.Select(i => new Models.BestPlacesOutput
                     {
@@ -507,10 +551,10 @@ namespace SizeUp.Core.DataLayer
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         TotalEmployees = bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.TotalEmployees >= b.Min && i.TotalEmployees <= b.Max).Select(b =>
-                             new Band<long>()
+                             new Band<double>()
                              {
-                                 Min = (long)b.Min,
-                                 Max = (long)b.Max
+                                 Min = (double)b.Min,
+                                 Max = (double)b.Max
                              }
                         ).FirstOrDefault()
                     });
@@ -522,10 +566,10 @@ namespace SizeUp.Core.DataLayer
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         AverageEmployees = bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.AverageEmployees >= b.Min && i.AverageEmployees <= b.Max).Select(b =>
-                             new Band<long>()
+                             new Band<double>()
                              {
-                                 Min = (long)b.Min,
-                                 Max = (long)b.Max
+                                 Min = (double)b.Min,
+                                 Max = (double)b.Max
                              }
                         ).FirstOrDefault()
                     });
@@ -545,6 +589,71 @@ namespace SizeUp.Core.DataLayer
                         ).FirstOrDefault()
                     });
                     break;
+            }
+            return output;
+        }
+
+        public static List<Models.Band<double>> Bands(SizeUpContext context, long industryId, string attribute, int itemCount, int bands, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
+        {
+            var data = Get(context, industryId, attribute, regionId, stateId, filters, granularity)
+                .Take(itemCount)
+                .ToList();
+
+            List<Models.Band<double>> output = new List<Models.Band<double>>();
+            switch (filters.Attribute)
+            {
+                case "totalRevenue":
+                    output = data.NTile(i => i.TotalRevenue.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.TotalRevenue.Min), Max = b.Max(i => i.TotalRevenue.Max) })
+                       .ToList();
+                    break;
+                case "averageRevenue":
+                    output = data.NTile(i => i.AverageRevenue.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.AverageRevenue.Min), Max = b.Max(i => i.AverageRevenue.Max) })
+                       .ToList();
+                    break;
+                case "revenuePerCapita":
+                    output = data.NTile(i => i.RevenuePerCapita.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
+                       .ToList();
+                    break;
+                case "underservedMarkets":
+                    output = data.NTile(i => i.RevenuePerCapita.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
+                       .ToList();
+                    break;
+                case "totalEmployees":
+                    output = data.NTile(i => i.TotalEmployees.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.TotalEmployees.Min), Max = b.Max(i => i.TotalEmployees.Max) })
+                       .ToList();
+                    break;
+                case "averageEmployees":
+                    output = data.NTile(i => i.AverageEmployees.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.AverageEmployees.Min), Max = b.Max(i => i.AverageEmployees.Max) })
+                       .ToList();
+                    break;
+                case "employeesPerCapita":
+                    output = data.NTile(i => i.EmployeesPerCapita.Max, bands)
+                       .Select(b => new Models.Band<double>() { Min = b.Min(i => i.EmployeesPerCapita.Min), Max = b.Max(i => i.EmployeesPerCapita.Max) })
+                       .ToList();
+                    break;
+            }
+
+           
+
+
+            Models.Band<double> old = null;
+            foreach (Models.Band<double> band in output)
+            {
+                if (old != null)
+                {
+                    old.Max = band.Min;
+                }
+                old = band;
+            }
+            if (filters.Attribute != "underservedMarkets")
+            {
+                output.Reverse();
             }
             return output;
         }

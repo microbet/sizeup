@@ -14,5 +14,6 @@ namespace SizeUp.Core.DataLayer.Models
         public County County { get; set; }
         public Metro Metro { get; set; }
         public State State { get; set; }
+        public Division Region { get; set; }
     }
 }

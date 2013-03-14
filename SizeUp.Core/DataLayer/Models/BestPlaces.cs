@@ -39,11 +39,11 @@ namespace SizeUp.Core.DataLayer.Models
         public Models.Place Place { get; set; }
         public Core.Geo.LatLng Centroid { get; set; }
         public Core.Geo.BoundingBox BoundingBox { get; set; }
-        public Band<long> TotalRevenue { get; set; }
-        public Band<long> TotalEmployees { get; set; }
-        public Band<long> AverageRevenue { get; set; }
-        public Band<long> AverageEmployees { get; set; }
-        public Band<long> RevenuePerCapita { get; set; }
+        public Band<double> TotalRevenue { get; set; }
+        public Band<double> TotalEmployees { get; set; }
+        public Band<double> AverageRevenue { get; set; }
+        public Band<double> AverageEmployees { get; set; }
+        public Band<double> RevenuePerCapita { get; set; }
         public Band<double> EmployeesPerCapita { get; set; }
 
     }

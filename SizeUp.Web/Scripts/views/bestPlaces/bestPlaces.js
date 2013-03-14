@@ -610,8 +610,8 @@
                 me.data.xhr['bands'] = null;
 
                 bindList(reportData.list);
-                //bindBands(formatBands(reportData.bands));
-                //bindMap(reportData);
+                bindBands(formatBands(reportData.bands));
+                bindMap(reportData);
                
 
                 me.content.loader.hide();
@@ -632,85 +632,35 @@
                 me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCityList(data);
                 }));
-                /*
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCity(params, notifier.getNotifier(function (data) {
+                
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
-                }));*/
+                }));
             }
             else if (params.placeType == 'county') {
-                me.data.xhr['list'] = dataLayer.getBestPlacesBy(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCountyList(data);
                 }));
-                /*
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCounty(params, notifier.getNotifier(function (data) {
+                
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
-                }));*/
+                }));
             }
             else if (params.placeType == 'metro') {
                 me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatMetroList(data);
                 }));
 
-                /*
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByMetro(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
-                }));*/
+                }));
             }
             else if (params.placeType == 'state') {
                 me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatStateList(data);
                 }));
 
-                /*
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByState(params, notifier.getNotifier(function (data) {
-                    reportData.bands = data;
-                }));*/
-            }
-            else {
-                notifier.getNotifier(function () {
-                    reportData.list = [];
-                    reportData.bands = [];
-                })();
-            }
-
-
-
-
-
-            /*
-            if (params.placeType == 'city') {
-                me.data.xhr['list'] = dataLayer.getBestPlacesByCity(params, notifier.getNotifier(function (data) {
-                    reportData.list = formatCityList(data);
-                }));
-
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCity(params, notifier.getNotifier(function (data) {
-                    reportData.bands = data;
-                }));
-            }
-            else if (params.placeType == 'county') {
-                me.data.xhr['list'] = dataLayer.getBestPlacesByCounty(params, notifier.getNotifier(function (data) {
-                    reportData.list = formatCountyList(data);
-                }));
-
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByCounty(params, notifier.getNotifier(function (data) {
-                    reportData.bands = data;
-                }));
-            }
-            else if (params.placeType == 'metro') {
-                me.data.xhr['list'] = dataLayer.getBestPlacesByMetro(params, notifier.getNotifier(function (data) {
-                    reportData.list = formatMetroList(data);
-                }));
-
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByMetro(params, notifier.getNotifier(function (data) {
-                    reportData.bands = data;
-                }));
-            }
-            else if (params.placeType == 'state') {
-                me.data.xhr['list'] = dataLayer.getBestPlacesByState(params, notifier.getNotifier(function (data) {
-                    reportData.list = formatStateList(data);
-                }));
-
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBandsByState(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
@@ -719,7 +669,7 @@
                     reportData.list = [];
                     reportData.bands = [];
                 })();
-            }*/
+            }
         };
 
         var bindList = function (data) {
@@ -747,7 +697,7 @@
                 };
 
                 if (params.attribute != 'underservedMarkets') {
-                    d.label = x == data.length - 1 ? data[x].Max + ' and below' : data[x].Max + ' - ' + data[x].Min;
+                    d.label = x == data.length - 1 ? data[x].Max + ' and below' : data[x].Min + ' - ' + data[x].Max;
                 }
                 else {
                     d.label = x == data.length - 1 ? data[x].Min + ' and above' : data[x].Min + ' - ' + data[x].Max;

@@ -45,6 +45,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 })
                 .FirstOrDefault();
@@ -85,6 +91,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 })
                 .FirstOrDefault();
@@ -125,6 +137,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 })
                 .FirstOrDefault();
@@ -168,6 +186,12 @@ namespace SizeUp.Core.DataLayer
                             Abbreviation = i.County.State.Abbreviation,
                             Name = i.County.State.Name,
                             SEOKey = i.County.State.SEOKey
+                        },
+                        Region = new Models.Division
+                        {
+                            Id = i.County.State.Division.Id,
+                            RegionName = i.County.State.Division.Region.Name,
+                            Name = i.County.State.Division.Name
                         }
                     })
                     .FirstOrDefault();
@@ -203,6 +227,12 @@ namespace SizeUp.Core.DataLayer
                             Abbreviation = i.County.State.Abbreviation,
                             Name = i.County.State.Name,
                             SEOKey = i.County.State.SEOKey
+                        },
+                        Region = new Models.Division
+                        {
+                            Id = i.County.State.Division.Id,
+                            RegionName = i.County.State.Division.Region.Name,
+                            Name = i.County.State.Division.Name
                         }
                     })
                     .FirstOrDefault();
@@ -232,6 +262,12 @@ namespace SizeUp.Core.DataLayer
                             Abbreviation = i.County.State.Abbreviation,
                             Name = i.County.State.Name,
                             SEOKey = i.County.State.SEOKey
+                        },
+                        Region = new Models.Division
+                        {
+                            Id = i.County.State.Division.Id,
+                            RegionName = i.County.State.Division.Region.Name,
+                            Name = i.County.State.Division.Name
                         }
                     })
                     .FirstOrDefault();
@@ -279,6 +315,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.Entity.County.State.Abbreviation,
                         Name = i.Entity.County.State.Name,
                         SEOKey = i.Entity.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.Entity.County.State.Division.Id,
+                        RegionName = i.Entity.County.State.Division.Region.Name,
+                        Name = i.Entity.County.State.Division.Name
                     }
                 }
             });
@@ -319,6 +361,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 })
                 .ToList();
@@ -359,6 +407,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 })
                 .ToList();
@@ -398,6 +452,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 });
             return data;
@@ -430,6 +490,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 }).Distinct();
             return data;
@@ -481,6 +547,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 }).Distinct();
             return data;
@@ -551,6 +623,12 @@ namespace SizeUp.Core.DataLayer
                         Abbreviation = i.County.State.Abbreviation,
                         Name = i.County.State.Name,
                         SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
                     }
                 });
 

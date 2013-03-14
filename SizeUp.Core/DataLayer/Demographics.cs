@@ -15,9 +15,9 @@ namespace SizeUp.Core.DataLayer
     {
         public static Models.Demographics Get(SizeUpContext context, long id, Granularity granularity)
         {
-            Models.Demographics output = null;
-            var data = Get(context, granularity)
-                .Where(i => i.Id == id);
+            Models.Demographics output = Get(context, granularity)
+                .Where(i => i.Id == id)
+                .FirstOrDefault();
             return output;
         }
 
