@@ -136,6 +136,10 @@
         <EntityTypeShape EntityType="SizeUp.Data.Attribute" Width="1.5" PointX="0.5" PointY="18.625" />
         <EntityTypeShape EntityType="SizeUp.Data.Band" Width="1.5" PointX="0.5" PointY="20.75" />
         <AssociationConnector Association="SizeUp.Data.FK_Band_Attribute" />
+        <EntityTypeShape EntityType="SizeUp.Data.PlaceGeography" Width="1.75" PointX="17.25" PointY="14.625" />
+        <AssociationConnector Association="SizeUp.Data.FK_PlaceGeography_Place" />
+        <AssociationConnector Association="SizeUp.Data.FK_PlaceGeography_Geography" />
+        <AssociationConnector Association="SizeUp.Data.FK_PlaceGeography_GeographyClass" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

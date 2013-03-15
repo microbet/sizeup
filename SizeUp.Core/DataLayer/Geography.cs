@@ -36,15 +36,15 @@ namespace SizeUp.Core.DataLayer
                     Value = i.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography).FirstOrDefault(),
                     Key = i.Id
                 });
-            /*
+            
             var place = context.CityCountyMappings
                 .Select(i => new KeyValue<long, Data.Geography>
                 {
-                    Key = i.City.CityGeographies.Where(cg => cg.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(cg => cg.Geography.GeographyPolygon).FirstOrDefault().Intersection(i.County.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography.GeographyPolygon).FirstOrDefault()),
-                    Value = i.Id
+                    Value = i.PlaceGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography).FirstOrDefault(),
+                    Key = i.Id
                 });
 
-            */
+            
             var metro = context.Metroes
                 .Select(i => new KeyValue<long, Data.Geography>
                 {
@@ -79,10 +79,10 @@ namespace SizeUp.Core.DataLayer
             {
                 output = state;
             }
-           /* else if (granularity == Granularity.Place)
+            else if (granularity == Granularity.Place)
             {
                 output = place;
-            }*/
+            }
             return output;
         }
 
