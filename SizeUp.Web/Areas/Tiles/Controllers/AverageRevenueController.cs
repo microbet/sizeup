@@ -70,7 +70,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
                 var list = values.ToList();
 
-                var validValues = list
+                var validValues = list                    
                     .Where(i => i.Value != null && i.Value > 0)
                     .NTile(i => i.Value, colors.Length)
                     .Select((i, index) => i.Where(g=>g.Key!= null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
@@ -78,7 +78,8 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .ToList();
 
                 var invalidValues = list
-                    .Where(i => i.Value == null || i.Value <= 0 && i.Key !=null)
+                    .Where(i => i.Value == null || i.Value <= 0)
+                    .Where(i=>i.Key !=null)
                     .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();
 

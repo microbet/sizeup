@@ -68,7 +68,8 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                     .ToList();
 
                 var invalidValues = list
-                    .Where(i => i.Value == null || i.Value <= 0 && i.Key != null)
+                    .Where(i => i.Value == null || i.Value <= 0)
+                    .Where(i => i.Key != null)
                     .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();
 
