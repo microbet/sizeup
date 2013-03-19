@@ -41,7 +41,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 IQueryable<KeyValue<DbGeography, long?>> entity = new List<KeyValue<DbGeography, long?>>().AsQueryable();
                 if (granularity == Granularity.City)
                 {
-                    entity = context.Cities.Where(i=>i.Id == id)
+                    entity = Core.DataLayer.Base.City.Get(context).Where(i=>i.Id == id)
                         .Select(i=> new KeyValue<DbGeography, long?>
                         {
                             Key = i.CityGeographies.Where(g=>g.GeographyClass.Name == Core.Geo.GeographyClass.Display)

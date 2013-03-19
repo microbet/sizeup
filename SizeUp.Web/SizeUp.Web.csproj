@@ -258,6 +258,7 @@
     <Content Include="Content\images\mybusiness.png" />
     <Content Include="Content\images\mybusinessSmall.png" />
     <Content Include="Content\images\onoff.png" />
+    <Content Include="Content\images\pencil.png" />
     <Content Include="Content\images\pinShadow.png" />
     <Content Include="Content\images\PinTemplate.png" />
     <Content Include="Content\images\SizeUp.png" />

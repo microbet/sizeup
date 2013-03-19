@@ -23,7 +23,7 @@ namespace SizeUp.Core.DataLayer
                    Key = i.Id
                });
 
-            var city = context.Cities
+            var city = Base.City.Get(context)
                .Select(i => new KeyValue<long, Data.Geography>
                {
                    Value = i.CityGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Calculation).Select(g => g.Geography).FirstOrDefault(),

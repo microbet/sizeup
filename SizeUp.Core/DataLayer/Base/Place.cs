@@ -14,13 +14,12 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<Data.CityCountyMapping> Get(SizeUpContext context)
         {
             var data = context.CityCountyMappings
-                       .Where(d => d.City.CityType.IsActive);
+                       .Where(d => d.City.CityType.IsActive && d.City.IsActive);
             return data;
         }
 
         public static IQueryable<Models.Base.DistanceEntity<Data.CityCountyMapping>> Distance(SizeUpContext context, Core.Geo.LatLng latLng)
         {
-            var scalar = 69.1 * System.Math.Cos(latLng.Lat / 57.3);
             var centroids = Core.DataLayer.Geography.Centroid(context, Granularity.Place);
             var data = Get(context).Join(centroids, i=>i.Id, o=>o.Key, (i,o)=> new { Centroid = o.Value, Place = i})
                        .Select(i=> new 
@@ -30,7 +29,7 @@ namespace SizeUp.Core.DataLayer.Base
                        })
                        .Select(i => new Models.Base.DistanceEntity<Data.CityCountyMapping>
                        {
-                           Distance = System.Math.Pow(System.Math.Pow(((double)i.LatLng.Lat - latLng.Lat) * 69.1, 2) + System.Math.Pow(((double)i.LatLng.Lng - latLng.Lng) * scalar, 2), 0.5),
+                           Distance = System.Math.Pow(System.Math.Pow(((double)i.LatLng.Lat - latLng.Lat) * 69.1, 2) + System.Math.Pow(((double)i.LatLng.Lng - latLng.Lng) * (double)(System.Data.Objects.SqlClient.SqlFunctions.Cos(latLng.Lat / 57.3) * 69.1), 2), 0.5),
                            Entity = i.Entity
                        });
             return data;
@@ -39,7 +38,7 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<Data.PlaceKeyword> Keywords(SizeUpContext context)
         {
             var data = context.PlaceKeywords
-                       .Where(d => d.CityCountyMapping.City.CityType.IsActive);
+                       .Where(d => d.CityCountyMapping.City.CityType.IsActive && d.CityCountyMapping.City.IsActive);
             return data;
         }
     }

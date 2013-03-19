@@ -28,7 +28,11 @@
                         //valueChanged: function () { }
                     },
                     inputFormat: function (val) {
-                        return sizeup.util.numbers.format.percentage(val,0);
+                        if (isNaN(val)) {
+                            return 'N/A';
+                        } else {
+                            return sizeup.util.numbers.format.percentage(val, 0);
+                        }
                     }
                 });
 

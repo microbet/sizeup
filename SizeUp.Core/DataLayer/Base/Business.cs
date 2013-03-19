@@ -19,13 +19,12 @@ namespace SizeUp.Core.DataLayer.Base
         }
 
         public static IQueryable<Models.Base.DistanceEntity<Data.Business>> Distance(SizeUpContext context, LatLng latLng)
-        {
-            var scalar = 69.1 * System.Math.Cos(latLng.Lat / 57.3);
+        {           
             var data = Get(context)
                        .Where(i=> i.MatchLevel == "0")
                        .Select(i => new Models.Base.DistanceEntity<Data.Business>
                        {
-                           Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - latLng.Lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - latLng.Lng) * scalar, 2), 0.5),
+                           Distance = System.Math.Pow(System.Math.Pow(((double)i.Lat.Value - latLng.Lat) * 69.1, 2) + System.Math.Pow(((double)i.Long.Value - latLng.Lng) * (double)(System.Data.Objects.SqlClient.SqlFunctions.Cos(latLng.Lat / 57.3) * 69.1), 2), 0.5),
                            Entity = i
                        });
             return data;

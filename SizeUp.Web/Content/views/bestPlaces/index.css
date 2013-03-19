@@ -5,7 +5,7 @@
 
 
 #bestPlaces h3 {margin:0.5em 0 0.25em 1em; display:inline-block;  }
-#bestPlaces .filterLabels {margin:0 1em 2em; text-align:left; }
+#bestPlaces .filterLabels {margin:0 1em; text-align:left; }
 #bestPlaces .filterLabels .fixed {display:inline-block; font-size: 1.3em; margin:0 0 0.5em; }
 #bestPlaces .filterLabels .editable {display:block; font-size:1.3em; padding: 0.25em 2.5em 0.25em 0.75em; background-color:#eee; width:29em; margin: 0.5em 0;position:relative;}
 #bestPlaces .filterLabels .editable a {height:14px; width:14px; color: transparent; background:transparent url(/content/images/btn_close.png) no-repeat 0 0; position:absolute; right:0.5em; top:0.45em;  }
