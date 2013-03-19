@@ -38,7 +38,10 @@ namespace SizeUp.Web.Controllers
             {
                 ViewBag.State = CurrentInfo.CurrentPlace.State;
 
-                var data = Core.DataLayer.Place.ListInState(context, CurrentInfo.CurrentPlace.State.Id.Value).ToList();
+                var places = Core.DataLayer.Place.List(context).Where(i => i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
+                var businessData = Core.DataLayer.Base.BusinessData.City(context);
+                var data = places.Where(i => businessData.Any(d => d.CityId == i.City.Id)).ToList();
+
                 data.ForEach(i => i.DisplayName = data.Count(s => s.City.Name == i.City.Name && s.County.Name == i.County.Name) > 1 ? (i.County.Name + " County - " + i.City.TypeName) : (i.County.Name + " County"));
                 var groups = data
                     .OrderBy(i => i.City.Name)

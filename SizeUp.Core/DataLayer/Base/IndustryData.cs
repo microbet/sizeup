@@ -14,42 +14,42 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<IndustryDataByZip> ZipCode(SizeUpContext context)
         {
             var data = context.IndustryDataByZips
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive);
             return data;
         }
 
         public static IQueryable<IndustryDataByCity> City(SizeUpContext context)
         {
             var data = context.IndustryDataByCities
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive);
             return data;
         }
 
         public static IQueryable<IndustryDataByCounty> County(SizeUpContext context)
         {
             var data = context.IndustryDataByCounties
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive);
             return data;
         }
 
         public static IQueryable<IndustryDataByMetro> Metro(SizeUpContext context)
         {
             var data = context.IndustryDataByMetroes
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive);
             return data;
         }
 
         public static IQueryable<IndustryDataByState> State(SizeUpContext context)
         {
             var data = context.IndustryDataByStates
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive);
             return data;
         }
 
         public static IQueryable<IndustryDataByNation> Nation(SizeUpContext context)
         {
             var data = context.IndustryDataByNations
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive);
             return data;
         }
 
