@@ -18,5 +18,10 @@ namespace SizeUp.Core.DataLayer.Base
             }
             return output;
         }
+
+        public static IQueryable<Data.State> Get(SizeUpContext context)
+        {
+            return context.States;
+        }
     }
 }

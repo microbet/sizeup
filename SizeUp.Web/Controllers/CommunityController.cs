@@ -51,7 +51,13 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult MetroCommunity(string metro)
         {
-            return View();
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                CurrentInfo.CurrentPlace = Core.DataLayer.Place.Get(context, null, null, null, metro);
+                ViewBag.CurrentInfo = CurrentInfo;
+                ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
+                return View();
+            }
         }
 
         public ActionResult StateCommunity(string state)

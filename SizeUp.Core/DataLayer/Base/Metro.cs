@@ -9,5 +9,9 @@ namespace SizeUp.Core.DataLayer.Base
 {
     public class Metro
     {
+        public static IQueryable<Data.Metro> Get(SizeUpContext context)
+        {
+            return context.Metroes;
+        }
     }
 }
