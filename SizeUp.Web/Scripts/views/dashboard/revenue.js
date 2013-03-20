@@ -315,7 +315,7 @@
                     granularity: 'ZipCode',
                     boundingGranularity: 'County'
                 };
-                me.data.textAlternativeUrl = '/accessibility/revenue/zip/';
+     
                 dataLayer.getAverageRevenueBands({
                     placeId: me.opts.report.CurrentPlace.Id,
                     industryId: me.opts.report.CurrentIndustry.Id,

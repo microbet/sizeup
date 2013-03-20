@@ -4,7 +4,6 @@
     window.sizeup.core.data = function () {
 
         jQuery.ajaxSettings.traditional = true;
-
         var get = function (url, params, callback) {
             return $.get(url, params, 'json')
             .success(function (data, status) {

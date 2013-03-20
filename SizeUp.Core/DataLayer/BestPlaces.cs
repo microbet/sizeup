@@ -154,7 +154,7 @@ namespace SizeUp.Core.DataLayer
 
             if (filters.CommuteTime != null)
             {
-                data = data.Where(i => i.CommuteTime >= filters.CommuteTime);
+                data = data.Where(i => i.CommuteTime <= filters.CommuteTime);
             }
 
 

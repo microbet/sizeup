@@ -25,7 +25,8 @@
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
 
-        dataLayer.getCentroid({ id: opts.currentInfo.CurrentPlace.Id, granularity : 'Place' }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }));
+        dataLayer.getCentroid({ id: opts.currentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }));
+        dataLayer.getBoundingBox({ id: opts.currentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
         dataLayer.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
@@ -56,46 +57,40 @@
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
 
-            me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-            me.reports['yearStarted'] = new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-            me.reports['salary'] = new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+            me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+            me.reports['yearStarted'] = new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+            me.reports['salary'] = new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
             if (me.opts.isAuthenticated) {
-                me.reports['employees'] = new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-                me.reports['costEffectiveness'] = new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-                me.reports['healthcareCost'] = new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-                me.reports['workersComp'] = new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-                me.reports['revenuePerCapita'] = new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
-                me.reports['turnover'] = new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.currentInfo, centroid: me.opts.MapCenter });
+                me.reports['employees'] = new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+                me.reports['costEffectiveness'] = new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+                me.reports['healthcareCost'] = new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+                me.reports['workersComp'] = new sizeup.views.dashboard.workersComp({ container: $('#workersComp'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+                me.reports['revenuePerCapita'] = new sizeup.views.dashboard.revenuePerCapita({ container: $('#revenuePerCapita'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
+                me.reports['turnover'] = new sizeup.views.dashboard.turnover({ container: $('#turnover'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
             }
             else {
                 me.signinPanels['employees'] = new sizeup.views.shared.signin({
-                    container: me.container.find('#employees .signinPanel.form')//,
-                    //toggle: me.container.find('#employees .header')
+                    container: me.container.find('#employees .signinPanel.form')
                 });
                 
                 me.signinPanels['costEffectiveness'] = new sizeup.views.shared.signin({
-                    container: me.container.find('#costEffectiveness .signinPanel.form')//,
-                   // toggle: me.container.find('#costEffectiveness .header')
+                    container: me.container.find('#costEffectiveness .signinPanel.form')
                 });
 
                 me.signinPanels['healthcareCost'] = new sizeup.views.shared.signin({
-                    container: me.container.find('#healthcareCost .signinPanel.form')//,
-                    //toggle: me.container.find('#healthcareCost .header')
+                    container: me.container.find('#healthcareCost .signinPanel.form')
                 });
 
                 me.signinPanels['workersComp'] = new sizeup.views.shared.signin({
-                    container: me.container.find('#workersComp .signinPanel.form')//,
-                    //toggle: me.container.find('#workersComp .header')
+                    container: me.container.find('#workersComp .signinPanel.form')
                 });
 
                 me.signinPanels['revenuePerCapita'] = new sizeup.views.shared.signin({
-                    container: me.container.find('#revenuePerCapita .signinPanel.form')//,
-                    //toggle: me.container.find('#revenuePerCapita .header')
+                    container: me.container.find('#revenuePerCapita .signinPanel.form')
                 });
 
                 me.signinPanels['turnover'] = new sizeup.views.shared.signin({
-                    container: me.container.find('#turnover .signinPanel.form')//,
-                    //toggle: me.container.find('#turnover .header')
+                    container: me.container.find('#turnover .signinPanel.form')
                 });
 
 
