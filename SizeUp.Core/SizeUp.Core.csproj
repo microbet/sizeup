@@ -90,6 +90,7 @@
     <Compile Include="DataLayer\Models\AdvertisingFilters.cs" />
     <Compile Include="DataLayer\Models\BestPlaces.cs" />
     <Compile Include="DataLayer\Models\BestPlacesFilters.cs" />
+    <Compile Include="DataLayer\Models\ZoomExtent.cs" />
     <Compile Include="DataLayer\Models\Division.cs" />
     <Compile Include="DataLayer\Models\NAICS.cs" />
     <Compile Include="DataLayer\State.cs" />

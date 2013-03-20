@@ -164,6 +164,10 @@
             me.legend = null;
         };
 
+        var getWidth = function () {
+            return me.container.width();
+        };
+
 
         var publicObj = {
             getContainer: function () {
@@ -219,6 +223,9 @@
             },
             clearLegend: function () {
                 clearLegend();
+            },
+            getWidth: function () {
+                return getWidth();
             }
 
         };
