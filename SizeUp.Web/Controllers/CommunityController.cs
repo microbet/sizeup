@@ -105,7 +105,7 @@ namespace SizeUp.Web.Controllers
                 var places = Core.DataLayer.Place.List(context).Where(i=>i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
                 var industryData = Core.DataLayer.Base.IndustryData.City(context);
 
-                var data = places.Where(i => industryData.Any(d => d.CityId == i.City.Id)).ToList();
+                var data = places.Where(i => industryData.Where(d => d.CityId == i.City.Id).Count() > 0).ToList();
 
                 data.ForEach(i => i.DisplayName = data.Count(s => s.City.Name == i.City.Name && s.County.Name == i.County.Name) > 1 ? (i.County.Name + " County - " + i.City.TypeName) : (i.County.Name + " County"));
                 var groups = data
