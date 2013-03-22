@@ -10,6 +10,14 @@ namespace SizeUp.Core.DataLayer.Base
 {
     public class BusinessData : Base
     {
+        public static IQueryable<BusinessDataByZip> ZipCode(SizeUpContext context)
+        {
+            var data = context.BusinessDataByZips
+                       .Where(d => d.Business.IsActive && d.Business.IndustryId == d.IndustryId)
+                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+            return data;
+        }
+
         public static IQueryable<BusinessDataByCity> City(SizeUpContext context)
         {
             var data = context.BusinessDataByCities

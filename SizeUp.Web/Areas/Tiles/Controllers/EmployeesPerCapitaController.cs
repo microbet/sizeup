@@ -36,7 +36,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 if (granularity == Granularity.ZipCode)
                 {
                     var entities = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
+                    var data = IndustryData.ZipCodeMinBusinessCount(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.ZipCodeId, (e, d) => new KeyValue<DbGeography, double?>
                     {
                         Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
@@ -47,7 +47,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 else if (granularity == Granularity.County)
                 {
                     var entities = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
+                    var data = IndustryData.CountyMinBusinessCount(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.CountyId, (e, d) => new KeyValue<DbGeography, double?>
                     {
                         Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
@@ -58,7 +58,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                 else if (granularity == Granularity.State)
                 {
                     var entities = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
+                    var data = IndustryData.StateMinBusinessCount(context).Where(i => i.IndustryId == industryId);
                     values = entities.GroupJoin(data, i => i.Id, i => i.StateId, (e, d) => new KeyValue<DbGeography, double?>
                     {
                         Key = e.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)

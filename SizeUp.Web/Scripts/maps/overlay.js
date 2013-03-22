@@ -22,7 +22,7 @@
                     pointer = 0;
                 }
                 pointer++;
-                var urlBase = window.location.protocol + '//tiles0' + pointer + '.' + window.location.hostname + '/';
+                var urlBase = window.location.protocol + '//tiles0' + pointer + '.' + window.location.hostname.replace('www.','') + '/';
                 var url = jQuery.param.querystring(urlBase + me.opts.tileUrl, params);
                 if (zoom > me.opts.maxZoom || zoom < me.opts.minZoom) {
                     url = null;

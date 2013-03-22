@@ -54,6 +54,44 @@ namespace SizeUp.Core.DataLayer.Base
         }
 
 
+        public static IQueryable<IndustryDataByZip> ZipCodeMinBusinessCount(SizeUpContext context)
+        {
+            var data = context.IndustryDataByZips
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive)
+                       .Where(i => i.ZipCode.BusinessDataByZips.Where(b => b.Year == Year && b.Quarter == Quarter && b.IndustryId == i.IndustryId && b.Business.IsActive).Count() > MinimumBusinessCount);
+            return data;
+        }
 
+        public static IQueryable<IndustryDataByCity> CityMinBusinessCount(SizeUpContext context)
+        {
+            var data = context.IndustryDataByCities
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive)
+                       .Where(i => i.City.BusinessDataByCities.Where(b => b.Year == Year && b.Quarter == Quarter && b.IndustryId == i.IndustryId && b.Business.IsActive).Count() > MinimumBusinessCount);
+            return data;
+        }
+
+        public static IQueryable<IndustryDataByCounty> CountyMinBusinessCount(SizeUpContext context)
+        {
+            var data = context.IndustryDataByCounties
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive)
+                       .Where(i => i.County.BusinessDataByCounties.Where(b => b.Year == Year && b.Quarter == Quarter && b.IndustryId == i.IndustryId && b.Business.IsActive).Count() > MinimumBusinessCount);
+            return data;
+        }
+
+        public static IQueryable<IndustryDataByMetro> MetroMinBusinessCount(SizeUpContext context)
+        {
+            var data = context.IndustryDataByMetroes
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive)
+                       .Where(i => i.Metro.BusinessDataByCounties.Where(b => b.Year == Year && b.Quarter == Quarter && b.IndustryId == i.IndustryId && b.Business.IsActive).Count() > MinimumBusinessCount);
+            return data;
+        }
+
+        public static IQueryable<IndustryDataByState> StateMinBusinessCount(SizeUpContext context)
+        {
+            var data = context.IndustryDataByStates
+                       .Where(d => d.Year == Year && d.Quarter == Quarter && d.Industry.IsActive)
+                       .Where(i => i.State.BusinessDataByCounties.Where(b => b.Year == Year && b.Quarter == Quarter && b.IndustryId == i.IndustryId && b.Business.IsActive).Count() > MinimumBusinessCount);
+            return data;
+        }
     }
 }
