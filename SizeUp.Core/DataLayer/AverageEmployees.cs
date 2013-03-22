@@ -234,7 +234,7 @@ namespace SizeUp.Core.DataLayer
             if (granularity == Granularity.ZipCode)
             {
                 var entities = Base.ZipCode.In(context, placeId, boundingGranularity);
-                var data = IndustryData.ZipCodeMinBusinessCount(context).Where(i => i.IndustryId == industryId);
+                var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
                 values =
                     data.Join(entities, i => i.ZipCodeId, i => i.Id, (d, e) => d)
                     .Select(i => i.AverageEmployees);
@@ -242,7 +242,7 @@ namespace SizeUp.Core.DataLayer
             else if (granularity == Granularity.County)
             {
                 var entities = Base.County.In(context, placeId, boundingGranularity);
-                var data = IndustryData.CountyMinBusinessCount(context).Where(i => i.IndustryId == industryId);
+                var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
                 values =
                     data.Join(entities, i => i.CountyId, i => i.Id, (d, e) => d)
                     .Select(i => i.AverageEmployees);
@@ -250,7 +250,7 @@ namespace SizeUp.Core.DataLayer
             else if (granularity == Granularity.State)
             {
                 var entities = Base.State.In(context, placeId, boundingGranularity);
-                var data = IndustryData.StateMinBusinessCount(context).Where(i => i.IndustryId == industryId);
+                var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
                 values =
                     data.Join(entities, i => i.StateId, i => i.Id, (d, e) => d)
                     .Select(i => i.AverageEmployees);
