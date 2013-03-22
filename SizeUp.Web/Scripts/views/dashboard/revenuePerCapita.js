@@ -631,6 +631,9 @@
             me.reportData.show();
 
             me.reportContainer.setValue(me.data.displayValue);
+            if (isNaN(me.data.displayValue)) {
+                me.reportContainer.hideGauge();
+            }
 
             setRevenuePerCapitaHeatmap();
 

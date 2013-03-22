@@ -159,6 +159,10 @@
             });
 
             me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
+            if (isNaN(me.data.turnover.raw['County'].turnover)) {
+                me.reportContainer.hideGauge();
+            }
+
 
             me.data.turnover.description = {
                 Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,2),
