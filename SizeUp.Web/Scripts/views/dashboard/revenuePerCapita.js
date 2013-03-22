@@ -62,6 +62,24 @@
             me.description = me.container.find('.reportContainer .description');
 
 
+            me.revenuePerCapita = {};
+            me.revenuePerCapita.map = new sizeup.maps.map({
+                container: me.container.find('.mapWrapper.container.revenuePerCapita  .map')
+            });
+
+            me.revenuePerCapita.textAlternative = me.container.find('.mapWrapper.revenuePerCapita  .textAlternative');
+            me.revenuePerCapita.textAlternative.click(textAlternativeRevenuePerCapitaClicked);
+
+            me.totalRevenue = {};
+            me.totalRevenue.map = new sizeup.maps.map({
+                container: me.container.find('.mapWrapper.container.totalRevenue .map')
+            });
+
+            me.totalRevenue.textAlternative = me.container.find('.mapWrapper.totalRevenue .textAlternative');
+            me.totalRevenue.textAlternative.click(textAlternativeTotalRevenueClicked);
+
+
+
             me.reportData = me.container.find('.reportData');
 
             me.reportContainer.setValue('');
@@ -97,249 +115,26 @@
 
 
         var setRevenuePerCapitaHeatmap = function () {
-
-            var overlays = [];
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/revenuePerCapita/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 11,
-                maxZoom: 32
-            }));
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/revenuePerCapita/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 8,
-                    maxZoom: 10
-                }));
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/revenuePerCapita/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 7
-                }));
-            }
-            else {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/revenuePerCapita/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 10
-                }));
-            }
-
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/revenuePerCapita/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'State',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 0,
-                maxZoom: 4
-            }));
-
-
-            me.revenuePerCapitaMap = new sizeup.maps.map({
-                container: me.container.find('.mapWrapper.container.revenuePerCapita .map')
-            });
-            me.revenuePerCapitaMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.revenuePerCapitaMap.setZoom(12);
-            me.revenuePerCapitaMap.addEventListener('zoom_changed', mapZoomRevenuePerCapitaUpdated);
-
+            var overlays = me.revenuePerCapitaOverlay.getOverlays();
+            me.revenuePerCapita.map.triggerEvent('resize');
+            me.revenuePerCapita.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
+            me.revenuePerCapita.map.setZoom(me.revenuePerCapitaOverlay.getZoomExtent().County + 1);
+            me.revenuePerCapita.map.addEventListener('zoom_changed', mapZoomRevenuePerCapitaUpdated);
             for (var x in overlays) {
-                me.revenuePerCapitaMap.addOverlay(overlays[x], 0);
+                me.revenuePerCapita.map.addOverlay(overlays[x], 0);
             }
 
             setRevenuePerCapitaLegend();
-
-            me.textAlternativeRevenuePerCapita = me.container.find('.mapWrapper.revenuePerCapita .textAlternative');
-            me.textAlternativeRevenuePerCapita.click(textAlternativeRevenuePerCapitaClicked);
         };
 
         var setRevenuePerCapitaLegend = function () {
-
-            var data = {
-                title: '',
-                items: []
+            var z = me.revenuePerCapita.map.getZoom();
+            var callback = function (legend) {
+                me.revenuePerCapita.map.setLegend(legend);
             };
-            var z = me.revenuePerCapitaMap.getZoom();
 
-            var notify = new sizeup.core.notifier(function () {
-
-                var legend = new sizeup.maps.legend({
-                    templates: templates,
-                    title: data.title,
-                    items: data.items,
-                    colors: [
-                    '#F5F500',
-                    '#F5CC00',
-                    '#F5A300',
-                    '#F57A00',
-                    '#F55200',
-                    '#F52900',
-                    '#F50000'
-                    ],
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
-                });
-                me.revenuePerCapitaMap.setLegend(legend);
-            });
-
-
-
-            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
-
-
-            if (z <= 32 && z >= 11) {
-                data.title = 'Revenue Per Capita by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.revenuePerCapitaTextAlternative = {
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County'
-                };
-                dataLayer.getRevenuePerCapitaBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    bands: 7
-                }, itemsNotify);
-            }
-
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-                if (z <= 10 && z >= 8) {
-                    data.title = 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.revenuePerCapitaTextAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    };
-                    dataLayer.getRevenuePerCapitaBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        bands: 7
-                    }, itemsNotify);
-
-
-                }
-
-                if (z <= 7 && z >= 5) {
-                    data.title = 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.revenuePerCapitaTextAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getRevenuePerCapitaBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-                }
-            }
-            else {
-                if (z <= 10 && z >= 5) {
-
-                    data.title = 'Revenue Per Capita by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.revenuePerCapitaTextAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getRevenuePerCapitaBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-
-                }
-            }
-
-            if (z <= 4 && z >= 0) {
-
-                data.title = 'Revenue Per Capita by state in the USA';
-                me.data.revenuePerCapitaTextAlternative = {
-                    granularity: 'State',
-                    boundingGranularity: 'Nation'
-                };
-                dataLayer.getRevenuePerCapitaBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'State',
-                    bands: 7
-                }, itemsNotify);
-            }
+            me.revenuePerCapitaOverlay.getLegend(z, callback);
+            me.data.revenuePerCapitaTextAlternative = me.revenuePerCapitaOverlay.getParams(z);
         };
 
         var mapZoomRevenuePerCapitaUpdated = function () {
@@ -348,262 +143,31 @@
 
         var textAlternativeRevenuePerCapitaClicked = function () {
             var url = '/accessibility/revenuePerCapita/';
-            var data = {
-                bands: 7,
-                industryId: me.opts.report.CurrentIndustry.Id,
-                placeId: me.opts.report.CurrentPlace.Id,
-                granularity: me.data.revenuePerCapitaTextAlternative.granularity,
-                boundingGranularity: me.data.revenuePerCapitaTextAlternative.boundingGranularity
-            };
-            window.open(jQuery.param.querystring(url, data), '_blank');
-
+            window.open(jQuery.param.querystring(url, me.data.revenuePerCapitaTextAlternative), '_blank');
         };
 
 
         var setTotalRevenueHeatmap = function () {
-
-            var overlays = [];
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/totalRevenue/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 11,
-                maxZoom: 32
-            }));
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/totalRevenue/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 8,
-                    maxZoom: 10
-                }));
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/totalRevenue/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 7
-                }));
-            }
-            else {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/totalRevenue/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 10
-                }));
-            }
-
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/totalRevenue/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'State',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 0,
-                maxZoom: 4
-            }));
-
-
-            me.totalRevenueMap = new sizeup.maps.map({
-                container: me.container.find('.mapWrapper.container.totalRevenue .map')
-            });
-            me.totalRevenueMap.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.totalRevenueMap.setZoom(12);
-            me.totalRevenueMap.addEventListener('zoom_changed', mapZoomTotalRevenueUpdated);
-
+            var overlays = me.totalRevenueOverlay.getOverlays();
+            me.totalRevenue.map.triggerEvent('resize');
+            me.totalRevenue.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
+            me.totalRevenue.map.setZoom(me.totalRevenueOverlay.getZoomExtent().County + 1);
+            me.totalRevenue.map.addEventListener('zoom_changed', mapZoomTotalRevenueUpdated);
             for (var x in overlays) {
-                me.totalRevenueMap.addOverlay(overlays[x], 0);
+                me.totalRevenue.map.addOverlay(overlays[x], 0);
             }
 
             setTotalRevenueLegend();
-
-            me.textAlternativeTotalRevenue = me.container.find('.mapWrapper.totalRevenue .textAlternative');
-            me.textAlternativeTotalRevenue.click(textAlternativeTotalRevenueClicked);
         };
 
         var setTotalRevenueLegend = function () {
-
-            var data = {
-                title: '',
-                items: []
+            var z = me.totalRevenue.map.getZoom();
+            var callback = function (legend) {
+                me.totalRevenue.map.setLegend(legend);
             };
-            var z = me.totalRevenueMap.getZoom();
 
-            var notify = new sizeup.core.notifier(function () {
-
-                var legend = new sizeup.maps.legend({
-                    templates: templates,
-                    title: data.title,
-                    items: data.items,
-                    colors: [
-                    '#F5F500',
-                    '#F5CC00',
-                    '#F5A300',
-                    '#F57A00',
-                    '#F55200',
-                    '#F52900',
-                    '#F50000'
-                    ],
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
-                });
-                me.totalRevenueMap.setLegend(legend);
-            });
-
-
-
-            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
-
-
-            if (z <= 32 && z >= 11) {
-                data.title = 'Total Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.totalRevenueTextAlternative = {
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County'
-                };
-                dataLayer.getTotalRevenueBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    bands: 7
-                }, itemsNotify);
-            }
-
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-                if (z <= 10 && z >= 8) {
-                    data.title = 'Total Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.totalRevenueTextAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    };
-                    dataLayer.getTotalRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        bands: 7
-                    }, itemsNotify);
-
-
-                }
-
-                if (z <= 7 && z >= 5) {
-                    data.title = 'Total Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.totalRevenueTextAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getTotalRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-                }
-            }
-            else {
-                if (z <= 10 && z >= 5) {
-
-                    data.title = 'Total Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.totalRevenueTextAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getTotalRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-
-                }
-            }
-
-            if (z <= 4 && z >= 0) {
-
-                data.title = 'Total Revenue by state in the USA';
-                me.data.totalRevenueTextAlternative = {
-                    granularity: 'State',
-                    boundingGranularity: 'Nation'
-                };
-                dataLayer.getTotalRevenueBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'State',
-                    bands: 7
-                }, itemsNotify);
-            }
+            me.totalRevenueOverlay.getLegend(z, callback);
+            me.data.totalRevenueTextAlternative = me.totalRevenueOverlay.getParams(z);
         };
 
         var mapZoomTotalRevenueUpdated = function () {
@@ -612,14 +176,7 @@
 
         var textAlternativeTotalRevenueClicked = function () {
             var url = '/accessibility/totalRevenue/';
-            var data = {
-                bands: 7,
-                industryId: me.opts.report.CurrentIndustry.Id,
-                placeId: me.opts.report.CurrentPlace.Id,
-                granularity: me.data.totalRevenueTextAlternative.granularity,
-                boundingGranularity: me.data.totalRevenueTextAlternative.boundingGranularity
-            };
-            window.open(jQuery.param.querystring(url, data), '_blank');
+            window.open(jQuery.param.querystring(url, me.data.totalRevenueTextAlternative), '_blank');
 
         };
 
@@ -635,9 +192,35 @@
                 me.reportContainer.hideGauge();
             }
 
-            setRevenuePerCapitaHeatmap();
+            dataLayer.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.revenuePerCapita.map.getWidth() }, function (data) {
+                me.revenuePerCapitaOverlay = new sizeup.maps.heatMapOverlays({
+                    tileUrl: '/tiles/revenuePerCapita/',
+                    place: me.opts.report.CurrentPlace,
+                    industry: me.opts.report.CurrentIndustry,
+                    zoomExtent: data,
+                    attributeLabel: 'Revenue Per Capita',
+                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                    legendData: dataLayer.getRevenuePerCapitaBands,
+                    templates: templates
+                });
+                setRevenuePerCapitaHeatmap();
+            });
 
-            setTotalRevenueHeatmap();
+            dataLayer.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.totalRevenue.map.getWidth() }, function (data) {
+                me.totalRevenueOverlay = new sizeup.maps.heatMapOverlays({
+                    tileUrl: '/tiles/totalRevenue/',
+                    place: me.opts.report.CurrentPlace,
+                    industry: me.opts.report.CurrentIndustry,
+                    zoomExtent: data,
+                    attributeLabel: 'Total Revenue',
+                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                    legendData: dataLayer.getTotalRevenueBands,
+                    templates: templates
+                });
+                setTotalRevenueHeatmap();
+            });
+
+           
 
 
             me.chart = new sizeup.charts.barChart({

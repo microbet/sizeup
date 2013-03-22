@@ -10,8 +10,8 @@
                 Metro: 10,
                 State: 5
             },
-            placeId: 3051,
-            industryId: 8589,
+            place: {},
+            industry: {},
             tileUrl: '',
             colors: [
                 '#F5F500',
@@ -22,185 +22,152 @@
                 '#F52900',
                 '#F50000'
             ],
-            smallestGranularity: 'ZipCode'
+            smallestGranularity: 'ZipCode',
+            attributeLabel: 'Unknown',
+            format: function (val) { return val; },
+            legendData: function () { },
+            templates: new sizeup.core.templates()
         };
         var me = {};
+        me.xhr = null;
         me.opts = $.extend(true, defaults, opts);
         
         var init = function () {
 
         };
        
-        var getZipCodeOverlays = function(){
-            var overlays = [];
-
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: me.opts.tileUrl,
-                tileParams: {
-                    colors: me.opts.colors,
-                    placeId: me.opts.placeId,
-                    industryId: me.opts.industryId,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County'
-                },
+        var getZipCodeZoomLevels = function () {
+            var levels = [];
+            levels.push({
+                granularity: 'ZipCode',
+                boundingGranularity: 'County',
                 minZoom: me.opts.zoomExtent.County,
                 maxZoom: 32
-            }));
-
+            });
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    },
+                levels.push({
+                    granularity: 'County',
+                    boundingGranularity: 'Metro',
                     minZoom: me.opts.zoomExtent.Metro,
                     maxZoom: me.opts.zoomExtent.County - 1
-                }));
+                });
 
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    },
+                levels.push({
+                    granularity: 'County',
+                    boundingGranularity: 'State',
                     minZoom: me.opts.zoomExtent.State,
                     maxZoom: me.opts.zoomExtent.Metro - 1
-                }));
+                });
             }
 
             if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    },
+                levels.push({
+                    granularity: 'County',
+                    boundingGranularity: 'State',
                     minZoom: me.opts.zoomExtent.State,
                     maxZoom: me.opts.zoomExtent.County - 1
-                }));
+                });
             }
 
-            
+
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'State'
-                    },
+                levels.push({
+                    granularity: 'State',
+                    boundingGranularity: 'Nation',
                     minZoom: 0,
                     maxZoom: me.opts.zoomExtent.Metro - 1
-                }));
+                });
             }
 
             if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
-                overlays.push(new sizeup.maps.overlay({
+                levels.push({
+                    granularity: 'State',
+                    boundingGranularity: 'Nation',
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.State - 1
+                });
+            }
+
+            return levels;
+        };
+
+        var getCountyZoomLevels = function () {
+            var levels = [];
+
+            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
+                levels.push({
+                    granularity: 'County',
+                    boundingGranularity: 'Metro',
+                    minZoom: me.opts.zoomExtent.Metro,
+                    maxZoom: 32
+                });
+                levels.push({
+                    granularity: 'County',
+                    boundingGranularity: 'State',
+                    minZoom: me.opts.zoomExtent.State,
+                    maxZoom: me.opts.zoomExtent.Metro - 1
+                });
+            }
+            if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
+                levels.push({
+                    granularity: 'County',
+                    boundingGranularity: 'State',
+                    minZoom: me.opts.zoomExtent.State,
+                    maxZoom: 32
+                });
+            }
+
+
+            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
+                levels.push({
+                    granularity: 'State',
+                    boundingGranularity: 'Nation',
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.Metro - 1
+                });
+            }
+
+            if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
+                levels.push({
+                    granularity: 'State',
+                    boundingGranularity: 'Nation',
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.State - 1
+                });
+            }
+
+            return levels;
+        };
+
+        var buildOverlays = function (zooms) {
+            var overlays = [];
+            for (var z in zooms) {
+                var p = {
                     tileUrl: me.opts.tileUrl,
                     tileParams: {
                         colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'State'
+                        placeId: me.opts.place.Id,
+                        industryId: me.opts.industry.Id,
+                        granularity: zooms[z].granularity,
+                        boundingGranularity : zooms[z].boundingGranularity
                     },
-                    minZoom: 0,
-                    maxZoom: me.opts.zoomExtent.State - 1
-                }));
-            }
+                    minZoom: zooms[z].minZoom,
+                    maxZoom: zooms[z].maxZoom
+                };
+                overlays.push(new sizeup.maps.overlay(p));
+            };
+            return overlays;
+        };
 
+
+        var getZipCodeOverlays = function(){
+            var overlays = buildOverlays(getZipCodeZoomLevels());
             return overlays;
         };
 
         var getCountyOverlays = function(){
-            var overlays = [];
-
-            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    },
-                    minZoom: me.opts.zoomExtent.Metro,
-                    maxZoom: 32
-                }));
-
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    },
-                    minZoom: me.opts.zoomExtent.State,
-                    maxZoom: me.opts.zoomExtent.Metro - 1
-                }));
-            }
-            if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    },
-                    minZoom: me.opts.zoomExtent.State,
-                    maxZoom: 32
-                }));
-            }
-
-
-            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'State'
-                    },
-                    minZoom: 0,
-                    maxZoom: me.opts.zoomExtent.Metro - 1
-                }));
-            }
-
-            if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: me.opts.tileUrl,
-                    tileParams: {
-                        colors: me.opts.colors,
-                        placeId: me.opts.placeId,
-                        industryId: me.opts.industryId,
-                        granularity: 'State'
-                    },
-                    minZoom: 0,
-                    maxZoom: me.opts.zoomExtent.State - 1
-                }));
-            }
-
+            var overlays = buildOverlays(getCountyZoomLevels());
             return overlays;
         };
 
@@ -216,9 +183,102 @@
             return overlays;
         };
 
+        var getTitle = function (zoom) {
+            var level = getParams(zoom);
+            var titleTemplate = '{{attribute}} by {{granularity}} in {{boundingGranularity}}';
+            var params = {
+                attribute: me.opts.attributeLabel
+            };
+            if (level.granularity == 'ZipCode') {
+                params.granularity = 'ZIP code';
+            }
+            if (level.granularity == 'County') {
+                params.granularity = 'county';
+            }
+            if (level.granularity == 'State') {
+                params.granularity = 'state';
+            }
+
+            if (level.boundingGranularity == 'County') {
+                params.boundingGranularity = me.opts.place.County.Name + ', ' + me.opts.place.State.Abbreviation;
+            }
+            if (level.boundingGranularity == 'Metro') {
+                params.boundingGranularity = me.opts.place.Metro.Name;
+            }
+            if (level.boundingGranularity == 'State') {
+                params.boundingGranularity = me.opts.place.State.Name;
+            }
+            if (level.boundingGranularity == 'Nation') {
+                params.boundingGranularity = 'the USA';
+            }
+
+            return me.opts.templates.bind(titleTemplate, params);
+        };
+
+        var getZoomExtent = function () {
+            return me.opts.zoomExtent;
+        };
+
+        var getLegend = function (zoom, callback) {
+            var innerCallback = function (data) {
+                me.xhr = null;
+                var legend = new sizeup.maps.legend({
+                    templates: me.opts.templates,
+                    title: getTitle(zoom),
+                    items: data,
+                    colors: me.opts.colors,
+                    format: me.opts.format
+                });
+                if (callback!=null && data!=null) {
+                    callback(legend);
+                }
+            };
+
+            if (me.xhr != null) {
+                me.xhr.abort();
+            }
+            me.xhr =  me.opts.legendData(getParams(zoom), innerCallback);
+        };
+
+        var getParams = function (zoom) {
+            var levels = [];
+            var level = null;
+            if (me.opts.smallestGranularity == 'ZipCode') {
+                levels = getZipCodeZoomLevels();
+            }
+            else if (me.opts.smallestGranularity == 'County') {
+                levels = getCountyZoomLevels();
+            }
+            for (var z in levels) {
+                if (levels[z].minZoom <= zoom && levels[z].maxZoom >= zoom) {
+                    level = levels[z];
+                }
+            };
+            return {
+                granularity: level.granularity,
+                boundingGranularity: level.boundingGranularity,
+                placeId: me.opts.place.Id,
+                industryId: me.opts.industry.Id,
+                bands: me.opts.colors.length
+            };
+        };
+
+
         var publicObj = {
             getOverlays: function () {
                 return getOverlays();
+            },
+            getZoomExtent: function () {
+                return getZoomExtent();
+            },
+            getLegend: function (zoom, callback) {
+                getLegend(zoom, callback);
+            },
+            getParams: function (zoom) {
+                return getParams(zoom);
+            },
+            getTitle: function (zoom) {
+                return getTitle(zoom);
             }
         };
         init();

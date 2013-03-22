@@ -159,17 +159,10 @@
         };
 
         var setHeatmap = function () {
-
-            var overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/averageRevenue/',
-                placeId: me.opts.report.CurrentPlace.Id,
-                industryId: me.opts.report.CurrentIndustry.Id,
-                zoomExtent: me.opts.ZoomExtent
-            });
-            var overlays = overlay.getOverlays();
+            var overlays = me.overlay.getOverlays();
             me.map.triggerEvent('resize');
             me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.map.setZoom(me.opts.ZoomExtent.County + 1);
+            me.map.setZoom(me.overlay.getZoomExtent().County + 1);
             me.map.addEventListener('zoom_changed', mapZoomUpdated);
             for (var x in overlays) {
                 me.map.addOverlay(overlays[x], 0);
@@ -179,120 +172,13 @@
         };
 
         var setLegend = function () {
-
-            var data = {
-                title: '',
-                items: []
-            };
             var z = me.map.getZoom();
-
-            var notify = new sizeup.core.notifier(function () {
-
-                var legend = new sizeup.maps.legend({
-                    templates: templates,
-                    title: data.title,
-                    items: data.items,
-                    colors: [
-                    '#F5F500',
-                    '#F5CC00',
-                    '#F5A300',
-                    '#F57A00',
-                    '#F55200',
-                    '#F52900',
-                    '#F50000'
-                    ],
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
-                });
+            var callback = function (legend) {
                 me.map.setLegend(legend);
-            });
+            };
 
-
-
-            var itemsNotify = notify.getNotifier(function (d) {data.items = d;});
-
-
-            if (z <= 32 && z >= me.opts.ZoomExtent.County) {
-                data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.textAlternative = {
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County'
-                };
-     
-                dataLayer.getAverageRevenueBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    bands: 7
-                }, itemsNotify);
-            }
-
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-                if (z <= me.opts.ZoomExtent.County - 1 && z >= me.opts.ZoomExtent.Metro) {
-                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    };
-                    dataLayer.getAverageRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        bands: 7
-                    }, itemsNotify);
-
-
-                }
-
-                if (z <= me.opts.ZoomExtent.Metro - 1 && z >= me.opts.ZoomExtent.State) {
-                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getAverageRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-                }
-            }
-            else {
-                if (z <= me.opts.ZoomExtent.County - 1 && z >= me.opts.ZoomExtent.State) {
-
-                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getAverageRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-
-                }
-            }
-
-            if (z <= me.opts.ZoomExtent.State - 1 && z >= 0) {
-
-                data.title = 'Average Business Annual Revenue by state in the USA';
-                me.data.textAlternative = {
-                    granularity: 'State',
-                    boundingGranularity: 'Nation'
-                };
-                dataLayer.getAverageRevenueBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'State',
-                    bands: 7
-                }, itemsNotify);
-            }
+            me.overlay.getLegend(z, callback);
+            me.data.textAlternative = me.overlay.getParams(z);
         };
 
         var mapZoomUpdated = function () {
@@ -301,14 +187,7 @@
 
         var textAlternativeClicked = function () {
             var url = '/accessibility/revenue/';
-            var data = {
-                bands: 7,
-                industryId: me.opts.report.CurrentIndustry.Id,
-                placeId: me.opts.report.CurrentPlace.Id,
-                granularity: me.data.textAlternative.granularity,
-                boundingGranularity: me.data.textAlternative.boundingGranularity
-            };
-            window.open(jQuery.param.querystring(url, data), '_blank');
+            window.open(jQuery.param.querystring(url, me.data.textAlternative), '_blank');
         };
 
 
@@ -318,7 +197,16 @@
             me.reportData.show();
 
             dataLayer.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
-                me.opts.ZoomExtent = data;
+                me.overlay = new sizeup.maps.heatMapOverlays({
+                    tileUrl: '/tiles/averageRevenue/',
+                    place: me.opts.report.CurrentPlace,
+                    industry: me.opts.report.CurrentIndustry,
+                    zoomExtent: data,
+                    attributeLabel: 'Average Business Annual Revenue',
+                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                    legendData: dataLayer.getAverageRevenueBands,
+                    templates: templates
+                });
                 setHeatmap();
             });
 
