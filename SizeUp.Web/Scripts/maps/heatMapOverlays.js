@@ -28,16 +28,7 @@
         me.opts = $.extend(true, defaults, opts);
         
         var init = function () {
-            /*if (me.opts.zoomExtent.County <= me.opts.zoomExtent.Metro) {
-                me.opts.zoomExtent.Metro = null;
-            }
 
-            if (me.opts.zoomExtent.Metro <= me.opts.zoomExtent.State) {
-                me.opts.zoomExtent.State = me.opts.zoomExtent.Metro - 1;
-            }*/
-
-           
-           
         };
        
         var getZipCodeOverlays = function(){

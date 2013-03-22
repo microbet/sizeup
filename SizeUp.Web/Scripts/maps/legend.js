@@ -31,7 +31,12 @@
         
         var list = [];
         var t = me.opts.templates.get('legendItem');
-        list.push(me.opts.templates.bind(t, { color: '#C0C0C0', label: 'No Data' }));
+        if (me.opts.items.length == 0) {
+            list.push(me.opts.templates.bind(t, { color: '#C0C0C0', label: 'No data (zoom out)' }));
+        }
+        else {
+            list.push(me.opts.templates.bind(t, { color: '#C0C0C0', label: 'No data available' }));
+        }
 
         if (me.opts.items.length < me.opts.colors.length) {
             for (var x = 0; x < me.opts.items.length; x++) {
