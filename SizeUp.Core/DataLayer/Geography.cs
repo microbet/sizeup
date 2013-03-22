@@ -148,7 +148,7 @@ namespace SizeUp.Core.DataLayer
             var county = CalculationGeography(context, Granularity.County).Select(i => new KeyValue<long, int>
             {
                 Key = i.Key,
-                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West) / GLOBE_WIDTH).Value / ln2) - 1
+                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West) / GLOBE_WIDTH).Value / ln2) //- 1
             });
             var metro = CalculationGeography(context, Granularity.Metro).Select(i => new KeyValue<long, int>
             {
@@ -178,46 +178,6 @@ namespace SizeUp.Core.DataLayer
                     Metro = i.Metro <= 5 ? 5 : i.Metro,
                     State = i.State <= 4 ? 4 : i.State
                 });
-
-
-                /*.Select(i => new Models.ZoomExtent
-                {
-                    PlaceId = i.place.Id,
-                    County = i.county.Value <= 6 ? 6 : i.county.Value,
-                    Metro = i.metro.Value,
-                    State = i.state.Value
-                })
-                .Select(i => new Models.ZoomExtent
-                {
-                    PlaceId = i.PlaceId,
-                    County = i.County,
-                    Metro = i.County <= i.Metro ? null : i.Metro,
-                    State = i.State
-                })
-                .Select(i => new Models.ZoomExtent
-                {
-                    PlaceId = i.PlaceId,
-                    County = i.County,
-                    Metro = i.Metro <= 5 ? 5: i.Metro,
-                    State = i.State
-                })
-                .Select(i => new Models.ZoomExtent
-                {
-                    PlaceId = i.PlaceId,
-                    County = i.County,
-                    Metro = i.Metro,
-                    State = (i.Metro ?? i.County) <= i.State ? (i.Metro ?? i.County) - 1 : i.State
-                })
-                .Select(i => new Models.ZoomExtent
-                {
-                    PlaceId = i.PlaceId,
-                    County = i.County,
-                    Metro = i.Metro,
-                    State = i.State <= 4 ? 4: i.State
-                });*/
-
-
-                
             return data;
         }
     }

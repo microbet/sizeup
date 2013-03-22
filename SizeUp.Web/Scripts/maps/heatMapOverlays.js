@@ -28,13 +28,13 @@
         me.opts = $.extend(true, defaults, opts);
         
         var init = function () {
-            if (me.opts.zoomExtent.County <= me.opts.zoomExtent.Metro) {
+            /*if (me.opts.zoomExtent.County <= me.opts.zoomExtent.Metro) {
                 me.opts.zoomExtent.Metro = null;
             }
 
             if (me.opts.zoomExtent.Metro <= me.opts.zoomExtent.State) {
                 me.opts.zoomExtent.State = me.opts.zoomExtent.Metro - 1;
-            }
+            }*/
 
            
            
@@ -58,7 +58,7 @@
             }));
 
 
-            if (me.opts.zoomExtent.Metro != null) {
+            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
 
                 overlays.push(new sizeup.maps.overlay({
                     tileUrl: me.opts.tileUrl,
@@ -73,7 +73,6 @@
                     maxZoom: me.opts.zoomExtent.County - 1
                 }));
 
-
                 overlays.push(new sizeup.maps.overlay({
                     tileUrl: me.opts.tileUrl,
                     tileParams: {
@@ -87,7 +86,8 @@
                     maxZoom: me.opts.zoomExtent.Metro - 1
                 }));
             }
-            else {
+
+            if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
                 overlays.push(new sizeup.maps.overlay({
                     tileUrl: me.opts.tileUrl,
                     tileParams: {
@@ -102,18 +102,34 @@
                 }));
             }
 
+            
+            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: me.opts.tileUrl,
+                    tileParams: {
+                        colors: me.opts.colors,
+                        placeId: me.opts.placeId,
+                        industryId: me.opts.industryId,
+                        granularity: 'State'
+                    },
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.Metro - 1
+                }));
+            }
 
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: me.opts.tileUrl,
-                tileParams: {
-                    colors: me.opts.colors,
-                    placeId: me.opts.placeId,
-                    industryId: me.opts.industryId,
-                    granularity: 'State'
-                },
-                minZoom: 0,
-                maxZoom: me.opts.zoomExtent.State - 1
-            }));
+            if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: me.opts.tileUrl,
+                    tileParams: {
+                        colors: me.opts.colors,
+                        placeId: me.opts.placeId,
+                        industryId: me.opts.industryId,
+                        granularity: 'State'
+                    },
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.State - 1
+                }));
+            }
 
             return overlays;
         };
@@ -121,7 +137,7 @@
         var getCountyOverlays = function(){
             var overlays = [];
 
-            if (me.opts.zoomExtent.Metro != null) {
+            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
 
                 overlays.push(new sizeup.maps.overlay({
                     tileUrl: me.opts.tileUrl,
@@ -150,7 +166,7 @@
                     maxZoom: me.opts.zoomExtent.Metro - 1
                 }));
             }
-            else {
+            if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
                 overlays.push(new sizeup.maps.overlay({
                     tileUrl: me.opts.tileUrl,
                     tileParams: {
@@ -166,17 +182,33 @@
             }
 
 
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: me.opts.tileUrl,
-                tileParams: {
-                    colors: me.opts.colors,
-                    placeId: me.opts.placeId,
-                    industryId: me.opts.industryId,
-                    granularity: 'State'
-                },
-                minZoom: 0,
-                maxZoom: me.opts.zoomExtent.State - 1
-            }));
+            if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: me.opts.tileUrl,
+                    tileParams: {
+                        colors: me.opts.colors,
+                        placeId: me.opts.placeId,
+                        industryId: me.opts.industryId,
+                        granularity: 'State'
+                    },
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.Metro - 1
+                }));
+            }
+
+            if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
+                overlays.push(new sizeup.maps.overlay({
+                    tileUrl: me.opts.tileUrl,
+                    tileParams: {
+                        colors: me.opts.colors,
+                        placeId: me.opts.placeId,
+                        industryId: me.opts.industryId,
+                        granularity: 'State'
+                    },
+                    minZoom: 0,
+                    maxZoom: me.opts.zoomExtent.State - 1
+                }));
+            }
 
             return overlays;
         };

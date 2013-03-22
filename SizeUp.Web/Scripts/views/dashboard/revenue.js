@@ -169,7 +169,7 @@
             var overlays = overlay.getOverlays();
             me.map.triggerEvent('resize');
             me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.map.setZoom(me.opts.ZoomExtent.County + 2);
+            me.map.setZoom(me.opts.ZoomExtent.County + 1);
             me.map.addEventListener('zoom_changed', mapZoomUpdated);
             for (var x in overlays) {
                 me.map.addOverlay(overlays[x], 0);
@@ -208,7 +208,7 @@
 
 
 
-            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
+            var itemsNotify = notify.getNotifier(function (d) {data.items = d;});
 
 
             if (z <= 32 && z >= me.opts.ZoomExtent.County) {
