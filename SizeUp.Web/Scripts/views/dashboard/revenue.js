@@ -200,7 +200,7 @@
                 me.overlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/averageRevenue/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Average Business Annual Revenue',
                     format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },

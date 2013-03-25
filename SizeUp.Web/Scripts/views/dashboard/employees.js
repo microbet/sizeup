@@ -349,7 +349,7 @@
                 me.employeesPerCapitaOverlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/employeesPerCapita/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Average Employees',
                     format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
@@ -364,7 +364,7 @@
                 me.averageEmployeesOverlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/averageEmployees/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Average Employees',
                     format: function (val) { return sizeup.util.numbers.format.abbreviate(val); },

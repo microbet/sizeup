@@ -201,7 +201,7 @@
                 me.overlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/costEffectiveness/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Cost Effectiveness',
                     format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },

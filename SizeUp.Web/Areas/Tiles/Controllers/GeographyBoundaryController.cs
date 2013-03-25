@@ -33,7 +33,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 GeographyBoundary tile = new GeographyBoundary(256, 256, x, y, zoom);
-                BoundingBox boundingBox = tile.GetBoundingBox(.2f);
+                BoundingBox boundingBox = tile.GetBoundingBox(TileBuffer);
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();
 
@@ -45,7 +45,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i=> new KeyValue<DbGeography, long?>
                         {
                             Key = i.CityGeographies.Where(g=>g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }
@@ -55,7 +55,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
                             Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }
@@ -65,7 +65,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
                         .Select(i => new KeyValue<DbGeography, long?>
                         {
                             Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance)).FirstOrDefault(),
+                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
                             Value = i.Id
                         });
                 }

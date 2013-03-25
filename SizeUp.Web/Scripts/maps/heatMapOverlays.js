@@ -11,7 +11,7 @@
                 State: 5
             },
             place: {},
-            industry: {},
+            params: {},
             tileUrl: '',
             colors: [
                 '#F5F500',
@@ -22,6 +22,7 @@
                 '#F52900',
                 '#F50000'
             ],
+            opacity:1,
             smallestGranularity: 'ZipCode',
             attributeLabel: 'Unknown',
             format: function (val) { return val; },
@@ -145,13 +146,13 @@
             for (var z in zooms) {
                 var p = {
                     tileUrl: me.opts.tileUrl,
-                    tileParams: {
+                    opacity: me.opts.opacity,
+                    tileParams: $.extend(true, {
                         colors: me.opts.colors,
                         placeId: me.opts.place.Id,
-                        industryId: me.opts.industry.Id,
                         granularity: zooms[z].granularity,
                         boundingGranularity : zooms[z].boundingGranularity
-                    },
+                    }, me.opts.params),
                     minZoom: zooms[z].minZoom,
                     maxZoom: zooms[z].maxZoom
                 };
@@ -254,13 +255,12 @@
                     level = levels[z];
                 }
             };
-            return {
+            return $.extend(true, {
                 granularity: level.granularity,
                 boundingGranularity: level.boundingGranularity,
                 placeId: me.opts.place.Id,
-                industryId: me.opts.industry.Id,
                 bands: me.opts.colors.length
-            };
+            }, me.opts.params);
         };
 
 

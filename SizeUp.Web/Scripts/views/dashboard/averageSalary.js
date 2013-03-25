@@ -195,7 +195,7 @@
                 me.overlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/averageSalary/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Average Salary',
                     format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },

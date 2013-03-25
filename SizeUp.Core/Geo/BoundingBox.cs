@@ -26,12 +26,12 @@ namespace SizeUp.Core.Geo
 
         private double BoundLat(double lat)
         {
-            return Math.Min(Math.Max(0, lat), 90);
+            return Math.Min(Math.Max(0.01, lat), 89.99);
         }
 
         private double BoundLng(double lng)
         {
-            return Math.Min(Math.Max(-180, lng), 0);
+            return Math.Min(Math.Max(-179.99, lng), -0.01);
         }
 
         public SqlGeography GetSqlGeography()

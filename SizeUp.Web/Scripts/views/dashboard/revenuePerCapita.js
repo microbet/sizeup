@@ -196,7 +196,7 @@
                 me.revenuePerCapitaOverlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/revenuePerCapita/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Revenue Per Capita',
                     format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
@@ -210,7 +210,7 @@
                 me.totalRevenueOverlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/totalRevenue/',
                     place: me.opts.report.CurrentPlace,
-                    industry: me.opts.report.CurrentIndustry,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
                     attributeLabel: 'Total Revenue',
                     format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
