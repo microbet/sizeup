@@ -118,7 +118,7 @@
             var overlays = me.revenuePerCapitaOverlay.getOverlays();
             me.revenuePerCapita.map.triggerEvent('resize');
             me.revenuePerCapita.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.revenuePerCapita.map.setZoom(me.revenuePerCapitaOverlay.getZoomExtent().County + 1);
+            me.revenuePerCapita.map.setZoom(me.revenuePerCapitaOverlay.getZoomExtent().County + 2);
             me.revenuePerCapita.map.addEventListener('zoom_changed', mapZoomRevenuePerCapitaUpdated);
             for (var x in overlays) {
                 me.revenuePerCapita.map.addOverlay(overlays[x], 0);
@@ -151,7 +151,7 @@
             var overlays = me.totalRevenueOverlay.getOverlays();
             me.totalRevenue.map.triggerEvent('resize');
             me.totalRevenue.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.totalRevenue.map.setZoom(me.totalRevenueOverlay.getZoomExtent().County + 1);
+            me.totalRevenue.map.setZoom(me.totalRevenueOverlay.getZoomExtent().County + 2);
             me.totalRevenue.map.addEventListener('zoom_changed', mapZoomTotalRevenueUpdated);
             for (var x in overlays) {
                 me.totalRevenue.map.addOverlay(overlays[x], 0);

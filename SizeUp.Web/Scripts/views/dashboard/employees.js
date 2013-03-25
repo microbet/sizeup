@@ -227,7 +227,7 @@
             var overlays = me.averageEmployeesOverlay.getOverlays();
             me.averageEmployees.map.triggerEvent('resize');
             me.averageEmployees.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.averageEmployees.map.setZoom(me.averageEmployeesOverlay.getZoomExtent().County + 1);
+            me.averageEmployees.map.setZoom(me.averageEmployeesOverlay.getZoomExtent().County + 2);
             me.averageEmployees.map.addEventListener('zoom_changed', mapZoomAverageEmployeesUpdated);
             for (var x in overlays) {
                 me.averageEmployees.map.addOverlay(overlays[x], 0);
@@ -260,7 +260,7 @@
             var overlays = me.employeesPerCapitaOverlay.getOverlays();
             me.employeesPerCapita.map.triggerEvent('resize');
             me.employeesPerCapita.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.employeesPerCapita.map.setZoom(me.employeesPerCapitaOverlay.getZoomExtent().County + 1);
+            me.employeesPerCapita.map.setZoom(me.employeesPerCapitaOverlay.getZoomExtent().County + 2);
             me.employeesPerCapita.map.addEventListener('zoom_changed', mapZoomEmployeesPerCapitaUpdated);
             for (var x in overlays) {
                 me.employeesPerCapita.map.addOverlay(overlays[x], 0);

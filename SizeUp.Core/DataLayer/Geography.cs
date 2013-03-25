@@ -148,7 +148,7 @@ namespace SizeUp.Core.DataLayer
             var county = CalculationGeography(context, Granularity.County).Select(i => new KeyValue<long, int>
             {
                 Key = i.Key,
-                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West) / GLOBE_WIDTH).Value / ln2) //- 1
+                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West) / GLOBE_WIDTH).Value / ln2) - 1
             });
             var metro = CalculationGeography(context, Granularity.Metro).Select(i => new KeyValue<long, int>
             {
