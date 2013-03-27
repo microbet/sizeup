@@ -23,7 +23,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                if (this.IsJsonp())
+                {
+                    return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 

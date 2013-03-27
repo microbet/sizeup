@@ -163,6 +163,7 @@
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="TimeSlice.cs" />
     <Compile Include="Web\Form.cs" />
+    <Compile Include="Web\Jsonp.cs" />
     <Compile Include="Web\P3PHeader.cs" />
     <Compile Include="Web\QueryString.cs" />
     <Compile Include="Web\WebContext.cs" />

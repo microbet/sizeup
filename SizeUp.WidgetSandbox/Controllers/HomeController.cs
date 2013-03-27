@@ -61,6 +61,12 @@ namespace SizeUp.WidgetSandbox.Controllers
 
 
 
+        public ActionResult API()
+        {
+            return View();
+        }
+
+
 
     }
 }

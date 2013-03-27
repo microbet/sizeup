@@ -1,8 +1,6 @@
 ﻿(function () {
     sizeup.core.namespace('sizeup.charts');
     sizeup.charts.lineChart = function (opts) {
-
-        //leaving all this garbage for now...will refactor later
         var defaults =
         {
 

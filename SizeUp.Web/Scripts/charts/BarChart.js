@@ -2,7 +2,6 @@
     sizeup.core.namespace('sizeup.charts.barChart');
     sizeup.charts.barChart = function (opts) {
 
-        //leaving all this garbage for now...will refactor later
         var defaults =
         {
             valueFormat:  function(val){ return val;},

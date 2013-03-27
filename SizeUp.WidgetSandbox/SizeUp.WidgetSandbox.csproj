@@ -124,6 +124,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Content\reset.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Data.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -160,6 +161,7 @@
     <Content Include="Views\Home\Wide.cshtml" />
     <Content Include="Views\Home\BestPlaces.cshtml" />
     <Content Include="Views\Home\Embed.cshtml" />
+    <Content Include="Views\Home\API.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
