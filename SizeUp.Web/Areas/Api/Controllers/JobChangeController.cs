@@ -22,7 +22,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.JobChange.Chart(context, industryId, placeId, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

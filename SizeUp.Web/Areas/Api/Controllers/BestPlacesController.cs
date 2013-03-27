@@ -66,7 +66,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 var cities = output.Select(i => i.Place.City.Id).ToList();
                 var counties = Core.DataLayer.Base.Place.Get(context).Where(i => cities.Contains(i.CityId)).Select(i => new { Id = i.CityId, County = i.County.Name }).ToList();
                 output.ForEach(i => i.Place.City.Counties = counties.Where(c => c.Id == i.Place.City.Id).Select(c => new Core.DataLayer.Models.County { Name = c.County }).ToList());
-                return Json(output, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -77,7 +77,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var output = Core.DataLayer.BestPlaces.Bands(context, industryId, attribute,itemCount, bands, regionId, stateId, filters, granularity);
-                return Json(output, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
             }
         }
     }

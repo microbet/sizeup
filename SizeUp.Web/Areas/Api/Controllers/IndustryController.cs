@@ -13,37 +13,37 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Industry/
-        public JsonResult Industry(long id)
+        public ActionResult Industry(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult List(List<long> ids)
+        public ActionResult List(List<long> ids)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.List(context, ids);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpGet]
-        public JsonResult Current()
+        public ActionResult Current()
         {
             var id = SizeUp.Core.Web.WebContext.Current.CurrentIndustryId;
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult Current(long id)
+        public ActionResult Current(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -52,16 +52,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     WebContext.Current.CurrentIndustryId = id;
                 }
-                return Json(c!=null, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(c != null, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult Search(string term, int maxResults = 35)
+        public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();                  
-                return Json(data, JsonRequestBehavior.AllowGet);
+                var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

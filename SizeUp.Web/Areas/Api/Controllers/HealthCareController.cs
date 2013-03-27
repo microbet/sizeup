@@ -22,7 +22,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Healthcare.Chart(context, industryId, placeId, employees, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var obj = Core.DataLayer.Healthcare.Percentage(context, industryId, placeId, value, granularity);
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(obj, JsonRequestBehavior.AllowGet);
             }
         }
 

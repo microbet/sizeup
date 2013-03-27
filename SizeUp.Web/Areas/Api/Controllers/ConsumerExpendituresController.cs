@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var output = Core.DataLayer.ConsumerExpenditures.Bands(context, variableId, placeId, bands, granularity, boundingGranularity);
-                return Json(output, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -30,7 +30,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.ConsumerExpenditures.Variables(context).Where(i => i.ParentId == parentId).ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -39,7 +39,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.ConsumerExpenditures.Variable(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -48,7 +48,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.ConsumerExpenditures.VariablePath(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -58,7 +58,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.ConsumerExpenditures.VariableCrosswalk(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

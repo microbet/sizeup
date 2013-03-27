@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Data.Objects.SqlClient;
 using Microsoft.SqlServer.Types;
 using System.Data.Spatial;
-
+using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.DataLayer;
 
@@ -26,7 +26,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Business.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -35,7 +35,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Business.GetAt(context, new LatLng() { Lat = lat, Lng = lng }, industryIds);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -64,7 +64,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Items = data.Skip((page-1) * itemCount).Take(itemCount).ToList()
                 };
 
-                return Json(output, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
             }
            
         }

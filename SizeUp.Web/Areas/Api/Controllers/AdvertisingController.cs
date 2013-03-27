@@ -77,7 +77,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                         .ToList()
                 };
 
-                return Json(output, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -89,7 +89,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Advertising.MinimumDistance(context, industryId, placeId, itemCount, filters);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -100,7 +100,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var output = Core.DataLayer.Advertising.Bands(context, industryId, placeId, bands, filters);
-                return Json(output, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
             }
         }
     }

@@ -18,27 +18,27 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/Place/
 
-        public JsonResult Search(string term, int maxResults = 35)
+        public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Search(context, term).Take(maxResults).ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpGet]
-        public JsonResult Current()
+        public ActionResult Current()
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                  var data = Core.DataLayer.Place.Get(context, Core.Web.WebContext.Current.CurrentPlaceId);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                 return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         [HttpPost]
-        public JsonResult Current(long id)
+        public ActionResult Current(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -47,27 +47,27 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     WebContext.Current.CurrentPlaceId = id;
                 }
-                return Json(c != null, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(c != null, JsonRequestBehavior.AllowGet);
             }
         }
 
-        public JsonResult Detected()
+        public ActionResult Detected()
         {
             var id = GeoCoder.GetPlaceIdByIPAddress();
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
-       
 
-        public JsonResult Index(long id)
+
+        public ActionResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 

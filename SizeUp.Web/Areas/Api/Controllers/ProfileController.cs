@@ -111,7 +111,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
-            return Json(output, JsonRequestBehavior.AllowGet);
+            return this.Jsonp(output, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -223,8 +223,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
           
 
-            Response.Cookies.Add(cookie);      
-            return Json(true, JsonRequestBehavior.AllowGet);
+            Response.Cookies.Add(cookie);
+            return this.Jsonp(true, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -292,7 +292,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
-            return Json(output, JsonRequestBehavior.AllowGet);
+            return this.Jsonp(output, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -386,7 +386,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
 
             Response.Cookies.Add(cookie);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return this.Jsonp(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

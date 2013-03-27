@@ -41,20 +41,28 @@ namespace SizeUp.Core.Web
             return controller.Request.QueryString["jsoncallback"] != null;
         }
 
-        public static JsonpResult Jsonp(this Controller controller, object data)
+        public static ActionResult Jsonp(this Controller controller, object data)
         {
-            JsonpResult result = new JsonpResult();
-            result.Data = data;
-            result.ExecuteResult(controller.ControllerContext);
-            return result;
+            return Jsonp(controller, data, JsonRequestBehavior.AllowGet);
         }
 
-        public static JsonpResult Jsonp(this Controller controller, object data, JsonRequestBehavior behavior)
+        public static ActionResult Jsonp(this Controller controller, object data, JsonRequestBehavior behavior)
         {
-            JsonpResult result = new JsonpResult();
-            result.Data = data;
-            result.JsonRequestBehavior = behavior;
-            //result.ExecuteResult(controller.ControllerContext);
+            ActionResult result = null;
+            if (IsJsonp(controller))
+            {
+                var r = new JsonpResult();
+                r.Data = data;
+                r.JsonRequestBehavior = behavior;
+                result = r;
+            }
+            else
+            {
+                var r = new JsonResult();
+                r.Data = data;
+                r.JsonRequestBehavior = behavior;
+                result = r;
+            }
             return result;
         }
     }

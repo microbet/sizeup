@@ -22,15 +22,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId, granularity);
-                if (this.IsJsonp())
-                {
-                    return this.Jsonp(data, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(data, JsonRequestBehavior.AllowGet);
-                }
+                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId, granularity);               
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);         
             }
         }
 
@@ -39,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet); 
             }
         }
 
@@ -48,7 +41,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet); 
             }
         }
 

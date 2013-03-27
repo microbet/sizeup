@@ -23,7 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageSalary.Chart(context, industryId, placeId, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var obj = Core.DataLayer.AverageSalary.Percentage(context, industryId, placeId, value, granularity);
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -41,7 +41,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageSalary.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

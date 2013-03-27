@@ -23,7 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var obj = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, granularity);
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var obj = Core.DataLayer.YearStarted.Percentile(context, industryId, placeId, value, granularity);
-                return Json(obj, JsonRequestBehavior.AllowGet);
+                return this.Jsonp(obj, JsonRequestBehavior.AllowGet);
             }
         }
     }
