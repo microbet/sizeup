@@ -1,6 +1,7 @@
 ﻿#competition { }
 
 #competition h2 { font-size: 1.85em; display: inline-block; font-weight: normal; }
+#competition .headerWrapper { margin: 1em 0; text-align: left; }
 
 #competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative;  }
 #competition .tabs li {display:inline-block; vertical-align:bottom; position:relative; top:0.2em; z-index:1;  }
