@@ -22,7 +22,8 @@
             activeMapFilter: 'all',
             currentMapFilter: 'all', 
             pins: {},
-            markers:{},
+            markers: {},
+            activePlace: me.opts.CurrentInfo.CurrentPlace,
             competitor: {
                 pageData:null,
                 businesses:{},
@@ -191,6 +192,38 @@
             {
                 container: me.container.find('#sessionLoadedBox')
             });
+
+
+            me.content.industryBox = me.container.find('#industryBox').hide().removeClass('hidden');
+            me.content.changeIndustry = me.container.find('#changeIndustry');
+
+            me.content.industrySelector = sizeup.controls.industrySelector({
+                textbox: me.content.industryBox,
+                onChange: function (item) { onPrimaryIndustryChange(item); }
+            });
+
+            me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
+            me.content.changePlace = me.container.find('#changePlace');
+
+            me.content.placeSelector = sizeup.controls.placeSelector({
+                textbox: me.content.placeBox,
+                onChange: function (item) { onPlaceChange(item); }
+            });
+
+
+
+
+            me.content.industrySelector.setSelection(me.data.competitor.primaryIndustry);
+            me.content.industryBox.blur(industryBoxBlur);
+            me.content.changeIndustry.click(changeIndustryClicked);
+
+            me.content.placeSelector.setSelection(me.data.activePlace);
+            me.content.placeBox.blur(placeBoxBlur);
+            me.content.changePlace.click(changePlaceClicked);
+
+
+
+
 
             $('body').click(consumerExpenditureOnBodyClicked);
             me.content.ConsumerExpenditure.menu.click(consumerExpenditureMenuClicked);
@@ -476,9 +509,73 @@
             dataLayer.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(data); });
         };
 
-        
+      
+
+
+        var changeIndustryClicked = function () {
+            me.content.changeIndustry.hide();
+            me.content.industryBox.show();
+            me.content.industryBox.focus();
+        };
+
+        var onPrimaryIndustryChange = function (i) {
+            if (i.Id != me.data.competitor.primaryIndustry.Id) {
+                var p = { industry: me.data.competitor.primaryIndustry.Name };
+                new sizeup.core.analytics().competitionIndustryChanged(p);
+                var params = getParameters();
+                var url = document.location.pathname;
+                url = url.replace(me.data.competitor.primaryIndustry.SEOKey, i.SEOKey);
+                url = jQuery.param.fragment(url, params, 2);
+                document.location = url;
+            }
+            else {
+                me.content.changeIndustry.show();
+                me.content.industryBox.hide();
+            }
+        };
+
+        var industryBoxBlur = function () {
+            me.content.changeIndustry.show();
+            me.content.industryBox.hide();
+            me.content.industrySelector.setSelection(me.data.competitor.primaryIndustry);
+        };
+
+
+        var changePlaceClicked = function () {
+            me.content.changePlace.hide();
+            me.content.placeBox.show();
+            me.content.placeBox.focus();
+        };
+
+        var onPlaceChange = function (i) {
+            if (i.Id != me.data.activePlace.Id) {
+                var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
+                new sizeup.core.analytics().competitionPlaceChanged(p);
+                var params = getParameters();
+                var url = document.location.href;
+                url = url.substring(0, url.indexOf('competition'));
+                url = url + 'competition/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.competitor.primaryIndustry.SEOKey + '/';
+                url = jQuery.param.fragment(url, params, 2);
+                document.location = url;
+            }
+            else {
+                me.content.changePlace.show();
+                me.content.placeBox.hide();
+            }
+        };
+
+        var placeBoxBlur = function () {
+            me.content.changePlace.show();
+            me.content.placeBox.hide();
+            me.content.placeSelector.setSelection(me.data.activePlace);
+        };
         //////////end event actions/////////////////////////////
        
+        var getParameters = function () {
+            var params = jQuery.bbq.getState();
+            return params;
+        };
+
         var showLegend = function () {
             if (me.data.consumerExpenditure.legend != null) {
                 me.content.map.setLegend(me.data.consumerExpenditure.legend);

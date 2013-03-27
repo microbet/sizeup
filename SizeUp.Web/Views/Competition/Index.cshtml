@@ -18,6 +18,9 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
@@ -36,6 +39,21 @@
 }
 
 <div id="competition">
+    <div class="headerWrapper">
+        <h2 class="heading">
+            <span>Plot your competitors in the</span>
+           
+            <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
+            <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+
+            <span>industry around </span>
+
+
+            <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
+            <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+
+        </h2>
+    </div>
 
     <div id="sessionLoadedBox" class="flash hidden">
         <div class="info">

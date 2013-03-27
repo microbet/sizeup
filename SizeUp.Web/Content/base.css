@@ -161,4 +161,34 @@ a.sorter.desc { background-position:right 3px; }
 
 
 
+.heading { font-weight:normal; text-align:left; z-index:3; position:relative;}
+.heading span,
+.heading a {font-size:1em; }
+.heading .changeLink:after,
+.heading .selectList-selector:after { width:11px; height: 13px; background:transparent url(/content/images/pencil.png) no-repeat 0 0; display:inline-block; content: ""; margin:0 0.25em;  }
+.heading .changeLink:hover:after,
+.heading .selectList-selector:hover:after { background-position: 0 -17px; }
+.heading .changeLink ,
+.heading .selectList-selector {white-space:nowrap; }
+
+.heading .selectList-list,
+.heading .ui-autocomplete { font-size: 0.75em; }
+
+.heading .selectBox { font-size: 1em; width:12em; text-overflow:ellipsis; }
+.heading .selectList-list { max-height: 20em; overflow: auto; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,11 +1,5 @@
-﻿#bestPlaces h2 span,
-#bestPlaces h2 a { font-size: 1em; }
-#bestPlaces h2 #changeIndustry:after,
-#bestPlaces h2 .selectList-selector:after { width:11px; height: 13px; background:transparent url(/content/images/pencil.png) no-repeat 0 0; display:inline-block; content: ""; margin:0 0.25em;  }
-#bestPlaces h2 #changeIndustry:hover:after,
-#bestPlaces h2 .selectList-selector:hover:after { background-position: 0 -17px; }
-
-
+﻿#bestPlaces h2 { font-size: 2em; font-weight: normal; }
+#bestPlaces h2 #selectList-regionMenu .selectList-list { width:22em; }
 #bestPlaces h3 {margin:0.5em 0 0.25em 1em; display:inline-block;  }
 #bestPlaces .filterLabels {margin:0 1em; text-align:left; }
 #bestPlaces .filterLabels .fixed {display:inline-block; font-size: 1.3em; margin:0 0 0.5em; }
@@ -23,13 +17,6 @@
 #bestPlaces #advancedFilters {display:inline-block; padding:0 0 0 1em; }
 
 #bestPlaces  { }
-#bestPlaces  h2 { font-size: 2em; font-weight:normal; text-align:left;}
-#bestPlaces h2 .selectList-container {font-weight:normal; }
-#bestPlaces h2 .selectList-list {font-size:0.75em; }
-#bestPlaces h2 #industryBox { font-size: 1em; width:12em; text-overflow:ellipsis; }
-#bestPlaces h2 .ui-autocomplete { font-size: 0.75em; }
-#bestPlaces h2 #selectList-regionMenu .selectList-list { max-height: 20em; overflow: auto; width:22em; }
-
 #bestPlaces .mapContent.container {  margin:1em 0 0 0; text-align:left;}
 #bestPlaces .mapContent.container .map{width:100%;height:40em;}
 #bestPlaces .mapContent .footer{background-color:#F6F6F0; padding:0.5em; font-family: Arial,Verdana,sans-serif; text-align:center; }

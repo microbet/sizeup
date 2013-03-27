@@ -30,7 +30,8 @@
         dataLayer.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
-           
+            me.data.activeIndustry = me.opts.currentInfo.CurrentIndustry;
+            me.data.activePlace = me.opts.currentInfo.CurrentPlace;
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 jQuery.bbq.pushState(me.data.dashboardValues, 1);
@@ -39,7 +40,7 @@
             }
 
             me.signinPanels = {};
-
+            me.content = {};
             
             me.resourceToggle = new sizeup.controls.toggleButton(
                 {
@@ -52,7 +53,36 @@
                    container: me.container.find('#sessionLoadedBox')
                });
 
-           
+
+            me.content.industryBox = me.container.find('#industryBox').hide().removeClass('hidden');
+            me.content.changeIndustry = me.container.find('#changeIndustry');
+
+            me.content.industrySelector = sizeup.controls.industrySelector({
+                textbox: me.content.industryBox,
+                onChange: function (item) { onIndustryChange(item); }
+            });
+
+            me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
+            me.content.changePlace = me.container.find('#changePlace');
+
+            me.content.placeSelector = sizeup.controls.placeSelector({
+                textbox: me.content.placeBox,
+                onChange: function (item) { onPlaceChange(item); }
+            });
+
+
+
+
+            me.content.industrySelector.setSelection(me.data.activeIndustry);
+            me.content.industryBox.blur(industryBoxBlur);
+            me.content.changeIndustry.click(changeIndustryClicked);
+
+            me.content.placeSelector.setSelection(me.data.activePlace);
+            me.content.placeBox.blur(placeBoxBlur);
+            me.content.changePlace.click(changePlaceClicked);
+
+
+
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
@@ -119,6 +149,7 @@
                 });
             }
 
+
             $('#dashboard').removeClass('hidden');
             initAllReports();
 
@@ -128,6 +159,72 @@
                 me.sessionLoadedBox.flash();
             }
         };
+
+        var getParameters = function () {
+            var params = jQuery.bbq.getState();
+            return params;
+        };
+
+
+        var changeIndustryClicked = function () {
+            me.content.changeIndustry.hide();
+            me.content.industryBox.show();
+            me.content.industryBox.focus();
+        };
+
+        var onIndustryChange = function (i) {
+            if (i.Id != me.data.activeIndustry.Id) {
+                var p = { industry: me.data.activeIndustry.Name };
+                new sizeup.core.analytics().dashboardIndustryChanged(p);
+                var params = getParameters();
+                var url = document.location.pathname;
+                url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
+                url = jQuery.param.fragment(url, params, 2);
+                document.location = url;
+            }
+            else {
+                me.content.changeIndustry.show();
+                me.content.industryBox.hide();
+            }
+        };
+
+        var industryBoxBlur = function () {
+            me.content.changeIndustry.show();
+            me.content.industryBox.hide();
+            me.content.industrySelector.setSelection(me.data.activeIndustry);
+        };
+
+
+        var changePlaceClicked = function () {
+            me.content.changePlace.hide();
+            me.content.placeBox.show();
+            me.content.placeBox.focus();
+        };
+
+        var onPlaceChange = function (i) {
+            if (i.Id != me.data.activePlace.Id) {
+                var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
+                new sizeup.core.analytics().dashboardPlaceChanged(p);
+                var params = getParameters();
+                var url = document.location.href;
+                url = url.substring(0, url.indexOf('dashboard'));
+                url = url + 'dashboard/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.activeIndustry.SEOKey + '/';
+                url = jQuery.param.fragment(url, params, 2);
+                document.location = url;
+            }
+            else {
+                me.content.changePlace.show();
+                me.content.placeBox.hide();
+            }
+        };
+
+        var placeBoxBlur = function () {
+            me.content.changePlace.show();
+            me.content.placeBox.hide();
+            me.content.placeSelector.setSelection(me.data.activePlace);
+        };
+
+
 
         var signinFormClicked = function(data){
             for (var x in me.signinPanels) {

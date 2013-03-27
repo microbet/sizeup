@@ -19,6 +19,13 @@
             dashboardReportLoaded: function (params) {
                 trackEvent({ category: 'Dashboard', action: 'reportLoaded', label: params.report, isInteraction: true });
             },
+            dashboardIndustryChanged: function (params) {
+                trackEvent({ category: 'Dashboard', action: 'industryChanged', label: params.industry, isInteraction: true });
+            },
+            dashboardPlaceChanged: function (params) {
+                trackEvent({ category: 'Dashboard', action: 'placeChanged', label: params.place, isInteraction: true });
+            },
+
             advertisingReportLoaded: function (params) {
                 trackEvent({ category: 'Advertising', action: 'reportLoaded', label: params.attribute, isInteraction: true });
             },
@@ -33,6 +40,12 @@
             },
             competitionTabLoaded: function (params) {
                 trackEvent({ category: 'Competition', action: 'tabLoaded', label: params.tab, isInteraction: true });
+            },
+            competitionIndustryChanged: function (params) {
+                trackEvent({ category: 'Competition', action: 'industryChanged', label: params.industry, isInteraction: true });
+            },
+            competitionPlaceChanged: function (params) {
+                trackEvent({ category: 'Competition', action: 'placeChanged', label: params.place, isInteraction: true });
             },
             relatedCompetitor: function (params) {
                 trackInternal(params, 'trackRelatedCompetitor');

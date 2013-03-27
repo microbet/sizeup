@@ -2,12 +2,15 @@
 #content { margin-bottom: 3em; }
 
 #dashboard { position: relative; text-align: center; }
-#dashboard h1 {font-size: 1.85em; position: absolute;   left: 13em; top: -1.4em; font-weight:normal;}
+#dashboard h1 {font-size: 1.85em; font-weight:normal;}
 #dashboard h3 { color:#6EAB24; font-size: 1.7em; }
 #dashboard h4 { font-size: 1.7em; font-weight: normal; }
 #dashboard h5 { font-size: 1.3em; font-weight: bold; padding: 0 0 0 1em; }
 
+#dashboard .headerWrapper { text-align: left; margin:1em 0 1em 1em; padding:1em; }
+
 #dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; text-align: left; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
+#dashboard .reportWrapper .report:first-child { border-radius:0; border-top:none; }
 
 #dashboard .report .header .icon { width:60px; height:60px; background-image:url(/content/images/dashboardIcons.png);background-repeat:no-repeat; }
 
