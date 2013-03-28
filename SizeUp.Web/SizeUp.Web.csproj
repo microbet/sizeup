@@ -354,6 +354,7 @@
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />
+    <Content Include="Scripts\views\advertising\advertising2.js" />
     <Content Include="Scripts\views\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\business\find.js" />

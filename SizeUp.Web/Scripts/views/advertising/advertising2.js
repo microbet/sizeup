@@ -44,10 +44,6 @@
                     template: 'householdIncome'
                 }
             },
-
-
-
-            /*need this?*/
             params: {
                 attribute: 'totalRevenue'
             }
@@ -60,16 +56,7 @@
             xhr: {},
             mapPins: [],
             activeIndustry: me.opts.CurrentIndustry,
-            activePlace: me.opts.CurrentPlace/*,
-            attributes: {
-                totalRevenue: 'Total Annual Revenue',
-                totalEmployees: 'Total Employees',
-                averageRevenue: 'Average Revenue',
-                averageEmployees: 'Average Employees',
-                employeesPerCapita: 'Employees Per Capita',
-                revenuePerCapita: 'Revenue Per Capita',
-                underservedMarkets: 'Revenue Per Capita'
-            }*/
+            activePlace: me.opts.CurrentPlace
         };
 
 
@@ -82,18 +69,14 @@
 
       
 
-        /*
+        
         var params = jQuery.bbq.getState();
         var minDistanceParams = { placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
         if (params.template == null) {
             minDistanceParams = $.extend(true, minDistanceParams, me.opts.filterTemplates.totalRevenue);
         }
-        */
-
-        //dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
-
-
-
+       
+        dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.params.distance = data; }));
         dataLayer.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
 
@@ -115,6 +98,7 @@
             me.content.noResults = me.container.find('.listWrapper .noResults').hide();
             me.content.results = me.container.find('.listWrapper .results');
             me.content.bands = me.container.find('.mapContent.wrapper .bandContainer');
+            me.content.description = me.container.find('.description');
 
             me.content.map = new sizeup.maps.map({
                 container: me.container.find('.mapContent.wrapper .map')
@@ -144,8 +128,9 @@
                 select: me.container.find('#attributeMenu'),
                 onChange: function () { attributeMenuChanged(); }
             });
-
-
+            me.content.customAttributeOption = me.content.attributeMenu.getSelectList().find('.custom');
+            me.content.customAttributeOption.remove();
+            me.content.attributeMenu.updateList();
             me.content.attributeMenu.setValue(params.attribute);
 
             me.content.filters = {};
@@ -160,18 +145,19 @@
                     onClick: filtersToggleClicked
                 });
 
-          initFilterLabels();
-          initSliders();
+            me.content.pager = new sizeup.controls.pager({
+                container: me.container.find('.pager'),
+                itemsPerPage: me.opts.itemsPerPage,
+                pagesToShow: me.opts.pagesToShow,
+                templates: templates,
+                templateId: 'pager',
+                onUpdate: function (data) { pagerOnUpdate(data); }
+            });
+            me.content.pager.getContainer().hide();
 
 
-
-    
-
-       
-
-
-
-
+            initFilterLabels();
+            initSliders();
 
 
 
@@ -191,6 +177,7 @@
             me.loader.hide();
             me.content.container.show();
 
+            pushUrlState();
             loadReport();
             
         };
@@ -468,6 +455,7 @@
                 //TODO: wire analytics
                 //new sizeup.core.analytics().dashboardIndustryChanged(p);
                 var params = getParameters();
+                delete params.distance;
                 var url = document.location.pathname;
                 url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
                 url = jQuery.param.fragment(url, params, 2);
@@ -498,6 +486,7 @@
                 //TODO: wire analytics
                 //new sizeup.core.analytics().dashboardPlaceChanged(p);
                 var params = getParameters();
+                delete params.distance;
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('advertising'));
                 url = url + 'advertising/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.activeIndustry.SEOKey + '/';
@@ -534,6 +523,14 @@
             loadReport();
         };
 
+        var pagerOnUpdate = function (data) {
+            var params = getParameters();
+            params.page = data.page;
+            setParameters(params);
+            loadReport();
+        };
+
+        
 
         /////////end events//////////
         var getParameters = function () {
@@ -543,8 +540,9 @@
 
         var pushUrlState = function () {
             var params = {};
-            params.attribute = me.content.attributeMenu.getValue();
+            var attributeItem = me.content.attributeMenu.getValue();
             
+            params = $.extend(true, params, me.opts.filterTemplates[attributeItem]);
             
             var p;
             for (var x in me.content.filters.sliders) {
@@ -569,9 +567,311 @@
 
         var loadReport = function () {
 
+            me.content.loader.show();
+            me.content.results.hide();
+
+
+            var params = getParameters();
+            var pagerData = me.content.pager.getPageData();
+
+            params.industryId = me.data.activeIndustry.Id;
+            params.placeId = me.data.activePlace.Id;
+            params.itemCount = me.opts.itemsPerPage;
+            params.bands = me.opts.bandCount;
+            params.page = pagerData.page;
+
+            
+            new sizeup.core.analytics().advertisingReportLoaded({ attribute: params.template });
+
+            var reportData = {
+                zips: null,
+                bands: null
+            };
+            var notifier = new sizeup.core.notifier(function () {
+                setPager({ Count: reportData.zips.Total, Page: pagerData.page });
+                var formattedData = formatData(reportData.zips);
+                var formattedBands = formatBands(reportData.bands, params.attribute);
+
+                bindCircle(params.distance);
+                bindZipList(formattedData);
+                bindBands(formattedBands);
+                bindDescription();
+
+                bindMap(reportData, params.attribute);
+
+                me.content.loader.hide();
+                me.content.results.show();
+            });
+
+            dataLayer.getBestPlacesToAdvertise(params, notifier.getNotifier(function (data) {
+                reportData.zips = data;
+            }));
+            params.bands = me.opts.bandCount;
+            dataLayer.getBestPlacesToAdvertiseBands(params, notifier.getNotifier(function (data) {
+                reportData.bands = data;
+            }));
+
         };
 
 
+        var setPager = function (data) {
+            me.content.pager.setState(data);
+            if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
+                me.content.pager.getContainer().show();
+            }
+            else {
+                me.content.pager.getContainer().hide();
+            }
+        };
+    
+        var formatBands = function (data, attribute) {
+            var newData = [];
+
+            for (var x in data) {
+                newData.push(formatBandItem(data[x], attribute));
+            }
+            return newData;
+        };
+
+        var formatBandItem = function (item, attribute) {
+            var newItem = {};
+            if (attribute == 'totalPopulation') {
+                newItem.Min = sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'totalRevenue') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'averageRevenue') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'totalEmployees') {
+                newItem.Min = sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'revenuePerCapita') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'householdIncome') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'householdExpenditures') {
+                newItem.Min = '$' + sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = '$' + sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'medianAge') {
+                newItem.Min = sizeup.util.numbers.format.addCommas(item.Min);
+                newItem.Max = sizeup.util.numbers.format.addCommas(item.Max);
+            }
+            else if (attribute == 'highSchoolOrHigher') {
+                newItem.Min = (item.Min * 100).toFixed(1) + '%';
+                newItem.Max = (item.Max * 100).toFixed(1) + '%';
+            }
+            else if (attribute == 'whiteCollarWorkers') {
+                newItem.Min = (item.Min * 100).toFixed(1) + '%';
+                newItem.Max = (item.Max * 100).toFixed(1) + '%';
+            }
+            else if (attribute == 'bachelorsDegreeOrHigher') {
+                newItem.Min = (item.Min * 100).toFixed(1) + '%';
+                newItem.Max = (item.Max * 100).toFixed(1) + '%';
+            }
+
+
+            return newItem;
+        };
+
+        var formatData = function (data) {
+            var newData = {
+                Items: [],
+                Total: data.Total
+            };
+
+            for (var x in data.Items) {
+                newData.Items.push(formatDataItem(data.Items[x]));
+            }
+            return newData;
+        };
+
+        var formatDataItem = function (item) {
+            var params = getParameters();
+            var newItem = {};
+            if (item.Place) {
+                newItem['city'] = item.Place.City;
+                newItem['state'] = item.Place.State;
+                newItem['county'] = item.Place.County;
+            }
+            newItem['lat'] = item.Centroid.Lat;
+            newItem['long'] = item.Centroid.Long;
+            newItem['name'] = item.ZipCode.Name;
+            newItem['totalPopulation'] = item.Population == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.Population) };
+            newItem['totalRevenue'] = item.TotalRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue) };
+
+            if (params['averageRevenue'] != null || params.attribute == 'averageRevenue') {
+                newItem['averageRevenue'] = item.AverageRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue) };
+            }
+            if (params['totalEmployees'] != null || params.attribute == 'totalEmployees') {
+                newItem['totalEmployees'] = item.TotalEmployees == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.TotalEmployees) };
+            }
+            if (params['revenuePerCapita'] != null || params.attribute == 'revenuePerCapita') {
+                newItem['revenuePerCapita'] = item.RevenuePerCapita == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita) };
+            }
+            if (params['householdIncome'] != null || params.attribute == 'householdIncome') {
+                newItem['householdIncome'] = item.HouseholdIncome == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome) };
+            }
+            if (params['householdExpenditures'] != null || params.attribute == 'householdExpenditures') {
+                newItem['householdExpenditures'] = item.HouseholdExpenditures == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(sizeup.util.numbers.format.round(item.HouseholdExpenditures, 0)) };
+            }
+            if (params['medianAge'] != null || params.attribute == 'medianAge') {
+                newItem['medianAge'] = item.MedianAge == null ? { value: null } : { value: item.MedianAge };
+            }
+            if (params['highSchoolOrHigher'] != null || params.attribute == 'highSchoolOrHigher') {
+                newItem['highSchoolOrHigher'] = item.HighSchoolOrHigher == null ? { value: null } : { value: (item.HighSchoolOrHigher * 100).toFixed(1) + '%' };
+            }
+            if (params['whiteCollarWorkers'] != null || params.attribute == 'whiteCollarWorkers') {
+                newItem['whiteCollarWorkers'] = item.WhiteCollarWorkers == null ? { value: null } : { value: (item.WhiteCollarWorkers * 100).toFixed(1) + '%' };
+            }
+            if (params['bachelorsDegreeOrHigher'] != null || params.attribute == 'bachelorsDegreeOrHigher') {
+                newItem['bachelorsDegreeOrHigher'] = item.BachelorsDegreeOrHigher == null ? { value: null } : { value: (item.BachelorsDegreeOrHigher * 100).toFixed(1) + '%' };
+            }
+
+
+            newItem['value'] = newItem[params.attribute];
+            delete newItem[params.attribute];
+
+
+            return newItem;
+        };
+
+
+        var bindBands = function (data) {
+            var params = getParameters();
+            var html = '';
+            for (var x = 0 ; x < data.length; x++) {
+                var d = {
+                    color: me.opts.bandColors[x]
+                };
+
+                if (params.order == 'highToLow') {
+                    d.label = x == data.length - 1 ? data[x].Max + ' and below' : data[x].Max + ' - ' + data[x].Min;
+                }
+                else {
+                    d.label = x == data.length - 1 ? data[x].Min + ' and above' : data[x].Min + ' - ' + data[x].Max;
+                }
+
+                var template = templates.get('bandItem');
+                html = html + templates.bind(template, d);
+            }
+            me.content.bands.html(html);
+        };
+
+
+        var bindMap = function (data, attribute) {
+            for (var x in me.content.mapPins) {
+                me.content.map.removeMarker(me.content.mapPins[x]);
+            }
+            me.content.mapPins = [];
+            var latLngBounds = new sizeup.maps.latLngBounds();
+            var hasResults = false;
+            for (var x in data.zips.Items) {
+                var pin = new sizeup.maps.heatPin({
+                    position: new sizeup.maps.latLng({ lat: data.zips.Items[x].Centroid.Lat, lng: data.zips.Items[x].Centroid.Lng }),
+                    color: getColor(getValue(data.zips.Items[x], attribute), data.bands),
+                    title: data.zips.Items[x].Name
+                });
+                latLngBounds.extend(pin.getPosition());
+                hasResults = true;
+                me.content.mapPins.push(pin);
+                me.content.map.addMarker(pin);
+            };
+            if (hasResults) {
+                me.content.map.fitBounds(latLngBounds);
+                me.content.noResults.hide();
+            }
+            else {
+                me.content.noResults.show();
+            }
+        };
+
+        var getColor = function (value, bandData) {
+            var color = null;
+            for (var x = 0; x < bandData.length; x++) {
+                if (value >= bandData[x].Min && value <= bandData[x].Max) {
+                    color = me.opts.bandColors[x];
+                }
+            }
+            return color;
+        };
+
+        var getValue = function (item, attribute) {
+            var val = null;
+            if (attribute == 'totalPopulation') {
+                val = item.Population;
+            }
+            else if (attribute == 'totalRevenue') {
+                val = item.TotalRevenue;
+            }
+            else if (attribute == 'averageRevenue') {
+                val = item.AverageRevenue;
+            }
+            else if (attribute == 'totalEmployees') {
+                val = item.TotalEmployees;
+            }
+            else if (attribute == 'revenuePerCapita') {
+                val = item.RevenuePerCapita;
+            }
+            else if (attribute == 'householdIncome') {
+                val = item.HouseholdIncome;
+            }
+            else if (attribute == 'householdExpenditures') {
+                val = item.HouseholdExpenditures;
+            }
+            else if (attribute == 'medianAge') {
+                val = item.MedianAge;
+            }
+            else if (attribute == 'highSchoolOrHigher') {
+                val = item.HighSchoolOrHigher;
+            }
+            else if (attribute == 'whiteCollarWorkers') {
+                val = item.WhiteCollarWorkers;
+            }
+            else if (attribute == 'bachelorsDegreeOrHigher') {
+                val = item.BachelorsDegreeOrHigher;
+            }
+            return val;
+        }
+
+
+        var bindCircle = function (radius) {
+            if (me.content.mapCircle) {
+                me.content.map.removeCircle(me.content.mapCircle);
+            }
+            if (radius) {
+                me.content.mapCircle = new sizeup.maps.circle({ center: me.data.CityCenter, radius: radius * 1609.344, strokeColor: "#6495ED", strokeWeight: 2, strokeOpacity: 0.35, fillOpacity: 0 });
+                me.content.map.addCircle(me.content.mapCircle);
+            }
+        };
+
+        var bindZipList = function (data) {
+            var html = '';
+            for (var x in data.Items) {
+                var template = templates.get('listItem');
+                html = html + templates.bind(template, data.Items[x]);
+            }
+            me.content.results.html(html);
+        };
+
+        var bindDescription = function () {
+            var x = me.content.attributeMenu.getValue();
+            var template = templates.get(x + 'Description');
+            var data = {
+                industry: me.data.activeIndustry.Name
+            };
+            me.content.description.html(templates.bind(template, data));
+        };
 
 
         /*
