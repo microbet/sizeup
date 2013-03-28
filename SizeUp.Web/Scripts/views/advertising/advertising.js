@@ -3,8 +3,6 @@
     sizeup.views.advertising.advertising = function (opts) {
 
         var defaults = {
-            mapSettings: sizeup.maps.mapOptions.getDefaults(),
-            styles: sizeup.maps.mapStyles.getDefaults(),
             colors: [],
             overlays: [],
             slideTime: 500,
@@ -72,8 +70,7 @@
         dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.data.defaultDistance = data; }));
         dataLayer.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) {me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng });}));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-        var init = function () {
-            
+        var init = function () {        
          
             var params = jQuery.bbq.getState();
             if (params.template == null) {
@@ -109,6 +106,13 @@
 
 
             me.content.bands = me.content.container.find('.mapContent .footer .bandContainer');
+
+
+
+
+
+
+
 
 
             me.content.filterSettingsButton = me.content.container.find('#filterSettingsButton');
@@ -177,6 +181,46 @@
 
             me.filterSettings.submitButton.click(function () { submitClicked(); });
             me.filterSettings.cancelButton.click(function () { cancelClicked(); });
+
+
+
+
+
+
+
+
+
+            me.content.industryBox = me.container.find('#industryBox').hide().removeClass('hidden');
+            me.content.changeIndustry = me.container.find('#changeIndustry');
+
+            me.content.industrySelector = sizeup.controls.industrySelector({
+                textbox: me.content.industryBox,
+                onChange: function (item) { onPrimaryIndustryChange(item); }
+            });
+
+            me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
+            me.content.changePlace = me.container.find('#changePlace');
+
+            me.content.placeSelector = sizeup.controls.placeSelector({
+                textbox: me.content.placeBox,
+                onChange: function (item) { onPlaceChange(item); }
+            });
+
+
+
+
+            me.content.industrySelector.setSelection(me.data.competitor.primaryIndustry);
+            me.content.industryBox.blur(industryBoxBlur);
+            me.content.changeIndustry.click(changeIndustryClicked);
+
+            me.content.placeSelector.setSelection(me.data.activePlace);
+            me.content.placeBox.blur(placeBoxBlur);
+            me.content.changePlace.click(changePlaceClicked);
+
+
+
+
+
 
 
             me.signinPanel = new sizeup.views.shared.signin({

@@ -18,8 +18,6 @@
         me.opts = $.extend(true, defaults, opts);
         var templates = new sizeup.core.templates();
         
-        me.test = 1;
-
 
         var init = function () {
             me.slider = me.container.find('.slider').addClass('off');
