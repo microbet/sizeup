@@ -59,12 +59,32 @@
             <span>based on </span>
 
             <select id="attributeMenu">
-                <option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                <!--<option value="revenuePerCapita">Highest Revenue Per Capita</option>
                 <option value="underservedMarkets">Most Underserved Markets</option>
                 <option value="averageRevenue">Highest Average Revenue</option>
                 <option value="totalRevenue">Highest Total Revenue</option>
-                <option value="householdIncome">Highest Household Income</option>
-                <option class="custom" value="custom">Custom Filter</option>
+                <option value="householdIncome">Highest Household Income</option>-->
+
+
+                <optgroup label="Industry Performance">
+                    <option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                    <option value="underservedMarkets">Most Underserved Markets</option>
+                    <option value="averageRevenue">Highest Average Revenue</option>
+                    <option value="totalRevenue">Highest Total Revenue</option>
+                    <option value="householdIncome">Highest Household Income</option>
+                    <option value="totalEmployees">Total Employees</option>
+                </optgroup>
+
+                <optgroup label="Demographic Characteristics">
+                    <option value="householdIncome">Household Income</option>
+                    <option value="totalPopulation">Total Population</option>                  
+                    <option value="householdExpenditures">Household Expenditures (Average)</option>
+                    <option value="medianAge">Median Age</option>
+                    <option value="bachelorsDegreeOrHigher">Bachelors Degree or Higher</option>
+                    <option value="highSchoolOrHigher">Highschool Degree or Higher</option>
+                    <option value="whiteCollarWorkers">White Collar Workers</option>
+                </optgroup>
+
             </select>
 
 
@@ -283,23 +303,7 @@
 
                 <div class="sort">
                     <a class="name sorter" href="javascript:void(0);">ZIP Code by City</a>
-                    <div class="value">
-                        <select id="valueMenu">
-                            <option value="totalPopulation">Total Population</option>
-                            <option value="totalRevenue">Total Annual Revenue</option>
-                            <option value="averageRevenue">Average Annual Revenue</option>
-                            <option value="totalEmployees">Total Employees</option>
-                            <option value="revenuePerCapita">Revenue Per Capita</option>
-                            <option value="householdIncome">Household Income</option>
-                            <option value="householdExpenditures">Household Expenditures (Average)</option>
-                            <option value="medianAge">Median Age</option>
-                            <option value="bachelorsDegreeOrHigher">Bachelors Degree or Higher</option>
-                            <option value="highSchoolOrHigher">Highschool Degree or Higher</option>
-                            <option value="whiteCollarWorkers">White Collar Workers</option>
-                        </select>
-                        <a class="sorter" href="javascript:void(0);">&nbsp;</a>
-                    </div>
-                
+                    <a class="value sorter" href="javascript:void(0);"></a>
                 </div>
 
 

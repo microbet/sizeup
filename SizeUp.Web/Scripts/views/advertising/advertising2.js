@@ -9,43 +9,51 @@
             bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
             filterTemplates: {
                 averageRevenue: {
+                    label:'Average Revenue',
                     attribute: 'averageRevenue',
                     sortAttribute: 'averageRevenue',
                     sort: 'desc',
-                    order: 'highToLow',
-                    template: 'averageRevenue'
+                    order: 'highToLow'//,
+                    //template: 'averageRevenue'
                 },
                 totalRevenue: {
+                    label: 'Total Revenue',
                     attribute: 'totalRevenue',
                     sortAttribute: 'totalRevenue',
                     sort: 'desc',
-                    order: 'highToLow',
-                    template: 'totalRevenue'
+                    order: 'highToLow'//,
+                    //template: 'totalRevenue'
                 },
                 underservedMarkets: {
+                    label: 'Revenue Per Capita',
                     attribute: 'revenuePerCapita',
                     sortAttribute: 'revenuePerCapita',
                     sort: 'asc',
-                    order: 'lowToHigh',
-                    template: 'underservedMarkets'
+                    order: 'lowToHigh'//,
+                   // template: 'underservedMarkets'
                 },
                 revenuePerCapita: {
+                    label: 'Revenue Per Capita',
                     attribute: 'revenuePerCapita',
                     sortAttribute: 'revenuePerCapita',
                     sort: 'desc',
-                    order: 'highToLow',
-                    template: 'revenuePerCapita'
+                    order: 'highToLow'//,
+                   // template: 'revenuePerCapita'
                 },
                 householdIncome: {
+                    label: 'Household Income',
                     attribute: 'householdIncome',
                     sortAttribute: 'householdIncome',
                     sort: 'desc',
-                    order: 'highToLow',
-                    template: 'householdIncome'
+                    order: 'highToLow'//,
+                    //template: 'householdIncome'
                 }
             },
-            params: {
-                attribute: 'totalRevenue'
+            defaultParams: {
+                attribute: 'averageRevenue',
+                sortAttribute: 'averageRevenue',
+                sort: 'desc',
+                order: 'highToLow'
             }
         };
         var me = {};
@@ -73,10 +81,10 @@
         var params = jQuery.bbq.getState();
         var minDistanceParams = { placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
         if (params.template == null) {
-            minDistanceParams = $.extend(true, minDistanceParams, me.opts.filterTemplates.totalRevenue);
+            minDistanceParams = $.extend(true, minDistanceParams, me.opts.defaultParams);
         }
        
-        dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.params.distance = data; }));
+        dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.defaultDistance = data; }));
         dataLayer.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
 
@@ -85,8 +93,9 @@
         var init = function () {
 
             var params = getParameters();
-            params = $.extend(true, me.opts.params, params);
-            jQuery.bbq.pushState(params, 2);
+            var defaults = $.extend(true, { distance: me.opts.defaultDistance }, me.opts.defaultParams);
+            params = $.extend(true, defaults, params);
+            jQuery.bbq.pushState(params);
 
 
             me.content = {};
@@ -156,6 +165,15 @@
             me.content.pager.getContainer().hide();
 
 
+            me.content.nameSort = me.container.find('.sort .name');
+            me.content.valueSort = me.container.find('.sort .value');
+      
+
+
+
+            updateSort();
+
+
             initFilterLabels();
             initSliders();
 
@@ -169,7 +187,8 @@
             me.content.placeBox.blur(placeBoxBlur);
             me.content.changePlace.click(changePlaceClicked);
 
-
+            me.content.nameSort.click(nameSortClicked);
+            me.content.valueSort.click(valueSortClicked);
 
 
 
@@ -505,12 +524,23 @@
             me.content.placeSelector.setSelection(me.data.activePlace);
         };
 
-        var attributeMenuChanged = function (e) {
+        var attributeMenuChanged = function () {
+            var attributeItem = me.content.attributeMenu.getValue();
+            var params = {
+                sort: me.opts.filterTemplates[attributeItem].sort,
+                sortAttribute: me.opts.filterTemplates[attributeItem].sortAttribute,
+                order: me.opts.filterTemplates[attributeItem].order,
+                attribute: me.opts.filterTemplates[attributeItem].attribute
+            };
 
-            var p = { attribute: me.content.attributeMenu.getValue() };
+            jQuery.bbq.pushState(params);
+
             //TODO: wire analytics
+            var p = { attribute: attributeItem };
             //new sizeup.core.analytics().topPlacesAttributeChanged(p);
+
             pushUrlState();
+            updateSort();
             loadReport();
         };
 
@@ -518,7 +548,7 @@
             updateFilterLabel(attribute);
             var p = { attribute: attribute };
             //TODO:wire analytics
-            new sizeup.core.analytics().topPlacesAdvancedFilterChanged(p);
+            //new sizeup.core.analytics().topPlacesAdvancedFilterChanged(p);
             pushUrlState();
             loadReport();
         };
@@ -530,6 +560,36 @@
             loadReport();
         };
 
+        var nameSortClicked = function () {
+            if (me.content.nameSort.hasClass('desc')) {
+                me.content.nameSort.removeClass('desc');
+                me.content.nameSort.addClass('asc');
+            }
+            else {
+                me.content.nameSort.removeClass('asc');
+                me.content.nameSort.addClass('desc');
+            }
+            me.content.valueSort.removeClass('asc').removeClass('desc');
+            pushUrlState();
+            updateSort();
+            loadReport();
+        };
+
+
+        var valueSortClicked = function () {
+            if (me.content.valueSort.hasClass('desc')) {
+                me.content.valueSort.removeClass('desc');
+                me.content.valueSort.addClass('asc');
+            }
+            else {
+                me.content.valueSort.removeClass('asc');
+                me.content.valueSort.addClass('desc');
+            }
+            me.content.nameSort.removeClass('asc').removeClass('desc');
+            pushUrlState();
+            updateSort();
+            loadReport();
+        };
         
 
         /////////end events//////////
@@ -539,11 +599,23 @@
         };
 
         var pushUrlState = function () {
-            var params = {};
-            var attributeItem = me.content.attributeMenu.getValue();
-            
-            params = $.extend(true, params, me.opts.filterTemplates[attributeItem]);
-            
+            var params = $.extend(true, {}, me.opts.defaultParams);
+
+            params.attribute = me.opts.filterTemplates[me.content.attributeMenu.getValue()].attribute;
+            if (me.content.nameSort.hasClass('desc') || me.content.valueSort.hasClass('desc')) {
+                params.sort = 'desc';
+            }
+            if (me.content.nameSort.hasClass('asc') || me.content.valueSort.hasClass('asc')) {
+                params.sort = 'asc';
+            }
+            if (me.content.nameSort.hasClass('asc') || me.content.nameSort.hasClass('desc')) {
+                params.sortAttribute = 'name';
+            }
+            else {
+                params.sortAttribute = params.attribute;
+            }
+
+
             var p;
             for (var x in me.content.filters.sliders) {
                 p = me.content.filters.sliders[x].getParam();
@@ -553,6 +625,22 @@
             }
             jQuery.bbq.pushState(params, 2);
         };
+
+        var updateSort = function () {
+            var params = getParameters();
+            me.content.valueSort.html(me.opts.filterTemplates[params.attribute].label);
+            me.content.valueSort.removeClass('asc').removeClass('desc');
+            me.content.nameSort.removeClass('asc').removeClass('desc');
+
+            if (params.sortAttribute == 'name') {
+                me.content.nameSort.addClass(params.sort);
+            }
+            else {
+                me.content.valueSort.addClass(params.sort);
+            }
+        };
+
+
 
         var updateFilterLabel = function (attribute) {
             var v = me.content.filters.sliders[attribute].getValue();
