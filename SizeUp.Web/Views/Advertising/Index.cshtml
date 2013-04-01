@@ -37,7 +37,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/advertising/advertising2.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/advertising/advertising.js")"></script>
 
 
 }
@@ -59,32 +59,12 @@
             <span>based on </span>
 
             <select id="attributeMenu">
-                <!--<option value="revenuePerCapita">Highest Revenue Per Capita</option>
+                <option value="revenuePerCapita">Highest Revenue Per Capita</option>
                 <option value="underservedMarkets">Most Underserved Markets</option>
                 <option value="averageRevenue">Highest Average Revenue</option>
-                <option value="totalRevenue">Highest Total Revenue</option>
-                <option value="householdIncome">Highest Household Income</option>-->
-
-
-                <optgroup label="Industry Performance">
-                    <option value="revenuePerCapita">Highest Revenue Per Capita</option>
-                    <option value="underservedMarkets">Most Underserved Markets</option>
-                    <option value="averageRevenue">Highest Average Revenue</option>
-                    <option value="totalRevenue">Highest Total Revenue</option>
-                    <option value="householdIncome">Highest Household Income</option>
-                    <option value="totalEmployees">Total Employees</option>
-                </optgroup>
-
-                <optgroup label="Demographic Characteristics">
-                    <option value="householdIncome">Household Income</option>
-                    <option value="totalPopulation">Total Population</option>                  
-                    <option value="householdExpenditures">Household Expenditures (Average)</option>
-                    <option value="medianAge">Median Age</option>
-                    <option value="bachelorsDegreeOrHigher">Bachelors Degree or Higher</option>
-                    <option value="highSchoolOrHigher">Highschool Degree or Higher</option>
-                    <option value="whiteCollarWorkers">White Collar Workers</option>
-                </optgroup>
-
+                <option value="totalRevenue">Highest Total Revenue</option>               
+                <option value="householdIncome">Highest Household Income</option>
+                <option value="totalEmployees">Total Employees</option>
             </select>
 
 
@@ -276,8 +256,8 @@
                     This is a list of zip codes with the highest median household incomes. Use this list if your products or 
                     services are targeted at consumers with specific income levels.
                 </p>
-                <p data-template="customDescription">
-                    This is a list of zip codes showing Household Income data for the <strong>{{industry}}</strong> industry.
+                <p data-template="totalEmployeesDescription">
+                    This is a list of zip codes showing Total Employees for the <strong>{{industry}}</strong> industry.
                 </p>
             </div>
   

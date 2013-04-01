@@ -134,6 +134,10 @@ namespace SizeUp.Core.DataLayer
             {
                 data = data.Where(i => i.Entity.RevenuePerCapita != null && i.Entity.RevenuePerCapita > 0);
             }
+            else if (filters.Attribute == "underservedMarkets")
+            {
+                data = data.Where(i => i.Entity.RevenuePerCapita != null && i.Entity.RevenuePerCapita > 0);
+            }
             else if (filters.Attribute == "householdIncome")
             {
                 data = data.Where(i => i.Entity.HouseholdIncome != null && i.Entity.HouseholdIncome > 0);
@@ -201,6 +205,16 @@ namespace SizeUp.Core.DataLayer
                     }
                     break;
                 case "revenuePerCapita":
+                    if (filters.Sort == "desc")
+                    {
+                        data = data.OrderByDescending(i => i.Entity.RevenuePerCapita);
+                    }
+                    else
+                    {
+                        data = data.OrderBy(i => i.Entity.RevenuePerCapita);
+                    }
+                    break;
+                case "underservedMarkets":
                     if (filters.Sort == "desc")
                     {
                         data = data.OrderByDescending(i => i.Entity.RevenuePerCapita);
@@ -496,6 +510,26 @@ namespace SizeUp.Core.DataLayer
                     old = band;
                 }
             }
+            else if (filters.Attribute == "underservedMarkets")
+            {
+                output = data
+                    .Select(i => i.Entity.RevenuePerCapita.Value)
+                    .ToList()
+                    .NTile(i => i, bands)
+                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
+                    .Cast<object>()
+                    .ToList();
+
+                Band<long> old = null;
+                foreach (Band<long> band in output)
+                {
+                    if (old != null)
+                    {
+                        old.Max = band.Min;
+                    }
+                    old = band;
+                }
+            }
             else if (filters.Attribute == "householdIncome")
             {
                 output = data
@@ -546,8 +580,8 @@ namespace SizeUp.Core.DataLayer
                     .Cast<object>()
                     .ToList();
 
-                Band<long> old = null;
-                foreach (Band<long> band in output)
+                Band<double> old = null;
+                foreach (Band<double> band in output)
                 {
                     if (old != null)
                     {
@@ -586,8 +620,8 @@ namespace SizeUp.Core.DataLayer
                     .Cast<object>()
                     .ToList();
 
-                Band<long> old = null;
-                foreach (Band<long> band in output)
+                Band<double> old = null;
+                foreach (Band<double> band in output)
                 {
                     if (old != null)
                     {
@@ -606,8 +640,8 @@ namespace SizeUp.Core.DataLayer
                     .Cast<object>()
                     .ToList();
 
-                Band<long> old = null;
-                foreach (Band<long> band in output)
+                Band<double> old = null;
+                foreach (Band<double> band in output)
                 {
                     if (old != null)
                     {
@@ -626,8 +660,8 @@ namespace SizeUp.Core.DataLayer
                     .Cast<object>()
                     .ToList();
 
-                Band<long> old = null;
-                foreach (Band<long> band in output)
+                Band<double> old = null;
+                foreach (Band<double> band in output)
                 {
                     if (old != null)
                     {
@@ -646,8 +680,8 @@ namespace SizeUp.Core.DataLayer
                      .Cast<object>()
                      .ToList();
 
-                Band<long> old = null;
-                foreach (Band<long> band in output)
+                Band<double> old = null;
+                foreach (Band<double> band in output)
                 {
                     if (old != null)
                     {
@@ -656,6 +690,7 @@ namespace SizeUp.Core.DataLayer
                     old = band;
                 }
             }
+
             if (filters.Order == "highToLow")
             {
                 output.Reverse();

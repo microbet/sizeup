@@ -150,9 +150,6 @@
             me.label.setValues(getLabelValue(index));
         };
 
-       
-      
-
         var getLabelValue = function (index) {
             var mapping = getMapping(index);
             var labelObj = null;
@@ -207,7 +204,7 @@
 
         var getIndexByValue = function (val) {
             var index = null;
-            if (val != null) {
+            if (val != null && val != 'null') {
                 if (me.isMapped) {
                     for (var x in me.mappings) {
                         if (me.mappings[x].value == val) {

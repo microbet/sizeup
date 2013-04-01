@@ -26,8 +26,8 @@ namespace SizeUp.Core.DataLayer.Models
         public int? Distance { get; set; }
 
         public string Sort { get; set; }
-        public string SortAttribute { get; set; }
         public string Attribute { get; set; }
+        public string SortAttribute { get; set; }
         public string Order { get; set; }
     }
 }
