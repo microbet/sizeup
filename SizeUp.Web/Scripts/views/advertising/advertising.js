@@ -13,43 +13,51 @@
                     attribute: 'averageRevenue',
                     sort: 'desc',
                     order: 'highToLow',
+                    template: 'averageRevenue',
                     page:1
                 },
                 totalRevenue: {
                     label: 'Total Revenue',
                     attribute: 'totalRevenue',
                     order: 'highToLow',
+                    template: 'totalRevenue',
                     sort: 'desc'
                 },
                 underservedMarkets: {
                     label: 'Revenue Per Capita',
                     attribute: 'underservedMarkets',
                     order: 'lowToHigh',
+                    template: 'underservedMarkets',
                     sort: 'asc'
                 },
                 revenuePerCapita: {
                     label: 'Revenue Per Capita',
                     attribute: 'revenuePerCapita',
                     order: 'highToLow',
+                    template: 'revenuePerCapita',
                     sort: 'desc'
                 },
                 householdIncome: {
                     label: 'Household Income',
                     attribute: 'householdIncome',
                     order: 'highToLow',
+                    template: 'householdIncome',
                     sort: 'desc'
                 },
                 totalEmployees: {
                     label: 'Total Employees',
                     attribute: 'totalEmployees',
                     order: 'highToLow',
+                    template: 'totalEmployees',
                     sort: 'desc'
                 }
             },
             defaultParams: {
                 attribute: 'averageRevenue',
                 order: 'highToLow',
-                sort: 'desc'
+                sort: 'desc',
+                template: 'averageRevenue',
+                page:1
             }
         };
         var me = {};
@@ -89,10 +97,11 @@
         var init = function () {
 
             var params = getParameters();
-            var defaults = $.extend(true, { distance: me.opts.defaultDistance }, me.opts.defaultParams);
-            params = $.extend(true, defaults, params);
-            jQuery.bbq.pushState(params);
-
+            if (params.template == null) {
+                var defaults = $.extend(true, { distance: me.opts.defaultDistance }, me.opts.defaultParams);
+                params = $.extend(true, defaults, params);
+                jQuery.bbq.pushState(params);
+            }
 
             me.content = {};
 
@@ -133,9 +142,6 @@
                 select: me.container.find('#attributeMenu'),
                 onChange: function () { attributeMenuChanged(); }
             });
-            me.content.customAttributeOption = me.content.attributeMenu.getSelectList().find('.custom');
-            me.content.customAttributeOption.remove();
-            me.content.attributeMenu.updateList();
             me.content.attributeMenu.setValue(params.attribute);
 
             me.content.filters = {};
@@ -152,6 +158,7 @@
 
             me.content.pager = new sizeup.controls.pager({
                 container: me.container.find('.pager'),
+                currentPage: params.page,
                 itemsPerPage: me.opts.itemsPerPage,
                 pagesToShow: me.opts.pagesToShow,
                 templates: templates,
@@ -474,6 +481,7 @@
                 //new sizeup.core.analytics().dashboardIndustryChanged(p);
                 var params = getParameters();
                 delete params.distance;
+                params.page = 1;
                 var url = document.location.pathname;
                 url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
                 url = jQuery.param.fragment(url, params, 2);
@@ -505,6 +513,7 @@
                 //new sizeup.core.analytics().dashboardPlaceChanged(p);
                 var params = getParameters();
                 delete params.distance;
+                params.page = 1;
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('advertising'));
                 url = url + 'advertising/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.activeIndustry.SEOKey + '/';
@@ -530,6 +539,7 @@
                 attribute: me.opts.filterTemplates[attributeItem].attribute,
                 order: me.opts.filterTemplates[attributeItem].order,
                 sortAttribute: me.opts.filterTemplates[attributeItem].attribute,
+                template: me.opts.filterTemplates[attributeItem].template,
                 page:1
             };
 
@@ -570,6 +580,7 @@
                 me.content.nameSort.addClass('desc');
             }
             me.content.valueSort.removeClass('asc').removeClass('desc');
+            me.content.pager.gotoPage(1);
             pushUrlState();
             updateSort();
             loadReport();
@@ -586,6 +597,7 @@
                 me.content.valueSort.addClass('desc');
             }
             me.content.nameSort.removeClass('asc').removeClass('desc');
+            me.content.pager.gotoPage(1);
             pushUrlState();
             updateSort();
             loadReport();
@@ -600,10 +612,11 @@
 
         var pushUrlState = function () {
             var params = $.extend(true, {}, me.opts.defaultParams);
-
+            var pagerData = me.content.pager.getPageData();
             var menuIndex = me.content.attributeMenu.getValue();
             params.attribute = me.opts.filterTemplates[menuIndex].attribute;
             params.order = me.opts.filterTemplates[menuIndex].order;
+            params.page = pagerData.page;
             if (me.content.nameSort.hasClass('desc') || me.content.valueSort.hasClass('desc')) {
                 params.sort = 'desc';
             }
