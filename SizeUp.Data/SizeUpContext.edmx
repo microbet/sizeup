@@ -37,11 +37,17 @@
           <EntitySet Name="GeographySource" EntityType="SizeUp.Data.Store.GeographySource" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Industry" EntityType="SizeUp.Data.Store.Industry" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByCity" EntityType="SizeUp.Data.Store.IndustryDataByCity" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryDataByCityBandMapping" EntityType="SizeUp.Data.Store.IndustryDataByCityBandMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByCounty" EntityType="SizeUp.Data.Store.IndustryDataByCounty" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryDataByCountyBandMapping" EntityType="SizeUp.Data.Store.IndustryDataByCountyBandMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByMetro" EntityType="SizeUp.Data.Store.IndustryDataByMetro" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryDataByMetroBandMapping" EntityType="SizeUp.Data.Store.IndustryDataByMetroBandMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByNation" EntityType="SizeUp.Data.Store.IndustryDataByNation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryDataByNationBandMapping" EntityType="SizeUp.Data.Store.IndustryDataByNationBandMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByState" EntityType="SizeUp.Data.Store.IndustryDataByState" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryDataByStateBandMapping" EntityType="SizeUp.Data.Store.IndustryDataByStateBandMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataByZip" EntityType="SizeUp.Data.Store.IndustryDataByZip" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryDataByZipBandMapping" EntityType="SizeUp.Data.Store.IndustryDataByZipBandMapping" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LegacyBusinessSEOKey" EntityType="SizeUp.Data.Store.LegacyBusinessSEOKey" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LegacyCommunitySEOKey" EntityType="SizeUp.Data.Store.LegacyCommunitySEOKey" store:Type="Tables" Schema="dbo" />
@@ -241,6 +247,14 @@
             <End Role="Industry" EntitySet="Industry" />
             <End Role="IndustryDataByCity" EntitySet="IndustryDataByCity" />
           </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCityBandMapping_Band" Association="SizeUp.Data.Store.FK_IndustryDataByCityBandMapping_Band">
+            <End Role="Band" EntitySet="Band" />
+            <End Role="IndustryDataByCityBandMapping" EntitySet="IndustryDataByCityBandMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCityBandMapping_IndustryDataByCity" Association="SizeUp.Data.Store.FK_IndustryDataByCityBandMapping_IndustryDataByCity">
+            <End Role="IndustryDataByCity" EntitySet="IndustryDataByCity" />
+            <End Role="IndustryDataByCityBandMapping" EntitySet="IndustryDataByCityBandMapping" />
+          </AssociationSet>
           <AssociationSet Name="FK_IndustryDataByCounty_County" Association="SizeUp.Data.Store.FK_IndustryDataByCounty_County">
             <End Role="County" EntitySet="County" />
             <End Role="IndustryDataByCounty" EntitySet="IndustryDataByCounty" />
@@ -248,6 +262,14 @@
           <AssociationSet Name="FK_IndustryDataByCounty_Industry" Association="SizeUp.Data.Store.FK_IndustryDataByCounty_Industry">
             <End Role="Industry" EntitySet="Industry" />
             <End Role="IndustryDataByCounty" EntitySet="IndustryDataByCounty" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCountyBandMapping_Band" Association="SizeUp.Data.Store.FK_IndustryDataByCountyBandMapping_Band">
+            <End Role="Band" EntitySet="Band" />
+            <End Role="IndustryDataByCountyBandMapping" EntitySet="IndustryDataByCountyBandMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCountyBandMapping_IndustryDataByCounty" Association="SizeUp.Data.Store.FK_IndustryDataByCountyBandMapping_IndustryDataByCounty">
+            <End Role="IndustryDataByCounty" EntitySet="IndustryDataByCounty" />
+            <End Role="IndustryDataByCountyBandMapping" EntitySet="IndustryDataByCountyBandMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_IndustryDataByMetro_Industry" Association="SizeUp.Data.Store.FK_IndustryDataByMetro_Industry">
             <End Role="Industry" EntitySet="Industry" />
@@ -257,9 +279,25 @@
             <End Role="Metro" EntitySet="Metro" />
             <End Role="IndustryDataByMetro" EntitySet="IndustryDataByMetro" />
           </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByMetroBandMapping_Band" Association="SizeUp.Data.Store.FK_IndustryDataByMetroBandMapping_Band">
+            <End Role="Band" EntitySet="Band" />
+            <End Role="IndustryDataByMetroBandMapping" EntitySet="IndustryDataByMetroBandMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByMetroBandMapping_IndustryDataByMetro" Association="SizeUp.Data.Store.FK_IndustryDataByMetroBandMapping_IndustryDataByMetro">
+            <End Role="IndustryDataByMetro" EntitySet="IndustryDataByMetro" />
+            <End Role="IndustryDataByMetroBandMapping" EntitySet="IndustryDataByMetroBandMapping" />
+          </AssociationSet>
           <AssociationSet Name="FK_IndustryDataByNation_Industry" Association="SizeUp.Data.Store.FK_IndustryDataByNation_Industry">
             <End Role="Industry" EntitySet="Industry" />
             <End Role="IndustryDataByNation" EntitySet="IndustryDataByNation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByNationBandMapping_Band" Association="SizeUp.Data.Store.FK_IndustryDataByNationBandMapping_Band">
+            <End Role="Band" EntitySet="Band" />
+            <End Role="IndustryDataByNationBandMapping" EntitySet="IndustryDataByNationBandMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByNationBandMapping_IndustryDataByNation" Association="SizeUp.Data.Store.FK_IndustryDataByNationBandMapping_IndustryDataByNation">
+            <End Role="IndustryDataByNation" EntitySet="IndustryDataByNation" />
+            <End Role="IndustryDataByNationBandMapping" EntitySet="IndustryDataByNationBandMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_IndustryDataByState_Industry" Association="SizeUp.Data.Store.FK_IndustryDataByState_Industry">
             <End Role="Industry" EntitySet="Industry" />
@@ -269,6 +307,14 @@
             <End Role="State" EntitySet="State" />
             <End Role="IndustryDataByState" EntitySet="IndustryDataByState" />
           </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByStateBandMapping_Band" Association="SizeUp.Data.Store.FK_IndustryDataByStateBandMapping_Band">
+            <End Role="Band" EntitySet="Band" />
+            <End Role="IndustryDataByStateBandMapping" EntitySet="IndustryDataByStateBandMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByStateBandMapping_IndustryDataByState" Association="SizeUp.Data.Store.FK_IndustryDataByStateBandMapping_IndustryDataByState">
+            <End Role="IndustryDataByState" EntitySet="IndustryDataByState" />
+            <End Role="IndustryDataByStateBandMapping" EntitySet="IndustryDataByStateBandMapping" />
+          </AssociationSet>
           <AssociationSet Name="FK_IndustryDataByZip_Industry" Association="SizeUp.Data.Store.FK_IndustryDataByZip_Industry">
             <End Role="Industry" EntitySet="Industry" />
             <End Role="IndustryDataByZip" EntitySet="IndustryDataByZip" />
@@ -276,6 +322,14 @@
           <AssociationSet Name="FK_IndustryDataByZip_ZipCode" Association="SizeUp.Data.Store.FK_IndustryDataByZip_ZipCode">
             <End Role="ZipCode" EntitySet="ZipCode" />
             <End Role="IndustryDataByZip" EntitySet="IndustryDataByZip" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByZipBandMapping_Band" Association="SizeUp.Data.Store.FK_IndustryDataByZipBandMapping_Band">
+            <End Role="Band" EntitySet="Band" />
+            <End Role="IndustryDataByZipBandMapping" EntitySet="IndustryDataByZipBandMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByZipBandMapping_IndustryDataByZip" Association="SizeUp.Data.Store.FK_IndustryDataByZipBandMapping_IndustryDataByZip">
+            <End Role="IndustryDataByZip" EntitySet="IndustryDataByZip" />
+            <End Role="IndustryDataByZipBandMapping" EntitySet="IndustryDataByZipBandMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_IndustryKeyword_Industry" Association="SizeUp.Data.Store.FK_IndustryKeyword_Industry">
             <End Role="Industry" EntitySet="Industry" />
@@ -4737,6 +4791,14 @@
           <Property Name="TotalEmployees" Type="bigint" />
           <Property Name="RevenuePerCapita" Type="bigint" />
         </EntityType>
+        <EntityType Name="IndustryDataByCityBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryDataByCityId" Type="bigint" />
+          <Property Name="BandId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="IndustryDataByCounty">
           <Key>
             <PropertyRef Name="Id" />
@@ -4761,6 +4823,14 @@
           <Property Name="JobLosses" Type="bigint" />
           <Property Name="NetJobChange" Type="bigint" />
           <Property Name="Employment" Type="bigint" />
+        </EntityType>
+        <EntityType Name="IndustryDataByCountyBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryDataByCountyId" Type="bigint" />
+          <Property Name="BandId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryDataByMetro">
           <Key>
@@ -4787,6 +4857,14 @@
           <Property Name="NetJobChange" Type="bigint" />
           <Property Name="Employment" Type="bigint" />
         </EntityType>
+        <EntityType Name="IndustryDataByMetroBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryDataByMetroId" Type="bigint" />
+          <Property Name="BandId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="IndustryDataByNation">
           <Key>
             <PropertyRef Name="Id" />
@@ -4812,6 +4890,14 @@
           <Property Name="JobLosses" Type="bigint" />
           <Property Name="NetJobChange" Type="bigint" />
           <Property Name="Employment" Type="bigint" />
+        </EntityType>
+        <EntityType Name="IndustryDataByNationBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryDataByNationId" Type="bigint" />
+          <Property Name="BandId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryDataByState">
           <Key>
@@ -4854,6 +4940,14 @@
           <Property Name="Healthcare1000orMoreEmployeesRank" Type="int" />
           <Property Name="HealthcareByIndustryRank" Type="int" />
         </EntityType>
+        <EntityType Name="IndustryDataByStateBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryDataByStateId" Type="bigint" />
+          <Property Name="BandId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="IndustryDataByZip">
           <Key>
             <PropertyRef Name="Id" />
@@ -4869,6 +4963,14 @@
           <Property Name="TotalRevenue" Type="bigint" />
           <Property Name="AverageRevenue" Type="bigint" />
           <Property Name="RevenuePerCapita" Type="bigint" />
+        </EntityType>
+        <EntityType Name="IndustryDataByZipBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryDataByZipId" Type="bigint" />
+          <Property Name="BandId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -5570,6 +5672,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IndustryDataByCityBandMapping_Band">
+          <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+          <End Role="IndustryDataByCityBandMapping" Type="SizeUp.Data.Store.IndustryDataByCityBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCityBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByCityBandMapping_IndustryDataByCity">
+          <End Role="IndustryDataByCity" Type="SizeUp.Data.Store.IndustryDataByCity" Multiplicity="0..1" />
+          <End Role="IndustryDataByCityBandMapping" Type="SizeUp.Data.Store.IndustryDataByCityBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByCity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCityBandMapping">
+              <PropertyRef Name="IndustryDataByCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndustryDataByCounty_County">
           <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
           <End Role="IndustryDataByCounty" Type="SizeUp.Data.Store.IndustryDataByCounty" Multiplicity="*" />
@@ -5591,6 +5717,30 @@
             </Principal>
             <Dependent Role="IndustryDataByCounty">
               <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByCountyBandMapping_Band">
+          <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+          <End Role="IndustryDataByCountyBandMapping" Type="SizeUp.Data.Store.IndustryDataByCountyBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCountyBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByCountyBandMapping_IndustryDataByCounty">
+          <End Role="IndustryDataByCounty" Type="SizeUp.Data.Store.IndustryDataByCounty" Multiplicity="0..1" />
+          <End Role="IndustryDataByCountyBandMapping" Type="SizeUp.Data.Store.IndustryDataByCountyBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByCounty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCountyBandMapping">
+              <PropertyRef Name="IndustryDataByCountyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5618,6 +5768,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IndustryDataByMetroBandMapping_Band">
+          <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+          <End Role="IndustryDataByMetroBandMapping" Type="SizeUp.Data.Store.IndustryDataByMetroBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByMetroBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByMetroBandMapping_IndustryDataByMetro">
+          <End Role="IndustryDataByMetro" Type="SizeUp.Data.Store.IndustryDataByMetro" Multiplicity="0..1" />
+          <End Role="IndustryDataByMetroBandMapping" Type="SizeUp.Data.Store.IndustryDataByMetroBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByMetro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByMetroBandMapping">
+              <PropertyRef Name="IndustryDataByMetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndustryDataByNation_Industry">
           <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
           <End Role="IndustryDataByNation" Type="SizeUp.Data.Store.IndustryDataByNation" Multiplicity="*" />
@@ -5627,6 +5801,30 @@
             </Principal>
             <Dependent Role="IndustryDataByNation">
               <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByNationBandMapping_Band">
+          <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+          <End Role="IndustryDataByNationBandMapping" Type="SizeUp.Data.Store.IndustryDataByNationBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByNationBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByNationBandMapping_IndustryDataByNation">
+          <End Role="IndustryDataByNation" Type="SizeUp.Data.Store.IndustryDataByNation" Multiplicity="0..1" />
+          <End Role="IndustryDataByNationBandMapping" Type="SizeUp.Data.Store.IndustryDataByNationBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByNation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByNationBandMapping">
+              <PropertyRef Name="IndustryDataByNationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5654,6 +5852,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IndustryDataByStateBandMapping_Band">
+          <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+          <End Role="IndustryDataByStateBandMapping" Type="SizeUp.Data.Store.IndustryDataByStateBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByStateBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByStateBandMapping_IndustryDataByState">
+          <End Role="IndustryDataByState" Type="SizeUp.Data.Store.IndustryDataByState" Multiplicity="0..1" />
+          <End Role="IndustryDataByStateBandMapping" Type="SizeUp.Data.Store.IndustryDataByStateBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByStateBandMapping">
+              <PropertyRef Name="IndustryDataByStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndustryDataByZip_Industry">
           <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
           <End Role="IndustryDataByZip" Type="SizeUp.Data.Store.IndustryDataByZip" Multiplicity="*" />
@@ -5675,6 +5897,30 @@
             </Principal>
             <Dependent Role="IndustryDataByZip">
               <PropertyRef Name="ZipCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByZipBandMapping_Band">
+          <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+          <End Role="IndustryDataByZipBandMapping" Type="SizeUp.Data.Store.IndustryDataByZipBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByZipBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByZipBandMapping_IndustryDataByZip">
+          <End Role="IndustryDataByZip" Type="SizeUp.Data.Store.IndustryDataByZip" Multiplicity="0..1" />
+          <End Role="IndustryDataByZipBandMapping" Type="SizeUp.Data.Store.IndustryDataByZipBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByZip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByZipBandMapping">
+              <PropertyRef Name="IndustryDataByZipId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6369,6 +6615,60 @@
           <AssociationSet Name="FK_PlaceGeography_GeographyClass" Association="SizeUp.Data.FK_PlaceGeography_GeographyClass">
             <End Role="GeographyClass" EntitySet="GeographyClasses" />
             <End Role="PlaceGeography" EntitySet="PlaceGeographies" />
+          </AssociationSet>
+          <EntitySet Name="IndustryDataByCityBandMappings" EntityType="SizeUp.Data.IndustryDataByCityBandMapping" />
+          <EntitySet Name="IndustryDataByCountyBandMappings" EntityType="SizeUp.Data.IndustryDataByCountyBandMapping" />
+          <EntitySet Name="IndustryDataByMetroBandMappings" EntityType="SizeUp.Data.IndustryDataByMetroBandMapping" />
+          <EntitySet Name="IndustryDataByNationBandMappings" EntityType="SizeUp.Data.IndustryDataByNationBandMapping" />
+          <EntitySet Name="IndustryDataByStateBandMappings" EntityType="SizeUp.Data.IndustryDataByStateBandMapping" />
+          <EntitySet Name="IndustryDataByZipBandMappings" EntityType="SizeUp.Data.IndustryDataByZipBandMapping" />
+          <AssociationSet Name="FK_IndustryDataByCityBandMapping_Band" Association="SizeUp.Data.FK_IndustryDataByCityBandMapping_Band">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="IndustryDataByCityBandMapping" EntitySet="IndustryDataByCityBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCountyBandMapping_Band" Association="SizeUp.Data.FK_IndustryDataByCountyBandMapping_Band">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="IndustryDataByCountyBandMapping" EntitySet="IndustryDataByCountyBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByMetroBandMapping_Band" Association="SizeUp.Data.FK_IndustryDataByMetroBandMapping_Band">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="IndustryDataByMetroBandMapping" EntitySet="IndustryDataByMetroBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByNationBandMapping_Band" Association="SizeUp.Data.FK_IndustryDataByNationBandMapping_Band">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="IndustryDataByNationBandMapping" EntitySet="IndustryDataByNationBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByStateBandMapping_Band" Association="SizeUp.Data.FK_IndustryDataByStateBandMapping_Band">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="IndustryDataByStateBandMapping" EntitySet="IndustryDataByStateBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByZipBandMapping_Band" Association="SizeUp.Data.FK_IndustryDataByZipBandMapping_Band">
+            <End Role="Band" EntitySet="Bands" />
+            <End Role="IndustryDataByZipBandMapping" EntitySet="IndustryDataByZipBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCityBandMapping_IndustryDataByCity" Association="SizeUp.Data.FK_IndustryDataByCityBandMapping_IndustryDataByCity">
+            <End Role="IndustryDataByCity" EntitySet="IndustryDataByCities" />
+            <End Role="IndustryDataByCityBandMapping" EntitySet="IndustryDataByCityBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByCountyBandMapping_IndustryDataByCounty" Association="SizeUp.Data.FK_IndustryDataByCountyBandMapping_IndustryDataByCounty">
+            <End Role="IndustryDataByCounty" EntitySet="IndustryDataByCounties" />
+            <End Role="IndustryDataByCountyBandMapping" EntitySet="IndustryDataByCountyBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByMetroBandMapping_IndustryDataByMetro" Association="SizeUp.Data.FK_IndustryDataByMetroBandMapping_IndustryDataByMetro">
+            <End Role="IndustryDataByMetro" EntitySet="IndustryDataByMetroes" />
+            <End Role="IndustryDataByMetroBandMapping" EntitySet="IndustryDataByMetroBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByNationBandMapping_IndustryDataByNation" Association="SizeUp.Data.FK_IndustryDataByNationBandMapping_IndustryDataByNation">
+            <End Role="IndustryDataByNation" EntitySet="IndustryDataByNations" />
+            <End Role="IndustryDataByNationBandMapping" EntitySet="IndustryDataByNationBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByStateBandMapping_IndustryDataByState" Association="SizeUp.Data.FK_IndustryDataByStateBandMapping_IndustryDataByState">
+            <End Role="IndustryDataByState" EntitySet="IndustryDataByStates" />
+            <End Role="IndustryDataByStateBandMapping" EntitySet="IndustryDataByStateBandMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryDataByZipBandMapping_IndustryDataByZip" Association="SizeUp.Data.FK_IndustryDataByZipBandMapping_IndustryDataByZip">
+            <End Role="IndustryDataByZip" EntitySet="IndustryDataByZips" />
+            <End Role="IndustryDataByZipBandMapping" EntitySet="IndustryDataByZipBandMappings" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Industry">
@@ -7380,6 +7680,7 @@
           <Property Type="Int64" Name="Employment" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Industry" FromRole="IndustryDataByMetro" ToRole="Industry" />
           <NavigationProperty Name="Metro" Relationship="SizeUp.Data.FK_IndustryDataByMetro_Metro" FromRole="IndustryDataByMetro" ToRole="Metro" />
+          <NavigationProperty Name="IndustryDataByMetroBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByMetroBandMapping_IndustryDataByMetro" FromRole="IndustryDataByMetro" ToRole="IndustryDataByMetroBandMapping" />
         </EntityType>
         <EntityType Name="IndustryDataByNation">
           <Key>
@@ -7407,6 +7708,7 @@
           <Property Type="Int64" Name="NetJobChange" />
           <Property Type="Int64" Name="Employment" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByNation_Industry" FromRole="IndustryDataByNation" ToRole="Industry" />
+          <NavigationProperty Name="IndustryDataByNationBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByNationBandMapping_IndustryDataByNation" FromRole="IndustryDataByNation" ToRole="IndustryDataByNationBandMapping" />
         </EntityType>
         <EntityType Name="IndustryDataByState">
           <Key>
@@ -7450,6 +7752,7 @@
           <Property Type="Int32" Name="Healthcare100To999EmployeesRank" />
           <Property Type="Int32" Name="Healthcare1000orMoreEmployeesRank" />
           <Property Type="Int32" Name="HealthcareByIndustryRank" />
+          <NavigationProperty Name="IndustryDataByStateBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByStateBandMapping_IndustryDataByState" FromRole="IndustryDataByState" ToRole="IndustryDataByStateBandMapping" />
         </EntityType>
         <Association Name="FK_IndustryDataByMetro_Industry">
           <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
@@ -7562,6 +7865,7 @@
           <Property Type="Int64" Name="RevenuePerCapita" />
           <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_IndustryDataByCity_City" FromRole="IndustryDataByCity" ToRole="City" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByCity_Industry" FromRole="IndustryDataByCity" ToRole="Industry" />
+          <NavigationProperty Name="IndustryDataByCityBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByCityBandMapping_IndustryDataByCity" FromRole="IndustryDataByCity" ToRole="IndustryDataByCityBandMapping" />
         </EntityType>
         <EntityType Name="IndustryDataByCounty">
           <Key>
@@ -7589,6 +7893,7 @@
           <Property Type="Int64" Name="Employment" />
           <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_IndustryDataByCounty_County" FromRole="IndustryDataByCounty" ToRole="County" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByCounty_Industry" FromRole="IndustryDataByCounty" ToRole="Industry" />
+          <NavigationProperty Name="IndustryDataByCountyBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByCountyBandMapping_IndustryDataByCounty" FromRole="IndustryDataByCounty" ToRole="IndustryDataByCountyBandMapping" />
         </EntityType>
         <EntityType Name="IndustryDataByZip">
           <Key>
@@ -7607,6 +7912,7 @@
           <Property Type="Int64" Name="RevenuePerCapita" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryDataByZip_Industry" FromRole="IndustryDataByZip" ToRole="Industry" />
           <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_IndustryDataByZip_ZipCode" FromRole="IndustryDataByZip" ToRole="ZipCode" />
+          <NavigationProperty Name="IndustryDataByZipBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByZipBandMapping_IndustryDataByZip" FromRole="IndustryDataByZip" ToRole="IndustryDataByZipBandMapping" />
         </EntityType>
         <Association Name="FK_IndustryDataByCity_City">
           <End Type="SizeUp.Data.City" Role="City" Multiplicity="0..1" />
@@ -12078,6 +12384,12 @@
           <Property Type="Decimal" Name="Min" Precision="38" Scale="10" />
           <Property Type="Decimal" Name="Max" Precision="38" Scale="10" />
           <NavigationProperty Name="Attribute" Relationship="SizeUp.Data.FK_Band_Attribute" FromRole="Band" ToRole="Attribute" />
+          <NavigationProperty Name="IndustryDataByCityBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByCityBandMapping_Band" FromRole="Band" ToRole="IndustryDataByCityBandMapping" />
+          <NavigationProperty Name="IndustryDataByCountyBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByCountyBandMapping_Band" FromRole="Band" ToRole="IndustryDataByCountyBandMapping" />
+          <NavigationProperty Name="IndustryDataByMetroBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByMetroBandMapping_Band" FromRole="Band" ToRole="IndustryDataByMetroBandMapping" />
+          <NavigationProperty Name="IndustryDataByNationBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByNationBandMapping_Band" FromRole="Band" ToRole="IndustryDataByNationBandMapping" />
+          <NavigationProperty Name="IndustryDataByStateBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByStateBandMapping_Band" FromRole="Band" ToRole="IndustryDataByStateBandMapping" />
+          <NavigationProperty Name="IndustryDataByZipBandMappings" Relationship="SizeUp.Data.FK_IndustryDataByZipBandMapping_Band" FromRole="Band" ToRole="IndustryDataByZipBandMapping" />
         </EntityType>
         <Association Name="FK_Band_Attribute">
           <End Type="SizeUp.Data.Attribute" Role="Attribute" Multiplicity="1" />
@@ -12136,6 +12448,210 @@
             </Principal>
             <Dependent Role="PlaceGeography">
               <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="IndustryDataByCityBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="IndustryDataByCityId" />
+          <Property Type="Int64" Name="BandId" Nullable="false" />
+          <NavigationProperty Name="Band" Relationship="SizeUp.Data.FK_IndustryDataByCityBandMapping_Band" FromRole="IndustryDataByCityBandMapping" ToRole="Band" />
+          <NavigationProperty Name="IndustryDataByCity" Relationship="SizeUp.Data.FK_IndustryDataByCityBandMapping_IndustryDataByCity" FromRole="IndustryDataByCityBandMapping" ToRole="IndustryDataByCity" />
+        </EntityType>
+        <EntityType Name="IndustryDataByCountyBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="IndustryDataByCountyId" />
+          <Property Type="Int64" Name="BandId" Nullable="false" />
+          <NavigationProperty Name="Band" Relationship="SizeUp.Data.FK_IndustryDataByCountyBandMapping_Band" FromRole="IndustryDataByCountyBandMapping" ToRole="Band" />
+          <NavigationProperty Name="IndustryDataByCounty" Relationship="SizeUp.Data.FK_IndustryDataByCountyBandMapping_IndustryDataByCounty" FromRole="IndustryDataByCountyBandMapping" ToRole="IndustryDataByCounty" />
+        </EntityType>
+        <EntityType Name="IndustryDataByMetroBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="IndustryDataByMetroId" />
+          <Property Type="Int64" Name="BandId" Nullable="false" />
+          <NavigationProperty Name="Band" Relationship="SizeUp.Data.FK_IndustryDataByMetroBandMapping_Band" FromRole="IndustryDataByMetroBandMapping" ToRole="Band" />
+          <NavigationProperty Name="IndustryDataByMetro" Relationship="SizeUp.Data.FK_IndustryDataByMetroBandMapping_IndustryDataByMetro" FromRole="IndustryDataByMetroBandMapping" ToRole="IndustryDataByMetro" />
+        </EntityType>
+        <EntityType Name="IndustryDataByNationBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="IndustryDataByNationId" />
+          <Property Type="Int64" Name="BandId" Nullable="false" />
+          <NavigationProperty Name="Band" Relationship="SizeUp.Data.FK_IndustryDataByNationBandMapping_Band" FromRole="IndustryDataByNationBandMapping" ToRole="Band" />
+          <NavigationProperty Name="IndustryDataByNation" Relationship="SizeUp.Data.FK_IndustryDataByNationBandMapping_IndustryDataByNation" FromRole="IndustryDataByNationBandMapping" ToRole="IndustryDataByNation" />
+        </EntityType>
+        <EntityType Name="IndustryDataByStateBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="IndustryDataByStateId" />
+          <Property Type="Int64" Name="BandId" Nullable="false" />
+          <NavigationProperty Name="Band" Relationship="SizeUp.Data.FK_IndustryDataByStateBandMapping_Band" FromRole="IndustryDataByStateBandMapping" ToRole="Band" />
+          <NavigationProperty Name="IndustryDataByState" Relationship="SizeUp.Data.FK_IndustryDataByStateBandMapping_IndustryDataByState" FromRole="IndustryDataByStateBandMapping" ToRole="IndustryDataByState" />
+        </EntityType>
+        <EntityType Name="IndustryDataByZipBandMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="IndustryDataByZipId" />
+          <Property Type="Int64" Name="BandId" Nullable="false" />
+          <NavigationProperty Name="Band" Relationship="SizeUp.Data.FK_IndustryDataByZipBandMapping_Band" FromRole="IndustryDataByZipBandMapping" ToRole="Band" />
+          <NavigationProperty Name="IndustryDataByZip" Relationship="SizeUp.Data.FK_IndustryDataByZipBandMapping_IndustryDataByZip" FromRole="IndustryDataByZipBandMapping" ToRole="IndustryDataByZip" />
+        </EntityType>
+        <Association Name="FK_IndustryDataByCityBandMapping_Band">
+          <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="1" />
+          <End Type="SizeUp.Data.IndustryDataByCityBandMapping" Role="IndustryDataByCityBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCityBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByCountyBandMapping_Band">
+          <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="1" />
+          <End Type="SizeUp.Data.IndustryDataByCountyBandMapping" Role="IndustryDataByCountyBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCountyBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByMetroBandMapping_Band">
+          <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="1" />
+          <End Type="SizeUp.Data.IndustryDataByMetroBandMapping" Role="IndustryDataByMetroBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByMetroBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByNationBandMapping_Band">
+          <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="1" />
+          <End Type="SizeUp.Data.IndustryDataByNationBandMapping" Role="IndustryDataByNationBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByNationBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByStateBandMapping_Band">
+          <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="1" />
+          <End Type="SizeUp.Data.IndustryDataByStateBandMapping" Role="IndustryDataByStateBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByStateBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByZipBandMapping_Band">
+          <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="1" />
+          <End Type="SizeUp.Data.IndustryDataByZipBandMapping" Role="IndustryDataByZipBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Band">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByZipBandMapping">
+              <PropertyRef Name="BandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByCityBandMapping_IndustryDataByCity">
+          <End Type="SizeUp.Data.IndustryDataByCity" Role="IndustryDataByCity" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByCityBandMapping" Role="IndustryDataByCityBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByCity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCityBandMapping">
+              <PropertyRef Name="IndustryDataByCityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByCountyBandMapping_IndustryDataByCounty">
+          <End Type="SizeUp.Data.IndustryDataByCounty" Role="IndustryDataByCounty" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByCountyBandMapping" Role="IndustryDataByCountyBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByCounty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByCountyBandMapping">
+              <PropertyRef Name="IndustryDataByCountyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByMetroBandMapping_IndustryDataByMetro">
+          <End Type="SizeUp.Data.IndustryDataByMetro" Role="IndustryDataByMetro" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByMetroBandMapping" Role="IndustryDataByMetroBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByMetro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByMetroBandMapping">
+              <PropertyRef Name="IndustryDataByMetroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByNationBandMapping_IndustryDataByNation">
+          <End Type="SizeUp.Data.IndustryDataByNation" Role="IndustryDataByNation" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByNationBandMapping" Role="IndustryDataByNationBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByNation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByNationBandMapping">
+              <PropertyRef Name="IndustryDataByNationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByStateBandMapping_IndustryDataByState">
+          <End Type="SizeUp.Data.IndustryDataByState" Role="IndustryDataByState" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByStateBandMapping" Role="IndustryDataByStateBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByState">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByStateBandMapping">
+              <PropertyRef Name="IndustryDataByStateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryDataByZipBandMapping_IndustryDataByZip">
+          <End Type="SizeUp.Data.IndustryDataByZip" Role="IndustryDataByZip" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.IndustryDataByZipBandMapping" Role="IndustryDataByZipBandMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryDataByZip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryDataByZipBandMapping">
+              <PropertyRef Name="IndustryDataByZipId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -16844,6 +17360,60 @@
                 <ScalarProperty Name="ClassId" ColumnName="ClassId" />
                 <ScalarProperty Name="GeographyId" ColumnName="GeographyId" />
                 <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByCityBandMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByCityBandMapping">
+              <MappingFragment StoreEntitySet="IndustryDataByCityBandMapping">
+                <ScalarProperty Name="BandId" ColumnName="BandId" />
+                <ScalarProperty Name="IndustryDataByCityId" ColumnName="IndustryDataByCityId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByCountyBandMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByCountyBandMapping">
+              <MappingFragment StoreEntitySet="IndustryDataByCountyBandMapping">
+                <ScalarProperty Name="BandId" ColumnName="BandId" />
+                <ScalarProperty Name="IndustryDataByCountyId" ColumnName="IndustryDataByCountyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByMetroBandMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByMetroBandMapping">
+              <MappingFragment StoreEntitySet="IndustryDataByMetroBandMapping">
+                <ScalarProperty Name="BandId" ColumnName="BandId" />
+                <ScalarProperty Name="IndustryDataByMetroId" ColumnName="IndustryDataByMetroId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByNationBandMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByNationBandMapping">
+              <MappingFragment StoreEntitySet="IndustryDataByNationBandMapping">
+                <ScalarProperty Name="BandId" ColumnName="BandId" />
+                <ScalarProperty Name="IndustryDataByNationId" ColumnName="IndustryDataByNationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByStateBandMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByStateBandMapping">
+              <MappingFragment StoreEntitySet="IndustryDataByStateBandMapping">
+                <ScalarProperty Name="BandId" ColumnName="BandId" />
+                <ScalarProperty Name="IndustryDataByStateId" ColumnName="IndustryDataByStateId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryDataByZipBandMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.IndustryDataByZipBandMapping">
+              <MappingFragment StoreEntitySet="IndustryDataByZipBandMapping">
+                <ScalarProperty Name="BandId" ColumnName="BandId" />
+                <ScalarProperty Name="IndustryDataByZipId" ColumnName="IndustryDataByZipId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -71,6 +71,7 @@
     <Compile Include="DataLayer\Base\BusinessData.cs" />
     <Compile Include="DataLayer\Base\Business.cs" />
     <Compile Include="DataLayer\Base\ConsumerExpenditures.cs" />
+    <Compile Include="DataLayer\Base\IndustryAttribute.cs" />
     <Compile Include="DataLayer\Base\Division.cs" />
     <Compile Include="DataLayer\Base\Place.cs" />
     <Compile Include="DataLayer\Base\Industry.cs" />

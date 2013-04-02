@@ -316,7 +316,7 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
-        public static IQueryable<Models.Advertising> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
+        public static IQueryable<Models.AdvertisingOutput> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
         {
 
             var center = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i=>i.Value).FirstOrDefault();
@@ -353,54 +353,46 @@ namespace SizeUp.Core.DataLayer
                     WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
                     MedianAge = i.Demographics.MedianAge,
                     Population = i.Demographics.Population,
-                    HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditures
+                    HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditures,
+
+                    TotalEmployeesBand = i.IndustryData.IndustryDataByZipBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),                  
+                    AverageRevenueBand = i.IndustryData.IndustryDataByZipBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                    TotalRevenueBand = i.IndustryData.IndustryDataByZipBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                    RevenuePerCapitaBand = i.IndustryData.IndustryDataByZipBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault()
+
+
                 }
             });
-            var output = FilterQuery(data, filters).Select(i => i.Entity);
+            data = FilterQuery(data, filters);
+            IQueryable<Models.AdvertisingOutput> output = new List<Models.AdvertisingOutput>().AsQueryable();
+            output = data.Select(i => new Models.AdvertisingOutput
+            {
+                Place = i.Entity.Place,
+                Centroid = i.Entity.Centroid,
+                TotalEmployees = i.Entity.TotalEmployeesBand,
+                TotalRevenue = i.Entity.TotalRevenueBand,
+                AverageRevenue = i.Entity.AverageRevenueBand,
+                RevenuePerCapita = i.Entity.RevenuePerCapitaBand,
+                BachelorsDegreeOrHigher = i.Entity.BachelorsDegreeOrHigher,
+                HighSchoolOrHigher = i.Entity.HighSchoolOrHigher,
+                HouseholdExpenditures = i.Entity.HouseholdExpenditures,
+                HouseholdIncome = i.Entity.HouseholdIncome,
+                MedianAge = i.Entity.MedianAge,
+                Population = i.Entity.Population,
+                WhiteCollarWorkers = i.Entity.WhiteCollarWorkers,
+                ZipCode = i.Entity.ZipCode,
+                Distance = i.Distance
+            });
             return output;
         }
 
         public static int MinimumDistance(SizeUpContext context, long industryId, long placeId, int items, AdvertisingFilters filters)
         {
-
-            var center = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
-            var zips = Core.DataLayer.Base.ZipCode.Distance(context, center);
-            var demographics = Core.DataLayer.Demographics.Get(context, Core.DataLayer.Base.Granularity.ZipCode);
-            var industry = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
-
-            var data = zips.Join(demographics, i => i.Entity.Id, o => o.Id, (i, o) => new { Demographics = o, Entity = i })
-            .Join(industry, i => i.Entity.Entity.Id, o => o.ZipCodeId, (i, o) => new { Demographics = i.Demographics, IndustryData = o, Entity = i.Entity })
-            .Select(i => new DistanceEntity<Models.Advertising>
-            {
-                Distance = i.Entity.Distance,
-                Entity = new Models.Advertising
-                {
-                    ZipCode = new Models.ZipCode
-                    {
-                        Name = i.Entity.Entity.Name
-                    },
-                    AverageRevenue = i.IndustryData.AverageRevenue,
-                    TotalRevenue = i.IndustryData.TotalRevenue,
-                    TotalEmployees = i.IndustryData.TotalEmployees,
-                    RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                    BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
-                    HighSchoolOrHigher = i.Demographics.HighschoolOrHigherPercentage,
-                    HouseholdIncome = i.Demographics.HouseholdIncome,
-                    WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
-                    MedianAge = i.Demographics.MedianAge,
-                    Population = i.Demographics.Population,
-                    HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditures
-                }
-            });
-
-
-            data = FilterQuery(data, filters);
-
+            var data = Get(context, industryId, placeId, filters);
             var results = data.Select(i => new
             {
                 i.Distance
             });
-
 
             results = results.OrderBy(i => i.Distance);
             var distance = results.Skip(items - 1).FirstOrDefault();
@@ -413,282 +405,117 @@ namespace SizeUp.Core.DataLayer
         }
 
 
-        public static List<object> Bands(SizeUpContext context, long industryId, long placeId, int bands, AdvertisingFilters filters)
+        public static List<Band<double>> Bands(SizeUpContext context, long industryId, long placeId, int bands, AdvertisingFilters filters)
         {
-
-            var center = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
-            var zips = Core.DataLayer.Base.ZipCode.Distance(context, center);
-            var demographics = Core.DataLayer.Demographics.Get(context, Core.DataLayer.Base.Granularity.ZipCode);
-            var industry = Core.DataLayer.Base.IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
-
-            var data = zips.Join(demographics, i => i.Entity.Id, o => o.Id, (i, o) => new { Demographics = o, Entity = i })
-            .Join(industry, i => i.Entity.Entity.Id, o => o.ZipCodeId, (i, o) => new { Demographics = i.Demographics, IndustryData = o, Entity = i.Entity })
-            .Select(i => new DistanceEntity<Models.Advertising>
-            {
-                Distance = i.Entity.Distance,
-                Entity = new Models.Advertising
-                {
-                    ZipCode = new Models.ZipCode
-                    {
-                        Name = i.Entity.Entity.Name
-                    },
-                    AverageRevenue = i.IndustryData.AverageRevenue,
-                    TotalRevenue = i.IndustryData.TotalRevenue,
-                    TotalEmployees = i.IndustryData.TotalEmployees,
-                    RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                    BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
-                    HighSchoolOrHigher = i.Demographics.HighschoolOrHigherPercentage,
-                    HouseholdIncome = i.Demographics.HouseholdIncome,
-                    WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
-                    MedianAge = i.Demographics.MedianAge,
-                    Population = i.Demographics.Population,
-                    HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditures
-                }
-            });
-
-
-            data = FilterQuery(data, filters);
-
-            List<object> output = null;
+            var data = Get(context, industryId, placeId, filters);
+            List<Band<double>> output = null;
             if (filters.Attribute == "totalRevenue")
             {
                 output = data
-                    .Select(i=>i.Entity.TotalRevenue.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.TotalRevenue.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.TotalRevenue.Min), Max = b.Max(i => i.TotalRevenue.Max) })
                     .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "averageRevenue")
             {
                 output = data
-                    .Select(i => i.Entity.AverageRevenue.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.AverageRevenue.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.AverageRevenue.Min), Max = b.Max(i => i.AverageRevenue.Max) })
                     .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "revenuePerCapita")
             {
                 output = data
-                    .Select(i => i.Entity.RevenuePerCapita.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.RevenuePerCapita.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
                     .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "underservedMarkets")
             {
                 output = data
-                    .Select(i => i.Entity.RevenuePerCapita.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.RevenuePerCapita.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
                     .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "householdIncome")
             {
                 output = data
-                     .Select(i => i.Entity.HouseholdIncome.Value)
                      .ToList()
-                     .NTile(i => i, bands)
-                     .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                     .Cast<object>()
+                     .NTile(i => i.HouseholdIncome, bands)
+                     .Select(b => new Band<double>() { Min = b.Min(i => i.HouseholdIncome.Value), Max = b.Max(i => i.HouseholdIncome.Value) })
                      .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "totalPopulation")
             {
                 output = data
-                    .Select(i => i.Entity.Population.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.Population, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Population.Value), Max = b.Max(i => i.Population.Value) })
                     .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "whiteCollarWorkers")
             {
                 output = data
-                    .Select(i => i.Entity.WhiteCollarWorkers.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.WhiteCollarWorkers, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.WhiteCollarWorkers.Value), Max = b.Max(i => i.WhiteCollarWorkers.Value) })
                     .ToList();
-
-                Band<double> old = null;
-                foreach (Band<double> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "totalEmployees")
             {
                 output = data
-                    .Select(i => i.Entity.TotalEmployees.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<long>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.TotalEmployees.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.TotalEmployees.Min), Max = b.Max(i => i.TotalEmployees.Max) })
                     .ToList();
-
-                Band<long> old = null;
-                foreach (Band<long> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "householdExpenditures")
             {
                 output = data
-                    .Select(i => i.Entity.HouseholdExpenditures.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.HouseholdExpenditures, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.HouseholdExpenditures.Value), Max = b.Max(i => i.HouseholdExpenditures.Value) })
                     .ToList();
-
-                Band<double> old = null;
-                foreach (Band<double> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "medianAge")
             {
                 output = data
-                    .Select(i => i.Entity.MedianAge.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.MedianAge, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.MedianAge.Value), Max = b.Max(i => i.MedianAge.Value) })
                     .ToList();
-
-                Band<double> old = null;
-                foreach (Band<double> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "bachelorsDegreeOrHigher")
             {
                 output = data
-                    .Select(i => i.Entity.BachelorsDegreeOrHigher.Value)
                     .ToList()
-                    .NTile(i => i, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                    .Cast<object>()
+                    .NTile(i => i.BachelorsDegreeOrHigher, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.BachelorsDegreeOrHigher.Value), Max = b.Max(i => i.BachelorsDegreeOrHigher.Value) })
                     .ToList();
-
-                Band<double> old = null;
-                foreach (Band<double> band in output)
-                {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
-                }
             }
             else if (filters.Attribute == "highSchoolOrHigher")
             {
                 output = data
-                     .Select(i => i.Entity.HighSchoolOrHigher.Value)
                      .ToList()
-                     .NTile(i => i, bands)
-                     .Select(b => new Band<double>() { Min = b.Min(i => i), Max = b.Max(i => i) })
-                     .Cast<object>()
+                     .NTile(i => i.HighSchoolOrHigher, bands)
+                     .Select(b => new Band<double>() { Min = b.Min(i => i.HighSchoolOrHigher.Value), Max = b.Max(i => i.HighSchoolOrHigher.Value) })
                      .ToList();
+            }
 
-                Band<double> old = null;
-                foreach (Band<double> band in output)
+
+
+            Band<double> old = null;
+            foreach (Band<double> band in output)
+            {
+                if (old != null)
                 {
-                    if (old != null)
-                    {
-                        old.Max = band.Min;
-                    }
-                    old = band;
+                    old.Max = band.Min;
                 }
+                old = band;
             }
 
             if (filters.Order == "highToLow")

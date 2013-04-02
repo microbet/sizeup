@@ -824,19 +824,19 @@
             newItem['long'] = item.Centroid.Long;
             newItem['name'] = item.ZipCode.Name;
             newItem['totalPopulation'] = item.Population == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.Population) };
-            newItem['totalRevenue'] = item.TotalRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue) };
+            newItem['totalRevenue'] = item.TotalRevenue == null ? { value: null } : { value: { min: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue.Min), max: '$' + sizeup.util.numbers.format.addCommas(item.TotalRevenue.Max) } };
 
             if (params['averageRevenue'] != null || params.attribute == 'averageRevenue') {
-                newItem['averageRevenue'] = item.AverageRevenue == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue) };
+                newItem['averageRevenue'] = item.AverageRevenue == null ? { value: null } : { value: { min: '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue.Min), max: '$' + sizeup.util.numbers.format.addCommas(item.AverageRevenue.Max) } };
             }
             if (params['totalEmployees'] != null || params.attribute == 'totalEmployees') {
-                newItem['totalEmployees'] = item.TotalEmployees == null ? { value: null } : { value: sizeup.util.numbers.format.addCommas(item.TotalEmployees) };
+                newItem['totalEmployees'] = item.TotalEmployees == null ? { value: null } : { value: { min: sizeup.util.numbers.format.addCommas(item.TotalEmployees.Min), max: sizeup.util.numbers.format.addCommas(item.TotalEmployees.Max) } };
             }
             if (params['revenuePerCapita'] != null || params.attribute == 'revenuePerCapita') {
-                newItem['revenuePerCapita'] = item.RevenuePerCapita == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita) };
+                newItem['revenuePerCapita'] = item.RevenuePerCapita == null ? { value: null } : { value: { min: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita.Min), max: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita.Max) } };
             }
             if (params['revenuePerCapita'] != null || params.attribute == 'underservedMarkets') {
-                newItem['underservedMarkets'] = item.RevenuePerCapita == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita) };
+                newItem['underservedMarkets'] = item.RevenuePerCapita == null ? { value: null } : { value: { min: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita.Min), max: '$' + sizeup.util.numbers.format.addCommas(item.RevenuePerCapita.Max) } };
             }
             if (params['householdIncome'] != null || params.attribute == 'householdIncome') {
                 newItem['householdIncome'] = item.HouseholdIncome == null ? { value: null } : { value: '$' + sizeup.util.numbers.format.addCommas(item.HouseholdIncome) };
@@ -875,7 +875,7 @@
                 };
 
                 if (params.order == 'highToLow') {
-                    d.label = x == data.length - 1 ? data[x].Max + ' and below' : data[x].Max + ' - ' + data[x].Min;
+                    d.label = x == data.length - 1 ? data[x].Max + ' and below' : data[x].Min + ' - ' + data[x].Max;
                 }
                 else {
                     d.label = x == data.length - 1 ? data[x].Min + ' and above' : data[x].Min + ' - ' + data[x].Max;
@@ -917,9 +917,18 @@
 
         var getColor = function (value, bandData) {
             var color = null;
-            for (var x = 0; x < bandData.length; x++) {
-                if (value >= bandData[x].Min && value <= bandData[x].Max) {
-                    color = me.opts.bandColors[x];
+            if (typeof (value) == 'number') {
+                for (var x = 0; x < bandData.length; x++) {
+                    if (value >= bandData[x].Min && value <= bandData[x].Max) {
+                        color = me.opts.bandColors[x];
+                    }
+                }
+            }
+            else {
+                for (var x = 0; x < bandData.length; x++) {
+                    if (value.Min >= bandData[x].Min && value.Max <= bandData[x].Max) {
+                        color = me.opts.bandColors[x];
+                    }
                 }
             }
             return color;

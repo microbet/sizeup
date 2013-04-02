@@ -140,6 +140,24 @@
         <AssociationConnector Association="SizeUp.Data.FK_PlaceGeography_Place" />
         <AssociationConnector Association="SizeUp.Data.FK_PlaceGeography_Geography" />
         <AssociationConnector Association="SizeUp.Data.FK_PlaceGeography_GeographyClass" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByCityBandMapping" Width="3.875" PointX="4.875" PointY="25.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByCountyBandMapping" Width="3.875" PointX="9.25" PointY="25.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByMetroBandMapping" Width="3.875" PointX="0.5" PointY="27.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByNationBandMapping" Width="3.875" PointX="9.25" PointY="27.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByStateBandMapping" Width="3.875" PointX="4.875" PointY="27.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByZipBandMapping" Width="3.875" PointX="0.5" PointY="25.125" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCityBandMapping_Band" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCountyBandMapping_Band" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByMetroBandMapping_Band" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByNationBandMapping_Band" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByStateBandMapping_Band" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByZipBandMapping_Band" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCityBandMapping_IndustryDataByCity" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByCountyBandMapping_IndustryDataByCounty" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByMetroBandMapping_IndustryDataByMetro" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByNationBandMapping_IndustryDataByNation" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByStateBandMapping_IndustryDataByState" />
+        <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByZipBandMapping_IndustryDataByZip" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

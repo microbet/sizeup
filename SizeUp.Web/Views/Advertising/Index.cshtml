@@ -295,13 +295,13 @@
                         {{^city.SEOKey}}
                         <a class="name noCommunity">{{name}}</a>
                         {{/city.SEOKey}}
-                        <span class="value">{{#value.value}}{{value.value}}{{/value.value}}{{^value.value}}no data{{/value.value}}</span>
+                        <span class="value">{{#value.value}}{{#value.value.min}}{{value.value.min}} - {{value.value.max}}{{/value.value.min}}{{^value.value.min}}{{value.value}}{{/value.value.min}}{{/value.value}}{{^value.value}}no data{{/value.value}}</span>
                         <ul class="details">
                             {{#totalPopulation}}<li>Total Population: {{#totalPopulation.value}}{{totalPopulation.value}}{{/totalPopulation.value}}{{^totalPopulation.value}}no data{{/totalPopulation.value}}</li>{{/totalPopulation}}
-                            {{#totalRevenue}}<li>Total Annual Revenue: {{#totalRevenue.value}}{{totalRevenue.value}}{{/totalRevenue.value}}{{^totalRevenue.value}}no data{{/totalRevenue.value}}</li>{{/totalRevenue}}
-                            {{#averageRevenue}}<li>Average Annual Revenue: {{#averageRevenue.value}}{{averageRevenue.value}}{{/averageRevenue.value}}{{^averageRevenue.value}}no data{{/averageRevenue.value}}</li>{{/averageRevenue}}
-                            {{#totalEmployees}}<li>Total Employees: {{#totalEmployees.value}}{{totalEmployees.value}}{{/totalEmployees.value}}{{^totalEmployees.value}}no data{{/totalEmployees.value}}</li>{{/totalEmployees}}
-                            {{#revenuePerCapita}}<li>Revenue Per Capita: {{#revenuePerCapita.value}}{{revenuePerCapita.value}}{{/revenuePerCapita.value}}{{^revenuePerCapita.value}}no data{{/revenuePerCapita.value}}</li>{{/revenuePerCapita}}
+                            {{#totalRevenue}}<li>Total Annual Revenue: {{#totalRevenue.value}}{{totalRevenue.value.min}} - {{totalRevenue.value.max}}{{/totalRevenue.value}}{{^totalRevenue.value}}no data{{/totalRevenue.value}}</li>{{/totalRevenue}}
+                            {{#averageRevenue}}<li>Average Annual Revenue: {{#averageRevenue.value}}{{averageRevenue.value.min}} - {{averageRevenue.value.max}}{{/averageRevenue.value}}{{^averageRevenue.value}}no data{{/averageRevenue.value}}</li>{{/averageRevenue}}
+                            {{#totalEmployees}}<li>Total Employees: {{#totalEmployees.value}}{{totalEmployees.value.min}} - {{totalEmployees.value.max}}{{/totalEmployees.value}}{{^totalEmployees.value}}no data{{/totalEmployees.value}}</li>{{/totalEmployees}}
+                            {{#revenuePerCapita}}<li>Revenue Per Capita: {{#revenuePerCapita.value}}{{revenuePerCapita.value.min}} - {{revenuePerCapita.value.max}}{{/revenuePerCapita.value}}{{^revenuePerCapita.value}}no data{{/revenuePerCapita.value}}</li>{{/revenuePerCapita}}
                             {{#householdIncome}}<li>Household Income: {{#householdIncome.value}}{{householdIncome.value}}{{/householdIncome.value}}{{^householdIncome.value}}no data{{/householdIncome.value}}</li>{{/householdIncome}}
                             {{#householdExpenditures}}<li>Household Expenditures (Average): {{#householdExpenditures.value}}{{householdExpenditures.value}}{{/householdExpenditures.value}}{{^householdExpenditures.value}}no data{{/householdExpenditures.value}}</li>{{/householdExpenditures}}
                             {{#medianAge}}<li>Median Age: {{#medianAge.value}}{{medianAge.value}}{{/medianAge.value}}{{^medianAge.value}}no data{{/medianAge.value}}</li>{{/medianAge}}
