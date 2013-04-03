@@ -412,97 +412,109 @@ namespace SizeUp.Core.DataLayer
             if (filters.Attribute == "totalRevenue")
             {
                 output = data
+                    .Select(i=>i.TotalRevenue)
                     .ToList()
-                    .NTile(i => i.TotalRevenue.Max, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.TotalRevenue.Min), Max = b.Max(i => i.TotalRevenue.Max) })
+                    .NTile(i => i.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
             else if (filters.Attribute == "averageRevenue")
             {
                 output = data
+                    .Select(i => i.AverageRevenue)
                     .ToList()
-                    .NTile(i => i.AverageRevenue.Max, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.AverageRevenue.Min), Max = b.Max(i => i.AverageRevenue.Max) })
+                    .NTile(i => i.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
             else if (filters.Attribute == "revenuePerCapita")
             {
                 output = data
+                    .Select(i => i.RevenuePerCapita)
                     .ToList()
-                    .NTile(i => i.RevenuePerCapita.Max, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
+                    .NTile(i => i.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
             else if (filters.Attribute == "underservedMarkets")
             {
                 output = data
+                    .Select(i => i.RevenuePerCapita)
                     .ToList()
-                    .NTile(i => i.RevenuePerCapita.Max, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
+                    .NTile(i => i.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
             else if (filters.Attribute == "householdIncome")
             {
                 output = data
+                    .Select(i => i.HouseholdIncome)
                      .ToList()
-                     .NTile(i => i.HouseholdIncome, bands)
-                     .Select(b => new Band<double>() { Min = b.Min(i => i.HouseholdIncome.Value), Max = b.Max(i => i.HouseholdIncome.Value) })
+                     .NTile(i => i, bands)
+                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                      .ToList();
             }
             else if (filters.Attribute == "totalPopulation")
             {
                 output = data
+                    .Select(i => i.Population)
                     .ToList()
-                    .NTile(i => i.Population, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.Population.Value), Max = b.Max(i => i.Population.Value) })
+                    .NTile(i => i, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
             else if (filters.Attribute == "whiteCollarWorkers")
             {
                 output = data
+                    .Select(i => i.WhiteCollarWorkers)
                     .ToList()
-                    .NTile(i => i.WhiteCollarWorkers, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.WhiteCollarWorkers.Value), Max = b.Max(i => i.WhiteCollarWorkers.Value) })
+                    .NTile(i => i, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
             else if (filters.Attribute == "totalEmployees")
             {
                 output = data
+                    .Select(i => i.TotalEmployees)
                     .ToList()
-                    .NTile(i => i.TotalEmployees.Max, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.TotalEmployees.Min), Max = b.Max(i => i.TotalEmployees.Max) })
+                    .NTile(i => i.Max, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
             else if (filters.Attribute == "householdExpenditures")
             {
                 output = data
+                    .Select(i => i.HouseholdExpenditures)
                     .ToList()
-                    .NTile(i => i.HouseholdExpenditures, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.HouseholdExpenditures.Value), Max = b.Max(i => i.HouseholdExpenditures.Value) })
+                    .NTile(i => i, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
             else if (filters.Attribute == "medianAge")
             {
                 output = data
+                    .Select(i => i.MedianAge)
                     .ToList()
-                    .NTile(i => i.MedianAge, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.MedianAge.Value), Max = b.Max(i => i.MedianAge.Value) })
+                    .NTile(i => i, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
             else if (filters.Attribute == "bachelorsDegreeOrHigher")
             {
                 output = data
+                    .Select(i => i.BachelorsDegreeOrHigher)
                     .ToList()
-                    .NTile(i => i.BachelorsDegreeOrHigher, bands)
-                    .Select(b => new Band<double>() { Min = b.Min(i => i.BachelorsDegreeOrHigher.Value), Max = b.Max(i => i.BachelorsDegreeOrHigher.Value) })
+                    .NTile(i => i, bands)
+                    .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
             else if (filters.Attribute == "highSchoolOrHigher")
             {
                 output = data
+                    .Select(i => i.HighSchoolOrHigher)
                      .ToList()
-                     .NTile(i => i.HighSchoolOrHigher, bands)
-                     .Select(b => new Band<double>() { Min = b.Min(i => i.HighSchoolOrHigher.Value), Max = b.Max(i => i.HighSchoolOrHigher.Value) })
+                     .NTile(i => i, bands)
+                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                      .ToList();
             }
 
