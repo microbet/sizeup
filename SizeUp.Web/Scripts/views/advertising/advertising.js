@@ -477,10 +477,10 @@
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
                 var p = { industry: me.data.activeIndustry.Name };
-                //TODO: wire analytics
-                //new sizeup.core.analytics().dashboardIndustryChanged(p);
+                new sizeup.core.analytics().advertisingIndustryChanged(p);
                 var params = getParameters();
                 delete params.distance;
+                delete params.template;
                 params.page = 1;
                 var url = document.location.pathname;
                 url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
@@ -509,10 +509,10 @@
         var onPlaceChange = function (i) {
             if (i.Id != me.data.activePlace.Id) {
                 var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
-                //TODO: wire analytics
-                //new sizeup.core.analytics().dashboardPlaceChanged(p);
+                new sizeup.core.analytics().advertisingPlaceChanged(p);
                 var params = getParameters();
                 delete params.distance;
+                delete params.template;
                 params.page = 1;
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('advertising'));
@@ -544,10 +544,8 @@
             };
 
             jQuery.bbq.pushState(params);
-
-            //TODO: wire analytics
             var p = { attribute: attributeItem };
-            //new sizeup.core.analytics().topPlacesAttributeChanged(p);
+            new sizeup.core.analytics().advertisingAttributeChanged(p);
 
             updateSort();
             pushUrlState();
@@ -557,8 +555,7 @@
         var sliderChanged = function (attribute) {
             updateFilterLabel(attribute);
             var p = { attribute: attribute };
-            //TODO:wire analytics
-            //new sizeup.core.analytics().topPlacesAdvancedFilterChanged(p);
+            new sizeup.core.analytics().advertisingAdvancedFilterChanged(p);
             pushUrlState();
             loadReport();
         };

@@ -29,9 +29,19 @@
             advertisingReportLoaded: function (params) {
                 trackEvent({ category: 'Advertising', action: 'reportLoaded', label: params.attribute, isInteraction: true });
             },
-            advertisingFiltersClicked: function () {
-                trackEvent({ category: 'Advertising', action: 'filtersClicked', label: null, isInteraction: true });
+            advertisingIndustryChanged: function (params) {
+                trackEvent({ category: 'Advertising', action: 'industryChanged', label: params.industry, isInteraction: true });
             },
+            advertisingPlaceChanged: function (params) {
+                trackEvent({ category: 'Advertising', action: 'placeChanged', label: params.place, isInteraction: true });
+            },
+            advertisingAttributeChanged: function (params) {
+                trackEvent({ category: 'Advertising', action: 'attributeChanged', label: params.attribute, isInteraction: true });
+            },           
+            advertisingAdvancedFilterChanged: function (params) {
+                trackEvent({ category: 'Advertising', action: 'advancedFilters', label: params.attribute, isInteraction: true });
+            },
+
             consumerExpenditureSelected: function (params) {
                 trackEvent({ category: 'Competition', action: 'consumerExpendituresClicked', label: params.label, isInteraction: true });
             },
@@ -62,23 +72,23 @@
             placeIndustry: function (params) {
                 trackInternal(params, 'trackPlaceIndustry');
             },
-            topPlacesReportLoaded: function (params) {
-                trackEvent({ category: 'TopPlaces', action: 'reportLoaded', label: params.label, isInteraction: true });
+            bestPlacesReportLoaded: function (params) {
+                trackEvent({ category: 'BestPlaces', action: 'reportLoaded', label: params.label, isInteraction: true });
             },
-            topPlacesPlaceTypeChanged: function (params) {
-                trackEvent({ category: 'TopPlaces', action: 'placeTypeChanged', label: params.placeType, isInteraction: true });
+            bestPlacesPlaceTypeChanged: function (params) {
+                trackEvent({ category: 'BestPlaces', action: 'placeTypeChanged', label: params.placeType, isInteraction: true });
             },
-            topPlacesAttributeChanged: function (params) {
-                trackEvent({ category: 'TopPlaces', action: 'attributeChanged', label: params.attribute, isInteraction: true });
+            bestPlacesAttributeChanged: function (params) {
+                trackEvent({ category: 'BestPlaces', action: 'attributeChanged', label: params.attribute, isInteraction: true });
             },
-            topPlacesIndustryChanged: function (params) {
-                trackEvent({ category: 'TopPlaces', action: 'industryChanged', label: params.industry, isInteraction: true });
+            bestPlacesIndustryChanged: function (params) {
+                trackEvent({ category: 'BestPlaces', action: 'industryChanged', label: params.industry, isInteraction: true });
             },
-            topPlacesRegionChanged: function (params) {
-                trackEvent({ category: 'TopPlaces', action: 'regionChanged', label: params.region, isInteraction: true });
+            bestPlacesRegionChanged: function (params) {
+                trackEvent({ category: 'BestPlaces', action: 'regionChanged', label: params.region, isInteraction: true });
             },
-            topPlacesAdvancedFilterChanged: function (params) {
-                trackEvent({ category: 'TopPlaces', action: 'advancedFilters', label: params.attribute, isInteraction: true });
+            bestPlacesAdvancedFilterChanged: function (params) {
+                trackEvent({ category: 'BestPlaces', action: 'advancedFilters', label: params.attribute, isInteraction: true });
             },
             outgoingLink: function (params) {
                 trackEvent({ category: 'outgoingLinks',action:'clicked', label: params.label, isInteraction: true });

@@ -57,12 +57,6 @@
         <AssociationConnector Association="SizeUp.Data.FK_MetroGeography_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_StateGeography_State" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodeGeography_ZipCode" />
-        <EntityTypeShape EntityType="SizeUp.Data.ZipCodeCityMapping" Width="1.875" PointX="9" PointY="8.875" />
-        <EntityTypeShape EntityType="SizeUp.Data.ZipCodeCountyMapping" Width="1.875" PointX="9.125" PointY="6.25" />
-        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeCityMapping_City" />
-        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeCountyMapping_County" />
-        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeCityMapping_ZipCode" />
-        <AssociationConnector Association="SizeUp.Data.FK_ZipCodeCountyMapping_ZipCode" />
         <EntityTypeShape EntityType="SizeUp.Data.BusinessCityMapping" Width="2.25" PointX="4.375" PointY="8.625" />
         <EntityTypeShape EntityType="SizeUp.Data.BusinessDataByCity" Width="2.25" PointX="24.25" PointY="12.75" />
         <EntityTypeShape EntityType="SizeUp.Data.BusinessDataByCounty" Width="2.25" PointX="27" PointY="12.75" />
@@ -88,7 +82,7 @@
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByState_Industry" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByMetro_Metro" />
         <AssociationConnector Association="SizeUp.Data.FK_IndustryDataByState_State" />
-        <EntityTypeShape EntityType="SizeUp.Data.ZipCodePlaceMapping" Width="2.375" PointX="7" PointY="11.375" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCodePlaceMapping" Width="2.375" PointX="8.25" PointY="6.75" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodePlaceMapping_CityCountyMapping" />
         <AssociationConnector Association="SizeUp.Data.FK_ZipCodePlaceMapping_ZipCode" />
         <EntityTypeShape EntityType="SizeUp.Data.IndustryDataByCity" Width="3.125" PointX="26.625" PointY="0.5" />
