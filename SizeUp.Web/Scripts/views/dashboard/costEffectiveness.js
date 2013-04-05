@@ -85,6 +85,12 @@
             me.resources = me.container.find('.reportContainer .resources');
             me.description = me.container.find('.reportContainer .description');
 
+            me.map = new sizeup.maps.map({
+                container: me.container.find('.mapWrapper.container .map')
+            });
+
+            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
+            me.textAlternative.click(textAlternativeClicked);
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
@@ -148,213 +154,26 @@
 
 
         var setHeatmap = function () {
-
-            var overlays = [];
-
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/costEffectiveness/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 8,
-                    maxZoom: 32
-                }));
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/costEffectiveness/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 7
-                }));
-            }
-            else {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/costEffectiveness/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 32
-                }));
-            }
-
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/costEffectiveness/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'State',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 0,
-                maxZoom: 4
-            }));
-
-
-            me.map = new sizeup.maps.map({
-                container: me.container.find('.mapWrapper.container .map')
-            });
+            var overlays = me.overlay.getOverlays();
+            me.map.triggerEvent('resize');
             me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.map.setZoom(12);
+            me.map.setZoom(me.overlay.getZoomExtent().County - 1);
             me.map.addEventListener('zoom_changed', mapZoomUpdated);
-
             for (var x in overlays) {
                 me.map.addOverlay(overlays[x], 0);
             }
 
             setLegend();
-
-            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
-            me.textAlternative.click(textAlternativeClicked);
         };
 
         var setLegend = function () {
-
-            var data = {
-                title: '',
-                items: []
-            };
             var z = me.map.getZoom();
-
-            var notify = new sizeup.core.notifier(function () {
-
-                var legend = new sizeup.maps.legend({
-                    templates: templates,
-                    title: data.title,
-                    items: data.items,
-                    colors: [
-                    '#F5F500',
-                    '#F5CC00',
-                    '#F5A300',
-                    '#F57A00',
-                    '#F55200',
-                    '#F52900',
-                    '#F50000'
-                    ],
-                    format: function (val) { return sizeup.util.numbers.format.round(val, 2); }
-                });
+            var callback = function (legend) {
                 me.map.setLegend(legend);
-            });
+            };
 
-
-
-            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
-
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-                if (z <= 32 && z >= 8) {
-                    data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    };
-                    dataLayer.getCostEffectivenessBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        bands: 7
-                    }, itemsNotify);
-
-
-                }
-
-                if (z <= 7 && z >= 5) {
-                    data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getCostEffectivenessBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-                }
-            }
-            else {
-                if (z <= 32 && z >= 5) {
-
-                    data.title = 'Cost Effectiveness by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getCostEffectivenessBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-
-                }
-            }
-
-            if (z <= 4 && z >= 0) {
-
-                data.title = 'Cost Effectiveness by state in the USA';
-                me.data.textAlternative = {
-                    granularity: 'State',
-                    boundingGranularity: 'Nation'
-                };
-                dataLayer.getCostEffectivenessBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'State',
-                    bands: 7
-                }, itemsNotify);
-            }
+            me.overlay.getLegend(z, callback);
+            me.data.textAlternative = me.overlay.getParams(z);
         };
 
         var mapZoomUpdated = function () {
@@ -363,15 +182,10 @@
 
         var textAlternativeClicked = function () {
             var url = '/accessibility/costEffectiveness/';
-            var data = {
-                bands: 7,
-                industryId: me.opts.report.CurrentIndustry.Id,
-                placeId: me.opts.report.CurrentPlace.Id,
-                granularity: me.data.textAlternative.granularity,
-                boundingGranularity: me.data.textAlternative.boundingGranularity
-            };
-            window.open(jQuery.param.querystring(url, data), '_blank');
+            window.open(jQuery.param.querystring(url, me.data.textAlternative), '_blank');
         };
+
+
 
 
         var displayReport = function () {
@@ -382,7 +196,22 @@
 
             me.reportContainer.setValue(me.data.gauge.value);
 
-            setHeatmap();
+
+            dataLayer.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
+                me.overlay = new sizeup.maps.heatMapOverlays({
+                    tileUrl: '/tiles/costEffectiveness/',
+                    place: me.opts.report.CurrentPlace,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
+                    zoomExtent: data,
+                    attributeLabel: 'Cost Effectiveness',
+                    format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                    legendData: dataLayer.getCostEffectivenessBands,
+                    templates: templates
+                });
+                setHeatmap();
+            });
+
+
 
             me.chart = new sizeup.charts.barChart({
 

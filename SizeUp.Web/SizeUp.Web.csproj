@@ -336,6 +336,7 @@
     <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\circle.js" />
+    <Content Include="Scripts\maps\heatMapOverlays.js" />
     <Content Include="Scripts\maps\legend.js" />
     <Content Include="Scripts\maps\heatPin.js" />
     <Content Include="Scripts\maps\imagePin.js" />

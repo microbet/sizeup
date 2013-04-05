@@ -30,7 +30,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-                BoundingBox boundingBox = tile.GetBoundingBox(.2f);
+                BoundingBox boundingBox = tile.GetBoundingBox(TileBuffer);
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();
 

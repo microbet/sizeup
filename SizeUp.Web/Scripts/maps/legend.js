@@ -30,15 +30,23 @@
 
         
         var list = [];
+        var t = me.opts.templates.get('legendItem');
+        if (me.opts.items.length == 0) {
+            list.push(me.opts.templates.bind(t, { color: '#C0C0C0', label: 'No data (zoom out)' }));
+        }
+        else {
+            list.push(me.opts.templates.bind(t, { color: '#C0C0C0', label: 'No data available' }));
+        }
+
         if (me.opts.items.length < me.opts.colors.length) {
             for (var x = 0; x < me.opts.items.length; x++) {
-                var t = me.opts.templates.get('legendItem');
+                t = me.opts.templates.get('legendItem');
                 list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) }));
             }
         }
         else {
             for (var x = 0; x < me.opts.items.length; x++) {
-                var t = me.opts.templates.get('legendItem');
+                t = me.opts.templates.get('legendItem');
                 list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
             }
         }

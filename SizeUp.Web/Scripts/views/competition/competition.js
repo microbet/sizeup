@@ -47,7 +47,9 @@
                 activeOverlays: [],
                 rootId: 1,
                 currentSelection: null,
-                legend: null
+                legend: null,
+                list: null,
+                overlay: null
             },
             businessListXHR: null
         };
@@ -66,7 +68,7 @@
         }));
 
         var setup = function () {
-
+            var params = jQuery.bbq.getState();
             var notifier = new sizeup.core.notifier(function () { init(); });
             dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
             dataLayer.getBoundingBox({ id: opts.CurrentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) {
@@ -75,7 +77,13 @@
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.NorthEast.Lat, lng: data.NorthEast.Lng }));
             }));
 
-            var params = jQuery.bbq.getState();
+            if (params.consumerExpenditureVariable) {
+                dataLayer.getConsumerExpenditureVariable({ id: params.consumerExpenditureVariable }, notifier.getNotifier(function (data) {
+                    me.data.consumerExpenditure.currentSelection = data;
+                }));
+            }
+
+           
 
             var insertIndustries = function (index, data) {
                 for (var x in data) {
@@ -94,9 +102,6 @@
             }
             if (params.rootId) {
                 me.data.consumerExpenditure.rootId = params.rootId;
-            }
-            if (params.consumerExpenditureVariable) {
-                me.data.consumerExpenditure.currentSelection = params.consumerExpenditureVariable;
             }
             if (params.activeTab) {
                 me.data.activeIndex = params.activeTab;
@@ -275,9 +280,8 @@
           
          
             if (me.data.consumerExpenditure.currentSelection != null) {
-                loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
-                setHeatmap(me.data.consumerExpenditure.currentSelection);
-                getLegendData();
+                loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection.Id);
+                setHeatmap(me.data.consumerExpenditure.currentSelection.Id);
             }
             else {
                 loadConsumerExpenditureVariables(me.data.consumerExpenditure.rootId);
@@ -307,10 +311,10 @@
                target.addClass('active');
 
                 me.data.consumerExpenditure.rootId = rootId;
-                dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection }, function (data) {
-                    me.data.consumerExpenditure.currentSelection = data.Id;
-                    loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection);
-                    setHeatmap(me.data.consumerExpenditure.currentSelection);
+                dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection.Id }, function (data) {
+                    me.data.consumerExpenditure.currentSelection = data;
+                    loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection.Id);
+                    setHeatmap(me.data.consumerExpenditure.currentSelection.Id);
                     getLegendData();
                     pushUrlState();
                 });
@@ -401,9 +405,8 @@
             item.nextAll().remove();
             var id = a.attr('data-id');
             new sizeup.core.analytics().consumerExpenditureSelected({ label: a.html() });
-            me.data.consumerExpenditure.currentSelection = id;
+            me.data.consumerExpenditure.currentSelection = getConsumerExpenditureFromList(id);
             setHeatmap(id);
-            getLegendData();
             loadConsumerExpenditureVariables(id);
             pushUrlState();
             e.stopPropagation();
@@ -420,13 +423,20 @@
                 me.content.ConsumerExpenditure.menuContent.toggle();
             }
 
-            me.data.consumerExpenditure.currentSelection = id;
+            me.data.consumerExpenditure.currentSelection = getConsumerExpenditureFromList(id);
             me.content.ConsumerExpenditure.selectionList.append(item);
             setHeatmap(id);
-            getLegendData();
             loadConsumerExpenditureVariables(id);
             pushUrlState();
             e.stopPropagation();
+        };
+
+        var getConsumerExpenditureFromList = function (id) {
+            for (var x in me.data.consumerExpenditure.list) {
+                if (me.data.consumerExpenditure.list[x].Id == id) {
+                    return me.data.consumerExpenditure.list[x];
+                }
+            }
         };
 
         var pagerOnUpdate = function (data) {
@@ -586,22 +596,8 @@
             me.content.map.clearLegend();
         };
 
-        var setLegend = function (data) {
-            me.data.consumerExpenditure.legend = new sizeup.maps.legend({
-                templates: templates,
-                title: data.title,
-                items: data.items,
-                colors: [
-                '#F5F500',
-                '#F5CC00',
-                '#F5A300',
-                '#F57A00',
-                '#F55200',
-                '#F52900',
-                '#F50000'
-                ],
-                format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
-            });
+        var setLegend = function (legend) {
+            me.data.consumerExpenditure.legend = legend;
             me.content.map.setLegend(me.data.consumerExpenditure.legend);
 
 
@@ -714,6 +710,7 @@
             dataLayer.getConsumerExpenditureVariablePath({ id: id }, function (data) {
                 var html = '';
                 //removes the root node as we arent using that
+                me.data.consumerExpenditure.currentSelection = data[data.length - 1];
                 data.shift();
                 for (var x in data) {
                     html = html + templates.bind(templates.get('consumerExpenditureListItem'), data[x]);
@@ -727,6 +724,7 @@
             me.content.ConsumerExpenditure.childList.empty();
             me.content.ConsumerExpenditure.loading.show();
             dataLayer.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
+                me.data.consumerExpenditure.list = data;
                 me.content.ConsumerExpenditure.loading.hide();
                 var html = '';
                 for (var x in data) {
@@ -743,218 +741,61 @@
             }
             me.data.consumerExpenditure.activeOverlays = [];
 
+           
 
-            if (id != null) {
-                me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/consumerExpenditures/',
-                    opacity: 0.7,
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        variableId: id,
-                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                        granularity: 'ZipCode',
-                        boundingGranularity: 'County'
-                    },
-                    minZoom: 11,
-                    maxZoom: 32
-                }));
-
-
-                if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
-
-                    me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
+            var createOverlay = function () {
+                if (id != null) {
+                    var ceType = me.data.consumerExpenditure.rootId == 1 ? 'Totals' : 'Averages';
+                    var title = 'Consumer Expenditure ' + ceType + ' for ' + me.data.consumerExpenditure.currentSelection.Description;
+                    me.data.consumerExpenditure.overlay = new sizeup.maps.heatMapOverlays({
                         tileUrl: '/tiles/consumerExpenditures/',
+                        place: me.opts.CurrentInfo.CurrentPlace,
                         opacity: 0.7,
-                        tileParams: {
-                            colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                            ],
-                            variableId: id,
-                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                            granularity: 'County',
-                            boundingGranularity: 'Metro'
-                        },
-                        minZoom: 8,
-                        maxZoom: 10
-                    }));
+                        params: { variableId: me.data.consumerExpenditure.currentSelection.Id },
+                        zoomExtent: me.data.zoomExtent,
+                        attributeLabel: title,
+                        format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                        legendData: dataLayer.getConsumerExpenditureBands,
+                        templates: templates
+                    });
 
-                    me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                        tileUrl: '/tiles/consumerExpenditures/',
-                        opacity: 0.7,
-                        tileParams: {
-                            colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                            ],
-                            variableId: id,
-                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                            granularity: 'County',
-                            boundingGranularity: 'State'
-                        },
-                        minZoom: 5,
-                        maxZoom: 7
-                    }));
+                    me.data.consumerExpenditure.activeOverlays = me.data.consumerExpenditure.overlay.getOverlays();
+
+                
+                    for (var x in me.data.consumerExpenditure.activeOverlays) {
+                        me.content.map.addOverlay(me.data.consumerExpenditure.activeOverlays[x], 0);
+                    }
+                    showLegend();
+                    getLegendData();
                 }
                 else {
-                    me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                        tileUrl: '/tiles/consumerExpenditures/',
-                        opacity: 0.7,
-                        tileParams: {
-                            colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                            ],
-                            variableId: id,
-                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                            granularity: 'County',
-                            boundingGranularity: 'State'
-                        },
-                        minZoom: 5,
-                        maxZoom: 10
-                    }));
+                    me.data.consumerExpenditure.legend = null;
+                    hideLegned();
                 }
+                
+            };
 
 
-                me.data.consumerExpenditure.activeOverlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/consumerExpenditures/',
-                    opacity: 0.7,
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        variableId: id,
-                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                        granularity: 'State'
-                    },
-                    minZoom: 0,
-                    maxZoom: 4
-                }));
-
-
-                for (var x in me.data.consumerExpenditure.activeOverlays) {
-                    me.content.map.addOverlay(me.data.consumerExpenditure.activeOverlays[x], 0);
-                }
-                showLegend();
+            if (me.data.zoomExtend == null) {
+                dataLayer.getZoomExtent({ id: me.opts.CurrentInfo.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
+                    me.data.zoomExtent = data;
+                    createOverlay();
+                });
             }
             else {
-                me.data.consumerExpenditure.legend = null;
-                hideLegned();
+                createOverlay();
             }
         };
 
         var getLegendData = function () {
-            var z = me.content.map.getZoom();
-            var ceType = me.data.consumerExpenditure.rootId == 1 ? 'Totals' : 'Averages';
-            if (me.data.consumerExpenditure.currentSelection != null ) {
+            if (me.data.consumerExpenditure.currentSelection != null && me.data.consumerExpenditure.overlay != null) {
+                var z = me.content.map.getZoom();
                 me.data.consumerExpenditure.legendZoomLevel = z;
-                var data = {
-                    title: '',
-                    items:[]
+                var callback = function (legend) {
+                    setLegend(legend);
                 };
-                var notify = new sizeup.core.notifier(function () {
-                    setLegend(data);
-                });
-                var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
 
-                if (z <= 32 && z >= 11) {
-
-                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by zip code in ' + me.opts.CurrentInfo.CurrentPlace.County.Name + ', ' +  me.opts.CurrentInfo.CurrentPlace.State.Name; });
-                    dataLayer.getConsumerExpenditureBands({
-                        bands: 7,
-                        variableId: me.data.consumerExpenditure.currentSelection,
-                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                        granularity: 'ZipCode',
-                        boundingGranularity: 'County'
-                    },
-                    itemsNotify);
-                }
-
-
-                if (me.opts.CurrentInfo.CurrentPlace.Metro.Id != null) {
-                    if (z <= 10 && z >= 8) {
-
-                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.Metro.Name; });
-                        dataLayer.getConsumerExpenditureBands({
-                               bands: 7,
-                               variableId: me.data.consumerExpenditure.currentSelection,
-                               placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                               granularity: 'County',
-                               boundingGranularity: 'Metro'
-                           },
-                           itemsNotify);
-                    }
-
-                    if (z <= 8 && z >= 5) {
-
-                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
-                        dataLayer.getConsumerExpenditureBands({
-                            bands: 7,
-                            variableId: me.data.consumerExpenditure.currentSelection,
-                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                            granularity: 'County',
-                            boundingGranularity: 'State'
-                        },
-                        itemsNotify);
-                    }
-                }
-                else {
-                    if (z <= 10 && z >= 5) {
-
-                        var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by county in ' + me.opts.CurrentInfo.CurrentPlace.State.Name; });
-                        dataLayer.getConsumerExpenditureBands({
-                            bands: 7,
-                            variableId: me.data.consumerExpenditure.currentSelection,
-                            placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                            granularity: 'County',
-                            boundingGranularity: 'State'
-                        },
-                        itemsNotify);
-                    }
-                }
-
-                
-                if (z <= 4 && z >= 0) {
-
-                    var titleNotify = notify.getNotifier(function (d) { data.title = 'Consumer Expenditure ' + ceType + ' for ' + d.Description + ' by state in USA' });
-                    dataLayer.getConsumerExpenditureBands({
-                        bands: 7,
-                        variableId: me.data.consumerExpenditure.currentSelection,
-                        placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                        granularity: 'State'
-                    },
-                    itemsNotify);
-                }
-                dataLayer.getConsumerExpenditureVariable({ id: me.data.consumerExpenditure.currentSelection }, titleNotify);
+                me.data.consumerExpenditure.overlay.getLegend(z, callback);
             }
         };
  
@@ -1006,7 +847,7 @@
                 data.buyer = buyers;
             }
             if (me.data.consumerExpenditure.currentSelection != null) {
-                data.consumerExpenditureVariable = me.data.consumerExpenditure.currentSelection;
+                data.consumerExpenditureVariable = me.data.consumerExpenditure.currentSelection.Id;
             }
             if (me.data.consumerExpenditure.rootId != null) {
                 data.rootId = me.data.consumerExpenditure.rootId;

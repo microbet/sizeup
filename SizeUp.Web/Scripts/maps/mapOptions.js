@@ -7,7 +7,7 @@
             defaults: function () {
                 return {
                     zoom: 4,
-                    minZoom: 2,
+                    minZoom: 3,
                     maxZoom:24,
                     center: new google.maps.LatLng(38.272689, -95.800781),
                     mapTypeControl: false,

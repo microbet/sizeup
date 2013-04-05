@@ -24,14 +24,24 @@ namespace SizeUp.Core.Geo
             NorthEast = new LatLng { Lat = northEast.Y, Lng = northEast.X }; ;
         }
 
+        private double BoundLat(double lat)
+        {
+            return Math.Min(Math.Max(0.01, lat), 89.99);
+        }
+
+        private double BoundLng(double lng)
+        {
+            return Math.Min(Math.Max(-179.99, lng), -0.01);
+        }
+
         public SqlGeography GetSqlGeography()
         {
-            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", SouthWest.Lng, NorthEast.Lng, SouthWest.Lat, NorthEast.Lat));
+            return SqlGeography.Parse(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", BoundLng(SouthWest.Lng), BoundLng(NorthEast.Lng), BoundLat(SouthWest.Lat), BoundLat(NorthEast.Lat)));
         }
 
         public DbGeography GetDbGeography()
         {
-            return DbGeography.FromText(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", SouthWest.Lng, NorthEast.Lng, SouthWest.Lat, NorthEast.Lat));
+            return DbGeography.FromText(string.Format("POLYGON (({0} {2}, {1} {2}, {1} {3}, {0} {3}, {0} {2}))", BoundLng(SouthWest.Lng), BoundLng(NorthEast.Lng), BoundLat(SouthWest.Lat), BoundLat(NorthEast.Lat)));
         }
     }
 }
