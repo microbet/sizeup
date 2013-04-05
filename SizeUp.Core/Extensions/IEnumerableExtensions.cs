@@ -38,6 +38,7 @@ namespace SizeUp.Core.Extensions
             int totalItems = source.Count();
             int distinctCount = groups.Count();
             int itemsPerBand = Math.Max((int)Math.Floor((decimal)totalItems / (decimal)bands), 1);
+            int extras = totalItems % bands;
             int bandIndex = 0;
             int distinctIndex = 0;
             List<T> toReturn = new List<T>();
@@ -46,9 +47,10 @@ namespace SizeUp.Core.Extensions
                 distinctIndex++;
                 int remainingBands = bands - bandIndex;
                 int remainingValues = distinctCount - distinctIndex;
+                int itemsInCurrentBand = bandIndex < extras ? itemsPerBand + 1 : itemsPerBand;
                 toReturn.AddRange(group);
                 //if bucket isnt empty and current group wont fit  OR  there arent enough remaining distinct values to fill all bands we want 
-                if (toReturn.Count() >= itemsPerBand || remainingBands > remainingValues)
+                if (toReturn.Count() >= itemsInCurrentBand || remainingBands > remainingValues)
                 {
                     yield return toReturn;
                     toReturn = new List<T>();
@@ -68,6 +70,7 @@ namespace SizeUp.Core.Extensions
             int totalItems = source.Count();
             int distinctCount = groups.Count();
             int itemsPerBand = Math.Max((int)Math.Floor((decimal)totalItems / (decimal)bands), 1);
+            int extras = totalItems % bands;
             int bandIndex = 0;
             int distinctIndex = 0;
             List<T> toReturn = new List<T>();
@@ -76,9 +79,10 @@ namespace SizeUp.Core.Extensions
                 distinctIndex++;
                 int remainingBands = bands - bandIndex;
                 int remainingValues = distinctCount - distinctIndex;
+                int itemsInCurrentBand = bandIndex < extras ? itemsPerBand + 1 : itemsPerBand;
                 toReturn.AddRange(group);
                 //if bucket isnt empty and current group wont fit  OR  there arent enough remaining distinct values to fill all bands we want 
-                if (toReturn.Count() >= itemsPerBand || remainingBands > remainingValues)
+                if (toReturn.Count() >= itemsInCurrentBand || remainingBands > remainingValues)
                 {
                     yield return toReturn;
                     toReturn = new List<T>();
@@ -109,7 +113,7 @@ namespace SizeUp.Core.Extensions
             {
                 if (old != null)
                 {
-                    old.Min = band.Max;
+                    old.Max = band.Min;
                 }
                 old = band;
             }

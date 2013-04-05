@@ -102,7 +102,6 @@
 
 #competition .industryPicker.container { padding: 1.5em 0 0 0; }
 
-#competition .industryPicker .currentIndustry { font-size: 1.5em; font-weight:bold; margin:0 1em 0 0; padding:0 0 1em 0.5em; border-bottom:1px dashed #ccc; }
 #competition .industryPicker p { margin:0.5em 0 0 0.5em; }
 #competition .industryPicker input { font-size: 1.3em; padding: 0.6em; margin:0.25em 0.5em 1.5em; width: 28em; display: block;}
 

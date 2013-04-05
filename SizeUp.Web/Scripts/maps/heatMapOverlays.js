@@ -14,15 +14,15 @@
             params: {},
             tileUrl: '',
             colors: [
-                '#F5F500',
-                '#F5CC00',
-                '#F5A300',
-                '#F57A00',
-                '#F55200',
+                '#F50000',
                 '#F52900',
-                '#F50000'
+                '#F55200',
+                '#F57A00',
+                '#F5A300',
+                '#F5CC00',
+                '#F5F500'
             ],
-            opacity:1,
+            opacity:0.9,
             smallestGranularity: 'ZipCode',
             attributeLabel: 'Unknown',
             format: function (val) { return val; },

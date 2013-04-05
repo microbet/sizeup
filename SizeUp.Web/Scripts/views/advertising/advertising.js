@@ -568,6 +568,7 @@
         };
 
         var nameSortClicked = function () {
+            var params = getParameters();
             if (me.content.nameSort.hasClass('desc')) {
                 me.content.nameSort.removeClass('desc');
                 me.content.nameSort.addClass('asc');
@@ -578,6 +579,9 @@
             }
             me.content.valueSort.removeClass('asc').removeClass('desc');
             me.content.pager.gotoPage(1);
+            if (params.attribute == 'underservedMarkets' || params.attribute == 'revenuePerCapita') {
+                me.content.attributeMenu.setValue('revenuePerCapita');
+            }
             pushUrlState();
             updateSort();
             loadReport();
@@ -585,6 +589,7 @@
 
 
         var valueSortClicked = function () {
+            var params = getParameters();
             if (me.content.valueSort.hasClass('desc')) {
                 me.content.valueSort.removeClass('desc');
                 me.content.valueSort.addClass('asc');
@@ -595,6 +600,12 @@
             }
             me.content.nameSort.removeClass('asc').removeClass('desc');
             me.content.pager.gotoPage(1);
+            if (params.attribute == 'underservedMarkets') {
+                me.content.attributeMenu.setValue('revenuePerCapita');
+            }
+            if (params.attribute == 'revenuePerCapita') {
+                me.content.attributeMenu.setValue('underservedMarkets');
+            }
             pushUrlState();
             updateSort();
             loadReport();

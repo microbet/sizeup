@@ -324,25 +324,25 @@
             if (data.County) {
                 var val = 50 + (data.County.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
-                me.data.percentages.County = data.County.Percentage < 0 ? percentage + ' Below Average' : data.County.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+                me.data.percentages.County = data.County.Percentage < 0 ? percentage + ' below average' : data.County.Percentage == 0 ? 'average' : percentage + ' above average';
             }
             if (data.Metro) {
                 var val = 50 + (data.Metro.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Metro.Percentage));
-                me.data.percentages.Metro = data.Metro.Percentage < 0 ? percentage + ' Below Average' : data.Metro.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+                me.data.percentages.Metro = data.Metro.Percentage < 0 ? percentage + ' below average' : data.Metro.Percentage == 0 ? 'average' : percentage + ' above average';
             }
             if (data.State) {
                 var val = 50 + (data.State.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
-                me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' Below Average' : data.State.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+                me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' below average' : data.State.Percentage == 0 ? 'average' : percentage + ' above average';
             }
             if (data.Nation) {
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
-                me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+                me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' below average' : data.Nation.Percentage == 0 ? 'average' : percentage + ' above average';
                 me.data.gauge = {
                     value: val,
-                    tooltip: me.data.percentages.Nation
+                    tooltip: data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average'
                 };
             }
             else {
