@@ -655,6 +655,8 @@
                 rows: me.data.table
             });
 
+
+            me.data.description.HasData = me.data.chart.City != null;           
             me.description.html(templates.bind(templates.get("description"), me.data.description));
 
           
@@ -718,8 +720,7 @@
             }
 
             me.data.description = {
-                Percentiles: me.data.percentiles,
-                HasData: me.data.percentiles.County || me.data.percentiles.Metro || me.data.percentiles.State || me.data.percentiles.Nation
+                Percentiles: me.data.percentiles
             };
         };
 

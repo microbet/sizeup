@@ -400,12 +400,9 @@
             });
 
                 
-            me.data.description = {
-                Percentage: me.data.gauge.tooltip,
-                NAICS6: me.opts.report.CurrentIndustry.NAICS6,
-                Industry: me.opts.report.CurrentIndustry
-            };
-                
+            me.data.description.NAICS6 = me.opts.report.CurrentIndustry.NAICS6;
+            me.data.description.Industry = me.opts.report.CurrentIndustry;
+               
             me.description.html(templates.bind(templates.get("description"), me.data.description));
 
 
@@ -436,6 +433,10 @@
                 dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
                 dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
                 dataLayer.getCostEffectivenessChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+
+                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+                dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
                 dataLayer.getCostEffectivenessPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees, salary: me.data.enteredSalary, revenue: me.data.enteredRevenue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
             }
         };
@@ -488,13 +489,31 @@
         };
 
         var percentageDataReturned = function (data) {
-            if (data.Nation!=null) {
+
+            me.data.percentages = {};
+
+            if (data.County) {
+                var val = 50 + (data.County.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
+                me.data.percentages.County = data.County.Percentage < 0 ? percentage + ' Below Average' : data.County.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+            }
+            if (data.Metro) {
+                var val = 50 + (data.Metro.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Metro.Percentage));
+                me.data.percentages.Metro = data.Metro.Percentage < 0 ? percentage + ' Below Average' : data.Metro.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+            }
+            if (data.State) {
+                var val = 50 + (data.State.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
+                me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' Below Average' : data.State.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+            }
+            if (data.Nation) {
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
-
+                me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average';
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average'
+                    tooltip: me.data.percentages.Nation
                 };
             }
             else {
@@ -503,6 +522,12 @@
                     tooltip: 'No data'
                 };
             }
+
+
+            me.data.description = {
+                Percentages: me.data.percentages
+            }
+
         };
 
 

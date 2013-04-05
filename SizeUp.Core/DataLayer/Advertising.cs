@@ -414,7 +414,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i=>i.TotalRevenue)
                     .ToList()
-                    .NTile(i => i.Max, bands)
+                    .NTileDescending(i => i.Max, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
@@ -423,7 +423,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.AverageRevenue)
                     .ToList()
-                    .NTile(i => i.Max, bands)
+                    .NTileDescending(i => i.Max, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
@@ -432,7 +432,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.RevenuePerCapita)
                     .ToList()
-                    .NTile(i => i.Max, bands)
+                    .NTileDescending(i => i.Max, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
@@ -450,7 +450,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.HouseholdIncome)
                      .ToList()
-                     .NTile(i => i, bands)
+                     .NTileDescending(i => i, bands)
                      .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                      .ToList();
             }
@@ -459,7 +459,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.Population)
                     .ToList()
-                    .NTile(i => i, bands)
+                    .NTileDescending(i => i, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
@@ -468,7 +468,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.WhiteCollarWorkers)
                     .ToList()
-                    .NTile(i => i, bands)
+                    .NTileDescending(i => i, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
@@ -477,7 +477,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.TotalEmployees)
                     .ToList()
-                    .NTile(i => i.Max, bands)
+                    .NTileDescending(i => i.Max, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Min), Max = b.Max(i => i.Max) })
                     .ToList();
             }
@@ -486,7 +486,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.HouseholdExpenditures)
                     .ToList()
-                    .NTile(i => i, bands)
+                    .NTileDescending(i => i, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
@@ -495,7 +495,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.MedianAge)
                     .ToList()
-                    .NTile(i => i, bands)
+                    .NTileDescending(i => i, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
@@ -504,7 +504,7 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.BachelorsDegreeOrHigher)
                     .ToList()
-                    .NTile(i => i, bands)
+                    .NTileDescending(i => i, bands)
                     .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                     .ToList();
             }
@@ -513,26 +513,19 @@ namespace SizeUp.Core.DataLayer
                 output = data
                     .Select(i => i.HighSchoolOrHigher)
                      .ToList()
-                     .NTile(i => i, bands)
+                     .NTileDescending(i => i, bands)
                      .Select(b => new Band<double>() { Min = b.Min(i => i.Value), Max = b.Max(i => i.Value) })
                      .ToList();
             }
 
 
-
-            Band<double> old = null;
-            foreach (Band<double> band in output)
+            if (filters.Attribute == "underservedMarkets")
             {
-                if (old != null)
-                {
-                    old.Max = band.Min;
-                }
-                old = band;
+                output.Format();
             }
-
-            if (filters.Order == "highToLow")
+            else
             {
-                output.Reverse();
+                output.FormatDescending();
             }
             return output;
         }

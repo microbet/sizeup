@@ -544,17 +544,17 @@ namespace SizeUp.Core.DataLayer
             switch (filters.Attribute)
             {
                 case "totalRevenue":
-                    output = data.NTile(i => i.TotalRevenue.Max, bands)
+                    output = data.NTileDescending(i => i.TotalRevenue.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.TotalRevenue.Min), Max = b.Max(i => i.TotalRevenue.Max) })
                        .ToList();
                     break;
                 case "averageRevenue":
-                    output = data.NTile(i => i.AverageRevenue.Max, bands)
+                    output = data.NTileDescending(i => i.AverageRevenue.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.AverageRevenue.Min), Max = b.Max(i => i.AverageRevenue.Max) })
                        .ToList();
                     break;
                 case "revenuePerCapita":
-                    output = data.NTile(i => i.RevenuePerCapita.Max, bands)
+                    output = data.NTileDescending(i => i.RevenuePerCapita.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
                        .ToList();
                     break;
@@ -564,37 +564,30 @@ namespace SizeUp.Core.DataLayer
                        .ToList();
                     break;
                 case "totalEmployees":
-                    output = data.NTile(i => i.TotalEmployees.Max, bands)
+                    output = data.NTileDescending(i => i.TotalEmployees.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.TotalEmployees.Min), Max = b.Max(i => i.TotalEmployees.Max) })
                        .ToList();
                     break;
                 case "averageEmployees":
-                    output = data.NTile(i => i.AverageEmployees.Max, bands)
+                    output = data.NTileDescending(i => i.AverageEmployees.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.AverageEmployees.Min), Max = b.Max(i => i.AverageEmployees.Max) })
                        .ToList();
                     break;
                 case "employeesPerCapita":
-                    output = data.NTile(i => i.EmployeesPerCapita.Max, bands)
+                    output = data.NTileDescending(i => i.EmployeesPerCapita.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.EmployeesPerCapita.Min), Max = b.Max(i => i.EmployeesPerCapita.Max) })
                        .ToList();
                     break;
             }
 
-           
 
-
-            Models.Band<double> old = null;
-            foreach (Models.Band<double> band in output)
+            if (filters.Attribute == "underservedMarkets")
             {
-                if (old != null)
-                {
-                    old.Max = band.Min;
-                }
-                old = band;
+                output.Format();
             }
-            if (filters.Attribute != "underservedMarkets")
+            else
             {
-                output.Reverse();
+                output.FormatDescending();
             }
             return output;
         }

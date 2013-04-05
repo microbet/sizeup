@@ -395,11 +395,8 @@
             });
 
 
-            me.data.description = {
-                Percentage: me.data.gauge.tooltip,
-                NAICS6: me.opts.report.CurrentIndustry.NAICS6,
-                Salary: me.data.table['Nation'].value
-            };
+            me.data.description.NAICS6 = me.opts.report.CurrentIndustry.NAICS6;
+            me.data.description.Salary = me.data.table['Nation'].value;
 
             me.description.html(templates.bind(templates.get("description"), me.data.description));
 
@@ -426,17 +423,40 @@
             dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
             dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
             dataLayer.getAverageSalaryChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
             dataLayer.getAverageSalaryPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
         var percentileDataReturned = function (data) {
-            if (data.Nation!=null) {
+
+            me.data.percentages = {};
+
+             if (data.County) {
+                 var val = 50 + (data.County.Percentage / 2);
+                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
+                 me.data.percentages.County = data.County.Percentage < 0 ? percentage + ' Below Average' : data.County.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+            }
+            if (data.Metro) {
+                var val = 50 + (data.Metro.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Metro.Percentage));
+                me.data.percentages.Metro = data.Metro.Percentage < 0 ? percentage + ' Below Average' : data.Metro.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+            }
+            if (data.State) {
+                var val = 50 + (data.State.Percentage / 2);
+                var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
+                me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' Below Average' : data.State.Percentage == 0 ? 'Average' : percentage + ' Above Average';
+            }
+            if (data.Nation) {
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
+                me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average';
                 me.data.gauge = {
                     value: val,
-                    tooltip: data.Nation.Percentage < 0 ? percentage + ' Below Average' : data.Nation.Percentage == 0 ? 'Average' : percentage + ' Above Average'
-                };               
+                    tooltip: me.data.percentages.Nation
+                };
             }
             else {
                 me.data.gauge = {
@@ -444,6 +464,12 @@
                     tooltip: 'No data'
                 };
             }
+
+
+            me.data.description = {
+                Percentages: me.data.percentages
+            }
+
         };
 
         var chartDataReturned = function (data) {

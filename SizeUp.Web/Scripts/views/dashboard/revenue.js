@@ -458,27 +458,47 @@
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'City' }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
             dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
         var percentileDataReturned = function (data) {
-            if (data.Nation.Percentile != null) {
-                var percentile = sizeup.util.numbers.format.ordinal(data.Nation.Percentile);
+
+            me.data.percentiles = {};
+
+            if (data.City) {
+                me.data.percentiles.City = data.City.Percentile < 1 ? 'less revenue than 1%' : data.City.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.City.Percentile + '%';
+            }
+            if (data.County) {
+                me.data.percentiles.County = data.County.Percentile < 1 ? 'less revenue than 1%' : data.County.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.County.Percentile + '%';
+            }
+            if (data.Metro) {
+                me.data.percentiles.Metro = data.Metro.Percentile < 1 ? 'less revenue than 1%' : data.Metro.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Metro.Percentile + '%';
+            }
+            if (data.State) {
+                me.data.percentiles.State = data.State.Percentile < 1 ? 'less revenue than 1%' : data.State.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.State.Percentile + '%';
+            }
+            if (data.Nation) {
+                me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less revenue than 1%' : data.Nation.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
-                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
-                };
-
-                me.data.description = {
-                    Percentile: data.Nation.Percentile < 1 ? 'less revenue than 1%' : data.Nation.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Nation.Percentile + '%'
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
             }
             else {
-                me.data.description = {};
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
                 };
+            }
+
+
+            me.data.description = {
+                Percentiles : me.data.percentiles
             }
         };
 

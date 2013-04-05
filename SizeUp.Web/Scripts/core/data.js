@@ -220,6 +220,10 @@
                 return get('/api/jobchange/chart/', params, callback);
             },
 
+            getJobChangePercentile: function (params, callback) {
+                return get('/api/jobchange/percentile/', params, callback);
+            },
+
             
 
 

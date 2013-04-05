@@ -95,34 +95,21 @@ namespace SizeUp.Core.DataLayer
                 .Where(i => i.County.CityCountyMappings.Any(c => c.Id == placeId));
 
 
-            var countyData = IndustryData.County(context)
-                .Where(i => i.IndustryId == industryId);
+            var metroData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
+                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+
+            var stateData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
+                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+
+            var nationData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
 
 
-            var metroData = IndustryData.Metro(context)
-                .Where(i => i.IndustryId == industryId);
-
-            var stateData = IndustryData.State(context)
-                .Where(i => i.IndustryId == industryId);
-
-            var nationData = IndustryData.Nation(context)
-                .Where(i => i.IndustryId == industryId);
-
-
-
-            var county = countyData.Select(i => new
-            {
-                County = currentCounty.Select(c=>c.County).FirstOrDefault(),
-                Total = countyData.Count(),
-                Filtered = countyData.Where(d => d.TurnoverRate >= currentCounty.Select(v => v.TurnoverRate).FirstOrDefault()).Count()
-            })
-            .Where(d => d.Total >= MinimumBusinessCount)
-            .Where(i => currentCounty.Select(v => v.TurnoverRate).FirstOrDefault() != null)
-            .Select(i => new PercentileItem
-            {
-                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
-                Name = i.County.Name + ", " + i.County.State.Abbreviation
-            });
 
             var metro = metroData.Select(i => new
             {
@@ -165,11 +152,7 @@ namespace SizeUp.Core.DataLayer
                 Name = "USA"
             });
 
-            if (granularity == Granularity.County)
-            {
-                output = county.FirstOrDefault();
-            }
-            else if (granularity == Granularity.Metro)
+            if (granularity == Granularity.Metro)
             {
                 output = metro.FirstOrDefault();
             }
