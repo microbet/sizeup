@@ -81,7 +81,7 @@
                 });
             }
 
-            if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
+            if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
                 levels.push({
                     granularity: 'State',
                     boundingGranularity: 'Nation',
@@ -129,7 +129,7 @@
                 });
             }
 
-            if (me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
+            if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
                 levels.push({
                     granularity: 'State',
                     boundingGranularity: 'Nation',
