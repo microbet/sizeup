@@ -38,6 +38,11 @@
         var selectorClicked = function (e) {
             if (!me.list.is(':visible')) {
                 me.list.show();
+                me.list.css('left', '').css('right', '');
+                var bodyWidth = me.container.parent().outerWidth();
+                if (bodyWidth < me.list.outerWidth() + me.container.position().left) {
+                    me.list.css('right', bodyWidth - (me.container.position().left + me.container.outerWidth()));
+                }
                 me.opts.onOpen();
             }
         };

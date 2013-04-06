@@ -164,14 +164,9 @@
             }
 
 
-            me.data.turnover.description = {
-                Turnover: sizeup.util.numbers.format.percentage(me.data.turnover.raw['County'].turnover,2),
-                NAICS4: me.opts.report.CurrentIndustry.NAICS4,
-                Industry: me.opts.report.CurrentIndustry
-            };
-            if (me.data.turnover.raw['County'].turnover == 'no data') {
-                delete me.data.turnover.description.Turnover;
-            }
+            me.data.turnover.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
+            me.data.turnover.description.Industry = me.opts.report.CurrentIndustry;
+            me.data.turnover.description.HasData = me.data.turnover.raw['County'].turnover != 'no data';
 
             me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
 
@@ -184,16 +179,12 @@
                 rows: me.data.jobChange.table
             });
 
-            me.data.jobChange.description = {
-                NetJobChange: me.data.jobChange.raw['County'].netJobChange,
-                NAICS4: me.opts.report.CurrentIndustry.NAICS4,
-                Industry: me.opts.report.CurrentIndustry
-            };
+            
 
-            if (me.data.jobChange.raw['County'].netJobChange == 'no data') {
-                delete me.data.jobChange.description.NetJobChange;
-            }
-
+ 
+            me.data.jobChange.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
+            me.data.jobChange.description.Industry = me.opts.report.CurrentIndustry;
+            me.data.jobChange.description.HasData = me.data.jobChange.raw['County'].turnover != 'no data';
             me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
 
 
@@ -212,17 +203,21 @@
             var turnoverPercentileData = {};
             var turnoverChartData = {};
             var jobChangeChartData = {};
+            var jobChangePercentileData  = {};
             var turnoverPercentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { turnoverPercentileDataReturned(turnoverPercentileData); }));
             var turnoverChartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { turnoverChartDataReturned(turnoverChartData); }));
             var jobChangeChartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { jobChangeChartDataReturned(jobChangeChartData); }));
-
+            var jobChangePercentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { jobChangePercentileDataReturned(jobChangePercentileData); }));
 
             
             dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.County = data; }));
             dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Metro = data; }));
             dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.State = data; }));
             dataLayer.getTurnoverChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Nation = data; }));
-            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.County = data; }));
+
+            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.Metro = data; }));
+            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.State = data; }));
+            dataLayer.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.Nation = data; }));
 
 
             dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.County = data; }));
@@ -230,16 +225,29 @@
             dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.State = data; }));
             dataLayer.getJobChangeChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.Nation = data; }));
 
+            dataLayer.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.Metro = data; }));
+            dataLayer.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.State = data; }));
+            dataLayer.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.Nation = data; }));
+
+
 
         };
 
 
         var turnoverPercentileDataReturned = function (data) {
-            if (data.County) {
-                var percentile = sizeup.util.numbers.format.ordinal(data.County.Percentile);
+            me.data.turnover.percentiles = {};
+
+            if (data.Metro) {
+                me.data.turnover.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 1%' : data.Metro.Percentile > 99 ? 'more revenue than 99%' : 'more than ' + data.Metro.Percentile + '%';
+            }
+            if (data.State) {
+                me.data.turnover.percentiles.State = data.State.Percentile < 1 ? 'less than 1%' : data.State.Percentile > 99 ? 'more revenue than 99%' : 'more than ' + data.State.Percentile + '%';
+            }
+            if (data.Nation) {
+                me.data.turnover.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 1%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
-                    value: data.County.Percentile,
-                    tooltip: data.County.Percentile < 1 ? '<1st Percentile' : data.County.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
+                    value: data.Nation.Percentile,
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
             }
             else {
@@ -248,7 +256,32 @@
                     tooltip: 'No data'
                 };
             }
+
+
+            me.data.turnover.description = {
+                Percentiles: me.data.turnover.percentiles
+            }
         };
+
+
+        var jobChangePercentileDataReturned = function (data) {
+            me.data.jobChange.percentiles = {};
+
+            if (data.Metro) {
+                me.data.jobChange.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 1%' : data.Metro.Percentile > 99 ? 'more revenue than 99%' : 'more than ' + data.Metro.Percentile + '%';
+            }
+            if (data.State) {
+                me.data.jobChange.percentiles.State = data.State.Percentile < 1 ? 'less than 1%' : data.State.Percentile > 99 ? 'more revenue than 99%' : 'more than ' + data.State.Percentile + '%';
+            }
+            if (data.Nation) {
+                me.data.jobChange.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 1%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
+            }
+
+            me.data.jobChange.description = {
+                Percentiles: me.data.jobChange.percentiles
+            }
+        };
+
 
         var turnoverChartDataReturned = function (data) {
 

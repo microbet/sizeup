@@ -25,5 +25,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return this.Jsonp(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult Percentile(long industryId, long placeId, Granularity granularity)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = Core.DataLayer.JobChange.Percentile(context, industryId, placeId, granularity);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

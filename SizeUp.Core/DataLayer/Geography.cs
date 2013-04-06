@@ -8,6 +8,8 @@ using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.DataLayer.Models.Base;
 using System.Data.Spatial;
 using SizeUp.Core.Geo;
+using System.Data.Objects.SqlClient;
+
 
 namespace SizeUp.Core.DataLayer
 {
@@ -123,6 +125,58 @@ namespace SizeUp.Core.DataLayer
                             Lng = i.Value.East
                         }
                     }
+                });
+            return data;
+        }
+
+
+        public static IQueryable<Models.ZoomExtent> ZoomExtent(SizeUpContext context, long width)
+        {
+            var place = Core.DataLayer.Base.Place.Get(context).Select(i => new
+            {
+                Id = i.Id,
+                CityId = i.CityId,
+                CountyId = i.CountyId,
+                MetroId = i.County.MetroId,
+                StateId = i.County.StateId
+            });
+
+            double GLOBE_WIDTH = 256; // a constant in Google's map projection
+            double ln2 = Math.Log(2);
+
+
+            var county = CalculationGeography(context, Granularity.County).Select(i => new KeyValue<long, int>
+            {
+                Key = i.Key,
+                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West) / GLOBE_WIDTH).Value / ln2) - 1
+            });
+            var metro = CalculationGeography(context, Granularity.Metro).Select(i => new KeyValue<long, int>
+            {
+                Key = i.Key,
+                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West)  / GLOBE_WIDTH).Value / ln2) - 1
+            });
+            var state = CalculationGeography(context, Granularity.State).Select(i => new KeyValue<long, int>
+            {
+                Key = i.Key,
+                Value = (int)Math.Round(SqlFunctions.Log(width * 360 / (i.Value.East - i.Value.West) / GLOBE_WIDTH).Value / ln2) - 1
+            });
+
+            var data = place.GroupJoin(county, o => o.CountyId, i => i.Key, (i, o) => new { place = i, county = o.FirstOrDefault() })
+                .GroupJoin(metro, o => o.place.MetroId, i => i.Key, (i, o) => new { place = i.place, county = i.county, metro = o.FirstOrDefault() })
+                .GroupJoin(state, o => o.place.StateId, i => i.Key, (i, o) => new { place = i.place, county = i.county, metro = i.metro, state = o.FirstOrDefault() })
+                .Select(i => new Models.ZoomExtent
+                {
+                    PlaceId = i.place.Id,
+                    County = i.county.Value,
+                    Metro = i.metro.Value,
+                    State = i.state.Value
+                })
+                .Select(i => new Models.ZoomExtent
+                {
+                    PlaceId = i.PlaceId,
+                    County = i.County <= 6 ? 6 : i.County,
+                    Metro = i.Metro <= 5 ? 5 : i.Metro,
+                    State = i.State <= 4 ? 4 : i.State
                 });
             return data;
         }

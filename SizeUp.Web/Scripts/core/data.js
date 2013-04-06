@@ -77,6 +77,9 @@
             getCentroid: function (params, callback) {
                 return get('/api/geography/centroid/', params, callback);
             },
+            getZoomExtent: function (params, callback) {
+                return get('/api/geography/zoomExtent/', params, callback);
+            },
 
             getBusiness: function (params, callback) {
                 return get('/api/business/', params, callback);
@@ -218,6 +221,10 @@
 
             getJobChangeChart: function (params, callback) {
                 return get('/api/jobchange/chart/', params, callback);
+            },
+
+            getJobChangePercentile: function (params, callback) {
+                return get('/api/jobchange/percentile/', params, callback);
             },
 
             

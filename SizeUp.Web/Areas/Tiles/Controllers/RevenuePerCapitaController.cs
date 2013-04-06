@@ -30,7 +30,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 Heatmap tile = new Heatmap(256, 256, x, y, zoom);
-                BoundingBox boundingBox = tile.GetBoundingBox(.2f);
+                BoundingBox boundingBox = tile.GetBoundingBox(TileBuffer);
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();
 
@@ -73,7 +73,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
 
                 var validValues = list
                     .Where(i => i.Value != null && i.Value > 0)
-                    .NTile(i => i.Value, colors.Length)
+                    .NTileDescending(i => i.Value, colors.Length)
                     .Select((i, index) => i.Where(g => g.Key != null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
                     .SelectMany(i => i)
                     .ToList();

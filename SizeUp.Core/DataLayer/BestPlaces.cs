@@ -320,7 +320,6 @@ namespace SizeUp.Core.DataLayer
                     industry = industry.Where(i => i.City.State.Id == stateId);
                 }
 
-
                 data = geography.Join(industry, i => i.Id, o => o.CityId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = o })
                     .Join(demographics, i => i.Id, o => o.CityId, (i, o) => new { Id = i.Id, BoundingBox = i.BoundingBox, Centroid = i.Centroid, IndustryData = i.IndustryData, Demographics = o })
                     .Select(i => new Models.BestPlaces
@@ -343,6 +342,15 @@ namespace SizeUp.Core.DataLayer
                         TotalEmployees = i.IndustryData.TotalEmployees,
                         TotalRevenue = i.IndustryData.TotalRevenue,
                         EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+
+                        AverageEmployeesBand = i.IndustryData.IndustryDataByCityBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalEmployeesBand = i.IndustryData.IndustryDataByCityBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        EmployeesPerCapitaBand = i.IndustryData.IndustryDataByCityBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.EmployeesPerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        AverageRevenueBand = i.IndustryData.IndustryDataByCityBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalRevenueBand = i.IndustryData.IndustryDataByCityBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        RevenuePerCapitaBand = i.IndustryData.IndustryDataByCityBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+
+
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         Place = place.FirstOrDefault(p => p.City.Id == i.Id)
@@ -386,6 +394,15 @@ namespace SizeUp.Core.DataLayer
                         TotalEmployees = i.IndustryData.TotalEmployees,
                         TotalRevenue = i.IndustryData.TotalRevenue,
                         EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+
+                        AverageEmployeesBand = i.IndustryData.IndustryDataByCountyBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalEmployeesBand = i.IndustryData.IndustryDataByCountyBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        EmployeesPerCapitaBand = i.IndustryData.IndustryDataByCountyBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.EmployeesPerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        AverageRevenueBand = i.IndustryData.IndustryDataByCountyBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalRevenueBand = i.IndustryData.IndustryDataByCountyBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        RevenuePerCapitaBand = i.IndustryData.IndustryDataByCountyBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+
+
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         Place = place.FirstOrDefault(p => p.County.Id == i.Id)
@@ -429,6 +446,16 @@ namespace SizeUp.Core.DataLayer
                         TotalEmployees = i.IndustryData.TotalEmployees,
                         TotalRevenue = i.IndustryData.TotalRevenue,
                         EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+
+                        AverageEmployeesBand = i.IndustryData.IndustryDataByMetroBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalEmployeesBand = i.IndustryData.IndustryDataByMetroBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        EmployeesPerCapitaBand = i.IndustryData.IndustryDataByMetroBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.EmployeesPerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        AverageRevenueBand = i.IndustryData.IndustryDataByMetroBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalRevenueBand = i.IndustryData.IndustryDataByMetroBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        RevenuePerCapitaBand = i.IndustryData.IndustryDataByMetroBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+
+
+
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         Place = place.FirstOrDefault(p => p.Metro.Id == i.Id)
@@ -473,6 +500,16 @@ namespace SizeUp.Core.DataLayer
                         TotalEmployees = i.IndustryData.TotalEmployees,
                         TotalRevenue = i.IndustryData.TotalRevenue,
                         EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+
+                        AverageEmployeesBand = i.IndustryData.IndustryDataByStateBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalEmployeesBand = i.IndustryData.IndustryDataByStateBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        EmployeesPerCapitaBand = i.IndustryData.IndustryDataByStateBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.EmployeesPerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        AverageRevenueBand = i.IndustryData.IndustryDataByStateBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        TotalRevenueBand = i.IndustryData.IndustryDataByStateBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+                        RevenuePerCapitaBand = i.IndustryData.IndustryDataByStateBandMappings.Where(b => b.Band.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Band.Min.Value, Max = (double)b.Band.Max.Value }).FirstOrDefault(),
+
+
+
                         Centroid = i.Centroid,
                         BoundingBox = i.BoundingBox,
                         Place = place.FirstOrDefault(p => p.State.Id == i.Id)
@@ -482,114 +519,18 @@ namespace SizeUp.Core.DataLayer
             data = FilterQuery(data, filters);
 
             IQueryable<Models.BestPlacesOutput> output = new List<Models.BestPlacesOutput>().AsQueryable();
-            switch (filters.Attribute)
+            output = data.Select(i => new Models.BestPlacesOutput
             {
-                case "totalRevenue":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        TotalRevenue = bands.Where(b => b.Attribute.Name == "TotalRevenue" && i.TotalRevenue >= b.Min && i.TotalRevenue <= b.Max).Select(b =>
-                            new Band<double>()
-                            {
-                                Min = (double)b.Min,
-                                Max = (double)b.Max
-                            }
-                        ).FirstOrDefault()
-                    });
-                    break;
-                case "averageRevenue":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        AverageRevenue = bands.Where(b => b.Attribute.Name == "AverageRevenue" && (long)System.Math.Round((double)i.AverageRevenue.Value, -3) >= b.Min && (long)System.Math.Round((double)i.AverageRevenue.Value, -3) <= b.Max).Select(b =>
-                             new Band<double>()
-                             {
-                                 Min = (double)b.Min,
-                                 Max = (double)b.Max
-                             }
-                        ).FirstOrDefault()
-                    });
-                    break;
-                case "revenuePerCapita":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        RevenuePerCapita = bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.RevenuePerCapita >= b.Min && i.RevenuePerCapita <= b.Max).Select(b =>
-                             new Band<double>()
-                             {
-                                 Min = (double)b.Min,
-                                 Max = (double)b.Max
-                             }
-                        ).FirstOrDefault()
-                    });
-                    break;
-                case "underservedMarkets":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        RevenuePerCapita = bands.Where(b => b.Attribute.Name == "RevenuePerCapita" && i.RevenuePerCapita >= b.Min && i.RevenuePerCapita <= b.Max).Select(b =>
-                             new Band<double>()
-                             {
-                                 Min = (double)b.Min,
-                                 Max = (double)b.Max
-                             }
-                        ).FirstOrDefault()
-                    });
-                    break;     
-                case "totalEmployees":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        TotalEmployees = bands.Where(b => b.Attribute.Name == "TotalEmployees" && i.TotalEmployees >= b.Min && i.TotalEmployees <= b.Max).Select(b =>
-                             new Band<double>()
-                             {
-                                 Min = (double)b.Min,
-                                 Max = (double)b.Max
-                             }
-                        ).FirstOrDefault()
-                    });
-                    break;
-                case "averageEmployees":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        AverageEmployees = bands.Where(b => b.Attribute.Name == "AverageEmployees" && i.AverageEmployees >= b.Min && i.AverageEmployees <= b.Max).Select(b =>
-                             new Band<double>()
-                             {
-                                 Min = (double)b.Min,
-                                 Max = (double)b.Max
-                             }
-                        ).FirstOrDefault()
-                    });
-                    break;
-                case "employeesPerCapita":
-                    output = data.Select(i => new Models.BestPlacesOutput
-                    {
-                        Place = i.Place,
-                        Centroid = i.Centroid,
-                        BoundingBox = i.BoundingBox,
-                        EmployeesPerCapita = bands.Where(b => b.Attribute.Name == "EmployeesPerCapita" && System.Math.Round(i.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.EmployeesPerCapita.Value))))) >= (double)b.Min && System.Math.Round(i.EmployeesPerCapita.Value, (int)(3.0d - System.Math.Floor((double)System.Data.Objects.SqlClient.SqlFunctions.Log10(System.Math.Abs(i.EmployeesPerCapita.Value))))) <= (double)b.Max).Select(b =>
-                             new Band<double>()
-                             {
-                                 Min = (double)b.Min,
-                                 Max = (double)b.Max
-                             }
-                        ).FirstOrDefault()
-                    });
-                    break;
-            }
+                Place = i.Place,
+                Centroid = i.Centroid,
+                BoundingBox = i.BoundingBox,
+                TotalEmployees = i.TotalEmployeesBand,
+                AverageEmployees = i.AverageEmployeesBand,
+                EmployeesPerCapita = i.EmployeesPerCapitaBand,
+                TotalRevenue = i.TotalRevenueBand,
+                AverageRevenue = i.AverageRevenueBand,
+                RevenuePerCapita = i.RevenuePerCapitaBand
+            });
             return output;
         }
 
@@ -603,17 +544,17 @@ namespace SizeUp.Core.DataLayer
             switch (filters.Attribute)
             {
                 case "totalRevenue":
-                    output = data.NTile(i => i.TotalRevenue.Max, bands)
+                    output = data.NTileDescending(i => i.TotalRevenue.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.TotalRevenue.Min), Max = b.Max(i => i.TotalRevenue.Max) })
                        .ToList();
                     break;
                 case "averageRevenue":
-                    output = data.NTile(i => i.AverageRevenue.Max, bands)
+                    output = data.NTileDescending(i => i.AverageRevenue.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.AverageRevenue.Min), Max = b.Max(i => i.AverageRevenue.Max) })
                        .ToList();
                     break;
                 case "revenuePerCapita":
-                    output = data.NTile(i => i.RevenuePerCapita.Max, bands)
+                    output = data.NTileDescending(i => i.RevenuePerCapita.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.RevenuePerCapita.Min), Max = b.Max(i => i.RevenuePerCapita.Max) })
                        .ToList();
                     break;
@@ -623,37 +564,30 @@ namespace SizeUp.Core.DataLayer
                        .ToList();
                     break;
                 case "totalEmployees":
-                    output = data.NTile(i => i.TotalEmployees.Max, bands)
+                    output = data.NTileDescending(i => i.TotalEmployees.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.TotalEmployees.Min), Max = b.Max(i => i.TotalEmployees.Max) })
                        .ToList();
                     break;
                 case "averageEmployees":
-                    output = data.NTile(i => i.AverageEmployees.Max, bands)
+                    output = data.NTileDescending(i => i.AverageEmployees.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.AverageEmployees.Min), Max = b.Max(i => i.AverageEmployees.Max) })
                        .ToList();
                     break;
                 case "employeesPerCapita":
-                    output = data.NTile(i => i.EmployeesPerCapita.Max, bands)
+                    output = data.NTileDescending(i => i.EmployeesPerCapita.Max, bands)
                        .Select(b => new Models.Band<double>() { Min = b.Min(i => i.EmployeesPerCapita.Min), Max = b.Max(i => i.EmployeesPerCapita.Max) })
                        .ToList();
                     break;
             }
 
-           
 
-
-            Models.Band<double> old = null;
-            foreach (Models.Band<double> band in output)
+            if (filters.Attribute == "underservedMarkets")
             {
-                if (old != null)
-                {
-                    old.Max = band.Min;
-                }
-                old = band;
+                output.Format();
             }
-            if (filters.Attribute != "underservedMarkets")
+            else
             {
-                output.Reverse();
+                output.FormatDescending();
             }
             return output;
         }

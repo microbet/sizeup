@@ -34,9 +34,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
             f.HighSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
             f.WhiteCollarWorkers = QueryString.IntValue("whiteCollarWorkers");
             f.Sort = QueryString.StringValue("sort");
-            f.SortAttribute = QueryString.StringValue("sortAttribute");
             f.Attribute = QueryString.StringValue("attribute");
             f.Distance = QueryString.IntValue("distance");
+            f.SortAttribute = QueryString.StringValue("sortAttribute");
             f.Order = QueryString.StringValue("order");
             return f;
         }

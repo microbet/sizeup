@@ -258,19 +258,11 @@ namespace SizeUp.Core.DataLayer
             var output = values
                 .Where(i => i != null && i > 0)
                 .ToList()
-                .NTile(i => i, bands)
+                .NTileDescending(i => i, bands)
                 .Select(i => new Band<long>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })
                 .ToList();
 
-            Band<long> old = null;
-            foreach (var band in output)
-            {
-                if (old != null)
-                {
-                    old.Max = band.Min;
-                }
-                old = band;
-            }
+            output.FormatDescending();
             return output;
         }
     }

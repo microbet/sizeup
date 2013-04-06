@@ -16,6 +16,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
@@ -28,6 +30,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")"></script>
@@ -35,6 +38,21 @@
 }
 
 <div id="competition">
+    <div class="headerWrapper">
+        <h2 class="heading">
+            <span>Map your competitors, customers and suppliers in the</span>
+           
+            <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
+            <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+
+            <span>industry around </span>
+
+
+            <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
+            <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+
+        </h2>
+    </div>
 
     <div id="sessionLoadedBox" class="flash hidden">
         <div class="info">
@@ -53,7 +71,6 @@
              </ul>
 
              <div class="industryPicker container"> 
-                <p class="currentIndustry competitor">Your Industry: @ViewBag.CurrentInfo.CurrentIndustry.Name</p>
                 <ul class="industryList">
                     <li data-template="industryItem" class="item" data-id="{{Id}}">
                         <a href="javascript:void(0);" class="remove" data-id="{{Id}}">Remove</a>

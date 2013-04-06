@@ -32,6 +32,13 @@ namespace SizeUp.Core.DataLayer.Models
         public double? HouseholdExpenditures { get; set; }
         public double? YoungEducated { get; set; }
         public double? BlueCollarWorkers { get; set; }
+
+        public Band<double> TotalRevenueBand { get; set; }
+        public Band<double> TotalEmployeesBand { get; set; }
+        public Band<double> AverageRevenueBand { get; set; }
+        public Band<double> AverageEmployeesBand { get; set; }
+        public Band<double> RevenuePerCapitaBand { get; set; }
+        public Band<double> EmployeesPerCapitaBand { get; set; }
     }
 
     public class BestPlacesOutput

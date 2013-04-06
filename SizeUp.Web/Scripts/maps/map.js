@@ -150,7 +150,12 @@
                 replaceLegend(legend);
             }
             else {
+                me.map.controls[google.maps.ControlPosition.RIGHT_TOP].removeAt(0);
+                me.map.controls[google.maps.ControlPosition.RIGHT_TOP].removeAt(0);
+                me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(0, me.legend.title.get(0));
+                me.map.controls[google.maps.ControlPosition.RIGHT_TOP].setAt(1, me.legend.legend.get(0));
                 replaceLegend(legend);
+
             }
         };
 
@@ -162,6 +167,10 @@
         var clearLegend = function () {
             me.map.controls[google.maps.ControlPosition.RIGHT_TOP].clear();
             me.legend = null;
+        };
+
+        var getWidth = function () {
+            return me.container.width();
         };
 
 
@@ -219,6 +228,9 @@
             },
             clearLegend: function () {
                 clearLegend();
+            },
+            getWidth: function () {
+                return getWidth();
             }
 
         };

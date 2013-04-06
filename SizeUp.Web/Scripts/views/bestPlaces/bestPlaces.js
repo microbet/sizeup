@@ -460,7 +460,7 @@
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
                 var p = { industry: me.data.activeIndustry.Name };
-                new sizeup.core.analytics().topPlacesIndustryChanged(p);
+                new sizeup.core.analytics().bestPlacesIndustryChanged(p);
                 var params = getParameters();
                 var url = document.location.pathname;
                 url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
@@ -481,7 +481,7 @@
 
         var placeTypeMenuChanged = function (e) {
             var p = { placeType: me.content.placeTypeMenu.getValue() };
-            new sizeup.core.analytics().topPlacesPlaceTypeChanged(p);
+            new sizeup.core.analytics().bestPlacesPlaceTypeChanged(p);
             pushUrlState();
             loadReport();
         };
@@ -489,14 +489,14 @@
         var attributeMenuChanged = function (e) {
             me.content.variableHeader.html(me.data.attributes[me.content.attributeMenu.getValue()]);
             var p = { attribute: me.content.attributeMenu.getValue() };
-            new sizeup.core.analytics().topPlacesAttributeChanged(p);
+            new sizeup.core.analytics().bestPlacesAttributeChanged(p);
             pushUrlState();
             loadReport();
         };
 
         var regionMenuChanged = function (e) {
             var p = { region: me.content.regionMenu.getName() };
-            new sizeup.core.analytics().topPlacesRegionChanged(p);
+            new sizeup.core.analytics().bestPlacesRegionChanged(p);
             pushUrlState();
             loadReport();
         };
@@ -511,7 +511,7 @@
                 me.content.filters.labels[attribute].show();
             }
             var p = { attribute: attribute };
-            new sizeup.core.analytics().topPlacesAdvancedFilterChanged(p);
+            new sizeup.core.analytics().bestPlacesAdvancedFilterChanged(p);
             pushUrlState();
             loadReport();
         };
@@ -595,7 +595,7 @@
             params.bands = me.opts.bandCount;
 
             var p = { label: params.attribute };
-            new sizeup.core.analytics().topPlacesReportLoaded(p);
+            new sizeup.core.analytics().bestPlacesReportLoaded(p);
 
 
 
@@ -757,6 +757,7 @@
                     northEast: data[x].BoundingBox.NorthEast,
                     label: data[x].Place.State.Name,
                     state: data[x].Place.State,
+                    industry: me.data.activeIndustry,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
@@ -778,6 +779,7 @@
                     northEast: data[x].BoundingBox.NorthEast,
                     label: data[x].Place.Metro.Name,
                     metro: data[x].Place.Metro,
+                    industry: me.data.activeIndustry,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
@@ -800,6 +802,7 @@
                     label: data[x].Place.County.Name + ' County , ' + data[x].Place.State.Abbreviation,
                     county: data[x].Place.County,
                     state: data[x].Place.State,
+                    industry: me.data.activeIndustry,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue: extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),
@@ -825,6 +828,7 @@
                     county: data[x].Place.County,
                     state: data[x].Place.State,
                     counties: data[x].Place.City.Counties,
+                    industry: me.data.activeIndustry,
                     minValue: extractValue(data[x], attr).Min,
                     maxValue : extractValue(data[x], attr).Max,
                     formattedMin: formatValue(extractValue(data[x], attr).Min, attr),

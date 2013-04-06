@@ -81,5 +81,86 @@ namespace SizeUp.Core.DataLayer
             }
             return output;
         }
+
+        public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, Granularity granularity)
+        {
+            PercentileItem output = null;
+            var currentCounty = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(c => c.Id == placeId));
+
+
+            var metroData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
+                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+
+            var stateData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.County.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
+                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+
+            var nationData = IndustryData.County(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+
+
+
+            var metro = metroData.Select(i => new
+            {
+                County = currentCounty.Select(c => c.County).FirstOrDefault(),
+                Total = metroData.Count(),
+                Filtered = metroData.Where(d => d.NetJobChange >= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCounty.Select(v => v.NetJobChange).FirstOrDefault() != null)
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
+                Name = i.County.Metro.Name
+            });
+
+            var state = stateData.Select(i => new
+            {
+                County = currentCounty.Select(c => c.County).FirstOrDefault(),
+                Total = stateData.Count(),
+                Filtered = stateData.Where(d => d.NetJobChange >= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCounty.Select(v => v.NetJobChange).FirstOrDefault() != null)
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
+                Name = i.County.State.Name
+            });
+
+            var nation = nationData.Select(i => new
+            {
+                Total = nationData.Count(),
+                Filtered = nationData.Where(d => d.NetJobChange >= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
+            })
+            .Where(d => d.Total >= MinimumBusinessCount)
+            .Where(i => currentCounty.Select(v => v.NetJobChange).FirstOrDefault() != null)
+            .Select(i => new PercentileItem
+            {
+                Percentile = i.Total > 0 ? (int?)(((decimal)i.Filtered / (decimal)i.Total) * 100) : 100,
+                Name = "USA"
+            });
+
+            if (granularity == Granularity.Metro)
+            {
+                output = metro.FirstOrDefault();
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = state.FirstOrDefault();
+            }
+            else if (granularity == Granularity.Nation)
+            {
+                output = nation.FirstOrDefault();
+            }
+
+            return output;
+        }
     }
 }

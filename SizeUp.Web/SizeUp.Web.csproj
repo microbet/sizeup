@@ -338,6 +338,7 @@
     <Content Include="Scripts\jsapi\loader.js" />
     <Content Include="Scripts\jsapi\data.js" />
     <Content Include="Scripts\maps\circle.js" />
+    <Content Include="Scripts\maps\heatMapOverlays.js" />
     <Content Include="Scripts\maps\legend.js" />
     <Content Include="Scripts\maps\heatPin.js" />
     <Content Include="Scripts\maps\imagePin.js" />

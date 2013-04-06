@@ -80,6 +80,18 @@
                         }
                     ]
             });
+
+
+            me.map = new sizeup.maps.map({
+                container: me.container.find('.mapWrapper.container .map')
+            });
+
+            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
+            me.textAlternative.click(textAlternativeClicked);
+
+
+
+
             var index = jQuery.bbq.getState('businessType');
             if (index) {
                 me.question.showAnswer(index);
@@ -147,250 +159,26 @@
         };
 
         var setHeatmap = function () {
-
-            var overlays = [];
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/averageRevenue/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 11,
-                maxZoom: 32
-            }));
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/AverageRevenue/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 8,
-                    maxZoom: 10
-                }));
-
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/AverageRevenue/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 7
-                }));
-            }
-            else {
-                overlays.push(new sizeup.maps.overlay({
-                    tileUrl: '/tiles/AverageRevenue/',
-                    tileParams: {
-                        colors: [
-                                    '#F5F500',
-                                    '#F5CC00',
-                                    '#F5A300',
-                                    '#F57A00',
-                                    '#F55200',
-                                    '#F52900',
-                                    '#F50000'
-                        ],
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        industryId: me.opts.report.CurrentIndustry.Id
-                    },
-                    minZoom: 5,
-                    maxZoom: 10
-                }));
-            }
-
-
-            overlays.push(new sizeup.maps.overlay({
-                tileUrl: '/tiles/AverageRevenue/',
-                tileParams: {
-                    colors: [
-                                '#F5F500',
-                                '#F5CC00',
-                                '#F5A300',
-                                '#F57A00',
-                                '#F55200',
-                                '#F52900',
-                                '#F50000'
-                    ],
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    granularity: 'State',
-                    industryId: me.opts.report.CurrentIndustry.Id
-                },
-                minZoom: 0,
-                maxZoom: 4
-            }));
-
-
-            me.map = new sizeup.maps.map({
-                container: me.container.find('.mapWrapper.container .map')
-            });
+            var overlays = me.overlay.getOverlays();
+            me.map.triggerEvent('resize');
             me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
-            me.map.setZoom(12);
+            me.map.setZoom(me.overlay.getZoomExtent().County + 2);
             me.map.addEventListener('zoom_changed', mapZoomUpdated);
-
             for (var x in overlays) {
                 me.map.addOverlay(overlays[x], 0);
             }
 
             setLegend();
-
-            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
-            me.textAlternative.click(textAlternativeClicked);
         };
 
         var setLegend = function () {
-
-            var data = {
-                title: '',
-                items: []
-            };
             var z = me.map.getZoom();
-
-            var notify = new sizeup.core.notifier(function () {
-
-                var legend = new sizeup.maps.legend({
-                    templates: templates,
-                    title: data.title,
-                    items: data.items,
-                    colors: [
-                    '#F5F500',
-                    '#F5CC00',
-                    '#F5A300',
-                    '#F57A00',
-                    '#F55200',
-                    '#F52900',
-                    '#F50000'
-                    ],
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); }
-                });
+            var callback = function (legend) {
                 me.map.setLegend(legend);
-            });
+            };
 
-
-
-            var itemsNotify = notify.getNotifier(function (d) { data.items = d; });
-
-
-            if (z <= 32 && z >= 11) {
-                data.title = 'Average Business Annual Revenue by ZIP code in ' + me.opts.report.CurrentPlace.County.Name + ', ' + me.opts.report.CurrentPlace.State.Abbreviation;
-                me.data.textAlternative = {
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County'
-                };
-     
-                dataLayer.getAverageRevenueBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'ZipCode',
-                    boundingGranularity: 'County',
-                    bands: 7
-                }, itemsNotify);
-            }
-
-            if (me.opts.report.CurrentPlace.Metro.Id != null) {
-                if (z <= 10 && z >= 8) {
-                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.Metro.Name + ' (Metro)';
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'Metro'
-                    };
-                    dataLayer.getAverageRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'Metro',
-                        bands: 7
-                    }, itemsNotify);
-
-
-                }
-
-                if (z <= 7 && z >= 5) {
-                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getAverageRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-                }
-            }
-            else {
-                if (z <= 10 && z >= 5) {
-
-                    data.title = 'Average Business Annual Revenue by county in ' + me.opts.report.CurrentPlace.State.Name;
-                    me.data.textAlternative = {
-                        granularity: 'County',
-                        boundingGranularity: 'State'
-                    };
-                    dataLayer.getAverageRevenueBands({
-                        placeId: me.opts.report.CurrentPlace.Id,
-                        industryId: me.opts.report.CurrentIndustry.Id,
-                        granularity: 'County',
-                        boundingGranularity: 'State',
-                        bands: 7
-                    }, itemsNotify);
-
-                }
-            }
-
-            if (z <= 4 && z >= 0) {
-
-                data.title = 'Average Business Annual Revenue by state in the USA';
-                me.data.textAlternative = {
-                    granularity: 'State',
-                    boundingGranularity: 'Nation'
-                };
-                dataLayer.getAverageRevenueBands({
-                    placeId: me.opts.report.CurrentPlace.Id,
-                    industryId: me.opts.report.CurrentIndustry.Id,
-                    granularity: 'State',
-                    bands: 7
-                }, itemsNotify);
-            }
+            me.overlay.getLegend(z, callback);
+            me.data.textAlternative = me.overlay.getParams(z);
         };
 
         var mapZoomUpdated = function () {
@@ -399,14 +187,7 @@
 
         var textAlternativeClicked = function () {
             var url = '/accessibility/revenue/';
-            var data = {
-                bands: 7,
-                industryId: me.opts.report.CurrentIndustry.Id,
-                placeId: me.opts.report.CurrentPlace.Id,
-                granularity: me.data.textAlternative.granularity,
-                boundingGranularity: me.data.textAlternative.boundingGranularity
-            };
-            window.open(jQuery.param.querystring(url, data), '_blank');
+            window.open(jQuery.param.querystring(url, me.data.textAlternative), '_blank');
         };
 
 
@@ -415,7 +196,19 @@
             me.reportContainer.setGauge(me.data.gauge);
             me.reportData.show();
 
-            setHeatmap();
+            dataLayer.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
+                me.overlay = new sizeup.maps.heatMapOverlays({
+                    tileUrl: '/tiles/averageRevenue/',
+                    place: me.opts.report.CurrentPlace,
+                    params: { industryId: me.opts.report.CurrentIndustry.Id },
+                    zoomExtent: data,
+                    attributeLabel: 'Average Business Annual Revenue',
+                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                    legendData: dataLayer.getAverageRevenueBands,
+                    templates: templates
+                });
+                setHeatmap();
+            });
 
             me.chart = new sizeup.charts.barChart({
 
@@ -458,27 +251,47 @@
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
             dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'City' }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
             dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
         var percentileDataReturned = function (data) {
-            if (data.Nation.Percentile != null) {
-                var percentile = sizeup.util.numbers.format.ordinal(data.Nation.Percentile);
+
+            me.data.percentiles = {};
+
+            if (data.City) {
+                me.data.percentiles.City = data.City.Percentile < 1 ? 'less than 1%' : data.City.Percentile > 99 ? 'more than 99%' : 'more than ' + data.City.Percentile + '%';
+            }
+            if (data.County) {
+                me.data.percentiles.County = data.County.Percentile < 1 ? 'less than 1%' : data.County.Percentile > 99 ? 'more than 99%' : 'more than ' + data.County.Percentile + '%';
+            }
+            if (data.Metro) {
+                me.data.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 1%' : data.Metro.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Metro.Percentile + '%';
+            }
+            if (data.State) {
+                me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 1%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%';
+            }
+            if (data.Nation) {
+                me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 1%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
-                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th percentile' : percentile + ' Percentile'
-                };
-
-                me.data.description = {
-                    Percentile: data.Nation.Percentile < 1 ? 'less revenue than 1%' : data.Nation.Percentile > 99 ? 'more revenue than 99%' : 'more revenue than ' + data.Nation.Percentile + '%'
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
             }
             else {
-                me.data.description = {};
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
                 };
+            }
+
+
+            me.data.description = {
+                Percentiles : me.data.percentiles
             }
         };
 

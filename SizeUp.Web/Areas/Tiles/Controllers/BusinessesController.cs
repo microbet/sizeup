@@ -13,7 +13,7 @@ using SizeUp.Core.DataLayer;
 
 namespace SizeUp.Web.Areas.Tiles.Controllers
 {
-    public class BusinessesController : Controller
+    public class BusinessesController : BaseController
     {
         //
         // GET: /Tiles/Business/
@@ -23,7 +23,7 @@ namespace SizeUp.Web.Areas.Tiles.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 Businesses tile = new Businesses(256, 256, x, y, zoom);
-                var boundingBox = tile.GetBoundingBox(0.1f);
+                var boundingBox = tile.GetBoundingBox(TileBuffer);
 
                 if (competitorIndustryIds == null)
                 {

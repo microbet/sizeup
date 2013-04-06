@@ -127,7 +127,7 @@ a.sorter.desc { background-position:right 0.3em; }
 
 .selectList-container { display: inline-block; }
 .selectList-container .selectList-selector {font-size:1em; }
-.selectList-container .selectList-list { position:absolute; background-color: #fff; border: 1px solid #ccc; z-index: 1000; width:auto; }
+.selectList-container .selectList-list {  position:absolute; background-color: #fff; border: 1px solid #ccc; z-index: 1000; width:auto; }
 .selectList-container .selectList-list .selectList-listGroup { text-align:left; color:#333; background-color:#ccc; border-bottom: #aaa solid 1px; padding: 0.1em 0.1em 0.1em 0.5em; }
 .selectList-container .selectList-list .selectList-listItem { color:#666; text-align:right; padding: 0.1em 0.1em 0.1em 2em; }
 .selectList-container .selectList-list .selectList-listItem span{ }
@@ -157,4 +157,20 @@ a.sorter.desc { background-position:right 0.3em; }
 .shareWrapper .share.container .menu .active a {color:#e78500; }
 
 
+
+.heading { font-weight:normal; text-align:left; z-index:3; position:relative;}
+.heading span,
+.heading a {font-size:1em; }
+.heading .changeLink:after,
+.heading .selectList-selector:after { width:11px; height: 13px; background:transparent url(/content/images/pencil.png) no-repeat 0 0; display:inline-block; content: ""; margin:0 0.25em;  }
+.heading .changeLink:hover:after,
+.heading .selectList-selector:hover:after { background-position: 0 -17px; }
+.heading .changeLink ,
+.heading .selectList-selector {white-space:nowrap; }
+
+.heading .selectList-list,
+.heading .ui-autocomplete { font-size: 0.75em; }
+
+.heading .selectBox { font-size: 1em; width:12em; text-overflow:ellipsis; padding:0.25em; }
+.heading .selectList-list { max-height: 20em; overflow: auto; }
 

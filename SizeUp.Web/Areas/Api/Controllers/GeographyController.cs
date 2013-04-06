@@ -24,7 +24,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Geography.Centroid(context, granularity).Where(i => i.Key == id).Select(i=>i.Value).FirstOrDefault();
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -32,8 +32,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Geography.BoundingBox(context, granularity).Where(i => i.Key == id).Select(i=>i.Value).FirstOrDefault();
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                var data = Core.DataLayer.Geography.BoundingBox(context, granularity).Where(i => i.Key == id).Select(i => i.Value).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ZoomExtent(long id, long width)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = Core.DataLayer.Geography.ZoomExtent(context, width).Where(i => i.PlaceId == id).FirstOrDefault();
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
