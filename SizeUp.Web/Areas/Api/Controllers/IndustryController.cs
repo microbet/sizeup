@@ -18,7 +18,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.Get(context, id);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -27,7 +27,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.List(context, ids);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -38,7 +38,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.Get(context, id);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -52,7 +52,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     WebContext.Current.CurrentIndustryId = id;
                 }
-                return this.Jsonp(c != null, JsonRequestBehavior.AllowGet);
+                return Json(c != null, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -61,7 +61,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

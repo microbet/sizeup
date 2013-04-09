@@ -164,6 +164,8 @@
     <Compile Include="Tiles\Heatmap.cs" />
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="TimeSlice.cs" />
+    <Compile Include="API\AllowAPIRequest.cs" />
+    <Compile Include="API\APIToken.cs" />
     <Compile Include="Web\Form.cs" />
     <Compile Include="Web\Jsonp.cs" />
     <Compile Include="Web\P3PHeader.cs" />

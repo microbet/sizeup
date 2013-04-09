@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace SizeUp.Core.Web
 {
@@ -17,7 +18,7 @@ namespace SizeUp.Core.Web
             }
             var request = context.HttpContext.Request;
             var response = context.HttpContext.Response;
-            string jsoncallback = request.QueryString["jsoncallback"];
+            string jsoncallback = request.QueryString[ConfigurationManager.AppSettings["API.CallbackName"]];
             if (!string.IsNullOrEmpty(jsoncallback))
             {
                 if (string.IsNullOrEmpty(base.ContentType))
@@ -31,39 +32,6 @@ namespace SizeUp.Core.Web
             {
                 response.Write(")");
             }
-        }
-    }
-
-    public static class ContollerExtensions
-    {
-        public static bool IsJsonp(this Controller controller)
-        {
-            return controller.Request.QueryString["jsoncallback"] != null;
-        }
-
-        public static ActionResult Jsonp(this Controller controller, object data)
-        {
-            return Jsonp(controller, data, JsonRequestBehavior.AllowGet);
-        }
-
-        public static ActionResult Jsonp(this Controller controller, object data, JsonRequestBehavior behavior)
-        {
-            ActionResult result = null;
-            if (IsJsonp(controller))
-            {
-                var r = new JsonpResult();
-                r.Data = data;
-                r.JsonRequestBehavior = behavior;
-                result = r;
-            }
-            else
-            {
-                var r = new JsonResult();
-                r.Data = data;
-                r.JsonRequestBehavior = behavior;
-                result = r;
-            }
-            return result;
         }
     }
 }

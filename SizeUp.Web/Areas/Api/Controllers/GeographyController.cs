@@ -14,7 +14,7 @@ using SizeUp.Core.DataLayer.Base;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
-    public class GeographyController : Controller
+    public class GeographyController : BaseController
     {
         //
         // GET: /Api/Geography/

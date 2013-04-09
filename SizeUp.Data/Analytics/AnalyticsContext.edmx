@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="SizeUp.Data.Analytics.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SizeUpDataAnalyticsStoreContainer">
+          <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.Store.APIRequests" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.Store.CompetitorAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Store.Exceptions" store:Type="Tables" Schema="dbo" />
@@ -16,6 +17,23 @@
           <EntitySet Name="RelatedSupplier" EntityType="SizeUp.Data.Analytics.Store.RelatedSupplier" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRegistration" EntityType="SizeUp.Data.Analytics.Store.UserRegistration" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="APIRequests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Second" Type="int" Nullable="false" />
+          <Property Name="Minute" Type="int" Nullable="false" />
+          <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="BusinessAttributes">
           <Key>
             <PropertyRef Name="Id" />
@@ -208,6 +226,7 @@
           <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
           <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.BusinessAttribute" />
           <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.CompetitorAttribute" />
+          <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.APIRequest" />
         </EntityContainer>
         <EntityType Name="UserRegistration">
           <Key>
@@ -386,6 +405,23 @@
           <Property Type="String" Name="Competitors" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Suppliers" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Buyers" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="APIRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Second" Nullable="false" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="String" Name="Url" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -575,6 +611,24 @@
                 <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="Hour" ColumnName="Hour" />
                 <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIRequests">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.APIRequest">
+              <MappingFragment StoreEntitySet="APIRequests">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Second" ColumnName="Second" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

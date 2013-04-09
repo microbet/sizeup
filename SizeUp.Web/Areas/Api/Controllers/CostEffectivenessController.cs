@@ -22,7 +22,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.CostEffectiveness.Chart(context, industryId, placeId, granularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 var ce = revenue / (double)(employees * salary);
                 var obj = Core.DataLayer.CostEffectiveness.Percentage(context, industryId, placeId, ce, granularity);
-                return this.Jsonp(obj, JsonRequestBehavior.AllowGet);
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -41,7 +41,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.CostEffectiveness.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

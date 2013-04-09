@@ -21,7 +21,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.TotalRevenue.Chart(context, industryId, placeId, granularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -30,7 +30,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.TotalRevenue.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
     }

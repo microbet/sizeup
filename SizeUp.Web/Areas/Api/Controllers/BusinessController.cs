@@ -26,7 +26,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Business.Get(context, id);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -35,7 +35,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Business.GetAt(context, new LatLng() { Lat = lat, Lng = lng }, industryIds);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -64,7 +64,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Items = data.Skip((page-1) * itemCount).Take(itemCount).ToList()
                 };
 
-                return this.Jsonp(output, JsonRequestBehavior.AllowGet);
+                return Json(output, JsonRequestBehavior.AllowGet);
             }
            
         }

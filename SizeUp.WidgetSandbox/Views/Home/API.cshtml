@@ -5,7 +5,7 @@
 
 @section head{
 
-    <script src="http://test.com/scripts/jsapi/data.js"></script>
+    <script src="http://www.test.com/scripts/jsapi/loader.js?callback=loaded&apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
 
 }
 
@@ -25,16 +25,20 @@
 
 
 <script type="text/javascript">
+    var loaded = function () {
+        
+        sizeup.api.data.findPlace({ term: 'bost' }, function (data) {
+            var d = '';
+            for (var x in data) {
+                d = d + data[x].City.Name + '<br/>';
+            }
+            document.getElementById('city').innerHTML = d;
+        });
 
-    var data = new sizeup.api.data();
-    var city = function (data) {
-        document.getElementById('city').innerHTML = data.Name + ' ' + data.Value;
-    };
-    var metro = function (data) {
-        document.getElementById('metro').innerHTML = data.Name + ' ' + data.Value;
-    };
+
+    }
+   
 
 
-    data.get('http://sizeup.localhost/api/averageRevenue/chart/?industryId=849&placeId=3051&granularity=City', city);
-    data.get('http://sizeup.localhost/api/averageRevenue/chart/?industryId=849&placeId=3051&granularity=Metro', metro);
+
 </script>

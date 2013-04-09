@@ -10,6 +10,7 @@ using Microsoft.SqlServer.Types;
 using System.Data.Objects;
 using System.Data.Spatial;
 using SizeUp.Core;
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -17,13 +18,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Place/
-
+        [AllowAPIRequest]
         public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Search(context, term).Take(maxResults).ToList();
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -33,7 +34,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                  var data = Core.DataLayer.Place.Get(context, Core.Web.WebContext.Current.CurrentPlaceId);
-                 return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -47,7 +48,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 {
                     WebContext.Current.CurrentPlaceId = id;
                 }
-                return this.Jsonp(c != null, JsonRequestBehavior.AllowGet);
+                return Json(c != null, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -57,17 +58,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Get(context, id);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-
+        [AllowAPIRequest]
         public ActionResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Get(context, id);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 

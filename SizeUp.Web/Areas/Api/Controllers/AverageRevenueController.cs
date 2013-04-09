@@ -10,7 +10,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.DataLayer.Base;
-
+using SizeUp.Core.API;
 namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class AverageRevenueController : BaseController
@@ -18,12 +18,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/AverageRevenue/
 
+        [AllowAPIRequest]
         public ActionResult Chart(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId, granularity);               
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);         
+                return Json(data, JsonRequestBehavior.AllowGet);         
             }
         }
 
@@ -32,7 +33,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value, granularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet); 
+                return Json(data, JsonRequestBehavior.AllowGet); 
             }
         }
 
@@ -41,7 +42,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet); 
+                return Json(data, JsonRequestBehavior.AllowGet); 
             }
         }
 

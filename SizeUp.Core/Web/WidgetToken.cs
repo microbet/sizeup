@@ -101,7 +101,6 @@ namespace SizeUp.Core.Web
             HttpContext.Current.Response.Cookies.Add(kc);
         }
 
-
         protected static Token GetToken()
         {
             var cookie = HttpContext.Current.Request.Cookies[_widgetTokenCookie];

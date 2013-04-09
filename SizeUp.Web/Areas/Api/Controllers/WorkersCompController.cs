@@ -23,7 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.WorkersComp.Chart(context, industryId, placeId, granularity);
-                return this.Jsonp(data, JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -32,7 +32,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var obj = Core.DataLayer.WorkersComp.Percentage(context, industryId, placeId, value, granularity);
-                return this.Jsonp(obj, JsonRequestBehavior.AllowGet);
+                return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
