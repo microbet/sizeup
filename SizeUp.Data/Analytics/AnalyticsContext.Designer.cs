@@ -341,7 +341,8 @@ namespace SizeUp.Data.Analytics
         /// <param name="quarter">Initial value of the Quarter property.</param>
         /// <param name="year">Initial value of the Year property.</param>
         /// <param name="url">Initial value of the Url property.</param>
-        public static APIRequest CreateAPIRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url)
+        /// <param name="originUrl">Initial value of the OriginUrl property.</param>
+        public static APIRequest CreateAPIRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url, global::System.String originUrl)
         {
             APIRequest aPIRequest = new APIRequest();
             aPIRequest.Id = id;
@@ -355,6 +356,7 @@ namespace SizeUp.Data.Analytics
             aPIRequest.Quarter = quarter;
             aPIRequest.Year = year;
             aPIRequest.Url = url;
+            aPIRequest.OriginUrl = originUrl;
             return aPIRequest;
         }
 
@@ -652,6 +654,30 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Url;
         partial void OnUrlChanging(global::System.String value);
         partial void OnUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String OriginUrl
+        {
+            get
+            {
+                return _OriginUrl;
+            }
+            set
+            {
+                OnOriginUrlChanging(value);
+                ReportPropertyChanging("OriginUrl");
+                _OriginUrl = StructuralObject.SetValidValue(value, false, "OriginUrl");
+                ReportPropertyChanged("OriginUrl");
+                OnOriginUrlChanged();
+            }
+        }
+        private global::System.String _OriginUrl;
+        partial void OnOriginUrlChanging(global::System.String value);
+        partial void OnOriginUrlChanged();
 
         #endregion
 

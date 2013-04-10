@@ -18,6 +18,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Place/
+        [LogAPIRequest]
+        [ValidateAPIRequest]
         [AllowAPIRequest]
         public ActionResult Search(string term, int maxResults = 35)
         {

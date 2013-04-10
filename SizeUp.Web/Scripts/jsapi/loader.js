@@ -116,7 +116,7 @@
             else {
                 src = src + '&';
             }
-            src = src + 'jsoncallback=' + cb;
+            src = src + 'jsoncallback=' + cb + '&origin=' + me.currentLocation.domain;
             script.src = src;
             var cleanup = function () {
                 delete window[cb];

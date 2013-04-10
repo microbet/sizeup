@@ -45,7 +45,7 @@ namespace SizeUp.Core.API
         {
             MemoryStream s = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();
-            string data = string.Format("{0}|{1}", TimeStamp, APIKeyId);
+            string data = string.Format("{0}|{1}", APIKeyId, TimeStamp);
             bf.Serialize(s, data);
             var cipher = Crypto.Crypto.Encrypt(s.ToArray(), WidgetCryptoPassword, WidgetCryptoSalt);
             return cipher;
@@ -53,14 +53,18 @@ namespace SizeUp.Core.API
 
         public static APIToken GetToken(string cipher)
         {
-            var data = Crypto.Crypto.Decrypt(cipher, WidgetCryptoPassword, WidgetCryptoSalt);
-            MemoryStream s = new MemoryStream();
-            s.Write(data, 0, data.Length);
-            s.Position = 0;
-            BinaryFormatter bf = new BinaryFormatter();
-            string[] outData = (bf.Deserialize(s) as string).Split("|".ToCharArray());
-            var returnToken = Create(long.Parse(outData[0]));
-            returnToken._timestamp = long.Parse(outData[1]);
+            APIToken returnToken = null;
+            if (!string.IsNullOrEmpty(cipher))
+            {
+                var data = Crypto.Crypto.Decrypt(cipher, WidgetCryptoPassword, WidgetCryptoSalt);
+                MemoryStream s = new MemoryStream();
+                s.Write(data, 0, data.Length);
+                s.Position = 0;
+                BinaryFormatter bf = new BinaryFormatter();
+                string[] outData = (bf.Deserialize(s) as string).Split("|".ToCharArray());
+                returnToken = Create(long.Parse(outData[0]));
+                returnToken._timestamp = long.Parse(outData[1]);
+            }
             return returnToken;
         }
 

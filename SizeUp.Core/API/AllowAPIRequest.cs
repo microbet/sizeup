@@ -10,14 +10,13 @@ using SizeUp.Core.Web;
 
 namespace SizeUp.Core.API
 {
-    public class AllowAPIRequest : ActionFilterAttribute
+    public class AllowAPIRequest : BaseAttribute
     {
         
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (IsJsonp)
             {
-
                 if (filterContext.Result is JsonResult)
                 {
                     JsonResult r = filterContext.Result as JsonResult;
@@ -28,11 +27,6 @@ namespace SizeUp.Core.API
                 }
             }
             base.OnActionExecuted(filterContext);
-        }
-
-        protected bool IsJsonp
-        {
-            get { return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.CallbackName"]] != null; }
         }
     }
 }
