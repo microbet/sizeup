@@ -1,0 +1,185 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<title>SizeUp - API Documentation</title>
+<link href="@Url.Content("~/Content/views/developers/documentation.css")" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/prettify/run_prettify.js")"></script>
+}
+
+<div id="documentation">
+    <h1>API Documetation</h1>
+
+    <h2>Getting Started</h2>
+    <p>First, request and API key (MAKE THIS A LINK) blah blah blah</p>
+
+    <p>Include a refernece to the api loader script in your head tag of your page.</p>
+
+    <h2>Basic Example</h2>
+<pre class="prettyprint">&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src="http://www.sizeup.com/api/jsapi/?callback=loaded&amp;apikey=YOUR_API_KEY_HERE"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+              
+        &lt;p id="results"&gt;&lt;/p&gt;
+
+        &lt;script type="text/javascript"&gt;
+            var loaded = function () {       
+                sizeup.api.data.findPlace({ term: 'bost' }, function (data) {
+                    var d = '';
+                    for (var x = 0; x &lt; data.length; x++) {
+                        d = d + data[x].City.Name + ',' + data[x].State.Abbreviation + '&lt;br/&gt;';
+                    }
+                    document.getElementById('results').innerHTML = d;
+                });
+            };
+        &lt;/script&gt;  
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+    <h2>Data API</h2>
+    <p>The data API is exposed via the sizeup.api.data object. The data API has a number of methods to access different types of data available through the API.</p>
+    <p>Each method has the same basic signature:</p>
+    <pre class="prettyprint">        sizeup.api.data.findPlace({ term: 'san franc', maxResults: 10 }, 
+            function(data){
+                //your code to handle the returned data
+            }, 
+            function(){
+                //your code on error
+            });
+    </pre>
+
+    <dl>
+        <dt>params</dt> 
+        <dd>An object of required and optional parameters needed for each method call.</dd>
+        <dt>success</dt>
+        <dd>A callback function that returns when the data has been received from SizeUp.</dd>
+        <dt>error</dt> 
+        <dd>A function that has no parameters and fires when data cannot be retrieved from SizeUp for any reason.</dd>
+    </dl>
+
+
+    <h2>Data API Methods</h2>
+    <ul>
+        <li><a href="#findPlace">findPlace</a></li>
+    </ul>
+
+
+      <div class="method">
+        <h2>
+            sizeup.api.data.findPlace
+            <a name="findPlace"></a>
+        </h2>
+        
+                 
+                 
+            <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody><tr>
+                    <td class="param">
+                        
+                    </td>
+                    <td class="default">
+                        
+                    </td>
+                    <td class="description">
+                        
+                    </td>
+                </tr></tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.findPlace( {
+    "term": "san fran"
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">[
+    {
+        "Id": 3051,
+        "DisplayName": "San Francisco, CA",
+        "City": {
+            "Id": 2377,
+            "Name": "San Francisco",
+            "SEOKey": "san-francisco-city",
+            "TypeName": "City",
+            "Counties": null
+        },
+        "County": {
+            "Id": 222,
+            "Name": "San Francisco",
+            "SEOKey": "san-francisco"
+        },
+        "Metro": {
+            "Id": 755,
+            "Name": "San Francisco-Oakland-Fremont, CA",
+            "SEOKey": "san-francisco-oakland-fremont-ca"
+        },
+        "State": {
+            "Id": 5,
+            "Name": "California",
+            "Abbreviation": "CA",
+            "SEOKey": "california"
+        },
+        "Region": {
+            "Id": 8,
+            "RegionName": "West",
+            "Name": "Pacific"
+        }
+    },
+    {
+        "Id": 19062,
+        "DisplayName": "San Francisco, MN",
+        "City": {
+            "Id": 37047,
+            "Name": "San Francisco",
+            "SEOKey": "san-francisco-township",
+            "TypeName": "Township",
+            "Counties": null
+        },
+        "County": {
+            "Id": 1327,
+            "Name": "Carver",
+            "SEOKey": "carver"
+        },
+        "Metro": {
+            "Id": 557,
+            "Name": "Minneapolis-St. Paul-Bloomington, MN-WI",
+            "SEOKey": "minneapolis-st.-paul-bloomington-mn-wi"
+        },
+        "State": {
+            "Id": 24,
+            "Name": "Minnesota",
+            "Abbreviation": "MN",
+            "SEOKey": "minnesota"
+        },
+        "Region": {
+            "Id": 4,
+            "RegionName": "Midwest",
+            "Name": "West North Central"
+        }
+    }
+]</pre>
+       
+    </div>
+   
+
+</div>
+
+
+
+
+
+
+
+

@@ -207,6 +207,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
+    <Compile Include="Controllers\DevelopersController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\BestPlacesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -265,6 +266,7 @@
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\images\up-down.png" />
     <Content Include="Content\layout.css" />
+    <Content Include="Content\prettify\prettify.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\themes\highContrast\highContrast.css" />
@@ -287,6 +289,8 @@
     <Content Include="Content\views\dashboard\index.css" />
     <Content Include="Content\views\community\community.css" />
     <Content Include="Content\views\dashboard\print.css" />
+    <Content Include="Content\views\developers\documentation.css" />
+    <Content Include="Content\views\developers\index.css" />
     <Content Include="Content\views\help\contact.css" />
     <Content Include="Content\views\help\faq.css" />
     <Content Include="Content\views\help\howitworks.css" />
@@ -351,6 +355,36 @@
     <Content Include="Scripts\maps\mapStyles.js" />
     <Content Include="Scripts\maps\businessMarker.js" />
     <Content Include="Scripts\maps\overlay.js" />
+    <Content Include="Scripts\prettify\lang-apollo.js" />
+    <Content Include="Scripts\prettify\lang-basic.js" />
+    <Content Include="Scripts\prettify\lang-clj.js" />
+    <Content Include="Scripts\prettify\lang-css.js" />
+    <Content Include="Scripts\prettify\lang-dart.js" />
+    <Content Include="Scripts\prettify\lang-erlang.js" />
+    <Content Include="Scripts\prettify\lang-go.js" />
+    <Content Include="Scripts\prettify\lang-hs.js" />
+    <Content Include="Scripts\prettify\lang-lisp.js" />
+    <Content Include="Scripts\prettify\lang-llvm.js" />
+    <Content Include="Scripts\prettify\lang-lua.js" />
+    <Content Include="Scripts\prettify\lang-matlab.js" />
+    <Content Include="Scripts\prettify\lang-ml.js" />
+    <Content Include="Scripts\prettify\lang-mumps.js" />
+    <Content Include="Scripts\prettify\lang-n.js" />
+    <Content Include="Scripts\prettify\lang-pascal.js" />
+    <Content Include="Scripts\prettify\lang-proto.js" />
+    <Content Include="Scripts\prettify\lang-r.js" />
+    <Content Include="Scripts\prettify\lang-rd.js" />
+    <Content Include="Scripts\prettify\lang-scala.js" />
+    <Content Include="Scripts\prettify\lang-sql.js" />
+    <Content Include="Scripts\prettify\lang-tcl.js" />
+    <Content Include="Scripts\prettify\lang-tex.js" />
+    <Content Include="Scripts\prettify\lang-vb.js" />
+    <Content Include="Scripts\prettify\lang-vhdl.js" />
+    <Content Include="Scripts\prettify\lang-wiki.js" />
+    <Content Include="Scripts\prettify\lang-xq.js" />
+    <Content Include="Scripts\prettify\lang-yaml.js" />
+    <Content Include="Scripts\prettify\prettify.js" />
+    <Content Include="Scripts\prettify\run_prettify.js" />
     <Content Include="Scripts\thirdParty\chosen.jquery.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
@@ -521,6 +555,8 @@
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\BestPlaces\PickIndustry.cshtml" />
+    <Content Include="Views\Developers\Index.cshtml" />
+    <Content Include="Views\Developers\Documentation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

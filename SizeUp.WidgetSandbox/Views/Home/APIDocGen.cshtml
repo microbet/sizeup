@@ -1,0 +1,192 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+
+    <script src="http://www.test.com/scripts/jsapi/loader.js?callback=apiLoaded&apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="@Url.Content("~/Scripts/mustache.js")"></script>
+
+}
+
+
+
+<div id="documentation">
+    <h1>API Documetation</h1>
+
+    <h2>Getting Started</h2>
+    <p>First, request and API key (MAKE THIS A LINK) blah blah blah</p>
+
+    <p>Include a refernece to the api loader script in your head tag of your page.</p>
+
+    <h2>Basic Example</h2>
+<pre class="prettyprint">
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src="http://www.sizeup.com/api/jsapi/?callback=loaded&apikey=YOUR_API_KEY_HERE"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+              
+        &lt;p id="results"&gt;&lt;/p&gt;
+
+        &lt;script type="text/javascript"&gt;
+            var loaded = function () {       
+                sizeup.api.data.findPlace({ term: 'bost' }, function (data) {
+                    var d = '';
+                    for (var x = 0; x &lt; data.length; x++) {
+                        d = d + data[x].City.Name + ',' + data[x].State.Abbreviation + '&lt;br/&gt;';
+                    }
+                    document.getElementById('results').innerHTML = d;
+                });
+            };
+        &lt;/script&gt;  
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+    <h2>Data API</h2>
+    <p>The data API is exposed via the sizeup.api.data object. The data API has a number of methods to access different types of data available through the API.</p>
+    <p>Each method has the same basic signature:</p>
+    <pre class="prettyprint">
+        sizeup.api.data.findPlace({ term: 'san franc', maxResults: 10 }, 
+            function(data){
+                //your code to handle the returned data
+            }, 
+            function(){
+                //your code on error
+            });
+    </pre>
+
+    <dl>
+        <dt>params</dt> 
+        <dd>An object of required and optional parameters needed for each method call.</dd>
+        <dt>success</dt>
+        <dd>A callback function that returns when the data has been received from SizeUp.</dd>
+        <dt>error</dt> 
+        <dd>A function that has no parameters and fires when data cannot be retrieved from SizeUp for any reason.</dd>
+    </dl>
+
+
+    <h2>Data API Methods</h2>
+    <ul>
+        {{#items}}
+        <li><a href="#{{functionName}}">{{functionName}}</a></li>
+        {{/items}}
+    </ul>
+
+
+     {{#items}}
+      <div class="method">
+        <h2>
+            sizeup.api.data.{{functionName}}
+            <a name="{{functionName}}"></a>
+        </h2>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#params}}
+                <tr>
+                    <td class="param">
+                        {{name}}
+                    </td>
+                    <td class="default">
+                        {{defaultValue}}
+                    </td>
+                    <td class="description">
+                        {{description}}
+                    </td>
+                </tr> 
+                {{/params}}              
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">
+sizeup.api.data.{{functionName}}( {{exampleParams}} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">{{results}}</pre>
+       
+    </div>
+    {{/items}}
+   
+
+</div>
+
+<script type="text/javascript">
+    
+    var jqueryLoaded = false;
+    var api = false;
+
+    var getResults = function (item, callback) {
+        var p = $.extend(true, {}, item.exampleParams);
+        sizeup.api.data[item.functionName](p, function (d) {
+            item.results = JSON.stringify(d, null, 4);
+            item.exampleParams = JSON.stringify(item.exampleParams, null, 4);
+            item.isComplete = true;
+            callback();
+        });
+    };
+
+    var checkComplete = function(){
+        var complete = true;
+        for(var x in runScript){
+            complete = complete && runScript[x].isComplete == true;
+        }
+        return complete;
+    };
+
+
+    var loaded = function () {
+        if (jqueryLoaded && api) {
+            for (var x in runScript) {
+                getResults(runScript[x], function () {
+                    if (checkComplete()) {
+                        var template = document.getElementById("documentation").innerHTML;
+                        document.getElementById("documentation").innerHTML = Mustache.to_html(template, { items: runScript });
+                    }
+                });
+            };
+        }
+    };
+
+    var runScript = [
+        {
+            functionName: 'findPlace',
+            params:[
+                {
+                    name: 'term',
+                    defaultValue: 'Required',
+                    description: 'Search string for a place.'
+
+                },
+                {
+                    name: 'maxResults',
+                    defaultValue: '35',
+                    description: 'Maximum number of results to return.'
+                }
+            ],
+            exampleParams: { term: 'san fran' },
+            results: null
+        }
+    ];
+
+
+    var apiLoaded = function () {
+        api = true;
+        loaded();
+    };
+
+    $(document).ready(function () {
+        jqueryLoaded = true;
+        loaded();
+    });
+</script>

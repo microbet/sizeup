@@ -64,6 +64,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+        [LogAPIRequest]
+        [ValidateAPIRequest]
         [AllowAPIRequest]
         public ActionResult Index(long id)
         {

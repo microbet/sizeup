@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
 using SizeUp.Core.DataLayer;
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -13,6 +14,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Industry/
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Industry(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -21,7 +25,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult List(List<long> ids)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -56,6 +62,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)

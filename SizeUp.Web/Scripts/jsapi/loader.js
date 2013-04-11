@@ -75,14 +75,9 @@
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/scripts' + item.url;
-
             script.onload = function () {
                 item.loaded = true;
-                if (isScriptLoadingComplete()) {
-                    if (window[me.currentLocation.query['callback']]) {
-                        window[me.currentLocation.query['callback']]();
-                    }
-                }
+                ready();
             };
             document.head.appendChild(script);
         };
@@ -102,7 +97,7 @@
             for (var x = 0; x < me.scriptQueue.length; x++) {
                 complete = complete && me.scriptQueue[x].loaded;
             }
-            return complete && me.apiToken != null;;
+            return complete && me.apiToken != null && me.windowLoaded != null;
         };
 
         var getJsonp = function (url, success, error) {
@@ -148,22 +143,18 @@
             });
         };
 
-        var initToken = function () {
-            updateToken(function () {
-                if (isScriptLoadingComplete()) {
-                    if (window[me.currentLocation.query['callback']]) {
-                        window[me.currentLocation.query['callback']]();
-                    }
-                }
-            });
+        var ready = function () {
+            if (isScriptLoadingComplete()) {
+                window[me.currentLocation.query['callback']]();
+            }
         };
 
-
+        window.onload = function () { me.windowLoaded = true; ready(); }
         getThisScript();
         getScriptLocation();
         setInterval(updateToken, 1000 * 60 * 30);      
         fillQueue();
-        initToken();
+        updateToken(function () { ready(); });
         loadQueue();
         return pub;
     })();

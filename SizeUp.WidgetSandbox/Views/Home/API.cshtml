@@ -12,33 +12,13 @@
 
 
 
-<p id="city"></p>
-<p id="metro"></p>
-
-
-
-
-
-
-
-
-
+<p id="results"></p>
 
 <script type="text/javascript">
     var loaded = function () {
         
-        sizeup.api.data.findPlace({ term: 'bost' }, function (data) {
-            var d = '';
-            for (var x in data) {
-                d = d + data[x].City.Name + '<br/>';
-            }
-            document.getElementById('city').innerHTML = d;
+        sizeup.api.data.findIndustry({ term: 'pharm' }, function (data) {
+
         });
-
-
     }
-   
-
-
-
 </script>
