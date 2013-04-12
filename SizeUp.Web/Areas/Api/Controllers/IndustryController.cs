@@ -17,7 +17,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         [LogAPIRequest]
         [ValidateAPIRequest]
         [AllowAPIRequest]
-        public ActionResult Industry(long id)
+        public ActionResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

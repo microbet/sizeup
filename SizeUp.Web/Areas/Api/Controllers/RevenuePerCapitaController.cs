@@ -10,6 +10,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -18,6 +19,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/RevenuePerCapita/
 
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Chart(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -27,6 +31,10 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Percentile(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -36,6 +44,10 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)

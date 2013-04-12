@@ -340,6 +340,7 @@
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
+    <Content Include="Scripts\jsapi\granularity.js" />
     <Content Include="Scripts\jsapi\loader.js" />
     <Content Include="Scripts\jsapi\data.js" />
     <Content Include="Scripts\maps\circle.js" />

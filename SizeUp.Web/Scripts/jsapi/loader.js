@@ -18,15 +18,24 @@
             }
         };
         me.scriptQueue = [];
-        me.jsonpPrefix = 'szup_' + new Date().getTime();
-
+        me.callbackIndex = 0;
+        me.jsonpPrefix = 'szup_' + Math.floor(Math.random() * 999999);
+        sizeup.api[me.jsonpPrefix] = {};
+        me.callbackComplete = {};
         var formatParams = function (params) {
             var output = '';
             var formattedParams = [];
             if (params != null) {
                 for (var x in params) {
                     if (params.hasOwnProperty(x)) {
-                        formattedParams.push(x + '=' + encodeURIComponent(params[x]));
+                        if (Object.prototype.toString.call(params[x]) === '[object Array]') {
+                            for (var y = 0; y < params[x].length; y++) {
+                                formattedParams.push(x + '=' + encodeURIComponent(params[x][y]));
+                            }
+                        }
+                        else {
+                            formattedParams.push(x + '=' + encodeURIComponent(params[x]));
+                        }
                     }
                 }
                 if (formattedParams.length > 0) {
@@ -84,6 +93,7 @@
 
         var fillQueue = function () {
             me.scriptQueue.push({ url: '/jsapi/data.js', loaded: false });
+            me.scriptQueue.push({ url: '/jsapi/granularity.js', loaded: false });
         };
 
         var loadQueue = function () {
@@ -100,25 +110,18 @@
             return complete && me.apiToken != null && me.windowLoaded != null;
         };
 
-        var getJsonp = function (url, success, error) {
-            var cb = me.jsonpPrefix + '_' + new Date().getTime();
-            var script = document.createElement('script');
-            script.type = 'text/javascript';
-            var src = me.currentLocation.protocol + '://' + me.currentLocation.host + url;
-            if (src.indexOf('?') < 0) {
-                src = src + '/?';
+        var getNextCallback = function(){
+            if(me.callbackIndex > 999999){
+                me.callbackIndex = 0;
             }
-            else {
-                src = src + '&';
-            }
-            src = src + 'jsoncallback=' + cb + '&origin=' + me.currentLocation.domain;
-            script.src = src;
-            var cleanup = function () {
-                delete window[cb];
-                document.head.removeChild(script);
-            };
+            me.callbackIndex ++;
+            return 'cb' + me.callbackIndex;
+        };
 
-            window[cb] = function (data) {
+        var getJsonp = function (url, success, error) {
+            var cb = getNextCallback();
+            var script = document.createElement('script');
+            sizeup.api[me.jsonpPrefix][cb] = function (data) {
                 if (success) {
                     success(data);
                 }
@@ -131,6 +134,23 @@
                 }
                 cleanup();
             };
+
+            var cleanup = function () {
+                delete sizeup.api[me.jsonpPrefix][cb];
+                document.head.removeChild(script);
+            };
+
+
+            script.type = 'text/javascript';
+            var src = me.currentLocation.protocol + '://' + me.currentLocation.host + url;
+            if (src.indexOf('?') < 0) {
+                src = src + '/?';
+            }
+            else {
+                src = src + '&';
+            }
+            src = src + 'jsoncallback=' + 'sizeup.api.' + me.jsonpPrefix + '.' + cb + '&origin=' + me.currentLocation.domain;
+            script.src = src;
             document.head.appendChild(script);
         };
 
@@ -149,10 +169,12 @@
             }
         };
 
+       
+
         window.onload = function () { me.windowLoaded = true; ready(); }
         getThisScript();
         getScriptLocation();
-        setInterval(updateToken, 1000 * 60 * 30);      
+        setInterval(updateToken, 1000 * 60 * 30);
         fillQueue();
         updateToken(function () { ready(); });
         loadQueue();

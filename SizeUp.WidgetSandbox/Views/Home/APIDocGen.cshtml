@@ -11,9 +11,7 @@
 
 }
 
-
-
-<div id="documentation">
+<script type="text/template" id="template">
     <h1>API Documetation</h1>
 
     <h2>Getting Started</h2>
@@ -84,6 +82,7 @@
             sizeup.api.data.{{functionName}}
             <a name="{{functionName}}"></a>
         </h2>
+        <p>{{description}}</p>
         <table class="params">
             <thead>
                 <tr>
@@ -110,27 +109,31 @@
         </table>
         <h3>Usage</h3>
 <pre class="prettyprint">
-sizeup.api.data.{{functionName}}( {{exampleParams}} );
+sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{{results}}</pre>
        
     </div>
     {{/items}}
-   
+</script>
+
+<div id="documentation">
 
 </div>
 
 <script type="text/javascript">
     
+   
+    var template = $('#template').html();
     var jqueryLoaded = false;
     var api = false;
+    var runScript = null;
 
     var getResults = function (item, callback) {
         var p = $.extend(true, {}, item.exampleParams);
         sizeup.api.data[item.functionName](p, function (d) {
             item.results = JSON.stringify(d, null, 4);
-            item.exampleParams = JSON.stringify(item.exampleParams, null, 4);
             item.isComplete = true;
             callback();
         });
@@ -150,7 +153,6 @@ sizeup.api.data.{{functionName}}( {{exampleParams}} );
             for (var x in runScript) {
                 getResults(runScript[x], function () {
                     if (checkComplete()) {
-                        var template = document.getElementById("documentation").innerHTML;
                         document.getElementById("documentation").innerHTML = Mustache.to_html(template, { items: runScript });
                     }
                 });
@@ -158,30 +160,10 @@ sizeup.api.data.{{functionName}}( {{exampleParams}} );
         }
     };
 
-    var runScript = [
-        {
-            functionName: 'findPlace',
-            params:[
-                {
-                    name: 'term',
-                    defaultValue: 'Required',
-                    description: 'Search string for a place.'
-
-                },
-                {
-                    name: 'maxResults',
-                    defaultValue: '35',
-                    description: 'Maximum number of results to return.'
-                }
-            ],
-            exampleParams: { term: 'san fran' },
-            results: null
-        }
-    ];
-
 
     var apiLoaded = function () {
         api = true;
+        runScript = createRunScript();
         loaded();
     };
 
@@ -189,4 +171,824 @@ sizeup.api.data.{{functionName}}( {{exampleParams}} );
         jqueryLoaded = true;
         loaded();
     });
+
+
+
+
+
+    var createRunScript = function ()
+    {
+        var s =  [
+            {
+                functionName: 'findPlace',
+                description: 'Returns a list of places based on a search term.',
+                params: [
+                    {
+                        name: 'term',
+                        defaultValue: 'Required',
+                        description: 'Search string for a place.'
+
+                    },
+                    {
+                        name: 'maxResults',
+                        defaultValue: '35',
+                        description: 'Maximum number of results to return.'
+                    }
+                ],
+                exampleParams: { term: 'san fran' },
+                exampleParamsOutput: '{ term: \'san fran\' }'
+            },
+            {
+                functionName: 'getPlace',
+                description: 'Returns a single place based on a place id.',
+                params: [
+                    {
+                        name: 'id',
+                        defaultValue: 'Required',
+                        description: 'Place Id for the place to return'
+
+                    }
+                ],
+                exampleParams: { id: 3051 },
+                exampleParamsOutput: '{ id: \'3051\' }'
+            },
+            {
+                functionName: 'findIndustry',
+                description: 'Returns a list of industries based on a search term.',
+                params: [
+                    {
+                        name: 'term',
+                        defaultValue: 'Required',
+                        description: 'Search string for an industry.'
+
+                    },
+                    {
+                        name: 'maxResults',
+                        defaultValue: '35',
+                        description: 'Maximum number of results to return.'
+                    }
+                ],
+                exampleParams: { term: 'pharma' },
+                exampleParamsOutput: '{ term: \'pharma\' }'
+            },
+            {
+                functionName: 'getIndustry',
+                description: 'Returns a single industry based on an industry id.',
+                params: [
+                    {
+                        name: 'id',
+                        defaultValue: 'Required',
+                        description: 'Industry Id for an industry.'
+
+                    }
+                ],
+                exampleParams: { id: 8589 },
+                exampleParamsOutput: '{ id: \'8589\' }'
+            },
+            {
+                functionName: 'getIndustries',
+                description: 'Returns a list of industries based on industry ids.',
+                params: [
+                    {
+                        name: 'ids',
+                        defaultValue: 'Required',
+                        description: 'Array of industry ids to return.'
+
+                    }
+                ],
+                exampleParams: { ids: [8589, 11300] },
+                exampleParamsOutput: '{ ids: [8589, 11300 }'
+            },
+            {
+                functionName: 'getAverageRevenue',
+                description: 'Returns the average revenue in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getAverageRevenuePercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'value',
+                        defaultValue: 'Required',
+                        description: 'Revenue used to calculate the percentile.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 3200000 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 3200000 }'
+            },
+            {
+                functionName: 'getAverageRevenueBands',
+                description: 'Returns the quantile ranges for average revenue in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+            },
+            {
+                functionName: 'getAverageEmployees',
+                description: 'Returns the average employees in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getAverageEmployeesPercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'value',
+                        defaultValue: 'Required',
+                        description: 'Number of employees used to calculate the percentile.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 5 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 5 }'
+            },
+            {
+                functionName: 'getAverageEmployeesBands',
+                description: 'Returns the quantile ranges for average revenue in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }'
+            },
+            {
+                functionName: 'getAverageSalary',
+                description: 'Returns the average salary in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getAverageSalaryPercentage',
+                description: 'Returns the percentage in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'value',
+                        defaultValue: 'Required',
+                        description: 'Salary used to calculate the percentile.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 38000 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 38000 }'
+            },
+            {
+                functionName: 'getAverageSalaryBands',
+                description: 'Returns the quantile ranges for average revenue in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }'
+            },
+
+            {
+                functionName: 'getCostEffectiveness',
+                description: 'Returns the cost effectiveness in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getCostEffectivenessPercentage',
+                description: 'Returns the percentage in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'salary',
+                        defaultValue: 'Required',
+                        description: 'Salary used to calculate the percentage.'
+                    },
+                    {
+                        name: 'employees',
+                        defaultValue: 'Required',
+                        description: 'Employees used to calculate the percentage.'
+                    },
+                    {
+                        name: 'revenue',
+                        defaultValue: 'Required',
+                        description: 'Revenue used to calculate the percentage.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, employees: 24, salary: 45000, revenue: 3500000 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, employees: 24, salary: 45000, revenue: 3500000 }'
+            },
+            {
+                functionName: 'getCostEffectivenessBands',
+                description: 'Returns the quantile ranges for cost effectiveness in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }'
+            },
+
+            {
+                functionName: 'getEmployeesPerCapita',
+                description: 'Returns the employees per capita in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getEmployeesPerCapitaPercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY},
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getEmployeesPerCapitaBands',
+                description: 'Returns the quantile ranges for employees per capita in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+            },
+
+             {
+                 functionName: 'getHealthcareCost',
+                 description: 'Returns the healthcare cost in the industry for the level of granularity of a place.',
+                 params: [
+                     {
+                         name: 'industryId',
+                         defaultValue: 'Required',
+                         description: 'Id of the industry.'
+                     },
+                     {
+                         name: 'placeId',
+                         defaultValue: 'Required',
+                         description: 'Id of the place.'
+                     },
+                     {
+                         name: 'granularity',
+                         defaultValue: 'sizeup.api.granularity.STATE',
+                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently only sizeup.api.granularity.STATE is supported.'
+                     },
+                     {
+                         name: 'employees',
+                         defaultValue: 'null',
+                         description: 'Optional parameter used to return a more accurate healthcare cost based on number of employees in a business.'
+                     }
+
+                 ],
+                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
+                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }'
+             },
+             {
+                 functionName: 'getHealthcareCostPercentage',
+                 description: 'Returns the percentage in the industry for the level of granularity of a place based on a supplied value.',
+                 params: [
+                     {
+                         name: 'industryId',
+                         defaultValue: 'Required',
+                         description: 'Id of the industry.'
+                     },
+                     {
+                         name: 'placeId',
+                         defaultValue: 'Required',
+                         description: 'Id of the place.'
+                     },
+                     {
+                         name: 'granularity',
+                         defaultValue: 'sizeup.api.granularity.STATE',
+                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently only sizeup.api.granularity.STATE is supported.'
+                     },
+                     {
+                         name: 'value',
+                         defaultValue: 'Required',
+                         description: 'Healthcare cost used to calculate the percentage.'
+                     }
+                 ],
+                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value: 4320  },
+                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value: 4320 }'
+             },
+
+             {
+                 functionName: 'getJobChange',
+                 description: 'Returns the job change in the industry for the level of granularity of a place.',
+                 params: [
+                     {
+                         name: 'industryId',
+                         defaultValue: 'Required',
+                         description: 'Id of the industry.'
+                     },
+                     {
+                         name: 'placeId',
+                         defaultValue: 'Required',
+                         description: 'Id of the place.'
+                     },
+                     {
+                         name: 'granularity',
+                         defaultValue: 'Required',
+                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                     }
+                 ],
+                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+             },
+            {
+                functionName: 'getJobChangePercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY  }'
+            },
+
+            {
+                functionName: 'getRevenuePerCapita',
+                description: 'Returns the revenue per capita in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getRevenuePerCapitaPercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY  }'
+            },
+            {
+                functionName: 'getRevenuePerCapitaBands',
+                description: 'Returns the quantile ranges for average revenue in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+            },
+
+
+            {
+                functionName: 'getTotalEmployees',
+                description: 'Returns the total employees in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getTotalEmployeesBands',
+                description: 'Returns the quantile ranges for average revenue in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+            },
+
+            {
+                functionName: 'getTotalRevenue',
+                description: 'Returns the total revenue in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getTotalRevenueBands',
+                description: 'Returns the quantile ranges for total revenue in an industry for the level of granularity of a place, bounded by a level of granularity.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'boundingGranularity',
+                        defaultValue: 'sizeup.api.granularity.NATION',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.'
+                    },
+                    {
+                        name: 'bands',
+                        defaultValue: 'Required',
+                        description: 'Number of bands to calculate.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+            },
+        ];
+
+
+        return s;
+    };
 </script>

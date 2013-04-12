@@ -9,6 +9,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -17,6 +18,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/JobChange/
 
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Chart(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -26,6 +30,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
         public ActionResult Percentile(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)

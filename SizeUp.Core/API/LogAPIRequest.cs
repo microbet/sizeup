@@ -18,7 +18,10 @@ namespace SizeUp.Core.API
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            Log();
+            if (IsJsonp)
+            {
+                Log();
+            }
             base.OnResultExecuted(filterContext);
         }
 

@@ -11,12 +11,13 @@
 #documentation ul li {margin: 0.25em 0; }
 
 #documentation .method { border-bottom: dashed 2px #ccc; padding:1em 0; }
+#documentation .method p {padding: 1em 0 1em 1em; }
 #documentation .method table.params {margin:1em 0 0 1em; font-size:1.3em; width:70em; }
 #documentation .method table.params thead { border-bottom: 2px solid #CCCCCC; color:#909090; font-weight: bold; }
-#documentation .method table.params tbody td { padding: 0 0 0.5em 0; }
-#documentation .method table.params tbody td.param {width:20%; font-weight:bold; }
-#documentation .method table.params tbody td.default {width:20%; }
-#documentation .method table.params tbody td.description {width:60%; }
+#documentation .method table.params tbody td { padding: 0 0 0.5em 0; vertical-align:top; }
+#documentation .method table.params tbody td.param {width:25%; font-weight:bold; }
+#documentation .method table.params tbody td.default {width:25%; }
+#documentation .method table.params tbody td.description {width:50%; }
 
 
 

@@ -29,6 +29,134 @@
                 var url = '/api/industry/list/';
                 sizeup.api.loader.getData(url, params, success, error);
             },
+
+            getAverageRevenue: function (params, success, error) {
+                var url = '/api/averageRevenue/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getAverageRevenuePercentile: function (params, success, error) {
+                var url = '/api/averageRevenue/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getAverageRevenueBands: function (params, success, error) {
+                var url = '/api/averageRevenue/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+
+            getAverageEmployees: function (params, success, error) {
+                var url = '/api/AverageEmployees/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getAverageEmployeesPercentile: function (params, success, error) {
+                var url = '/api/AverageEmployees/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getAverageEmployeesBands: function (params, success, error) {
+                var url = '/api/AverageEmployees/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getAverageSalary: function (params, success, error) {
+                var url = '/api/averageSalary/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getAverageSalaryPercentage: function (params, success, error) {
+                var url = '/api/averageSalary/percentage/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getAverageSalaryBands: function (params, success, error) {
+                var url = '/api/averageSalary/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getCostEffectiveness: function (params, success, error) {
+                var url = '/api/CostEffectiveness/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getCostEffectivenessPercentage: function (params, success, error) {
+                var url = '/api/CostEffectiveness/percentage/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getCostEffectivenessBands: function (params, success, error) {
+                var url = '/api/CostEffectiveness/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getEmployeesPerCapita: function (params, success, error) {
+                var url = '/api/EmployeesPerCapita/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getEmployeesPerCapitaPercentile: function (params, success, error) {
+                var url = '/api/EmployeesPerCapita/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getEmployeesPerCapitaBands: function (params, success, error) {
+                var url = '/api/EmployeesPerCapita/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+
+            getHealthcareCost: function (params, success, error) {
+                var url = '/api/healthcare/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getHealthcareCostPercentage: function (params, success, error) {
+                var url = '/api/healthcare/percentage/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getJobChange: function (params, success, error) {
+                var url = '/api/jobchange/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getJobChangePercentile: function (params, success, error) {
+                var url = '/api/jobchange/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getRevenuePerCapita: function (params, success, error) {
+                var url = '/api/RevenuePerCapita/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getRevenuePerCapitaPercentile: function (params, success, error) {
+                var url = '/api/RevenuePerCapita/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getRevenuePerCapitaBands: function (params, success, error) {
+                var url = '/api/RevenuePerCapita/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getTotalEmployees: function (params, success, error) {
+                var url = '/api/TotalEmployees/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getTotalEmployeesBands: function (params, success, error) {
+                var url = '/api/TotalEmployees/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getTotalRevenue: function (params, success, error) {
+                var url = '/api/TotalRevenue/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getTotalRevenueBands: function (params, success, error) {
+                var url = '/api/TotalRevenue/bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
         };
 
 

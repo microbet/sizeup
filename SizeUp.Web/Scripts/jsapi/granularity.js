@@ -1,0 +1,18 @@
+﻿(function () {
+    window.sizeup = window.sizeup || {};
+    window.sizeup.api = window.sizeup.api || {};
+    window.sizeup.api.granularity = (function () {
+       
+        var me = {};
+        var pub = {
+            ZIP_CODE: 'ZipCode',
+            CITY: 'City',
+            COUNTY: 'County',
+            PLACE: 'Place',
+            METRO: 'Metro',
+            STATE: 'State',
+            NATION: 'Nation'
+        };
+        return pub;
+    })();
+})();

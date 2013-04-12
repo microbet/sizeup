@@ -10,6 +10,7 @@
 }
 
 <div id="documentation">
+
     <h1>API Documetation</h1>
 
     <h2>Getting Started</h2>
@@ -67,6 +68,13 @@
     <h2>Data API Methods</h2>
     <ul>
         <li><a href="#findPlace">findPlace</a></li>
+        <li><a href="#getPlace">getPlace</a></li>
+        <li><a href="#findIndustry">findIndustry</a></li>
+        <li><a href="#getIndustry">getIndustry</a></li>
+        <li><a href="#getIndustries">getIndustries</a></li>
+        <li><a href="#getAverageRevenue">getAverageRevenue</a></li>
+        <li><a href="#getAverageRevenuePercentile">getAverageRevenuePercentile</a></li>
+        <li><a href="#getAverageRevenueBands">getAverageRevenueBands</a></li>
     </ul>
 
 
@@ -75,10 +83,8 @@
             sizeup.api.data.findPlace
             <a name="findPlace"></a>
         </h2>
-        
-                 
-                 
-            <table class="params">
+        <p>Returns a list of places based on a search term.</p>
+        <table class="params">
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
@@ -86,17 +92,30 @@
                     <td class="description">Description</td>
                 </tr>
             </thead>
-            <tbody><tr>
+            <tbody>
+                <tr>
                     <td class="param">
-                        
+                        term
                     </td>
                     <td class="default">
-                        
+                        Required
                     </td>
                     <td class="description">
-                        
+                        Search string for a place.
                     </td>
-                </tr></tbody>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        maxResults
+                    </td>
+                    <td class="default">
+                        35
+                    </td>
+                    <td class="description">
+                        Maximum number of results to return.
+                    </td>
+                </tr> 
+            </tbody>
         </table>
         <h3>Usage</h3>
 <pre class="prettyprint">sizeup.api.data.findPlace( {
@@ -172,7 +191,584 @@
 ]</pre>
        
     </div>
-   
+      <div class="method">
+        <h2>
+            sizeup.api.data.getPlace
+            <a name="getPlace"></a>
+        </h2>
+        <p>Returns a single place based on a place id.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        id
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Place Id for the place to return
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getPlace( {
+    "id": 3051
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">{
+    "Id": 3051,
+    "DisplayName": "San Francisco, CA",
+    "City": {
+        "Id": 2377,
+        "Name": "San Francisco",
+        "SEOKey": "san-francisco-city",
+        "TypeName": "City",
+        "Counties": null
+    },
+    "County": {
+        "Id": 222,
+        "Name": "San Francisco",
+        "SEOKey": "san-francisco"
+    },
+    "Metro": {
+        "Id": 755,
+        "Name": "San Francisco-Oakland-Fremont, CA",
+        "SEOKey": "san-francisco-oakland-fremont-ca"
+    },
+    "State": {
+        "Id": 5,
+        "Name": "California",
+        "Abbreviation": "CA",
+        "SEOKey": "california"
+    },
+    "Region": {
+        "Id": 8,
+        "RegionName": "West",
+        "Name": "Pacific"
+    }
+}</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.findIndustry
+            <a name="findIndustry"></a>
+        </h2>
+        <p>Returns a list of industries based on a search term.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        term
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Search string for an industry.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        maxResults
+                    </td>
+                    <td class="default">
+                        35
+                    </td>
+                    <td class="description">
+                        Maximum number of results to return.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.findIndustry( {
+    "term": "pharma"
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">[
+    {
+        "Id": 6836,
+        "Name": "Pharmaceutical Products (Wholesale)",
+        "SEOKey": "pharmaceutical-products-wholesale",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 8589,
+        "Name": "Pharmacies",
+        "SEOKey": "pharmacies",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 11300,
+        "Name": "Pharmacists",
+        "SEOKey": "pharmacists",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 6836,
+        "Name": "Pharmaceuticals (Wholesale)",
+        "SEOKey": "pharmaceutical-products-wholesale",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 6836,
+        "Name": "Pharmaceutical Products Wholesale - Manufacturers",
+        "SEOKey": "pharmaceutical-products-wholesale",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 6836,
+        "Name": "Pharmacies (Wholesale)",
+        "SEOKey": "pharmaceutical-products-wholesale",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 8589,
+        "Name": "Pharmacies - Specialty",
+        "SEOKey": "pharmacies",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 6836,
+        "Name": "Pharmaceutical Supplies (Wholesale)",
+        "SEOKey": "pharmaceutical-products-wholesale",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 8589,
+        "Name": "Homeopathic Pharmacies",
+        "SEOKey": "pharmacies",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    },
+    {
+        "Id": 8589,
+        "Name": "Pharmacists - Temporary Help",
+        "SEOKey": "pharmacies",
+        "ParentName": null,
+        "NAICS4": null,
+        "NAICS6": null
+    }
+]</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.getIndustry
+            <a name="getIndustry"></a>
+        </h2>
+        <p>Returns a single industry based on an industry id.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        id
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Industry Id for an industry.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getIndustry( {
+    "id": 8589
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">{
+    "Id": 8589,
+    "Name": "Pharmacies",
+    "SEOKey": "pharmacies",
+    "ParentName": "Drug Stores &amp; Proprietary Stores",
+    "NAICS4": {
+        "Id": 179,
+        "NAICSCode": "4461",
+        "Name": "Health and Personal Care Stores"
+    },
+    "NAICS6": {
+        "Id": 1386,
+        "NAICSCode": "446110",
+        "Name": "Pharmacies and Drug Stores"
+    }
+}</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.getIndustries
+            <a name="getIndustries"></a>
+        </h2>
+        <p>Returns a list of industries based on industry ids.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        ids
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Array of industry ids to return.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getIndustries( {
+    "ids": [
+        8589,
+        11300
+    ]
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">[
+    {
+        "Id": 8589,
+        "Name": "Pharmacies",
+        "SEOKey": "pharmacies",
+        "ParentName": "Drug Stores &amp; Proprietary Stores",
+        "NAICS4": {
+            "Id": 179,
+            "NAICSCode": "4461",
+            "Name": "Health and Personal Care Stores"
+        },
+        "NAICS6": {
+            "Id": 1386,
+            "NAICSCode": "446110",
+            "Name": "Pharmacies and Drug Stores"
+        }
+    },
+    {
+        "Id": 11300,
+        "Name": "Pharmacists",
+        "SEOKey": "pharmacists",
+        "ParentName": "Offices Of Health Practitioners Nec",
+        "NAICS4": {
+            "Id": 285,
+            "NAICSCode": "6213",
+            "Name": "Offices of Other Health Practitioners"
+        },
+        "NAICS6": {
+            "Id": 1894,
+            "NAICSCode": "621330",
+            "Name": "Psychoanalysts' clinics (except MDs and Dos)"
+        }
+    }
+]</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.getAverageRevenue
+            <a name="getAverageRevenue"></a>
+        </h2>
+        <p>Returns the average revenue in the industry for the level of granularity of a place.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        industryId
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the industry.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        placeId
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the place.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        granularity
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getAverageRevenue( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": "County"
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">{
+    "Value": 3906112,
+    "Median": null,
+    "Name": "San Francisco, CA"
+}</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.getAverageRevenuePercentile
+            <a name="getAverageRevenuePercentile"></a>
+        </h2>
+        <p>Returns the percentile in the industry for the level of granularity of a place based on a supplied value.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        industryId
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the industry.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        placeId
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the place.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        granularity
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        value
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Revenue used to calculate the percentile.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getAverageRevenuePercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": "County",
+    "value": 3200000
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">{
+    "Percentile": 71,
+    "Name": "San Francisco, CA"
+}</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.getAverageRevenueBands
+            <a name="getAverageRevenueBands"></a>
+        </h2>
+        <p>Returns the quantile ranges for average revenue in an industry for the level of granularity of a place, bounded by a level of granularity.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        industryId
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the industry.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        placeId
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the place.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        granularity
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        boundingGranularity
+                    </td>
+                    <td class="default">
+                        sizeup.api.granularity.NATION
+                    </td>
+                    <td class="description">
+                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        bands
+                    </td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Number of bands to calculate.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getAverageRevenueBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": "County",
+    "boundingGranularity": "State",
+    "bands": 7
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">[
+    {
+        "Min": 6520000,
+        "Max": 12850320
+    },
+    {
+        "Min": 5185051,
+        "Max": 6520000
+    },
+    {
+        "Min": 4524285,
+        "Max": 5185051
+    },
+    {
+        "Min": 4159093,
+        "Max": 4524285
+    },
+    {
+        "Min": 3725833,
+        "Max": 4159093
+    },
+    {
+        "Min": 2484000,
+        "Max": 3725833
+    },
+    {
+        "Min": 1552000,
+        "Max": 2484000
+    }
+]</pre>
+       
+    </div>
+
 
 </div>
 
