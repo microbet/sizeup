@@ -19,6 +19,7 @@
         };
         me.scriptQueue = [];
         me.callbackIndex = 0;
+        me.domainIndex = 0;
         me.jsonpPrefix = 'szup_' + Math.floor(Math.random() * 999999);
         sizeup.api[me.jsonpPrefix] = {};
         me.callbackComplete = {};
@@ -120,6 +121,10 @@
 
         var getJsonp = function (url, success, error) {
             var cb = getNextCallback();
+            if (me.domainIndex > 2) {
+                me.domainIndex = 0;
+            }
+            me.domainIndex++;
             var script = document.createElement('script');
             sizeup.api[me.jsonpPrefix][cb] = function (data) {
                 if (success) {
@@ -142,7 +147,7 @@
 
 
             script.type = 'text/javascript';
-            var src = me.currentLocation.protocol + '://' + me.currentLocation.host + url;
+            var src = me.currentLocation.protocol + '://' + 'api' + me.domainIndex + '.' + me.currentLocation.domain + url;
             if (src.indexOf('?') < 0) {
                 src = src + '/?';
             }

@@ -157,6 +157,37 @@
                 sizeup.api.loader.getData(url, params, success, error);
             },
 
+            getTurnover: function (params, success, error) {
+                var url = '/api/turnover/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getTurnoverPercentile: function (params, success, error) {
+                var url = '/api/turnover/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+
+            getWorkersComp: function (params, success, error) {
+                var url = '/api/workersComp/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getWorkersCompPercentage: function (params, success, error) {
+                var url = '/api/workersComp/percentage/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getYearStarted: function (params, success, error) {
+                var url = '/api/yearStarted/chart/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getYearStartedPercentile: function (params, success, error) {
+                var url = '/api/yearStarted/percentile/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
         };
 
 

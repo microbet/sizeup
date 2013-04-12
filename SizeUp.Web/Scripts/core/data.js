@@ -112,10 +112,6 @@
                 return get('/api/yearStarted/chart/', params, callback);
             },
 
-            getYearStartedCount: function (params, callback) {
-                return get('/api/yearStarted/count/', params, callback);
-            },
-
             getYearStartedPercentile: function (params, callback) {
                 return get('/api/yearStarted/percentile/', params, callback);
             },

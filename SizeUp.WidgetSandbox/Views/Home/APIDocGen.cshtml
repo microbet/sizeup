@@ -650,8 +650,8 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY},
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE},
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }'
             },
             {
                 functionName: 'getEmployeesPerCapitaBands',
@@ -788,8 +788,8 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY  }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE  }'
             },
 
             {
@@ -986,6 +986,169 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
             },
+
+
+            {
+                functionName: 'getTurnover',
+                description: 'Returns the turnover in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+            },
+            {
+                functionName: 'getTurnoverPercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE  }'
+            },
+
+
+            {
+                functionName: 'getWorkersComp',
+                description: 'Returns the workers compensation in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'sizeup.api.granularity.STATE',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }'
+            },
+            {
+                functionName: 'getWorkersCompPercentage',
+                description: 'Returns the percentage in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'sizeup.api.granularity.STATE',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.'
+                    },
+                    {
+                        name: 'value',
+                        defaultValue: 'Required',
+                        description: 'Workers compensation rate to calculate percentile.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value:3.14 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value:3.14   }'
+            },
+
+            {
+                functionName: 'getYearStarted',
+                description: 'Returns the turnover in the industry for the level of granularity of a place.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'startYear',
+                        defaultValue: 'Required',
+                        description: 'Year to start counting.'
+                    },
+                    {
+                        name: 'endYear',
+                        defaultValue: 'Required',
+                        description: 'Last year to return counts.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, startYear: 1986, endYear:2010 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, startYear: 1986, endYear:2010  }'
+            },
+            {
+                functionName: 'getYearStartedPercentile',
+                description: 'Returns the percentile in the industry for the level of granularity of a place based on a supplied value.',
+                params: [
+                    {
+                        name: 'industryId',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'placeId',
+                        defaultValue: 'Required',
+                        description: 'Id of the place.'
+                    },
+                    {
+                        name: 'granularity',
+                        defaultValue: 'Required',
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                    },
+                    {
+                        name: 'value',
+                        defaultValue: 'Required',
+                        description: 'Year to calculate percentile.'
+                    }
+                ],
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998 },
+                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998   }'
+            }
         ];
 
 
