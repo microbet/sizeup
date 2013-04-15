@@ -145,7 +145,9 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.findPlace( { term: 'san fran' } );
+<pre class="prettyprint">sizeup.api.data.findPlace( {
+    "term": "san fran"
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -245,7 +247,9 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getPlace( { id: '3051' } );
+<pre class="prettyprint">sizeup.api.data.getPlace( {
+    "id": 3051
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -322,7 +326,9 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.findIndustry( { term: 'pharma' } );
+<pre class="prettyprint">sizeup.api.data.findIndustry( {
+    "term": "pharma"
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -438,7 +444,9 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getIndustry( { id: '8589' } );
+<pre class="prettyprint">sizeup.api.data.getIndustry( {
+    "id": 8589
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -488,7 +496,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getIndustries( { ids: [8589, 11300 } );
+<pre class="prettyprint">sizeup.api.data.getIndustries( {
+    "ids": [
+        8589,
+        11300
+    ]
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -572,13 +585,22 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        <br>
+                        <strong>Supported Options:</strong>
+                        <ul>
+                        <li>sizeup.api.granularity.CITY</li><li>sizeup.api.granularity.COUNTY</li><li>sizeup.api.granularity.METRO</li><li>sizeup.api.granularity.STATE</li><li>sizeup.api.granularity.NATION</li>
+                        </ul>
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageRevenue( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getAverageRevenue( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -633,7 +655,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -650,7 +672,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageRevenuePercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 3200000 } );
+<pre class="prettyprint">sizeup.api.data.getAverageRevenuePercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "value": 3200000
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -704,7 +731,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -715,7 +742,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -732,7 +759,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageRevenueBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getAverageRevenueBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.STATE,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -812,13 +845,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageEmployees( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getAverageEmployees( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -873,7 +910,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -890,7 +927,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageEmployeesPercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 5 } );
+<pre class="prettyprint">sizeup.api.data.getAverageEmployeesPercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "value": 5
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -944,7 +986,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -955,7 +997,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -972,7 +1014,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageEmployeesBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getAverageEmployeesBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.METRO,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -1040,13 +1088,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageSalary( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getAverageSalary( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1101,7 +1153,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -1118,7 +1170,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageSalaryPercentage( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 38000 } );
+<pre class="prettyprint">sizeup.api.data.getAverageSalaryPercentage( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "value": 38000
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1172,7 +1229,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -1183,7 +1240,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -1200,7 +1257,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getAverageSalaryBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getAverageSalaryBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.METRO,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -1272,13 +1335,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getCostEffectiveness( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getCostEffectiveness( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1333,7 +1400,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -1372,7 +1439,14 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getCostEffectivenessPercentage( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, employees: 24, salary: 45000, revenue: 3500000 } );
+<pre class="prettyprint">sizeup.api.data.getCostEffectivenessPercentage( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "employees": 24,
+    "salary": 45000,
+    "revenue": 3500000
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1426,7 +1500,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -1437,7 +1511,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -1454,7 +1528,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getCostEffectivenessBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getCostEffectivenessBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.METRO,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -1526,13 +1606,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getEmployeesPerCapita( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getEmployeesPerCapita( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1587,13 +1671,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getEmployeesPerCapitaPercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE } );
+<pre class="prettyprint">sizeup.api.data.getEmployeesPerCapitaPercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1647,7 +1735,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -1658,7 +1746,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -1675,7 +1763,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getEmployeesPerCapitaBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getEmployeesPerCapitaBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.STATE,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -1755,7 +1849,7 @@
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId. Currently only sizeup.api.granularity.STATE is supported.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently only sizeup.api.granularity.STATE is supported.
                     </td>
                 </tr> 
                 <tr>
@@ -1772,7 +1866,11 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getHealthcareCost( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE } );
+<pre class="prettyprint">sizeup.api.data.getHealthcareCost( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1831,7 +1929,7 @@
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId. Currently only sizeup.api.granularity.STATE is supported.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently only sizeup.api.granularity.STATE is supported.
                     </td>
                 </tr> 
                 <tr>
@@ -1848,7 +1946,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getHealthcareCostPercentage( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value: 4320 } );
+<pre class="prettyprint">sizeup.api.data.getHealthcareCostPercentage( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE,
+    "value": 4320
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1902,13 +2005,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getJobChange( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getJobChange( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -1964,13 +2071,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getJobChangePercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE  } );
+<pre class="prettyprint">sizeup.api.data.getJobChangePercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2024,13 +2135,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getRevenuePerCapita( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getRevenuePerCapita( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2085,13 +2200,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getRevenuePerCapitaPercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY  } );
+<pre class="prettyprint">sizeup.api.data.getRevenuePerCapitaPercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2145,7 +2264,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -2156,7 +2275,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -2173,7 +2292,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getRevenuePerCapitaBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getRevenuePerCapitaBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.STATE,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -2253,13 +2378,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getTotalEmployees( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getTotalEmployees( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2314,7 +2443,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -2325,7 +2454,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -2342,7 +2471,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getTotalEmployeesBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getTotalEmployeesBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.STATE,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -2422,13 +2557,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getTotalRevenue( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getTotalRevenue( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2483,7 +2622,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -2494,7 +2633,7 @@
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level to restrict the calculation of the quantile.
+                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
                     </td>
                 </tr> 
                 <tr>
@@ -2511,7 +2650,13 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getTotalRevenueBands( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 } );
+<pre class="prettyprint">sizeup.api.data.getTotalRevenueBands( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "boundingGranularity": sizeup.api.granularity.STATE,
+    "bands": 7
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -2591,13 +2736,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getTurnover( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY } );
+<pre class="prettyprint">sizeup.api.data.getTurnover( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2653,13 +2802,17 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getTurnoverPercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE  } );
+<pre class="prettyprint">sizeup.api.data.getTurnoverPercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2713,13 +2866,17 @@
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getWorkersComp( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE } );
+<pre class="prettyprint">sizeup.api.data.getWorkersComp( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2774,7 +2931,7 @@
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.
                     </td>
                 </tr> 
                 <tr>
@@ -2791,7 +2948,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getWorkersCompPercentage( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value:3.14   } );
+<pre class="prettyprint">sizeup.api.data.getWorkersCompPercentage( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.STATE,
+    "value": 3.14
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{
@@ -2867,13 +3029,19 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getYearStarted( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, startYear: 1986, endYear:2010  } );
+<pre class="prettyprint">sizeup.api.data.getYearStarted( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "startYear": 1986,
+    "endYear": 2010
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">[
@@ -3050,7 +3218,7 @@
                         Required
                     </td>
                     <td class="description">
-                        &lt;a href="#granularity"&gt;sizeup.api.granularity&lt;/a&gt; level of the placeId.
+                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
                     </td>
                 </tr> 
                 <tr>
@@ -3067,7 +3235,12 @@
             </tbody>
         </table>
         <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getYearStartedPercentile( { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998   } );
+<pre class="prettyprint">sizeup.api.data.getYearStartedPercentile( {
+    "placeId": 3051,
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "value": 1998
+} );
 </pre>
         <h3>Results</h3>
 <pre class="prettyprint">{

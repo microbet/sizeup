@@ -101,7 +101,14 @@
                         {{defaultValue}}
                     </td>
                     <td class="description">
-                        {{description}}
+                        {{&description}}
+                        {{#supportedOptions}}
+                        <br/></br>
+                        <strong>Supported Options:</strong>
+                        <ul>
+                        {{#options}}<li>{{value}}</li>{{/options}}
+                        </ul>
+                        {{/supportedOptions}}
                     </td>
                 </tr> 
                 {{/params}}              
@@ -129,12 +136,31 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
     var jqueryLoaded = false;
     var api = false;
     var runScript = null;
+    var formatOutputParams = function (p) {
+        var formatters = [
+            { pat: /"ZipCode"/g, replacer: 'sizeup.api.granularity.ZIP_CODE' },
+            { pat: /"City"/g, replacer: 'sizeup.api.granularity.CITY' },
+            { pat: /"County"/g, replacer: 'sizeup.api.granularity.COUNTY' },
+            { pat: /"Place"/g, replacer: 'sizeup.api.granularity.PLACE' },
+            { pat: /"Metro"/g, replacer: 'sizeup.api.granularity.METRO' },
+            { pat: /"State"/g, replacer: 'sizeup.api.granularity.STATE' },
+            { pat: /"Nation"/g, replacer: 'sizeup.api.granularity.NATION' }
+
+        ];
+        for (var x = 0; x < formatters.length; x++) {
+           p = p.replace(formatters[x].pat, formatters[x].replacer);
+        }
+        return p;
+    };
+
+
 
     var getResults = function (item, callback) {
         var p = $.extend(true, {}, item.exampleParams);
         sizeup.api.data[item.functionName](p, function (d) {
             item.results = JSON.stringify(d, null, 4);
             item.isComplete = true;
+            item.exampleParamsOutput = formatOutputParams(JSON.stringify(item.exampleParams, null, 4));
             callback();
         });
     };
@@ -195,8 +221,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Maximum number of results to return.'
                     }
                 ],
-                exampleParams: { term: 'san fran' },
-                exampleParamsOutput: '{ term: \'san fran\' }'
+                exampleParams: { term: 'san fran' }
             },
             {
                 functionName: 'getPlace',
@@ -209,8 +234,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
 
                     }
                 ],
-                exampleParams: { id: 3051 },
-                exampleParamsOutput: '{ id: \'3051\' }'
+                exampleParams: { id: 3051 }
             },
             {
                 functionName: 'findIndustry',
@@ -228,8 +252,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Maximum number of results to return.'
                     }
                 ],
-                exampleParams: { term: 'pharma' },
-                exampleParamsOutput: '{ term: \'pharma\' }'
+                exampleParams: { term: 'pharma' }
             },
             {
                 functionName: 'getIndustry',
@@ -243,7 +266,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                     }
                 ],
                 exampleParams: { id: 8589 },
-                exampleParamsOutput: '{ id: \'8589\' }'
+                exampleParamsOutput: '{ id: 8589 }'
             },
             {
                 functionName: 'getIndustries',
@@ -256,8 +279,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
 
                     }
                 ],
-                exampleParams: { ids: [8589, 11300] },
-                exampleParamsOutput: '{ ids: [8589, 11300 }'
+                exampleParams: { ids: [8589, 11300] }
             },
             {
                 functionName: 'getAverageRevenue',
@@ -276,11 +298,11 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                     {
                         name: 'granularity',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
+                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getAverageRevenuePercentile',
@@ -307,8 +329,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Revenue used to calculate the percentile.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 3200000 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 3200000 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 3200000 }
             },
             {
                 functionName: 'getAverageRevenueBands',
@@ -340,8 +361,8 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }
+                
             },
             {
                 functionName: 'getAverageEmployees',
@@ -363,8 +384,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getAverageEmployeesPercentile',
@@ -391,8 +411,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of employees used to calculate the percentile.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 5 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 5 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 5 }
             },
             {
                 functionName: 'getAverageEmployeesBands',
@@ -424,8 +443,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }
             },
             {
                 functionName: 'getAverageSalary',
@@ -447,8 +465,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getAverageSalaryPercentage',
@@ -475,8 +492,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Salary used to calculate the percentile.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 38000 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 38000 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 38000 }
             },
             {
                 functionName: 'getAverageSalaryBands',
@@ -508,8 +524,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }
             },
 
             {
@@ -532,8 +547,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getCostEffectivenessPercentage',
@@ -570,8 +584,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Revenue used to calculate the percentage.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, employees: 24, salary: 45000, revenue: 3500000 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, employees: 24, salary: 45000, revenue: 3500000 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, employees: 24, salary: 45000, revenue: 3500000 }
             },
             {
                 functionName: 'getCostEffectivenessBands',
@@ -603,8 +616,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.METRO, bands: 7 }
             },
 
             {
@@ -627,8 +639,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getEmployeesPerCapitaPercentile',
@@ -650,8 +661,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE},
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE}
             },
             {
                 functionName: 'getEmployeesPerCapitaBands',
@@ -683,8 +693,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }
             },
 
              {
@@ -713,8 +722,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                      }
 
                  ],
-                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
-                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }'
+                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }
              },
              {
                  functionName: 'getHealthcareCostPercentage',
@@ -741,8 +749,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                          description: 'Healthcare cost used to calculate the percentage.'
                      }
                  ],
-                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value: 4320  },
-                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value: 4320 }'
+                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value: 4320  }
              },
 
              {
@@ -765,8 +772,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                          description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                      }
                  ],
-                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                 exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
              },
             {
                 functionName: 'getJobChangePercentile',
@@ -788,8 +794,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE  }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }
             },
 
             {
@@ -812,8 +817,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getRevenuePerCapitaPercentile',
@@ -835,8 +839,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY  }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getRevenuePerCapitaBands',
@@ -868,8 +871,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }
             },
 
 
@@ -893,8 +895,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getTotalEmployeesBands',
@@ -926,8 +927,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }
             },
 
             {
@@ -950,8 +950,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getTotalRevenueBands',
@@ -983,8 +982,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Number of bands to calculate.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, boundingGranularity: sizeup.api.granularity.STATE, bands: 7 }
             },
 
 
@@ -1008,8 +1006,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY }
             },
             {
                 functionName: 'getTurnoverPercentile',
@@ -1031,8 +1028,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE  }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }
             },
 
 
@@ -1056,8 +1052,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId. Currently, only sizeup.api.granularity.STATE is supported.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE }
             },
             {
                 functionName: 'getWorkersCompPercentage',
@@ -1084,8 +1079,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Workers compensation rate to calculate percentile.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value:3.14 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value:3.14   }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.STATE, value:3.14 }
             },
 
             {
@@ -1118,8 +1112,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, startYear: 1986, endYear:2010 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, startYear: 1986, endYear:2010  }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, startYear: 1986, endYear:2010 }
             },
             {
                 functionName: 'getYearStartedPercentile',
@@ -1146,8 +1139,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                         description: 'Year to calculate percentile.'
                     }
                 ],
-                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998 },
-                exampleParamsOutput: '{ placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998   }'
+                exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998 }
             }
         ];
 
