@@ -8,7 +8,6 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/prettify/run_prettify.js")"></script>
 }
-
 <div id="documentation">
     <h1>API Documetation</h1>
 
@@ -54,6 +53,21 @@
     sizeup.api.granularity.METRO;
     sizeup.api.granularity.STATE;
     sizeup.api.granularity.NATION;
+    </pre>
+
+    <h2>Range <a name="range"></a></h2>
+    <p>
+    sizeup.api.range is range parameter used for some Data API methods.
+    </p>
+    <pre class="prettyprint">    //creates a range object and sets the minimun bound to 1 and the maximum bound to 5
+    var range = sizeup.api.range(1, 5);
+    //changes the bounds to 10 and 50
+    range.min(10);
+    range.max(50);
+    //gets the min and max values in the range object.
+    range.min();
+    range.max();
+
     </pre>
 
 
@@ -3705,12 +3719,84 @@
                     <td class="param">
                         averageRevenue
                     </td>
-                    <td class="type">Array<number></number></td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
                     <td class="default">
                         null
                     </td>
                     <td class="description">
-                        Id of the state to restrict the results.
+                        Range filter for average revenue. 
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        totalRevenue
+                    </td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Range filter for total revenue.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        totalEmployees
+                    </td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Range filter for total employees.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        revenuePerCapita
+                    </td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Range filter for revenue per capita.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        householdIncome
+                    </td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Range filter for household income.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        householdExpenditures
+                    </td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Range filter for household expenditures.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        medianAge
+                    </td>
+                    <td class="type"><a href="#range">sizeup.api.range</a></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Range filter for median age.
                     </td>
                 </tr> 
             </tbody>
@@ -3719,7 +3805,8 @@
 <pre class="prettyprint">sizeup.api.data.getBestPlaces( {
     "industryId": 8589,
     "granularity": sizeup.api.granularity.COUNTY,
-    "itemCount": 3
+    "itemCount": 3,
+    "averageRevenue": sizeup.api.range(100000 , 10000000)
 } );
 </pre>
         <h3>Results</h3>
