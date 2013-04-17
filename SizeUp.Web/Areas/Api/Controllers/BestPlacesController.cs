@@ -11,7 +11,7 @@ using SizeUp.Core.DataLayer.Models;
 using SizeUp.Core.DataLayer.Models.Base;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.DataLayer.Base;
-
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -57,12 +57,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
             return v;
         }
 
-        public ActionResult Index(int itemCount, int industryId, string attribute, Granularity granularity, long? regionId, long? stateId)
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
+        public ActionResult Index(int itemCount, int industryId, Granularity granularity, long? regionId, long? stateId)
         {
             BestPlacesFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {
-                var output = Core.DataLayer.BestPlaces.Get(context, industryId, attribute, regionId, stateId, filters, granularity).Take(itemCount).ToList();
+                var output = Core.DataLayer.BestPlaces.Get(context, industryId, regionId, stateId, filters, granularity).Take(itemCount).ToList();
                 var cities = output.Select(i => i.Place.City.Id).ToList();
                 var counties = Core.DataLayer.Base.Place.Get(context).Where(i => cities.Contains(i.CityId)).Select(i => new { Id = i.CityId, County = i.County.Name }).ToList();
                 output.ForEach(i => i.Place.City.Counties = counties.Where(c => c.Id == i.Place.City.Id).Select(c => new Core.DataLayer.Models.County { Name = c.County }).ToList());
@@ -70,13 +73,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-
-        public ActionResult Bands(int itemCount, int bands, int industryId, string attribute, Granularity granularity, long? regionId, long? stateId)
+        [LogAPIRequest]
+        [ValidateAPIRequest]
+        [AllowAPIRequest]
+        public ActionResult Bands(int itemCount, int bands, int industryId, Granularity granularity, long? regionId, long? stateId)
         {
             BestPlacesFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {
-                var output = Core.DataLayer.BestPlaces.Bands(context, industryId, attribute,itemCount, bands, regionId, stateId, filters, granularity);
+                var output = Core.DataLayer.BestPlaces.Bands(context, industryId, itemCount, bands, regionId, stateId, filters, granularity);
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }

@@ -188,6 +188,17 @@
                 sizeup.api.loader.getData(url, params, success, error);
             },
 
+
+            getBestPlaces: function (params, success, error) {
+                var url = '/api/bestPlaces/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getBestPlacesBands: function (params, success, error) {
+                var url = '/api/bestPlaces/Bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            }
+
         };
 
 

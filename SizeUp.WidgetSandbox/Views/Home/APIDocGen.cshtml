@@ -60,6 +60,22 @@
     sizeup.api.granularity.NATION;
     </pre>
 
+    <h2>Range <a name="range"></a></h2>
+    <p>
+    sizeup.api.range is range parameter used for some Data API methods.
+    </p>
+    <pre class="prettyprint">
+    //creates a range object and sets the minimun bound to 1 and the maximum bound to 5
+    var range = sizeup.api.range(1, 5);
+    //changes the bounds to 10 and 50
+    range.min(10);
+    range.max(50);
+    //gets the min and max values in the range object.
+    range.min();
+    range.max();
+
+    </pre>
+
 
     <h2>Data API</h2>
     <p>The data API is exposed via the sizeup.api.data object. The data API has a number of methods to access different types of data available through the API.</p>
@@ -94,6 +110,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -104,6 +121,7 @@
                     <td class="param">
                         {{name}}
                     </td>
+                    <td class="type">{{&type}}</td>
                     <td class="default">
                         {{defaultValue}}
                     </td>
@@ -143,6 +161,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
     var jqueryLoaded = false;
     var api = false;
     var runScript = null;
+
     var formatOutputParams = function (p) {
         var formatters = [
             { pat: /"ZipCode"/g, replacer: 'sizeup.api.granularity.ZIP_CODE' },
@@ -151,7 +170,8 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
             { pat: /"Place"/g, replacer: 'sizeup.api.granularity.PLACE' },
             { pat: /"Metro"/g, replacer: 'sizeup.api.granularity.METRO' },
             { pat: /"State"/g, replacer: 'sizeup.api.granularity.STATE' },
-            { pat: /"Nation"/g, replacer: 'sizeup.api.granularity.NATION' }
+            { pat: /"Nation"/g, replacer: 'sizeup.api.granularity.NATION' },
+            { pat: /"new sizeup.api.range(.*)"/g, replacer: 'sizeup.api.range$1' }
 
         ];
         for (var x = 0; x < formatters.length; x++) {
@@ -218,12 +238,14 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'term',
+                        type: 'string',
                         defaultValue: 'Required',
                         description: 'Search string for a place.'
 
                     },
                     {
                         name: 'maxResults',
+                        type: 'number',
                         defaultValue: '35',
                         description: 'Maximum number of results to return.'
                     }
@@ -236,6 +258,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'id',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Place Id for the place to return'
 
@@ -249,12 +272,14 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'term',
+                        type: 'string',
                         defaultValue: 'Required',
                         description: 'Search string for an industry.'
 
                     },
                     {
                         name: 'maxResults',
+                        type: 'number',
                         defaultValue: '35',
                         description: 'Maximum number of results to return.'
                     }
@@ -267,6 +292,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'id',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Industry Id for an industry.'
 
@@ -281,6 +307,7 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'ids',
+                        type: 'Array<number>',
                         defaultValue: 'Required',
                         description: 'Array of industry ids to return.'
 
@@ -294,18 +321,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -317,22 +347,26 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'value',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Revenue used to calculate the percentile.'
                     }
@@ -345,28 +379,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ {value:'sizeup.api,granularity.ZIP_CODE'}, { value: 'sizeup.api.granularity.COUNTY' },  { value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -380,18 +419,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -403,22 +445,26 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'value',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of employees used to calculate the percentile.'
                     }
@@ -431,28 +477,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.ZIP_CODE' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -465,18 +516,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -488,22 +542,26 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'value',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Salary used to calculate the percentile.'
                     }
@@ -516,28 +574,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' },  { value: 'sizeup.api.granularity.STATE' } ] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -551,18 +614,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -574,32 +640,38 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'salary',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Salary used to calculate the percentage.'
                     },
                     {
                         name: 'employees',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Employees used to calculate the percentage.'
                     },
                     {
                         name: 'revenue',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Revenue used to calculate the percentage.'
                     }
@@ -612,28 +684,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' },  { value: 'sizeup.api.granularity.STATE' } ] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -647,18 +724,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -670,18 +750,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -693,28 +776,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ {value: 'sizeup.api.granularity.ZIP_CODE' },{ value: 'sizeup.api.granularity.COUNTY' },  { value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -728,22 +816,26 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                  params: [
                      {
                          name: 'industryId',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Id of the industry.'
                      },
                      {
                          name: 'placeId',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Id of the place.'
                      },
                      {
                          name: 'granularity',
+                         type: '<a href="#granularity">sizeup.api.granularity</a>',
                          defaultValue: 'sizeup.api.granularity.STATE',
-                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                         description: 'Granularity level of the placeId.',
                          supportedOptions: { options: [ { value: 'sizeup.api.granularity.STATE' }] }
                      },
                      {
                          name: 'employees',
+                         type: 'number',
                          defaultValue: 'null',
                          description: 'Optional parameter used to return a more accurate healthcare cost based on number of employees in a business.'
                      }
@@ -757,22 +849,26 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                  params: [
                      {
                          name: 'industryId',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Id of the industry.'
                      },
                      {
                          name: 'placeId',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Id of the place.'
                      },
                      {
                          name: 'granularity',
+                         type: '<a href="#granularity">sizeup.api.granularity</a>',
                          defaultValue: 'sizeup.api.granularity.STATE',
-                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                         description: 'Granularity level of the placeId.',
                          supportedOptions: { options: [ { value: 'sizeup.api.granularity.STATE' }] }
                      },
                      {
                          name: 'value',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Healthcare cost used to calculate the percentage.'
                      }
@@ -786,18 +882,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                  params: [
                      {
                          name: 'industryId',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Id of the industry.'
                      },
                      {
                          name: 'placeId',
+                         type: 'number',
                          defaultValue: 'Required',
                          description: 'Id of the place.'
                      },
                      {
                          name: 'granularity',
+                         type: '<a href="#granularity">sizeup.api.granularity</a>',
                          defaultValue: 'Required',
-                         description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                         description: 'Granularity level of the placeId.',
                          supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                      }
                  ],
@@ -809,18 +908,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -833,18 +935,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{value: 'sizeup.api.granularity.ZIP_CODE'}, { value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -856,18 +961,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{value: 'sizeup.api.granularity.ZIP_CODE'}, { value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -879,28 +987,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{value: 'sizeup.api.granularity.ZIP_CODE'}, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -915,18 +1028,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -938,28 +1054,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.ZIP_CODE' }, { value: 'sizeup.api.granularity.COUNTY' },  { value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -973,18 +1094,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -996,28 +1120,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.ZIP_CODE' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'boundingGranularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.NATION',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.',
+                        description: 'Granularity level to restrict the calculation of the quantile.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'bands',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Number of bands to calculate.'
                     }
@@ -1032,18 +1161,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -1055,18 +1187,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -1080,18 +1215,21 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.STATE',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId. ',
+                        description: 'Granularity level of the placeId. ',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.STATE' }] }
                     }
                 ],
@@ -1103,22 +1241,26 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'sizeup.api.granularity.STATE',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [{ value: 'sizeup.api.granularity.STATE' }] }
                     },
                     {
                         name: 'value',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Workers compensation rate to calculate percentile.'
                     }
@@ -1132,28 +1274,33 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'startYear',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Year to start counting.'
                     },
                     {
                         name: 'endYear',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Last year to return counts.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
+                        description: 'Granularity level of the placeId.',
                         supportedOptions: { options: [ { value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     }
                 ],
@@ -1165,27 +1312,133 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
                 params: [
                     {
                         name: 'industryId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the industry.'
                     },
                     {
                         name: 'placeId',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Id of the place.'
                     },
                     {
                         name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
                         defaultValue: 'Required',
-                        description: '<a href="#granularity">sizeup.api.granularity</a> level of the placeId.',
-                        supportedOptions: { options: [ { value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
+                        description: 'Granularity level of the placeId.',
+                        supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }, { value: 'sizeup.api.granularity.NATION' }] }
                     },
                     {
                         name: 'value',
+                        type: 'number',
                         defaultValue: 'Required',
                         description: 'Year to calculate percentile.'
                     }
                 ],
                 exampleParams: { placeId: 3051, industryId: 8589, granularity: sizeup.api.granularity.COUNTY, value: 1998 }
+            },
+            {
+                functionName: 'getBestPlaces',
+                description: 'Returns a list of places based on a supplied granularity level, sorted by a given attribute that meets supplied filters.',
+                params: [
+                    {
+                        name: 'industryId',
+                        type: 'number',
+                        defaultValue: 'Required',
+                        description: 'Id of the industry.'
+                    },
+                    {
+                        name: 'granularity',
+                        type: '<a href="#granularity">sizeup.api.granularity</a>',
+                        defaultValue: 'Required',
+                        description: 'Granularity level of the returned results.',
+                        supportedOptions: { options: [{ value: 'sizeup.api.granularity.CITY' }, { value: 'sizeup.api.granularity.COUNTY' }, { value: 'sizeup.api.granularity.METRO' }, { value: 'sizeup.api.granularity.STATE' }] }
+                    },
+                    {
+                        name: 'itemCount',
+                        type: 'number',
+                        defaultValue: 'Required',
+                        description: 'Number of results to return.'
+                    },
+                    {
+                        name: 'regionId',
+                        type: 'number',
+                        defaultValue: 'null',
+                        description: 'Id of the region to restrict the results.'
+                    },
+                    {
+                        name: 'stateId',
+                        type: 'number',
+                        defaultValue: 'null',
+                        description: 'Id of the state to restrict the results.'
+                    },
+                    {
+                        name: 'averageRevenue',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for average revenue. '
+                    },
+                    {
+                        name: 'totalRevenue',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for total revenue.'
+                    },
+                    {
+                        name: 'totalEmployees',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for total employees.'
+                    },
+                    {
+                        name: 'revenuePerCapita',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for revenue per capita.'
+                    },
+                    {
+                        name: 'householdIncome',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for household income.'
+                    },
+                    {
+                        name: 'householdExpenditures',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for household expenditures.'
+                    },
+                    {
+                        name: 'medianAge',
+                        type: '<a href="#range">sizeup.api.range</a>',
+                        defaultValue: 'null',
+                        description: 'Range filter for median age.'
+                    }/*,
+
+
+
+
+
+
+
+
+        f.BachelorOrHigher = QueryString.IntValue("bachelorsDegreeOrHigher");
+        f.HighSchoolOrHigher = QueryString.IntValue("highSchoolOrHigher");
+        f.WhiteCollarWorkers = QueryString.IntValue("whiteCollarWorkers");
+        f.BlueCollarWorkers = QueryString.IntValue("blueCollarWorkers");
+        f.AirportsNearby = QueryString.IntValue("airportsNearby");
+        f.YoungEducated = QueryString.IntValue("youngEducated");
+        f.UniversitiesNearby = QueryString.IntValue("universitiesNearby");
+        f.CommuteTime = QueryString.IntValue("commuteTime");
+        f.Attribute = QueryString.StringValue("attribute");
+
+        */
+
+
+
+                ],
+                exampleParams: { industryId: 8589, granularity: sizeup.api.granularity.COUNTY, itemCount: 3, averageRevenue: new sizeup.api.range(100000, 10000000) }
             }
         ];
 

@@ -34,6 +34,12 @@
                                 formattedParams.push(x + '=' + encodeURIComponent(params[x][y]));
                             }
                         }
+                        else if (params[x]._type && params[x]._type() == 'sizeup.api.range') {
+                            var p = [params[x].min(), params[x].max()];
+                            for (var y = 0; y < p.length; y++) {
+                                formattedParams.push(x + '=' + encodeURIComponent(p[y]));
+                            }
+                        }
                         else {
                             formattedParams.push(x + '=' + encodeURIComponent(params[x]));
                         }
@@ -95,6 +101,7 @@
         var fillQueue = function () {
             me.scriptQueue.push({ url: '/jsapi/data.js', loaded: false });
             me.scriptQueue.push({ url: '/jsapi/granularity.js', loaded: false });
+            me.scriptQueue.push({ url: '/jsapi/range.js', loaded: false });
         };
 
         var loadQueue = function () {

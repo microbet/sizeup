@@ -8,6 +8,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/prettify/run_prettify.js")"></script>
 }
+
 <div id="documentation">
     <h1>API Documetation</h1>
 
@@ -40,7 +41,7 @@
 &lt;/html&gt;
 </pre>
 
-    <h2>Granularity</h2>
+    <h2>Granularity <a name="granularity"></a></h2>
     <p>
     sizeup.api.granularity is an enumeration object that provides static values for granularity parameters in the Data API. 
     Granularity parameters are used to specify receiving values on the City, County, Metro etc. level.
@@ -67,15 +68,6 @@
                 //your code on error
             });
     </pre>
-
-    <dl>
-        <dt>params</dt> 
-        <dd>An object of required and optional parameters needed for each method call.</dd>
-        <dt>success</dt>
-        <dd>A callback function that returns when the data has been received from SizeUp.</dd>
-        <dt>error</dt> 
-        <dd>A function that has no parameters and fires when data cannot be retrieved from SizeUp for any reason.</dd>
-    </dl>
 
 
     <h2>Data API Methods</h2>
@@ -117,6 +109,7 @@
         <li><a href="#getWorkersCompPercentage">getWorkersCompPercentage</a></li>
         <li><a href="#getYearStarted">getYearStarted</a></li>
         <li><a href="#getYearStartedPercentile">getYearStartedPercentile</a></li>
+        <li><a href="#getBestPlaces">getBestPlaces</a></li>
     </ul>
 
 
@@ -130,6 +123,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -139,6 +133,7 @@
                     <td class="param">
                         term
                     </td>
+                    <td class="type">string</td>
                     <td class="default">
                         Required
                     </td>
@@ -150,6 +145,7 @@
                     <td class="param">
                         maxResults
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         35
                     </td>
@@ -243,6 +239,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -252,6 +249,7 @@
                     <td class="param">
                         id
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -311,6 +309,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -320,6 +319,7 @@
                     <td class="param">
                         term
                     </td>
+                    <td class="type">string</td>
                     <td class="default">
                         Required
                     </td>
@@ -331,6 +331,7 @@
                     <td class="param">
                         maxResults
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         35
                     </td>
@@ -440,6 +441,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -449,6 +451,7 @@
                     <td class="param">
                         id
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -492,6 +495,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -501,6 +505,7 @@
                     <td class="param">
                         ids
                     </td>
+                    <td class="type">Array<number></number></td>
                     <td class="default">
                         Required
                     </td>
@@ -565,6 +570,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -574,6 +580,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -585,6 +592,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -596,11 +604,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -635,6 +644,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -644,6 +654,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -655,6 +666,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -666,11 +678,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -682,6 +695,7 @@
                     <td class="param">
                         value
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -716,6 +730,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -725,6 +740,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -736,6 +752,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -747,11 +764,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -763,11 +781,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -779,6 +798,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -840,6 +860,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -849,6 +870,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -860,6 +882,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -871,11 +894,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -910,6 +934,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -919,6 +944,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -930,6 +956,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -941,11 +968,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -957,6 +985,7 @@
                     <td class="param">
                         value
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -991,6 +1020,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1000,6 +1030,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1011,6 +1042,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1022,11 +1054,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1038,11 +1071,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1054,6 +1088,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1103,6 +1138,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1112,6 +1148,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1123,6 +1160,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1134,11 +1172,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1173,6 +1212,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1182,6 +1222,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1193,6 +1234,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1204,11 +1246,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1220,6 +1263,7 @@
                     <td class="param">
                         value
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1254,6 +1298,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1263,6 +1308,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1274,6 +1320,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1285,11 +1332,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1301,11 +1349,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1317,6 +1366,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1370,6 +1420,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1379,6 +1430,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1390,6 +1442,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1401,11 +1454,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1440,6 +1494,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1449,6 +1504,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1460,6 +1516,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1471,11 +1528,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1487,6 +1545,7 @@
                     <td class="param">
                         salary
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1498,6 +1557,7 @@
                     <td class="param">
                         employees
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1509,6 +1569,7 @@
                     <td class="param">
                         revenue
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1545,6 +1606,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1554,6 +1616,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1565,6 +1628,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1576,11 +1640,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1592,11 +1657,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1608,6 +1674,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1661,6 +1728,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1670,6 +1738,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1681,6 +1750,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1692,11 +1762,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1731,6 +1802,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1740,6 +1812,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1751,6 +1824,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1762,11 +1836,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1800,6 +1875,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1809,6 +1885,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1820,6 +1897,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1831,11 +1909,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1847,11 +1926,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1863,6 +1943,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1924,6 +2005,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -1933,6 +2015,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1944,6 +2027,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -1955,11 +2039,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -1971,6 +2056,7 @@
                     <td class="param">
                         employees
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         null
                     </td>
@@ -2009,6 +2095,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2018,6 +2105,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2029,6 +2117,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2040,11 +2129,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2056,6 +2146,7 @@
                     <td class="param">
                         value
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2090,6 +2181,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2099,6 +2191,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2110,6 +2203,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2121,11 +2215,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2161,6 +2256,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2170,6 +2266,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2181,6 +2278,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2192,11 +2290,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2230,6 +2329,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2239,6 +2339,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2250,6 +2351,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2261,11 +2363,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2300,6 +2403,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2309,6 +2413,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2320,6 +2425,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2331,11 +2437,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2369,6 +2476,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2378,6 +2486,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2389,6 +2498,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2400,11 +2510,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2416,11 +2527,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2432,6 +2544,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2493,6 +2606,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2502,6 +2616,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2513,6 +2628,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2524,11 +2640,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2563,6 +2680,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2572,6 +2690,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2583,6 +2702,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2594,11 +2714,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2610,11 +2731,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2626,6 +2748,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2687,6 +2810,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2696,6 +2820,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2707,6 +2832,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2718,11 +2844,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2757,6 +2884,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2766,6 +2894,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2777,6 +2906,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2788,11 +2918,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2804,11 +2935,12 @@
                     <td class="param">
                         boundingGranularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.NATION
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level to restrict the calculation of the quantile.
+                        Granularity level to restrict the calculation of the quantile.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2820,6 +2952,7 @@
                     <td class="param">
                         bands
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2881,6 +3014,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2890,6 +3024,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2901,6 +3036,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2912,11 +3048,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -2952,6 +3089,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -2961,6 +3099,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2972,6 +3111,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -2983,11 +3123,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -3021,6 +3162,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -3030,6 +3172,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3041,6 +3184,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3052,11 +3196,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId. 
+                        Granularity level of the placeId. 
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -3091,6 +3236,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -3100,6 +3246,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3111,6 +3258,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3122,11 +3270,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         sizeup.api.granularity.STATE
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -3138,6 +3287,7 @@
                     <td class="param">
                         value
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3172,6 +3322,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -3181,6 +3332,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3192,6 +3344,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3203,6 +3356,7 @@
                     <td class="param">
                         startYear
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3214,6 +3368,7 @@
                     <td class="param">
                         endYear
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3225,11 +3380,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -3388,6 +3544,7 @@
             <thead>
                 <tr>
                     <td class="param">Parameter</td>
+                    <td class="type">Type</td>
                     <td class="default">Default Value</td>
                     <td class="description">Description</td>
                 </tr>
@@ -3397,6 +3554,7 @@
                     <td class="param">
                         industryId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3408,6 +3566,7 @@
                     <td class="param">
                         placeId
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3419,11 +3578,12 @@
                     <td class="param">
                         granularity
                     </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
                     <td class="default">
                         Required
                     </td>
                     <td class="description">
-                        <a href="#granularity">sizeup.api.granularity</a> level of the placeId.
+                        Granularity level of the placeId.
                         <br><br>
                         <strong>Supported Options:</strong>
                         <ul>
@@ -3435,6 +3595,7 @@
                     <td class="param">
                         value
                     </td>
+                    <td class="type">number</td>
                     <td class="default">
                         Required
                     </td>
@@ -3457,6 +3618,329 @@
     "Percentile": 57,
     "Name": "San Francisco, CA"
 }</pre>
+       
+    </div>
+      <div class="method">
+        <h2>
+            sizeup.api.data.getBestPlaces
+            <a name="getBestPlaces"></a>
+        </h2>
+        <p>Returns a list of places based on a supplied granularity level, sorted by a given attribute that meets supplied filters.</p>
+        <table class="params">
+            <thead>
+                <tr>
+                    <td class="param">Parameter</td>
+                    <td class="type">Type</td>
+                    <td class="default">Default Value</td>
+                    <td class="description">Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="param">
+                        industryId
+                    </td>
+                    <td class="type">number</td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Id of the industry.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        granularity
+                    </td>
+                    <td class="type"><a href="#granularity">sizeup.api.granularity</a></td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Granularity level of the returned results.
+                        <br><br>
+                        <strong>Supported Options:</strong>
+                        <ul>
+                        <li>sizeup.api.granularity.CITY</li><li>sizeup.api.granularity.COUNTY</li><li>sizeup.api.granularity.METRO</li><li>sizeup.api.granularity.STATE</li>
+                        </ul>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        itemCount
+                    </td>
+                    <td class="type">number</td>
+                    <td class="default">
+                        Required
+                    </td>
+                    <td class="description">
+                        Number of results to return.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        regionId
+                    </td>
+                    <td class="type">number</td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Id of the region to restrict the results.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        stateId
+                    </td>
+                    <td class="type">number</td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Id of the state to restrict the results.
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="param">
+                        averageRevenue
+                    </td>
+                    <td class="type">Array<number></number></td>
+                    <td class="default">
+                        null
+                    </td>
+                    <td class="description">
+                        Id of the state to restrict the results.
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <h3>Usage</h3>
+<pre class="prettyprint">sizeup.api.data.getBestPlaces( {
+    "industryId": 8589,
+    "granularity": sizeup.api.granularity.COUNTY,
+    "itemCount": 3
+} );
+</pre>
+        <h3>Results</h3>
+<pre class="prettyprint">[
+    {
+        "Place": {
+            "Id": null,
+            "DisplayName": null,
+            "City": {
+                "Id": null,
+                "Name": null,
+                "SEOKey": null,
+                "TypeName": null,
+                "Counties": []
+            },
+            "County": {
+                "Id": 200,
+                "Name": "Kings",
+                "SEOKey": "kings"
+            },
+            "Metro": {
+                "Id": 358,
+                "Name": "Hanford-Corcoran, CA",
+                "SEOKey": "hanford-corcoran-ca"
+            },
+            "State": {
+                "Id": 5,
+                "Name": "California",
+                "Abbreviation": "CA",
+                "SEOKey": "california"
+            },
+            "Region": {
+                "Id": 8,
+                "RegionName": "West",
+                "Name": "Pacific"
+            }
+        },
+        "Centroid": {
+            "Lat": 36.07536100520251,
+            "Lng": -119.81550247693521
+        },
+        "BoundingBox": {
+            "NorthEast": {
+                "Lat": 36.488962,
+                "Lng": -119.474354
+            },
+            "SouthWest": {
+                "Lat": 35.788678,
+                "Lng": -120.315068
+            }
+        },
+        "TotalRevenue": {
+            "Min": 37501000,
+            "Max": 40000000
+        },
+        "TotalEmployees": {
+            "Min": 121,
+            "Max": 130
+        },
+        "AverageRevenue": {
+            "Min": 4001000,
+            "Max": 4250000
+        },
+        "AverageEmployees": {
+            "Min": 11,
+            "Max": 15
+        },
+        "RevenuePerCapita": {
+            "Min": 241,
+            "Max": 260
+        },
+        "EmployeesPerCapita": {
+            "Min": 0.0007501,
+            "Max": 0.0008
+        }
+    },
+    {
+        "Place": {
+            "Id": null,
+            "DisplayName": null,
+            "City": {
+                "Id": null,
+                "Name": null,
+                "SEOKey": null,
+                "TypeName": null,
+                "Counties": []
+            },
+            "County": {
+                "Id": 204,
+                "Name": "Madera",
+                "SEOKey": "madera"
+            },
+            "Metro": {
+                "Id": 508,
+                "Name": "Madera-Chowchilla, CA",
+                "SEOKey": "madera-chowchilla-ca"
+            },
+            "State": {
+                "Id": 5,
+                "Name": "California",
+                "Abbreviation": "CA",
+                "SEOKey": "california"
+            },
+            "Region": {
+                "Id": 8,
+                "RegionName": "West",
+                "Name": "Pacific"
+            }
+        },
+        "Centroid": {
+            "Lat": 37.21803587060889,
+            "Lng": -119.76264585186892
+        },
+        "BoundingBox": {
+            "NorthEast": {
+                "Lat": 37.777986,
+                "Lng": -119.022363
+            },
+            "SouthWest": {
+                "Lat": 36.763047,
+                "Lng": -120.545536
+            }
+        },
+        "TotalRevenue": {
+            "Min": 95001000,
+            "Max": 100000000
+        },
+        "TotalEmployees": {
+            "Min": 301,
+            "Max": 320
+        },
+        "AverageRevenue": {
+            "Min": 7501000,
+            "Max": 8000000
+        },
+        "AverageEmployees": {
+            "Min": 21,
+            "Max": 25
+        },
+        "RevenuePerCapita": {
+            "Min": 601,
+            "Max": 650
+        },
+        "EmployeesPerCapita": {
+            "Min": 0.001001,
+            "Max": 0.002
+        }
+    },
+    {
+        "Place": {
+            "Id": null,
+            "DisplayName": null,
+            "City": {
+                "Id": null,
+                "Name": null,
+                "SEOKey": null,
+                "TypeName": null,
+                "Counties": []
+            },
+            "County": {
+                "Id": 238,
+                "Name": "Tulare",
+                "SEOKey": "tulare"
+            },
+            "Metro": {
+                "Id": 882,
+                "Name": "Visalia-Porterville, CA",
+                "SEOKey": "visalia-porterville-ca"
+            },
+            "State": {
+                "Id": 5,
+                "Name": "California",
+                "Abbreviation": "CA",
+                "SEOKey": "california"
+            },
+            "Region": {
+                "Id": 8,
+                "RegionName": "West",
+                "Name": "Pacific"
+            }
+        },
+        "Centroid": {
+            "Lat": 36.22015677890037,
+            "Lng": -118.8004728435165
+        },
+        "BoundingBox": {
+            "NorthEast": {
+                "Lat": 36.744816,
+                "Lng": -117.980761
+            },
+            "SouthWest": {
+                "Lat": 35.789161,
+                "Lng": -119.573194
+            }
+        },
+        "TotalRevenue": {
+            "Min": 175001000,
+            "Max": 180000000
+        },
+        "TotalEmployees": {
+            "Min": 551,
+            "Max": 600
+        },
+        "AverageRevenue": {
+            "Min": 4751000,
+            "Max": 5000000
+        },
+        "AverageEmployees": {
+            "Min": 16,
+            "Max": 20
+        },
+        "RevenuePerCapita": {
+            "Min": 381,
+            "Max": 400
+        },
+        "EmployeesPerCapita": {
+            "Min": 0.001001,
+            "Max": 0.002
+        }
+    }
+]</pre>
        
     </div>
 </div>

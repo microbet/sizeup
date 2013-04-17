@@ -294,7 +294,7 @@ namespace SizeUp.Core.DataLayer
         }
 
 
-        public static IQueryable<Models.BestPlacesOutput> Get(SizeUpContext context, long industryId, string attribute, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
+        public static IQueryable<Models.BestPlacesOutput> Get(SizeUpContext context, long industryId, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
         {
             IQueryable<Models.BestPlaces> data = new List<Models.BestPlaces>().AsQueryable(); //empty
 
@@ -534,9 +534,9 @@ namespace SizeUp.Core.DataLayer
             return output;
         }
 
-        public static List<Models.Band<double>> Bands(SizeUpContext context, long industryId, string attribute, int itemCount, int bands, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
+        public static List<Models.Band<double>> Bands(SizeUpContext context, long industryId, int itemCount, int bands, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
         {
-            var data = Get(context, industryId, attribute, regionId, stateId, filters, granularity)
+            var data = Get(context, industryId, regionId, stateId, filters, granularity)
                 .Take(itemCount)
                 .ToList();
 
