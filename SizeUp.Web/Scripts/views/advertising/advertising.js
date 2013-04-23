@@ -158,8 +158,8 @@
 
             me.content.pager = new sizeup.controls.pager({
                 container: me.container.find('.pager'),
-                currentPage: params.page,
-                itemsPerPage: me.opts.itemsPerPage,
+                currentPage: me.isAuthenticated ? params.page : 1,
+                itemsPerPage: me.isAuthenticated ? me.opts.itemsPerPage : 3,
                 pagesToShow: me.opts.pagesToShow,
                 templates: templates,
                 templateId: 'pager',
@@ -687,7 +687,7 @@
 
             params.industryId = me.data.activeIndustry.Id;
             params.placeId = me.data.activePlace.Id;
-            params.itemCount = me.opts.itemsPerPage;
+            params.itemCount = pagerData.itemsPerPage;
             params.bands = me.opts.bandCount;
             params.page = pagerData.page;
 

@@ -891,7 +891,7 @@
                 me.data.businessListXHR = dataLayer.getBusinessesByIndustry({
                     industryIds: ids,
                     placeId: me.opts.CurrentInfo.CurrentPlace.Id,
-                    itemCount: me.opts.itemsPerPage,
+                    itemCount: me.data[me.data.activeIndex].pageData.itemsPerPage,
                     page: me.data[me.data.activeIndex].pageData.page
                 }, function (data) {
                     me.data[me.data.activeIndex].businesses = data;

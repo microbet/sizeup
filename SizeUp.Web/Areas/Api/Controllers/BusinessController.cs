@@ -41,12 +41,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult List(List<long> industryIds, long placeId, int itemCount, int page = 1, int radius = 100)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                page = 1;
-                itemCount = 3;
-            }
-
             using (var context = ContextFactory.SizeUpContext)
             {
                 var centroid = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();

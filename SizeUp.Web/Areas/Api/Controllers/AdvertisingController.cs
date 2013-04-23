@@ -58,12 +58,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Index(int industryId, long placeId, int page = 1, int itemCount = 20)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                page = 1;
-                itemCount = 3;
-            }
-
             AdvertisingFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {
