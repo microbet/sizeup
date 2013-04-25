@@ -1,7 +1,7 @@
 ﻿(function () {
     var me = {};
 
-    me.wigetSource = '/widget/select';
+    me.wigetSource = '/widget/load';
     me.defaultWidth = '600';
     me.defaultHeight = '600';
     me.defaultMinWidth = '580';
@@ -10,11 +10,13 @@
 
     var buildQueryString = function (vals) {
         var params = [];
-        for (var x = 0; x < vals.length; x++) {
-            params.push(x +
+        for (var x in vals) {
+            if (vals.hasOwnProperty(x)) {
+                params.push(x + '=' + vals[x]);
+            }
         }
+        return '?' + params.join('&');
     };
-
 
     var createIframe = function () {
         var loc = getScriptLocation();

@@ -167,7 +167,6 @@
             for (var x in overlays) {
                 me.map.addOverlay(overlays[x], 0);
             }
-
             setLegend();
         };
 
