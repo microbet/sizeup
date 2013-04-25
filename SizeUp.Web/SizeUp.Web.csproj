@@ -191,6 +191,7 @@
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Widget\Controllers\CommunityController.cs" />
     <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
     <Compile Include="Areas\Widget\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Widget\Controllers\GetController.cs" />
@@ -302,6 +303,8 @@
     <Content Include="Content\widget\layout.css" />
     <Content Include="Content\widget\print.css" />
     <Content Include="Content\widget\Views\advertising\index.css" />
+    <Content Include="Content\widget\Views\community\index.css" />
+    <Content Include="Content\widget\Views\community\print.css" />
     <Content Include="Content\widget\Views\competition\index.css" />
     <Content Include="Content\widget\Views\competition\print.css" />
     <Content Include="Content\widget\Views\dashboard\index.css" />
@@ -496,6 +499,7 @@
     <Content Include="Areas\Widget\Views\BestPlaces\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\_HeaderlessLayout.cshtml" />
     <Content Include="Areas\Widget\Views\User\Profile.cshtml" />
+    <Content Include="Areas\Widget\Views\Community\Index.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />

@@ -8,6 +8,13 @@
     me.defaultMinHeight = '900';
     me.defaultColor = '#fff';
 
+    var buildQueryString = function (vals) {
+        var params = [];
+        for (var x = 0; x < vals.length; x++) {
+            params.push(x +
+        }
+    };
+
 
     var createIframe = function () {
         var loc = getScriptLocation();
@@ -29,7 +36,7 @@
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
         iframe["scrolling"] = 'no';
-        var src = loc.protocol + '://' + loc.host + (loc.port? ':' + loc.port : '') + me.wigetSource;
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query);
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
     };

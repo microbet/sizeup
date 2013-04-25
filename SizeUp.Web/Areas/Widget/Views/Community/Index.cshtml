@@ -1,0 +1,191 @@
+﻿@{
+    Layout = "~/Areas/Widget/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>
+    @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation – Demographic and Business Profile – population, industries, labor force, business, relocation, real estate, map, taxes, transportation, quality of life
+</title>
+
+<link href="@Url.Content("~/Content/views/community/communityWithIndustry.css")" rel="stylesheet" type="text/css" />
+
+
+
+
+<link href="@Url.Content("~/Content/widget/views/community/index.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/widget/views/community/print.css")" rel="stylesheet" type="text/css" media="print" />
+
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/charts/barChart.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
+
+
+
+
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/communityWithIndustry.js")"></script>
+
+}
+
+<div id="community">
+    <h1>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
+    <p class="description">There @(ViewBag.BusinessCount == 1 ? "is " +  @ViewBag.BusinessCount+ " business" : "are " + @ViewBag.BusinessCount + " businesses") in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name. </a>
+         A comprehensive <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name </a> is available.</p>
+     <ul class="features">
+        <li class="dashboard">
+            <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+                <img src="@Url.Content("~/Content/images/mybusinessSmall.png")" alt="My Business" />    
+                <p>Compare your business to your industry competitors.</p>
+                <span class="button small" >My Business</span>
+            </a>
+        </li>
+        <li class="competition">
+            <a href="/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+                <img src="@Url.Content("~/Content/images/competeSmall.png")" alt="Competition" />
+                <p>Map your competitors, customers, and suppliers.</p>
+                <span class="button small" >Competition</span>
+            </a>
+        </li>
+        <li class="advertising">
+            <a href="/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+                <img src="@Url.Content("~/Content/images/advertiseSmall.png")" alt="Advertising" />
+                <p>Find best places to target your next advertising campaign.</p>
+                <span class="button small" >Advertising</span>
+            </a>
+        </li>
+    </ul>
+    <div class="mapWrapper container">
+        <div data-template="legendTitle" class="legend titleWrap">
+            <p class="backdrop edge title"><span class="text"></span></p>
+        </div>
+        <div data-template="legendContainer" class="legend backdrop edge">
+            <ul class="legend legendContainer">
+                <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+            </ul>
+        </div>
+        <div class="map"></div>
+    </div>
+    <div class="report wrapper">
+        <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+        <div id="averageRevenue" class="chartContainer">
+            <h3>Average Estimated Revenue</h3>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
+            <div class="loading">
+                <p class="title">Average Estimated Revenue</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="totalRevenue" class="chartContainer">
+            <h3>Total Estimated Revenue</h3>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
+            <div class="loading">
+                <p class="title">Total Estimated Revenue</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="averageEmployees" class="chartContainer">
+            <h3>Average Estimated Employees</h3>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
+            <div class="loading">
+                <p class="title">Average Estimated Employees</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="totalEmployees" class="chartContainer">
+            <h3>Total Estimated Employees</h3>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
+            <div class="loading">
+                <p class="title">Total Estimated Employees</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="averageSalary" class="chartContainer">
+            <h3>Average Salary</h3>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
+            <div class="loading">
+                <p class="title">Average Salary</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+
+        <div id="costEffectiveness" class="chartContainer">
+            <h3>Cost Effectiveness</h3>
+            <p class="noData hidden">No results for this industry</p>
+            <div class="chartWrapper">
+                <p class="buttons"><a class="mapActivate" href="javascript:void(0);">MAP</a> | <a class="mapClear" href="javascript:void(0);">RESET</a></p>
+                <div class="chart"></div>
+            </div>
+            <div class="loading">
+                <p class="title">Cost Effectiveness</p>
+                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <p class="message">Generating Report</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+@section scripts{
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var opts =  { location : @Html.Raw(ViewBag.CurrentInfoJSON) }; 
+        var driver = new sizeup.views.community.communityWithIndustry(opts);
+    });
+</script>
+}
+
+
+
