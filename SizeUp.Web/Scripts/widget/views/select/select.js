@@ -112,20 +112,36 @@
                 dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
                 dataLayer.setCurrentPlace({ id: currentCity.Id });
                 setSelectorLinks();
-                showSelector();
+                if (me.opts.startFeature != null && me.opts.startFeature == 'Dashboard') {
+                    window.location = '/widget/dashboard/' + getUrlPath();
+                }
+                else if (me.opts.startFeature != null && me.opts.startFeature == 'Competition') {
+                    window.location = '/widget/competition/' + getUrlPath();
+                }
+                else if (me.opts.startFeature != null && me.opts.startFeature == 'Advertising') {
+                    window.location = '/widget/advertising/' + getUrlPath();
+                }
+                else if (me.opts.startFeature != null && me.opts.startFeature == 'Community') {
+                    window.location = '/widget/community/' + getUrlPath();
+                }
+                else {
+                    showSelector();
+                }
             }
         };
 
         var setSelectorLinks = function () {
+            me.selector.myBusiness.attr('href', 'dashboard/' + getUrlPath());
+            me.selector.competition.attr('href', 'competition/' + getUrlPath());
+            me.selector.advertising.attr('href', 'advertising/' + getUrlPath());
+        };
+
+        var getUrlPath = function () {
             var currentCity = me.form.location.placeSelector.getSelection();
             var currentIndustry = me.form.industry.industrySelector.getSelection();
 
-            me.selector.myBusiness.attr('href', 'dashboard/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
-            me.selector.competition.attr('href', 'competition/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
-            me.selector.advertising.attr('href', 'advertising/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
+            return currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey;
         };
-
-
 
 
         var publicObj = {

@@ -58,7 +58,7 @@
 @section scripts{
 
     <script type="text/javascript">
-    var driver = new sizeup.widget.views.select.select();
+        var driver = new sizeup.widget.views.select.select({ startFeature: @(ViewBag.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null") });
     </script>
 
 

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Web.Controllers;
 using SizeUp.Web.Models;
-
+using SizeUp.Core.Web;
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
     public class SelectController : BaseController
@@ -19,6 +19,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             {
                 HideNavigation = true
             };
+            ViewBag.StartFeature = WebContext.Current.StartFeature;
             return View();
         }
 

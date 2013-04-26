@@ -23,6 +23,9 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
+
 <script type="text/javascript" src="@Url.Content("~/Scripts/charts/barChart.js")"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
@@ -39,31 +42,44 @@
 
 
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/communityWithIndustry.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/community/communityWithIndustry.js")"></script>
 
 }
 
 <div id="community">
-    <h1>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
-    <p class="description">There @(ViewBag.BusinessCount == 1 ? "is " +  @ViewBag.BusinessCount+ " business" : "are " + @ViewBag.BusinessCount + " businesses") in @ViewBag.CurrentInfo.CurrentPlace.City.Name categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name. </a>
-         A comprehensive <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">demographic report for @ViewBag.CurrentInfo.CurrentPlace.City.Name </a> is available.</p>
+    <div class="headingWrapper">
+        <h2 class="heading">
+            <span>Industry Analysis for</span>
+           
+            <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
+            <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+
+            <span>in </span>
+
+
+            <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
+            <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+
+        </h2>
+    </div>
+     
      <ul class="features">
         <li class="dashboard">
-            <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+            <a href="/widget/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
                 <img src="@Url.Content("~/Content/images/mybusinessSmall.png")" alt="My Business" />    
                 <p>Compare your business to your industry competitors.</p>
                 <span class="button small" >My Business</span>
             </a>
         </li>
         <li class="competition">
-            <a href="/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+            <a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
                 <img src="@Url.Content("~/Content/images/competeSmall.png")" alt="Competition" />
                 <p>Map your competitors, customers, and suppliers.</p>
                 <span class="button small" >Competition</span>
             </a>
         </li>
         <li class="advertising">
-            <a href="/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+            <a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
                 <img src="@Url.Content("~/Content/images/advertiseSmall.png")" alt="Advertising" />
                 <p>Find best places to target your next advertising campaign.</p>
                 <span class="button small" >Advertising</span>
@@ -82,7 +98,6 @@
         <div class="map"></div>
     </div>
     <div class="report wrapper">
-        <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
         <div id="averageRevenue" class="chartContainer">
             <h3>Average Estimated Revenue</h3>
             <p class="noData hidden">No results for this industry</p>
@@ -182,7 +197,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var opts =  { location : @Html.Raw(ViewBag.CurrentInfoJSON) }; 
-        var driver = new sizeup.views.community.communityWithIndustry(opts);
+        var driver = new sizeup.widget.views.community.communityWithIndustry(opts);
     });
 </script>
 }
