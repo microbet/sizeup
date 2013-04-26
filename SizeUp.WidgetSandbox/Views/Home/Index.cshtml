@@ -3,12 +3,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@section head{
 
-
-
+    <style>
+        body {font-size:12px; color:#606060; }
+        ul.features { }
+        ul.features li {margin: 1em 0; }
+        ul.features li label {font-size:1.3em; width:10em; text-align:left; display:inline-block; }
+        ul.features li inupt[type="text"] {width:10em; }
+        ul.features li span.postfix { padding:0 0 0 0.5em; }
+    </style>
+}
+<h2>Features</h2>
+<form action="/" method="post">
+    <ul class="features">
+        <li><label for="width">Width:</label><input id="width" type="text" /><span class="postfix">px</span></li>
+        <li><label for="height">Height:</label><input id="width" type="text" /><span class="postfix">px</span></li>
+    </ul>
+    <input type="submit" name="Submit" value="Make it so!" />
+</form>
 
 <div>
 <span><a href="http://www.sizeup.com" target="_blank">SizeUp</a></span>
-<script type="text/javascript" src="http://@ViewData["url"]/widget/get?key=6388E63C-3D44-472B-A424-712395B1AD51&industryid=7623&placeid=8589&feature=community"></script>
+<script type="text/javascript" src="http://@ViewData["url"]/widget/get?key=6388E63C-3D44-472B-A424-712395B1AD51@(ViewBag.Params.Length>0 ?? Html.Raw("&" + ViewBag.Params) )"></script>
 </div>

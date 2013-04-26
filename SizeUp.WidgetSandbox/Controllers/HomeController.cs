@@ -12,8 +12,18 @@ namespace SizeUp.WidgetSandbox.Controllers
         // GET: /Home/ 
         public ActionResult Index()
         {
+            List<string> p = new List<string>();
+            foreach (var x in Request.Form.AllKeys)
+            {
+                p.Add(x + "=" + Request.Form[x]);
+            }
+
+
+            ViewBag.Params = String.Join("&", p);
             return View();
         }
+
+       
 
         public ActionResult HighContrast()
         {
