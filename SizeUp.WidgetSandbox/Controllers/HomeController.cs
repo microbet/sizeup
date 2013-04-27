@@ -15,7 +15,10 @@ namespace SizeUp.WidgetSandbox.Controllers
             List<string> p = new List<string>();
             foreach (var x in Request.Form.AllKeys)
             {
-                p.Add(x + "=" + Request.Form[x]);
+                if (!string.IsNullOrEmpty(Request.Form[x]))
+                {
+                    p.Add(x + "=" + Request.Form[x]);
+                }
             }
 
 
