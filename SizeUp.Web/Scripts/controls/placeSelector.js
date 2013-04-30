@@ -25,15 +25,8 @@
             me.textbox.addClass('blank');
         };
 
-        var onBlur = function () {
-            if ($.trim(me.textbox.val()) == '' || $.trim(me.textbox.val()) == me.promptText) {
-                me.textbox.val(me.promptText);
-                me.textbox.addClass('blank');
-            }
-        };
-
         var onFocus = function () {
-            if (me.selection == null && me.textbox.val() == me.promptText) {
+            if (me.selection == null) {
                 me.textbox.val('');
             }
             else {
@@ -43,21 +36,16 @@
         };
 
 
-
-        var onSelection = function (item) {
-            setSelection(item);
-        };
-
         var setSelection = function (item) {
-            me.selection = item;
             if (item != null) {
                 me.textbox.val(item.City.Name + ', ' + item.State.Abbreviation);
                 me.textbox.removeClass('blank');
             }
             else {
-                me.textbox.val('');
+                me.textbox.val(me.promptText);
                 me.textbox.addClass('blank');
             }
+            me.selection = item;
         };
 
         var getSelection = function () {
@@ -66,8 +54,6 @@
 
 
         me.textbox.focus(onFocus);
-        me.textbox.blur(onBlur);
-
 
         me.textbox.autocomplete({
             appendTo: me.textbox.parent(),
@@ -86,11 +72,20 @@
             },
             minLength: me.minLength,
             select: function (event, ui) {
-                onSelection(ui.item.value);
-                me.onChange(ui.item.value);
+                setSelection(ui.item.value);
                 return false;
             },
             focus: function (event, ui) {
+                return false;
+            },
+            change: function (event, ui) {
+                if (ui.item != null) {
+                    me.onChange(ui.item.value);
+                }
+                else {
+                    setSelection(null);
+                    me.onChange(null);
+                }
                 return false;
             },
             open: function (event, ui) {
