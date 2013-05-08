@@ -42,22 +42,26 @@
 
             me.form.location.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.form.location.cityTextbox,
-                onChange: function (item) { onCityChange(item); }
+                onChange: function (item) { onCityChange(item); },
+                onBlur: function (item) { onCityChange(item); }
             });
 
             me.form.industry.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.form.industry.textbox,
-                onChange: function (item) { onIndustryChange(item); }
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function (item) { onIndustryChange(item); }
             });
 
             if (!me.data.currentCity && me.data.detectedCity) {
                 me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.City.Name + ', ' + me.data.detectedCity.State.Abbreviation);
                 me.form.location.placeSelector.setSelection(me.data.detectedCity);
+                me.selectedCity = me.data.detectedCity;
                 showDetectedCity();
             }
             else if (me.data.currentCity) {
                 me.form.location.enteredLocation.find('.locationText').html(me.data.currentCity.City.Name + ', ' + me.data.currentCity.State.Abbreviation);
                 me.form.location.placeSelector.setSelection(me.data.currentCity);
+                me.selectedCity = me.data.currentCity;
                 showCurrentCity();
             }
             else {
@@ -66,6 +70,7 @@
 
             if (me.data.currentIndustry) {
                 me.form.industry.industrySelector.setSelection(me.data.currentIndustry);
+                me.selectedIndustry = me.data.currentIndustry;
             }
 
             me.form.submit.click(onSubmit);
@@ -78,6 +83,11 @@
             me.errors.noValuesEntered.hide().removeClass('hidden');
             showForm();
         };
+
+        var isSubmitable = function () {
+            return !me.form.location.placeSelector.hasFocus() && !me.form.industry.industrySelector.hasFocus();
+        };
+
 
         var showDetectedCity = function () {
             me.form.location.detectedLocation.removeClass('hidden');
@@ -103,14 +113,13 @@
         };
 
         var showSelector = function () {
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-            new sizeup.core.analytics().placeIndustry({ placeId: currentCity.Id, industryId: currentIndustry.Id });
+            new sizeup.core.analytics().placeIndustry({ placeId: me.selectedCity.Id, industryId: me.selectedIndustry.Id });
             me.form.container.hide("slide", { direction: "left" }, 500);
             me.selector.container.show("slide", { direction: "right" }, 500);
         };
 
         var onIndustryChange = function (item) {
+            me.selectedIndustry = item;
             me.errors.noValuesEntered.hide();
             if (!item) {
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
@@ -121,6 +130,7 @@
         };
 
         var onCityChange = function (item) {
+            me.selectedCity = item;
             me.errors.noValuesEntered.hide();
             if (!item) {
                 me.errors.invalidCity.hide().fadeIn('slow');
@@ -137,30 +147,25 @@
         };
 
         var onSubmit = function () {
-            me.errors.noValuesEntered.hide();
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-            if (currentCity == null || currentIndustry == null) {
-                me.errors.invalidCity.hide();
-                me.errors.noValuesEntered.fadeIn("slow");
-            }
-            else if (!me.checkedForData) {
-                var currentCity = me.form.location.placeSelector.getSelection();
-                var currentIndustry = me.form.industry.industrySelector.getSelection();
-                dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
-                dataLayer.setCurrentPlace({ id: currentCity.Id });
-                setSelectorLinks();
-                showSelector();
+            if (isSubmitable()) {
+                me.errors.noValuesEntered.hide();
+                if (me.selectedCity == null || me.selectedIndustry == null) {
+                    me.errors.invalidCity.hide();
+                    me.errors.noValuesEntered.fadeIn("slow");
+                }
+                else {
+                    dataLayer.setCurrentIndustry({ id: me.selectedIndustry.Id });
+                    dataLayer.setCurrentPlace({ id: me.selectedCity.Id });
+                    setSelectorLinks();
+                    showSelector();
+                }
             }
         };
 
         var setSelectorLinks = function () {
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-
-            me.selector.myBusiness.attr('href', 'dashboard/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
-            me.selector.competition.attr('href', 'competition/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
-            me.selector.advertising.attr('href', 'advertising/' + currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey);
+            me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+            me.selector.competition.attr('href', 'competition/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+            me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
         };
 
         

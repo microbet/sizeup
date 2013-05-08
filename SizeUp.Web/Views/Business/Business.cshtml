@@ -42,7 +42,7 @@
     <h1>Business Information for @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
     <address>
         <span>@ViewBag.Business.Name</span>
-        <span>| @ViewBag.Business.Address, @ViewBag.Business.City, @ViewBag.Business.State @ViewBag.Business.Zip</span>
+        <span>| @ViewBag.Business.Address</span>
         @if (!string.IsNullOrWhiteSpace(ViewBag.Business.Phone))
         {
             <span>| @System.Text.RegularExpressions.Regex.Replace(ViewBag.Business.Phone, @"(\d{3})(\d{3})(\d{4})", "$1-$2-$3")</span>

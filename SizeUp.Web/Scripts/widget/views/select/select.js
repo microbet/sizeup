@@ -47,10 +47,12 @@
 
             if (me.data.currentIndustry) {
                 me.form.industry.industrySelector.setSelection(me.data.currentIndustry);
+                me.selectedIndustry = me.data.currentIndustry;
             }
 
             if (me.data.currentPlace) {
                 me.form.location.placeSelector.setSelection(me.data.currentPlace);
+                me.selectedPlace = me.data.currentPlace;
             }
 
             me.form.submit.click(onSubmit);
@@ -70,9 +72,7 @@
         };
 
         var showSelector = function () {
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-            new sizeup.core.analytics().placeIndustry({ placeId: currentCity.Id, industryId: currentIndustry.Id });
+            new sizeup.core.analytics().placeIndustry({ placeId: me.selectedPlace.Id, industryId: me.selectedIndustry.Id });
             me.form.container.hide("slide", { direction: "left" }, 500);
             me.selector.container.show("slide", { direction: "right" }, 500);
         };
@@ -85,6 +85,7 @@
             else {
                 me.errors.noIndustryMatches.fadeOut('slow');
             }
+            me.selectedIndustry = item;
         };
 
         var onCityChange = function (item) {
@@ -95,37 +96,39 @@
             else {
                 me.errors.invalidCity.fadeOut('slow');
             }
+            me.selectedPlace = item;
         };
 
+        var isSubmitable = function () {
+            return !me.form.location.placeSelector.hasFocus() && !me.form.industry.industrySelector.hasFocus();
+        };
 
         var onSubmit = function () {
-            me.errors.noValuesEntered.hide();
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-            if (currentCity == null || currentIndustry == null) {
-                me.errors.invalidCity.hide();
-                me.errors.noValuesEntered.fadeIn("slow");
-            }
-            else{
-                var currentCity = me.form.location.placeSelector.getSelection();
-                var currentIndustry = me.form.industry.industrySelector.getSelection();
-                dataLayer.setCurrentIndustry({ id: currentIndustry.Id });
-                dataLayer.setCurrentPlace({ id: currentCity.Id });
-                setSelectorLinks();
-                if (me.opts.startFeature != null && me.opts.startFeature == 'Dashboard') {
-                    window.location = '/widget/dashboard/' + getUrlPath();
-                }
-                else if (me.opts.startFeature != null && me.opts.startFeature == 'Competition') {
-                    window.location = '/widget/competition/' + getUrlPath();
-                }
-                else if (me.opts.startFeature != null && me.opts.startFeature == 'Advertising') {
-                    window.location = '/widget/advertising/' + getUrlPath();
-                }
-                else if (me.opts.startFeature != null && me.opts.startFeature == 'Community') {
-                    window.location = '/widget/community/' + getUrlPath();
+            if (isSubmitable()) {
+                me.errors.noValuesEntered.hide();
+                if (me.selectedPlace == null || me.selectedIndustry == null) {
+                    me.errors.invalidCity.hide();
+                    me.errors.noValuesEntered.fadeIn("slow");
                 }
                 else {
-                    showSelector();
+                    dataLayer.setCurrentIndustry({ id: me.selectedIndustry.Id });
+                    dataLayer.setCurrentPlace({ id: me.selectedPlace.Id });
+                    setSelectorLinks();
+                    if (me.opts.startFeature != null && me.opts.startFeature == 'Dashboard') {
+                        window.location = '/widget/dashboard/' + getUrlPath();
+                    }
+                    else if (me.opts.startFeature != null && me.opts.startFeature == 'Competition') {
+                        window.location = '/widget/competition/' + getUrlPath();
+                    }
+                    else if (me.opts.startFeature != null && me.opts.startFeature == 'Advertising') {
+                        window.location = '/widget/advertising/' + getUrlPath();
+                    }
+                    else if (me.opts.startFeature != null && me.opts.startFeature == 'Community') {
+                        window.location = '/widget/community/' + getUrlPath();
+                    }
+                    else {
+                        showSelector();
+                    }
                 }
             }
         };
@@ -137,10 +140,7 @@
         };
 
         var getUrlPath = function () {
-            var currentCity = me.form.location.placeSelector.getSelection();
-            var currentIndustry = me.form.industry.industrySelector.getSelection();
-
-            return currentCity.State.SEOKey + '/' + currentCity.County.SEOKey + '/' + currentCity.City.SEOKey + '/' + currentIndustry.SEOKey;
+            return me.selectedPlace.State.SEOKey + '/' + me.selectedPlace.County.SEOKey + '/' + me.selectedPlace.City.SEOKey + '/' + me.selectedIndustry.SEOKey;
         };
 
 

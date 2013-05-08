@@ -204,7 +204,9 @@
 
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onPrimaryIndustryChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onPrimaryIndustryChange(item); },
+                onBlur: function () { industryBoxBlur(); }
             });
 
             me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
@@ -212,18 +214,18 @@
 
             me.content.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.content.placeBox,
-                onChange: function (item) { onPlaceChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onPlaceChange(item); },
+                onBlur: function () { placeBoxBlur(); }
             });
 
 
 
 
             me.content.industrySelector.setSelection(me.data.competitor.primaryIndustry);
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
 
             me.content.placeSelector.setSelection(me.data.activePlace);
-            me.content.placeBox.blur(placeBoxBlur);
             me.content.changePlace.click(changePlaceClicked);
 
 
@@ -547,7 +549,6 @@
         var industryBoxBlur = function () {
             me.content.changeIndustry.show();
             me.content.industryBox.hide();
-            me.content.industrySelector.setSelection(me.data.competitor.primaryIndustry);
         };
 
 
@@ -577,7 +578,6 @@
         var placeBoxBlur = function () {
             me.content.changePlace.show();
             me.content.placeBox.hide();
-            me.content.placeSelector.setSelection(me.data.activePlace);
         };
         //////////end event actions/////////////////////////////
        

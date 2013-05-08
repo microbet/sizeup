@@ -87,7 +87,9 @@
            
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onIndustryChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function () { industryBoxBlur(); }
             });
 
             me.content.share = sizeup.controls.share({
@@ -121,7 +123,6 @@
 
 
 
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
 
             //init state

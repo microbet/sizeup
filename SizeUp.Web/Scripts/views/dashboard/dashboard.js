@@ -59,7 +59,9 @@
 
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onIndustryChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function () { industryBoxBlur(); }
             });
 
             me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
@@ -67,18 +69,18 @@
 
             me.content.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.content.placeBox,
-                onChange: function (item) { onPlaceChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onPlaceChange(item); },
+                onBlur: function () { placeBoxBlur(); }
             });
 
 
 
 
             me.content.industrySelector.setSelection(me.data.activeIndustry);
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
 
             me.content.placeSelector.setSelection(me.data.activePlace);
-            me.content.placeBox.blur(placeBoxBlur);
             me.content.changePlace.click(changePlaceClicked);
 
 
@@ -173,7 +175,7 @@
         };
 
         var onIndustryChange = function (i) {
-            if (i.Id != me.data.activeIndustry.Id) {
+            if (i != null && i.Id != me.data.activeIndustry.Id) {
                 var p = { industry: me.data.activeIndustry.Name };
                 new sizeup.core.analytics().dashboardIndustryChanged(p);
                 var params = getParameters();
@@ -185,13 +187,13 @@
             else {
                 me.content.changeIndustry.show();
                 me.content.industryBox.hide();
+                me.content.industrySelector.setSelection(me.data.activeIndustry);
             }
         };
 
         var industryBoxBlur = function () {
             me.content.changeIndustry.show();
-            me.content.industryBox.hide();
-            me.content.industrySelector.setSelection(me.data.activeIndustry);
+            me.content.industryBox.hide();           
         };
 
 
@@ -202,7 +204,7 @@
         };
 
         var onPlaceChange = function (i) {
-            if (i.Id != me.data.activePlace.Id) {
+            if (i!= null && i.Id != me.data.activePlace.Id) {
                 var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
                 new sizeup.core.analytics().dashboardPlaceChanged(p);
                 var params = getParameters();
@@ -213,15 +215,13 @@
                 document.location = url;
             }
             else {
-                me.content.changePlace.show();
-                me.content.placeBox.hide();
+                me.content.placeSelector.setSelection(me.data.activePlace);
             }
         };
 
         var placeBoxBlur = function () {
             me.content.changePlace.show();
             me.content.placeBox.hide();
-            me.content.placeSelector.setSelection(me.data.activePlace);
         };
 
 

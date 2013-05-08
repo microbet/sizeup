@@ -123,7 +123,9 @@
 
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onIndustryChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function () { industryBoxBlur(); }
             });
 
             me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
@@ -131,7 +133,9 @@
 
             me.content.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.content.placeBox,
-                onChange: function (item) { onPlaceChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onPlaceChange(item); },
+                onBlur: function () { placeBoxBlur(); }
             });
 
             me.content.industrySelector.setSelection(me.data.activeIndustry);
@@ -187,10 +191,7 @@
 
             ////////////event wirings/////////////
 
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
-
-            me.content.placeBox.blur(placeBoxBlur);
             me.content.changePlace.click(changePlaceClicked);
 
             me.content.nameSort.click(nameSortClicked);
@@ -496,7 +497,6 @@
         var industryBoxBlur = function () {
             me.content.changeIndustry.show();
             me.content.industryBox.hide();
-            me.content.industrySelector.setSelection(me.data.activeIndustry);
         };
 
 
@@ -529,7 +529,6 @@
         var placeBoxBlur = function () {
             me.content.changePlace.show();
             me.content.placeBox.hide();
-            me.content.placeSelector.setSelection(me.data.activePlace);
         };
 
         var attributeMenuChanged = function () {
