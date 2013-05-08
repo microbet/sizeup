@@ -96,9 +96,12 @@
 
         var onBlur = function () {
             if ($.trim(me.textbox.val()) == '') {
+                if (!me.revertToSelection) {
+                    me.selection = null;
+                }
                 me.hasFocus = false;
-                me.selection = null;
-                setSelection(null);
+                me.changed = false;
+                setSelection(me.selection);
             }
             if (!me.changed) {
                 me.onBlur(me.selection);
