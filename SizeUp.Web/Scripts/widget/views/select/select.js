@@ -37,12 +37,14 @@
 
             me.form.location.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.form.location.cityTextbox,
-                onChange: function (item) { onCityChange(item); }
+                onChange: function (item) { onCityChange(item); },
+                onBlur: function (item) { onCityChange(item); }
             });
 
             me.form.industry.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.form.industry.textbox,
-                onChange: function (item) { onIndustryChange(item); }
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function (item) { onIndustryChange(item); }
             });
 
             if (me.data.currentIndustry) {

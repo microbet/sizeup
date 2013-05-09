@@ -169,7 +169,7 @@ a.sorter.desc { background-position:right 0.3em; }
 .heading .selectList-selector {white-space:nowrap; }
 
 .heading .selectList-list { font-size: 0.75em; }
-.heading .autoComplete-container ul.ui-autocomplete { font-size: 0.75em; }
+.heading .autoComplete-container ul.ui-autocomplete { font-size: 0.6em; }
 
 .heading .selectBox { font-size: 1em; width:12em; text-overflow:ellipsis; padding:0.25em; }
 .heading .selectList-list { max-height: 20em; overflow: auto; }

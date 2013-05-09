@@ -24,7 +24,8 @@
          
             me.form.industry.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.form.industry.textbox,
-                onChange: function (item) { onIndustryChange(item); }
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function (item) { onIndustryChange(item); }
             });
 
             if (me.data.currentIndustry) {
