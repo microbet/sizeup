@@ -57,6 +57,7 @@
                     me.onChange(ui.item.value);
                     me.changed = false;
                     me.hasFocus = false;
+                    me.textbox.blur();
                     return false;
                 },
                 change: function(event, ui){

@@ -477,6 +477,7 @@
 
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
+                me.content.changeIndustry.html(i.Name);
                 var p = { industry: me.data.activeIndustry.Name };
                 new sizeup.core.analytics().advertisingIndustryChanged(p);
                 var params = getParameters();
@@ -508,6 +509,7 @@
 
         var onPlaceChange = function (i) {
             if (i.Id != me.data.activePlace.Id) {
+                me.content.changePlace.html(i.City.Name + ', ' + i.State.Abbreviation);
                 var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
                 new sizeup.core.analytics().advertisingPlaceChanged(p);
                 var params = getParameters();
