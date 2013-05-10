@@ -87,7 +87,9 @@
            
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onIndustryChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function () { industryBoxBlur(); }
             });
 
             me.content.share = sizeup.controls.share({
@@ -121,7 +123,6 @@
 
 
 
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
 
             //init state
@@ -459,6 +460,7 @@
 
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
+                me.content.changeIndustry.html(i.Name);
                 var p = { industry: me.data.activeIndustry.Name };
                 new sizeup.core.analytics().bestPlacesIndustryChanged(p);
                 var params = getParameters();

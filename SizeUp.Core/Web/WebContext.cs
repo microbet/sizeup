@@ -26,6 +26,7 @@ namespace SizeUp.Core.Web
 
         private long? _currentCityId = null;
         private long? _currentIndustryId = null;
+        private Feature? _startFeature = null;
 
 
         public long? CurrentIndustryId
@@ -87,6 +88,47 @@ namespace SizeUp.Core.Web
                     c.Response.Cookies.Add(cookie);
                 }
                 _currentCityId = value;
+            }
+        }
+
+
+        public Feature? StartFeature
+        {
+            get
+            {
+                if (_startFeature == null)
+                {
+                    var c = System.Web.HttpContext.Current;
+                    var cookie = c.Request.Cookies["startFeature"];
+                    _startFeature = null;
+                    if (cookie != null)
+                    {
+                        Feature f;
+                        if (Enum.TryParse<Feature>(cookie.Value, out f))
+                        {
+                            _startFeature = f;
+                        }
+                    }
+                }
+                return _startFeature;
+            }
+            set
+            {
+                var c = System.Web.HttpContext.Current;
+                if (value != null)
+                {
+                    HttpCookie cookie = new HttpCookie("startFeature", Enum.GetName(typeof(Feature), value));
+                    cookie.Expires = DateTime.Now.AddDays(7.0);
+                    c.Response.Cookies.Add(cookie);
+                }
+                else
+                {
+                    HttpCookie cookie = new HttpCookie("startFeature", "");
+                    cookie.Expires = DateTime.MinValue;
+                    c.Response.Cookies.Add(cookie);
+                    _startFeature = null;
+                }
+                _startFeature = value;
             }
         }
     }

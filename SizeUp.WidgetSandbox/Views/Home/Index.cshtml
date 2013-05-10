@@ -3,12 +3,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@section head{
 
-
-
-
+    <style>
+        body {font-size:12px; color:#606060; }
+        ul.features { }
+        ul.features li {margin: 1em 0; }
+        ul.features li label {font-size:1.3em; width:10em; text-align:left; display:inline-block; }
+        ul.features li inupt[type="text"] {width:10em; }
+        ul.features li span.postfix { padding:0 0 0 0.5em; }
+    </style>
+}
+<h2>Features</h2>
+<form action="/" method="post">
+    <ul class="features">
+        <li><label for="width">Width:</label><input id="width" type="text" name="width" /><span class="postfix">px</span></li>
+        <li><label for="height">Height:</label><input id="width" type="text" name="height" /><span class="postfix">px</span></li>
+        <li><label for="theme">Theme:</label><input id="theme" type="text" name="theme" /></li>
+        <li><label for="feature">Feature:</label>
+            <select name="feature">
+                <option value="">Default</option>
+                <option value="dashboard">Dashboard</option>
+                <option value="advertising">Advertising</option>
+                <option value="competition">Competition</option>
+                <option value="community">Community</option>
+            </select>
+        </li>
+        <li><label for="industryId">IndustryId:</label><input id="industryId" type="text" name="industryId" /></li>
+        <li><label for="placeId">PlaceId:</label><input id="placeId" type="text" name="placeId" /></li>
+    </ul>
+    <input type="submit" value="Make it so!" />
+</form>
 <div>
 <span><a href="http://www.sizeup.com" target="_blank">SizeUp</a></span>
-<script type="text/javascript" src="http://@ViewData["url"]/widget/get?key=6388E63C-3D44-472B-A424-712395B1AD51"></script>
+<script type="text/javascript" src="http://@ViewData["url"]/widget/get?key=6388E63C-3D44-472B-A424-712395B1AD51@(ViewBag.Params.Length > 0 ? "&" + ViewBag.Params : "")"></script>
 </div>

@@ -169,10 +169,12 @@
     <Compile Include="TimeSlice.cs" />
     <Compile Include="API\AllowAPIRequest.cs" />
     <Compile Include="API\APIToken.cs" />
+    <Compile Include="Web\Feature.cs" />
     <Compile Include="Web\Form.cs" />
     <Compile Include="Web\Jsonp.cs" />
     <Compile Include="Web\P3PHeader.cs" />
     <Compile Include="Web\QueryString.cs" />
+    <Compile Include="Web\RequestValidator.cs" />
     <Compile Include="Web\WebContext.cs" />
     <Compile Include="Web\WidgetToken.cs" />
   </ItemGroup>

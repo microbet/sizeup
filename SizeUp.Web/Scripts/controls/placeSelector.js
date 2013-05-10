@@ -9,10 +9,13 @@
         me.promptText = me.textbox.attr('data-prompt');
         me.maxResults = opts.maxResults || 35;
         me.minLength = opts.minLength || 1;
+        me.revertToSelection = opts.revertToSelection || false;
         me.onChange = opts.onChange || function () { };
+        me.onBlur = opts.onBlur || function () { };
+        me.onFocus = opts.onFocus || function () { };
         me.selection = null;
-       
-
+        me.changed = false;
+        me.hasFocus = false;
 
         var wrap = function (text, q) {
             var qs = $.trim(q).replace('|', '\|').split(' ').join('|');
@@ -21,42 +24,119 @@
         };
 
         var init = function () {
+            me.container = $('<div class="autoComplete-container"></div>');
+            me.textbox.after(me.container);
+            me.textbox.detach();
+            me.container.append(me.textbox);
+
             me.textbox.val(me.promptText);
             me.textbox.addClass('blank');
+            var id = me.textbox.attr('id');
+            if (id) {
+                me.container.attr('id', 'autoComplete-' + id);
+            }
+
+            me.textbox.autocomplete({
+                appendTo: me.container,
+                source: function (request, response) {
+
+                    var callback = function (data) {
+                        response($.map(data, function (item) {
+                            return {
+                                label: wrap(item.DisplayName, request.term),
+                                value: item
+                            };
+                        }));
+                    };
+
+                    dataLayer.searchPlaces({ term: request.term, maxResults: me.maxResults }, callback);
+                },
+                minLength: me.minLength,
+                select: function (event, ui) {
+                    setSelection(ui.item.value);
+                    me.onChange(ui.item.value);
+                    me.changed = false;
+                    me.hasFocus = false;
+                    me.textbox.blur();
+                    return false;
+                },
+                change: function (event, ui) {
+                    if (ui.item == null && me.changed) {
+                        if (!me.revertToSelection) {
+                            me.selection = null;
+                        }
+                        setSelection(me.selection);
+                        me.onChange(me.selection);
+                        me.changed = false;
+                        me.hasFocus = false;
+                        me.onBlur(me.selection);
+                    }
+                    me.changed = false;
+                },
+                focus: function (event, ui) {
+                    return false;
+                },
+                open: function (event, ui) {
+                    $("ul.ui-autocomplete.ui-menu .ui-menu-item:even").addClass('odd');
+                }
+            }).data('autocomplete')._renderItem = function (ul, item) {
+                return $("<li></li>")
+                        .data("item.autocomplete", item)
+                        .append('<a>' + item.label + '</a>')
+                        .appendTo(ul);
+            };
+
+            me.container.on('focus', 'input[type=text]', onFocus);
+            me.container.on('blur', 'input[type=text]', onBlur);
+            me.container.on('keyup', 'input[type=text]', onKeyup);
+        };
+
+        var onKeyup = function () {
+            me.changed = true;
         };
 
         var onBlur = function () {
-            if ($.trim(me.textbox.val()) == '' || $.trim(me.textbox.val()) == me.promptText) {
-                me.textbox.val(me.promptText);
-                me.textbox.addClass('blank');
+            if ($.trim(me.textbox.val()) == '') {
+                if (!me.revertToSelection) {
+                    me.selection = null;
+                }
+                me.hasFocus = false;
+                me.changed = false;
+                setSelection(me.selection);
+            }
+            if (!me.changed) {
+                me.onBlur(me.selection);
             }
         };
+
 
         var onFocus = function () {
-            if (me.selection == null && me.textbox.val() == me.promptText) {
+            me.hasFocus = true;
+            if (me.selection == null) {
                 me.textbox.val('');
             }
-            else {
-                me.textbox.select();
+            else if (!me.changed) {
+                setTimeout(function () { me.textbox.select(); }, 0);
             }
             me.textbox.removeClass('blank');
+            me.onFocus();
         };
 
-
-
-        var onSelection = function (item) {
-            setSelection(item);
+        var clearTextbox = function () {
+            me.textbox.addClass('blank');
+            me.textbox.val(me.promptText);
         };
+
 
         var setSelection = function (item) {
+            me.changed = false;
             me.selection = item;
             if (item != null) {
                 me.textbox.val(item.City.Name + ', ' + item.State.Abbreviation);
                 me.textbox.removeClass('blank');
             }
             else {
-                me.textbox.val('');
-                me.textbox.addClass('blank');
+                clearTextbox();
             }
         };
 
@@ -64,61 +144,21 @@
             return me.selection;
         };
 
-
-        me.textbox.focus(onFocus);
-        me.textbox.blur(onBlur);
-
-
-        me.textbox.autocomplete({
-            appendTo: me.textbox.parent(),
-            source: function (request, response) {
-
-                var callback = function (data) {
-                    response($.map(data, function (item) {
-                        return {
-                            label: wrap(item.DisplayName, request.term),
-                            value: item
-                        };
-                    }));
-                };
-
-                dataLayer.searchPlaces({ term: request.term, maxResults: me.maxResults }, callback);
-            },
-            minLength: me.minLength,
-            select: function (event, ui) {
-                onSelection(ui.item.value);
-                me.onChange(ui.item.value);
-                return false;
-            },
-            focus: function (event, ui) {
-                return false;
-            },
-            open: function (event, ui) {
-                $("ul.ui-autocomplete.ui-menu .ui-menu-item:even").addClass('odd');
-            },
-        }).data('autocomplete')._renderItem = function (ul, item) {
-            return $("<li></li>")
-                    .data("item.autocomplete", item)
-                    .append('<a>' + item.label + '</a>')
-                    .appendTo(ul);
-        };
-
-
         var publicObj = {
             getSelection: function () {
                 return getSelection();
             },
             setSelection: function (item) {
                 setSelection(item);
+            },
+            hasFocus: function () {
+                return me.hasFocus;
             }
         };
         init();
         return publicObj;
     };
 })();
-
-
-
 
 
 

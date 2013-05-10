@@ -48,31 +48,31 @@
 
 <div id="advertising">
   <div class="content container hidden">
-        <h2 class="heading">
-            <span>Best places to advertise in the </span>
+      <div class="headerWrapper">
+            <h2 class="heading">
+                <span>Best places to advertise in the </span>
          
-            <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
-            <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+                <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
+                <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
 
-            <span>industry near </span>
+                <span>industry near </span>
 
-            <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
-            <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+                <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
+                <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
 
-            <span>based on </span>
+                <span>based on </span>
 
-            <select id="attributeMenu">
-                <option value="revenuePerCapita">Revenue Per Capita</option>
-                <option value="underservedMarkets">Most Underserved Markets</option>
-                <option value="averageRevenue">Average Revenue</option>
-                <option value="totalRevenue">Total Revenue</option>               
-                <option value="householdIncome">Household Income</option>
-                <option value="totalEmployees">Total Employees</option>
-            </select>
-
-
-        </h2>
+                <select id="attributeMenu">
+                    <option value="revenuePerCapita">Revenue Per Capita</option>
+                    <option value="underservedMarkets">Most Underserved Markets</option>
+                    <option value="averageRevenue">Average Revenue</option>
+                    <option value="totalRevenue">Total Revenue</option>               
+                    <option value="householdIncome">Household Income</option>
+                    <option value="totalEmployees">Total Employees</option>
+                </select>
+            </h2>
             
+        </div>
         <div class="filterLabels">
             <span class="distance fixed" data-value="Filtered for ZIP codes at most <em>{{value}} miles</em> of the current city" data-off="Filtered for ZIP codes <em>Nationwide</em>"></span>
 

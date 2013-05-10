@@ -1,13 +1,22 @@
 ﻿(function () {
     var me = {};
 
-    me.wigetSource = '/widget/select';
+    me.wigetSource = '/widget/load';
     me.defaultWidth = '600';
     me.defaultHeight = '600';
     me.defaultMinWidth = '580';
     me.defaultMinHeight = '900';
     me.defaultColor = '#fff';
 
+    var buildQueryString = function (vals) {
+        var params = [];
+        for (var x in vals) {
+            if (vals.hasOwnProperty(x)) {
+                params.push(x + '=' + vals[x]);
+            }
+        }
+        return '?' + params.join('&');
+    };
 
     var createIframe = function () {
         var loc = getScriptLocation();
@@ -29,7 +38,7 @@
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
         iframe["scrolling"] = 'no';
-        var src = loc.protocol + '://' + loc.host + (loc.port? ':' + loc.port : '') + me.wigetSource;
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query);
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
     };

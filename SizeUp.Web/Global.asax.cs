@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 using SizeUp.Core.Diagnostics;
 
@@ -59,7 +58,7 @@ namespace SizeUp.Web
               "Business", // Route name
               "business/{state}/{county}/{city}/{industry}/{id}/{name}", // URL with parameters
               new { controller = "Business", action = "Business" }, // Parameter defaults
-               new string[] { "SizeUp.Web.Controllers" }
+              new string[] { "SizeUp.Web.Controllers" }
           );
 
 
@@ -94,14 +93,14 @@ namespace SizeUp.Web
                "BestPlaces", // Route name
                "bestPlaces/{industry}", // URL with parameters
                new { controller = "BestPlaces", action = "Index" }, // Parameter defaults
-                new string[] { "SizeUp.Web.Controllers" }
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
             routes.MapRoute(
                "BestPlacesPickIndustry", // Route name
                "bestPlaces/", // URL with parameters
                new { controller = "BestPlaces", action = "PickIndustry" }, // Parameter defaults
-                new string[] { "SizeUp.Web.Controllers" }
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
 
@@ -130,45 +129,52 @@ namespace SizeUp.Web
             routes.MapRoute(
                "CityCommunity", // Route name
                "community/{state}/{county}/{city}", // URL with parameters
-               new { controller = "Community", action = "CityCommunity" } // Parameter defaults
+               new { controller = "Community", action = "CityCommunity" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
             routes.MapRoute(
                "CountyCommunity", // Route name
                "community/{state}/{county}", // URL with parameters
-               new { controller = "Community", action = "CountyCommunity" } // Parameter defaults
+               new { controller = "Community", action = "CountyCommunity" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
             routes.MapRoute(
                "MetroCommunity", // Route name
                "communitymetro/{metro}", // URL with parameters
-               new { controller = "Community", action = "MetroCommunity" } // Parameter defaults
+               new { controller = "Community", action = "MetroCommunity" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
             routes.MapRoute(
                "StateCommunity", // Route name
                "community/{state}", // URL with parameters
-               new { controller = "Community", action = "StateCommunity" } // Parameter defaults
+               new { controller = "Community", action = "StateCommunity" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
 
             routes.MapRoute(
                "CommunityWithIndustry", // Route name
                "community/{state}/{county}/{city}/{industry}", // URL with parameters
-               new { controller = "Community", action = "CommunityWithIndustry" } // Parameter defaults
+               new { controller = "Community", action = "CommunityWithIndustry" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
 
             routes.MapRoute(
                "Redirect", // Route name
                "community/{oldSEO}", // URL with parameters
-               new { controller = "Community", action = "Redirect" } // Parameter defaults
+               new { controller = "Community", action = "Redirect" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
             routes.MapRoute(
                "RedirectWithIndustry", // Route name
                "community/{oldSEO}/{industry}", // URL with parameters
-               new { controller = "Community", action = "RedirectWithIndustry" } // Parameter defaults
+               new { controller = "Community", action = "RedirectWithIndustry" }, // Parameter defaults
+               new string[] { "SizeUp.Web.Controllers" }
            );
 
             routes.MapRoute(
@@ -220,15 +226,15 @@ namespace SizeUp.Web
                 "Default",
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                new string[]{"SizeUp.Web.Controllers"}
+                new string[] { "SizeUp.Web.Controllers" }
             );
         }
 
         public static void RegisterBundles()
         {
-           // BundleTable.Bundles.EnableDefaultBundles();
+            // BundleTable.Bundles.EnableDefaultBundles();
 
- 
+
             /*
           var jSBundle = new Bundle("~/js/JsMinify", typeof(JsMinify));
 
@@ -279,8 +285,6 @@ namespace SizeUp.Web
             RegisterRoutes(RouteTable.Routes);
 
             RegisterBundles();
-
-            BundleTable.Bundles.RegisterTemplateBundles();
         }
     }
 }

@@ -554,7 +554,6 @@
     <Content Include="Views\Community\CountyCommunity.cshtml" />
     <Content Include="Views\Community\MetroCommunity.cshtml" />
     <Content Include="Views\Community\StateCommunity.cshtml" />
-    <None Include="Properties\PublishProfiles\test.pubxml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\BestPlaces\PickIndustry.cshtml" />
     <Content Include="Views\Developers\Index.cshtml" />

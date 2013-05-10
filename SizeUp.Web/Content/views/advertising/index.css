@@ -2,6 +2,7 @@
 
 #advertising { position:relative; margin:0 0 4em 0; }
 #advertising .content{ position: relative; margin: 0 0 5em 0; }
+#advertising .headerWrapper { margin: 1em 0; }
 #advertising h2 { font-size: 2em; }
 #advertising #selectList-attributeMenu .selectList-list {width:17em; max-height:30em; }
 #advertising .filterLabels {margin:0 1em; text-align:left; }

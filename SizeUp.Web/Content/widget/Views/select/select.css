@@ -5,7 +5,8 @@
 #form ul li { text-align: left; margin:1em 0; }
 #form label { width: 25%; }
 #form p.location,
-#form input { width: 70%; text-align: center; }
+#form .autoComplete-container { width: 70%;  }
+#form .autoComplete-container input[type=text] { width: 100%; text-align: center; }
 #form p.location { display: inline-block; }
 #form #continue { margin: 1em 0; }
 #form ul li.ui-menu-item { margin: 0; }

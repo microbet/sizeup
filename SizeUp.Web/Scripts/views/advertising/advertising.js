@@ -123,7 +123,9 @@
 
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onIndustryChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function () { industryBoxBlur(); }
             });
 
             me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
@@ -131,7 +133,9 @@
 
             me.content.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.content.placeBox,
-                onChange: function (item) { onPlaceChange(item); }
+                revertToSelection: true,
+                onChange: function (item) { onPlaceChange(item); },
+                onBlur: function () { placeBoxBlur(); }
             });
 
             me.content.industrySelector.setSelection(me.data.activeIndustry);
@@ -187,10 +191,7 @@
 
             ////////////event wirings/////////////
 
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
-
-            me.content.placeBox.blur(placeBoxBlur);
             me.content.changePlace.click(changePlaceClicked);
 
             me.content.nameSort.click(nameSortClicked);
@@ -476,6 +477,7 @@
 
         var onIndustryChange = function (i) {
             if (i.Id != me.data.activeIndustry.Id) {
+                me.content.changeIndustry.html(i.Name);
                 var p = { industry: me.data.activeIndustry.Name };
                 new sizeup.core.analytics().advertisingIndustryChanged(p);
                 var params = getParameters();
@@ -496,7 +498,6 @@
         var industryBoxBlur = function () {
             me.content.changeIndustry.show();
             me.content.industryBox.hide();
-            me.content.industrySelector.setSelection(me.data.activeIndustry);
         };
 
 
@@ -508,6 +509,7 @@
 
         var onPlaceChange = function (i) {
             if (i.Id != me.data.activePlace.Id) {
+                me.content.changePlace.html(i.City.Name + ', ' + i.State.Abbreviation);
                 var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
                 new sizeup.core.analytics().advertisingPlaceChanged(p);
                 var params = getParameters();
@@ -529,7 +531,6 @@
         var placeBoxBlur = function () {
             me.content.changePlace.show();
             me.content.placeBox.hide();
-            me.content.placeSelector.setSelection(me.data.activePlace);
         };
 
         var attributeMenuChanged = function () {
