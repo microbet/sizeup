@@ -168,6 +168,7 @@
     <Compile Include="Web\Form.cs" />
     <Compile Include="Web\P3PHeader.cs" />
     <Compile Include="Web\QueryString.cs" />
+    <Compile Include="Web\RequestValidator.cs" />
     <Compile Include="Web\WebContext.cs" />
     <Compile Include="Web\WidgetToken.cs" />
   </ItemGroup>
