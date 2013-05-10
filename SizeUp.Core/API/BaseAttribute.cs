@@ -38,5 +38,13 @@ namespace SizeUp.Core.API
                 return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.OriginName"]];
             }
         }
+
+        protected string Session
+        {
+            get
+            {
+                return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.SessionName"]];
+            }
+        }
     }
 }

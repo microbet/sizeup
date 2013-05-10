@@ -34,6 +34,7 @@
           <Property Name="APIKeyId" Type="bigint" />
           <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OriginUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Session" Type="nvarchar" Nullable="false" MaxLength="25" />
         </EntityType>
         <EntityType Name="BusinessAttributes">
           <Key>
@@ -424,6 +425,7 @@
           <Property Type="Int64" Name="APIKeyId" />
           <Property Type="String" Name="Url" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="OriginUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Session" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -621,6 +623,7 @@
           <EntitySetMapping Name="APIRequests">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.APIRequest">
               <MappingFragment StoreEntitySet="APIRequests">
+                <ScalarProperty Name="Session" ColumnName="Session" />
                 <ScalarProperty Name="OriginUrl" ColumnName="OriginUrl" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />

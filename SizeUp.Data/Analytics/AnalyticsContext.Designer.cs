@@ -342,7 +342,8 @@ namespace SizeUp.Data.Analytics
         /// <param name="year">Initial value of the Year property.</param>
         /// <param name="url">Initial value of the Url property.</param>
         /// <param name="originUrl">Initial value of the OriginUrl property.</param>
-        public static APIRequest CreateAPIRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url, global::System.String originUrl)
+        /// <param name="session">Initial value of the Session property.</param>
+        public static APIRequest CreateAPIRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url, global::System.String originUrl, global::System.String session)
         {
             APIRequest aPIRequest = new APIRequest();
             aPIRequest.Id = id;
@@ -357,6 +358,7 @@ namespace SizeUp.Data.Analytics
             aPIRequest.Year = year;
             aPIRequest.Url = url;
             aPIRequest.OriginUrl = originUrl;
+            aPIRequest.Session = session;
             return aPIRequest;
         }
 
@@ -678,6 +680,30 @@ namespace SizeUp.Data.Analytics
         private global::System.String _OriginUrl;
         partial void OnOriginUrlChanging(global::System.String value);
         partial void OnOriginUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, false, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
