@@ -32,7 +32,8 @@
 
             me.content.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.content.industryBox,
-                onChange: function (item) { onIndustryChange(item); }
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function (item) { onIndustryChange(item); }
             });
 
             me.content.placeBox = me.container.find('#placeBox').hide().removeClass('hidden');
@@ -40,15 +41,14 @@
 
             me.content.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.content.placeBox,
-                onChange: function (item) { onPlaceChange(item); }
+                onChange: function (item) { onPlaceChange(item); },
+                onBlur: function (item) { onPlaceChange(item); }
             });
 
             me.content.industrySelector.setSelection(me.opts.location.CurrentIndustry);
-            me.content.industryBox.blur(industryBoxBlur);
             me.content.changeIndustry.click(changeIndustryClicked);
 
             me.content.placeSelector.setSelection(me.opts.location.CurrentPlace);
-            me.content.placeBox.blur(placeBoxBlur);
             me.content.changePlace.click(changePlaceClicked);
 
 
@@ -148,7 +148,8 @@
         };
 
         var onIndustryChange = function (i) {
-            if (i.Id != me.opts.location.CurrentIndustry.Id) {
+            if (i != null && i.Id != me.opts.location.CurrentIndustry.Id) {
+                me.content.changeIndustry.html(i.Name);
                // var p = { industry: me.data.competitor.primaryIndustry.Name };
                // new sizeup.core.analytics().competitionIndustryChanged(p);
                 var url = document.location.pathname;
@@ -158,13 +159,13 @@
             else {
                 me.content.changeIndustry.show();
                 me.content.industryBox.hide();
+                me.content.industrySelector.setSelection(me.opts.location.CurrentIndustry);
             }
         };
 
         var industryBoxBlur = function () {
             me.content.changeIndustry.show();
             me.content.industryBox.hide();
-            me.content.industrySelector.setSelection(me.opts.location.CurrentIndustry);
         };
 
 
@@ -175,7 +176,8 @@
         };
 
         var onPlaceChange = function (i) {
-            if (i.Id != me.opts.location.CurrentPlace.Id) {
+            if (i != null && i.Id != me.opts.location.CurrentPlace.Id) {
+                me.content.changePlace.html(i.City.Name + ', ' + i.State.Abbreviation);
                 //var p = { place: me.data.activePlace.City.Name + ', ' + me.data.activePlace.State.Abbreviation };
                 //new sizeup.core.analytics().competitionPlaceChanged(p);
                 var url = document.location.href;
@@ -186,13 +188,13 @@
             else {
                 me.content.changePlace.show();
                 me.content.placeBox.hide();
+                me.content.placeSelector.setSelection(me.opts.location.CurrentPlace);
             }
         };
 
         var placeBoxBlur = function () {
             me.content.changePlace.show();
             me.content.placeBox.hide();
-            me.content.placeSelector.setSelection(me.opts.location.CurrentPlace);
         };
 
 
