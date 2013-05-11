@@ -155,6 +155,7 @@
     <Compile Include="Areas\Api\Controllers\BaseController.cs" />
     <Compile Include="Areas\Api\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Api\Controllers\ConsumerExpendituresController.cs" />
+    <Compile Include="Areas\Api\Controllers\JSAPIController.cs" />
     <Compile Include="Areas\Api\Controllers\TokenController.cs" />
     <Compile Include="Areas\Api\Controllers\GeographyController.cs" />
     <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
@@ -192,10 +193,12 @@
     <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Widget\Controllers\CommunityController.cs" />
     <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
     <Compile Include="Areas\Widget\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Widget\Controllers\GetController.cs" />
     <Compile Include="Areas\Widget\Controllers\HelpController.cs" />
+    <Compile Include="Areas\Widget\Controllers\LoadController.cs" />
     <Compile Include="Areas\Widget\Controllers\SelectController.cs" />
     <Compile Include="Areas\Widget\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Widget\Controllers\UserController.cs" />
