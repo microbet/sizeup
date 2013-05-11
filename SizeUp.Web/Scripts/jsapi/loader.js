@@ -161,7 +161,7 @@
             else {
                 src = src + '&';
             }
-            src = src + 'jsoncallback=' + 'sizeup.api.' + me.jsonpPrefix + '.' + cb + '&origin=' + me.currentLocation.domain + '&s=' + me.jsonpPrefix;
+            src = src + 'jsoncallback=' + 'sizeup.api.' + me.jsonpPrefix + '.' + cb + '&origin=' + document.location.hostname + '&s=' + me.jsonpPrefix;
             script.src = src;
             document.head.appendChild(script);
         };
