@@ -538,6 +538,7 @@
     <Content Include="Areas\Widget\Views\BestPlaces\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Shared\_HeaderlessLayout.cshtml" />
     <Content Include="Areas\Widget\Views\User\Profile.cshtml" />
+    <Content Include="Areas\Widget\Views\Community\Index.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />

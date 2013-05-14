@@ -8,6 +8,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/prettify/run_prettify.js")"></script>
 }
+
 <div id="documentation">
     <h1>API Documetation</h1>
 
@@ -23,7 +24,9 @@
     &lt;/head&gt;
     &lt;body&gt;
               
-        &lt;p id="results"&gt;&lt;/p&gt;
+        &lt;p id="placeResults"&gt;&lt;/p&gt;
+
+        &lt;p id="industryResults"&gt;&lt;/p&gt;
 
         &lt;script type="text/javascript"&gt;
             var loaded = function () {       
@@ -32,7 +35,15 @@
                     for (var x = 0; x &lt; data.length; x++) {
                         d = d + data[x].City.Name + ',' + data[x].State.Abbreviation + '&lt;br/&gt;';
                     }
-                    document.getElementById('results').innerHTML = d;
+                    document.getElementById('placeResults').innerHTML = d;
+                });
+
+                sizeup.api.data.findIndustry({ term: 'pharm' }, function (data) {
+                    var d = '';
+                    for (var x = 0; x &lt; data.length; x++) {
+                        d = d + data[x].Name + '&lt;br/&gt;';
+                    }
+                    document.getElementById('industryResults').innerHTML = d;
                 });
             };
         &lt;/script&gt;  
@@ -4030,4 +4041,5 @@
 ]</pre>
        
     </div>
+</div>
 </div>

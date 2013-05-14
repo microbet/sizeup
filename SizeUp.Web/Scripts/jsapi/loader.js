@@ -128,7 +128,7 @@
 
         var getJsonp = function (url, success, error) {
             var cb = getNextCallback();
-            if (me.domainIndex > 2) {
+            if (me.domainIndex > 1) {
                 me.domainIndex = 0;
             }
             me.domainIndex++;

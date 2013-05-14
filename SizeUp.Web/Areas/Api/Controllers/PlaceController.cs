@@ -56,7 +56,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Detected()
         {
-            var id = GeoCoder.GetPlaceIdByIPAddress();
+            var ip = Request.Headers["X-Forwarded-For"];
+            var id = GeoCoder.GetPlaceIdByIPAddress(ip);
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Get(context, id);

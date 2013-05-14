@@ -42,7 +42,7 @@ namespace SizeUp.Core.API
                     {
                         isValid = context.APIKeys
                              .Where(i => i.Id == ApiToken.APIKeyId)
-                             .Where(i => i.APIKeyDomains.Any(d => d.Domain == Origin))
+                             //.Where(i => i.APIKeyDomains.Any(d => d.Domain == Origin))
                              .Count() > 0;
                     }
                 }
