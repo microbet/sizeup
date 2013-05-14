@@ -509,13 +509,13 @@
             var buyers = getIds(me.data.buyer.industries);
             ids.push(me.data.competitor.primaryIndustry.Id);
             if (competitors.length > 0) {
-                ids.push(competitors);
+                ids = ids.concat(competitors);
             }
             if (suppliers.length > 0) {
-                ids.push(suppliers);
+                ids = ids.concat(suppliers);
             }
             if (buyers.length > 0) {
-                ids.push(buyers);
+                ids = ids.concat(buyers);
             }
 
             dataLayer.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(data); });
