@@ -18,9 +18,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/JobChange/
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Chart(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -30,9 +27,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Percentile(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)

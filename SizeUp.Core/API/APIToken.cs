@@ -7,7 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using SizeUp.Core.Crypto;
-
+using SizeUp.Data;
 
 namespace SizeUp.Core.API
 {

@@ -5,6 +5,8 @@ using System.Text;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 namespace SizeUp.Core.Crypto
 {
     public static class Crypto

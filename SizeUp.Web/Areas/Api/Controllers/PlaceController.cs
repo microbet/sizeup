@@ -18,9 +18,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Place/
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -65,9 +62,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)

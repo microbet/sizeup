@@ -19,9 +19,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/AverageSalary/
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Chart(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -31,9 +28,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Percentage(int industryId, int placeId, int value, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -43,9 +37,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)

@@ -57,9 +57,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             return v;
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Index(int itemCount, int industryId, Granularity granularity, long? regionId, long? stateId)
         {
             BestPlacesFilters filters = BuildFilters();
@@ -73,9 +70,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Bands(int itemCount, int bands, int industryId, Granularity granularity, long? regionId, long? stateId)
         {
             BestPlacesFilters filters = BuildFilters();

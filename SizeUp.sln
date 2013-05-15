@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.Utility", "SizeUp.Ut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.WidgetSandbox", "SizeUp.WidgetSandbox\SizeUp.WidgetSandbox.csproj", "{6EF4CB42-0980-4535-B0E1-EE294AEAFC3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SizeUp.Api", "SizeUp.Api\SizeUp.Api.csproj", "{EA3667B8-E629-4A88-805B-8176EE15A91A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,16 @@ Global
 		{6EF4CB42-0980-4535-B0E1-EE294AEAFC3C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6EF4CB42-0980-4535-B0E1-EE294AEAFC3C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{6EF4CB42-0980-4535-B0E1-EE294AEAFC3C}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EA3667B8-E629-4A88-805B-8176EE15A91A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

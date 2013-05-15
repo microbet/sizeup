@@ -18,9 +18,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/WorkersComp/
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Chart(long industryId, long placeId, Granularity granularity = Granularity.State)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -30,9 +27,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        [LogAPIRequest]
-        [ValidateAPIRequest]
-        [AllowAPIRequest]
         public ActionResult Percentage(int industryId, long placeId, double value, Granularity granularity = Granularity.State)
         {
             using (var context = ContextFactory.SizeUpContext)
