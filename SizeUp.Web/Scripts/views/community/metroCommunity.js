@@ -13,7 +13,6 @@
 
         me.data = {};
         me.container = $('#community');
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
         var notifier = new sizeup.core.notifier(function () { init(); });
 

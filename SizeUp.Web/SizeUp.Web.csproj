@@ -292,6 +292,8 @@
     <Content Include="Content\widget\layout.css" />
     <Content Include="Content\widget\print.css" />
     <Content Include="Content\widget\Views\advertising\index.css" />
+    <Content Include="Content\widget\Views\community\index.css" />
+    <Content Include="Content\widget\Views\community\print.css" />
     <Content Include="Content\widget\Views\competition\index.css" />
     <Content Include="Content\widget\Views\competition\print.css" />
     <Content Include="Content\widget\Views\dashboard\index.css" />
@@ -411,6 +413,7 @@
     <Content Include="Scripts\widget\bestPlaces.js" />
     <Content Include="Scripts\widget\core.js" />
     <Content Include="Scripts\widget\embed.js" />
+    <Content Include="Scripts\widget\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\widget\views\select\select.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
