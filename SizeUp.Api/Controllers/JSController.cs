@@ -10,14 +10,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SizeUp.Api.Controllers
 {
-    public class JSController : BaseController
+    public class JSController : Controller
     {
         //
         // GET: /JS/
 
         public ActionResult Index(Guid apikey)
         {
-            //this should serve the loader and that will load all things needed for the api
+            
             //move all data feeds to this yet continue to keep stuff like user and profile things in sizeup
 
             //create an api database that has the apikey and domain authorizations as well as all the api logs

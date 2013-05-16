@@ -17,17 +17,13 @@ namespace SizeUp.Core.API
             get { return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.CallbackName"]] != null; }
         }
 
-        private APIToken _token = null;
+
         protected APIToken ApiToken
         {
             get
             {
-                if (_token == null)
-                {
-                    var tokenString = HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.TokenName"]];
-                    _token = APIToken.GetToken(tokenString);
-                }
-                return _token;
+                var tokenString = HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.TokenName"]];
+                return APIToken.GetToken(tokenString);
             }
         }
 

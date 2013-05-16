@@ -19,7 +19,7 @@ namespace SizeUp.Core.API
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            bool valid = false;
+            /*bool valid = false;
             if (IsJsonp)
             {
                 Log();
@@ -28,7 +28,7 @@ namespace SizeUp.Core.API
             if (!valid)
             {
                 throw new HttpException(401, "Api token not valid");
-            }
+            }*/
             base.OnActionExecuting(filterContext);
         }
 

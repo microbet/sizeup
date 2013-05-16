@@ -197,8 +197,54 @@
             getBestPlacesBands: function (params, success, error) {
                 var url = '/data/bestPlaces/Bands/';
                 sizeup.api.loader.getData(url, params, success, error);
-            }
+            },
 
+
+
+
+
+            getBestPlacesToAdvertise: function (params, success, error) {
+                var url = '/data/Advertising/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getBestPlacesToAdvertiseBands: function (params, success, error) {
+                var url = '/data/Advertising/Bands/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getBestPlacesToAdvertiseMinimumDistance: function (params, success, error) {
+                var url = '/data/Advertising/MinimumDistance/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+
+
+
+
+
+            getBoundingBox: function (params, success, error) {
+                var url = '/data/geography/boundingbox/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getCentroid: function (params, success, error) {
+                var url = '/data/geography/centroid/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+            getZoomExtent: function (params, success, error) {
+                var url = '/data/geography/zoomExtent/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+            getDemographics: function (params, success, error) {
+                var url = '/data/demographics/';
+                sizeup.api.loader.getData(url, params, success, error);
+            },
+
+
+
+
+            version: '1.0'
         };
 
 

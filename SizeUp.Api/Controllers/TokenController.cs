@@ -11,15 +11,12 @@ namespace SizeUp.Api.Controllers
 {
     public class TokenController : BaseController
     {
-        public ActionResult Index(Guid apikey)
+        public ActionResult Index()
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                object data = null;         
-                var key = context.APIKeys.Where(i => i.KeyValue == apikey).FirstOrDefault();
-                var token = APIToken.Create(key.Id);
-                data = token.GetToken();
-                
+                var token = APIToken.Create(ApiToken.APIKeyId);
+                var data = token.GetToken();             
                 return Json(data, JsonRequestBehavior.AllowGet);         
             }
         }

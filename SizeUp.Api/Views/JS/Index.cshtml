@@ -10,17 +10,10 @@
         var me = {};
         var pub = {
             getData: function (url, params, success, error) {
-                if (url.indexOf('?') < 0) {
-                    url = url + '?';
-                }
-                else {
-                    url = url + '&';
-                }
-                params['t'] = me.apiToken;
-                url = url + formatParams(params);
-                getJsonp(url, success, error);
+                getJsonp(url, params, success, error);
             }
         };
+        me.head = document.getElementsByTagName('head')[0]; 
         me.scriptQueue = [];
         me.callbackIndex = 0;
         me.domainIndex = 0;
@@ -93,15 +86,22 @@
         };
 
 
-        var loadScript = function (item) {    
+        var loadScript = function (item) {   
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/scripts' + item.url;
-            script.onload = function () {
-                item.loaded = true;
-                ready();
+            script.onload = script.onreadystatechange = function() {
+                if ( !item.loaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
+                    item.loaded = true;
+                    ready();
+                    // Handle memory leak in IE
+                    script.onload = script.onreadystatechange = null;
+                    if ( me.head && script.parentNode ) {
+                        me.head.removeChild( script );
+                    }
+                }
             };
-            document.head.appendChild(script);
+            me.head.appendChild(script);
         };
 
         var fillQueue = function () {
@@ -132,7 +132,7 @@
             return 'cb' + me.callbackIndex;
         };
 
-        var getJsonp = function (url, success, error) {
+        var getJsonp = function (url, params, success, error) {
             var cb = getNextCallback();
             if (me.domainIndex > 1) {
                 me.domainIndex = 0;
@@ -155,25 +155,30 @@
 
             var cleanup = function () {
                 delete sizeup.api[me.jsonpPrefix][cb];
-                document.head.removeChild(script);
+                me.head.removeChild(script);
             };
 
 
             script.type = 'text/javascript';
             var src = me.currentLocation.protocol + '://' + 'a' + me.domainIndex + '.' + me.currentLocation.domain + url;
             if (src.indexOf('?') < 0) {
-                src = src + '/?';
+                src = src + '?';
             }
             else {
                 src = src + '&';
             }
-            src = src + 'cb=' + 'sizeup.api.' + me.jsonpPrefix + '.' + cb + '&o=' + document.location.hostname + '&s=' + me.sessionId;
+
+            params['cb']  = 'sizeup.api.' + me.jsonpPrefix + '.' + cb;
+            params['o'] = document.location.hostname;
+            params['s'] = me.sessionId;
+            params['t'] = me.apiToken;
+            src = src + formatParams(params);
             script.src = src;
-            document.head.appendChild(script);
+            me.head.appendChild(script);
         };
 
         var updateToken = function (callback) {
-            getJsonp('/token?apikey=' + me.currentLocation.query['apikey'], function (data) {
+            getJsonp('/token', function (data) {
                 me.apiToken = data;
                 if (callback) {
                     callback();
@@ -192,9 +197,8 @@
         window.onload = function () { me.windowLoaded = true; ready(); }
         getThisScript();
         getScriptLocation();
-        setInterval(updateToken, 1000 * 60 * 30);
+        setInterval(updateToken, 1000 * 60 * 1);
         fillQueue();
-        //updateToken(function () { ready(); });
         loadQueue();
         return pub;
     })();

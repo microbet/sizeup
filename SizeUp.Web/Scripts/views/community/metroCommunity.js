@@ -20,9 +20,9 @@
 
         me.content = {};
 
-        dataLayer.getBoundingBox({ id: opts.CurrentPlace.Metro.Id, granularity: 'Metro' }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-        dataLayer.getCentroid({ id: opts.CurrentPlace.Metro.Id, granularity: 'Metro' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        dataLayer.getDemographics({ id: opts.CurrentPlace.Metro.Id, granularity: 'Metro' }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
+        sizeup.api.data.getBoundingBox({ id: opts.CurrentPlace.Metro.Id, granularity: sizeup.api.granularity.METRO }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+        sizeup.api.data.getCentroid({ id: opts.CurrentPlace.Metro.Id, granularity: sizeup.api.granularity.METRO }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        sizeup.api.data.getDemographics({ id: opts.CurrentPlace.Metro.Id, granularity: sizeup.api.granularity.METRO }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 
             var bounds = new sizeup.maps.latLngBounds();

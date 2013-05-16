@@ -116,6 +116,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Data\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Data\Controllers\DemographicsController.cs" />
     <Compile Include="Areas\Data\Controllers\GeographyController.cs" />
     <Compile Include="Areas\Data\DataAreaRegistration.cs" />
     <Compile Include="Areas\Data\Controllers\AverageEmployeesController.cs" />

@@ -13,16 +13,15 @@
 
         me.data = {};
         me.container = $('#community');
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
         var notifier = new sizeup.core.notifier(function () { init(); });
 
 
         me.content = {};
 
-        dataLayer.getBoundingBox({ id: opts.CurrentPlace.City.Id, granularity: 'City' }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-        dataLayer.getCentroid({ id: opts.CurrentPlace.City.Id, granularity: 'City' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        dataLayer.getDemographics({ id: opts.CurrentPlace.City.Id, granularity: 'City' }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
+        sizeup.api.data.getBoundingBox({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+        sizeup.api.data.getCentroid({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        sizeup.api.data.getDemographics({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 
             var bounds = new sizeup.maps.latLngBounds();
