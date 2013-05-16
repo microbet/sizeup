@@ -4,7 +4,7 @@
 
 @section head{
 <title>SizeUp - Business Intelligence for All</title>
-<link href="@Url.Content("~/Content/views/product/privacy.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/product/privacy.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 }
 
 @Html.Raw(ViewBag.Content)

@@ -10,29 +10,29 @@
 
 
 
-<link href="@Url.Content("~/Content/views/community/community.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/community/community.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
-
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/countyCommunity.js")"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/countyCommunity.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 }
 
@@ -42,7 +42,7 @@
     <div class="map"></div>
     <div class="loading">
         <p class="title">Community Demographics Report</p>
-        <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
         <p class="message">Generating Report</p>
     </div>
 

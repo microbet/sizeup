@@ -4,9 +4,9 @@
 
 @section head{
 <title>SizeUp - User Profile</title>
-<link href="@Url.Content("~/Content/views/user/profile.css")" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/user/profile.js")"></script>
+<link href="@Url.Content("~/Content/views/user/profile.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/user/profile.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 }
 
 <div id="profile">

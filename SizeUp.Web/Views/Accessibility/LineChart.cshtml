@@ -3,7 +3,7 @@
 }
 @section head{
 <title>Text Alternative for Years in Business Report for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</title>
-<link href="@Url.Content("~/Content/views/accessibility/index.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/accessibility/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 }
 
 <div id="yearStarted">
