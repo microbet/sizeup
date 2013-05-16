@@ -72,5 +72,18 @@ namespace SizeUp.Core.API
         {
             return new APIToken(KeyId);
         }
+
+        public static APIToken Create(Guid key)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var k = context.APIKeys.Where(i => i.KeyValue == key).FirstOrDefault();
+                if (k == null)
+                {
+                    throw new Exception("Invalid API Key");
+                }
+                return Create(k.Id);
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@
                 else {
                     url = url + '&';
                 }
-                params.apitoken = me.apiToken;
+                params['t'] = me.apiToken;
                 url = url + formatParams(params);
                 getJsonp(url, success, error);
             }
@@ -24,8 +24,9 @@
         me.scriptQueue = [];
         me.callbackIndex = 0;
         me.domainIndex = 0;
-        me.jsonpPrefix = 'szup_' + Math.floor(Math.random() * 999999);
+        me.jsonpPrefix = 'cbb';
         me.sessionId = '@ViewBag.SessionId';
+        me.apiToken = '@ViewBag.Token';
         sizeup.api[me.jsonpPrefix] = {};
         me.callbackComplete = {};
         var formatParams = function (params) {
@@ -166,7 +167,7 @@
             else {
                 src = src + '&';
             }
-            src = src + 'jsoncallback=' + 'sizeup.api.' + me.jsonpPrefix + '.' + cb + '&origin=' + document.location.hostname + '&s=' + me.sessionId;
+            src = src + 'cb=' + 'sizeup.api.' + me.jsonpPrefix + '.' + cb + '&o=' + document.location.hostname + '&s=' + me.sessionId;
             script.src = src;
             document.head.appendChild(script);
         };
@@ -193,7 +194,7 @@
         getScriptLocation();
         setInterval(updateToken, 1000 * 60 * 30);
         fillQueue();
-        updateToken(function () { ready(); });
+        //updateToken(function () { ready(); });
         loadQueue();
         return pub;
     })();

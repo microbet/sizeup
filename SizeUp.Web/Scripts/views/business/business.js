@@ -79,46 +79,46 @@
                 costEffectiveness: new sizeup.core.notifier(function () { initCostEffectivenessChart(data.costEffectiveness); }),
             };
 
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.City = d; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.County = d; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Metro = d; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.State = d; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Nation = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.City = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.County = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Metro = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.State = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Nation = d; }));
 
 
-            dataLayer.getTotalRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.City = d; }));
-            dataLayer.getTotalRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.County = d; }));
-            dataLayer.getTotalRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Metro = d; }));
-            dataLayer.getTotalRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.State = d; }));
-            dataLayer.getTotalRevenueChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Nation = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.City = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.County = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Metro = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.State = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Nation = d; }));
 
 
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.City = d; }));
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.County = d; }));
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Metro = d; }));
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.State = d; }));
-            dataLayer.getAverageEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Nation = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.City = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.County = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Metro = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.State = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Nation = d; }));
 
 
-            dataLayer.getTotalEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.City = d; }));
-            dataLayer.getTotalEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.County = d; }));
-            dataLayer.getTotalEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Metro = d; }));
-            dataLayer.getTotalEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.State = d; }));
-            dataLayer.getTotalEmployeesChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Nation = d; }));
-
-
-
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.County = d; }));
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Metro = d; }));
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.State = d; }));
-            dataLayer.getAverageSalaryChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Nation = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'City' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.City = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.County = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Metro = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.State = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Nation = d; }));
 
 
 
-            dataLayer.getCostEffectivenessChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.County = d; }));
-            dataLayer.getCostEffectivenessChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Metro = d; }));
-            dataLayer.getCostEffectivenessChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.State = d; }));
-            dataLayer.getCostEffectivenessChart({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Nation = d; }));
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.County = d; }));
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Metro = d; }));
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.State = d; }));
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Nation = d; }));
+
+
+
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'County' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.County = d; }));
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Metro' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Metro = d; }));
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'State' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.State = d; }));
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: 'Nation' }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Nation = d; }));
 
 
 
@@ -199,7 +199,7 @@
                 zoomExtent: me.data.zoomExtent,
                 attributeLabel: 'Average Business Annual Revenue',
                 format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                legendData: dataLayer.getAverageRevenueBands,
+                legendData: sizeup.api.data.getAverageRevenueBands,
                 templates: templates
             });
         };
@@ -216,7 +216,7 @@
                 zoomExtent: me.data.zoomExtent,
                 attributeLabel: 'Total Revenue',
                 format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                legendData: dataLayer.getTotalRevenueBands,
+                legendData: sizeup.api.data.getTotalRevenueBands,
                 templates: templates
             });
         };
@@ -233,7 +233,7 @@
                 zoomExtent: me.data.zoomExtent,
                 attributeLabel: 'Average Employees per business',
                 format: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
-                legendData: dataLayer.getAverageEmployeesBands,
+                legendData: sizeup.api.data.getAverageEmployeesBands,
                 templates: templates
             });
         };
@@ -248,7 +248,7 @@
                 zoomExtent: me.data.zoomExtent,
                 attributeLabel: 'Total Employees',
                 format: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
-                legendData: dataLayer.getTotalEmployeesBands,
+                legendData: sizeup.api.data.getTotalEmployeesBands,
                 templates: templates
             });
         };
@@ -267,7 +267,7 @@
                 attributeLabel: 'Average Salary',
                 smallestGranularity: 'County',
                 format: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
-                legendData: dataLayer.getAverageSalaryBands,
+                legendData: sizeup.api.data.getAverageSalaryBands,
                 templates: templates
             });
         };
@@ -285,7 +285,7 @@
                 attributeLabel: 'Cost Effectiveness',
                 smallestGranularity: 'County',
                 format: function (val) { return sizeup.util.numbers.format.round(val, 2); },
-                legendData: dataLayer.getCostEffectivenessBands,
+                legendData: sizeup.api.data.getCostEffectivenessBands,
                 templates: templates
             });
         };

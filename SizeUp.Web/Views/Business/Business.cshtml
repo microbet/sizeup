@@ -10,6 +10,10 @@
 <link href="@Url.Content("~/Content/views/business/business.css")" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+
+<script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded"></script>
+
+
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
@@ -189,16 +193,30 @@
 @section scripts{
 
 <script type="text/javascript">
+    var api = false;
+    var doc = false;
     $(document).ready(function () {
-        var opts =  {
-            location: @Html.Raw(ViewBag.CurrentInfoJSON) ,
-            businessLocation: { 
-                lat: @ViewBag.Business.Lat,
-                lng: @ViewBag.Business.Lng
-            }
-        };
-        var driver = new sizeup.views.business.business(opts);
+        doc = true;
+        done();
     });
+
+    var apiLoaded = function(){
+        api = true;
+        done();
+    };
+
+    var done = function(){
+        if(api && doc){
+            var opts =  {
+                location: @Html.Raw(ViewBag.CurrentInfoJSON) ,
+                businessLocation: { 
+                    lat: @ViewBag.Business.Lat,
+                    lng: @ViewBag.Business.Lng
+                    }
+            };
+            var driver = new sizeup.views.business.business(opts);
+        }
+    };
 </script>
 }
 

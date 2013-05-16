@@ -32,6 +32,7 @@ namespace SizeUp.Api.Controllers
             var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));
             Response.ContentType = "text/javascript";
             ViewBag.SessionId = sessionid;
+            ViewBag.Token = APIToken.Create(apikey).GetToken();
             return View();
         }
 

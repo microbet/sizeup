@@ -131,5 +131,14 @@ namespace SizeUp.Core.Web
                 _startFeature = value;
             }
         }
+
+        public string Domain
+        {
+            get
+            {
+                var host = HttpContext.Current.Request.Url.Host;
+                return host.StartsWith("www.", StringComparison.CurrentCultureIgnoreCase) ? host.Replace("www.", "") : host;
+            }
+        }
     }
 }

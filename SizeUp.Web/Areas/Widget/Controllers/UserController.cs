@@ -142,7 +142,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                     ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "" : Request["returnurl"]
                 };
 
-                Singleton<Tracker>.Instance.UserRegisteration(reg);
+                Singleton<Tracker>.Instance.UserRegistration(reg);
                 FormsAuthentication.RedirectFromLoginPage(i.Email, false);
             }
             catch (MembershipCreateUserException ex)

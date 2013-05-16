@@ -68,7 +68,7 @@ namespace SizeUp.Core.API
             reg.OriginUrl = Origin;
             reg.Session = Session;
             reg.Url = HttpContext.Current.Request.Url.OriginalString;
-            reg.APIKeyId = ApiToken!= null ? ApiToken.APIKeyId : (long?)null;
+            reg.APIKeyId = ApiToken != null ? ApiToken.APIKeyId : (long?)null;
             Singleton<Tracker>.Instance.APIRequest(reg);
         }
     }

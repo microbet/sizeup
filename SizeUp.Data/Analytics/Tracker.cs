@@ -9,7 +9,7 @@ namespace SizeUp.Data.Analytics
 {
     public class Tracker
     {
-        public void UserRegisteration(UserRegistration reg)
+        public void UserRegistration(UserRegistration reg)
         {
             TimeStamp stamp = new TimeStamp();
             reg.Day = stamp.Day;
@@ -20,11 +20,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.UserRegistrations.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.UserRegistrations.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void LongRequest(LongRequest reg)
@@ -38,11 +41,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.LongRequests.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.LongRequests.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void Exception(Exception reg)
@@ -56,11 +62,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.Exceptions.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.Exceptions.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void PlaceIndustrySearch(PlaceIndustrySearch reg)
@@ -74,11 +83,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.PlaceIndustrySearches.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.PlaceIndustrySearches.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
 
@@ -93,11 +105,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.RelatedCompetitors.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.RelatedCompetitors.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void RelatedBuyer(RelatedBuyer reg)
@@ -111,11 +126,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.RelatedBuyers.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.RelatedBuyers.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void RelatedSupplier(RelatedSupplier reg)
@@ -129,11 +147,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.RelatedSuppliers.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.RelatedSuppliers.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void BusinessAttribute(BusinessAttribute reg)
@@ -147,11 +168,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.BusinessAttributes.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.BusinessAttributes.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void CompetitorAttribute(CompetitorAttribute reg)
@@ -165,11 +189,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.CompetitorAttributes.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.CompetitorAttributes.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
 
         public void APIRequest(APIRequest reg)
@@ -184,11 +211,14 @@ namespace SizeUp.Data.Analytics
             reg.Year = stamp.Year;
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
-            using (var context = ContextFactory.AnalyticsContext)
+            Task.Factory.StartNew(() =>
             {
-                context.APIRequests.AddObject(reg);
-                context.SaveChanges();
-            }
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.APIRequests.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
         }
     }
 }

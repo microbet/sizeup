@@ -82,7 +82,7 @@ namespace SizeUp.Web.Controllers
                     ReturnUrl = ReturnUrl
                 };
 
-                Singleton<Tracker>.Instance.UserRegisteration(reg);
+                Singleton<Tracker>.Instance.UserRegistration(reg);
                 return Redirect(ReturnUrl);
             }
             catch (MembershipCreateUserException ex)
