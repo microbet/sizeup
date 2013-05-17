@@ -5,36 +5,36 @@
 
 @section head{
 <title>Competition - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</title>
-<link href="@Url.Content("~/Content/views/competition/index.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/views/competition/print.css")" rel="stylesheet" type="text/css" media="print" />
+<link href="@Url.Content("~/Content/views/competition/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/competition/print.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
-<script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMarker.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/imagePin.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlng.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlngBounds.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/businessMarker.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/imagePin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latlngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/infoWindow.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/competition/competition.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 }
 
@@ -128,7 +128,7 @@
 
             <div class="loading hidden">
                 <p class="title"></p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Loading Businesses</p>
             </div>
 

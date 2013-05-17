@@ -7,42 +7,42 @@
     @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation – Demographic and Business Profile – population, industries, labor force, business, relocation, real estate, map, taxes, transportation, quality of life
 </title>
 
-<link href="@Url.Content("~/Content/views/community/communityWithIndustry.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/community/communityWithIndustry.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
 
 
 
-<link href="@Url.Content("~/Content/widget/views/community/index.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/widget/views/community/print.css")" rel="stylesheet" type="text/css" media="print" />
+<link href="@Url.Content("~/Content/widget/views/community/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/widget/views/community/print.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
 
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
 <script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/charts/barChart.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/charts/barChart.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")"></script>
-
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 
 
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/community/communityWithIndustry.js")"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/community/communityWithIndustry.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 }
 
@@ -66,21 +66,21 @@
      <ul class="features">
         <li class="dashboard">
             <a href="/widget/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
-                <img src="@Url.Content("~/Content/images/mybusinessSmall.png")" alt="My Business" />    
+                <img src="@Url.Content("~/Content/images/mybusinessSmall.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="My Business" />    
                 <p>Compare your business to your industry competitors.</p>
                 <span class="button small" >My Business</span>
             </a>
         </li>
         <li class="competition">
             <a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
-                <img src="@Url.Content("~/Content/images/competeSmall.png")" alt="Competition" />
+                <img src="@Url.Content("~/Content/images/competeSmall.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition" />
                 <p>Map your competitors, customers, and suppliers.</p>
                 <span class="button small" >Competition</span>
             </a>
         </li>
         <li class="advertising">
             <a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
-                <img src="@Url.Content("~/Content/images/advertiseSmall.png")" alt="Advertising" />
+                <img src="@Url.Content("~/Content/images/advertiseSmall.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertising" />
                 <p>Find best places to target your next advertising campaign.</p>
                 <span class="button small" >Advertising</span>
             </a>
@@ -107,7 +107,7 @@
             </div>
             <div class="loading">
                 <p class="title">Average Estimated Revenue</p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
         </div>
@@ -121,7 +121,7 @@
             </div>
             <div class="loading">
                 <p class="title">Total Estimated Revenue</p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
         </div>
@@ -135,7 +135,7 @@
             </div>
             <div class="loading">
                 <p class="title">Average Estimated Employees</p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
         </div>
@@ -149,7 +149,7 @@
             </div>
             <div class="loading">
                 <p class="title">Total Estimated Employees</p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
         </div>
@@ -163,7 +163,7 @@
             </div>
             <div class="loading">
                 <p class="title">Average Salary</p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
         </div>
@@ -177,7 +177,7 @@
             </div>
             <div class="loading">
                 <p class="title">Cost Effectiveness</p>
-                <img src="@Url.Content("~/content/images/Loading.gif")" alt="Loading" />
+                <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Generating Report</p>
             </div>
         </div>

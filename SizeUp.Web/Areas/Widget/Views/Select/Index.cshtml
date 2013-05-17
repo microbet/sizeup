@@ -3,12 +3,13 @@
 }
 
 @section head{
-<link href="@Url.Content("~/Content/widget/Views/select/select.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/widget/Views/select/select.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/select/select.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/select/select.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <title>Select your city and industry</title>
 }
 
@@ -34,17 +35,17 @@
     <div id="selector" class="hidden">
         <ul>
             <li>
-                <img src="@Url.Content("~/Content/images/mybusiness.png")" alt="My Business" />
+                <img src="@Url.Content("~/Content/images/mybusiness.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="My Business" />
                 <a href="#" id="myBusiness" class="button medium" >My Business</a>
                 <p>Compare your business to your industry competitors.</p>
             </li>
             <li>
-                <img src="@Url.Content("~/Content/images/compete.png")" alt="Competition" />
+                <img src="@Url.Content("~/Content/images/compete.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition" />
                 <a href="#" id="competition" class="button medium" >Competition</a>
                 <p>Map your competitors, customers, and suppliers.</p>
             </li>
             <li>
-                <img src="@Url.Content("~/Content/images/advertise.png")" alt="Advertising" />
+                <img src="@Url.Content("~/Content/images/advertise.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertising" />
                 <a href="#" id="advertising" class="button medium" >Advertising</a>
                 <p>Find best places to target your next advertising campaign.</p>
             </li>
