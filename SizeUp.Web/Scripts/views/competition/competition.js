@@ -54,7 +54,6 @@
             businessListXHR: null
         };
         me.container = $('#competition');
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
 
        
@@ -71,14 +70,14 @@
             var params = jQuery.bbq.getState();
             var notifier = new sizeup.core.notifier(function () { init(); });
             sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-            dataLayer.getBoundingBox({ id: opts.CurrentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) {
+            sizeup.api.data.getBoundingBox({ id: opts.CurrentInfo.CurrentPlace.Id, granularity: sizeup.api.granularity.PLACE }, notifier.getNotifier(function (data) {
                 me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.SouthWest.Lat, lng: data.SouthWest.Lng }));
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.NorthEast.Lat, lng: data.NorthEast.Lng }));
             }));
 
             if (params.consumerExpenditureVariable) {
-                dataLayer.getConsumerExpenditureVariable({ id: params.consumerExpenditureVariable }, notifier.getNotifier(function (data) {
+                sizeup.api.data.getConsumerExpenditureVariable({ id: params.consumerExpenditureVariable }, notifier.getNotifier(function (data) {
                     me.data.consumerExpenditure.currentSelection = data;
                 }));
             }
@@ -92,13 +91,13 @@
             };
 
             if (params.competitor) {
-                dataLayer.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
+                sizeup.api.data.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
             }
             if (params.buyer) {
-                dataLayer.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
+                sizeup.api.data.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
             }
             if (params.supplier) {
-                dataLayer.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
+                sizeup.api.data.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
             }
             if (params.rootId) {
                 me.data.consumerExpenditure.rootId = params.rootId;
@@ -313,7 +312,7 @@
                target.addClass('active');
 
                 me.data.consumerExpenditure.rootId = rootId;
-                dataLayer.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection.Id }, function (data) {
+                sizeup.api.data.getConsumerExpenditureVariableCrosswalk({ id: me.data.consumerExpenditure.currentSelection.Id }, function (data) {
                     me.data.consumerExpenditure.currentSelection = data;
                     loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection.Id);
                     setHeatmap(me.data.consumerExpenditure.currentSelection.Id);
@@ -518,7 +517,7 @@
                 ids = ids.concat(buyers);
             }
 
-            dataLayer.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(data); });
+            sizeup.api.data.getBusinessAt({ lat: latLng.lat, lng: latLng.lng, industryIds: ids }, function (data) { createPin(data); });
         };
 
       
@@ -709,7 +708,7 @@
 
         var loadConsumerExpenditureSelection = function (id) {
 
-            dataLayer.getConsumerExpenditureVariablePath({ id: id }, function (data) {
+            sizeup.api.data.getConsumerExpenditureVariablePath({ id: id }, function (data) {
                 var html = '';
                 //removes the root node as we arent using that
                 me.data.consumerExpenditure.currentSelection = data[data.length - 1];
@@ -725,7 +724,7 @@
         var loadConsumerExpenditureVariables = function (parentId) {
             me.content.ConsumerExpenditure.childList.empty();
             me.content.ConsumerExpenditure.loading.show();
-            dataLayer.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
+            sizeup.api.data.getConsumerExpenditureVariables({ parentId: parentId }, function (data) {
                 me.data.consumerExpenditure.list = data;
                 me.content.ConsumerExpenditure.loading.hide();
                 var html = '';
@@ -757,7 +756,7 @@
                         zoomExtent: me.data.zoomExtent,
                         attributeLabel: title,
                         format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                        legendData: dataLayer.getConsumerExpenditureBands,
+                        legendData: sizeup.api.data.getConsumerExpenditureBands,
                         templates: templates
                     });
 
@@ -779,7 +778,7 @@
 
 
             if (me.data.zoomExtend == null) {
-                dataLayer.getZoomExtent({ id: me.opts.CurrentInfo.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
+                sizeup.api.data.getZoomExtent({ id: me.opts.CurrentInfo.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
                     me.data.zoomExtent = data;
                     createOverlay();
                 });
@@ -890,7 +889,7 @@
                 if (me.data.businessListXHR != null) {
                     me.data.businessListXHR.abort();
                 }
-                me.data.businessListXHR = dataLayer.getBusinessesByIndustry({
+                me.data.businessListXHR = sizeup.api.data.getBusinessesByIndustry({
                     industryIds: ids,
                     placeId: me.opts.CurrentInfo.CurrentPlace.Id,
                     itemCount: me.data[me.data.activeIndex].pageData.itemsPerPage,

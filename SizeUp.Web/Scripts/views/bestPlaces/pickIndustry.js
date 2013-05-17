@@ -3,7 +3,6 @@
     sizeup.views.bestPlaces.pickIndustry = function (opts) {
 
         var me = {};
-        var dataLayer = new sizeup.core.data();
         var notifier = new sizeup.core.notifier(function () { init(); });
 
         me.opts = opts;

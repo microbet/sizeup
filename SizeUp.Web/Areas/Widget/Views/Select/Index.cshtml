@@ -5,7 +5,7 @@
 @section head{
 <link href="@Url.Content("~/Content/widget/Views/select/select.css")" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/select/select.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
@@ -57,7 +57,15 @@
 @section scripts{
 
     <script type="text/javascript">
-        var driver = new sizeup.widget.views.select.select({ startFeature: @(ViewBag.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null") });
+        
+        var done = function(){
+            var driver = new sizeup.widget.views.select.select({ startFeature: @(ViewBag.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null") });
+        };
+
+        var notifier = new sizeup.core.notifier(done);
+        var apiLoaded = notifier.getNotifier();
+        var doc = notifier.getNotifier();
+        $(document).ready(doc);
     </script>
 
 

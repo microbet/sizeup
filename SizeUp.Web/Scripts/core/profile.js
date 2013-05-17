@@ -83,6 +83,10 @@
             return get('/api/place/current', null, callback);
         };
 
+        pub.getDetectedPlace = function (callback) {
+            return get('/api/place/detected', null, callback);
+        };
+
         pub.setCurrentPlace = function (params, callback) {
             return post('/api/place/current', params, callback);
         };

@@ -21,8 +21,8 @@ body { width: 100%; }
 
 #header ul li#userMenu {position:relative; }
 
-#header ul li#userMenu > a {padding:0.5em 1em 0.75em 0.5em; }
-#menu #userMenu > a span {font-size:1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 12em; display:inline-block; }
+#header ul li#userMenu > a {margin: 0 1em 0 0; }
+#menu #userMenu > a span {font-size:1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  display:inline-block; }
 #header ul li#userMenu > a:after {content: ""; width:0; height:0; border-left: 0.5em solid transparent; border-right:0.5em solid transparent; border-top: 0.5em solid #E78500; position:relative; top:0.5em; left:0.5em; vertical-align:top; display: inline-block; }
 #header ul li#userMenu ul { background-color: #F8F8F8; position: absolute; width: 15em; right:0; z-index: 10000; padding:0.5em 0 0 0; display:none; border:2px solid #eee; }
 #header ul li#userMenu ul li { display: block; text-align:right; padding: 0 1em; border-bottom:1px solid #eee; }

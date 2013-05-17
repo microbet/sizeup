@@ -29,11 +29,7 @@
             }
         };
 
-        var trackInternal = function (params, func) {
-            dataLayer[func](params);
-        };
-
-
+       
 
         var publicObj = {
             dashboardReportLoaded: function (params) {

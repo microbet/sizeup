@@ -4,7 +4,6 @@
     window.sizeup.controls.placeSelector = function (opts) {
 
         var me = {};
-        var dataLayer = new sizeup.core.data();
         me.textbox = opts.textbox;
         me.promptText = me.textbox.attr('data-prompt');
         me.maxResults = opts.maxResults || 35;
@@ -49,7 +48,7 @@
                         }));
                     };
 
-                    dataLayer.searchPlaces({ term: request.term, maxResults: me.maxResults }, callback);
+                    sizeup.api.data.findPlace({ term: request.term, maxResults: me.maxResults }, callback);
                 },
                 minLength: me.minLength,
                 select: function (event, ui) {

@@ -73,7 +73,6 @@
 
 
         me.container = $('#advertising');
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
         var notifier = new sizeup.core.notifier(function () { init(); });
 
@@ -88,8 +87,8 @@
             minDistanceParams = $.extend(true, minDistanceParams, me.opts.defaultParams);
         }
        
-        dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.defaultDistance = data; }));
-        dataLayer.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        sizeup.api.data.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.defaultDistance = data; }));
+        sizeup.api.data.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
 
 
@@ -722,12 +721,12 @@
                 me.data.xhr.bands.abort();
             }
 
-            me.data.xhr.list = dataLayer.getBestPlacesToAdvertise(params, notifier.getNotifier(function (data) {
+            me.data.xhr.list = sizeup.api.data.getBestPlacesToAdvertise(params, notifier.getNotifier(function (data) {
                 reportData.zips = data;
                 me.data.xhr.list = null;
             }));
             params.bands = me.opts.bandCount;
-            me.data.xhr.bands = dataLayer.getBestPlacesToAdvertiseBands(params, notifier.getNotifier(function (data) {
+            me.data.xhr.bands = sizeup.api.data.getBestPlacesToAdvertiseBands(params, notifier.getNotifier(function (data) {
                 reportData.bands = data;
                 me.data.xhr.bands = null;
             }));

@@ -3,7 +3,6 @@
     sizeup.views.dashboard.yearStarted = function (opts) {
 
         var me = {};
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.opts.startYear = 1986;
@@ -199,17 +198,17 @@
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ yearStarted: me.data.enteredValue });
 
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
-            dataLayer.getYearStartedChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+            sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: sizeup.api.granularity.CITY }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
+            sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: sizeup.api.granularity.COUNTY }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: sizeup.api.granularity.METRO }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: sizeup.api.granularity.STATE }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear, granularity: sizeup.api.granularity.NATION }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
 
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'City' }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
-            dataLayer.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
+            sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.CITY }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
+            sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.COUNTY }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.METRO }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.STATE }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
+            sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.NATION }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
 

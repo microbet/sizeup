@@ -117,6 +117,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Data\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Data\Controllers\BestPlacesController.cs" />
+    <Compile Include="Areas\Data\Controllers\BusinessController.cs" />
+    <Compile Include="Areas\Data\Controllers\ConsumerExpendituresController.cs" />
     <Compile Include="Areas\Data\Controllers\DemographicsController.cs" />
     <Compile Include="Areas\Data\Controllers\GeographyController.cs" />
     <Compile Include="Areas\Data\DataAreaRegistration.cs" />
@@ -182,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\api.beta.sizeup.com.pubxml" />
+    <Content Include="Views\JS\Range.cshtml" />
+    <Content Include="Views\JS\Granularity.cshtml" />
+    <Content Include="Views\JS\Data.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

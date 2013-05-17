@@ -3,7 +3,6 @@
     sizeup.views.dashboard.healthcareCost = function (opts) {
 
         var me = {};
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.data = {};
@@ -96,12 +95,12 @@
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ healthcareCost: me.data.enteredValue });
             if (me.data.enteredEmployees) {
-                dataLayer.getHealthcareCostChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees }, notifier.getNotifier(chartDataReturned));
-                dataLayer.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
+                sizeup.api.data.getHealthcareCost({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees }, notifier.getNotifier(chartDataReturned));
+                sizeup.api.data.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
             }
             else {
-                dataLayer.getHealthcareCostChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-                dataLayer.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
+                sizeup.api.data.getHealthcareCost({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
+                sizeup.api.data.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
             }
         };
 

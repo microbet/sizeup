@@ -7,8 +7,7 @@
             passwordUrl: '/api/user/password/'
         };
         var me = {};
-        var dataLayer = new sizeup.core.data();
-
+        
         me.opts = $.extend(true, defaults, {});
 
 

@@ -3,7 +3,6 @@
     sizeup.views.dashboard.revenue = function (opts) {
 
         var me = {};
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.data = {};
@@ -195,7 +194,7 @@
             me.reportContainer.setGauge(me.data.gauge);
             me.reportData.show();
 
-            dataLayer.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
+            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
                 me.overlay = new sizeup.maps.heatMapOverlays({
                     tileUrl: '/tiles/averageRevenue/',
                     place: me.opts.report.CurrentPlace,
@@ -203,7 +202,7 @@
                     zoomExtent: data,
                     attributeLabel: 'Average Business Annual Revenue',
                     format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    legendData: dataLayer.getAverageRevenueBands,
+                    legendData: sizeup.api.data.getAverageRevenueBands,
                     templates: templates
                 });
                 setHeatmap();
@@ -245,17 +244,17 @@
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ revenue: me.data.enteredValue });
 
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'City' }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'County' }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Metro' }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'State' }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
-            dataLayer.getAverageRevenueChart({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: 'Nation' }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.CITY }, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, chartNotifier.getNotifier(function (data) { chartData.Metro = data; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
 
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'City' }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'County' }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Metro' }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'State' }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
-            dataLayer.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: 'Nation' }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
+            sizeup.api.data.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.CITY }, percentileNotifier.getNotifier(function (data) { percentileData.City = data; }));
+            sizeup.api.data.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.COUNTY }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            sizeup.api.data.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.METRO }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            sizeup.api.data.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.STATE }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
+            sizeup.api.data.getAverageRevenuePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.NATION }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
         };
 
         var percentileDataReturned = function (data) {

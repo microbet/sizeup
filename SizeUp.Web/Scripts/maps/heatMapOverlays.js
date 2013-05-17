@@ -23,7 +23,7 @@
                 '#F5F500'
             ],
             opacity:0.9,
-            smallestGranularity: 'ZipCode',
+            smallestGranularity: sizeup.api.granularity.ZIP_CODE,
             attributeLabel: 'Unknown',
             format: function (val) { return val; },
             legendData: function () { },
@@ -40,23 +40,23 @@
         var getZipCodeZoomLevels = function () {
             var levels = [];
             levels.push({
-                granularity: 'ZipCode',
-                boundingGranularity: 'County',
+                granularity: sizeup.api.granularity.ZIP_CODE,
+                boundingGranularity: sizeup.api.granularity.COUNTY,
                 minZoom: me.opts.zoomExtent.County,
                 maxZoom: 32
             });
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'County',
-                    boundingGranularity: 'Metro',
+                    granularity: sizeup.api.granularity.COUNTY,
+                    boundingGranularity: sizeup.api.granularity.METRO,
                     minZoom: me.opts.zoomExtent.Metro,
                     maxZoom: me.opts.zoomExtent.County - 1
                 });
 
                 levels.push({
-                    granularity: 'County',
-                    boundingGranularity: 'State',
+                    granularity: sizeup.api.granularity.COUNTY,
+                    boundingGranularity: sizeup.api.granularity.STATE,
                     minZoom: me.opts.zoomExtent.State,
                     maxZoom: me.opts.zoomExtent.Metro - 1
                 });
@@ -64,8 +64,8 @@
 
             if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'County',
-                    boundingGranularity: 'State',
+                    granularity: sizeup.api.granularity.COUNTY,
+                    boundingGranularity: sizeup.api.granularity.STATE,
                     minZoom: me.opts.zoomExtent.State,
                     maxZoom: me.opts.zoomExtent.County - 1
                 });
@@ -74,8 +74,8 @@
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'State',
-                    boundingGranularity: 'Nation',
+                    granularity: sizeup.api.granularity.STATE,
+                    boundingGranularity: sizeup.api.granularity.NATION,
                     minZoom: 0,
                     maxZoom: me.opts.zoomExtent.Metro - 1
                 });
@@ -83,8 +83,8 @@
 
             if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'State',
-                    boundingGranularity: 'Nation',
+                    granularity: sizeup.api.granularity.STATE,
+                    boundingGranularity: sizeup.api.granularity.NATION,
                     minZoom: 0,
                     maxZoom: me.opts.zoomExtent.State - 1
                 });
@@ -98,22 +98,22 @@
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'County',
-                    boundingGranularity: 'Metro',
+                    granularity: sizeup.api.granularity.COUNTY,
+                    boundingGranularity: sizeup.api.granularity.METRO,
                     minZoom: me.opts.zoomExtent.Metro,
                     maxZoom: 32
                 });
                 levels.push({
-                    granularity: 'County',
-                    boundingGranularity: 'State',
+                    granularity: sizeup.api.granularity.COUNTY,
+                    boundingGranularity: sizeup.api.granularity.STATE,
                     minZoom: me.opts.zoomExtent.State,
                     maxZoom: me.opts.zoomExtent.Metro - 1
                 });
             }
             if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.County == me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'County',
-                    boundingGranularity: 'State',
+                    granularity: sizeup.api.granularity.COUNTY,
+                    boundingGranularity: sizeup.api.granularity.STATE,
                     minZoom: me.opts.zoomExtent.State,
                     maxZoom: 32
                 });
@@ -122,8 +122,8 @@
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.State > me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'State',
-                    boundingGranularity: 'Nation',
+                    granularity: sizeup.api.granularity.STATE,
+                    boundingGranularity: sizeup.api.granularity.NATION,
                     minZoom: 0,
                     maxZoom: me.opts.zoomExtent.Metro - 1
                 });
@@ -131,8 +131,8 @@
 
             if (me.opts.zoomExtent.Metro == null || me.opts.zoomExtent.State <= me.opts.zoomExtent.Metro) {
                 levels.push({
-                    granularity: 'State',
-                    boundingGranularity: 'Nation',
+                    granularity: sizeup.api.granularity.STATE,
+                    boundingGranularity: sizeup.api.granularity.NATION,
                     minZoom: 0,
                     maxZoom: me.opts.zoomExtent.State - 1
                 });
@@ -175,10 +175,10 @@
 
         var getOverlays = function () {
             var overlays = [];
-            if (me.opts.smallestGranularity == 'ZipCode') {
+            if (me.opts.smallestGranularity == sizeup.api.granularity.ZIP_CODE) {
                 overlays = getZipCodeOverlays();
             }
-            else if (me.opts.smallestGranularity == 'County') {
+            else if (me.opts.smallestGranularity == sizeup.api.granularity.COUNTY) {
                 overlays = getCountyOverlays();
             }
             return overlays;
@@ -190,26 +190,26 @@
             var params = {
                 attribute: me.opts.attributeLabel
             };
-            if (level.granularity == 'ZipCode') {
+            if (level.granularity == sizeup.api.granularity.ZIP_CODE) {
                 params.granularity = 'ZIP code';
             }
-            if (level.granularity == 'County') {
+            if (level.granularity == sizeup.api.granularity.COUNTY) {
                 params.granularity = 'county';
             }
-            if (level.granularity == 'State') {
+            if (level.granularity == sizeup.api.granularity.STATE) {
                 params.granularity = 'state';
             }
 
-            if (level.boundingGranularity == 'County') {
+            if (level.boundingGranularity == sizeup.api.granularity.COUNTY) {
                 params.boundingGranularity = me.opts.place.County.Name + ', ' + me.opts.place.State.Abbreviation;
             }
-            if (level.boundingGranularity == 'Metro') {
+            if (level.boundingGranularity == sizeup.api.granularity.METRO) {
                 params.boundingGranularity = me.opts.place.Metro.Name;
             }
-            if (level.boundingGranularity == 'State') {
+            if (level.boundingGranularity == sizeup.api.granularity.STATE) {
                 params.boundingGranularity = me.opts.place.State.Name;
             }
-            if (level.boundingGranularity == 'Nation') {
+            if (level.boundingGranularity == sizeup.api.granularity.NATION) {
                 params.boundingGranularity = 'the USA';
             }
 
@@ -244,10 +244,10 @@
         var getParams = function (zoom) {
             var levels = [];
             var level = null;
-            if (me.opts.smallestGranularity == 'ZipCode') {
+            if (me.opts.smallestGranularity == sizeup.api.granularity.ZIP_CODE) {
                 levels = getZipCodeZoomLevels();
             }
-            else if (me.opts.smallestGranularity == 'County') {
+            else if (me.opts.smallestGranularity == sizeup.api.granularity.COUNTY) {
                 levels = getCountyZoomLevels();
             }
             for (var z in levels) {

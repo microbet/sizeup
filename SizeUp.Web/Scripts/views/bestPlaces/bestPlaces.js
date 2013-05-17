@@ -33,7 +33,6 @@
 
 
         me.container = $('#bestPlaces');
-        var dataLayer = new sizeup.core.data();
         var templates = new sizeup.core.templates(me.container);
 
        
@@ -631,38 +630,38 @@
 
 
             if (params.placeType == 'city') {
-                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = sizeup.api.data.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCityList(data);
                 }));
                 
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = sizeup.api.data.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
             else if (params.placeType == 'county') {
-                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = sizeup.api.data.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatCountyList(data);
                 }));
                 
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = sizeup.api.data.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
             else if (params.placeType == 'metro') {
-                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = sizeup.api.data.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatMetroList(data);
                 }));
 
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = sizeup.api.data.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }
             else if (params.placeType == 'state') {
-                me.data.xhr['list'] = dataLayer.getBestPlaces(params, notifier.getNotifier(function (data) {
+                me.data.xhr['list'] = sizeup.api.data.getBestPlaces(params, notifier.getNotifier(function (data) {
                     reportData.list = formatStateList(data);
                 }));
 
-                me.data.xhr['bands'] = dataLayer.getBestPlacesBands(params, notifier.getNotifier(function (data) {
+                me.data.xhr['bands'] = sizeup.api.data.getBestPlacesBands(params, notifier.getNotifier(function (data) {
                     reportData.bands = data;
                 }));
             }

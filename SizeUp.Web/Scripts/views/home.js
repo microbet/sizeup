@@ -3,7 +3,6 @@
     sizeup.views.home = function (opts) {
 
         var me = {};
-        var dataLayer = new sizeup.core.data();
         var notifier = new sizeup.core.notifier(function () { init(); });
 
         me.opts = opts;
@@ -11,7 +10,7 @@
 
         sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
         sizeup.core.profile.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentCity = i; }));
-        dataLayer.getDetectedPlace(notifier.getNotifier(function (i) { me.data.detectedCity = i; }));
+        sizeup.core.profile.getDetectedPlace(notifier.getNotifier(function (i) { me.data.detectedCity = i; }));
 
         var init = function () {
             me.form = {};

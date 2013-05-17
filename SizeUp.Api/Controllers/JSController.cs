@@ -15,11 +15,14 @@ namespace SizeUp.Api.Controllers
         //
         // GET: /JS/
 
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            Response.ContentType = "text/javascript";
+        }
+
         public ActionResult Index(Guid apikey)
         {
-            
-            //move all data feeds to this yet continue to keep stuff like user and profile things in sizeup
-
             //create an api database that has the apikey and domain authorizations as well as all the api logs
 
 
@@ -29,10 +32,24 @@ namespace SizeUp.Api.Controllers
             string data = string.Format("{0}|{1}", apikey.ToString(), Guid.NewGuid().ToString());
             bf.Serialize(s, data);
             SHA1CryptoServiceProvider a = new SHA1CryptoServiceProvider();
-            var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));
-            Response.ContentType = "text/javascript";
+            var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));           
             ViewBag.SessionId = sessionid;
             ViewBag.Token = APIToken.Create(apikey).GetToken();
+            return View();
+        }
+
+        public ActionResult Data()
+        {
+            return View();
+        }
+
+        public ActionResult Range()
+        {
+            return View();
+        }
+
+        public ActionResult Granularity()
+        {
             return View();
         }
 

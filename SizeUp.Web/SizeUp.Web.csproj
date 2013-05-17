@@ -322,7 +322,6 @@
     <Content Include="Scripts\controls\placeSelector.js" />
     <Content Include="Scripts\controls\toggleButton.js" />
     <Content Include="Scripts\core\analytics.js" />
-    <Content Include="Scripts\core\data.js" />
     <Content Include="Scripts\core\namespace.js" />
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\profile.js" />
@@ -379,12 +378,10 @@
     <Content Include="Scripts\views\advertising\advertising.js" />
     <Content Include="Scripts\views\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
-    <Content Include="Scripts\views\business\find.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\views\community\stateCommunity.js" />
     <Content Include="Scripts\views\community\metroCommunity.js" />
     <Content Include="Scripts\views\community\countyCommunity.js" />
-    <Content Include="Scripts\views\community\find.js" />
     <Content Include="Scripts\views\competition\competition.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
     <Content Include="Scripts\views\dashboard\costEffectiveness.js" />

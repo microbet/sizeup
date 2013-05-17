@@ -7,7 +7,7 @@
 <meta content="SizeUp is a free tool that shows how your business compares to competitors, identifies best places to advertise, and maps competitors, customers, and suppliers." name="description">
 <link href="@Url.Content("~/Content/views/home.css")" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/core/data.js")"></script>
+<script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")"></script>
@@ -82,7 +82,14 @@
 @section scripts{
 
     <script type="text/javascript">
-    var driver = new sizeup.views.home();
+        var done = function(){
+            var driver = new sizeup.views.home();
+        };
+
+    var notifier = new sizeup.core.notifier(done);
+    var apiLoaded = notifier.getNotifier();
+    var doc = notifier.getNotifier();
+    $(document).ready(doc);
     </script>
 
 

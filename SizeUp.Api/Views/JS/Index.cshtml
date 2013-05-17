@@ -10,7 +10,7 @@
         var me = {};
         var pub = {
             getData: function (url, params, success, error) {
-                getJsonp(url, params, success, error);
+                return getJsonp(url, params, success, error);
             }
         };
         me.head = document.getElementsByTagName('head')[0]; 
@@ -89,7 +89,7 @@
         var loadScript = function (item) {   
             var script = document.createElement('script');
             script.type = 'text/javascript';
-            script.src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/scripts' + item.url;
+            script.src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/' + item.url;
             script.onload = script.onreadystatechange = function() {
                 if ( !item.loaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
                     item.loaded = true;
@@ -105,9 +105,9 @@
         };
 
         var fillQueue = function () {
-            me.scriptQueue.push({ url: '/data.js', loaded: false });
-            me.scriptQueue.push({ url: '/granularity.js', loaded: false });
-            me.scriptQueue.push({ url: '/range.js', loaded: false });
+            me.scriptQueue.push({ url: '/js/data', loaded: false });
+            me.scriptQueue.push({ url: '/js/granularity', loaded: false });
+            me.scriptQueue.push({ url: '/js/range', loaded: false });
         };
 
         var loadQueue = function () {
@@ -134,20 +134,23 @@
 
         var getJsonp = function (url, params, success, error) {
             var cb = getNextCallback();
+            var opts = {
+                aborted: false
+            };
             if (me.domainIndex > 1) {
                 me.domainIndex = 0;
             }
             me.domainIndex++;
             var script = document.createElement('script');
             sizeup.api[me.jsonpPrefix][cb] = function (data) {
-                if (success) {
+                if (success && !opts.aborted) {
                     success(data);
                 }
                 cleanup();
             };
 
             script.onerror = function () {
-                if (error) {
+                if (error && !opts.aborted) {
                     error();
                 }
                 cleanup();
@@ -175,10 +178,17 @@
             src = src + formatParams(params);
             script.src = src;
             me.head.appendChild(script);
+
+            var request = {
+                abort: function(){
+                    opts.aborted = true;
+                }
+            };
+            return request;
         };
 
         var updateToken = function (callback) {
-            getJsonp('/token', function (data) {
+            getJsonp('/token',{} , function (data) {
                 me.apiToken = data;
                 if (callback) {
                     callback();
@@ -197,7 +207,8 @@
         window.onload = function () { me.windowLoaded = true; ready(); }
         getThisScript();
         getScriptLocation();
-        setInterval(updateToken, 1000 * 60 * 1);
+        setInterval(updateToken, 1000 * 15);
+        //setInterval(updateToken, 1000 * 60 * 5);
         fillQueue();
         loadQueue();
         return pub;
