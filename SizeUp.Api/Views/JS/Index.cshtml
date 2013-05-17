@@ -207,8 +207,7 @@
         window.onload = function () { me.windowLoaded = true; ready(); }
         getThisScript();
         getScriptLocation();
-        setInterval(updateToken, 1000 * 15);
-        //setInterval(updateToken, 1000 * 60 * 5);
+        setInterval(updateToken, 1000 * 60 * 5);
         fillQueue();
         loadQueue();
         return pub;
