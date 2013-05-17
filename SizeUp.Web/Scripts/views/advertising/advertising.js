@@ -90,7 +90,7 @@
        
         dataLayer.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.defaultDistance = data; }));
         dataLayer.getCentroid({ id: opts.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
+        sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
 
 
 

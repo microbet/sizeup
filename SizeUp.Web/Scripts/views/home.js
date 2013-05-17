@@ -9,8 +9,8 @@
         me.opts = opts;
         me.data = {};
 
-        dataLayer.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
-        dataLayer.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentCity = i; }));
+        sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
+        sizeup.core.profile.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentCity = i; }));
         dataLayer.getDetectedPlace(notifier.getNotifier(function (i) { me.data.detectedCity = i; }));
 
         var init = function () {
@@ -154,8 +154,8 @@
                     me.errors.noValuesEntered.fadeIn("slow");
                 }
                 else {
-                    dataLayer.setCurrentIndustry({ id: me.selectedIndustry.Id });
-                    dataLayer.setCurrentPlace({ id: me.selectedCity.Id });
+                    sizeup.core.profile.setCurrentIndustry({ id: me.selectedIndustry.Id });
+                    sizeup.core.profile.setCurrentPlace({ id: me.selectedCity.Id });
                     setSelectorLinks();
                     showSelector();
                 }

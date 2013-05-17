@@ -9,8 +9,8 @@
         me.opts = opts;
         me.data = {};
 
-        dataLayer.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
-        dataLayer.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentPlace = i; }));
+        sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
+        sizeup.core.profile.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentPlace = i; }));
 
         var init = function () {
             
@@ -113,8 +113,8 @@
                     me.errors.noValuesEntered.fadeIn("slow");
                 }
                 else {
-                    dataLayer.setCurrentIndustry({ id: me.selectedIndustry.Id });
-                    dataLayer.setCurrentPlace({ id: me.selectedPlace.Id });
+                    sizeup.core.profile.setCurrentIndustry({ id: me.selectedIndustry.Id });
+                    sizeup.core.profile.setCurrentPlace({ id: me.selectedPlace.Id });
                     setSelectorLinks();
                     if (me.opts.startFeature != null && me.opts.startFeature == 'Dashboard') {
                         window.location = '/widget/dashboard/' + getUrlPath();

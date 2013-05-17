@@ -60,7 +60,7 @@
        
       
         var setupNotifier = new sizeup.core.notifier(function () { setup(); });
-        dataLayer.getCompetitionValues({ placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id }, setupNotifier.getNotifier(function (data) {
+        sizeup.core.profile.getCompetitionValues({ placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id }, setupNotifier.getNotifier(function (data) {
             if (!jQuery.isEmptyObject(data)) {
                 me.data.restoredSession = true;
             }
@@ -70,7 +70,7 @@
         var setup = function () {
             var params = jQuery.bbq.getState();
             var notifier = new sizeup.core.notifier(function () { init(); });
-            dataLayer.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
+            sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
             dataLayer.getBoundingBox({ id: opts.CurrentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) {
                 me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.SouthWest.Lat, lng: data.SouthWest.Lng }));
@@ -299,7 +299,7 @@
      
         var hashChanged = function (e) {
             var p = $.extend(true, { placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id, }, e.getState());
-            dataLayer.setCompetitionValues(p);
+            sizeup.core.profile.setCompetitionValues(p);
         };
 
         var consumerExpenditureTypeChanged = function (e) {

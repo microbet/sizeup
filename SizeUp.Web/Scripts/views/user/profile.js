@@ -64,12 +64,12 @@
                 var password = { password: me.form.password.val() };
 
 
-                dataLayer.updateUserProfile(profile, notifier.getNotifier(function (data) {
+                sizeup.core.profile.updateUserProfile(profile, notifier.getNotifier(function (data) {
 
                 }));
 
                 if (password.password != '') {
-                    dataLayer.setPassword(password, notifier.getNotifier(function (data) {
+                    sizeup.core.profile.setPassword(password, notifier.getNotifier(function (data) {
 
                     }));
                 }

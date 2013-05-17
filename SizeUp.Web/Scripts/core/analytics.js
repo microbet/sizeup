@@ -1,7 +1,27 @@
 ﻿(function () {
     sizeup.core.namespace('sizeup.core');
     sizeup.core.analytics = function () {
-        var dataLayer = new sizeup.core.data();
+        
+        jQuery.ajaxSettings.traditional = true;
+        var get = function (url, params, callback) {
+            return $.get(url, params, 'json')
+            .success(function (data, status) {
+                if (status == 'success' && callback) { callback(data); }
+            })
+            .error(function (e, status) {
+                if (status != 'abort' && callback) { callback(null); }
+            });
+        };
+
+        var post = function (url, params, callback) {
+            return $.post(url, params)
+            .success(function (data, status) {
+                if (status == 'success' && callback) { callback(data); }
+            })
+            .error(function (e, status) {
+                if (status != 'abort' && callback) { callback(null); }
+            });
+        };
 
         var trackEvent = function (params) {
             if (!(typeof _gaq === 'undefined')) {
@@ -58,20 +78,20 @@
                 trackEvent({ category: 'Competition', action: 'placeChanged', label: params.place, isInteraction: true });
             },
             relatedCompetitor: function (params) {
-                trackInternal(params, 'trackRelatedCompetitor');
+                return get('/analytics/relatedIndustry/competitor/', params);
             },
             relatedSupplier: function (params) {
-                trackInternal(params, 'trackRelatedSupplier');
+                return get('/analytics/relatedIndustry/supplier/', params);
             },
             relatedBuyer: function (params) {
-                trackInternal(params, 'trackRelatedBuyer');
+                return get('/analytics/relatedIndustry/buyer/', params);
             },
             userSignin: function (params) {
                 trackEvent({ category: 'User', action: 'signin', label: params.label, isInteraction: true });
             },
             placeIndustry: function (params) {
-                trackInternal(params, 'trackPlaceIndustry');
-            },
+                return get('/analytics/placeIndustry/', params);
+            },           
             bestPlacesReportLoaded: function (params) {
                 trackEvent({ category: 'BestPlaces', action: 'reportLoaded', label: params.label, isInteraction: true });
             },

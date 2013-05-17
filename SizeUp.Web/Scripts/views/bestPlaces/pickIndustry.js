@@ -9,7 +9,7 @@
         me.opts = opts;
         me.data = {};
 
-        dataLayer.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
+        sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
 
         var init = function () {
             me.hasData = false;
@@ -64,7 +64,7 @@
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
             }
             else {
-                dataLayer.setCurrentIndustry({ id: currentIndustry.Id }, function () {
+                sizeup.core.profile.setCurrentIndustry({ id: currentIndustry.Id }, function () {
                     window.location.href = currentIndustry.SEOKey;
                 });
             }

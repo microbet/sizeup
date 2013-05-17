@@ -25,15 +25,7 @@
         };
 
         var publicObj = {
-            isAuthenticated: function (callback) {
-                return get('/api/user/authenticated/', null, callback);
-            },
-            updateUserProfile: function (params, callback) {
-                return post('/api/user/profile/', params, callback);
-            },
-            setPassword: function (params, callback) {
-                return post('/api/user/password/', params, callback);
-            },
+
             searchIndustries: function (params, callback) {
                 return get('/api/industry/search/', params, callback);
             },
@@ -43,12 +35,6 @@
             getIndustries: function (params, callback) {
                 return get('/api/industry/list', params, callback);
             },
-            getCurrentIndustry: function (callback) {
-                return get('/api/industry/current', null, callback);
-            },
-            setCurrentIndustry: function (params, callback) {
-                return post('/api/industry/current', params, callback);
-            },
 
             searchPlaces: function (params, callback) {
                 return get('/api/place/search/', params, callback);
@@ -56,12 +42,7 @@
             getPlace: function (params, callback) {
                 return get('/api/place/', params, callback);
             },
-            getCurrentPlace: function (callback) {
-                return get('/api/place/current', null, callback);
-            },
-            setCurrentPlace: function (params, callback) {
-                return post('/api/place/current', params, callback);
-            },
+
             getDetectedPlace: function (callback) {
                 return get('/api/place/detected', null, callback);
             },
@@ -252,24 +233,6 @@
             },
 
 
-
-            getDashboardValues: function (params, callback) {
-                return get('/api/profile/dashboardValues/', params, callback);
-            },
-
-            setDashboardValues: function (params, callback) {
-                return post('/api/profile/dashboardValues/', params, callback);
-            },
-
-            getCompetitionValues: function (params, callback) {
-                return get('/api/profile/competitionValues/', params, callback);
-            },
-
-            setCompetitionValues: function (params, callback) {
-                return post('/api/profile/competitionValues/', params, callback);
-            },
-
-
             getConsumerExpenditureVariables: function (params, callback) {
                 return get('/api/consumerExpenditures/variables/', params, callback);
             },
@@ -310,23 +273,6 @@
             },
             getBestPlacesBands: function (params, callback) {
                 return get('/api/bestPlaces/bands/', params, callback);
-            },
-
-
-            ///analytics
-
-            trackPlaceIndustry: function (params) {
-                return get('/analytics/placeIndustry/', params);
-            },
-
-            trackRelatedCompetitor: function (params) {
-                return get('/analytics/relatedIndustry/competitor/', params);
-            },
-            trackRelatedSupplier: function (params) {
-                return get('/analytics/relatedIndustry/supplier/', params);
-            },
-            trackRelatedBuyer: function (params) {
-                return get('/analytics/relatedIndustry/buyer/', params);
             }
            
 

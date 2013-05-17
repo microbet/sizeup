@@ -27,7 +27,7 @@
 
         dataLayer.getCentroid({ id: opts.currentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }));
         dataLayer.getBoundingBox({ id: opts.currentInfo.CurrentPlace.Id, granularity: 'Place' }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
-        dataLayer.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
+        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             
             me.data.activeIndustry = me.opts.currentInfo.CurrentIndustry;
@@ -36,7 +36,7 @@
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 jQuery.bbq.pushState(me.data.dashboardValues, 1);
                 var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id }, jQuery.bbq.getState());
-                dataLayer.setDashboardValues(p);
+                sizeup.core.profile.setDashboardValues(p);
             }
 
             me.signinPanels = {};
@@ -239,7 +239,7 @@
 
         var hashChanged = function (e) {
             var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id }, e.getState());
-            dataLayer.setDashboardValues(p);
+            sizeup.core.profile.setDashboardValues(p);
         };
 
 
