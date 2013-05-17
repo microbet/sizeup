@@ -15,23 +15,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/Industry/
 
-        public ActionResult Index(long id)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Industry.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        public ActionResult List(List<long> ids)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Industry.List(context, ids);
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
+        
 
         [HttpGet]
         public ActionResult Current()
@@ -58,13 +42,5 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
         }
 
-        public ActionResult Search(string term, int maxResults = 35)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
     }
 }

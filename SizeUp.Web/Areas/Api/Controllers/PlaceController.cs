@@ -18,15 +18,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Place/
-        public ActionResult Search(string term, int maxResults = 35)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Place.Search(context, term).Take(maxResults).ToList();
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         [HttpGet]
         public ActionResult Current()
         {
@@ -61,18 +52,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public ActionResult Index(long id)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Place.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-
 
     }
 }
