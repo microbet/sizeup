@@ -12,16 +12,11 @@ namespace SizeUp.Data
 {
     public static class ContextFactory
     {
-        private static string SizeUpConnection = ConfigurationManager.ConnectionStrings["SizeUpContext"].ConnectionString;
-        private static string AnalyticsConnection = ConfigurationManager.ConnectionStrings["AnalyticsContext"].ConnectionString;
-        private static string UserDataConnection = ConfigurationManager.ConnectionStrings["UserDataContext"].ConnectionString;
-
-
         public static SizeUpContext SizeUpContext
         {
             get
             {
-                var conn = new EntityConnection(SizeUpConnection);
+                var conn = new EntityConnection(ConfigurationManager.ConnectionStrings["SizeUpContext"].ConnectionString);
                 var context = new SizeUpContext(conn);
                 return context;
             }
@@ -31,7 +26,7 @@ namespace SizeUp.Data
         {
             get
             {
-                var conn = new EntityConnection(AnalyticsConnection);
+                var conn = new EntityConnection(ConfigurationManager.ConnectionStrings["AnalyticsContext"].ConnectionString);
                 var context = new AnalyticsContext(conn);
                 return context;
             }
@@ -41,7 +36,7 @@ namespace SizeUp.Data
         {
             get
             {
-                var conn = new EntityConnection(UserDataConnection);
+                var conn = new EntityConnection(ConfigurationManager.ConnectionStrings["UserDataContext"].ConnectionString);
                 var context = new UserDataContext(conn);
                 return context;
             }
