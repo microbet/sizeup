@@ -57,7 +57,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         public ActionResult Index(int industryId, long placeId, int page = 1, int itemCount = 20)
         {
-            int maxResults = int.Parse(ConfigurationManager.AppSettings["API.Advertising.MaxResults"]);
+            int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Advertising.MaxResults"]);
             itemCount = Math.Min(maxResults, itemCount);
 
 

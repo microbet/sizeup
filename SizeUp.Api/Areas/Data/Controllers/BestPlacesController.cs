@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 using SizeUp.Data;
 using SizeUp.Core;
 using SizeUp.Core.Web;
@@ -57,8 +58,10 @@ namespace SizeUp.Api.Areas.Data.Controllers
             return v;
         }
 
-        public ActionResult Index(int itemCount, int industryId, Granularity granularity, long? regionId, long? stateId)
+        public ActionResult Index(int industryId, Granularity granularity, long? regionId, long? stateId, int itemCount = 25)
         {
+            int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.BestPlaces.MaxResults"]);
+            itemCount = Math.Min(maxResults, itemCount);
             BestPlacesFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {

@@ -40,7 +40,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         public ActionResult List(List<long> industryIds, long placeId, int itemCount = 10, int page = 1, int radius = 100)
         {
-            int maxResults = int.Parse(ConfigurationManager.AppSettings["API.Business.MaxResults"]);
+            int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Business.MaxResults"]);
             itemCount = Math.Min(maxResults, itemCount);
             using (var context = ContextFactory.SizeUpContext)
             {
