@@ -206,6 +206,7 @@
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />
     <Content Include="Views\JS\Data.cshtml" />
+    <None Include="Properties\PublishProfiles\api.sizeup.com.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
