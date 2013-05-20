@@ -11,6 +11,8 @@ using SizeUp.Core;
 using SizeUp.Core.Geo;
 using SizeUp.Core.DataLayer.Models;
 using SizeUp.Api.Controllers;
+using System.Configuration;
+
 namespace SizeUp.Api.Areas.Data.Controllers
 {
     public class AdvertisingController : BaseController
@@ -55,6 +57,10 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         public ActionResult Index(int industryId, long placeId, int page = 1, int itemCount = 20)
         {
+            int maxResults = int.Parse(ConfigurationManager.AppSettings["API.Advertising.MaxResults"]);
+            itemCount = Math.Min(maxResults, itemCount);
+
+
             AdvertisingFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {

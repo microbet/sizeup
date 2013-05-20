@@ -10,7 +10,7 @@ using System.Data.Spatial;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.DataLayer;
-
+using System.Configuration;
 
 using SizeUp.Api.Controllers;
 namespace SizeUp.Api.Areas.Data.Controllers
@@ -38,8 +38,10 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        public ActionResult List(List<long> industryIds, long placeId, int itemCount, int page = 1, int radius = 100)
+        public ActionResult List(List<long> industryIds, long placeId, int itemCount = 10, int page = 1, int radius = 100)
         {
+            int maxResults = int.Parse(ConfigurationManager.AppSettings["API.Business.MaxResults"]);
+            itemCount = Math.Min(maxResults, itemCount);
             using (var context = ContextFactory.SizeUpContext)
             {
                 var centroid = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
