@@ -18,7 +18,7 @@
                     zoom: zoom
                 },
                 me.opts.tileParams);
-                if (pointer == 3) {
+                if (pointer == 2) {
                     pointer = 0;
                 }
                 pointer++;
