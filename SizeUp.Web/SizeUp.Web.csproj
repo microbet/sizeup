@@ -141,19 +141,6 @@
     <Compile Include="Areas\Api\Controllers\UserController.cs" />
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
-    <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\ConsumerExpendituresController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\CostEffectivenessController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\GeographyBoundaryController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\TotalEmployeesController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\EmployeesPerCapitaController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
-    <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
-    <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
     <Compile Include="Areas\Widget\Controllers\CommunityController.cs" />
@@ -404,8 +391,6 @@
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Areas\Pins\Models\" />
     <Folder Include="Areas\Pins\Views\Shared\" />
-    <Folder Include="Areas\Tiles\Models\" />
-    <Folder Include="Areas\Tiles\Views\Shared\" />
     <Folder Include="Areas\Widget\Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -413,7 +398,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Api\Views\Web.config" />
-    <Content Include="Areas\Tiles\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Business\Find.cshtml" />

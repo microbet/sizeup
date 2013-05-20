@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SizeUp.Web.Areas.Tiles.Controllers
+namespace SizeUp.Api.Areas.Tiles.Controllers
 {
     public class BaseController : Controller
     {

@@ -43,6 +43,10 @@
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Microsoft SQL Server\110\SDK\Assemblies\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -126,6 +130,19 @@
     <Compile Include="Areas\Data\Controllers\AverageEmployeesController.cs" />
     <Compile Include="Areas\Data\Controllers\AverageRevenueController.cs" />
     <Compile Include="Areas\Data\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\AverageEmployeesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\AverageRevenueController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\AverageSalaryController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\BusinessesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\ConsumerExpendituresController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\CostEffectivenessController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\EmployeesPerCapitaController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\GeographyBoundaryController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\RevenuePerCapitaController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\TotalEmployeesController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\TotalRevenueController.cs" />
+    <Compile Include="Areas\Tiles\TilesAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Areas\Data\Controllers\CostEffectivenessController.cs" />
     <Compile Include="Areas\Data\Controllers\EmployeesPerCapitaController.cs" />
@@ -160,6 +177,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Data\Models\" />
+    <Folder Include="Areas\Tiles\Models\" />
+    <Folder Include="Areas\Tiles\Views\Shared\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +201,7 @@
     <Content Include="Views\JS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Tiles\Views\Web.config" />
     <None Include="Properties\PublishProfiles\api.beta.sizeup.com.pubxml" />
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />
