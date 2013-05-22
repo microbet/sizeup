@@ -371,9 +371,7 @@
     <Content Include="Scripts\views\user\resetpassword.js" />
     <Content Include="Scripts\views\user\signin.js" />
     <Content Include="Scripts\widget\messager.js" />
-    <Content Include="Scripts\widget\bestPlaces.js" />
     <Content Include="Scripts\widget\core.js" />
-    <Content Include="Scripts\widget\embed.js" />
     <Content Include="Scripts\widget\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\widget\views\select\select.js" />
     <Content Include="Web.config">
@@ -482,6 +480,8 @@
     <Content Include="Areas\Widget\Views\Shared\_HeaderlessLayout.cshtml" />
     <Content Include="Areas\Widget\Views\User\Profile.cshtml" />
     <Content Include="Areas\Widget\Views\Community\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Get\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Get\BestPlaces.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />

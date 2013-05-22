@@ -7,6 +7,8 @@ using SizeUp.Data;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.Web;
+using SizeUp.Core.API;
+using SizeUp.Data.Analytics;
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -75,8 +77,18 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         }
         
 
+        [APIAuthorize(Role = "Widget")]
         public ActionResult Index()
         {
+            bool valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
+            Log();
+            if (!valid)
+            {
+                throw new HttpException(401, "Api token not valid");
+            }
+
+
+
             using (var context = ContextFactory.SizeUpContext)
             {
                 string urlBase = "/{0}/{1}/{2}/{3}";
@@ -116,6 +128,16 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 }
                 return Redirect(url);
             }
+        }
+
+        protected void Log()
+        {
+            Data.Analytics.APIRequest reg = new Data.Analytics.APIRequest();
+            reg.OriginUrl = APIContext.Current.Origin;
+            reg.Session = APIContext.Current.Session;
+            reg.Url = HttpContext.Request.Url.OriginalString;
+            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
+            Singleton<Tracker>.Instance.APIRequest(reg);
         }
 
     }

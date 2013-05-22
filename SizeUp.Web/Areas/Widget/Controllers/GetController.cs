@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using SizeUp.Core.Web;
 using SizeUp.Data;
 using SizeUp.Core.API;
+using System.Security.Cryptography;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -13,14 +17,14 @@ namespace SizeUp.Web.Areas.Widget.Controllers
     {
         //
         // GET: /Widget/Get/
-
-        public ActionResult Index()
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
-            Guid g;
-            if (!Guid.TryParse(Request["key"], out g))
-            {
-                g = Guid.Empty;
-            }
+            base.Initialize(requestContext);
+            Response.ContentType = "text/javascript";
+        }
+
+        public ActionResult Index(Guid key)
+        {
             string theme = Request.QueryString["theme"];
             if (!string.IsNullOrWhiteSpace(theme))
             {
@@ -35,14 +39,23 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 Response.Cookies.Add(c);
 
             }
-            CreateToken(g);
-            return File("~/Scripts/widget/embed.js", "text/javascript");
+            CreateToken(key);
+
+            MemoryStream s = new MemoryStream();
+            BinaryFormatter bf = new BinaryFormatter();
+            string data = string.Format("{0}|{1}", key.ToString(), Guid.NewGuid().ToString());
+            bf.Serialize(s, data);
+            SHA1CryptoServiceProvider a = new SHA1CryptoServiceProvider();
+            var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));
+            ViewBag.SessionId = sessionid;
+
+            return View();
         }
 
 
         public ActionResult BestPlaces()
         {
-            return File("~/Scripts/widget/bestPlaces.js", "text/javascript");
+            return View();
         }
 
         protected void CreateToken(Guid key)
@@ -50,12 +63,12 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             using (var context = ContextFactory.APIContext)
             {
                 var api = context.APIKeys.Where(i => i.KeyValue == key).FirstOrDefault();
-                //here we need to implement additional cehcking to make sure the domain this comes form is correct.
                 if (api != null)
                 {
                     ViewBag.APIName = api.Name;
                     var token = new APIToken(api.Id);
                     token.PersistAsCookie();
+                    ViewBag.Token = token.GetToken();
                 }
                 else
                 {
