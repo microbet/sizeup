@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SizeUp.Core.Web;
+using SizeUp.Data;
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -33,7 +35,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 Response.Cookies.Add(c);
 
             }
-            WidgetToken.Create(g);
+            CreateToken(g);
             return File("~/Scripts/widget/embed.js", "text/javascript");
         }
 
@@ -41,6 +43,31 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         public ActionResult BestPlaces()
         {
             return File("~/Scripts/widget/bestPlaces.js", "text/javascript");
+        }
+
+        protected void CreateToken(Guid key)
+        {
+            using (var context = ContextFactory.APIContext)
+            {
+                var api = context.APIKeys.Where(i => i.KeyValue == key).FirstOrDefault();
+                //here we need to implement additional cehcking to make sure the domain this comes form is correct.
+                if (api != null)
+                {
+                    ViewBag.APIName = api.Name;
+                    var token = new APIToken(api.Id);
+                    token.PersistAsCookie();
+                }
+                else
+                {
+                    throw new HttpException(403, "Invalid API Key");
+                }
+
+                if (!context.APIKeyRoleMappings.Any(i => i.APIKey.KeyValue == key && i.Role.Name.ToLower() == "widget"))
+                {
+                    throw new HttpException(403, "Not authorized to use the widget");
+                }
+
+            }
         }
 
     }

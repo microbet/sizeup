@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core.Web;
+using SizeUp.Core.API;
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -12,6 +13,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
     {
         //
         // GET: /Widget/Base/
+
+
+
+        protected APIToken APIToken { get { return Core.API.APIToken.GetFromCookie(); } }
 
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
@@ -24,11 +29,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             ViewBag.Theme = theme.ToLower();
 
 
-            using (var context = ContextFactory.APIContext)
+
+            if (APIToken != null && !APIToken.IsValid)
             {
-                var currentKey = WidgetToken.APIKey;
-                var api = context.APIKeys.Where(i => i.KeyValue == currentKey).Select(i=>i.Name).FirstOrDefault();
-                ViewBag.APIName = api;
+                //throw new HttpException(403, "Invalid API Key");
             }
             base.Initialize(requestContext);
         }

@@ -49,7 +49,7 @@ namespace SizeUp.Api.Controllers
 
         public ActionResult Data()
         {
-            if (APIContext.Current.ApiToken.IsValid)
+            if (APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired)
             {
                 ViewBag.Permissions = new APIPermissions(APIContext.Current.ApiToken.APIKeyId);
             }

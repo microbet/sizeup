@@ -26,7 +26,7 @@ namespace SizeUp.Api.Controllers
             {
                 Log();
             }
-            valid = APIContext.Current.IsJsonp && APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid;
+            valid = APIContext.Current.IsJsonp && APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
             if (!valid)
             {
                 throw new HttpException(401, "Api token not valid");

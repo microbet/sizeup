@@ -11,6 +11,7 @@ using SizeUp.Data;
 using System.Web.Security;
 using SizeUp.Data.UserData;
 using SizeUp.Core.Web;
+using SizeUp.Core.API;
 using SizeUp.Data.Analytics;
 
 
@@ -174,6 +175,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 using (var context = ContextFactory.UserDataContext)
                 {
+                    APIToken token = APIToken.GetFromCookie();
+                    long? apikeyid = token != null ? token.APIKeyId : (long?)null;
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
@@ -186,7 +189,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     analyticsAttr.Revenue = attr.Revenue;
                     analyticsAttr.WorkersComp = attr.WorkersComp;
                     analyticsAttr.YearStarted = attr.YearStarted;
-                    analyticsAttr.APIKeyId = WidgetToken.APIKeyId;
+                    analyticsAttr.APIKeyId = apikeyid;
 
                     var item = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
@@ -344,6 +347,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 using (var context = ContextFactory.UserDataContext)
                 {
+                    APIToken token = APIToken.GetFromCookie();
+                    long? apikeyid = token != null ? token.APIKeyId : (long?)null;
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
@@ -353,7 +358,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     analyticsAttr.Suppliers = attr.Suppliers;
                     analyticsAttr.RootId = attr.RootId;
                     analyticsAttr.ComsumerExpenditureId = attr.ComsumerExpenditureId;
-                    analyticsAttr.APIKeyId = WidgetToken.APIKeyId;
+                    analyticsAttr.APIKeyId = apikeyid;
 
                     var item = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)

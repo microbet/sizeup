@@ -17,7 +17,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
 
         
-        [APIAuthorize(Role = "ConsumerExpenitures")]
+        [APIAuthorize(Role = "ConsumerExpenditures")]
         public ActionResult Bands(int variableId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -29,7 +29,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
 
         
-        [APIAuthorize(Role = "ConsumerExpenitures")]
+        [APIAuthorize(Role = "ConsumerExpenditures")]
         public ActionResult Variables(int? parentId)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -40,7 +40,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         }
 
         
-        [APIAuthorize(Role = "ConsumerExpenitures")]
+        [APIAuthorize(Role = "ConsumerExpenditures")]
         public ActionResult Variable(int id)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -51,7 +51,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         }
 
         
-        [APIAuthorize(Role = "ConsumerExpenitures")]
+        [APIAuthorize(Role = "ConsumerExpenditures")]
         public ActionResult VariablePath(int id)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -63,7 +63,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
 
         
-        [APIAuthorize(Role = "ConsumerExpenitures")]
+        [APIAuthorize(Role = "ConsumerExpenditures")]
         public ActionResult VariableCrosswalk(int id)
         {
             using (var context = ContextFactory.SizeUpContext)

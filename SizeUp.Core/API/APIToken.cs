@@ -35,7 +35,28 @@ namespace SizeUp.Core.API
             }
         }
 
+        protected static string TokenCookie
+        {
+            get
+            {
+                return "sizeup.token";
+            }
+        }
+
         public bool IsValid
+        {
+            get
+            {
+                bool isValid = false;
+                using (var context = ContextFactory.APIContext)
+                {
+                    isValid = context.APIKeys.Any(i => i.Id == APIKeyId);
+                }
+                return isValid;
+            }
+        }
+
+        public bool IsExpired
         {
             get
             {
@@ -44,26 +65,15 @@ namespace SizeUp.Core.API
 
                 var diff = now - old;
                 var minutes = (int)diff.TotalMinutes;
-                bool isValid = false;
+                bool isExpired = false;
 
-                if (minutes < int.Parse(ConfigurationManager.AppSettings["Api.TokenExpiration"]))
+                if (minutes >= int.Parse(ConfigurationManager.AppSettings["Api.TokenExpiration"]))
                 {
-                    if (!HttpContext.Current.Request.IsLocal)
-                    {
-                        using (var context = ContextFactory.APIContext)
-                        {
-                            isValid = context.APIKeys.Any(i => i.Id == APIContext.Current.ApiToken.APIKeyId);
-                        }
-                    }
-                    else
-                    {
-                        isValid = true;
-                    }
+                    isExpired = true;
                 }
-                return isValid;
+                return isExpired;
             }
         }
-
         public APIToken(long KeyId)
         {
             _keyId = KeyId;
@@ -95,6 +105,20 @@ namespace SizeUp.Core.API
                 returnToken._timestamp = long.Parse(outData[1]);
             }
             return returnToken;
+        }
+
+        public void PersistAsCookie()
+        {
+            HttpCookie kc = new HttpCookie(TokenCookie);
+            kc.Value = GetToken();
+            HttpContext.Current.Response.Cookies.Add(kc);
+        }
+
+        public static APIToken GetFromCookie()
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[TokenCookie];
+            var token = cookie != null ? cookie.Value : "";
+            return ParseToken(token);
         }
     }
 }

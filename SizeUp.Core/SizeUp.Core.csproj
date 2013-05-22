@@ -177,7 +177,6 @@
     <Compile Include="Web\QueryString.cs" />
     <Compile Include="Web\RequestValidator.cs" />
     <Compile Include="Web\WebContext.cs" />
-    <Compile Include="Web\WidgetToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SizeUp.Data\SizeUp.Data.csproj">

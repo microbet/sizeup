@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using SizeUp.Data;
 using SizeUp.Core;
 using SizeUp.Data.Analytics;
-using SizeUp.Core.Web;
+using SizeUp.Core.API;
 using System.Web.Security;
 
 
@@ -19,7 +19,8 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Competitor(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            long? apikeyid = WidgetToken.APIKeyId;
+            APIToken token = APIToken.GetFromCookie();
+            long? apikeyid = token != null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
 
             if (User.Identity.IsAuthenticated)
@@ -43,7 +44,8 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Buyer(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            long? apikeyid = WidgetToken.APIKeyId;
+            APIToken token = APIToken.GetFromCookie();
+            long? apikeyid = token != null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
 
             if (User.Identity.IsAuthenticated)
@@ -67,7 +69,8 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Supplier(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            long? apikeyid = WidgetToken.APIKeyId;
+            APIToken token = APIToken.GetFromCookie();
+            long? apikeyid = token != null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
 
             if (User.Identity.IsAuthenticated)
