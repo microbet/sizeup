@@ -15,7 +15,7 @@ namespace SizeUp.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var token = APIToken.Create(ApiToken.APIKeyId);
+                var token = new APIToken(APIContext.Current.ApiToken.APIKeyId);
                 var data = token.GetToken();             
                 return Json(data, JsonRequestBehavior.AllowGet);         
             }

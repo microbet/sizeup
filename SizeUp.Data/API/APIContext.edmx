@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SizeUp.Data.API.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SizeUpDataAPIStoreContainer">
+          <EntitySet Name="APIKey" EntityType="SizeUp.Data.API.Store.APIKey" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="APIKeyDomain" EntityType="SizeUp.Data.API.Store.APIKeyDomain" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="APIKeyRoleMapping" EntityType="SizeUp.Data.API.Store.APIKeyRoleMapping" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Role" EntityType="SizeUp.Data.API.Store.Role" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.API.Store.FK_APIKeyDomain_APIKey">
+            <End Role="APIKey" EntitySet="APIKey" />
+            <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APIKeyRoleMapping_APIKey" Association="SizeUp.Data.API.Store.FK_APIKeyRoleMapping_APIKey">
+            <End Role="APIKey" EntitySet="APIKey" />
+            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APIKeyRoleMapping_Role" Association="SizeUp.Data.API.Store.FK_APIKeyRoleMapping_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="APIKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="KeyValue" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APIKeyDomain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Domain" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="APIKeyId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APIKeyRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="APIKeyId" Type="bigint" Nullable="false" />
+          <Property Name="RoleId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_APIKeyDomain_APIKey">
+          <End Role="APIKey" Type="SizeUp.Data.API.Store.APIKey" Multiplicity="1" />
+          <End Role="APIKeyDomain" Type="SizeUp.Data.API.Store.APIKeyDomain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APIKeyDomain">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APIKeyRoleMapping_APIKey">
+          <End Role="APIKey" Type="SizeUp.Data.API.Store.APIKey" Multiplicity="1" />
+          <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.Store.APIKeyRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APIKeyRoleMapping">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APIKeyRoleMapping_Role">
+          <End Role="Role" Type="SizeUp.Data.API.Store.Role" Multiplicity="1" />
+          <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.Store.APIKeyRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APIKeyRoleMapping">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SizeUp.Data.API" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="APIContext" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="APIKeys" EntityType="SizeUp.Data.API.APIKey" />
+          <EntitySet Name="APIKeyDomains" EntityType="SizeUp.Data.API.APIKeyDomain" />
+          <EntitySet Name="APIKeyRoleMappings" EntityType="SizeUp.Data.API.APIKeyRoleMapping" />
+          <EntitySet Name="Roles" EntityType="SizeUp.Data.API.Role" />
+          <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.API.FK_APIKeyDomain_APIKey">
+            <End Role="APIKey" EntitySet="APIKeys" />
+            <End Role="APIKeyDomain" EntitySet="APIKeyDomains" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APIKeyRoleMapping_APIKey" Association="SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey">
+            <End Role="APIKey" EntitySet="APIKeys" />
+            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APIKeyRoleMapping_Role" Association="SizeUp.Data.API.FK_APIKeyRoleMapping_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMappings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="APIKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="KeyValue" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="APIKeyDomains" Relationship="SizeUp.Data.API.FK_APIKeyDomain_APIKey" FromRole="APIKey" ToRole="APIKeyDomain" />
+          <NavigationProperty Name="APIKeyRoleMappings" Relationship="SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey" FromRole="APIKey" ToRole="APIKeyRoleMapping" />
+        </EntityType>
+        <EntityType Name="APIKeyDomain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Domain" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="APIKeyId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="APIKey" Relationship="SizeUp.Data.API.FK_APIKeyDomain_APIKey" FromRole="APIKeyDomain" ToRole="APIKey" />
+        </EntityType>
+        <EntityType Name="APIKeyRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="APIKeyId" Type="Int64" Nullable="false" />
+          <Property Name="RoleId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="APIKey" Relationship="SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey" FromRole="APIKeyRoleMapping" ToRole="APIKey" />
+          <NavigationProperty Name="Role" Relationship="SizeUp.Data.API.FK_APIKeyRoleMapping_Role" FromRole="APIKeyRoleMapping" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="APIKeyRoleMappings" Relationship="SizeUp.Data.API.FK_APIKeyRoleMapping_Role" FromRole="Role" ToRole="APIKeyRoleMapping" />
+        </EntityType>
+        <Association Name="FK_APIKeyDomain_APIKey">
+          <End Role="APIKey" Type="SizeUp.Data.API.APIKey" Multiplicity="1" />
+          <End Role="APIKeyDomain" Type="SizeUp.Data.API.APIKeyDomain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APIKeyDomain">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APIKeyRoleMapping_APIKey">
+          <End Role="APIKey" Type="SizeUp.Data.API.APIKey" Multiplicity="1" />
+          <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.APIKeyRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APIKeyRoleMapping">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_APIKeyRoleMapping_Role">
+          <End Role="Role" Type="SizeUp.Data.API.Role" Multiplicity="1" />
+          <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.APIKeyRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="APIKeyRoleMapping">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SizeUpDataAPIStoreContainer" CdmEntityContainer="APIContext">
+          <EntitySetMapping Name="APIKeys">
+            <EntityTypeMapping TypeName="SizeUp.Data.API.APIKey">
+              <MappingFragment StoreEntitySet="APIKey">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="KeyValue" ColumnName="KeyValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIKeyDomains">
+            <EntityTypeMapping TypeName="SizeUp.Data.API.APIKeyDomain">
+              <MappingFragment StoreEntitySet="APIKeyDomain">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIKeyRoleMappings">
+            <EntityTypeMapping TypeName="SizeUp.Data.API.APIKeyRoleMapping">
+              <MappingFragment StoreEntitySet="APIKeyRoleMapping">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="SizeUp.Data.API.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

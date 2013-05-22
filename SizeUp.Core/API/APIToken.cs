@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using SizeUp.Core.Crypto;
 using SizeUp.Data;
+using System.Web;
 
 namespace SizeUp.Core.API
 {
@@ -18,7 +19,7 @@ namespace SizeUp.Core.API
         public long APIKeyId { get { return _keyId;} }
         public long TimeStamp { get { return _timestamp; } }
 
-        protected static string WidgetCryptoPassword
+        protected static string CryptoPassword
         {
             get
             {
@@ -26,7 +27,7 @@ namespace SizeUp.Core.API
             }
         }
 
-        protected static byte[] WidgetCryptoSalt
+        protected static byte[] CryptoSalt
         {
             get
             {
@@ -34,6 +35,34 @@ namespace SizeUp.Core.API
             }
         }
 
+        public bool IsValid
+        {
+            get
+            {
+                var now = DateTime.UtcNow;
+                var old = new DateTime(TimeStamp);
+
+                var diff = now - old;
+                var minutes = (int)diff.TotalMinutes;
+                bool isValid = false;
+
+                if (minutes < int.Parse(ConfigurationManager.AppSettings["Api.TokenExpiration"]))
+                {
+                    if (!HttpContext.Current.Request.IsLocal)
+                    {
+                        using (var context = ContextFactory.APIContext)
+                        {
+                            isValid = context.APIKeys.Any(i => i.Id == APIContext.Current.ApiToken.APIKeyId);
+                        }
+                    }
+                    else
+                    {
+                        isValid = true;
+                    }
+                }
+                return isValid;
+            }
+        }
 
         public APIToken(long KeyId)
         {
@@ -47,43 +76,25 @@ namespace SizeUp.Core.API
             BinaryFormatter bf = new BinaryFormatter();
             string data = string.Format("{0}|{1}", APIKeyId, TimeStamp);
             bf.Serialize(s, data);
-            var cipher = Crypto.Crypto.Encrypt(s.ToArray(), WidgetCryptoPassword, WidgetCryptoSalt);
+            var cipher = Crypto.Crypto.Encrypt(s.ToArray(), CryptoPassword, CryptoSalt);
             return cipher;
         }
 
-        public static APIToken GetToken(string cipher)
+        public static APIToken ParseToken(string cipher)
         {
             APIToken returnToken = null;
             if (!string.IsNullOrEmpty(cipher))
             {
-                var data = Crypto.Crypto.Decrypt(cipher, WidgetCryptoPassword, WidgetCryptoSalt);
+                var data = Crypto.Crypto.Decrypt(cipher, CryptoPassword, CryptoSalt);
                 MemoryStream s = new MemoryStream();
                 s.Write(data, 0, data.Length);
                 s.Position = 0;
                 BinaryFormatter bf = new BinaryFormatter();
                 string[] outData = (bf.Deserialize(s) as string).Split("|".ToCharArray());
-                returnToken = Create(long.Parse(outData[0]));
+                returnToken = new APIToken(long.Parse(outData[0]));
                 returnToken._timestamp = long.Parse(outData[1]);
             }
             return returnToken;
-        }
-
-        public static APIToken Create(long KeyId)
-        {
-            return new APIToken(KeyId);
-        }
-
-        public static APIToken Create(Guid key)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var k = context.APIKeys.Where(i => i.KeyValue == key).FirstOrDefault();
-                if (k == null)
-                {
-                    throw new Exception("Invalid API Key");
-                }
-                return Create(k.Id);
-            }
         }
     }
 }

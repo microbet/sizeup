@@ -17,7 +17,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     public class CostEffectivenessController : BaseController
     {
         //
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Chart(int industryId, int placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -27,7 +28,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Percentage(int industryId, int placeId, int revenue, int employees, int salary, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -38,7 +40,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)

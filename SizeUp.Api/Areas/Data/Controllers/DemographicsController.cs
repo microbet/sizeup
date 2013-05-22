@@ -19,7 +19,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/Demographics/
-
+        
+        [APIAuthorize(Role = "Demographics")]
         public ActionResult Index(long id, Granularity granularity )
         {
             using (var context = ContextFactory.SizeUpContext)

@@ -18,7 +18,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/YearStarted/
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Chart(long industryId, long placeId, int startYear, int endYear, Granularity granularity)
         {
             if (startYear < 1986)
@@ -32,7 +33,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Percentile(long industryId, long placeId, int value, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)

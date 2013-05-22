@@ -58,6 +58,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             return v;
         }
 
+        
+        [APIAuthorize(Role = "BestPlaces")]
         public ActionResult Index(int industryId, Granularity granularity, long? regionId, long? stateId, int itemCount = 25)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.BestPlaces.MaxResults"]);
@@ -73,6 +75,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+        
+        [APIAuthorize(Role = "BestPlaces")]
         public ActionResult Bands(int itemCount, int bands, int industryId, Granularity granularity, long? regionId, long? stateId)
         {
             BestPlacesFilters filters = BuildFilters();

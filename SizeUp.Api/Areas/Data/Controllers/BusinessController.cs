@@ -11,8 +11,8 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.DataLayer;
 using System.Configuration;
-
 using SizeUp.Api.Controllers;
+using SizeUp.Core.API;
 namespace SizeUp.Api.Areas.Data.Controllers
 {
     public class BusinessController : BaseController
@@ -20,6 +20,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
         //
         // GET: /Api/Business/
 
+        
+        [APIAuthorize(Role = "Business")]
         public ActionResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -29,6 +31,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+        
+        [APIAuthorize(Role = "Business")]
         public ActionResult At(List<long> industryIds, float lat, float lng)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -38,6 +42,9 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+
+        
+        [APIAuthorize(Role = "Business")]
         public ActionResult List(List<long> industryIds, long placeId, int itemCount = 10, int page = 1, int radius = 100)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Business.MaxResults"]);

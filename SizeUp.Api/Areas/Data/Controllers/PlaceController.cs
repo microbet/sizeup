@@ -17,7 +17,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/Place/
-        [APIRequest]
+        
+        [APIAuthorize(Role = "Place")]
         public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -27,7 +28,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "Place")]
         public ActionResult Detected()
         {
             var ip = Request.Headers["X-Forwarded-For"];
@@ -39,7 +41,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "Place")]
         public ActionResult Index(long id)
         {
             using (var context = ContextFactory.SizeUpContext)

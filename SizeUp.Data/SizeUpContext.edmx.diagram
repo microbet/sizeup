@@ -14,8 +14,6 @@
         <AssociationConnector Association="SizeUp.Data.FK_SicToNAICSMapping_NAICS" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="6.5" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.CityCountyMapping" Width="1.875" PointX="6.5" PointY="2.375" />
-        <EntityTypeShape EntityType="SizeUp.Data.APIKey" Width="1.5" PointX="0.5" PointY="8" />
-        <EntityTypeShape EntityType="SizeUp.Data.APIKeyDomain" Width="1.5" PointX="2.5" PointY="8" />
         <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="4.75" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="11.25" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.CityGeography" Width="1.5" PointX="11.75" PointY="9.5" />
@@ -30,7 +28,6 @@
         <EntityTypeShape EntityType="SizeUp.Data.StateGeography" Width="1.5" PointX="18.25" PointY="5.5" />
         <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="8.75" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.ZipCodeGeography" Width="2" PointX="8.875" PointY="3.75" />
-        <AssociationConnector Association="SizeUp.Data.FK_APIKeyDomain_APIKey" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_County" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_Industry" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_Metro" />

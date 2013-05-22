@@ -59,6 +59,11 @@
       <DependentUpon>AnalyticsContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Analytics\Tracker.cs" />
+    <Compile Include="API\APIContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>APIContext.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeUpContext.Designer.cs">
@@ -84,6 +89,13 @@
     </EntityDeploy>
     <None Include="Analytics\AnalyticsContext.edmx.diagram">
       <DependentUpon>AnalyticsContext.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="API\APIContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>APIContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="API\APIContext.edmx.diagram">
+      <DependentUpon>APIContext.edmx</DependentUpon>
     </None>
     <None Include="App.Config" />
     <None Include="packages.config" />

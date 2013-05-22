@@ -51,6 +51,20 @@
             return output;
         };
 
+        var buildTokenUrl = function(src, params){
+            if (src.indexOf('?') < 0) {
+                src = src + '?';
+            }
+            else {
+                src = src + '&';
+            }
+            params['o'] = document.location.hostname;
+            params['s'] = me.sessionId;
+            params['t'] = me.apiToken;
+            src = src + formatParams(params);
+            return src;
+        };
+
         var getThisScript = function () {
             var scripts = document.getElementsByTagName("script");
             var index = scripts.length - 1;
@@ -89,7 +103,8 @@
         var loadScript = function (item) {   
             var script = document.createElement('script');
             script.type = 'text/javascript';
-            script.src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/' + item.url;
+            var src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/' + item.url;
+            script.src = buildTokenUrl(src, {});
             script.onload = script.onreadystatechange = function() {
                 if ( !item.loaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
                     item.loaded = true;
@@ -164,19 +179,8 @@
 
             script.type = 'text/javascript';
             var src = me.currentLocation.protocol + '://' + 'a' + me.domainIndex + '.' + me.currentLocation.domain + url;
-            if (src.indexOf('?') < 0) {
-                src = src + '?';
-            }
-            else {
-                src = src + '&';
-            }
-
             params['cb']  = 'sizeup.api.' + me.jsonpPrefix + '.' + cb;
-            params['o'] = document.location.hostname;
-            params['s'] = me.sessionId;
-            params['t'] = me.apiToken;
-            src = src + formatParams(params);
-            script.src = src;
+            script.src = buildTokenUrl(src, params);
             me.head.appendChild(script);
 
             var request = {

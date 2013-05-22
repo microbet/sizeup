@@ -11,6 +11,8 @@
         
 
         var pub = {
+@if(ViewBag.Permissions.Place){
+    <text>
             findPlace: function (params, success, error) {
                 var url = '/data/place/search/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -19,7 +21,11 @@
                 var url = '/data/place/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
+@if(ViewBag.Permissions.Industry){
+    <text>
             findIndustry: function (params, success, error) {
                 var url = '/data/industry/search/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -32,7 +38,11 @@
                 var url = '/data/industry/list/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
+@if(ViewBag.Permissions.IndustryData){
+    <text>
             getAverageRevenue: function (params, success, error) {
                 var url = '/data/averageRevenue/chart/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -190,8 +200,12 @@
                 var url = '/data/yearStarted/percentile/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
 
+@if(ViewBag.Permissions.BestPlaces){
+    <text>
             getBestPlaces: function (params, success, error) {
                 var url = '/data/bestPlaces/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -201,11 +215,13 @@
                 var url = '/data/bestPlaces/Bands/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
 
 
-
-
+@if(ViewBag.Permissions.Advertising){
+    <text>
             getBestPlacesToAdvertise: function (params, success, error) {
                 var url = '/data/Advertising/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -220,9 +236,12 @@
                 var url = '/data/Advertising/MinimumDistance/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
 
-
+@if(ViewBag.Permissions.ConsumerExpenditures){
+    <text>
             getConsumerExpenditureVariables: function (params, success, error) {
                 var url = '/data/consumerExpenditures/variables/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -247,11 +266,13 @@
                 var url = '/data/consumerExpenditures/bands/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
 
 
-
-            
+@if(ViewBag.Permissions.Business){    
+    <text>        
             getBusiness: function (params, success, error) {
                 var url = '/data/business/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -266,10 +287,12 @@
                 var url = '/data/business/list/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
 
-
-            
+@if(ViewBag.Permissions.Place){   
+    <text>         
             getBoundingBox: function (params, success, error) {
                 var url = '/data/geography/boundingbox/';
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -282,13 +305,17 @@
                 var url = '/data/geography/zoomExtent/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+    </text>
+}
 
+@if(ViewBag.Permissions.Demographics){
+    <text>
             getDemographics: function (params, success, error) {
                 var url = '/data/demographics/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
-
-
+    </text>
+}
 
 
             version: '1.0'

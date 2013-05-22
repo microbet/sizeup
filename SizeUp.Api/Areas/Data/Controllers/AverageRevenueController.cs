@@ -14,7 +14,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/AverageRevenue/
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Chart(long industryId, long placeId, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -24,7 +25,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Percentile(long industryId, long placeId, long value, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -33,7 +35,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet); 
             }
         }
-        [APIRequest]
+        
+        [APIAuthorize(Role = "IndustryData")]
         public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)

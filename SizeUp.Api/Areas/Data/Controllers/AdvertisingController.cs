@@ -12,6 +12,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.DataLayer.Models;
 using SizeUp.Api.Controllers;
 using System.Configuration;
+using SizeUp.Core.API;
 
 namespace SizeUp.Api.Areas.Data.Controllers
 {
@@ -54,7 +55,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             return v;
         }
 
-
+        
+        [APIAuthorize(Role = "Advertising")]
         public ActionResult Index(int industryId, long placeId, int page = 1, int itemCount = 20)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Advertising.MaxResults"]);
@@ -78,8 +80,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-
-
+        
+        [APIAuthorize(Role = "Advertising")]
         public ActionResult MinimumDistance(int industryId, long placeId, int itemCount)
         {
             AdvertisingFilters filters = BuildFilters();
@@ -90,6 +92,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+        
+        [APIAuthorize(Role = "Advertising")]
         public ActionResult Bands(int industryId, long placeId, int bands)
         {
             AdvertisingFilters filters = BuildFilters();

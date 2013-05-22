@@ -6,8 +6,6 @@
     <edmx:StorageModels>
     <Schema Namespace="SizeUp.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SizeUpDataStoreContainer">
-          <EntitySet Name="APIKey" EntityType="SizeUp.Data.Store.APIKey" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="APIKeyDomain" EntityType="SizeUp.Data.Store.APIKeyDomain" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Attribute" EntityType="SizeUp.Data.Store.Attribute" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Band" EntityType="SizeUp.Data.Store.Band" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Business" EntityType="SizeUp.Data.Store.Business" store:Type="Tables" Schema="dbo" />
@@ -65,10 +63,6 @@
           <EntitySet Name="ZipCode" EntityType="SizeUp.Data.Store.ZipCode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCodeGeography" EntityType="SizeUp.Data.Store.ZipCodeGeography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ZipCodePlaceMapping" EntityType="SizeUp.Data.Store.ZipCodePlaceMapping" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.Store.FK_APIKeyDomain_APIKey">
-            <End Role="APIKey" EntitySet="APIKey" />
-            <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
-          </AssociationSet>
           <AssociationSet Name="FK_Band_Attribute" Association="SizeUp.Data.Store.FK_Band_Attribute">
             <End Role="Attribute" EntitySet="Attribute" />
             <End Role="Band" EntitySet="Band" />
@@ -418,22 +412,6 @@
             <End Role="ZipCodePlaceMapping" EntitySet="ZipCodePlaceMapping" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="APIKey">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
-          <Property Name="KeyValue" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <EntityType Name="APIKeyDomain">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Domain" Type="nvarchar" Nullable="false" MaxLength="255" />
-          <Property Name="APIKeyId" Type="bigint" Nullable="false" />
-        </EntityType>
         <EntityType Name="Attribute">
           <Key>
             <PropertyRef Name="Id" />
@@ -5098,18 +5076,6 @@
           <Property Name="PlaceId" Type="bigint" Nullable="false" />
           <Property Name="ZipCodeId" Type="bigint" Nullable="false" />
         </EntityType>
-        <Association Name="FK_APIKeyDomain_APIKey">
-          <End Role="APIKey" Type="SizeUp.Data.Store.APIKey" Multiplicity="1" />
-          <End Role="APIKeyDomain" Type="SizeUp.Data.Store.APIKeyDomain" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="APIKey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="APIKeyDomain">
-              <PropertyRef Name="APIKeyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Band_Attribute">
           <End Role="Attribute" Type="SizeUp.Data.Store.Attribute" Multiplicity="1" />
           <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="*" />
@@ -6177,8 +6143,6 @@
           </AssociationSet>
           <EntitySet Name="ResourceStrings" EntityType="SizeUp.Data.ResourceString" />
           <EntitySet Name="CityCountyMappings" EntityType="SizeUp.Data.CityCountyMapping" />
-          <EntitySet Name="APIKeys" EntityType="SizeUp.Data.APIKey" />
-          <EntitySet Name="APIKeyDomains" EntityType="SizeUp.Data.APIKeyDomain" />
           <EntitySet Name="Businesses" EntityType="SizeUp.Data.Business" />
           <EntitySet Name="Cities" EntityType="SizeUp.Data.City" />
           <EntitySet Name="CityGeographies" EntityType="SizeUp.Data.CityGeography" />
@@ -6193,10 +6157,6 @@
           <EntitySet Name="StateGeographies" EntityType="SizeUp.Data.StateGeography" />
           <EntitySet Name="ZipCodes" EntityType="SizeUp.Data.ZipCode" />
           <EntitySet Name="ZipCodeGeographies" EntityType="SizeUp.Data.ZipCodeGeography" />
-          <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.FK_APIKeyDomain_APIKey">
-            <End Role="APIKey" EntitySet="APIKeys" />
-            <End Role="APIKeyDomain" EntitySet="APIKeyDomains" />
-          </AssociationSet>
           <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.FK_Business_County">
             <End Role="County" EntitySet="Counties" />
             <End Role="Business" EntitySet="Businesses" />
@@ -6681,24 +6641,6 @@
           <NavigationProperty Name="PlaceKeywords" Relationship="SizeUp.Data.FK_PlaceKeyword_Place" FromRole="CityCountyMapping" ToRole="PlaceKeyword" />
           <NavigationProperty Name="PlaceGeographies" Relationship="SizeUp.Data.FK_PlaceGeography_Place" FromRole="CityCountyMapping" ToRole="PlaceGeography" />
         </EntityType>
-        <EntityType Name="APIKey">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="Guid" Name="KeyValue" Nullable="false" />
-          <NavigationProperty Name="APIKeyDomains" Relationship="SizeUp.Data.FK_APIKeyDomain_APIKey" FromRole="APIKey" ToRole="APIKeyDomain" />
-        </EntityType>
-        <EntityType Name="APIKeyDomain">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Domain" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Type="Int64" Name="APIKeyId" Nullable="false" />
-          <NavigationProperty Name="APIKey" Relationship="SizeUp.Data.FK_APIKeyDomain_APIKey" FromRole="APIKeyDomain" ToRole="APIKey" />
-        </EntityType>
         <EntityType Name="Business">
           <Key>
             <PropertyRef Name="Id" />
@@ -6934,18 +6876,6 @@
           <NavigationProperty Name="GeographyClass" Relationship="SizeUp.Data.FK_ZipCodeGeography_GeographyClass" FromRole="ZipCodeGeography" ToRole="GeographyClass" />
           <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_ZipCodeGeography_ZipCode" FromRole="ZipCodeGeography" ToRole="ZipCode" />
         </EntityType>
-        <Association Name="FK_APIKeyDomain_APIKey">
-          <End Type="SizeUp.Data.APIKey" Role="APIKey" Multiplicity="1" />
-          <End Type="SizeUp.Data.APIKeyDomain" Role="APIKeyDomain" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="APIKey">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="APIKeyDomain">
-              <PropertyRef Name="APIKeyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Business_County">
           <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
           <End Type="SizeUp.Data.Business" Role="Business" Multiplicity="*" />
@@ -12543,24 +12473,6 @@
               <MappingFragment StoreEntitySet="CityCountyMapping">
                 <ScalarProperty Name="CountyId" ColumnName="CountyId" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="APIKeys">
-            <EntityTypeMapping TypeName="SizeUp.Data.APIKey">
-              <MappingFragment StoreEntitySet="APIKey">
-                <ScalarProperty Name="KeyValue" ColumnName="KeyValue" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="APIKeyDomains">
-            <EntityTypeMapping TypeName="SizeUp.Data.APIKeyDomain">
-              <MappingFragment StoreEntitySet="APIKeyDomain">
-                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
-                <ScalarProperty Name="Domain" ColumnName="Domain" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

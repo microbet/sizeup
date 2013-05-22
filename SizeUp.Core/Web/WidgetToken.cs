@@ -9,6 +9,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using SizeUp.Core.Crypto;
 using SizeUp.Data;
+using SizeUp.Data.API;
 
 namespace SizeUp.Core.Web
 {
@@ -35,7 +36,7 @@ namespace SizeUp.Core.Web
             get
             {
                 APIKey apiKey = null;
-                using (var context = ContextFactory.SizeUpContext)
+                using (var context = ContextFactory.APIContext)
                 {
                     apiKey = context.APIKeys.Where(a => a.KeyValue == SizeUp.Core.Web.WidgetToken.APIKey).FirstOrDefault();
                 }
@@ -70,7 +71,7 @@ namespace SizeUp.Core.Web
             get
             {
                 var t = GetToken();
-                using (var context = ContextFactory.SizeUpContext)
+                using (var context = ContextFactory.APIContext)
                 {
                     var widgetKey = context.APIKeys.Where(k => k.KeyValue == APIKey).FirstOrDefault();
                     //checks the given APIkey in keyCookie with the encrypted token key for a match and also checks to see the APIKey is

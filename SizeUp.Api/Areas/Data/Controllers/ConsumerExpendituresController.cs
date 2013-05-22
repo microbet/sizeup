@@ -10,11 +10,14 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core.DataLayer.Base;
 using SizeUp.Api.Controllers;
+using SizeUp.Core.API;
 namespace SizeUp.Api.Areas.Data.Controllers
 {
     public class ConsumerExpendituresController : BaseController
     {
 
+        
+        [APIAuthorize(Role = "ConsumerExpenitures")]
         public ActionResult Bands(int variableId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -25,6 +28,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
         }
 
 
+        
+        [APIAuthorize(Role = "ConsumerExpenitures")]
         public ActionResult Variables(int? parentId)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -34,6 +39,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+        
+        [APIAuthorize(Role = "ConsumerExpenitures")]
         public ActionResult Variable(int id)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -43,6 +50,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+        
+        [APIAuthorize(Role = "ConsumerExpenitures")]
         public ActionResult VariablePath(int id)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -53,6 +62,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
         }
 
 
+        
+        [APIAuthorize(Role = "ConsumerExpenitures")]
         public ActionResult VariableCrosswalk(int id)
         {
             using (var context = ContextFactory.SizeUpContext)

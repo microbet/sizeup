@@ -66,8 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\APIRequest.cs" />
-    <Compile Include="API\BaseAttribute.cs" />
+    <Compile Include="API\APIAuthorize.cs" />
+    <Compile Include="API\APIPermissions.cs" />
+    <Compile Include="API\APIContext.cs" />
     <Compile Include="Crypto\Crypto.cs" />
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\Base\Base.cs" />

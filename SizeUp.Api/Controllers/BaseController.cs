@@ -14,36 +14,6 @@ namespace SizeUp.Api.Controllers
 {
     public class BaseController : Controller
     {
-        protected bool IsJsonp
-        {
-            get { return HttpContext.Request.QueryString[ConfigurationManager.AppSettings["API.CallbackName"]] != null; }
-        }
-        
-        protected APIToken ApiToken
-        {
-            get
-            {
-                var tokenString = HttpContext.Request.QueryString[ConfigurationManager.AppSettings["API.TokenName"]];
-                return APIToken.GetToken(tokenString);
-            }
-        }
-
-        protected string Origin
-        {
-            get
-            {
-                return HttpContext.Request.QueryString[ConfigurationManager.AppSettings["API.OriginName"]];
-            }
-        }
-
-        protected string SessionId
-        {
-            get
-            {
-                return HttpContext.Request.QueryString[ConfigurationManager.AppSettings["API.SessionName"]];
-            }
-        }
-
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
@@ -52,11 +22,11 @@ namespace SizeUp.Api.Controllers
             //suckit IE
             requestContext.HttpContext.Response.AddHeader("Expires", "-1");
             bool valid = false;
-            if (IsJsonp)
+            if (APIContext.Current.IsJsonp)
             {
                 Log();
             }
-            valid = ValidateToken() && IsJsonp && ApiToken != null;
+            valid = APIContext.Current.IsJsonp && APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid;
             if (!valid)
             {
                 throw new HttpException(401, "Api token not valid");
@@ -71,7 +41,7 @@ namespace SizeUp.Api.Controllers
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
             JsonResult r = null;
-            if (IsJsonp)
+            if (APIContext.Current.IsJsonp)
             {
                 r = new JsonpResult();
                 r.Data = data;
@@ -89,44 +59,14 @@ namespace SizeUp.Api.Controllers
             }
             return r;
         }
-      
-        protected bool ValidateToken()
-        {
-            var now = DateTime.UtcNow;
-            var old = new DateTime(ApiToken.TimeStamp);
-
-            var diff = now - old;
-            var minutes = (int)diff.TotalMinutes;
-            bool isValid = false;
-
-            if (minutes < int.Parse(ConfigurationManager.AppSettings["Api.TokenExpiration"]))
-            {
-                if (!HttpContext.Request.IsLocal)
-                {
-                    using (var context = ContextFactory.SizeUpContext)
-                    {
-                        isValid = context.APIKeys
-                             .Where(i => i.Id == ApiToken.APIKeyId)
-                            //.Where(i => i.APIKeyDomains.Any(d => d.Domain == Origin))
-                             .Count() > 0;
-                    }
-                }
-                else
-                {
-                    isValid = true;
-                }
-            }
-
-            return isValid;
-        }
 
         protected void Log()
         {
             Data.Analytics.APIRequest reg = new Data.Analytics.APIRequest();
-            reg.OriginUrl = Origin;
-            reg.Session = SessionId;
+            reg.OriginUrl = APIContext.Current.Origin;
+            reg.Session = APIContext.Current.Session;
             reg.Url = HttpContext.Request.Url.OriginalString;
-            reg.APIKeyId = ApiToken != null ? ApiToken.APIKeyId : (long?)null;
+            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
             Singleton<Tracker>.Instance.APIRequest(reg);
         }
     }

@@ -7,6 +7,7 @@ using System.Data.EntityClient;
 using System.Configuration;
 using SizeUp.Data.Analytics;
 using SizeUp.Data.UserData;
+using SizeUp.Data.API;
 
 namespace SizeUp.Data
 {
@@ -38,6 +39,15 @@ namespace SizeUp.Data
             {
                 var conn = new EntityConnection(ConfigurationManager.ConnectionStrings["UserDataContext"].ConnectionString);
                 var context = new UserDataContext(conn);
+                return context;
+            }
+        }
+
+        public static SizeUp.Data.API.APIContext APIContext
+        {
+            get
+            {
+                var context = new SizeUp.Data.API.APIContext();
                 return context;
             }
         }

@@ -19,7 +19,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/Geography/
-        [APIRequest]
+        
+        [APIAuthorize(Role = "Place")]
         public ActionResult Centroid(long id, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -29,7 +30,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "Place")]
         public ActionResult BoundingBox(long id, Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
@@ -39,7 +41,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        [APIRequest]
+        
+        [APIAuthorize(Role = "Place")]
         public ActionResult ZoomExtent(long id, long width)
         {
             using (var context = ContextFactory.SizeUpContext)

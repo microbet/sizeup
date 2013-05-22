@@ -7,6 +7,7 @@ using SizeUp.Core.API;
 using System.Security.Cryptography;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using SizeUp.Data;
 
 namespace SizeUp.Api.Controllers
 {
@@ -23,10 +24,7 @@ namespace SizeUp.Api.Controllers
 
         public ActionResult Index(Guid apikey)
         {
-            //create an api database that has the apikey and domain authorizations as well as all the api logs
-
-
-
+            APIToken token = null;
             MemoryStream s = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();
             string data = string.Format("{0}|{1}", apikey.ToString(), Guid.NewGuid().ToString());
@@ -34,12 +32,31 @@ namespace SizeUp.Api.Controllers
             SHA1CryptoServiceProvider a = new SHA1CryptoServiceProvider();
             var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));           
             ViewBag.SessionId = sessionid;
-            ViewBag.Token = APIToken.Create(apikey).GetToken();
+
+
+            using (var context = ContextFactory.APIContext)
+            {
+                var k = context.APIKeys.Where(i => i.KeyValue == apikey).FirstOrDefault();
+                if (k == null)
+                {
+                    throw new Exception("Invalid API Key");
+                }
+                token = new APIToken(k.Id);
+            }
+            ViewBag.Token = token.GetToken();
             return View();
         }
 
         public ActionResult Data()
         {
+            if (APIContext.Current.ApiToken.IsValid)
+            {
+                ViewBag.Permissions = new APIPermissions(APIContext.Current.ApiToken.APIKeyId);
+            }
+            else
+            {
+                throw new Exception("Invalid API Key");
+            }
             return View();
         }
 
