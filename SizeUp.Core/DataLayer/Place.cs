@@ -622,7 +622,7 @@ namespace SizeUp.Core.DataLayer
             var output = data
                 .OrderBy(i => i.Place.City.Name)
                 .ThenBy(i => i.Place.City.State.Abbreviation)
-                .ThenByDescending(i => i.Place.City.DemographicsByCities.Where(d=>d.Year == Year && d.Quarter == Quarter).FirstOrDefault().TotalPopulation)
+                .ThenByDescending(i => i.Place.City.DemographicsByCities.Where(d => d.Year == TimeSlice.Demographics.Year && d.Quarter == TimeSlice.Demographics.Quarter).FirstOrDefault().TotalPopulation)
                 .Select(i => i.Place)
                 .Select(i => new Models.Place
                 {

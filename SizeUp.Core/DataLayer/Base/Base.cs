@@ -9,22 +9,6 @@ namespace SizeUp.Core.DataLayer.Base
 {
     public class Base
     {
-        protected static int Year
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["TimeSlice.Year"]);
-            }
-        }
-
-        protected static int Quarter
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings["TimeSlice.Quarter"]);
-            }
-        }
-
         protected static int MinimumBusinessCount
         {
             get

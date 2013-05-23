@@ -14,7 +14,7 @@ namespace SizeUp.Core.DataLayer.Base
         {
             var data = context.BusinessDataByZips
                        .Where(d => d.Business.IsActive && d.Business.IndustryId == d.IndustryId)
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Industry.Year && d.Quarter == TimeSlice.Industry.Quarter);
             return data;
         }
 
@@ -22,7 +22,7 @@ namespace SizeUp.Core.DataLayer.Base
         {
             var data = context.BusinessDataByCities
                        .Where(d => d.Business.IsActive && d.Business.IndustryId == d.IndustryId)
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Industry.Year && d.Quarter == TimeSlice.Industry.Quarter);
             return data;
         }
 
@@ -30,7 +30,7 @@ namespace SizeUp.Core.DataLayer.Base
         {
             var data = context.BusinessDataByCounties
                        .Where(d => d.Business.IsActive && d.Business.IndustryId == d.IndustryId)
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Industry.Year && d.Quarter == TimeSlice.Industry.Quarter);
             return data;
         }
     }

@@ -14,28 +14,28 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<ConsumerExpendituresByZip> ZipCode(SizeUpContext context)
         {
             var data = context.ConsumerExpendituresByZips
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.ConsumerExpenditures.Year && d.Quarter == TimeSlice.ConsumerExpenditures.Quarter);
             return data;
         }
 
         public static IQueryable<ConsumerExpendituresByCity> City(SizeUpContext context)
         {
             var data = context.ConsumerExpendituresByCities
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.ConsumerExpenditures.Year && d.Quarter == TimeSlice.ConsumerExpenditures.Quarter);
             return data;
         }
 
         public static IQueryable<ConsumerExpendituresByCounty> County(SizeUpContext context)
         {
             var data = context.ConsumerExpendituresByCounties
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.ConsumerExpenditures.Year && d.Quarter == TimeSlice.ConsumerExpenditures.Quarter);
             return data;
         }
 
         public static IQueryable<ConsumerExpendituresByState> State(SizeUpContext context)
         {
             var data = context.ConsumerExpendituresByStates
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.ConsumerExpenditures.Year && d.Quarter == TimeSlice.ConsumerExpenditures.Quarter);
             return data;
         }
 

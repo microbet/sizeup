@@ -85,6 +85,7 @@
     <Compile Include="DataLayer\AverageSalary.cs" />
     <Compile Include="DataLayer\AverageEmployees.cs" />
     <Compile Include="DataLayer\Base\City.cs" />
+    <Compile Include="DataLayer\Base\TimeSlice.cs" />
     <Compile Include="DataLayer\Business.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
     <Compile Include="DataLayer\Advertising.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="Tiles\GoogleMapsAPIProjection.cs" />
     <Compile Include="Tiles\Heatmap.cs" />
     <Compile Include="Tiles\Tile.cs" />
-    <Compile Include="TimeSlice.cs" />
     <Compile Include="API\APIToken.cs" />
     <Compile Include="Web\CacheBuster.cs" />
     <Compile Include="Web\Feature.cs" />

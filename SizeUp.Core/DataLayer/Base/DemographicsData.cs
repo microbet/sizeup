@@ -14,35 +14,35 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<DemographicsByZip> ZipCode(SizeUpContext context)
         {
             var data = context.DemographicsByZips
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Demographics.Year && d.Quarter == TimeSlice.Demographics.Quarter);
             return data;
         }
 
         public static IQueryable<DemographicsByCity> City(SizeUpContext context)
         {
             var data = context.DemographicsByCities
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Demographics.Year && d.Quarter == TimeSlice.Demographics.Quarter);
             return data;
         }
 
         public static IQueryable<DemographicsByCounty> County(SizeUpContext context)
         {
             var data = context.DemographicsByCounties
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Demographics.Year && d.Quarter == TimeSlice.Demographics.Quarter);
             return data;
         }
 
         public static IQueryable<DemographicsByMetro> Metro(SizeUpContext context)
         {
             var data = context.DemographicsByMetroes
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Demographics.Year && d.Quarter == TimeSlice.Demographics.Quarter);
             return data;
         }
 
         public static IQueryable<DemographicsByState> State(SizeUpContext context)
         {
             var data = context.DemographicsByStates
-                       .Where(d => d.Year == Year && d.Quarter == Quarter);
+                       .Where(d => d.Year == TimeSlice.Demographics.Year && d.Quarter == TimeSlice.Demographics.Quarter);
             return data;
         }
         
