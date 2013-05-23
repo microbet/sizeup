@@ -121,7 +121,7 @@
             me.content.addIndustries = me.content.container.find('.addIndustries').removeClass('hidden').hide();
             me.content.businessList = me.content.container.find('.businessList').removeClass('hidden').hide();
             me.content.industryList = me.content.container.find('.industryList');
-
+            me.content.businessListFootnote = me.content.container.find('.list.container .footNote').removeClass('hidden').hide();
   
             me.content.businessList
                 .delegate('a', 'mouseover', businessItemMouseOver)
@@ -882,6 +882,7 @@
 
                 me.content.loader.show();
                 me.content.businessList.hide();
+                me.content.businessListFootnote.hide();
                 me.content.noResults.hide();
                 me.content.pager.getContainer().hide();
                 me.content.addIndustries.hide();
@@ -901,6 +902,7 @@
                     bindBusinessMarkers();
                     me.content.loader.hide();
                     me.content.businessList.show();
+                    me.content.businessListFootnote.show();
                 });
             }
             else {
@@ -933,6 +935,7 @@
             }
             else {
                 me.content.noResults.hide();
+                me.content.businessListFootnote.show();
                 if (!me.isAuthenticated) {
                     me.content.signinPanel.container.show();
                     me.content.signinPanel.toggle.html(templates.bind(me.content.signinPanel.templateText, me.content.pager.getPageData()));
@@ -960,6 +963,7 @@
 
         var clearBusinessList = function () {
             me.content.businessList.empty();
+            me.content.businessListFootnote.hide();
         };
 
         var bindBusinessMarkers = function () {

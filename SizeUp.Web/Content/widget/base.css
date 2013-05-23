@@ -4,7 +4,7 @@ of elements and some common classes. Nothing more!
 ****/
 
 body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana, Sans-Serif; text-align: left; color: #606060; min-width:575px;  }
-[data-template] { display: none; }
+[data-template] { display: none !important; }
 ol, ol li { list-style: decimal outside none; }
 a,
 p,
@@ -134,9 +134,6 @@ a.sorter.desc { background-position:right 0.3em; }
 .selectList-container .selectList-list .selectList-listItem.selectList-hover {background-color:#FFD86A;  }
 .selectList-container .selectList-list .selectList-listItem.selectList-selected {background-color:#E6E6E6; font-weight:bold; }
 
-/**** experimental base styles*****/
-
-
 
 .flash {position:fixed; right:10em; top:12em; z-index:10;  }
 .flash .info {text-align:left; font-family: Tahoma; color:#fff; font-size:1em; line-height:1.8em; padding:2em 1em 2em 5em; display:block; border-radius:0.5em; margin:0 auto; width:17em; box-shadow: 0.25em 0.25em 2em #070808; background:#1f1f1f url(/content/images/info.png) no-repeat 1.5em 2em;}
@@ -174,3 +171,11 @@ a.sorter.desc { background-position:right 0.3em; }
 .heading .selectBox { font-size: 1em; width:12em; text-overflow:ellipsis; padding:0.25em; }
 .heading .selectList-list { max-height: 20em; overflow: auto; }
 
+
+/**** experimental base styles*****/
+
+
+
+
+.footNote { font-size:1em; color:#909090; font-style:italic; margin:1em 0; }
+.footNote:before {content: "*"; }

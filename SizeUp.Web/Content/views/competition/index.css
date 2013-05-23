@@ -19,6 +19,7 @@
 #competition .content.container {margin:1em 0;}
 
 #competition .list.container { width:41em; display:inline-block; vertical-align: top; }
+#competition .list.container .footNote { text-align: right; margin:1em 2em; }
 
 #competition .tabs:after { border-left: 2px solid #CCCCCC; border-right: 2px solid #CCCCCC; border-top: 2px solid #CCCCCC; border-top-left-radius: 2em;border-top-right-radius: 2em; content: " "; display: block; height: 1em; left: -2.2em; position: absolute; width: 96em; }
 
