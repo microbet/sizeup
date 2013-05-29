@@ -18,7 +18,7 @@
         var params = [];
         for (var x in vals) {
             if (vals.hasOwnProperty(x)) {
-                params.push(x + '=' + vals[x]);
+                params.push(x + '=' + encodeURIComponent(vals[x]));
             }
         }
         return '?' + params.join('&');
@@ -44,7 +44,7 @@
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
         iframe["scrolling"] = 'no';
-        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query) + '&t=' + me.apiToken + '&o=' + document.location.hostname + '&s=' + me.sessionId;
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query) + '&t=' + encodeURIComponent(me.apiToken) + '&o=' + encodeURIComponent(document.location.hostname) + '&s=' + encodeURIComponent(me.sessionId);
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
     };
