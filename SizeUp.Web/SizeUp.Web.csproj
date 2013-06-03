@@ -337,7 +337,6 @@
     <Content Include="Scripts\prettify\lang-yaml.js" />
     <Content Include="Scripts\prettify\prettify.js" />
     <Content Include="Scripts\prettify\run_prettify.js" />
-    <Content Include="Scripts\thirdParty\chosen.jquery.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
