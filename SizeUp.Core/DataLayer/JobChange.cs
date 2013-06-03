@@ -93,16 +93,16 @@ namespace SizeUp.Core.DataLayer
             var metroData = IndustryData.County(context)
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.County.CityCountyMappings.Any(c => c.County.Metro.Counties.Any(co => co.CityCountyMappings.Any(m => m.Id == placeId))))
-                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+                .Where(d => d.NetJobChange != null);
 
             var stateData = IndustryData.County(context)
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.County.State.Cities.Any(s => s.CityCountyMappings.Any(c => c.Id == placeId)))
-                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+                .Where(d => d.NetJobChange != null);
 
             var nationData = IndustryData.County(context)
                 .Where(i => i.IndustryId == industryId)
-                .Where(d => d.TurnoverRate != null && d.TurnoverRate > 0);
+                .Where(d => d.NetJobChange != null);
 
 
 
@@ -110,7 +110,7 @@ namespace SizeUp.Core.DataLayer
             {
                 County = currentCounty.Select(c => c.County).FirstOrDefault(),
                 Total = metroData.Count(),
-                Filtered = metroData.Where(d => d.NetJobChange >= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
+                Filtered = metroData.Where(d => d.NetJobChange <= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
             })
             .Where(d => d.Total >= MinimumBusinessCount)
             .Where(i => currentCounty.Select(v => v.NetJobChange).FirstOrDefault() != null)
@@ -124,7 +124,7 @@ namespace SizeUp.Core.DataLayer
             {
                 County = currentCounty.Select(c => c.County).FirstOrDefault(),
                 Total = stateData.Count(),
-                Filtered = stateData.Where(d => d.NetJobChange >= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
+                Filtered = stateData.Where(d => d.NetJobChange <= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
             })
             .Where(d => d.Total >= MinimumBusinessCount)
             .Where(i => currentCounty.Select(v => v.NetJobChange).FirstOrDefault() != null)
@@ -137,7 +137,7 @@ namespace SizeUp.Core.DataLayer
             var nation = nationData.Select(i => new
             {
                 Total = nationData.Count(),
-                Filtered = nationData.Where(d => d.NetJobChange >= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
+                Filtered = nationData.Where(d => d.NetJobChange <= currentCounty.Select(v => v.NetJobChange).FirstOrDefault()).Count()
             })
             .Where(d => d.Total >= MinimumBusinessCount)
             .Where(i => currentCounty.Select(v => v.NetJobChange).FirstOrDefault() != null)
