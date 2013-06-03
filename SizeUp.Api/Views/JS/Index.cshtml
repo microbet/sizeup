@@ -11,6 +11,9 @@
         var pub = {
             getData: function (url, params, success, error) {
                 return getJsonp(url, params, success, error);
+            },
+            getSourceLocation: function(){
+                return me.currentLocation;
             }
         };
         me.head = document.getElementsByTagName('head')[0]; 
