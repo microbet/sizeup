@@ -15,7 +15,7 @@ namespace SizeUp.Core.Diagnostics
         public override void OnException(ExceptionContext filterContext)
         {
             var e = filterContext.Exception;
-            if (e is HttpException && ((HttpException)e).GetHttpCode() != 404)
+            if ((e is HttpException && ((HttpException)e).GetHttpCode() != 404) || !(e is HttpException))
             {
                 SizeUp.Data.Analytics.Exception reg = new SizeUp.Data.Analytics.Exception()
                 {

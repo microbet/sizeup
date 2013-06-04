@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using SizeUp.Core.Diagnostics;
 
 namespace SizeUp.Api
 {
@@ -7,7 +8,7 @@ namespace SizeUp.Api
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new HandleErrorAndLogAttribute());
         }
     }
 }
