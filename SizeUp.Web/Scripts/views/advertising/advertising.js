@@ -53,10 +53,10 @@
                 }
             },
             defaultParams: {
-                attribute: 'averageRevenue',
+                attribute: 'totalRevenue',
                 order: 'highToLow',
                 sort: 'desc',
-                template: 'averageRevenue',
+                template: 'totalRevenue',
                 page:1
             }
         };
