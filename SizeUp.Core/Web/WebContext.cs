@@ -140,5 +140,18 @@ namespace SizeUp.Core.Web
                 return host.StartsWith("www.", StringComparison.CurrentCultureIgnoreCase) ? host.Replace("www.", "") : host;
             }
         }
+
+        public string ClientIP
+        {
+            get
+            {
+                string ipList = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (!string.IsNullOrEmpty(ipList))
+                {
+                    return ipList.Split(',')[0];
+                }
+                return HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+        }
     }
 }

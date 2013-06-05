@@ -704,6 +704,30 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Session;
         partial void OnSessionChanging(global::System.String value);
         partial void OnSessionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String OriginIP
+        {
+            get
+            {
+                return _OriginIP;
+            }
+            set
+            {
+                OnOriginIPChanging(value);
+                ReportPropertyChanging("OriginIP");
+                _OriginIP = StructuralObject.SetValidValue(value, true, "OriginIP");
+                ReportPropertyChanged("OriginIP");
+                OnOriginIPChanged();
+            }
+        }
+        private global::System.String _OriginIP;
+        partial void OnOriginIPChanging(global::System.String value);
+        partial void OnOriginIPChanged();
 
         #endregion
 
