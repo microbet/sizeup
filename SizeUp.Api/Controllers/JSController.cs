@@ -70,5 +70,12 @@ namespace SizeUp.Api.Controllers
             return View();
         }
 
+        public ActionResult Overlay()
+        {
+            return View();
+        }
+
+
+
     }
 }

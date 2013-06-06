@@ -9,7 +9,6 @@
         };
         var me = {};
         me.opts = $.extend(true, defaults, opts);
-        var pointer = 0;
         var params = {
             getTileUrl: function (point, zoom) {
                 var params = $.extend({
@@ -18,11 +17,8 @@
                     zoom: zoom
                 },
                 me.opts.tileParams);
-                if (pointer == 2) {
-                    pointer = 0;
-                }
-                pointer++;
-                var urlBase = window.location.protocol + '//t' + pointer + '.api.' + window.location.hostname.replace('www.', '') + '/';
+                var p = Math.floor((Math.random()*2) + 1);
+                var urlBase = window.location.protocol + '//t' + p + '.api.' + window.location.hostname.replace('www.', '') + '/';
                 jQuery.ajaxSettings.traditional = true;
                 var url = jQuery.param.querystring(urlBase + me.opts.tileUrl, params);
                 if (zoom > me.opts.maxZoom || zoom < me.opts.minZoom) {

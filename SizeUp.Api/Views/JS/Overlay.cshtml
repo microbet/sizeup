@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+(function () {
+    window.sizeup = window.sizeup || {};
+    window.sizeup.api = window.sizeup.api || {};
+    window.sizeup.api.tiles = window.sizeup.api.tiles || {};    
+    window.sizeup.api.tiles.overlay = function (opts) {
+
+        var me = {};
+        var sourceLocation = sizeup.api.loader.getSourceLocation();
+        me.params = sizeup.api.loader.mergeParams({}, opts);
+
+        var getBaseUrl = function(){
+            var p = Math.floor((Math.random()*2) + 1);
+            var urlBase = sourceLocation.protocol + '//t' + p + '.' + sourceLocation.domain + '/';
+            return urlBase;
+        };
+        var getTileUrl = function (point, zoom) {
+            var baseUrl = getBaseUrl();
+            var params = {
+                x: point.x,
+                y: point.y,
+                zoom: zoom
+            };
+            params = sizeup.api.loader.mergeParams(me.params, params);
+            var url = baseUrl + '?' + sizeup.api.loader.formatParams(params);
+            return url;
+        };
+
+
+        var publicObj = {
+            getTileUrl: function(point, zoom){
+                return getTileUrl(point, zoom);
+            }
+        };
+        return publicObj;
+
+    };
+})();
+

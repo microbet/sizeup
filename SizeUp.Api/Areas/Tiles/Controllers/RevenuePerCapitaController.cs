@@ -25,11 +25,11 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
     {
         //
         // GET: /Tiles/Revenue/
-        public ActionResult Index(int x, int y, int zoom, long industryId, long placeId, string[] colors, Granularity granularity = Granularity.State, Granularity boundingGranularity = Granularity.Nation)
+        public ActionResult Index(int x, int y, int zoom, long industryId, long placeId, string[] colors, Granularity granularity = Granularity.State, Granularity boundingGranularity = Granularity.Nation, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                Heatmap tile = new Heatmap(256, 256, x, y, zoom);
+                Heatmap tile = new Heatmap(width, height, x, y, zoom);
                 BoundingBox boundingBox = tile.GetBoundingBox(TileBuffer);
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();

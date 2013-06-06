@@ -28,11 +28,11 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/GeographyBoundary/
 
-        public ActionResult Index(int x, int y, int zoom, long id, Granularity granularity = Granularity.State)
+        public ActionResult Index(int x, int y, int zoom, long id, Granularity granularity = Granularity.State, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                GeographyBoundary tile = new GeographyBoundary(256, 256, x, y, zoom);
+                GeographyBoundary tile = new GeographyBoundary(width, height, x, y, zoom);
                 BoundingBox boundingBox = tile.GetBoundingBox(TileBuffer);
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();

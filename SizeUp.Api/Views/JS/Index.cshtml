@@ -14,17 +14,40 @@
             },
             getSourceLocation: function(){
                 return me.currentLocation;
+            },
+            formatParams: function(params){
+                return formatParams(params);
+            },
+            mergeParams: function(primary, secondary){
+                return mergeParams(primary, secondary);
             }
         };
         me.head = document.getElementsByTagName('head')[0]; 
         me.scriptQueue = [];
         me.callbackIndex = 0;
-        me.domainIndex = 0;
         me.jsonpPrefix = 'cbb';
         me.sessionId = '@ViewBag.SessionId';
         me.apiToken = '@ViewBag.Token';
         sizeup.api[me.jsonpPrefix] = {};
         me.callbackComplete = {};
+        var mergeParams = function(primary, secondary){
+            var obj = {};
+            primary = primary || {};
+            secondary = secondary || {};
+            for (var x in primary) {
+                    if (primary.hasOwnProperty(x)) {
+                        obj[x] = primary[x];
+                    }
+            }
+
+            for (var x in secondary) {
+                    if (secondary.hasOwnProperty(x)) {
+                        obj[x] = secondary[x];
+                    }
+            }            
+            return obj;
+        };
+
         var formatParams = function (params) {
             var output = '';
             var formattedParams = [];
@@ -126,6 +149,7 @@
             me.scriptQueue.push({ url: '/js/data', loaded: false });
             me.scriptQueue.push({ url: '/js/granularity', loaded: false });
             me.scriptQueue.push({ url: '/js/range', loaded: false });
+            me.scriptQueue.push({ url: '/js/overlay', loaded: false });
         };
 
         var loadQueue = function () {
@@ -155,10 +179,7 @@
             var opts = {
                 aborted: false
             };
-            if (me.domainIndex > 1) {
-                me.domainIndex = 0;
-            }
-            me.domainIndex++;
+            var p = Math.floor((Math.random()*2) + 1);
             var script = document.createElement('script');
             sizeup.api[me.jsonpPrefix][cb] = function (data) {
                 if (success && !opts.aborted) {
@@ -181,7 +202,7 @@
 
 
             script.type = 'text/javascript';
-            var src = me.currentLocation.protocol + '://' + 'a' + me.domainIndex + '.' + me.currentLocation.domain + url;
+            var src = me.currentLocation.protocol + '://' + 'a' + p + '.' + me.currentLocation.domain + url;
             params['cb']  = 'sizeup.api.' + me.jsonpPrefix + '.' + cb;
             script.src = buildTokenUrl(src, params);
             me.head.appendChild(script);
