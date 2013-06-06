@@ -158,6 +158,7 @@
     <Compile Include="Areas\Data\Controllers\HealthCareController.cs" />
     <Compile Include="Areas\Data\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Data\Controllers\JobChangeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\JSController.cs" />
     <Compile Include="Areas\Data\Controllers\PlaceController.cs" />
     <Compile Include="Areas\Data\Controllers\RevenuePerCapitaController.cs" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Robots.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -216,6 +218,9 @@
     <Content Include="Views\JS\Granularity.cshtml" />
     <Content Include="Views\JS\Data.cshtml" />
     <None Include="Properties\PublishProfiles\api.sizeup.com.pubxml" />
+    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Error\Error500.cshtml" />
+    <Content Include="Views\Error\Error403.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

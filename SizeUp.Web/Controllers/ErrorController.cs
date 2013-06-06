@@ -13,6 +13,7 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Error404()
         {
+            Response.StatusCode = 404;
             ViewBag.Header = new Models.Header()
             {
                 HideMenu = true
@@ -22,6 +23,7 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Error500()
         {
+            Response.StatusCode = 500;
             ViewBag.Header = new Models.Header()
             {
                 HideMenu = true

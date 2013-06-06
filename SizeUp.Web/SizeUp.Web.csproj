@@ -346,7 +346,6 @@
     <Content Include="Scripts\prettify\lang-yaml.js" />
     <Content Include="Scripts\prettify\prettify.js" />
     <Content Include="Scripts\prettify\run_prettify.js" />
-    <Content Include="Scripts\thirdParty\chosen.jquery.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
@@ -482,6 +481,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
