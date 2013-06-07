@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+}
+(function () {
+    window.sizeup = window.sizeup || {};
+    window.sizeup.api = window.sizeup.api || {};
+    window.sizeup.api.tiles = window.sizeup.api.tiles || {};
+    window.sizeup.api.tiles.overlayAttributes = (function () {
+       
+        var me = {};
+        var defaultHeatmapColors = [
+            '#F50000',
+            '#F52900',
+            '#F55200',
+            '#F57A00',
+            '#F5A300',
+            '#F5CC00',
+            '#F5F500'
+        ];
+        var pub = {
+            heatmap:{
+                averageEmployees:{
+                    url:'tiles/averageEmployees',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                averageRevenue:{
+                    url:'tiles/averageRevenue',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                averageSalary:{
+                    url:'tiles/averageSalary',
+                    params:{
+                        granularity: sizeup.api.granularity.COUNTY,
+                        boundingGranularity: sizeup.api.granularity.STATE,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                costEffectiveness:{
+                    url:'tiles/costEffectiveness',
+                    params:{
+                        granularity: sizeup.api.granularity.COUNTY,
+                        boundingGranularity: sizeup.api.granularity.STATE,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                employeesPerCapita:{
+                    url:'tiles/employeesPerCapita',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                revenuePerCapita:{
+                    url:'tiles/revenuePerCapita',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                totalEmployees:{
+                    url:'tiles/totalEmployees',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                totalRevenue:{
+                    url:'tiles/totalRevenue',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                },
+                consumerExpenditures:{
+                    url: 'tiles/consumerExpenditures',
+                    params:{
+                        granularity: sizeup.api.granularity.ZIP_CODE,
+                        boundingGranularity: sizeup.api.granularity.COUNTY,
+                        colors: defaultHeatmapColors
+                    }
+                }              
+            },
+            geographyBoundary:{
+                url: 'tiles/geographyBoundary',
+                params:{
+                    granularity: sizeup.api.granularity.CITY
+                }
+            },
+            businesses: {
+                url: 'tiles/businesses/'
+            }
+            
+        };
+        return pub;
+    })();
+})();

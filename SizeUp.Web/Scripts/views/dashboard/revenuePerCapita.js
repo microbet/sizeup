@@ -193,7 +193,7 @@
 
             sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.revenuePerCapita.map.getWidth() }, function (data) {
                 me.revenuePerCapitaOverlay = new sizeup.maps.heatMapOverlays({
-                    tileUrl: '/tiles/revenuePerCapita/',
+                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.revenuePerCapita,
                     place: me.opts.report.CurrentPlace,
                     params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
@@ -207,7 +207,7 @@
 
             sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.totalRevenue.map.getWidth() }, function (data) {
                 me.totalRevenueOverlay = new sizeup.maps.heatMapOverlays({
-                    tileUrl: '/tiles/totalRevenue/',
+                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.totalRevenue,
                     place: me.opts.report.CurrentPlace,
                     params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,

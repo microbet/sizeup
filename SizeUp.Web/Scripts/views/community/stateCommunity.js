@@ -35,10 +35,10 @@
             });
 
             var borderOverlay = new sizeup.maps.overlay({
-                tileUrl: '/tiles/geographyBoundary/',
+                attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
                     id: opts.CurrentPlace.State.Id,
-                    granularity: 'State'
+                    granularity: sizeup.api.granularity.STATE
                 }
             });
 

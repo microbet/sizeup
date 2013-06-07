@@ -225,6 +225,7 @@
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Error\Error403.cshtml" />
     <Content Include="Views\JS\Overlay.cshtml" />
+    <Content Include="Views\JS\OverlayAttributes.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

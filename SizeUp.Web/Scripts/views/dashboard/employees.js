@@ -346,7 +346,7 @@
 
             sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.employeesPerCapita.map.getWidth() }, function (data) {
                 me.employeesPerCapitaOverlay = new sizeup.maps.heatMapOverlays({
-                    tileUrl: '/tiles/employeesPerCapita/',
+                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.employeesPerCapita,
                     place: me.opts.report.CurrentPlace,
                     params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,
@@ -361,7 +361,7 @@
 
             sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.averageEmployees.map.getWidth() }, function (data) {
                 me.averageEmployeesOverlay = new sizeup.maps.heatMapOverlays({
-                    tileUrl: '/tiles/averageEmployees/',
+                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageEmployees,
                     place: me.opts.report.CurrentPlace,
                     params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,

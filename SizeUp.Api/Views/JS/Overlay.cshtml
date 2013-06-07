@@ -5,15 +5,18 @@
     window.sizeup = window.sizeup || {};
     window.sizeup.api = window.sizeup.api || {};
     window.sizeup.api.tiles = window.sizeup.api.tiles || {};    
-    window.sizeup.api.tiles.overlay = function (opts) {
+    window.sizeup.api.tiles.overlay = function (opts, attribute) {
 
+        attribute = attribute || {};
+        opts = opts || {};
         var me = {};
+        var urlSegment = attribute.url || '';
         var sourceLocation = sizeup.api.loader.getSourceLocation();
-        me.params = sizeup.api.loader.mergeParams({}, opts);
+        me.params = sizeup.api.loader.mergeParams(attribute.params || {}, opts);
 
         var getBaseUrl = function(){
             var p = Math.floor((Math.random()*2) + 1);
-            var urlBase = sourceLocation.protocol + '//t' + p + '.' + sourceLocation.domain + '/';
+            var urlBase = sourceLocation.protocol + '://t' + p + '.' + sourceLocation.domain + '/' + urlSegment;
             return urlBase;
         };
         var getTileUrl = function (point, zoom) {

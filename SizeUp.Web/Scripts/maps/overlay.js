@@ -11,16 +11,7 @@
         me.opts = $.extend(true, defaults, opts);
         var params = {
             getTileUrl: function (point, zoom) {
-                var params = $.extend({
-                    x: point.x,
-                    y: point.y,
-                    zoom: zoom
-                },
-                me.opts.tileParams);
-                var p = Math.floor((Math.random()*2) + 1);
-                var urlBase = window.location.protocol + '//t' + p + '.api.' + window.location.hostname.replace('www.', '') + '/';
-                jQuery.ajaxSettings.traditional = true;
-                var url = jQuery.param.querystring(urlBase + me.opts.tileUrl, params);
+                var url = new sizeup.api.tiles.overlay(me.opts.tileParams, me.opts.attribute).getTileUrl(point, zoom);
                 if (zoom > me.opts.maxZoom || zoom < me.opts.minZoom) {
                     url = null;
                 }

@@ -35,10 +35,10 @@
             });
 
             var borderOverlay = new sizeup.maps.overlay({
-                tileUrl: '/tiles/geographyBoundary/',
+                attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
                     id: opts.CurrentPlace.Metro.Id,
-                    granularity: 'Metro'
+                    granularity: sizeup.api.granularity.METRO
                 }
             });
 
