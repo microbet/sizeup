@@ -19,6 +19,8 @@
         ];
         var pub = {
             heatmap:{
+@if(ViewBag.Permissions.IndustryData){
+<text>
                 averageEmployees:{
                     url:'tiles/averageEmployees',
                     params:{
@@ -83,6 +85,11 @@
                         colors: defaultHeatmapColors
                     }
                 },
+</text>
+}
+
+@if(ViewBag.Permissions.ConsumerExpenditures){
+<text>
                 consumerExpenditures:{
                     url: 'tiles/consumerExpenditures',
                     params:{
@@ -90,17 +97,30 @@
                         boundingGranularity: sizeup.api.granularity.COUNTY,
                         colors: defaultHeatmapColors
                     }
-                }              
+                },
+</text>
+}
+                __d: ''              
             },
+
+@if(ViewBag.Permissions.Place){    
+<text>  
             geographyBoundary:{
                 url: 'tiles/geographyBoundary',
                 params:{
                     granularity: sizeup.api.granularity.CITY
                 }
             },
+</text>
+}
+@if(ViewBag.Permissions.Business){    
+<text>  
             businesses: {
                 url: 'tiles/businesses/'
-            }
+            },
+</text>
+}
+            __c: ''
             
         };
         return pub;
