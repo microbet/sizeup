@@ -35,10 +35,10 @@
             });
 
             var borderOverlay = new sizeup.maps.overlay({
-                tileUrl: '/tiles/geographyBoundary/',
+                attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
                     id: opts.CurrentPlace.County.Id,
-                    granularity: 'County'
+                    granularity: sizeup.api.granularity.COUNTY
                 }
             });
 

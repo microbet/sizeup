@@ -196,7 +196,7 @@
 
             sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
                 me.overlay = new sizeup.maps.heatMapOverlays({
-                    tileUrl: '/tiles/averageRevenue/',
+                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageRevenue,
                     place: me.opts.report.CurrentPlace,
                     params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,

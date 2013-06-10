@@ -38,10 +38,10 @@
 
 
             var borderOverlay = new sizeup.maps.overlay({
-                tileUrl: '/tiles/geographyBoundary/',
+                attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
                     id: opts.location.CurrentPlace.City.Id,
-                    granularity: 'City'
+                    granularity: sizeup.api.granularity.CITY
                 }
             });
 

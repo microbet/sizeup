@@ -18,11 +18,11 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/Business/
 
-        public ActionResult Index(int x, int y, int zoom, List<long> competitorIndustryIds = null, List<long> buyerIndustryIds = null, List<long> supplierIndustryIds = null)
+        public ActionResult Index(int x, int y, int zoom, List<long> competitorIndustryIds = null, List<long> buyerIndustryIds = null, List<long> supplierIndustryIds = null, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                Businesses tile = new Businesses(256, 256, x, y, zoom);
+                Businesses tile = new Businesses(width, height, x, y, zoom);
                 var boundingBox = tile.GetBoundingBox(TileBuffer);
 
                 if (competitorIndustryIds == null)

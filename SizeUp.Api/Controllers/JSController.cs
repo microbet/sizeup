@@ -70,5 +70,25 @@ namespace SizeUp.Api.Controllers
             return View();
         }
 
+        public ActionResult Overlay()
+        {
+            return View();
+        }
+
+        public ActionResult OverlayAttributes()
+        {
+            if (APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired)
+            {
+                ViewBag.Permissions = new APIPermissions(APIContext.Current.ApiToken.APIKeyId);
+            }
+            else
+            {
+                throw new Exception("Invalid API Key");
+            }  
+            return View();
+        }
+
+
+
     }
 }

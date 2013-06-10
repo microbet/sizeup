@@ -198,7 +198,7 @@
 
             sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
                 me.overlay = new sizeup.maps.heatMapOverlays({
-                    tileUrl: '/tiles/costEffectiveness/',
+                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.costEffectiveness,
                     place: me.opts.report.CurrentPlace,
                     params: { industryId: me.opts.report.CurrentIndustry.Id },
                     zoomExtent: data,

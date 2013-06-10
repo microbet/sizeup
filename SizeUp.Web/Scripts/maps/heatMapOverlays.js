@@ -145,7 +145,7 @@
             var overlays = [];
             for (var z in zooms) {
                 var p = {
-                    tileUrl: me.opts.tileUrl,
+                    attribute: me.opts.attribute,
                     opacity: me.opts.opacity,
                     tileParams: $.extend(true, {
                         colors: me.opts.colors,

@@ -749,7 +749,7 @@
                     var ceType = me.data.consumerExpenditure.rootId == 1 ? '(Total Households)' : '(Average Household)';
                     var title = 'Consumer Expenditures ' + ceType + ' for ' + me.data.consumerExpenditure.currentSelection.Description;
                     me.data.consumerExpenditure.overlay = new sizeup.maps.heatMapOverlays({
-                        tileUrl: '/tiles/consumerExpenditures/',
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.consumerExpenditures,
                         place: me.opts.CurrentInfo.CurrentPlace,
                         opacity: 0.7,
                         params: { variableId: me.data.consumerExpenditure.currentSelection.Id },
@@ -823,7 +823,7 @@
             }
 
             me.data.businessOverlay = new sizeup.maps.overlay({
-                tileUrl: '/tiles/businesses/',
+                attribute: sizeup.api.tiles.overlayAttributes.businesses,
                 tileParams: data
             });
             me.content.map.addOverlay(me.data.businessOverlay, 1);

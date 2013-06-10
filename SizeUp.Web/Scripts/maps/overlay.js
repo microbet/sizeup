@@ -9,22 +9,9 @@
         };
         var me = {};
         me.opts = $.extend(true, defaults, opts);
-        var pointer = 0;
         var params = {
             getTileUrl: function (point, zoom) {
-                var params = $.extend({
-                    x: point.x,
-                    y: point.y,
-                    zoom: zoom
-                },
-                me.opts.tileParams);
-                if (pointer == 2) {
-                    pointer = 0;
-                }
-                pointer++;
-                var urlBase = window.location.protocol + '//t' + pointer + '.api.' + window.location.hostname.replace('www.', '') + '/';
-                jQuery.ajaxSettings.traditional = true;
-                var url = jQuery.param.querystring(urlBase + me.opts.tileUrl, params);
+                var url = new sizeup.api.tiles.overlay(me.opts.tileParams, me.opts.attribute).getTileUrl(point, zoom);
                 if (zoom > me.opts.maxZoom || zoom < me.opts.minZoom) {
                     url = null;
                 }
