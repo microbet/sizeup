@@ -17,66 +17,6 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         //
         // GET: /Widget/Load/
 
-        protected long? PlaceId
-        {
-            get
-            {
-                long id = 0;
-                long? output = null;
-                if (long.TryParse(HttpContext.Request.QueryString["placeId"], out id))
-                {
-                    output = id;
-                }
-                return output;
-            }
-        }
-
-        protected long? IndustryId
-        {
-            get
-            {
-                long id = 0;
-                long? output = null;
-                if (long.TryParse(HttpContext.Request.QueryString["industryid"], out id))
-                {
-                    output = id;
-                }
-                return output;
-            }
-        }
-
-        protected Feature? StartFeature
-        {
-            get
-            {
-                Feature? output = null;
-                string param = HttpContext.Request.QueryString["Feature"];
-
-                if (param != null && param.ToLower() == "dashboard")
-                {
-                    output = Feature.Dashboard;
-                }
-                else if (param != null && param.ToLower() == "competition")
-                {
-                    output = Feature.Competition;
-                }
-                else if (param != null && param.ToLower() == "community")
-                {
-                    output = Feature.Community;
-                }
-                else if (param != null && param.ToLower() == "advertsing")
-                {
-                    output = Feature.Advertising;
-                }
-                else if (param != null && param.ToLower() == "select")
-                {
-                    output = Feature.Select;
-                }
-                return output;
-            }
-        }
-        
-
         [APIAuthorize(Role = "Widget")]
         public ActionResult Index()
         {
@@ -93,35 +33,26 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             {
                 string urlBase = "/{0}/{1}/{2}/{3}";
                 string url = "/widget/select";
-                if (PlaceId != null)
-                {
-                    WebContext.Current.CurrentPlaceId = PlaceId;
-                }
-                if (IndustryId != null)
-                {
-                    WebContext.Current.CurrentIndustryId = IndustryId;
-                }
-                WebContext.Current.StartFeature = StartFeature;
 
-                if (PlaceId != null && IndustryId != null)
+                if (WebContext.Current.CurrentPlaceId != null && WebContext.Current.CurrentIndustryId != null)
                 {
-                    var place = Core.DataLayer.Place.Get(context, PlaceId);
-                    var industry = Core.DataLayer.Industry.Get(context, IndustryId);
+                    var place = Core.DataLayer.Place.Get(context, WebContext.Current.CurrentPlaceId);
+                    var industry = Core.DataLayer.Industry.Get(context, WebContext.Current.CurrentIndustryId);
                     urlBase = string.Format(urlBase, place.State.SEOKey, place.County.SEOKey, place.City.SEOKey, industry.SEOKey);
 
-                    if (StartFeature == Feature.Advertising)
+                    if (WebContext.Current.StartFeature == Feature.Advertising)
                     {
                         url = string.Format("{0}{1}", "/widget/advertising", urlBase);
                     }
-                    else if (StartFeature == Feature.Competition)
+                    else if (WebContext.Current.StartFeature == Feature.Competition)
                     {
                         url = string.Format("{0}{1}", "/widget/competition", urlBase);
                     }
-                    else if (StartFeature == Feature.Dashboard)
+                    else if (WebContext.Current.StartFeature == Feature.Dashboard)
                     {
                         url = string.Format("{0}{1}", "/widget/dashboard", urlBase);
                     }
-                    else if (StartFeature == Feature.Community)
+                    else if (WebContext.Current.StartFeature == Feature.Community)
                     {
                         url = string.Format("{0}{1}", "/widget/community", urlBase);
                     }

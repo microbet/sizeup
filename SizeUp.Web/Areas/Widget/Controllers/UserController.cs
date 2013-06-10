@@ -40,8 +40,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = false;
             ViewBag.Email = "";
 
             return View();
@@ -55,8 +57,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             ViewBag.NotActive = false;
             ViewBag.LockedOut = false;
             ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
             ViewBag.Verified = false;
             ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = false;
             ViewBag.Email = email;
 
             if (!Identity.ValidateUser(email, password))
@@ -160,6 +164,29 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult SendVerification(string email)
+        {
+            ViewBag.InvalidPassword = false;
+            ViewBag.NotActive = false;
+            ViewBag.LockedOut = false;
+            ViewBag.PasswordReset = false;
+            ViewBag.PasswordResetSent = false;
+            ViewBag.Verified = false;
+            ViewBag.VerificationError = false;
+            ViewBag.VerificationSent = true;
+            ViewBag.Email = email;
+
+            var i = Identity.GetUser(email);
+            if (i != null)
+            {
+                Singleton<Mailer>.Instance.SendRegistrationEmail(i);
+            }
+
+
+            return View("Signin");
         }
 
     }

@@ -41,7 +41,7 @@
             }
             @if (ViewBag.NotActive){
             <li>
-                <p class="info">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received.</p>
+                <p class="info">Please verify your e-mail address by clicking the <strong>verify</strong> link in the welcome e-mail you received or <a href="/widget/user/SendVerification/?email=@Server.UrlEncode(ViewBag.Email)&returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])">resend the verification email.</a></p>
             </li>
             }
             @if(ViewBag.Verified){
@@ -57,6 +57,11 @@
             @if (ViewBag.PasswordReset){
             <li>
                 <p class="info">We've sent you a password reset e-mail. Please open it to complete resetting your password.</p>
+            </li> 
+            } 
+            @if (ViewBag.VerificationSent){
+            <li>
+                <p class="info">We've sent you an account verification e-mail. Please open it to activate your account.</p>
             </li> 
             } 
             <li>
