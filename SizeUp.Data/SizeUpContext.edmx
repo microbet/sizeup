@@ -4735,6 +4735,7 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDisabled" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryDataByCity">
           <Key>
@@ -6555,6 +6556,7 @@
           <NavigationProperty Name="IndustryDataByZips" Relationship="SizeUp.Data.FK_IndustryDataByZip_Industry" FromRole="Industry" ToRole="IndustryDataByZip" />
           <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="Boolean" Name="IsDisabled" Nullable="false" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -12424,6 +12426,7 @@
           <EntitySetMapping Name="Industries">
             <EntityTypeMapping TypeName="SizeUp.Data.Industry">
               <MappingFragment StoreEntitySet="Industry">
+                <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SicCode" ColumnName="SicCode" />

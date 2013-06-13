@@ -12,21 +12,20 @@ namespace SizeUp.Core.DataLayer.Base
     {
         public static IQueryable<Data.Industry> Get(SizeUpContext context)
         {
-            var data = context.Industries;
+            var data = context.Industries.Where(i=>!i.IsDisabled);
             return data;
         }
 
         public static IQueryable<Data.Industry> GetActive(SizeUpContext context)
         {
-            var data = context.Industries
+            var data = Get(context)
                        .Where(d => d.IsActive);
             return data;
         }
 
         public static IQueryable<Data.IndustryKeyword> Keywords(SizeUpContext context)
         {
-            var data = context.IndustryKeywords
-                       .Where(d => d.Industry.IsActive);
+            var data = Get(context).SelectMany(i => i.IndustryKeywords); 
             return data;
         }
 
