@@ -14,7 +14,7 @@ namespace SizeUp.Core.DataLayer.Base
         public static IQueryable<Data.Business> Get(SizeUpContext context)
         {
             var data = context.Businesses
-                       .Where(d => d.IsActive);
+                       .Where(d => d.IsActive && d.InBusiness);
             return data;
         }
 

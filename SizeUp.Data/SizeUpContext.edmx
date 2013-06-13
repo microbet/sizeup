@@ -456,6 +456,7 @@
           <Property Name="StateId" Type="bigint" />
           <Property Name="SEOKey" Type="nvarchar" MaxLength="255" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="InBusiness" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BusinessCityMapping">
           <Key>
@@ -6679,6 +6680,7 @@
           <Property Type="String" Name="SEOKey" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <NavigationProperty Name="LegacyBusinessSEOKeys" Relationship="SizeUp.Data.FK_LegacyBusinessSEOKey_Business" FromRole="Business" ToRole="LegacyBusinessSEOKey" />
+          <Property Type="Boolean" Name="InBusiness" Nullable="false" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -12480,6 +12482,7 @@
           <EntitySetMapping Name="Businesses">
             <EntityTypeMapping TypeName="SizeUp.Data.Business">
               <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="InBusiness" ColumnName="InBusiness" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
                 <ScalarProperty Name="StateId" ColumnName="StateId" />

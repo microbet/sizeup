@@ -181,7 +181,7 @@
 
         var setAverageRevenueOverlays = function () {
             me.overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/averageRevenue/',
+                attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageRevenue,
                 place: me.opts.location.CurrentPlace,
                 params: { industryId: me.opts.location.CurrentIndustry.Id },
                 zoomExtent: me.data.zoomExtent,
@@ -198,7 +198,7 @@
         var setTotalRevenueOverlays = function () {
 
             me.overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/totalRevenue/',
+                attribute: sizeup.api.tiles.overlayAttributes.heatmap.totalRevenue,
                 place: me.opts.location.CurrentPlace,
                 params: { industryId: me.opts.location.CurrentIndustry.Id },
                 zoomExtent: me.data.zoomExtent,
@@ -215,7 +215,7 @@
 
         var setAverageEmployeesOverlays = function(){
             me.overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/averageEmployees/',
+                attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageEmployees,
                 place: me.opts.location.CurrentPlace,
                 params: { industryId: me.opts.location.CurrentIndustry.Id },
                 zoomExtent: me.data.zoomExtent,
@@ -230,7 +230,7 @@
         //////////////////////////////////////////////////////////////////////////////////////
         var setTotalEmployeesOverlays = function(){
             me.overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/totalEmployees/',
+                attribute: sizeup.api.tiles.overlayAttributes.heatmap.totalEmployees,
                 place: me.opts.location.CurrentPlace,
                 params: { industryId: me.opts.location.CurrentIndustry.Id },
                 zoomExtent: me.data.zoomExtent,
@@ -248,7 +248,7 @@
           
         var setAverageSalaryOverlays = function(){
             me.overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/AverageSalary/',
+                attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageSalary,
                 place: me.opts.location.CurrentPlace,
                 params: { industryId: me.opts.location.CurrentIndustry.Id },
                 zoomExtent: me.data.zoomExtent,
@@ -266,7 +266,7 @@
 
         var setCostEffectivenessOverlays = function () {
             me.overlay = new sizeup.maps.heatMapOverlays({
-                tileUrl: '/tiles/costEffectiveness/',
+                attribute: sizeup.api.tiles.overlayAttributes.heatmap.costEffectiveness,
                 place: me.opts.location.CurrentPlace,
                 params: { industryId: me.opts.location.CurrentIndustry.Id },
                 zoomExtent: me.data.zoomExtent,

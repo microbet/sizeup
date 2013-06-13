@@ -12,7 +12,6 @@
             },
             place: {},
             params: {},
-            tileUrl: '',
             colors: [
                 '#F50000',
                 '#F52900',

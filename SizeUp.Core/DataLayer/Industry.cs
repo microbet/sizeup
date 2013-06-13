@@ -145,8 +145,9 @@ namespace SizeUp.Core.DataLayer
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);
             var naics = Base.Industry.GetNAICS(context);
+            var placeData = Base.IndustryData.City(context).Where(i => i.City.CityCountyMappings.Any(m => m.Id == placeId));
             var data = raw
-                .Where(i => i.IndustryDataByCities.Any(c=>c.City.CityCountyMappings.Any(m=>m.Id == placeId)))
+                .Join(placeData, i=>i.Id, o=>o.IndustryId, (i,o)=> i)
                 .Select(i => new Models.Industry
                 {
                     Id = i.Id,
