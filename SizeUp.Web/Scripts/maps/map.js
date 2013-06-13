@@ -37,6 +37,11 @@
         };
 
 
+        var clearOverlays = function () {
+            me.overlays = [];
+            me._native.overlayMapTypes.clear();
+        };
+
         var addOverlay = function (overlay, index) {
             //all this complicated stuff is to create a z indexing for overlays
             //we cache each overlay in me.overlays where me.overlays[x] where x is the z-index. multiple overlays can be placed on the same zindex and
@@ -222,6 +227,9 @@
             },
             removeOverlay: function (overlay) {
                 removeOverlay(overlay);
+            },
+            clearOverlays: function(){
+                clearOverlays();
             },
             setLegend: function (control) {
                 addLegend(control);

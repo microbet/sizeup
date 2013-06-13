@@ -152,6 +152,7 @@
 
 
         var setHeatmap = function () {
+            me.map.clearOverlays();
             var overlays = me.overlay.getOverlays();
             me.map.triggerEvent('resize');
             me.map.setCenter(new sizeup.maps.latLng({ lat: me.opts.centroid.Lat, lng: me.opts.centroid.Lng }));
