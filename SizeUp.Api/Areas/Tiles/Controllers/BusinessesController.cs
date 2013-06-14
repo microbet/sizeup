@@ -18,61 +18,36 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/Business/
 
-        public ActionResult Index(int x, int y, int zoom, List<long> competitorIndustryIds = null, List<long> buyerIndustryIds = null, List<long> supplierIndustryIds = null, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, List<long> industryIds = null, string color = "#ff5522", int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
+                industryIds = industryIds == null ? new List<long>() : industryIds;
                 Businesses tile = new Businesses(width, height, x, y, zoom);
                 var boundingBox = tile.GetBoundingBox(TileBuffer);
 
-                if (competitorIndustryIds == null)
+                List<GeographyEntity> geos = new List<GeographyEntity>();
+                if (industryIds.Count > 0)
                 {
-                    competitorIndustryIds = new List<long>();
+                    var buisnesses = Core.DataLayer.Base.Business.In(context, boundingBox)
+                      .Where(i => industryIds.Contains(i.IndustryId.Value))
+                      .Select(i => new { Lat = i.Lat, Lng = i.Long });
+
+                    var opacity = Math.Max(128, Math.Min(255, (zoom - 5) * 25));
+                    var borderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125));
+
+                    geos = buisnesses.ToList()
+                        .Select(i => new GeographyEntity()
+                        {
+                            Geography = SqlGeography.Parse(string.Format("POINT({0} {1})", i.Lng, i.Lat)),
+                            Color = color,
+                            Opacity = opacity,
+                            BorderWidth = 1,
+                            BorderColor = "#000000",
+                            BorderOpacity = borderOpacity
+                        })
+                        .ToList();
                 }
-                if (buyerIndustryIds == null)
-                {
-                    buyerIndustryIds = new List<long>();
-                }
-                if (supplierIndustryIds == null)
-                {
-                    supplierIndustryIds = new List<long>();
-                }
-
-
-                var competitor = Core.DataLayer.Base.Business.In(context, boundingBox)
-                   .Where(i => competitorIndustryIds.Contains(i.IndustryId.Value))
-                   .Select(i => new { Type = "Competitor", Lat = i.Lat, Lng = i.Long });
-                   
-                
-                var supplier = Core.DataLayer.Base.Business.In(context, boundingBox)
-                   .Where(i => supplierIndustryIds.Contains(i.IndustryId.Value))
-                   .Select(i => new { Type = "Supplier", Lat = i.Lat, Lng = i.Long });
-
-                var buyer = Core.DataLayer.Base.Business.In(context, boundingBox)
-                   .Where(i => buyerIndustryIds.Contains(i.IndustryId.Value))
-                   .Select(i => new { Type = "Buyer", Lat = i.Lat, Lng = i.Long });
-
-
-
-            
-
-                var opacity = Math.Max(128, Math.Min(255, (zoom - 5) * 25));
-                var borderOpacity = Math.Max(0, Math.Min(255, 25 * (zoom - 13) + 125));
-
-
-                var geos = competitor.Union(supplier).Union(buyer)
-                    .ToList()
-                    .Select(i => new GeographyEntity()
-                    {
-                        Geography = SqlGeography.Parse(string.Format("POINT({0} {1})", i.Lng, i.Lat)),
-                        Color = i.Type == "Competitor" ? "#ff5522" : i.Type == "Supplier" ? "#11AAFF" : "#66EE00",
-                        Opacity = opacity,
-                        BorderWidth = 1,
-                        BorderColor = "#000000",
-                        BorderOpacity = borderOpacity
-                    })
-                    .ToList();
-                    
 
                 tile.Draw(geos);
 

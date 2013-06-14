@@ -802,31 +802,52 @@
  
 
         var setBusinessOverlay = function () {
-            me.content.map.removeOverlay(me.data.businessOverlay);
+            me.content.map.removeOverlay(me.data.competitorOverlay);
+            me.content.map.removeOverlay(me.data.supplierOverlay);
+            me.content.map.removeOverlay(me.data.buyerOverlay);
    
-            var state = jQuery.bbq.getState();
-            var data = {};
-            data.competitorIndustryIds = getIndustryIdArray('competitor');
-            data.supplierIndustryIds = getIndustryIdArray('supplier');
-            data.buyerIndustryIds = getIndustryIdArray('buyer');
-
+            var competitorIndustryIds = getIndustryIdArray('competitor');
+            var supplierIndustryIds = getIndustryIdArray('supplier');
+            var buyerIndustryIds = getIndustryIdArray('buyer');
             var filterValue = me.data.activeMapFilter;
 
-            if (data.supplierIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'supplier')) {
-                delete data.supplierIndustryIds;
+            if (supplierIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'supplier')) {
+                supplierIndustryIds = [];
             }
-            if (data.buyerIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'buyer')) {
-                delete data.buyerIndustryIds;
+            if (buyerIndustryIds.length == 0 || !(filterValue == 'all' || filterValue == 'buyer')) {
+                buyerIndustryIds = [];
             }
             if (!(filterValue == 'all' || filterValue == 'competitor')) {
-                delete data.competitorIndustryIds;
+                competitorIndustryIds = [];
             }
 
-            me.data.businessOverlay = new sizeup.maps.overlay({
+            me.data.competitorOverlay = new sizeup.maps.overlay({
                 attribute: sizeup.api.tiles.overlayAttributes.businesses,
-                tileParams: data
+                tileParams: {
+                    industryIds: competitorIndustryIds,
+                    color: '#ff5522'
+                }
             });
-            me.content.map.addOverlay(me.data.businessOverlay, 1);
+
+            me.data.supplierOverlay = new sizeup.maps.overlay({
+                attribute: sizeup.api.tiles.overlayAttributes.businesses,
+                tileParams: {
+                    industryIds: supplierIndustryIds,
+                    color: '#11AAFF'
+                }
+            });
+
+            me.data.buyerOverlay = new sizeup.maps.overlay({
+                attribute: sizeup.api.tiles.overlayAttributes.businesses,
+                tileParams: {
+                    industryIds: buyerIndustryIds,
+                    color: '#66EE00'
+                }
+            });
+
+            me.content.map.addOverlay(me.data.competitorOverlay, 1);
+            me.content.map.addOverlay(me.data.supplierOverlay, 1);
+            me.content.map.addOverlay(me.data.buyerOverlay, 1);
         };
 
 
