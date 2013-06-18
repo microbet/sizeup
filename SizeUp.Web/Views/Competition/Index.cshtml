@@ -207,7 +207,7 @@
                     <li><span class="label">Phone:</span><span class="value">{{PhoneFormatted}}</span></li>
                     <li><span class="label">Business Type:</span><span class="value">{{#IsFirm}}Corporation{{/IsFirm}}{{^IsFirm}}{{#IsHomeBased}}Home-based{{/IsHomeBased}}{{^IsHomeBased}}No data{{/IsHomeBased}}{{/IsFirm}}</span></li>
                     <li><span class="label">Ownership:</span><span class="value">{{#IsPublic}}Public{{/IsPublic}}{{^IsPublic}}Private{{/IsPublic}}</span></li>
-                    <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
+                    <li><span class="label">Website:</span>{{#Url}}<a target="_blank" data-override-href="http://{{Url}}" class="value" rel="nofollow">{{Url}}</a>{{/Url}}{{^Url}}<span class="lowlight value">Not provided</span>{{/Url}}</li>
                     <li><span class="label">Years in business:</span>{{#YearsInBusiness}}<span class="value">{{YearsInBusiness}}</span>{{/YearsInBusiness}}{{^YearsInBusiness}}<span class="value">No data</span>{{/YearsInBusiness}}</li>
                 </ul>
                 <div class="tools">
