@@ -102,6 +102,7 @@
 
 
             me.reportData = me.container.find('.reportData');
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -188,46 +189,53 @@
 
         var displayReport = function () {
 
-            me.reportContainer.setGauge(me.data.gauge);
-            me.reportData.show();
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
-                me.overlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageSalary,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Average Salary',
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    legendData: sizeup.api.data.getAverageSalaryBands,
-                    templates: templates
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
+                    me.overlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageSalary,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Average Salary',
+                        format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                        legendData: sizeup.api.data.getAverageSalaryBands,
+                        templates: templates
+                    });
+                    setHeatmap();
                 });
-                setHeatmap();
-            });
 
 
-                
-            me.chart = new sizeup.charts.barChart({
 
-                valueFormat: function(val){ return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val));},
-                container: me.container.find('.chart .container'),
-                title: 'average annual salary',
-                bars: me.data.chart
-            });
-            me.chart.draw();
+                me.chart = new sizeup.charts.barChart({
 
-            me.table = new sizeup.charts.tableChart({
-                container: me.container.find('.table').hide(),
-                rowTemplate: templates.get('tableRow'),
-                rows:me.data.table
-            });
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    container: me.container.find('.chart .container'),
+                    title: 'average annual salary',
+                    bars: me.data.chart
+                });
+                me.chart.draw();
+
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table').hide(),
+                    rowTemplate: templates.get('tableRow'),
+                    rows: me.data.table
+                });
 
 
-            me.data.description.NAICS6 = me.opts.report.CurrentIndustry.NAICS6;
-            me.data.description.Salary = me.data.table['Nation'].value;
+                me.data.description.NAICS6 = me.opts.report.CurrentIndustry.NAICS6;
+                me.data.description.Salary = me.data.table['Nation'].value;
 
-            me.description.html(templates.bind(templates.get("description"), me.data.description));
-
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
+            }
            
         };
 

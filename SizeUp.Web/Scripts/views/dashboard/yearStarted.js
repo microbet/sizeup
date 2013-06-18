@@ -99,7 +99,7 @@
 
 
             me.reportData = me.container.find('.reportData');
-
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -163,20 +163,27 @@
 
         var displayReport = function () {
 
-            me.reportContainer.setGauge(me.data.gauge);
-            me.reportData.show();
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            buildChart();
+                buildChart();
 
-            me.data.description = {
-                Year: me.data.enteredValue,
-                Counts: me.data.counts,
-                Percentiles: me.data.percentiles
-            };
-            var dTemplate = me.data.enteredValue < me.opts.startYear ? templates.get('outOfBoundsDescription') : templates.get("description");
-            me.description.html(templates.bind(dTemplate, me.data.description));
+                me.data.description = {
+                    Year: me.data.enteredValue,
+                    Counts: me.data.counts,
+                    Percentiles: me.data.percentiles
+                };
+                var dTemplate = me.data.enteredValue < me.opts.startYear ? templates.get('outOfBoundsDescription') : templates.get("description");
+                me.description.html(templates.bind(dTemplate, me.data.description));
 
-            
+            }
 
 
         };

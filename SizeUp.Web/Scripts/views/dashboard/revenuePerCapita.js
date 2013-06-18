@@ -80,7 +80,7 @@
 
 
             me.reportData = me.container.find('.reportData');
-
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             me.reportContainer.setValue('');
      
 
@@ -183,67 +183,72 @@
 
 
         var displayReport = function () {
-
-            me.reportContainer.setGauge(me.data.gauge);
-    
-            me.reportData.show();
-
-            me.reportContainer.setValue(me.data.displayValue);
-            if (isNaN(me.data.displayValue)) {
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
                 me.reportContainer.hideGauge();
             }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.revenuePerCapita.map.getWidth() }, function (data) {
-                me.revenuePerCapitaOverlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.revenuePerCapita,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Revenue Per Capita',
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    legendData: sizeup.api.data.getRevenuePerCapitaBands,
-                    templates: templates
+                me.reportContainer.setValue(me.data.displayValue);
+                if (isNaN(me.data.displayValue)) {
+                    me.reportContainer.hideGauge();
+                }
+
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.revenuePerCapita.map.getWidth() }, function (data) {
+                    me.revenuePerCapitaOverlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.revenuePerCapita,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Revenue Per Capita',
+                        format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                        legendData: sizeup.api.data.getRevenuePerCapitaBands,
+                        templates: templates
+                    });
+                    setRevenuePerCapitaHeatmap();
                 });
-                setRevenuePerCapitaHeatmap();
-            });
 
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.totalRevenue.map.getWidth() }, function (data) {
-                me.totalRevenueOverlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.totalRevenue,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Total Revenue',
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    legendData: sizeup.api.data.getTotalRevenueBands,
-                    templates: templates
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.totalRevenue.map.getWidth() }, function (data) {
+                    me.totalRevenueOverlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.totalRevenue,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Total Revenue',
+                        format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                        legendData: sizeup.api.data.getTotalRevenueBands,
+                        templates: templates
+                    });
+                    setTotalRevenueHeatmap();
                 });
-                setTotalRevenueHeatmap();
-            });
-
-           
 
 
-            me.chart = new sizeup.charts.barChart({
-
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                container: me.container.find('.chart .container'),
-                title: 'revenue per capita',
-                bars: me.data.chart
-            });
-            me.chart.draw();
-
-            me.table = new sizeup.charts.tableChart({
-                container: me.container.find('.table').hide(),
-                rowTemplate: templates.get('tableRow'),
-                rows: me.data.table
-            });
 
 
-            me.data.description.HasData = me.data.chart.City != null;           
-            me.description.html(templates.bind(templates.get("description"), me.data.description));
+                me.chart = new sizeup.charts.barChart({
 
-          
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    container: me.container.find('.chart .container'),
+                    title: 'revenue per capita',
+                    bars: me.data.chart
+                });
+                me.chart.draw();
+
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table').hide(),
+                    rowTemplate: templates.get('tableRow'),
+                    rows: me.data.table
+                });
+
+
+                me.data.description.HasData = me.data.chart.City != null;
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
+
+            }
         };
 
 

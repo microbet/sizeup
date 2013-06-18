@@ -172,7 +172,7 @@
                 me.employeesPerCapita.question.showAnswer(index);
             }
             $(window).bind('hashchange', function (e) { hashChanged(e); });
-
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -296,84 +296,92 @@
 
         var displayReport = function () {
 
-            me.reportContainer.setGauge(me.data.gauge);
-            me.averageEmployees.reportData.show();
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.averageEmployees.reportData.show();
+                me.noData.hide();
 
+                me.averageEmployees.chart = new sizeup.charts.barChart({
 
-            me.averageEmployees.chart = new sizeup.charts.barChart({
-
-                valueFormat: function (val) { return Math.floor(val); },
-                container: me.container.find('.averageEmployees .chart .container'),
-                title: 'average employees',
-                bars: me.data.averageEmployees.chart.bars,
-                marker: me.data.averageEmployees.chart.marker
-            });
-            me.averageEmployees.chart.draw();
-
-            me.averageEmployees.table = new sizeup.charts.tableChart({
-                container: me.container.find('.averageEmployees .table').hide(),
-                rowTemplate: templates.get('AverageEmployeesTableRow'),
-                rows: me.data.averageEmployees.table
-            });
-
-
-            me.averageEmployees.description.html(templates.bind(templates.get("averageEmployeesDescription"), me.data.averageEmployees.description));
-           
-
-
-
-            me.employeesPerCapita.reportData.show();
-
-            me.employeesPerCapita.chart = new sizeup.charts.barChart({
-
-                valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                container: me.container.find('.employeesPerCapita .chart .container'),
-                title: 'employees per capita',
-                bars: me.data.employeesPerCapita.chart.bars,
-                marker: me.data.employeesPerCapita.chart.marker
-            });
-            me.employeesPerCapita.chart.draw();
-
-            me.employeesPerCapita.table = new sizeup.charts.tableChart({
-                container: me.container.find('.employeesPerCapita .table').hide(),
-                rowTemplate: templates.get('employeesPerCapitaTableRow'),
-                rows: me.data.employeesPerCapita.table
-            });
-
-
-
-            me.employeesPerCapita.description.html(templates.bind(templates.get("employeesPerCapitaDescription"), me.data.employeesPerCapita.description));
-
-
-
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.employeesPerCapita.map.getWidth() }, function (data) {
-                me.employeesPerCapitaOverlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.employeesPerCapita,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Average Employees',
-                    format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                    legendData: sizeup.api.data.getEmployeesPerCapitaBands,
-                    templates: templates
+                    valueFormat: function (val) { return Math.floor(val); },
+                    container: me.container.find('.averageEmployees .chart .container'),
+                    title: 'average employees',
+                    bars: me.data.averageEmployees.chart.bars,
+                    marker: me.data.averageEmployees.chart.marker
                 });
-                setEmployeesPerCapitaHeatmap();
-            });
+                me.averageEmployees.chart.draw();
 
-
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.averageEmployees.map.getWidth() }, function (data) {
-                me.averageEmployeesOverlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageEmployees,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Average Employees',
-                    format: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
-                    legendData: sizeup.api.data.getAverageEmployeesBands,
-                    templates: templates
+                me.averageEmployees.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.averageEmployees .table').hide(),
+                    rowTemplate: templates.get('AverageEmployeesTableRow'),
+                    rows: me.data.averageEmployees.table
                 });
-                setAverageEmployeesHeatmap();
-            });
+
+
+                me.averageEmployees.description.html(templates.bind(templates.get("averageEmployeesDescription"), me.data.averageEmployees.description));
+
+
+
+
+                me.employeesPerCapita.reportData.show();
+
+                me.employeesPerCapita.chart = new sizeup.charts.barChart({
+
+                    valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                    container: me.container.find('.employeesPerCapita .chart .container'),
+                    title: 'employees per capita',
+                    bars: me.data.employeesPerCapita.chart.bars,
+                    marker: me.data.employeesPerCapita.chart.marker
+                });
+                me.employeesPerCapita.chart.draw();
+
+                me.employeesPerCapita.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.employeesPerCapita .table').hide(),
+                    rowTemplate: templates.get('employeesPerCapitaTableRow'),
+                    rows: me.data.employeesPerCapita.table
+                });
+
+
+
+                me.employeesPerCapita.description.html(templates.bind(templates.get("employeesPerCapitaDescription"), me.data.employeesPerCapita.description));
+
+
+
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.employeesPerCapita.map.getWidth() }, function (data) {
+                    me.employeesPerCapitaOverlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.employeesPerCapita,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Average Employees',
+                        format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                        legendData: sizeup.api.data.getEmployeesPerCapitaBands,
+                        templates: templates
+                    });
+                    setEmployeesPerCapitaHeatmap();
+                });
+
+
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.averageEmployees.map.getWidth() }, function (data) {
+                    me.averageEmployeesOverlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageEmployees,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Average Employees',
+                        format: function (val) { return sizeup.util.numbers.format.abbreviate(val); },
+                        legendData: sizeup.api.data.getAverageEmployeesBands,
+                        templates: templates
+                    });
+                    setAverageEmployeesHeatmap();
+                });
+
+            }
 
         };
 
