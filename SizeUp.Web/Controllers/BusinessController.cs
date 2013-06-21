@@ -58,6 +58,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult FindIndustry(string state, string county, string city)
         {
+            if (CurrentInfo.CurrentPlace.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 var industries = Core.DataLayer.Industry.ListInPlace(context, CurrentInfo.CurrentPlace.Id.Value)
@@ -80,6 +84,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Find(string state, string county, string city, string industry)
         {
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 var businesses = Core.DataLayer.Business.ListIn(context, Core.Web.WebContext.Current.CurrentIndustryId.Value, Core.Web.WebContext.Current.CurrentPlaceId.Value);
@@ -94,6 +102,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Business(string state, string county, string city, string industry, string name, long id)
         {
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 var business = Core.DataLayer.Business.GetIn(context, id, Core.Web.WebContext.Current.CurrentPlaceId.Value);
@@ -116,8 +128,8 @@ namespace SizeUp.Web.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var business = Core.DataLayer.Business.GetLegacy(context, oldSEO);
-                var place = Core.DataLayer.Place.GetByBusiness(context, business.Id.Value);
-                var industry = Core.DataLayer.Industry.Get(context, business.IndustryId);
+                var place = Core.DataLayer.Place.GetByBusiness(context, business != null ? business.Id.Value : 0);
+                var industry = Core.DataLayer.Industry.Get(context, business != null ? business.IndustryId : 0);
 
                 if (place == null || business == null || industry == null)
                 {

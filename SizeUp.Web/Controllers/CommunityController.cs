@@ -22,6 +22,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult CommunityWithIndustry()
         {
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.BusinessCount = Core.DataLayer.Business.CountIn(context, WebContext.Current.CurrentIndustryId.Value, WebContext.Current.CurrentPlaceId.Value);
@@ -37,6 +41,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult CountyCommunity(string state, string county) 
         {
+            if (CurrentInfo.CurrentPlace.State.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             ActionResult action = View();
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -51,10 +59,14 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult MetroCommunity(string metro)
         {
+            if (CurrentInfo.CurrentPlace.Metro.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
-                CurrentInfo.CurrentPlace = Core.DataLayer.Place.Get(context, null, null, null, metro);
-                ViewBag.CurrentInfo = CurrentInfo;
+                //CurrentInfo.CurrentPlace = Core.DataLayer.Place.Get(context, null, null, null, metro);
+               // ViewBag.CurrentInfo = CurrentInfo;
                 ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
                 return View();
             }
@@ -62,6 +74,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult StateCommunity(string state)
         {
+            if (CurrentInfo.CurrentPlace.State.Id == null )
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             ActionResult action = View();
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -123,6 +139,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult FindIndustry(string state, string county, string city)
         {
+            if (CurrentInfo.CurrentPlace.Id == null )
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 var industries = Core.DataLayer.Industry.ListInPlace(context, CurrentInfo.CurrentPlace.Id.Value)
