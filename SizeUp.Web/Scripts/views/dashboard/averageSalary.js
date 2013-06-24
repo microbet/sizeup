@@ -286,6 +286,7 @@
                 me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' below average' : data.State.Percentage == 0 ? ' average' : percentage + ' Above average';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
                 me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' below average' : data.Nation.Percentage == 0 ? ' average' : percentage + ' Above average';
@@ -295,6 +296,7 @@
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

@@ -295,13 +295,15 @@
                 me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
                     tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
             }
-            else{
+            else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

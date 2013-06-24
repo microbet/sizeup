@@ -249,6 +249,7 @@
                 me.data.turnover.percentiles.State = data.State.Percentile < 1 ? 'more than 99%' : data.State.Percentile > 99 ? 'less than 99%' : 'less than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 me.data.turnover.percentiles.Nation = data.Nation.Percentile < 1 ? 'more than 99%' : data.Nation.Percentile > 99 ? 'less than 99%' : 'less than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -256,6 +257,7 @@
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

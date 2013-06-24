@@ -236,6 +236,7 @@
                 me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -243,6 +244,7 @@
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
