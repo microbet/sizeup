@@ -75,7 +75,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        
+
         [APIAuthorize(Role = "BestPlaces")]
         public ActionResult Bands(int itemCount, int bands, int industryId, Granularity granularity, long? regionId, long? stateId)
         {
@@ -83,6 +83,18 @@ namespace SizeUp.Api.Areas.Data.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var output = Core.DataLayer.BestPlaces.Bands(context, industryId, itemCount, bands, regionId, stateId, filters, granularity);
+                return Json(output, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [APIAuthorize(Role = "BestPlaces")]
+        public ActionResult IndustryRanks(int rankCutoff, long placeId, Granularity granularity)
+        {
+            BestPlacesFilters filters = BuildFilters();
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var output = Core.DataLayer.BestPlaces.IndustryRanks(context, rankCutoff, placeId, granularity);
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }

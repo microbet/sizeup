@@ -8,6 +8,7 @@ using System.Configuration;
 using SizeUp.Core.Email;
 using SizeUp.Core.Identity;
 using System.Web.Profile;
+using SizeUp.Data;
 
 namespace SizeUp.Utility
 {
@@ -15,27 +16,9 @@ namespace SizeUp.Utility
     {
         static void Main(string[] args)
         {
-            MailChimpMailingList ml = new MailChimpMailingList();
-            MembershipUserCollection users = Membership.GetAllUsers();
-            int count = 0;
-            foreach (MembershipUser u in users)
+            using (var context = ContextFactory.SizeUpContext)
             {
-                count++;
-                Console.Clear();
-                Console.Write("Processing {0} of {1}", count, users.Count);
-
-                Identity i = Identity.GetUser(u);
-                var profile = ProfileBase.Create(u.UserName);
-                if (u.IsApproved && !u.IsLockedOut)
-                {
-                    ml.Subscribe(i);
-                    bool optout = false;
-                    bool.TryParse(profile["OptOut"] as string, out optout);
-                    if (optout)
-                    {
-                        ml.Unsubscribe(i);
-                    }
-                }
+                ;
             }
         }
     }

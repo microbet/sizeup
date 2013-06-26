@@ -591,5 +591,35 @@ namespace SizeUp.Core.DataLayer
             }
             return output;
         }
+
+
+        public static List<Models.Base.KeyValue<int, Models.Industry>> IndustryRanks(SizeUpContext context, int rankCutoff, long placeId, Granularity granularity)
+        {
+            var place = Core.DataLayer.Place.List(context);
+            var industryData = Core.DataLayer.Base.IndustryData.City(context);
+            var demographics = Core.DataLayer.Base.DemographicsData.City(context);
+            var industries = Core.DataLayer.Base.Industry.GetActive(context);
+
+            var raw = industryData.Join(demographics, i => i.CityId, o => o.CityId, (i, o) => new { demographics = o, industryData = i })
+                //.Where(i => i.demographics.TotalPopulation > 100000)
+                        .Select(i => i.industryData)
+                        .Where(ii => ii.TotalRevenue != null && ii.TotalRevenue > 0);
+                        //.OrderByDescending(ii => ii.TotalRevenue);
+
+            context.Industries.Select((i, index) => new { industry = i, num = index + 1 }).ToList();
+
+           // var d = industries.Where(i => raw.Where(r => r.IndustryId == i.Id).Any(r => r.City.CityCountyMappings.Any(p => p.Id == placeId)));
+           // d.ToList();
+
+            context.ExecuteStoreQuery<Temp>(
+            return null;
+        }
+
+        protected class Temp
+        {
+            public long Rank { get; set; }
+            public long CityId { get; set; }
+            public long IndustryId { get; set; }
+        }
     }
 }
