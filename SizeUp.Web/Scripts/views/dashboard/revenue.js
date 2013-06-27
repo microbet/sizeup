@@ -104,6 +104,7 @@
 
 
             me.reportData = me.container.find('.reportData');
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -191,42 +192,49 @@
 
 
         var displayReport = function () {
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            me.reportContainer.setGauge(me.data.gauge);
-            me.reportData.show();
-
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
-                me.overlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageRevenue,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Average Business Annual Revenue',
-                    format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
-                    legendData: sizeup.api.data.getAverageRevenueBands,
-                    templates: templates
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
+                    me.overlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.averageRevenue,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Average Business Annual Revenue',
+                        format: function (val) { return '$' + sizeup.util.numbers.format.abbreviate(val); },
+                        legendData: sizeup.api.data.getAverageRevenueBands,
+                        templates: templates
+                    });
+                    setHeatmap();
                 });
-                setHeatmap();
-            });
 
-            me.chart = new sizeup.charts.barChart({
+                me.chart = new sizeup.charts.barChart({
 
-                valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
-                container: me.container.find('.chart .container'),
-                title: 'average annual revenue per business',
-                bars: me.data.chart.bars,
-                marker: me.data.chart.marker
-            });
-            me.chart.draw();
+                    valueFormat: function (val) { return '$' + sizeup.util.numbers.format.addCommas(Math.floor(val)); },
+                    container: me.container.find('.chart .container'),
+                    title: 'average annual revenue per business',
+                    bars: me.data.chart.bars,
+                    marker: me.data.chart.marker
+                });
+                me.chart.draw();
 
-            me.table = new sizeup.charts.tableChart({
-                container: me.container.find('.table').hide(),
-                rowTemplate: templates.get('tableRow'),
-                rows: me.data.table
-            });
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table').hide(),
+                    rowTemplate: templates.get('tableRow'),
+                    rows: me.data.table
+                });
 
 
-            me.description.html(templates.bind(templates.get("description"), me.data.description));
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
+            }
         };
 
         var runReport = function (e) {
@@ -275,6 +283,7 @@
                 me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -282,6 +291,7 @@
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

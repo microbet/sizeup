@@ -99,7 +99,7 @@
 
 
             me.reportData = me.container.find('.reportData');
-
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -163,20 +163,27 @@
 
         var displayReport = function () {
 
-            me.reportContainer.setGauge(me.data.gauge);
-            me.reportData.show();
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            buildChart();
+                buildChart();
 
-            me.data.description = {
-                Year: me.data.enteredValue,
-                Counts: me.data.counts,
-                Percentiles: me.data.percentiles
-            };
-            var dTemplate = me.data.enteredValue < me.opts.startYear ? templates.get('outOfBoundsDescription') : templates.get("description");
-            me.description.html(templates.bind(dTemplate, me.data.description));
+                me.data.description = {
+                    Year: me.data.enteredValue,
+                    Counts: me.data.counts,
+                    Percentiles: me.data.percentiles
+                };
+                var dTemplate = me.data.enteredValue < me.opts.startYear ? templates.get('outOfBoundsDescription') : templates.get("description");
+                me.description.html(templates.bind(dTemplate, me.data.description));
 
-            
+            }
 
 
         };
@@ -229,6 +236,7 @@
                 me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -236,6 +244,7 @@
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
