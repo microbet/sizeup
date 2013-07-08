@@ -71,6 +71,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Test\Test.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Test.edmx</DependentUpon>
+    </Compile>
     <Compile Include="TimeStamp.cs" />
     <Compile Include="UserData\UserDataContext.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -106,6 +111,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UserDataContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Test\Test.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Test.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Test\Test.edmx.diagram">
+      <DependentUpon>Test.edmx</DependentUpon>
+    </None>
     <None Include="UserData\UserDataContext.edmx.diagram">
       <DependentUpon>UserDataContext.edmx</DependentUpon>
     </None>

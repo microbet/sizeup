@@ -18,7 +18,7 @@ namespace SizeUp.Utility
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ;
+                
             }
         }
     }

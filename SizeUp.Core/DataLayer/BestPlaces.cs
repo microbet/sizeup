@@ -611,7 +611,6 @@ namespace SizeUp.Core.DataLayer
            // var d = industries.Where(i => raw.Where(r => r.IndustryId == i.Id).Any(r => r.City.CityCountyMappings.Any(p => p.Id == placeId)));
            // d.ToList();
 
-            context.ExecuteStoreQuery<Temp>(
             return null;
         }
 

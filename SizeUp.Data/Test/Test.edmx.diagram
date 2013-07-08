@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b84fda67eed04fe09c0e4b355f3118c6" Name="Diagram1" ZoomLevel="101" SnapToGrid="true">
+        <EntityTypeShape EntityType="SizeUp.Data.Test.GeographicLocation" Width="2.125" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.ZipCode" Width="1.625" PointX="0.5" PointY="5.25" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_ZipCode_GeographicLocation" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.City" Width="1.5" PointX="2.75" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.County" Width="1.5" PointX="4.875" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Granularity" Width="1.5" PointX="20.875" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Metro" Width="1.5" PointX="9.5" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Nation" Width="1.5" PointX="18" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Place" Width="1.5" PointX="7.25" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Region" Width="1.5" PointX="15.875" PointY="5.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.State" Width="1.5" PointX="11.75" PointY="5.25" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_City_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_County_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_GeographicLocation_Granularity" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Metro_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Nation_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Place_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Region_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_State_GeographicLocation" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Division" Width="1.5" PointX="13.75" PointY="5.25" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Division_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_City_State" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Place_City" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_County_Metro" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_County_State" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Place_County" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Division_Region" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_State_Division" />
+        <AssociationConnector Association="SizeUp.Data.Test.CityCounty" />
+        <AssociationConnector Association="SizeUp.Data.Test.ZipCodePlace" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Business" Width="2.25" PointX="6" PointY="10.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.BusinessData" Width="2.625" PointX="15.875" PointY="10.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.CityType" Width="1.5" PointX="4.125" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.GeographyClass" Width="1.5" PointX="29.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.GeographySource" Width="2" PointX="27" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Industry" Width="1.5" PointX="10.875" PointY="10.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.IndustryKeyword" Width="1.875" PointX="0.5" PointY="13.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.LegacyBusinessSEOKey" Width="1.875" PointX="0.5" PointY="25.375" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.LegacyCommunitySEOKey" Width="2.125" PointX="0.5" PointY="20.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.LegacyIndustrySEOKey" Width="2.375" PointX="0.5" PointY="22.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.NAIC" Width="1.75" PointX="10.75" PointY="16.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.PlaceKeyword" Width="1.75" PointX="0.5" PointY="10.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.ResourceString" Width="1.5" PointX="0.5" PointY="27.625" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Business_County" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Business_Industry" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Business_Metro" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Business_State" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Business_ZipCode" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_BusinessData_Business" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_LegacyBusinessSEOKey_Business" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_BusinessData_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_BusinessData_Industry" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_City_CityType" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_LegacyCommunitySEOKey_City" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Industry_Industry" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_IndustryKeyword_Industry" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_LegacyIndustrySEOKey_Industry" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_NAICS_NAICS" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_PlaceKeyword_Place" />
+        <AssociationConnector Association="SizeUp.Data.Test.BusinessCity" />
+        <AssociationConnector Association="SizeUp.Data.Test.IndustryNAICS" />
+        <EntityTypeShape EntityType="SizeUp.Data.Test.Geography" Width="2.375" PointX="23.625" PointY="0.625" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Geography_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Geography_GeographyClass" />
+        <AssociationConnector Association="SizeUp.Data.Test.FK_Geography_GeographySource" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
