@@ -104,6 +104,7 @@
                 setSelection(me.selection);
             }
             if (!me.changed) {
+                me.hasFocus = false;
                 me.onBlur(me.selection);
             }
         };

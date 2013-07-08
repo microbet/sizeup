@@ -15,17 +15,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/Industry/
 
-        
+
 
         [HttpGet]
         public ActionResult Current()
         {
-            var id = SizeUp.Core.Web.WebContext.Current.CurrentIndustryId;
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Industry.Get(context, id);
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
+            var data = SizeUp.Core.Web.WebContext.Current.CurrentIndustry.Id != null ? SizeUp.Core.Web.WebContext.Current.CurrentIndustry :null;
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -33,12 +29,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var c = context.Industries.Where(i => i.Id == id).FirstOrDefault();
+               /* var c = context.Industries.Where(i => i.Id == id).FirstOrDefault();
                 if (c != null)
                 {
                     WebContext.Current.CurrentIndustryId = id;
-                }
-                return Json(c != null, JsonRequestBehavior.AllowGet);
+                }*/
+                //deprecated
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
         }
 

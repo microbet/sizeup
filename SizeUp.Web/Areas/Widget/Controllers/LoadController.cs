@@ -34,10 +34,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 string urlBase = "/{0}/{1}/{2}/{3}";
                 string url = "/widget/select";
 
-                if (WebContext.Current.CurrentPlaceId != null && WebContext.Current.CurrentIndustryId != null)
+                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry.Id != null)
                 {
-                    var place = Core.DataLayer.Place.Get(context, WebContext.Current.CurrentPlaceId);
-                    var industry = Core.DataLayer.Industry.Get(context, WebContext.Current.CurrentIndustryId);
+                    var place = WebContext.Current.CurrentPlace;
+                    var industry = WebContext.Current.CurrentIndustry;
                     urlBase = string.Format(urlBase, place.State.SEOKey, place.County.SEOKey, place.City.SEOKey, industry.SEOKey);
 
                     if (WebContext.Current.StartFeature == Feature.Advertising)

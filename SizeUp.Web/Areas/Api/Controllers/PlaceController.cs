@@ -23,8 +23,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                 var data = Core.DataLayer.Place.Get(context, Core.Web.WebContext.Current.CurrentPlaceId);
-                 return Json(data, JsonRequestBehavior.AllowGet);
+                var data = Core.Web.WebContext.Current.CurrentPlace.Id != null ? Core.Web.WebContext.Current.CurrentPlace : null;
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -33,12 +33,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
+                /*
                 var c = context.CityCountyMappings.Where(i => i.Id == id).FirstOrDefault();
                 if (c != null)
                 {
                     WebContext.Current.CurrentPlaceId = id;
-                }
-                return Json(c != null, JsonRequestBehavior.AllowGet);
+                }*/
+                //depricated
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
         }
 

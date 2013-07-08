@@ -59,7 +59,7 @@
     <script type="text/javascript">
         
         var done = function(){
-            var driver = new sizeup.widget.views.select.select({ startFeature: @(ViewBag.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null") });
+            var driver = new sizeup.widget.views.select.select({ startFeature: @(SizeUp.Core.Web.WebContext.Current.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null") });
         };
 
         var notifier = new sizeup.core.notifier(done);

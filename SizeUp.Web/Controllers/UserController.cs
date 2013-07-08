@@ -75,8 +75,8 @@ namespace SizeUp.Web.Controllers
                 UserRegistration reg = new UserRegistration()
                 {
                     APIKeyId = null,
-                    CityId = WebContext.Current.CurrentPlaceId,
-                    IndustryId = WebContext.Current.CurrentIndustryId,
+                    CityId = WebContext.Current.CurrentPlace.Id,
+                    IndustryId = WebContext.Current.CurrentIndustry.Id,
                     UserId = i.UserId,
                     Email = i.Email,
                     ReturnUrl = ReturnUrl

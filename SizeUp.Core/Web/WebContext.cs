@@ -10,6 +10,10 @@ namespace SizeUp.Core.Web
 {
     public class WebContext
     {
+        private Core.DataLayer.Models.Place _currentPlace = null;
+        private Core.DataLayer.Models.Industry _currentIndustry = null;
+        private Core.Web.Feature? _startFeature = null;
+
         public static WebContext Current
         {
             get
@@ -24,71 +28,119 @@ namespace SizeUp.Core.Web
             }
         }
 
-        private long? _currentCityId = null;
-        private long? _currentIndustryId = null;
-        private Feature? _startFeature = null;
-
-
-        public long? CurrentIndustryId
+        private Core.Web.Feature? GetStartFeature()
         {
-            get
+            var queryString = HttpContext.Current.Request.QueryString["Feature"];
+            var cookie = HttpContext.Current.Request.Cookies["startFeature"];
+            Core.Web.Feature? output = null;
+            if (!string.IsNullOrEmpty(queryString))
             {
-                if(_currentIndustryId==null)
-                {
-                    var c = System.Web.HttpContext.Current;
-                    var cookie = c.Request.Cookies["industry"];
-                    _currentIndustryId = cookie == null ? null : long.Parse(cookie.Value) as long?;
-                }
-                return _currentIndustryId;
+                output = Enum.Parse(typeof(Feature), queryString) as Feature?;
             }
-            set
+            else if (cookie != null)
             {
-                var c = System.Web.HttpContext.Current;
-                if (value != null)
+                Feature f;
+                if (Enum.TryParse<Feature>(cookie.Value, out f))
                 {
-                    HttpCookie cookie = new HttpCookie("industry", value.ToString());
-                    cookie.Expires = DateTime.Now.AddDays(7.0);
-                    c.Response.Cookies.Add(cookie);
+                    output = f;
                 }
-                else
-                {
-                    HttpCookie cookie = new HttpCookie("industry", "");
-                    cookie.Expires = DateTime.MinValue;
-                    c.Response.Cookies.Add(cookie);
-                }
-                _currentIndustryId = value;
             }
+            return output;
         }
 
-        public long? CurrentPlaceId
+        private Core.DataLayer.Models.Industry GetCurrentIndustry()
         {
-            get
+            var industry = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["industry"];
+            var cookie = HttpContext.Current.Request.Cookies["industry"];
+            Core.DataLayer.Models.Industry output = new DataLayer.Models.Industry();
+            using (var context = ContextFactory.SizeUpContext)
             {
-                if (_currentCityId == null)
+                if (!string.IsNullOrEmpty(industry))
                 {
-                    var c = System.Web.HttpContext.Current;
-                    var cookie = c.Request.Cookies["city"];
-                    _currentCityId = cookie == null ? null : long.Parse(cookie.Value) as long?;
+                    output = Core.DataLayer.Industry.Get(context, industry);
                 }
-                return _currentCityId;
+                else if (cookie != null)
+                {
+                    long id;
+                    if (long.TryParse(cookie.Value, out id))
+                    {
+                        output = Core.DataLayer.Industry.Get(context, id);
+                    }
+                }
             }
-            set
+            return output;
+        }
+
+
+        private Core.DataLayer.Models.Place GetCurrentPlace()
+        {
+            var city = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["city"];
+            var county = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["county"];
+            var state = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["state"];
+            var metro = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["metro"];
+            var cookie =  HttpContext.Current.Request.Cookies["city"];
+            Core.DataLayer.Models.Place output = new DataLayer.Models.Place();
+            using (var context = ContextFactory.SizeUpContext)
             {
-                var c = System.Web.HttpContext.Current;
-                if (value != null)
+                if (!string.IsNullOrEmpty(state) || !string.IsNullOrEmpty(county) || !string.IsNullOrEmpty(city) || !string.IsNullOrEmpty(metro))
                 {
-                    HttpCookie cookie = new HttpCookie("city", value.ToString());
-                    cookie.Expires = DateTime.Now.AddDays(7.0);
-                    c.Response.Cookies.Add(cookie);
+                    output = Core.DataLayer.Place.Get(context, state, county, city, metro);
                 }
-                else
+                else if (cookie != null)
                 {
-                    HttpCookie cookie = new HttpCookie("city", "");
-                    cookie.Expires = DateTime.MinValue;
-                    c.Response.Cookies.Add(cookie);
+                    long id;
+                    if (long.TryParse(cookie.Value, out id))
+                    {
+                        output = Core.DataLayer.Place.Get(context, id);
+                    }
                 }
-                _currentCityId = value;
             }
+            return output;
+        }
+
+        private void SetCurrentPlace(Core.DataLayer.Models.Place CurrentPlace)
+        {
+            HttpCookie cookie = new HttpCookie("city");
+            if (CurrentPlace == null || CurrentPlace.Id == null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1.0);
+            }
+            else
+            {
+                cookie.Value = CurrentPlace.Id.ToString();
+                cookie.Expires = DateTime.Now.AddDays(7.0);
+            }
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+        private void SetCurrentIndustry(Core.DataLayer.Models.Industry CurrentIndustry)
+        {
+            HttpCookie cookie = new HttpCookie("industry");
+            if (CurrentIndustry == null || CurrentIndustry.Id == null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1.0);
+            }
+            else
+            {
+                cookie.Value = CurrentIndustry.Id.ToString();
+                cookie.Expires = DateTime.Now.AddDays(7.0);
+            }
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
+        private void SetStartFeature(Core.Web.Feature? feature)
+        {
+            HttpCookie cookie = new HttpCookie("startFeature");
+            if (feature == null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1.0);
+            }
+            else
+            {
+                cookie.Value = Enum.GetName(typeof(Feature), feature);
+                cookie.Expires = DateTime.Now.AddDays(7.0);
+            }
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
 
@@ -98,39 +150,63 @@ namespace SizeUp.Core.Web
             {
                 if (_startFeature == null)
                 {
-                    var c = System.Web.HttpContext.Current;
-                    var cookie = c.Request.Cookies["startFeature"];
-                    _startFeature = null;
-                    if (cookie != null)
+                    _startFeature = GetStartFeature();
+                    if (_startFeature != null)
                     {
-                        Feature f;
-                        if (Enum.TryParse<Feature>(cookie.Value, out f))
-                        {
-                            _startFeature = f;
-                        }
+                        SetStartFeature(_startFeature.Value);
                     }
                 }
                 return _startFeature;
             }
             set
             {
-                var c = System.Web.HttpContext.Current;
-                if (value != null)
-                {
-                    HttpCookie cookie = new HttpCookie("startFeature", Enum.GetName(typeof(Feature), value));
-                    cookie.Expires = DateTime.Now.AddDays(7.0);
-                    c.Response.Cookies.Add(cookie);
-                }
-                else
-                {
-                    HttpCookie cookie = new HttpCookie("startFeature", "");
-                    cookie.Expires = DateTime.MinValue;
-                    c.Response.Cookies.Add(cookie);
-                    _startFeature = null;
-                }
                 _startFeature = value;
+                SetStartFeature(value);
             }
         }
+
+        public Core.DataLayer.Models.Place CurrentPlace
+        {
+            get
+            {
+                if (_currentPlace == null)
+                {
+                    _currentPlace = GetCurrentPlace();
+                    if (_currentPlace.Id != null)
+                    {
+                        SetCurrentPlace(_currentPlace);
+                    }
+                }
+                return _currentPlace;
+            }
+            set
+            {
+                _currentPlace = value;
+                SetCurrentPlace(value);
+            }
+        }
+
+        public Core.DataLayer.Models.Industry CurrentIndustry
+        {
+            get
+            {
+                if (_currentIndustry == null)
+                {
+                    _currentIndustry = GetCurrentIndustry();
+                    if (_currentIndustry.Id != null)
+                    {
+                        SetCurrentIndustry(_currentIndustry);
+                    }
+                }
+                return _currentIndustry;
+            }
+            set
+            {
+                _currentIndustry = value;
+                SetCurrentIndustry(value);
+            }
+        }
+
 
         public string Domain
         {

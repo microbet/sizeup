@@ -23,9 +23,45 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             Response.ContentType = "text/javascript";
         }
 
-        public ActionResult Index(Guid key)
+        public ActionResult Index(Guid key, long? industryId = null, long? placeId = null, string theme = null, string feature = "")
         {
-            string theme = Request.QueryString["theme"];
+            Feature? startFeature = null;
+            if (feature.ToLower() == "dashboard")
+            {
+                startFeature = Feature.Dashboard;
+            }
+            else if (feature.ToLower() == "competition")
+            {
+                startFeature = Feature.Competition;
+            }
+            else if (feature.ToLower() == "community")
+            {
+                startFeature = Feature.Community;
+            }
+            else if (feature.ToLower() == "advertsing")
+            {
+                startFeature = Feature.Advertising;
+            }
+            else if (feature.ToLower() == "select")
+            {
+                startFeature = Feature.Select;
+            }
+            WebContext.Current.StartFeature = startFeature;
+
+
+
+
+            if (placeId != null)
+            {
+                var place = new Core.DataLayer.Models.Place() { Id = placeId };
+                WebContext.Current.CurrentPlace = place;
+            }
+            if (industryId != null)
+            {
+                var industry = new Core.DataLayer.Models.Industry() { Id = industryId };
+                WebContext.Current.CurrentIndustry = industry;
+            }
+
             if (!string.IsNullOrWhiteSpace(theme))
             {
                 HttpCookie c = new HttpCookie("theme", theme);
@@ -33,11 +69,9 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             }
             else
             {
-
                 HttpCookie c = new HttpCookie("theme");
                 c.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(c);
-
             }
             CreateToken(key);
 

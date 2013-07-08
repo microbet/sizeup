@@ -17,7 +17,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.BusinessCount = Core.DataLayer.Business.CountIn(context, WebContext.Current.CurrentIndustryId.Value, WebContext.Current.CurrentPlaceId.Value);
+                ViewBag.BusinessCount = Core.DataLayer.Business.CountIn(context, WebContext.Current.CurrentIndustry.Id.Value, WebContext.Current.CurrentPlace.Id.Value);
                 return View();
             }
         }
