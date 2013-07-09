@@ -30,14 +30,9 @@ namespace SizeUp.Core.Web
 
         private Core.Web.Feature? GetStartFeature()
         {
-            var queryString = HttpContext.Current.Request.QueryString["Feature"];
             var cookie = HttpContext.Current.Request.Cookies["startFeature"];
             Core.Web.Feature? output = null;
-            if (!string.IsNullOrEmpty(queryString))
-            {
-                output = Enum.Parse(typeof(Feature), queryString) as Feature?;
-            }
-            else if (cookie != null)
+            if (cookie != null)
             {
                 Feature f;
                 if (Enum.TryParse<Feature>(cookie.Value, out f))
