@@ -79,6 +79,8 @@
         span.appendChild(terms);
 
         span.style["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '';
+        span.style["min-width"] = (me.defaultMinWidth) + 'px';
+        span.style["minWidth"] = (me.defaultMinWidth) + 'px';
         span.style["backgroundColor"] = '#F8F8F8';
         span.style["borderTop"] = '2px solid #EEEEEE';
         span.style["padding"] = '5px 0';
