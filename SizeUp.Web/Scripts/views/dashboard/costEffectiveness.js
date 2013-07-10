@@ -93,7 +93,7 @@
 
             $(window).bind('hashchange', function (e) { hashChanged(e); });
 
-            me.noData = me.container.find('.noDataError').hide();
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             me.reportData = me.container.find('.reportData');
 
         };
@@ -189,52 +189,57 @@
 
 
         var displayReport = function () {
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            me.reportContainer.setGauge(me.data.gauge);
-
-            me.reportData.show();
-
-            me.reportContainer.setValue(me.data.gauge.value);
+                me.reportContainer.setValue(me.data.gauge.value);
 
 
-            sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
-                me.overlay = new sizeup.maps.heatMapOverlays({
-                    attribute: sizeup.api.tiles.overlayAttributes.heatmap.costEffectiveness,
-                    place: me.opts.report.CurrentPlace,
-                    params: { industryId: me.opts.report.CurrentIndustry.Id },
-                    zoomExtent: data,
-                    attributeLabel: 'Cost Effectiveness',
-                    format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                    legendData: sizeup.api.data.getCostEffectivenessBands,
-                    templates: templates
+                sizeup.api.data.getZoomExtent({ id: me.opts.report.CurrentPlace.Id, width: me.map.getWidth() }, function (data) {
+                    me.overlay = new sizeup.maps.heatMapOverlays({
+                        attribute: sizeup.api.tiles.overlayAttributes.heatmap.costEffectiveness,
+                        place: me.opts.report.CurrentPlace,
+                        params: { industryId: me.opts.report.CurrentIndustry.Id },
+                        zoomExtent: data,
+                        attributeLabel: 'Cost Effectiveness',
+                        format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                        legendData: sizeup.api.data.getCostEffectivenessBands,
+                        templates: templates
+                    });
+                    setHeatmap();
                 });
-                setHeatmap();
-            });
 
 
 
-            me.chart = new sizeup.charts.barChart({
+                me.chart = new sizeup.charts.barChart({
 
-                valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
-                container: me.container.find('.chart .container'),
-                title: 'cost effectiveness ratio',
-                bars: me.data.chart.bars
-            });
-            me.chart.draw();
-                
-            me.table = new sizeup.charts.tableChart({
-                container: me.container.find('.table').hide(),
-                rowTemplate: templates.get('tableRow'),
-                rows: me.data.table
-            });
+                    valueFormat: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
+                    container: me.container.find('.chart .container'),
+                    title: 'cost effectiveness ratio',
+                    bars: me.data.chart.bars
+                });
+                me.chart.draw();
 
-                
-            me.data.description.NAICS6 = me.opts.report.CurrentIndustry.NAICS6;
-            me.data.description.Industry = me.opts.report.CurrentIndustry;
-               
-            me.description.html(templates.bind(templates.get("description"), me.data.description));
+                me.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.table').hide(),
+                    rowTemplate: templates.get('tableRow'),
+                    rows: me.data.table
+                });
 
 
+                me.data.description.NAICS6 = me.opts.report.CurrentIndustry.NAICS6;
+                me.data.description.Industry = me.opts.report.CurrentIndustry;
+
+                me.description.html(templates.bind(templates.get("description"), me.data.description));
+
+            }
         };
 
 
@@ -337,6 +342,7 @@
                 me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' below average' : data.State.Percentage == 0 ? 'average' : percentage + ' above average';
             }
             if (data.Nation) {
+                me.data.noData = false;
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
                 me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' below average' : data.Nation.Percentage == 0 ? 'average' : percentage + ' above average';
@@ -346,6 +352,7 @@
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

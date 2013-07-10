@@ -16,7 +16,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/Industry/
         
         [APIAuthorize(Role = "Industry")]
-        public ActionResult Index(long id)
+        public ActionResult Index(List<long> id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -24,17 +24,6 @@ namespace SizeUp.Api.Areas.Data.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-        
-        [APIAuthorize(Role = "Industry")]
-        public ActionResult List(List<long> ids)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.DataLayer.Industry.List(context, ids);
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         
         [APIAuthorize(Role = "Industry")]
         public ActionResult Search(string term, int maxResults = 35)

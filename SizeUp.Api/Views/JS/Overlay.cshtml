@@ -12,7 +12,7 @@
         var me = {};
         var urlSegment = attribute.url || '';
         var sourceLocation = sizeup.api.loader.getSourceLocation();
-        me.params = sizeup.api.loader.mergeParams(attribute.params || {}, opts);
+        me.params = sizeup.api.util.mergeParams(attribute.params || {}, opts);
 
         var getBaseUrl = function(){
             var p = Math.floor((Math.random()*2) + 1);
@@ -26,8 +26,8 @@
                 y: point.y,
                 zoom: zoom
             };
-            params = sizeup.api.loader.mergeParams(me.params, params);
-            var url = baseUrl + '?' + sizeup.api.loader.formatParams(params);
+            params = sizeup.api.util.mergeParams(me.params, params);
+            var url = baseUrl + '?' + sizeup.api.util.formatParams(params);
             return url;
         };
 

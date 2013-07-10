@@ -90,7 +90,7 @@ namespace SizeUp.Web.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                var businesses = Core.DataLayer.Business.ListIn(context, Core.Web.WebContext.Current.CurrentIndustryId.Value, Core.Web.WebContext.Current.CurrentPlaceId.Value);
+                var businesses = Core.DataLayer.Business.ListIn(context, Core.Web.WebContext.Current.CurrentIndustry.Id.Value, Core.Web.WebContext.Current.CurrentPlace.Id.Value);
                 ViewBag.Businesses = businesses
                     .OrderBy(i => i.Name)
                     .InSetsOf((int)System.Math.Ceiling(businesses.Count() / 2d))
@@ -108,7 +108,7 @@ namespace SizeUp.Web.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                var business = Core.DataLayer.Business.GetIn(context, id, Core.Web.WebContext.Current.CurrentPlaceId.Value);
+                var business = Core.DataLayer.Business.GetIn(context, id, Core.Web.WebContext.Current.CurrentPlace.Id.Value);
                 if (business != null)
                 {
                     ViewBag.Business = business;

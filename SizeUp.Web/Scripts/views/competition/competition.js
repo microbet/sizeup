@@ -91,13 +91,13 @@
             };
 
             if (params.competitor) {
-                sizeup.api.data.getIndustries({ ids: typeof params.competitor == 'object' ? params.competitor : [params.competitor] }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
+                sizeup.api.data.getIndustry({ id: params.competitor }, notifier.getNotifier(function (data) { insertIndustries('competitor', data); }));
             }
             if (params.buyer) {
-                sizeup.api.data.getIndustries({ ids: typeof params.buyer == 'object' ? params.buyer : [params.buyer] }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
+                sizeup.api.data.getIndustry({ id: params.buyer }, notifier.getNotifier(function (data) { insertIndustries('buyer', data); }));
             }
             if (params.supplier) {
-                sizeup.api.data.getIndustries({ ids: typeof params.supplier == 'object' ? params.supplier : [params.supplier] }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
+                sizeup.api.data.getIndustry({ id: params.supplier }, notifier.getNotifier(function (data) { insertIndustries('supplier', data); }));
             }
             if (params.rootId) {
                 me.data.consumerExpenditure.rootId = params.rootId;

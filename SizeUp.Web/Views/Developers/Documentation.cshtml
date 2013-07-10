@@ -15,12 +15,12 @@
     <h2>Getting Started</h2>
     <p>First, request and API key (MAKE THIS A LINK) blah blah blah</p>
 
-    <p>Include a refernece to the api loader script in your head tag of your page.</p>
+    <p>Include a reference to the api loader script in the head tag of your page.</p>
 
     <h2>Basic Example</h2>
 <pre class="prettyprint">&lt;html&gt;
     &lt;head&gt;
-        &lt;script src="http://www.sizeup.com/api/jsapi/?callback=loaded&amp;apikey=YOUR_API_KEY_HERE"&gt;&lt;/script&gt;
+        &lt;script src="http://api.sizeup.localhost/js/?callback=loaded&amp;apikey=YOUR_API_KEY_HERE"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
               
@@ -54,7 +54,7 @@
     <h2>Granularity <a name="granularity"></a></h2>
     <p>
     sizeup.api.granularity is an enumeration object that provides static values for granularity parameters in the Data API. 
-    Granularity parameters are used to specify receiving values on the City, County, Metro etc. level.
+    Granularity parameters are used to specify recieving values on the City, County, Metro etc. level.
     </p>
     <p>All supported granularity parameters are:</p>
     <pre class="prettyprint">    sizeup.api.granularity.ZIP_CODE;
@@ -70,7 +70,9 @@
     <p>
     sizeup.api.range is range parameter used for some Data API methods.
     </p>
-    <pre class="prettyprint">    //creates a range object and sets the minimun bound to 1 and the maximum bound to 5
+    <pre class="prettyprint">    
+    //creates a range object and sets the minimun bound to 1 and the maximum bound to 5.
+    //Pass null for no upper or lower bound.
     var range = sizeup.api.range(1, 5);
     //changes the bounds to 10 and 50
     range.min(10);
@@ -78,6 +80,8 @@
     //gets the min and max values in the range object.
     range.min();
     range.max();
+    //changes the bounds to 10 and no upper bound
+    range.max(null);
 
     </pre>
 
@@ -89,55 +93,61 @@
             function(data){
                 //your code to handle the returned data
             }, 
-            function(){
+            function(e){
                 //your code on error
             });
     </pre>
 
 
     <h2>Data API Methods</h2>
-    <ul>
-        <li><a href="#findPlace">findPlace</a></li>
-        <li><a href="#getPlace">getPlace</a></li>
-        <li><a href="#findIndustry">findIndustry</a></li>
-        <li><a href="#getIndustry">getIndustry</a></li>
-        <li><a href="#getIndustries">getIndustries</a></li>
-        <li><a href="#getAverageRevenue">getAverageRevenue</a></li>
-        <li><a href="#getAverageRevenuePercentile">getAverageRevenuePercentile</a></li>
-        <li><a href="#getAverageRevenueBands">getAverageRevenueBands</a></li>
-        <li><a href="#getAverageEmployees">getAverageEmployees</a></li>
-        <li><a href="#getAverageEmployeesPercentile">getAverageEmployeesPercentile</a></li>
-        <li><a href="#getAverageEmployeesBands">getAverageEmployeesBands</a></li>
-        <li><a href="#getAverageSalary">getAverageSalary</a></li>
-        <li><a href="#getAverageSalaryPercentage">getAverageSalaryPercentage</a></li>
-        <li><a href="#getAverageSalaryBands">getAverageSalaryBands</a></li>
-        <li><a href="#getCostEffectiveness">getCostEffectiveness</a></li>
-        <li><a href="#getCostEffectivenessPercentage">getCostEffectivenessPercentage</a></li>
-        <li><a href="#getCostEffectivenessBands">getCostEffectivenessBands</a></li>
-        <li><a href="#getEmployeesPerCapita">getEmployeesPerCapita</a></li>
-        <li><a href="#getEmployeesPerCapitaPercentile">getEmployeesPerCapitaPercentile</a></li>
-        <li><a href="#getEmployeesPerCapitaBands">getEmployeesPerCapitaBands</a></li>
-        <li><a href="#getHealthcareCost">getHealthcareCost</a></li>
-        <li><a href="#getHealthcareCostPercentage">getHealthcareCostPercentage</a></li>
-        <li><a href="#getJobChange">getJobChange</a></li>
-        <li><a href="#getJobChangePercentile">getJobChangePercentile</a></li>
-        <li><a href="#getRevenuePerCapita">getRevenuePerCapita</a></li>
-        <li><a href="#getRevenuePerCapitaPercentile">getRevenuePerCapitaPercentile</a></li>
-        <li><a href="#getRevenuePerCapitaBands">getRevenuePerCapitaBands</a></li>
-        <li><a href="#getTotalEmployees">getTotalEmployees</a></li>
-        <li><a href="#getTotalEmployeesBands">getTotalEmployeesBands</a></li>
-        <li><a href="#getTotalRevenue">getTotalRevenue</a></li>
-        <li><a href="#getTotalRevenueBands">getTotalRevenueBands</a></li>
-        <li><a href="#getTurnover">getTurnover</a></li>
-        <li><a href="#getTurnoverPercentile">getTurnoverPercentile</a></li>
-        <li><a href="#getWorkersComp">getWorkersComp</a></li>
-        <li><a href="#getWorkersCompPercentage">getWorkersCompPercentage</a></li>
-        <li><a href="#getYearStarted">getYearStarted</a></li>
-        <li><a href="#getYearStartedPercentile">getYearStartedPercentile</a></li>
-        <li><a href="#getBestPlaces">getBestPlaces</a></li>
-    </ul>
+    <dl>
+        <dt>Place</dt>
+        <dd><a href="#findPlace">findPlace</a></dd>
+        <dd><a href="#getPlace">getPlace</a></dd>
+
+        <dt>Industry</dt>
+        <dd><a href="#findIndustry">findIndustry</a></dd>
+        <dd><a href="#getIndustry">getIndustry</a></dd>
+
+        <dt>Industry Data</dt>
+        <dd><a href="#getAverageRevenue">getAverageRevenue</a></dd>
+        <dd><a href="#getAverageRevenuePercentile">getAverageRevenuePercentile</a></dd>
+        <dd><a href="#getAverageRevenueBands">getAverageRevenueBands</a></dd>
+        <dd><a href="#getAverageEmployees">getAverageEmployees</a></dd>
+        <dd><a href="#getAverageEmployeesPercentile">getAverageEmployeesPercentile</a></dd>
+        <dd><a href="#getAverageEmployeesBands">getAverageEmployeesBands</a></dd>
+        <dd><a href="#getAverageSalary">getAverageSalary</a></dd>
+        <dd><a href="#getAverageSalaryPercentage">getAverageSalaryPercentage</a></dd>
+        <dd><a href="#getAverageSalaryBands">getAverageSalaryBands</a></dd>
+        <dd><a href="#getCostEffectiveness">getCostEffectiveness</a></dd>
+        <dd><a href="#getCostEffectivenessPercentage">getCostEffectivenessPercentage</a></dd>
+        <dd><a href="#getCostEffectivenessBands">getCostEffectivenessBands</a></dd>
+        <dd><a href="#getEmployeesPerCapita">getEmployeesPerCapita</a></dd>
+        <dd><a href="#getEmployeesPerCapitaPercentile">getEmployeesPerCapitaPercentile</a></dd>
+        <dd><a href="#getEmployeesPerCapitaBands">getEmployeesPerCapitaBands</a></dd>
+        <dd><a href="#getHealthcareCost">getHealthcareCost</a></dd>
+        <dd><a href="#getHealthcareCostPercentage">getHealthcareCostPercentage</a></dd>
+        <dd><a href="#getJobChange">getJobChange</a></dd>
+        <dd><a href="#getJobChangePercentile">getJobChangePercentile</a></dd>
+        <dd><a href="#getRevenuePerCapita">getRevenuePerCapita</a></dd>
+        <dd><a href="#getRevenuePerCapitaPercentile">getRevenuePerCapitaPercentile</a></dd>
+        <dd><a href="#getRevenuePerCapitaBands">getRevenuePerCapitaBands</a></dd>
+        <dd><a href="#getTotalEmployees">getTotalEmployees</a></dd>
+        <dd><a href="#getTotalEmployeesBands">getTotalEmployeesBands</a></dd>
+        <dd><a href="#getTotalRevenue">getTotalRevenue</a></dd>
+        <dd><a href="#getTotalRevenueBands">getTotalRevenueBands</a></dd>
+        <dd><a href="#getTurnover">getTurnover</a></dd>
+        <dd><a href="#getTurnoverPercentile">getTurnoverPercentile</a></dd>
+        <dd><a href="#getWorkersComp">getWorkersComp</a></dd>
+        <dd><a href="#getWorkersCompPercentage">getWorkersCompPercentage</a></dd>
+        <dd><a href="#getYearStarted">getYearStarted</a></dd>
+        <dd><a href="#getYearStartedPercentile">getYearStartedPercentile</a></dd>
+
+    </dl>
 
 
+
+    <h1>Place</h1>
       <div class="method">
         <h2>
             sizeup.api.data.findPlace
@@ -259,7 +269,7 @@
             sizeup.api.data.getPlace
             <a name="getPlace"></a>
         </h2>
-        <p>Returns a single place based on a place id.</p>
+        <p>Returns a list of places based on a place id.</p>
         <table class="params">
             <thead>
                 <tr>
@@ -274,7 +284,7 @@
                     <td class="param">
                         id
                     </td>
-                    <td class="type">number</td>
+                    <td class="type">number or array of ids</td>
                     <td class="default">
                         Required
                     </td>
@@ -324,6 +334,9 @@
 }</pre>
        
     </div>
+
+
+    <h1>Industry</h1>
       <div class="method">
         <h2>
             sizeup.api.data.findIndustry
@@ -461,7 +474,7 @@
             sizeup.api.data.getIndustry
             <a name="getIndustry"></a>
         </h2>
-        <p>Returns a single industry based on an industry id.</p>
+        <p>Returns a list of industries based on an industry id.</p>
         <table class="params">
             <thead>
                 <tr>
@@ -476,7 +489,7 @@
                     <td class="param">
                         id
                     </td>
-                    <td class="type">number</td>
+                    <td class="type">number or array of ids</td>
                     <td class="default">
                         Required
                     </td>
@@ -510,81 +523,10 @@
 }</pre>
        
     </div>
-      <div class="method">
-        <h2>
-            sizeup.api.data.getIndustries
-            <a name="getIndustries"></a>
-        </h2>
-        <p>Returns a list of industries based on industry ids.</p>
-        <table class="params">
-            <thead>
-                <tr>
-                    <td class="param">Parameter</td>
-                    <td class="type">Type</td>
-                    <td class="default">Default Value</td>
-                    <td class="description">Description</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="param">
-                        ids
-                    </td>
-                    <td class="type">Array<number></number></td>
-                    <td class="default">
-                        Required
-                    </td>
-                    <td class="description">
-                        Array of industry ids to return.
-                    </td>
-                </tr> 
-            </tbody>
-        </table>
-        <h3>Usage</h3>
-<pre class="prettyprint">sizeup.api.data.getIndustries( {
-    "ids": [
-        8589,
-        11300
-    ]
-} );
-</pre>
-        <h3>Results</h3>
-<pre class="prettyprint">[
-    {
-        "Id": 8589,
-        "Name": "Pharmacies",
-        "SEOKey": "pharmacies",
-        "ParentName": "Drug Stores &amp; Proprietary Stores",
-        "NAICS4": {
-            "Id": 179,
-            "NAICSCode": "4461",
-            "Name": "Health and Personal Care Stores"
-        },
-        "NAICS6": {
-            "Id": 1386,
-            "NAICSCode": "446110",
-            "Name": "Pharmacies and Drug Stores"
-        }
-    },
-    {
-        "Id": 11300,
-        "Name": "Pharmacists",
-        "SEOKey": "pharmacists",
-        "ParentName": "Offices Of Health Practitioners Nec",
-        "NAICS4": {
-            "Id": 285,
-            "NAICSCode": "6213",
-            "Name": "Offices of Other Health Practitioners"
-        },
-        "NAICS6": {
-            "Id": 1894,
-            "NAICSCode": "621330",
-            "Name": "Psychoanalysts' clinics (except MDs and Dos)"
-        }
-    }
-]</pre>
-       
-    </div>
+
+    
+
+    <h1>Industry Data</h1>
       <div class="method">
         <h2>
             sizeup.api.data.getAverageRevenue

@@ -109,7 +109,7 @@ namespace SizeUp.Core.DataLayer
         }
 
 
-        public static List<Models.Industry> List(SizeUpContext context, List<long> industryIds)
+        public static List<Models.Industry> Get(SizeUpContext context, List<long> industryIds)
         {
             var all = Base.Industry.Get(context);
             var raw = Base.Industry.GetActive(context);

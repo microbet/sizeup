@@ -109,7 +109,8 @@
 
 
             me.reportData = me.container.find('.reportData');
-       
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
+
             me.reportContainer.setValue('');
             
         };
@@ -148,48 +149,53 @@
 
         var displayReport = function () {
 
-            me.reportContainer.setGauge(me.data.gauge);
-          
-            me.reportData.show();
-            me.turnover.table = new sizeup.charts.tableChart({
-                container: me.container.find('.turnover .table'),
-                rowTemplate: templates.get('turnoverTableRow'),
-                rows: me.data.turnover.table
-            });
-
-            me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
-            if (isNaN(me.data.turnover.raw['County'].turnover)) {
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
                 me.reportContainer.hideGauge();
             }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
 
-            me.data.turnover.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
-            me.data.turnover.description.Industry = me.opts.report.CurrentIndustry;
-            me.data.turnover.description.HasData = me.data.turnover.raw['County'].turnover != 'no data';
+                me.turnover.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.turnover .table'),
+                    rowTemplate: templates.get('turnoverTableRow'),
+                    rows: me.data.turnover.table
+                });
 
-            me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
-
-
-
-
-            me.jobChange.table = new sizeup.charts.tableChart({
-                container: me.container.find('.jobChange .table'),
-                rowTemplate: templates.get('jobChangeTableRow'),
-                rows: me.data.jobChange.table
-            });
-
-            
-
- 
-            me.data.jobChange.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
-            me.data.jobChange.description.Industry = me.opts.report.CurrentIndustry;
-            me.data.jobChange.description.HasData = me.data.jobChange.raw['County'].turnover != 'no data';
-            me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
+                me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
+                if (isNaN(me.data.turnover.raw['County'].turnover)) {
+                    me.reportContainer.hideGauge();
+                }
 
 
-           
+                me.data.turnover.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
+                me.data.turnover.description.Industry = me.opts.report.CurrentIndustry;
+                me.data.turnover.description.HasData = me.data.turnover.raw['County'].turnover != 'no data';
+
+                me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
 
 
+
+
+                me.jobChange.table = new sizeup.charts.tableChart({
+                    container: me.container.find('.jobChange .table'),
+                    rowTemplate: templates.get('jobChangeTableRow'),
+                    rows: me.data.jobChange.table
+                });
+
+
+
+
+                me.data.jobChange.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
+                me.data.jobChange.description.Industry = me.opts.report.CurrentIndustry;
+                me.data.jobChange.description.HasData = me.data.jobChange.raw['County'].turnover != 'no data';
+                me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
+
+            }
         };
 
         var runReport = function (e) {
@@ -237,19 +243,21 @@
             me.data.turnover.percentiles = {};
 
             if (data.Metro) {
-                me.data.turnover.percentiles.Metro = data.Metro.Percentile < 1 ? 'more than 99%' : data.Metro.Percentile > 99 ? 'less than 99%' : 'less than ' + data.Metro.Percentile + '%';
+                me.data.turnover.percentiles.Metro = data.Metro.Percentile < 1 ? 'more than 99%' : data.Metro.Percentile > 99 ? 'less than 99%' : 'less than or equal to ' + data.Metro.Percentile + '%';
             }
             if (data.State) {
-                me.data.turnover.percentiles.State = data.State.Percentile < 1 ? 'more than 99%' : data.State.Percentile > 99 ? 'less than 99%' : 'less than ' + data.State.Percentile + '%';
+                me.data.turnover.percentiles.State = data.State.Percentile < 1 ? 'more than 99%' : data.State.Percentile > 99 ? 'less than 99%' : 'less than or equal to ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
-                me.data.turnover.percentiles.Nation = data.Nation.Percentile < 1 ? 'more than 99%' : data.Nation.Percentile > 99 ? 'less than 99%' : 'less than ' + data.Nation.Percentile + '%';
+                me.data.noData = false;
+                me.data.turnover.percentiles.Nation = data.Nation.Percentile < 1 ? 'more than 99%' : data.Nation.Percentile > 99 ? 'less than 99%' : 'less than or equal to ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
                     tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
@@ -267,13 +275,13 @@
             me.data.jobChange.percentiles = {};
 
             if (data.Metro) {
-                me.data.jobChange.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 99%' : data.Metro.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Metro.Percentile + '%';
+                me.data.jobChange.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 99%' : data.Metro.Percentile > 99 ? 'greater than 99%' : 'greater than or equal to ' + data.Metro.Percentile + '%';
             }
             if (data.State) {
-                me.data.jobChange.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'more than 99%' : 'more than ' + data.State.Percentile + '%';
+                me.data.jobChange.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'greater than 99%' : 'greater than or equal to ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
-                me.data.jobChange.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'more than 99%' : 'more than ' + data.Nation.Percentile + '%';
+                me.data.jobChange.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'greater than 99%' : 'greater than or equal to ' + data.Nation.Percentile + '%';
             }
 
             me.data.jobChange.description = {

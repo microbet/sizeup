@@ -99,7 +99,7 @@
 
 
             me.reportData = me.container.find('.reportData');
-
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
             }
@@ -163,20 +163,27 @@
 
         var displayReport = function () {
 
-            me.reportContainer.setGauge(me.data.gauge);
-            me.reportData.show();
+            if (me.data.noData) {
+                me.noData.show();
+                me.reportData.hide();
+                me.reportContainer.hideGauge();
+            }
+            else {
+                me.reportContainer.setGauge(me.data.gauge);
+                me.reportData.show();
+                me.noData.hide();
 
-            buildChart();
+                buildChart();
 
-            me.data.description = {
-                Year: me.data.enteredValue,
-                Counts: me.data.counts,
-                Percentiles: me.data.percentiles
-            };
-            var dTemplate = me.data.enteredValue < me.opts.startYear ? templates.get('outOfBoundsDescription') : templates.get("description");
-            me.description.html(templates.bind(dTemplate, me.data.description));
+                me.data.description = {
+                    Year: me.data.enteredValue,
+                    Counts: me.data.counts,
+                    Percentiles: me.data.percentiles
+                };
+                var dTemplate = me.data.enteredValue < me.opts.startYear ? templates.get('outOfBoundsDescription') : templates.get("description");
+                me.description.html(templates.bind(dTemplate, me.data.description));
 
-            
+            }
 
 
         };
@@ -217,25 +224,27 @@
             me.data.percentiles = {};
 
             if (data.City) {
-                me.data.percentiles.City = data.City.Percentile < 1 ? 'less than 99%' : data.City.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.City.Percentile + '%';
+                me.data.percentiles.City = data.City.Percentile < 1 ? 'less than 99%' : data.City.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.City.Percentile + '%';
             }
             if (data.County) {
-                me.data.percentiles.County = data.County.Percentile < 1 ? 'less than 99%' : data.County.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.County.Percentile + '%';
+                me.data.percentiles.County = data.County.Percentile < 1 ? 'less than 99%' : data.County.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.County.Percentile + '%';
             }
             if (data.Metro) {
-                me.data.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 99%' : data.Metro.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.Metro.Percentile + '%';
+                me.data.percentiles.Metro = data.Metro.Percentile < 1 ? 'less than 99%' : data.Metro.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.Metro.Percentile + '%';
             }
             if (data.State) {
-                me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.State.Percentile + '%';
+                me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
-                me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'longer than 99%' : 'longer than ' + data.Nation.Percentile + '%';
+                me.data.noData = false;
+                me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
                     tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(data.Nation.Percentile) + ' Percentile'
                 };
             }
             else {
+                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

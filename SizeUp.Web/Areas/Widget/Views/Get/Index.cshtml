@@ -6,8 +6,6 @@
     var me = {};
 
     me.wigetSource = '/widget/load';
-    me.defaultWidth = '600';
-    me.defaultHeight = '600';
     me.defaultMinWidth = '580';
     me.defaultMinHeight = '900';
     me.defaultColor = '#fff';
@@ -31,10 +29,10 @@
         iframe["frameBorder"] = "0";
         iframe["border"] = "0";
         iframe.style["border"] = "0";
-        iframe["height"] = (loc.query['height'] || me.defaultHeight) + 'px';
-        iframe["width"] = (loc.query['width'] || me.defaultWidth) + 'px';
-        iframe.style["height"] = (loc.query['height'] || me.defaultHeight) + 'px';
-        iframe.style["width"] = (loc.query['width'] || me.defaultWidth) + 'px';
+        iframe["height"] = loc.query['height'] ?  loc.query['height'] + 'px' : '100%';
+        iframe["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '100%';
+        iframe.style["height"] = loc.query['height'] ?  loc.query['height'] + 'px' : '100%';
+        iframe.style["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '100%';
         iframe.style["background"] = loc.query['color'] || me.defaultColor;
         iframe.style["overflow"] = 'hidden';
         iframe.style["min-height"] = (me.defaultMinHeight) + 'px';
@@ -80,11 +78,12 @@
         terms.innerHTML = "Terms of Use";
         span.appendChild(terms);
 
-        span.style["width"] = ((loc.query['width'] || me.defaultWidth) - 10) + 'px';
-        span.style["height"] = '20px';
+        span.style["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '';
+        span.style["min-width"] = (me.defaultMinWidth) + 'px';
+        span.style["minWidth"] = (me.defaultMinWidth) + 'px';
         span.style["backgroundColor"] = '#F8F8F8';
         span.style["borderTop"] = '2px solid #EEEEEE';
-        span.style["padding"] = '5px';
+        span.style["padding"] = '5px 0';
         span.style["textAlign"] = 'right';
         span.style["fontSize"] = '12px';
         span.style["fontFamily"] = '"Trebuchet MS",Arial, Verdana, Sans-Serif';
@@ -96,7 +95,7 @@
 
         terms.style["textDecoration"] = 'none';
         terms.style["color"] = '#e78500';
-        terms.style["margin"] = '0 0 0 5px';
+        terms.style["margin"] = '0 10px 0 5px';
     };
 
     var getThisScript = function () {

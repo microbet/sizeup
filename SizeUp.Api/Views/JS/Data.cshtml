@@ -19,6 +19,7 @@
             },
             getPlace: function (params, success, error) {
                 var url = '/data/place/';
+                params.id = sizeup.api.util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
             },
     </text>
@@ -32,10 +33,7 @@
             },
             getIndustry: function (params, success, error) {
                 var url = '/data/industry/';
-                return sizeup.api.loader.getData(url, params, success, error);
-            },
-            getIndustries: function (params, success, error) {
-                var url = '/data/industry/list/';
+                params.id = sizeup.api.util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
             },
     </text>

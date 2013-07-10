@@ -56,7 +56,7 @@
             me.resources = me.container.find('.reportContainer .resources');
             me.description = me.container.find('.reportContainer .description');
 
-            me.noData = me.container.find('.noDataError').hide();
+            me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
             me.reportData = me.container.find('.reportData');
             if (me.data.enteredValue) {
                 me.reportContainer.setValue(me.data.enteredValue);
@@ -133,6 +133,7 @@
                 };
             }
             else {
+                me.data.hasData = false;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
