@@ -119,7 +119,6 @@
 
         var percentageDataReturned = function (data) {
             if (data) {
-                me.data.hasData = true;
                 var val = 50 - (data.State.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
 
@@ -133,7 +132,6 @@
                 };
             }
             else {
-                me.data.hasData = false;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
