@@ -43,7 +43,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Place")]
-        public ActionResult Index(long id)
+        public ActionResult Index(List<long> id)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

@@ -5,31 +5,11 @@
 (function () {
     window.sizeup = window.sizeup || {};
     window.sizeup.api = window.sizeup.api || {};
-    window.sizeup.api.loader = (function () {
+    
+    window.sizeup.api.util = (function () {
 
         var me = {};
-        var pub = {
-            getData: function (url, params, success, error) {
-                return getJsonp(url, params, success, error);
-            },
-            getSourceLocation: function(){
-                return me.currentLocation;
-            },
-            formatParams: function(params){
-                return formatParams(params);
-            },
-            mergeParams: function(primary, secondary){
-                return mergeParams(primary, secondary);
-            }
-        };
-        me.head = document.getElementsByTagName('head')[0]; 
-        me.scriptQueue = [];
-        me.callbackIndex = 0;
-        me.jsonpPrefix = 'cbb';
-        me.sessionId = '@ViewBag.SessionId';
-        me.apiToken = '@ViewBag.Token';
-        sizeup.api[me.jsonpPrefix] = {};
-        me.callbackComplete = {};
+
         var mergeParams = function(primary, secondary){
             var obj = {};
             primary = primary || {};
@@ -77,6 +57,50 @@
             return output;
         };
 
+        var wrapAsArray = function(val){
+            if( Object.prototype.toString.call( val ) === '[object Array]' ) {
+                return val;
+            }
+            else{
+                return [val];
+            }
+        };
+
+        var pub = {
+            mergeParams: function(primary, secondary){
+                return mergeParams(primary, secondary);
+            },
+            formatParams: function(params){
+                return formatParams(params);
+            },
+            wrapAsArray: function(val){
+                return wrapAsArray(val);
+            }
+        };
+        return pub;
+    })();
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+    window.sizeup.api.loader = (function () {
+
+        var me = {};
+        var pub = {
+            getData: function (url, params, success, error) {
+                return getJsonp(url, params, success, error);
+            },
+            getSourceLocation: function(){
+                return me.currentLocation;
+            }
+        };
+        me.head = document.getElementsByTagName('head')[0]; 
+        me.scriptQueue = [];
+        me.callbackIndex = 0;
+        me.jsonpPrefix = 'cbb';
+        me.sessionId = '@ViewBag.SessionId';
+        me.apiToken = '@ViewBag.Token';
+        sizeup.api[me.jsonpPrefix] = {};
+        me.callbackComplete = {};
+
         var buildTokenUrl = function(src, params){
             if (src.indexOf('?') < 0) {
                 src = src + '?';
@@ -87,7 +111,7 @@
             params['o'] = document.location.hostname;
             params['s'] = me.sessionId;
             params['t'] = me.apiToken;
-            src = src + formatParams(params);
+            src = src + sizeup.api.util.formatParams(params);
             return src;
         };
 
@@ -189,9 +213,9 @@
                 cleanup();
             };
 
-            script.onerror = function () {
+            script.onerror = function (e) {
                 if (error && !opts.aborted) {
-                    error();
+                    error(e);
                 }
                 cleanup();
             };

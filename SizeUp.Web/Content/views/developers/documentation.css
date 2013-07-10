@@ -3,9 +3,9 @@
 #documentation h3 { margin:1em 0 0 0; font-size:1.5em; font-weight:bold; }
 #documentation pre { margin: 1em 0; }
 #documentation pre.prettyprint {padding:1.5em; }
-#documentation dl {font-size:1.3em; padding:0 0 0 0.5em;}
-#documentation dl dt {font-weight:bold; font-size:1.1em; }
-#documentation dl dd {margin: 0 0 0 1em; }
+#documentation dl {padding:0 0 0 0;}
+#documentation dl dt {margin: 1.5em 0 0 0; font-weight:bold; font-size:1.5em; color:#909090; }
+#documentation dl dd {margin: 0.5em 0 0 2em; }
 
 #documentation ul { margin: 0 0 0 1em; }
 #documentation ul li {margin: 0.25em 0; }
@@ -16,7 +16,7 @@
 #documentation .method table.params a,
 #documentation .method table.params span { font-size: 1em; }
 #documentation .method table.params thead { border-bottom: 2px solid #CCCCCC; color:#909090; font-weight: bold; }
-#documentation .method table.params tbody td { padding: 0 0 0.5em 0; vertical-align:top; }
+#documentation .method table.params tbody td { padding: 0.5em 0 0 0; vertical-align:top;  }
 #documentation .method table.params tbody td.param {width:20%; font-weight:bold; }
 #documentation .method table.params tbody td.type {width:20%; }
 #documentation .method table.params tbody td.default {width:25%; }

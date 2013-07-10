@@ -57,6 +57,52 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
+        public static List<Models.Place> Get(SizeUpContext context, List<long> id)
+        {
+            var raw = Base.Place.Get(context);
+            var data = raw
+                .Where(i => id.Contains(i.Id))
+                .Select(i => new Models.Place
+                {
+                    Id = i.Id,
+                    DisplayName = raw.Count(s => s.City.Name == i.City.Name && s.County.State.Name == i.County.State.Name) > 1 ? (i.City.Name + ", " + i.County.State.Abbreviation + " (" + i.County.Name + " County - " + i.City.CityType.Name + ")") : (i.City.Name + ", " + i.County.State.Abbreviation),
+                    City = new Models.City()
+                    {
+                        Id = i.City.Id,
+                        Name = i.City.Name,
+                        SEOKey = i.City.SEOKey,
+                        TypeName = i.City.CityType.Name
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.County.Id,
+                        Name = i.County.Name,
+                        SEOKey = i.County.SEOKey
+                    },
+                    Metro = new Models.Metro
+                    {
+                        Id = i.County.Metro.Id,
+                        Name = i.County.Metro.Name,
+                        SEOKey = i.County.Metro.SEOKey
+                    },
+                    State = new Models.State
+                    {
+                        Id = i.County.State.Id,
+                        Abbreviation = i.County.State.Abbreviation,
+                        Name = i.County.State.Name,
+                        SEOKey = i.County.State.SEOKey
+                    },
+                    Region = new Models.Division
+                    {
+                        Id = i.County.State.Division.Id,
+                        RegionName = i.County.State.Division.Region.Name,
+                        Name = i.County.State.Division.Name
+                    }
+                })
+                .ToList();
+            return data;
+        }
+
         public static Models.Place GetByBusiness(SizeUpContext context, long businessId)
         {
             var raw = Base.Place.Get(context);
