@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class LineChartItem<T, V> : Base.ChartItem
+    public class LineChartItem<T, V> : ChartItem
     {
         public T Key { get; set; }
         public V Value { get; set; }

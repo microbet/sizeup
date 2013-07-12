@@ -20,6 +20,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/Advertising/
+
+        /*
         private AdvertisingFilters BuildFilters()
         {
             AdvertisingFilters f = new AdvertisingFilters();
@@ -103,6 +105,6 @@ namespace SizeUp.Api.Areas.Data.Controllers
                 var output = Core.DataLayer.Advertising.Bands(context, industryId, placeId, bands, filters);
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
-        }
+        }*/
     }
 }

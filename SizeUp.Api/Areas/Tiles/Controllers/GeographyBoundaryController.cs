@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SizeUp.Data;
-using SizeUp.Core.Tiles;
 using System.Linq.Expressions;
 using System.Data.Objects.SqlClient;
 using Microsoft.SqlServer.Types;
@@ -17,8 +15,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
-using SizeUp.Core.DataLayer.Base;
-using SizeUp.Core.DataLayer.Models.Base;
+using SizeUp.Core.DataLayer.Models;
 using System.Data.Objects.SqlClient;
 
 namespace SizeUp.Api.Areas.Tiles.Controllers
@@ -28,7 +25,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/GeographyBoundary/
 
-        public ActionResult Index(int x, int y, int zoom, long id, Granularity granularity = Granularity.State, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, long id, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -39,7 +36,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
 
 
                 IQueryable<KeyValue<DbGeography, long?>> entity = new List<KeyValue<DbGeography, long?>>().AsQueryable();
-                if (granularity == Granularity.City)
+                if (granularity == Core.DataLayer.Granularity.City)
                 {
                     entity = Core.DataLayer.Base.City.Get(context).Where(i=>i.Id == id)
                         .Select(i=> new KeyValue<DbGeography, long?>
@@ -49,7 +46,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                             Value = i.Id
                         });
                 }
-                else if (granularity == Granularity.County)
+                else if (granularity == Core.DataLayer.Granularity.County)
                 {
                     entity = context.Counties.Where(i => i.Id == id)
                         .Select(i => new KeyValue<DbGeography, long?>
@@ -59,7 +56,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                             Value = i.Id
                         });
                 }
-                else if (granularity == Granularity.Metro)
+                else if (granularity == Core.DataLayer.Granularity.Metro)
                 {
                     entity = context.Metroes.Where(i => i.Id == id)
                         .Select(i => new KeyValue<DbGeography, long?>
@@ -69,7 +66,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                             Value = i.Id
                         });
                 }
-                else if (granularity == Granularity.State)
+                else if (granularity == Core.DataLayer.Granularity.State)
                 {
                     entity = context.States.Where(i => i.Id == id)
                         .Select(i => new KeyValue<DbGeography, long?>

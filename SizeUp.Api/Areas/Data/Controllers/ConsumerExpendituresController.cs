@@ -8,7 +8,7 @@ using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
-using SizeUp.Core.DataLayer.Base;
+using SizeUp.Core.DataLayer;
 using SizeUp.Api.Controllers;
 using SizeUp.Core.API;
 namespace SizeUp.Api.Areas.Data.Controllers
@@ -18,7 +18,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "ConsumerExpenditures")]
-        public ActionResult Bands(int variableId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
+        public ActionResult Bands(int variableId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

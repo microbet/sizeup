@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class PercentileItem : Base.ChartItem
+    public class PercentileItem : ChartItem
     {
         public int? Percentile { get; set; }
     }

@@ -14,8 +14,7 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
-using SizeUp.Core.DataLayer.Base;
-using SizeUp.Core.DataLayer.Models.Base;
+using SizeUp.Core.DataLayer.Models;
 using System.Data.Objects.SqlClient;
 
 namespace SizeUp.Api.Areas.Tiles.Controllers
@@ -25,7 +24,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/Revenue/
 
-        public ActionResult Index(int x, int y, int zoom, long industryId, long placeId, string[] colors, Granularity granularity = Granularity.State, Granularity boundingGranularity = Granularity.Nation, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, long industryId, long placeId, string[] colors, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

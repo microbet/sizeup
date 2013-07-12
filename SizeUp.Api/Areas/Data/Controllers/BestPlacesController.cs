@@ -9,9 +9,7 @@ using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Core.DataLayer.Models;
-using SizeUp.Core.DataLayer.Models.Base;
 using SizeUp.Core.DataLayer;
-using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
 namespace SizeUp.Api.Areas.Data.Controllers
@@ -20,7 +18,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/TopPlaces/
-
+        /*
         private BestPlacesFilters BuildFilters()
         {
             BestPlacesFilters f = new BestPlacesFilters();
@@ -97,6 +95,6 @@ namespace SizeUp.Api.Areas.Data.Controllers
                 var output = Core.DataLayer.BestPlaces.IndustryRanks(context, rankCutoff, placeId, granularity);
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
-        }
+        }*/
     }
 }

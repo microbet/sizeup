@@ -9,7 +9,6 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core.DataLayer;
-using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
 namespace SizeUp.Api.Areas.Data.Controllers
@@ -20,7 +19,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/YearStarted/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, int startYear, int endYear, Granularity granularity)
+        public ActionResult Chart(long industryId, long placeId, int startYear, int endYear, Core.DataLayer.Granularity granularity)
         {
             if (startYear < 1986)
             {
@@ -35,7 +34,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, int value, Granularity granularity)
+        public ActionResult Percentile(long industryId, long placeId, int value, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

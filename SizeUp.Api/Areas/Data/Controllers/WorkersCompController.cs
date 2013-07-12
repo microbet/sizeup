@@ -9,7 +9,6 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
-using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
 namespace SizeUp.Api.Areas.Data.Controllers
@@ -20,7 +19,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/WorkersComp/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, Granularity granularity = Granularity.State)
+        public ActionResult Chart(long industryId, long placeId, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -31,7 +30,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentage(int industryId, long placeId, double value, Granularity granularity = Granularity.State)
+        public ActionResult Percentage(int industryId, long placeId, double value, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

@@ -8,8 +8,6 @@ using SizeUp.Core;
 using SizeUp.Core.Web;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
-
-using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
@@ -21,7 +19,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/Demographics/
         
         [APIAuthorize(Role = "Demographics")]
-        public ActionResult Index(long id, Granularity granularity )
+        public ActionResult Index(long id, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

@@ -9,7 +9,6 @@ using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.DataLayer;
-using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
 namespace SizeUp.Api.Areas.Data.Controllers
@@ -21,7 +20,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, Granularity granularity)
+        public ActionResult Chart(long industryId, long placeId, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -33,7 +32,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, Granularity granularity)
+        public ActionResult Percentile(long industryId, long placeId, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -45,7 +44,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Bands(long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity = Granularity.Nation)
+        public ActionResult Bands(long industryId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
         {
             using (var context = ContextFactory.SizeUpContext)
             {

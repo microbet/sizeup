@@ -5,108 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using SizeUp.Core.DataLayer.Models;
 using SizeUp.Data;
-using SizeUp.Core.DataLayer.Base;
 using SizeUp.Core.Geo;
 using SizeUp.Core.Extensions;
 
 namespace SizeUp.Core.DataLayer
 {
-    public class AverageRevenue : Base.Base
+    public class AverageRevenue
     {
-        public static BarChartItem<long?> Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
+        public static BarChartItem<long?> Chart(SizeUpContext context, long industryId, long geographicLocationId)
         {
-            BarChartItem<long?> output = null;
-
-            var cityData = IndustryData.CityMinBusinessCount(context)
+            return Core.DataLayer.IndustryData.Get(context)
+                .Where(new Filters.IndustryData.MinimumBusinessCount().Expression)
                 .Where(i => i.IndustryId == industryId)
-                .Where(i => i.City.CityCountyMappings.Any(m => m.Id == placeId))
-                .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0);
-
-            var countyData = IndustryData.CountyMinBusinessCount(context)            
-                .Where(i => i.IndustryId == industryId)
-                .Where(i => i.County.CityCountyMappings.Any(m => m.Id == placeId))
-                .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0);
-
-            var metroData = IndustryData.MetroMinBusinessCount(context)
-                .Where(i => i.IndustryId == industryId)
-                .Where(i => i.Metro.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
-                .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0);
-
-            var stateData = IndustryData.StateMinBusinessCount(context)
-                .Where(i => i.IndustryId == industryId)
-                .Where(i => i.State.Counties.Any(m => m.CityCountyMappings.Any(mp => mp.Id == placeId)))
-                .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0);
-
-            var nationData = IndustryData.Nation(context)
-                .Where(i => i.IndustryId == industryId)
-                .Where(i => i.AverageRevenue != null && i.AverageRevenue > 0);
-
-
-
-
-            var city = cityData.Select(i => new BarChartItem<long?>
-            {
-                Value = i.AverageRevenue,
-                Median = null,
-                Name = i.City.Name + ", " + i.City.State.Abbreviation
-            });
-
-            var county = countyData.Select(i => new BarChartItem<long?>
-            {
-                Value = i.AverageRevenue,
-                Median = null,
-                Name = i.County.Name + ", " + i.County.State.Abbreviation
-            });
-
-            var metro = metroData.Select(i => new BarChartItem<long?>
-            {
-                Value = i.AverageRevenue,
-                Median = null,
-                Name = i.Metro.Name
-            });
-
-            var state = stateData.Select(i => new BarChartItem<long?>
-            {
-                Value = i.AverageRevenue,
-                Median = null,
-                Name = i.State.Name
-            });
-
-            var nation = nationData.Select(i => new BarChartItem<long?>
-            {
-                Value = i.AverageRevenue,
-                Median = i.MedianRevenue,
-                Name = "USA"
-            });
-
-            if (granularity == Granularity.City)
-            {
-                output = city.FirstOrDefault();
-            }
-            else if (granularity == Granularity.County)
-            {
-                output = county.FirstOrDefault();
-            }
-            else if (granularity == Granularity.Metro)
-            {
-                output = metro.FirstOrDefault();
-            }
-            else if (granularity == Granularity.State)
-            {
-                output = state.FirstOrDefault();
-            }
-            else if (granularity == Granularity.Nation)
-            {
-                output = nation.FirstOrDefault();
-            }
-
-
-            return output;
+                .Where(i => i.GeographicLocationId == geographicLocationId)
+                .Select(new Projections.AverageRevenue.ChartItem().Expression)
+                .FirstOrDefault();
         }
 
-        public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, long value, Granularity granularity)
+        public static PercentileItem Percentile(SizeUpContext context, long industryId, long geographicLocationId, long value)
         {
-            PercentileItem output = null;
+            return Core.DataLayer.BusinessData.Get(context)
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.GeographicLocationId == geographicLocationId)
+                .Select(new Projections.AverageRevenue.ChartItem().Expression)
+                .FirstOrDefault();
+
+
+
+
 
             var cityData = BusinessData.City(context)
                 .Where(i => i.Revenue != null && i.Revenue > 0)
