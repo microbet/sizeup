@@ -19,17 +19,5 @@ namespace SizeUp.Core.DataLayer.Filters
                 }
             }
         }
-
-        public class MinimumBusinessCount : Filter<IQueryable<Data.BusinessData>>
-        {
-            public override Expression<Func<IQueryable<Data.BusinessData>, bool>> Expression
-            {
-                get
-                {
-                    return i => i.Where(new BusinessData.Current().Expression)
-                        .Count(b=>b.Business.IsActive) > CommonFilters.MinimumBusinessCount;
-                }
-            }
-        }
     }
 }

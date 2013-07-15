@@ -23,23 +23,25 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_ZipCode", "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_BusinessData_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "BusinessData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.BusinessData), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyBusinessSEOKey_Business", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Business), "LegacyBusinessSEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyBusinessSEOKey), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_BusinessData_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "BusinessData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.BusinessData), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_BusinessData_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "BusinessData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.BusinessData), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_CityType", "CityType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.CityType), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.City), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyCommunitySEOKey_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "LegacyCommunitySEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyCommunitySEOKey), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Place_City", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.City), "Place", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Place), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpenditures_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "ConsumerExpenditure", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpenditure), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Children", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ConsumerExpenditureVariable), "Parent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpenditureVariable), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_County_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.County), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ConsumerExpenditureVariable), "ConsumerExpenditureVariable1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ConsumerExpenditureVariable), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_County_Metro", "Metro", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Metro), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_County_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Place_County", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.County), "Place", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Place), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Demographics_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "Demographic", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Demographic), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Division_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Division), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Division_Region", "Region", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Region), "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Division), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_State_Division", "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Division), "State", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.State), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_GeographicLocation_Granularity", "Granularity", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Granularity), "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.GeographicLocation), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Geography_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Geography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryData_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "IndustryData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryData), true)]
@@ -47,25 +49,23 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Nation_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "Nation", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Nation), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Place_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "Place", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Place), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Region_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "Region", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Region), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_State_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_ZipCode_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.ZipCode), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Geography_GeographyClass", "GeographyClass", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographyClass), "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Geography), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Geography_GeographySource", "GeographySource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographySource), "Geography", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Geography), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Industry_Industry", "Children", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "Parent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Industry), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_industry_NAICS", "NAIC", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Industry), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Industry_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "Industry1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Industry), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_industry_NAICS", "NAIC", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAIC), "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Industry), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryData_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "IndustryData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryData), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_IndustryKeyword_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "IndustryKeyword", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryKeyword), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_LegacyIndustrySEOKey_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Industry), "LegacyIndustrySEOKey", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.LegacyIndustrySEOKey), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_NAICS_NAICS", "Children", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAICS), "Parent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.NAICS), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_NAICS_NAICS", "NAIC", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.NAIC), "NAIC1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.NAIC), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_PlaceKeyword_Place", "Place", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.Place), "PlaceKeyword", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.PlaceKeyword), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "BusinessCity", "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City))]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "CityCounty", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County))]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "GeographicLocationGeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.GeographicLocation), "GeographicLocation1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.GeographicLocation))]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "IndustryDataBand", "Band", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Band), "IndustryData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.IndustryData))]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "ZipCodeCounty", "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County), "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCode))]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "ZipCodePlace", "Place", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Place), "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCode))]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_Business_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), "Business", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Business), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_City_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_County_State", "State", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.State), "County", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.County), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_State_Division", "Division", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Division), "State", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.State), true)]
-[assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_State_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "State", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.State), true)]
 
 #endregion
 
@@ -488,18 +488,18 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<NAICS> NAICS
+        public ObjectSet<NAIC> NAICS
         {
             get
             {
                 if ((_NAICS == null))
                 {
-                    _NAICS = base.CreateObjectSet<NAICS>("NAICS");
+                    _NAICS = base.CreateObjectSet<NAIC>("NAICS");
                 }
                 return _NAICS;
             }
         }
-        private ObjectSet<NAICS> _NAICS;
+        private ObjectSet<NAIC> _NAICS;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -584,22 +584,6 @@ namespace SizeUp.Data
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ZipCode> ZipCodes
-        {
-            get
-            {
-                if ((_ZipCodes == null))
-                {
-                    _ZipCodes = base.CreateObjectSet<ZipCode>("ZipCodes");
-                }
-                return _ZipCodes;
-            }
-        }
-        private ObjectSet<ZipCode> _ZipCodes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<State> States
         {
             get
@@ -612,6 +596,22 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<State> _States;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ZipCode> ZipCodes
+        {
+            get
+            {
+                if ((_ZipCodes == null))
+                {
+                    _ZipCodes = base.CreateObjectSet<ZipCode>("ZipCodes");
+                }
+                return _ZipCodes;
+            }
+        }
+        private ObjectSet<ZipCode> _ZipCodes;
 
         #endregion
 
@@ -804,9 +804,9 @@ namespace SizeUp.Data
         /// <summary>
         /// Deprecated Method for adding a new object to the NAICS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToNAICS(NAICS nAICS)
+        public void AddToNAICS(NAIC nAIC)
         {
-            base.AddObject("NAICS", nAICS);
+            base.AddObject("NAICS", nAIC);
         }
     
         /// <summary>
@@ -850,19 +850,19 @@ namespace SizeUp.Data
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the ZipCodes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToZipCodes(ZipCode zipCode)
-        {
-            base.AddObject("ZipCodes", zipCode);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the States EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToStates(State state)
         {
             base.AddObject("States", state);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ZipCodes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToZipCodes(ZipCode zipCode)
+        {
+            base.AddObject("ZipCodes", zipCode);
         }
 
         #endregion
@@ -1931,6 +1931,44 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Business_State", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_Business_State", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_Business_State", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_Business_State", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_Business_State", "State", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Business_ZipCode", "ZipCode")]
         public ZipCode ZipCode
         {
@@ -2025,44 +2063,6 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<City>("SizeUp.Data.BusinessCity", "City", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Business_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_Business_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_Business_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_Business_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_Business_State", "State", value);
                 }
             }
         }
@@ -2745,16 +2745,16 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_City_GeographicLocation", "GeographicLocation")]
-        public GeographicLocation GeographicLocation
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_City_State", "State")]
+        public State State
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeographicLocation>("SizeUp.Data.FK_City_GeographicLocation", "GeographicLocation").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_City_State", "State").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeographicLocation>("SizeUp.Data.FK_City_GeographicLocation", "GeographicLocation").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_City_State", "State").Value = value;
             }
         }
         /// <summary>
@@ -2762,17 +2762,17 @@ namespace SizeUp.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<GeographicLocation> GeographicLocationReference
+        public EntityReference<State> StateReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeographicLocation>("SizeUp.Data.FK_City_GeographicLocation", "GeographicLocation");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_City_State", "State");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GeographicLocation>("SizeUp.Data.FK_City_GeographicLocation", "GeographicLocation", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_City_State", "State", value);
                 }
             }
         }
@@ -2861,44 +2861,6 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<County>("SizeUp.Data.CityCounty", "County", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_City_State", "State")]
-        public State State
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_City_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_City_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_City_State", "State");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_City_State", "State", value);
                 }
             }
         }
@@ -25817,18 +25779,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Parent")]
-        public EntityCollection<ConsumerExpenditureVariable> Children
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable1")]
+        public EntityCollection<ConsumerExpenditureVariable> ConsumerExpenditureVariables1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Parent");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Parent", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable1", value);
                 }
             }
         }
@@ -25839,16 +25801,16 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Children")]
-        public ConsumerExpenditureVariable Parent
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable")]
+        public ConsumerExpenditureVariable ConsumerExpenditureVariable1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Children").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Children").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable").Value = value;
             }
         }
         /// <summary>
@@ -25856,17 +25818,17 @@ namespace SizeUp.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<ConsumerExpenditureVariable> ParentReference
+        public EntityReference<ConsumerExpenditureVariable> ConsumerExpenditureVariable1Reference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Children");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "Children", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ConsumerExpenditureVariable>("SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables", "ConsumerExpenditureVariable", value);
                 }
             }
         }
@@ -26087,44 +26049,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_County_GeographicLocation", "GeographicLocation")]
-        public GeographicLocation GeographicLocation
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeographicLocation>("SizeUp.Data.FK_County_GeographicLocation", "GeographicLocation").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeographicLocation>("SizeUp.Data.FK_County_GeographicLocation", "GeographicLocation").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<GeographicLocation> GeographicLocationReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<GeographicLocation>("SizeUp.Data.FK_County_GeographicLocation", "GeographicLocation");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GeographicLocation>("SizeUp.Data.FK_County_GeographicLocation", "GeographicLocation", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_County_Metro", "Metro")]
         public Metro Metro
         {
@@ -26153,6 +26077,44 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Metro>("SizeUp.Data.FK_County_Metro", "Metro", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_County_State", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_County_State", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_County_State", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_County_State", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_County_State", "State", value);
                 }
             }
         }
@@ -26207,34 +26169,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_County_State", "State")]
-        public State State
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "ZipCodeCounty", "ZipCode")]
+        public EntityCollection<ZipCode> ZipCodes
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_County_State", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_County_State", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_County_State", "State");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ZipCode>("SizeUp.Data.ZipCodeCounty", "ZipCode");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_County_State", "State", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ZipCode>("SizeUp.Data.ZipCodeCounty", "ZipCode", value);
                 }
             }
         }
@@ -28395,44 +28341,6 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_City_GeographicLocation", "City")]
-        public City City
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_City_GeographicLocation", "City").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_City_GeographicLocation", "City").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<City> CityReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<City>("SizeUp.Data.FK_City_GeographicLocation", "City");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<City>("SizeUp.Data.FK_City_GeographicLocation", "City", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ConsumerExpenditures_GeographicLocation", "ConsumerExpenditure")]
         public EntityCollection<ConsumerExpenditure> ConsumerExpenditures
         {
@@ -28445,44 +28353,6 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ConsumerExpenditure>("SizeUp.Data.FK_ConsumerExpenditures_GeographicLocation", "ConsumerExpenditure", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_County_GeographicLocation", "County")]
-        public County County
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_County_GeographicLocation", "County").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_County_GeographicLocation", "County").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<County> CountyReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<County>("SizeUp.Data.FK_County_GeographicLocation", "County");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<County>("SizeUp.Data.FK_County_GeographicLocation", "County", value);
                 }
             }
         }
@@ -28787,6 +28657,44 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_State_GeographicLocation", "State")]
+        public State State
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<State> StateReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_ZipCode_GeographicLocation", "ZipCode")]
         public ZipCode ZipCode
         {
@@ -28825,34 +28733,40 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_State_GeographicLocation", "State")]
-        public State State
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "GeographicLocationGeographicLocation", "GeographicLocation1")]
+        public EntityCollection<GeographicLocation> GeographicLocation1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<State> StateReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeographicLocation>("SizeUp.Data.GeographicLocationGeographicLocation", "GeographicLocation1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<State>("SizeUp.Data.FK_State_GeographicLocation", "State", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeographicLocation>("SizeUp.Data.GeographicLocationGeographicLocation", "GeographicLocation1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "GeographicLocationGeographicLocation", "GeographicLocation")]
+        public EntityCollection<GeographicLocation> GeographicLocations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GeographicLocation>("SizeUp.Data.GeographicLocationGeographicLocation", "GeographicLocation");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeographicLocation>("SizeUp.Data.GeographicLocationGeographicLocation", "GeographicLocation", value);
                 }
             }
         }
@@ -29973,18 +29887,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Industry_Industry", "Parent")]
-        public EntityCollection<Industry> Children
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Industry_Industry", "Industry1")]
+        public EntityCollection<Industry> Industry1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Industry>("SizeUp.Data.FK_Industry_Industry", "Parent");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Industry>("SizeUp.Data.FK_Industry_Industry", "Industry1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Industry>("SizeUp.Data.FK_Industry_Industry", "Parent", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Industry>("SizeUp.Data.FK_Industry_Industry", "Industry1", value);
                 }
             }
         }
@@ -29995,16 +29909,16 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Industry_Industry", "Children")]
-        public Industry Parent
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_Industry_Industry", "Industry")]
+        public Industry Industry2
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Children").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Industry").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Children").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Industry").Value = value;
             }
         }
         /// <summary>
@@ -30012,17 +29926,17 @@ namespace SizeUp.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Industry> ParentReference
+        public EntityReference<Industry> Industry2Reference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Children");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Industry");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Children", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Industry>("SizeUp.Data.FK_Industry_Industry", "Industry", value);
                 }
             }
         }
@@ -30034,15 +29948,15 @@ namespace SizeUp.Data
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_industry_NAICS", "NAIC")]
-        public NAICS NAICS
+        public NAIC NAIC
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_industry_NAICS", "NAIC").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAIC>("SizeUp.Data.FK_industry_NAICS", "NAIC").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_industry_NAICS", "NAIC").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAIC>("SizeUp.Data.FK_industry_NAICS", "NAIC").Value = value;
             }
         }
         /// <summary>
@@ -30050,17 +29964,17 @@ namespace SizeUp.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<NAICS> NAICSReference
+        public EntityReference<NAIC> NAICReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_industry_NAICS", "NAIC");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAIC>("SizeUp.Data.FK_industry_NAICS", "NAIC");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_industry_NAICS", "NAIC", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAIC>("SizeUp.Data.FK_industry_NAICS", "NAIC", value);
                 }
             }
         }
@@ -32034,26 +31948,26 @@ namespace SizeUp.Data
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="NAICS")]
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="NAIC")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class NAICS : EntityObject
+    public partial class NAIC : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new NAICS object.
+        /// Create a new NAIC object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="nAICSCode">Initial value of the NAICSCode property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        public static NAICS CreateNAICS(global::System.Int64 id, global::System.String nAICSCode, global::System.String name)
+        public static NAIC CreateNAIC(global::System.Int64 id, global::System.String nAICSCode, global::System.String name)
         {
-            NAICS nAICS = new NAICS();
-            nAICS.Id = id;
-            nAICS.NAICSCode = nAICSCode;
-            nAICS.Name = name;
-            return nAICS;
+            NAIC nAIC = new NAIC();
+            nAIC.Id = id;
+            nAIC.NAICSCode = nAICSCode;
+            nAIC.Name = name;
+            return nAIC;
         }
 
         #endregion
@@ -32191,18 +32105,18 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_NAICS_NAICS", "Parent")]
-        public EntityCollection<NAICS> Children
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_NAICS_NAICS", "NAIC1")]
+        public EntityCollection<NAIC> NAICS1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<NAICS>("SizeUp.Data.FK_NAICS_NAICS", "Parent");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<NAIC>("SizeUp.Data.FK_NAICS_NAICS", "NAIC1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<NAICS>("SizeUp.Data.FK_NAICS_NAICS", "Parent", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<NAIC>("SizeUp.Data.FK_NAICS_NAICS", "NAIC1", value);
                 }
             }
         }
@@ -32213,16 +32127,16 @@ namespace SizeUp.Data
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_NAICS_NAICS", "Children")]
-        public NAICS Parent
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "FK_NAICS_NAICS", "NAIC")]
+        public NAIC NAIC1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_NAICS_NAICS", "Children").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAIC>("SizeUp.Data.FK_NAICS_NAICS", "NAIC").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_NAICS_NAICS", "Children").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAIC>("SizeUp.Data.FK_NAICS_NAICS", "NAIC").Value = value;
             }
         }
         /// <summary>
@@ -32230,17 +32144,17 @@ namespace SizeUp.Data
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<NAICS> ParentReference
+        public EntityReference<NAIC> NAIC1Reference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAICS>("SizeUp.Data.FK_NAICS_NAICS", "Children");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<NAIC>("SizeUp.Data.FK_NAICS_NAICS", "NAIC");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAICS>("SizeUp.Data.FK_NAICS_NAICS", "Children", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<NAIC>("SizeUp.Data.FK_NAICS_NAICS", "NAIC", value);
                 }
             }
         }
@@ -33591,6 +33505,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<GeographicLocation>("SizeUp.Data.FK_ZipCode_GeographicLocation", "GeographicLocation", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "ZipCodeCounty", "County")]
+        public EntityCollection<County> Counties
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<County>("SizeUp.Data.ZipCodeCounty", "County");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<County>("SizeUp.Data.ZipCodeCounty", "County", value);
                 }
             }
         }

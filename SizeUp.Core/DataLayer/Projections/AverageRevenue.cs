@@ -11,7 +11,7 @@ namespace SizeUp.Core.DataLayer.Projections
 {
     public static class AverageRevenue
     {
-        public class ChartItem : Projection<Data.IndustryData, Models.BarChartItem<long?>>
+        public class Chart : Projection<Data.IndustryData, Models.BarChartItem<long?>>
         {
             public override Expression<Func<Data.IndustryData, Models.BarChartItem<long?>>> Expression
             {

@@ -27,12 +27,10 @@ namespace SizeUp.Core.DataLayer.Filters
                 get
                 {
                     return i => i.GeographicLocation.BusinessDatas
-                        .GroupBy(g=>g.IndustryId)
-                        .Where(g=>g.Key==i.IndustryId)
                         .AsQueryable()
-                        .Any(new Filters.BusinessData.MinimumBusinessCount().Expression);
-                        
-
+                        .Where(new BusinessData.Current().Expression)
+                        .Where(g=>g.IndustryId == i.IndustryId)
+                        .Count(b=>b.Business.IsActive) > CommonFilters.MinimumBusinessCount;
                 }
             }
         }
