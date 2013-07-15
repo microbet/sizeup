@@ -152,7 +152,7 @@
             var indexes = ['State'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
-                   
+                    me.data.hasData = true;
                     me.data.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
                         rank: data[indexes[x]].Rank,
