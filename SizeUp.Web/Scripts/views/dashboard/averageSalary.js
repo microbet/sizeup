@@ -286,7 +286,6 @@
                 me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' below average' : data.State.Percentage == 0 ? ' average' : percentage + ' Above average';
             }
             if (data.Nation) {
-                me.data.noData = false;
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
                 me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' below average' : data.Nation.Percentage == 0 ? ' average' : percentage + ' Above average';
@@ -296,7 +295,6 @@
                 };
             }
             else {
-                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
@@ -328,7 +326,7 @@
                     value: '$' + sizeup.util.numbers.format.addCommas(me.data.enteredValue)
                 };
             
-       
+            me.data.noData = true;
             var indexes = ['County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
@@ -344,6 +342,7 @@
                         name: data[indexes[x]].Name,
                         value: '$' + sizeup.util.numbers.format.addCommas(parseInt(data[indexes[x]].Value))
                     };
+                    me.data.noData = false;
                 }
             } 
         };

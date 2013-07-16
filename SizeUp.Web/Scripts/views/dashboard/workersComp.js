@@ -119,7 +119,6 @@
 
         var percentageDataReturned = function (data) {
             if (data) {
-                me.data.hasData = true;
                 var val = 50 - (data.State.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
 
@@ -133,7 +132,6 @@
                 };
             }
             else {
-                me.data.hasData = false;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
@@ -154,7 +152,7 @@
             var indexes = ['State'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
-                   
+                    me.data.hasData = true;
                     me.data.table[indexes[x]] = {
                         name: data[indexes[x]].Name,
                         rank: data[indexes[x]].Rank,

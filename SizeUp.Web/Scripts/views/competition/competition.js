@@ -406,10 +406,11 @@
             item.nextAll().remove();
             var id = a.attr('data-id');
             new sizeup.core.analytics().consumerExpenditureSelected({ label: a.html() });
-            me.data.consumerExpenditure.currentSelection = getConsumerExpenditureFromList(id);
-            setHeatmap(id);
-            loadConsumerExpenditureVariables(id);
-            pushUrlState();
+            var callback = function () {
+                setHeatmap(id);
+                pushUrlState();
+            };
+            loadConsumerExpenditureSelection(id, callback);
             e.stopPropagation();
         };
 
@@ -706,7 +707,7 @@
             pushUrlState();
         };
 
-        var loadConsumerExpenditureSelection = function (id) {
+        var loadConsumerExpenditureSelection = function (id, callback) {
 
             sizeup.api.data.getConsumerExpenditureVariablePath({ id: id }, function (data) {
                 var html = '';
@@ -717,6 +718,9 @@
                     html = html + templates.bind(templates.get('consumerExpenditureListItem'), data[x]);
                 }
                 me.content.ConsumerExpenditure.selectionList.html(html);
+                if (callback) {
+                    callback();
+                }
             });
             loadConsumerExpenditureVariables(id);
         };

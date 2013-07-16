@@ -236,7 +236,6 @@
                 me.data.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
-                me.data.noData = false;
                 me.data.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'longer than 99%' : 'as long as or longer than ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -244,7 +243,6 @@
                 };
             }
             else {
-                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
@@ -262,7 +260,7 @@
         };
 
         var chartDataReturned = function (data) {
-
+            me.data.noData = true;
             me.data.chart = {
                 marker:null,
                 series: []
@@ -282,6 +280,7 @@
             };
 
             if (data['City']) {
+                me.data.noData = false;
                 me.data.chart.series['City'] = 
                     {
 
@@ -290,6 +289,7 @@
                     };
             }
             if (data['County']) {
+                me.data.noData = false;
                 me.data.chart.series['County'] =
                 {
 
@@ -298,6 +298,7 @@
                 };
             }
             if (data['Metro']) {
+                me.data.noData = false;
                 me.data.chart.series['Metro'] =
                 {
 
@@ -306,6 +307,7 @@
                 };
             }
             if (data['State']) {
+                me.data.noData = false;
                 me.data.chart.series['State'] =
                 {
 
@@ -314,6 +316,7 @@
                 };
             }
             if (data['Nation']) {
+                me.data.noData = false;
                 me.data.chart.series['Nation'] =
                 {
 

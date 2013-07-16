@@ -298,6 +298,7 @@
                     value: sizeup.util.numbers.format.sigFig(ce, 3)
                 };
 
+            me.data.noData = true;
 
             var indexes = ['County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
@@ -314,6 +315,7 @@
                         name: data[indexes[x]].Name,
                         value: sizeup.util.numbers.format.sigFig(data[indexes[x]].Value, 3)
                     };
+                    me.data.noData = false;
                 }
             }
             
@@ -342,7 +344,6 @@
                 me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' below average' : data.State.Percentage == 0 ? 'average' : percentage + ' above average';
             }
             if (data.Nation) {
-                me.data.noData = false;
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
                 me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' below average' : data.Nation.Percentage == 0 ? 'average' : percentage + ' above average';
@@ -352,7 +353,6 @@
                 };
             }
             else {
-                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'

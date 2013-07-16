@@ -455,7 +455,6 @@
                 me.data.averageEmployees.percentiles.State = data.State.Percentile < 1 ? 'less than 99%' : data.State.Percentile > 99 ? 'greater than 99%' : 'greater than or equal to ' + data.State.Percentile + '%';
             }
             if (data.Nation) {
-                me.data.noData = false;
                 me.data.averageEmployees.percentiles.Nation = data.Nation.Percentile < 1 ? 'less than 99%' : data.Nation.Percentile > 99 ? 'greater than 99%' : 'greater than or equal to ' + data.Nation.Percentile + '%';
                 me.data.gauge = {
                     value: data.Nation.Percentile,
@@ -463,7 +462,6 @@
                 };
             }
             else {
-                me.data.noData = true;
                 me.data.gauge = {
                     value: 0,
                     tooltip: 'No data'
@@ -506,7 +504,7 @@
                     value: sizeup.util.numbers.format.addCommas(me.data.enteredValue)
                 };
 
-
+            me.data.noData = true;
             var indexes = ['City', 'County', 'Metro', 'State', 'Nation'];
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
@@ -522,6 +520,7 @@
                         name: data[indexes[x]].Name,
                         value: sizeup.util.numbers.format.addCommas(parseInt(data[indexes[x]].Value))
                     };
+                    me.data.noData = false;
                 }
             }
             me.data.averageEmployees.table['median'] =
