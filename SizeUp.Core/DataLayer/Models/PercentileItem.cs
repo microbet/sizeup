@@ -8,6 +8,6 @@ namespace SizeUp.Core.DataLayer.Models
 {
     public class PercentileItem : ChartItem
     {
-        public int? Percentile { get; set; }
+        public decimal Percentile { get; set; }
     }
 }

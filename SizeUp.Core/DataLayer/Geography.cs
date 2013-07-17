@@ -18,16 +18,5 @@ namespace SizeUp.Core.DataLayer
         {
             return context.Geographies;
         }
-
-        public static IQueryable<Data.Geography> GetCalculation(SizeUpContext context)
-        {
-            return Get(context).Where(new Filters.Geography.Calculation().Expression);
-        }
-
-        public static IQueryable<Data.Geography> GetDisplay(SizeUpContext context)
-        {
-            return Get(context).Where(new Filters.Geography.Display().Expression);
-        }
-
     }
 }

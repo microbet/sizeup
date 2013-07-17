@@ -71,14 +71,8 @@
     <Compile Include="API\APIContext.cs" />
     <Compile Include="Crypto\Crypto.cs" />
     <Compile Include="DataLayer\AverageRevenue.cs" />
+    <Compile Include="DataLayer\AverageSalary.cs" />
     <Compile Include="DataLayer\BusinessData.cs" />
-    <Compile Include="DataLayer\Filters\BusinessData.cs" />
-    <Compile Include="DataLayer\Filters\Industry.cs" />
-    <Compile Include="DataLayer\Filters\Place.cs" />
-    <Compile Include="DataLayer\Filters\Geography.cs" />
-    <Compile Include="DataLayer\Filters\Demographic.cs" />
-    <Compile Include="DataLayer\Filters\Filter.cs" />
-    <Compile Include="DataLayer\Filters\IndustryData.cs" />
     <Compile Include="DataLayer\Geography.cs" />
     <Compile Include="DataLayer\IndustryData.cs" />
     <Compile Include="DataLayer\CommonFilters.cs" />
@@ -121,6 +115,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataLayer\Projections\AverageRevenue.cs" />
+    <Compile Include="DataLayer\Projections\AverageSalary.cs" />
     <Compile Include="DataLayer\Projections\Geography.cs" />
     <Compile Include="DataLayer\Projections\Industry.cs" />
     <Compile Include="DataLayer\Projections\Place.cs" />

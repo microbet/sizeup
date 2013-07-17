@@ -19,7 +19,7 @@ namespace SizeUp.Core.DataLayer.Projections
                     return (i => new Models.Place
                     {
                         Id = i.Id,
-                        DisplayName = i.Name,
+                        DisplayName = i.GeographicLocation.LongName,
                         City = new Models.City()
                         {
                             Id = i.City.Id,
@@ -70,7 +70,7 @@ namespace SizeUp.Core.DataLayer.Projections
                         Entity = new Models.Place
                         {
                             Id = i.Entity.Id,
-                            DisplayName = i.Entity.Name,
+                            DisplayName = i.Entity.GeographicLocation.LongName,
                             City = new Models.City()
                             {
                                 Id = i.Entity.City.Id,

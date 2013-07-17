@@ -91,6 +91,10 @@
             <End Role="CityType" EntitySet="CityType" />
             <End Role="City" EntitySet="City" />
           </AssociationSet>
+          <AssociationSet Name="FK_City_GeographicLocation" Association="SizeUp.Data.Test.Store.FK_City_GeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
           <AssociationSet Name="FK_City_State" Association="SizeUp.Data.Test.Store.FK_City_State">
             <End Role="State" EntitySet="State" />
             <End Role="City" EntitySet="City" />
@@ -110,6 +114,10 @@
           <AssociationSet Name="FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" Association="SizeUp.Data.Test.Store.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables">
             <End Role="ConsumerExpenditureVariables" EntitySet="ConsumerExpenditureVariables" />
             <End Role="ConsumerExpenditureVariables1" EntitySet="ConsumerExpenditureVariables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_County_GeographicLocation" Association="SizeUp.Data.Test.Store.FK_County_GeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+            <End Role="County" EntitySet="County" />
           </AssociationSet>
           <AssociationSet Name="FK_County_Metro" Association="SizeUp.Data.Test.Store.FK_County_Metro">
             <End Role="Metro" EntitySet="Metro" />
@@ -139,6 +147,10 @@
             <End Role="GeographicLocation" EntitySet="GeographicLocation" />
             <End Role="GeographicLocationGeographicLocation" EntitySet="GeographicLocationGeographicLocation" />
           </AssociationSet>
+          <AssociationSet Name="FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation" Association="SizeUp.Data.Test.Store.FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+            <End Role="GeographicLocationGeographicLocation" EntitySet="GeographicLocationGeographicLocation" />
+          </AssociationSet>
           <AssociationSet Name="FK_Geography_GeographicLocation" Association="SizeUp.Data.Test.Store.FK_Geography_GeographicLocation">
             <End Role="GeographicLocation" EntitySet="GeographicLocation" />
             <End Role="Geography" EntitySet="Geography" />
@@ -150,10 +162,6 @@
           <AssociationSet Name="FK_Geography_GeographySource" Association="SizeUp.Data.Test.Store.FK_Geography_GeographySource">
             <End Role="GeographySource" EntitySet="GeographySource" />
             <End Role="Geography" EntitySet="Geography" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GGeographicLocationGeographicLocation_IntersectedGeographicLocation" Association="SizeUp.Data.Test.Store.FK_GGeographicLocationGeographicLocation_IntersectedGeographicLocation">
-            <End Role="GeographicLocation" EntitySet="GeographicLocation" />
-            <End Role="GeographicLocationGeographicLocation" EntitySet="GeographicLocationGeographicLocation" />
           </AssociationSet>
           <AssociationSet Name="FK_Industry_Industry" Association="SizeUp.Data.Test.Store.FK_Industry_Industry">
             <End Role="Industry" EntitySet="Industry" />
@@ -1794,6 +1802,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_City_GeographicLocation">
+          <End Role="GeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocation" Multiplicity="1" />
+          <End Role="City" Type="SizeUp.Data.Test.Store.City" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_City_State">
           <End Role="State" Type="SizeUp.Data.Test.Store.State" Multiplicity="1" />
           <End Role="City" Type="SizeUp.Data.Test.Store.City" Multiplicity="*" />
@@ -1851,6 +1871,18 @@
             </Principal>
             <Dependent Role="ConsumerExpenditureVariables1">
               <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_County_GeographicLocation">
+          <End Role="GeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocation" Multiplicity="1" />
+          <End Role="County" Type="SizeUp.Data.Test.Store.County" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="County">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1938,6 +1970,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation">
+          <End Role="GeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocation" Multiplicity="1" />
+          <End Role="GeographicLocationGeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocationGeographicLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GeographicLocationGeographicLocation">
+              <PropertyRef Name="IntersectedGeographicLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Geography_GeographicLocation">
           <End Role="GeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocation" Multiplicity="1" />
           <End Role="Geography" Type="SizeUp.Data.Test.Store.Geography" Multiplicity="*" />
@@ -1971,18 +2015,6 @@
             </Principal>
             <Dependent Role="Geography">
               <PropertyRef Name="GeographySourceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GGeographicLocationGeographicLocation_IntersectedGeographicLocation">
-          <End Role="GeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocation" Multiplicity="1" />
-          <End Role="GeographicLocationGeographicLocation" Type="SizeUp.Data.Test.Store.GeographicLocationGeographicLocation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GeographicLocation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="GeographicLocationGeographicLocation">
-              <PropertyRef Name="IntersectedGeographicLocationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2314,7 +2346,7 @@
           <EntitySet Name="LegacyCommunitySEOKeys" EntityType="SizeUp.Data.LegacyCommunitySEOKey" />
           <EntitySet Name="LegacyIndustrySEOKeys" EntityType="SizeUp.Data.LegacyIndustrySEOKey" />
           <EntitySet Name="Metroes" EntityType="SizeUp.Data.Metro" />
-          <EntitySet Name="NAICS" EntityType="SizeUp.Data.NAIC" />
+          <EntitySet Name="NAICS" EntityType="SizeUp.Data.NAICS" />
           <EntitySet Name="Nations" EntityType="SizeUp.Data.Nation" />
           <EntitySet Name="Places" EntityType="SizeUp.Data.Place" />
           <EntitySet Name="PlaceKeywords" EntityType="SizeUp.Data.PlaceKeyword" />
@@ -2383,8 +2415,8 @@
             <End Role="ConsumerExpenditure" EntitySet="ConsumerExpenditures" />
           </AssociationSet>
           <AssociationSet Name="FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" Association="SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables">
-            <End Role="ConsumerExpenditureVariable" EntitySet="ConsumerExpenditureVariables" />
-            <End Role="ConsumerExpenditureVariable1" EntitySet="ConsumerExpenditureVariables" />
+            <End Role="Children" EntitySet="ConsumerExpenditureVariables" />
+            <End Role="Parent" EntitySet="ConsumerExpenditureVariables" />
           </AssociationSet>
           <AssociationSet Name="FK_County_Metro" Association="SizeUp.Data.FK_County_Metro">
             <End Role="Metro" EntitySet="Metroes" />
@@ -2459,8 +2491,8 @@
             <End Role="Geography" EntitySet="Geographies" />
           </AssociationSet>
           <AssociationSet Name="FK_Industry_Industry" Association="SizeUp.Data.FK_Industry_Industry">
-            <End Role="Industry" EntitySet="Industries" />
-            <End Role="Industry1" EntitySet="Industries" />
+            <End Role="Children" EntitySet="Industries" />
+            <End Role="Parent" EntitySet="Industries" />
           </AssociationSet>
           <AssociationSet Name="FK_industry_NAICS" Association="SizeUp.Data.FK_industry_NAICS">
             <End Role="NAIC" EntitySet="NAICS" />
@@ -2479,8 +2511,8 @@
             <End Role="LegacyIndustrySEOKey" EntitySet="LegacyIndustrySEOKeys" />
           </AssociationSet>
           <AssociationSet Name="FK_NAICS_NAICS" Association="SizeUp.Data.FK_NAICS_NAICS">
-            <End Role="NAIC" EntitySet="NAICS" />
-            <End Role="NAIC1" EntitySet="NAICS" />
+            <End Role="Children" EntitySet="NAICS" />
+            <End Role="Parent" EntitySet="NAICS" />
           </AssociationSet>
           <AssociationSet Name="FK_PlaceKeyword_Place" Association="SizeUp.Data.FK_PlaceKeyword_Place">
             <End Role="Place" EntitySet="Places" />
@@ -2495,8 +2527,8 @@
             <End Role="County" EntitySet="Counties" />
           </AssociationSet>
           <AssociationSet Name="GeographicLocationGeographicLocation" Association="SizeUp.Data.GeographicLocationGeographicLocation">
-            <End Role="GeographicLocation" EntitySet="GeographicLocations" />
-            <End Role="GeographicLocation1" EntitySet="GeographicLocations" />
+            <End Role="GeographicLocations" EntitySet="GeographicLocations" />
+            <End Role="Parents" EntitySet="GeographicLocations" />
           </AssociationSet>
           <AssociationSet Name="IndustryDataBand" Association="SizeUp.Data.IndustryDataBand">
             <End Role="Band" EntitySet="Bands" />
@@ -2509,6 +2541,14 @@
           <AssociationSet Name="ZipCodePlace" Association="SizeUp.Data.ZipCodePlace">
             <End Role="Place" EntitySet="Places" />
             <End Role="ZipCode" EntitySet="ZipCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_GeographicLocation" Association="SizeUp.Data.FK_City_GeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocations" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_County_GeographicLocation" Association="SizeUp.Data.FK_County_GeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocations" />
+            <End Role="County" EntitySet="Counties" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Attribute">
@@ -2604,6 +2644,7 @@
           <NavigationProperty Name="Places" Relationship="SizeUp.Data.FK_Place_City" FromRole="City" ToRole="Place" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.BusinessCity" FromRole="City" ToRole="Business" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.CityCounty" FromRole="City" ToRole="County" />
+          <NavigationProperty Name="GeographicLocation" Relationship="SizeUp.Data.FK_City_GeographicLocation" FromRole="City" ToRole="GeographicLocation" />
         </EntityType>
         <EntityType Name="CityType">
           <Key>
@@ -3568,8 +3609,8 @@
           <Property Type="Int64" Name="ParentId" />
           <Property Type="String" Name="Variable" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ConsumerExpenditureVariables1" Relationship="SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" FromRole="ConsumerExpenditureVariable" ToRole="ConsumerExpenditureVariable1" />
-          <NavigationProperty Name="ConsumerExpenditureVariable1" Relationship="SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" FromRole="ConsumerExpenditureVariable1" ToRole="ConsumerExpenditureVariable" />
+          <NavigationProperty Name="Children" Relationship="SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" FromRole="Children" ToRole="Parent" />
+          <NavigationProperty Name="Parent" Relationship="SizeUp.Data.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" FromRole="Parent" ToRole="Children" />
         </EntityType>
         <EntityType Name="County">
           <Key>
@@ -3587,6 +3628,7 @@
           <NavigationProperty Name="Places" Relationship="SizeUp.Data.FK_Place_County" FromRole="County" ToRole="Place" />
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.CityCounty" FromRole="County" ToRole="City" />
           <NavigationProperty Name="ZipCodes" Relationship="SizeUp.Data.ZipCodeCounty" FromRole="County" ToRole="ZipCode" />
+          <NavigationProperty Name="GeographicLocation" Relationship="SizeUp.Data.FK_County_GeographicLocation" FromRole="County" ToRole="GeographicLocation" />
         </EntityType>
         <EntityType Name="Demographic">
           <Key>
@@ -3697,8 +3739,9 @@
           <NavigationProperty Name="Region" Relationship="SizeUp.Data.FK_Region_GeographicLocation" FromRole="GeographicLocation" ToRole="Region" />
           <NavigationProperty Name="State" Relationship="SizeUp.Data.FK_State_GeographicLocation" FromRole="GeographicLocation" ToRole="State" />
           <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_ZipCode_GeographicLocation" FromRole="GeographicLocation" ToRole="ZipCode" />
-          <NavigationProperty Name="GeographicLocation1" Relationship="SizeUp.Data.GeographicLocationGeographicLocation" FromRole="GeographicLocation" ToRole="GeographicLocation1" />
-          <NavigationProperty Name="GeographicLocations" Relationship="SizeUp.Data.GeographicLocationGeographicLocation" FromRole="GeographicLocation1" ToRole="GeographicLocation" />
+          <NavigationProperty Name="GeographicLocations" Relationship="SizeUp.Data.GeographicLocationGeographicLocation" FromRole="GeographicLocations" ToRole="Parents" />
+          <NavigationProperty Name="City" Relationship="SizeUp.Data.FK_City_GeographicLocation" FromRole="GeographicLocation" ToRole="City" />
+          <NavigationProperty Name="County" Relationship="SizeUp.Data.FK_County_GeographicLocation" FromRole="GeographicLocation" ToRole="County" />
         </EntityType>
         <EntityType Name="Geography">
           <Key>
@@ -3760,9 +3803,9 @@
           <Property Type="Int64" Name="NAICSId" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.FK_Business_Industry" FromRole="Industry" ToRole="Business" />
           <NavigationProperty Name="BusinessDatas" Relationship="SizeUp.Data.FK_BusinessData_Industry" FromRole="Industry" ToRole="BusinessData" />
-          <NavigationProperty Name="Industry1" Relationship="SizeUp.Data.FK_Industry_Industry" FromRole="Industry" ToRole="Industry1" />
-          <NavigationProperty Name="Industry2" Relationship="SizeUp.Data.FK_Industry_Industry" FromRole="Industry1" ToRole="Industry" />
-          <NavigationProperty Name="NAIC" Relationship="SizeUp.Data.FK_industry_NAICS" FromRole="Industry" ToRole="NAIC" />
+          <NavigationProperty Name="Children" Relationship="SizeUp.Data.FK_Industry_Industry" FromRole="Children" ToRole="Parent" />
+          <NavigationProperty Name="Parent" Relationship="SizeUp.Data.FK_Industry_Industry" FromRole="Parent" ToRole="Children" />
+          <NavigationProperty Name="NAICS" Relationship="SizeUp.Data.FK_industry_NAICS" FromRole="Industry" ToRole="NAIC" />
           <NavigationProperty Name="IndustryDatas" Relationship="SizeUp.Data.FK_IndustryData_Industry" FromRole="Industry" ToRole="IndustryData" />
           <NavigationProperty Name="IndustryKeywords" Relationship="SizeUp.Data.FK_IndustryKeyword_Industry" FromRole="Industry" ToRole="IndustryKeyword" />
           <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
@@ -3862,7 +3905,7 @@
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.FK_County_Metro" FromRole="Metro" ToRole="County" />
           <NavigationProperty Name="GeographicLocation" Relationship="SizeUp.Data.FK_Metro_GeographicLocation" FromRole="Metro" ToRole="GeographicLocation" />
         </EntityType>
-        <EntityType Name="NAIC">
+        <EntityType Name="NAICS">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -3871,8 +3914,8 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="ParentId" />
           <NavigationProperty Name="Industries" Relationship="SizeUp.Data.FK_industry_NAICS" FromRole="NAIC" ToRole="Industry" />
-          <NavigationProperty Name="NAICS1" Relationship="SizeUp.Data.FK_NAICS_NAICS" FromRole="NAIC" ToRole="NAIC1" />
-          <NavigationProperty Name="NAIC1" Relationship="SizeUp.Data.FK_NAICS_NAICS" FromRole="NAIC1" ToRole="NAIC" />
+          <NavigationProperty Name="Children" Relationship="SizeUp.Data.FK_NAICS_NAICS" FromRole="Children" ToRole="Parent" />
+          <NavigationProperty Name="Parent" Relationship="SizeUp.Data.FK_NAICS_NAICS" FromRole="Parent" ToRole="Children" />
         </EntityType>
         <EntityType Name="Nation">
           <Key>
@@ -4132,13 +4175,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables">
-          <End Type="SizeUp.Data.ConsumerExpenditureVariable" Role="ConsumerExpenditureVariable" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.ConsumerExpenditureVariable" Role="ConsumerExpenditureVariable1" Multiplicity="*" />
+          <End Type="SizeUp.Data.ConsumerExpenditureVariable" Role="Children" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.ConsumerExpenditureVariable" Role="Parent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ConsumerExpenditureVariable">
+            <Principal Role="Children">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ConsumerExpenditureVariable1">
+            <Dependent Role="Parent">
               <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4360,19 +4403,19 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Industry_Industry">
-          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.Industry" Role="Industry1" Multiplicity="*" />
+          <End Type="SizeUp.Data.Industry" Role="Children" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.Industry" Role="Parent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Industry">
+            <Principal Role="Children">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Industry1">
+            <Dependent Role="Parent">
               <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_industry_NAICS">
-          <End Type="SizeUp.Data.NAIC" Role="NAIC" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.NAICS" Role="NAIC" Multiplicity="0..1" />
           <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NAIC">
@@ -4420,13 +4463,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NAICS_NAICS">
-          <End Type="SizeUp.Data.NAIC" Role="NAIC" Multiplicity="0..1" />
-          <End Type="SizeUp.Data.NAIC" Role="NAIC1" Multiplicity="*" />
+          <End Type="SizeUp.Data.NAICS" Role="Children" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.NAICS" Role="Parent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="NAIC">
+            <Principal Role="Children">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="NAIC1">
+            <Dependent Role="Parent">
               <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4452,8 +4495,8 @@
           <End Type="SizeUp.Data.County" Role="County" Multiplicity="*" />
         </Association>
         <Association Name="GeographicLocationGeographicLocation">
-          <End Type="SizeUp.Data.GeographicLocation" Role="GeographicLocation" Multiplicity="*" />
-          <End Type="SizeUp.Data.GeographicLocation" Role="GeographicLocation1" Multiplicity="*" />
+          <End Type="SizeUp.Data.GeographicLocation" Role="GeographicLocations" Multiplicity="*" />
+          <End Type="SizeUp.Data.GeographicLocation" Role="Parents" Multiplicity="*" />
         </Association>
         <Association Name="IndustryDataBand">
           <End Type="SizeUp.Data.Band" Role="Band" Multiplicity="*" />
@@ -4466,6 +4509,30 @@
         <Association Name="ZipCodePlace">
           <End Type="SizeUp.Data.Place" Role="Place" Multiplicity="*" />
           <End Type="SizeUp.Data.ZipCode" Role="ZipCode" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_City_GeographicLocation">
+          <End Type="SizeUp.Data.GeographicLocation" Role="GeographicLocation" Multiplicity="1" />
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_County_GeographicLocation">
+          <End Type="SizeUp.Data.GeographicLocation" Role="GeographicLocation" Multiplicity="1" />
+          <End Type="SizeUp.Data.County" Role="County" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="County">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -5775,7 +5842,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NAICS">
-            <EntityTypeMapping TypeName="SizeUp.Data.NAIC">
+            <EntityTypeMapping TypeName="SizeUp.Data.NAICS">
               <MappingFragment StoreEntitySet="NAICS">
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -5867,10 +5934,10 @@
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="GeographicLocationGeographicLocation" TypeName="SizeUp.Data.GeographicLocationGeographicLocation" StoreEntitySet="GeographicLocationGeographicLocation">
-            <EndProperty Name="GeographicLocation1">
+            <EndProperty Name="Parents">
               <ScalarProperty Name="Id" ColumnName="IntersectedGeographicLocationId" />
             </EndProperty>
-            <EndProperty Name="GeographicLocation">
+            <EndProperty Name="GeographicLocations">
               <ScalarProperty Name="Id" ColumnName="GeographicLocationId" />
             </EndProperty>
           </AssociationSetMapping>

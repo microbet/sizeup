@@ -5,37 +5,37 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b84fda67eed04fe09c0e4b355f3118c6" Name="Diagram1" ZoomLevel="63" SnapToGrid="true">
-        <EntityTypeShape EntityType="SizeUp.Data.Attribute" Width="1.5" PointX="1.5389155398769843" PointY="7.52567527048554" />
-        <EntityTypeShape EntityType="SizeUp.Data.Band" Width="1.5" PointX="0.4148884212667534" PointY="2.54797148823178" />
-        <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="1.8401861963049444" PointY="19.716097080947875" />
-        <EntityTypeShape EntityType="SizeUp.Data.BusinessData" Width="1.5" PointX="5.7923540425451261" PointY="18.837275662849319" />
-        <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="11.318278323541525" PointY="5.3827202196152513" />
-        <EntityTypeShape EntityType="SizeUp.Data.CityType" Width="1.5" PointX="9.69114791866911" PointY="10.732151200404461" />
-        <EntityTypeShape EntityType="SizeUp.Data.ConsumerExpenditure" Width="1.5" PointX="9.8563243569137171" PointY="19.789209509170245" />
-        <EntityTypeShape EntityType="SizeUp.Data.ConsumerExpenditureVariable" Width="1.5" PointX="10.741259771744375" PointY="30.39303933009181" />
-        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="4.3385957834956219" PointY="6.4231345236409148" />
-        <EntityTypeShape EntityType="SizeUp.Data.Demographic" Width="1.5" PointX="8.359396385196316" PointY="15.365359462502115" />
-        <EntityTypeShape EntityType="SizeUp.Data.Division" Width="1.5" PointX="3.7293830177417879" PointY="8.1356473602986181" />
-        <EntityTypeShape EntityType="SizeUp.Data.GeographicLocation" Width="1.5" PointX="4.5001225064043524" PointY="2.022981063473495" />
-        <EntityTypeShape EntityType="SizeUp.Data.Geography" Width="1.5" PointX="4.9040769417323524" PointY="28.005775077271171" />
-        <EntityTypeShape EntityType="SizeUp.Data.GeographyClass" Width="1.5" PointX="1.6975011367804842" PointY="6.91654190743181" />
-        <EntityTypeShape EntityType="SizeUp.Data.GeographySource" Width="1.5" PointX="6.1222184273052109" PointY="30.626600890712162" />
-        <EntityTypeShape EntityType="SizeUp.Data.Granularity" Width="1.5" PointX="7.7836036867385747" PointY="6.333179432122586" />
-        <EntityTypeShape EntityType="SizeUp.Data.Industry" Width="1.5" PointX="11.067457979110749" PointY="30.910365193574858" />
-        <EntityTypeShape EntityType="SizeUp.Data.IndustryData" Width="1.5" PointX="9.8376032923523358" PointY="14.605133793598569" />
-        <EntityTypeShape EntityType="SizeUp.Data.IndustryKeyword" Width="1.5" PointX="0.085150452370359772" PointY="8.2227482684993873" />
-        <EntityTypeShape EntityType="SizeUp.Data.LegacyBusinessSEOKey" Width="1.5" PointX="3.0633900887628043" PointY="27.233313930795209" />
-        <EntityTypeShape EntityType="SizeUp.Data.LegacyCommunitySEOKey" Width="1.5" PointX="4.3529297655229122" PointY="7.1529418263365248" />
-        <EntityTypeShape EntityType="SizeUp.Data.LegacyIndustrySEOKey" Width="1.5" PointX="5.893008327993102" PointY="0.015369623906616878" />
-        <EntityTypeShape EntityType="SizeUp.Data.Metro" Width="1.5" PointX="9.4640129103623387" PointY="3.3413349703612436" />
-        <EntityTypeShape EntityType="SizeUp.Data.NAIC" Width="1.5" PointX="2.5406523116587905" PointY="14.854942030671491" />
-        <EntityTypeShape EntityType="SizeUp.Data.Nation" Width="1.5" PointX="9.1781400727006321" PointY="8.44125378524943" />
-        <EntityTypeShape EntityType="SizeUp.Data.Place" Width="1.5" PointX="3.7570035456479545" PointY="14.71626398652618" />
-        <EntityTypeShape EntityType="SizeUp.Data.PlaceKeyword" Width="1.5" PointX="2.385319647558648" PointY="17.713397779368513" />
-        <EntityTypeShape EntityType="SizeUp.Data.Region" Width="1.5" PointX="5.4929596416153759" PointY="27.968127412706671" />
-        <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="10.322005720027725" PointY="31.083388059904514" />
-        <EntityTypeShape EntityType="SizeUp.Data.State" Width="1.5" PointX="8.0514123663545654" PointY="8.9013881128753471" />
-        <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="5.69603526857497" PointY="8.5297355393551921" />
+        <EntityTypeShape EntityType="SizeUp.Data.Attribute" Width="1.5" PointX="2.375" PointY="10.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Band" Width="1.5" PointX="0.5" PointY="11" />
+        <EntityTypeShape EntityType="SizeUp.Data.Business" Width="1.5" PointX="5.75" PointY="12.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.BusinessData" Width="1.5" PointX="19.5" PointY="12.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.City" Width="1.5" PointX="6" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.CityType" Width="2.875" PointX="5.125" PointY="5.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.ConsumerExpenditure" Width="2.875" PointX="10.875" PointY="12.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.ConsumerExpenditureVariable" Width="2.25" PointX="5.25" PointY="23.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.County" Width="1.5" PointX="7.875" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Demographic" Width="2.625" PointX="7.875" PointY="12.875" />
+        <EntityTypeShape EntityType="SizeUp.Data.Division" Width="1.5" PointX="15.875" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographicLocation" Width="2.625" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Geography" Width="2.25" PointX="14.75" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographyClass" Width="1.5" PointX="18.75" PointY="5.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographySource" Width="2.5" PointX="17.75" PointY="8.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.Granularity" Width="1.5" PointX="0.5" PointY="5.75" />
+        <EntityTypeShape EntityType="SizeUp.Data.Industry" Width="2.375" PointX="9.625" PointY="7.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryData" Width="2.75" PointX="16.125" PointY="12.625" />
+        <EntityTypeShape EntityType="SizeUp.Data.IndustryKeyword" Width="2.125" PointX="0.5" PointY="8.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.LegacyBusinessSEOKey" Width="2.625" PointX="0.5" PointY="18.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.LegacyCommunitySEOKey" Width="2.375" PointX="0.5" PointY="16.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.LegacyIndustrySEOKey" Width="2.375" PointX="0.5" PointY="14" />
+        <EntityTypeShape EntityType="SizeUp.Data.Metro" Width="1.5" PointX="12" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.NAICS" Width="1.5" PointX="6" PointY="9.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Nation" Width="1.5" PointX="19.625" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Place" Width="1.5" PointX="9.875" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.PlaceKeyword" Width="1.5" PointX="9.75" PointY="5.25" />
+        <EntityTypeShape EntityType="SizeUp.Data.Region" Width="1.5" PointX="17.75" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.ResourceString" Width="1.5" PointX="0.5" PointY="20.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.State" Width="1.5" PointX="14" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.ZipCode" Width="1.5" PointX="4.25" PointY="0.5" />
         <AssociationConnector Association="SizeUp.Data.FK_Band_Attribute" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_County" />
         <AssociationConnector Association="SizeUp.Data.FK_Business_Industry" />
@@ -83,6 +83,8 @@
         <AssociationConnector Association="SizeUp.Data.IndustryDataBand" />
         <AssociationConnector Association="SizeUp.Data.ZipCodeCounty" />
         <AssociationConnector Association="SizeUp.Data.ZipCodePlace" />
+        <AssociationConnector Association="SizeUp.Data.FK_City_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.FK_County_GeographicLocation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

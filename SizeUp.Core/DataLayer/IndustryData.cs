@@ -16,7 +16,13 @@ namespace SizeUp.Core.DataLayer
         {
             return Core.DataLayer.Industry.Get(context)
                 .SelectMany(i => i.IndustryDatas)
-                .Where(new Filters.IndustryData.Current().Expression);
+                .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == CommonFilters.TimeSlice.Industry.Quarter);
+        }
+
+        public static IQueryable<Data.IndustryData> GetMinimumBusinessCount(SizeUpContext context)
+        {
+            return Get(context)
+                .Where(i => i.GeographicLocation.BusinessDatas.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive && b.Business.InBusiness).Count() > CommonFilters.MinimumBusinessCount);
         }
     }
 }

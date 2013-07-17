@@ -12,7 +12,7 @@ namespace SizeUp.Core.DataLayer
     {
         public static IQueryable<Data.Place> Get(SizeUpContext context)
         {
-            return context.Places.Where(new Filters.Place.Active().Expression);
+            return context.Places.Where(i => i.City.CityType.IsActive && i.City.IsActive);
         }
 
 
@@ -35,7 +35,7 @@ namespace SizeUp.Core.DataLayer
         public static Models.Place GetByBusiness(SizeUpContext context, long businessId)
         {
             return Get(context)
-                .Where(i => i.GeographicLocation.City.Businesses.Any(bc=>bc.Id == businessId))
+                .Where(i => i.City.Businesses.Any(bc=>bc.Id == businessId))
                 .Select(new Projections.Place.Default().Expression)
                 .FirstOrDefault();
         }
@@ -90,7 +90,7 @@ namespace SizeUp.Core.DataLayer
                 .Select(i => new KeyValue<Data.Place, Geo.LatLng>
                 {
                     Key = i,
-                    Value = i.GeographicLocation.Geographies.AsQueryable().Where(new Filters.Geography.Calculation().Expression)
+                    Value = i.GeographicLocation.Geographies.AsQueryable().Where(g=>g.GeographyClass.Name == Geo.GeographyClass.Calculation)
                     .Select(g => new Geo.LatLng { Lat = g.CenterLat.Value, Lng = g.CenterLong.Value })
                     .FirstOrDefault()
                 })
@@ -136,7 +136,7 @@ namespace SizeUp.Core.DataLayer
                     .Where(i => i.Place.County.State.Abbreviation.StartsWith(state))
                     .OrderBy(i => i.Place.City.Name)
                     .ThenBy(i => i.Place.City.State.Abbreviation)
-                    .ThenByDescending(i => i.Place.GeographicLocation.Demographics.AsQueryable().Where(new Filters.Demographic.Current().Expression).FirstOrDefault().TotalPopulation)
+                    .ThenByDescending(i => i.Place.GeographicLocation.Demographics.AsQueryable().Where(d => d.Year == CommonFilters.TimeSlice.Demographics.Year && d.Quarter == CommonFilters.TimeSlice.Demographics.Quarter).FirstOrDefault().TotalPopulation)
                     .Select(i => i.Place)
                     .Select(new Projections.Place.Default().Expression);
         }

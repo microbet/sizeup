@@ -13,7 +13,7 @@ namespace SizeUp.Core.DataLayer
  
         public static IQueryable<Data.Industry> Get(SizeUpContext context)
         {
-            return context.Industries.Where(new Filters.Industry.Active().Expression);
+            return context.Industries.Where(i => i.IsActive && !i.IsDisabled);
         }
 
 

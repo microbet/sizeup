@@ -15,7 +15,7 @@ namespace SizeUp.Core.DataLayer
         {
             return Core.DataLayer.Industry.Get(context)
                 .SelectMany(i => i.BusinessDatas)
-                .Where(new Filters.BusinessData.Current().Expression);
+                .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == CommonFilters.TimeSlice.Industry.Quarter);
         }
     }
 }
