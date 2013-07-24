@@ -192,6 +192,12 @@
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
     <Content Include="Content\images\advertiseSmall.png" />
+    <Content Include="Content\images\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed-a.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed-c.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed-o.png" />
+    <Content Include="Content\images\apple-touch-icon-72x72-precomposed.png" />
     <Content Include="Content\images\btn_close.png" />
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\competeSmall.png" />
