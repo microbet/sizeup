@@ -238,6 +238,7 @@
     <Content Include="Content\themes\highContrast\images\actionbutton.png" />
     <Content Include="Content\themes\highContrast\images\dashbuttons.png" />
     <Content Include="Content\themes\wide\wide.css" />
+    <Content Include="Content\thirdParty\add2home.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
@@ -349,6 +350,7 @@
     <Content Include="Scripts\prettify\lang-yaml.js" />
     <Content Include="Scripts\prettify\prettify.js" />
     <Content Include="Scripts\prettify\run_prettify.js" />
+    <Content Include="Scripts\thirdParty\add2home.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />

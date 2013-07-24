@@ -46,6 +46,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Detected()
         {
+            HttpContext.Server.ScriptTimeout = 3;
             var id = GeoCoder.GetPlaceIdByIPAddress(WebContext.Current.ClientIP);
             using (var context = ContextFactory.SizeUpContext)
             {
