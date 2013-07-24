@@ -51,6 +51,11 @@ namespace SizeUp.Core.DataLayer.Projections
                             Id = i.County.State.Division.Id,
                             RegionName = i.County.State.Division.Region.Name,
                             Name = i.County.State.Division.Name
+                        },
+                        Nation = new Models.Nation
+                        {
+                            Id = i.County.State.Nation.Id,
+                            Name = i.County.State.Nation.Name
                         }
                     });
                 }
@@ -102,6 +107,11 @@ namespace SizeUp.Core.DataLayer.Projections
                                 Id = i.Entity.County.State.Division.Id,
                                 RegionName = i.Entity.County.State.Division.Region.Name,
                                 Name = i.Entity.County.State.Division.Name
+                            },
+                            Nation = new Models.Nation
+                            {
+                                Id = i.Entity.County.State.Nation.Id,
+                                Name = i.Entity.County.State.Nation.Name
                             }
                         }
                     });
@@ -144,6 +154,11 @@ namespace SizeUp.Core.DataLayer.Projections
                             Id = i.County.State.Division.Id,
                             RegionName = i.County.State.Division.Region.Name,
                             Name = i.County.State.Division.Name
+                        },
+                        Nation = new Models.Nation
+                        {
+                            Id = i.County.State.Nation.Id,
+                            Name = i.County.State.Nation.Name
                         }
                     });
                 }
@@ -176,6 +191,9 @@ namespace SizeUp.Core.DataLayer.Projections
                         {
                         },
                         Region = new Models.Division
+                        {
+                        },
+                        Nation = new Models.Nation
                         {
                         }
                     });
@@ -212,6 +230,11 @@ namespace SizeUp.Core.DataLayer.Projections
                             Id = i.County.State.Division.Id,
                             RegionName = i.County.State.Division.Region.Name,
                             Name = i.County.State.Division.Name
+                        },
+                        Nation = new Models.Nation
+                        {
+                            Id = i.County.State.Nation.Id,
+                            Name = i.County.State.Nation.Name
                         }
                     });
                 }

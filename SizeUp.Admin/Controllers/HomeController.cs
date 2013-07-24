@@ -20,7 +20,7 @@ namespace SizeUp.Admin.Controllers
             {
                 //var x = Core.DataLayer.Place.ListNear(context, new Core.Geo.LatLng() { Lat = 37.7750, Lng = -122.4183 }).OrderBy(i=>i.Distance).Take(5).ToList(); ;
 
-                var x = Core.DataLayer.AverageRevenue.Percentile(context, 8589, 3051, 1000000, Core.DataLayer.Granularity.County);
+                var x = Core.DataLayer.CostEffectiveness.Chart(context, 8589, 3051, Core.DataLayer.Granularity.County);
 
                 return Json(x, JsonRequestBehavior.AllowGet);
             }

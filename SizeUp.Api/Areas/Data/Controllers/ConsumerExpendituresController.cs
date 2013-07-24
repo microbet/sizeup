@@ -34,7 +34,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.ConsumerExpenditures.Variables(context).Where(i => i.ParentId == parentId).ToList();
+                var data = Core.DataLayer.ConsumerExpenditures.Variables(context, parentId).ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

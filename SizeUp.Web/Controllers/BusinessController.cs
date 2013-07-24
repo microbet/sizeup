@@ -18,7 +18,9 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.States = Core.DataLayer.State.Get(context)
+                ViewBag.States = Core.DataLayer.Place.List(context)
+                    .Select(i => i.State)
+                    .Distinct()
                     .OrderBy(i => i.Name)
                     .ToList()
                     .InSetsOf(14);
@@ -38,11 +40,13 @@ namespace SizeUp.Web.Controllers
             {
                 ViewBag.State = CurrentInfo.CurrentPlace.State;
 
-                var places = Core.DataLayer.Place.List(context).Where(i => i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
-                var industryData = Core.DataLayer.Base.IndustryData.City(context);
-                var data = places.Where(i => industryData.Where(d => d.CityId == i.City.Id).Count() > 0).ToList();
+                var places = Core.DataLayer.Place.List(context)
+                    .Where(i => i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
 
-                data.ForEach(i => i.DisplayName = data.Count(s => s.City.Name == i.City.Name && s.County.Name == i.County.Name) > 1 ? (i.County.Name + " County - " + i.City.TypeName) : (i.County.Name + " County"));
+                var industryData = Core.DataLayer.IndustryData.Get(context);
+
+                var data = places.Where(i => industryData.Any(d => d.GeographicLocationId == i.City.Id)).ToList();
+
                 var groups = data
                     .OrderBy(i => i.City.Name)
                     .GroupBy(i => i.City.Name.Substring(0, 1));
@@ -90,7 +94,7 @@ namespace SizeUp.Web.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                var businesses = Core.DataLayer.Business.ListIn(context, Core.Web.WebContext.Current.CurrentIndustry.Id.Value, Core.Web.WebContext.Current.CurrentPlace.Id.Value);
+                var businesses = Core.DataLayer.Business.ListIn(context, Core.Web.WebContext.Current.CurrentIndustry.Id, Core.Web.WebContext.Current.CurrentPlace.Id.Value);
                 ViewBag.Businesses = businesses
                     .OrderBy(i => i.Name)
                     .InSetsOf((int)System.Math.Ceiling(businesses.Count() / 2d))
@@ -102,7 +106,7 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Business(string state, string county, string city, string industry, string name, long id)
         {
-            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry.Id == null)
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
             {
                 throw new HttpException(404, "Page Not Found");
             }

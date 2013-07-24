@@ -15,5 +15,6 @@ namespace SizeUp.Core.DataLayer.Models
         public Metro Metro { get; set; }
         public State State { get; set; }
         public Division Region { get; set; }
+        public Nation Nation { get; set; }
     }
 }

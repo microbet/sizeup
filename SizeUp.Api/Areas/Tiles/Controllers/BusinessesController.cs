@@ -29,7 +29,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 List<GeographyEntity> geos = new List<GeographyEntity>();
                 if (industryIds.Count > 0)
                 {
-                    var buisnesses = Core.DataLayer.Base.Business.In(context, boundingBox)
+                    var buisnesses = Core.DataLayer.Business.In(context, boundingBox)
                       .Where(i => industryIds.Contains(i.IndustryId.Value))
                       .Select(i => new { Lat = i.Lat, Lng = i.Long });
 

@@ -51,8 +51,12 @@ namespace SizeUp.Api.Areas.Data.Controllers
             itemCount = Math.Min(maxResults, itemCount);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var centroid = Core.DataLayer.Geography.Centroid(context, Core.DataLayer.Base.Granularity.Place).Where(i => i.Key == placeId).Select(i => i.Value).FirstOrDefault();
-
+                var centroid = Core.DataLayer.Geography.Get(context)
+                    .Where(i => i.GeographicLocationId == placeId)
+                    .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
+                    .Select(new Core.DataLayer.Projections.Geography.Centroid().Expression)
+                    .FirstOrDefault();
+                   
                 var data = Core.DataLayer.Business.ListNear(context, centroid, industryIds)
                     .Where(i => i.Distance < radius)
                     .OrderBy(i => i.Distance)

@@ -70,14 +70,14 @@ namespace SizeUp.Core.DataLayer
             {
                  output = Get(context)
                     .Where(i => i.County.State.SEOKey == stateSEOKey)
-                    .Select(new Projections.Place.Metro().Expression)
+                    .Select(new Projections.Place.State().Expression)
                     .FirstOrDefault();
             }
             else if (!string.IsNullOrEmpty(metroSEOKey))
             {
                 output = Get(context)
                     .Where(i => i.County.Metro.SEOKey == stateSEOKey)
-                    .Select(new Projections.Place.State().Expression)
+                    .Select(new Projections.Place.Metro().Expression)
                     .FirstOrDefault();
             }
             return output != null ? output : new Models.Place() { City = new Models.City(), County = new Models.County(), Metro = new Models.Metro(), State = new Models.State() };

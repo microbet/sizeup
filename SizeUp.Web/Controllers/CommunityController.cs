@@ -10,7 +10,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.Extensions;
 using SizeUp.Core;
 using SizeUp.Core.Serialization;
-using SizeUp.Core.DataLayer.Base;
+
 
 
 namespace SizeUp.Web.Controllers
@@ -28,7 +28,7 @@ namespace SizeUp.Web.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.BusinessCount = Core.DataLayer.Business.CountIn(context, WebContext.Current.CurrentIndustry.Id.Value, WebContext.Current.CurrentPlace.Id.Value);
+                ViewBag.BusinessCount = Core.DataLayer.Business.ListIn(context, WebContext.Current.CurrentIndustry.Id, WebContext.Current.CurrentPlace.Id.Value).Count();
                 return View();
             }
         }
@@ -65,8 +65,6 @@ namespace SizeUp.Web.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                //CurrentInfo.CurrentPlace = Core.DataLayer.Place.Get(context, null, null, null, metro);
-               // ViewBag.CurrentInfo = CurrentInfo;
                 ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
                 return View();
             }
@@ -98,7 +96,9 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.States = Core.DataLayer.State.Get(context)
+                ViewBag.States = Core.DataLayer.Place.List(context)
+                    .Select(i=>i.State)
+                    .Distinct()
                     .OrderBy(i => i.Name)
                     .ToList()
                     .InSetsOf(14);
@@ -118,12 +118,13 @@ namespace SizeUp.Web.Controllers
             {
                 ViewBag.State = CurrentInfo.CurrentPlace.State;
 
-                var places = Core.DataLayer.Place.List(context).Where(i=>i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
-                var industryData = Core.DataLayer.Base.IndustryData.City(context);
+                var places = Core.DataLayer.Place.List(context)
+                    .Where(i => i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
 
-                var data = places.Where(i => industryData.Where(d => d.CityId == i.City.Id).Count() > 0).ToList();
+                var industryData = Core.DataLayer.IndustryData.Get(context);
 
-                data.ForEach(i => i.DisplayName = data.Count(s => s.City.Name == i.City.Name && s.County.Name == i.County.Name) > 1 ? (i.County.Name + " County - " + i.City.TypeName) : (i.County.Name + " County"));
+                var data = places.Where(i => industryData.Where(d => d.GeographicLocationId == i.City.Id).Count() > 0).ToList();
+
                 var groups = data
                     .OrderBy(i=>i.City.Name)
                     .GroupBy(i=>i.City.Name.Substring(0,1));

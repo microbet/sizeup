@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Data.Spatial;
 using System.Threading.Tasks;
 using SizeUp.Data;
 using SizeUp.Core.DataLayer.Models;

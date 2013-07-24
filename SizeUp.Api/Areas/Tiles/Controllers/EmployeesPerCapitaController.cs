@@ -31,42 +31,18 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();
 
-                IQueryable<KeyValue<DbGeography, double?>> values = new List<KeyValue<DbGeography, double?>>().AsQueryable();//empty set
-                if (granularity == Granularity.ZipCode)
-                {
-                    var entities = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
-                    values = entities.GroupJoin(data, i => i.Id, i => i.ZipCodeId, (e, d) => new KeyValue<DbGeography, double?>
-                    {
-                        Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.EmployeesPerCapita).DefaultIfEmpty(null).FirstOrDefault()
-                    });
-                }
-                else if (granularity == Granularity.County)
-                {
-                    var entities = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
-                    values = entities.GroupJoin(data, i => i.Id, i => i.CountyId, (e, d) => new KeyValue<DbGeography, double?>
-                    {
-                        Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.EmployeesPerCapita).DefaultIfEmpty(null).FirstOrDefault()
-                    });
-                }
-                else if (granularity == Granularity.State)
-                {
-                    var entities = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
-                    values = entities.GroupJoin(data, i => i.Id, i => i.StateId, (e, d) => new KeyValue<DbGeography, double?>
-                    {
-                        Key = e.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.EmployeesPerCapita).DefaultIfEmpty(null).FirstOrDefault()
-                    });
-                }
 
-                var list = values.ToList();
+                var geos = Core.DataLayer.GeographicLocation.In(context, granularity, placeId, boundingGranularity);
+                var data = Core.DataLayer.IndustryData.Get(context).Where(i => i.IndustryId == industryId);
+
+                var list = geos
+                    .GroupJoin(data, i => i.Id, o => o.GeographicLocationId, (i, o) => new { IndustryData = o, GeographicLocation = i })
+                    .Select(i => new KeyValue<DbGeography, double?>
+                    {
+                        Key = i.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Polygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
+                        Value = i.IndustryData.Select(d => d.EmployeesPerCapita).FirstOrDefault()
+                    }).ToList();
 
                 var validValues = list
                     .Where(i => i.Value != null && i.Value > 0)
@@ -81,9 +57,9 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                     .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();
 
-                var geos = validValues.Union(invalidValues).ToList();
+                var output = validValues.Union(invalidValues).ToList();
 
-                tile.Draw(geos);
+                tile.Draw(output);
                 var stream = new System.IO.MemoryStream();
                 tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
                 return File(stream.GetBuffer(), "image/png");

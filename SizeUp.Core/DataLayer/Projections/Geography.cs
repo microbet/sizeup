@@ -50,37 +50,5 @@ namespace SizeUp.Core.DataLayer.Projections
                 }
             }
         }
-
-
-        public class ZoomExtent : Projection<Data.Place, Models.ZoomExtent>
-        {
-            public long MapWidth {get;set;}
-            public ZoomExtent(long mapWidth)
-            {
-                this.MapWidth = mapWidth;
-            }
-
-            public override Expression<Func<Data.Place, Models.ZoomExtent>> Expression
-            {
-                get
-                {
-                    double GLOBE_WIDTH = 256; // a constant in Google's map projection
-                    double ln2 = Math.Log(2);
-
-                    return i => new Models.ZoomExtent
-                    {
-                        PlaceId = i.Id,
-                        County = i.County.GeographicLocation.Geographies.Where(g=>g.GeographyClass.Name == Geo.GeographyClass.Calculation)
-                            .Select(g=>(int)Math.Round(SqlFunctions.Log(MapWidth * 360 / (g.East - g.West) / GLOBE_WIDTH).Value / ln2) - 1).FirstOrDefault(),
-
-                        Metro = i.County.Metro.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Geo.GeographyClass.Calculation)
-                            .Select(g => (int)Math.Round(SqlFunctions.Log(MapWidth * 360 / (g.East - g.West) / GLOBE_WIDTH).Value / ln2) - 1).FirstOrDefault(),
-
-                        State = i.County.State.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Geo.GeographyClass.Calculation)
-                            .Select(g => (int)Math.Round(SqlFunctions.Log(MapWidth * 360 / (g.East - g.West) / GLOBE_WIDTH).Value / ln2) - 1).FirstOrDefault()
-                    };
-                }
-            }
-        }
     }
 }

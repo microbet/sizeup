@@ -58,7 +58,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             }
             if (industryId != null)
             {
-                var industry = new Core.DataLayer.Models.Industry() { Id = industryId };
+                var industry = new Core.DataLayer.Models.Industry() { Id = (long)industryId };
                 WebContext.Current.CurrentIndustry = industry;
             }
 

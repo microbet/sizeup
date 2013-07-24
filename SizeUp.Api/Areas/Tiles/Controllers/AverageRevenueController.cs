@@ -32,59 +32,35 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();
 
-                IQueryable<KeyValue<DbGeography, long?>> values = new List<KeyValue<DbGeography,long?>>().AsQueryable();//empty set
-                if (granularity == Granularity.ZipCode)
-                {
-                    var entities = Core.DataLayer.Base.ZipCode.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.ZipCode(context).Where(i => i.IndustryId == industryId);
-                    values = entities.GroupJoin(data, i => i.Id, i => i.ZipCodeId, (e, d) => new KeyValue<DbGeography, long?>
-                    {
-                        Key = e.ZipCodeGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.AverageRevenue).DefaultIfEmpty(null).FirstOrDefault()
-                    });
-                }
-                else if (granularity == Granularity.County)
-                {
-                    var entities = Core.DataLayer.Base.County.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.County(context).Where(i => i.IndustryId == industryId);
-                    values = entities.GroupJoin(data, i => i.Id, i => i.CountyId, (e, d) => new KeyValue<DbGeography, long?>
-                    {
-                        Key = e.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.AverageRevenue).DefaultIfEmpty(null).FirstOrDefault()
-                    });
-                }
-                else if (granularity == Granularity.State)
-                {
-                    var entities = Core.DataLayer.Base.State.In(context, placeId, boundingGranularity);
-                    var data = IndustryData.State(context).Where(i => i.IndustryId == industryId);
-                    values = entities.GroupJoin(data, i => i.Id, i => i.StateId, (e, d) => new KeyValue<DbGeography, long?>
-                    {
-                        Key = e.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = d.Select(v => v.AverageRevenue).DefaultIfEmpty(null).FirstOrDefault()
-                    });
-                }
 
-                var list = values.ToList();
+                var geos = Core.DataLayer.GeographicLocation.In(context, granularity, placeId, boundingGranularity);
+                var data = Core.DataLayer.IndustryData.Get(context).Where(i => i.IndustryId == industryId);
 
-                var validValues = list                    
+                var list = geos
+                    .GroupJoin(data, i => i.Id, o => o.GeographicLocationId, (i, o) => new { IndustryData = o, GeographicLocation = i })
+                    .Select(i => new KeyValue<DbGeography, long?>
+                    {
+                        Key = i.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
+                        .Select(g => SqlSpatialFunctions.Reduce(g.Polygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
+                        Value = i.IndustryData.Select(d => d.AverageRevenue).FirstOrDefault()
+                    }).ToList();
+
+                var validValues = list
                     .Where(i => i.Value != null && i.Value > 0)
                     .NTileDescending(i => i.Value, colors.Length)
-                    .Select((i, index) => i.Where(g=>g.Key!= null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
+                    .Select((i, index) => i.Where(g => g.Key != null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
                     .SelectMany(i => i)
                     .ToList();
 
                 var invalidValues = list
                     .Where(i => i.Value == null || i.Value <= 0)
-                    .Where(i=>i.Key !=null)
+                    .Where(i => i.Key != null)
                     .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();
 
-                var geos = validValues.Union(invalidValues).ToList();
+                var output = validValues.Union(invalidValues).ToList();
 
-                tile.Draw(geos);
+                tile.Draw(output);
                 var stream = new System.IO.MemoryStream();
                 tile.Bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
                 return File(stream.GetBuffer(), "image/png");

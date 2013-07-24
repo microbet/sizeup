@@ -25,7 +25,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/GeographyBoundary/
 
-        public ActionResult Index(int x, int y, int zoom, long id, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, long id, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -34,55 +34,14 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 double tolerance = GetPolygonTolerance(zoom);
                 var boundingGeo = boundingBox.GetDbGeography();
 
-
-                IQueryable<KeyValue<DbGeography, long?>> entity = new List<KeyValue<DbGeography, long?>>().AsQueryable();
-                if (granularity == Core.DataLayer.Granularity.City)
-                {
-                    entity = Core.DataLayer.Base.City.Get(context).Where(i=>i.Id == id)
-                        .Select(i=> new KeyValue<DbGeography, long?>
-                        {
-                            Key = i.CityGeographies.Where(g=>g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                            Value = i.Id
-                        });
-                }
-                else if (granularity == Core.DataLayer.Granularity.County)
-                {
-                    entity = context.Counties.Where(i => i.Id == id)
-                        .Select(i => new KeyValue<DbGeography, long?>
-                        {
-                            Key = i.CountyGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                            Value = i.Id
-                        });
-                }
-                else if (granularity == Core.DataLayer.Granularity.Metro)
-                {
-                    entity = context.Metroes.Where(i => i.Id == id)
-                        .Select(i => new KeyValue<DbGeography, long?>
-                        {
-                            Key = i.MetroGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                            Value = i.Id
-                        });
-                }
-                else if (granularity == Core.DataLayer.Granularity.State)
-                {
-                    entity = context.States.Where(i => i.Id == id)
-                        .Select(i => new KeyValue<DbGeography, long?>
-                        {
-                            Key = i.StateGeographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                            .Select(g => SqlSpatialFunctions.Reduce(g.Geography.GeographyPolygon, tolerance)).FirstOrDefault(),
-                            Value = i.Id
-                        });
-                }
-
-
-                var geos = entity.Where(i => i.Key != null)
+                var geos = context.GeographicLocations
+                    .Where(i => i.Id == id)
+                    .SelectMany(i => i.Geographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
+                    .Select(g => SqlSpatialFunctions.Reduce(g.Polygon, tolerance).Intersection(boundingGeo)))
                     .ToList()
                     .Select(g => new GeographyEntity()
                     { 
-                        Geography = SqlGeography.Parse(g.Key.AsText()),
+                        Geography = SqlGeography.Parse(g.AsText()),
                         BorderColor = "#6495ED",
                         BorderOpacity = 200,
                         BorderWidth = 2

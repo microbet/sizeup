@@ -21,8 +21,8 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.Regions = Core.DataLayer.Division.Get(context).ToList();
-                ViewBag.States = Core.DataLayer.State.Get(context).OrderBy(i => i.Name).ToList();
+                ViewBag.Regions = Core.DataLayer.Place.List(context).Select(i => i.Region).Distinct().ToList();
+                ViewBag.States = Core.DataLayer.Place.List(context).Select(i => i.State).Distinct().OrderBy(i => i.Name).ToList();
                 return View();
             }
         }
@@ -31,8 +31,6 @@ namespace SizeUp.Web.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.Regions = Core.DataLayer.Division.Get(context).ToList();
-                ViewBag.States = Core.DataLayer.State.Get(context).OrderBy(i => i.Name).ToList();
                 return View();
             }
         }

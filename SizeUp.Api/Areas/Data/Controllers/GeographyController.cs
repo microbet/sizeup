@@ -54,9 +54,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Place.Get(context)
-                    .Where(i => i.Id == id)
-                    .Select(new Core.DataLayer.Projections.Geography.ZoomExtent(width).Expression)
+                var data = Core.DataLayer.Geography.ZoomExtent(context, width)
+                    .Where(i => i.PlaceId == id)
                     .FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
