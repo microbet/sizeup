@@ -46,8 +46,12 @@ namespace SizeUp.Core.DataLayer
                 data = data.Where(i => i.GeographicLocation.Id == place.Nation.Id);
             }
 
-            output = years.GroupJoin(data.Where(d => d.YearStarted >= startYear && d.YearStarted <= endYear)
-                .GroupBy(d => d.YearStarted), i => i, o => o.Key, (i,o)=> new LineChartItem<int, int>() { Key = i, Value = o.Select(v => v.Count()).DefaultIfEmpty(0).FirstOrDefault() }).ToList();
+            var raw = data.GroupBy(i => i.YearStarted)
+                .Select(i => new { Year = i.Key, Count = i.Count() })
+                .ToList();
+
+            output = years.GroupJoin(raw.Where(d => d.Year >= startYear && d.Year <= endYear)
+               ,i => i, o => o.Year, (i,o)=> new LineChartItem<int, int>() { Key = i, Value = o.Select(v => v.Count).DefaultIfEmpty(0).FirstOrDefault() }).ToList();
 
             return output;
         }
