@@ -70,6 +70,7 @@
     <Compile Include="API\APIPermissions.cs" />
     <Compile Include="API\APIContext.cs" />
     <Compile Include="Crypto\Crypto.cs" />
+    <Compile Include="DataLayer\Advertising.cs" />
     <Compile Include="DataLayer\AverageEmployees.cs" />
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\AverageSalary.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="DataLayer\EmployeesPerCapita.cs" />
     <Compile Include="DataLayer\Geography.cs" />
     <Compile Include="DataLayer\Healthcare.cs" />
+    <Compile Include="DataLayer\IndustryAttribute.cs" />
     <Compile Include="DataLayer\IndustryData.cs" />
     <Compile Include="DataLayer\CommonFilters.cs" />
     <Compile Include="DataLayer\Granularity.cs" />
@@ -89,6 +91,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataLayer\JobChange.cs" />
+    <Compile Include="DataLayer\Models\Advertising.cs" />
+    <Compile Include="DataLayer\Models\AdvertisingFilters.cs" />
     <Compile Include="DataLayer\Models\Band.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -125,6 +129,7 @@
     <Compile Include="DataLayer\Models\State.cs" />
     <Compile Include="DataLayer\Models\TurnoverChartItem.cs" />
     <Compile Include="DataLayer\Models\WorkersCompChartItem.cs" />
+    <Compile Include="DataLayer\Models\ZipCode.cs" />
     <Compile Include="DataLayer\Models\ZoomExtent.cs" />
     <Compile Include="DataLayer\Models\PercentageItem.cs" />
     <Compile Include="DataLayer\Models\PercentileItem.cs" />
