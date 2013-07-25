@@ -57,7 +57,7 @@ namespace SizeUp.Core.DataLayer
             var place = Core.DataLayer.Place.Get(context)
                 .Where(i => i.Id == placeId);
 
-            var value = raw.Where(i => i.GeographicLocationId == place.FirstOrDefault().CityId).Select(i => i.NetJobChange);
+            var value = raw.Where(i => i.GeographicLocationId == place.FirstOrDefault().CountyId).Select(i => i.NetJobChange);
 
             if (boundingGranularity == Granularity.County)
             {

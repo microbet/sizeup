@@ -62,6 +62,7 @@ namespace SizeUp.Core.DataLayer
 
             if (boundingGranularity == Granularity.County)
             {
+                var geo = place.Select(i => new KeyValue<long?, string> { Key = i.CountyId, Value = i.County.GeographicLocation.LongName }).FirstOrDefault();
                 raw = raw.Where(i => place.FirstOrDefault().County.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
                 output = raw.Select(i => new
                 {
@@ -77,6 +78,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (boundingGranularity == Granularity.Metro)
             {
+                var geo = place.Select(i => new KeyValue<long?, string> { Key = i.County.MetroId, Value = i.County.Metro.GeographicLocation.LongName }).FirstOrDefault();
                 raw = raw.Where(i => place.FirstOrDefault().County.Metro.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
                 output = raw.Select(i => new
                 {
@@ -92,6 +94,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (boundingGranularity == Granularity.State)
             {
+                var geo = place.Select(i => new KeyValue<long?, string> { Key = i.County.StateId, Value = i.County.State.GeographicLocation.LongName }).FirstOrDefault();
                 raw = raw.Where(i => place.FirstOrDefault().County.State.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
                 output = raw.Select(i => new
                 {
@@ -107,6 +110,7 @@ namespace SizeUp.Core.DataLayer
             }
             else if (boundingGranularity == Granularity.Nation)
             {
+                var geo = place.Select(i => new KeyValue<long?, string> { Key = i.County.State.NationId, Value = i.County.State.Nation.GeographicLocation.LongName }).FirstOrDefault();
                 output = raw.Select(i => new
                 {
                     place.FirstOrDefault().County.State.Nation.GeographicLocation.LongName,

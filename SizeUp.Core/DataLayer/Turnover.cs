@@ -49,7 +49,7 @@ namespace SizeUp.Core.DataLayer
         public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, Granularity boundingGranularity)
         {
             PercentileItem output = null;
-            var gran = Enum.GetName(typeof(Granularity), Granularity.City);
+            var gran = Enum.GetName(typeof(Granularity), Granularity.County);
 
             var raw = Core.DataLayer.IndustryData.Get(context)
                 .Where(i => i.IndustryId == industryId)
@@ -58,7 +58,7 @@ namespace SizeUp.Core.DataLayer
             var place = Core.DataLayer.Place.Get(context)
                 .Where(i => i.Id == placeId);
 
-            var value = raw.Where(i => i.GeographicLocationId == place.FirstOrDefault().CityId).Select(i => i.TurnoverRate);
+            var value = raw.Where(i => i.GeographicLocationId == place.FirstOrDefault().CountyId).Select(i => i.TurnoverRate);
 
             if (boundingGranularity == Granularity.County)
             {

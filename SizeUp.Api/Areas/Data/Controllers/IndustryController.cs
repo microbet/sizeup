@@ -20,7 +20,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Industry.Get(context, id);
+                var data = Core.DataLayer.Industry.Get(context, id).ToList();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

@@ -61,51 +61,78 @@ namespace SizeUp.Core.DataLayer
 
         public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, int year, Granularity granularity)
         {
-            var data = Core.DataLayer.BusinessData.Get(context)
-                       .GroupBy(i => new { i.GeographicLocation, i.Industry })
-                       .Select(i => new
-                       {
-                           i.Key.GeographicLocation,
-                           i.Key.Industry,
-                           Total = i.Count(),
-                           Filtered = i.Count(v => v.YearStarted <= year)
-                       })
-                       .Where(i => i.Industry.Id == industryId)
-                       .Where(i => i.Total > 0)
-                       .Where(i => i.Total >= CommonFilters.MinimumBusinessCount);
+            PercentileItem output = null;
 
-            var place = Core.DataLayer.Place.List(context)
-                .Where(i => i.Id == placeId)
-                .First();
+            var raw = Core.DataLayer.BusinessData.Get(context)
+                .Where(i => i.IndustryId == industryId);
 
-
+            KeyValue<long?, string> geo = new KeyValue<long?,string>();
             if (granularity == Granularity.City)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.City.Id);
+               geo = Core.DataLayer.Place.Get(context)
+                    .Where(i => i.Id == placeId)
+                    .Select(i => new KeyValue<long?, string>
+                    {
+                        Key = i.CityId,
+                        Value = i.City.GeographicLocation.LongName
+                    })
+                    .FirstOrDefault();
             }
             else if (granularity == Granularity.County)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.County.Id);
+                geo = Core.DataLayer.Place.Get(context)
+                     .Where(i => i.Id == placeId)
+                     .Select(i => new KeyValue<long?, string>
+                     {
+                         Key = i.CountyId,
+                         Value = i.County.GeographicLocation.LongName
+                     })
+                     .FirstOrDefault();
             }
             else if (granularity == Granularity.Metro)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.Metro.Id);
+                geo = Core.DataLayer.Place.Get(context)
+                     .Where(i => i.Id == placeId)
+                     .Select(i => new KeyValue<long?, string>
+                     {
+                         Key = i.County.MetroId,
+                         Value = i.County.Metro.GeographicLocation.LongName
+                     })
+                     .FirstOrDefault();
             }
             else if (granularity == Granularity.State)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.State.Id);
+                geo = Core.DataLayer.Place.Get(context)
+                      .Where(i => i.Id == placeId)
+                      .Select(i => new KeyValue<long?, string>
+                      {
+                          Key = i.County.StateId,
+                          Value = i.County.State.GeographicLocation.LongName
+                      })
+                      .FirstOrDefault();
             }
             else if (granularity == Granularity.Nation)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.Nation.Id);
+                geo = Core.DataLayer.Place.Get(context)
+                     .Where(i => i.Id == placeId)
+                     .Select(i => new KeyValue<long?, string>
+                     {
+                         Key = i.County.State.NationId,
+                         Value = i.County.State.Nation.GeographicLocation.LongName
+                     })
+                     .FirstOrDefault();
             }
 
-            return data.Select(i => new PercentileItem
+
+
+            raw = raw.Where(i => i.GeographicLocationId == geo.Key);
+            output = new PercentileItem
             {
-                Name = i.GeographicLocation.LongName,
-                Percentile = (((decimal)i.Filtered / ((decimal)i.Total + 1) * 100))
-            })
-                .FirstOrDefault(); 
+                Name = geo.Value,
+                Percentile = (((decimal)raw.Count(c => c.YearStarted <= year) / ((decimal)raw.Count()) * 100))
+            };
+
+            return output;
         }
     }
 }

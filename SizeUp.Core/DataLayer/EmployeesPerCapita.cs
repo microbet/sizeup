@@ -56,17 +56,16 @@ namespace SizeUp.Core.DataLayer
                 .Where(i => i.GeographicLocation.Granularity.Name == gran);
 
             var place = Core.DataLayer.Place.Get(context)
-                .Where(i => i.Id == placeId)
-                .FirstOrDefault();
+                .Where(i => i.Id == placeId);
 
-            var value = raw.Where(i=>i.GeographicLocationId == place.CityId).Select(i=>i.EmployeesPerCapita);
+            var value = raw.Where(i=>i.GeographicLocationId == place.FirstOrDefault().CityId).Select(i=>i.EmployeesPerCapita);
 
             if (boundingGranularity == Granularity.County)
             {
-                raw = raw.Where(i => place.County.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
+                raw = raw.Where(i => place.FirstOrDefault().County.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
                 output = raw.Select(i => new
                 {
-                    place.County.GeographicLocation.LongName,
+                    place.FirstOrDefault().County.GeographicLocation.LongName,
                     Total = raw.Count(),
                     Filtered = raw.Count(c => c.EmployeesPerCapita <= value.FirstOrDefault())
                 })
@@ -78,10 +77,10 @@ namespace SizeUp.Core.DataLayer
             }
             else if (boundingGranularity == Granularity.Metro)
             {
-                raw = raw.Where(i => place.County.Metro.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
+                raw = raw.Where(i => place.FirstOrDefault().County.Metro.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
                 output = raw.Select(i => new
                 {
-                    place.County.Metro.GeographicLocation.LongName,
+                    place.FirstOrDefault().County.Metro.GeographicLocation.LongName,
                     Total = raw.Count(),
                     Filtered = raw.Count(c => c.EmployeesPerCapita <= value.FirstOrDefault())
                 })
@@ -93,10 +92,10 @@ namespace SizeUp.Core.DataLayer
             }
             else if (boundingGranularity == Granularity.State)
             {
-                raw = raw.Where(i => place.County.State.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
+                raw = raw.Where(i => place.FirstOrDefault().County.State.GeographicLocation.GeographicLocations.Any(g => g.Id == i.GeographicLocationId));
                 output = raw.Select(i => new
                 {
-                    place.County.State.GeographicLocation.LongName,
+                    place.FirstOrDefault().County.State.GeographicLocation.LongName,
                     Total = raw.Count(),
                     Filtered = raw.Count(c => c.EmployeesPerCapita <= value.FirstOrDefault())
                 })
@@ -110,7 +109,7 @@ namespace SizeUp.Core.DataLayer
             {
                 output = raw.Select(i => new
                 {
-                    place.County.State.Nation.GeographicLocation.LongName,
+                    place.FirstOrDefault().County.State.Nation.GeographicLocation.LongName,
                     Total = raw.Count(),
                     Filtered = raw.Count(c => c.EmployeesPerCapita <= value.FirstOrDefault())
                 })
