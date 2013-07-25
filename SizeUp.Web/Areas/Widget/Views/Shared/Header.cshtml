@@ -2,7 +2,7 @@
 <div id="menu">
 <ul>
 @if(!ViewBag.Header.HideNavigation){
-if(ViewBag.CurrentInfo.CurrentPlace != null){
+if(ViewBag.CurrentInfo.CurrentPlace.Id != null){
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
 <li class="dashboard"><a class="disabled">My Business</a></li>
 }else{
