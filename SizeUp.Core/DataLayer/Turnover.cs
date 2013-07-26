@@ -53,7 +53,8 @@ namespace SizeUp.Core.DataLayer
 
             var raw = Core.DataLayer.IndustryData.Get(context)
                 .Where(i => i.IndustryId == industryId)
-                .Where(i => i.GeographicLocation.Granularity.Name == gran);
+                .Where(i => i.GeographicLocation.Granularity.Name == gran)
+                .Where(i => i.TurnoverRate != null && i.TurnoverRate > 0);
 
             var place = Core.DataLayer.Place.Get(context)
                 .Where(i => i.Id == placeId);
@@ -67,7 +68,7 @@ namespace SizeUp.Core.DataLayer
                 {
                     place.FirstOrDefault().County.GeographicLocation.LongName,
                     Total = raw.Count(),
-                    Filtered = raw.Count(c => c.TurnoverRate <= value.FirstOrDefault())
+                    Filtered = raw.Count(c => c.TurnoverRate >= value.FirstOrDefault())
                 })
                 .Select(i => new PercentileItem
                 {
@@ -82,7 +83,7 @@ namespace SizeUp.Core.DataLayer
                 {
                     place.FirstOrDefault().County.Metro.GeographicLocation.LongName,
                     Total = raw.Count(),
-                    Filtered = raw.Count(c => c.TurnoverRate <= value.FirstOrDefault())
+                    Filtered = raw.Count(c => c.TurnoverRate >= value.FirstOrDefault())
                 })
                 .Select(i => new PercentileItem
                 {
@@ -97,7 +98,7 @@ namespace SizeUp.Core.DataLayer
                 {
                     place.FirstOrDefault().County.State.GeographicLocation.LongName,
                     Total = raw.Count(),
-                    Filtered = raw.Count(c => c.TurnoverRate <= value.FirstOrDefault())
+                    Filtered = raw.Count(c => c.TurnoverRate >= value.FirstOrDefault())
                 })
                 .Select(i => new PercentileItem
                 {
@@ -111,7 +112,7 @@ namespace SizeUp.Core.DataLayer
                 {
                     place.FirstOrDefault().County.State.Nation.GeographicLocation.LongName,
                     Total = raw.Count(),
-                    Filtered = raw.Count(c => c.TurnoverRate <= value.FirstOrDefault())
+                    Filtered = raw.Count(c => c.TurnoverRate >= value.FirstOrDefault())
                 })
                 .Select(i => new PercentileItem
                 {

@@ -18,7 +18,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/TopPlaces/
-        /*
+        
         private BestPlacesFilters BuildFilters()
         {
             BestPlacesFilters f = new BestPlacesFilters();
@@ -58,7 +58,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "BestPlaces")]
-        public ActionResult Index(int industryId, Granularity granularity, long? regionId, long? stateId, int itemCount = 25)
+        public ActionResult Index(int industryId, Core.DataLayer.Granularity granularity, long? regionId, long? stateId, int itemCount = 25)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.BestPlaces.MaxResults"]);
             itemCount = Math.Min(maxResults, itemCount);
@@ -67,7 +67,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
             {
                 var output = Core.DataLayer.BestPlaces.Get(context, industryId, regionId, stateId, filters, granularity).Take(itemCount).ToList();
                 var cities = output.Select(i => i.Place.City.Id).ToList();
-                var counties = Core.DataLayer.Base.Place.Get(context).Where(i => cities.Contains(i.CityId)).Select(i => new { Id = i.CityId, County = i.County.Name }).ToList();
+                var counties = Core.DataLayer.Place.Get(context).Where(i => cities.Contains(i.CityId)).Select(i => new { Id = i.CityId, County = i.County.Name }).ToList();
                 output.ForEach(i => i.Place.City.Counties = counties.Where(c => c.Id == i.Place.City.Id).Select(c => new Core.DataLayer.Models.County { Name = c.County }).ToList());
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
@@ -75,7 +75,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
 
         [APIAuthorize(Role = "BestPlaces")]
-        public ActionResult Bands(int itemCount, int bands, int industryId, Granularity granularity, long? regionId, long? stateId)
+        public ActionResult Bands(int itemCount, int bands, int industryId, Core.DataLayer.Granularity granularity, long? regionId, long? stateId)
         {
             BestPlacesFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
@@ -85,7 +85,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-
+        /*
         [APIAuthorize(Role = "BestPlaces")]
         public ActionResult IndustryRanks(int rankCutoff, long placeId, Granularity granularity)
         {

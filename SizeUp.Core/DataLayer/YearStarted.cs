@@ -64,7 +64,8 @@ namespace SizeUp.Core.DataLayer
             PercentileItem output = null;
 
             var raw = Core.DataLayer.BusinessData.Get(context)
-                .Where(i => i.IndustryId == industryId);
+                .Where(i => i.IndustryId == industryId)
+                .Where(i => i.YearStarted != null);
 
             KeyValue<long?, string> geo = new KeyValue<long?,string>();
             if (granularity == Granularity.City)
@@ -129,7 +130,7 @@ namespace SizeUp.Core.DataLayer
             output = new PercentileItem
             {
                 Name = geo.Value,
-                Percentile = (((decimal)raw.Count(c => c.YearStarted <= year) / ((decimal)raw.Count()) * 100))
+                Percentile = (((decimal)raw.Count(c => c.YearStarted >= year) / ((decimal)raw.Count()) * 100))
             };
 
             return output;

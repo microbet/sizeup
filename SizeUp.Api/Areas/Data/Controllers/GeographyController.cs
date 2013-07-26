@@ -28,6 +28,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
                     .Where(i => i.GeographicLocationId == id)
                     .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                     .Select(new Core.DataLayer.Projections.Geography.Centroid().Expression)
+                    .Select(i => i.Value)
                     .FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -43,6 +44,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
                     .Where(i => i.GeographicLocationId == id)
                     .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                     .Select(new Core.DataLayer.Projections.Geography.BoundingBox().Expression)
+                    .Select(i=>i.Value)
                     .FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

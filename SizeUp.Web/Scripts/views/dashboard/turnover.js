@@ -220,9 +220,9 @@
             sizeup.api.data.getTurnover({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.State = data; }));
             sizeup.api.data.getTurnover({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Nation = data; }));
 
-            sizeup.api.data.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.Metro = data; }));
-            sizeup.api.data.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.State = data; }));
-            sizeup.api.data.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.Nation = data; }));
+            sizeup.api.data.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.METRO }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.Metro = data; }));
+            sizeup.api.data.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.STATE }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.State = data; }));
+            sizeup.api.data.getTurnoverPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.NATION }, turnoverPercentileNotifier.getNotifier(function (data) { turnoverPercentileData.Nation = data; }));
 
 
             sizeup.api.data.getJobChange({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.County = data; }));
@@ -230,9 +230,9 @@
             sizeup.api.data.getJobChange({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.State = data; }));
             sizeup.api.data.getJobChange({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, jobChangeChartNotifier.getNotifier(function (data) { jobChangeChartData.Nation = data; }));
 
-            sizeup.api.data.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.Metro = data; }));
-            sizeup.api.data.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.State = data; }));
-            sizeup.api.data.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.Nation = data; }));
+            sizeup.api.data.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.METRO }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.Metro = data; }));
+            sizeup.api.data.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.STATE }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.State = data; }));
+            sizeup.api.data.getJobChangePercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.NATION }, jobChangePercentileNotifier.getNotifier(function (data) { jobChangePercentileData.Nation = data; }));
 
 
 

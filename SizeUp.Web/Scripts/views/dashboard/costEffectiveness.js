@@ -102,17 +102,15 @@
             var employees = e.getState('employees');
             var salary = e.getState('salary');
             var revenue = e.getState('revenue');
+            me.data.enteredEmployees = employees;
+            me.data.enteredSalary = salary;
+            me.data.enteredRevenue = revenue;
 
-            if ((employees != me.data.enteredEmployees ||
-                salary != me.data.enteredSalary ||
-                revenue != me.data.enteredRevenue) &&
+            if (
                 employees != null &&
                 salary != null &&
                 revenue != null
                 ) {
-                me.data.enteredEmployees = employees;
-                me.data.enteredSalary = salary;
-                me.data.enteredRevenue = revenue;
                 setupReport();
             }
             else if (!(employees != null &&

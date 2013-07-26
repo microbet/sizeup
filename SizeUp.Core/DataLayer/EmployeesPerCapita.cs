@@ -53,7 +53,8 @@ namespace SizeUp.Core.DataLayer
 
             var raw = Core.DataLayer.IndustryData.Get(context)
                 .Where(i => i.IndustryId == industryId)
-                .Where(i => i.GeographicLocation.Granularity.Name == gran);
+                .Where(i => i.GeographicLocation.Granularity.Name == gran)
+                .Where(i => i.EmployeesPerCapita != null && i.EmployeesPerCapita > 0);
 
             var place = Core.DataLayer.Place.Get(context)
                 .Where(i => i.Id == placeId);
@@ -124,11 +125,11 @@ namespace SizeUp.Core.DataLayer
 
         public static List<Band<double>> Bands(SizeUpContext context, long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
         {
-            var data = Core.DataLayer.IndustryData.GetMinimumBusinessCount(context, granularity, placeId, boundingGranularity)
+            var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
                 .Where(i => i.IndustryId == industryId);
 
             var output = data.Select(i => i.EmployeesPerCapita)
-                .Where(i => i != null)
+                .Where(i => i != null && i > 0)
                 .ToList()
                 .NTileDescending(i => i, bands)
                 .Select(i => new Band<double>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })

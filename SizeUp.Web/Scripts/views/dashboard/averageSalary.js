@@ -270,22 +270,22 @@
 
             me.data.percentages = {};
 
-             if (data.County) {
+             if (data.County != null) {
                  var val = 50 + (data.County.Percentage / 2);
                  var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.County.Percentage));
                  me.data.percentages.County = data.County.Percentage < 0 ? percentage + ' below average' : data.County.Percentage == 0 ? ' average' : percentage + ' Above average';
             }
-            if (data.Metro) {
+             if (data.Metro != null) {
                 var val = 50 + (data.Metro.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Metro.Percentage));
                 me.data.percentages.Metro = data.Metro.Percentage < 0 ? percentage + ' below average' : data.Metro.Percentage == 0 ? ' average' : percentage + ' Above average';
             }
-            if (data.State) {
+             if (data.State != null) {
                 var val = 50 + (data.State.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.State.Percentage));
                 me.data.percentages.State = data.State.Percentage < 0 ? percentage + ' below average' : data.State.Percentage == 0 ? ' average' : percentage + ' Above average';
             }
-            if (data.Nation) {
+             if (data.Nation != null) {
                 var val = 50 + (data.Nation.Percentage / 2);
                 var percentage = sizeup.util.numbers.format.percentage(Math.abs(data.Nation.Percentage));
                 me.data.percentages.Nation = data.Nation.Percentage < 0 ? percentage + ' below average' : data.Nation.Percentage == 0 ? ' average' : percentage + ' Above average';

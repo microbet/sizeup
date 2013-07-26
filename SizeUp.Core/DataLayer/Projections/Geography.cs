@@ -13,38 +13,46 @@ namespace SizeUp.Core.DataLayer.Projections
 {
     public static class Geography
     {
-        public class Centroid : Projection<Data.Geography, Core.Geo.LatLng>
+        public class Centroid : Projection<Data.Geography, KeyValue<Data.GeographicLocation, Core.Geo.LatLng>>
         {
-            public override Expression<Func<Data.Geography, Core.Geo.LatLng>> Expression
+            public override Expression<Func<Data.Geography, KeyValue<Data.GeographicLocation, Core.Geo.LatLng>>> Expression
             {
                 get
                 {
-                    return i => new Geo.LatLng
+                    return i => new KeyValue<Data.GeographicLocation, Core.Geo.LatLng>
                     {
-                        Lat = i.CenterLat.Value,
-                        Lng = i.CenterLong.Value
+                        Key = i.GeographicLocation,
+                        Value = new Geo.LatLng
+                        {
+                            Lat = i.CenterLat.Value,
+                            Lng = i.CenterLong.Value
+                        }
                     };
                 }
             }
         }
 
-        public class BoundingBox : Projection<Data.Geography, Core.Geo.BoundingBox>
+        public class BoundingBox : Projection<Data.Geography, KeyValue<Data.GeographicLocation, Core.Geo.BoundingBox>>
         {
-            public override Expression<Func<Data.Geography, Core.Geo.BoundingBox>> Expression
+            public override Expression<Func<Data.Geography, KeyValue<Data.GeographicLocation, Core.Geo.BoundingBox>>> Expression
             {
                 get
                 {
-                    return i => new Geo.BoundingBox
+                    return i => new KeyValue<Data.GeographicLocation, Core.Geo.BoundingBox>
                     {
-                        SouthWest = new Geo.LatLng
+                        Key = i.GeographicLocation,
+                        Value = new Geo.BoundingBox
                         {
-                            Lat = i.South,
-                            Lng = i.West
-                        },
-                        NorthEast = new Geo.LatLng
-                        {
-                            Lat = i.North,
-                            Lng = i.East
+                            SouthWest = new Geo.LatLng
+                            {
+                                Lat = i.South,
+                                Lng = i.West
+                            },
+                            NorthEast = new Geo.LatLng
+                            {
+                                Lat = i.North,
+                                Lng = i.East
+                            }
                         }
                     };
                 }

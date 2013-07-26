@@ -29,11 +29,11 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Percentile(long industryId, long placeId, Core.DataLayer.Granularity boundingGranularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.EmployeesPerCapita.Percentile(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.EmployeesPerCapita.Percentile(context, industryId, placeId, boundingGranularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

@@ -55,6 +55,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
                     .Where(i => i.GeographicLocationId == placeId)
                     .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                     .Select(new Core.DataLayer.Projections.Geography.Centroid().Expression)
+                    .Select(i=>i.Value)
                     .FirstOrDefault();
                    
                 var data = Core.DataLayer.Business.ListNear(context, centroid, industryIds)

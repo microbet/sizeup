@@ -79,7 +79,7 @@ namespace SizeUp.Core.DataLayer
             return data.Select(i => new PercentageItem
             {
                 Name = i.GeographicLocation.LongName,
-                Percentage = (long)(((value - i.WorkersComp) / (double)i.WorkersComp)) * 100
+                Percentage = (long)((((value - i.WorkersComp) / (double)i.WorkersComp)) * 100)
             })
                 .FirstOrDefault(); 
         }

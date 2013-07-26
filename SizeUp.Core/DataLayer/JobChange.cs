@@ -52,7 +52,8 @@ namespace SizeUp.Core.DataLayer
 
             var raw = Core.DataLayer.IndustryData.Get(context)
                 .Where(i => i.IndustryId == industryId)
-                .Where(i => i.GeographicLocation.Granularity.Name == gran);
+                .Where(i => i.GeographicLocation.Granularity.Name == gran)
+                .Where(i => i.NetJobChange != null);
 
             var place = Core.DataLayer.Place.Get(context)
                 .Where(i => i.Id == placeId);

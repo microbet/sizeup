@@ -316,7 +316,12 @@ namespace SizeUp.Core.DataLayer
 
         public static IQueryable<Models.AdvertisingOutput> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
         {
-            var center = Core.DataLayer.Geography.Display(context).Where(i => i.GeographicLocationId == placeId).Select(new Projections.Geography.Centroid().Expression).FirstOrDefault();
+            var center = Core.DataLayer.Geography.Display(context)
+                .Where(i => i.GeographicLocationId == placeId)
+                .Select(new Projections.Geography.Centroid().Expression)
+                .Select(i=>i.Value)
+                .FirstOrDefault();
+
             DistanceEntity<Data.ZipCode>.DistanceEntityFilter dist = new DistanceEntity<Data.ZipCode>.DistanceEntityFilter(center);
 
             var zips = Core.DataLayer.GeographicLocation.Get(context, Granularity.ZipCode)

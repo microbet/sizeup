@@ -50,7 +50,8 @@ namespace SizeUp.Core.DataLayer
         public static PercentileItem Percentile(SizeUpContext context, long industryId, long placeId, long value, Granularity granularity)
         {
             var data = Core.DataLayer.BusinessData.Get(context)
-                        .Where(i => i.Industry.Id == industryId);
+                        .Where(i => i.Industry.Id == industryId)
+                        .Where(i => i.Employees != null && i.Employees > 0);
 
             var place = Core.DataLayer.Place.List(context)
                .Where(i => i.Id == placeId)
@@ -97,11 +98,11 @@ namespace SizeUp.Core.DataLayer
 
         public static List<Band<long>> Bands(SizeUpContext context, long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
         {
-            var data = Core.DataLayer.IndustryData.GetMinimumBusinessCount(context, granularity, placeId, boundingGranularity)
+            var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
                 .Where(i => i.IndustryId == industryId);
 
             var output = data.Select(i => i.AverageEmployees)
-                .Where(i=>i!= null)
+                .Where(i => i != null && i > 0)
                 .ToList()
                 .NTileDescending(i => i, bands)
                 .Select(i => new Band<long>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })

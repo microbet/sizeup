@@ -80,19 +80,19 @@ namespace SizeUp.Core.DataLayer
             return data.Select(i => new PercentageItem
             {
                 Name = i.GeographicLocation.LongName,
-                Percentage = (long)(((value - i.CostEffectiveness) / (double)i.CostEffectiveness)) * 100
+                Percentage = (long)((((value - i.CostEffectiveness) / (double)i.CostEffectiveness)) * 100)
             })
             .FirstOrDefault(); 
         }
 
         public static List<Band<double>> Bands(SizeUpContext context, long industryId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
         {
-            var data = Core.DataLayer.IndustryData.GetMinimumBusinessCount(context, granularity, placeId, boundingGranularity)
+            var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
                 .Where(i => i.IndustryId == industryId);
 
 
             var output = data.Select(i => i.CostEffectiveness)
-                .Where(i => i != null)
+                .Where(i => i != null && i > 0)
                 .ToList()
                 .NTileDescending(i => i, bands)
                 .Select(i => new Band<double>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })

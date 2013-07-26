@@ -431,10 +431,10 @@
             sizeup.api.data.getAverageEmployeesPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue, granularity: sizeup.api.granularity.NATION }, averageEmployeesPercentileNotifier.getNotifier(function (data) { averageEmployeesPercentileData.Nation = data; }));
 
 
-            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.County = data; }));
-            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.Metro = data; }));
-            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.State = data; }));
-            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.Nation = data; }));
+            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.COUNTY }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.County = data; }));
+            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.METRO }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.Metro = data; }));
+            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.STATE }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.State = data; }));
+            sizeup.api.data.getEmployeesPerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.NATION }, employeesPerCapitaPercentileNotifier.getNotifier(function (data) { employeesPerCapitaPercentileData.Nation = data; }));
 
         };
 

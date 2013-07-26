@@ -74,6 +74,7 @@
     <Compile Include="DataLayer\AverageEmployees.cs" />
     <Compile Include="DataLayer\AverageRevenue.cs" />
     <Compile Include="DataLayer\AverageSalary.cs" />
+    <Compile Include="DataLayer\BestPlaces.cs" />
     <Compile Include="DataLayer\Business.cs" />
     <Compile Include="DataLayer\BusinessData.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
@@ -97,6 +98,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataLayer\Models\BarChartItem.cs" />
+    <Compile Include="DataLayer\Models\BestPlaces.cs" />
+    <Compile Include="DataLayer\Models\BestPlacesFilters.cs" />
     <Compile Include="DataLayer\Models\Business.cs" />
     <Compile Include="DataLayer\Models\ChartItem.cs" />
     <Compile Include="DataLayer\Models\City.cs" />

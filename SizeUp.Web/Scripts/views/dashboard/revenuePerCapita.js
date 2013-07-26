@@ -273,10 +273,10 @@
             sizeup.api.data.getRevenuePerCapita({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, chartNotifier.getNotifier(function (data) { chartData.State = data; }));
             sizeup.api.data.getRevenuePerCapita({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, chartNotifier.getNotifier(function (data) { chartData.Nation = data; }));
 
-            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
-            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
-            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
-            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
+            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.COUNTY }, percentileNotifier.getNotifier(function (data) { percentileData.County = data; }));
+            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.METRO }, percentileNotifier.getNotifier(function (data) { percentileData.Metro = data; }));
+            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.STATE }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
+            sizeup.api.data.getRevenuePerCapitaPercentile({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, boundingGranularity: sizeup.api.granularity.NATION }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
 
 
         };
