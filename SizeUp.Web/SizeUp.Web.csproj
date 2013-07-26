@@ -192,6 +192,12 @@
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise.png" />
     <Content Include="Content\images\advertiseSmall.png" />
+    <Content Include="Content\images\apple-touch-icon-114x114-precomposed.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed-a.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed-c.png" />
+    <Content Include="Content\images\apple-touch-icon-57x57-precomposed-o.png" />
+    <Content Include="Content\images\apple-touch-icon-72x72-precomposed.png" />
     <Content Include="Content\images\btn_close.png" />
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\competeSmall.png" />
@@ -238,6 +244,7 @@
     <Content Include="Content\themes\highContrast\images\actionbutton.png" />
     <Content Include="Content\themes\highContrast\images\dashbuttons.png" />
     <Content Include="Content\themes\wide\wide.css" />
+    <Content Include="Content\thirdParty\add2home.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
@@ -349,6 +356,7 @@
     <Content Include="Scripts\prettify\lang-yaml.js" />
     <Content Include="Scripts\prettify\prettify.js" />
     <Content Include="Scripts\prettify\run_prettify.js" />
+    <Content Include="Scripts\thirdParty\add2home.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />

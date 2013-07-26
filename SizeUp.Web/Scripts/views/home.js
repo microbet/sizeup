@@ -1,7 +1,7 @@
 ﻿(function () {
     sizeup.core.namespace('sizeup.views.home');
     sizeup.views.home = function (opts) {
-
+        
         var me = {};
         var notifier = new sizeup.core.notifier(function () { init(); });
 
@@ -168,7 +168,6 @@
         };
 
         
-
         var publicObj = {
 
         };
