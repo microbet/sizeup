@@ -38,23 +38,29 @@ namespace SizeUp.Core.Geo
                 if (!IsLocalIpAddress(ip))
                 {
                     id = Cache[cacheKey] as long?;
+                    Geo geo = null;
                     if (id == null)
                     {
-                        XDocument xdoc = XDocument.Load(String.Format(GEOCoderAddress, ip));
-                        var geo = (from x in xdoc.Descendants("Response")
-                                   select new Geo()
-                                   {
-                                       CountryCode = (string)x.Element("CountryCode"),
-                                       Country = (string)x.Element("CountryName"),
-                                       RegionCode = (string)x.Element("RegionCode"),
-                                       Region = (string)x.Element("RegionName"),
-                                       City = (string)x.Element("City"),
-                                       PostalCode = (string)x.Element("ZipPostalCode"),
-                                       Lat = (string)x.Element("Latitude"),
-                                       Lng = (string)x.Element("Longitude"),
-                                       Ip = (string)x.Element("Ip")
-                                   }).FirstOrDefault();
-
+                        try
+                        {
+                            var req = WebRequest.CreateHttp(String.Format(GEOCoderAddress, ip));
+                            req.Timeout = 3;
+                            XDocument xdoc = XDocument.Load(req.GetResponse().GetResponseStream()/*String.Format(GEOCoderAddress, ip)*/);
+                            geo = (from x in xdoc.Descendants("Response")
+                                       select new Geo()
+                                       {
+                                           CountryCode = (string)x.Element("CountryCode"),
+                                           Country = (string)x.Element("CountryName"),
+                                           RegionCode = (string)x.Element("RegionCode"),
+                                           Region = (string)x.Element("RegionName"),
+                                           City = (string)x.Element("City"),
+                                           PostalCode = (string)x.Element("ZipPostalCode"),
+                                           Lat = (string)x.Element("Latitude"),
+                                           Lng = (string)x.Element("Longitude"),
+                                           Ip = (string)x.Element("Ip")
+                                       }).FirstOrDefault();
+                        }
+                        catch (Exception) {/*gobble gobble;*/}
                         if (geo != null)
                         {
                             using (var context = ContextFactory.SizeUpContext)

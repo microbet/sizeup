@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         [HttpGet]
         public ActionResult Current()
         {
-            var data = SizeUp.Core.Web.WebContext.Current.CurrentIndustry.Id != null ? SizeUp.Core.Web.WebContext.Current.CurrentIndustry :null;
+            var data = SizeUp.Core.Web.WebContext.Current.CurrentIndustry != null ? SizeUp.Core.Web.WebContext.Current.CurrentIndustry : null;
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

@@ -47,7 +47,7 @@ namespace SizeUp.Core.Web
         {
             var industry = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["industry"];
             var cookie = HttpContext.Current.Request.Cookies["industry"];
-            Core.DataLayer.Models.Industry output = new DataLayer.Models.Industry();
+            Core.DataLayer.Models.Industry output = null;
             using (var context = ContextFactory.SizeUpContext)
             {
                 if (!string.IsNullOrEmpty(industry))
@@ -74,7 +74,7 @@ namespace SizeUp.Core.Web
             var state = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["state"];
             var metro = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["metro"];
             var cookie =  HttpContext.Current.Request.Cookies["city"];
-            Core.DataLayer.Models.Place output = new DataLayer.Models.Place();
+            Core.DataLayer.Models.Place output = null;
             using (var context = ContextFactory.SizeUpContext)
             {
                 if (!string.IsNullOrEmpty(state) || !string.IsNullOrEmpty(county) || !string.IsNullOrEmpty(city) || !string.IsNullOrEmpty(metro))
@@ -90,7 +90,7 @@ namespace SizeUp.Core.Web
                     }
                 }
             }
-            return output;
+            return output == null ? new DataLayer.Models.Place() : output;
         }
 
         private void SetCurrentPlace(Core.DataLayer.Models.Place CurrentPlace)
@@ -188,7 +188,7 @@ namespace SizeUp.Core.Web
                 if (_currentIndustry == null)
                 {
                     _currentIndustry = GetCurrentIndustry();
-                    if (_currentIndustry.Id != null)
+                    if (_currentIndustry != null)
                     {
                         SetCurrentIndustry(_currentIndustry);
                     }
