@@ -5,7 +5,7 @@
 @section head{
 <title>Industry Reports in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</title>
 <link href="@Url.Content("~/Content/views/community/find.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
-
+<meta name="robots" content="noindex" />
 }
 
 
@@ -15,7 +15,7 @@
     <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
     <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey" class="inverse details">View Detailed Community Report</a>
 
-    <h1>Industry Reports for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
+    <h2>Industry Reports for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h2>
 
 
     @foreach(var col in ViewBag.Industries)
@@ -23,7 +23,7 @@
     <div class="col">
         @foreach (List<SizeUp.Core.DataLayer.Models.Industry> list in col)
         {
-        <h2>@list[0].ParentName</h2>
+        <h3>@list[0].ParentName</h3>
         <ul>
             @foreach(var item in list)
             {

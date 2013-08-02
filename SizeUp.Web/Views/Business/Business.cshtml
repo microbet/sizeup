@@ -54,7 +54,7 @@
 
     </address>
     <p class="description">
-        @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation is a @(ViewBag.Business.IsPublic ? "public" : "private") company categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name.
+        @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation is a @(ViewBag.Business.IsPublic ? "public" : "private") company categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>.
     </p>
     <ul class="features">
         <li class="dashboard">

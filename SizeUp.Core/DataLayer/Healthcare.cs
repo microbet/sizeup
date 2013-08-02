@@ -16,6 +16,7 @@ namespace SizeUp.Core.DataLayer
             var data = Core.DataLayer.IndustryData.Get(context, granularity)
                 .Where(i => i.IndustryId == industryId);
 
+
             var place = Core.DataLayer.Place.List(context)
                .Where(i => i.Id == placeId)
                .FirstOrDefault();
