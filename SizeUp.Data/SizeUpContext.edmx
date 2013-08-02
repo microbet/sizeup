@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SizeUp.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SizeUp.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SizeUpDataStoreContainer">
           <EntitySet Name="Attribute" EntityType="SizeUp.Data.Store.Attribute" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Band" EntityType="SizeUp.Data.Store.Band" store:Type="Tables" Schema="dbo" />
@@ -21,6 +21,7 @@
           <EntitySet Name="Division" EntityType="SizeUp.Data.Store.Division" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GeographicLocation" EntityType="SizeUp.Data.Store.GeographicLocation" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GeographicLocationGeographicLocation" EntityType="SizeUp.Data.Store.GeographicLocationGeographicLocation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GeographicLocationRank" EntityType="SizeUp.Data.Store.GeographicLocationRank" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Geography" EntityType="SizeUp.Data.Store.Geography" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GeographyClass" EntityType="SizeUp.Data.Store.GeographyClass" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="GeographySource" EntityType="SizeUp.Data.Store.GeographySource" store:Type="Tables" Schema="dbo" />
@@ -150,6 +151,14 @@
           <AssociationSet Name="FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation" Association="SizeUp.Data.Store.FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation">
             <End Role="GeographicLocation" EntitySet="GeographicLocation" />
             <End Role="GeographicLocationGeographicLocation" EntitySet="GeographicLocationGeographicLocation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeographicLocationRank_GeographicLocation" Association="SizeUp.Data.Store.FK_GeographicLocationRank_GeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+            <End Role="GeographicLocationRank" EntitySet="GeographicLocationRank" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeographicLocationRank_Industry" Association="SizeUp.Data.Store.FK_GeographicLocationRank_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="GeographicLocationRank" EntitySet="GeographicLocationRank" />
           </AssociationSet>
           <AssociationSet Name="FK_Geography_GeographicLocation" Association="SizeUp.Data.Store.FK_Geography_GeographicLocation">
             <End Role="GeographicLocation" EntitySet="GeographicLocation" />
@@ -1430,6 +1439,22 @@
           <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
           <Property Name="IntersectedGeographicLocationId" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="GeographicLocationRank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" />
+          <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+          <Property Name="TotalRevenue" Type="bigint" />
+          <Property Name="AverageRevenue" Type="bigint" />
+          <Property Name="RevenuePerCapita" Type="bigint" />
+          <Property Name="TotalEmployees" Type="bigint" />
+          <Property Name="AverageEmployees" Type="bigint" />
+          <Property Name="EmployeesPerCapita" Type="bigint" />
+        </EntityType>
         <EntityType Name="Geography">
           <Key>
             <PropertyRef Name="Id" />
@@ -1985,6 +2010,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GeographicLocationRank_GeographicLocation">
+          <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+          <End Role="GeographicLocationRank" Type="SizeUp.Data.Store.GeographicLocationRank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GeographicLocationRank">
+              <PropertyRef Name="GeographicLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeographicLocationRank_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+          <End Role="GeographicLocationRank" Type="SizeUp.Data.Store.GeographicLocationRank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GeographicLocationRank">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Geography_GeographicLocation">
           <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
           <End Role="Geography" Type="SizeUp.Data.Store.Geography" Multiplicity="*" />
@@ -2333,8 +2382,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SizeUp.Data" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2569,6 +2617,15 @@
           <AssociationSet Name="ZipCodePlace" Association="SizeUp.Data.ZipCodePlace">
             <End Role="Place" EntitySet="Places" />
             <End Role="ZipCode" EntitySet="ZipCodes" />
+          </AssociationSet>
+          <EntitySet Name="GeographicLocationRanks" EntityType="SizeUp.Data.GeographicLocationRank" />
+          <AssociationSet Name="FK_GeographicLocationRank_GeographicLocation" Association="SizeUp.Data.FK_GeographicLocationRank_GeographicLocation">
+            <End Role="GeographicLocation" EntitySet="GeographicLocations" />
+            <End Role="GeographicLocationRank" EntitySet="GeographicLocationRanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GeographicLocationRank_Industry" Association="SizeUp.Data.FK_GeographicLocationRank_Industry">
+            <End Role="Industry" EntitySet="Industries" />
+            <End Role="GeographicLocationRank" EntitySet="GeographicLocationRanks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Attribute">
@@ -3761,6 +3818,7 @@
           <NavigationProperty Name="ZipCode" Relationship="SizeUp.Data.FK_ZipCode_GeographicLocation" FromRole="GeographicLocation" ToRole="ZipCode" />
           <NavigationProperty Name="IntersectedGeographicLocations" Relationship="SizeUp.Data.GeographicLocationGeographicLocation" FromRole="IntersectedGeographicLocations" ToRole="GeographicLocations" />
           <NavigationProperty Name="GeographicLocations" Relationship="SizeUp.Data.GeographicLocationGeographicLocation" FromRole="GeographicLocations" ToRole="IntersectedGeographicLocations" />
+          <NavigationProperty Name="GeographicLocationRanks" Relationship="SizeUp.Data.FK_GeographicLocationRank_GeographicLocation" FromRole="GeographicLocation" ToRole="GeographicLocationRank" />
         </EntityType>
         <EntityType Name="Geography">
           <Key>
@@ -3828,6 +3886,7 @@
           <NavigationProperty Name="IndustryDatas" Relationship="SizeUp.Data.FK_IndustryData_Industry" FromRole="Industry" ToRole="IndustryData" />
           <NavigationProperty Name="IndustryKeywords" Relationship="SizeUp.Data.FK_IndustryKeyword_Industry" FromRole="Industry" ToRole="IndustryKeyword" />
           <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
+          <NavigationProperty Name="GeographicLocationRanks" Relationship="SizeUp.Data.FK_GeographicLocationRank_Industry" FromRole="Industry" ToRole="GeographicLocationRank" />
         </EntityType>
         <EntityType Name="IndustryData">
           <Key>
@@ -4567,6 +4626,48 @@
         <Association Name="ZipCodePlace">
           <End Role="Place" Type="SizeUp.Data.Place" Multiplicity="*" />
           <End Role="ZipCode" Type="SizeUp.Data.ZipCode" Multiplicity="*" />
+        </Association>
+        <EntityType Name="GeographicLocationRank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Int64" Name="GeographicLocationId" Nullable="false" />
+          <Property Type="Int64" Name="TotalRevenue" />
+          <Property Type="Int64" Name="AverageRevenue" />
+          <Property Type="Int64" Name="RevenuePerCapita" />
+          <Property Type="Int64" Name="TotalEmployees" />
+          <Property Type="Int64" Name="AverageEmployees" />
+          <Property Type="Int64" Name="EmployeesPerCapita" />
+          <NavigationProperty Name="GeographicLocation" Relationship="SizeUp.Data.FK_GeographicLocationRank_GeographicLocation" FromRole="GeographicLocationRank" ToRole="GeographicLocation" />
+          <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_GeographicLocationRank_Industry" FromRole="GeographicLocationRank" ToRole="Industry" />
+        </EntityType>
+        <Association Name="FK_GeographicLocationRank_GeographicLocation">
+          <End Type="SizeUp.Data.GeographicLocation" Role="GeographicLocation" Multiplicity="1" />
+          <End Type="SizeUp.Data.GeographicLocationRank" Role="GeographicLocationRank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GeographicLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GeographicLocationRank">
+              <PropertyRef Name="GeographicLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GeographicLocationRank_Industry">
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="0..1" />
+          <End Type="SizeUp.Data.GeographicLocationRank" Role="GeographicLocationRank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GeographicLocationRank">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -5998,6 +6099,23 @@
               <ScalarProperty Name="Id" ColumnName="ZipCodeId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="GeographicLocationRanks">
+            <EntityTypeMapping TypeName="SizeUp.Data.GeographicLocationRank">
+              <MappingFragment StoreEntitySet="GeographicLocationRank">
+                <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
+                <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
+                <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+                <ScalarProperty Name="RevenuePerCapita" ColumnName="RevenuePerCapita" />
+                <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
+                <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

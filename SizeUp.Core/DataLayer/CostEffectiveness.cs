@@ -23,23 +23,23 @@ namespace SizeUp.Core.DataLayer
 
             if (granularity == Granularity.City)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.City.Id);
+                data = data.Where(i => i.GeographicLocationId == place.City.Id);
             }
             else if (granularity == Granularity.County)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.County.Id);
+                data = data.Where(i => i.GeographicLocationId == place.County.Id);
             }
             else if (granularity == Granularity.Metro)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.Metro.Id);
+                data = data.Where(i => i.GeographicLocationId == place.Metro.Id);
             }
             else if (granularity == Granularity.State)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.State.Id);
+                data = data.Where(i => i.GeographicLocationId == place.State.Id);
             }
             else if (granularity == Granularity.Nation)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.Nation.Id);
+                data = data.Where(i => i.GeographicLocationId == place.Nation.Id);
             }
             return data
                 .Select(new Projections.CostEffectiveness.Chart().Expression)
@@ -58,23 +58,23 @@ namespace SizeUp.Core.DataLayer
 
             if (granularity == Granularity.City)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.City.Id);
+                data = data.Where(i => i.GeographicLocationId == place.City.Id);
             }
             else if (granularity == Granularity.County)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.County.Id);
+                data = data.Where(i => i.GeographicLocationId == place.County.Id);
             }
             else if (granularity == Granularity.Metro)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.Metro.Id);
+                data = data.Where(i => i.GeographicLocationId == place.Metro.Id);
             }
             else if (granularity == Granularity.State)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.State.Id);
+                data = data.Where(i => i.GeographicLocationId == place.State.Id);
             }
             else if (granularity == Granularity.Nation)
             {
-                data = data.Where(i => i.GeographicLocation.Id == place.Nation.Id);
+                data = data.Where(i => i.GeographicLocationId == place.Nation.Id);
             }
 
             return data.Select(i => new PercentageItem

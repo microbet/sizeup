@@ -105,6 +105,8 @@
     <Compile Include="DataLayer\Models\City.cs" />
     <Compile Include="DataLayer\Models\ConsumerExpenditureVariable.cs" />
     <Compile Include="DataLayer\Models\Demographics.cs" />
+    <Compile Include="DataLayer\Models\GeographicLocation.cs" />
+    <Compile Include="DataLayer\Models\GeographicLocationRank.cs" />
     <Compile Include="DataLayer\Models\HealthcareChart.cs" />
     <Compile Include="DataLayer\Models\JobChangeChartItem.cs" />
     <Compile Include="DataLayer\Models\Nation.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="DataLayer\Projections\AverageEmployees.cs" />
     <Compile Include="DataLayer\Projections\Business.cs" />
     <Compile Include="DataLayer\Projections\ConsumerExpenditureVariable.cs" />
+    <Compile Include="DataLayer\Projections\GeographicLocationRank.cs" />
     <Compile Include="DataLayer\Projections\Demographics.cs" />
     <Compile Include="DataLayer\Projections\JobChange.cs" />
     <Compile Include="DataLayer\Projections\TotalRevenue.cs" />

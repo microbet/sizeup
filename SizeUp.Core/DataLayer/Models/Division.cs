@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class Division
+    public class Division : GeographicLocation
     {
         public long? Id { get; set; }
         public string RegionName { get; set; }

@@ -25,14 +25,14 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        
+
         [APIAuthorize(Role = "IndustryData")]
         public ActionResult Percentile(long industryId, long placeId, long value, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet); 
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
         

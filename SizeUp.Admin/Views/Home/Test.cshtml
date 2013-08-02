@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+   <div id="container">
+       <input type="text" id="textbox" />
+       <ul>
+           @foreach (var b in ViewBag.Businesses)
+           {
+           <li>@b.Name</li>
+           }
+       </ul>
+   </div>
+
+
+    <script type="text/javascript">
+        var init = function () {
+
+            var $rows = $('#container li');
+            $('#textbox').keyup(function () {
+                var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+                $rows.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                    return !~text.indexOf(val);
+                }).hide();
+            });
+
+
+
+        };
+
+
+        $(document).ready(init);
+    </script>
+</body>
+</html>

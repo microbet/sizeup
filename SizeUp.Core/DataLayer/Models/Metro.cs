@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class Metro
+    public class Metro : GeographicLocation
     {
         public long? Id { get; set; }
         public string Name { get; set; }

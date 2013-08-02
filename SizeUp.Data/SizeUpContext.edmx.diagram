@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="846a1f780aec4b64905817e122d46321" Name="Diagram1" ZoomLevel="94">
+      <Diagram DiagramId="846a1f780aec4b64905817e122d46321" Name="Diagram1" ZoomLevel="66">
         <EntityTypeShape EntityType="SizeUp.Data.Attribute" Width="1.5" PointX="0.5" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.Band" Width="1.5" PointX="0.5" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.Business" Width="2.875" PointX="13" PointY="14.875" IsExpanded="true" />
@@ -88,6 +88,9 @@
         </AssociationConnector>
         <AssociationConnector Association="SizeUp.Data.ZipCodeCounty" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.ZipCodePlace" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SizeUp.Data.GeographicLocationRank" Width="2.375" PointX="24.875" PointY="9.375" />
+        <AssociationConnector Association="SizeUp.Data.FK_GeographicLocationRank_GeographicLocation" />
+        <AssociationConnector Association="SizeUp.Data.FK_GeographicLocationRank_Industry" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

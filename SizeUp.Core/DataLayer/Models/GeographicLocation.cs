@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SizeUp.Core.DataLayer.Models
 {
-    public class ZipCode : GeographicLocation
+    public class GeographicLocation
     {
-        public long? Id { get; set; }
-        public string Name { get; set; }
-        public string Zip { get; set; }
+        public string LongName { get; set; }
+        public string ShortName { get; set; }
     }
 }
