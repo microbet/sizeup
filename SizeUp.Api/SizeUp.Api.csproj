@@ -136,8 +136,8 @@
     <Compile Include="Areas\Data\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Data\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Data\Controllers\ConsumerExpendituresController.cs" />
+    <Compile Include="Areas\Data\Controllers\BestIndustriesController.cs" />
     <Compile Include="Areas\Data\Controllers\DemographicsController.cs" />
-    <Compile Include="Areas\Data\Controllers\GeographicLocationController.cs" />
     <Compile Include="Areas\Data\Controllers\GeographyController.cs" />
     <Compile Include="Areas\Data\DataAreaRegistration.cs" />
     <Compile Include="Areas\Data\Controllers\AverageEmployeesController.cs" />
@@ -227,6 +227,7 @@
     <Content Include="Views\Error\Error403.cshtml" />
     <Content Include="Views\JS\Overlay.cshtml" />
     <Content Include="Views\JS\OverlayAttributes.cshtml" />
+    <Content Include="Views\JS\Attributes.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

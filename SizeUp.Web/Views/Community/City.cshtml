@@ -20,7 +20,7 @@
             @foreach(var item in list)
             {
             <li>
-                <a href="/find-community/@item.State.SEOKey/@item.County.SEOKey/@item.City.SEOKey" class="inverse">@item.City.Name <span>(@item.DisplayName)</span></a>
+                <a href="/community/@item.State.SEOKey/@item.County.SEOKey/@item.City.SEOKey" class="inverse">@item.City.Name <span>(@item.DisplayName)</span></a>
             </li>
             }
         </ul>

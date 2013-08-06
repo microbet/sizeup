@@ -14,22 +14,37 @@
         me.data = {};
         me.container = $('#community');
         var templates = new sizeup.core.templates(me.container);
-        var notifier = new sizeup.core.notifier(function () { init(); });
-
-
+        
         me.content = {};
 
-        sizeup.api.data.getBoundingBox({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-        sizeup.api.data.getCentroid({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        sizeup.api.data.getDemographics({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
+
         var init = function () {
+            loadMap();
+            loadDemographics();
+            loadBestIndustries();
+        };
 
-            var bounds = new sizeup.maps.latLngBounds();
-            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox.SouthWest.Lat, lng: me.data.BoundingBox.SouthWest.Lng }));
-            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox.NorthEast.Lat, lng: me.data.BoundingBox.NorthEast.Lng }));
 
+        var loadMap = function () {
+            var notifier = new sizeup.core.notifier(function () { bindMap(); });
 
+            sizeup.api.data.getBoundingBox({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+            sizeup.api.data.getCentroid({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        };
 
+        var loadDemographics = function () {
+            var notifier = new sizeup.core.notifier(function () { bindDemographics(); });
+            sizeup.api.data.getDemographics({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.demographics = formatDemographics(data); }));
+        };
+
+        var loadBestIndustries = function () {
+            me.data.bestIndustries = {};
+            var notifier = new sizeup.core.notifier(function () { bindBestIndustries(); });
+            sizeup.api.data.getBestIndustries({ geographicLocationId: opts.CurrentPlace.City.Id, attribute: sizeup.api.attributes.TOTAL_REVENUE }, notifier.getNotifier(function (data) { me.data.bestIndustries.totalRevenue = data; }));
+            sizeup.api.data.getBestIndustries({ geographicLocationId: opts.CurrentPlace.City.Id, attribute: sizeup.api.attributes.REVENUE_PER_CAPITA }, notifier.getNotifier(function (data) { me.data.bestIndustries.revenuePerCapita = data; }));
+        };
+
+        var bindMap = function () {
             me.content.map = new sizeup.maps.map({
                 container: me.container.find('.map')
             });
@@ -42,19 +57,24 @@
                 }
             });
 
+            var bounds = new sizeup.maps.latLngBounds();
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox.SouthWest.Lat, lng: me.data.BoundingBox.SouthWest.Lng }));
+            bounds.extend(new sizeup.maps.latLng({ lat: me.data.BoundingBox.NorthEast.Lat, lng: me.data.BoundingBox.NorthEast.Lng }));
+
             me.content.map.setCenter(me.data.CityCenter);
             me.content.map.fitBounds(bounds);
             me.content.map.addOverlay(borderOverlay);
- 
-            me.content.report = me.container.find('.report').hide().removeClass('hidden');
-
-            me.content.report.html(templates.bind(templates.get('demographics'), me.data.Demographics));
-
-            me.content.report.show();
-            me.container.find('.loading').remove();
-
         };
 
+        var bindDemographics = function () {
+            me.content.demographics = {};
+            me.content.demographics.wrapper = me.container.find('.wrapper.demographics');
+            me.content.demographics.report = me.content.demographics.wrapper.find('.report').hide().removeClass('hidden');
+
+            me.content.demographics.report.html(templates.bind(templates.get('demographics'), me.data.demographics));
+            me.content.demographics.report.show();
+            me.content.demographics.wrapper.find('.loading').remove();
+        };
 
         var formatDemographics = function (data) {
             if (data.Population != null) {
@@ -76,7 +96,7 @@
                 data.MedianAge = sizeup.util.numbers.format.addCommas(data.MedianAge);
             }
             if (data.AverageHouseholdExpenditures != null) {
-                data.AverageHouseholdExpenditures = '$' + sizeup.util.numbers.format.addCommas(sizeup.util.numbers.format.round(data.AverageHouseholdExpenditures,0));
+                data.AverageHouseholdExpenditures = '$' + sizeup.util.numbers.format.addCommas(sizeup.util.numbers.format.round(data.AverageHouseholdExpenditures, 0));
             }
             if (data.HouseholdIncome != null) {
                 data.HouseholdIncome = '$' + sizeup.util.numbers.format.addCommas(data.HouseholdIncome);
@@ -136,17 +156,52 @@
                 data.CommuteTime = sizeup.util.numbers.format.round(data.CommuteTime, 0) + ' minutes';
             }
 
-            
-            
-            
-
-            
-
             return data;
         };
 
 
+        var bindBestIndustries = function () {
+            var data = formatBestIndustries();
 
+            me.content.bestIndustries = {};
+            me.content.bestIndustries.wrapper = me.container.find('.wrapper.bestIndustries');
+            me.content.bestIndustries.report = me.content.bestIndustries.wrapper.find('.report').hide().removeClass('hidden');
+
+            me.content.bestIndustries.report.html(templates.bind(templates.get('bestIndustries'), data));
+            me.content.bestIndustries.report.show();
+            me.content.bestIndustries.wrapper.find('.loading').remove();
+        };
+
+        var formatBestIndustries = function () {
+            var temp = {};
+            for (var x in me.data.bestIndustries) {
+                for (var y in me.data.bestIndustries[x]) {
+
+                    if (!temp[me.data.bestIndustries[x][y].Industry.Id]) {
+                        temp[me.data.bestIndustries[x][y].Industry.Id] = {
+                            Industry: me.data.bestIndustries[x][y].Industry
+                        };
+                    }
+                    temp[me.data.bestIndustries[x][y].Industry.Id][x] = { rank: sizeup.util.numbers.format.ordinal(me.data.bestIndustries[x][y].Rank), isTop: me.data.bestIndustries[x][y].Rank >= 1 && me.data.bestIndustries[x][y].Rank <= 3 };
+                }
+            }
+            var data = [];
+            for (var x in temp) {
+                data.push(temp[x]);
+            }
+            data.sort(sort);
+            return { Industries: data };
+        };
+
+        var sort = function (a, b) {
+            if (a.Industry.Name < b.Industry.Name)
+                return -1;
+            if (a.Industry.Name > b.Industry.Name)
+                return 1;
+            return 0;
+        };
+
+        init();
         var publicObj = {
 
         };

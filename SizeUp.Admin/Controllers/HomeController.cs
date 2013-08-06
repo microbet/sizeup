@@ -33,7 +33,7 @@ namespace SizeUp.Admin.Controllers
                -- new york 97017
                */
 
-                var x = Core.DataLayer.GeographicLocation.BestIndustries(context, id, attribute).Take(count).ToList();
+                var x = Core.DataLayer.BestIndustries.Get(context, id, attribute).Take(count).ToList();
 
 
                 return Json(x, JsonRequestBehavior.AllowGet);

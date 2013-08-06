@@ -75,6 +75,11 @@ namespace SizeUp.Api.Controllers
             return View();
         }
 
+        public ActionResult Attributes()
+        {
+            return View();
+        }
+
         public ActionResult OverlayAttributes()
         {
             if (APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired)

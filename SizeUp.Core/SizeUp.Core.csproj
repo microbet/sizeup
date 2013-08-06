@@ -78,6 +78,8 @@
     <Compile Include="DataLayer\Business.cs" />
     <Compile Include="DataLayer\BusinessData.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
+    <Compile Include="DataLayer\BestIndustries.cs" />
+    <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\GeographicLocations.cs" />
     <Compile Include="DataLayer\CostEffectiveness.cs" />
     <Compile Include="DataLayer\Demographics.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="DataLayer\Projections\AverageEmployees.cs" />
     <Compile Include="DataLayer\Projections\Business.cs" />
     <Compile Include="DataLayer\Projections\ConsumerExpenditureVariable.cs" />
+    <Compile Include="DataLayer\Projections\State.cs" />
     <Compile Include="DataLayer\Projections\GeographicLocationRank.cs" />
     <Compile Include="DataLayer\Projections\Demographics.cs" />
     <Compile Include="DataLayer\Projections\JobChange.cs" />
