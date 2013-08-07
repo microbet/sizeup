@@ -14,9 +14,8 @@ namespace SizeUp.Core.DataLayer
     {
         public static IQueryable<Data.IndustryData> Get(SizeUpContext context)
         {
-            return Core.DataLayer.Industry.Get(context)
-                .SelectMany(i => i.IndustryDatas)
-                .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == CommonFilters.TimeSlice.Industry.Quarter);
+            return context.IndustryDatas
+                .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == CommonFilters.TimeSlice.Industry.Quarter && i.Industry.IsActive && !i.Industry.IsDisabled);
         }
 
 
@@ -55,26 +54,6 @@ namespace SizeUp.Core.DataLayer
                 data = data.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == place.County.State.NationId));
             }
             return data;
-        }
-
-     
-
-        public static IQueryable<Data.IndustryData> GetMinimumBusinessCount(SizeUpContext context)
-        {
-            return Get(context)
-                .Where(i => i.GeographicLocation.BusinessDatas.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive && b.Business.InBusiness).Count() > CommonFilters.MinimumBusinessCount);
-        }
-
-        public static IQueryable<Data.IndustryData> GetMinimumBusinessCount(SizeUpContext context, Granularity granularity)
-        {
-            return Get(context, granularity)
-                .Where(i => i.GeographicLocation.BusinessDatas.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive && b.Business.InBusiness).Count() > CommonFilters.MinimumBusinessCount);
-        }
-
-        public static IQueryable<Data.IndustryData> GetMinimumBusinessCount(SizeUpContext context, Granularity granularity, long placeId, Granularity boundingGranularity)
-        {
-            return Get(context, granularity, placeId, boundingGranularity)
-                .Where(i => i.GeographicLocation.BusinessDatas.Where(b => b.IndustryId == i.IndustryId && b.Business.IsActive && b.Business.InBusiness).Count() > CommonFilters.MinimumBusinessCount);
         }
     }
 }

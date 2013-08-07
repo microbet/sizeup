@@ -12,8 +12,8 @@ namespace SizeUp.Core.DataLayer
     {
         public static JobChangeChartItem Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = Core.DataLayer.IndustryData.GetMinimumBusinessCount(context, granularity)
-                .Where(i => i.IndustryId == industryId);
+            var data = Core.DataLayer.IndustryData.Get(context, granularity)
+                .Where(i => i.IndustryId == industryId && i.BusinessCount > CommonFilters.MinimumBusinessCount);
 
             var place = Core.DataLayer.Place.List(context)
                .Where(i => i.Id == placeId)

@@ -12,11 +12,7 @@
    
 
 <div id="businessListings" class="industry">
-    <h1>@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
-    <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey" class="inverse details">View Detailed Community Report</a>
-
-    <h2>Business Listings by Industry for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h2>
-
+      <h1>Industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
 
     @foreach(var col in ViewBag.Industries)
     {
@@ -28,7 +24,7 @@
             @foreach(var item in list)
             {
             <li>
-                <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@item.SEOKey" class="inverse">@item.Name </a>
+                <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@item.SEOKey">@item.Name </a>
             </li>
             }
         </ul>

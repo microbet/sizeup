@@ -1550,6 +1550,7 @@
           <Property Name="Healthcare100To999EmployeesRank" Type="int" />
           <Property Name="Healthcare1000orMoreEmployeesRank" Type="int" />
           <Property Name="HealthcareByIndustryRank" Type="int" />
+          <Property Name="BusinessCount" Type="bigint" />
         </EntityType>
         <EntityType Name="IndustryDataBand">
           <Key>
@@ -3933,6 +3934,7 @@
           <NavigationProperty Name="GeographicLocation" Relationship="SizeUp.Data.FK_IndustryData_GeographicLocation" FromRole="IndustryData" ToRole="GeographicLocation" />
           <NavigationProperty Name="Industry" Relationship="SizeUp.Data.FK_IndustryData_Industry" FromRole="IndustryData" ToRole="Industry" />
           <NavigationProperty Name="Bands" Relationship="SizeUp.Data.IndustryDataBand" FromRole="IndustryData" ToRole="Band" />
+          <Property Type="Int64" Name="BusinessCount" />
         </EntityType>
         <EntityType Name="IndustryKeyword">
           <Key>
@@ -5886,6 +5888,7 @@
           <EntitySetMapping Name="IndustryDatas">
             <EntityTypeMapping TypeName="SizeUp.Data.IndustryData">
               <MappingFragment StoreEntitySet="IndustryData">
+                <ScalarProperty Name="BusinessCount" ColumnName="BusinessCount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />

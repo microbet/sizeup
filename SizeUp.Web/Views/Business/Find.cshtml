@@ -10,12 +10,9 @@
 }
 
 <div id="businessListings" class="find">
-    <h1>@ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
+    <h1>Businesses in @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
 
     <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" class="inverse details">View Detailed Industry Report</a>
-
-    <h2>Businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName) categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name</h2>
-
 
     @foreach(var col in ViewBag.Businesses)
     {

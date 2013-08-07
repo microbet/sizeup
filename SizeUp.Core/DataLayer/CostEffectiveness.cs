@@ -13,8 +13,8 @@ namespace SizeUp.Core.DataLayer
     {
         public static BarChartItem<double?> Chart(SizeUpContext context, long industryId, long placeId, Granularity granularity)
         {
-            var data = Core.DataLayer.IndustryData.GetMinimumBusinessCount(context)
-               .Where(i => i.IndustryId == industryId)
+            var data = Core.DataLayer.IndustryData.Get(context)
+               .Where(i => i.IndustryId == industryId && i.BusinessCount > CommonFilters.MinimumBusinessCount)
                .Where(i => i.CostEffectiveness != null);
 
             var place = Core.DataLayer.Place.List(context)

@@ -8,12 +8,12 @@
 #community.city ul {  margin: 0 0 2em 2em; }
 #community.city a span { color: #999; font-weight:normal;}
 
-#community.industry .col { width:40em; margin:0 0 0 2em; }
+#community.industry .col { width:47%; margin:0 0 0 2em; }
 #community.industry h2 { font-size: 1.5em; color: #606060; margin: 0 0 0.5em 0; }
-#community.industry h3 { color: #999999; font-size: 1.5em; margin: 0 0 0.5em; width: 40em; font-weight:bold;}
+#community.industry h3 { font-size: 1.3em; margin: 0 0 0.5em; width: 40em; font-weight:bold;}
 #community.industry ul {  margin: 0 0 3em 2em; }
 #community.industry ul li { margin: 0 0 0.5em 0; }
-#community.industry a.details { margin: 0 0 2em 0; display:inline-block;}
+#community.industry a.details { margin: 2em 0 2em 0; display:block;}
 
 
 

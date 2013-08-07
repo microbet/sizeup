@@ -31553,6 +31553,30 @@ namespace SizeUp.Data
         private Nullable<global::System.Int32> _HealthcareByIndustryRank;
         partial void OnHealthcareByIndustryRankChanging(Nullable<global::System.Int32> value);
         partial void OnHealthcareByIndustryRankChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> BusinessCount
+        {
+            get
+            {
+                return _BusinessCount;
+            }
+            set
+            {
+                OnBusinessCountChanging(value);
+                ReportPropertyChanging("BusinessCount");
+                _BusinessCount = StructuralObject.SetValidValue(value, "BusinessCount");
+                ReportPropertyChanged("BusinessCount");
+                OnBusinessCountChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _BusinessCount;
+        partial void OnBusinessCountChanging(Nullable<global::System.Int64> value);
+        partial void OnBusinessCountChanged();
 
         #endregion
 

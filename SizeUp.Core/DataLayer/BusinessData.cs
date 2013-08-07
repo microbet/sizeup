@@ -13,8 +13,7 @@ namespace SizeUp.Core.DataLayer
     {
         public static IQueryable<Data.BusinessData> Get(SizeUpContext context)
         {
-            return Core.DataLayer.Industry.Get(context)
-                .SelectMany(i => i.BusinessDatas)
+            return context.BusinessDatas
                 .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == CommonFilters.TimeSlice.Industry.Quarter);
         }
     }

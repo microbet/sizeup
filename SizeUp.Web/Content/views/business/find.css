@@ -8,12 +8,13 @@
 #businessListings.city ul {  margin: 0 0 2em 2em; }
 #businessListings.city a span { color: #999; font-weight:normal;}
 
-#businessListings.industry .col { width:40em; margin:0 0 0 2em; }
+
+#businessListings.industry .col { width:47%; margin:0 0 0 2em; }
 #businessListings.industry h2 { font-size: 1.5em; color: #606060; margin: 0 0 0.5em 0; }
-#businessListings.industry h3 { color: #999999; font-size: 1.5em; margin: 0 0 0.5em; width: 40em; font-weight:bold; }
+#businessListings.industry h3 { font-size: 1.3em; margin: 0 0 0.5em; width: 40em; font-weight:bold;}
 #businessListings.industry ul {  margin: 0 0 3em 2em; }
 #businessListings.industry ul li { margin: 0 0 0.5em 0; }
-#businessListings.industry a.details { margin: 0 0 2em 0; display:inline-block;}
+#businessListings.industry a.details { margin: 2em 0 2em 0; display:block;}
 
 
 
