@@ -27,6 +27,7 @@
           <EntitySet Name="GeographySource" EntityType="SizeUp.Data.Store.GeographySource" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Granularity" EntityType="SizeUp.Data.Store.Granularity" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Industry" EntityType="SizeUp.Data.Store.Industry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustryCity" EntityType="SizeUp.Data.Store.IndustryCity" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryData" EntityType="SizeUp.Data.Store.IndustryData" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryDataBand" EntityType="SizeUp.Data.Store.IndustryDataBand" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
@@ -179,6 +180,14 @@
           <AssociationSet Name="FK_industry_NAICS" Association="SizeUp.Data.Store.FK_industry_NAICS">
             <End Role="NAICS" EntitySet="NAICS" />
             <End Role="Industry" EntitySet="Industry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryCity_City" Association="SizeUp.Data.Store.FK_IndustryCity_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="IndustryCity" EntitySet="IndustryCity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndustryCity_Industry" Association="SizeUp.Data.Store.FK_IndustryCity_Industry">
+            <End Role="Industry" EntitySet="Industry" />
+            <End Role="IndustryCity" EntitySet="IndustryCity" />
           </AssociationSet>
           <AssociationSet Name="FK_IndustryData_GeographicLocation" Association="SizeUp.Data.Store.FK_IndustryData_GeographicLocation">
             <End Role="GeographicLocation" EntitySet="GeographicLocation" />
@@ -1508,6 +1517,14 @@
           <Property Name="ParentId" Type="bigint" />
           <Property Name="NAICSId" Type="bigint" />
         </EntityType>
+        <EntityType Name="IndustryCity">
+          <Key>
+            <PropertyRef Name="CityId" />
+            <PropertyRef Name="IndustryId" />
+          </Key>
+          <Property Name="CityId" Type="bigint" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="IndustryData">
           <Key>
             <PropertyRef Name="Id" />
@@ -2095,6 +2112,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IndustryCity_City">
+          <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+          <End Role="IndustryCity" Type="SizeUp.Data.Store.IndustryCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryCity">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndustryCity_Industry">
+          <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
+          <End Role="IndustryCity" Type="SizeUp.Data.Store.IndustryCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Industry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IndustryCity">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_IndustryData_GeographicLocation">
           <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
           <End Role="IndustryData" Type="SizeUp.Data.Store.IndustryData" Multiplicity="*" />
@@ -2628,6 +2669,10 @@
             <End Role="Industry" EntitySet="Industries" />
             <End Role="GeographicLocationRank" EntitySet="GeographicLocationRanks" />
           </AssociationSet>
+          <AssociationSet Name="IndustryCity" Association="SizeUp.Data.IndustryCity">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Industry" EntitySet="Industries" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Attribute">
           <Key>
@@ -2721,6 +2766,7 @@
           <NavigationProperty Name="Places" Relationship="SizeUp.Data.FK_Place_City" FromRole="City" ToRole="Place" />
           <NavigationProperty Name="Businesses" Relationship="SizeUp.Data.BusinessCity" FromRole="City" ToRole="Business" />
           <NavigationProperty Name="Counties" Relationship="SizeUp.Data.CityCounty" FromRole="City" ToRole="County" />
+          <NavigationProperty Name="Industries" Relationship="SizeUp.Data.IndustryCity" FromRole="City" ToRole="Industry" />
         </EntityType>
         <EntityType Name="CityType">
           <Key>
@@ -3888,6 +3934,7 @@
           <NavigationProperty Name="IndustryKeywords" Relationship="SizeUp.Data.FK_IndustryKeyword_Industry" FromRole="Industry" ToRole="IndustryKeyword" />
           <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
           <NavigationProperty Name="GeographicLocationRanks" Relationship="SizeUp.Data.FK_GeographicLocationRank_Industry" FromRole="Industry" ToRole="GeographicLocationRank" />
+          <NavigationProperty Name="Cities" Relationship="SizeUp.Data.IndustryCity" FromRole="Industry" ToRole="City" />
         </EntityType>
         <EntityType Name="IndustryData">
           <Key>
@@ -4670,6 +4717,10 @@
               <PropertyRef Name="IndustryId" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="IndustryCity">
+          <End Type="SizeUp.Data.City" Role="City" Multiplicity="*" />
+          <End Type="SizeUp.Data.Industry" Role="Industry" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -6119,6 +6170,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="IndustryCity" TypeName="SizeUp.Data.IndustryCity" StoreEntitySet="IndustryCity">
+            <EndProperty Name="Industry">
+              <ScalarProperty Name="Id" ColumnName="IndustryId" />
+            </EndProperty>
+            <EndProperty Name="City">
+              <ScalarProperty Name="Id" ColumnName="CityId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

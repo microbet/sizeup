@@ -71,6 +71,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "ZipCodePlace", "Place", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Place), "ZipCode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.ZipCode))]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_GeographicLocationRank_GeographicLocation", "GeographicLocation", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.GeographicLocation), "GeographicLocationRank", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.GeographicLocationRank), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data", "FK_GeographicLocationRank_Industry", "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(SizeUp.Data.Industry), "GeographicLocationRank", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.GeographicLocationRank), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data", "IndustryCity", "City", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.City), "Industry", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.Industry))]
 
 #endregion
 
@@ -2880,6 +2881,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<County>("SizeUp.Data.CityCounty", "County", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "IndustryCity", "Industry")]
+        public EntityCollection<Industry> Industries
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Industry>("SizeUp.Data.IndustryCity", "Industry");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Industry>("SizeUp.Data.IndustryCity", "Industry", value);
                 }
             }
         }
@@ -30600,6 +30623,28 @@ namespace SizeUp.Data
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GeographicLocationRank>("SizeUp.Data.FK_GeographicLocationRank_Industry", "GeographicLocationRank", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data", "IndustryCity", "City")]
+        public EntityCollection<City> Cities
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<City>("SizeUp.Data.IndustryCity", "City");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<City>("SizeUp.Data.IndustryCity", "City", value);
                 }
             }
         }

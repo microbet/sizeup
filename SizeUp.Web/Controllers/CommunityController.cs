@@ -22,13 +22,18 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult CommunityWithIndustry()
         {
-            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry.Id == null)
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
             {
                 throw new HttpException(404, "Page Not Found");
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                ViewBag.BusinessCount = Core.DataLayer.Business.ListIn(context, WebContext.Current.CurrentIndustry.Id, WebContext.Current.CurrentPlace.Id.Value).Count();
+                var c= Core.DataLayer.Business.ListIn(context, WebContext.Current.CurrentIndustry.Id, WebContext.Current.CurrentPlace.Id.Value).Count();
+                if (c == 0)
+                {
+                    throw new HttpException(404, "Page Not Found");
+                }
+                ViewBag.BusinessCount = c;
                 return View();
             }
         }

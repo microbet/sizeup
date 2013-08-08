@@ -91,6 +91,7 @@
         <EntityTypeShape EntityType="SizeUp.Data.GeographicLocationRank" Width="2.375" PointX="24.875" PointY="9.375" />
         <AssociationConnector Association="SizeUp.Data.FK_GeographicLocationRank_GeographicLocation" />
         <AssociationConnector Association="SizeUp.Data.FK_GeographicLocationRank_Industry" />
+        <AssociationConnector Association="SizeUp.Data.IndustryCity" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

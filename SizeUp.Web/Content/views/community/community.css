@@ -13,7 +13,7 @@
 #community .report .col { width: 47%; display:inline-block; vertical-align:top; padding:1em; text-align:left; }
 #community .report .col ul { margin: 0 0 2.5em 0; }
 #community .report .col ul li { margin: 0.5em 0; }
-#community .report .col ul li .label { width: 80%; display:inline-block; color:#909090; }
+#community .report .col ul li .label { width: 80%; display:inline-block; }
 #community .report .col ul li .value { width: 20%; display:inline-block; text-align:right;}
 #community .report .col ul li .value.nodata { color: #ccc; }
 

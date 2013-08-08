@@ -17,5 +17,20 @@ namespace SizeUp.Core.DataLayer.Models
             public string City { get; set; }
             public string Industry { get; set; }
         }
+
+        public class Community
+        {
+            public string City { get; set; }
+            public string County { get; set; }
+            public string State { get; set; }
+        }
+
+        public class CommunityIndustry
+        {
+            public string Industry { get; set; }
+            public string City { get; set; }
+            public string County { get; set; }
+            public string State { get; set; }
+        }
     }
 }
