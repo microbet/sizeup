@@ -2,15 +2,20 @@
     Layout = null;
 }<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    @foreach(var x  in ViewBag.Community){
+    @for(var x = 0;x < ViewBag.BusinessCount;x+=50000){
    <sitemap>
-      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/@x.State/@x.County/@x.City/</loc>
+      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/business/?index=@x</loc>
    </sitemap>
     }
-      @foreach (var x in ViewBag.IndustryCommunity)
-      {
+     @for(var x = 0;x < ViewBag.CommunityCount;x+=50000){
    <sitemap>
-      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/@x.State/@x.County/@x.City/@x.Industry/</loc>
+      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/community/?index=@x</loc>
    </sitemap>
     }
+     @for(var x = 0;x < ViewBag.CommunityIndustryCount;x+=50000){
+   <sitemap>
+      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/communityIndustry/?index=@x</loc>
+   </sitemap>
+    }
+
 </sitemapindex>

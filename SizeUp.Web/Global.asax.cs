@@ -193,13 +193,7 @@ namespace SizeUp.Web
           );
 
 
-            routes.MapRoute(
-                "Sitemap", // Route name
-                "sitemap/{state}/{county}/{city}/{industry}", // URL with parameters
-                new { controller = "Sitemap", action = "Index", industry = UrlParameter.Optional  }, // Parameter defaults
-                new string[] { "SizeUp.Web.Controllers" }
-            );
-
+        
 
 
             routes.MapRoute(
