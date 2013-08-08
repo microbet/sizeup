@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    @for(var x = 0;x < ViewBag.BusinessCount;x+=50000){
+   <sitemap>
+      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/business/?index=@x</loc>
+   </sitemap>
+    }
+     @for (var x = 0; x < ViewBag.CommunityCount; x += 50000)
+     {
+   <sitemap>
+      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/community/?index=@x</loc>
+   </sitemap>
+    }
+     @for (var x = 0; x < ViewBag.IndustryCommunityCount; x += 50000)
+     {
+   <sitemap>
+      <loc>http://@SizeUp.Core.Web.WebContext.Current.Domain/sitemap/communityIndustry/?index=@x</loc>
+   </sitemap>
+    }
+
+</sitemapindex>

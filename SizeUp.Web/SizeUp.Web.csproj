@@ -179,6 +179,7 @@
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SitemapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -525,6 +526,10 @@
     <Content Include="Views\BestPlaces\PickIndustry.cshtml" />
     <Content Include="Views\Developers\Index.cshtml" />
     <Content Include="Views\Developers\Documentation.cshtml" />
+    <Content Include="Views\Sitemap\Index.cshtml" />
+    <Content Include="Views\Sitemap\Community.cshtml" />
+    <Content Include="Views\Sitemap\Business.cshtml" />
+    <Content Include="Views\Sitemap\CommunityIndustry.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

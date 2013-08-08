@@ -40,14 +40,22 @@ namespace SizeUp.Web.Controllers
             {
                 ViewBag.State = CurrentInfo.CurrentPlace.State;
 
-                var places = Core.DataLayer.Place.List(context)
-                    .Where(i => i.State.Id == CurrentInfo.CurrentPlace.State.Id.Value);
 
-                var industryData = Core.DataLayer.IndustryData.Get(context);
 
-                var data = places.Where(i => industryData.Any(d => d.GeographicLocationId == i.City.Id)).ToList();
+                var places = Core.DataLayer.Place.Get(context)
+                    .Where(i => i.City.StateId == CurrentInfo.CurrentPlace.State.Id.Value)
+                    .Where(i =>
+                        i.City.GeographicLocation.IndustryDatas
+                        .Any(d =>
+                            d.Year == Core.DataLayer.CommonFilters.TimeSlice.Industry.Year &&
+                            d.Quarter == Core.DataLayer.CommonFilters.TimeSlice.Industry.Quarter &&
+                            d.Industry.IsActive && !d.Industry.IsDisabled))
+                    .Select(new Core.DataLayer.Projections.Place.Default().Expression);
 
-                var groups = data
+
+
+                var groups = places
+                    .ToList()
                     .OrderBy(i => i.City.Name)
                     .GroupBy(i => i.City.Name.Substring(0, 1));
 
