@@ -19,11 +19,11 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/Demographics/
         
         [APIAuthorize(Role = "Demographics")]
-        public ActionResult Index(long id, Core.DataLayer.Granularity granularity)
+        public ActionResult Index(long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Demographics.Get(context, id, granularity);
+                var data = Demographics.Get(context, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

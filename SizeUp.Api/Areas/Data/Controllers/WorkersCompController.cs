@@ -19,22 +19,22 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/WorkersComp/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State)
+        public ActionResult Chart(long industryId, long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.WorkersComp.Chart(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.WorkersComp.Chart(context, industryId, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentage(int industryId, long placeId, double value, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State)
+        public ActionResult Percentage(int industryId, long geographicLocationId, double value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.WorkersComp.Percentage(context, industryId, placeId, value, granularity);
+                var obj = Core.DataLayer.WorkersComp.Percentage(context, industryId, geographicLocationId, value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

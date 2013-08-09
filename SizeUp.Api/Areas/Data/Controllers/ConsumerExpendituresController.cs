@@ -18,11 +18,11 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "ConsumerExpenditures")]
-        public ActionResult Bands(int variableId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
+        public ActionResult Bands(int variableId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var output = Core.DataLayer.ConsumerExpenditures.Bands(context, variableId, placeId, bands, granularity, boundingGranularity);
+                var output = Core.DataLayer.ConsumerExpenditures.Bands(context, variableId, boundingGeographicLocationId, bands, granularity);
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }

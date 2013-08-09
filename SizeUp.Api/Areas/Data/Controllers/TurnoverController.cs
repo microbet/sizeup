@@ -18,22 +18,22 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/Turnover/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(long industryId, long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Turnover.Chart(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.Turnover.Chart(context, industryId, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult Percentile(long industryId, long geographicLocationId, long boundingGeographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Turnover.Percentile(context, industryId, placeId, boundingGranularity);
+                var data = Core.DataLayer.Turnover.Percentile(context, industryId, geographicLocationId, boundingGeographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

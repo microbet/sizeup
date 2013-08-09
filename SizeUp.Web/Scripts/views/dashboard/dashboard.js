@@ -24,8 +24,8 @@
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
 
-        sizeup.api.data.getCentroid({ id: opts.currentInfo.CurrentPlace.Id, granularity: sizeup.api.granularity.PLACE }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }))
-        sizeup.api.data.getBoundingBox({ id: opts.currentInfo.CurrentPlace.Id, granularity: sizeup.api.granularity.PLACE }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
+        sizeup.api.data.getCentroid({ geographicLocationId: opts.currentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }))
+        sizeup.api.data.getBoundingBox({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
         sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = data; }));
         var init = function () {
             

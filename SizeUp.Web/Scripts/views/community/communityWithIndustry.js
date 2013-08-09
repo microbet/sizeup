@@ -20,8 +20,8 @@
         me.content = {};
 
 
-        sizeup.api.data.getCentroid({ id: opts.location.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        sizeup.api.data.getBoundingBox({ id: opts.location.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+        sizeup.api.data.getCentroid({ geographicLocationId: opts.location.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        sizeup.api.data.getBoundingBox({ geographicLocationId: opts.location.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
 
         var init = function () {
 
@@ -40,8 +40,7 @@
             var borderOverlay = new sizeup.maps.overlay({
                 attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
-                    id: opts.location.CurrentPlace.City.Id,
-                    granularity: sizeup.api.granularity.CITY
+                    geographicLocationId: opts.location.CurrentPlace.City.Id
                 }
             });
 
@@ -69,46 +68,58 @@
                 costEffectiveness: new sizeup.core.notifier(function () { initCostEffectivenessChart(data.costEffectiveness); }),
             };
 
-            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.CITY }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.City = d; }));
-            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.County = d; }));
-            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Metro = d; }));
-            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.State = d; }));
-            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Nation = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.City.Id }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.City = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.County.Id }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.County = d; }));
+            if (me.opts.location.CurrentPlace.Metro.Id) {
+                sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Metro.Id }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Metro = d; }));
+            }
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.State.Id }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.State = d; }));
+            sizeup.api.data.getAverageRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Nation.Id }, notifiers.averageRevenue.getNotifier(function (d) { data.averageRevenue.Nation = d; }));
 
 
-            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.CITY }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.City = d; }));
-            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.County = d; }));
-            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Metro = d; }));
-            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.State = d; }));
-            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Nation = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.City.Id }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.City = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.County.Id }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.County = d; }));
+            if (me.opts.location.CurrentPlace.Metro.Id) {
+                sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Metro.Id }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Metro = d; }));
+            }
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.State.Id }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.State = d; }));
+            sizeup.api.data.getTotalRevenue({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Nation.Id }, notifiers.totalRevenue.getNotifier(function (d) { data.totalRevenue.Nation = d; }));
 
 
-            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.CITY }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.City = d; }));
-            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.County = d; }));
-            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Metro = d; }));
-            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.State = d; }));
-            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Nation = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.City.Id }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.City = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.County.Id }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.County = d; }));
+            if (me.opts.location.CurrentPlace.Metro.Id) {
+                sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Metro.Id }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Metro = d; }));
+            }
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.State.Id }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.State = d; }));
+            sizeup.api.data.getAverageEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Nation.Id }, notifiers.averageEmployees.getNotifier(function (d) { data.averageEmployees.Nation = d; }));
 
 
-            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.CITY }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.City = d; }));
-            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.County = d; }));
-            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Metro = d; }));
-            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.State = d; }));
-            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Nation = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.City.Id }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.City = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.County.Id }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.County = d; }));
+            if (me.opts.location.CurrentPlace.Metro.Id) {
+                sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Metro.Id }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Metro = d; }));
+            }
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.State.Id }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.State = d; }));
+            sizeup.api.data.getTotalEmployees({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Nation.Id }, notifiers.totalEmployees.getNotifier(function (d) { data.totalEmployees.Nation = d; }));
 
 
             
-            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.County = d; }));
-            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Metro = d; }));
-            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.State = d; }));
-            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Nation = d; }));
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.County.Id }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.County = d; }));
+            if (me.opts.location.CurrentPlace.Metro.Id) {
+                sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Metro.Id }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Metro = d; }));
+            }
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.State.Id }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.State = d; }));
+            sizeup.api.data.getAverageSalary({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Nation.Id }, notifiers.averageSalary.getNotifier(function (d) { data.averageSalary.Nation = d; }));
 
 
             
-            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.COUNTY }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.County = d; }));
-            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.METRO }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Metro = d; }));
-            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.STATE }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.State = d; }));
-            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, placeId: me.opts.location.CurrentPlace.Id, granularity: sizeup.api.granularity.NATION }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Nation = d; }));
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.County.Id }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.County = d; }));
+            if (me.opts.location.CurrentPlace.Metro.Id) {
+                sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Metro.Id }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Metro = d; }));
+            }
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.State.Id }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.State = d; }));
+            sizeup.api.data.getCostEffectiveness({ industryId: me.opts.location.CurrentIndustry.Id, geographicLocationId: me.opts.location.CurrentPlace.Nation.Id }, notifiers.costEffectiveness.getNotifier(function (d) { data.costEffectiveness.Nation = d; }));
 
 
         };
@@ -146,7 +157,7 @@
             };
 
             if (me.data.zoomExtent == null) {
-                sizeup.api.data.getZoomExtent({ id: me.opts.location.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
+                sizeup.api.data.getZoomExtent({ placeId: me.opts.location.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
                     me.data.zoomExtent = data;
                     createOverlay();
                 });

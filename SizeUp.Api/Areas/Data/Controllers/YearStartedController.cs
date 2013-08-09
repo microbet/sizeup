@@ -19,7 +19,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/YearStarted/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, int startYear, int endYear, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(long industryId, long geographicLocationId, int startYear, int endYear)
         {
             if (startYear < 1986)
             {
@@ -27,18 +27,18 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, granularity);
+                var obj = Core.DataLayer.YearStarted.Chart(context, industryId, geographicLocationId, startYear, endYear);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, int value, Core.DataLayer.Granularity granularity)
+        public ActionResult Percentile(long industryId, long geographicLocationId, int value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.YearStarted.Percentile(context, industryId, placeId, value, granularity);
+                var obj = Core.DataLayer.YearStarted.Percentile(context, industryId, geographicLocationId, value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

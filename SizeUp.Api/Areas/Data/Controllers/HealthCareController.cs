@@ -18,11 +18,11 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/HealthCare/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, long? employees, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State)
+        public ActionResult Chart(long industryId, long geographicLocationId, long? employees)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Healthcare.Chart(context, industryId, placeId, employees, granularity);
+                var data = Core.DataLayer.Healthcare.Chart(context, industryId, geographicLocationId, employees);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
 
@@ -30,11 +30,11 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentage(int industryId, long placeId, long value, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State)
+        public ActionResult Percentage(int industryId, long geographicLocationId, long value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.Healthcare.Percentage(context, industryId, placeId, value, granularity);
+                var obj = Core.DataLayer.Healthcare.Percentage(context, industryId, geographicLocationId, value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }

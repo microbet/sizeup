@@ -16,32 +16,32 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/AverageRevenue/
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(long industryId, long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, placeId, granularity);               
+                var data = Core.DataLayer.AverageRevenue.Chart(context, industryId, geographicLocationId);               
                 return Json(data, JsonRequestBehavior.AllowGet);         
             }
         }
 
 
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, long value, Core.DataLayer.Granularity granularity)
+        public ActionResult Percentile(long industryId, long geographicLocationId, long value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, placeId, value, granularity);
+                var data = Core.DataLayer.AverageRevenue.Percentile(context, industryId, geographicLocationId, value);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Bands(long industryId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
+        public ActionResult Bands(long industryId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageRevenue.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+                var data = Core.DataLayer.AverageRevenue.Bands(context, industryId, boundingGeographicLocationId, bands, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet); 
             }
         }

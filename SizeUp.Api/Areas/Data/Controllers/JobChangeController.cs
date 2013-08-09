@@ -19,22 +19,22 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(int industryId, int placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(int industryId, int geographicLocationId )
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.JobChange.Chart(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.JobChange.Chart(context, industryId, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentile(long industryId, long placeId, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult Percentile(long industryId, long geographicLocationId, long boundingGeographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.JobChange.Percentile(context, industryId, placeId, boundingGranularity);
+                var data = Core.DataLayer.JobChange.Percentile(context, industryId, geographicLocationId, boundingGeographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

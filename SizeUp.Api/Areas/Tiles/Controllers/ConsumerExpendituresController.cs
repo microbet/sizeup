@@ -24,7 +24,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
     {
         //
         // GET: /Tiles/Revenue/
-        public ActionResult Index(int x, int y, int zoom, long variableId, long placeId, string[] colors, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, long variableId, long boundingGeographicLocationId, string[] colors, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -34,8 +34,16 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 var boundingGeo = boundingBox.GetDbGeography();
 
                 var variable = Core.DataLayer.ConsumerExpenditures.Variables(context).Where(i => i.Id == variableId).Select(i => i.Variable).FirstOrDefault();
-                var data = Core.DataLayer.ConsumerExpenditures.Get(context, granularity, placeId, boundingGranularity);
-                var geos = Core.DataLayer.GeographicLocation.In(context, granularity, placeId, boundingGranularity);
+
+                var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
+
+                var geos = Core.DataLayer.GeographicLocation.Get(context)
+                    .Where(i => i.Granularity.Name == gran)
+                    .Where(i => i.GeographicLocations.Any(g => g.Id == boundingGeographicLocationId));
+
+                var data = Core.DataLayer.ConsumerExpenditures.Get(context);
+                    //.Where(i => i.GeographicLocation.Granularity.Name == gran)
+                    //.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == boundingGeographicLocationId));
 
                 ConstantExpression constant = Expression.Constant(data); //empty set
                 IQueryProvider provider = data.Provider; 

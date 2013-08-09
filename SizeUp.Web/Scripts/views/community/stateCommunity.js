@@ -19,9 +19,9 @@
 
         me.content = {};
 
-        sizeup.api.data.getBoundingBox({ id: opts.CurrentPlace.State.Id, granularity: sizeup.api.granularity.STATE }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-        sizeup.api.data.getCentroid({ id: opts.CurrentPlace.State.Id, granularity: sizeup.api.granularity.STATE }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        sizeup.api.data.getDemographics({ id: opts.CurrentPlace.State.Id, granularity: sizeup.api.granularity.STATE }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
+        sizeup.api.data.getBoundingBox({ geographicLocationId: opts.CurrentPlace.State.Id}, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+        sizeup.api.data.getCentroid({ geographicLocationId: opts.CurrentPlace.State.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+        sizeup.api.data.getDemographics({ geographicLocationId: opts.CurrentPlace.State.Id }, notifier.getNotifier(function (data) { me.data.Demographics = formatDemographics(data); }));
         var init = function () {
 
             var bounds = new sizeup.maps.latLngBounds();
@@ -37,8 +37,7 @@
             var borderOverlay = new sizeup.maps.overlay({
                 attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
-                    id: opts.CurrentPlace.State.Id,
-                    granularity: sizeup.api.granularity.STATE
+                    geographicLocationId: opts.CurrentPlace.State.Id
                 }
             });
 

@@ -95,12 +95,12 @@
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ healthcareCost: me.data.enteredValue });
             if (me.data.enteredEmployees) {
-                sizeup.api.data.getHealthcareCost({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, employees: me.data.enteredEmployees }, notifier.getNotifier(chartDataReturned));
-                sizeup.api.data.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
+                sizeup.api.data.getHealthcareCost({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.State.Id, employees: me.data.enteredEmployees }, notifier.getNotifier(chartDataReturned));
+                sizeup.api.data.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.State.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
             }
             else {
-                sizeup.api.data.getHealthcareCost({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id }, notifier.getNotifier(chartDataReturned));
-                sizeup.api.data.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
+                sizeup.api.data.getHealthcareCost({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.State.Id }, notifier.getNotifier(chartDataReturned));
+                sizeup.api.data.getHealthcareCostPercentage({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.State.Id, value: me.data.enteredValue }, notifier.getNotifier(percentageDataReturned));
             }
         };
 

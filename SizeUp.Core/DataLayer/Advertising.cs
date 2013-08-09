@@ -323,8 +323,10 @@ namespace SizeUp.Core.DataLayer
                 .FirstOrDefault();
 
             DistanceEntity<Data.ZipCode>.DistanceEntityFilter dist = new DistanceEntity<Data.ZipCode>.DistanceEntityFilter(center);
+            var gran = Enum.GetName(typeof(Granularity), Granularity.ZipCode);
 
-            var zips = Core.DataLayer.GeographicLocation.Get(context, Granularity.ZipCode)
+            var zips = context.ZipCodes
+                .Select(i=>i.GeographicLocation)
                 .Select(i => new KeyValue<Data.ZipCode, Geo.LatLng>
                 {
                     Key = i.ZipCode,
@@ -336,7 +338,8 @@ namespace SizeUp.Core.DataLayer
                 })
                 .Select(dist.Projection);
 
-            var demographics = Core.DataLayer.Demographics.Get(context, Granularity.ZipCode);
+            var demographics = Core.DataLayer.Demographics.Get(context);
+
             var industry = Core.DataLayer.IndustryData.Get(context).Where(i => i.IndustryId == industryId);
             var places = Core.DataLayer.Place.List(context);
             var data = zips.Join(demographics, i => i.Entity.Id, o => o.GeographicLocationId, (i, o) => new { Demographics = o, Entity = i })

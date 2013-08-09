@@ -18,22 +18,22 @@ namespace SizeUp.Api.Areas.Data.Controllers
         //
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(long industryId, long placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(long industryId, long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.TotalEmployees.Chart(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.TotalEmployees.Chart(context, industryId, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Bands(long industryId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
+        public ActionResult Bands(long industryId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.TotalEmployees.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+                var data = Core.DataLayer.TotalEmployees.Bands(context, industryId, boundingGeographicLocationId, bands, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

@@ -76,7 +76,7 @@ namespace SizeUp.Core.DataLayer
             else if (!string.IsNullOrEmpty(metroSEOKey))
             {
                 output = Get(context)
-                    .Where(i => i.County.Metro.SEOKey == stateSEOKey)
+                    .Where(i => i.County.Metro.SEOKey == metroSEOKey)
                     .Select(new Projections.Place.Metro().Expression)
                     .FirstOrDefault();
             }

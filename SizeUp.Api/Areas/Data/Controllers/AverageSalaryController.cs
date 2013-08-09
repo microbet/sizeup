@@ -20,33 +20,33 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(int industryId, int placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(int industryId, int geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageSalary.Chart(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.AverageSalary.Chart(context, industryId, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentage(int industryId, int placeId, int value, Core.DataLayer.Granularity granularity)
+        public ActionResult Percentage(int industryId, int geographicLocationId, int value)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var obj = Core.DataLayer.AverageSalary.Percentage(context, industryId, placeId, value, granularity);
+                var obj = Core.DataLayer.AverageSalary.Percentage(context, industryId, geographicLocationId, value);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Bands(long industryId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
+        public ActionResult Bands(long industryId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.AverageSalary.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+                var data = Core.DataLayer.AverageSalary.Bands(context, industryId, boundingGeographicLocationId, bands, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

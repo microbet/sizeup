@@ -17,17 +17,10 @@ namespace SizeUp.Core.DataLayer
             return context.Demographics.Where(i => i.Year == CommonFilters.TimeSlice.Demographics.Year && i.Quarter == CommonFilters.TimeSlice.Demographics.Quarter);
         }
 
-        public static IQueryable<Data.Demographic> Get(SizeUpContext context, Granularity granularity)
+        public static Models.Demographics Get(SizeUpContext context, long geographicLocationId)
         {
-            var gran = Enum.GetName(typeof(Granularity), granularity);
-            return Get(context)
-                .Where(i => i.GeographicLocation.Granularity.Name == gran);
-        }
-
-        public static Models.Demographics Get(SizeUpContext context, long id, Granularity granularity)
-        {
-            Models.Demographics output = Get(context, granularity)
-                .Where(i => i.GeographicLocationId == id)
+            Models.Demographics output = Get(context)
+                .Where(i => i.GeographicLocationId == geographicLocationId)
                 .Select(new Projections.Demographics.Default().Expression)
                 .FirstOrDefault();
             return output;

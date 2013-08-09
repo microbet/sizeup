@@ -19,7 +19,7 @@ namespace SizeUp.Web.Controllers
     {
         //
         // GET: /Accessibility/
-
+        /*
         protected string GetBoundingEntityName(SizeUpContext context, long placeId, Core.DataLayer.Granularity boundingGranularity)
         {
             string name = "";
@@ -457,6 +457,6 @@ namespace SizeUp.Web.Controllers
 
                 return View("Linechart");
             }
-        }
+        }*/
     }
 }

@@ -18,34 +18,34 @@ namespace SizeUp.Api.Areas.Data.Controllers
         //
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Chart(int industryId, int placeId, Core.DataLayer.Granularity granularity)
+        public ActionResult Chart(int industryId, int geographicLocationId )
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.CostEffectiveness.Chart(context, industryId, placeId, granularity);
+                var data = Core.DataLayer.CostEffectiveness.Chart(context, industryId, geographicLocationId);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Percentage(int industryId, int placeId, int revenue, int employees, int salary, Core.DataLayer.Granularity granularity)
+        public ActionResult Percentage(int industryId, int geographicLocationId, int revenue, int employees, int salary)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var ce = revenue / (double)(employees * salary);
-                var obj = Core.DataLayer.CostEffectiveness.Percentage(context, industryId, placeId, ce, granularity);
+                var obj = Core.DataLayer.CostEffectiveness.Percentage(context, industryId, geographicLocationId, ce);
                 return Json(obj, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Bands(long industryId, long placeId, int bands, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity = Core.DataLayer.Granularity.Nation)
+        public ActionResult Bands(long industryId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.CostEffectiveness.Bands(context, industryId, placeId, bands, granularity, boundingGranularity);
+                var data = Core.DataLayer.CostEffectiveness.Bands(context, industryId, boundingGeographicLocationId, bands, granularity);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

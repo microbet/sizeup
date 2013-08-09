@@ -20,12 +20,12 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/Geography/
         
         [APIAuthorize(Role = "Place")]
-        public ActionResult Centroid(long id)
+        public ActionResult Centroid(long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Geography.Get(context)
-                    .Where(i => i.GeographicLocationId == id)
+                    .Where(i => i.GeographicLocationId == geographicLocationId)
                     .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                     .Select(new Core.DataLayer.Projections.Geography.Centroid().Expression)
                     .Select(i => i.Value)
@@ -36,12 +36,12 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Place")]
-        public ActionResult BoundingBox(long id)
+        public ActionResult BoundingBox(long geographicLocationId)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Geography.Get(context)
-                    .Where(i => i.GeographicLocationId == id)
+                    .Where(i => i.GeographicLocationId == geographicLocationId)
                     .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                     .Select(new Core.DataLayer.Projections.Geography.BoundingBox().Expression)
                     .Select(i=>i.Value)
@@ -52,12 +52,12 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Place")]
-        public ActionResult ZoomExtent(long id, long width)
+        public ActionResult ZoomExtent(long placeId, long width)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Geography.ZoomExtent(context, width)
-                    .Where(i => i.PlaceId == id)
+                    .Where(i => i.PlaceId == placeId)
                     .FirstOrDefault();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

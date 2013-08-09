@@ -24,44 +24,6 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
-        public static IQueryable<Data.ConsumerExpenditure> Get(SizeUpContext context, Granularity granularity)
-        {
-            var gran = Enum.GetName(typeof(Granularity), granularity);
-            return Get(context)
-                .Where(i => i.GeographicLocation.Granularity.Name == gran);
-        }
-
-        public static IQueryable<Data.ConsumerExpenditure> Get(SizeUpContext context, Granularity granularity, long placeId, Granularity boundingGranularity)
-        {
-            var data = Get(context, granularity);
-
-            var place = Core.DataLayer.Place.Get(context)
-               .Where(i => i.Id == placeId)
-               .FirstOrDefault();
-
-            if (boundingGranularity == Granularity.City)
-            {
-                data = data.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == place.CityId));
-            }
-            else if (boundingGranularity == Granularity.County)
-            {
-                data = data.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == place.CountyId));
-            }
-            else if (boundingGranularity == Granularity.Metro)
-            {
-                data = data.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == place.County.MetroId));
-            }
-            else if (boundingGranularity == Granularity.State)
-            {
-                data = data.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == place.County.StateId));
-            }
-            else if (boundingGranularity == Granularity.Nation)
-            {
-                data = data.Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == place.County.State.NationId));
-            }
-
-            return data;
-        }
 
         public static Models.ConsumerExpenditureVariable Variable(SizeUpContext context, long id)
         {
@@ -115,11 +77,13 @@ namespace SizeUp.Core.DataLayer
             return vars.AsQueryable().Select(new Projections.ConsumerExpenditureVariable.Default().Expression).Reverse().ToList();
         }
 
-        public static List<Models.Band<long>> Bands(SizeUpContext context, long variableId, long placeId, int bands, Granularity granularity, Granularity boundingGranularity)
+        public static List<Models.Band<long>> Bands(SizeUpContext context, long variableId, long boundingGeographicLocationId, int bands, Granularity granularity)
         {
             var variable = Variables(context).Where(i=>i.Id == variableId).Select(i=>i.Variable).FirstOrDefault();
-
-            var data = Get(context, granularity, placeId, boundingGranularity);
+            var gran = Enum.GetName(typeof(Granularity), granularity);
+            var data = Get(context)
+                .Where(i => i.GeographicLocation.Granularity.Name == gran)
+                .Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == boundingGeographicLocationId));
 
             ConstantExpression constant = Expression.Constant(data); //empty set
             Type dataType = typeof(ConsumerExpenditure);

@@ -70,7 +70,7 @@
             var params = jQuery.bbq.getState();
             var notifier = new sizeup.core.notifier(function () { init(); });
             sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-            sizeup.api.data.getBoundingBox({ id: opts.CurrentInfo.CurrentPlace.Id, granularity: sizeup.api.granularity.PLACE }, notifier.getNotifier(function (data) {
+            sizeup.api.data.getBoundingBox({ geographicLocationId: opts.CurrentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) {
                 me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.SouthWest.Lat, lng: data.SouthWest.Lng }));
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.NorthEast.Lat, lng: data.NorthEast.Lng }));
@@ -782,7 +782,7 @@
 
 
             if (me.data.zoomExtend == null) {
-                sizeup.api.data.getZoomExtent({ id: me.opts.CurrentInfo.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
+                sizeup.api.data.getZoomExtent({ placeId: me.opts.CurrentInfo.CurrentPlace.Id, width: me.content.map.getWidth() }, function (data) {
                     me.data.zoomExtent = data;
                     createOverlay();
                 });

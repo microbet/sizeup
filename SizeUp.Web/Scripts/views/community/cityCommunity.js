@@ -28,13 +28,13 @@
         var loadMap = function () {
             var notifier = new sizeup.core.notifier(function () { bindMap(); });
 
-            sizeup.api.data.getBoundingBox({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
-            sizeup.api.data.getCentroid({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+            sizeup.api.data.getBoundingBox({ geographicLocationId: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.BoundingBox = data; }));
+            sizeup.api.data.getCentroid({ geographicLocationId: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         };
 
         var loadDemographics = function () {
             var notifier = new sizeup.core.notifier(function () { bindDemographics(); });
-            sizeup.api.data.getDemographics({ id: opts.CurrentPlace.City.Id, granularity: sizeup.api.granularity.CITY }, notifier.getNotifier(function (data) { me.data.demographics = formatDemographics(data); }));
+            sizeup.api.data.getDemographics({ geographicLocationId: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.demographics = formatDemographics(data); }));
         };
 
         var loadBestIndustries = function () {
@@ -52,8 +52,7 @@
             var borderOverlay = new sizeup.maps.overlay({
                 attribute: sizeup.api.tiles.overlayAttributes.geographyBoundary,
                 tileParams: {
-                    id: opts.CurrentPlace.City.Id,
-                    granularity: sizeup.api.granularity.CITY
+                    geographicLocationId: opts.CurrentPlace.City.Id
                 }
             });
 
