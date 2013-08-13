@@ -27,6 +27,7 @@ namespace SizeUp.Core.DataLayer
         {
             var data = Core.DataLayer.IndustryData.Get(context)
                         .Where(i => i.IndustryId == industryId)
+                        .Where(i => i.AverageAnnualSalary != null && i.AverageAnnualSalary > 0)
                         .Where(i => i.GeographicLocationId == geographicLocationId);
 
 

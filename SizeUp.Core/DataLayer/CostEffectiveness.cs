@@ -26,6 +26,7 @@ namespace SizeUp.Core.DataLayer
         {
             var data = Core.DataLayer.IndustryData.Get(context)
                         .Where(i => i.IndustryId == industryId)
+                        .Where(i => i.CostEffectiveness != null && i.CostEffectiveness > 0)
                         .Where(i => i.GeographicLocationId == geographicLocationId);
 
             return data.Select(i => new PercentageItem

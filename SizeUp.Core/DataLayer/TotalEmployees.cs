@@ -31,6 +31,7 @@ namespace SizeUp.Core.DataLayer
 
             var data = Core.DataLayer.IndustryData.Get(context)
                 .Where(i => i.IndustryId == industryId)
+                .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
                 .Where(i => i.GeographicLocation.Granularity.Name == gran)
                 .Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == boundingGeographicLocationId));
 
