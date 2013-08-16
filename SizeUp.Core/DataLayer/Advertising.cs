@@ -11,7 +11,44 @@ namespace SizeUp.Core.DataLayer
 {
     public class Advertising 
     {
-        protected static IQueryable<DistanceEntity<Models.Advertising>> FilterQuery(IQueryable<DistanceEntity<Models.Advertising>> data, AdvertisingFilters filters)
+        protected class Wrapper
+        {
+            public Data.Place Place { get; set; }
+            public Models.ZipCode ZipCode { get; set; }
+            public Core.Geo.LatLng Centroid { get; set; }
+            public long? AverageRevenue { get; set; }
+            public long? TotalRevenue { get; set; }
+            public long? TotalEmployees { get; set; }
+            public long? RevenuePerCapita { get; set; }
+            public long? HouseholdIncome { get; set; }
+            public long? Population { get; set; }
+            public double? BachelorsDegreeOrHigher { get; set; }
+            public double? HighSchoolOrHigher { get; set; }
+            public double? WhiteCollarWorkers { get; set; }
+            public double? MedianAge { get; set; }
+            public double? HouseholdExpenditures { get; set; }
+
+
+            public Band<double> AverageRevenueBand { get; set; }
+            public Band<double> TotalRevenueBand { get; set; }
+            public Band<double> TotalEmployeesBand { get; set; }
+            public Band<double> RevenuePerCapitaBand { get; set; }
+        }
+
+        protected class Grouping
+        {
+            public Data.Place Place { get; set; }
+            public Data.IndustryData IndustryData { get; set; }
+            public Data.Demographic Demographics { get; set; }
+            public Data.ZipCode ZipCode { get; set; }
+            public Data.Geography Geography { get; set; }
+            public Band<double> AverageRevenueBand { get; set; }
+            public Band<double> TotalRevenueBand { get; set; }
+            public Band<double> TotalEmployeesBand { get; set; }
+            public Band<double> RevenuePerCapitaBand { get; set; }
+        }
+
+        protected static IQueryable<DistanceEntity<Wrapper>> FilterQuery(IQueryable<DistanceEntity<Wrapper>> data, AdvertisingFilters filters)
         {
             if (filters.AverageRevenue != null)
             {
@@ -314,7 +351,7 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
-        public static IQueryable<Models.AdvertisingOutput> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
+        public static IQueryable<Models.Advertising> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
         {
             var center = Core.DataLayer.Geography.Display(context)
                 .Where(i => i.GeographicLocationId == placeId)
@@ -322,70 +359,80 @@ namespace SizeUp.Core.DataLayer
                 .Select(i=>i.Value)
                 .FirstOrDefault();
 
-            DistanceEntity<Data.ZipCode>.DistanceEntityFilter dist = new DistanceEntity<Data.ZipCode>.DistanceEntityFilter(center);
-            var gran = Enum.GetName(typeof(Granularity), Granularity.ZipCode);
+            DistanceEntity<Grouping>.DistanceEntityFilter dist = new DistanceEntity<Grouping>.DistanceEntityFilter(center);
 
-            var zips = context.ZipCodes
-                .Select(i=>i.GeographicLocation)
-                .Select(i => new KeyValue<Data.ZipCode, Geo.LatLng>
-                {
-                    Key = i.ZipCode,
-                    Value = i.Geographies.Where(g => g.GeographyClass.Name == Geo.GeographyClass.Calculation).Select(g => new Geo.LatLng
-                    {
-                        Lat = g.CenterLat.Value,
-                        Lng = g.CenterLong.Value
-                    }).FirstOrDefault()
-                })
-                .Select(dist.Projection);
-
-            var demographics = Core.DataLayer.Demographics.Get(context);
-
-            var industry = Core.DataLayer.IndustryData.Get(context).Where(i => i.IndustryId == industryId);
-            var places = Core.DataLayer.Place.List(context);
-            var data = zips.Join(demographics, i => i.Entity.Id, o => o.GeographicLocationId, (i, o) => new { Demographics = o, Entity = i })
-            .Join(industry, i => i.Entity.Entity.Id, o => o.GeographicLocationId, (i, o) => new { Demographics = i.Demographics, IndustryData = o, Entity = i.Entity, Place = places.Where(p=>i.Entity.Entity.Places.Any(zm=>zm.Id == p.Id)).FirstOrDefault() })
-            .Select(i => new DistanceEntity<Models.Advertising>
-            {
-                Distance = i.Entity.Distance,
-                Entity = new Models.Advertising
-                {
+            var data = context.ZipCodes
+                .SelectMany(i => i.GeographicLocation.Demographics, (i, o) => new { ZipCode = i, Demographics = o })
+                .SelectMany(i => i.ZipCode.GeographicLocation.IndustryDatas, (i, o) => new { i.ZipCode, i.Demographics, IndustryData = o })
+                .SelectMany(i => i.ZipCode.GeographicLocation.Geographies, (i, o) => new { i.ZipCode, i.Demographics, i.IndustryData, Geography = o, Place = i.ZipCode.Places.FirstOrDefault() })
+                .Where(i=> i.Demographics.Year == CommonFilters.TimeSlice.Demographics.Year && i.Demographics.Quarter == CommonFilters.TimeSlice.Demographics.Quarter)
+                .Where(i=> i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter && i.IndustryData.IndustryId == industryId)
+                .Where(i=>i.Geography.GeographyClass.Name == Geo.GeographyClass.Calculation)
+                .Select(i=> new KeyValue<Grouping, Geo.LatLng> {
+                    Key = new Grouping{
                     Place = i.Place,
-                    ZipCode = new Models.ZipCode
-                    {
-                        Id = i.Entity.Entity.Id,
-                        Name = i.Entity.Entity.Name,
-                        Zip = i.Entity.Entity.Zip
-                    },
-                    Centroid = i.Entity.Entity.GeographicLocation.Geographies.Where(zg=>zg.GeographyClass.Name == Geo.GeographyClass.Calculation).Select(zg=> new Geo.LatLng
-                    {
-                        Lat = zg.CenterLat.Value,
-                        Lng = zg.CenterLong.Value
-                    }).FirstOrDefault(),                  
-                    AverageRevenue = i.IndustryData.AverageRevenue,
-                    TotalRevenue = i.IndustryData.TotalRevenue,
-                    TotalEmployees = i.IndustryData.TotalEmployees,
-                    RevenuePerCapita = i.IndustryData.RevenuePerCapita,
-                    BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
-                    HighSchoolOrHigher = i.Demographics.HighSchoolOrHigherPercentage,
-                    HouseholdIncome = i.Demographics.MedianHouseholdIncome,
-                    WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
-                    MedianAge = i.Demographics.MedianAge,
-                    Population = i.Demographics.TotalPopulation,
-                    HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditure,
-
-                    TotalEmployeesBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),                  
+                    IndustryData = i.IndustryData,
+                    Demographics = i.Demographics,
+                    Geography = i.Geography,
+                    ZipCode = i.ZipCode,
+                    TotalEmployeesBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
                     AverageRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
                     TotalRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
                     RevenuePerCapitaBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault()
+                    },
+                    Value = new Geo.LatLng
+                    {
+                        Lat = i.Geography.CenterLat.Value,
+                        Lng = i.Geography.CenterLong.Value
+                    }
+                })
+                .Select(dist.Projection)
+                .Select(i=> new { i.Distance, i.Entity.Demographics, i.Entity.Geography, i.Entity.IndustryData, i.Entity.ZipCode, i.Entity.TotalRevenueBand, i.Entity.TotalEmployeesBand, i.Entity.RevenuePerCapitaBand, i.Entity.AverageRevenueBand, Place = i.Entity.Place })              
+                .Select(i => new DistanceEntity<Wrapper>
+                {
+                    Distance = i.Distance,
+                    Entity = new Wrapper
+                    {
+                        Place = i.Place,
+                        ZipCode = new Models.ZipCode
+                        {
+                            Id = i.ZipCode.Id,
+                            Name = i.ZipCode.Name,
+                            Zip = i.ZipCode.Zip
+                        },
+                        Centroid = new Geo.LatLng
+                        {
+                            Lat = i.Geography.CenterLat.Value,
+                            Lng = i.Geography.CenterLong.Value
+                        },
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
+                        HighSchoolOrHigher = i.Demographics.HighSchoolOrHigherPercentage,
+                        HouseholdIncome = i.Demographics.MedianHouseholdIncome,
+                        WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
+                        MedianAge = i.Demographics.MedianAge,
+                        Population = i.Demographics.TotalPopulation,
+                        HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditure,
 
+                        TotalEmployeesBand = i.TotalEmployeesBand,
+                        AverageRevenueBand = i.AverageRevenueBand,
+                        TotalRevenueBand = i.TotalRevenueBand,
+                        RevenuePerCapitaBand = i.RevenuePerCapitaBand
+                    }
+                });
 
-                }
-            });
             data = FilterQuery(data, filters);
-            IQueryable<Models.AdvertisingOutput> output = new List<Models.AdvertisingOutput>().AsQueryable();
-            output = data.Select(i => new Models.AdvertisingOutput
+
+            IQueryable<Models.Advertising> output = new List<Models.Advertising>().AsQueryable();
+            output = data.Select(i => new Models.Advertising
             {
-                Place = i.Entity.Place,
+                PlaceId = i.Entity.Place.Id,
+                StateSEOKey = i.Entity.Place.County.State.SEOKey,
+                CountySEOKey = i.Entity.Place.County.SEOKey,
+                CitySEOKey = i.Entity.Place.City.SEOKey,
                 Centroid = i.Entity.Centroid,
                 TotalEmployees = i.Entity.TotalEmployeesBand,
                 TotalRevenue = i.Entity.TotalRevenueBand,
@@ -401,6 +448,7 @@ namespace SizeUp.Core.DataLayer
                 ZipCode = i.Entity.ZipCode,
                 Distance = i.Distance
             });
+            
             return output;
         }
 

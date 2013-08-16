@@ -19,30 +19,8 @@ namespace SizeUp.Web.Controllers
     {
         //
         // GET: /Accessibility/
-        /*
-        protected string GetBoundingEntityName(SizeUpContext context, long placeId, Core.DataLayer.Granularity boundingGranularity)
-        {
-            string name = "";
-            var place = Core.DataLayer.Place.Get(context, placeId);
-            if (boundingGranularity == Core.DataLayer.Granularity.County)
-            {
-                name = place.County.Name + " County, " + place.State.Abbreviation;
-            }
-            else if (boundingGranularity == Core.DataLayer.Granularity.Metro)
-            {
-                name = place.Metro.Name;
-            }
-            else if (boundingGranularity == Core.DataLayer.Granularity.State)
-            {
-                name = place.State.Name;
-            }
-            else if (boundingGranularity == Core.DataLayer.Granularity.Nation)
-            {
-                name = "USA";
-            }
-            return name;
-        }
-
+        
+        
         public class Band
         {
             public string Min { get; set; }
@@ -117,16 +95,20 @@ namespace SizeUp.Web.Controllers
             return output;
         }
 
-        public ActionResult Revenue(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult Revenue(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
+
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+                var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -155,22 +137,25 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Average Business Annual Revenue";
                 return View("Heatmap");
             }
         }
-
-        public ActionResult AverageSalary(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        
+        public ActionResult AverageSalary(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+                var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -199,23 +184,26 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Average Salary";
                 return View("Heatmap");
             }
         }
 
 
-        public ActionResult AverageEmployees(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult AverageEmployees(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+                var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -244,23 +232,26 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Average Employees Per Business";
                 return View("Heatmap");
             }
         }
 
 
-        public ActionResult EmployeesPerCapita(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult EmployeesPerCapita(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+                var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -289,22 +280,25 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Employees Per Capita";
                 return View("Heatmap");
             }
         }
 
-        public ActionResult CostEffectiveness(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult CostEffectiveness(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+                var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -333,23 +327,26 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Cost Effectiveness";
                 return View("Heatmap");
             }
         }
 
 
-        public ActionResult RevenuePerCapita(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult RevenuePerCapita(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+               var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -378,22 +375,25 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Revenue Per Capita";
                 return View("Heatmap");
             }
         }
 
-        public ActionResult TotalRevenue(int bands, int industryId, long placeId, Core.DataLayer.Granularity granularity, Core.DataLayer.Granularity boundingGranularity)
+        public ActionResult TotalRevenue(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
             };
+            var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.IndustryData.Get(context, granularity, placeId, boundingGranularity)
+                var data = Core.DataLayer.IndustryData.Get(context)
+                    .Where(i=> i.GeographicLocation.GeographicLocations.Any(gl=>gl.Id == boundingGeographicLocationId))
                    .Where(i => i.IndustryId == industryId)
+                   .Where(i=>i.GeographicLocation.Granularity.Name == gran)
                    .Select(i => new
                    {
                        Label = i.GeographicLocation.LongName,
@@ -422,13 +422,13 @@ namespace SizeUp.Web.Controllers
                     ViewBag.LevelOfDetail = "State";
                 }
                 ViewBag.Bands = FormatBands(data);
-                ViewBag.BoundingEntity = GetBoundingEntityName(context, placeId, boundingGranularity);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
                 ViewBag.Attribute = "Total Revenue";
                 return View("Heatmap");
             }
         }
 
-        public ActionResult YearStarted(int placeId, int startYear, int endYear,  int industryId)
+        public ActionResult YearStarted(int placeId, int startYear, int endYear, int industryId)
         {
             ViewBag.Header = new Models.Header()
             {
@@ -436,11 +436,12 @@ namespace SizeUp.Web.Controllers
             };
             using (var context = ContextFactory.SizeUpContext)
             {
-                var c = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Granularity.City);
-                var co = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Granularity.County);
-                var m = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Granularity.Metro);
-                var s = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Granularity.State);
-                var n = Core.DataLayer.YearStarted.Chart(context, industryId, placeId, startYear, endYear, Core.DataLayer.Granularity.Nation);
+                var place = Core.DataLayer.Place.Get(context, placeId);
+
+                var c = Core.DataLayer.YearStarted.Chart(context, industryId, (long)place.City.Id, startYear, endYear);
+                var co = Core.DataLayer.YearStarted.Chart(context, industryId, (long)place.County.Id, startYear, endYear);
+                var s = Core.DataLayer.YearStarted.Chart(context, industryId, (long)place.State.Id, startYear, endYear);
+                var n = Core.DataLayer.YearStarted.Chart(context, industryId, place.Nation.Id, startYear, endYear);
 
                 List<Web.Models.Accessibility.Table> data =
                     c.Join(co, i => i.Key, o => o.Key, (i, o) => new { City = o, County = i })
@@ -448,8 +449,9 @@ namespace SizeUp.Web.Controllers
                     .Join(n, i => i.City.Key, o => o.Key, (i, o) => new Web.Models.Accessibility.Table() { Year = i.City.Key, City = i.City.Value, County = i.County.Value, State = i.State.Value, Nation = o.Value })
                     .ToList();
 
-                if (context.Places.Any(cm=>cm.Id == placeId && cm.County.Metro != null))
+                if (place.Metro.Id.HasValue)
                 {
+                    var m = Core.DataLayer.YearStarted.Chart(context, industryId, (long)place.Metro.Id, startYear, endYear);
                     data = data.Join(m, i => i.Year, o => o.Key, (i, o) => new Web.Models.Accessibility.Table() { Year = i.Year, City = i.City, County = i.County, State = i.State, Nation = i.Nation, Metro = o.Value })
                         .ToList();
                 }
@@ -457,6 +459,6 @@ namespace SizeUp.Web.Controllers
 
                 return View("Linechart");
             }
-        }*/
+        }
     }
 }

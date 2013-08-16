@@ -62,10 +62,8 @@
             if (currentIndustry == null) {
                 me.errors.noIndustryMatches.hide().fadeIn('slow');
             }
-            else {
-                sizeup.core.profile.setCurrentIndustry({ id: currentIndustry.Id }, function () {
-                    window.location.href = currentIndustry.SEOKey;
-                });
+            else {               
+                window.location.href = '/bestPlaces/' + currentIndustry.SEOKey;               
             }
         };
 

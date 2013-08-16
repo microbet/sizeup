@@ -25,18 +25,15 @@ namespace SizeUp.Core.DataLayer
 
         public static IQueryable<Core.DataLayer.Models.GeographicLocationRank> Get(SizeUpContext context, long geographicLocationId, string attribute)
         {
-            var industries = Core.DataLayer.Industry.Get(context)
-                .Select(new Core.DataLayer.Projections.Industry.Default().Expression);
 
-            var industryData = Core.DataLayer.IndustryData.Get(context)
-                .Where(i => i.GeographicLocationId == geographicLocationId);
-
-            var ranks = Ranks(context)
-                  .Where(i => i.GeographicLocationId == geographicLocationId)
-                  .Select(i => new { Rank = i, IndustryData = i.GeographicLocation.IndustryDatas.Where(d => d.Year == CommonFilters.TimeSlice.Industry.Year && d.Quarter == CommonFilters.TimeSlice.Industry.Quarter && d.IndustryId == i.IndustryId).FirstOrDefault() });
-
-            var data = industries.Join(ranks, i => i.Id, o => o.Rank.IndustryId, (i, o) => new { Industry = i, Rank = o.Rank, IndustryData = o.IndustryData });
-
+            var data = context.Industries
+                .SelectMany(i => i.IndustryDatas, (i, o) => new { Industry = i, IndustryData = o })
+                .SelectMany(i => i.Industry.GeographicLocationRanks, (i, o) => new { i.Industry, i.IndustryData, Rank = o })
+                .Where(i => i.Industry.IsActive && !i.Industry.IsDisabled)
+                .Where(i => i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
+                .Where(i => i.Rank.Year == CommonFilters.TimeSlice.Industry.Year && i.Rank.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
+                .Where(i => i.Rank.GeographicLocationId == geographicLocationId)
+                .Where(i => i.IndustryData.GeographicLocationId == geographicLocationId);
 
             IQueryable<BestIndustryWrapper> output = new List<BestIndustryWrapper>().AsQueryable();
 
@@ -71,7 +68,29 @@ namespace SizeUp.Core.DataLayer
 
 
             return output
-                .Select(i => new Core.DataLayer.Models.KeyValue<Core.DataLayer.Models.Industry, long> { Key = i.Industry, Value = i.Rank.Value })
+                .Select(i => new Core.DataLayer.Models.KeyValue<Core.DataLayer.Models.Industry, long> {
+                    Key = new Models.Industry
+                    {
+                        Id = i.Industry.Id,
+                        Name = i.Industry.Name,
+                        SEOKey = i.Industry.SEOKey,
+                        SICCode = i.Industry.SicCode,
+                        ParentName = i.Industry.Parent.Name,
+                        NAICS6 = new Models.NAICS
+                        {
+                            Id = i.Industry.NAICS.Id,
+                            NAICSCode = i.Industry.NAICS.NAICSCode,
+                            Name = i.Industry.NAICS.Name
+                        },
+                        NAICS4 = new Models.NAICS
+                        {
+                            Id = i.Industry.NAICS.Parent.Id,
+                            NAICSCode = i.Industry.NAICS.Parent.NAICSCode,
+                            Name = i.Industry.NAICS.Parent.Name
+                        }
+                    },
+                    Value = i.Rank.Value
+                })
                 .AsQueryable()
                 .Select(new Core.DataLayer.Projections.GeographicLocationRank.Default().Expression);
         }
@@ -79,7 +98,7 @@ namespace SizeUp.Core.DataLayer
         private class BestIndustryWrapper
         {
             public long? Rank { get; set; }
-            public Core.DataLayer.Models.Industry Industry { get; set; }
+            public Data.Industry Industry { get; set; }
             public double? Value { get; set; }
         }
     }

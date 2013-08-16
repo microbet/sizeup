@@ -823,10 +823,10 @@
         var formatDataItem = function (item) {
             var params = getParameters();
             var newItem = {};
-            if (item.Place) {
-                newItem['city'] = item.Place.City;
-                newItem['state'] = item.Place.State;
-                newItem['county'] = item.Place.County;
+            if (item.PlaceId) {
+                newItem['city'] = { SEOKey: item.CitySEOKey };
+                newItem['state'] = { SEOKey: item.StateSEOKey };
+                newItem['county'] = { SEOKey: item.CountySEOKey };
             }
             newItem['lat'] = item.Centroid.Lat;
             newItem['long'] = item.Centroid.Long;

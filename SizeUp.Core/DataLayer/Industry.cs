@@ -58,8 +58,14 @@ namespace SizeUp.Core.DataLayer
         public static IQueryable<Models.Industry> ListInPlace(SizeUpContext context, long placeId)
         {
             var p = new Projections.Industry.Default();
-            return Get(context)
-                .Where(i => i.IndustryDatas.Any(d => d.GeographicLocation.City.Places.Any(pl => pl.Id == placeId)))
+
+            return context.Industries
+                .SelectMany(i => i.IndustryDatas, (i, o) => new { Industry = i, IndustryData = o })
+                .Where(i => i.Industry.IsActive && !i.Industry.IsDisabled)
+                .Where(i => i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
+                .Where(i => i.IndustryData.GeographicLocation.City.Places.Any(pl => pl.Id == placeId))
+                .Where(i => i.IndustryData.BusinessCount > 0)
+                .Select(i => i.Industry)
                 .Select(p.Expression);
         }
 

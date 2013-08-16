@@ -11,8 +11,41 @@ namespace SizeUp.Core.DataLayer
 {
     public class BestPlaces
     {
+        protected class Wrapper
+        {
+            public Data.GeographicLocation Place { get; set; }
+            public Data.Industry Industry { get; set; }
+            public Core.Geo.LatLng Centroid { get; set; }
+            public Core.Geo.BoundingBox BoundingBox { get; set; }
+            public long? AverageRevenue { get; set; }
+            public long? TotalRevenue { get; set; }
+            public long? TotalEmployees { get; set; }
+            public long? AverageEmployees { get; set; }
+            public double? EmployeesPerCapita { get; set; }
+            public long? RevenuePerCapita { get; set; }
+            public long? HouseholdIncome { get; set; }
+            public long? Population { get; set; }
+            public long? AirportsNearby { get; set; }
+            public long? UniversitiesNearby { get; set; }
+            public double? BachelorsDegreeOrHigher { get; set; }
+            public double? HighSchoolOrHigher { get; set; }
+            public double? WhiteCollarWorkers { get; set; }
+            public double? MedianAge { get; set; }
+            public double? HouseholdExpenditures { get; set; }
+            public double? BlueCollarWorkers { get; set; }
+            public double? YoungEducated { get; set; }
+            public double? CommuteTime { get; set; }
+
+            public Band<double> AverageRevenueBand { get; set; }
+            public Band<double> TotalRevenueBand { get; set; }
+            public Band<double> TotalEmployeesBand { get; set; }
+            public Band<double> AverageEmployeesBand { get; set; }
+            public Band<double> RevenuePerCapitaBand { get; set; }
+            public Band<double> EmployeesPerCapitaBand { get; set; }
+        }
+
         private static readonly long POPULATION_MIN = 100000;
-        protected static IQueryable<Models.BestPlaces> FilterQuery(IQueryable<Models.BestPlaces> data, BestPlacesFilters filters)
+        protected static IQueryable<Wrapper> FilterQuery(IQueryable<Wrapper> data, BestPlacesFilters filters)
         {
             if (filters.AverageRevenue != null)
             {
@@ -292,100 +325,198 @@ namespace SizeUp.Core.DataLayer
         }
 
 
-        public static IQueryable<Models.BestPlacesOutput> Get(SizeUpContext context, long industryId, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
+        public static IQueryable<Models.BestPlaces> Get(SizeUpContext context, long industryId, long? regionId, long? stateId, BestPlacesFilters filters, Granularity granularity)
         {
-            IQueryable<Models.BestPlaces> data = new List<Models.BestPlaces>().AsQueryable(); //empty
-            IQueryable<KeyValue<long?, Models.Place>> loc = new List<KeyValue<long?, Models.Place>>().AsQueryable();
+            var gran = Enum.GetName(typeof(Granularity), granularity);
 
-            var centroids = Core.DataLayer.Geography.Calculation(context).Select(new Projections.Geography.Centroid().Expression);
-            var boundingBoxes = Core.DataLayer.Geography.Calculation(context).Select(new Projections.Geography.BoundingBox().Expression);
-            var industry = Core.DataLayer.IndustryData.Get(context).Where(i => i.IndustryId == industryId);
-            var demographics = Core.DataLayer.Demographics.Get(context);
-            var place = Core.DataLayer.Place.List(context);
+            var data = context.GeographicLocations
+                .SelectMany(i => i.Demographics, (i, o) => new { Place = i, Demographics = o })
+                .SelectMany(i => i.Place.IndustryDatas, (i, o) => new { i.Place, i.Demographics, IndustryData = o, Industry = o.Industry })
+                .SelectMany(i => i.Place.Geographies, (i, o) => new { i.Place, i.IndustryData, i.Demographics, i.Industry, Geography = o })
+                  .Where(i => i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
+                    .Where(i => i.Demographics.Year == CommonFilters.TimeSlice.Demographics.Year && i.Demographics.Quarter == CommonFilters.TimeSlice.Demographics.Quarter)
+                    .Where(i => i.Geography.GeographyClass.Name == Geo.GeographyClass.Calculation)
+                    .Where(i => i.IndustryData.IndustryId == industryId)
+                    .Where(i => i.Place.Granularity.Name == gran)
+                    .Select(i => new Wrapper
+                    {
+                        Place = i.Place,
+                        Industry = i.Industry,
+                        AirportsNearby = i.Demographics.AirPortsWithinHalfMile,
+                        BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
+                        BlueCollarWorkers = i.Demographics.BlueCollarWorkersPercentage,
+                        CommuteTime = i.Demographics.CommuteTime,
+                        HighSchoolOrHigher = i.Demographics.HighSchoolOrHigherPercentage,
+                        HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditure,
+                        HouseholdIncome = i.Demographics.MedianHouseholdIncome,
+                        MedianAge = i.Demographics.MedianAge,
+                        Population = i.Demographics.TotalPopulation,
+                        UniversitiesNearby = i.Demographics.UniversitiesWithinHalfMile,
+                        WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
+                        YoungEducated = i.Demographics.YoungEducatedPercentage,
+                        AverageEmployees = i.IndustryData.AverageEmployees,
+                        AverageRevenue = i.IndustryData.AverageRevenue,
+                        RevenuePerCapita = i.IndustryData.RevenuePerCapita,
+                        TotalEmployees = i.IndustryData.TotalEmployees,
+                        TotalRevenue = i.IndustryData.TotalRevenue,
+                        EmployeesPerCapita = i.IndustryData.EmployeesPerCapita,
+                        Centroid = new Geo.LatLng
+                        {
+                            Lat = i.Geography.CenterLat.Value,
+                            Lng = i.Geography.CenterLong.Value
+                            
+                        },
+                        BoundingBox = new Geo.BoundingBox
+                        {
+                            NorthEast = new Geo.LatLng
+                            {
+                                Lat = i.Geography.North,
+                                Lng = i.Geography.East
+                            },
+                            SouthWest = new Geo.LatLng
+                            {
+                                Lat = i.Geography.South,
+                                Lng = i.Geography.West                  
+                            }
+                        },
+                        AverageEmployeesBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        TotalEmployeesBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        EmployeesPerCapitaBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.EmployeesPerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        AverageRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        TotalRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        RevenuePerCapitaBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault()
+                    });
 
-            if (granularity == Granularity.City)
-            {
-                loc = context.Cities.GroupJoin(place, i => i.Id, o => o.City.Id, (i, o) => new KeyValue<long?, Models.Place> { Key = i.Id, Value = o.FirstOrDefault() });
-            }
-            else if (granularity == Granularity.County)
-            {
-                loc = context.Counties.GroupJoin(place, i => i.Id, o => o.County.Id, (i, o) => new KeyValue<long?, Models.Place> { Key = i.Id, Value = o.FirstOrDefault() });
-            }
-            else if (granularity == Granularity.Metro)
-            {
-                loc = context.Metroes.GroupJoin(place, i => i.Id, o => o.Metro.Id, (i, o) => new KeyValue<long?, Models.Place> { Key = i.Id, Value = o.FirstOrDefault() });
-            }
-            else if (granularity == Granularity.State)
-            {
-                loc = context.States.GroupJoin(place, i => i.Id, o => o.State.Id, (i, o) => new KeyValue<long?, Models.Place> { Key = i.Id, Value = o.FirstOrDefault() });
-            }
 
             if (regionId != null)
             {
-                demographics = demographics.Where(i => i.GeographicLocation.IntersectedGeographicLocations.Any(global=>global.Id == regionId));
-                industry = industry.Where(i => i.GeographicLocation.IntersectedGeographicLocations.Any(global => global.Id == regionId));
+                data = data.Where(i => i.Place.IntersectedGeographicLocations.Any(global => global.Id == regionId));
             }
             if (stateId != null)
             {
-                demographics = demographics.Where(i => i.GeographicLocation.IntersectedGeographicLocations.Any(global => global.Id == stateId));
-                industry = industry.Where(i => i.GeographicLocation.IntersectedGeographicLocations.Any(global => global.Id == stateId));
+                data = data.Where(i => i.Place.IntersectedGeographicLocations.Any(global => global.Id == stateId));
             }
+            data = FilterQuery(data, filters);
 
-
-            data = loc.Join(industry, i=>i.Key, o=>o.GeographicLocationId, (i,o)=> new {Place = i.Value, Industry = o})
-                .Join(demographics, i => i.Industry.GeographicLocationId, o => o.GeographicLocationId, (i, o) => new { Place = i.Place, Industry = i.Industry, Demographics = o })
-                .Join(centroids, i => i.Demographics.GeographicLocationId, o => o.Key.Id, (i, o) => new { Place = i.Place, Industry = i.Industry, Demographics = i.Demographics, Centroid = o.Value })
-                .Join(boundingBoxes, i => i.Demographics.GeographicLocationId, o => o.Key.Id, (i, o) => new { Place = i.Place, Industry = i.Industry, Demographics = i.Demographics, Centroid = i.Centroid, BoundingBox = o.Value })
-                .Select(i => new Models.BestPlaces
+            IQueryable<Models.BestPlaces> output = new List<Models.BestPlaces>().AsQueryable();
+            if (granularity == Granularity.City)
+            {
+                output = data.Select(i => new Models.BestPlaces
                 {
-                    AirportsNearby = i.Demographics.AirPortsWithinHalfMile,
-                    BachelorsDegreeOrHigher = i.Demographics.BachelorsOrHigherPercentage,
-                    BlueCollarWorkers = i.Demographics.BlueCollarWorkersPercentage,
-                    CommuteTime = i.Demographics.CommuteTime,
-                    HighSchoolOrHigher = i.Demographics.HighSchoolOrHigherPercentage,
-                    HouseholdExpenditures = i.Demographics.AverageHouseholdExpenditure,
-                    HouseholdIncome = i.Demographics.MedianHouseholdIncome,
-                    MedianAge = i.Demographics.MedianAge,
-                    Population = i.Demographics.TotalPopulation,
-                    UniversitiesNearby = i.Demographics.UniversitiesWithinHalfMile,
-                    WhiteCollarWorkers = i.Demographics.WhiteCollarWorkersPercentage,
-                    YoungEducated = i.Demographics.YoungEducatedPercentage,
-                    AverageEmployees = i.Industry.AverageEmployees,
-                    AverageRevenue = i.Industry.AverageRevenue,
-                    RevenuePerCapita = i.Industry.RevenuePerCapita,
-                    TotalEmployees = i.Industry.TotalEmployees,
-                    TotalRevenue = i.Industry.TotalRevenue,
-                    EmployeesPerCapita = i.Industry.EmployeesPerCapita,
-
-                    AverageEmployeesBand = i.Industry.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    TotalEmployeesBand = i.Industry.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    EmployeesPerCapitaBand = i.Industry.Bands.Where(b => b.Attribute.Name == IndustryAttribute.EmployeesPerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    AverageRevenueBand = i.Industry.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    TotalRevenueBand = i.Industry.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    RevenuePerCapitaBand = i.Industry.Bands.Where(b => b.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-
+                    State = new Models.State
+                    {
+                        Id = i.Place.City.State.Id,
+                        Abbreviation = i.Place.City.State.Abbreviation,
+                        Name = i.Place.City.State.Name,
+                        SEOKey = i.Place.City.State.SEOKey,
+                        LongName = i.Place.City.State.GeographicLocation.LongName,
+                        ShortName = i.Place.City.State.GeographicLocation.ShortName
+                    },
+                    County = i.Place.City.Counties.Select(co=>new Models.County
+                    {
+                        Id = co.Id,
+                        Name = co.Name,
+                        SEOKey = co.SEOKey,
+                        LongName = co.GeographicLocation.LongName,
+                        ShortName = co.GeographicLocation.ShortName
+                    }).FirstOrDefault(),
+                    City = new Models.City
+                    {
+                        Id = i.Place.City.Id,
+                        Name = i.Place.City.Name,
+                        SEOKey = i.Place.City.SEOKey,
+                        TypeName = i.Place.City.CityType.Name,
+                        ShortName = i.Place.City.GeographicLocation.ShortName,
+                        LongName = i.Place.City.GeographicLocation.LongName
+                    },
 
                     Centroid = i.Centroid,
                     BoundingBox = i.BoundingBox,
-                    Place = i.Place
+                    TotalEmployees = i.TotalEmployeesBand,
+                    AverageEmployees = i.AverageEmployeesBand,
+                    EmployeesPerCapita = i.EmployeesPerCapitaBand,
+                    TotalRevenue = i.TotalRevenueBand,
+                    AverageRevenue = i.AverageRevenueBand,
+                    RevenuePerCapita = i.RevenuePerCapitaBand
                 });
-            
-
-            data = FilterQuery(data, filters);
-
-            IQueryable<Models.BestPlacesOutput> output = new List<Models.BestPlacesOutput>().AsQueryable();
-            output = data.Select(i => new Models.BestPlacesOutput
+            }
+            else if (granularity == Granularity.County)
             {
-                Place = i.Place,
-                Centroid = i.Centroid,
-                BoundingBox = i.BoundingBox,
-                TotalEmployees = i.TotalEmployeesBand,
-                AverageEmployees = i.AverageEmployeesBand,
-                EmployeesPerCapita = i.EmployeesPerCapitaBand,
-                TotalRevenue = i.TotalRevenueBand,
-                AverageRevenue = i.AverageRevenueBand,
-                RevenuePerCapita = i.RevenuePerCapitaBand
-            });
+                output = data.Select(i => new Models.BestPlaces
+                {
+                    State = new Models.State
+                    {
+                        Id = i.Place.County.State.Id,
+                        Abbreviation = i.Place.County.State.Abbreviation,
+                        Name = i.Place.County.State.Name,
+                        SEOKey = i.Place.County.State.SEOKey,
+                        LongName = i.Place.County.State.GeographicLocation.LongName,
+                        ShortName = i.Place.County.State.GeographicLocation.ShortName
+                    },
+                    County = new Models.County
+                    {
+                        Id = i.Place.County.Id,
+                        Name = i.Place.County.Name,
+                        SEOKey = i.Place.County.SEOKey,
+                        LongName = i.Place.County.GeographicLocation.LongName,
+                        ShortName = i.Place.County.GeographicLocation.ShortName
+                    },
+
+                    Centroid = i.Centroid,
+                    BoundingBox = i.BoundingBox,
+                    TotalEmployees = i.TotalEmployeesBand,
+                    AverageEmployees = i.AverageEmployeesBand,
+                    EmployeesPerCapita = i.EmployeesPerCapitaBand,
+                    TotalRevenue = i.TotalRevenueBand,
+                    AverageRevenue = i.AverageRevenueBand,
+                    RevenuePerCapita = i.RevenuePerCapitaBand
+                });
+            }
+            else if (granularity == Granularity.Metro)
+            {
+                output = data.Select(i => new Models.BestPlaces
+                {
+                    Metro = new Models.Metro
+                    {
+                        Id = i.Place.Metro.Id,
+                        Name = i.Place.Metro.Name,
+                        SEOKey = i.Place.Metro.SEOKey,
+                        LongName = i.Place.Metro.GeographicLocation.LongName,
+                        ShortName = i.Place.Metro.GeographicLocation.ShortName
+                    },
+                    Centroid = i.Centroid,
+                    BoundingBox = i.BoundingBox,
+                    TotalEmployees = i.TotalEmployeesBand,
+                    AverageEmployees = i.AverageEmployeesBand,
+                    EmployeesPerCapita = i.EmployeesPerCapitaBand,
+                    TotalRevenue = i.TotalRevenueBand,
+                    AverageRevenue = i.AverageRevenueBand,
+                    RevenuePerCapita = i.RevenuePerCapitaBand
+                });
+            }
+            else if (granularity == Granularity.State)
+            {
+                output = data.Select(i => new Models.BestPlaces
+                {
+                    State = new Models.State
+                    {
+                        Id = i.Place.State.Id,
+                        Abbreviation = i.Place.State.Abbreviation,
+                        Name = i.Place.State.Name,
+                        SEOKey = i.Place.State.SEOKey,
+                        LongName = i.Place.State.GeographicLocation.LongName,
+                        ShortName = i.Place.State.GeographicLocation.ShortName
+                    },
+                    Centroid = i.Centroid,
+                    BoundingBox = i.BoundingBox,
+                    TotalEmployees = i.TotalEmployeesBand,
+                    AverageEmployees = i.AverageEmployeesBand,
+                    EmployeesPerCapita = i.EmployeesPerCapitaBand,
+                    TotalRevenue = i.TotalRevenueBand,
+                    AverageRevenue = i.AverageRevenueBand,
+                    RevenuePerCapita = i.RevenuePerCapitaBand
+                });
+            }
             return output;
         }
 
