@@ -107,6 +107,7 @@
                 }
             });
 
+
             me.content.industrySelector.setSelection(me.data.activeIndustry);
 
             me.content.filters.container = me.content.container.find('.filters').hide().removeClass('hidden');
@@ -443,6 +444,10 @@
          
         //////event actions//////////////////
      
+        var toggleSource = function () {
+            me.content.source.slideToggle();
+        };
+
         var clearSlider = function (index) {
             me.content.filters.sliders[index].setParam(null);
         };

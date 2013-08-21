@@ -59,3 +59,5 @@
 #bestPlaces .shareWrapper { display:inline-block; }
 #bestPlaces .shareWrapper .menu { text-align:left; }
 #bestPlaces .shareWrapper .menu li {display:inline-block; }
+
+.footNote { font-size: 1.2em; }

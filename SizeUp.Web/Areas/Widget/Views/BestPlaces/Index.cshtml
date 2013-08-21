@@ -358,7 +358,7 @@
                 <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
                 <p class="message">Loading Next Set of Communities</p>
             </div>
-   
+            <p class="footNote">For more information on SizeUp's data sources, visit our <a href="/help/faq" target="_blank">FAQ section</a></p>
         </div>
 
    
@@ -386,11 +386,10 @@
 
         var done = function(){
             var opts = {
-                var opts = {
-                    CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
-                };
-                var driver = new sizeup.views.bestPlaces.bestPlaces(opts);;
+                CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
             };
+            var driver = new sizeup.views.bestPlaces.bestPlaces(opts);;
+        };
 
     var notifier = new sizeup.core.notifier(done);
     var apiLoaded = notifier.getNotifier();

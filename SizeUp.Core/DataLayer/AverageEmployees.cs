@@ -39,7 +39,7 @@ namespace SizeUp.Core.DataLayer
             }).FirstOrDefault();
 
 
-            return output.Total > CommonFilters.MinimumBusinessCount ? new PercentileItem
+            return output != null && output.Total > CommonFilters.MinimumBusinessCount ? new PercentileItem
             {
                 Name = output.Name,
                 Percentile = (((decimal)output.Filtered / ((decimal)output.Total + 1) * 100))
