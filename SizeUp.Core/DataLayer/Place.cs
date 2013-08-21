@@ -136,7 +136,7 @@ namespace SizeUp.Core.DataLayer
                     .Where(i => i.Place.County.State.Abbreviation.StartsWith(state))
                     .OrderBy(i => i.Place.City.Name)
                     .ThenBy(i => i.Place.City.State.Abbreviation)
-                    .ThenByDescending(i => i.Place.GeographicLocation.Demographics.AsQueryable().Where(d => d.Year == CommonFilters.TimeSlice.Demographics.Year && d.Quarter == CommonFilters.TimeSlice.Demographics.Quarter).FirstOrDefault().TotalPopulation)
+                    .ThenByDescending(i => i.Place.City.GeographicLocation.Demographics.AsQueryable().Where(d => d.Year == CommonFilters.TimeSlice.Demographics.Year && d.Quarter == CommonFilters.TimeSlice.Demographics.Quarter).FirstOrDefault().TotalPopulation)
                     .Select(i => i.Place)
                     .Select(new Projections.Place.Default().Expression);
         }

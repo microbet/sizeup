@@ -17,10 +17,10 @@
 #documentation .method table.params span { font-size: 1em; }
 #documentation .method table.params thead { border-bottom: 2px solid #CCCCCC; color:#909090; font-weight: bold; }
 #documentation .method table.params tbody td { padding: 0.5em 0 0 0; vertical-align:top;  }
-#documentation .method table.params tbody td.param {width:20%; font-weight:bold; }
+#documentation .method table.params tbody td.param {width:30%; font-weight:bold; }
 #documentation .method table.params tbody td.type {width:20%; }
-#documentation .method table.params tbody td.default {width:25%; }
-#documentation .method table.params tbody td.description {width:35%; }
+#documentation .method table.params tbody td.default {width:20%; }
+#documentation .method table.params tbody td.description {width:30%; }
 
 
 
