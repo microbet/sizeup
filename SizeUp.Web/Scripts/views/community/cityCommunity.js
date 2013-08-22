@@ -181,7 +181,16 @@
                             Industry: me.data.bestIndustries[x][y].Industry
                         };
                     }
-                    temp[me.data.bestIndustries[x][y].Industry.Id][x] = { rank: sizeup.util.numbers.format.ordinal(me.data.bestIndustries[x][y].Rank), isTop: me.data.bestIndustries[x][y].Rank >= 1 && me.data.bestIndustries[x][y].Rank <= 3 };
+                    temp[me.data.bestIndustries[x][y].Industry.Id][x] = { rank: sizeup.util.numbers.format.ordinal(me.data.bestIndustries[x][y].Rank), badgeType: ''};
+                    if (me.data.bestIndustries[x][y].Rank >= 1 && me.data.bestIndustries[x][y].Rank <= 10) {
+                        temp[me.data.bestIndustries[x][y].Industry.Id][x].badgeType = 'top10';
+                    }
+                    else if (me.data.bestIndustries[x][y].Rank >= 11 && me.data.bestIndustries[x][y].Rank <= 50) {
+                        temp[me.data.bestIndustries[x][y].Industry.Id][x].badgeType = 'top50';
+                    }
+                    else if (me.data.bestIndustries[x][y].Rank >= 51 && me.data.bestIndustries[x][y].Rank <= 150) {
+                        temp[me.data.bestIndustries[x][y].Industry.Id][x].badgeType = 'top150';
+                    }
                 }
             }
             var data = [];

@@ -130,6 +130,7 @@ namespace SizeUp.Web.Controllers
                         .Any(d =>
                             d.Year == Core.DataLayer.CommonFilters.TimeSlice.Industry.Year &&
                             d.Quarter == Core.DataLayer.CommonFilters.TimeSlice.Industry.Quarter &&
+                            d.BusinessCount > 0 &&
                             d.Industry.IsActive && !d.Industry.IsDisabled))
                     .Select(new Core.DataLayer.Projections.Place.Default().Expression);
                 

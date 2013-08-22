@@ -227,6 +227,7 @@
     <Content Include="Content\images\markerHighlightSupplier.png" />
     <Content Include="Content\images\markerShadow.png" />
     <Content Include="Content\images\markerSupplier.png" />
+    <Content Include="Content\images\medals.png" />
     <Content Include="Content\images\menuArrow.png" />
     <Content Include="Content\images\menuTriangle.png" />
     <Content Include="Content\images\mybusiness.png" />

@@ -52,8 +52,8 @@
                     {{#Industries}}
                     <li>
                         <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/{{Industry.SEOKey}}">{{Industry.Name}}</a>
-                        {{#totalRevenue}}<p><span class="badge {{#totalRevenue.isTop}}top{{/totalRevenue.isTop}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
-                        {{#revenuePerCapita}}<p><span class="badge {{#revenuePerCapita.isTop}}top{{/revenuePerCapita.isTop}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
+                        {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
+                        {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
                     </li>
                     {{/Industries}}
                 </ul>
