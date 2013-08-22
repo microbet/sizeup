@@ -38,7 +38,8 @@
     <div class="map"></div>
 
     <div class="wrapper bestIndustries">
-        <h2>Best Ranked Industries</h2>
+        <h2>Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+        <!--<p>Herp derpa doo</p>-->
         <div class="loading">
             <p class="title">Best Industries</p>
             <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
@@ -64,7 +65,7 @@
 
 
     <div class="wrapper demographics">
-        <h2>Community Demographics</h2>
+        <h2>Community Demographics for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
         <div class="loading">
             <p class="title">Community Profile</p>
             <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />

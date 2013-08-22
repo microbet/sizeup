@@ -28,7 +28,7 @@
             var n = num % 100;
             var suff = ["th", "st", "nd", "rd", "th"]; // suff for suffix
             var ord= n<21?(n<4 ? suff[n]:suff[0]): (n%10>4 ? suff[0] : suff[n%10]);
-            return num + ord;
+            return this.addCommas(num) + ord;
         },
         sigFig: function (num, sigFigs) {
             if (sigFigs == null || typeof sigFigs == 'undefined') {
