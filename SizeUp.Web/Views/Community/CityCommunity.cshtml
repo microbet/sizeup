@@ -39,7 +39,8 @@
 
     <div class="wrapper bestIndustries">
         <h2>Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
-        <!--<p>Herp derpa doo</p>-->
+        <p>The 5 industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation with the highest total revenue
+             are shown below along with the 5 industries with the highest revenue per capita.</p>
         <div class="loading">
             <p class="title">Best Industries</p>
             <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
@@ -52,8 +53,8 @@
                     {{#Industries}}
                     <li>
                         <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/{{Industry.SEOKey}}">{{Industry.Name}}</a>
-                        {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
-                        {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
+                        {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}" title="{{totalRevenue.badgeName}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
+                        {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}" title="{{revenuePerCapita.badgeName}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
                     </li>
                     {{/Industries}}
                 </ul>
