@@ -96,7 +96,7 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Find(string state, string county, string city, string industry)
         {
-            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry.Id == null)
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
             {
                 throw new HttpException(404, "Page Not Found");
             }

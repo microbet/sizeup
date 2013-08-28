@@ -43,6 +43,7 @@ namespace SizeUp.Core.API
             HttpCookie kc = new HttpCookie(SessionCookieKey);
             kc.Domain = "." + Web.WebContext.Current.Domain;
             kc.Value = _sessionid;
+            kc.Expires = DateTime.Now.AddYears(1);
             HttpContext.Current.Response.Cookies.Add(kc);
         }
 
