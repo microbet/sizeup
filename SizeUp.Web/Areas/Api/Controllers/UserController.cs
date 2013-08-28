@@ -15,12 +15,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/User/
 
-        public ActionResult Authenticated()
-        {
-            var output = User.Identity.IsAuthenticated;
-            return Json(output, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public ActionResult Signin(string email, string password, bool? persist)
         {

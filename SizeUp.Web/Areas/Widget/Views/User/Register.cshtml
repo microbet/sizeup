@@ -13,7 +13,7 @@
     <p class="details">Use the form below to create a new account. The name field is optional.
      Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength characters in length.</p>
 
-    <form id="registerForm" action="/widget/user/register/?wt=@ViewBag.WidgetToken&returnurl=@Request.QueryString["returnurl"]" method="post">
+    <form id="registerForm" action="/widget/user/register/?wt=@ViewBag.WidgetToken&returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])" method="post">
         <ul id="form">
             <li>
                 <label for="nameBox">Name:</label>
@@ -36,7 +36,7 @@
         <ul id="sidebar">
             @if(ViewBag.UsernameExists){
             <li>
-                <p class="info">This e-mail address is already registered.  Please <a href="/widget/user/signin/?wt=@ViewBag.WidgetToken&returnurl=@Request.QueryString["returnurl"]">sign in</a> with your password.</p>
+                <p class="info">This e-mail address is already registered.  Please <a href="/widget/user/signin/?wt=@ViewBag.WidgetToken&returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])">sign in</a> with your password.</p>
             </li>
             }
             @if(ViewBag.Error){

@@ -67,8 +67,8 @@
         me.data = {
             xhr: {},
             mapPins: [],
-            activeIndustry: me.opts.CurrentIndustry,
-            activePlace: me.opts.CurrentPlace
+            activeIndustry: me.opts.CurrentInfo.CurrentIndustry,
+            activePlace: me.opts.CurrentInfo.CurrentPlace
         };
 
 
@@ -82,15 +82,14 @@
 
         
         var params = jQuery.bbq.getState();
-        var minDistanceParams = { placeId: me.opts.CurrentPlace.Id, industryId: me.opts.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
+        var minDistanceParams = { placeId: me.opts.CurrentInfo.CurrentPlace.Id, industryId: me.opts.CurrentInfo.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
         if (params.template == null) {
             minDistanceParams = $.extend(true, minDistanceParams, me.opts.defaultParams);
         }
        
         sizeup.api.data.getBestPlacesToAdvertiseMinimumDistance(minDistanceParams, notifier.getNotifier(function (data) { me.opts.defaultDistance = data; }));
-        sizeup.api.data.getCentroid({ geographicLocationId: opts.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
-        sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
-
+        sizeup.api.data.getCentroid({ geographicLocationId: me.opts.CurrentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
+      
 
 
         var init = function () {
@@ -161,8 +160,8 @@
 
             me.content.pager = new sizeup.controls.pager({
                 container: me.container.find('.pager'),
-                currentPage: me.isAuthenticated ? params.page : 1,
-                itemsPerPage: me.isAuthenticated ? me.opts.itemsPerPage : 3,
+                currentPage: me.opts.IsAuthenticated ? params.page : 1,
+                itemsPerPage: me.opts.IsAuthenticated ? me.opts.itemsPerPage : 3,
                 pagesToShow: me.opts.pagesToShow,
                 templates: templates,
                 templateId: 'pager',
@@ -738,7 +737,7 @@
 
         var setPager = function (data) {
             me.content.pager.setState(data);
-            if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
+            if (data.Count > me.opts.itemsPerPage && me.opts.IsAuthenticated) {
                 me.content.pager.getContainer().show();
             }
             else {

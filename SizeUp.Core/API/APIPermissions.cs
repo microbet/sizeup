@@ -8,57 +8,63 @@ namespace SizeUp.Core.API
 {
     public class APIPermissions
     {
-        protected List<Data.API.Role> roles = new List<Data.API.Role>();
+        protected List<string> roles = new List<string>();
         public bool Advertising
         {
-            get { return roles.Any(i => i.Name.ToLower() == "advertising"); }
+            get { return roles.Any(i => i.ToLower() == "advertising"); }
         }
 
         public bool IndustryData
         {
-            get { return roles.Any(i => i.Name.ToLower() == "industrydata"); }
+            get { return roles.Any(i => i.ToLower() == "industrydata"); }
         }
 
         public bool Business
         {
-            get { return roles.Any(i => i.Name.ToLower() == "business"); }
+            get { return roles.Any(i => i.ToLower() == "business"); }
         }
 
         public bool BestPlaces
         {
-            get { return roles.Any(i => i.Name.ToLower() == "bestplaces"); }
+            get { return roles.Any(i => i.ToLower() == "bestplaces"); }
         }
 
         public bool ConsumerExpenditures
         {
-            get { return roles.Any(i => i.Name.ToLower() == "consumerexpenditures"); }
+            get { return roles.Any(i => i.ToLower() == "consumerexpenditures"); }
         }
 
         public bool Demographics
         {
-            get { return roles.Any(i => i.Name.ToLower() == "demographics"); }
+            get { return roles.Any(i => i.ToLower() == "demographics"); }
         }
 
         public bool Place
         {
-            get { return roles.Any(i => i.Name.ToLower() == "place"); }
+            get { return roles.Any(i => i.ToLower() == "place"); }
         }
 
         public bool Industry
         {
-            get { return roles.Any(i => i.Name.ToLower() == "industry"); }
+            get { return roles.Any(i => i.ToLower() == "industry"); }
         }
 
         public bool Widget
         {
-            get { return roles.Any(i => i.Name.ToLower() == "widget"); }
+            get { return roles.Any(i => i.ToLower() == "widget"); }
         }
+
+        public bool SigninOptional
+        {
+            get { return roles.Any(i => i.ToLower() == "signinoptional"); }
+        }
+
 
         public APIPermissions(long? APIKeyId)
         {
             using (var context = ContextFactory.APIContext)
             {
-                roles = context.Roles.Where(i => i.APIKeyRoleMappings.Any(m => m.APIKeyId == APIKeyId)).ToList();   
+                roles = context.Roles.Where(i => i.APIKeyRoleMappings.Any(m => m.APIKeyId == APIKeyId)).Select(i=>i.Name).ToList();   
             }
         }
     }

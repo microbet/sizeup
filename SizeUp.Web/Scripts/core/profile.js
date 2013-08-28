@@ -60,10 +60,6 @@
             document.location = getURLPrefix() + "/signout" + getReturnQueryString();
         };
 
-        pub.isAuthenticated = function (callback) {
-            return get('/api/user/authenticated/', null, callback);
-        };
-
         pub.updateUserProfile = function (params, callback) {
             return post('/api/user/profile/', params, callback);
         }; 

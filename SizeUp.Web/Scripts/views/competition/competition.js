@@ -69,7 +69,6 @@
         var setup = function () {
             var params = jQuery.bbq.getState();
             var notifier = new sizeup.core.notifier(function () { init(); });
-            sizeup.core.profile.isAuthenticated(notifier.getNotifier(function (data) { me.isAuthenticated = data; }));
             sizeup.api.data.getBoundingBox({ geographicLocationId: opts.CurrentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) {
                 me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.SouthWest.Lat, lng: data.SouthWest.Lng }));
@@ -172,7 +171,7 @@
                 container: me.content.container.find('.pager').removeClass('hidden').hide(),
                 templates: templates,
                 templateId: 'pager',
-                itemsPerPage: me.isAuthenticated ? me.opts.itemsPerPage : 3,
+                itemsPerPage: me.opts.IsAuthenticated ? me.opts.itemsPerPage : 3,
                 onUpdate: function (data) { pagerOnUpdate(data); }
             });
 
@@ -963,13 +962,13 @@
             else {
                 me.content.noResults.hide();
                 me.content.businessListFootnote.show();
-                if (!me.isAuthenticated) {
+                if (!me.opts.IsAuthenticated) {
                     me.content.signinPanel.container.show();
                     me.content.signinPanel.toggle.html(templates.bind(me.content.signinPanel.templateText, me.content.pager.getPageData()));
                 }
             }
             
-            if (data.Count > me.opts.itemsPerPage && me.isAuthenticated) {
+            if (data.Count > me.opts.itemsPerPage && me.opts.IsAuthenticated) {
                 me.content.pager.getContainer().show();
             }
             else {

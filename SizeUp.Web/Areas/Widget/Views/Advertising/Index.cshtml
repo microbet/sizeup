@@ -324,7 +324,7 @@
                 </div>
             </div>
         
-            @if(!HttpContext.Current.User.Identity.IsAuthenticated){
+            @if(!(HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) ){
             <div class="signinWrapper">
                     <a href="javascript:void(0);" class="signinToggle inverse" >
                         View all best places to advertise
@@ -348,7 +348,10 @@
 
     <script type="text/javascript">
         var done = function(){
-            var opts = @Html.Raw(ViewBag.CurrentInfoJSON) ;
+            var opts = {
+                CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
+                IsAuthenticated: @((HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) ? "true" : "false")
+                };
             var driver = new sizeup.views.advertising.advertising(opts);
         };
 

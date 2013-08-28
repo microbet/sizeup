@@ -85,7 +85,7 @@
         @Html.Partial("AverageSalary")
         </div>
 
-        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        @if ((HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional))
         {
         <div id="employees" class="report">
         @Html.Partial("Employees")
@@ -204,7 +204,7 @@
     var done = function(){
         var opts = {
             currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
-            isAuthenticated: @(HttpContext.Current.User.Identity.IsAuthenticated ? "true" : "false")
+            isAuthenticated: @((HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) ? "true" : "false")
             };
             var driver = new sizeup.views.dashboard.dashboard(opts);
         };

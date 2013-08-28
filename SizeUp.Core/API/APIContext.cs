@@ -12,6 +12,8 @@ namespace SizeUp.Core.API
 {
     public class APIContext
     {
+        private APIPermissions _apiPermissions = null;
+        private APIPermissions _widgetPermissions = null;
         public static APIContext Current
         {
             get
@@ -25,6 +27,7 @@ namespace SizeUp.Core.API
                 return context;
             }
         }
+
         public bool IsJsonp
         {
             get { return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.CallbackName"]] != null; }
@@ -46,6 +49,44 @@ namespace SizeUp.Core.API
             {
                 var tokenString = HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.WidgetTokenName"]];
                 return APIToken.ParseToken(tokenString);
+            }
+        }
+
+        public APIPermissions APIPermissions
+        {
+            get
+            {
+                if (_apiPermissions == null)
+                {
+                    if (ApiToken != null && ApiToken.IsValid && !ApiToken.IsExpired)
+                    {
+                        _apiPermissions = new APIPermissions(ApiToken.APIKeyId);
+                    }
+                    else
+                    {
+                        _apiPermissions = new APIPermissions(null);
+                    }
+                }
+                return _apiPermissions;
+            }
+        }
+
+        public APIPermissions WidgetPermissions
+        {
+            get
+            {
+                if (_widgetPermissions == null)
+                {
+                    if (WidgetToken != null)
+                    {
+                        _widgetPermissions = new APIPermissions(WidgetToken.APIKeyId);
+                    }
+                    else
+                    {
+                        _widgetPermissions = new APIPermissions(null);
+                    }
+                }
+                return _widgetPermissions;
             }
         }
 
