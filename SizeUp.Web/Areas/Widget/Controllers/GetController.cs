@@ -21,6 +21,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             base.Initialize(requestContext);
             Response.ContentType = "text/javascript";
+            APISession.Create();  
         }
 
         public ActionResult Index(Guid key, long? industryId = null, long? placeId = null, string theme = null, string feature = "")
@@ -74,14 +75,8 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 Response.Cookies.Add(c);
             }
             CreateToken(key);
-
-            MemoryStream s = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            string data = string.Format("{0}|{1}", key.ToString(), Guid.NewGuid().ToString());
-            bf.Serialize(s, data);
-            SHA1CryptoServiceProvider a = new SHA1CryptoServiceProvider();
-            var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));
-            ViewBag.SessionId = sessionid;
+            ViewBag.SessionId = APISession.Current.SessionId;
+            ViewBag.InstanceId = RandomString.Get(25);
 
             return View();
         }
@@ -96,12 +91,17 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             using (var context = ContextFactory.APIContext)
             {
+                if (!context.APIKeyRoleMappings.Any(i => i.APIKey.KeyValue == key && i.Role.Name.ToLower() == "widget"))
+                {
+                    throw new HttpException(403, "Not authorized to use the widget");
+                }
+
+
                 var api = context.APIKeys.Where(i => i.KeyValue == key).FirstOrDefault();
                 if (api != null)
                 {
                     ViewBag.APIName = api.Name;
-                    var token = new APIToken(api.Id);
-                    token.PersistAsCookie();
+                    var token = APIToken.Create(api.Id);
                     ViewBag.Token = token.GetToken();
                 }
                 else
@@ -109,10 +109,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                     throw new HttpException(403, "Invalid API Key");
                 }
 
-                if (!context.APIKeyRoleMappings.Any(i => i.APIKey.KeyValue == key && i.Role.Name.ToLower() == "widget"))
-                {
-                    throw new HttpException(403, "Not authorized to use the widget");
-                }
+               
 
             }
         }

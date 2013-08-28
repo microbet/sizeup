@@ -164,6 +164,7 @@
                // new sizeup.core.analytics().competitionIndustryChanged(p);
                 var url = document.location.pathname;
                 url = url.replace(me.opts.location.CurrentIndustry.SEOKey, i.SEOKey);
+                url = jQuery.param.querystring(url, jQuery.param.querystring(), 2);
                 document.location = url;
             }
             else {
@@ -193,6 +194,7 @@
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('community'));
                 url = url + 'community/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.opts.location.CurrentIndustry.SEOKey + '/';
+                url = jQuery.param.querystring(url, jQuery.param.querystring(), 2);
                 document.location = url;
             }
             else {

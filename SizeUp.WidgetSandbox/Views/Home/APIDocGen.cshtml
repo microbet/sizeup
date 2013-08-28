@@ -12,12 +12,16 @@
 }
 
 <script type="text/template" id="template">
-    <h1>API Documetation</h1>
+    <h1>Industry Benchmarking Data for Your Site</h1>
+
+    <p>
+    You can include industry benchmarking data on your very own site using SizeUp’s API.
+         After reviewing the documentation, if you think the SizeUp API is right for you, contact us at <a href="mailto:info@SizeUp.com">info@sizeup.com</a> 
+        for pricing information, and we will set you up with your own API key.
+    </p> 
 
     <h2>Getting Started</h2>
-    <p>First, request and API key (MAKE THIS A LINK) blah blah blah</p>
-
-    <p>Include a refernece to the api loader script in your head tag of your page.</p>
+    <p>After you have obtained your API key, include a reference to the api loader script in your head tag of your page.</p>
 
     <h2>Basic Example</h2>
 <pre class="prettyprint">
@@ -75,7 +79,7 @@
     sizeup.api.range is range parameter used for some Data API methods.
     </p>
     <pre class="prettyprint">
-    //creates a range object and sets the minimun bound to 1 and the maximum bound to 5
+    //creates a range object and sets the minimum bound to 1 and the maximum bound to 5
     var range = sizeup.api.range(1, 5);
     //changes the bounds to 10 and 50
     range.min(10);

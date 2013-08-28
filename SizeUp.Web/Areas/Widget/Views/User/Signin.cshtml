@@ -13,7 +13,7 @@
     <h1>Returning users</h1>
     <p class="details">Please enter your e-mail address and password.</p>
 
-    <form id="signinForm" action="/widget/user/signin/?returnurl=@Request.QueryString["returnurl"]" method="post">
+    <form id="signinForm" action="/widget/user/signin/?wt=@ViewBag.WidgetToken&returnurl=@Request.QueryString["returnurl"]" method="post">
         <ul id="form">
             <li>
                 <label for="emailBox">Email:</label>
@@ -65,7 +65,7 @@
             </li> 
             } 
             <li>
-                <p class="info">No account? No problem! Click to <a href="/widget/user/register/?returnurl=@Request.QueryString["returnurl"]">register</a>. It's free and takes only moments.</p>
+                <p class="info">No account? No problem! Click to <a href="/widget/user/register/?wt=@ViewBag.WidgetToken&returnurl=@Request.QueryString["returnurl"]">register</a>. It's free and takes only moments.</p>
             </li>
         </ul>
 

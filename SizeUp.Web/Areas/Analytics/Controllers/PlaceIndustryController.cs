@@ -8,6 +8,7 @@ using SizeUp.Core;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.API;
 using System.Web.Security;
+using SizeUp.Core.Analytics;
 
 namespace SizeUp.Web.Areas.Analytics.Controllers
 {
@@ -18,8 +19,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Index(long placeId, long industryId)
         {
-            APIToken token = APIToken.GetFromCookie();
-            long? apikeyid = token!= null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
             
             if(User.Identity.IsAuthenticated){
@@ -29,7 +28,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
             var item = new PlaceIndustrySearch(){
                 IndustryId = industryId,
                 PlaceId = placeId,
-                APIKeyId = apikeyid,
                 UserId = userid                
             };
 

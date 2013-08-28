@@ -58,7 +58,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AnalyticsContext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Analytics\Tracker.cs" />
     <Compile Include="API\APIContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,7 +70,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SizeUpContext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="TimeStamp.cs" />
     <Compile Include="UserData\UserDataContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

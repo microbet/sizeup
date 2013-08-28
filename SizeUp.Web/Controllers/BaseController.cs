@@ -16,6 +16,7 @@ namespace SizeUp.Web.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
+            SizeUp.Core.API.APISession.Create();
             var data = new Models.Header();
 
             CurrentInfo = new Core.DataLayer.Models.CurrentInfo();

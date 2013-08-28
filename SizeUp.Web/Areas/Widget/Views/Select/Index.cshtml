@@ -5,10 +5,11 @@
 @section head{
 <link href="@Url.Content("~/Content/widget/Views/select/select.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/select/select.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <title>Select your city and industry</title>
 }
 

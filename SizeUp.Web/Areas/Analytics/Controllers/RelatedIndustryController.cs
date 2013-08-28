@@ -8,7 +8,7 @@ using SizeUp.Core;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.API;
 using System.Web.Security;
-
+using SizeUp.Core.Analytics;
 
 namespace SizeUp.Web.Areas.Analytics.Controllers
 {
@@ -19,8 +19,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Competitor(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            APIToken token = APIToken.GetFromCookie();
-            long? apikeyid = token != null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
 
             if (User.Identity.IsAuthenticated)
@@ -33,7 +31,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
                 PrimaryIndustryId = primaryIndustryId,
                 RelatedIndustryId = relatedIndustryId,
                 PlaceId = placeId,
-                APIKeyId = apikeyid,
                 UserId = userid
             };
 
@@ -44,8 +41,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Buyer(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            APIToken token = APIToken.GetFromCookie();
-            long? apikeyid = token != null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
 
             if (User.Identity.IsAuthenticated)
@@ -58,7 +53,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
                 PrimaryIndustryId = primaryIndustryId,
                 RelatedIndustryId = relatedIndustryId,
                 PlaceId = placeId,
-                APIKeyId = apikeyid,
                 UserId = userid
             };
 
@@ -69,8 +63,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
 
         public ActionResult Supplier(long placeId, long primaryIndustryId, long relatedIndustryId)
         {
-            APIToken token = APIToken.GetFromCookie();
-            long? apikeyid = token != null ? token.APIKeyId : (long?)null;
             Guid? userid = null;
 
             if (User.Identity.IsAuthenticated)
@@ -83,7 +75,6 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
                 PrimaryIndustryId = primaryIndustryId,
                 RelatedIndustryId = relatedIndustryId,
                 PlaceId = placeId,
-                APIKeyId = apikeyid,
                 UserId = userid
             };
 

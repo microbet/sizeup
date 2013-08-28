@@ -49,7 +49,12 @@ namespace SizeUp.Core.API
             get { return roles.Any(i => i.Name.ToLower() == "industry"); }
         }
 
-        public APIPermissions(long APIKeyId)
+        public bool Widget
+        {
+            get { return roles.Any(i => i.Name.ToLower() == "widget"); }
+        }
+
+        public APIPermissions(long? APIKeyId)
         {
             using (var context = ContextFactory.APIContext)
             {

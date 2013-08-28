@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SizeUp.Data
+namespace SizeUp.Core.Analytics
 {
     public class TimeStamp
     {

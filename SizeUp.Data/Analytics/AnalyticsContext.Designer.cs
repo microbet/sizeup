@@ -68,34 +68,50 @@ namespace SizeUp.Data.Analytics
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserRegistration> UserRegistrations
+        public ObjectSet<APIRequest> APIRequests
         {
             get
             {
-                if ((_UserRegistrations == null))
+                if ((_APIRequests == null))
                 {
-                    _UserRegistrations = base.CreateObjectSet<UserRegistration>("UserRegistrations");
+                    _APIRequests = base.CreateObjectSet<APIRequest>("APIRequests");
                 }
-                return _UserRegistrations;
+                return _APIRequests;
             }
         }
-        private ObjectSet<UserRegistration> _UserRegistrations;
+        private ObjectSet<APIRequest> _APIRequests;
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<LongRequest> LongRequests
+        public ObjectSet<BusinessAttribute> BusinessAttributes
         {
             get
             {
-                if ((_LongRequests == null))
+                if ((_BusinessAttributes == null))
                 {
-                    _LongRequests = base.CreateObjectSet<LongRequest>("LongRequests");
+                    _BusinessAttributes = base.CreateObjectSet<BusinessAttribute>("BusinessAttributes");
                 }
-                return _LongRequests;
+                return _BusinessAttributes;
             }
         }
-        private ObjectSet<LongRequest> _LongRequests;
+        private ObjectSet<BusinessAttribute> _BusinessAttributes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CompetitorAttribute> CompetitorAttributes
+        {
+            get
+            {
+                if ((_CompetitorAttributes == null))
+                {
+                    _CompetitorAttributes = base.CreateObjectSet<CompetitorAttribute>("CompetitorAttributes");
+                }
+                return _CompetitorAttributes;
+            }
+        }
+        private ObjectSet<CompetitorAttribute> _CompetitorAttributes;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -112,6 +128,22 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<Exception> _Exceptions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<LongRequest> LongRequests
+        {
+            get
+            {
+                if ((_LongRequests == null))
+                {
+                    _LongRequests = base.CreateObjectSet<LongRequest>("LongRequests");
+                }
+                return _LongRequests;
+            }
+        }
+        private ObjectSet<LongRequest> _LongRequests;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -180,69 +212,45 @@ namespace SizeUp.Data.Analytics
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<BusinessAttribute> BusinessAttributes
+        public ObjectSet<UserRegistration> UserRegistrations
         {
             get
             {
-                if ((_BusinessAttributes == null))
+                if ((_UserRegistrations == null))
                 {
-                    _BusinessAttributes = base.CreateObjectSet<BusinessAttribute>("BusinessAttributes");
+                    _UserRegistrations = base.CreateObjectSet<UserRegistration>("UserRegistrations");
                 }
-                return _BusinessAttributes;
+                return _UserRegistrations;
             }
         }
-        private ObjectSet<BusinessAttribute> _BusinessAttributes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<CompetitorAttribute> CompetitorAttributes
-        {
-            get
-            {
-                if ((_CompetitorAttributes == null))
-                {
-                    _CompetitorAttributes = base.CreateObjectSet<CompetitorAttribute>("CompetitorAttributes");
-                }
-                return _CompetitorAttributes;
-            }
-        }
-        private ObjectSet<CompetitorAttribute> _CompetitorAttributes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<APIRequest> APIRequests
-        {
-            get
-            {
-                if ((_APIRequests == null))
-                {
-                    _APIRequests = base.CreateObjectSet<APIRequest>("APIRequests");
-                }
-                return _APIRequests;
-            }
-        }
-        private ObjectSet<APIRequest> _APIRequests;
+        private ObjectSet<UserRegistration> _UserRegistrations;
 
         #endregion
 
         #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserRegistrations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the APIRequests EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToUserRegistrations(UserRegistration userRegistration)
+        public void AddToAPIRequests(APIRequest aPIRequest)
         {
-            base.AddObject("UserRegistrations", userRegistration);
+            base.AddObject("APIRequests", aPIRequest);
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the LongRequests EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the BusinessAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToLongRequests(LongRequest longRequest)
+        public void AddToBusinessAttributes(BusinessAttribute businessAttribute)
         {
-            base.AddObject("LongRequests", longRequest);
+            base.AddObject("BusinessAttributes", businessAttribute);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CompetitorAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCompetitorAttributes(CompetitorAttribute competitorAttribute)
+        {
+            base.AddObject("CompetitorAttributes", competitorAttribute);
         }
     
         /// <summary>
@@ -251,6 +259,14 @@ namespace SizeUp.Data.Analytics
         public void AddToExceptions(Exception exception)
         {
             base.AddObject("Exceptions", exception);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the LongRequests EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLongRequests(LongRequest longRequest)
+        {
+            base.AddObject("LongRequests", longRequest);
         }
     
         /// <summary>
@@ -286,27 +302,11 @@ namespace SizeUp.Data.Analytics
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the BusinessAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the UserRegistrations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToBusinessAttributes(BusinessAttribute businessAttribute)
+        public void AddToUserRegistrations(UserRegistration userRegistration)
         {
-            base.AddObject("BusinessAttributes", businessAttribute);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the CompetitorAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCompetitorAttributes(CompetitorAttribute competitorAttribute)
-        {
-            base.AddObject("CompetitorAttributes", competitorAttribute);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the APIRequests EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAPIRequests(APIRequest aPIRequest)
-        {
-            base.AddObject("APIRequests", aPIRequest);
+            base.AddObject("UserRegistrations", userRegistration);
         }
 
         #endregion
@@ -342,8 +342,8 @@ namespace SizeUp.Data.Analytics
         /// <param name="year">Initial value of the Year property.</param>
         /// <param name="url">Initial value of the Url property.</param>
         /// <param name="originUrl">Initial value of the OriginUrl property.</param>
-        /// <param name="session">Initial value of the Session property.</param>
-        public static APIRequest CreateAPIRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url, global::System.String originUrl, global::System.String session)
+        /// <param name="instance">Initial value of the Instance property.</param>
+        public static APIRequest CreateAPIRequest(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url, global::System.String originUrl, global::System.String instance)
         {
             APIRequest aPIRequest = new APIRequest();
             aPIRequest.Id = id;
@@ -358,7 +358,7 @@ namespace SizeUp.Data.Analytics
             aPIRequest.Year = year;
             aPIRequest.Url = url;
             aPIRequest.OriginUrl = originUrl;
-            aPIRequest.Session = session;
+            aPIRequest.Instance = instance;
             return aPIRequest;
         }
 
@@ -686,24 +686,24 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String Session
+        public global::System.String Instance
         {
             get
             {
-                return _Session;
+                return _Instance;
             }
             set
             {
-                OnSessionChanging(value);
-                ReportPropertyChanging("Session");
-                _Session = StructuralObject.SetValidValue(value, false, "Session");
-                ReportPropertyChanged("Session");
-                OnSessionChanged();
+                OnInstanceChanging(value);
+                ReportPropertyChanging("Instance");
+                _Instance = StructuralObject.SetValidValue(value, false, "Instance");
+                ReportPropertyChanged("Instance");
+                OnInstanceChanged();
             }
         }
-        private global::System.String _Session;
-        partial void OnSessionChanging(global::System.String value);
-        partial void OnSessionChanged();
+        private global::System.String _Instance;
+        partial void OnInstanceChanging(global::System.String value);
+        partial void OnInstanceChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -728,6 +728,54 @@ namespace SizeUp.Data.Analytics
         private global::System.String _OriginIP;
         partial void OnOriginIPChanging(global::System.String value);
         partial void OnOriginIPChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -1284,6 +1332,54 @@ namespace SizeUp.Data.Analytics
         private global::System.String _BusinessSize;
         partial void OnBusinessSizeChanging(global::System.String value);
         partial void OnBusinessSizeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -1768,6 +1864,54 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Buyers;
         partial void OnBuyersChanging(global::System.String value);
         partial void OnBuyersChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -2130,6 +2274,30 @@ namespace SizeUp.Data.Analytics
         private global::System.String _StackTrace;
         partial void OnStackTraceChanging(global::System.String value);
         partial void OnStackTraceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -2446,6 +2614,30 @@ namespace SizeUp.Data.Analytics
         private global::System.Int32 _RequestTime;
         partial void OnRequestTimeChanging(global::System.Int32 value);
         partial void OnRequestTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -2806,6 +2998,54 @@ namespace SizeUp.Data.Analytics
         private Nullable<global::System.Guid> _UserId;
         partial void OnUserIdChanging(Nullable<global::System.Guid> value);
         partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -3196,6 +3436,54 @@ namespace SizeUp.Data.Analytics
         private global::System.Int64 _RelatedIndustryId;
         partial void OnRelatedIndustryIdChanging(global::System.Int64 value);
         partial void OnRelatedIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -3586,6 +3874,54 @@ namespace SizeUp.Data.Analytics
         private global::System.Int64 _RelatedIndustryId;
         partial void OnRelatedIndustryIdChanging(global::System.Int64 value);
         partial void OnRelatedIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -3976,6 +4312,54 @@ namespace SizeUp.Data.Analytics
         private global::System.Int64 _RelatedIndustryId;
         partial void OnRelatedIndustryIdChanging(global::System.Int64 value);
         partial void OnRelatedIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 
@@ -4390,6 +4774,54 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Email;
         partial void OnEmailChanging(global::System.String value);
         partial void OnEmailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
 
         #endregion
 

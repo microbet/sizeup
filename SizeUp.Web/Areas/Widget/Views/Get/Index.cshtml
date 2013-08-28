@@ -11,6 +11,7 @@
     me.defaultColor = '#fff';
     me.apiToken = '@ViewBag.Token';
     me.sessionId = '@ViewBag.SessionId';
+    me.instanceId = '@ViewBag.InstanceId';
 
     var buildQueryString = function (vals) {
         var params = [];
@@ -42,7 +43,7 @@
         iframe.style["display"] = 'block';
         iframe.id = "sizeup_iframe";
         iframe["scrolling"] = 'no';
-        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query) + '&t=' + encodeURIComponent(me.apiToken) + '&o=' + encodeURIComponent(document.location.hostname) + '&s=' + encodeURIComponent(me.sessionId);
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query) + '&t=' + encodeURIComponent(me.apiToken) + '&o=' + encodeURIComponent(document.location.hostname) + '&s=' + encodeURIComponent(me.sessionId) + '&i=' + encodeURIComponent(me.instanceId);
         iframe.src = src;
         script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
     };

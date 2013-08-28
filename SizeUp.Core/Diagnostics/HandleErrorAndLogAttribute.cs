@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using SizeUp.Data;
-using SizeUp.Data.Analytics;
+using SizeUp.Core.Analytics;
 using System.Web;
 
 namespace SizeUp.Core.Diagnostics

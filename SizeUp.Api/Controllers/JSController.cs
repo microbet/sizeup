@@ -20,20 +20,17 @@ namespace SizeUp.Api.Controllers
         {
             base.Initialize(requestContext);
             Response.ContentType = "text/javascript";
+            APISession.Create();       
         }
 
-        public ActionResult Index(Guid apikey)
+        public ActionResult Index(Guid apikey, string wt = "")
         {
             APIToken token = null;
-            MemoryStream s = new MemoryStream();
-            BinaryFormatter bf = new BinaryFormatter();
-            string data = string.Format("{0}|{1}", apikey.ToString(), Guid.NewGuid().ToString());
-            bf.Serialize(s, data);
-            SHA1CryptoServiceProvider a = new SHA1CryptoServiceProvider();
-            var sessionid = Convert.ToBase64String(a.ComputeHash(s.ToArray()));           
-            ViewBag.SessionId = sessionid;
-
-
+            APIToken widgetToken = null;
+            if (!string.IsNullOrWhiteSpace(wt))
+            {
+                widgetToken = APIToken.ParseToken(wt);
+            }
             using (var context = ContextFactory.APIContext)
             {
                 var k = context.APIKeys.Where(i => i.KeyValue == apikey).FirstOrDefault();
@@ -41,9 +38,12 @@ namespace SizeUp.Api.Controllers
                 {
                     throw new Exception("Invalid API Key");
                 }
-                token = new APIToken(k.Id);
+                token = APIToken.Create(k.Id);
             }
             ViewBag.Token = token.GetToken();
+            ViewBag.SessionId = APISession.Current.SessionId;
+            ViewBag.InstanceId = RandomString.Get(25);
+            ViewBag.WidgetToken = widgetToken != null ? widgetToken.GetToken(): "";
             return View();
         }
 

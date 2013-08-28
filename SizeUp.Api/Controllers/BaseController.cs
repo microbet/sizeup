@@ -9,6 +9,8 @@ using SizeUp.Core.API;
 using SizeUp.Core.Web;
 using SizeUp.Data;
 using SizeUp.Data.Analytics;
+using SizeUp.Core.Analytics;
+
 
 namespace SizeUp.Api.Controllers
 {
@@ -17,6 +19,7 @@ namespace SizeUp.Api.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
+            APISession.Create();  
             //this tells IE NOT to cache requests becuase good ol microsoft knows best and goes against the grain
             //theres no WAY an ajax request could EVER return different data right?
             //suckit IE
@@ -64,9 +67,7 @@ namespace SizeUp.Api.Controllers
         {
             Data.Analytics.APIRequest reg = new Data.Analytics.APIRequest();
             reg.OriginUrl = APIContext.Current.Origin;
-            reg.Session = APIContext.Current.Session;
             reg.Url = HttpContext.Request.Url.OriginalString;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
             reg.OriginIP = WebContext.Current.ClientIP;
             Singleton<Tracker>.Instance.APIRequest(reg);
         }

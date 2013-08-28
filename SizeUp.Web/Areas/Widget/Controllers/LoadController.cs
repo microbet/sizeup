@@ -9,6 +9,8 @@ using SizeUp.Core.DataLayer;
 using SizeUp.Core.Web;
 using SizeUp.Core.API;
 using SizeUp.Data.Analytics;
+using SizeUp.Core.Analytics;
+
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -20,6 +22,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         [APIAuthorize(Role = "Widget")]
         public ActionResult Index()
         {
+            //in this context the APIToken is the widget key
             bool valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
             Log();
             if (!valid)
@@ -31,10 +34,11 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
+                string urlToken = HttpUtility.UrlEncode(APIContext.Current.ApiToken.GetToken());
                 string urlBase = "/{0}/{1}/{2}/{3}";
-                string url = "/widget/select";
+                string url = string.Format("/{0}?wt={1}","widget/select", urlToken);
 
-                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry.Id != null)
+                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry != null)
                 {
                     var place = WebContext.Current.CurrentPlace;
                     var industry = WebContext.Current.CurrentIndustry;
@@ -42,21 +46,22 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
                     if (WebContext.Current.StartFeature == Feature.Advertising)
                     {
-                        url = string.Format("{0}{1}", "/widget/advertising", urlBase);
+                        url = string.Format("/{0}{1}?wt={2}", "widget/advertising", urlBase, urlToken);
                     }
                     else if (WebContext.Current.StartFeature == Feature.Competition)
                     {
-                        url = string.Format("{0}{1}", "/widget/competition", urlBase);
+                        url = string.Format("/{0}{1}?wt={2}", "widget/competition", urlBase, urlToken);
                     }
                     else if (WebContext.Current.StartFeature == Feature.Dashboard)
                     {
-                        url = string.Format("{0}{1}", "/widget/dashboard", urlBase);
+                        url = string.Format("/{0}{1}?wt={2}", "widget/dashboard", urlBase, urlToken);
                     }
                     else if (WebContext.Current.StartFeature == Feature.Community)
                     {
-                        url = string.Format("{0}{1}", "/widget/community", urlBase);
+                        url = string.Format("/{0}{1}?wt={2}", "widget/community", urlBase, urlToken);
                     }
                 }
+                
                 return Redirect(url);
             }
         }
@@ -65,9 +70,8 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             Data.Analytics.APIRequest reg = new Data.Analytics.APIRequest();
             reg.OriginUrl = APIContext.Current.Origin;
-            reg.Session = APIContext.Current.Session;
             reg.Url = HttpContext.Request.Url.OriginalString;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
+            reg.OriginIP = WebContext.Current.ClientIP;
             Singleton<Tracker>.Instance.APIRequest(reg);
         }
 

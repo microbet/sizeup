@@ -34,8 +34,10 @@
           <Property Name="APIKeyId" Type="bigint" />
           <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OriginUrl" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Session" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Instance" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="OriginIP" Type="nvarchar" MaxLength="20" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="BusinessAttributes">
           <Key>
@@ -62,6 +64,8 @@
           <Property Name="WorkersComp" Type="decimal" />
           <Property Name="BusinessType" Type="nvarchar" MaxLength="30" />
           <Property Name="BusinessSize" Type="nvarchar" MaxLength="30" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="CompetitorAttributes">
           <Key>
@@ -85,6 +89,8 @@
           <Property Name="Competitors" Type="nvarchar(max)" />
           <Property Name="Suppliers" Type="nvarchar(max)" />
           <Property Name="Buyers" Type="nvarchar(max)" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Exceptions">
           <Key>
@@ -103,6 +109,7 @@
           <Property Name="ExceptionText" Type="nvarchar(max)" />
           <Property Name="InnerExceptionText" Type="nvarchar(max)" />
           <Property Name="StackTrace" Type="nvarchar(max)" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="LongRequests">
           <Key>
@@ -119,6 +126,7 @@
           <Property Name="Year" Type="int" Nullable="false" />
           <Property Name="RequestUrl" Type="nvarchar(max)" Nullable="false" />
           <Property Name="RequestTime" Type="int" Nullable="false" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="PlaceIndustrySearches">
           <Key>
@@ -137,6 +145,8 @@
           <Property Name="PlaceId" Type="bigint" />
           <Property Name="IndustryId" Type="bigint" />
           <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="RelatedBuyer">
           <Key>
@@ -156,6 +166,8 @@
           <Property Name="PlaceId" Type="bigint" Nullable="false" />
           <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
           <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="RelatedCompetitor">
           <Key>
@@ -175,6 +187,8 @@
           <Property Name="PlaceId" Type="bigint" Nullable="false" />
           <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
           <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="RelatedSupplier">
           <Key>
@@ -194,6 +208,8 @@
           <Property Name="PlaceId" Type="bigint" Nullable="false" />
           <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
           <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="UserRegistration">
           <Key>
@@ -214,29 +230,32 @@
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ReturnUrl" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SizeUp.Data.Analytics" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AnalyticsContext" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="UserRegistrations" EntityType="SizeUp.Data.Analytics.UserRegistration" />
-          <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.LongRequest" />
+          <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.APIRequest" />
+          <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.BusinessAttribute" />
+          <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.CompetitorAttribute" />
           <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Exception" />
+          <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.LongRequest" />
           <EntitySet Name="PlaceIndustrySearches" EntityType="SizeUp.Data.Analytics.PlaceIndustrySearch" />
           <EntitySet Name="RelatedBuyers" EntityType="SizeUp.Data.Analytics.RelatedBuyer" />
           <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
           <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
-          <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.BusinessAttribute" />
-          <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.CompetitorAttribute" />
-          <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.APIRequest" />
+          <EntitySet Name="UserRegistrations" EntityType="SizeUp.Data.Analytics.UserRegistration" />
         </EntityContainer>
-        <EntityType Name="UserRegistration">
+        <EntityType Name="APIRequest">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Second" Nullable="false" />
           <Property Type="Int32" Name="Minute" Nullable="false" />
           <Property Type="Int32" Name="Hour" Nullable="false" />
           <Property Type="Int32" Name="Day" Nullable="false" />
@@ -245,120 +264,12 @@
           <Property Type="Int32" Name="Quarter" Nullable="false" />
           <Property Type="Int32" Name="Year" Nullable="false" />
           <Property Type="Int64" Name="APIKeyId" />
-          <Property Type="Int64" Name="CityId" />
-          <Property Type="Int64" Name="IndustryId" />
-          <Property Type="Guid" Name="UserId" Nullable="false" />
-          <Property Type="String" Name="ReturnUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="LongRequest">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Minute" Nullable="false" />
-          <Property Type="Int32" Name="Hour" Nullable="false" />
-          <Property Type="Int32" Name="Day" Nullable="false" />
-          <Property Type="Int32" Name="Week" Nullable="false" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
-          <Property Type="Int32" Name="Quarter" Nullable="false" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="String" Name="RequestUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="RequestTime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Exception">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Minute" Nullable="false" />
-          <Property Type="Int32" Name="Hour" Nullable="false" />
-          <Property Type="Int32" Name="Day" Nullable="false" />
-          <Property Type="Int32" Name="Week" Nullable="false" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
-          <Property Type="Int32" Name="Quarter" Nullable="false" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="String" Name="RequestUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="ExceptionText" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="InnerExceptionText" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="StackTrace" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="PlaceIndustrySearch">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Minute" Nullable="false" />
-          <Property Type="Int32" Name="Hour" Nullable="false" />
-          <Property Type="Int32" Name="Day" Nullable="false" />
-          <Property Type="Int32" Name="Week" Nullable="false" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
-          <Property Type="Int32" Name="Quarter" Nullable="false" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="Int64" Name="APIKeyId" />
-          <Property Type="Int64" Name="PlaceId" />
-          <Property Type="Int64" Name="IndustryId" />
-          <Property Type="Guid" Name="UserId" />
-        </EntityType>
-        <EntityType Name="RelatedBuyer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Minute" Nullable="false" />
-          <Property Type="Int32" Name="Hour" Nullable="false" />
-          <Property Type="Int32" Name="Day" Nullable="false" />
-          <Property Type="Int32" Name="Week" Nullable="false" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
-          <Property Type="Int32" Name="Quarter" Nullable="false" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="Int64" Name="APIKeyId" />
-          <Property Type="Guid" Name="UserId" />
-          <Property Type="Int64" Name="PlaceId" Nullable="false" />
-          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
-          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RelatedCompetitor">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Minute" Nullable="false" />
-          <Property Type="Int32" Name="Hour" Nullable="false" />
-          <Property Type="Int32" Name="Day" Nullable="false" />
-          <Property Type="Int32" Name="Week" Nullable="false" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
-          <Property Type="Int32" Name="Quarter" Nullable="false" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="Int64" Name="APIKeyId" />
-          <Property Type="Guid" Name="UserId" />
-          <Property Type="Int64" Name="PlaceId" Nullable="false" />
-          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
-          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RelatedSupplier">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Minute" Nullable="false" />
-          <Property Type="Int32" Name="Hour" Nullable="false" />
-          <Property Type="Int32" Name="Day" Nullable="false" />
-          <Property Type="Int32" Name="Week" Nullable="false" />
-          <Property Type="Int32" Name="Month" Nullable="false" />
-          <Property Type="Int32" Name="Quarter" Nullable="false" />
-          <Property Type="Int32" Name="Year" Nullable="false" />
-          <Property Type="Int64" Name="APIKeyId" />
-          <Property Type="Guid" Name="UserId" />
-          <Property Type="Int64" Name="PlaceId" Nullable="false" />
-          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
-          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+          <Property Type="String" Name="Url" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OriginUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Instance" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OriginIP" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BusinessAttribute">
           <Key>
@@ -385,6 +296,8 @@
           <Property Type="Decimal" Name="WorkersComp" Precision="18" Scale="0" />
           <Property Type="String" Name="BusinessType" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="BusinessSize" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CompetitorAttribute">
           <Key>
@@ -408,14 +321,51 @@
           <Property Type="String" Name="Competitors" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Suppliers" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Buyers" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="APIRequest">
+        <EntityType Name="Exception">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
-          <Property Type="Int32" Name="Second" Nullable="false" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="String" Name="RequestUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ExceptionText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="InnerExceptionText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StackTrace" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LongRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="String" Name="RequestUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RequestTime" Nullable="false" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PlaceIndustrySearch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
           <Property Type="Int32" Name="Minute" Nullable="false" />
           <Property Type="Int32" Name="Hour" Nullable="false" />
           <Property Type="Int32" Name="Day" Nullable="false" />
@@ -424,25 +374,112 @@
           <Property Type="Int32" Name="Quarter" Nullable="false" />
           <Property Type="Int32" Name="Year" Nullable="false" />
           <Property Type="Int64" Name="APIKeyId" />
-          <Property Type="String" Name="Url" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="OriginUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Session" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="OriginIP" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="PlaceId" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-      </Schema>
+        <EntityType Name="RelatedBuyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RelatedCompetitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="RelatedSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="PlaceId" Nullable="false" />
+          <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRegistration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Int64" Name="APIKeyId" />
+          <Property Type="Int64" Name="CityId" />
+          <Property Type="Int64" Name="IndustryId" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="ReturnUrl" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SizeUpDataAnalyticsStoreContainer" CdmEntityContainer="AnalyticsContext">
-          <EntitySetMapping Name="UserRegistrations">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.UserRegistration">
-              <MappingFragment StoreEntitySet="UserRegistration">
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ReturnUrl" ColumnName="ReturnUrl" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <EntitySetMapping Name="APIRequests">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.APIRequest">
+              <MappingFragment StoreEntitySet="APIRequests">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="OriginIP" ColumnName="OriginIP" />
+                <ScalarProperty Name="Instance" ColumnName="Instance" />
+                <ScalarProperty Name="OriginUrl" ColumnName="OriginUrl" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
@@ -451,121 +488,7 @@
                 <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="Hour" ColumnName="Hour" />
                 <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LongRequests">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.LongRequest">
-              <MappingFragment StoreEntitySet="LongRequests">
-                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
-                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Exceptions">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.Exception">
-              <MappingFragment StoreEntitySet="Exceptions">
-                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
-                <ScalarProperty Name="InnerExceptionText" ColumnName="InnerExceptionText" />
-                <ScalarProperty Name="ExceptionText" ColumnName="ExceptionText" />
-                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlaceIndustrySearches">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.PlaceIndustrySearch">
-              <MappingFragment StoreEntitySet="PlaceIndustrySearches">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
-                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RelatedBuyers">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedBuyer">
-              <MappingFragment StoreEntitySet="RelatedBuyer">
-                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
-                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
-                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RelatedCompetitors">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedCompetitor">
-              <MappingFragment StoreEntitySet="RelatedCompetitor">
-                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
-                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
-                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RelatedSuppliers">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedSupplier">
-              <MappingFragment StoreEntitySet="RelatedSupplier">
-                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
-                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
-                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Second" ColumnName="Second" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -574,6 +497,8 @@
           <EntitySetMapping Name="BusinessAttributes">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.BusinessAttribute">
               <MappingFragment StoreEntitySet="BusinessAttributes">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
                 <ScalarProperty Name="BusinessSize" ColumnName="BusinessSize" />
                 <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
                 <ScalarProperty Name="WorkersComp" ColumnName="WorkersComp" />
@@ -601,6 +526,8 @@
           <EntitySetMapping Name="CompetitorAttributes">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.CompetitorAttribute">
               <MappingFragment StoreEntitySet="CompetitorAttributes">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
                 <ScalarProperty Name="Buyers" ColumnName="Buyers" />
                 <ScalarProperty Name="Suppliers" ColumnName="Suppliers" />
                 <ScalarProperty Name="Competitors" ColumnName="Competitors" />
@@ -622,13 +549,52 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="APIRequests">
-            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.APIRequest">
-              <MappingFragment StoreEntitySet="APIRequests">
-                <ScalarProperty Name="OriginIP" ColumnName="OriginIP" />
+          <EntitySetMapping Name="Exceptions">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.Exception">
+              <MappingFragment StoreEntitySet="Exceptions">
                 <ScalarProperty Name="Session" ColumnName="Session" />
-                <ScalarProperty Name="OriginUrl" ColumnName="OriginUrl" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="InnerExceptionText" ColumnName="InnerExceptionText" />
+                <ScalarProperty Name="ExceptionText" ColumnName="ExceptionText" />
+                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LongRequests">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.LongRequest">
+              <MappingFragment StoreEntitySet="LongRequests">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlaceIndustrySearches">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.PlaceIndustrySearch">
+              <MappingFragment StoreEntitySet="PlaceIndustrySearches">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />
@@ -637,7 +603,95 @@
                 <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="Hour" ColumnName="Hour" />
                 <ScalarProperty Name="Minute" ColumnName="Minute" />
-                <ScalarProperty Name="Second" ColumnName="Second" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedBuyers">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedBuyer">
+              <MappingFragment StoreEntitySet="RelatedBuyer">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedCompetitors">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedCompetitor">
+              <MappingFragment StoreEntitySet="RelatedCompetitor">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedSuppliers">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedSupplier">
+              <MappingFragment StoreEntitySet="RelatedSupplier">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+                <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+                <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRegistrations">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.UserRegistration">
+              <MappingFragment StoreEntitySet="UserRegistration">
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ReturnUrl" ColumnName="ReturnUrl" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

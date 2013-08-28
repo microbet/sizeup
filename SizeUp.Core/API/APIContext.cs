@@ -40,6 +40,15 @@ namespace SizeUp.Core.API
             }
         }
 
+        public APIToken WidgetToken
+        {
+            get
+            {
+                var tokenString = HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.WidgetTokenName"]];
+                return APIToken.ParseToken(tokenString);
+            }
+        }
+
         public string Origin
         {
             get
@@ -48,11 +57,19 @@ namespace SizeUp.Core.API
             }
         }
 
+        public string Instance
+        {
+            get
+            {
+                return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.InstanceName"]];
+            }
+        }
+
         public string Session
         {
             get
             {
-                return HttpContext.Current.Request.QueryString[ConfigurationManager.AppSettings["API.SessionName"]];
+                return APISession.Current.SessionId;
             }
         }
     }

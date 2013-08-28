@@ -141,7 +141,7 @@
         };
 
         var getUrlPath = function () {
-            return me.selectedPlace.State.SEOKey + '/' + me.selectedPlace.County.SEOKey + '/' + me.selectedPlace.City.SEOKey + '/' + me.selectedIndustry.SEOKey;
+            return jQuery.param.querystring(me.selectedPlace.State.SEOKey + '/' + me.selectedPlace.County.SEOKey + '/' + me.selectedPlace.City.SEOKey + '/' + me.selectedIndustry.SEOKey,jQuery.param.querystring(), 2 );
         };
 
 

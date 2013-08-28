@@ -14,10 +14,6 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         //
         // GET: /Widget/Base/
 
-
-
-        protected APIToken APIToken { get { return Core.API.APIToken.GetFromCookie(); } }
-
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var c = requestContext.HttpContext.Request.Cookies["theme"];
@@ -28,12 +24,13 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             }
             ViewBag.Theme = theme.ToLower();
 
+            //best places?
+            ViewBag.WidgetToken = APIContext.Current.WidgetToken != null ? HttpUtility.UrlEncode(APIContext.Current.WidgetToken.GetToken()) : "";
 
-
-            if (APIToken != null && !APIToken.IsValid)
-            {
-                //throw new HttpException(403, "Invalid API Key");
-            }
+            // if (Core.API.APIContext.Current.ApiToken != null && !Core.API.APIContext.Current.ApiToken.IsValid)
+            // {
+            //throw new HttpException(403, "Invalid API Key");
+            // }
             base.Initialize(requestContext);
         }
 

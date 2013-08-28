@@ -14,32 +14,33 @@ namespace SizeUp.Web.Areas.Widget
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            
 
             context.MapRoute(
                 "Widget_Place",
                 "Widget/{controller}/{state}/{county}/{city}",
-                new { action = "Index", id = UrlParameter.Optional },
+                new { action = "Index" },
                 new string[] { "SizeUp.Web.Areas.Widget.Controllers" }
             );
 
             context.MapRoute(
                 "Widget_PlaceIndustry",
                 "Widget/{controller}/{state}/{county}/{city}/{industry}",
-                new { action = "Index", id = UrlParameter.Optional },
+                new { action = "Index" },
                 new string[] { "SizeUp.Web.Areas.Widget.Controllers" }
             );
 
             context.MapRoute(
                "Widget_BestPlaces",
                "Widget/BestPlaces/{industry}",
-               new { controller = "BestPlaces", action = "Index", id = UrlParameter.Optional },
+               new { controller = "BestPlaces", action = "Index" },
                new string[] { "SizeUp.Web.Areas.Widget.Controllers" }
            );
 
             context.MapRoute(
                 "Widget_default",
-                "Widget/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                "Widget/{controller}/{action}",
+                new { action = "Index" },
                 new string[] { "SizeUp.Web.Areas.Widget.Controllers" }
             );
         }

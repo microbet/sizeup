@@ -13,6 +13,8 @@ using SizeUp.Data;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.Web;
 using SizeUp.Core.Crypto;
+using SizeUp.Core.Analytics;
+
 
 namespace SizeUp.Web.Controllers
 {

@@ -181,6 +181,7 @@
                 var params = getParameters();
                 var url = document.location.pathname;
                 url = url.replace(me.data.activeIndustry.SEOKey, i.SEOKey);
+                url = jQuery.param.querystring(url, jQuery.param.querystring(), 2);
                 url = jQuery.param.fragment(url, params, 2);
                 document.location = url;
             }
@@ -212,6 +213,7 @@
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('dashboard'));
                 url = url + 'dashboard/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.activeIndustry.SEOKey + '/';
+                url = jQuery.param.querystring(url, jQuery.param.querystring(), 2);
                 url = jQuery.param.fragment(url, params, 2);
                 document.location = url;
             }

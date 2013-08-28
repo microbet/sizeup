@@ -16,6 +16,8 @@ using SizeUp.Data.Analytics;
 using SizeUp.Core.Web;
 using SizeUp.Core.Crypto;
 using SizeUp.Core.API;
+using SizeUp.Core.Analytics;
+
 
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
@@ -133,15 +135,12 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
             try
             {
-                APIToken token = APIToken.GetFromCookie();
-                long? apikeyid = token != null ? token.APIKeyId : (long?)null;
                 i.IsApproved = false;
                 i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
                 FormsAuthentication.SetAuthCookie(i.Email, false);
                 UserRegistration reg = new UserRegistration()
                 {
-                    APIKeyId = apikeyid,
                     CityId = WebContext.Current.CurrentPlace.Id,
                     IndustryId = WebContext.Current.CurrentIndustry.Id,
                     UserId = i.UserId,

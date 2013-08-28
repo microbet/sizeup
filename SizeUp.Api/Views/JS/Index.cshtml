@@ -97,6 +97,8 @@
         me.jsonpPrefix = 'cbb';
         me.sessionId = '@ViewBag.SessionId';
         me.apiToken = '@ViewBag.Token';
+        me.instanceId = '@ViewBag.InstanceId';
+        me.widgetToken = '@ViewBag.WidgetToken';      
         sizeup.api[me.jsonpPrefix] = {};
         me.callbackComplete = {};
 
@@ -110,6 +112,10 @@
             params['o'] = document.location.hostname;
             params['s'] = me.sessionId;
             params['t'] = me.apiToken;
+            params['i'] = me.instanceId;
+            if(me.widgetToken != ''){
+                params['wt'] = me.widgetToken;
+            }
             src = src + sizeup.api.util.formatParams(params);
             return src;
         };
@@ -246,6 +252,9 @@
                 if (callback) {
                     callback();
                 }
+            },
+            function(){
+                location.reload();
             });
         };
 

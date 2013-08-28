@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Web;
 using SizeUp.Data;
 using SizeUp.Data.Analytics;
+using SizeUp.Core.Analytics;
 
 namespace SizeUp.Core.Diagnostics
 {

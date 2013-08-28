@@ -14,10 +14,12 @@ namespace SizeUp.Core.API
 {
     public class APIToken
     {
+        private bool? _isValid = null;
         private long _keyId;
         private long _timestamp;
         public long APIKeyId { get { return _keyId;} }
         public long TimeStamp { get { return _timestamp; } }
+       
 
         protected static string CryptoPassword
         {
@@ -35,24 +37,18 @@ namespace SizeUp.Core.API
             }
         }
 
-        protected static string TokenCookie
-        {
-            get
-            {
-                return "sizeup.token";
-            }
-        }
-
         public bool IsValid
         {
             get
             {
-                bool isValid = false;
-                using (var context = ContextFactory.APIContext)
+                if (_isValid == null)
                 {
-                    isValid = context.APIKeys.Any(i => i.Id == APIKeyId);
+                    using (var context = ContextFactory.APIContext)
+                    {
+                        _isValid = context.APIKeys.Any(i => i.Id == APIKeyId);
+                    }
                 }
-                return isValid;
+                return (bool)_isValid;
             }
         }
 
@@ -74,17 +70,17 @@ namespace SizeUp.Core.API
                 return isExpired;
             }
         }
-        public APIToken(long KeyId)
+
+        protected APIToken()
         {
-            _keyId = KeyId;
             _timestamp = DateTime.UtcNow.Ticks;
         }
-
+        
         public string GetToken()
         {
             MemoryStream s = new MemoryStream();
             BinaryFormatter bf = new BinaryFormatter();
-            string data = string.Format("{0}|{1}", APIKeyId, TimeStamp);
+            string data = string.Format("{0}|{1}", APIKeyId, TimeStamp);          
             bf.Serialize(s, data);
             var cipher = Crypto.Crypto.Encrypt(s.ToArray(), CryptoPassword, CryptoSalt);
             return cipher;
@@ -101,24 +97,21 @@ namespace SizeUp.Core.API
                 s.Position = 0;
                 BinaryFormatter bf = new BinaryFormatter();
                 string[] outData = (bf.Deserialize(s) as string).Split("|".ToCharArray());
-                returnToken = new APIToken(long.Parse(outData[0]));
+
+                long apiKey = long.Parse(outData[0]);
+
+                returnToken = new APIToken();
+                returnToken._keyId = apiKey;
                 returnToken._timestamp = long.Parse(outData[1]);
             }
             return returnToken;
         }
 
-        public void PersistAsCookie()
+        public static APIToken Create(long keyId)
         {
-            HttpCookie kc = new HttpCookie(TokenCookie);
-            kc.Value = GetToken();
-            HttpContext.Current.Response.Cookies.Add(kc);
-        }
-
-        public static APIToken GetFromCookie()
-        {
-            HttpCookie cookie = HttpContext.Current.Request.Cookies[TokenCookie];
-            var token = cookie != null ? cookie.Value : "";
-            return ParseToken(token);
+            var returnToken = new APIToken();
+            returnToken._keyId = keyId;
+            return returnToken;
         }
     }
 }
