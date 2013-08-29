@@ -23,10 +23,18 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 theme = c.Value;
             }
             ViewBag.Theme = theme.ToLower();
+            ViewBag.WidgetToken = "";
 
-            //best places?
-            ViewBag.WidgetToken = APIContext.Current.WidgetToken != null ? HttpUtility.UrlEncode(APIContext.Current.WidgetToken.GetToken()) : "";
-
+            if (APIContext.Current.WidgetToken != null)
+            {
+                using (var context = ContextFactory.APIContext)
+                {
+                    var currentKey = APIContext.Current.WidgetToken.APIKeyId;
+                    var api = context.APIKeys.Where(i => i.Id == currentKey).Select(i => i.Name).FirstOrDefault();
+                    ViewBag.APIName = api;
+                }
+                ViewBag.WidgetToken = HttpUtility.UrlEncode(APIContext.Current.WidgetToken.GetToken());
+            }
             // if (Core.API.APIContext.Current.ApiToken != null && !Core.API.APIContext.Current.ApiToken.IsValid)
             // {
             //throw new HttpException(403, "Invalid API Key");
