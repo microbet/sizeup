@@ -84,18 +84,15 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             else
             {
                 bool persist = Request["persist"] != null;
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
                 if (persist)
                 {
-                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
-                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     cookie.Expires = authTicket.Expiration;
-                    HttpContext.Response.Cookies.Set(cookie);
                 }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(email, false);
-                }
+                Response.Cookies.Set(cookie);
                 FormsAuthentication.RedirectFromLoginPage(email, persist);
             }
             return View();
@@ -104,7 +101,11 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         [HttpGet]
         public ActionResult Signout()
         {
-            FormsAuthentication.SignOut();
+            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
+            }
             return Redirect(Server.UrlDecode(Request["returnurl"]));
         }
 

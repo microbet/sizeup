@@ -21,18 +21,15 @@ namespace SizeUp.Web.Areas.Api.Controllers
             string response = "";
             if (Membership.ValidateUser(email, password))
             {
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
                 if (persist.HasValue && persist.Value)
                 {
-                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
-                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     cookie.Expires = authTicket.Expiration;
-                    Response.Cookies.Set(cookie);
                 }
-                else
-                {
-                    FormsAuthentication.SetAuthCookie(email, false);
-                }
+                Response.Cookies.Set(cookie);
                 response = "ok";
             }
             else
@@ -61,7 +58,11 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
         public ActionResult Signout()
         {
-            FormsAuthentication.SignOut();
+            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
+            }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 

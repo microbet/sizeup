@@ -84,6 +84,9 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
         public ActionResult BestPlaces()
         {
+            HttpCookie c = new HttpCookie("theme");
+            c.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Add(c);
             return View();
         }
 

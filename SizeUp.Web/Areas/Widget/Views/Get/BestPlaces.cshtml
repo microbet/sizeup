@@ -7,8 +7,7 @@
 
     me.wigetSource = '/widget/bestPlaces';
     me.defaultColor = '#fff';
-    me.defaultWidth = '750';
-    me.defaultMinWidth = '750';
+    me.defaultMinWidth = '580';
 
 
 
@@ -24,7 +23,7 @@
         iframe.style["background"] = loc.query['color'] || me.defaultColor;
         iframe.style["overflow"] = 'hidden';
 
-        iframe["width"] = (loc.query['width'] || me.defaultWidth) + 'px';
+        iframe["width"] = "100%";
         iframe.style["min-width"] = (me.defaultMinWidth) + 'px';
         iframe.style["minWidth"] = (me.defaultMinWidth) + 'px';
 
@@ -69,7 +68,6 @@
         terms.innerHTML = "Terms of Use";
         span.appendChild(terms);
 
-        span.style["width"] = ((loc.query['width'] || me.defaultWidth) - 10) + 'px';
         span.style["height"] = '20px';
         span.style["backgroundColor"] = '#F8F8F8';
         span.style["borderTop"] = '2px solid #EEEEEE';
@@ -147,7 +145,6 @@
     };
 
     var resize = function(obj){
-        me.iframe.width = obj.width;
         me.iframe.height = obj.height;
         me.footer.style["width"] = (obj.width - 10) + 'px';
     };

@@ -10,7 +10,7 @@ using SizeUp.Core.Web;
 using SizeUp.Data;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.Analytics;
-
+using System.Web.Security;
 
 namespace SizeUp.Api.Controllers
 {
@@ -65,10 +65,17 @@ namespace SizeUp.Api.Controllers
 
         protected void Log()
         {
+            Guid? userid = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                userid = (Guid)Membership.GetUser().ProviderUserKey;
+            }
+
             Data.Analytics.APIRequest reg = new Data.Analytics.APIRequest();
             reg.OriginUrl = APIContext.Current.Origin;
             reg.Url = HttpContext.Request.Url.OriginalString;
             reg.OriginIP = WebContext.Current.ClientIP;
+            reg.UserId = userid;
             Singleton<Tracker>.Instance.APIRequest(reg);
         }
     }

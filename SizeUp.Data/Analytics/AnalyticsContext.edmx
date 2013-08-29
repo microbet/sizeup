@@ -38,6 +38,7 @@
           <Property Name="OriginIP" Type="nvarchar" MaxLength="20" />
           <Property Name="WidgetAPIKeyId" Type="bigint" />
           <Property Name="Session" Type="nvarchar" MaxLength="30" />
+          <Property Name="UserId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="BusinessAttributes">
           <Key>
@@ -270,6 +271,7 @@
           <Property Type="String" Name="OriginIP" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="WidgetAPIKeyId" />
           <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="UserId" />
         </EntityType>
         <EntityType Name="BusinessAttribute">
           <Key>
@@ -474,6 +476,7 @@
           <EntitySetMapping Name="APIRequests">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.APIRequest">
               <MappingFragment StoreEntitySet="APIRequests">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Session" ColumnName="Session" />
                 <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
                 <ScalarProperty Name="OriginIP" ColumnName="OriginIP" />
