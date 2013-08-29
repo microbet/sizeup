@@ -29,6 +29,12 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             ViewBag.Theme = theme.ToLower();
 
 
+            using (var context = ContextFactory.APIContext)
+            {
+                var currentKey = APIToken.APIKeyId;
+                var api = context.APIKeys.Where(i => i.Id == currentKey).Select(i => i.Name).FirstOrDefault();
+                ViewBag.APIName = api;
+            }
 
             if (APIToken != null && !APIToken.IsValid)
             {
