@@ -525,7 +525,7 @@
         //////////end event actions/////////////////////////////
       
         var getEmbedCode = function () {
-            var base = '/widget/get/bestPlaces/?width=750';
+            var base = '/widget/get/bestPlaces/';
             var p = getParameters();
             p.industry = me.data.activeIndustry.SEOKey;
             var url = jQuery.param.fragment(base, p, 2);

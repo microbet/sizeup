@@ -24,7 +24,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             }
             ViewBag.Theme = theme.ToLower();
 
-            //best places?
+  
             ViewBag.WidgetToken = APIContext.Current.WidgetToken != null ? HttpUtility.UrlEncode(APIContext.Current.WidgetToken.GetToken()) : "";
 
             // if (Core.API.APIContext.Current.ApiToken != null && !Core.API.APIContext.Current.ApiToken.IsValid)

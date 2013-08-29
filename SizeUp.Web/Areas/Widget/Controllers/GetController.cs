@@ -90,6 +90,18 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             return View();
         }
 
+        public ActionResult BestIndustries(string state, string county, string city)
+        {
+            HttpCookie c = new HttpCookie("theme");
+            c.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Add(c);
+            ViewBag.State = state;
+            ViewBag.County = county;
+            ViewBag.City = city;
+
+            return View();
+        }
+
         protected void CreateToken(Guid key)
         {
             using (var context = ContextFactory.APIContext)

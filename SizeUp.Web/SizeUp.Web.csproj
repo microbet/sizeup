@@ -157,6 +157,7 @@
     <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
     <Compile Include="Areas\Widget\Controllers\CommunityController.cs" />
     <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
+    <Compile Include="Areas\Widget\Controllers\BestIndustriesController.cs" />
     <Compile Include="Areas\Widget\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Widget\Controllers\GetController.cs" />
     <Compile Include="Areas\Widget\Controllers\HelpController.cs" />
@@ -504,6 +505,8 @@
     <Content Include="Areas\Widget\Views\Community\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Get\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Get\BestPlaces.cshtml" />
+    <Content Include="Areas\Widget\Views\Get\BestIndustries.cshtml" />
+    <Content Include="Areas\Widget\Views\BestIndustries\Index.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
