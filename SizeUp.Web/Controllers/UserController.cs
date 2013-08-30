@@ -72,7 +72,13 @@ namespace SizeUp.Web.Controllers
                 i.IsApproved = false;
                 i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-                FormsAuthentication.SetAuthCookie(i.Email, false);
+
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(i.Email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                Response.Cookies.Set(cookie);
+
                 string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
                 UserRegistration reg = new UserRegistration()
                 {

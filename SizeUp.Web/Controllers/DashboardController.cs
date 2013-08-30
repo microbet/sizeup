@@ -17,6 +17,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Index(string state, string city, string industry)
         {
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Strings = context.ResourceStrings.Where(i => i.Name.StartsWith("Dashboard")).ToDictionary(i => i.Name, i => i.Value);               

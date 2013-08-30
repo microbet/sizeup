@@ -17,6 +17,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Index()
         {
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             ViewBag.Header.ActiveTab = NavItems.Competition;
             return View();
         }
