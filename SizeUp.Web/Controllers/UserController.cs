@@ -84,7 +84,7 @@ namespace SizeUp.Web.Controllers
                 {
                     APIKeyId = null,
                     CityId = WebContext.Current.CurrentPlace.Id,
-                    IndustryId = WebContext.Current.CurrentIndustry.Id,
+                    IndustryId = WebContext.Current.CurrentIndustry!= null ? WebContext.Current.CurrentIndustry.Id : (long?)null,
                     UserId = i.UserId,
                     Email = i.Email,
                     ReturnUrl = ReturnUrl

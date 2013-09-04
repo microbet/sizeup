@@ -149,7 +149,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 UserRegistration reg = new UserRegistration()
                 {
                     CityId = WebContext.Current.CurrentPlace.Id,
-                    IndustryId = WebContext.Current.CurrentIndustry.Id,
+                    IndustryId = WebContext.Current.CurrentIndustry != null ? WebContext.Current.CurrentIndustry.Id : (long?)null,
                     UserId = i.UserId,
                     Email = i.Email,
                     ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "" : Request["returnurl"]
