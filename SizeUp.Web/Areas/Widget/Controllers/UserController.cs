@@ -93,7 +93,8 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                     cookie.Expires = authTicket.Expiration;
                 }
                 Response.Cookies.Set(cookie);
-                FormsAuthentication.RedirectFromLoginPage(email, persist);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+                return Redirect(ReturnUrl);
             }
             return View();
         }
@@ -106,7 +107,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
             }
-            return Redirect(Server.UrlDecode(Request["returnurl"]));
+            return Redirect(Request["returnurl"]);
         }
 
 
@@ -145,7 +146,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
                 Response.Cookies.Set(cookie);
-
+                
                 UserRegistration reg = new UserRegistration()
                 {
                     CityId = WebContext.Current.CurrentPlace.Id,
@@ -156,7 +157,8 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 };
 
                 Singleton<Tracker>.Instance.UserRegistration(reg);
-                FormsAuthentication.RedirectFromLoginPage(i.Email, false);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+                return Redirect(ReturnUrl);
             }
             catch (MembershipCreateUserException ex)
             {

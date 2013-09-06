@@ -193,7 +193,7 @@ namespace SizeUp.Web.Controllers
                 Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);   
             }
-            return Redirect(Server.UrlDecode(Request["returnurl"]));
+            return Redirect(Request["returnurl"]);
         }
 
         [HttpGet]
