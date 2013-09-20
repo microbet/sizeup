@@ -213,7 +213,7 @@
                 container: me.container.find('.filterLabels .distance')
             });
 
-            me.content.filters.labels['bachelorOrHigher'] = new sizeup.controls.rangeLabel({
+            me.content.filters.labels['bachelorsDegreeOrHigher'] = new sizeup.controls.rangeLabel({
                 container: me.container.find('.filterLabels .bachelorOrHigher')
             });
 
@@ -265,13 +265,13 @@
         var initSliders = function () {
             var params = getParameters();
 
-            me.content.filters.sliders['bachelorOrHigher'] = new sizeup.controls.rangeSlider({
+            me.content.filters.sliders['bachelorsDegreeOrHigher'] = new sizeup.controls.rangeSlider({
                 container: me.container.find('.filters .bachelorOrHigher'),
                 label: me.container.find('.filters .bachelorOrHigher .valueLabel'),
                 range: { min: 1, max: 95 },
                 mode: 'min',
-                value: params['bachelorOrHigher'],
-                onChange: function () { sliderChanged('bachelorOrHigher'); }
+                value: params['bachelorsDegreeOrHigher'],
+                onChange: function () { sliderChanged('bachelorsDegreeOrHigher'); }
             });
 
             me.content.filters.sliders['distance'] = new sizeup.controls.rangeSlider({
@@ -857,13 +857,13 @@
                 newItem['medianAge'] = item.MedianAge == null ? { value: null } : { value: item.MedianAge };
             }
             if (params['highSchoolOrHigher'] != null || params.attribute == 'highSchoolOrHigher') {
-                newItem['highSchoolOrHigher'] = item.HighSchoolOrHigher == null ? { value: null } : { value: (item.HighSchoolOrHigher).toFixed(1) + '%' };
+                newItem['highSchoolOrHigher'] = item.HighSchoolOrHigher == null ? { value: null } : { value: (item.HighSchoolOrHigher*100).toFixed(1) + '%' };
             }
             if (params['whiteCollarWorkers'] != null || params.attribute == 'whiteCollarWorkers') {
-                newItem['whiteCollarWorkers'] = item.WhiteCollarWorkers == null ? { value: null } : { value: (item.WhiteCollarWorkers).toFixed(1) + '%' };
+                newItem['whiteCollarWorkers'] = item.WhiteCollarWorkers == null ? { value: null } : { value: (item.WhiteCollarWorkers*100).toFixed(1) + '%' };
             }
             if (params['bachelorsDegreeOrHigher'] != null || params.attribute == 'bachelorsDegreeOrHigher') {
-                newItem['bachelorsDegreeOrHigher'] = item.BachelorsDegreeOrHigher == null ? { value: null } : { value: (item.BachelorsDegreeOrHigher).toFixed(1) + '%' };
+                newItem['bachelorsDegreeOrHigher'] = item.BachelorsDegreeOrHigher == null ? { value: null } : { value: (item.BachelorsDegreeOrHigher*100).toFixed(1) + '%' };
             }
 
 
