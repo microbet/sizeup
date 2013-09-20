@@ -60,7 +60,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                     {
                         url = string.Format("/{0}{1}?wt={2}", "widget/community", urlBase, urlToken);
                     }
-                    else if (WebContext.Current.StartFeature == null)
+                    else if (WebContext.Current.StartFeature == Feature.FeatureSelect)
                     {
                         url = string.Format("/{0}?wt={1}#featureSelect=true","widget/select", urlToken);
                     }

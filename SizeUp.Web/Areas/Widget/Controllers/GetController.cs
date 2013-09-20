@@ -20,6 +20,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
+            requestContext.HttpContext.Response.AddHeader("Expires", "-1");
             Response.ContentType = "text/javascript";
             APISession.Create();  
         }
@@ -42,6 +43,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             else if (feature.ToLower() == "advertsing")
             {
                 startFeature = Feature.Advertising;
+            }
+            else if (feature.ToLower() == "featureselect")
+            {
+                startFeature = Feature.FeatureSelect;
             }
             else if (feature.ToLower() == "select")
             {
