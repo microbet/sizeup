@@ -26,7 +26,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
-            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : new HttpCookie(key);
+            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.BusinessAttribute attr = new Data.UserData.BusinessAttribute();
 
             if (User.Identity.IsAuthenticated)
@@ -119,7 +119,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public ActionResult SetDashboardValues(long placeId, long industryId)
         {
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
-            HttpCookie cookie = new HttpCookie(key);
+            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.BusinessAttribute attr = new Data.UserData.BusinessAttribute();
             Data.Analytics.BusinessAttribute analyticsAttr = new Data.Analytics.BusinessAttribute();
             attr.PlaceId = placeId;
@@ -236,7 +236,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
-            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : new HttpCookie(key);
+            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.CompetitorAttribute attr = new Data.UserData.CompetitorAttribute();
 
             if (User.Identity.IsAuthenticated)
@@ -301,7 +301,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public ActionResult SetCompetitionValues(long placeId, long industryId)
         {
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
-            HttpCookie cookie = new HttpCookie(key);
+            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.CompetitorAttribute attr = new Data.UserData.CompetitorAttribute();
             Data.Analytics.CompetitorAttribute analyticsAttr = new Data.Analytics.CompetitorAttribute();
             attr.PlaceId = placeId;

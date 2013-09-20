@@ -75,8 +75,7 @@ namespace SizeUp.Web.Controllers
 
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(i.Email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 Response.Cookies.Set(cookie);
 
                 string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
@@ -172,8 +171,7 @@ namespace SizeUp.Web.Controllers
                 bool persist = Request["persist"] != null;
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 if (persist)
                 {
                     cookie.Expires = authTicket.Expiration;
@@ -190,8 +188,9 @@ namespace SizeUp.Web.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
-                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);   
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName);
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
             }
             return Redirect(Request["returnurl"]);
         }

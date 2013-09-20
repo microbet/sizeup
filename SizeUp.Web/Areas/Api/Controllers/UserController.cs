@@ -23,8 +23,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 if (persist.HasValue && persist.Value)
                 {
                     cookie.Expires = authTicket.Expiration;
@@ -60,8 +59,9 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
-                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName);
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }

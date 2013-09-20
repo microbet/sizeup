@@ -64,7 +64,17 @@
             me.errors.noIndustryMatches.hide().removeClass('hidden');
             me.errors.invalidCity.hide().removeClass('hidden');         
             me.errors.noValuesEntered.hide().removeClass('hidden');
-            showForm();
+
+            var params = jQuery.deparam.fragment();
+            if (params.featureSelect) {
+                setSelectorLinks();
+                new sizeup.core.analytics().placeIndustry({ placeId: me.selectedPlace.Id, industryId: me.selectedIndustry.Id });
+                me.form.container.hide();
+                me.selector.container.show();
+            }
+            else {
+                showForm();
+            }
         };
 
         var showForm = function () {

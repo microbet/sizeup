@@ -95,7 +95,7 @@ namespace SizeUp.Core.Web
 
         private void SetCurrentPlace(Core.DataLayer.Models.Place CurrentPlace)
         {
-            HttpCookie cookie = new HttpCookie("city");
+            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("city");
             if (CurrentPlace == null || CurrentPlace.Id == null)
             {
                 cookie.Expires = DateTime.Now.AddDays(-1.0);
@@ -110,7 +110,7 @@ namespace SizeUp.Core.Web
 
         private void SetCurrentIndustry(Core.DataLayer.Models.Industry CurrentIndustry)
         {
-            HttpCookie cookie = new HttpCookie("industry");
+            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("industry");
             if (CurrentIndustry == null || CurrentIndustry.Id == null)
             {
                 cookie.Expires = DateTime.Now.AddDays(-1.0);
@@ -125,7 +125,7 @@ namespace SizeUp.Core.Web
 
         private void SetStartFeature(Core.Web.Feature? feature)
         {
-            HttpCookie cookie = new HttpCookie("startFeature");
+            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("startFeature");
             if (feature == null)
             {
                 cookie.Expires = DateTime.Now.AddDays(-1.0);

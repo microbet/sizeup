@@ -86,8 +86,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 bool persist = Request["persist"] != null;
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 if (persist)
                 {
                     cookie.Expires = authTicket.Expiration;
@@ -104,7 +103,6 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
                 Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
             }
             return Redirect(Request["returnurl"]);
@@ -143,8 +141,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(i.Email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 Response.Cookies.Set(cookie);
                 
                 UserRegistration reg = new UserRegistration()

@@ -204,6 +204,7 @@
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="API\APIToken.cs" />
     <Compile Include="Web\CacheBuster.cs" />
+    <Compile Include="Web\CookieFactory.cs" />
     <Compile Include="Web\Feature.cs" />
     <Compile Include="Web\Form.cs" />
     <Compile Include="Web\Jsonp.cs" />

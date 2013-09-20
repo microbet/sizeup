@@ -65,12 +65,12 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
             if (!string.IsNullOrWhiteSpace(theme))
             {
-                HttpCookie c = new HttpCookie("theme", theme);
+                HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme", theme);
                 Response.Cookies.Add(c);
             }
             else
             {
-                HttpCookie c = new HttpCookie("theme");
+                HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme");
                 c.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(c);
             }
@@ -84,7 +84,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
         public ActionResult BestPlaces()
         {
-            HttpCookie c = new HttpCookie("theme");
+            HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme");
             c.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Add(c);
             return View();
