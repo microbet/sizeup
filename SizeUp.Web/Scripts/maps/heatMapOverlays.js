@@ -42,7 +42,7 @@
                 granularity: sizeup.api.granularity.ZIP_CODE,
                 boundingGeographicLocationId: me.opts.place.County.Id,
                 minZoom: me.opts.zoomExtent.County,
-                maxZoom: 32
+                maxZoom: 92
             });
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
@@ -100,7 +100,7 @@
                     granularity: sizeup.api.granularity.COUNTY,
                     boundingGeographicLocationId: me.opts.place.Metro.Id,
                     minZoom: me.opts.zoomExtent.Metro,
-                    maxZoom: 32
+                    maxZoom: 92
                 });
                 levels.push({
                     granularity: sizeup.api.granularity.COUNTY,
