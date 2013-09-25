@@ -336,7 +336,7 @@ namespace SizeUp.Core.DataLayer
                   .Where(i => i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
                     .Where(i => i.Demographics.Year == CommonFilters.TimeSlice.Demographics.Year && i.Demographics.Quarter == CommonFilters.TimeSlice.Demographics.Quarter)
                     .Where(i => i.Geography.GeographyClass.Name == Geo.GeographyClass.Calculation)
-                    .Where(i => i.IndustryData.IndustryId == industryId)
+                    .Where(i => i.IndustryData.IndustryId == industryId && i.IndustryData.BusinessCount > CommonFilters.MinimumBusinessCount)
                     .Where(i => i.Place.Granularity.Name == gran)
                     .Select(i => new Wrapper
                     {
@@ -578,28 +578,7 @@ namespace SizeUp.Core.DataLayer
             return output;
         }
 
-        /*
-        public static List<Models.KeyValue<int, Models.Industry>> IndustryRanks(SizeUpContext context, int rankCutoff, long placeId, Granularity granularity)
-        {
-            var place = Core.DataLayer.Place.List(context);
-            var industryData = Core.DataLayer.Base.IndustryData.City(context);
-            var demographics = Core.DataLayer.Base.DemographicsData.City(context);
-            var industries = Core.DataLayer.Base.Industry.GetActive(context);
-
-            var raw = industryData.Join(demographics, i => i.CityId, o => o.CityId, (i, o) => new { demographics = o, industryData = i })
-                //.Where(i => i.demographics.TotalPopulation > 100000)
-                        .Select(i => i.industryData)
-                        .Where(ii => ii.TotalRevenue != null && ii.TotalRevenue > 0);
-                        //.OrderByDescending(ii => ii.TotalRevenue);
-
-            context.Industries.Select((i, index) => new { industry = i, num = index + 1 }).ToList();
-
-           // var d = industries.Where(i => raw.Where(r => r.IndustryId == i.Id).Any(r => r.City.CityCountyMappings.Any(p => p.Id == placeId)));
-           // d.ToList();
-
-            return null;
-        }
-        */
+       
         protected class Temp
         {
             public long Rank { get; set; }
