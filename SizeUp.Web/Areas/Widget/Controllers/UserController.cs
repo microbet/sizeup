@@ -103,7 +103,9 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName);
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
             }
             return Redirect(Request["returnurl"]);
         }

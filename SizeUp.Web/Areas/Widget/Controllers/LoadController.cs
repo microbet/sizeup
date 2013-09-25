@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         // GET: /Widget/Load/
 
         [APIAuthorize(Role = "Widget")]
-        public ActionResult Index()
+        public ActionResult Index(long? industryId = null, long? placeId = null, string theme = null, string feature = "")
         {
             //in this context the APIToken is the widget key
             bool valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
@@ -29,6 +29,76 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             {
                 throw new HttpException(401, "Api token not valid");
             }
+
+
+            if (Request.Cookies["enabled"] == null)
+            {
+                return View("~/areas/widget/views/Authorize/Authorize.cshtml");
+            }
+            HttpCookie cc = CookieFactory.Create("enabled");
+            cc.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cc);
+
+
+            Feature? startFeature = null;
+            if (feature.ToLower() == "dashboard")
+            {
+                startFeature = Feature.Dashboard;
+            }
+            else if (feature.ToLower() == "competition")
+            {
+                startFeature = Feature.Competition;
+            }
+            else if (feature.ToLower() == "community")
+            {
+                startFeature = Feature.Community;
+            }
+            else if (feature.ToLower() == "advertsing")
+            {
+                startFeature = Feature.Advertising;
+            }
+            else if (feature.ToLower() == "featureselect")
+            {
+                startFeature = Feature.FeatureSelect;
+            }
+            else if (feature.ToLower() == "select")
+            {
+                startFeature = Feature.Select;
+            }
+            WebContext.Current.StartFeature = startFeature;
+
+
+
+
+            if (placeId != null)
+            {
+                var place = new Core.DataLayer.Models.Place() { Id = placeId };
+                WebContext.Current.CurrentPlace = place;
+            }
+            if (industryId != null)
+            {
+                var industry = new Core.DataLayer.Models.Industry() { Id = (long)industryId };
+                WebContext.Current.CurrentIndustry = industry;
+            }
+
+            if (!string.IsNullOrWhiteSpace(theme))
+            {
+                HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme", theme);
+                Response.Cookies.Add(c);
+            }
+            else
+            {
+                HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme");
+                c.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(c);
+            }
+
+
+
+
+
+
+
 
 
 

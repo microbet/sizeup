@@ -19,6 +19,7 @@ namespace SizeUp.Core.API
 
         protected string _sessionid;
         public string SessionId { get { return _sessionid; } }
+
         public static APISession Current
         {
             get

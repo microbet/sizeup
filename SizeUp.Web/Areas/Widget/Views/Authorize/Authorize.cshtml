@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Areas/Widget/Views/Shared/_HeaderlessLayout.cshtml";
+}
+
+
+@section head{
+<title>Authorize your browser</title>
+<link href="@Url.Content("~/Content/widget/views/authorize/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+}
+
+
+<script type="text/javascript">
+    var auth = function () {
+        var url = 'http://@SizeUp.Core.Web.WebContext.Current.Domain/widget/authorize';
+        var win = window.open(url, '_blank', 'menubar=0,resizable=0,location=0,scrollbars=0,status=0,titlebar=0,toolbar=0,width=200px,height=200px,top=100px,left=150px');
+        win.onbeforeunload = function () {
+            window.location.reload();
+        }
+
+    };
+
+
+</script>
+
+
+
+
+
+<div id="authorize">
+    <p>SizeUp uses cookies to enhance your user experience. We've detected that your browser needs to authorize SizeUp to use cookies.</p>
+    <p>If you have already authorized SizeUp and you still are seeing this message then your browser settings are preventing third-party cookies. Please change your borwser settings to allow them.</p>
+
+    <a class="button" href="javascript:auth();">Authorize Browser</a>
+</div>
+
+

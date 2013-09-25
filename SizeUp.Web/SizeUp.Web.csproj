@@ -154,6 +154,7 @@
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Widget\Controllers\AuthorizeController.cs" />
     <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
     <Compile Include="Areas\Widget\Controllers\CommunityController.cs" />
     <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
@@ -281,6 +282,7 @@
     <Content Include="Content\widget\layout.css" />
     <Content Include="Content\widget\print.css" />
     <Content Include="Content\widget\Views\advertising\index.css" />
+    <Content Include="Content\widget\Views\authorize\index.css" />
     <Content Include="Content\widget\Views\community\index.css" />
     <Content Include="Content\widget\Views\community\print.css" />
     <Content Include="Content\widget\Views\competition\index.css" />
@@ -504,6 +506,8 @@
     <Content Include="Areas\Widget\Views\Community\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Get\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Get\BestPlaces.cshtml" />
+    <Content Include="Areas\Widget\Views\Authorize\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Authorize\Authorize.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
