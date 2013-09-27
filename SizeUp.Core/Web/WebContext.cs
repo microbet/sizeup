@@ -111,7 +111,7 @@ namespace SizeUp.Core.Web
         private void SetCurrentIndustry(Core.DataLayer.Models.Industry CurrentIndustry)
         {
             HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("industry");
-            if (CurrentIndustry == null || CurrentIndustry.Id == null)
+            if (CurrentIndustry == null)
             {
                 cookie.Expires = DateTime.Now.AddDays(-1.0);
             }
@@ -128,6 +128,7 @@ namespace SizeUp.Core.Web
             HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("startFeature");
             if (feature == null)
             {
+                HttpContext.Current.Request.Cookies.Remove("startFeature");
                 cookie.Expires = DateTime.Now.AddDays(-1.0);
             }
             else

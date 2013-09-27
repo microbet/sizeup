@@ -70,17 +70,6 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
 
 
-            if (placeId != null)
-            {
-                var place = new Core.DataLayer.Models.Place() { Id = placeId };
-                WebContext.Current.CurrentPlace = place;
-            }
-            if (industryId != null)
-            {
-                var industry = new Core.DataLayer.Models.Industry() { Id = (long)industryId };
-                WebContext.Current.CurrentIndustry = industry;
-            }
-
             if (!string.IsNullOrWhiteSpace(theme))
             {
                 HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme", theme);
@@ -95,15 +84,17 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
 
 
-
-
-
-
-
-
-
             using (var context = ContextFactory.SizeUpContext)
             {
+                if (placeId != null)
+                {
+                    WebContext.Current.CurrentPlace = Core.DataLayer.Place.Get(context, placeId);
+                }
+                if (industryId != null)
+                {
+                    WebContext.Current.CurrentIndustry = Core.DataLayer.Industry.Get(context, industryId);
+                }
+
                 string urlToken = HttpUtility.UrlEncode(APIContext.Current.ApiToken.GetToken());
                 string urlBase = "/{0}/{1}/{2}/{3}";
                 string url = string.Format("/{0}?wt={1}","widget/select", urlToken);
