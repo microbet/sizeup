@@ -359,7 +359,7 @@
                         place: me.opts.report.CurrentPlace,
                         params: { industryId: me.opts.report.CurrentIndustry.Id },
                         zoomExtent: data,
-                        attributeLabel: 'Average Employees',
+                        attributeLabel: 'Employees Per Capita',
                         format: function (val) { return sizeup.util.numbers.format.sigFig(val, 3); },
                         legendData: sizeup.api.data.getEmployeesPerCapitaBands,
                         templates: templates
