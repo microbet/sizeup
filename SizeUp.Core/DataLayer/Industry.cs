@@ -107,7 +107,7 @@ namespace SizeUp.Core.DataLayer
                             i.SortOrder,
                             Industry = new Models.Industry
                             {
-                                Id = i.Id,
+                                Id = i.IndustryId,
                                 Name = i.Name,
                                 SEOKey = i.Industry.SEOKey,
                                 SICCode = i.Industry.SicCode,
