@@ -43,22 +43,22 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
 
                 var list = geos
                     .GroupJoin(data, i => i.Id, o => o.GeographicLocationId, (i, o) => new { IndustryData = o, GeographicLocation = i })
-                    .Select(i => new KeyValue<DbGeography, long?>
+                    .Select(i => new KeyValue<DbGeography, Band<double>>
                     {
                         Key = i.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
                         .Select(g => SqlSpatialFunctions.Reduce(g.Polygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = i.IndustryData.Select(d => d.AverageAnnualSalary).FirstOrDefault()
+                        Value = i.IndustryData.Select(d => d.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageAnnualSalary).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault()).FirstOrDefault()
                     }).ToList();
 
                 var validValues = list
-                    .Where(i => i.Value != null && i.Value > 0)
-                    .NTileDescending(i => i.Value, colors.Length)
+                    .Where(i => i.Value != null)
+                    .NTileDescending(i => i.Value.Max, colors.Length)
                     .Select((i, index) => i.Where(g => g.Key != null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
                     .SelectMany(i => i)
                     .ToList();
 
                 var invalidValues = list
-                    .Where(i => i.Value == null || i.Value <= 0)
+                    .Where(i => i.Value == null)
                     .Where(i => i.Key != null)
                     .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();
