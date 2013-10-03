@@ -4,15 +4,8 @@
 
         var defaults = {
             templates: new sizeup.core.templates(),
-            colors: [
-                '#F50000',
-                '#F52900',
-                '#F55200',
-                '#F57A00',
-                '#F5A300',
-                '#F5CC00',
-                '#F5F500'
-            ],
+            startColor: '#000000',
+            endColor: '#ffffff',
             title: '',
             items:[],
             format: function (val) { return val; }
@@ -22,6 +15,10 @@
 
         var me = {};
         me.opts = $.extend(true, defaults, opts);
+
+        var heatmapOpts = { startColor: me.opts.startColor, endColor: me.opts.endColor, bands: me.opts.items.length };
+        var heatmapColors = new sizeup.maps.heatmapColors(heatmapOpts);
+        me.opts.colors = heatmapColors.getColors();
 
         me.legendContainer =  $(me.opts.templates.get('legendContainer'));
         me.titleContainer = $(me.opts.templates.get('legendTitle'));

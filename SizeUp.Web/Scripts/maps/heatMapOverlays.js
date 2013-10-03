@@ -12,15 +12,6 @@
             },
             place: {},
             params: {},
-            colors: [
-                '#F50000',
-                '#F52900',
-                '#F55200',
-                '#F57A00',
-                '#F5A300',
-                '#F5CC00',
-                '#F5F500'
-            ],
             opacity:0.9,
             smallestGranularity: sizeup.api.granularity.ZIP_CODE,
             attributeLabel: 'Unknown',
@@ -31,7 +22,11 @@
         var me = {};
         me.xhr = null;
         me.opts = $.extend(true, defaults, opts);
-        
+        var heatmapOpts = { startColor: me.opts.attribute.params.startColor, endColor: me.opts.attribute.params.endColor, colors: me.opts.attribute.params.bands };
+        var heatmapColors = new sizeup.maps.heatmapColors(heatmapOpts);
+        me.opts.colors = heatmapColors.getColors();
+
+
         var init = function () {
 
         };
@@ -147,7 +142,9 @@
                     attribute: me.opts.attribute,
                     opacity: me.opts.opacity,
                     tileParams: $.extend(true, {
-                        colors: me.opts.colors,
+                        startColor: me.opts.attribute.params.startColor,
+                        endColor: me.opts.attribute.params.endColor,
+                        bands: me.opts.attribute.params.bands,
                         boundingGeographicLocationId: zooms[z].boundingGeographicLocationId,
                         granularity: zooms[z].granularity
                     }, me.opts.params),
@@ -225,7 +222,8 @@
                     templates: me.opts.templates,
                     title: getTitle(zoom),
                     items: data,
-                    colors: me.opts.colors,
+                    startColor: me.opts.attribute.params.startColor,
+                    endColor: me.opts.attribute.params.endColor,
                     format: me.opts.format
                 });
                 if (callback!=null && data!=null) {
@@ -256,7 +254,7 @@
             return $.extend(true, {
                 granularity: level.granularity,
                 boundingGeographicLocationId: level.boundingGeographicLocationId,
-                bands: me.opts.colors.length
+                bands: me.opts.attribute.params.bands
             }, me.opts.params);
         };
 

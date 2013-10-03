@@ -318,6 +318,7 @@
     <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\circle.js" />
+    <Content Include="Scripts\maps\heatmapColors.js" />
     <Content Include="Scripts\maps\heatMapOverlays.js" />
     <Content Include="Scripts\maps\legend.js" />
     <Content Include="Scripts\maps\heatPin.js" />
@@ -364,6 +365,7 @@
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
+    <Content Include="Scripts\thirdParty\tinycolor-min.js" />
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />

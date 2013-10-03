@@ -24,7 +24,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
     {
         //
         // GET: /Tiles/Revenue/
-        public ActionResult Index(int x, int y, int zoom, long variableId, long boundingGeographicLocationId, string[] colors, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, long variableId, long boundingGeographicLocationId, string startColor, string endColor, int bands, Core.DataLayer.Granularity granularity = Core.DataLayer.Granularity.State, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -67,10 +67,15 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                         Value = i.Data.Select(d => d.Value).FirstOrDefault()
                     }).ToList();
 
-                var validValues = list
-                    .Where(i => i.Value != null && i.Value > 0)
-                    .NTileDescending(i => i.Value, colors.Length)
-                    .Select((i, index) => i.Where(g=>g.Key!= null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
+                var quantiles = list
+                    .Where(i => i.Value != null)
+                    .NTileDescending(i => i.Value, bands);
+
+                ColorBands colorBands = new Core.Tiles.ColorBands(System.Drawing.ColorTranslator.FromHtml(startColor), System.Drawing.ColorTranslator.FromHtml(endColor), quantiles.Count());
+                string[] bandList = colorBands.GetColorBands().ToArray();
+
+                var validValues = quantiles
+                    .Select((i, index) => i.Where(g => g.Key != null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = bandList[index] }))
                     .SelectMany(i => i)
                     .ToList();
 
