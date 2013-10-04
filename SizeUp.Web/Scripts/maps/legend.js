@@ -25,13 +25,29 @@
         me.title = me.titleContainer.find('.title .text');
         me.legend = me.legendContainer.find('.legendContainer');
 
-        
+        var isRange = function (data) {
+            var bool = true;
+            for (var x = 0; x < data.length; x++) {
+                bool = bool && data[x].Min != data[x].Max;
+            }
+            return bool;
+        };
+
+
         var list = [];
         var t = me.opts.templates.get('legendItem');
 
-        for (var x = 0; x < me.opts.items.length; x++) {
-            t = me.opts.templates.get('legendItem');
-            list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
+        if (!isRange(me.opts.items)) {
+            for (var x = 0; x < me.opts.items.length; x++) {
+                t = me.opts.templates.get('legendItem');
+                list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Max) }));
+            }
+        }
+        else {
+            for (var x = 0; x < me.opts.items.length; x++) {
+                t = me.opts.templates.get('legendItem');
+                list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
+            }
         }
 
         if (me.opts.items.length == 0) {
@@ -46,6 +62,8 @@
       
        
 
+
+       
 
 
         var publicObj = {
