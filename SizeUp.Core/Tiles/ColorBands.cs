@@ -20,7 +20,7 @@ namespace SizeUp.Core.Tiles
         }
         public List<string> GetColorBands()
         {
-            var sections = Bands - 2;
+            var sections = Math.Max(Bands - 2, 0);
 
             var deltaR = (EndColor.R - StartColor.R) / (sections + 1);
             var deltaG = (EndColor.G - StartColor.G) / (sections + 1);
