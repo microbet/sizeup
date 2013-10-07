@@ -19,6 +19,7 @@ namespace SizeUp.Api.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
+            requestContext.HttpContext.Response.AddHeader("Expires", "-1");
             Response.ContentType = "text/javascript";
             APISession.Create();       
         }

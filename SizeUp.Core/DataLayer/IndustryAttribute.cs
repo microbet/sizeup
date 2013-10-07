@@ -14,5 +14,8 @@ namespace SizeUp.Core.DataLayer
         public static string TotalEmployees { get { return "TotalEmployees"; } }
         public static string AverageEmployees { get { return "AverageEmployees"; } }
         public static string EmployeesPerCapita { get { return "EmployeesPerCapita"; } }
+        public static string AverageAnnualSalary { get { return "AverageAnnualSalary"; } }
+        public static string CostEffectiveness { get { return "CostEffectiveness"; } }
+
     }
 }

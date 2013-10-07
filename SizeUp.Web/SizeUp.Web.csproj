@@ -154,6 +154,7 @@
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Widget\Controllers\AuthorizeController.cs" />
     <Compile Include="Areas\Widget\Controllers\BaseController.cs" />
     <Compile Include="Areas\Widget\Controllers\CommunityController.cs" />
     <Compile Include="Areas\Widget\Controllers\CompetitionController.cs" />
@@ -282,6 +283,7 @@
     <Content Include="Content\widget\layout.css" />
     <Content Include="Content\widget\print.css" />
     <Content Include="Content\widget\Views\advertising\index.css" />
+    <Content Include="Content\widget\Views\authorize\index.css" />
     <Content Include="Content\widget\Views\community\index.css" />
     <Content Include="Content\widget\Views\community\print.css" />
     <Content Include="Content\widget\Views\competition\index.css" />
@@ -317,6 +319,7 @@
     <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
     <Content Include="Scripts\maps\circle.js" />
+    <Content Include="Scripts\maps\heatmapColors.js" />
     <Content Include="Scripts\maps\heatMapOverlays.js" />
     <Content Include="Scripts\maps\legend.js" />
     <Content Include="Scripts\maps\heatPin.js" />
@@ -363,6 +366,7 @@
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
+    <Content Include="Scripts\thirdParty\tinycolor-min.js" />
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\advertising\advertising.js" />
@@ -507,6 +511,8 @@
     <Content Include="Areas\Widget\Views\Get\BestPlaces.cshtml" />
     <Content Include="Areas\Widget\Views\Get\BestIndustries.cshtml" />
     <Content Include="Areas\Widget\Views\BestIndustries\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Authorize\Index.cshtml" />
+    <Content Include="Areas\Widget\Views\Authorize\Authorize.cshtml" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />

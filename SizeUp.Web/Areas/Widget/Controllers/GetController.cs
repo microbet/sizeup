@@ -20,63 +20,20 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
+            requestContext.HttpContext.Response.AddHeader("Expires", "-1");
             Response.ContentType = "text/javascript";
             APISession.Create();  
         }
 
-        public ActionResult Index(Guid key, long? industryId = null, long? placeId = null, string theme = null, string feature = "")
+        public ActionResult Index(Guid key)
         {
-            Feature? startFeature = null;
-            if (feature.ToLower() == "dashboard")
-            {
-                startFeature = Feature.Dashboard;
-            }
-            else if (feature.ToLower() == "competition")
-            {
-                startFeature = Feature.Competition;
-            }
-            else if (feature.ToLower() == "community")
-            {
-                startFeature = Feature.Community;
-            }
-            else if (feature.ToLower() == "advertsing")
-            {
-                startFeature = Feature.Advertising;
-            }
-            else if (feature.ToLower() == "select")
-            {
-                startFeature = Feature.Select;
-            }
-            WebContext.Current.StartFeature = startFeature;
-
-
-
-
-            if (placeId != null)
-            {
-                var place = new Core.DataLayer.Models.Place() { Id = placeId };
-                WebContext.Current.CurrentPlace = place;
-            }
-            if (industryId != null)
-            {
-                var industry = new Core.DataLayer.Models.Industry() { Id = (long)industryId };
-                WebContext.Current.CurrentIndustry = industry;
-            }
-
-            if (!string.IsNullOrWhiteSpace(theme))
-            {
-                HttpCookie c = new HttpCookie("theme", theme);
-                Response.Cookies.Add(c);
-            }
-            else
-            {
-                HttpCookie c = new HttpCookie("theme");
-                c.Expires = DateTime.Now.AddDays(-1d);
-                Response.Cookies.Add(c);
-            }
             CreateToken(key);
             ViewBag.SessionId = APISession.Current.SessionId;
             ViewBag.InstanceId = RandomString.Get(25);
+
+            //sets a test cookie to see if cookies are enabled.
+            //this cookie is read on the load page and is used to determine if "browser authorization" is required for safari
+            Response.Cookies.Add(SizeUp.Core.Web.CookieFactory.Create("enabled", "true"));
 
             return View();
         }
@@ -84,7 +41,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
 
         public ActionResult BestPlaces()
         {
-            HttpCookie c = new HttpCookie("theme");
+            HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme");
             c.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Add(c);
             return View();

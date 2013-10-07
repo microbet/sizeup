@@ -86,14 +86,14 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 bool persist = Request["persist"] != null;
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 if (persist)
                 {
                     cookie.Expires = authTicket.Expiration;
                 }
                 Response.Cookies.Set(cookie);
-                FormsAuthentication.RedirectFromLoginPage(email, persist);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+                return Redirect(ReturnUrl);
             }
             return View();
         }
@@ -103,10 +103,11 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
-                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName);
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
             }
-            return Redirect(Server.UrlDecode(Request["returnurl"]));
+            return Redirect(Request["returnurl"]);
         }
 
 
@@ -139,18 +140,24 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 i.IsApproved = false;
                 i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-                FormsAuthentication.SetAuthCookie(i.Email, false);
+
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(i.Email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
+                Response.Cookies.Set(cookie);
+                
                 UserRegistration reg = new UserRegistration()
                 {
                     CityId = WebContext.Current.CurrentPlace.Id,
-                    IndustryId = WebContext.Current.CurrentIndustry.Id,
+                    IndustryId = WebContext.Current.CurrentIndustry != null ? WebContext.Current.CurrentIndustry.Id : (long?)null,
                     UserId = i.UserId,
                     Email = i.Email,
                     ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "" : Request["returnurl"]
                 };
 
                 Singleton<Tracker>.Instance.UserRegistration(reg);
-                FormsAuthentication.RedirectFromLoginPage(i.Email, false);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+                return Redirect(ReturnUrl);
             }
             catch (MembershipCreateUserException ex)
             {

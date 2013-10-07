@@ -24,7 +24,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
     {
         //
         // GET: /Tiles/Revenue/
-        public ActionResult Index(int x, int y, int zoom, long industryId, long boundingGeographicLocationId, string[] colors, Core.DataLayer.Granularity granularity, int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, long industryId, long boundingGeographicLocationId, string startColor, string endColor, int bands, Core.DataLayer.Granularity granularity, int width = 256, int height = 256)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -42,23 +42,29 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 var data = Core.DataLayer.IndustryData.Get(context).Where(i => i.IndustryId == industryId);
 
                 var list = geos
-                    .GroupJoin(data, i => i.Id, o => o.GeographicLocationId, (i, o) => new { IndustryData = o, GeographicLocation = i })
-                    .Select(i => new KeyValue<DbGeography, long?>
-                    {
-                        Key = i.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
-                        .Select(g => SqlSpatialFunctions.Reduce(g.Polygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
-                        Value = i.IndustryData.Select(d => d.RevenuePerCapita).FirstOrDefault()
-                    }).ToList();
+                .GroupJoin(data, i => i.Id, o => o.GeographicLocationId, (i, o) => new { IndustryData = o, GeographicLocation = i })
+                .Select(i => new KeyValue<DbGeography, Band<double>>
+                {
+                    Key = i.GeographicLocation.Geographies.Where(g => g.GeographyClass.Name == Core.Geo.GeographyClass.Display)
+                    .Select(g => SqlSpatialFunctions.Reduce(g.Polygon, tolerance).Intersection(boundingGeo)).FirstOrDefault(),
+                    Value = i.IndustryData.Select(d => d.Bands.Where(b => b.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault()).FirstOrDefault()
+                }).ToList();
 
-                var validValues = list
-                    .Where(i => i.Value != null && i.Value > 0)
-                    .NTileDescending(i => i.Value, colors.Length)
-                    .Select((i, index) => i.Where(g => g.Key != null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = colors[index] }))
+                var quantiles = list
+                   .Where(i => i.Value != null)
+                   .NTileDescending(i => i.Value.Max, bands);
+
+                ColorBands colorBands = new Core.Tiles.ColorBands(System.Drawing.ColorTranslator.FromHtml(startColor), System.Drawing.ColorTranslator.FromHtml(endColor), quantiles.Count());
+                string[] bandList = colorBands.GetColorBands().ToArray();
+
+                var validValues = quantiles
+                    .Select((i, index) => i.Where(g => g.Key != null).Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()), Color = bandList[index] }))
                     .SelectMany(i => i)
                     .ToList();
 
+
                 var invalidValues = list
-                    .Where(i => i.Value == null || i.Value <= 0)
+                    .Where(i => i.Value == null)
                     .Where(i => i.Key != null)
                     .Select(g => new GeographyEntity() { Geography = SqlGeography.Parse(g.Key.AsText()) })
                     .ToList();

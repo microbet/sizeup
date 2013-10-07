@@ -19,6 +19,7 @@ namespace SizeUp.Core.API
 
         protected string _sessionid;
         public string SessionId { get { return _sessionid; } }
+
         public static APISession Current
         {
             get
@@ -40,8 +41,7 @@ namespace SizeUp.Core.API
         
         protected void Save()
         {
-            HttpCookie kc = new HttpCookie(SessionCookieKey);
-            kc.Domain = "." + Web.WebContext.Current.Domain;
+            HttpCookie kc = SizeUp.Core.Web.CookieFactory.Create(SessionCookieKey);
             kc.Value = _sessionid;
             kc.Expires = DateTime.Now.AddYears(1);
             HttpContext.Current.Response.Cookies.Add(kc);

@@ -55,11 +55,12 @@ namespace SizeUp.Core.DataLayer
                 .Where(i => i.GeographicLocation.Granularity.Name == gran)
                 .Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == boundingGeographicLocationId));
 
-            var output = data.Select(i => i.AverageEmployees)
-                .Where(i => i != null && i > 0)
+            var output = data
+                .Where(i => i.AverageEmployees != null && i.AverageEmployees > 0)
+                .Select(i=> i.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault())
                 .ToList()
-                .NTileDescending(i => i, bands)
-                .Select(i => new Band<long>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })
+                .NTileDescending(i => i.Min, bands)
+                .Select(i => new Band<long>() { Min = (long)i.Min(v => v.Min), Max = (long)i.Max(v => v.Max) })
                 .ToList();
 
             output.FormatDescending();

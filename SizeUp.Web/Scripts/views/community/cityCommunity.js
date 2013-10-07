@@ -20,8 +20,7 @@
 
         var init = function () {
             loadMap();
-            loadDemographics();
-            loadBestIndustries();
+            loadData();
         };
 
 
@@ -32,14 +31,10 @@
             sizeup.api.data.getCentroid({ geographicLocationId: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.CityCenter = new sizeup.maps.latLng({ lat: data.Lat, lng: data.Lng }); }));
         };
 
-        var loadDemographics = function () {
-            var notifier = new sizeup.core.notifier(function () { bindDemographics(); });
-            sizeup.api.data.getDemographics({ geographicLocationId: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.demographics = formatDemographics(data); }));
-        };
-
-        var loadBestIndustries = function () {
+        var loadData = function () {
+            var notifier = new sizeup.core.notifier(function () { bindData(); });
             me.data.bestIndustries = {};
-            var notifier = new sizeup.core.notifier(function () { bindBestIndustries(); });
+            sizeup.api.data.getDemographics({ geographicLocationId: opts.CurrentPlace.City.Id }, notifier.getNotifier(function (data) { me.data.demographics = formatDemographics(data); }));
             sizeup.api.data.getBestIndustries({ geographicLocationId: opts.CurrentPlace.City.Id, attribute: sizeup.api.attributes.TOTAL_REVENUE }, notifier.getNotifier(function (data) { me.data.bestIndustries.totalRevenue = data; }));
             sizeup.api.data.getBestIndustries({ geographicLocationId: opts.CurrentPlace.City.Id, attribute: sizeup.api.attributes.REVENUE_PER_CAPITA }, notifier.getNotifier(function (data) { me.data.bestIndustries.revenuePerCapita = data; }));
         };
@@ -65,15 +60,6 @@
             me.content.map.addOverlay(borderOverlay);
         };
 
-        var bindDemographics = function () {
-            me.content.demographics = {};
-            me.content.demographics.wrapper = me.container.find('.wrapper.demographics');
-            me.content.demographics.report = me.content.demographics.wrapper.find('.report').hide().removeClass('hidden');
-
-            me.content.demographics.report.html(templates.bind(templates.get('demographics'), me.data.demographics));
-            me.content.demographics.report.show();
-            me.content.demographics.wrapper.find('.loading').remove();
-        };
 
         var formatDemographics = function (data) {
             if (data.Population != null) {
@@ -158,18 +144,24 @@
             return data;
         };
 
-
-        var bindBestIndustries = function () {
+        bindData = function () {
             var data = formatBestIndustries();
-
+            me.content.demographics = {};
             me.content.bestIndustries = {};
-            me.content.bestIndustries.wrapper = me.container.find('.wrapper.bestIndustries');
-            me.content.bestIndustries.report = me.content.bestIndustries.wrapper.find('.report').hide().removeClass('hidden');
+            me.content.demographics.wrapper = me.container.find('.wrapper.demographics .report');
+            me.content.demographics.wrapper.html(templates.bind(templates.get('demographics'), me.data.demographics));
 
-            me.content.bestIndustries.report.html(templates.bind(templates.get('bestIndustries'), data));
-            me.content.bestIndustries.report.show();
-            me.content.bestIndustries.wrapper.find('.loading').remove();
+            me.content.bestIndustries.wrapper = me.container.find('.wrapper.bestIndustries .report');
+            me.content.bestIndustries.wrapper.html(templates.bind(templates.get('bestIndustries'), data));
+
+            if (data.Industries.length > 0) {
+                me.container.find('.wrapper.bestIndustries').removeClass('hidden');
+            }
+            me.container.find('.wrapper.demographics').removeClass('hidden');
+
+            me.container.find('.wrapper .loading').remove();
         };
+
 
         var formatBestIndustries = function () {
             var temp = {};

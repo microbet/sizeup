@@ -7,67 +7,51 @@
     window.sizeup.api.tiles = window.sizeup.api.tiles || {};
     window.sizeup.api.tiles.overlayAttributes = (function () {
        
-        var me = {};
-        var defaultHeatmapColors = [
-            '#F50000',
-            '#F52900',
-            '#F55200',
-            '#F57A00',
-            '#F5A300',
-            '#F5CC00',
-            '#F5F500'
-        ];
+        var me = {
+            defaultParams:{
+                startColor: '#ff0000',
+                endColor: '#ffff00',
+                bands: 5
+            }
+        };
+
+
+
         var pub = {
             heatmap:{
 @if(ViewBag.Permissions.IndustryData){
 <text>
                 averageEmployees:{
                     url:'tiles/averageEmployees',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 averageRevenue:{
                     url:'tiles/averageRevenue',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 averageSalary:{
                     url:'tiles/averageSalary',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 costEffectiveness:{
                     url:'tiles/costEffectiveness',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 employeesPerCapita:{
                     url:'tiles/employeesPerCapita',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 revenuePerCapita:{
                     url:'tiles/revenuePerCapita',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 totalEmployees:{
                     url:'tiles/totalEmployees',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
                 totalRevenue:{
                     url:'tiles/totalRevenue',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
 </text>
 }
@@ -76,9 +60,7 @@
 <text>
                 consumerExpenditures:{
                     url: 'tiles/consumerExpenditures',
-                    params:{
-                        colors: defaultHeatmapColors
-                    }
+                    params: me.defaultParams
                 },
 </text>
 }

@@ -37,88 +37,84 @@
     <h1>Community Profile for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
     <div class="map"></div>
 
-    <div class="wrapper bestIndustries">
-        <h2>Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
-        <p>The 5 industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation with the highest total revenue
-             are shown below along with the 5 industries with the highest revenue per capita.</p>
-        <div class="loading">
-            <p class="title">Best Industries</p>
-            <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
-            <p class="message">Generating Report</p>
-        </div>
-
-        <div class="report hidden">
-            <div data-template="bestIndustries">
-                <ul>
-                    {{#Industries}}
-                    <li>
-                        <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/{{Industry.SEOKey}}">{{Industry.Name}}</a>
-                        {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}" title="{{totalRevenue.badgeName}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
-                        {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}" title="{{revenuePerCapita.badgeName}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
-                    </li>
-                    {{/Industries}}
-                </ul>
-                <a class="" href="/find-community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/">View a complete list of industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
-            </div>         
-        </div>
-
-    </div>
-
-
-    <div class="wrapper demographics">
-        <h2>Community Demographics for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+    <div class="wrapper">
         <div class="loading">
             <p class="title">Community Profile</p>
             <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
             <p class="message">Generating Report</p>
         </div>
 
-        <div class="report hidden">
-            <div data-template="demographics">
-                <div class="col">
-                    <h3>People</h3>
+
+        <div class="wrapper bestIndustries hidden">
+            <h2>Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+            <p>The 5 industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation with the highest total revenue
+                 are shown below along with the 5 industries with the highest revenue per capita.</p>
+            <p>Each industry must have at least 3 businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation to be ranked.</p>
+            <div class="report">
+                <div data-template="bestIndustries">
                     <ul>
-                        <li><span class="label">Population:</span><span class="value">{{#Population}}{{Population}}{{/Population}}{{^Population}}N/A{{/Population}}</span></li>
-                        <li><span class="label">Labor Force:</span><span class="value">{{#LaborForce}}{{LaborForce}}{{/LaborForce}}{{^LaborForce}}N/A{{/LaborForce}}</span></li>
-                        <li><span class="label">Small Businesses:</span><span class="value">{{#SmallBusinesses}}{{SmallBusinesses}}{{/SmallBusinesses}}{{^SmallBusinesses}}N/A{{/SmallBusinesses}}</span></li>
-                        <li><span class="label">Job Growth (2000-2010):</span><span class="value">{{#JobGrowth}}{{JobGrowth}}{{/JobGrowth}}{{^JobGrowth}}N/A{{/JobGrowth}}</span></li>
-                        <li><span class="label">Unemployment Rate:</span><span class="value">{{#Unemployment}}{{Unemployment}}{{/Unemployment}}{{^Unemployment}}N/A{{/Unemployment}}</span></li>
-                        <li><span class="label">Median Age:</span><span class="value">{{#MedianAge}}{{MedianAge}}{{/MedianAge}}{{^MedianAge}}N/A{{/MedianAge}}</span></li>
+                        {{#Industries}}
+                        <li>
+                            <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/{{Industry.SEOKey}}">{{Industry.Name}}</a>
+                            {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}" title="{{totalRevenue.badgeName}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
+                            {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}" title="{{revenuePerCapita.badgeName}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
+                        </li>
+                        {{/Industries}}
                     </ul>
-                    <h3>Budgets</h3>
-                    <ul>
-                        <li><span class="label">Household Expenditures (Average):</span><span class="value">{{#AverageHouseholdExpenditures}}{{AverageHouseholdExpenditures}}{{/AverageHouseholdExpenditures}}{{^AverageHouseholdExpenditures}}N/A{{/AverageHouseholdExpenditures}}</span></li>
-                        <li><span class="label">Household Income:</span><span class="value">{{#HouseholdIncome}}{{HouseholdIncome}}{{/HouseholdIncome}}{{^HouseholdIncome}}N/A{{/HouseholdIncome}}</span></li>
-                        <li><span class="label">Top State Personal Income Tax:</span><span class="value">{{#PersonalIncomeTax}}{{PersonalIncomeTax}}{{/PersonalIncomeTax}}{{^PersonalIncomeTax}}N/A{{/PersonalIncomeTax}}</span></li>
-                        <li><span class="label">Top State Personal Capital Gains Tax:</span><span class="value">{{#PersonalCapitalGainsTax}}{{PersonalCapitalGainsTax}}{{/PersonalCapitalGainsTax}}{{^PersonalCapitalGainsTax}}N/A{{/PersonalCapitalGainsTax}}</span></li>
-                        <li><span class="label">Top State Corporate Income Tax:</span><span class="value">{{#CorporateIncomeTax}}{{CorporateIncomeTax}}{{/CorporateIncomeTax}}{{^CorporateIncomeTax}}N/A{{/CorporateIncomeTax}}</span></li>
-                        <li><span class="label">Top State Corporate Capital Gains Tax:</span><span class="value">{{#CorporateCapitalGainsTax}}{{CorporateCapitalGainsTax}}{{/CorporateCapitalGainsTax}}{{^CorporateCapitalGainsTax}}N/A{{/CorporateCapitalGainsTax}}</span></li>
-                        <li><span class="label">State Sales Tax:</span><span class="value">{{#SalesTax}}{{SalesTax}}{{/SalesTax}}{{^SalesTax}}N/A{{/SalesTax}}</span></li>
-                        <li><span class="label">Property Tax:</span><span class="value">{{#PropertyTax}}{{PropertyTax}}{{/PropertyTax}}{{^PropertyTax}}N/A{{/PropertyTax}}</span></li>            
-                        <li><span class="label">Home Value:</span><span class="value">{{#HomeValue}}{{HomeValue}}{{/HomeValue}}{{^HomeValue}}N/A{{/HomeValue}}</span></li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <h3>Labor Force Quality</h3>
-                    <ul>
-                        <li><span class="label">Bachelors Degree or Higher:</span><span class="value">{{#BachelorsOrHigherPercentage}}{{BachelorsOrHigherPercentage}}{{/BachelorsOrHigherPercentage}}{{^BachelorsOrHigherPercentage}}N/A{{/BachelorsOrHigherPercentage}}</span></li>
-                        <li><span class="label">Highschool Degree or Higher:</span><span class="value">{{#HighschoolOrHigherPercentage}}{{HighschoolOrHigherPercentage}}{{/HighschoolOrHigherPercentage}}{{^HighschoolOrHigherPercentage}}N/A{{/HighschoolOrHigherPercentage}}</span></li>
-                        <li><span class="label">White Collar Workers:</span><span class="value">{{#WhiteCollarWorkersPercentage}}{{WhiteCollarWorkersPercentage}}{{/WhiteCollarWorkersPercentage}}{{^WhiteCollarWorkersPercentage}}N/A{{/WhiteCollarWorkersPercentage}}</span></li>
-                        <li><span class="label">Blue Collar Workers:</span><span class="value">{{#BlueCollarWorkersPercentage}}{{BlueCollarWorkersPercentage}}{{/BlueCollarWorkersPercentage}}{{^BlueCollarWorkersPercentage}}N/A{{/BlueCollarWorkersPercentage}}</span></li>
-                        <li><span class="label">Very Creative Professionals:</span><span class="value">{{#VeryCreativeProfessionalsPercentage}}{{VeryCreativeProfessionalsPercentage}}{{/VeryCreativeProfessionalsPercentage}}{{^VeryCreativeProfessionalsPercentage}}N/A{{/VeryCreativeProfessionalsPercentage}}</span></li>
-                        <li><span class="label">Creative Professionals:</span><span class="value">{{#CreativeProfessionalsPercentage}}{{CreativeProfessionalsPercentage}}{{/CreativeProfessionalsPercentage}}{{^CreativeProfessionalsPercentage}}N/A{{/CreativeProfessionalsPercentage}}</span></li>
-                        <li><span class="label">Young and Educated:</span><span class="value">{{#YoungEducatedPercentage}}{{YoungEducatedPercentage}}{{/YoungEducatedPercentage}}{{^YoungEducatedPercentage}}N/A{{/YoungEducatedPercentage}}</span></li>
-                        <li><span class="label">International Talent:</span><span class="value">{{#InternationalTalentPercentage}}{{InternationalTalentPercentage}}{{/InternationalTalentPercentage}}{{^InternationalTalentPercentage}}N/A{{/InternationalTalentPercentage}}</span></li>
-                        <li><span class="label">Universities in Community:</span><span class="value">{{#Universities}}{{Universities}}{{/Universities}}{{^Universities}}N/A{{/Universities}}</span></li>
-                        <li><span class="label">Universities in Community + 50 miles:</span><span class="value">{{#Universities50Miles}}{{Universities50Miles}}{{/Universities50Miles}}{{^Universities50Miles}}N/A{{/Universities50Miles}}</span></li>
-                        <li><span class="label">Commute Time:</span><span class="value">{{#CommuteTime}}{{CommuteTime}}{{/CommuteTime}}{{^CommuteTime}}N/A{{/CommuteTime}}</span></li>
-                    </ul>
+                    <a class="" href="/find-community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/">View a complete list of industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+                </div>         
+            </div>
+        </div>
+
+        <div class="wrapper demographics hidden">
+            <h2>Community Demographics for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+            <div class="report">
+                <div data-template="demographics">
+                    <div class="col">
+                        <h3>People</h3>
+                        <ul>
+                            <li><span class="label">Population:</span><span class="value">{{#Population}}{{Population}}{{/Population}}{{^Population}}N/A{{/Population}}</span></li>
+                            <li><span class="label">Labor Force:</span><span class="value">{{#LaborForce}}{{LaborForce}}{{/LaborForce}}{{^LaborForce}}N/A{{/LaborForce}}</span></li>
+                            <li><span class="label">Small Businesses:</span><span class="value">{{#SmallBusinesses}}{{SmallBusinesses}}{{/SmallBusinesses}}{{^SmallBusinesses}}N/A{{/SmallBusinesses}}</span></li>
+                            <li><span class="label">Job Growth (2000-2010):</span><span class="value">{{#JobGrowth}}{{JobGrowth}}{{/JobGrowth}}{{^JobGrowth}}N/A{{/JobGrowth}}</span></li>
+                            <li><span class="label">Unemployment Rate:</span><span class="value">{{#Unemployment}}{{Unemployment}}{{/Unemployment}}{{^Unemployment}}N/A{{/Unemployment}}</span></li>
+                            <li><span class="label">Median Age:</span><span class="value">{{#MedianAge}}{{MedianAge}}{{/MedianAge}}{{^MedianAge}}N/A{{/MedianAge}}</span></li>
+                        </ul>
+                        <h3>Budgets</h3>
+                        <ul>
+                            <li><span class="label">Household Expenditures (Average):</span><span class="value">{{#AverageHouseholdExpenditures}}{{AverageHouseholdExpenditures}}{{/AverageHouseholdExpenditures}}{{^AverageHouseholdExpenditures}}N/A{{/AverageHouseholdExpenditures}}</span></li>
+                            <li><span class="label">Household Income:</span><span class="value">{{#HouseholdIncome}}{{HouseholdIncome}}{{/HouseholdIncome}}{{^HouseholdIncome}}N/A{{/HouseholdIncome}}</span></li>
+                            <li><span class="label">Top State Personal Income Tax:</span><span class="value">{{#PersonalIncomeTax}}{{PersonalIncomeTax}}{{/PersonalIncomeTax}}{{^PersonalIncomeTax}}N/A{{/PersonalIncomeTax}}</span></li>
+                            <li><span class="label">Top State Personal Capital Gains Tax:</span><span class="value">{{#PersonalCapitalGainsTax}}{{PersonalCapitalGainsTax}}{{/PersonalCapitalGainsTax}}{{^PersonalCapitalGainsTax}}N/A{{/PersonalCapitalGainsTax}}</span></li>
+                            <li><span class="label">Top State Corporate Income Tax:</span><span class="value">{{#CorporateIncomeTax}}{{CorporateIncomeTax}}{{/CorporateIncomeTax}}{{^CorporateIncomeTax}}N/A{{/CorporateIncomeTax}}</span></li>
+                            <li><span class="label">Top State Corporate Capital Gains Tax:</span><span class="value">{{#CorporateCapitalGainsTax}}{{CorporateCapitalGainsTax}}{{/CorporateCapitalGainsTax}}{{^CorporateCapitalGainsTax}}N/A{{/CorporateCapitalGainsTax}}</span></li>
+                            <li><span class="label">State Sales Tax:</span><span class="value">{{#SalesTax}}{{SalesTax}}{{/SalesTax}}{{^SalesTax}}N/A{{/SalesTax}}</span></li>
+                            <li><span class="label">Property Tax:</span><span class="value">{{#PropertyTax}}{{PropertyTax}}{{/PropertyTax}}{{^PropertyTax}}N/A{{/PropertyTax}}</span></li>            
+                            <li><span class="label">Home Value:</span><span class="value">{{#HomeValue}}{{HomeValue}}{{/HomeValue}}{{^HomeValue}}N/A{{/HomeValue}}</span></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Labor Force Quality</h3>
+                        <ul>
+                            <li><span class="label">Bachelors Degree or Higher:</span><span class="value">{{#BachelorsOrHigherPercentage}}{{BachelorsOrHigherPercentage}}{{/BachelorsOrHigherPercentage}}{{^BachelorsOrHigherPercentage}}N/A{{/BachelorsOrHigherPercentage}}</span></li>
+                            <li><span class="label">Highschool Degree or Higher:</span><span class="value">{{#HighschoolOrHigherPercentage}}{{HighschoolOrHigherPercentage}}{{/HighschoolOrHigherPercentage}}{{^HighschoolOrHigherPercentage}}N/A{{/HighschoolOrHigherPercentage}}</span></li>
+                            <li><span class="label">White Collar Workers:</span><span class="value">{{#WhiteCollarWorkersPercentage}}{{WhiteCollarWorkersPercentage}}{{/WhiteCollarWorkersPercentage}}{{^WhiteCollarWorkersPercentage}}N/A{{/WhiteCollarWorkersPercentage}}</span></li>
+                            <li><span class="label">Blue Collar Workers:</span><span class="value">{{#BlueCollarWorkersPercentage}}{{BlueCollarWorkersPercentage}}{{/BlueCollarWorkersPercentage}}{{^BlueCollarWorkersPercentage}}N/A{{/BlueCollarWorkersPercentage}}</span></li>
+                            <li><span class="label">Very Creative Professionals:</span><span class="value">{{#VeryCreativeProfessionalsPercentage}}{{VeryCreativeProfessionalsPercentage}}{{/VeryCreativeProfessionalsPercentage}}{{^VeryCreativeProfessionalsPercentage}}N/A{{/VeryCreativeProfessionalsPercentage}}</span></li>
+                            <li><span class="label">Creative Professionals:</span><span class="value">{{#CreativeProfessionalsPercentage}}{{CreativeProfessionalsPercentage}}{{/CreativeProfessionalsPercentage}}{{^CreativeProfessionalsPercentage}}N/A{{/CreativeProfessionalsPercentage}}</span></li>
+                            <li><span class="label">Young and Educated:</span><span class="value">{{#YoungEducatedPercentage}}{{YoungEducatedPercentage}}{{/YoungEducatedPercentage}}{{^YoungEducatedPercentage}}N/A{{/YoungEducatedPercentage}}</span></li>
+                            <li><span class="label">International Talent:</span><span class="value">{{#InternationalTalentPercentage}}{{InternationalTalentPercentage}}{{/InternationalTalentPercentage}}{{^InternationalTalentPercentage}}N/A{{/InternationalTalentPercentage}}</span></li>
+                            <li><span class="label">Universities in Community:</span><span class="value">{{#Universities}}{{Universities}}{{/Universities}}{{^Universities}}N/A{{/Universities}}</span></li>
+                            <li><span class="label">Universities in Community + 50 miles:</span><span class="value">{{#Universities50Miles}}{{Universities50Miles}}{{/Universities50Miles}}{{^Universities50Miles}}N/A{{/Universities50Miles}}</span></li>
+                            <li><span class="label">Commute Time:</span><span class="value">{{#CommuteTime}}{{CommuteTime}}{{/CommuteTime}}{{^CommuteTime}}N/A{{/CommuteTime}}</span></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </div>
 
+    </div>
 </div>
 
 

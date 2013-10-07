@@ -137,6 +137,7 @@
     <Compile Include="Areas\Data\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Data\Controllers\ConsumerExpendituresController.cs" />
     <Compile Include="Areas\Data\Controllers\BestIndustriesController.cs" />
+    <Compile Include="Areas\Data\Controllers\UtilityController.cs" />
     <Compile Include="Areas\Data\Controllers\DemographicsController.cs" />
     <Compile Include="Areas\Data\Controllers\GeographyController.cs" />
     <Compile Include="Areas\Data\DataAreaRegistration.cs" />

@@ -12,6 +12,7 @@ namespace SizeUp.Core.Web
         Community,
         Competition,
         Dashboard,
-        Select
+        Select,
+        FeatureSelect
     }
 }

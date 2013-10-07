@@ -196,6 +196,7 @@
     <Compile Include="Geo\BoundingEntity.cs" />
     <Compile Include="Geo\BoundingBox.cs" />
     <Compile Include="Tiles\Businesses.cs" />
+    <Compile Include="Tiles\ColorBands.cs" />
     <Compile Include="Tiles\GeographyBoundary.cs" />
     <Compile Include="Tiles\GeographyEntity.cs" />
     <Compile Include="Tiles\GeoSink.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="API\APIToken.cs" />
     <Compile Include="Web\CacheBuster.cs" />
+    <Compile Include="Web\CookieFactory.cs" />
     <Compile Include="Web\Feature.cs" />
     <Compile Include="Web\Form.cs" />
     <Compile Include="Web\Jsonp.cs" />

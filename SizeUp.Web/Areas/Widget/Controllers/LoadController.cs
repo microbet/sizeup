@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         // GET: /Widget/Load/
 
         [APIAuthorize(Role = "Widget")]
-        public ActionResult Index()
+        public ActionResult Index(long? industryId = null, long? placeId = null, string theme = null, string feature = "")
         {
             //in this context the APIToken is the widget key
             bool valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
@@ -31,9 +31,70 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             }
 
 
+            if (Request.Cookies["enabled"] == null)
+            {
+                return View("~/areas/widget/views/Authorize/Authorize.cshtml");
+            }
+            HttpCookie cc = CookieFactory.Create("enabled");
+            cc.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(cc);
+
+
+            Feature? startFeature = null;
+            if (feature.ToLower() == "dashboard")
+            {
+                startFeature = Feature.Dashboard;
+            }
+            else if (feature.ToLower() == "competition")
+            {
+                startFeature = Feature.Competition;
+            }
+            else if (feature.ToLower() == "community")
+            {
+                startFeature = Feature.Community;
+            }
+            else if (feature.ToLower() == "advertsing")
+            {
+                startFeature = Feature.Advertising;
+            }
+            else if (feature.ToLower() == "featureselect")
+            {
+                startFeature = Feature.FeatureSelect;
+            }
+            else if (feature.ToLower() == "select")
+            {
+                startFeature = Feature.Select;
+            }
+            WebContext.Current.StartFeature = startFeature;
+
+
+
+
+            if (!string.IsNullOrWhiteSpace(theme))
+            {
+                HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme", theme);
+                Response.Cookies.Add(c);
+            }
+            else
+            {
+                HttpCookie c = SizeUp.Core.Web.CookieFactory.Create("theme");
+                c.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(c);
+            }
+
+
 
             using (var context = ContextFactory.SizeUpContext)
             {
+                if (placeId != null)
+                {
+                    WebContext.Current.CurrentPlace = Core.DataLayer.Place.Get(context, placeId);
+                }
+                if (industryId != null)
+                {
+                    WebContext.Current.CurrentIndustry = Core.DataLayer.Industry.Get(context, industryId);
+                }
+
                 string urlToken = HttpUtility.UrlEncode(APIContext.Current.ApiToken.GetToken());
                 string urlBase = "/{0}/{1}/{2}/{3}";
                 string url = string.Format("/{0}?wt={1}","widget/select", urlToken);
@@ -59,6 +120,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                     else if (WebContext.Current.StartFeature == Feature.Community)
                     {
                         url = string.Format("/{0}{1}?wt={2}", "widget/community", urlBase, urlToken);
+                    }
+                    else if (WebContext.Current.StartFeature == Feature.FeatureSelect)
+                    {
+                        url = string.Format("/{0}?wt={1}#featureSelect=true","widget/select", urlToken);
                     }
                 }
                 

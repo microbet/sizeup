@@ -72,13 +72,18 @@ namespace SizeUp.Web.Controllers
                 i.IsApproved = false;
                 i.CreateUser(password);
                 Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-                FormsAuthentication.SetAuthCookie(i.Email, false);
+
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(i.Email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
+                Response.Cookies.Set(cookie);
+
                 string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
                 UserRegistration reg = new UserRegistration()
                 {
                     APIKeyId = null,
                     CityId = WebContext.Current.CurrentPlace.Id,
-                    IndustryId = WebContext.Current.CurrentIndustry.Id,
+                    IndustryId = WebContext.Current.CurrentIndustry!= null ? WebContext.Current.CurrentIndustry.Id : (long?)null,
                     UserId = i.UserId,
                     Email = i.Email,
                     ReturnUrl = ReturnUrl
@@ -166,8 +171,7 @@ namespace SizeUp.Web.Controllers
                 bool persist = Request["persist"] != null;
                 FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(email, true, (int)FormsAuthentication.Timeout.TotalMinutes);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                cookie.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName, encryptedTicket);
                 if (persist)
                 {
                     cookie.Expires = authTicket.Expiration;
@@ -184,10 +188,11 @@ namespace SizeUp.Web.Controllers
         {
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                Response.Cookies[FormsAuthentication.FormsCookieName].Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
-                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);   
+                HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(FormsAuthentication.FormsCookieName);
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
             }
-            return Redirect(Server.UrlDecode(Request["returnurl"]));
+            return Redirect(Request["returnurl"]);
         }
 
         [HttpGet]

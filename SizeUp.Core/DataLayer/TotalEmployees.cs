@@ -37,11 +37,12 @@ namespace SizeUp.Core.DataLayer
 
 
 
-            var output = data.Select(i => i.TotalEmployees)
-                .Where(i => i != null && i > 0)
+            var output = data
+                .Where(i => i.TotalEmployees != null && i.TotalEmployees > 0)
+                .Select(i => i.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault())
                 .ToList()
-                .NTileDescending(i => i, bands)
-                .Select(i => new Band<long>() { Min = i.Min(v => v.Value), Max = i.Max(v => v.Value) })
+                .NTileDescending(i => i.Min, bands)
+                .Select(i => new Band<long>() { Min = (long)i.Min(v => v.Min), Max = (long)i.Max(v => v.Max) })
                 .ToList();
 
             output.FormatDescending();

@@ -10,17 +10,11 @@
                 Metro: 10,
                 State: 5
             },
+            startColor: '#ff0000',
+            endColor: '#ffff00',
+            bands: 5,
             place: {},
             params: {},
-            colors: [
-                '#F50000',
-                '#F52900',
-                '#F55200',
-                '#F57A00',
-                '#F5A300',
-                '#F5CC00',
-                '#F5F500'
-            ],
             opacity:0.9,
             smallestGranularity: sizeup.api.granularity.ZIP_CODE,
             attributeLabel: 'Unknown',
@@ -31,7 +25,11 @@
         var me = {};
         me.xhr = null;
         me.opts = $.extend(true, defaults, opts);
-        
+        var heatmapOpts = { startColor: me.opts.startColor, endColor: me.opts.endColor, colors: me.opts.bands };
+        var heatmapColors = new sizeup.maps.heatmapColors(heatmapOpts);
+        me.opts.colors = heatmapColors.getColors();
+
+
         var init = function () {
 
         };
@@ -42,7 +40,7 @@
                 granularity: sizeup.api.granularity.ZIP_CODE,
                 boundingGeographicLocationId: me.opts.place.County.Id,
                 minZoom: me.opts.zoomExtent.County,
-                maxZoom: 32
+                maxZoom: 92
             });
 
             if (me.opts.zoomExtent.Metro != null && me.opts.zoomExtent.County > me.opts.zoomExtent.Metro) {
@@ -100,7 +98,7 @@
                     granularity: sizeup.api.granularity.COUNTY,
                     boundingGeographicLocationId: me.opts.place.Metro.Id,
                     minZoom: me.opts.zoomExtent.Metro,
-                    maxZoom: 32
+                    maxZoom: 92
                 });
                 levels.push({
                     granularity: sizeup.api.granularity.COUNTY,
@@ -147,7 +145,9 @@
                     attribute: me.opts.attribute,
                     opacity: me.opts.opacity,
                     tileParams: $.extend(true, {
-                        colors: me.opts.colors,
+                        startColor: me.opts.startColor,
+                        endColor: me.opts.endColor,
+                        bands: me.opts.bands,
                         boundingGeographicLocationId: zooms[z].boundingGeographicLocationId,
                         granularity: zooms[z].granularity
                     }, me.opts.params),
@@ -225,7 +225,8 @@
                     templates: me.opts.templates,
                     title: getTitle(zoom),
                     items: data,
-                    colors: me.opts.colors,
+                    startColor: me.opts.startColor,
+                    endColor: me.opts.endColor,
                     format: me.opts.format
                 });
                 if (callback!=null && data!=null) {
@@ -256,7 +257,7 @@
             return $.extend(true, {
                 granularity: level.granularity,
                 boundingGeographicLocationId: level.boundingGeographicLocationId,
-                bands: me.opts.colors.length
+                bands: me.opts.bands
             }, me.opts.params);
         };
 

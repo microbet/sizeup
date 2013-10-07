@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SizeUp.Utility.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\packages\MCAPI\CookComputing.XmlRpcV2.dll</HintPath>
@@ -42,6 +45,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
@@ -58,10 +62,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SizeUp.Core\SizeUp.Core.csproj">
-      <Project>{210e4ad2-cc4c-4b6a-8aa3-c4c2c2e2c1a7}</Project>
-      <Name>SizeUp.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SizeUp.Data\SizeUp.Data.csproj">
       <Project>{bddf3087-7d33-4a34-b72e-7dfefc5dea0e}</Project>
       <Name>SizeUp.Data</Name>

@@ -13,6 +13,7 @@ namespace SizeUp.Web.Controllers
     public class BaseController : Controller
     {
         protected Core.DataLayer.Models.CurrentInfo CurrentInfo { get; set; }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
