@@ -284,6 +284,7 @@
     <Content Include="Content\widget\print.css" />
     <Content Include="Content\widget\Views\advertising\index.css" />
     <Content Include="Content\widget\Views\authorize\index.css" />
+    <Content Include="Content\widget\Views\bestIndustries\index.css" />
     <Content Include="Content\widget\Views\community\index.css" />
     <Content Include="Content\widget\Views\community\print.css" />
     <Content Include="Content\widget\Views\competition\index.css" />
@@ -398,6 +399,7 @@
     <Content Include="Scripts\views\user\signin.js" />
     <Content Include="Scripts\widget\messager.js" />
     <Content Include="Scripts\widget\core.js" />
+    <Content Include="Scripts\widget\views\bestIndustries\bestIndustries.js" />
     <Content Include="Scripts\widget\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\widget\views\select\select.js" />
     <Content Include="Web.config">

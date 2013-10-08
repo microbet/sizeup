@@ -1,0 +1,23 @@
+﻿#bestIndustries { }
+
+#bestIndustries h1{font-weight:normal; text-align:left;}
+#bestIndustries h1 span{color:#bbb; font-size:0.8em; padding: 0 0 0 1em; }
+#bestIndustries h2{font-size:2em; }
+#bestIndustries h3{font-size:1.75em; }
+
+#bestIndustries .wrapper { margin: 1em 0; }
+
+#bestIndustries .bestIndustries .report { text-align: right; }
+#bestIndustries .bestIndustries .report a { font-size: 1.3em; }
+#bestIndustries .bestIndustries .report ul { text-align: left; margin:1em 0 0 0;}
+#bestIndustries .bestIndustries .report ul li { padding:1em; width:50em; display:inline-block; vertical-align:top;  }
+#bestIndustries .bestIndustries .report ul li a{ font-size:1.5em; display:inline; padding: 0 0.5em 0 0; }
+#bestIndustries .bestIndustries .report ul li p{ padding: 0.5em 0 0.5em 1em; position:relative; margin: 0 0 0 1em;}
+#bestIndustries .bestIndustries .report ul li p span.badge { background-color:#ddd; border-radius: 0.5em 0.5em 0.5em 0.5em; display: inline-block; font-weight: bold; padding: 0.25em 0.75em; text-align: center; width: 4em; }
+#bestIndustries .bestIndustries .report ul li p span.badge:before { background: url("/content/images/medals.png") no-repeat scroll 0 100px transparent; content: " "; display: inline-block; height: 25px; left: -0.75em; position: absolute; top: 0.6em; width: 15px; }
+#bestIndustries .bestIndustries .report ul li p span.badge.top10:before { background-position: 0 0px; }
+#bestIndustries .bestIndustries .report ul li p span.badge.top50:before { background-position: 0 -26px; }
+#bestIndustries .bestIndustries .report ul li p span.badge.top100:before { background-position: 0 -53px; }
+
+
+

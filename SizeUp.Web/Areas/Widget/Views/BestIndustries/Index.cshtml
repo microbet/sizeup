@@ -5,53 +5,56 @@
 
 @section head{
 <title>Best Industries</title>
-<link href="@Url.Content("~/Content/views/bestPlaces/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
-<link href="@Url.Content("~/Content/widget/views/bestPlaces/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+
+<link href="@Url.Content("~/Content/widget/views/bestIndustries/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="http://api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-
 <script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
-
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/selectList.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeLabel.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/controls/share.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-
-
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/bestPlaces/bestPlaces.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/bestIndustries/bestIndustries.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 
 }
 
 
-<div id="bestPlaces">
-    <div class="content container hidden">
-    
-        <h2 class="heading">
-           <span>Best Industries</span>
+<div id="bestIndustries">
 
-        </h2>
-          
-
-
-   
+     <div class="loading">
+        <p class="title">Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
     </div>
+
+
+    <div class="wrapper noResults hidden">
+        <h2>Unable to display the Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+    </div>
+    <div class="wrapper bestIndustries hidden">
+        <h2>Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+        <p>The 5 industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation with the highest total revenue
+                are shown below along with the 5 industries with the highest revenue per capita.</p>
+        <p>Each industry must have at least 3 businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation to be ranked.</p>
+        <div class="report">
+            <div data-template="bestIndustries">
+                <ul>
+                    {{#Industries}}
+                    <li>
+                        <a target="_blank" href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/{{Industry.SEOKey}}">{{Industry.Name}}</a>
+                        {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}" title="{{totalRevenue.badgeName}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
+                        {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}" title="{{revenuePerCapita.badgeName}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
+                    </li>
+                    {{/Industries}}
+                </ul>
+                <a target="_blank" class="" href="/find-community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/">View a complete list of industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+            </div>         
+        </div>
+    </div>
+
 </div>
 
 
@@ -62,13 +65,11 @@
 
     <script type="text/javascript">
 
-
-
         var done = function(){
             var opts = {
                 CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
             };
-           // var driver = new sizeup.views.bestPlaces.bestPlaces(opts);;
+            var driver = new sizeup.widget.views.bestIndustries.bestIndustries(opts);
         };
 
     var notifier = new sizeup.core.notifier(done);

@@ -19,8 +19,37 @@
 
 
         var init = function () {
+
+            me.content.share = sizeup.controls.share({
+                container: me.container.find('.shareWrapper'),
+                options: {
+                    embed: {
+                        getCode: function () { return getEmbedCode(); },
+                        menuItem: me.container.find('.share.container .menu .embed'),
+                        contentItem: me.container.find('.share.container .content .embed')
+                    },
+                    link: {
+                        getCode: function () { return window.location.href; },
+                        menuItem: me.container.find('.share.container .menu .link'),
+                        contentItem: me.container.find('.share.container .content .link')
+                    }
+                }
+            });
+
             loadMap();
             loadData();
+        };
+
+
+        var getEmbedCode = function () {
+            var url = '/widget/get/bestIndustries/' + opts.CurrentPlace.State.SEOKey + '/' + opts.CurrentPlace.County.SEOKey + '/' + opts.CurrentPlace.City.SEOKey;
+            var code =
+            '<div>' +
+            '<span><a href="http://' + window.location.host + '" target="_blank">SizeUp</a></span>' +
+            '<script src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
+            '</div>';
+
+            return code;
         };
 
 

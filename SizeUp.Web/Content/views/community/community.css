@@ -9,6 +9,9 @@
 #community .map { width: 100%; height: 34em; margin: 1em 0 0 0; }
 #community .mapLegend {display:block; width: 100%; height: 3em; background: url("/content/images/mapBar.png") repeat-x scroll 0 0 transparent; margin:0 0 1em 0; }
 #community .wrapper { margin: 1em 0; }
+#community .wrapper.bestIndustries { text-align: right; }
+#community .wrapper.bestIndustries h2 {text-align:left; }
+#community .wrapper.bestIndustries p { text-align: left; }
 #community .report { }
 #community .report .col { width: 47%; display:inline-block; vertical-align:top; padding:1em; text-align:left; }
 #community .report .col ul { margin: 0 0 2.5em 0; }
@@ -30,6 +33,11 @@
 #community .bestIndustries .report ul li p span.badge.top10:before { background-position: 0 0px; }
 #community .bestIndustries .report ul li p span.badge.top50:before { background-position: 0 -26px; }
 #community .bestIndustries .report ul li p span.badge.top100:before { background-position: 0 -53px; }
+
+
+#community .shareWrapper { display:inline-block; }
+#community .shareWrapper .menu { text-align:left; }
+#community .shareWrapper .menu li {display:inline-block; }
 
 
 
