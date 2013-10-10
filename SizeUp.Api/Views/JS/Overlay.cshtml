@@ -27,7 +27,7 @@
                 zoom: zoom
             };
             params = sizeup.api.util.mergeParams(me.params, params);
-            var url = baseUrl + '?' + sizeup.api.util.formatParams(params);
+            var url = sizeup.api.loader.buildTokenUrl(baseUrl, params);
             return url;
         };
 

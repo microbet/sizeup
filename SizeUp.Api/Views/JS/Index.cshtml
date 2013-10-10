@@ -89,6 +89,9 @@
             },
             getSourceLocation: function(){
                 return me.currentLocation;
+            },
+            buildTokenUrl: function(src, params){
+                return buildTokenUrl(src, params);
             }
         };
         me.head = document.getElementsByTagName('head')[0]; 

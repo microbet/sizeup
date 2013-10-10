@@ -25,11 +25,8 @@ namespace SizeUp.Api.Controllers
             //suckit IE
             requestContext.HttpContext.Response.AddHeader("Expires", "-1");
             bool valid = false;
-            if (APIContext.Current.IsJsonp)
-            {
-                Log();
-            }
-            valid = APIContext.Current.IsJsonp && APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
+            Log();
+            valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
             if (!valid)
             {
                 throw new HttpException(401, "Api token not valid");

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SizeUp.Api.Areas.Tiles.Controllers
 {
-    public class BaseController : Controller
+    public class BaseController : SizeUp.Api.Controllers.BaseController
     {
         //
         // GET: /Tiles/Base/
@@ -15,11 +15,6 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         protected double GetPolygonTolerance(int zoom)
         {
             return System.Math.Pow(2, ZoomFilterBase - zoom);
-        }
-
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
-        {
-            base.Initialize(requestContext);
         }
     }
 }
