@@ -83,6 +83,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Svg">
+      <HintPath>..\packages\Svg.1.5.0\lib\Svg.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -152,6 +155,7 @@
     <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Api\Controllers\UserController.cs" />
     <Compile Include="Areas\Pins\Controllers\BusinessController.cs" />
+    <Compile Include="Areas\Pins\Controllers\HeatController.cs" />
     <Compile Include="Areas\Pins\PinsAreaRegistration.cs" />
     <Compile Include="Areas\Widget\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Widget\Controllers\AuthorizeController.cs" />

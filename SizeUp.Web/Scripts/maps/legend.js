@@ -4,8 +4,8 @@
 
         var defaults = {
             templates: new sizeup.core.templates(),
-            startColor: '#000000',
-            endColor: '#ffffff',
+            startColor: '000000',
+            endColor: 'ffffff',
             title: '',
             items:[],
             format: function (val) { return val; }
@@ -40,13 +40,13 @@
         if (!isRange(me.opts.items)) {
             for (var x = 0; x < me.opts.items.length; x++) {
                 t = me.opts.templates.get('legendItem');
-                list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Max) }));
+                list.push(me.opts.templates.bind(t, { color: '#' + me.opts.colors[x], label: me.opts.format(me.opts.items[x].Max) }));
             }
         }
         else {
             for (var x = 0; x < me.opts.items.length; x++) {
                 t = me.opts.templates.get('legendItem');
-                list.push(me.opts.templates.bind(t, { color: me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
+                list.push(me.opts.templates.bind(t, { color: '#' + me.opts.colors[x], label: me.opts.format(me.opts.items[x].Min) + ' - ' + me.opts.format(me.opts.items[x].Max) }));
             }
         }
 

@@ -10,8 +10,8 @@
                 Metro: 10,
                 State: 5
             },
-            startColor: '#ff0000',
-            endColor: '#ffff00',
+            startColor: 'ff0000',
+            endColor: 'ffff00',
             bands: 5,
             place: {},
             params: {},
@@ -25,11 +25,7 @@
         var me = {};
         me.xhr = null;
         me.opts = $.extend(true, defaults, opts);
-        var heatmapOpts = { startColor: me.opts.startColor, endColor: me.opts.endColor, colors: me.opts.bands };
-        var heatmapColors = new sizeup.maps.heatmapColors(heatmapOpts);
-        me.opts.colors = heatmapColors.getColors();
-
-
+        
         var init = function () {
 
         };

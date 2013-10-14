@@ -4,8 +4,8 @@
 
         var defaults = {
             bands: 5,
-            startColor: '#000000',
-            endColor: '#ffffff'
+            startColor: '000000',
+            endColor: 'ffffff'
         };
         var me = {};
         me.opts = $.extend(true, defaults, opts);
@@ -34,7 +34,7 @@
 
             var output = [];
             for (var x = 0; x < me.opts.bands; x++) {
-                output[x] = '#' + colors[x].toHex();
+                output[x] = colors[x].toHex();
             }
             return output;
         };

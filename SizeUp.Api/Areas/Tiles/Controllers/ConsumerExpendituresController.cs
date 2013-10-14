@@ -71,7 +71,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                     .Where(i => i.Value != null)
                     .NTileDescending(i => i.Value, bands);
 
-                ColorBands colorBands = new Core.Tiles.ColorBands(System.Drawing.ColorTranslator.FromHtml(startColor), System.Drawing.ColorTranslator.FromHtml(endColor), quantiles.Count());
+                ColorBands colorBands = new Core.Tiles.ColorBands(System.Drawing.ColorTranslator.FromHtml("#" + startColor), System.Drawing.ColorTranslator.FromHtml("#" + endColor), quantiles.Count());
                 string[] bandList = colorBands.GetColorBands().ToArray();
 
                 var validValues = quantiles

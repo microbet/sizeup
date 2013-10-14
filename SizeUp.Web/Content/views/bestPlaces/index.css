@@ -21,7 +21,7 @@
 #bestPlaces .mapContent.container .map{width:100%;height:40em;}
 #bestPlaces .mapContent .footer{background-color:#F6F6F0; padding:0.5em; font-family: Arial,Verdana,sans-serif; text-align:center; }
 #bestPlaces .mapContent .footer ul li { display: inline-block; margin: 0 1em; }
-#bestPlaces .mapContent .footer ul li img { width: 1.5em; height: 1.5em; }
+#bestPlaces .mapContent .footer ul li img { height: 13px;    padding: 0.1em 0.5em; width: 8px; }
 #bestPlaces .mapContent .footer ul li span { font-size:1em; position:relative; top:-0.35em; display:inline-block; }
 
 #bestPlaces .list.container {width:100%; }

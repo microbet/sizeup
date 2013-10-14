@@ -13,7 +13,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/tinycolor-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -29,6 +29,7 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapColors.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -226,7 +227,7 @@
                 <div class="map"></div>
                 <div class="footer">
                     <ul class="bandContainer">
-                        <li data-template="bandItem"><img data-override-src="/content/images/heatPin{{color}}.png" /><span>{{label}}</span></li>
+                        <li data-template="bandItem"><img data-override-src="/pins/heat/marker?color=%23{{color}}" /><span>{{label}}</span></li>
                     </ul>
                 </div>
             </div>

@@ -10,7 +10,7 @@
         me.opts = $.extend(true, defaults, opts);
 
         var icon = new google.maps.MarkerImage(
-                    '/content/images/heatPin' + opts.color + '.png',
+                    '/pins/heat/marker?color=%23' + opts.color,
                     new google.maps.Size(25, 25),
                     null,
                     new google.maps.Point(12, 25)

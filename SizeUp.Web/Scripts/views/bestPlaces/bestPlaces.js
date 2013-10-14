@@ -6,7 +6,8 @@
         var defaults = {
             itemsPerPage: 25,
             bandCount: 5,
-            bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
+            startColor: 'ff0000',
+            endColor: 'ffff00',
             params: {
                 placeType: 'city',
                 attribute: 'totalRevenue'
@@ -614,6 +615,11 @@
 
                 me.data.xhr['list'] = null;
                 me.data.xhr['bands'] = null;
+
+
+                var heatmapOpts = { startColor: me.opts.startColor, endColor: me.opts.endColor, bands: reportData.bands.length };
+                var heatmapColors = new sizeup.maps.heatmapColors(heatmapOpts);
+                me.opts.bandColors = heatmapColors.getColors();
 
                 bindList(reportData.list);
                 bindBands(formatBands(reportData.bands));

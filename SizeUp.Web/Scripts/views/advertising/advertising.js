@@ -6,7 +6,8 @@
         var defaults = {
             itemsPerPage: 20,
             bandCount: 5,
-            bandColors: ['ff0000', 'ff6400', 'ff9600', 'ffc800', 'ffff00'],
+            startColor: 'ff0000',
+            endColor: 'ffff00',
             filterTemplates: {
                 averageRevenue: {
                     label:'Average Revenue',
@@ -700,6 +701,12 @@
                 bands: null
             };
             var notifier = new sizeup.core.notifier(function () {
+
+
+                var heatmapOpts = { startColor: me.opts.startColor, endColor: me.opts.endColor, bands: reportData.bands.length };
+                var heatmapColors = new sizeup.maps.heatmapColors(heatmapOpts);
+                me.opts.bandColors = heatmapColors.getColors();
+
                 setPager({ Count: reportData.zips.Total, Page: pagerData.page });
                 var formattedData = formatData(reportData.zips);
                 var formattedBands = formatBands(reportData.bands, params.attribute);

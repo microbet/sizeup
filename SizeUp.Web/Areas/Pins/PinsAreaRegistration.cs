@@ -52,13 +52,13 @@ namespace SizeUp.Web.Areas.Pins
            );
   
 
-            /*
+            
             context.MapRoute(
                 "Pins_default",
-                "Pins/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                "Pins/{controller}/{action}/",
+                new { action = "Index"}
                 
-            );*/
+            );
         }
     }
 }
