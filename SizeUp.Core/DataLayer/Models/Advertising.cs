@@ -14,6 +14,7 @@ namespace SizeUp.Core.DataLayer.Models
         public long? PlaceId { get; set; }
         public Models.ZipCode ZipCode { get; set; }
         public Core.Geo.LatLng Centroid { get; set; }
+        public Core.Geo.BoundingBox BoundingBox { get; set; }
         public double Distance { get; set; }
         public long? HouseholdIncome { get; set; }
         public long? Population { get; set; }

@@ -917,7 +917,10 @@
                     color: getColor(getValue(data.zips.Items[x], attribute), data.bands),
                     title: data.zips.Items[x].ZipCode.Name
                 });
-                latLngBounds.extend(pin.getPosition());
+                var sw = new sizeup.maps.latLng({ lat: data.zips.Items[x].BoundingBox.SouthWest.Lat, lng: data.zips.Items[x].BoundingBox.SouthWest.Lng });
+                var ne = new sizeup.maps.latLng({ lat: data.zips.Items[x].BoundingBox.NorthEast.Lat, lng: data.zips.Items[x].BoundingBox.NorthEast.Lng });
+                latLngBounds.extend(sw);
+                latLngBounds.extend(ne);
                 hasResults = true;
                 me.content.mapPins.push(pin);
                 me.content.map.addMarker(pin);

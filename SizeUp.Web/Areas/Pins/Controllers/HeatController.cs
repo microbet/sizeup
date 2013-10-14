@@ -24,10 +24,8 @@ namespace SizeUp.Web.Areas.Pins.Controllers
 
 
             System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
-            var doc = Svg.SvgDocument.Open<SvgDocument>(stream);
+            var doc = Svg.SvgDocument.Open(stream);
             var bitmap = doc.Draw();
-            //Image template = Image.FromFile(Server.MapPath(string.Format("/content/images/marker{0}.png", section)));
-            //Core.Pins.Marker marker = new Core.Pins.Marker(index, template);
             var outStream = new System.IO.MemoryStream();
             bitmap.Save(outStream, System.Drawing.Imaging.ImageFormat.Png);
             return File(outStream.GetBuffer(), "image/png");

@@ -16,6 +16,7 @@ namespace SizeUp.Core.DataLayer
             public Data.Place Place { get; set; }
             public Models.ZipCode ZipCode { get; set; }
             public Core.Geo.LatLng Centroid { get; set; }
+            public Core.Geo.BoundingBox BoundingBox { get; set; }
             public long? AverageRevenue { get; set; }
             public long? TotalRevenue { get; set; }
             public long? TotalEmployees { get; set; }
@@ -365,20 +366,22 @@ namespace SizeUp.Core.DataLayer
                 .SelectMany(i => i.GeographicLocation.Demographics, (i, o) => new { ZipCode = i, Demographics = o })
                 .SelectMany(i => i.ZipCode.GeographicLocation.IndustryDatas, (i, o) => new { i.ZipCode, i.Demographics, IndustryData = o })
                 .SelectMany(i => i.ZipCode.GeographicLocation.Geographies, (i, o) => new { i.ZipCode, i.Demographics, i.IndustryData, Geography = o, Place = i.ZipCode.Places.FirstOrDefault() })
-                .Where(i=> i.Demographics.Year == CommonFilters.TimeSlice.Demographics.Year && i.Demographics.Quarter == CommonFilters.TimeSlice.Demographics.Quarter)
-                .Where(i=> i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter && i.IndustryData.IndustryId == industryId)
-                .Where(i=>i.Geography.GeographyClass.Name == Geo.GeographyClass.Calculation)
-                .Select(i=> new KeyValue<Grouping, Geo.LatLng> {
-                    Key = new Grouping{
-                    Place = i.Place,
-                    IndustryData = i.IndustryData,
-                    Demographics = i.Demographics,
-                    Geography = i.Geography,
-                    ZipCode = i.ZipCode,
-                    TotalEmployeesBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    AverageRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    TotalRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
-                    RevenuePerCapitaBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault()
+                .Where(i => i.Demographics.Year == CommonFilters.TimeSlice.Demographics.Year && i.Demographics.Quarter == CommonFilters.TimeSlice.Demographics.Quarter)
+                .Where(i => i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter && i.IndustryData.IndustryId == industryId)
+                .Where(i => i.Geography.GeographyClass.Name == Geo.GeographyClass.Calculation)
+                .Select(i => new KeyValue<Grouping, Geo.LatLng>
+                {
+                    Key = new Grouping
+                    {
+                        Place = i.Place,
+                        IndustryData = i.IndustryData,
+                        Demographics = i.Demographics,
+                        Geography = i.Geography,
+                        ZipCode = i.ZipCode,
+                        TotalEmployeesBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalEmployees).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        AverageRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.AverageRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        TotalRevenueBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.TotalRevenue).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault(),
+                        RevenuePerCapitaBand = i.IndustryData.Bands.Where(b => b.Attribute.Name == IndustryAttribute.RevenuePerCapita).Select(b => new Band<double> { Min = (double)b.Min.Value, Max = (double)b.Max.Value }).FirstOrDefault()
                     },
                     Value = new Geo.LatLng
                     {
@@ -387,7 +390,7 @@ namespace SizeUp.Core.DataLayer
                     }
                 })
                 .Select(dist.Projection)
-                .Select(i=> new { i.Distance, i.Entity.Demographics, i.Entity.Geography, i.Entity.IndustryData, i.Entity.ZipCode, i.Entity.TotalRevenueBand, i.Entity.TotalEmployeesBand, i.Entity.RevenuePerCapitaBand, i.Entity.AverageRevenueBand, Place = i.Entity.Place })              
+                .Select(i => new { i.Distance, i.Entity.Demographics, i.Entity.Geography, i.Entity.IndustryData, i.Entity.ZipCode, i.Entity.TotalRevenueBand, i.Entity.TotalEmployeesBand, i.Entity.RevenuePerCapitaBand, i.Entity.AverageRevenueBand, Place = i.Entity.Place })
                 .Select(i => new DistanceEntity<Wrapper>
                 {
                     Distance = i.Distance,
@@ -404,6 +407,19 @@ namespace SizeUp.Core.DataLayer
                         {
                             Lat = i.Geography.CenterLat.Value,
                             Lng = i.Geography.CenterLong.Value
+                        },
+                        BoundingBox = new Geo.BoundingBox
+                        {
+                            NorthEast = new Geo.LatLng
+                            {
+                                Lat = i.Geography.North,
+                                Lng = i.Geography.East
+                            },
+                            SouthWest = new Geo.LatLng
+                            {
+                                Lat = i.Geography.South,
+                                Lng = i.Geography.West
+                            }
                         },
                         AverageRevenue = i.IndustryData.AverageRevenue,
                         TotalRevenue = i.IndustryData.TotalRevenue,
@@ -434,6 +450,7 @@ namespace SizeUp.Core.DataLayer
                 CountySEOKey = i.Entity.Place.County.SEOKey,
                 CitySEOKey = i.Entity.Place.City.SEOKey,
                 Centroid = i.Entity.Centroid,
+                BoundingBox = i.Entity.BoundingBox,
                 TotalEmployees = i.Entity.TotalEmployeesBand,
                 TotalRevenue = i.Entity.TotalRevenueBand,
                 AverageRevenue = i.Entity.AverageRevenueBand,

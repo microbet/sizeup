@@ -83,9 +83,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Svg">
-      <HintPath>..\packages\Svg.1.5.0\lib\Svg.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -462,6 +459,10 @@
     <ProjectReference Include="..\SizeUp.Data\SizeUp.Data.csproj">
       <Project>{bddf3087-7d33-4a34-b72e-7dfefc5dea0e}</Project>
       <Name>SizeUp.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Svg\Svg.csproj">
+      <Project>{886a98c5-37c0-4e8b-885e-30c1d2f98b47}</Project>
+      <Name>Svg</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
