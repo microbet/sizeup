@@ -50,6 +50,7 @@ optgroup {color:#606060; }
 .autoComplete-container ul.ui-autocomplete li.ui-menu-item.odd {background:#EEEEEE;}
 .autoComplete-container ul.ui-autocomplete li.ui-menu-item a.ui-state-hover {background:#FFD86A; border:none;}
 
+.autoComplete-container.loading input[type=text] {background :url(/content/images/loadingSmall.gif) no-repeat 100% 50%; }
 
 
 span.hint {color: #aaa;}

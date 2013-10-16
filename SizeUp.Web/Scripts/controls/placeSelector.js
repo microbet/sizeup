@@ -40,6 +40,7 @@
                 source: function (request, response) {
 
                     var callback = function (data) {
+                        me.container.removeClass('loading');
                         response($.map(data, function (item) {
                             return {
                                 label: wrap(item.DisplayName, request.term),
@@ -47,7 +48,7 @@
                             };
                         }));
                     };
-
+                    me.container.addClass('loading');
                     sizeup.api.data.findPlace({ term: request.term, maxResults: me.maxResults }, callback);
                 },
                 minLength: me.minLength,
