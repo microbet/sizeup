@@ -112,7 +112,6 @@
         };
 
         var showSelector = function () {
-            new sizeup.core.analytics().placeIndustry({ placeId: me.selectedCity.Id, industryId: me.selectedIndustry.Id });
             me.form.container.hide("slide", { direction: "left" }, 500);
             me.selector.container.show("slide", { direction: "right" }, 500);
         };
@@ -153,6 +152,7 @@
                     me.errors.noValuesEntered.fadeIn("slow");
                 }
                 else {
+                    new sizeup.core.analytics().placeIndustry({ placeId: me.selectedCity.Id, industryId: me.selectedIndustry.Id });
                     sizeup.core.profile.setCurrentIndustry({ id: me.selectedIndustry.Id });
                     sizeup.core.profile.setCurrentPlace({ id: me.selectedCity.Id });
                     setSelectorLinks();
