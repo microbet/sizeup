@@ -8,3 +8,7 @@
 #community ul.features li a img { display: block; left: 3.25em; position: relative; }
 
 #community ul.features li a .button {position:relative; top:0; left:0; }
+
+
+#community .mapWrapper { width: inherit; display: block; }
+#community ul.features { margin: 2.5em 0 0 0; padding: 1em 0 0 0; display:block; width:inherit; text-align:center; }

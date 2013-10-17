@@ -4,8 +4,12 @@
 
 @section head{
 <title>
-    @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation - An Industry Report
+    @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation - @ViewBag.CurrentInfo.CurrentIndustry.Name
 </title>
+
+<meta name="title" content="@ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation - @ViewBag.CurrentInfo.CurrentIndustry.Name" />
+<meta name="keywords" content="@ViewBag.Business.Name, @ViewBag.CurrentInfo.CurrentIndustry.Name, @(string.Join(", ", ViewBag.IndustryKeywords))" />
+<meta name="description" content="Business Information for @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name" />
 
 <link href="@Url.Content("~/Content/views/business/business.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
@@ -58,6 +62,9 @@
     <p class="description">
         @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation is a @(ViewBag.Business.IsPublic ? "public" : "private") company categorized under <a href="/find-business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>.
     </p>
+    <h2>Additional Categories for @ViewBag.Business.Name</h2>
+    <p class="description">@(string.Join(", ", ViewBag.IndustryKeywords))</p>
+
     <ul class="features">
         <li class="dashboard">
             <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >

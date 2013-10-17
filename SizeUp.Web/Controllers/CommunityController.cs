@@ -29,6 +29,7 @@ namespace SizeUp.Web.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var c= Core.DataLayer.Business.ListIn(context, WebContext.Current.CurrentIndustry.Id, WebContext.Current.CurrentPlace.Id.Value).Count();
+                ViewBag.IndustryKeywords = Core.DataLayer.Industry.GetKeywords(context, CurrentInfo.CurrentIndustry.Id).ToArray();
                 if (c == 0)
                 {
                     throw new HttpException(404, "Page Not Found");

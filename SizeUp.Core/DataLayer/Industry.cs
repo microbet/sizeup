@@ -130,5 +130,14 @@ namespace SizeUp.Core.DataLayer
                     .OrderBy(i => i.SortOrder)
                     .Select(i => i.Industry);
         }
+
+
+        public static List<string> GetKeywords(SizeUpContext context, long id)
+        {
+            return context.IndustryKeywords
+                    .Where(i => i.IndustryId == id)
+                    .Select(i => i.Name)
+                    .ToList();
+        }
     }
 }

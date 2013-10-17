@@ -121,6 +121,7 @@ namespace SizeUp.Web.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 var business = Core.DataLayer.Business.GetIn(context, id, Core.Web.WebContext.Current.CurrentPlace.Id.Value);
+                ViewBag.IndustryKeywords = Core.DataLayer.Industry.GetKeywords(context, CurrentInfo.CurrentIndustry.Id).ToArray();
                 if (business != null)
                 {
                     ViewBag.Business = business;
