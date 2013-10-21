@@ -42,7 +42,16 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult CityCommunity()
         {
-            return View();     
+            if (CurrentInfo.CurrentPlace.City.Id == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                ViewBag.Demographics = Core.DataLayer.Demographics.Get(context, (long)CurrentInfo.CurrentPlace.City.Id);
+                ViewBag.Counties = Core.DataLayer.County.InCity(context, (long)CurrentInfo.CurrentPlace.City.Id).Select(i=>i.LongName).ToArray();
+                return View();
+            }
         }
 
         public ActionResult CountyCommunity(string state, string county) 
@@ -59,6 +68,7 @@ namespace SizeUp.Web.Controllers
                     //hack becuase we have route collisions
                     action = RedirectWithIndustry(state, county);
                 }
+                ViewBag.Demographics = Core.DataLayer.Demographics.Get(context, (long)CurrentInfo.CurrentPlace.County.Id);
                 return action;
             }
         }
@@ -71,6 +81,7 @@ namespace SizeUp.Web.Controllers
             }
             using (var context = ContextFactory.SizeUpContext)
             {
+                ViewBag.Demographics = Core.DataLayer.Demographics.Get(context, (long)CurrentInfo.CurrentPlace.Metro.Id);
                 ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
                 return View();
             }
@@ -89,7 +100,8 @@ namespace SizeUp.Web.Controllers
                 {
                     //hack becuase we have route collisions
                     action = Redirect(state);
-                }              
+                }
+                ViewBag.Demographics = Core.DataLayer.Demographics.Get(context, (long)CurrentInfo.CurrentPlace.State.Id);
                 return action;
             }
         }

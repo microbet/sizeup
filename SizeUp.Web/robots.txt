@@ -1,7 +1,7 @@
 ﻿﻿#
 # robots.txt for http://www.sizeup.com/ 
 #
-
+Sitemap: http://www.sizeup.com/sitemap.xml
 User-agent: *
 Disallow: /dashboard/
 Disallow: /competition/

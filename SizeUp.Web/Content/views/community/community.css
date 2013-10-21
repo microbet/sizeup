@@ -2,9 +2,9 @@
 
 #community h1{font-weight:normal; text-align:left;}
 #community h1 span{color:#bbb; font-size:0.8em; padding: 0 0 0 1em; }
-#community h2{font-size:2em; }
+#community h2{font-size:2em; color:#909090; font-weight:normal; }
 #community h3{font-size:1.75em; }
-
+#community p.description { margin: 0.5em 1em; }
 
 #community .map { width: 100%; height: 34em; margin: 1em 0 0 0; }
 #community .mapLegend {display:block; width: 100%; height: 3em; background: url("/content/images/mapBar.png") repeat-x scroll 0 0 transparent; margin:0 0 1em 0; }

@@ -216,6 +216,13 @@ namespace SizeUp.Web
           );
 
 
+        routes.MapRoute(
+           "sitemap", // Route name
+           "sitemap.xml", // URL with parameters
+           new { controller = "SiteMap", action ="Index" } // Parameter defaults
+       );
+
+
             /*
             routes.MapHttpRoute(
                 name: "DefaultApi",

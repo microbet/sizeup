@@ -83,7 +83,10 @@
     <Compile Include="DataLayer\BusinessData.cs" />
     <Compile Include="DataLayer\ConsumerExpenditures.cs" />
     <Compile Include="DataLayer\BestIndustries.cs" />
+    <Compile Include="DataLayer\City.cs" />
+    <Compile Include="DataLayer\County.cs" />
     <Compile Include="DataLayer\Models\Sitemap.cs" />
+    <Compile Include="DataLayer\Projections\County.cs" />
     <Compile Include="DataLayer\State.cs" />
     <Compile Include="DataLayer\GeographicLocations.cs" />
     <Compile Include="DataLayer\CostEffectiveness.cs" />
