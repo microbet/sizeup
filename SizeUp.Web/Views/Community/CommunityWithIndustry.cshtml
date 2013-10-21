@@ -10,7 +10,7 @@
 
 <meta name="title" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation – @ViewBag.CurrentInfo.CurrentIndustry.Name" />
 <meta name="keywords" content="@ViewBag.CurrentInfo.CurrentIndustry.Name, @(string.Join(", ", ViewBag.IndustryKeywords))" />
-<meta name="description" content="Industry profile for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation" />
+<meta name="description" content="Average revenue, salary, number of employees for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation" />
 
 
 <link href="@Url.Content("~/Content/views/community/communityWithIndustry.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
@@ -51,7 +51,7 @@
          A comprehensive <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey">community profile for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation </a> is available,
         as well as a list of the <a href="/bestplaces/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey">best places for @ViewBag.CurrentInfo.CurrentIndustry.Name.</a>
     </p>
-    <h2>Additional Categories</h2>
+    <h2>Related Industries</h2>
     <p class="description">@(string.Join(", ", ViewBag.IndustryKeywords))</p>
      <ul class="features">
         <li class="dashboard">
