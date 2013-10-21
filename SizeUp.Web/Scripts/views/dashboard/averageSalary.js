@@ -16,7 +16,7 @@
                 {
                     container: me.container,
                     inputValidation: /^[0-9\.]+$/g,
-                    inputCleaning: /[\$\,]|\.[0-9]*/g,
+                    inputCleaning: /^0$|^\$0$|[\$\,]|\.[0-9]*/g,
                     events:
                     {
                         runReport: runReport,
