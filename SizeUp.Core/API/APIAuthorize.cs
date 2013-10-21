@@ -18,15 +18,23 @@ namespace SizeUp.Core.API
             base.OnActionExecuting(filterContext);
             using (var context = ContextFactory.APIContext)
             {
-                var authorized = context.APIKeyRoleMappings
-                    .Where(i => i.APIKeyId == APIContext.Current.ApiToken.APIKeyId)
-                    .Where(i => i.Role.Name.ToLower() == Role.ToLower())
-                    .Any();
-
-                if (!authorized)
+                if (APIContext.Current.ApiToken != null)
                 {
-                    throw new HttpException(403, "API Call Not Authorized");
+                    var authorized = context.APIKeyRoleMappings
+                        .Where(i => i.APIKeyId == APIContext.Current.ApiToken.APIKeyId)
+                        .Where(i => i.Role.Name.ToLower() == Role.ToLower())
+                        .Any();
+                    if (!authorized)
+                    {
+                        throw new HttpException(403, "API Call Not Authorized");
+                    }
                 }
+                else
+                {
+                    throw new HttpException(403, "API Token Not Supplied");
+                }
+
+
             }
         }
     }

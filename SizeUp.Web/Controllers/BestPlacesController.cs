@@ -19,6 +19,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Index(string industry)
         {
+            if (CurrentInfo.CurrentIndustry == null)
+            {
+                throw new HttpException(404, "Page Not Found");
+            }
             using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Regions = Core.DataLayer.Place.List(context).Select(i => i.Region).Distinct().ToList();
