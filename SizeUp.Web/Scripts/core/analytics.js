@@ -85,9 +85,7 @@
             userSignin: function (params) {
                 trackEvent({ category: 'User', action: 'signin', label: params.label, isInteraction: true });
             },
-            placeIndustry: function (params) {
-                return get('/analytics/placeIndustry/', params);
-            },           
+                     
             bestPlacesReportLoaded: function (params) {
                 trackEvent({ category: 'BestPlaces', action: 'reportLoaded', label: params.label, isInteraction: true });
             },

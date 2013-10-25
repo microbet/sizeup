@@ -3,13 +3,12 @@
     sizeup.views.bestPlaces.pickIndustry = function (opts) {
 
         var me = {};
-        var notifier = new sizeup.core.notifier(function () { init(); });
-
-        me.opts = opts;
+        
+        var defaults = {};
+        me.opts = $.extend(true, defaults, opts);
         me.data = {};
 
-        sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
-
+    
         var init = function () {
             me.hasData = false;
             me.form = {};
@@ -27,8 +26,8 @@
                 onBlur: function (item) { onIndustryChange(item); }
             });
 
-            if (me.data.currentIndustry) {
-                me.form.industry.industrySelector.setSelection(me.data.currentIndustry);
+            if (me.opts.CurrentInfo.CurrentIndustry) {
+                me.form.industry.industrySelector.setSelection(me.opts.CurrentInfo.CurrentIndustry);
             }
 
             me.form.submit.click(onSubmit);
@@ -74,6 +73,7 @@
         var publicObj = {
 
         };
+        init();
         return publicObj;
         
     };

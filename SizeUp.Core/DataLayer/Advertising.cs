@@ -352,10 +352,10 @@ namespace SizeUp.Core.DataLayer
             return data;
         }
 
-        public static IQueryable<Models.Advertising> Get(SizeUpContext context, long industryId, long placeId, AdvertisingFilters filters)
+        public static IQueryable<Models.Advertising> Get(SizeUpContext context, long industryId, long geographicLocationId, AdvertisingFilters filters)
         {
             var center = Core.DataLayer.Geography.Display(context)
-                .Where(i => i.GeographicLocationId == placeId)
+                .Where(i => i.GeographicLocationId == geographicLocationId)
                 .Select(new Projections.Geography.Centroid().Expression)
                 .Select(i=>i.Value)
                 .FirstOrDefault();
@@ -469,9 +469,9 @@ namespace SizeUp.Core.DataLayer
             return output;
         }
 
-        public static int MinimumDistance(SizeUpContext context, long industryId, long placeId, int items, AdvertisingFilters filters)
+        public static int MinimumDistance(SizeUpContext context, long industryId, long geographicLocationId, int items, AdvertisingFilters filters)
         {
-            var data = Get(context, industryId, placeId, filters);
+            var data = Get(context, industryId, geographicLocationId, filters);
             var results = data.Select(i => new
             {
                 i.Distance
@@ -488,9 +488,9 @@ namespace SizeUp.Core.DataLayer
         }
 
 
-        public static List<Band<double>> Bands(SizeUpContext context, long industryId, long placeId, int bands, AdvertisingFilters filters)
+        public static List<Band<double>> Bands(SizeUpContext context, long industryId, long geographicLocationId, int bands, AdvertisingFilters filters)
         {
-            var data = Get(context, industryId, placeId, filters);
+            var data = Get(context, industryId, geographicLocationId, filters);
             List<Band<double>> output = null;
             if (filters.Attribute == "totalRevenue")
             {

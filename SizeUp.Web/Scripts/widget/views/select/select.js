@@ -3,13 +3,12 @@
     sizeup.widget.views.select.select = function (opts) {
 
         var me = {};
-        var notifier = new sizeup.core.notifier(function () { init(); });
 
-        me.opts = opts;
+        var defaults = {};
+
+        me.opts = $.extend(true, defaults, opts);
+
         me.data = {};
-
-        sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
-        sizeup.core.profile.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentPlace = i; }));
 
         var init = function () {
             
@@ -46,14 +45,14 @@
                 onBlur: function (item) { onIndustryChange(item); }
             });
 
-            if (me.data.currentIndustry) {
-                me.form.industry.industrySelector.setSelection(me.data.currentIndustry);
-                me.selectedIndustry = me.data.currentIndustry;
+            if (me.opts.currentInfo.CurrentIndustry) {
+                me.form.industry.industrySelector.setSelection(me.opts.currentInfo.CurrentIndustry);
+                me.selectedIndustry = me.opts.currentInfo.CurrentIndustry;
             }
 
-            if (me.data.currentPlace) {
-                me.form.location.placeSelector.setSelection(me.data.currentPlace);
-                me.selectedPlace = me.data.currentPlace;
+            if (me.opts.currentInfo.CurrentPlace.Id) {
+                me.form.location.placeSelector.setSelection(me.opts.currentInfo.CurrentPlace);
+                me.selectedPlace = me.opts.currentInfo.CurrentPlace;
             }
 
             me.form.submit.click(onSubmit);
@@ -68,7 +67,6 @@
             var params = jQuery.deparam.fragment();
             if (params.featureSelect) {
                 setSelectorLinks();
-                new sizeup.core.analytics().placeIndustry({ placeId: me.selectedPlace.Id, industryId: me.selectedIndustry.Id });
                 me.form.container.hide();
                 me.selector.container.show();
             }
@@ -121,9 +119,6 @@
                     me.errors.noValuesEntered.fadeIn("slow");
                 }
                 else {
-                    sizeup.core.profile.setCurrentIndustry({ id: me.selectedIndustry.Id });
-                    sizeup.core.profile.setCurrentPlace({ id: me.selectedPlace.Id });
-                    new sizeup.core.analytics().placeIndustry({ placeId: me.selectedPlace.Id, industryId: me.selectedIndustry.Id });
                     setSelectorLinks();
                     if (me.opts.startFeature != null && me.opts.startFeature == 'Dashboard') {
                         window.location = '/widget/dashboard/' + getUrlPath();
@@ -158,6 +153,7 @@
         var publicObj = {
 
         };
+        init();
         return publicObj;
 
     };

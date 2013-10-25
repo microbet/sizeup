@@ -83,7 +83,7 @@
 
         
         var params = jQuery.bbq.getState();
-        var minDistanceParams = { placeId: me.opts.CurrentInfo.CurrentPlace.Id, industryId: me.opts.CurrentInfo.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
+        var minDistanceParams = { geographicLocationId: me.opts.CurrentInfo.CurrentPlace.Id, industryId: me.opts.CurrentInfo.CurrentIndustry.Id, itemCount: me.opts.itemsPerPage };
         if (params.template == null) {
             minDistanceParams = $.extend(true, minDistanceParams, me.opts.defaultParams);
         }
@@ -688,7 +688,7 @@
             var pagerData = me.content.pager.getPageData();
 
             params.industryId = me.data.activeIndustry.Id;
-            params.placeId = me.data.activePlace.Id;
+            params.geographicLocationId = me.data.activePlace.Id;
             params.itemCount = pagerData.itemsPerPage;
             params.bands = me.opts.bandCount;
             params.page = pagerData.page;

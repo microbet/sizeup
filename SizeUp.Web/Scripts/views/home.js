@@ -5,11 +5,12 @@
         var me = {};
         var notifier = new sizeup.core.notifier(function () { init(); });
 
-        me.opts = opts;
+        var defaults = {};
+       
+        me.opts = $.extend(true, defaults, opts);
+
         me.data = {};
 
-        sizeup.core.profile.getCurrentIndustry(notifier.getNotifier(function (i) { me.data.currentIndustry = i; }));
-        sizeup.core.profile.getCurrentPlace(notifier.getNotifier(function (i) { me.data.currentCity = i; }));
         sizeup.core.profile.getDetectedPlace(notifier.getNotifier(function (i) { me.data.detectedCity = i; }));
 
         var init = function () {
@@ -51,25 +52,25 @@
                 onBlur: function (item) { onIndustryChange(item); }
             });
 
-            if (!me.data.currentCity && me.data.detectedCity) {
+            if (!me.opts.currentInfo.CurrentPlace.Id && me.data.detectedCity) {
                 me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.City.Name + ', ' + me.data.detectedCity.State.Abbreviation);
                 me.form.location.placeSelector.setSelection(me.data.detectedCity);
                 me.selectedCity = me.data.detectedCity;
                 showDetectedCity();
             }
-            else if (me.data.currentCity) {
-                me.form.location.enteredLocation.find('.locationText').html(me.data.currentCity.City.Name + ', ' + me.data.currentCity.State.Abbreviation);
-                me.form.location.placeSelector.setSelection(me.data.currentCity);
-                me.selectedCity = me.data.currentCity;
+            else if (me.opts.currentInfo.CurrentPlace.Id) {
+                me.form.location.enteredLocation.find('.locationText').html(me.opts.currentInfo.CurrentPlace.City.Name + ', ' + me.opts.currentInfo.CurrentPlace.State.Abbreviation);
+                me.form.location.placeSelector.setSelection(me.opts.currentInfo.CurrentPlace);
+                me.selectedCity = me.opts.currentInfo.CurrentPlace;
                 showCurrentCity();
             }
             else {
                 showPlaceSelector();
             }
 
-            if (me.data.currentIndustry) {
-                me.form.industry.industrySelector.setSelection(me.data.currentIndustry);
-                me.selectedIndustry = me.data.currentIndustry;
+            if (me.opts.currentInfo.CurrentIndustry) {
+                me.form.industry.industrySelector.setSelection(me.opts.currentInfo.CurrentIndustry);
+                me.selectedIndustry = me.opts.currentInfo.CurrentIndustry;
             }
 
             me.form.submit.click(onSubmit);
@@ -152,9 +153,6 @@
                     me.errors.noValuesEntered.fadeIn("slow");
                 }
                 else {
-                    new sizeup.core.analytics().placeIndustry({ placeId: me.selectedCity.Id, industryId: me.selectedIndustry.Id });
-                    sizeup.core.profile.setCurrentIndustry({ id: me.selectedIndustry.Id });
-                    sizeup.core.profile.setCurrentPlace({ id: me.selectedCity.Id });
                     setSelectorLinks();
                     showSelector();
                 }

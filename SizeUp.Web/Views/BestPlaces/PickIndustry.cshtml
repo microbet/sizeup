@@ -31,8 +31,12 @@
 @section scripts{
 
     <script type="text/javascript">
-        var done = function(){
-            var driver = new sizeup.views.bestPlaces.pickIndustry();
+
+        var done = function () {
+            var opts = {
+                CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
+            };
+            var driver = new sizeup.views.bestPlaces.pickIndustry(opts);
         };
 
         var notifier = new sizeup.core.notifier(done);

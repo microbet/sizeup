@@ -918,7 +918,7 @@
                 }
                 me.data.businessListXHR = sizeup.api.data.getBusinessesByIndustry({
                     industryIds: ids,
-                    placeId: me.opts.CurrentInfo.CurrentPlace.Id,
+                    geographicLocationId: me.opts.CurrentInfo.CurrentPlace.Id,
                     itemCount: me.data[me.data.activeIndex].pageData.itemsPerPage,
                     page: me.data[me.data.activeIndex].pageData.page
                 }, function (data) {

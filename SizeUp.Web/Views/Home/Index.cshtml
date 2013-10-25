@@ -95,7 +95,10 @@
 
     <script type="text/javascript">       
         var done = function () {
-            var driver = new sizeup.views.home();
+            var opts = {
+                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
+            };
+            var driver = new sizeup.views.home(opts);
         };
         var notifier = new sizeup.core.notifier(done);
         var apiLoaded = notifier.getNotifier();

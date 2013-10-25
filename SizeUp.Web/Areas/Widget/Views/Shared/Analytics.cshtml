@@ -12,5 +12,13 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 
+
+
+    (function () {
+        var i = new Image();
+        i.onload = function () { };
+        i.src = '/analytics/tracker/?t=' + '@ViewBag.TrackingToken' + '&u=' + encodeURIComponent(window.location.href) + '&wt=@ViewBag.WidgetToken';
+
 </script>
 }
+

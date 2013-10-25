@@ -45,14 +45,14 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Business")]
-        public ActionResult List(List<long> industryIds, long placeId, int itemCount = 10, int page = 1, int radius = 100)
+        public ActionResult List(List<long> industryIds, long geographicLocationId, int itemCount = 10, int page = 1, int radius = 100)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Business.MaxResults"]);
             itemCount = Math.Min(maxResults, itemCount);
             using (var context = ContextFactory.SizeUpContext)
             {
                 var centroid = Core.DataLayer.Geography.Get(context)
-                    .Where(i => i.GeographicLocationId == placeId)
+                    .Where(i => i.GeographicLocationId == geographicLocationId)
                     .Where(i => i.GeographyClass.Name == Core.Geo.GeographyClass.Calculation)
                     .Select(new Core.DataLayer.Projections.Geography.Centroid().Expression)
                     .Select(i=>i.Value)

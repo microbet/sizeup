@@ -80,32 +80,6 @@ namespace SizeUp.Core.Analytics
             });
         }
 
-        public void PlaceIndustrySearch(PlaceIndustrySearch reg)
-        {
-            TimeStamp stamp = new TimeStamp();
-            reg.Day = stamp.Day;
-            reg.Hour = stamp.Hour;
-            reg.Minute = stamp.Minute;
-            reg.Month = stamp.Month;
-            reg.Quarter = stamp.Quarter;
-            reg.Year = stamp.Year;
-            reg.Week = stamp.Week;
-            reg.Timestamp = stamp.Stamp;
-            reg.Session = APIContext.Current.Session;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
-            reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
-
-
-            Task.Factory.StartNew(() =>
-            {
-                using (var context = ContextFactory.AnalyticsContext)
-                {
-                    context.PlaceIndustrySearches.AddObject(reg);
-                    context.SaveChanges();
-                }
-            });
-        }
-
 
         public void RelatedCompetitor(RelatedCompetitor reg)
         {
@@ -256,6 +230,31 @@ namespace SizeUp.Core.Analytics
                 using (var context = ContextFactory.AnalyticsContext)
                 {
                     context.APIRequests.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
+        }
+
+        public void PageView(PageView reg)
+        {
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Second = stamp.Second;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
+            reg.Session = APIContext.Current.Session;
+            reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
+
+            Task.Factory.StartNew(() =>
+            {
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.PageViews.AddObject(reg);
                     context.SaveChanges();
                 }
             });

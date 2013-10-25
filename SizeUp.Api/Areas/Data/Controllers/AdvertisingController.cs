@@ -59,7 +59,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Advertising")]
-        public ActionResult Index(int industryId, long placeId, int page = 1, int itemCount = 20)
+        public ActionResult Index(int industryId, long geographicLocationId, int page = 1, int itemCount = 20)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Advertising.MaxResults"]);
             itemCount = Math.Min(maxResults, itemCount);
@@ -68,7 +68,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
             AdvertisingFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Advertising.Get(context, industryId, placeId, filters);
+                var data = Core.DataLayer.Advertising.Get(context, industryId, geographicLocationId, filters);
                 var output = new
                 {
                     Total = data.Count(),
@@ -84,25 +84,25 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Advertising")]
-        public ActionResult MinimumDistance(int industryId, long placeId, int itemCount)
+        public ActionResult MinimumDistance(int industryId, long geographicLocationId, int itemCount)
         {
             AdvertisingFilters filters = BuildFilters();
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Advertising.MinimumDistance(context, industryId, placeId, itemCount, filters);
+                var data = Core.DataLayer.Advertising.MinimumDistance(context, industryId, geographicLocationId, itemCount, filters);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
         
         [APIAuthorize(Role = "Advertising")]
-        public ActionResult Bands(int industryId, long placeId, int bands)
+        public ActionResult Bands(int industryId, long geographicLocationId, int bands)
         {
             AdvertisingFilters filters = BuildFilters();
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                var output = Core.DataLayer.Advertising.Bands(context, industryId, placeId, bands, filters);
+                var output = Core.DataLayer.Advertising.Bands(context, industryId, geographicLocationId, bands, filters);
                 return Json(output, JsonRequestBehavior.AllowGet);
             }
         }

@@ -148,22 +148,6 @@ namespace SizeUp.Data.Analytics
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<PlaceIndustrySearch> PlaceIndustrySearches
-        {
-            get
-            {
-                if ((_PlaceIndustrySearches == null))
-                {
-                    _PlaceIndustrySearches = base.CreateObjectSet<PlaceIndustrySearch>("PlaceIndustrySearches");
-                }
-                return _PlaceIndustrySearches;
-            }
-        }
-        private ObjectSet<PlaceIndustrySearch> _PlaceIndustrySearches;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<RelatedBuyer> RelatedBuyers
         {
             get
@@ -224,6 +208,22 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<UserRegistration> _UserRegistrations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PageView> PageViews
+        {
+            get
+            {
+                if ((_PageViews == null))
+                {
+                    _PageViews = base.CreateObjectSet<PageView>("PageViews");
+                }
+                return _PageViews;
+            }
+        }
+        private ObjectSet<PageView> _PageViews;
 
         #endregion
 
@@ -270,14 +270,6 @@ namespace SizeUp.Data.Analytics
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the PlaceIndustrySearches EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPlaceIndustrySearches(PlaceIndustrySearch placeIndustrySearch)
-        {
-            base.AddObject("PlaceIndustrySearches", placeIndustrySearch);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the RelatedBuyers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToRelatedBuyers(RelatedBuyer relatedBuyer)
@@ -307,6 +299,14 @@ namespace SizeUp.Data.Analytics
         public void AddToUserRegistrations(UserRegistration userRegistration)
         {
             base.AddObject("UserRegistrations", userRegistration);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PageViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPageViews(PageView pageView)
+        {
+            base.AddObject("PageViews", pageView);
         }
 
         #endregion
@@ -2670,18 +2670,19 @@ namespace SizeUp.Data.Analytics
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.Analytics", Name="PlaceIndustrySearch")]
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.Analytics", Name="PageView")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class PlaceIndustrySearch : EntityObject
+    public partial class PageView : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new PlaceIndustrySearch object.
+        /// Create a new PageView object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="timestamp">Initial value of the Timestamp property.</param>
+        /// <param name="second">Initial value of the Second property.</param>
         /// <param name="minute">Initial value of the Minute property.</param>
         /// <param name="hour">Initial value of the Hour property.</param>
         /// <param name="day">Initial value of the Day property.</param>
@@ -2689,19 +2690,22 @@ namespace SizeUp.Data.Analytics
         /// <param name="month">Initial value of the Month property.</param>
         /// <param name="quarter">Initial value of the Quarter property.</param>
         /// <param name="year">Initial value of the Year property.</param>
-        public static PlaceIndustrySearch CreatePlaceIndustrySearch(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year)
+        /// <param name="url">Initial value of the Url property.</param>
+        public static PageView CreatePageView(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 second, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.String url)
         {
-            PlaceIndustrySearch placeIndustrySearch = new PlaceIndustrySearch();
-            placeIndustrySearch.Id = id;
-            placeIndustrySearch.Timestamp = timestamp;
-            placeIndustrySearch.Minute = minute;
-            placeIndustrySearch.Hour = hour;
-            placeIndustrySearch.Day = day;
-            placeIndustrySearch.Week = week;
-            placeIndustrySearch.Month = month;
-            placeIndustrySearch.Quarter = quarter;
-            placeIndustrySearch.Year = year;
-            return placeIndustrySearch;
+            PageView pageView = new PageView();
+            pageView.Id = id;
+            pageView.Timestamp = timestamp;
+            pageView.Second = second;
+            pageView.Minute = minute;
+            pageView.Hour = hour;
+            pageView.Day = day;
+            pageView.Week = week;
+            pageView.Month = month;
+            pageView.Quarter = quarter;
+            pageView.Year = year;
+            pageView.Url = url;
+            return pageView;
         }
 
         #endregion
@@ -2758,6 +2762,30 @@ namespace SizeUp.Data.Analytics
         private global::System.DateTime _Timestamp;
         partial void OnTimestampChanging(global::System.DateTime value);
         partial void OnTimestampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Second
+        {
+            get
+            {
+                return _Second;
+            }
+            set
+            {
+                OnSecondChanging(value);
+                ReportPropertyChanging("Second");
+                _Second = StructuralObject.SetValidValue(value, "Second");
+                ReportPropertyChanged("Second");
+                OnSecondChanged();
+            }
+        }
+        private global::System.Int32 _Second;
+        partial void OnSecondChanging(global::System.Int32 value);
+        partial void OnSecondChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2932,72 +2960,96 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> APIKeyId
+        public Nullable<global::System.Int64> WidgetAPIKeyId
         {
             get
             {
-                return _APIKeyId;
+                return _WidgetAPIKeyId;
             }
             set
             {
-                OnAPIKeyIdChanging(value);
-                ReportPropertyChanging("APIKeyId");
-                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
-                ReportPropertyChanged("APIKeyId");
-                OnAPIKeyIdChanged();
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
             }
         }
-        private Nullable<global::System.Int64> _APIKeyId;
-        partial void OnAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnAPIKeyIdChanged();
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                OnUrlChanging(value);
+                ReportPropertyChanging("Url");
+                _Url = StructuralObject.SetValidValue(value, false, "Url");
+                ReportPropertyChanged("Url");
+                OnUrlChanged();
+            }
+        }
+        private global::System.String _Url;
+        partial void OnUrlChanging(global::System.String value);
+        partial void OnUrlChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> PlaceId
+        public global::System.String OriginIP
         {
             get
             {
-                return _PlaceId;
+                return _OriginIP;
             }
             set
             {
-                OnPlaceIdChanging(value);
-                ReportPropertyChanging("PlaceId");
-                _PlaceId = StructuralObject.SetValidValue(value, "PlaceId");
-                ReportPropertyChanged("PlaceId");
-                OnPlaceIdChanged();
+                OnOriginIPChanging(value);
+                ReportPropertyChanging("OriginIP");
+                _OriginIP = StructuralObject.SetValidValue(value, true, "OriginIP");
+                ReportPropertyChanged("OriginIP");
+                OnOriginIPChanged();
             }
         }
-        private Nullable<global::System.Int64> _PlaceId;
-        partial void OnPlaceIdChanging(Nullable<global::System.Int64> value);
-        partial void OnPlaceIdChanged();
+        private global::System.String _OriginIP;
+        partial void OnOriginIPChanging(global::System.String value);
+        partial void OnOriginIPChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> IndustryId
+        public global::System.String Session
         {
             get
             {
-                return _IndustryId;
+                return _Session;
             }
             set
             {
-                OnIndustryIdChanging(value);
-                ReportPropertyChanging("IndustryId");
-                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                ReportPropertyChanged("IndustryId");
-                OnIndustryIdChanged();
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
             }
         }
-        private Nullable<global::System.Int64> _IndustryId;
-        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
-        partial void OnIndustryIdChanged();
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3028,48 +3080,48 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> WidgetAPIKeyId
+        public Nullable<global::System.Int64> IndustryId
         {
             get
             {
-                return _WidgetAPIKeyId;
+                return _IndustryId;
             }
             set
             {
-                OnWidgetAPIKeyIdChanging(value);
-                ReportPropertyChanging("WidgetAPIKeyId");
-                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
-                ReportPropertyChanged("WidgetAPIKeyId");
-                OnWidgetAPIKeyIdChanged();
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
             }
         }
-        private Nullable<global::System.Int64> _WidgetAPIKeyId;
-        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnWidgetAPIKeyIdChanged();
+        private Nullable<global::System.Int64> _IndustryId;
+        partial void OnIndustryIdChanging(Nullable<global::System.Int64> value);
+        partial void OnIndustryIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String Session
+        public Nullable<global::System.Int64> GeographicLocationId
         {
             get
             {
-                return _Session;
+                return _GeographicLocationId;
             }
             set
             {
-                OnSessionChanging(value);
-                ReportPropertyChanging("Session");
-                _Session = StructuralObject.SetValidValue(value, true, "Session");
-                ReportPropertyChanged("Session");
-                OnSessionChanged();
+                OnGeographicLocationIdChanging(value);
+                ReportPropertyChanging("GeographicLocationId");
+                _GeographicLocationId = StructuralObject.SetValidValue(value, "GeographicLocationId");
+                ReportPropertyChanged("GeographicLocationId");
+                OnGeographicLocationIdChanged();
             }
         }
-        private global::System.String _Session;
-        partial void OnSessionChanging(global::System.String value);
-        partial void OnSessionChanged();
+        private Nullable<global::System.Int64> _GeographicLocationId;
+        partial void OnGeographicLocationIdChanging(Nullable<global::System.Int64> value);
+        partial void OnGeographicLocationIdChanged();
 
         #endregion
 

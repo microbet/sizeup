@@ -143,11 +143,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Analytics\AnalyticsAreaRegistration.cs" />
-    <Compile Include="Areas\Analytics\Controllers\PlaceIndustryController.cs" />
+    <Compile Include="Areas\Analytics\Controllers\TrackerController.cs" />
     <Compile Include="Areas\Analytics\Controllers\RelatedIndustryController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Api\Controllers\IndustryController.cs" />
     <Compile Include="Areas\Api\Controllers\PlaceController.cs" />
     <Compile Include="Areas\Api\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Api\Controllers\UserController.cs" />

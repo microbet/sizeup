@@ -68,23 +68,8 @@
             return post('/api/user/password/', params, callback);
         };
 
-        pub.getCurrentIndustry = function (callback) {
-            return get('/api/industry/current', null, callback);
-        };
-        pub.setCurrentIndustry = function (params, callback) {
-            return post('/api/industry/current', params, callback);
-        };
-
-        pub.getCurrentPlace = function (callback) {
-            return get('/api/place/current', null, callback);
-        };
-
         pub.getDetectedPlace = function (callback) {
             return get('/api/place/detected', null, callback);
-        };
-
-        pub.setCurrentPlace = function (params, callback) {
-            return post('/api/place/current', params, callback);
         };
 
         pub.getDashboardValues = function (params, callback) {

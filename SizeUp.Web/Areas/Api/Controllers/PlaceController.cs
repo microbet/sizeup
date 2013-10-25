@@ -18,31 +18,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
     {
         //
         // GET: /Api/Place/
-        [HttpGet]
-        public ActionResult Current()
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                var data = Core.Web.WebContext.Current.CurrentPlace.Id != null ? Core.Web.WebContext.Current.CurrentPlace : null;
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpPost]
-        public ActionResult Current(long id)
-        {
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                /*
-                var c = context.CityCountyMappings.Where(i => i.Id == id).FirstOrDefault();
-                if (c != null)
-                {
-                    WebContext.Current.CurrentPlaceId = id;
-                }*/
-                //depricated
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-        }
 
         public ActionResult Detected()
         {

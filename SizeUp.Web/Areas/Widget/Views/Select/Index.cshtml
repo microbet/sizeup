@@ -60,7 +60,11 @@
     <script type="text/javascript">
         
         var done = function(){
-            var driver = new sizeup.widget.views.select.select({ startFeature: @(SizeUp.Core.Web.WebContext.Current.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null") });
+            var opts = {
+                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
+                startFeature: @(SizeUp.Core.Web.WebContext.Current.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null")
+            };
+            var driver = new sizeup.widget.views.select.select(opts);
         };
 
         var notifier = new sizeup.core.notifier(done);
