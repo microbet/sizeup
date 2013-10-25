@@ -179,14 +179,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
                     analyticsAttr.UserId = userid;
-                    analyticsAttr.AverageSalary = attr.AverageSalary;
-                    analyticsAttr.BusinessSize = attr.BusinessSize;
-                    analyticsAttr.BusinessType = attr.BusinessType;
-                    analyticsAttr.Employees = attr.Employees;
-                    analyticsAttr.HealthcareCost = attr.HealthcareCost;
-                    analyticsAttr.Revenue = attr.Revenue;
-                    analyticsAttr.WorkersComp = attr.WorkersComp;
-                    analyticsAttr.YearStarted = attr.YearStarted;
+                    
 
                     var item = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
@@ -210,18 +203,25 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             item.WorkersComp = attr.WorkersComp;
                             item.YearStarted = attr.YearStarted;
                             context.SaveChanges();
-                            Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
                         }
                     }
                     else
                     {
                         context.BusinessAttributes.AddObject(attr);
                         context.SaveChanges();
-                        Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
                     }
                 }
             }
-          
+
+            analyticsAttr.AverageSalary = attr.AverageSalary;
+            analyticsAttr.BusinessSize = attr.BusinessSize;
+            analyticsAttr.BusinessType = attr.BusinessType;
+            analyticsAttr.Employees = attr.Employees;
+            analyticsAttr.HealthcareCost = attr.HealthcareCost;
+            analyticsAttr.Revenue = attr.Revenue;
+            analyticsAttr.WorkersComp = attr.WorkersComp;
+            analyticsAttr.YearStarted = attr.YearStarted;
+            Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
 
             Response.Cookies.Add(cookie);
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -348,11 +348,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
                     analyticsAttr.UserId = userid;
-                    analyticsAttr.Competitors = attr.Competitors;
-                    analyticsAttr.Buyers = attr.Buyers;
-                    analyticsAttr.Suppliers = attr.Suppliers;
-                    analyticsAttr.RootId = attr.RootId;
-                    analyticsAttr.ComsumerExpenditureId = attr.ComsumerExpenditureId;
 
                     var item = context.CompetitorAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
@@ -371,17 +366,22 @@ namespace SizeUp.Web.Areas.Api.Controllers
                             item.RootId = attr.RootId;
                             item.ComsumerExpenditureId = attr.ComsumerExpenditureId;
                             context.SaveChanges();
-                            Singleton<Tracker>.Instance.CompetitorAttribute(analyticsAttr);
                         }
                     }
                     else
                     {
                         context.CompetitorAttributes.AddObject(attr);
                         context.SaveChanges();
-                        Singleton<Tracker>.Instance.CompetitorAttribute(analyticsAttr);
+                        
                     }
                 }
             }
+            analyticsAttr.Competitors = attr.Competitors;
+            analyticsAttr.Buyers = attr.Buyers;
+            analyticsAttr.Suppliers = attr.Suppliers;
+            analyticsAttr.RootId = attr.RootId;
+            analyticsAttr.ComsumerExpenditureId = attr.ComsumerExpenditureId;
+            Singleton<Tracker>.Instance.CompetitorAttribute(analyticsAttr);
 
 
             Response.Cookies.Add(cookie);

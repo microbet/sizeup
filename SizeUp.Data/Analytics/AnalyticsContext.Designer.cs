@@ -84,38 +84,6 @@ namespace SizeUp.Data.Analytics
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<BusinessAttribute> BusinessAttributes
-        {
-            get
-            {
-                if ((_BusinessAttributes == null))
-                {
-                    _BusinessAttributes = base.CreateObjectSet<BusinessAttribute>("BusinessAttributes");
-                }
-                return _BusinessAttributes;
-            }
-        }
-        private ObjectSet<BusinessAttribute> _BusinessAttributes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<CompetitorAttribute> CompetitorAttributes
-        {
-            get
-            {
-                if ((_CompetitorAttributes == null))
-                {
-                    _CompetitorAttributes = base.CreateObjectSet<CompetitorAttribute>("CompetitorAttributes");
-                }
-                return _CompetitorAttributes;
-            }
-        }
-        private ObjectSet<CompetitorAttribute> _CompetitorAttributes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Exception> Exceptions
         {
             get
@@ -144,6 +112,70 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<LongRequest> _LongRequests;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserRegistration> UserRegistrations
+        {
+            get
+            {
+                if ((_UserRegistrations == null))
+                {
+                    _UserRegistrations = base.CreateObjectSet<UserRegistration>("UserRegistrations");
+                }
+                return _UserRegistrations;
+            }
+        }
+        private ObjectSet<UserRegistration> _UserRegistrations;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<PageView> PageViews
+        {
+            get
+            {
+                if ((_PageViews == null))
+                {
+                    _PageViews = base.CreateObjectSet<PageView>("PageViews");
+                }
+                return _PageViews;
+            }
+        }
+        private ObjectSet<PageView> _PageViews;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<BusinessAttribute> BusinessAttributes
+        {
+            get
+            {
+                if ((_BusinessAttributes == null))
+                {
+                    _BusinessAttributes = base.CreateObjectSet<BusinessAttribute>("BusinessAttributes");
+                }
+                return _BusinessAttributes;
+            }
+        }
+        private ObjectSet<BusinessAttribute> _BusinessAttributes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CompetitorAttribute> CompetitorAttributes
+        {
+            get
+            {
+                if ((_CompetitorAttributes == null))
+                {
+                    _CompetitorAttributes = base.CreateObjectSet<CompetitorAttribute>("CompetitorAttributes");
+                }
+                return _CompetitorAttributes;
+            }
+        }
+        private ObjectSet<CompetitorAttribute> _CompetitorAttributes;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -192,38 +224,6 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<RelatedSupplier> _RelatedSuppliers;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<UserRegistration> UserRegistrations
-        {
-            get
-            {
-                if ((_UserRegistrations == null))
-                {
-                    _UserRegistrations = base.CreateObjectSet<UserRegistration>("UserRegistrations");
-                }
-                return _UserRegistrations;
-            }
-        }
-        private ObjectSet<UserRegistration> _UserRegistrations;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<PageView> PageViews
-        {
-            get
-            {
-                if ((_PageViews == null))
-                {
-                    _PageViews = base.CreateObjectSet<PageView>("PageViews");
-                }
-                return _PageViews;
-            }
-        }
-        private ObjectSet<PageView> _PageViews;
 
         #endregion
 
@@ -235,22 +235,6 @@ namespace SizeUp.Data.Analytics
         public void AddToAPIRequests(APIRequest aPIRequest)
         {
             base.AddObject("APIRequests", aPIRequest);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the BusinessAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToBusinessAttributes(BusinessAttribute businessAttribute)
-        {
-            base.AddObject("BusinessAttributes", businessAttribute);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the CompetitorAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCompetitorAttributes(CompetitorAttribute competitorAttribute)
-        {
-            base.AddObject("CompetitorAttributes", competitorAttribute);
         }
     
         /// <summary>
@@ -267,6 +251,38 @@ namespace SizeUp.Data.Analytics
         public void AddToLongRequests(LongRequest longRequest)
         {
             base.AddObject("LongRequests", longRequest);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserRegistrations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserRegistrations(UserRegistration userRegistration)
+        {
+            base.AddObject("UserRegistrations", userRegistration);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the PageViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToPageViews(PageView pageView)
+        {
+            base.AddObject("PageViews", pageView);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the BusinessAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToBusinessAttributes(BusinessAttribute businessAttribute)
+        {
+            base.AddObject("BusinessAttributes", businessAttribute);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CompetitorAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCompetitorAttributes(CompetitorAttribute competitorAttribute)
+        {
+            base.AddObject("CompetitorAttributes", competitorAttribute);
         }
     
         /// <summary>
@@ -291,22 +307,6 @@ namespace SizeUp.Data.Analytics
         public void AddToRelatedSuppliers(RelatedSupplier relatedSupplier)
         {
             base.AddObject("RelatedSuppliers", relatedSupplier);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the UserRegistrations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserRegistrations(UserRegistration userRegistration)
-        {
-            base.AddObject("UserRegistrations", userRegistration);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the PageViews EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToPageViews(PageView pageView)
-        {
-            base.AddObject("PageViews", pageView);
         }
 
         #endregion
@@ -1074,30 +1074,6 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> APIKeyId
-        {
-            get
-            {
-                return _APIKeyId;
-            }
-            set
-            {
-                OnAPIKeyIdChanging(value);
-                ReportPropertyChanging("APIKeyId");
-                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
-                ReportPropertyChanged("APIKeyId");
-                OnAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _APIKeyId;
-        partial void OnAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnAPIKeyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Guid> UserId
         {
             get
@@ -1672,30 +1648,6 @@ namespace SizeUp.Data.Analytics
         private global::System.Int32 _Year;
         partial void OnYearChanging(global::System.Int32 value);
         partial void OnYearChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> APIKeyId
-        {
-            get
-            {
-                return _APIKeyId;
-            }
-            set
-            {
-                OnAPIKeyIdChanging(value);
-                ReportPropertyChanging("APIKeyId");
-                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
-                ReportPropertyChanged("APIKeyId");
-                OnAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _APIKeyId;
-        partial void OnAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnAPIKeyIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3398,30 +3350,6 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> APIKeyId
-        {
-            get
-            {
-                return _APIKeyId;
-            }
-            set
-            {
-                OnAPIKeyIdChanging(value);
-                ReportPropertyChanging("APIKeyId");
-                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
-                ReportPropertyChanged("APIKeyId");
-                OnAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _APIKeyId;
-        partial void OnAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnAPIKeyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Guid> UserId
         {
             get
@@ -3512,30 +3440,6 @@ namespace SizeUp.Data.Analytics
         private global::System.Int64 _RelatedIndustryId;
         partial void OnRelatedIndustryIdChanging(global::System.Int64 value);
         partial void OnRelatedIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> WidgetAPIKeyId
-        {
-            get
-            {
-                return _WidgetAPIKeyId;
-            }
-            set
-            {
-                OnWidgetAPIKeyIdChanging(value);
-                ReportPropertyChanging("WidgetAPIKeyId");
-                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
-                ReportPropertyChanged("WidgetAPIKeyId");
-                OnWidgetAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _WidgetAPIKeyId;
-        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnWidgetAPIKeyIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3836,30 +3740,6 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> APIKeyId
-        {
-            get
-            {
-                return _APIKeyId;
-            }
-            set
-            {
-                OnAPIKeyIdChanging(value);
-                ReportPropertyChanging("APIKeyId");
-                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
-                ReportPropertyChanged("APIKeyId");
-                OnAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _APIKeyId;
-        partial void OnAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnAPIKeyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Guid> UserId
         {
             get
@@ -3950,30 +3830,6 @@ namespace SizeUp.Data.Analytics
         private global::System.Int64 _RelatedIndustryId;
         partial void OnRelatedIndustryIdChanging(global::System.Int64 value);
         partial void OnRelatedIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> WidgetAPIKeyId
-        {
-            get
-            {
-                return _WidgetAPIKeyId;
-            }
-            set
-            {
-                OnWidgetAPIKeyIdChanging(value);
-                ReportPropertyChanging("WidgetAPIKeyId");
-                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
-                ReportPropertyChanged("WidgetAPIKeyId");
-                OnWidgetAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _WidgetAPIKeyId;
-        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnWidgetAPIKeyIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4274,30 +4130,6 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> APIKeyId
-        {
-            get
-            {
-                return _APIKeyId;
-            }
-            set
-            {
-                OnAPIKeyIdChanging(value);
-                ReportPropertyChanging("APIKeyId");
-                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
-                ReportPropertyChanged("APIKeyId");
-                OnAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _APIKeyId;
-        partial void OnAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnAPIKeyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Guid> UserId
         {
             get
@@ -4388,30 +4220,6 @@ namespace SizeUp.Data.Analytics
         private global::System.Int64 _RelatedIndustryId;
         partial void OnRelatedIndustryIdChanging(global::System.Int64 value);
         partial void OnRelatedIndustryIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int64> WidgetAPIKeyId
-        {
-            get
-            {
-                return _WidgetAPIKeyId;
-            }
-            set
-            {
-                OnWidgetAPIKeyIdChanging(value);
-                ReportPropertyChanging("WidgetAPIKeyId");
-                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
-                ReportPropertyChanged("WidgetAPIKeyId");
-                OnWidgetAPIKeyIdChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _WidgetAPIKeyId;
-        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
-        partial void OnWidgetAPIKeyIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.

@@ -93,8 +93,6 @@ namespace SizeUp.Core.Analytics
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
             reg.Session = APIContext.Current.Session;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
-            reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
 
 
             Task.Factory.StartNew(() =>
@@ -119,9 +117,6 @@ namespace SizeUp.Core.Analytics
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
             reg.Session = APIContext.Current.Session;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
-            reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
-
 
             Task.Factory.StartNew(() =>
             {
@@ -145,8 +140,6 @@ namespace SizeUp.Core.Analytics
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
             reg.Session = APIContext.Current.Session;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
-            reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
 
             Task.Factory.StartNew(() =>
             {
@@ -170,7 +163,6 @@ namespace SizeUp.Core.Analytics
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
             reg.Session = APIContext.Current.Session;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
             reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
 
             Task.Factory.StartNew(() =>
@@ -195,7 +187,6 @@ namespace SizeUp.Core.Analytics
             reg.Week = stamp.Week;
             reg.Timestamp = stamp.Stamp;
             reg.Session = APIContext.Current.Session;
-            reg.APIKeyId = APIContext.Current.ApiToken != null ? APIContext.Current.ApiToken.APIKeyId : (long?)null;
             reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
 
             Task.Factory.StartNew(() =>

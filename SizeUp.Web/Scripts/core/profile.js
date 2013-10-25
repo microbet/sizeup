@@ -48,6 +48,16 @@
             return url;
         };
 
+        var parseQueryString = function (qs) {
+            var obj = {};
+            var qs = qs.split('&');
+            for (var x = 0; x < qs.length; x++) {
+                var item = qs[x].split('=');
+                obj[item[0]] = item[1];
+            }
+            return obj;
+        };
+
         pub.register = function () {
             document.location = getURLPrefix() + "/register" + getReturnQueryString();
         };
@@ -77,7 +87,12 @@
         };
 
         pub.setDashboardValues = function (params, callback) {
-            return post('/api/profile/dashboardValues/', params, callback);
+            var url = '/api/profile/dashboardValues/';
+            var p = parseQueryString(jQuery.param.querystring());
+            if (p.wt!=null) {
+                url = jQuery.param.querystring(url, { wt: decodeURIComponent(p.wt) });
+            }
+            return post(url, params, callback);
         };
 
         pub.getCompetitionValues = function (params, callback) {
@@ -85,7 +100,12 @@
         };
 
         pub.setCompetitionValues = function (params, callback) {
-            return post('/api/profile/competitionValues/', params, callback);
+            var url = '/api/profile/competitionValues/';
+            var p = parseQueryString(jQuery.param.querystring());
+            if (p.wt != null) {
+                url = jQuery.param.querystring(url, { wt: decodeURIComponent(p.wt) });
+            }
+            return post(url, params, callback);
         };
 
         return pub;
