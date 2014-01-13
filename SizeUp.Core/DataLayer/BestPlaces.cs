@@ -401,44 +401,46 @@ namespace SizeUp.Core.DataLayer
             IQueryable<Models.BestPlaces> output = new List<Models.BestPlaces>().AsQueryable();
             if (granularity == Granularity.City)
             {
-                output = data.Select(i => new Models.BestPlaces
-                {
-                    State = new Models.State
+                output = data
+                    .Where(i => i.Place.City.IsActive && i.Place.City.CityType.IsActive)
+                    .Select(i => new Models.BestPlaces
                     {
-                        Id = i.Place.City.State.Id,
-                        Abbreviation = i.Place.City.State.Abbreviation,
-                        Name = i.Place.City.State.Name,
-                        SEOKey = i.Place.City.State.SEOKey,
-                        LongName = i.Place.City.State.GeographicLocation.LongName,
-                        ShortName = i.Place.City.State.GeographicLocation.ShortName
-                    },
-                    County = i.Place.City.Counties.Select(co=>new Models.County
-                    {
-                        Id = co.Id,
-                        Name = co.Name,
-                        SEOKey = co.SEOKey,
-                        LongName = co.GeographicLocation.LongName,
-                        ShortName = co.GeographicLocation.ShortName
-                    }).FirstOrDefault(),
-                    City = new Models.City
-                    {
-                        Id = i.Place.City.Id,
-                        Name = i.Place.City.Name,
-                        SEOKey = i.Place.City.SEOKey,
-                        TypeName = i.Place.City.CityType.Name,
-                        ShortName = i.Place.City.GeographicLocation.ShortName,
-                        LongName = i.Place.City.GeographicLocation.LongName
-                    },
+                        State = new Models.State
+                        {
+                            Id = i.Place.City.State.Id,
+                            Abbreviation = i.Place.City.State.Abbreviation,
+                            Name = i.Place.City.State.Name,
+                            SEOKey = i.Place.City.State.SEOKey,
+                            LongName = i.Place.City.State.GeographicLocation.LongName,
+                            ShortName = i.Place.City.State.GeographicLocation.ShortName
+                        },
+                        County = i.Place.City.Counties.Select(co => new Models.County
+                        {
+                            Id = co.Id,
+                            Name = co.Name,
+                            SEOKey = co.SEOKey,
+                            LongName = co.GeographicLocation.LongName,
+                            ShortName = co.GeographicLocation.ShortName
+                        }).FirstOrDefault(),
+                        City = new Models.City
+                        {
+                            Id = i.Place.City.Id,
+                            Name = i.Place.City.Name,
+                            SEOKey = i.Place.City.SEOKey,
+                            TypeName = i.Place.City.CityType.Name,
+                            ShortName = i.Place.City.GeographicLocation.ShortName,
+                            LongName = i.Place.City.GeographicLocation.LongName
+                        },
 
-                    Centroid = i.Centroid,
-                    BoundingBox = i.BoundingBox,
-                    TotalEmployees = i.TotalEmployeesBand,
-                    AverageEmployees = i.AverageEmployeesBand,
-                    EmployeesPerCapita = i.EmployeesPerCapitaBand,
-                    TotalRevenue = i.TotalRevenueBand,
-                    AverageRevenue = i.AverageRevenueBand,
-                    RevenuePerCapita = i.RevenuePerCapitaBand
-                });
+                        Centroid = i.Centroid,
+                        BoundingBox = i.BoundingBox,
+                        TotalEmployees = i.TotalEmployeesBand,
+                        AverageEmployees = i.AverageEmployeesBand,
+                        EmployeesPerCapita = i.EmployeesPerCapitaBand,
+                        TotalRevenue = i.TotalRevenueBand,
+                        AverageRevenue = i.AverageRevenueBand,
+                        RevenuePerCapita = i.RevenuePerCapitaBand
+                    });
             }
             else if (granularity == Granularity.County)
             {
