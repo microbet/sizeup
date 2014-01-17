@@ -27,7 +27,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             Log();
             if (!valid)
             {
-                throw new HttpException(401, "Api token not valid");
+                throw new HttpException(403, "Api token not valid");
             }
 
 

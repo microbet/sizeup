@@ -69,7 +69,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 }
 
 
-                var api = context.APIKeys.Where(i => i.KeyValue == key).FirstOrDefault();
+                var api = context.APIKeys.Where(i => i.KeyValue == key && i.IsActive).FirstOrDefault();
                 if (api != null)
                 {
                     ViewBag.APIName = api.Name;

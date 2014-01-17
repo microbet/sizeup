@@ -29,7 +29,7 @@ namespace SizeUp.Api.Controllers
             valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
             if (!valid)
             {
-                throw new HttpException(401, "Api token not valid");
+                throw new HttpException(403, "Api token not valid");
             }
         }
 

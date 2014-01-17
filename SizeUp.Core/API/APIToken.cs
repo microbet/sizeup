@@ -45,7 +45,7 @@ namespace SizeUp.Core.API
                 {
                     using (var context = ContextFactory.APIContext)
                     {
-                        _isValid = context.APIKeys.Any(i => i.Id == APIKeyId);
+                        _isValid = context.APIKeys.Any(i => i.Id == APIKeyId && i.IsActive);
                     }
                 }
                 return (bool)_isValid;

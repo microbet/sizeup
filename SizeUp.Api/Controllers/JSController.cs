@@ -34,10 +34,10 @@ namespace SizeUp.Api.Controllers
             }
             using (var context = ContextFactory.APIContext)
             {
-                var k = context.APIKeys.Where(i => i.KeyValue == apikey).FirstOrDefault();
+                var k = context.APIKeys.Where(i => i.KeyValue == apikey && i.IsActive).FirstOrDefault();
                 if (k == null)
                 {
-                    throw new Exception("Invalid API Key");
+                    throw new HttpException(403, "Invalid API Key");
                 }
                 token = APIToken.Create(k.Id);
             }
@@ -56,7 +56,7 @@ namespace SizeUp.Api.Controllers
             }
             else
             {
-                throw new Exception("Invalid API Key");
+                throw new HttpException(403, "Invalid API Key");
             }
             return View();
         }
@@ -89,7 +89,7 @@ namespace SizeUp.Api.Controllers
             }
             else
             {
-                throw new Exception("Invalid API Key");
+                throw new HttpException(403, "Invalid API Key");
             }  
             return View();
         }

@@ -197,12 +197,14 @@ namespace SizeUp.Data.API
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="keyValue">Initial value of the KeyValue property.</param>
-        public static APIKey CreateAPIKey(global::System.Int64 id, global::System.String name, global::System.Guid keyValue)
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        public static APIKey CreateAPIKey(global::System.Int64 id, global::System.String name, global::System.Guid keyValue, global::System.Boolean isActive)
         {
             APIKey aPIKey = new APIKey();
             aPIKey.Id = id;
             aPIKey.Name = name;
             aPIKey.KeyValue = keyValue;
+            aPIKey.IsActive = isActive;
             return aPIKey;
         }
 
@@ -284,6 +286,30 @@ namespace SizeUp.Data.API
         private global::System.Guid _KeyValue;
         partial void OnKeyValueChanging(global::System.Guid value);
         partial void OnKeyValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value, "IsActive");
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
 
         #endregion
 
