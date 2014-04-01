@@ -6,7 +6,7 @@
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.opts.startYear = 1986;
-        me.opts.endYear = 2012;
+        me.opts.endYear = 2013;
         me.opts.maxYear = 2016;
         me.data = {};
         me.container = opts.container;
