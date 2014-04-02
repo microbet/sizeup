@@ -91,7 +91,6 @@
     <None Include="API\APIContext.edmx.diagram">
       <DependentUpon>APIContext.edmx</DependentUpon>
     </None>
-    <None Include="App.Config" />
     <None Include="packages.config" />
     <EntityDeploy Include="UserData\UserDataContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
