@@ -89,81 +89,46 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset class="text-center" style="position: absolute; top: 22em; right: -54em;margin-bottom:0em;">
+        <fieldset id="step-two" class="text-center" style="position: absolute; top: 22em; right: -54em;margin-bottom:0em;">
             <div class="col-lg-10 col-lg-offset-1">
-                @*<div class="col-lg-4 flip-container">
-                    <div class="card-bg flipper">
-                        <div class="front face">
+                <div class="col-lg-4 container">
+                    <div class="card">
+                        <div class="gray-bg face front">
                         </div>
-                        <div class="back face">
-                            <img src="@Url.Content("~/Content/images/gauge-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance"/><br />
+                        <div class="gray-bg face back">
+                            <img src="@Url.Content("~/Content/images/gauge-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance"/>
                             <p>Compare your business to your industry competitors.</p>
                             <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">My Business</button>
                         </div>
+                        <p></p>
                     </div>
-                </div>*@
-
-                @*<div class="col-lg-4">
-                    <section class="container">
-                      <div class="card card-bg">
-                        <figure class="front"></figure>
-                        <figure class="back">
-                            <img src="@Url.Content("~/Content/images/gauge-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance"/><br />
-                            <p>Compare your business to your industry competitors.</p>
-                            <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">My Business</button>
-                        </figure>
-                      </div>
-                    </section>
                 </div>
-                <div class="col-lg-4">
-                    <section class="container">
-                      <div class="card card-bg">
-                        <figure class="front"></figure>
-                        <figure class="back">
-                            <img src="@Url.Content("~/Content/images/compete-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition"/><br />
-                            <p>Map your competitors, customers, suppliers.</p>
-                            <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Competition</button>
-                        </figure>
-                      </div>
-                    </section>
-                </div>
-                <div class="col-lg-4">
-                    <section class="container">
-                      <div class="card card-bg">
-                        <figure class="front"></figure>
-                        <figure class="back">
-                            <img src="@Url.Content("~/Content/images/advertise-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/><br />
-                            <p>Find best places to target your next advertising campaign.</p>
-                            <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Advertising</button>
-                        </figure>
-                      </div>
-                    </section>
-                </div>*@
-
-                @*<div class="col-lg-4 flip-container">
-                    <div class="card-bg flipper">
-                        <div class="front face">
+                <div class="col-lg-4 container">
+                    <div class="card">
+                        <div class="gray-bg face front">
                         </div>
-                        <div class="back face">
-                            <img src="@Url.Content("~/Content/images/compete-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition"/><br />
+                        <div class="gray-bg face back">
+                            <img src="@Url.Content("~/Content/images/compete-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition"/>
                             <p>Map your competitors, customers, suppliers.</p>
                             <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Competition</button>
                         </div>
+                        <p></p>
                     </div>
                 </div>
-                <div class="col-lg-4 flip-container">
-                    <div class="card-bg flipper">
-                        <div class="front face">
+                <div class="col-lg-4 container">
+                    <div class="card">
+                        <div class="gray-bg face front">
                         </div>
-                        <div class="back face">
-                            <img src="@Url.Content("~/Content/images/advertise-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/><br />
+                        <div class="gray-bg face back">
+                            <img src="@Url.Content("~/Content/images/advertise-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/>
                             <p>Find best places to target your next advertising campaign.</p>
                             <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Advertising</button>
                         </div>
+                        <p></p>
                     </div>
-                </div>*@
+                </div>
             </div>
-        </fieldset>
+        </fieldsetID>
     </form>
 </div>
 <!-- Login Form End -->
@@ -669,18 +634,24 @@
                     next_fs.css({'left': left, 'opacity': opacity, 'top':'22.5em', 'width': '0%'});
 
                 }, 
-                duration: 100, 
+                duration: 1, 
                 complete: function(){
                     current_fs.hide();
                     animating = false;
-                    next_fs.css({'position': 'inherit', 'margin-top':'4.80em', 'width':'100%'});
-                    $(".card").toggleClass("flipped");
+                    next_fs.css({'position': 'inherit', 'margin-top':'2.6em', 'width':'100%'});
+                    $("#step-two .container").toggleClass("flipped");
                 }, 
                 //this comes from the custom easing plugin
                 easing: 'linear'
             });
         });
     };
+
+
+    $('#step-two .container.flipped .card, #step-two .back, #step-two .card ').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',   
+    function(e) {
+        $('#step-two .face').css({ '-ms-backface-visibility' : 'visible', 'backface-visibility' : 'visible' });
+    });
 
     $('#row-switch').hide();
     $('#decisions a.right-col').hide();

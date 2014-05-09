@@ -19,47 +19,18 @@
 
 #login-form .switch-light { margin-left: 0px; background-color: #179edc; border: none; -webkit-box-shadow: inset 0px 3px 10px 0px rgba(0,0,0,0.75); -moz-box-shadow: inset 0px 3px 10px 0px rgba(0,0,0,0.75); box-shadow: inset 0px 3px 10px 0px rgba(0,0,0,0.75); }
 #login-form .switch-light .btn-primary { background: #459d31; -webkit-box-shadow: -2px 0px 3px 0px rgba(50, 50, 50, 0.63); -moz-box-shadow: -2px 0px 3px 0px rgba(50, 50, 50, 0.63); box-shadow: -2px 0px 3px 0px rgba(50, 50, 50, 0.63); }
-
-/*#login-form form { width: 400px; margin: 50px auto; text-align: center; position: relative; }*/
-/*#login-form form fieldset { position: absolute; padding: 20px 30px; box-sizing: border-box; width: 80%; margin: 0 10%; }*/
 #login-form form fieldset:not(:first-of-type) { display: none; }
 
-/*#login-form.jumbotron .card p { font-size: 14px; margin: 2.5em 0 1.5em; }
-section.container { font-size: 14px; width: 230px; height: 260px; position: relative; border-radius: 10px; -webkit-perspective: 1000; -moz-perspective: 1000; -o-perspective: 1000; perspective: 1000; }
-.card { 
-    border-radius: 10px; 
-    width: 100%; 
-    height: 100%; 
-    position: absolute; 
-
-    -webkit-transition: -webkit-transform 1s; 
-    -moz-transition: -moz-transform 1s; 
-    -o-transition: -o-transform 1s; 
-    transition: transform 1s; 
-
-    -webkit-transform-style: preserve-3d; 
-    -moz-transform-style: preserve-3d; 
-    -o-transform-style: preserve-3d; 
-    transform-style: preserve-3d; 
-
-    
-}
-.card figure { 
-    border-radius: 10px; 
-    display: block; 
-    position: absolute; 
-    width: 100%; 
-    height: 100%; 
-
-    -webkit-backface-visibility: hidden; 
-    -moz-backface-visibility: hidden; 
-    -o-backface-visibility: hidden; 
-    backface-visibility: hidden; 
-}
-.card .front { border-radius: 10px; }
-.card .back { left: 1px; border-radius: 10px; -webkit-transform: rotateY( 180deg ); -moz-transform: rotateY( 180deg ); -o-transform: rotateY( 180deg ); transform: rotateY( 180deg ); }
-.card.flipped { border-radius: 10px; -webkit-transform: rotateY( 180deg ); -moz-transform: rotateY( 180deg ); -o-transform: rotateY( 180deg ); transform: rotateY( 180deg ); }
-.card #submit-btn { position: relative; top: 1em; }*/
+#step-two .container { position: relative; -webkit-perspective: 1000; -moz-perspective: 1000; -ms-perspective: 1000; -o-perspective: 1000; }
+#step-two .card { width: 16em; height: 250px; position: relative; -webkit-transform-style: preserve-3d; -webkit-transition: 1s; -moz-transform-style: preserve-3d; -moz-transition: 2000ms; -ms-transform-style: preserve-3d; -ms-transition: 1s; -o-transform-style: preserve-3d; -o-transition: 1s; transition: 1s; }
+#step-two .card img { margin-bottom: 1em; }
+#step-two .container.flipped .card { -webkit-transform: rotateY(180deg); -moz-transform: rotateY(180deg); -ms-transform: rotateY(180deg); -o-transform: rotateY(180deg); transform: rotateY(180deg); }
+#step-two .face { padding-top: 2em; position: absolute; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; -o-backface-visibility: hidden; backface-visibility: hidden; top: 0; left: 0; width: 100%; height: 100%; color: rgba(0,0,0,0.75); font-size: 14px; text-align: center; border-radius: 15px; }
+#step-two .no-hide .face { -webkit-backface-visibility: visible; -moz-backface-visibility: visible; -ms-backface-visibility: visible; -o-backface-visibility: visible; backface-visibility: visible; }
+#step-two .front { z-index: 10; }
+#step-two .back { -webkit-transform: rotateY(180deg); -moz-transform: rotateY(180deg); -ms-transform: rotateY(180deg); -o-transform: rotateY(180deg); transform: rotateY(180deg); }
+#step-two .back p { height: 65px; margin-top: .5em; padding-left: .5em; padding-right: .5em; }
+#step-two .container.flipped .front { z-index: 0; }
 
 #submit-btn, #login-btn { -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); text-shadow: -1px 3px 2px rgba(4, 58, 89, 0.35); font-size: 12px; }
 #login-btn { margin-top: 2em; padding-left: 3%; padding-right: 3%; }
