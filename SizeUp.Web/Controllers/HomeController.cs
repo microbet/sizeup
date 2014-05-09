@@ -22,7 +22,7 @@ namespace SizeUp.Web.Controllers
             {
                 HideNavigation = true
             };
-            return View();
+            return View("IndexResponsive");
         }
     }
 }

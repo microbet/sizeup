@@ -236,6 +236,7 @@
     <Content Include="Content\images\PinTemplate.png" />
     <Content Include="Content\images\SizeUp.png" />
     <Content Include="Content\images\up-down.png" />
+    <Content Include="Content\layout-responsive.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\prettify\prettify.css" />
     <Content Include="Content\print.css" />
@@ -245,7 +246,9 @@
     <Content Include="Content\themes\highContrast\images\dashbuttons.png" />
     <Content Include="Content\themes\wide\wide.css" />
     <Content Include="Content\thirdParty\add2home.css" />
+    <Content Include="Content\thirdParty\animations.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
+    <Content Include="Content\thirdParty\toggle-switch.css" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\advertising\index.css" />
     <Content Include="Content\views\advertising\print.css" />
@@ -266,6 +269,7 @@
     <Content Include="Content\views\help\contact.css" />
     <Content Include="Content\views\help\faq.css" />
     <Content Include="Content\views\help\howitworks.css" />
+    <Content Include="Content\views\home-responsive.css" />
     <Content Include="Content\views\home.css" />
     <Content Include="Content\views\product\privacy.css" />
     <Content Include="Content\views\product\terms.css" />
@@ -386,6 +390,7 @@
     <Content Include="Scripts\views\dashboard\workersComp.js" />
     <Content Include="Scripts\views\dashboard\yearStarted.js" />
     <Content Include="Scripts\views\community\cityCommunity.js" />
+    <Content Include="Scripts\views\home-ui.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\shared\signin.js" />
     <Content Include="Scripts\views\bestPlaces\bestPlaces.js" />
@@ -544,6 +549,10 @@
     <Content Include="Views\Sitemap\Business.cshtml" />
     <Content Include="Views\Sitemap\CommunityIndustry.cshtml" />
     <None Include="Properties\PublishProfiles\SizeUp.pubxml" />
+    <Content Include="Views\Shared\_LayoutResponsive.cshtml" />
+    <Content Include="Views\Home\IndexResponsive.cshtml" />
+    <Content Include="Views\Shared\HeaderResponsive.cshtml" />
+    <Content Include="Views\Shared\FooterResponsive.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

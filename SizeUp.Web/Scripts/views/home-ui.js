@@ -1,0 +1,131 @@
+﻿function checkWidth() {
+    var w = window,
+		d = document,
+		e = d.documentElement,
+		g = d.getElementsByTagName('body')[0],
+		x = w.innerWidth || e.clientWidth || g.clientWidth,
+		y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+    // business/startup toggle
+    /**if(x <=356 || screen.width <= 356){
+		$('label[for=business]').text("Business");
+	} else {
+		$('label[for=business]').text("Business Owner");
+	}**/
+
+    // slider disappering
+    if (x <= 768 || screen.width <= 768) {
+        $('#slider-column').hide();
+        $('#slider-sibling-column').children().css('padding-left', '0px');
+    } else {
+        $('#slider-column').show();
+        $('#slider-sibling-column').children().css('padding-left', 'inherit');
+    }
+
+    if (x <= 1199 || screen.width <= 1199) {
+        $('#slider-sibling-column h4').css('margin-top', '10px');
+    } else {
+        $('#slider-sibling-column h4').css('margin-top', '0px');
+    }
+
+    // hide animations if width is too small
+    if (x <= 780 || screen.width <= 780) {
+        $('#competition #competition-carousel-wrapper').css('padding-bottom', '0em').hide();
+    } else {
+        $('#competition #competition-carousel-wrapper').css('padding-bottom', '5em').show();
+    }
+
+    // industry/location inputs
+    if (x <= 426 || screen.width <= 426) {
+        if ($('#industry span').is(':visible')) {
+            $('#industry span').hide();
+        }
+        if ($('#location span').is(':visible')) {
+            $('#location span').hide();
+        }
+    } else {
+        if (!$('#industry span').is(':visible')) {
+            $('#industry span').show();
+        }
+
+        if (!$('#location span').is(':visible')) {
+            $('#location span').show();
+        }
+    }
+
+    // learn more buttons
+    if (x <= 1199 || screen.width <= 1199) {
+        $('#decisions a.left-col').hide();
+        $('#decisions a.right-col').show();
+    } else {
+        $('#decisions a.left-col').show();
+        $('#decisions a.right-col').hide();
+    }
+
+    // padding on exist copy
+    /*if (x > 1199 || screen.width > 1199){
+		$('#exist-copy, #start-copy').css('padding-left', '0').css('padding-right', '0');
+		$('#submit-btn-col').css('padding-right', '0');
+	} else {
+		$('#exist-copy, #start-copy').css('padding-left', 'inherit').css('padding-right', 'inherit');
+		$('#submit-btn-col').css('padding-right', 'inherit');
+	}*/
+
+    // switch based on device width
+    if (x < 613 || screen.width < 613) {
+        $('#inline-switch').hide();
+        $('#row-switch').show();
+    } else {
+        $('#inline-switch').show();
+        $('#row-switch').hide();
+    }
+
+    // copy in decisions section
+    if (x <= 550 || screen.width <= 550) {
+        $('#decisions .copy p:first-child').css('margin-top', '0.5em');
+        $('#decisions .copy a').css('margin-bottom', '1em');
+    } else {
+        $('#decisions .copy p:first-child').css('margin-top', '0');
+        $('#decisions .copy a').css('margin-bottom', '0');
+    }
+}
+
+window.onload = checkWidth;
+window.onresize = checkWidth;
+
+$(window).scroll(function () {
+    $('#animatedDesktop').each(function () {
+        var imagePos = $(this).offset().top;
+
+        var topOfWindow = $(window).scrollTop();
+        if (imagePos < topOfWindow + 380) {
+            $(this).addClass("slideDown");
+        }
+    });
+
+    $('#animatedFlyer').each(function () {
+        var imagePos = $(this).offset().top;
+
+        var topOfWindow = $(window).scrollTop();
+        if (imagePos < topOfWindow + 460) {
+            $(this).addClass("slideRight");
+        }
+    });
+
+    $('#animatedLegend').each(function () {
+        var imagePos = $(this).offset().top;
+
+        var topOfWindow = $(window).scrollTop();
+        if (imagePos < topOfWindow + 555) {
+            $(this).addClass("slideLeft");
+
+            $('#competition .carousel-control').css('visibility', 'visible');
+            $(window).unbind("scroll");
+            setTimeout(function () {
+                $('.slideDown').css('visibility', 'visible').removeClass('slideDown');
+                $('.slideLeft').css('visibility', 'visible').removeClass('slideLeft');
+                $('.slideRight').css('visibility', 'visible').removeClass('slideRight');
+            }, 3000);
+        }
+    });
+});
