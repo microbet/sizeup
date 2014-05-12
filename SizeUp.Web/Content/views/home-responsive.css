@@ -21,6 +21,9 @@
 #login-form .switch-light .btn-primary { background: #459d31; -webkit-box-shadow: -2px 0px 3px 0px rgba(50, 50, 50, 0.63); -moz-box-shadow: -2px 0px 3px 0px rgba(50, 50, 50, 0.63); box-shadow: -2px 0px 3px 0px rgba(50, 50, 50, 0.63); }
 #login-form form fieldset:not(:first-of-type) { display: none; }
 
+a.changeLocation { color:#16a9ed;}
+a.changeLocation:hover { color:#1898d3;}
+
 #step-two .container { position: relative; -webkit-perspective: 1000; -moz-perspective: 1000; -ms-perspective: 1000; -o-perspective: 1000; }
 #step-two .card { width: 16em; height: 250px; position: relative; -webkit-transform-style: preserve-3d; -webkit-transition: 1s; -moz-transform-style: preserve-3d; -moz-transition: 2000ms; -ms-transform-style: preserve-3d; -ms-transition: 1s; -o-transform-style: preserve-3d; -o-transition: 1s; transition: 1s; }
 #step-two .card img { margin-bottom: 1em; }
@@ -32,9 +35,9 @@
 #step-two .back p { height: 65px; margin-top: .5em; padding-left: .5em; padding-right: .5em; }
 #step-two .container.flipped .front { z-index: 0; }
 
-#submit-btn, #login-btn { -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); text-shadow: -1px 3px 2px rgba(4, 58, 89, 0.35); font-size: 12px; }
+#continue, #login-btn { -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); text-shadow: -1px 3px 2px rgba(4, 58, 89, 0.35); font-size: 12px; }
 #login-btn { margin-top: 2em; padding-left: 3%; padding-right: 3%; }
-#submit-btn { font-size: 14px; }
+#continue { font-size: 14px; }
 
 #decisions { padding-top: 35px; padding-bottom: 50px; border: 1px solid #e3e3e3; background-color: white; }
 #decisions #section-header { margin-bottom: 3em; }
@@ -46,7 +49,7 @@
 #inline-switch { clear: both; }
 #inline-switch #exist-copy,
 #inline-switch #start-copy { padding-top: 1em; float: left; margin-right: 1em; }
-#inline-switch #submit-btn-col { float: right; }
+#inline-switch #continue-col { float: right; }
 #row-switch { color: white; }
 
 #switch-toggle-wrapper { float: left; margin-right: 1em; padding-top: 1em; }
@@ -101,7 +104,7 @@
     #competition #expenditures #animatedLegend { left: 12.5em; top: 12em; }
     #competition #expenditures #animatedFlyer { right: 12.5em; top: 5em; }
 
-    #submit-btn { padding: 0.75em 4em; }
+    #continue { padding: 0.75em 4em; }
 }
 
 @media (min-width: 992px) and (max-width:1199px) {
@@ -112,7 +115,7 @@
     #competition #expenditures #animatedLegend { left: 15.5em; top: 23.75em; }
     #competition #expenditures #animatedFlyer { right: 4em; top: 17em; }
 
-    #submit-btn { padding: 0.75em 2em; }
+    #continue { padding: 0.75em 2em; }
 }
 
 @media (min-width: 700px) and (max-width:991px) {
@@ -123,13 +126,13 @@
     #competition #expenditures #animatedLegend { left: 4.5em; top: 14.75em; }
     #competition #expenditures #animatedFlyer { right: 0em; top: 12em; }
 
-    #submit-btn { padding: 0.75em 5em; }
+    #continue { padding: 0.75em 5em; }
 }
 
 @media (min-width: 668px) and (max-width:699px) {
-    #submit-btn { padding: 0.75em 5em; }
+    #continue { padding: 0.75em 5em; }
 }
 
 @media (min-width: 613px) and (max-width:667px) {
-    #submit-btn { padding: 0.75em 3em; }
+    #continue { padding: 0.75em 3em; }
 }

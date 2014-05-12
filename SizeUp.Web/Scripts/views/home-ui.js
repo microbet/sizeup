@@ -62,15 +62,6 @@
         $('#decisions a.right-col').hide();
     }
 
-    // padding on exist copy
-    /*if (x > 1199 || screen.width > 1199){
-		$('#exist-copy, #start-copy').css('padding-left', '0').css('padding-right', '0');
-		$('#submit-btn-col').css('padding-right', '0');
-	} else {
-		$('#exist-copy, #start-copy').css('padding-left', 'inherit').css('padding-right', 'inherit');
-		$('#submit-btn-col').css('padding-right', 'inherit');
-	}*/
-
     // switch based on device width
     if (x < 613 || screen.width < 613) {
         $('#inline-switch').hide();
@@ -90,7 +81,7 @@
     }
 }
 
-window.onload = checkWidth;
+//window.onload = checkWidth;
 window.onresize = checkWidth;
 
 $(window).scroll(function () {

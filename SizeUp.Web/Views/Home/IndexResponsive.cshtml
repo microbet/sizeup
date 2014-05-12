@@ -14,24 +14,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.easing.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-}
-
-@section scripts{
-    <script type="text/javascript">       
-        var done = function () {
-            var opts = {
-                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
-                };
-            var driver = new sizeup.views.home(opts);
-        };
-        var notifier = new sizeup.core.notifier(done);
-        var apiLoaded = notifier.getNotifier();
-        var doc = notifier.getNotifier();
-
-        $(document).ready(doc);
-    </script>
 }
 
 <!-- Login Form Start -->
@@ -41,15 +24,22 @@
         <p>In 3 steps you will learn how your business stacks up to your competition.</p>
     </div>
     <form id="form">
+
         <fieldset>
-            <div id="industry" class="container input-group col-md-7 col-sm-12 col-xs-12">
+            <span style="position: absolute; left: 47em; top: 16em; z-index: 100;" id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</span>
+            <span style="position: absolute; left: 47em; top: 21.6em; z-index: 100;" id="invalidCityMessage" class="info hidden">Please enter a valid city name and select from the dropdown.</span>
+            <span style="position: absolute; left: 47em; top: 21.6em; z-index: 100;" id="noValuesEntered" class="info hidden">Please enter a city and industry and select from the dropdowns.</span>
+
+            <div id="industry-container" class="container input-group col-md-7 col-sm-12 col-xs-12">
                 <span class="input-group-addon input-group-blue">My industry is</span>
                 <input id="searchIndustry" type="text" class="form-control" placeholder="Enter Your Industry">
             </div>
 
-            <div id="location" class="container input-group col-md-7 col-sm-12 col-xs-12">
+            <div id="location-container" class="container input-group col-md-7 col-sm-12 col-xs-12">
                 <span class="input-group-addon input-group-blue">I'm located in</span>
                 <input id="searchCommunity" type="text" class="form-control" placeholder="Enter Your City">
+                <p id="enteredLocation" class="text-center location hidden">Your city is <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
+                <p id="detectedLocation" class="text-center location hidden" >We think you are in <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a></p>
             </div>
 
             <div id="inline-switch-wrapper" class="clearfix container input-group col-lg-7 col-md-7 col-sm-12 col-xs-12">
@@ -69,8 +59,8 @@
                     <div id="start-copy">
                         <span>I want to start a business</span>
                     </div>
-                    <div id="submit-btn-col">
-                        <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Continue</button>
+                    <div id="continue-col">
+                        <button type="button" id="continue" class="btn btn-green btn-primary btn-lg">Continue</button>
                     </div>
                 </div>
                 <div id="row-switch">
@@ -84,12 +74,13 @@
                     </div>
                     <div class="text-center">
                         <br />
-                        <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Continue</button>
+                        <button type="button" id="continue" class="btn btn-green btn-primary btn-lg">Continue</button>
                     </div>
                 </div>
             </div>
         </fieldset>
-        <fieldset id="step-two" class="text-center" style="position: absolute; top: 22em; right: -54em;margin-bottom:0em;">
+        <fieldset id="step-two" class="text-center" style="position: absolute; top: 22em;
+            right: -54em; margin-bottom: 0em;">
             <div class="col-lg-10 col-lg-offset-1">
                 <div class="col-lg-4 container">
                     <div class="card">
@@ -98,7 +89,7 @@
                         <div class="gray-bg face back">
                             <img src="@Url.Content("~/Content/images/gauge-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance"/>
                             <p>Compare your business to your industry competitors.</p>
-                            <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">My Business</button>
+                            <button type="button" id="continue" class="btn btn-green btn-primary btn-lg">My Business</button>
                         </div>
                         <p></p>
                     </div>
@@ -110,7 +101,7 @@
                         <div class="gray-bg face back">
                             <img src="@Url.Content("~/Content/images/compete-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition"/>
                             <p>Map your competitors, customers, suppliers.</p>
-                            <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Competition</button>
+                            <button type="button" id="continue" class="btn btn-green btn-primary btn-lg">Competition</button>
                         </div>
                         <p></p>
                     </div>
@@ -122,7 +113,7 @@
                         <div class="gray-bg face back">
                             <img src="@Url.Content("~/Content/images/advertise-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/>
                             <p>Find best places to target your next advertising campaign.</p>
-                            <button type="button" id="submit-btn" class="btn btn-green btn-primary btn-lg">Advertising</button>
+                            <button type="button" id="continue" class="btn btn-green btn-primary btn-lg">Advertising</button>
                         </div>
                         <p></p>
                     </div>
@@ -138,7 +129,9 @@
     <div id="section-header" class="row text-center">
         <h2>SizeUp your business</h2>
         <div class="col-md-8 col-md-offset-2">
-            <p class="text-center">Make smarter decisions through data with SizeUp and learn the answers to the burning questions that keep every business owner or aspiring entrepreneur up at night.</p>
+            <p class="text-center">Make smarter decisions through data with SizeUp and learn the
+                answers to the burning questions that keep every business owner or aspiring entrepreneur
+                up at night.</p>
         </div>
     </div>
     <div id="options" class="row">
@@ -149,7 +142,8 @@
             </div>
             <div class="copy text-left col-lg-8">
                 <p class="text-blue"><strong>How do I compare?</strong></p>
-                <p>Find out how you measure up to the rest of the competition in your industry.<a href="#performance">Learn more.</a></p>
+                <p>Find out how you measure up to the rest of the competition in your industry.<a
+                    href="#performance">Learn more.</a></p>
                 <a class="right-col btn btn-blue" href="#performance" role="button">Learn more</a>
             </div>
         </div>
@@ -160,7 +154,8 @@
             </div>
             <div class="copy text-left col-lg-8">
                 <p class="text-blue"><strong>Where are my customers?</strong></p>
-                <p>See the locations of potential customers, suppliers, and competitors.<a href="#competition">Learn more.</a></p>
+                <p>See the locations of potential customers, suppliers, and competitors.<a href="#competition">Learn
+                    more.</a></p>
                 <a class="right-col btn btn-blue" href="#competition" role="button">Learn more</a>
             </div>
         </div>
@@ -171,7 +166,8 @@
             </div>
             <div class="copy text-left col-lg-8">
                 <p class="text-blue"><strong>Where should I advertise?</strong></p>
-                <p>Invest your advertising budget in the right place. <a href="#advertisement">Learn more.</a></p>
+                <p>Invest your advertising budget in the right place. <a href="#advertisement">Learn
+                    more.</a></p>
                 <a class="right-col btn btn-blue" href="#advertisement" role="button">Learn more</a>
             </div>
         </div>
@@ -184,7 +180,9 @@
     <div id="performance-header" class="col-lg-12">
         <img src="@Url.Content("~/Content/images/gauge-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance Ribbon"/>
         <h2>How is my business performing?</h2>
-        <p>SizeUp shows you how to measure up to the competition in your industry, whether you have been in business for years or are just thinking about starting up a business.</p>
+        <p>SizeUp shows you how to measure up to the competition in your industry, whether you
+            have been in business for years or are just thinking about starting up a business.
+        </p>
     </div>
 
     <div id="slider-column" class="col-lg-6 col-sm-6">
@@ -219,7 +217,9 @@
         </div>
         <div class="col-lg-11 right-col">
             <h4>Map the best performing areas around you</h4>
-            <p>See where the average business owner in your industry near you is doing best. This may help you determine where to expand into a new location, or where to target a marketing campaign.</p>
+            <p>See where the average business owner in your industry near you is doing best. This
+                may help you determine where to expand into a new location, or where to target a
+                marketing campaign.</p>
         </div>
 
         <div class="col-lg-1">
@@ -227,7 +227,9 @@
         </div>
         <div class="col-lg-11 right-col">
             <h4>Get your scorecard</h4>
-            <p>Determine what percentage of businesses you are outperforming in your industry. See if your score places you in the green or in the red for revenue, employees, salaries, and more.</p>
+            <p>Determine what percentage of businesses you are outperforming in your industry. See
+                if your score places you in the green or in the red for revenue, employees, salaries,
+                and more.</p>
         </div>
 
         <div class="col-lg-1">
@@ -235,13 +237,16 @@
         </div>
         <div class="col-lg-11 right-col">
             <h4>Get recommendations</h4>
-            <p>We don't just show you data, we show you how to look at the information and how to make better decisions based on data. Consider us your business intelligence sherpas.</p>
+            <p>We don't just show you data, we show you how to look at the information and how to
+                make better decisions based on data. Consider us your business intelligence sherpas.
+            </p>
         </div>
     </div>
 </div>
 <div class="blue-footer col-lg-12 text-center clearfix">
     <span>Get started with your comparative market analysis now.</span>
-    <a href="#login-form" type="button" id="submit-btn" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">Start Analysis</a>
+    <a href="#login-form" type="button" id="continue" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">
+        Start Analysis</a>
 </div>
 <!-- Performance End -->
 
@@ -250,40 +255,49 @@
     <div id="competition-header" class="col-lg-12">
         <img src="@Url.Content("~/Content/images/compete-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition Ribbon"/>
         <h2>Where are my customers, competitors, and suppliers?</h2>
-        <p>Find your potential customers, competitors, and suppliers in order to make strategic decisions.</p>
+        <p>Find your potential customers, competitors, and suppliers in order to make strategic
+            decisions.</p>
     </div>
 
 
     <div id="competition-carousel-wrapper" class="col-lg-12">
         <div id="carousel-competition-generic" class="carousel slide" data-ride="carousel">
-            
+
             <div class="carousel-inner">
                 <div class="item active">
                     <div id="map" class="text-center">
                         <img id="animatedDesktop" src="@Url.Content("~/Content/images/sliders-screen-map.png")" style="visibility: hidden;" />
-                        <img id="animatedLegend" src="@Url.Content("~/Content/images/sliders-zoom-map.png")" style="visibility: hidden; position: absolute;"/>                        
-                        <div id="animatedFlyer" class="light-gray-bg">
+                        <img id="animatedLegend" src="@Url.Content("~/Content/images/sliders-zoom-map.png")" style="visibility: hidden; position: absolute;"/>
+                        <div id="animatedFlyer" class="light-gray-bg" style="visibility: hidden;">
                             <img src="@Url.Content("~/Content/images/square-pushpin.png")" /><br />
                             <label>Map your competitors, customers, suppliers.</label>
-                            <div class="col-lg-12 text-left" style="margin-bottom:10px;">
-                                <div class="col-lg-2"><img src="@Url.Content("~/Content/images/slider-dot-blue.png")" alt="Blue Marker"/></div>
+                            <div class="col-lg-12 text-left" style="margin-bottom: 10px;">
+                                <div class="col-lg-2">
+                                    <img src="@Url.Content("~/Content/images/slider-dot-blue.png")" alt="Blue Marker"/>
+                                </div>
                                 <div class="col-lg-10">
                                     <b>Find your customers</b>
-                                    <p>Whether you sell to businesses or consumers, SizeUp can show you where to find your customers.</p>
+                                    <p>Whether you sell to businesses or consumers, SizeUp can show you where to find your
+                                        customers.</p>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-left" style="margin-bottom:10px;">
-                                <div class="col-lg-2"><img src="@Url.Content("~/Content/images/slider-dot-red.png")" alt="Blue Marker"/></div>
+                            <div class="col-lg-12 text-left" style="margin-bottom: 10px;">
+                                <div class="col-lg-2">
+                                    <img src="@Url.Content("~/Content/images/slider-dot-red.png")" alt="Blue Marker"/>
+                                </div>
                                 <div class="col-lg-10">
                                     <b>Identify your competition</b>
                                     <p>Learn who your competitors are and where they are located.</p>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-left" style="margin-bottom:10px;">
-                                <div class="col-lg-2"><img src="@Url.Content("~/Content/images/slider-dot-green.png")" alt="Blue Marker"/></div>
+                            <div class="col-lg-12 text-left" style="margin-bottom: 10px;">
+                                <div class="col-lg-2">
+                                    <img src="@Url.Content("~/Content/images/slider-dot-green.png")" alt="Blue Marker"/>
+                                </div>
                                 <div class="col-lg-10">
                                     <b>Map your supply chain</b>
-                                    <p>Discover where your closest suppliers are located. Are you in the best strategic location for your business?</p>
+                                    <p>Discover where your closest suppliers are located. Are you in the best strategic
+                                        location for your business?</p>
                                 </div>
                             </div>
                         </div>
@@ -301,25 +315,34 @@
                         <div id="animatedFlyer" class="light-gray-bg">
                             <img src="@Url.Content("~/Content/images/square-layers.png")" /><br />
                             <label>See where and how much customers spend.</label>
-                            <div class="col-lg-12 text-left" style="margin-bottom:10px;">
-                                <div class="col-lg-2"><img src="@Url.Content("~/Content/images/check-blue.png")" alt="Blue Marker"/></div>
+                            <div class="col-lg-12 text-left" style="margin-bottom: 10px;">
+                                <div class="col-lg-2">
+                                    <img src="@Url.Content("~/Content/images/check-blue.png")" alt="Blue Marker"/>
+                                </div>
                                 <div class="col-lg-10">
                                     <b>Choose your category</b>
-                                    <p>Choose from hundreds of consumer expenditure categories, from men's sweaters to magazines.</p>
+                                    <p>Choose from hundreds of consumer expenditure categories, from men's sweaters to magazines.
+                                    </p>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-left" style="margin-bottom:10px;">
-                                <div class="col-lg-2"><img src="@Url.Content("~/Content/images/check-blue.png")" alt="Blue Marker"/></div>
+                            <div class="col-lg-12 text-left" style="margin-bottom: 10px;">
+                                <div class="col-lg-2">
+                                    <img src="@Url.Content("~/Content/images/check-blue.png")" alt="Blue Marker"/>
+                                </div>
                                 <div class="col-lg-10">
                                     <b>Map spending patterns</b>
-                                    <p>SizeUp can map consumer expenditure patterns in your neighborhood and beyond.</p>
+                                    <p>SizeUp can map consumer expenditure patterns in your neighborhood and beyond.
+                                    </p>
                                 </div>
                             </div>
-                            <div class="col-lg-12 text-left" style="margin-bottom:10px;">
-                                <div class="col-lg-2"><img src="@Url.Content("~/Content/images/check-blue.png")" alt="Blue Marker"/></div>
+                            <div class="col-lg-12 text-left" style="margin-bottom: 10px;">
+                                <div class="col-lg-2">
+                                    <img src="@Url.Content("~/Content/images/check-blue.png")" alt="Blue Marker"/>
+                                </div>
                                 <div class="col-lg-10">
                                     <b>Total vs average household</b>
-                                    <p>Find where the total consumer spending is highest for your category, or see where the average household spends the most.</p>
+                                    <p>Find where the total consumer spending is highest for your category, or see where
+                                        the average household spends the most.</p>
                                 </div>
                             </div>
                         </div>
@@ -328,348 +351,385 @@
             </div>
 
             <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-competition-generic" data-slide="prev" style="visibility:hidden;">
-                <span><img src="@Url.Content("~/Content/images/slider-nav-prev.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Prev"/></span>
+            <a class="left carousel-control" href="#carousel-competition-generic" data-slide="prev"
+                style="visibility: hidden;">
+                <span>
+                    <img src="@Url.Content("~/Content/images/slider-nav-prev.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Prev"/></span>
             </a>
-            <a class="right carousel-control" href="#carousel-competition-generic" data-slide="next" style="visibility:hidden;">
-                <span><img src="@Url.Content("~/Content/images/slider-nav-next.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Next"/></span>
+            <a class="right carousel-control" href="#carousel-competition-generic" data-slide="next"
+                style="visibility: hidden;">
+                <span>
+                    <img src="@Url.Content("~/Content/images/slider-nav-next.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Next"/></span>
             </a>
         </div>
     </div>
 </div>
-<div class="gradient gray-bg col-lg-12 text-center clearfix" style="margin-top:0;padding:4em 0;border-bottom:none; border-top:none;border-left: 2px solid #e2e2e2;border-right: 2px solid #e2e2e2;">
-	<div class="col-lg-6 col-md-6 col-sm-6">
+<div class="gradient gray-bg col-lg-12 text-center clearfix" style="margin-top: 0;
+    padding: 4em 0; border-bottom: none; border-top: none; border-left: 2px solid #e2e2e2;
+    border-right: 2px solid #e2e2e2;">
+    <div class="col-lg-6 col-md-6 col-sm-6">
         <img  class="text-center" src="@Url.Content("~/Content/images/fact-1.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Fact"/>
         <div class="col-lg-12 col-md-12 col-sm-12">
-		    <h4 style="font-size:20px;" class="text-left">Businesses want to outperform the competition</h4>
-		    <p class="text-left">SizeUp enables businesses to perform side-by-side, apples-to-apples competitiveness comparison of their business to all other competitors in their industry from the local. <a href="#">Learn more.</a></p>
-	    </div>
-    </div>
-	<div class="col-lg-6 col-md-6 col-sm-6">
-		<img  class="text-center" src="@Url.Content("~/Content/images/fact-2.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Fact"/>
-		<div class="col-lg-12 col-md-12 col-sm-12">
-            <h4 style="font-size:20px;" class="text-left">Businesses want to know what they don't know</h4>
-		    <p class="text-left">Everyone is limited by not knowing what they don't know. SizeUp provides information to businesses that they don't know they need, but which can make. <a href="#">Learn more.</a></p>
-	</div>
+            <h4 style="font-size: 20px;" class="text-left">Businesses want to outperform the competition
+            </h4>
+            <p class="text-left">SizeUp enables businesses to perform side-by-side, apples-to-apples
+                competitiveness comparison of their business to all other competitors in their industry
+                from the local. <a href="#">Learn more.</a></p>
         </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <img  class="text-center" src="@Url.Content("~/Content/images/fact-2.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Fact"/>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h4 style="font-size: 20px;" class="text-left">Businesses want to know what they don't
+                know</h4>
+            <p class="text-left">Everyone is limited by not knowing what they don't know. SizeUp
+                provides information to businesses that they don't know they need, but which can
+                make. <a href="#">Learn more.</a></p>
+        </div>
+    </div>
 </div>
-<div id="gauge" class="col-lg-12 text-center clearfix" style="color:#ffffff;margin-top:0;padding-top:1em;padding-bottom:1em; background-color:#005687; font-size:18px;border-top:none;">
-	<span>Find out where your customers, competitors, and suppliers are.</span><a href="#login-form" type="button" id="submit-btn" style="margin-left:1em;" class="btn btn-green btn-primary btn-lg">Start Analysis</a>
+<div id="gauge" class="col-lg-12 text-center clearfix" style="color: #ffffff; margin-top: 0; padding-top: 1em; padding-bottom: 1em; background-color: #005687; font-size: 18px; border-top: none;">
+    <span>Find out where your customers, competitors, and suppliers are.</span><a href="#login-form"
+        type="button" id="continue" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">Start
+        Analysis</a>
 </div>
 <!-- Competition End -->
 
 
-<div id="advertisement" class="col-lg-12 clearfix" style="padding-bottom:2em; border-bottom:none;">
-	<div class="col-lg-12" style="margin-bottom:2em;">
-		<img  class="text-center" src="@Url.Content("~/Content/images/advertise-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/>
-		<h2>Where should I advertise?</h2>
-		<p style="color:#005687;font-size:1.2em;">SizeUp can help you find the best places to target your advertisements to help market your business.</p>
-	</div>
-			
-	<br/>
-	<div class="row">
-		<div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom:1em;">
-			<div class="col-md-12 col-sm-12 text-left">
-				<img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
-			</div>
-			<div class="copy text-left col-md-12 col-sm-12 ">
-				<h4>Revenue</h4>
-				<p>Find the successful areas by searching for the highest total, average, or per capita revenue.</p>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom:1em;">
-			<div class="col-md-12 col-sm-12 text-left">
-				<img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
-			</div>
-			<div class="copy text-left col-md-12 col-sm-12 ">
-				<h4>Most Undeserved Areas</h4>
-				<p>If you are a local-serving retail or service business, try looking for areas that lack what you offer.</p>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom:1em;">
-			<div class="col-md-12 col-sm-12 text-left">
-				<img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
-			</div>
-			<div class="copy text-left col-md-12 col-sm-12 ">
-				<h4>Employees</h4>
-				<p>Are your customers those that work in a certain industry? Find out where those people are.</p>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom:1em;">
-			<div class="col-md-12 col-sm-12 text-left">
-				<img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
-			</div>
-			<div class="copy text-left col-md-12 col-sm-12 ">
-				<h4>Income</h4>
-				<p>If local spending power is important, you can find areas with high or low household incomes.</p>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom:1em;">
-			<div class="col-md-12 col-sm-12 text-left">
-				<img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
-			</div>
-			<div class="copy text-left col-md-12 col-sm-12 ">
-				<h4>Set your custom criteria</h4>
-				<p>Add demographic or industry filters to narrow in on the areas of importance to your business.</p>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom:1em;">
-			<div class="col-md-12 col-sm-12 text-left">
-				<img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
-			</div>
-			<div class="copy text-left col-md-12 col-sm-12 ">
-				<h4>Search locally or nationally</h4>
-				<p>Adjust the range of the report from a few miles around you to the entire nation.</p>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div id="advertisement-map" class="col-lg-12" style="background-color:#005687;color:#ffffff; padding:2em 2em 4em 2em;">
-    <div class="row">
-	    <div class="container">
-		    <div class="col-lg-12">
-			    <h3>What's the best place to advertise?</h3>
-			    <p>All you need to analyze your local business. Make the right decisions.</p>
-		    </div>
-		    <div class="col-lg-8">&nbsp;</div>
-	    </div>
+<div id="advertisement" class="col-lg-12 clearfix" style="padding-bottom: 2em; border-bottom: none;">
+    <div class="col-lg-12" style="margin-bottom: 2em;">
+        <img  class="text-center" src="@Url.Content("~/Content/images/advertise-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/>
+        <h2>Where should I advertise?</h2>
+        <p style="color: #005687; font-size: 1.2em;">SizeUp can help you find the best places
+            to target your advertisements to help market your business.</p>
     </div>
-			
-    <div class="row">
-	    <div class="container">
-		    <div class="col-lg-8 col-md-8" style="background: url('Content/images/advertisingMap2.png') repeat-x;width: 648px;height: 429px;display: block; margin-top:2em;">
-			    <div class="marker-set" id="total-revenue">
-				    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 marker text-center">
-					    <span>$6,500,000-$11,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-6 marker text-center">
-					    <span>$11,000,000-$65,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-4 marker text-center">
-					    <span>$3,250,000-$4,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-1 marker text-center">
-					    <span>$3,250,000 and below</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-6 marker text-center">
-					    <span>$4,500,000-$6,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-			    </div>
-			    <div class="marker-set" id="revenue-per-capita">
-				    <div class="col-lg-4 col-lg-offset-6 marker text-center">
-					    <span>$6,500,000-$11,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-4 marker text-center">
-					    <span>$11,000,000-$65,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-1 marker text-center">
-					    <span>$3,250,000-$4,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-5 marker text-center">
-					    <span>$3,250,000 and below</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-3 marker text-center">
-					    <span>$4,500,000-$6,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-			    </div>
-			    <div class="marker-set" id="undeserved-markets">
-				    <div class="col-lg-4 col-lg-offset-4 marker text-center">
-					    <span>$6,500,000-$11,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-2 marker text-center">
-					    <span>$11,000,000-$65,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-6 marker text-center">
-					    <span>$3,250,000-$4,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-4 marker text-center">
-					    <span>$3,250,000 and below</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-2 marker text-center">
-					    <span>$4,500,000-$6,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-			    </div>
-			    <div class="marker-set" id="average-revenue">
-				    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 marker text-center">
-					    <span>$6,500,000-$11,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-5 marker text-center">
-					    <span>$11,000,000-$65,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-3 marker text-center">
-					    <span>$3,250,000-$4,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-5 marker text-center">
-					    <span>$3,250,000 and below</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-5 marker text-center">
-					    <span>$4,500,000-$6,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-			    </div>
-			    <div class="marker-set" id="total-employees">
-				    <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 marker text-center">
-					    <span>$6,500,000-$11,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-2 marker text-center">
-					    <span>$11,000,000-$65,000,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-7 marker text-center">
-					    <span>$3,250,000-$4,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-4 marker text-center">
-					    <span>$3,250,000 and below</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-				    <div class="col-lg-4 col-lg-offset-1 marker text-center">
-					    <span>$4,500,000-$6,500,000</span>
-					    <br/>
-					    <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
-				    </div>
-			    </div>
-		    </div>
-		    <div class="col-lg-3 col-lg-offset-1 col-md-3 text-center" style="color:black;">
-						
-			    <div class="panel panel-default" style="font-size:1.2em;">
-				    <!-- Default panel contents -->
-						  
-				    <div class="panel-body">
-				    @*<img src="img/stack.png"/>*@
-				    <div>
-					    <p style="margin-top:0.5em;margin-bottom:0;color:#005687;" class="col-lg-10 col-lg-offset-1">Places to advertise based on</p>
-				    </div>
-				    </div>
 
-				    <!-- List group -->
-				    <ul id="advertise-selection" class="list-group">
-				    <a href="" id="total-revenue" class="list-group-item active">Total revenue</a>
-				    <a href="" id="revenue-per-capita" class="list-group-item">Revenue per capita</a>
-				    <a href="" id="undeserved-markets" class="list-group-item">Most undeserved markets</a>
-				    <a href="" id="average-revenue" class="list-group-item">Average revenue</a>
-				    <a href="" id="total-employees" class="list-group-item">Total employees</a>
-				    </ul>
-			    </div>
-		    </div>
-	    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom: 1em;">
+            <div class="col-md-12 col-sm-12 text-left">
+                <img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
+            </div>
+            <div class="copy text-left col-md-12 col-sm-12 ">
+                <h4>Revenue</h4>
+                <p>Find the successful areas by searching for the highest total, average, or per capita
+                    revenue.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom: 1em;">
+            <div class="col-md-12 col-sm-12 text-left">
+                <img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
+            </div>
+            <div class="copy text-left col-md-12 col-sm-12 ">
+                <h4>Most Undeserved Areas</h4>
+                <p>If you are a local-serving retail or service business, try looking for areas that
+                    lack what you offer.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom: 1em;">
+            <div class="col-md-12 col-sm-12 text-left">
+                <img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
+            </div>
+            <div class="copy text-left col-md-12 col-sm-12 ">
+                <h4>Employees</h4>
+                <p>Are your customers those that work in a certain industry? Find out where those people
+                    are.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom: 1em;">
+            <div class="col-md-12 col-sm-12 text-left">
+                <img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
+            </div>
+            <div class="copy text-left col-md-12 col-sm-12 ">
+                <h4>Income</h4>
+                <p>If local spending power is important, you can find areas with high or low household
+                    incomes.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom: 1em;">
+            <div class="col-md-12 col-sm-12 text-left">
+                <img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
+            </div>
+            <div class="copy text-left col-md-12 col-sm-12 ">
+                <h4>Set your custom criteria</h4>
+                <p>Add demographic or industry filters to narrow in on the areas of importance to your
+                    business.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 clearfix" style="margin-bottom: 1em;">
+            <div class="col-md-12 col-sm-12 text-left">
+                <img  class="text-center" src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Checkmark"/>
+            </div>
+            <div class="copy text-left col-md-12 col-sm-12 ">
+                <h4>Search locally or nationally</h4>
+                <p>Adjust the range of the report from a few miles around you to the entire nation.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
-<div id="gauge" class="col-lg-12 text-center clearfix" style="margin-top:0;padding-top:1em;padding-bottom:1em;font-size:18px;">
-    <span>Find out now where to advertise.</span><a href="#login-form" type="button" id="submit-btn" style="margin-left:1em;" class="btn btn-green btn-primary btn-lg">Start Analysis</a>
+
+<div id="advertisement-map" class="col-lg-12" style="background-color: #005687; color: #ffffff;
+    padding: 2em 2em 4em 2em;">
+    <div class="row">
+        <div class="container">
+            <div class="col-lg-12">
+                <h3>What's the best place to advertise?</h3>
+                <p>All you need to analyze your local business. Make the right decisions.</p>
+            </div>
+            <div class="col-lg-8">&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container">
+            <div class="col-lg-8 col-md-8" style="background: url('Content/images/advertisingMap2.png') repeat-x;
+                width: 648px; height: 429px; display: block; margin-top: 2em;">
+                <div class="marker-set" id="total-revenue">
+                    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 marker text-center">
+                        <span>$6,500,000-$11,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-6 marker text-center">
+                        <span>$11,000,000-$65,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-4 marker text-center">
+                        <span>$3,250,000-$4,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-1 marker text-center">
+                        <span>$3,250,000 and below</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-6 marker text-center">
+                        <span>$4,500,000-$6,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                </div>
+                <div class="marker-set" id="revenue-per-capita">
+                    <div class="col-lg-4 col-lg-offset-6 marker text-center">
+                        <span>$6,500,000-$11,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-4 marker text-center">
+                        <span>$11,000,000-$65,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-1 marker text-center">
+                        <span>$3,250,000-$4,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-5 marker text-center">
+                        <span>$3,250,000 and below</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-3 marker text-center">
+                        <span>$4,500,000-$6,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                </div>
+                <div class="marker-set" id="undeserved-markets">
+                    <div class="col-lg-4 col-lg-offset-4 marker text-center">
+                        <span>$6,500,000-$11,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-2 marker text-center">
+                        <span>$11,000,000-$65,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-6 marker text-center">
+                        <span>$3,250,000-$4,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-4 marker text-center">
+                        <span>$3,250,000 and below</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-2 marker text-center">
+                        <span>$4,500,000-$6,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                </div>
+                <div class="marker-set" id="average-revenue">
+                    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 marker text-center">
+                        <span>$6,500,000-$11,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-5 marker text-center">
+                        <span>$11,000,000-$65,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-3 marker text-center">
+                        <span>$3,250,000-$4,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-5 marker text-center">
+                        <span>$3,250,000 and below</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-5 marker text-center">
+                        <span>$4,500,000-$6,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                </div>
+                <div class="marker-set" id="total-employees">
+                    <div class="col-lg-4 col-lg-offset-5 col-md-4 col-md-offset-5 marker text-center">
+                        <span>$6,500,000-$11,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-2 marker text-center">
+                        <span>$11,000,000-$65,000,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-7 marker text-center">
+                        <span>$3,250,000-$4,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-4 marker text-center">
+                        <span>$3,250,000 and below</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                    <div class="col-lg-4 col-lg-offset-1 marker text-center">
+                        <span>$4,500,000-$6,500,000</span>
+                        <br />
+                        <img src="@Url.Content("~/Content/images/marker.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Marker"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-lg-offset-1 col-md-3 text-center" style="color: black;">
+
+                <div class="panel panel-default" style="font-size: 1.2em;">
+                    <!-- Default panel contents -->
+
+                    <div class="panel-body">
+                        @*<img src="img/stack.png"/>*@
+                        <div>
+                            <p style="margin-top: 0.5em; margin-bottom: 0; color: #005687;" class="col-lg-10 col-lg-offset-1">
+                                Places to advertise based on</p>
+                        </div>
+                    </div>
+
+                    <!-- List group -->
+                    <ul id="advertise-selection" class="list-group">
+                        <a href="" id="total-revenue" class="list-group-item active">Total revenue</a>
+                        <a href="" id="revenue-per-capita" class="list-group-item">Revenue per capita</a>
+                        <a href="" id="undeserved-markets" class="list-group-item">Most undeserved markets</a>
+                        <a href="" id="average-revenue" class="list-group-item">Average revenue</a>
+                        <a href="" id="total-employees" class="list-group-item">Total employees</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="gauge" class="col-lg-12 text-center clearfix" style="margin-top: 0; padding-top: 1em; padding-bottom: 1em; font-size: 18px;">
+    <span>Find out now where to advertise.</span><a href="#login-form" type="button" id="continue" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">Start Analysis</a>
 </div>
 
-<script type="text/javascript">
-    var current_fs, next_fs, previous_fs; //fieldsets
-    var left, opacity, scale; //fieldset properties which we will animate
-    var animating; //flag to prevent quick multi-click glitches
+@section scripts{
+    <script type="text/javascript">       
+        var done = function () {
+            var opts = {
+                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
+                };
+            var driver = new sizeup.views.home(opts);
+        };
+        var notifier = new sizeup.core.notifier(done);
+        var apiLoaded = notifier.getNotifier();
+        var doc = notifier.getNotifier();
 
-    window.onload = function(){
-        $('#competition .carousel').carousel('pause');
+        $(document).ready(function(){
+            doc();
+
+            var current_fs, next_fs, previous_fs; //fieldsets
+            var left, opacity, scale; //fieldset properties which we will animate
+            var animating; //flag to prevent quick multi-click glitches
+
+            $('#competition .carousel').carousel('pause');
 
 
 
-        $('#submit-btn').on('click', function(e){
-            if(animating) return false;
-            animating = true;
+            $('#continue').on('click', function(e){
+                if(animating) return false;
+                animating = true;
  
-            current_fs = $(this).closest('fieldset');
-            next_fs = $(this).closest('fieldset').next();
+                current_fs = $(this).closest('fieldset');
+                next_fs = $(this).closest('fieldset').next();
 
-            //show the next fieldset
-            next_fs.show(); 
-            //hide the current fieldset with style
-            current_fs.animate({opacity: 0}, {
-                step: function(now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"   
-                    //1. scale current_fs down to 80%
-                    scale = 1 - (1 - now) * 0.2;
-                    //2. bring next_fs from the right(50%)
-                    left = (now * 50)+"%";
-                    //3. increase opacity of next_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({'transform': 'scale('+scale+')'});
-                    next_fs.css({'left': left, 'opacity': opacity, 'top':'22.5em', 'width': '0%'});
+                //show the next fieldset
+                next_fs.show(); 
+                //hide the current fieldset with style
+                current_fs.animate({opacity: 0}, {
+                    step: function(now, mx) {
+                        //as the opacity of current_fs reduces to 0 - stored in "now"   
+                        //1. scale current_fs down to 80%
+                        scale = 1 - (1 - now) * 0.2;
+                        //2. bring next_fs from the right(50%)
+                        left = (now * 50)+"%";
+                        //3. increase opacity of next_fs to 1 as it moves in
+                        opacity = 1 - now;
+                        current_fs.css({'transform': 'scale('+scale+')'});
+                        next_fs.css({'left': left, 'opacity': opacity, 'top':'22.5em', 'width': '0%'});
 
-                }, 
-                duration: 1, 
-                complete: function(){
-                    current_fs.hide();
-                    animating = false;
-                    next_fs.css({'position': 'inherit', 'margin-top':'2.6em', 'width':'100%'});
-                    $("#step-two .container").toggleClass("flipped");
-                }, 
-                //this comes from the custom easing plugin
-                easing: 'linear'
+                    }, 
+                    duration: 1, 
+                    complete: function(){
+                        current_fs.hide();
+                        animating = false;
+                        next_fs.css({'position': 'inherit', 'margin-top':'2.6em', 'width':'100%'});
+                        $("#step-two .container").toggleClass("flipped");
+                    }, 
+                    //this comes from the custom easing plugin
+                    easing: 'linear'
+                });
             });
+
+            $('#step-two .container.flipped .card, #step-two .back, #step-two .card ').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',   
+            function(e) {
+                $('#step-two .face').css({ '-ms-backface-visibility' : 'visible', 'backface-visibility' : 'visible' });
+            });
+
+            $('#row-switch').hide();
+            $('#decisions a.right-col').hide();
+            var activeId = $("#advertise-selection a.active").attr("id");
+            $(".marker-set#" + activeId).addClass('active');
+
+            $("#advertise-selection a").on('click', function(e){
+                $("#advertise-selection a.active, .marker-set.active").removeClass('active');
+                $(this).addClass('active');
+                var activeId = $("#advertise-selection a.active").attr("id");
+                $(".marker-set#" + activeId).addClass('active');
+                return false;
+            });
+
+            checkWidth();
         });
-
-
-    };
-
-
-    $('#step-two .container.flipped .card, #step-two .back, #step-two .card ').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',   
-    function(e) {
-        $('#step-two .face').css({ '-ms-backface-visibility' : 'visible', 'backface-visibility' : 'visible' });
-    });
-
-    $('#row-switch').hide();
-    $('#decisions a.right-col').hide();
-    var activeId = $("#advertise-selection a.active").attr("id");
-    $(".marker-set#" + activeId).addClass('active');
-
-    $("#advertise-selection a").on('click', function(e){
-        $("#advertise-selection a.active, .marker-set.active").removeClass('active');
-        $(this).addClass('active');
-        var activeId = $("#advertise-selection a.active").attr("id");
-        $(".marker-set#" + activeId).addClass('active');
-        return false;
-    });
-</script>
+    </script>
+}

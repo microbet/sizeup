@@ -35,6 +35,7 @@
             me.form.location.detectedLocation = $('#detectedLocation');
             me.form.location.enteredLocation = $('#enteredLocation');
             me.form.location.cityTextbox = $('#searchCommunity');
+            me.form.location.cityTextboxAddon = $('#location-container .input-group-addon');
 
             me.form.location.detectedLocation.find('.changeLocation').click(onChangeCityClicked);
             me.form.location.enteredLocation.find('.changeLocation').click(onChangeCityClicked);
@@ -92,18 +93,21 @@
         var showDetectedCity = function () {
             me.form.location.detectedLocation.removeClass('hidden');
             me.form.location.cityTextbox.addClass('hidden');
+            me.form.location.cityTextboxAddon.addClass('hidden');
             me.form.location.enteredLocation.addClass('hidden');
         };
 
         var showCurrentCity = function () {
             me.form.location.detectedLocation.addClass('hidden');
             me.form.location.cityTextbox.addClass('hidden');
+            me.form.location.cityTextboxAddon.addClass('hidden');
             me.form.location.enteredLocation.removeClass('hidden');
         };
 
         var showPlaceSelector = function () {
             me.form.location.detectedLocation.addClass('hidden');
             me.form.location.cityTextbox.removeClass('hidden');
+            me.form.location.cityTextboxAddon.removeClass('hidden');
             me.form.location.enteredLocation.addClass('hidden');
         };
 
