@@ -13,13 +13,15 @@
 		$('label[for=business]').text("Business Owner");
 	}**/
 
-    // slider disappering
+    // slider disappering / advertisement map
     if (x <= 768 || screen.width <= 768) {
         $('#slider-column').hide();
         $('#slider-sibling-column').children().css('padding-left', '0px');
+        $('#advertisement-map').hide();
     } else {
         $('#slider-column').show();
         $('#slider-sibling-column').children().css('padding-left', 'inherit');
+        $('#advertisement-map').show();
     }
 
     if (x <= 1199 || screen.width <= 1199) {
@@ -37,19 +39,19 @@
 
     // industry/location inputs
     if (x <= 426 || screen.width <= 426) {
-        if ($('#industry span').is(':visible')) {
-            $('#industry span').hide();
+        if ($('#industry-container span').is(':visible')) {
+            $('#industry-container span').hide();
         }
-        if ($('#location span').is(':visible')) {
-            $('#location span').hide();
+        if ($('#location-container span').is(':visible')) {
+            $('#location-container span').hide();
         }
     } else {
-        if (!$('#industry span').is(':visible')) {
-            $('#industry span').show();
+        if (!$('#industry-container span').is(':visible')) {
+            $('#industry-container span').show();
         }
 
-        if (!$('#location span').is(':visible')) {
-            $('#location span').show();
+        if (!$('#location-container span').is(':visible')) {
+            $('#location-container span').show();
         }
     }
 
@@ -78,6 +80,15 @@
     } else {
         $('#decisions .copy p:first-child').css('margin-top', '0');
         $('#decisions .copy a').css('margin-bottom', '0');
+    }
+
+    // swap footer section / toggle advertisement-map
+    if (x <= 547 || screen.width <= 547) {
+        $('#footer-sm').show();
+        $('#footer').hide();
+    } else {
+        $('#footer-sm').hide();
+        $('#footer').show();
     }
 }
 
@@ -116,6 +127,7 @@ $(window).scroll(function () {
                 $('.slideDown').css('visibility', 'visible').removeClass('slideDown');
                 $('.slideLeft').css('visibility', 'visible').removeClass('slideLeft');
                 $('.slideRight').css('visibility', 'visible').removeClass('slideRight');
+                $('#carousel-competition-generic').carousel();
             }, 3000);
         }
     });
