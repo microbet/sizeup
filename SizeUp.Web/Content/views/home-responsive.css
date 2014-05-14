@@ -35,9 +35,9 @@ a.changeLocation:hover { color:#1898d3;}
 #step-two .back p { height: 65px; margin-top: .5em; padding-left: .5em; padding-right: .5em; }
 #step-two .container.flipped .front { z-index: 0; }
 
-#continue, #login-btn { -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); text-shadow: -1px 3px 2px rgba(4, 58, 89, 0.35); font-size: 12px; }
+.btn-green, #login-btn { -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); text-shadow: -1px 3px 2px rgba(4, 58, 89, 0.35); font-size: 12px; }
 #login-btn { margin-top: 2em; padding-left: 3%; padding-right: 3%; }
-#continue { font-size: 14px; }
+.btn-green { font-size: 14px; }
 
 #decisions { padding-top: 35px; padding-bottom: 50px; border: 1px solid #e3e3e3; background-color: white; }
 #decisions #section-header { margin-bottom: 3em; }
@@ -104,7 +104,7 @@ a.changeLocation:hover { color:#1898d3;}
     #competition #expenditures #animatedLegend { left: 12.5em; top: 12em; }
     #competition #expenditures #animatedFlyer { right: 12.5em; top: 5em; }
 
-    #continue { padding: 0.75em 4em; }
+    .btn-green { padding: 0.75em 4em; }
 }
 
 @media (min-width: 992px) and (max-width:1199px) {
@@ -115,7 +115,7 @@ a.changeLocation:hover { color:#1898d3;}
     #competition #expenditures #animatedLegend { left: 15.5em; top: 23.75em; }
     #competition #expenditures #animatedFlyer { right: 4em; top: 17em; }
 
-    #continue { padding: 0.75em 2em; }
+    .btn-green { padding: 0.75em 2em; }
 }
 
 @media (min-width: 700px) and (max-width:991px) {
@@ -126,13 +126,13 @@ a.changeLocation:hover { color:#1898d3;}
     #competition #expenditures #animatedLegend { left: 4.5em; top: 14.75em; }
     #competition #expenditures #animatedFlyer { right: 0em; top: 12em; }
 
-    #continue { padding: 0.75em 5em; }
+    .btn-green { padding: 0.75em 5em; }
 }
 
 @media (min-width: 668px) and (max-width:699px) {
-    #continue { padding: 0.75em 5em; }
+    .btn-green { padding: 0.75em 5em; }
 }
 
 @media (min-width: 613px) and (max-width:667px) {
-    #continue { padding: 0.75em 3em; }
+    .btn-green { padding: 0.75em 3em; }
 }
