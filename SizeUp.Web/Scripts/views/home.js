@@ -31,7 +31,7 @@
             me.errors.noIndustryMatches = $('#noIndustryMatchesMessage');
             me.errors.invalidCity = $('#invalidCityMessage');
             me.errors.noValuesEntered = $('#noValuesEntered');
-            me.form.submit = $('#continue');
+            me.form.submit = $('#inline-continue, #row-continue');
             me.form.location.detectedLocation = $('#detectedLocation');
             me.form.location.enteredLocation = $('#enteredLocation');
             me.form.location.cityTextbox = $('#searchCommunity');
