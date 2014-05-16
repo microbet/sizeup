@@ -263,6 +263,7 @@
     <Content Include="Content\images\sliders-zoom-map.png" />
     <Content Include="Content\images\slideScorecard.png" />
     <Content Include="Content\images\slideYear.png" />
+    <Content Include="Content\images\square-advertise.png" />
     <Content Include="Content\images\square-layers.png" />
     <Content Include="Content\images\square-pushpin.png" />
     <Content Include="Content\images\up-down.png" />

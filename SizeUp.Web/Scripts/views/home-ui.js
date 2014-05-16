@@ -34,7 +34,7 @@
     if (x <= 780 || screen.width <= 780) {
         $('#competition #competition-carousel-wrapper').css('padding-bottom', '0em').hide();
     } else {
-        $('#competition #competition-carousel-wrapper').css('padding-bottom', '5em').show();
+        //$('#competition #competition-carousel-wrapper').css('padding-bottom', '5em').show();
     }
 
     // industry/location inputs

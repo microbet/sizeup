@@ -21,15 +21,15 @@
 <!-- Login Form Start -->
 <div id="login-form" class="jumbotron">
     <div class="text-center">
-        <h1 style="font-size:36px;" id="form-header">Business Intelligence for All</h1>
-        <p style="color:white;font-weight:100;line-height: 24px;">In 3 steps you will learn how your business stacks up to your competition.</p>
+        <h1 style="font-size:36px;font-weight:400;" id="form-header">Business Intelligence for All</h1>
+        <p style="color:white;line-height: 24px;">In 3 steps you will learn how your business stacks up to your competition.</p>
     </div>
     <form id="form" style="margin-bottom:0.5em;">
 
         <fieldset style="height:265px;margin-top:2.6em;padding-top:.95em;">
-            <span style="position: absolute; left: 47em; top: 16em; z-index: 100;" id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</span>
-            <span style="position: absolute; left: 47em; top: 21.6em; z-index: 100;" id="invalidCityMessage" class="info hidden">Please enter a valid city name and select from the dropdown.</span>
-            <span style="position: absolute; left: 47em; top: 21.6em; z-index: 100;" id="noValuesEntered" class="info hidden">Please enter a city and industry and select from the dropdowns.</span>
+            <span style="position: absolute; left: 47em; top: 36em; z-index: 100;" id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</span>
+            <span style="position: absolute; left: 47em; top: 37.6em; z-index: 100;" id="invalidCityMessage" class="info hidden">Please enter a valid city name and select from the dropdown.</span>
+            <span style="position: absolute; left: 47em; top: 36em; z-index: 100;" id="noValuesEntered" class="info hidden">Please enter a city and industry and select from the dropdowns.</span>
 
             <div id="industry-container" class="container input-group col-md-7 col-sm-12 col-xs-12">
                 <span class="input-group-addon input-group-blue">My industry is</span>
@@ -138,34 +138,34 @@
         <div class="col-wrapper col-lg-4 clearfix">
             <div class="col-lg-4 text-center">
                 <img src="@Url.Content("~/Content/images/gauge-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="My Business Logo"/><br />
-                <a class="left-col btn btn-blue" href="#performance" role="button" style="font-size:12px;">Learn more</a>
+                <a class="left-col btn btn-blue" href="#" onclick="$('html, body').animate({scrollTop: $('#performance').offset().top }, 1000);" role="button" style="font-size:12px;">Learn more</a>
             </div>
             <div class="copy text-left col-lg-8">
                 <h3 class="text-blue">How do I compare?</h3>
-                <p>Find out how you measure up to the rest of the competition in your industry.<a href="#performance">Learn more.</a></p>
-                <a class="right-col btn btn-blue" href="#performance" role="button">Learn more</a>
+                <p>Find out how you measure up to the rest of the competition in your industry.<a href="#" onclick="$('html, body').animate({scrollTop: $('#performance').offset().top }, 1000);" >Learn more.</a></p>
+                <a class="right-col btn btn-blue" href="#" onclick="$('html, body').animate({scrollTop: $('#performance').offset().top }, 1000);" role="button">Learn more</a>
             </div>
         </div>
         <div class="col-wrapper col-lg-4 clearfix">
             <div class="col-lg-4 text-center">
                 <img src="@Url.Content("~/Content/images/compete-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition Logo"/><br />
-                <a class="left-col btn btn-blue" href="#competition" role="button" style="font-size:12px;">Learn more</a>
+                <a class="left-col btn btn-blue" href="#" onclick="$('html, body').animate({scrollTop: $('#competition').offset().top }, 1000);" role="button" style="font-size:12px;">Learn more</a>
             </div>
             <div class="copy text-left col-lg-8">
                 <h3 class="text-blue">Where are my customers?</h3>
-                <p>See the locations of potential customers, suppliers, and competitors.<a href="#competition">Learn more.</a></p>
-                <a class="right-col btn btn-blue" href="#competition" role="button">Learn more</a>
+                <p>See the locations of potential customers, suppliers, and competitors.<a href="#" onclick="$('html, body').animate({scrollTop: $('#competition').offset().top }, 1000);" >Learn more.</a></p>
+                <a class="right-col btn btn-blue" href="#" onclick="$('html, body').animate({scrollTop: $('#competition').offset().top }, 1000);" role="button">Learn more</a>
             </div>
         </div>
         <div class="col-wrapper col-lg-4 clearfix">
             <div class="col-lg-4 text-center">
                 <img src="@Url.Content("~/Content/images/advertise-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement Logo"/><br />
-                <a class="left-col btn btn-blue" href="#advertisement" role="button" style="font-size:12px;">Learn more</a>
+                <a class="left-col btn btn-blue" href="#" onclick="$('html, body').animate({scrollTop: $('#advertisement').offset().top }, 1000);" role="button" style="font-size:12px;">Learn more</a>
             </div>
             <div class="copy text-left col-lg-8">
                 <h3 class="text-blue">Where should I advertise?</h3>
-                <p>Invest your advertising budget in the right place. <a href="#advertisement">Learn more.</a></p>
-                <a class="right-col btn btn-blue" href="#advertisement" role="button">Learn more</a>
+                <p>Invest your advertising budget in the right place. <a href="#"  onclick="$('html, body').animate({scrollTop: $('#advertisement').offset().top }, 1000);" >Learn more.</a></p>
+                <a class="right-col btn btn-blue" href="#" onclick="$('html, body').animate({scrollTop: $('#advertisement').offset().top }, 1000);" role="button">Learn more</a>
             </div>
         </div>
     </div>
@@ -242,8 +242,7 @@
 </div>
 <div class="blue-footer col-lg-12 text-center clearfix">
     <span>Get started with your comparative market analysis now.</span>
-    <a href="#login-form" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">
-        Start Analysis</a>
+    <a href="#" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Start Analysis</a>
 </div>
 <!-- Performance End -->
 
@@ -257,7 +256,7 @@
     </div>
 
 
-    <div id="competition-carousel-wrapper" class="col-lg-12">
+    <div id="competition-carousel-wrapper" class="col-lg-12" style="margin-bottom:0;">
         <div id="carousel-competition-generic" class="carousel slide">
 
             <div class="carousel-inner">
@@ -371,7 +370,7 @@
             </h4>
             <p class="text-left">SizeUp enables businesses to perform side-by-side, apples-to-apples
                 competitiveness comparison of their business to all other competitors in their industry
-                from the local. <a href="#">Learn more.</a></p>
+                from the local. <a href="#" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Learn more.</a></p>
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -381,12 +380,12 @@
                 know</h4>
             <p class="text-left">Everyone is limited by not knowing what they don't know. SizeUp
                 provides information to businesses that they don't know they need, but which can
-                make. <a href="#">Learn more.</a></p>
+                make. <a href="#" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Learn more.</a></p>
         </div>
     </div>
 </div>
 <div id="gauge" class="col-lg-12 text-center clearfix" style="color: #ffffff; margin-top: 0; padding-top: 1em; padding-bottom: 1em; background-color: #005687; font-size: 18px; border-top: none;">
-    <span>Find out where your customers, competitors, and suppliers are.</span><a href="#login-form" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">Start Analysis</a>
+    <span>Find out where your customers, competitors, and suppliers are.</span><a href="#" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Start Analysis</a>
 </div>
 <!-- Competition End -->
 
@@ -471,15 +470,14 @@
         <div class="container">
             <div class="col-lg-12">
                 <h2 style="font-weight:100;">What's the best place to advertise?</h2>
-                <p style="font-weight:100; margin-bottom:0;color:white;">All you need to analyze your local business. Make the right decisions.</p>
+                <p style="letter-spacing:0.5px; font-weight:100; margin-bottom:0;color:white;">All you need to analyze your local business. Make the right decisions.</p>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="container">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="background: url('Content/images/advertisingMap2.png') repeat-x; 
-                max-width: 648px; height: 429px; display: block; margin-top: 4em;">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="background: url('Content/images/advertisingMap2.png') repeat-x; max-width: 648px; height: 429px; display: block; margin-top: 4em;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marker-set" id="total-revenue">
                     <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-sm-6 col-sm-offset-2 col-xs-7 col-xs-offset-2 marker text-center">
                         <span>$6,500,000-$11,000,000</span>
@@ -643,7 +641,7 @@
     </div>
 </div>
 <div id="gauge" class="col-lg-12 text-center clearfix" style="border:1px solid #e3e3e3; border-top:none; margin-top: 0; padding-top: 1em; padding-bottom: 1em; font-size: 18px;">
-    <span>Find out now where to advertise.</span><a href="#login-form" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg">Start Analysis</a>
+    <span>Find out now where to advertise.</span><a href="#" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Start Analysis</a>
 </div>
 
 @section scripts{
@@ -660,11 +658,9 @@
 
         $(document).ready(function(){
             checkWidth();
-
             doc();
 
             $('#carousel-competition-generic').carousel('pause');
-
             $('#step-two .container.flipped .card, #step-two .back, #step-two .card ').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',   
             function(e) {
                 $('#step-two .face').css({ '-ms-backface-visibility' : 'visible'});
@@ -685,8 +681,6 @@
                 $(".marker-set#" + activeId).addClass('active');
                 return false;
             });
-
-            
         });
     </script>
 }
