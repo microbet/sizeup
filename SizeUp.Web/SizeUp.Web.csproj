@@ -208,6 +208,7 @@
     <Content Include="Content\images\btn_close.png" />
     <Content Include="Content\images\check-blue.png" />
     <Content Include="Content\images\checkmark.png" />
+    <Content Include="Content\images\cog-wheel.png" />
     <Content Include="Content\images\compete-card.png" />
     <Content Include="Content\images\compete-home.png" />
     <Content Include="Content\images\compete-ribbon-home.png" />
@@ -257,6 +258,7 @@
     <Content Include="Content\images\slider-dot-green.png" />
     <Content Include="Content\images\slider-dot-red.png" />
     <Content Include="Content\images\slider-nav-next.png" />
+    <Content Include="Content\images\slider-nav-prev-white.png" />
     <Content Include="Content\images\slider-nav-prev.png" />
     <Content Include="Content\images\slideRevenue.png" />
     <Content Include="Content\images\sliders-screen-map.png" />

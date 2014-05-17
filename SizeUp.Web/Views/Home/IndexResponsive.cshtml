@@ -81,6 +81,7 @@
             </div>
         </fieldset>
         <fieldset id="step-two" class="text-center" style="position: absolute; top: 22em; right: -54em; margin-bottom: 0em;">
+            <img id="step-two-back" src="@Url.Content("~/Content/images/slider-nav-prev-white.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Back"/>
             <div class="col-lg-10 col-lg-offset-1">
                 <div class="col-lg-4 container">
                     <div class="card">
@@ -666,6 +667,25 @@
                 $('#step-two .face').css({ '-ms-backface-visibility' : 'visible'});
             });
 
+            $('#userMenu').hover(function(e){
+                var ul =  $(this).find('ul');
+                ul.css('display', 'block');
+                $('#userMenu img').attr('src', '/Content/images/cog-wheel-hover.png');
+                ul.hover(function(){ul.css('display', 'block');},function(){ul.css('display', 'none');$('#userMenu img').attr('src', '/Content/images/cog-wheel.png');});
+
+            }, function(e){
+                var ul =  $(this).find('ul');
+                setTimeout(function() {
+                    if( !ul.is(":hover")){
+                        ul.css('display', 'none');$('#userMenu img').attr('src', '/Content/images/cog-wheel.png');
+                    }
+                }, 100); 
+
+                
+
+                
+            });
+
             $('#decisions a.right-col').hide();
             var activeId = $("#advertise-selection a.active").attr("id");
             $(".marker-set#" + activeId).addClass('active');
@@ -680,6 +700,17 @@
                 $(".marker-set#" + activeId).fadeIn(500);
                 $(".marker-set#" + activeId).addClass('active');
                 return false;
+            });
+
+            $("#step-two-back").on('click', function(e){
+                $("#step-two .container").toggleClass("flipped");
+
+                var current_fs = $(this).closest('fieldset');
+                var prev_fs = $(this).closest('fieldset').prev();
+                setTimeout(function() {
+                    current_fs.hide();
+                    prev_fs.css('opacity', '1').show();
+                }, 500);                
             });
         });
     </script>
