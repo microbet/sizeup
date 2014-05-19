@@ -208,6 +208,7 @@
     <Content Include="Content\images\btn_close.png" />
     <Content Include="Content\images\check-blue.png" />
     <Content Include="Content\images\checkmark.png" />
+    <Content Include="Content\images\cog-wheel-hover.png" />
     <Content Include="Content\images\cog-wheel.png" />
     <Content Include="Content\images\compete-card.png" />
     <Content Include="Content\images\compete-home.png" />
@@ -555,6 +556,7 @@
     <Content Include="Areas\Widget\Views\BestIndustries\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Authorize\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Authorize\Authorize.cshtml" />
+    <Content Include="Content\files\Large Enterprise Portals to Serve SMB Customers.pdf" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
@@ -587,6 +589,7 @@
     <Content Include="Views\Home\IndexResponsive.cshtml" />
     <Content Include="Views\Shared\HeaderResponsive.cshtml" />
     <Content Include="Views\Shared\FooterResponsive.cshtml" />
+    <Content Include="Views\Help\EnterprisePartners.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -51,5 +51,18 @@ namespace SizeUp.Web.Controllers
             return View();
         }
 
+        public ActionResult EnterprisePartners()
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideNavigation = true
+            };
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "EnterprisePartners.Content").Select(i => i.Value).FirstOrDefault();
+            }
+            return View();
+        }
+
     }
 }
