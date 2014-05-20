@@ -398,8 +398,8 @@
     <Content Include="Scripts\prettify\prettify.js" />
     <Content Include="Scripts\prettify\run_prettify.js" />
     <Content Include="Scripts\thirdParty\add2home.js" />
+    <Content Include="Scripts\thirdParty\bootstrap-hover-dropdown.min.js" />
     <Content Include="Scripts\thirdParty\jquery.ba-bbq.min.js" />
-    <Content Include="Scripts\thirdParty\jquery.easing.min.js" />
     <Content Include="Scripts\thirdParty\mustache.js" />
     <Content Include="Scripts\thirdParty\raphael-min.js" />
     <Content Include="Scripts\thirdParty\tinycolor-min.js" />

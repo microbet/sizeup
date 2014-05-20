@@ -15,14 +15,15 @@
 
 .btn-green.btn:hover {
     background: #52bb3a; /* Old browsers */ 
-    background: -moz-linear-gradient(top, #52bb3a 0%, #1e4415 100%); /* FF3.6+ */ 
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#52bb3a), color-stop(100%,#1e4415)); /* Chrome,Safari4+ */ 
-    background: -webkit-linear-gradient(top, #52bb3a 0%,#1e4415 100%); /* Chrome10+,Safari5.1+ */ 
-    background: -o-linear-gradient(top, #52bb3a 0%,#1e4415 100%); /* Opera 11.10+ */ 
-    background: -ms-linear-gradient(top, #52bb3a 0%,#1e4415 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #52bb3a 0%,#1e4415 100%); /* W3C */ 
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52bb3a', endColorstr='#1e4415',GradientType=0 ); /* IE6-9 */ 
+    background: -moz-linear-gradient(top, #52bb3a 0%, #316f23 100%); /* FF3.6+ */ 
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#52bb3a), color-stop(100%,#316f23)); /* Chrome,Safari4+ */ 
+    background: -webkit-linear-gradient(top, #52bb3a 0%,#316f23 100%); /* Chrome10+,Safari5.1+ */ 
+    background: -o-linear-gradient(top, #52bb3a 0%,#316f23 100%); /* Opera 11.10+ */ 
+    background: -ms-linear-gradient(top, #52bb3a 0%,#316f23 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #52bb3a 0%,#316f23 100%); /* W3C */ 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#52bb3a', endColorstr='#316f23',GradientType=0 ); /* IE6-9 */ 
     color: #ffffff; 
+    border-color:#19ae24;
 }
 
 .btn-green.btn,
@@ -39,9 +40,9 @@
 .autoComplete-container { /*display:inline-block;*/ position: relative; }
 .autoComplete-container ul.ui-autocomplete { background-color: white; border-color: #80947B #80947B #6F816A #ADBBAA; border-style: solid; border-width: 1px; font-family: Arial,Sans-Serif; overflow: auto; max-height: 19.5em; position: absolute; z-index: 10; width: 100%; }
 .autoComplete-container ul.ui-autocomplete li.ui-menu-item { text-align: left; cursor: default; display: block; line-height: 1.5em; margin: 0; overflow: hidden; }
-.autoComplete-container ul.ui-autocomplete li.ui-menu-item a { color: #303030; font-size: 1.3em; display: block; padding: 0.25em 0.5em; font-weight: normal; }
+.autoComplete-container ul.ui-autocomplete li.ui-menu-item a { color: #303030; font-size: 1em; display: block; padding: 0.25em 0.5em; font-weight: normal; }
 .autoComplete-container ul.ui-autocomplete li.ui-menu-item.odd { background: #EEEEEE; }
-.autoComplete-container ul.ui-autocomplete li.ui-menu-item a.ui-state-hover { background: #FFD86A; border: none; }
+.autoComplete-container ul.ui-autocomplete li.ui-menu-item a.ui-state-hover { background: #99dfff; border: none; text-decoration:none;}
 .autoComplete-container { min-height: 50px; }
 .autoComplete-container.loading input[type=text] { background-image: url(/content/images/loadingSmall.gif); background-repeat: no-repeat; background-position: 100% 50%; background-color: white; }
 
