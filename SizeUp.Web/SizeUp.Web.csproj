@@ -231,6 +231,8 @@
     <Content Include="Content\images\heatmaplegend.png" />
     <Content Include="Content\images\heatPinShadow.png" />
     <Content Include="Content\images\home-gradient.png" />
+    <Content Include="Content\images\icon-startUp.png" />
+    <Content Include="Content\images\icon-sweetSpots.png" />
     <Content Include="Content\images\info.png" />
     <Content Include="Content\images\legend2.png" />
     <Content Include="Content\images\Loading.gif" />
