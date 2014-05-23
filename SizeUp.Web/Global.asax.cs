@@ -121,7 +121,7 @@ namespace SizeUp.Web
 
             routes.MapRoute(
                 "Dashboard", // Route name
-                "dashboard/{state}/{county}/{city}/{industry}", // URL with parameters
+                "dashboard/{state}/{county}/{city}/{industry}/{businessStatus}", // URL with parameters
                 new { controller = "Dashboard", action = "Index" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
             );

@@ -25,6 +25,8 @@ namespace SizeUp.Web.Controllers
             CurrentInfo = new Core.DataLayer.Models.CurrentInfo();
             CurrentInfo.CurrentIndustry = WebContext.Current.CurrentIndustry;
             CurrentInfo.CurrentPlace = WebContext.Current.CurrentPlace;
+            CurrentInfo.CurrentBusinessStatus = WebContext.Current.CurrentBusinessStatus;
+            
             ViewBag.CurrentInfo = CurrentInfo;
             ViewBag.CurrentInfoJSON = Serializer.ToJSON(CurrentInfo);
             ViewBag.Header = data;

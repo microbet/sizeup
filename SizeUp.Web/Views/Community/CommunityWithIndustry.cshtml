@@ -54,7 +54,7 @@
     <p class="description">@(string.Join(", ", ViewBag.IndustryKeywords))</p>
      <ul class="features">
         <li class="dashboard">
-            <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
+            <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey/@ViewBag.CurrentInfo.CurrentBusinessStatus" >
                 <img src="@Url.Content("~/Content/images/mybusinessSmall.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="My Business" />    
                 <p>Compare your business to your industry competitors.</p>
                 <span class="button small" >My Business</span>

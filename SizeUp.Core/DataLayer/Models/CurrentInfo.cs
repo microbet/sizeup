@@ -10,5 +10,6 @@ namespace SizeUp.Core.DataLayer.Models
     {
         public Place CurrentPlace { get; set; }
         public Industry CurrentIndustry { get; set; }
+        public string CurrentBusinessStatus { get; set; }
     }
 }

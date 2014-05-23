@@ -58,9 +58,9 @@
                     </div>
                     <div id="switch-toggle-wrapper">
                         <div class="switch-toggle well">
-                            <input id="business" name="view" type="radio" checked="">
+                            <input id="business" type="radio" name="businessStatus" value="established" checked="">
                             <label for="business" style="cursor: pointer;"></label>
-                            <input id="startup" name="view" type="radio">
+                            <input id="startup" type="radio" name="businessStatus" value="startup">
                             <label for="startup" style="cursor: pointer;"></label>
                             <a class="btn btn-primary"></a>
                         </div>
@@ -75,12 +75,10 @@
                 </div>
                 <div id="row-switch">
                     <div>
-                        <input id="business-sm" name="view" type="radio" checked="">
-                        <label for="business-sm">I have an existing business</label>
+                        <label><input id="business" type="radio" name="businessStatus" value="established" checked=""> I have an existing business</label>
                     </div>
                     <div>
-                        <input id="startup-sm" name="view" type="radio">
-                        <label for="startup-sm">I want to start a business</label>
+                        <label><input id="startup" type="radio" name="businessStatus" value="startup"> I want to start a business</label>
                     </div>
                     <div class="text-center">
                         <br />
@@ -741,6 +739,7 @@
         var doc = notifier.getNotifier();
 
         $(document).ready(function(){
+
             checkWidth();
             doc();
 
@@ -789,6 +788,12 @@
                         .removeClass("col-xs-12");
                 }, 500);                
             });
+
+            var currentInfo = @Html.Raw(ViewBag.CurrentInfoJSON);
+            if(currentInfo.CurrentBusinessStatus)
+            {
+                $('input[id="' + currentInfo.CurrentBusinessStatus + '"]:visible').click();
+            }
         });
     </script>
 }

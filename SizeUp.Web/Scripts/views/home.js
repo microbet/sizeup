@@ -74,6 +74,13 @@
                 me.selectedIndustry = me.opts.currentInfo.CurrentIndustry;
             }
 
+            // temporary click event for startup/business radio selector
+            me.selectedBusinessStatus = $('input[name="businessStatus"]:visible:checked').val();
+            $('input[id="startup"], input[id="business"]').on('click', function () {
+                me.selectedBusinessStatus = $(this).val();
+            });
+
+
             me.form.submit.click(onSubmit);
 
             me.form.container.hide().removeClass('hidden');
@@ -178,7 +185,7 @@
         };
 
         var setSelectorLinks = function () {
-            me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+            me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey + '/' + me.selectedBusinessStatus);
             me.selector.competition.attr('href', 'competition/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
             me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
         };

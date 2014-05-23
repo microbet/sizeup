@@ -13,6 +13,7 @@ namespace SizeUp.Core.Web
         private Core.DataLayer.Models.Place _currentPlace = null;
         private Core.DataLayer.Models.Industry _currentIndustry = null;
         private Core.Web.Feature? _startFeature = null;
+        private string _currentBusinessStatus = null;
 
         public static WebContext Current
         {
@@ -26,6 +27,23 @@ namespace SizeUp.Core.Web
                 }
                 return context;
             }
+        }
+
+        private string GetCurrentBusinessStatus()
+        {
+            var businessStatus = (string)HttpContext.Current.Request.RequestContext.RouteData.Values["businessStatus"];
+            var cookie = HttpContext.Current.Request.Cookies["businessStatus"];
+            string output = null;
+
+            if (!string.IsNullOrEmpty(businessStatus))
+            {
+                output = businessStatus;
+            }
+            else if (cookie != null)
+            {
+                output = cookie.Value;
+            }
+            return output;
         }
 
         private Core.Web.Feature? GetStartFeature()
@@ -93,6 +111,21 @@ namespace SizeUp.Core.Web
             return output == null ? new DataLayer.Models.Place() : output;
         }
 
+        private void SetCurrentBusinessStatus(string businessStatus)
+        {
+            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("businessStatus");
+            if (string.IsNullOrEmpty(businessStatus))
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1.0);
+            }
+            else
+            {
+                cookie.Value = businessStatus;
+                cookie.Expires = DateTime.Now.AddDays(7.0);
+            }
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
+
         private void SetCurrentPlace(Core.DataLayer.Models.Place CurrentPlace)
         {
             HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create("city");
@@ -139,6 +172,26 @@ namespace SizeUp.Core.Web
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
+        public string CurrentBusinessStatus
+        {
+            get
+            {
+                if (_currentBusinessStatus == null)
+                {
+                    _currentBusinessStatus = GetCurrentBusinessStatus();
+                    if (_currentBusinessStatus != null)
+                    {
+                        SetCurrentBusinessStatus(_currentBusinessStatus);
+                    }
+                }
+                return _currentBusinessStatus;
+            }
+            set
+            {
+                _currentBusinessStatus = value;
+                SetCurrentBusinessStatus(value);
+            }
+        }
 
         public Feature? StartFeature
         {

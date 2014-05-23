@@ -15,7 +15,7 @@ namespace SizeUp.Web.Controllers
         //
         // GET: /Dashboard/
 
-        public ActionResult Index(string state, string city, string industry)
+        public ActionResult Index(string state, string city, string industry, string businessStatus)
         {
             if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
             {
