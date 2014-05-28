@@ -238,6 +238,7 @@
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\loadingSmall.gif" />
     <Content Include="Content\images\logosmall.gif" />
+    <Content Include="Content\images\map-advertising.png" />
     <Content Include="Content\images\mapBar.png" />
     <Content Include="Content\images\marker.png" />
     <Content Include="Content\images\markerBuyer.png" />
