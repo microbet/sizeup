@@ -177,7 +177,7 @@
                     current_fs.hide();
                     next_fs.show();
                     next_fs.css({ 'position': 'inherit', 'margin-top': '2.6em', 'width': '100%' });
-                    setTimeout(function () {$("#step-two .container").toggleClass("flipped");}, 1);
+                    setTimeout(function () {$("#step-two .container .card").toggleClass("flipped");}, 1);
                     setTimeout(function () {
                         $("#step-two-back").show();
                         $("#login-form h1").addClass("col-lg-6").addClass("col-lg-offset-2")

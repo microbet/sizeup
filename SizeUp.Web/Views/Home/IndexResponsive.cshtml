@@ -655,10 +655,6 @@
             $('#searchCommunity').focusout(function(){$(this).attr('placeholder',$(this).data('holder'));});
 
             $('#carousel-competition-generic').carousel('pause');
-            $('#step-two .container.flipped .card, #step-two .back, #step-two .card ').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',   
-            function(e) {
-                $('#step-two .face').css({ '-ms-backface-visibility' : 'visible'});
-            });
 
             $('#decisions a.right-col').hide();
             var activeId = $("#advertise-selection a.active").attr("id");
