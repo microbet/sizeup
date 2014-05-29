@@ -673,7 +673,7 @@
             });
 
             $("#step-two-back").on('click', function(e){
-                $("#step-two .container").toggleClass("flipped");
+                $("#step-two .container .card").toggleClass("flipped");
                 var current_fs = $("#form fieldset:last-child");
                 var prev_fs = $("#form fieldset:first-child");
                 setTimeout(function() {
