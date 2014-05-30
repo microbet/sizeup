@@ -74,13 +74,13 @@
                 me.selectedIndustry = me.opts.currentInfo.CurrentIndustry;
             }
 
-            // temporary click event for startup/business radio selector
-            me.selectedBusinessStatus = $('input[name="businessStatus"]:visible:checked').val();
-            // temporarily leave this
-            //if (me.selectedBusinessStatus === undefined) {
-            //    $('input[id="business"]:visible').prop('checked', true);
-            //    me.selectedBusinessStatus = $('input[name="businessStatus"]:visible:checked').val();
-            //}
+            me.selectedBusinessStatus = 'established';
+
+            if (me.opts.currentInfo.CurrentBusinessStatus) {
+                $('input[value="' + me.opts.currentInfo.CurrentBusinessStatus + '"]:visible').click();
+                me.selectedBusinessStatus = $('input[name="businessStatus"]:visible:checked').val();
+            }
+             
             $('input[id="startup"], input[id="business"]').on('click', function () {
                 me.selectedBusinessStatus = $(this).val();
             });

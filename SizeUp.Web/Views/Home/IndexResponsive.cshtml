@@ -685,10 +685,7 @@
                         .removeClass("col-sm-10")
                         .removeClass("col-xs-12");
                 }, 500);                
-            });
-            var currentInfo = @Html.Raw(ViewBag.CurrentInfoJSON);
-            if(currentInfo.CurrentBusinessStatus)
-                $('input[id="' + currentInfo.CurrentBusinessStatus + '"]:visible').click();
+            });            
         });
     </script>
 }
