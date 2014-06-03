@@ -7,11 +7,11 @@
 		y = w.innerHeight || e.clientHeight || g.clientHeight;
 
     // business/startup toggle
-    /**if(x <=356 || screen.width <= 356){
+    /*if(x <=356 || screen.width <= 356){
 		$('label[for=business]').text("Business");
 	} else {
 		$('label[for=business]').text("Business Owner");
-	}**/
+	}*/
 
     // slider disappering / advertisement map
     if (x <= 768 || screen.width <= 768) {
@@ -40,7 +40,7 @@
     if (x <= 780 || screen.width <= 780) {
         $('#competition #competition-carousel-wrapper').css('padding-bottom', '0em').hide();
     } else {
-        //$('#competition #competition-carousel-wrapper').css('padding-bottom', '5em').show();
+        $('#competition #competition-carousel-wrapper').css('padding-bottom', '0em').show();
     }
 
     // industry/location inputs
