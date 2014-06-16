@@ -334,6 +334,7 @@
     <Content Include="Content\widget\Views\user\register.css" />
     <Content Include="Content\widget\Views\user\signin.css" />
     <Content Include="Global.asax" />
+    <Content Include="healthcheck.html" />
     <Content Include="mu-d0a62d64-4aee47b2-9b6e0c4b-06289983.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\charts\BarChart.js" />
