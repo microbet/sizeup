@@ -567,7 +567,7 @@
                 var params = getParameters();
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('competition'));
-                url = url + 'competition/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.competitor.primaryIndustry.SEOKey + '/' + me.opts.CurrentInfo.CurrentBusinessStatus;
+                url = url + 'competition/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.competitor.primaryIndustry.SEOKey + '/' + (me.opts.currentInfo.CurrentBusinessStatus == null ? 'established' : me.opts.currentInfo.CurrentBusinessStatus);
                 url = jQuery.param.querystring(url, jQuery.param.querystring(), 2);
                 url = jQuery.param.fragment(url, params, 2);
                 document.location = url;

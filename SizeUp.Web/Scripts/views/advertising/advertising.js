@@ -518,7 +518,7 @@
                 params.page = 1;
                 var url = document.location.href;
                 url = url.substring(0, url.indexOf('advertising'));
-                url = url + 'advertising/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.activeIndustry.SEOKey + '/' + me.opts.CurrentInfo.CurrentBusinessStatus;
+                url = url + 'advertising/' + i.State.SEOKey + '/' + i.County.SEOKey + '/' + i.City.SEOKey + '/' + me.data.activeIndustry.SEOKey + '/' + (me.opts.currentInfo.CurrentBusinessStatus == null ? 'established' : me.opts.currentInfo.CurrentBusinessStatus);
                 url = jQuery.param.querystring(url, jQuery.param.querystring(), 2);
                 url = jQuery.param.fragment(url, params, 2);
                 document.location = url;
