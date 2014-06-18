@@ -236,7 +236,7 @@
 
 
             script.type = 'text/javascript';
-            var src = me.currentLocation.protocol + '://' + 'a' + p + '.' + me.currentLocation.domain + url;
+            var src = me.currentLocation.protocol + '://' + 'a' + p + '-' + me.currentLocation.domain + url;
             params['cb']  = 'sizeup.api.' + me.jsonpPrefix + '.' + cb;
             script.src = buildTokenUrl(src, params);
             me.head.appendChild(script);

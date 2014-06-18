@@ -16,7 +16,7 @@
 
         var getBaseUrl = function(){
             var p = Math.floor((Math.random()*2) + 1);
-            var urlBase = sourceLocation.protocol + '://t' + p + '.' + sourceLocation.domain + '/' + urlSegment;
+            var urlBase = sourceLocation.protocol + '://t' + p + '-' + sourceLocation.domain + '/' + urlSegment;
             return urlBase;
         };
         var getTileUrl = function (point, zoom) {
