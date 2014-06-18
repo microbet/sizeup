@@ -181,7 +181,7 @@ namespace SizeUp.Core.Web
                     _currentBusinessStatus = GetCurrentBusinessStatus();
                     if (_currentBusinessStatus != null)
                     {
-                        SetCurrentBusinessStatus(_currentBusinessStatus);
+                        //SetCurrentBusinessStatus(_currentBusinessStatus);
                     }
                 }
                 return _currentBusinessStatus;
