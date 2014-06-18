@@ -22,7 +22,7 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult CommunityWithIndustry()
         {
-            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null || CurrentInfo.CurrentBusinessStatus == null)
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
             {
                 throw new HttpException(404, "Page Not Found");
             }

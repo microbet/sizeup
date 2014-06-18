@@ -234,7 +234,8 @@
 
 
                 me.description.html(templates.bind(templates.get("description"), me.data.description));
-                answerClicked(me.opts.report.CurrentBusinessStatus);
+                if (me.opts.report.CurrentBusinessStatus)
+                    answerClicked(me.opts.report.CurrentBusinessStatus);
             }
         };
 

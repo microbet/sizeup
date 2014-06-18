@@ -37,7 +37,7 @@ namespace SizeUp.Web.Areas.Widget
 
             context.MapRoute(
                 "Widget_PlaceIndustryStatus",
-                "Widget/{controller}/{state}/{county}/{city}/{industry}/{businessStatus}",
+                "Widget/{controller}/{state}/{county}/{city}/{industry}",
                 new { action = "Index" },
                 new string[] { "SizeUp.Web.Areas.Widget.Controllers" }
             );

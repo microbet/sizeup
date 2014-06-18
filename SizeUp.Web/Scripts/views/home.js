@@ -75,14 +75,17 @@
             }
 
             me.selectedBusinessStatus = 'established';
+            var date = new Date();
+            date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
 
-            if (me.opts.currentInfo.CurrentBusinessStatus) {
-                $('input[value="' + me.opts.currentInfo.CurrentBusinessStatus + '"]:visible').click();
-                me.selectedBusinessStatus = $('input[name="businessStatus"]:visible:checked').val();
-            }
-             
+            if (me.opts.currentInfo.CurrentBusinessStatus) 
+                me.selectedBusinessStatus = me.opts.currentInfo.CurrentBusinessStatus;
+            else 
+                document.cookie = "businessStatus=" + me.selectedBusinessStatus + "; expires=" + date.toGMTString() + ";";
+            
             $('input[id="startup"], input[id="business"]').on('click', function () {
                 me.selectedBusinessStatus = $(this).val();
+                document.cookie = "businessStatus=" + me.selectedBusinessStatus + ";";
             });
 
 
@@ -190,9 +193,9 @@
         };
 
         var setSelectorLinks = function () {
-            me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey + '/' + me.selectedBusinessStatus);
-            me.selector.competition.attr('href', 'competition/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey + '/' + me.selectedBusinessStatus);
-            me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey + '/' + me.selectedBusinessStatus);
+            me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+            me.selector.competition.attr('href', 'competition/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+            me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
         };
 
         

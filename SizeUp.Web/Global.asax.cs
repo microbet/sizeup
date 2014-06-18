@@ -106,7 +106,7 @@ namespace SizeUp.Web
 
             routes.MapRoute(
                 "Advertising", // Route name
-                "advertising/{state}/{county}/{city}/{industry}/{businessStatus}", // URL with parameters
+                "advertising/{state}/{county}/{city}/{industry}", // URL with parameters
                 new { controller = "Advertising", action = "Index" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
             );
@@ -114,14 +114,14 @@ namespace SizeUp.Web
 
             routes.MapRoute(
                 "Competition", // Route name
-                "competition/{state}/{county}/{city}/{industry}/{businessStatus}", // URL with parameters
+                "competition/{state}/{county}/{city}/{industry}", // URL with parameters
                 new { controller = "Competition", action = "Index" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
             );
 
             routes.MapRoute(
                 "Dashboard", // Route name
-                "dashboard/{state}/{county}/{city}/{industry}/{businessStatus}", // URL with parameters
+                "dashboard/{state}/{county}/{city}/{industry}", // URL with parameters
                 new { controller = "Dashboard", action = "Index" }, // Parameter defaults
                 new string[] { "SizeUp.Web.Controllers" }
             );

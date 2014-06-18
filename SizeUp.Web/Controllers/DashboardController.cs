@@ -15,9 +15,9 @@ namespace SizeUp.Web.Controllers
         //
         // GET: /Dashboard/
 
-        public ActionResult Index(string state, string city, string industry, string businessStatus)
+        public ActionResult Index(string state, string city, string industry)
         {
-            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null || CurrentInfo.CurrentBusinessStatus == null)
+            if (CurrentInfo.CurrentPlace.Id == null || CurrentInfo.CurrentIndustry == null)
             {
                 throw new HttpException(404, "Page Not Found");
             }
