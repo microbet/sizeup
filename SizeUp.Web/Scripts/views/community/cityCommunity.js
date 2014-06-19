@@ -45,7 +45,7 @@
             var url = '/widget/get/bestIndustries/' + opts.CurrentPlace.State.SEOKey + '/' + opts.CurrentPlace.County.SEOKey + '/' + opts.CurrentPlace.City.SEOKey;
             var code =
             '<div>' +
-            '<span><a href="http://' + window.location.host + '" target="_blank">SizeUp</a></span>' +
+            '<span><a href="//' + window.location.host + '" target="_blank">SizeUp</a></span>' +
             '<script src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
             '</div>';
 

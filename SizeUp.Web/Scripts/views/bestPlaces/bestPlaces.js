@@ -532,7 +532,7 @@
             var url = jQuery.param.fragment(base, p, 2);
             var code =
             '<div>' +
-            '<span><a href="http://' + window.location.host + '" target="_blank">SizeUp</a></span>' +
+            '<span><a href="//' + window.location.host + '" target="_blank">SizeUp</a></span>' +
             '<script src="' + window.location.protocol + '//' + window.location.host + url + '"></script>' +
             '</div>';
 
