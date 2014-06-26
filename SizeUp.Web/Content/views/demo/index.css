@@ -1,0 +1,47 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+
+* { margin:0px; padding:0px;}
+
+body { font-family:Arial, Helvetica, sans-serif; margin: 0px; background:url(../../images/demo/background_verlauf.gif) #E9EFF3 repeat-x left top; font-family: Arial, Helvetica, sans-serif; color: #666;}
+
+#container {width: 994px; margin: 0px auto; height: 100%;}
+
+/* *** HEADER AREA *** */
+#headerArea { margin:0px; position:relative; float:left; background:#FFFFFF; z-index:2 !important;}
+#topStageArea, #headerImage { width:994px; display:block;}
+#topStageArea { margin: 0px; padding:106px 0px 0px 0px; position: relative; }
+#topStageArea #clickLogo { position:absolute !important; top:18px !important; right:24px; width:70px; height:70px; background-image:url(../../images/demo/logo.gif);}
+
+.headerProjectName { display:block; position:absolute; left: 12px; top: 0px; padding:18px 10px; z-index:1;}
+
+/* *** skip links and hidden content *** */
+  .skip, .hideme {position: absolute; top: -1000em; left: -1000em; height: 1px; width: 1px;}
+  
+/*META NAVIGATION*/
+#metaNavi { position:absolute; top:16px; margin:0px 0px 0px 218px; font-size: 11px !important; line-height: 13px !important; }
+#metaNavi a { color:#666; text-decoration:none; }
+#metaNavi a:hover { color:#0098db;}
+
+#footerArea,
+#metaNavi,
+#breadcrumbNavi { font-size: 11px !important; line-height:13px !important;
+}
+
+/*META, BREADCRUMB, FOOTER NAVIGATION*/
+#metaNavi ul,
+#breadcrumbNavi ul,
+#footerNavigation ul {display: inline;}
+#metaNavi li,
+#breadcrumbNavi li,
+#footerNavigation li { padding:0px 7px 0px 9px; background:url(../../images/demo/trennung_ccc.gif) no-repeat left 2px; display:inline; list-style-image: none;}
+#metaNavi li.first ,
+#footerNavigation li.first { padding:0px 7px 0px 0px; background:none;}
+
+/* invisible link descriptions for screen reader */
+.nvsbl { position:absolute !important; left:-10000px !important; }
+legend.nvsbl { /* fix for known FF3.5 bug */ font-size:0px; height: 0px;}
+
+/*SIZEUP CONTENT*/
+
+#sizeUpContent { padding-top:40px; background:#fff; width:auto; padding-left:12px; padding-right:12px; padding-top:35px; margin:0px;}

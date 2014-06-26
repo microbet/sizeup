@@ -1,0 +1,196 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutDemo.cshtml";
+}
+
+@section head{
+    <title>SizeUp - Business Intelligence for All</title>
+    <meta content="SizeUp is a free tool that shows how your business compares to competitors, identifies best places to advertise, and maps competitors, customers, and suppliers."
+        name="description">
+    <link href="@Url.Content("~/Content/thirdParty/toggle-switch.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/thirdParty/animations.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/views/home-responsive.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/views/demo/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+}
+
+@section scripts{
+    <script type="text/javascript">       
+        var done = function () {
+            var opts = {
+                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)
+                };
+            var driver = new sizeup.views.home(opts);
+        };
+        var notifier = new sizeup.core.notifier(done);
+        var apiLoaded = notifier.getNotifier();
+        var doc = notifier.getNotifier();
+
+        $(document).ready(function(){
+            checkWidth();
+            doc();
+
+            $('#searchIndustry').data('holder', $('#searchIndustry').attr('placeholder'));
+            $('#searchIndustry').focusin(function(){$(this).attr('placeholder','');});
+            $('#searchIndustry').focusout(function(){ $(this).attr('placeholder',$(this).data('holder'));});
+
+            $('#searchCommunity').data('holder',$('#searchCommunity').attr('placeholder'));
+            $('#searchCommunity').focusin(function(){$(this).attr('placeholder','');});
+            $('#searchCommunity').focusout(function(){$(this).attr('placeholder',$(this).data('holder'));});
+
+            $('#carousel-competition-generic').carousel('pause');
+
+            $('#decisions a.right-col').hide();
+            var activeId = $("#advertise-selection a.active").attr("id");
+            $(".marker-set#" + activeId).addClass('active');
+
+            $("#advertise-selection a").on('click', function(e){
+                $(".marker-set.active").fadeOut(0);
+                $("#advertise-selection a.active, .marker-set.active").removeClass('active');
+                
+                $(this).addClass('active');
+                var activeId = $("#advertise-selection a.active").attr("id");
+             
+                $(".marker-set#" + activeId).fadeIn(500);
+                $(".marker-set#" + activeId).addClass('active');
+                return false;
+            });
+
+            $("#step-two-back").on('click', function(e){
+                $("#step-two .container .card").toggleClass("flipped");
+                var current_fs = $("#form fieldset:last-child");
+                var prev_fs = $("#form fieldset:first-child");
+                setTimeout(function() {
+                    current_fs.hide();
+                    prev_fs.css('opacity', '1').show();
+                    $("#step-two-back").hide();
+                    $("#login-form h1").removeClass("col-lg-6").removeClass("col-lg-offset-2")
+                        .removeClass("col-md-7").removeClass("col-md-offset-2")
+                        .removeClass("col-sm-10")
+                        .removeClass("col-xs-12");
+                }, 500);                
+            });            
+        });
+    </script>
+}
+
+
+
+
+
+<div id="login-form" class="jumbotron">
+    <div class="text-center">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <img id="step-two-back" class="col-lg-1 col-md-1 col-sm-2 col-sm-2" src="@Url.Content("~/Content/images/slider-nav-prev-white.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Back"/>
+            <h1 id="form-header" style="padding:0;">Business Intelligence for All</h1>
+        </div>
+        <p id="header-info"> In 3 steps you will learn how your business stacks up to your competition.</p>
+    </div>
+    <form id="form">
+        <fieldset>
+            <div id="industry-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
+                <span class="input-group-addon input-group-blue">My industry is</span>
+                <input id="searchIndustry" type="text" class="form-control" placeholder="Enter Your Industry">
+            </div>
+            <div id="location-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
+                <span class="input-group-addon input-group-blue">I'm located in</span>
+                <input id="searchCommunity" type="text" class="form-control" placeholder="Enter Your City">
+                <p id="enteredLocation" class="text-center location hidden">
+                    Your city is <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a>
+                </p>
+                <p id="detectedLocation" class="text-center location hidden">
+                    We think you are in <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a>
+                </p>
+            </div>
+            <div id="inline-switch-wrapper" class="clearfix container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
+                <div id="inline-switch">
+                    <div id="exist-copy">
+                        <span>I have an existing business</span>
+                    </div>
+                    <div id="switch-toggle-wrapper">
+                        <div class="switch-toggle well">
+                            <input id="business" type="radio" name="businessStatus" value="established" checked="">
+                            <label for="business" style="cursor: pointer;"></label>
+                            <input id="startup" type="radio" name="businessStatus" value="startup">
+                            <label for="startup" style="cursor: pointer;"></label>
+                            <a class="btn btn-primary"></a>
+                        </div>
+                    </div>
+                    <div id="start-copy">
+                        <span>I want to start a business</span>
+                    </div>
+                    <div id="continue-col">
+                        <button type="button" id="inline-continue" class="btn btn-green btn-primary btn-lg">Continue</button>
+                    </div>
+                </div>
+                <div id="row-switch">
+                    <div>
+                        <label><input id="business" type="radio" name="businessStatus" value="established" checked=""> I have an existing business</label>
+                    </div>
+                    <div>
+                        <label><input id="startup" type="radio" name="businessStatus" value="startup"> I want to start a business</label>
+                    </div>
+                    <div class="text-center">
+                        <br />
+                        <button type="button" id="row-continue" class="btn btn-green btn-primary btn-lg">Continue</button>
+                    </div>
+                </div>
+            </div>
+            <div id="error-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
+                <p id="noIndustryMatchesMessage" class="info hidden">
+                    No industry matched your keyword. Please search again and select from the dropdown.
+                </p>
+                <p id="invalidCityMessage" class="info hidden">
+                    Please enter a valid city name and select from the dropdown.
+                </p>
+                <p id="noValuesEntered" class="info hidden">
+                    Please enter a city and industry and select from the dropdowns.
+                </p>
+            </div>
+        </fieldset>
+        <fieldset id="step-two" class="text-center">
+            <div class="col-lg-10 col-lg-offset-1 col-md-12">
+                <div class="col-lg-4 col-md-4 container">
+                    <div class="card">
+                        <div class="gray-bg face front">
+                        </div>
+                        <div class="gray-bg face back">
+                            <img src="@Url.Content("~/Content/images/gauge-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance"/>
+                            <p>Compare your business to your industry competitors.</p>
+                            <a href="#" id="myBusiness" class="btn btn-green btn-primary btn-lg">My Business</a>
+                        </div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 container">
+                    <div class="card">
+                        <div class="gray-bg face front">
+                        </div>
+                        <div class="gray-bg face back">
+                            <img src="@Url.Content("~/Content/images/compete-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition"/>
+                            <p>Map your customers, competitors, suppliers.</p>
+                            <a href="#" id="competing" class="btn btn-green btn-primary btn-lg">Competition</a>
+                        </div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 container">
+                    <div class="card">
+                        <div class="gray-bg face front">
+                        </div>
+                        <div class="gray-bg face back">
+                            <img src="@Url.Content("~/Content/images/advertise-card.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/>
+                            <p>Find best places to target your next advertising campaign.</p>
+                            <a href="#" id="advertising" class="btn btn-green btn-primary btn-lg">Advertising</a>
+                        </div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
