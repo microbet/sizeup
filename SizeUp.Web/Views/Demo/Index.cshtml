@@ -13,13 +13,14 @@
 
     <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-demo.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 }
 
 @section scripts{
-    <script type="text/javascript">       
+    <script type="text/javascript">
+        window.demoLocation = "@Html.Raw(ViewBag.Country)";
         var done = function () {
             var opts = {
                 currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON)

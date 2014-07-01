@@ -219,11 +219,22 @@
     <Content Include="Content\images\dashboardIcons.png" />
     <Content Include="Content\images\dashboardIcons_disabled.png" />
     <Content Include="Content\images\dashbuttons.png" />
+    <Content Include="Content\images\demo\background_navi.gif" />
     <Content Include="Content\images\demo\background_verlauf.gif" />
     <Content Include="Content\images\demo\bar_shadow.gif" />
+    <Content Include="Content\images\demo\dashboardIconsDemo.png" />
+    <Content Include="Content\images\demo\db_germany.gif" />
+    <Content Include="Content\images\demo\db_italy.gif" />
     <Content Include="Content\images\demo\db_USA.gif" />
+    <Content Include="Content\images\demo\germany-lending.png" />
+    <Content Include="Content\images\demo\germany-rev.png" />
+    <Content Include="Content\images\demo\italy-lending.png" />
+    <Content Include="Content\images\demo\italy-rev.png" />
+    <Content Include="Content\images\demo\login_feld.gif" />
     <Content Include="Content\images\demo\logo.gif" />
+    <Content Include="Content\images\demo\suchfeld.gif" />
     <Content Include="Content\images\demo\trennung_ccc.gif" />
+    <Content Include="Content\images\demo\trennung_navi.gif" />
     <Content Include="Content\images\desktop.png" />
     <Content Include="Content\images\externalLink.gif" />
     <Content Include="Content\images\fact-1.png" />
@@ -307,6 +318,7 @@
     <Content Include="Content\views\dashboard\index.css" />
     <Content Include="Content\views\community\community.css" />
     <Content Include="Content\views\dashboard\print.css" />
+    <Content Include="Content\views\demo\index.css" />
     <Content Include="Content\views\developers\documentation.css" />
     <Content Include="Content\views\developers\index.css" />
     <Content Include="Content\views\help\contact.css" />
@@ -423,6 +435,7 @@
     <Content Include="Scripts\views\community\metroCommunity.js" />
     <Content Include="Scripts\views\community\countyCommunity.js" />
     <Content Include="Scripts\views\competition\competition.js" />
+    <Content Include="Scripts\views\home-demo.js" />
     <Content Include="Scripts\views\dashboard\averageSalary.js" />
     <Content Include="Scripts\views\dashboard\costEffectiveness.js" />
     <Content Include="Scripts\views\dashboard\dashboard.js" />
@@ -602,6 +615,7 @@
     <Content Include="Views\Demo\Index.cshtml" />
     <Content Include="Views\Shared\FooterResponsive.cshtml" />
     <Content Include="Views\Shared\HeaderResponsive.cshtml" />
+    <Content Include="Views\Demo\Test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
