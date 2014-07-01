@@ -41,11 +41,11 @@
             me.form.location.enteredLocation.find('.changeLocation').click(onChangeCityClicked);
 
 
-            me.form.location.placeSelector = sizeup.controls.placeSelector({
-                textbox: me.form.location.cityTextbox,
-                onChange: function (item) { onCityChange(item); },
-                onBlur: function (item) { onCityChange(item); }
-            });
+            //me.form.location.placeSelector = sizeup.controls.placeSelector({
+            //    textbox: me.form.location.cityTextbox,
+            //    onChange: function (item) { onCityChange(item); },
+            //    onBlur: function (item) { onCityChange(item); }
+            //});
 
             me.form.industry.industrySelector = sizeup.controls.industrySelector({
                 textbox: me.form.industry.textbox,
@@ -55,13 +55,13 @@
 
             if (!me.opts.currentInfo.CurrentPlace.Id && me.data.detectedCity) {
                 me.form.location.detectedLocation.find('.locationText').html(me.data.detectedCity.City.Name + ', ' + me.data.detectedCity.State.Abbreviation);
-                me.form.location.placeSelector.setSelection(me.data.detectedCity);
+                //me.form.location.placeSelector.setSelection(me.data.detectedCity);
                 me.selectedCity = me.data.detectedCity;
                 showDetectedCity();
             }
             else if (me.opts.currentInfo.CurrentPlace.Id) {
                 me.form.location.enteredLocation.find('.locationText').html(me.opts.currentInfo.CurrentPlace.City.Name + ', ' + me.opts.currentInfo.CurrentPlace.State.Abbreviation);
-                me.form.location.placeSelector.setSelection(me.opts.currentInfo.CurrentPlace);
+                //me.form.location.placeSelector.setSelection(me.opts.currentInfo.CurrentPlace);
                 me.selectedCity = me.opts.currentInfo.CurrentPlace;
                 //showCurrentCity();
             }
@@ -101,7 +101,8 @@
         };
 
         var isSubmitable = function () {
-            return !me.form.location.placeSelector.hasFocus() && !me.form.industry.industrySelector.hasFocus();
+            //return !me.form.location.placeSelector.hasFocus() && !me.form.industry.industrySelector.hasFocus();
+            return !me.form.industry.industrySelector.hasFocus();
         };
 
 
