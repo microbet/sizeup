@@ -170,7 +170,8 @@
 
             if (isSubmitable()) {
                 me.errors.noValuesEntered.hide();
-                if (me.selectedCity == null || me.selectedIndustry == null) {
+                //if (me.selectedCity == null || me.selectedIndustry == null) {
+                if ( me.selectedIndustry == null) {
                     me.errors.invalidCity.hide();
                     me.errors.noValuesEntered.fadeIn("slow");
                 }

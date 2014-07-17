@@ -27,7 +27,11 @@ namespace SizeUp.Web.Controllers
 
             ViewBag.Country = country;
 
-            return View();
+            if (Request.Browser.Browser == "IE" && Request.Browser.MajorVersion == 8)
+                return View("IndexAlt");
+            else
+                return View();
+            
         }
 
 
@@ -44,6 +48,11 @@ namespace SizeUp.Web.Controllers
 
             var country = Request.QueryString["c"];
             var token = Request.QueryString["t"];
+
+            if (Request.Browser.Browser == "IE" && Request.Browser.MajorVersion == 8)
+                ViewBag.IE8 = "true";
+            else
+                ViewBag.IE8 = "false";
 
             if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(country) || token != authToken || !countries.Contains(country))
                 return Redirect("/");
@@ -73,7 +82,7 @@ namespace SizeUp.Web.Controllers
                 ViewBag.RowDTitle = "Nation";
                 ViewBag.RowA = "Ostalbkreis";
                 ViewBag.RowB = "Stuttgart";
-                ViewBag.RowC = "Baden-W&uuml;rttemberg";
+                ViewBag.RowC = "Baden-Wurttemberg";
                 ViewBag.RowD = "Deutschland";
             }
 

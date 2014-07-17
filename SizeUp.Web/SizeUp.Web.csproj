@@ -222,6 +222,7 @@
     <Content Include="Content\images\demo\background_navi.gif" />
     <Content Include="Content\images\demo\background_verlauf.gif" />
     <Content Include="Content\images\demo\bar_shadow.gif" />
+    <Content Include="Content\images\demo\big-business.gif" />
     <Content Include="Content\images\demo\dashboardIconsDemo.png" />
     <Content Include="Content\images\demo\db_germany.gif" />
     <Content Include="Content\images\demo\db_italy.gif" />
@@ -616,6 +617,7 @@
     <Content Include="Views\Shared\FooterResponsive.cshtml" />
     <Content Include="Views\Shared\HeaderResponsive.cshtml" />
     <Content Include="Views\Demo\Test.cshtml" />
+    <Content Include="Views\Demo\IndexAlt.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
