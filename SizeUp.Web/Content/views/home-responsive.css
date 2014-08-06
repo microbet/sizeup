@@ -112,7 +112,7 @@ a.changeLocation:hover { color: #1898d3; }
 #advertisement h2 { font-weight: 400; }
 #advertisement .row-col { margin-bottom: 1em; }
 #advertisement-map h2 { font-weight: 100; }
-#advertisement-map { background-color: #005687; color: #ffffff; padding: 2em 2em 4em 2em; }
+#advertisement-map { background-color: #005687; color: #ffffff; padding: 2em 2em 0 2em; }
 #advertisement-map #title-copy { letter-spacing: 0.5px; font-weight: 100; margin-bottom: 0; color: white; }
 #advertisement-map .marker-set { display: none; }
 #advertisement-map .marker-set.active { display: block; }
