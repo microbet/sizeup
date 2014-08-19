@@ -7,7 +7,7 @@
 		y = w.innerHeight || e.clientHeight || g.clientHeight;
 
     // business/startup toggle
-    /*if(x <=356 || screen.width <= 356){
+    /*if(x <=356 || screen.width <= 356){sid
 		$('label[for=business]').text("Business");
 	} else {
 		$('label[for=business]').text("Business Owner");
@@ -15,11 +15,13 @@
 
     // slider disappering / advertisement map
     if (x <= 768 || screen.width <= 768) {
+        $('.enterprise.sidebar').hide();
         $('#slider-column').hide();
         $('#slider-sibling-column').children().css('padding-left', '0px');
         $('#advertisement-map').hide();
         $('.section-end span').hide();
     } else {
+        $('.enterprise.sidebar').show();
         $('#slider-column').show();
         $('#slider-sibling-column').children().css('padding-left', 'inherit');
         $('#advertisement-map').show();

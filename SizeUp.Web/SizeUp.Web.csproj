@@ -216,6 +216,7 @@
     <Content Include="Content\images\compete-ribbon-home.png" />
     <Content Include="Content\images\compete.png" />
     <Content Include="Content\images\competeSmall.png" />
+    <Content Include="Content\images\comprehensive-icon.png" />
     <Content Include="Content\images\dashboardIcons.png" />
     <Content Include="Content\images\dashboardIcons_disabled.png" />
     <Content Include="Content\images\dashbuttons.png" />
@@ -237,6 +238,7 @@
     <Content Include="Content\images\demo\trennung_ccc.gif" />
     <Content Include="Content\images\demo\trennung_navi.gif" />
     <Content Include="Content\images\desktop.png" />
+    <Content Include="Content\images\destination-icon.png" />
     <Content Include="Content\images\externalLink.gif" />
     <Content Include="Content\images\fact-1.png" />
     <Content Include="Content\images\fact-2.png" />
@@ -252,10 +254,13 @@
     <Content Include="Content\images\icon-startUp.png" />
     <Content Include="Content\images\icon-sweetSpots.png" />
     <Content Include="Content\images\info.png" />
+    <Content Include="Content\images\innovation-icon.png" />
+    <Content Include="Content\images\land-grab-icon.png" />
     <Content Include="Content\images\legend2.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\loadingSmall.gif" />
     <Content Include="Content\images\logosmall.gif" />
+    <Content Include="Content\images\magazine.png" />
     <Content Include="Content\images\map-advertising.png" />
     <Content Include="Content\images\mapBar.png" />
     <Content Include="Content\images\marker.png" />
@@ -618,6 +623,7 @@
     <Content Include="Views\Shared\HeaderResponsive.cshtml" />
     <Content Include="Views\Demo\Test.cshtml" />
     <Content Include="Views\Demo\IndexAlt.cshtml" />
+    <Content Include="Views\Help\EnterprisePartnersDownload.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
