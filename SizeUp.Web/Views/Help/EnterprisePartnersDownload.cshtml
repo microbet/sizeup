@@ -14,43 +14,66 @@
 @*@Html.Raw(ViewBag.Content)*@
 
 <style>
+    html, body, .wrapper { padding: 0; margin: 0; height: 100%; }
+    .main, .sidebar {
+        display: table-cell;
+        float: none;
+        vertical-align: top;
+    }
+
+    .wrapper {
+        display: table;
+        width: 100%;
+    }
+
+    .row {
+        height: 100%;
+        margin: 0;
+        display: table-row;
+        &:before, &:after {
+            content: none;
+        }
+    }
+
+
+    #header { margin-top: 2.25em; }
     .sidebar { font-size: 12px; color: #0088c7; background-color: #eff2f5; border: 1px solid #e0e0e0; padding-left: 0; padding-right: 0; padding-bottom: 41.6em; }
-    .sidebar p { color: #005687; margin-top:30px;}
+    .sidebar p { color: #005687; margin-top: 30px; }
     .sidebar li:hover { background-color: #16a9ed; }
     .sidebar li:hover a { color: #ffffff; background-color: #16a9ed; }
 
-    #magazine { height: 266px; background-position: -122px -250px; background-image: url(/Content/images/magazine.png); background-repeat: no-repeat; }
+    #magazine { height: 285px; background-position: -122px -250px; background-image: url(/Content/images/magazine.png); background-repeat: no-repeat; }
     .main { padding-left: 0; padding-right: 0; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
     .header { background-color: #005687; padding-bottom: 44px; }
-    .header h1 { font-size: 36px; font-weight: 400; color: white; margin-bottom: 8px; }
+    .header h1 { font-size: 36px; font-weight: 200; color: white; margin-bottom: 8px; }
     .header a { font-size: 14px; padding: .75em 3em; }
     .header-copy { color: white; line-height: 24px; font-size: 16px; font-weight: 200; }
 
     .enterprise-section { padding: 42px; border-bottom: 1px solid #e0e0e0; }
-    .enterprise-section h4 { font-size: 22px; }
+    .enterprise-section h4 { font-size: 22px; font-weight: normal; }
     .enterprise-section p { margin-left: 0; }
 
-    .options { padding-top:40px; padding-bottom:40px; background-color: #f7f9fb; border-bottom: 1px solid #e0e0e0; }
+    .options { padding-top: 40px; padding-bottom: 40px; background-color: #f7f9fb; border-bottom: 1px solid #e0e0e0; }
     .options h4 { color: #005687; font-size: 13px; font-weight: bold; }
-    .options img { position: relative; top: 11px; }
-    .options p { margin-left:0;}
+    .options img { position: relative; top: 11px; left:-10px;}
+    .options p { margin-left: 0; }
 
-    .bottom-section { padding-top:40px; padding-bottom:40px;}
+    .bottom-section { padding-top: 40px; padding-bottom: 40px; }
 
-    .nav-sidebar { border-bottom:2px groove white; padding-bottom:25px;}
-    .nav > li > a { padding:5px 15px;}
+    .nav-sidebar { border-bottom: 2px groove white; padding-bottom: 25px; }
+    .nav > li > a { padding: 5px 15px; }
 
-    .sidebar p, .sidebar ul li{ padding-left:1em;}
+    .sidebar p, .sidebar ul li { padding-left: 1em; }
 </style>
 
-<div class="col-lg-12">
+<div class="col-lg-12 wrapper">
     <div class="row">
         <div class="col-sm-3 col-md-2 enterprise sidebar">
             <p style="">Business & Communities</p>
             <ul class="nav nav-sidebar">
                 <li><a href="/find-community">Community Information</a></li>
                 <li><a href="/find-business">Business Directory</a></li>
-                <li><a href="/bestPlaces/">Best Places</a></l
+                <li><a href="/bestPlaces/">Best Places</a></li>
             </ul>
             <p>Help & Support</p>
             <ul class="nav nav-sidebar">
@@ -66,7 +89,7 @@
                 <li><a href="http://news.sizeup.com" target="_blank">News</a></li>
             </ul>
             <p>Privacy & Security</p>
-            <ul class="nav nav-sidebar" style="border-bottom:none;">
+            <ul class="nav nav-sidebar" style="border-bottom: none;">
                 <li><a href="/product/terms">Terms of Use</a></li>
                 <li><a href="/product/privacy-policy">Privacy Policy</a></li>
             </ul>
@@ -78,7 +101,8 @@
                 <p class="header-copy">
                     Large Enterprise Web Portals to Serve SMB Customers and Prospects.
                 </p>
-                <a type="button" class="btn btn-green btn-primary btn-lg" href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">Download</a>
+                <a type="button" class="btn btn-green btn-primary btn-lg" href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">
+                    Download</a>
             </div>
             <div class="enterprise-section text-left col-md-12">
                 <h4>Large Enterprise Web Portals to Serve SMB Customers and Prospects</h4>
@@ -113,11 +137,9 @@
                         <img src="@Url.Content("~/Content/images/destination-icon.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Beign a Destination"/>
                     </div>
                     <div class="col-md-10 text-left">
-                        <h4>Beign a destination</h4>
+                        <h4>Being a destination</h4>
                         <p>
-                            Large companies are expanding their online services to become partners in their
-                            small
-                            and medium-sized business (SMB) customers’ success.
+                            Large enterprises are competing to make their websites a destination where SMBs spend more time, keep coming back, and which result in a stronger customer relationships.  
                         </p>
                     </div>
                 </div>
@@ -128,9 +150,7 @@
                     <div class="col-md-10 text-left">
                         <h4>Land grab</h4>
                         <p>
-                            Large companies are expanding their online services to become partners in their
-                            small
-                            and medium-sized business (SMB) customers’ success.
+                            There is competition between large companies to be the first, biggest, and best portal to to provide the most services to SMBs. 
                         </p>
                     </div>
                 </div>
@@ -141,9 +161,7 @@
                     <div class="col-md-10 text-left">
                         <h4>Innovation, confusion, and ignorance</h4>
                         <p>
-                            Large companies are expanding their online services to become partners in their
-                            small
-                            and medium-sized business (SMB) customers’ success.
+                            Companies are experimenting with what works best and none have yet delivered all of the five key elements of a successful SMB portal. 
                         </p>
                     </div>
                 </div>
@@ -152,9 +170,12 @@
                 <p class="text-left">
                     The most successful enterprises have focused their time and resources
                     developing these five pillars of SMB Portals: Content, Tools, Community, Sales,
-                    Goodwill. <a href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">Read the full report.</a>
+                    Goodwill. <a href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">
+                        Read the full report.</a>
                 </p>
-                <a type="button" style="font-size:14px;" class="btn btn-green btn-primary btn-lg" href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">Download Report</a>
+                <a type="button" style="font-size: 14px;" class="btn btn-green btn-primary btn-lg"
+                    href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">
+                    Download Report</a>
             </div>
         </div>
     </div>
