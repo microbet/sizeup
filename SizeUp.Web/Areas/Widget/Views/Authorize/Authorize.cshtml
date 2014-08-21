@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
     var auth = function () {
-        var url = '//@SizeUp.Core.Web.WebContext.Current.Domain/widget/authorize';
+        var url = '//www.@SizeUp.Core.Web.WebContext.Current.Domain/widget/authorize';
         var win = window.open(url, '_blank', 'menubar=0,resizable=0,location=0,scrollbars=0,status=0,titlebar=0,toolbar=0,width=200px,height=200px,top=100px,left=150px');
         win.onbeforeunload = function () {
             window.location.reload();
