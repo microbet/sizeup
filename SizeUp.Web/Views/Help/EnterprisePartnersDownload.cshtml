@@ -51,12 +51,15 @@
 
     .enterprise-section { padding: 42px; border-bottom: 1px solid #e0e0e0; }
     .enterprise-section h4 { font-size: 22px; font-weight: normal; }
+    .options h5 { font-size: 18px; font-weight: normal; }
     .enterprise-section p { margin-left: 0; }
 
     .options { padding-top: 40px; padding-bottom: 40px; background-color: #f7f9fb; border-bottom: 1px solid #e0e0e0; }
     .options h4 { color: #005687; font-size: 13px; font-weight: bold; }
     .options img { position: relative; top: 11px; left:-10px;}
     .options p { margin-left: 0; }
+    .options p#first { margin-bottom: 30px; }
+    .options h5 { color:#005687;}
 
     .bottom-section { padding-top: 40px; padding-bottom: 40px; }
 
@@ -101,16 +104,19 @@
                 <p class="header-copy">
                     Large companies are expanding their online services to become partners in their small business customers’ success.
                 </p>
-                <a type="button" class="btn btn-green btn-primary btn-lg" href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">
+                <a target="_blank" type="button" class="btn btn-green btn-primary btn-lg" href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">
                     Download Report</a>
             </div>
             <div class="enterprise-section text-left col-md-12">
                 <h4>Five Pillars of a Successful SMB Portal</h4>
-                <p style="margin-bottom:30px;">The most successful enterprises have focused their time and resources developing these five pillars of SMB Portals: Content, Tools, Community, Sales, Goodwill.</p>
-                <h4 style="font-size:18px;">Key Trends Shaping Large Enterprise SMB Portals</h4>
-                <p>Large enterprises are accomplishing this through online portals that provide information, tools, and services to help these small businesses start up, plan, and grow. These portals create a relationship in which the large enterprise becomes a valued partner throughout the entire lifecycle of the SMB. </p>
+                <p>The most successful enterprises have focused their time and resources developing these five pillars of SMB Portals: Content, Tools, Community, Sales, and Goodwill.</p>  
             </div>
+
             <div class="options col-md-12">
+                <div class="text-left col-md-12">
+                    <h5>Key Trends Shaping Large Enterprise SMB Portals</h5>
+                    <p id="first">Large enterprises are delivering online portals that provide information, tools, and services to help these small businesses start up, plan, and grow. These portals create a relationship in which the large enterprise becomes a valued partner throughout the entire lifecycle of the SMB. </p>
+                </div>
                 <div class="col-md-6">
                     <div class="col-md-1">
                         <img src="@Url.Content("~/Content/images/comprehensive-icon.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Comprehensive SMB Services"/>
@@ -159,7 +165,7 @@
                 </div>
             </div>
             <div class="bottom-section text-center col-md-12">
-                <a type="button" style="font-size: 14px;" class="btn btn-green btn-primary btn-lg"
+                <a target="_blank" type="button" style="font-size: 14px;" class="btn btn-green btn-primary btn-lg"
                     href="/Content/files/Large%20Enterprise%20Portals%20to%20Serve%20SMB%20Customers.pdf">
                     Download Report</a>
             </div>

@@ -181,6 +181,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LBIController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SitemapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -298,6 +299,22 @@
     <Content Include="Content\images\up-down.png" />
     <Content Include="Content\layout-responsive.css" />
     <Content Include="Content\layout.css" />
+    <Content Include="Content\LBI\home-responsive.css" />
+    <Content Include="Content\LBI\images\button-close.png" />
+    <Content Include="Content\LBI\images\computerDemo.png" />
+    <Content Include="Content\LBI\images\favicon.ico" />
+    <Content Include="Content\LBI\images\icon-advertise.png" />
+    <Content Include="Content\LBI\images\icon-benchmark.png" />
+    <Content Include="Content\LBI\images\icon-checkmark.png" />
+    <Content Include="Content\LBI\images\icon-competition.png" />
+    <Content Include="Content\LBI\images\icon-demographic.png" />
+    <Content Include="Content\LBI\images\icon-love.png" />
+    <Content Include="Content\LBI\images\icon-retention.png" />
+    <Content Include="Content\LBI\images\SizeUpLBI-logo.png" />
+    <Content Include="Content\LBI\layout-responsive.css" />
+    <Content Include="Content\LBI\print.css" />
+    <Content Include="Content\LBI\reset.css" />
+    <Content Include="Content\LBI\Site.css" />
     <Content Include="Content\prettify\prettify.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\reset.css" />
@@ -381,6 +398,7 @@
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
+    <Content Include="Scripts\LBI\home-ui.js" />
     <Content Include="Scripts\maps\circle.js" />
     <Content Include="Scripts\maps\heatmapColors.js" />
     <Content Include="Scripts\maps\heatMapOverlays.js" />
@@ -586,6 +604,7 @@
     <Content Include="Areas\Widget\Views\Authorize\Index.cshtml" />
     <Content Include="Areas\Widget\Views\Authorize\Authorize.cshtml" />
     <Content Include="Content\files\Large Enterprise Portals to Serve SMB Customers.pdf" />
+    <Content Include="Content\LBI\SizeUpLBI-EmpowerLocalBusinesses.pdf" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
@@ -624,6 +643,8 @@
     <Content Include="Views\Demo\Test.cshtml" />
     <Content Include="Views\Demo\IndexAlt.cshtml" />
     <Content Include="Views\Help\EnterprisePartnersDownload.cshtml" />
+    <Content Include="Views\LBI\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutLBI.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
