@@ -43,7 +43,9 @@ namespace SizeUp.Core.Email
                 t.Add("User", user);
                 t.Add("PasswordResetKey", HttpContext.Current.Server.UrlEncode(user.GetEncryptedToken()));
                 t.Add("OptOutKey", HttpContext.Current.Server.UrlEncode(user.GetEncryptedToken()));
-                t.Add("AppDomain", uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port);
+                //t.Add("AppDomain", uri.Scheme + Uri.SchemeDelimiter + uri.Host + ":" + uri.Port);
+                //t.Add("AppDomain", (HttpContext.Current.Request.IsSecureConnection ? "https" : "http") + Uri.SchemeDelimiter + uri.Host);
+                t.Add("AppDomain", (ConfigurationManager.AppSettings["HostingEnvironment"] == "LOCALHOST" ? "http" : "https") + Uri.SchemeDelimiter + uri.Host);
                 string body = t.Render();
                 SendMail(user.Email, subject, body);
             }
