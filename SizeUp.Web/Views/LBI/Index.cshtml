@@ -159,7 +159,56 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
         </div>
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12">
-                <h4 class="text-left">A Client Perspective - See Demo</h4>
+               <h4 class="text-left">Our clients love SizeUp LBI</h4>
+                <p class="text-left">
+                    See some of our clients who are already using the SizeUp LBI tool.
+                </p>
+                <ul class="col-lg-7  col-md-6 col-sm-6 text-left" style="padding-left:0;">
+                    <li>
+                        <a target="_blank" href="http://bowlinggreenkycoc.weblinkconnect.com/cwt/EXTERNAL/WCPAGES/WCPortal/PortalLogin.aspx">Bowling Green, KY</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.okcchamber.com/index.php?submenu=GreaterOKCLocalBusinessIntelligenceTool&src=gendocs&ref=LBI&category=EconomicDevelopment">Greater Oklahoma City Chamber, OK</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://riversideoed.com/resources/sizeup/">City of Riverside, CA</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.edcsarasotacounty.com/sizeup/sizeup.html">EDC of Sarasota County, FL</a>
+                    </li>
+                     <li>
+                        <a target="_blank" href="http://www.gilbertedi.com/gilbert-based-business">Gilbert Arizona, AZ</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://foxcitiesregionalpartnership.com/size-up/">Fox Cities Regional Partnership, WI</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://leecountybusiness.com/analytics/sizeup-lee">Lee County Florida, FL</a>
+                    </li>
+                    
+
+                </ul>
+                <ul class="text-left col-lg-5  col-md-6 col-sm-6 " >
+                    <li>
+                        <a target="_blank" href="http://www.navarrocollegesbdc.org/sizeup-tool.html">Navarro College of North Texas, TX</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.ci.richland.wa.us/index.aspx?NID=617">City of Richland, WA</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.choosescottsdale.com/sizeup">Scotsdale, AZ</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://www.farmersbranchtx.gov/index.aspx?NID=686">Farmer's Branch, TX</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="http://decaturretail.com/index.php/develop/local-business-intelligence">City of Decatur, IL</a>
+                    </li>
+                     <li>
+                        <a target="_blank" href="http://public.lbi.sizeup.com/Home/Begin?myClientID=90541CDF-EB70-432E-8E3C-3188AF075C7B">Hampton Roads, VA</a>
+                    </li>
+                </ul>
+                @* <h4 class="text-left">A Client Perspective - See Demo</h4>
                 <p class="text-left">
                     See what the <a target="_blank" href="http://www.gilbertedi.com/gilbert-based-business">Town of Gilbert, AZ</a> had to say about their SizeUp LBI tool.
                 
@@ -167,7 +216,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
                 <div class="responsive-video">
                     <iframe allowfullscreen="" width="480" height="180" src="https://www.youtube.com/embed/MZAFHn4VBGg?feature=player_detailpage" frameborder="0"></iframe>
 
-                </div>
+                </div>*@
                 
             </div>
         </div>
@@ -218,7 +267,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
         }
 
 
-       
+
 
         // 2. This code loads the IFrame Player API code asynchronously.
         var tag = document.createElement('script');
@@ -254,12 +303,12 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
             }
         });
     });
-    
+
 
     // 3. This function creates an <iframe> (and YouTube player)
     //    after the API code downloads.
     function onYouTubeIframeAPIReady() {
-        
+
     }
 
     // 4. The API will call this function when the video player is ready.
@@ -277,7 +326,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
             done = true;
         }
 
-        if (event.data == YT.PlayerState.BUFFERING) 
+        if (event.data == YT.PlayerState.BUFFERING)
             event.target.setPlaybackQuality('hd720');
     }
     function stopVideo() {
