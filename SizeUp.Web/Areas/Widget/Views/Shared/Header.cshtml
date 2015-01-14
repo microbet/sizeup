@@ -36,18 +36,23 @@ else{
 <li class="startOver"><a href="/widget/select?wt=@ViewBag.WidgetToken">Home</a></li>
 }  
 }
-@if(SizeUp.Core.Identity.Identity.CurrentUser==null){
-<li class="signin"><a href="/widget/user/signin/?wt=@ViewBag.WidgetToken&returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
-}else{
-<li id="userMenu" class="signin">
-    <a href="javascript:void(0);"><span>@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName</span></a>
-    <ul>
-        <li><a href="/widget/user/profile?wt=@ViewBag.WidgetToken">Account Settings</a></li>
-        <li><a href="/widget/user/signout/?returnurl=@Server.UrlEncode("/widget/select" + "?wt=" + @ViewBag.WidgetToken)">Sign Out</a></li>
-    </ul>
-</li>
+
+@if (ViewBag.CustomTools == false)
+{
+    if(SizeUp.Core.Identity.Identity.CurrentUser==null){
+        <li class="signin"><a href="/widget/user/signin/?wt=@ViewBag.WidgetToken&returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
+    }else{
+        <li id="userMenu" class="signin">
+            <a href="javascript:void(0);"><span>@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName</span></a>
+            <ul>
+                <li><a href="/widget/user/profile?wt=@ViewBag.WidgetToken">Account Settings</a></li>
+                <li><a href="/widget/user/signout/?returnurl=@Server.UrlEncode("/widget/select" + "?wt=" + @ViewBag.WidgetToken)">Sign Out</a></li>
+            </ul>
+        </li>
+    }    
+    <li class="help"><a href="/widget/help?wt=@ViewBag.WidgetToken" class="help button" title="Help">?</a></li>
 }
-<li class="help"><a href="/widget/help?wt=@ViewBag.WidgetToken" class="help button" title="Help">?</a></li>
+
 </ul>
 </div>
 }

@@ -53,7 +53,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             {
                 startFeature = Feature.Community;
             }
-            else if (feature.ToLower() == "advertsing")
+            else if (feature.ToLower() == "advertising")
             {
                 startFeature = Feature.Advertising;
             }
@@ -99,7 +99,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 string urlBase = "/{0}/{1}/{2}/{3}";
                 string url = string.Format("/{0}?wt={1}","widget/select", urlToken);
 
-                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry != null)
+                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry != null && APIContext.Current.APIPermissions.CustomTools == false)
                 {
                     var place = WebContext.Current.CurrentPlace;
                     var industry = WebContext.Current.CurrentIndustry;

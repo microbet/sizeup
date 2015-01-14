@@ -68,6 +68,11 @@ namespace SizeUp.WidgetSandbox.Controllers
             return View();
         }
 
+        public ActionResult WellsFargo()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Embed()
         {

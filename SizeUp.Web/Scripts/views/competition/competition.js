@@ -175,6 +175,8 @@
                 onUpdate: function (data) { pagerOnUpdate(data); }
             });
 
+            if (me.opts.IsCustomTools)
+                me.content.pager.setItemsPerPage(10);
 
             me.content.signinPanel = {
                 container: me.content.container.find('.signinWrapper').removeClass('hidden').hide(),
@@ -962,13 +964,13 @@
             else {
                 me.content.noResults.hide();
                 me.content.businessListFootnote.show();
-                if (!me.opts.IsAuthenticated) {
+                if (!me.opts.IsAuthenticated && !me.opts.IsCustomTools) {
                     me.content.signinPanel.container.show();
                     me.content.signinPanel.toggle.html(templates.bind(me.content.signinPanel.templateText, me.content.pager.getPageData()));
                 }
             }
             
-            if (data.Count > me.opts.itemsPerPage && me.opts.IsAuthenticated) {
+            if (data.Count > me.opts.itemsPerPage && (me.opts.IsAuthenticated || me.opts.IsCustomTools)) {
                 me.content.pager.getContainer().show();
             }
             else {

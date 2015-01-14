@@ -168,6 +168,10 @@
                 templateId: 'pager',
                 onUpdate: function (data) { pagerOnUpdate(data); }
             });
+
+            if (me.opts.IsCustomTools)
+                me.content.pager.setItemsPerPage(me.opts.itemsPerPage)
+
             me.content.pager.getContainer().hide();
 
 
@@ -744,7 +748,7 @@
 
         var setPager = function (data) {
             me.content.pager.setState(data);
-            if (data.Count > me.opts.itemsPerPage && me.opts.IsAuthenticated) {
+            if (data.Count > me.opts.itemsPerPage && (me.opts.IsAuthenticated || me.opts.IsCustomTools)) {
                 me.content.pager.getContainer().show();
             }
             else {

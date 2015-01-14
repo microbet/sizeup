@@ -91,7 +91,7 @@
             me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
             me.reports['yearStarted'] = new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
             me.reports['salary'] = new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
-            if (me.opts.isAuthenticated) {
+            if (me.opts.isAuthenticated || me.opts.isCustomTools) {
                 me.reports['employees'] = new sizeup.views.dashboard.employees({ container: $('#employees'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
                 me.reports['costEffectiveness'] = new sizeup.views.dashboard.costEffectiveness({ container: $('#costEffectiveness'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
                 me.reports['healthcareCost'] = new sizeup.views.dashboard.healthcareCost({ container: $('#healthcareCost'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });

@@ -8,7 +8,9 @@
 <link href="@Url.Content("~/Content/widget/views/competition/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/widget/views/competition/print.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
 
-<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&wt=@ViewBag.WidgetToken&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@(ViewBag.CustomTools == true ? ViewBag.APIKeyValue : System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"])&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+@*<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>*@
+
 <script type="text/javascript" src="//maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/tinycolor-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -213,7 +215,7 @@
             <p class="footNote hidden">businesses sorted by distance from center of the community</p>
 
 
-            @if (!(HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional))
+            @if (!(HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) || !SizeUp.Core.API.APIContext.Current.WidgetPermissions.CustomTools)
             {
             <div class="signinWrapper hidden">
                     <a href="javascript:void(0);" class="signinToggle inverse" >
@@ -238,7 +240,8 @@
         var opts = {
             itemsPerPage: 5,
             CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
-            IsAuthenticated: @((HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) ? "true" : "false")
+            IsAuthenticated: @((HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) ? "true" : "false"),
+            IsCustomTools: @(SizeUp.Core.API.APIContext.Current.WidgetPermissions.CustomTools ? "true" : "false")
             };
        
         var driver = new sizeup.views.competition.competition(opts);

@@ -618,6 +618,7 @@
     <Content Include="Views\Community\City.cshtml" />
     <Content Include="Views\Community\Industry.cshtml" />
     <Content Include="Views\Shared\Analytics.cshtml" />
+    <None Include="Properties\PublishProfiles\PROD.pubxml" />
     <None Include="Properties\PublishProfiles\sizeup.com.pubxml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Community\CountyCommunity.cshtml" />

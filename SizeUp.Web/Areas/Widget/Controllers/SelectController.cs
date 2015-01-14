@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using SizeUp.Web.Controllers;
 using SizeUp.Web.Models;
 using SizeUp.Core.Web;
+using SizeUp.Core.API;
+using SizeUp.Data;
 namespace SizeUp.Web.Areas.Widget.Controllers
 {
     public class SelectController : BaseController
@@ -19,6 +21,18 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             {
                 HideNavigation = true
             };
+
+            if (APIContext.Current.WidgetToken != null)
+            {
+                using (var context = ContextFactory.APIContext)
+                {
+                    var currentKey = APIContext.Current.WidgetToken.APIKeyId;
+                    var keyValue = context.APIKeys.Where(i => i.Id == currentKey).Select(i => i.KeyValue).FirstOrDefault();
+                    ViewBag.APIKeyValue = keyValue;
+                }
+            }
+
+            ViewBag.CustomTools = APIContext.Current.WidgetPermissions.CustomTools;
             ViewBag.StartFeature = WebContext.Current.StartFeature;
             return View();
         }

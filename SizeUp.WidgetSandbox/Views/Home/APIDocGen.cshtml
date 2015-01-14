@@ -5,7 +5,7 @@
 
 @section head{
 
-    <script src="http://api.beta.sizeup.com/js/?callback=apiLoaded&apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
+    <script src="https://api-beta.sizeup.com/js/?callback=apiLoaded&apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="@Url.Content("~/Scripts/mustache.js")"></script>
 
@@ -204,11 +204,19 @@ sizeup.api.data.{{functionName}}( {{exampleParamsOutput}} );
 
     var getResults = function (item, callback) {
         var p = $.extend(true, {}, item.exampleParams);
+        if (item.functionName == 'getJobChangePercentile')
+            console.log('sdf');
         sizeup.api.data[item.functionName](p, function (d) {
-            item.results = JSON.stringify(d, null, 4).replace(/"(\w+)"\s*:/g, '$1:');
-            item.isComplete = true;
-            item.exampleParamsOutput = formatOutputParams(JSON.stringify(item.exampleParams, null, 4)).replace(/"(\w+)"\s*:/g, '$1:');
-            callback();
+            if(d == null)
+                console.log('sdf');
+            if (d != null) {
+                item.results = JSON.stringify(d, null, 4).replace(/"(\w+)"\s*:/g, '$1:');
+                item.isComplete = true;
+                item.exampleParamsOutput = formatOutputParams(JSON.stringify(item.exampleParams, null, 4)).replace(/"(\w+)"\s*:/g, '$1:');
+                callback();
+            }
+                
+            
         });
     };
 

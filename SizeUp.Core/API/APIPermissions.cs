@@ -59,6 +59,11 @@ namespace SizeUp.Core.API
             get { return roles.Any(i => i.ToLower() == "signinoptional"); }
         }
 
+        public bool CustomTools
+        {
+            get { return roles.Any(i => i.ToLower() == "customtools"); }
+        }
+
 
         public APIPermissions(long? APIKeyId)
         {
