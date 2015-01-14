@@ -20,7 +20,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         // GET: /Widget/Load/
 
         [APIAuthorize(Role = "Widget")]
-        public ActionResult Index(long? industryId = null, long? placeId = null, string theme = null, string feature = "")
+        public ActionResult Index(long? industryId = null, long? placeId = null, string theme = null, string feature = "", bool? showForm = null)
         {
             //in this context the APIToken is the widget key
             bool valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
@@ -99,7 +99,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 string urlBase = "/{0}/{1}/{2}/{3}";
                 string url = string.Format("/{0}?wt={1}","widget/select", urlToken);
 
-                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry != null && APIContext.Current.APIPermissions.CustomTools == false)
+                if (WebContext.Current.CurrentPlace.Id != null && WebContext.Current.CurrentIndustry != null)
                 {
                     var place = WebContext.Current.CurrentPlace;
                     var industry = WebContext.Current.CurrentIndustry;
@@ -126,7 +126,10 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                         url = string.Format("/{0}?wt={1}#featureSelect=true","widget/select", urlToken);
                     }
                 }
-                
+
+                //wells fargo
+                if(showForm != null)
+                    url = string.Format("/{0}?wt={1}","widget/select", urlToken);
                 return Redirect(url);
             }
         }
