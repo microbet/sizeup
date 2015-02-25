@@ -32,6 +32,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 }
 
                 ViewBag.CustomTools = APIContext.Current.WidgetPermissions.CustomTools;
+                ViewBag.HideResources = APIContext.Current.WidgetPermissions.HideResources;
                 ViewBag.Strings = context.ResourceStrings.Where(i => i.Name.StartsWith("Dashboard")).ToDictionary(i => i.Name, i => i.Value);
                 ViewBag.Header.ActiveTab = NavItems.Dashboard;
                 return View();

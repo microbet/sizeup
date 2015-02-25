@@ -40,6 +40,178 @@
 
 }
 
+
+@if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+    {
+<style>
+
+    .ui-dialog {
+        margin: 0;
+        padding: 0;
+        border: none;
+        max-width: 100%;
+        overflow: visible;
+        background: none;
+    }
+
+    .ui-dialog .ui-dialog-titlebar {
+display: none;
+}
+
+    .ui-dialog .ui-dialog-content {
+padding: 0;
+overflow: visible;
+position: relative;
+border: 0;
+background: none;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper { 
+
+        padding: 20px;
+border: 3px solid #666666;
+border-radius: 4px;
+background-clip: padding-box;
+background-color: white;
+    }
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top {
+position: relative;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-logo {
+float: left;
+margin-bottom: 17px;
+}
+
+    .clear-fix:before, .clear-fix:after {
+content: "";
+display: table;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-top-close-link {
+position: absolute;
+top: -30px;
+right: -30px;
+width: 24px;
+height: 24px;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-top-close-link a {
+display: block;
+height: 24px;
+text-indent: -9999px;
+background: url(https://wellsfargoworks.com/Views/WFWorks/images/MainSprite.png) no-repeat scroll -324px -53px;
+}
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-top-close-link a:hover { 
+        color: #1f94be;
+    }
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-top-links {
+text-align: right;
+position: absolute;
+right: 0;
+bottom: 13px;
+}
+
+
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-top-links a {
+color: #646464;
+font-weight: normal;
+text-decoration: none;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-top .dialog-top-links a:hover {
+color: #333333;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-content {
+color: #44464a;
+border-top: 3px solid #e7e7e7;
+border-bottom: 3px solid #e7e7e7;
+padding-bottom: 20px;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-content p {
+font-size: 1.40em;
+padding:1em 0;
+}
+    .clear-fix:after {
+clear: both;
+}
+
+    .ui-widget {
+font-family: Verdana,Arial,sans-serif;
+font-size: 1.1em;
+}
+    .ui-dialog .ui-dialog-content .wrapper .dialog-content .dialog-header { font-size: 1.6em; }
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-control-links .dialog-close-link {
+line-height: 32px;
+margin-right: 20px;
+font-size: 1.4em;
+color: #4b6eb0;
+font-weight:normal;
+text-decoration: underline;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-control-links .dialog-close-link:hover {
+
+color: #1f94be;
+}
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-control-links a {
+float: right;
+}
+    .ui-dialog .ui-dialog-content .wrapper .dialog-control-links .dialog-continue-link { width: 100px; 
+
+background: url(https://wellsfargoworks.com/Views/WFWorks/images/VerticleSprite.png) repeat scroll 0 -777px;
+border: 1px solid #234887;
+color: #FFF;
+text-decoration: none;
+display: block;
+height: 30px;
+line-height: 30px;
+font-size: 12px;
+font-family: "Verdana", sans-serif;
+font-weight: bold;
+text-align: center;
+border-radius: 4px;
+background-clip: padding-box;
+
+    }
+
+
+    .ui-dialog .ui-dialog-content .wrapper .dialog-control-links .dialog-continue-link:hover {text-decoration: underline; }
+</style>
+}
+
+<div id="dialog" title="Basic dialog">
+    <div class="wrapper">
+        <div class="dialog-top clear-fix">
+            <div class="dialog-logo">
+                <img src="https://wellsfargoworks.com/Views/WFWorks/images/logo_desktop.png" alt="Wells Fargo" title="Wells Fargo" height="62" width="62">
+            </div>
+            <div class="dialog-top-close-link">
+                <a href="#" class="dialog-close-link">Close</a>
+            </div>
+            <div class="dialog-top-links">
+                    <a href="/">Home</a>
+                </div>
+        </div>
+        <div class="dialog-content">
+            <span class="dialog-header check">You are leaving the Wells Fargo website</span>
+            <p>You are leaving wellsfargoworks.com and entering a website that Wells Fargo does not control. Wells Fargo has provided this link for your convenience, but does not endorse and is not responsible for the content, links, privacy policy, or security policy of this website.</p>
+        </div>
+        <div class="dialog-control-links clear-fix">
+            <a class="dialog-continue-link" href="" target="_blank">Continue</a>
+            <a class="dialog-close-link" href="#">Cancel</a>
+        </div>
+    </div>  
+</div>
+}
+
 <div id="competition">
     <div class="headerWrapper">
         <h2 class="heading">

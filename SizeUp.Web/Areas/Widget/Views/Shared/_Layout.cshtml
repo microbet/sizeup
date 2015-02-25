@@ -23,6 +23,51 @@
     <link href="@Url.Content("~/Content/themes/" + ViewBag.Theme + "/" + ViewBag.Theme + ".css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     }
 
+    @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+    {
+        
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    width: '724px'
+                });
+
+                $('#dialog .dialog-close-link').click(function (e) {
+                    e.preventDefault();
+                    closeLeavingDialog();
+                });
+
+                function closeLeavingDialog() {
+                    $('#dialog').dialog('close');
+                }
+
+                $('body').on('click', 'a', function () {
+                    var me = $(this);
+                    var ok = false;
+                    if (me.attr('target') == '_blank') {
+                        //ok = confirm("You are leaving the Wells Fargo Competitive Intelligence Tool website… ");
+                        var url = $(this).attr("href");
+                        $('#dialog .dialog-continue-link').attr('href', url);
+                        $('#dialog').dialog('open');
+                        ok = false;
+                        if (me.attr('class') == 'dialog-continue-link')
+                            ok = true;
+                    }
+                    else {
+                        ok = true;
+                    }
+                    return ok;
+                });
+            });
+        </script>
+    }
+
     @if (ViewBag.APIName == "SBA")
     {
         <script type="text/javascript">

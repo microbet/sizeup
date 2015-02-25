@@ -105,11 +105,14 @@
                 </div>
             </div>
             <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
-            <div class="section resources collapsable">
-                @Html.Raw(ViewBag.Strings["Dashboard.Revenue.Resources"])
-                <p class="notice"><a  target="_blank" href="/help/contact">Get listed as a resource</a></p>
-            </div>
-            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            @if (!ViewBag.HideResources)
+            {
+                <div class="section resources collapsable">
+                    @Html.Raw(ViewBag.Strings["Dashboard.Revenue.Resources"])
+                    <p class="notice"><a  target="_blank" href="/help/contact">Get listed as a resource</a></p>
+                </div>
+                <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            }
         </div> 
     </div>
 </div>

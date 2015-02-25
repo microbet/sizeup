@@ -64,7 +64,10 @@ namespace SizeUp.Core.API
             get { return roles.Any(i => i.ToLower() == "customtools"); }
         }
 
-
+         public bool HideResources
+        {
+            get { return roles.Any(i => i.ToLower() == "hideresources"); }
+        }
         public APIPermissions(long? APIKeyId)
         {
             using (var context = ContextFactory.APIContext)
