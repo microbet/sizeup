@@ -96,7 +96,7 @@
             for (var j = 0; j <= me._grids.horizontal; j++) {
                 var xPos = xBase + j * xGridStepPx;
                 xGrids.push("M", xPos, yBase + 5, "L", xPos, yBase);
-                me._canvas.text(xPos, yBase + 12 + me._textOffset, xMin + j * xGridStep).attr(me._axisTextStyle);
+                me._canvas.text(xPos, yBase + 12 + me._textOffset, parseInt(xMin + j * xGridStep)).attr(me._axisTextStyle);
             }
 
             me._canvas.path().attr({ path: xGrids }).attr({ "stroke-width": 1, stroke: me._grids.color }).toBack();

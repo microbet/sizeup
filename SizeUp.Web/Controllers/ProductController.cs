@@ -14,6 +14,8 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Terms()
         {
+            ViewBag.HideLogin = Request.QueryString["hideLogin"];
+
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
@@ -22,6 +24,12 @@ namespace SizeUp.Web.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Terms.Content").Select(i => i.Value).FirstOrDefault();
+                //hot fix
+                if (ViewBag.HideLogin == "1")
+                {
+                    string content = ViewBag.Content;
+                    ViewBag.Content = content.Replace("product/privacy-policy", "product/privacy-policy?hideLogin=1");
+                }
             }
             return View();
         }
@@ -29,6 +37,7 @@ namespace SizeUp.Web.Controllers
         [ActionName("Privacy-Policy")]
         public ActionResult Privacy()
         {
+            ViewBag.HideLogin = Request.QueryString["hideLogin"];
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true

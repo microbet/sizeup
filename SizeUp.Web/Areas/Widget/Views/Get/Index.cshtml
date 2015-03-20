@@ -70,11 +70,24 @@
 
         var textNode = document.createTextNode("Copyright © ");
         span.insertBefore(textNode, anchor);
+        @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+        {
+            <text>
+                span.innerHTML = '';
+                span.appendChild(document.createTextNode("Powered by SizeUp © 2009-2015."));
+            </text>
+        }
         textNode = document.createTextNode(" Patent Pending.");
         span.appendChild(textNode);
 
         var terms = document.createElement("a");
         terms.setAttribute("href", loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + "/product/terms/");
+        @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+        {
+            <text>
+                terms.setAttribute("href", loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + "/product/terms/?hideLogin=1");
+            </text>
+        }
         terms.setAttribute("target", "_blank");
         terms.innerHTML = "Terms of Use";
         span.appendChild(terms);

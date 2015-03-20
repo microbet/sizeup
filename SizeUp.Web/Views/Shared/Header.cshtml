@@ -26,7 +26,12 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 
 }
 @if(SizeUp.Core.Identity.Identity.CurrentUser==null){
-<li><a href="javascript:sizeup.core.profile.signIn();">Sign In</a></li>
+    // request from Wells
+    if (string.IsNullOrEmpty(ViewBag.HideLogin))
+    {
+        <li><a href="javascript:sizeup.core.profile.signIn();">Sign In</a></li>
+    }
+
 }else{
 <li id="userMenu">
     <a href="javascript:void(0);"><span>@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName</span></a>
