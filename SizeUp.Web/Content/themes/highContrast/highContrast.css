@@ -36,8 +36,31 @@ a.menu:hover { color: #fff; }
 
 
 
+/** wells fargo accessibility */
+a {color: #A73C02;text-decoration: none;font-weight: bold;}
+a:hover {color: #006282;}
 
 
+a.button.inverse { background-color: #696969; color:#ffffff; }
+
+#dashboard .report .body .reportContainer .reportContent .table thead,
+.loading .message,
+#dashboard .fadeToggle,
+#competition .businessList li .address,
+span.hint,
+.footNote,
+#advertising .description,
+#advertising ul.results li ul.details li 
+{ color: #6d6d6d;}
+
+.loading .title,
+#dashboard h3 { color: #507B1A;}
+
+
+
+#competition .tabs li.active a { color: #A73C02; }
+#competition .businessList li .name{color:#A73C02;}
+#competition .mapControls.container .consumerExpenditures.container .menu {background-color:#A73C02; }
 
 
 

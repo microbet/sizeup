@@ -139,7 +139,8 @@
             me.content.mapControls.filter.find('.zoomMessage').hide();
 
             me.content.map = new sizeup.maps.map({
-                container: me.container.find('.mapWrapper.container .map')
+                container: me.container.find('.mapWrapper.container .map'),
+                mapSettings: { panControl: false, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.SMALL } }
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
 

@@ -292,7 +292,14 @@
                 <ul class="results">
                     <li data-template="listItem">
                         {{#city.SEOKey}}
-                        <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name" target="_blank">{{name}}</a>
+                            @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+                            {
+                                <span class="name noCommunity">{{name}}</span>
+                            } else
+                            {
+                                <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name" target="_blank">{{name}}</a>
+                            }
+                            
                         {{/city.SEOKey}}
                         {{^city.SEOKey}}
                         <a class="name noCommunity">{{name}}</a>

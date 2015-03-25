@@ -114,7 +114,8 @@
             me.content.description = me.container.find('.description');
 
             me.content.map = new sizeup.maps.map({
-                container: me.container.find('.mapContent.wrapper .map')
+                container: me.container.find('.mapContent.wrapper .map'),
+                mapSettings: { panControl: false, zoomControl: true, zoomControlOptions: { style: google.maps.ZoomControlStyle.SMALL } }
             });
 
             me.content.industryBox = me.container.find('#industryBox').hide().removeClass('hidden');
