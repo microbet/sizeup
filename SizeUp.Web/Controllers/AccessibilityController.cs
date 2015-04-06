@@ -12,6 +12,9 @@ using SizeUp.Core.Extensions;
 using System.Drawing;
 
 using SizeUp.Core.DataLayer;
+using System.Data.EntityClient;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace SizeUp.Web.Controllers
 {
@@ -142,7 +145,131 @@ namespace SizeUp.Web.Controllers
                 return View("Heatmap");
             }
         }
-        
+
+        public static IQueryable<Data.ConsumerExpenditureVariable> Variables(SizeUpContext context)
+        {
+            var data = context.ConsumerExpenditureVariables;
+            return data;
+        }
+
+        public static IQueryable<Data.ConsumerExpenditure> Get(SizeUpContext context)
+        {
+            var data = context.ConsumerExpenditures.Where(i => i.Year == CommonFilters.TimeSlice.ConsumerExpenditures.Year && i.Quarter == CommonFilters.TimeSlice.ConsumerExpenditures.Quarter);
+            return data;
+        }
+
+        public ActionResult Competition(long variableId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideNavigation = true
+            };
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var variable = Variables(context).Where(i => i.Id == variableId).Select(i => i.Variable).FirstOrDefault();
+                var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
+
+                int granularityId = 0;
+                if (granularity == Core.DataLayer.Granularity.ZipCode)
+                {
+                    granularityId = 1;
+                }
+                else if (granularity == Core.DataLayer.Granularity.City)
+                {
+                    granularityId = 2;
+                }
+                else if (granularity == Core.DataLayer.Granularity.County)
+                {
+                    granularityId = 3;
+                }
+                else if (granularity == Core.DataLayer.Granularity.Place)
+                {
+                    granularityId = 4;
+                }
+                else if (granularity == Core.DataLayer.Granularity.Metro)
+                {
+                    granularityId = 5;
+                }
+                else if (granularity == Core.DataLayer.Granularity.State)
+                {
+                    granularityId = 6;
+                }
+                else if (granularity == Core.DataLayer.Granularity.Nation)
+                {
+                    granularityId = 7;
+                }
+
+                var data = Get(context)
+                    .Where(i => i.GeographicLocation.Granularity.Name == gran)
+                    .Where(i => i.GeographicLocation.GeographicLocations.Any(g => g.Id == boundingGeographicLocationId));
+
+                int count = data.ToList().Count();
+
+                string queryString = string.Format("select LongName, {0} " +
+                                                    "from dbo.ConsumerExpenditures as ce " +
+                                                    "join dbo.GeographicLocation as gl on ce.GeographicLocationId = gl.Id " +
+                                                    "where ce.GeographicLocationId in ( " +
+                                                    "SELECT gl.GeographicLocationId " +
+                                                    "FROM dbo.GeographicLocation as g " +
+                                                    "join dbo.GeographicLocationGeographicLocation as gl on g.Id = gl.GeographicLocationId " +
+                                                    "where GranularityId={1} and gl.IntersectedGeographicLocationId = {2})", variable, granularityId, boundingGeographicLocationId);
+                var conn = new EntityConnection(ConfigurationManager.ConnectionStrings["SizeUpContext"].ConnectionString);
+                List<Payload> t = new List<Payload>();
+                using (SqlConnection connection = new SqlConnection(conn.StoreConnection.ConnectionString))
+                {
+                    SqlCommand command =
+                        new SqlCommand(queryString, connection);
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    // Call Read before accessing data. 
+                    while (reader.Read())
+                    {
+                        t.Add(new Payload() { Name = reader[0].ToString(), Value = Convert.ToInt64(reader[1]) });
+                    }
+
+                    // Call Close when done reading.
+                    reader.Close();
+                }
+
+                var output = t
+                .NTileDescending(i => i.Value, bands)
+                   .Select(i => new Band
+                   {
+                       Min = string.Format("${0}", Format(i.Min(v => v.Value))),
+                       Max = string.Format("${0}", Format(i.Max(v => v.Value))),
+                       Items = i.Select(v => v.Name).ToList()
+                   })
+                   .ToList();
+
+                if (granularity == Core.DataLayer.Granularity.ZipCode)
+                {
+                    ViewBag.LevelOfDetail = "Zip Code";
+                }
+                else if (granularity == Core.DataLayer.Granularity.County)
+                {
+                    ViewBag.LevelOfDetail = "County";
+                }
+                else if (granularity == Core.DataLayer.Granularity.State)
+                {
+                    ViewBag.LevelOfDetail = "State";
+                }
+                ViewBag.Bands = FormatBands(output);
+                ViewBag.BoundingEntity = context.GeographicLocations.Where(i => i.Id == boundingGeographicLocationId).Select(i => i.LongName).FirstOrDefault();
+                ViewBag.Attribute = "Competition";
+                return View("Heatmap");
+            }
+            
+        }
+
+        public class Payload
+        {
+            public string Name { get; set; }
+            public long Value { get; set; }
+
+        }
+
         public ActionResult AverageSalary(int bands, int industryId, long boundingGeographicLocationId, Core.DataLayer.Granularity granularity)
         {
             ViewBag.Header = new Models.Header()

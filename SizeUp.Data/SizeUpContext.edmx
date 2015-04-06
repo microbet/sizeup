@@ -14,6 +14,7 @@
           <EntitySet Name="City" EntityType="SizeUp.Data.Store.City" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CityCounty" EntityType="SizeUp.Data.Store.CityCounty" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CityType" EntityType="SizeUp.Data.Store.CityType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClientResourceString" EntityType="SizeUp.Data.Store.ClientResourceString" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConsumerExpenditures" EntityType="SizeUp.Data.Store.ConsumerExpenditures" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ConsumerExpenditureVariables" EntityType="SizeUp.Data.Store.ConsumerExpenditureVariables" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="County" EntityType="SizeUp.Data.Store.County" store:Type="Tables" Schema="dbo" />
@@ -388,6 +389,20 @@
           <Property Name="SourceId" Type="nvarchar" MaxLength="1" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="SEOKey" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="ClientResourceString">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DashboardSalary" Type="nvarchar(max)" />
+          <Property Name="DashboardTurnover" Type="nvarchar(max)" />
+          <Property Name="DashboardRevenue" Type="nvarchar(max)" />
+          <Property Name="DashboardWorkersComp" Type="nvarchar(max)" />
+          <Property Name="DashboardAverageEmployees" Type="nvarchar(max)" />
+          <Property Name="DashboardCostEffectiveness" Type="nvarchar(max)" />
+          <Property Name="DashboardHealthcare" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ConsumerExpenditures">
           <Key>
@@ -1519,6 +1534,7 @@
           <Property Name="IsDisabled" Type="bit" Nullable="false" />
           <Property Name="ParentId" Type="bigint" />
           <Property Name="NAICSId" Type="bigint" />
+          <Property Name="NAICS2007Id" Type="bigint" />
         </EntityType>
         <EntityType Name="IndustryCity">
           <Key>
@@ -2710,6 +2726,7 @@
           <EntitySet Name="SitemapBusinesses" EntityType="SizeUp.Data.SitemapBusiness" />
           <EntitySet Name="SitemapCommunities" EntityType="SizeUp.Data.SitemapCommunity" />
           <EntitySet Name="SitemapCommunityIndustries" EntityType="SizeUp.Data.SitemapCommunityIndustry" />
+          <EntitySet Name="ClientResourceStrings" EntityType="SizeUp.Data.ClientResourceString" />
         </EntityContainer>
         <EntityType Name="Attribute">
           <Key>
@@ -3972,6 +3989,7 @@
           <NavigationProperty Name="LegacyIndustrySEOKeys" Relationship="SizeUp.Data.FK_LegacyIndustrySEOKey_Industry" FromRole="Industry" ToRole="LegacyIndustrySEOKey" />
           <NavigationProperty Name="GeographicLocationRanks" Relationship="SizeUp.Data.FK_GeographicLocationRank_Industry" FromRole="Industry" ToRole="GeographicLocationRank" />
           <NavigationProperty Name="Cities" Relationship="SizeUp.Data.IndustryCity" FromRole="Industry" ToRole="City" />
+          <Property Type="Int64" Name="NAICS2007Id" />
         </EntityType>
         <EntityType Name="IndustryData">
           <Key>
@@ -4789,6 +4807,20 @@
           <Property Type="String" Name="County" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="State" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Industry" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ClientResourceString">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="ClientID" Nullable="false" />
+          <Property Type="String" Name="DashboardSalary" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DashboardTurnover" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DashboardRevenue" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DashboardWorkersComp" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DashboardAverageEmployees" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DashboardCostEffectiveness" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="DashboardHealthcare" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5992,6 +6024,7 @@
           <EntitySetMapping Name="Industries">
             <EntityTypeMapping TypeName="SizeUp.Data.Industry">
               <MappingFragment StoreEntitySet="Industry">
+                <ScalarProperty Name="NAICS2007Id" ColumnName="NAICS2007Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="SicCode" ColumnName="SicCode" />
                 <ScalarProperty Name="IndustrySpecificCode" ColumnName="IndustrySpecificCode" />
@@ -6276,6 +6309,21 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="County" ColumnName="County" />
                 <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientResourceStrings">
+            <EntityTypeMapping TypeName="SizeUp.Data.ClientResourceString">
+              <MappingFragment StoreEntitySet="ClientResourceString">
+                <ScalarProperty Name="DashboardHealthcare" ColumnName="DashboardHealthcare" />
+                <ScalarProperty Name="DashboardCostEffectiveness" ColumnName="DashboardCostEffectiveness" />
+                <ScalarProperty Name="DashboardAverageEmployees" ColumnName="DashboardAverageEmployees" />
+                <ScalarProperty Name="DashboardWorkersComp" ColumnName="DashboardWorkersComp" />
+                <ScalarProperty Name="DashboardRevenue" ColumnName="DashboardRevenue" />
+                <ScalarProperty Name="DashboardTurnover" ColumnName="DashboardTurnover" />
+                <ScalarProperty Name="DashboardSalary" ColumnName="DashboardSalary" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

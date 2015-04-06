@@ -65,13 +65,13 @@
         <h1 class="heading">
             <span>Compare your business to the competition in the</span>
            
-            <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
+            <input type="text" id="industryBox" title="enter an industry" data-prompt="enter an industry" class="hidden selectBox" />
             <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
 
             <span>industry in </span>
 
 
-            <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
+            <input type="text" id="placeBox" title="enter a city" data-prompt="enter a city" class="hidden selectBox" />
             <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
 
         </h1>

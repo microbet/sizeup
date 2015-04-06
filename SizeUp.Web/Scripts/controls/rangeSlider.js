@@ -3,6 +3,12 @@
     sizeup.core.namespace('sizeup.controls');
     window.sizeup.controls.rangeSlider = function (opts) {
 
+        var me = {};
+        me.initial = {};
+        me.initial.value = (typeof opts.value !== 'undefined') ? opts.value : {};
+        //me.initial.values = (typeof opts.values !== 'undefined') ? opts.values : {};
+        me.initial.range = (typeof opts.range !== 'undefined') ? opts.range : {};
+
         var defaults = {
             container: $('<div></div>'),
             label: $('<div></div>'),
@@ -13,11 +19,10 @@
         };
 
 
-        var me = {};
+        
         me.container = opts.container;
         me.opts = $.extend(true, defaults, opts);
         var templates = new sizeup.core.templates();
-        
 
         var init = function () {
             me.slider = me.container.find('.slider').addClass('off');
@@ -100,10 +105,59 @@
                 }
                 setLabel(opts.value);
             }
-            me.slider.slider(opts);   
+            me.slider.slider(opts);
+
+            if (opts.range !== true) {
+                var sliderElement = me.slider.find('a')[0];
+                var valueText = getLabelValue(opts.value);
+                sliderElement.setAttribute('role', 'slider');
+                sliderElement.setAttribute('aria-labelledby', me.label.getContainer().attr('id'));
+                sliderElement.setAttribute('aria-valuetext', (valueText != null) ? valueText.value : '');
+                sliderElement.setAttribute('aria-valuenow', opts.value);
+                sliderElement.setAttribute('aria-valuemin', opts.min);
+                sliderElement.setAttribute('aria-valuemax', opts.max);
+            } else {
+                var sliderElements = me.slider.find('a');
+                var leftSlider = sliderElements[0];
+                var rightSlider = sliderElements[1];
+                var leftIndex = findWithAttr(me.initial.range, "value", parseInt(me.initial.value[0]));
+                var rightIndex = findWithAttr(me.initial.range, "value", parseInt(me.initial.value[1]));
+
+                leftSlider.setAttribute('role', 'slider');
+                leftSlider.setAttribute('aria-labelledby', me.label.getContainer().attr('id'));
+                leftSlider.setAttribute('aria-valuetext', (typeof leftIndex !== 'undefined') ? me.initial.range[leftIndex].label : '');
+                leftSlider.setAttribute('aria-valuenow', opts.values[0]);
+                leftSlider.setAttribute('aria-valuemin', opts.min);
+                leftSlider.setAttribute('aria-valuemax', opts.max - 1);
+
+                rightSlider.setAttribute('role', 'slider');
+                rightSlider.setAttribute('aria-labelledby', me.label.getContainer().attr('id'));
+                rightSlider.setAttribute('aria-valuetext', (typeof rightIndex !== 'undefined') ? me.initial.range[rightIndex].label : '');
+                rightSlider.setAttribute('aria-valuenow', opts.values[1]);
+                rightSlider.setAttribute('aria-valuemin', opts.min + 1);
+                rightSlider.setAttribute('aria-valuemax', opts.max);
+
+            }
+
         };
 
         var onSlide = function (event, ui) {
+
+            if (typeof ui.values !== 'undefined') {
+                if (typeof me.initial.range[ui.values[0]] !== 'undefined') {
+                    $($(me.slider).find('a')[0]).attr('aria-valuenow', me.initial.range[ui.values[0]].value);
+                    $($(me.slider).find('a')[0]).attr('aria-valuetext', me.initial.range[ui.values[0]].label);
+                }
+
+                if (typeof me.initial.range[ui.values[1]] !== 'undefined') {
+                    $($(me.slider).find('a')[1]).attr('aria-valuenow', me.initial.range[ui.values[1]].value);
+                    $($(me.slider).find('a')[1]).attr('aria-valuetext', me.initial.range[ui.values[1]].label);
+                }
+            } else {
+                $($(me.slider).find('a')).attr('aria-valuetext', ui.value);
+                $($(me.slider).find('a')).attr('aria-valuenow', ui.value);
+            }
+
             var index = 0;
             if (me.mode == 'range') {
                 if (ui.values[0] == ui.values[1]) {
@@ -140,11 +194,37 @@
         };
 
         var onChange = function (event, ui) {
+            if (typeof ui.values !== 'undefined') {
+                if (typeof me.initial.range[ui.values[0]] !== 'undefined') {
+                    $($(me.slider).find('a')[0]).attr('aria-valuenow', me.initial.range[ui.values[0]].value);
+                    $($(me.slider).find('a')[0]).attr('aria-valuetext', me.initial.range[ui.values[0]].label);
+                }
+
+                if (typeof me.initial.range[ui.values[1]] !== 'undefined') {
+                    $($(me.slider).find('a')[1]).attr('aria-valuenow', me.initial.range[ui.values[1]].value);
+                    $($(me.slider).find('a')[1]).attr('aria-valuetext', me.initial.range[ui.values[1]].label);
+                }
+            } else {
+                $($(me.slider).find('a')).attr('aria-valuetext', ui.value);
+                $($(me.slider).find('a')).attr('aria-valuenow', ui.value);
+            }
+
             onSlide(event, ui);
             if (me.opts.onChange) {
                 me.opts.onChange();
             }
         };
+
+
+        // helper function
+        var findWithAttr = function (array, attr, value) {
+            for (var i = 0; i < array.length; i += 1) {
+                if (array[i][attr] === value) {
+                    return i;
+                }
+            }
+        };
+
 
         var setLabel = function (index) {
             me.label.setValues(getLabelValue(index));

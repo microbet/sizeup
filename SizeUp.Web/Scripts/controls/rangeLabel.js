@@ -41,7 +41,7 @@
             }
             var text = me.templates.bind(html, values);
             var delay = function () { me.container.html(text); };
-            //this is done becuase ie is a real peice of crap. turns out it doesnt like to update the dom so we have to
+            //this is done becuase ie is a real piece of crap. turns out it doesnt like to update the dom so we have to
             //do this stupid setTimeout shenanigans
             setTimeout(delay ,1);
         };

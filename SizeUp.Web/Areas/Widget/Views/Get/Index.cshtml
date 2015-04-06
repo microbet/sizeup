@@ -27,6 +27,7 @@
         var loc = getScriptLocation();
         var iframe = document.createElement("iframe");
         var script = getThisScript();
+        iframe["title"] = "SizeUp Services";
         iframe["frameBorder"] = "0";
         iframe["border"] = "0";
         iframe.style["border"] = "0";
@@ -116,6 +117,7 @@
         // get latest script added to the page (this script)
         var scripts = document.getElementsByTagName("script");
         var index = scripts.length - 1;
+        for(var i=0; i < scripts.length; i++){ var match = /^https?:\/\/([a-zA-Z\d-]+\.){0,}sizeup\.com/.test(scripts[i].getAttribute('src')); if(match){index = i;} }
         return scripts[index];
     };
 

@@ -144,6 +144,8 @@
             });
             me.content.map.fitBounds(me.data.cityBoundingBox);
 
+            me.textAlternative = me.container.find('.mapWrapper .textAlternative');
+            me.textAlternative.click(textAlternativeClicked);
  
 
             me.content.questions = {
@@ -336,6 +338,11 @@
             pushUrlState();
             setBusinessOverlay();
         };
+
+        var textAlternativeClicked = function () {
+            var url = '/accessibility/competition/';
+            window.open(jQuery.param.querystring(url, me.data.textAlternative), '_blank');
+        };
         
         var buyerQuestionClicked = function () {
             var doActivate = !me.content.tabs.buyer.is(':visible');
@@ -389,6 +396,7 @@
         };
 
         var consumerExpenditureStartOverClicked = function (e) {
+            me.textAlternative.hide();
             me.content.ConsumerExpenditure.selectionList.empty();
             me.data.consumerExpenditure.currentSelection = null;
             loadConsumerExpenditureVariables(me.data.consumerExpenditure.rootId);
@@ -805,6 +813,10 @@
                 };
 
                 me.data.consumerExpenditure.overlay.getLegend(z, callback);
+                me.data.textAlternative = me.data.consumerExpenditure.overlay.getParams(z);
+                me.textAlternative.show();
+            } else {
+                me.textAlternative.hide();
             }
         };
  

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="846a1f780aec4b64905817e122d46321" Name="Diagram1" ZoomLevel="66">
+      <Diagram DiagramId="846a1f780aec4b64905817e122d46321" Name="Diagram1" ZoomLevel="51">
         <EntityTypeShape EntityType="SizeUp.Data.Attribute" Width="1.5" PointX="0.5" PointY="24.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.Band" Width="1.5" PointX="0.5" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SizeUp.Data.Business" Width="2.875" PointX="13" PointY="14.875" IsExpanded="true" />
@@ -95,6 +95,7 @@
         <EntityTypeShape EntityType="SizeUp.Data.SitemapBusiness" Width="2.125" PointX="0.5" PointY="29.25" />
         <EntityTypeShape EntityType="SizeUp.Data.SitemapCommunity" Width="2.125" PointX="0.5" PointY="27" />
         <EntityTypeShape EntityType="SizeUp.Data.SitemapCommunityIndustry" Width="2.125" PointX="0.5" PointY="32.125" />
+        <EntityTypeShape EntityType="SizeUp.Data.ClientResourceString" Width="1.5" PointX="2.1213834407373255" PointY="7.8259955383026956" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

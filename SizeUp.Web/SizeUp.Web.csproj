@@ -83,6 +83,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -166,6 +167,7 @@
     <Compile Include="Areas\Widget\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Widget\Controllers\UserController.cs" />
     <Compile Include="Areas\Widget\WidgetAreaRegistration.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\AccessibilityController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
@@ -187,11 +189,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DecodeHtmlHelper.cs" />
+    <Compile Include="Helpers\WrapperImpersonationContext.cs" />
     <Compile Include="Models\Accessibility\Table.cs" />
     <Compile Include="Models\Header.cs" />
+    <Compile Include="Models\ResourceModel.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin\css\bootstrap.css" />
+    <Content Include="Content\admin\css\bootstrap.min.css" />
+    <Content Include="Content\admin\css\plugins\dataTables.bootstrap.css" />
+    <Content Include="Content\admin\css\plugins\metisMenu\metisMenu.css" />
+    <Content Include="Content\admin\css\plugins\metisMenu\metisMenu.min.css" />
+    <Content Include="Content\admin\css\plugins\morris.css" />
+    <Content Include="Content\admin\css\plugins\social-buttons.css" />
+    <Content Include="Content\admin\css\plugins\timeline.css" />
+    <Content Include="Content\admin\css\sb-admin-2.css" />
+    <Content Include="Content\admin\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\admin\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\admin\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\admin\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\admin\images\4f5d9923-510f-4beb-b916-a82beb3321dd.jpg" />
+    <Content Include="Content\admin\images\f0f8dbff-3a61-4f07-a206-5bd0f83a2b24.jpg" />
     <Content Include="Content\base.css" />
     <Content Include="Content\images\actionbutton.png" />
     <Content Include="Content\images\advertise-card.png" />
@@ -320,7 +341,6 @@
     <Content Include="Content\themes\highContrast\highContrast.css" />
     <Content Include="Content\themes\highContrast\images\actionbutton.png" />
     <Content Include="Content\themes\highContrast\images\dashbuttons.png" />
-    <Content Include="Content\themes\highContrast\images\markerCompetitor.png" />
     <Content Include="Content\themes\wide\wide.css" />
     <Content Include="Content\thirdParty\add2home.css" />
     <Content Include="Content\thirdParty\animations.css" />
@@ -398,6 +418,39 @@
     <Content Include="Scripts\core\notifier.js" />
     <Content Include="Scripts\core\profile.js" />
     <Content Include="Scripts\core\templates.js" />
+    <Content Include="Scripts\editor\bootstrap-wysiwyg.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-apollo.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-basic.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-clj.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-css.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-dart.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-erlang.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-go.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-hs.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-lisp.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-llvm.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-lua.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-matlab.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-ml.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-mumps.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-n.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-pascal.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-proto.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-r.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-rd.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-scala.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-sql.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-tcl.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-tex.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-vb.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-vhdl.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-wiki.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-xq.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\lang-yaml.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\prettify.css" />
+    <Content Include="Scripts\editor\external\google-code-prettify\prettify.js" />
+    <Content Include="Scripts\editor\external\google-code-prettify\run_prettify.js" />
+    <Content Include="Scripts\editor\external\jquery.hotkeys.js" />
     <Content Include="Scripts\LBI\home-ui.js" />
     <Content Include="Scripts\maps\circle.js" />
     <Content Include="Scripts\maps\heatmapColors.js" />
@@ -605,6 +658,42 @@
     <Content Include="Areas\Widget\Views\Authorize\Authorize.cshtml" />
     <Content Include="Content\files\Large Enterprise Portals to Serve SMB Customers.pdf" />
     <Content Include="Content\LBI\SizeUpLBI-EmpowerLocalBusinesses.pdf" />
+    <Content Include="Content\admin\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\admin\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\admin\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\admin\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\admin\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\admin\font-awesome\less\core.less" />
+    <Content Include="Content\admin\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\admin\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\admin\font-awesome\less\icons.less" />
+    <Content Include="Content\admin\font-awesome\less\larger.less" />
+    <Content Include="Content\admin\font-awesome\less\list.less" />
+    <Content Include="Content\admin\font-awesome\less\mixins.less" />
+    <Content Include="Content\admin\font-awesome\less\path.less" />
+    <Content Include="Content\admin\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\admin\font-awesome\less\spinning.less" />
+    <Content Include="Content\admin\font-awesome\less\stacked.less" />
+    <Content Include="Content\admin\font-awesome\less\variables.less" />
+    <Content Include="Content\admin\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_core.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_list.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_path.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\admin\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\admin\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\admin\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\admin\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\admin\less\mixins.less" />
+    <Content Include="Content\admin\less\sb-admin-2.less" />
+    <Content Include="Content\admin\less\variables.less" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
@@ -646,6 +735,10 @@
     <Content Include="Views\Help\EnterprisePartnersDownload.cshtml" />
     <Content Include="Views\LBI\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLBI.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_LayoutBare.cshtml" />
+    <Content Include="Views\Shared\_LayoutDashboardEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

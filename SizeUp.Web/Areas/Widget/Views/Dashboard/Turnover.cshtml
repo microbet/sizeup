@@ -2,10 +2,10 @@
     <div class="icon"></div>
     <h2>Local Turnover</h2>
     <span class="hint">Percentage of workers newly hired</span>
-    <input type="text" class="valueBox"  disabled="disabled" />
+    <input type="text" title="local turnover" class ="valueBox"  disabled="disabled" />
     <div class="gauge "></div>
     <a href="javascript:void(0)" class="button medium runReport ">Run</a>
-    <a href="javascript:void(0)" class="reportToggle"></a>
+    <a href="javascript:void(0)" class="reportToggle" title="turnover toggle"></a>
 </div>
 <div class="body ">
     <div class="loading">
@@ -27,10 +27,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td class="label">Business/Geography</td>
-                        <td class="hires">Hires</td>
-                        <td class="separations">Separations</td>
-                        <td class="turnover">Turnover Rate</td>
+                        <th scope="col" class="label">Business/Geography</th>
+                        <th scope="col" class="hires">Hires</th>
+                        <th scope="col" class="separations">Separations</th>
+                        <th scope="col" class="turnover">Turnover Rate</th>
                     </tr>
                 </thead>
                 <tbody class="container">
@@ -77,10 +77,10 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td class="label">Business/Geography</td>
-                        <td class="jobGains">Job Gains</td>
-                        <td class="jobLosses">Job Losses</td>
-                        <td class="netJobChange">Net Job change</td>
+                        <th scope="col" class="label">Business/Geography</th>
+                        <th scope="col" class="jobGains">Job Gains</th>
+                        <th scope="col" class="jobLosses">Job Losses</th>
+                        <th scope="col" class="netJobChange">Net Job change</th>
                     </tr>
                 </thead>
                 <tbody class="container">

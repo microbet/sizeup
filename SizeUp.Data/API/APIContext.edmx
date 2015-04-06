@@ -31,6 +31,7 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="KeyValue" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="APIKeyDomain">
           <Key>
@@ -123,6 +124,7 @@
           <NavigationProperty Name="APIKeyDomains" Relationship="SizeUp.Data.API.FK_APIKeyDomain_APIKey" FromRole="APIKey" ToRole="APIKeyDomain" />
           <NavigationProperty Name="APIKeyRoleMappings" Relationship="SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey" FromRole="APIKey" ToRole="APIKeyRoleMapping" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="String" Name="UserName" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="APIKeyDomain">
           <Key>
@@ -196,6 +198,7 @@
           <EntitySetMapping Name="APIKeys">
             <EntityTypeMapping TypeName="SizeUp.Data.API.APIKey">
               <MappingFragment StoreEntitySet="APIKey">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

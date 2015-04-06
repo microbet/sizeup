@@ -51,12 +51,12 @@
             <h2 class="heading">
                 <span>Best places to advertise in the </span>
          
-                <input type="text" id="industryBox" data-prompt="enter an industry" class="hidden selectBox" />
+                <input type="text" id="industryBox" data-prompt="enter an industry" title="enter an industry" class="hidden selectBox" />
                 <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
 
                 <span>industry near </span>
 
-                <input type="text" id="placeBox" data-prompt="enter a city" class="hidden selectBox" />
+                <input type="text" id="placeBox" data-prompt="enter a city" title="enter a city" class="hidden selectBox" />
                 <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
 
                 <span>based on </span>
@@ -284,8 +284,8 @@
 
 
                 <div class="sort">
-                    <a class="name sorter" href="javascript:void(0);">ZIP Code by City</a>
-                    <a class="value sorter" href="javascript:void(0);"></a>
+                    <a class="name sorter" aria-sort="none" href="javascript:void(0);">ZIP Code by City</a>
+                    <a class="value sorter" aria-sort="none" href="javascript:void(0);"></a>
                 </div>
 
 

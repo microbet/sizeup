@@ -664,9 +664,13 @@
 
             if (params.sortAttribute == 'name') {
                 me.content.nameSort.addClass(params.sort);
+                me.content.nameSort.attr('aria-sort', params.sort + 'ending');
+                me.content.valueSort.attr('aria-sort', 'none');
             }
             else {
                 me.content.valueSort.addClass(params.sort);
+                me.content.valueSort.attr('aria-sort', params.sort + 'ending');
+                me.content.nameSort.attr('aria-sort', 'none');
             }
         };
 

@@ -682,6 +682,22 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<SitemapCommunityIndustry> _SitemapCommunityIndustries;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ClientResourceString> ClientResourceStrings
+        {
+            get
+            {
+                if ((_ClientResourceStrings == null))
+                {
+                    _ClientResourceStrings = base.CreateObjectSet<ClientResourceString>("ClientResourceStrings");
+                }
+                return _ClientResourceStrings;
+            }
+        }
+        private ObjectSet<ClientResourceString> _ClientResourceStrings;
 
         #endregion
 
@@ -965,6 +981,14 @@ namespace SizeUp.Data
         public void AddToSitemapCommunityIndustries(SitemapCommunityIndustry sitemapCommunityIndustry)
         {
             base.AddObject("SitemapCommunityIndustries", sitemapCommunityIndustry);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ClientResourceStrings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToClientResourceStrings(ClientResourceString clientResourceString)
+        {
+            base.AddObject("ClientResourceStrings", clientResourceString);
         }
 
         #endregion
@@ -3206,6 +3230,256 @@ namespace SizeUp.Data
                 }
             }
         }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="ClientResourceString")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ClientResourceString : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ClientResourceString object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="clientID">Initial value of the ClientID property.</param>
+        public static ClientResourceString CreateClientResourceString(global::System.Int64 id, global::System.Guid clientID)
+        {
+            ClientResourceString clientResourceString = new ClientResourceString();
+            clientResourceString.Id = id;
+            clientResourceString.ClientID = clientID;
+            return clientResourceString;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ClientID
+        {
+            get
+            {
+                return _ClientID;
+            }
+            set
+            {
+                OnClientIDChanging(value);
+                ReportPropertyChanging("ClientID");
+                _ClientID = StructuralObject.SetValidValue(value, "ClientID");
+                ReportPropertyChanged("ClientID");
+                OnClientIDChanged();
+            }
+        }
+        private global::System.Guid _ClientID;
+        partial void OnClientIDChanging(global::System.Guid value);
+        partial void OnClientIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardSalary
+        {
+            get
+            {
+                return _DashboardSalary;
+            }
+            set
+            {
+                OnDashboardSalaryChanging(value);
+                ReportPropertyChanging("DashboardSalary");
+                _DashboardSalary = StructuralObject.SetValidValue(value, true, "DashboardSalary");
+                ReportPropertyChanged("DashboardSalary");
+                OnDashboardSalaryChanged();
+            }
+        }
+        private global::System.String _DashboardSalary;
+        partial void OnDashboardSalaryChanging(global::System.String value);
+        partial void OnDashboardSalaryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardTurnover
+        {
+            get
+            {
+                return _DashboardTurnover;
+            }
+            set
+            {
+                OnDashboardTurnoverChanging(value);
+                ReportPropertyChanging("DashboardTurnover");
+                _DashboardTurnover = StructuralObject.SetValidValue(value, true, "DashboardTurnover");
+                ReportPropertyChanged("DashboardTurnover");
+                OnDashboardTurnoverChanged();
+            }
+        }
+        private global::System.String _DashboardTurnover;
+        partial void OnDashboardTurnoverChanging(global::System.String value);
+        partial void OnDashboardTurnoverChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardRevenue
+        {
+            get
+            {
+                return _DashboardRevenue;
+            }
+            set
+            {
+                OnDashboardRevenueChanging(value);
+                ReportPropertyChanging("DashboardRevenue");
+                _DashboardRevenue = StructuralObject.SetValidValue(value, true, "DashboardRevenue");
+                ReportPropertyChanged("DashboardRevenue");
+                OnDashboardRevenueChanged();
+            }
+        }
+        private global::System.String _DashboardRevenue;
+        partial void OnDashboardRevenueChanging(global::System.String value);
+        partial void OnDashboardRevenueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardWorkersComp
+        {
+            get
+            {
+                return _DashboardWorkersComp;
+            }
+            set
+            {
+                OnDashboardWorkersCompChanging(value);
+                ReportPropertyChanging("DashboardWorkersComp");
+                _DashboardWorkersComp = StructuralObject.SetValidValue(value, true, "DashboardWorkersComp");
+                ReportPropertyChanged("DashboardWorkersComp");
+                OnDashboardWorkersCompChanged();
+            }
+        }
+        private global::System.String _DashboardWorkersComp;
+        partial void OnDashboardWorkersCompChanging(global::System.String value);
+        partial void OnDashboardWorkersCompChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardAverageEmployees
+        {
+            get
+            {
+                return _DashboardAverageEmployees;
+            }
+            set
+            {
+                OnDashboardAverageEmployeesChanging(value);
+                ReportPropertyChanging("DashboardAverageEmployees");
+                _DashboardAverageEmployees = StructuralObject.SetValidValue(value, true, "DashboardAverageEmployees");
+                ReportPropertyChanged("DashboardAverageEmployees");
+                OnDashboardAverageEmployeesChanged();
+            }
+        }
+        private global::System.String _DashboardAverageEmployees;
+        partial void OnDashboardAverageEmployeesChanging(global::System.String value);
+        partial void OnDashboardAverageEmployeesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardCostEffectiveness
+        {
+            get
+            {
+                return _DashboardCostEffectiveness;
+            }
+            set
+            {
+                OnDashboardCostEffectivenessChanging(value);
+                ReportPropertyChanging("DashboardCostEffectiveness");
+                _DashboardCostEffectiveness = StructuralObject.SetValidValue(value, true, "DashboardCostEffectiveness");
+                ReportPropertyChanged("DashboardCostEffectiveness");
+                OnDashboardCostEffectivenessChanged();
+            }
+        }
+        private global::System.String _DashboardCostEffectiveness;
+        partial void OnDashboardCostEffectivenessChanging(global::System.String value);
+        partial void OnDashboardCostEffectivenessChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DashboardHealthcare
+        {
+            get
+            {
+                return _DashboardHealthcare;
+            }
+            set
+            {
+                OnDashboardHealthcareChanging(value);
+                ReportPropertyChanging("DashboardHealthcare");
+                _DashboardHealthcare = StructuralObject.SetValidValue(value, true, "DashboardHealthcare");
+                ReportPropertyChanged("DashboardHealthcare");
+                OnDashboardHealthcareChanged();
+            }
+        }
+        private global::System.String _DashboardHealthcare;
+        partial void OnDashboardHealthcareChanging(global::System.String value);
+        partial void OnDashboardHealthcareChanged();
 
         #endregion
 
@@ -30464,6 +30738,30 @@ namespace SizeUp.Data
         private Nullable<global::System.Int64> _NAICSId;
         partial void OnNAICSIdChanging(Nullable<global::System.Int64> value);
         partial void OnNAICSIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> NAICS2007Id
+        {
+            get
+            {
+                return _NAICS2007Id;
+            }
+            set
+            {
+                OnNAICS2007IdChanging(value);
+                ReportPropertyChanging("NAICS2007Id");
+                _NAICS2007Id = StructuralObject.SetValidValue(value, "NAICS2007Id");
+                ReportPropertyChanged("NAICS2007Id");
+                OnNAICS2007IdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _NAICS2007Id;
+        partial void OnNAICS2007IdChanging(Nullable<global::System.Int64> value);
+        partial void OnNAICS2007IdChanged();
 
         #endregion
 
