@@ -1,0 +1,10 @@
+﻿#dashboard .report .body .reportContainer .reportContent { width: 60%; padding: 1em; margin:  0 0 1em 0; }
+#dashboard .report .body .reportContainer .reportSidebar { width: 37%; margin:  0 0 1em 0; }
+#dashboard .report .header input[type="text"] { width: 22%; left:36%; }
+#dashboard .report .header .prompt { left:62%; }
+#dashboard .report .header a.button { left:62%; }
+#dashboard .report .header .gauge { left: 62%; }
+#dashboard .report.disabled .header p.message { left: 62%; }
+    
+    
+    

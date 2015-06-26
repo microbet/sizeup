@@ -1,0 +1,134 @@
+﻿#competition { }
+
+#competition h2 { font-size: 1.85em; display: inline-block; font-weight: normal; }
+#competition .headerWrapper { margin: 1em 0; text-align: left; }
+
+#competition .tabs { display:inline-block; width:41em; vertical-align: top; position:relative;  }
+#competition .tabs li {display:inline-block; vertical-align:bottom; position:relative; top:0.2em; z-index:1;  }
+#competition .tabs li.question a {border-top-left-radius:1em; border-top-right-radius:1em; padding: 1em; border: 2px solid #ccc; background-color: #F5F5F5; display: block; text-align: center; width: 7.7em; min-height: 2.75em; line-height:inherit;}
+#competition .tabs li a {border-top-left-radius:1em; border-top-right-radius:1em; padding:1em 0.5em 1em 1.5em; border:2px solid #ccc; background-color:#F5F5F5; display:block; text-align:center; width:7.7em; min-height:2.75em; line-height:2.4em; background-position:0.5em 1.25em; background-repeat:no-repeat; }
+
+#competition .tabs li.active a { border-bottom: none; background-color:#fff;  color: #e78500; min-height:2.9em;  }
+#competition .tabs li.active a:hover { color:#0099cc; }
+#competition .tabs li.competitors a  {background-image :url(/content/images/markerCompetitor.png); }
+#competition .tabs li.suppliers a {background-image :url(/content/images/markerSupplier.png); }
+#competition .tabs li.buyers a {background-image :url(/content/images/markerBuyer.png); }
+#competition .tabs li.question a { background-image:none;}
+
+
+#competition .content.container {margin:1em 0;}
+
+#competition .list.container { width:41em; display:inline-block; vertical-align: top; }
+#competition .list.container .footNote { text-align: right; margin:1em 2em; }
+
+#competition .tabs:after { border-left: 2px solid #CCCCCC; border-right: 2px solid #CCCCCC; border-top: 2px solid #CCCCCC; border-top-left-radius: 2em;border-top-right-radius: 2em; content: " "; display: block; height: 1em; left: -2.2em; position: absolute; width: 96em; }
+
+
+#competition .mapWrapper.container { display: inline-block; vertical-align: top; width:50em; margin:1.8em 0 0 0;}
+#competition .mapWrapper.container .map { height: 57em; width: 50em; }
+
+
+#competition .mapControls.container {width:50em; display:inline-block; vertical-align: top; position:relative; top:1.5em; height:5em; }
+
+#competition .mapControls.container .consumerExpenditures.container { position:relative; float:right; }
+#competition .mapControls.container .consumerExpenditures.container .menu {  }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker {background-color:#fff; width:26em; position:absolute; right:0em; z-index:9999; border:1px solid #ccc; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker a {font-size:1.1em;  }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul { text-align: left; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li { }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a {border-bottom:1px solid #e2e2e2; display:block; padding:0.75em;  }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a:hover {background-color:#f5f5f5; color:#606060; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a:after {content: "."; color:transparent; background :url(/content/images/menuArrow.png) no-repeat 0 -9px; display:inline-block; width:13px; height:9px; float:right; position:relative; top:0.3em;}
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li { }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li a{border-bottom:1px solid #666; background-color:#333; color:#fff; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==); }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li a:after {background-position:0 0px; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul.selection li a:hover {border-bottom:1px solid #666; background-color: #666; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker ul li a.leaf:after { background: none; }
+
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker .menuOptions {padding:1em; text-align:center; border-bottom:1px solid #E2E2E2; background-color:#f0f0f0; }
+#competition .mapControls.container .consumerExpenditures.container .consumerExpenditurePicker .menuOptions a { padding: 0 1em; font-weight:normal; }
+
+
+#competition .mapControls.container .mapFilter.container {  float:left; padding:0 0.75em;}
+#competition .mapControls.container .mapFilter.container ul { width:25em; }
+#competition .mapControls.container .mapFilter.container ul li { width:11em; display:inline-block; padding:0.25em; }
+#competition .mapControls.container .mapFilter.container ul li input { position: relative; top:0.15em; margin:0; }
+#competition .mapControls.container .mapFilter.container ul li label{position:relative; font-size:1.2em;}
+#competition .mapControls.container .mapFilter.container ul li label span { font-size: 1em; }
+
+#competition .mapControls.container .mapFilter.container ul li label .legendItem { border: 0.1em solid #909090; display: inline-block; height: 0.8em; margin: 0 0.3em 0 0; position: relative; top: 0.15em; width: 0.8em; }
+#competition .mapControls.container .mapFilter.container ul li.competitor label .legendItem { background-color: #FF5522; }
+#competition .mapControls.container .mapFilter.container ul li.buyer label .legendItem { background-color: #66EE00; }
+#competition .mapControls.container .mapFilter.container ul li.supplier label .legendItem { background-color: #11AAFF; }
+
+
+
+#competition .pager {  margin:1em 0 0 1em; }
+#competition .pager,
+#competition .pager span,
+#competition .pager a { font-size: 1.2em; }
+#competition .pager span { margin:0 1em 0 0; }
+#competition .pager a,
+#competition .pager ul,
+#competition .pager ul li {display:inline;  font-weight:bold; }
+#competition .pager li.current a,
+#competition .pager li.current a:hover { color: #606060; }
+
+#competition .pager { font-family: Arial,Verdana,sans-serif; }
+#competition .businessList {font-family: Arial,Verdana,sans-serif; border-top: 1px dashed #CCCCCC; padding-top: 1.5em; width: 38.5em; margin: 0.5em 0 0 0.8em;  }
+#competition .businessList li a {display:block; padding:0.5em; height:3em; font-size: 1em;  }
+#competition .businessList li a:hover {background-color:#f6f6f0;}
+#competition .businessList li dl { display: inline-block;}
+#competition .businessList li .name { font-size:1.5em; font-weight:bold; color:#E78500; }
+#competition .businessList li .address {font-size:1.1em; color:#A6A6A0;  }
+
+
+#competition .signinWrapper { padding: 2em 1em 0 1.75em; }
+#competition .signinWrapper .signinToggle { font-size:1.5em;  }
+#competition .signinWrapper .signinToggle .viewing { float: right; }
+#competition .signinWrapper .signinPanel.form input[type="text"],
+#competition .signinWrapper .signinPanel.form input[type="password"] {width: 13em;}
+#competition .signinWrapper .signinPanel.form a.button { left: 2em; }
+
+
+#competition .industryList { margin: 1em 0 0 1em; }
+#competition .industryList li { border: 1px solid #ccc; background-color: #eee; margin:0.25em; display:inline-block; padding:0.25em; }
+#competition .industryList li.highlight { background-color: #ff0000; }
+#competition .industryList li a { margin: 0 0 0 1em;  }
+#competition .industryList li>span { display:inline-block; position:relative; top:0.15em; }
+#competition .industryList li > span > span {overflow: hidden; text-overflow: ellipsis; max-width:10em; white-space:nowrap;display:inline-block; font-size:1em; }
+#competition .industryList .remove {color:transparent; width:14px; height:14px; background:url('/content/images/btn_close.png') no-repeat 0 0 transparent; position:relative; top: -0.1em; display:inline-block;  }
+#competition .industryList li > span:hover .remove {background-position:0 -19px; }
+
+
+#competition .industryPicker.container { padding: 1.5em 0 0 0; }
+
+#competition .industryPicker p { margin:0.5em 0 0 0.5em; }
+#competition .industryPicker input { font-size: 1.3em; padding: 0.6em; margin:0.25em 0.5em 1.5em; width: 28em; display: block;}
+
+
+#competition .infoWindow { font-family: Arial,Verdana,sans-serif; padding: 0.5em 0; text-align:left; }
+#competition .infoWindow h3 { font-size:1.5em; color:#99BB66; font-weight:bold;}
+#competition .infoWindow span { font-size:1.05em; color:#A6A6A0;}
+#competition .infoWindow ul { margin: 0.5em 0; }
+#competition .infoWindow ul li { margin: 0.25em 0; }
+#competition .infoWindow ul li a,
+#competition .infoWindow ul li span { font-size: 1.1em; font-weight: bold; display:inline-block;}
+#competition .infoWindow ul li span.label {padding: 0 0 0 1.5em; }
+#competition .infoWindow ul li span.value {float:right; color:#606060; }
+#competition .infoWindow ul li a.value {float:right; }
+#competition .infoWindow .tools .remove { float: right; }
+
+
+#competition .competitor,
+#competition .buyer,
+#competition .supplier { display: none; }
+
+
+#competition.competitor .competitor { display: block; }
+#competition.buyer .buyer { display: block; }
+#competition.supplier .supplier { display: block; }
+
+
+
+

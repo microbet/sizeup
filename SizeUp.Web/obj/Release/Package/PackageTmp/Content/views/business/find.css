@@ -1,0 +1,30 @@
+﻿#businessListings h1 { font-size:2em; margin: 0 0 1em 0; }
+#businessListings .col { display: inline-block; vertical-align: top; }
+#businessListings ul li { margin: 0 0 1em 0; }
+
+#businessListings.state .col {width:20em; margin:0 0 0 2em; }
+#businessListings.city .col {  width:40em; margin:0 0 0 2em; }
+#businessListings.city h2 { font-size: 3.2em; color: #ccc; margin: 0; width:12em;}
+#businessListings.city ul {  margin: 0 0 2em 2em; }
+#businessListings.city a span { color: #999; font-weight:normal;}
+
+
+#businessListings.industry .col { width:47%; margin:0 0 0 2em; }
+#businessListings.industry h2 { font-size: 1.5em; color: #606060; margin: 0 0 0.5em 0; }
+#businessListings.industry h3 { font-size: 1.3em; margin: 0 0 0.5em; width: 40em; font-weight:bold;}
+#businessListings.industry ul {  margin: 0 0 3em 2em; }
+#businessListings.industry ul li { margin: 0 0 0.5em 0; }
+#businessListings.industry a.details { margin: 2em 0 2em 0; display:block;}
+
+
+
+#businessListings.find .col { width:40em; margin:0 0 0 2em; }
+#businessListings.find h2 { font-size: 1.5em; color: #606060; margin: 0 0 0.5em 0; }
+#businessListings.find ul {  margin: 0 0 3em 2em; }
+#businessListings.find ul li { margin: 0 0 0.5em 0; }
+#businessListings.find a.details { margin: 0 0 2em 0; display:block;}
+#businessListings.find .address1 { display: block; }
+#businessListings.find .address2 { display: block; }
+
+
+

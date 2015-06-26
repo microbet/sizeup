@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/reset.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/thirdParty/jquery-ui-1.8.21.custom.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/widget/base.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/widget/layout.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/widget/print.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
+    @Html.Partial("Analytics")
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/namespace.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/notifier.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/profile.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/core/analytics.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script src="@Url.Content("~/Scripts/tracking/outboundLinks.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
+
+    @RenderSection("head",false)
+    @if (!string.IsNullOrEmpty(ViewBag.Theme))
+    {
+    <link href="@Url.Content("~/Content/themes/" + ViewBag.Theme + "/" + ViewBag.Theme + ".css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    }
+
+    @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+    {
+        
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    width: '724px'
+                });
+
+                $('#dialog .dialog-close-link').click(function (e) {
+                    e.preventDefault();
+                    closeLeavingDialog();
+                });
+
+                function closeLeavingDialog() {
+                    $('#dialog').dialog('close');
+                }
+
+                $('body').on('click', 'a', function () {
+                    var me = $(this);
+                    var ok = false;
+                    if (me.attr('target') == '_blank') {
+                        //ok = confirm("You are leaving the Wells Fargo Competitive Intelligence Tool website… ");
+                        var url = $(this).attr("href");
+                        $('#dialog .dialog-continue-link').attr('href', url);
+                        $('#dialog').dialog('open');
+                        ok = false;
+                        if (me.attr('class') == 'dialog-continue-link')
+                            ok = true;
+                    }
+                    else {
+                        ok = true;
+                    }
+                    return ok;
+                });
+            });
+        </script>
+    }
+
+    @if (ViewBag.APIName == "SBA")
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $('body').on('click', 'a', function () {
+                    var me = $(this);
+                    var ok = false;
+                    if (me.attr('target') == '_blank') {
+                        ok = confirm("You are leaving the Small Business Administration (SBA) website… ");
+                    }
+                    else {
+                        ok = true;
+                    }
+                    return ok;
+                });
+            });
+        </script>
+    }
+</head>
+
+<body class="@ViewBag.Theme">
+    <div id="header">
+    @Html.Partial("Header")
+    </div>
+    <div id="content">
+        <div id="contentWrap">
+        @RenderBody()
+        </div>
+    </div>
+    <script src="@Url.Content("~/Scripts/widget/core.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
+
+
+    @RenderSection("scripts",false)
+</body>
+</html>

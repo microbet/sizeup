@@ -1,0 +1,30 @@
+﻿#contentWrap { overflow-y: auto; }
+#header li.signin { display: none; }
+#signin h1 { font-size: 2em; }
+#signin form { margin: 1em 0; }
+
+#signin label { font-size: 1.7em; width:20%;}
+#signin input { font-size: 1.7em; width:70%;}
+#signin #form { margin: 1em 0; }
+#signin #form li { margin: 0.5em 0; }
+
+#signin #submitContainer { text-align: right; margin: 2em 1em;}
+#signin #submitContainer label,
+#signin #submitContainer input { font-size:1.2em; width: auto; float:left;}
+
+#signin #submitContainer input.button{font-size:2.6em;float:none;}
+
+#signin p.info { margin: 1em 0; }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>Privacy Policy</title>
+<meta name="title" content="SizeUp Privacy Policy" />
+<meta name="keywords" content="privacy, private, confidentiality, disclosure" />
+<meta name="description" content="Your use of SizeUp is governed by our privacy policy. By accessing SizeUp, you agree to this policy." />
+
+<link href="@Url.Content("~/Content/views/product/privacy.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+}
+
+@Html.Raw(ViewBag.Content)

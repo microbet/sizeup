@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+<title>The Team</title>
+    
+<meta name="title" content="The SizeUp Team" />
+<meta name="keywords" content="staff, company, team" />
+<meta name="description" content="Meet the senior members of the SizeUp team." />
+
+
+<link href="@Url.Content("~/Content/views/company/team.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+}
+
+@Html.Raw(ViewBag.Content)

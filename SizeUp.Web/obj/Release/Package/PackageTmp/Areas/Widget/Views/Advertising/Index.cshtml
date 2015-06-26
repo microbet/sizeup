@@ -1,0 +1,377 @@
+﻿@{
+    Layout = "~/Areas/Widget/Views/Shared/_Layout.cshtml";
+}
+
+
+@section head{
+<title>Best Places To Advertise - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation </title>
+<link href="@Url.Content("~/Content/views/advertising/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/widget/views/advertising/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@(ViewBag.CustomTools == true ? ViewBag.APIKeyValue : System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"])&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+@*<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>*@
+<script type="text/javascript" src="//maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/tinycolor-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeslider.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/pager.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/selectList.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeLabel.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapColors.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/circle.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/advertising/advertising.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+
+}
+
+
+<div id="advertising">
+  <div class="content container hidden">
+      <div class="headerWrapper">
+            <h2 class="heading">
+                <span>Best places to advertise in the </span>
+         
+                <input type="text" id="industryBox" data-prompt="enter an industry" title="enter an industry" class="hidden selectBox" />
+                <a href="javascript:void(0);" id="changeIndustry" class="changeLink">@ViewBag.CurrentInfo.CurrentIndustry.Name</a>
+
+                <span>industry near </span>
+
+                <input type="text" id="placeBox" data-prompt="enter a city" title="enter a city" class="hidden selectBox" />
+                <a href="javascript:void(0);" id="changePlace" class="changeLink">@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+
+                <span>based on </span>
+
+                <select id="attributeMenu">
+                    <option value="totalRevenue">Total Revenue</option>  
+                    <option value="revenuePerCapita">Revenue Per Capita</option>
+                    <option value="underservedMarkets">Most Underserved Markets</option>     
+                    <option value="averageRevenue">Average Revenue</option>  
+                    <option value="totalEmployees">Total Employees</option>      
+                    <option value="householdIncome">Household Income</option>
+                </select>
+            </h2>
+            
+        </div>
+        <div class="filterLabels">
+            <span class="distance fixed" data-value="Filtered for ZIP codes at most <em>{{value}} miles</em> of the current city" data-off="Filtered for ZIP codes <em>Nationwide</em>"></span>
+
+            <a href="javascript:void(0);" id="advancedFilters" class="filtersToggle" data-toggleText="Hide Filters">More Filters</a>
+            
+
+            <span class="averageRevenue editable" data-max="<em>Average Annual Revenue</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Average Annual Revenue</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Average Annual Revenue</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="totalRevenue editable" data-max="<em>Total Annual Revenue</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Total Annual Revenue</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Total Annual Revenue</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="totalEmployees editable" data-max="<em>Total Employees</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Total Employees</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Total Employees</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="revenuePerCapita editable" data-max="<em>Revenue Per Capita</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Revenue Per Capita</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Revenue Per Capita</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+        
+             
+            <span class="householdIncome editable" data-max="<em>Median Household Income</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Median Household Income</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Median Household Income</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="householdExpenditures editable" data-max="<em>Average Household Expenditures</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Average Household Expenditures</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Average Household Expenditures</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="medianAge editable" data-max="<em>Median Age</em> is at most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="<em>Median Age</em> is at least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="<em>Median Age</em> is between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>" data-off=""></span>
+        
+
+            <span class="bachelorOrHigher editable" data-value="Share of <em>Bachelor's Degree or Higher</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="highSchoolOrHigher editable" data-value="Share of <em>High School Education or Higher</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+            <span class="whiteCollarWorkers editable" data-value="Share of <em>White Collar Workers</em> is at least <em>{{value}}%</em><a href='javascript:void(0);'></a>" data-off=""></span>
+
+        
+        </div>
+      
+        
+      
+
+   
+        <div class="filters hidden">
+            <p>
+                Find the best places to target your next advertising campaign.
+                    Adjust business and demographic parameters to find the best advertising locations.
+            </p>
+            <div class="section">
+                <ul class="options">
+                    <li class="distance">
+                        <span class="label">Search distance:</span>
+                        <span class="valueLabel" data-value="at most <em>{{value}}</em> miles"  data-off="<em>Nationwide</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="section">
+                <h3>Industry Performance</h3>
+                <ul class="options">
+                    <li class="averageRevenue">
+                        <span class="label">Annual Revenue (Avg. Business):</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                    <li class="totalRevenue">
+                        <span class="label">Total Annual Revenue:</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                    <li class="totalEmployees">
+                        <span class="label">Total Employees:</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                    <li class="revenuePerCapita">
+                        <span class="label">Revenue per capita:</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="section">
+                <h3>Demographic Characteristics</h3>
+                <ul class="options">
+                    <li class="householdIncome">
+                        <span class="label">Household Income:</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">lower</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">higher</span>
+                        </div>
+                    </li>
+                    <li class="householdExpenditures">
+                        <span class="label">Household Expenditures:</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">lower</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">higher</span>
+                        </div>
+                    </li>
+                    <li class="medianAge">
+                        <span class="label">Median Age:</span>
+                        <span class="valueLabel" data-max="at most <em>{{max}}</em>" data-min="at least <em>{{min}}</em>" data-range="between <em>{{min}}</em> and <em>{{max}}</em>" data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">lower</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">higher</span>
+                        </div>
+                    </li>
+                    <li class="bachelorOrHigher">
+                        <span class="label">Bachelor's Degree or Higher:</span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">fewer grads</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more grads</span>
+                        </div>
+                    </li>
+                    <li class="highSchoolOrHigher">
+                        <span class="label">High School Education or Higher:</span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">fewer grads</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more grads</span>
+                        </div>
+                    </li>
+                    <li class="whiteCollarWorkers">
+                        <span class="label">White Collar Workers:</span>
+                        <span class="valueLabel" data-value="at least <em>{{value}}%</em>"  data-off="<em>No Preference</em>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">fewer</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    
+        <div class="wrapper content">
+        
+            <div class="mapContent wrapper">
+                <div class="map"></div>
+                <div class="footer">
+                    <ul class="bandContainer">
+                        <li data-template="bandItem"><img data-override-src="/pins/heat/marker?color=%23{{color}}" /><span>{{label}}</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="description">
+                <p data-template="revenuePerCapitaDescription">
+                    This is a list of ZIP codes with the highest amount of revenue generated per resident in the <strong>{{industry}}</strong> industry.
+                    If the industry serves the local area, then residents or businesses within the area are spending more than average.
+                    Central business districts will have inflated revenue per capita figures because they serve as destinations for 
+                    commerce and they have few residents.
+                </p>
+                <p data-template="underservedMarketsDescription">
+                    This is a list of ZIP codes with the lowest amount of revenue generated per resident in the <strong>{{industry}}</strong> industry.
+                    If the industry serves the local area, then residents or businesses within the area are spending less than average,
+                    which may mean that that there is opportunity for new businesses within that industry to take advantage of untapped markets.
+                </p>
+                <p data-template="averageRevenueDescription">
+                    This is a list of ZIP codes with the highest average business revenue in the <strong>{{industry}}</strong> industry.
+                    You should consider using this list if you are selling to businesses and want to target areas where
+                     the average business is very successful.
+                </p>
+                <p data-template="totalRevenueDescription">
+                    This is a list of ZIP codes with the highest combined business revenue in the <strong>{{industry}}</strong> industry.
+                    You should consider using this list if you are selling to businesses or consumers and want to know where the most
+                    money is being made in your industry.
+                </p>
+                <p data-template="householdIncomeDescription">
+                    This is a list of ZIP codes with the highest median household incomes. Use this list if your products or 
+                    services are targeted at consumers with specific income levels.
+                </p>
+                <p data-template="totalEmployeesDescription">
+                    This is a list of ZIP codes showing Total Employees for the <strong>{{industry}}</strong> industry.
+                </p>
+            </div>
+  
+
+
+            <div class="listWrapper">
+                <div class="pager hidden">
+                    <div data-template="pager">
+                        <span class="label">Viewing {{start}}-{{end}} of {{totalItems}}</span>
+                        {{#first}}<a href="javascript:void(0);" data-index="first">&lt;&lt;</a>{{/first}}
+                        {{#prev}}<a href="javascript:void(0);" data-index="prev">&lt;</a>{{/prev}}
+                        <ul>
+                            {{#pages}}
+                            <li class="page {{#current}}current{{/current}}"><a href="javascript:void(0);" data-index="{{index}}">{{index}}</a></li>
+                            {{#seperator}}<li class="seperator">|</li>{{/seperator}}
+                            {{/pages}}
+                        </ul>
+                        {{#next}}<a href="javascript:void(0);" data-index="next">&gt;</a>{{/next}}
+                        {{#last}}<a href="javascript:void(0);" data-index="last">&gt;&gt;</a>{{/last}}
+                    </div>
+                </div>
+
+
+                <div class="sort">
+                    <a class="name sorter" aria-sort="none" href="javascript:void(0);">ZIP Code by City</a>
+                    <a class="value sorter" aria-sort="none" href="javascript:void(0);"></a>
+                </div>
+
+
+                <ul class="results">
+                    <li data-template="listItem">
+                        {{#city.SEOKey}}
+                            @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+                            {
+                                <span class="name noCommunity">{{name}}</span>
+                            } else
+                            {
+                                <a data-override-href="/community/{{state.SEOKey}}/{{county.SEOKey}}/{{city.SEOKey}}" class="name" target="_blank">{{name}}</a>
+                            }
+                            
+                        {{/city.SEOKey}}
+                        {{^city.SEOKey}}
+                        <a class="name noCommunity">{{name}}</a>
+                        {{/city.SEOKey}}
+                        <span class="value">{{#value.value}}{{#value.value.min}}{{value.value.min}} - {{value.value.max}}{{/value.value.min}}{{^value.value.min}}{{value.value}}{{/value.value.min}}{{/value.value}}{{^value.value}}N/A{{/value.value}}</span>
+                        <ul class="details">
+                            {{#totalPopulation}}<li>Total Population: {{#totalPopulation.value}}{{totalPopulation.value}}{{/totalPopulation.value}}{{^totalPopulation.value}}N/A{{/totalPopulation.value}}</li>{{/totalPopulation}}
+                            {{#totalRevenue}}<li>Total Annual Revenue: {{#totalRevenue.value}}{{totalRevenue.value.min}} - {{totalRevenue.value.max}}{{/totalRevenue.value}}{{^totalRevenue.value}}N/A{{/totalRevenue.value}}</li>{{/totalRevenue}}
+                            {{#averageRevenue}}<li>Average Annual Revenue: {{#averageRevenue.value}}{{averageRevenue.value.min}} - {{averageRevenue.value.max}}{{/averageRevenue.value}}{{^averageRevenue.value}}N/A{{/averageRevenue.value}}</li>{{/averageRevenue}}
+                            {{#totalEmployees}}<li>Total Employees: {{#totalEmployees.value}}{{totalEmployees.value.min}} - {{totalEmployees.value.max}}{{/totalEmployees.value}}{{^totalEmployees.value}}N/A{{/totalEmployees.value}}</li>{{/totalEmployees}}
+                            {{#revenuePerCapita}}<li>Revenue Per Capita: {{#revenuePerCapita.value}}{{revenuePerCapita.value.min}} - {{revenuePerCapita.value.max}}{{/revenuePerCapita.value}}{{^revenuePerCapita.value}}N/A{{/revenuePerCapita.value}}</li>{{/revenuePerCapita}}
+                            {{#householdIncome}}<li>Household Income: {{#householdIncome.value}}{{householdIncome.value}}{{/householdIncome.value}}{{^householdIncome.value}}N/A{{/householdIncome.value}}</li>{{/householdIncome}}
+                            {{#householdExpenditures}}<li>Household Expenditures (Average): {{#householdExpenditures.value}}{{householdExpenditures.value}}{{/householdExpenditures.value}}{{^householdExpenditures.value}}N/A{{/householdExpenditures.value}}</li>{{/householdExpenditures}}
+                            {{#medianAge}}<li>Median Age: {{#medianAge.value}}{{medianAge.value}}{{/medianAge.value}}{{^medianAge.value}}N/A{{/medianAge.value}}</li>{{/medianAge}}
+                            {{#bachelorsDegreeOrHigher}}<li>Bachelors Degree or Higher: {{#bachelorsDegreeOrHigher.value}}{{bachelorsDegreeOrHigher.value}}{{/bachelorsDegreeOrHigher.value}}{{^bachelorsDegreeOrHigher.value}}N/A{{/bachelorsDegreeOrHigher.value}}</li>{{/bachelorsDegreeOrHigher}}
+                            {{#highSchoolOrHigher}}<li>Highschool Degree or Higher: {{#highSchoolOrHigher.value}}{{highSchoolOrHigher.value}}{{/highSchoolOrHigher.value}}{{^highSchoolOrHigher.value}}N/A{{/highSchoolOrHigher.value}}</li>{{/highSchoolOrHigher}}
+                            {{#whiteCollarWorkers}}<li>White Collar Workers: {{#whiteCollarWorkers.value}}{{whiteCollarWorkers.value}}{{/whiteCollarWorkers.value}}{{^whiteCollarWorkers.value}}N/A{{/whiteCollarWorkers.value}}</li>{{/whiteCollarWorkers}}
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <div class="noResults">
+                <p>No Results Returned.</p>
+                </div>
+                <div class="loading list">
+                    <p class="title"></p>
+                    <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+                    <p class="message">Loading Next Set of Communities</p>
+                </div>
+            </div>
+        
+            @if (!(HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional || SizeUp.Core.API.APIContext.Current.WidgetPermissions.CustomTools))
+            {
+            <div class="signinWrapper">
+                    <a href="javascript:void(0);" class="signinToggle inverse" >
+                        View all best places to advertise
+                    </a>
+                    @Html.Partial("Signin")  
+            </div>   
+            }
+        </div>
+ 
+    </div>
+    <div class="loading page">
+        <p class="title"></p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Locating Communities</p>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        var done = function(){
+            var opts = {
+                CurrentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
+                IsAuthenticated: @((HttpContext.Current.User.Identity.IsAuthenticated || SizeUp.Core.API.APIContext.Current.WidgetPermissions.SigninOptional) ? "true" : "false"),
+                IsCustomTools: @(SizeUp.Core.API.APIContext.Current.WidgetPermissions.CustomTools ? "true" : "false")
+                };
+            var driver = new sizeup.views.advertising.advertising(opts);
+        };
+
+    var notifier = new sizeup.core.notifier(done);
+    var apiLoaded = notifier.getNotifier();
+    var doc = notifier.getNotifier();
+    $(document).ready(doc);
+    </script>
+
+
+}
+
+

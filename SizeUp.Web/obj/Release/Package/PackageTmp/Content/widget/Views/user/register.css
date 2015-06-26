@@ -1,0 +1,25 @@
+﻿#contentWrap { overflow-y: auto; }
+#header li.signin { display: none; }
+#register h1 { font-size: 2em; }
+#register form { margin: 1em 0; }
+
+#register label { font-size: 1.7em; width:20%;}
+#register input { font-size: 1.7em; width:50%;}
+#register #form { margin: 1em 0; }
+#register #form li { margin: 0.5em 0; }
+
+#register #submitContainer { text-align: center; margin: 2em 1em;}
+#register #submitContainer label,
+#register #submitContainer input { font-size:1.2em; width: auto; float:left;}
+
+#register #submitContainer input.button{font-size:2.6em;float:none;}
+
+#register p.info { margin: 1em 0; }
+
+
+
+
+
+
+
+

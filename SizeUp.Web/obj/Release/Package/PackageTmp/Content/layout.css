@@ -1,0 +1,49 @@
+﻿/*****
+Main style page. Should only contain general layout styles for the layout page.
+*****/
+
+
+#header,
+#content,
+#footer {width:96em; margin: 0 auto;}
+
+/****headery things goes here******/
+#header {position:relative;height:7.5em; min-height:7.5em;}
+#logo {position:absolute; bottom:-1.15em; left:2em; z-index:9000;}
+
+#menu {color:#fff; background-color:#00C5F8; padding: 0 1em; display:inline-block; position:absolute; right:3.25em; border-radius: 0 0 1em 1em;  text-align:right;}
+#menu.signedIn {min-width:15em; }
+#menu a {color:#fff;font-size:1.3em; display:block; padding:0.5em 1em 0.75em; }
+#menu a:hover {text-decoration:underline;}
+#menu a.disabled {background-color:#0099CC;}
+#menu a.disabled:hover {text-decoration:none;}
+#menu li {display:inline-block; vertical-align:middle; line-height:1.5em;}
+#menu li.lastMenuItem { margin-right: 3em; }
+#menu li span {font-size:2em;}
+
+#menu #userMenu {position:relative;  }
+#menu #userMenu > a { }
+#menu #userMenu > a span {font-size:1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 12em; display:inline-block; }
+#menu #userMenu > a:after {vertical-align: top; content: ""; width:0; height:0; border-left: 0.5em solid transparent; border-right:0.5em solid transparent; border-top: 0.5em solid #fff; position:relative; top:0.4em; left:0.5em; display:inline-block; }
+#menu #userMenu ul { background-color: #00C5F8; border-radius: 0 0 1em 1em; position: absolute; width: 100%; z-index: 10000; padding: 1em 0 0 0; display: none; right: -1em; top: 2.4em; overflow:hidden; }
+#menu #userMenu ul li { display: block; text-align:right; }
+#menu #userMenu > a:hover + ul {display:block; }
+#menu #userMenu ul:hover {display:block; }
+
+/********contenty things go here*************/
+#content {background-color:#fff; border:solid 2px #d7d7ce; height: auto; min-height: 25em; position: relative; width:96em; margin-bottom:1em; border-radius:2em;}
+#contentWrap {padding:2em;}
+
+
+
+
+
+
+/******footery things go here******/
+#footer {color:#fff; text-align:center;}
+#footer a {color:#fff;font-weight:normal; font-size: 1.1em;}
+#footer a:hover {text-decoration:underline;}
+#footer .col {display:inline-block; padding:0 1em; vertical-align:top;}
+#footer .col ul { margin: 0 0 0 1em; text-align: left; }
+#footer .copy {display:block; margin:2em 0;font-size: 1.1em;}
+

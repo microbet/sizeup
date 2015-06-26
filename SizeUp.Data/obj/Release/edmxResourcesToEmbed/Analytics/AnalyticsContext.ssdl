@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SizeUp.Data.Analytics.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SizeUpDataAnalyticsStoreContainer">
+    <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.Store.APIRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.Store.CompetitorAttributes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Store.Exceptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.Store.LongRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PageViews" EntityType="SizeUp.Data.Analytics.Store.PageViews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RelatedBuyer" EntityType="SizeUp.Data.Analytics.Store.RelatedBuyer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RelatedCompetitor" EntityType="SizeUp.Data.Analytics.Store.RelatedCompetitor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RelatedSupplier" EntityType="SizeUp.Data.Analytics.Store.RelatedSupplier" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserRegistration" EntityType="SizeUp.Data.Analytics.Store.UserRegistration" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="APIRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Second" Type="int" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="APIKeyId" Type="bigint" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OriginUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Instance" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="OriginIP" Type="nvarchar" MaxLength="20" />
+    <Property Name="WidgetAPIKeyId" Type="bigint" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+  </EntityType>
+  <EntityType Name="BusinessAttributes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
+    <Property Name="Revenue" Type="bigint" />
+    <Property Name="YearStarted" Type="int" />
+    <Property Name="AverageSalary" Type="bigint" />
+    <Property Name="Employees" Type="bigint" />
+    <Property Name="HealthcareCost" Type="bigint" />
+    <Property Name="WorkersComp" Type="decimal" />
+    <Property Name="BusinessType" Type="nvarchar" MaxLength="30" />
+    <Property Name="BusinessSize" Type="nvarchar" MaxLength="30" />
+    <Property Name="WidgetAPIKeyId" Type="bigint" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="CompetitorAttributes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
+    <Property Name="ComsumerExpenditureId" Type="bigint" />
+    <Property Name="RootId" Type="bigint" />
+    <Property Name="Competitors" Type="nvarchar(max)" />
+    <Property Name="Suppliers" Type="nvarchar(max)" />
+    <Property Name="Buyers" Type="nvarchar(max)" />
+    <Property Name="WidgetAPIKeyId" Type="bigint" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Exceptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="RequestUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ExceptionText" Type="nvarchar(max)" />
+    <Property Name="InnerExceptionText" Type="nvarchar(max)" />
+    <Property Name="StackTrace" Type="nvarchar(max)" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="LongRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="RequestUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RequestTime" Type="int" Nullable="false" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="PageViews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Second" Type="int" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="WidgetAPIKeyId" Type="bigint" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OriginIP" Type="nvarchar" MaxLength="20" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="IndustryId" Type="bigint" />
+    <Property Name="GeographicLocationId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="RelatedBuyer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
+    <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="RelatedCompetitor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
+    <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="RelatedSupplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="PrimaryIndustryId" Type="bigint" Nullable="false" />
+    <Property Name="RelatedIndustryId" Type="bigint" Nullable="false" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="UserRegistration">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="APIKeyId" Type="bigint" />
+    <Property Name="CityId" Type="bigint" />
+    <Property Name="IndustryId" Type="bigint" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ReturnUrl" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="WidgetAPIKeyId" Type="bigint" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,1505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SizeUpDataStoreContainer" CdmEntityContainer="SizeUpContext">
+    <EntitySetMapping Name="Attributes">
+      <EntityTypeMapping TypeName="SizeUp.Data.Attribute">
+        <MappingFragment StoreEntitySet="Attribute">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bands">
+      <EntityTypeMapping TypeName="SizeUp.Data.Band">
+        <MappingFragment StoreEntitySet="Band">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+          <ScalarProperty Name="Min" ColumnName="Min" />
+          <ScalarProperty Name="Max" ColumnName="Max" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Businesses">
+      <EntityTypeMapping TypeName="SizeUp.Data.Business">
+        <MappingFragment StoreEntitySet="Business">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="ZipPlus4" ColumnName="ZipPlus4" />
+          <ScalarProperty Name="PrimaryWebURL" ColumnName="PrimaryWebURL" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="BusinessStatusCode" ColumnName="BusinessStatusCode" />
+          <ScalarProperty Name="WorkAtHomeFlag" ColumnName="WorkAtHomeFlag" />
+          <ScalarProperty Name="PublicCompanyIndicator" ColumnName="PublicCompanyIndicator" />
+          <ScalarProperty Name="FirmCode" ColumnName="FirmCode" />
+          <ScalarProperty Name="YearEstablished" ColumnName="YearEstablished" />
+          <ScalarProperty Name="YearAppeared" ColumnName="YearAppeared" />
+          <ScalarProperty Name="InfoGroupId" ColumnName="InfoGroupId" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Long" ColumnName="Long" />
+          <ScalarProperty Name="MatchLevel" ColumnName="MatchLevel" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="ZipCodeId" ColumnName="ZipCodeId" />
+          <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+          <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="InBusiness" ColumnName="InBusiness" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessDatas">
+      <EntityTypeMapping TypeName="SizeUp.Data.BusinessData">
+        <MappingFragment StoreEntitySet="BusinessData">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+          <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+          <ScalarProperty Name="Employees" ColumnName="Employees" />
+          <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="SizeUp.Data.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="CityTypeId" ColumnName="CityTypeId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CityTypes">
+      <EntityTypeMapping TypeName="SizeUp.Data.CityType">
+        <MappingFragment StoreEntitySet="CityType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CensusClassCode" ColumnName="CensusClassCode" />
+          <ScalarProperty Name="LegalStatisticalAreaDescriptionCode" ColumnName="LegalStatisticalAreaDescriptionCode" />
+          <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConsumerExpenditures">
+      <EntityTypeMapping TypeName="SizeUp.Data.ConsumerExpenditure">
+        <MappingFragment StoreEntitySet="ConsumerExpenditures">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="TCYTOTAL" ColumnName="TCYTOTAL" />
+          <ScalarProperty Name="XCYTOTAL" ColumnName="XCYTOTAL" />
+          <ScalarProperty Name="TCYAP" ColumnName="TCYAP" />
+          <ScalarProperty Name="TCYCC" ColumnName="TCYCC" />
+          <ScalarProperty Name="TCYED" ColumnName="TCYED" />
+          <ScalarProperty Name="TCYEN" ColumnName="TCYEN" />
+          <ScalarProperty Name="TCYFB" ColumnName="TCYFB" />
+          <ScalarProperty Name="TCYGI" ColumnName="TCYGI" />
+          <ScalarProperty Name="TCYHC" ColumnName="TCYHC" />
+          <ScalarProperty Name="TCYHF" ColumnName="TCYHF" />
+          <ScalarProperty Name="TCYHO" ColumnName="TCYHO" />
+          <ScalarProperty Name="TCYMI" ColumnName="TCYMI" />
+          <ScalarProperty Name="TCYPC" ColumnName="TCYPC" />
+          <ScalarProperty Name="TCYPI" ColumnName="TCYPI" />
+          <ScalarProperty Name="TCYRD" ColumnName="TCYRD" />
+          <ScalarProperty Name="TCYHH" ColumnName="TCYHH" />
+          <ScalarProperty Name="TCYTB" ColumnName="TCYTB" />
+          <ScalarProperty Name="TCYTR" ColumnName="TCYTR" />
+          <ScalarProperty Name="TCYUT" ColumnName="TCYUT" />
+          <ScalarProperty Name="TCYAP7" ColumnName="TCYAP7" />
+          <ScalarProperty Name="TCYAP2" ColumnName="TCYAP2" />
+          <ScalarProperty Name="TCYAP6" ColumnName="TCYAP6" />
+          <ScalarProperty Name="TCYAP4" ColumnName="TCYAP4" />
+          <ScalarProperty Name="TCYAP5" ColumnName="TCYAP5" />
+          <ScalarProperty Name="TCYAP1" ColumnName="TCYAP1" />
+          <ScalarProperty Name="TCYAP3" ColumnName="TCYAP3" />
+          <ScalarProperty Name="TCYED1" ColumnName="TCYED1" />
+          <ScalarProperty Name="TCYED2" ColumnName="TCYED2" />
+          <ScalarProperty Name="TCYEN1" ColumnName="TCYEN1" />
+          <ScalarProperty Name="TCYEN3" ColumnName="TCYEN3" />
+          <ScalarProperty Name="TCYEN2" ColumnName="TCYEN2" />
+          <ScalarProperty Name="TCYFB3" ColumnName="TCYFB3" />
+          <ScalarProperty Name="TCYFB1" ColumnName="TCYFB1" />
+          <ScalarProperty Name="TCYFB2" ColumnName="TCYFB2" />
+          <ScalarProperty Name="TCYGI9" ColumnName="TCYGI9" />
+          <ScalarProperty Name="TCYGI1" ColumnName="TCYGI1" />
+          <ScalarProperty Name="TCYGI2" ColumnName="TCYGI2" />
+          <ScalarProperty Name="TCYGI3" ColumnName="TCYGI3" />
+          <ScalarProperty Name="TCYGI5" ColumnName="TCYGI5" />
+          <ScalarProperty Name="TCYGI6" ColumnName="TCYGI6" />
+          <ScalarProperty Name="TCYGI7" ColumnName="TCYGI7" />
+          <ScalarProperty Name="TCYGI4" ColumnName="TCYGI4" />
+          <ScalarProperty Name="TCYGI8" ColumnName="TCYGI8" />
+          <ScalarProperty Name="TCYHC1" ColumnName="TCYHC1" />
+          <ScalarProperty Name="TCYHC2" ColumnName="TCYHC2" />
+          <ScalarProperty Name="TCYHC3" ColumnName="TCYHC3" />
+          <ScalarProperty Name="TCYHF3" ColumnName="TCYHF3" />
+          <ScalarProperty Name="TCYHF2" ColumnName="TCYHF2" />
+          <ScalarProperty Name="TCYHF5" ColumnName="TCYHF5" />
+          <ScalarProperty Name="TCYHF1" ColumnName="TCYHF1" />
+          <ScalarProperty Name="TCYHF4" ColumnName="TCYHF4" />
+          <ScalarProperty Name="TCYHO3" ColumnName="TCYHO3" />
+          <ScalarProperty Name="TCYHO1" ColumnName="TCYHO1" />
+          <ScalarProperty Name="TCYHO2" ColumnName="TCYHO2" />
+          <ScalarProperty Name="TCYHO4" ColumnName="TCYHO4" />
+          <ScalarProperty Name="TCYMI3" ColumnName="TCYMI3" />
+          <ScalarProperty Name="TCYMI2" ColumnName="TCYMI2" />
+          <ScalarProperty Name="TCYMI1" ColumnName="TCYMI1" />
+          <ScalarProperty Name="TCYMI4" ColumnName="TCYMI4" />
+          <ScalarProperty Name="TCYPC2" ColumnName="TCYPC2" />
+          <ScalarProperty Name="TCYPC4" ColumnName="TCYPC4" />
+          <ScalarProperty Name="TCYPC3" ColumnName="TCYPC3" />
+          <ScalarProperty Name="TCYPC1" ColumnName="TCYPC1" />
+          <ScalarProperty Name="TCYRD3" ColumnName="TCYRD3" />
+          <ScalarProperty Name="TCYRD2" ColumnName="TCYRD2" />
+          <ScalarProperty Name="TCYRD1" ColumnName="TCYRD1" />
+          <ScalarProperty Name="TCYHH3" ColumnName="TCYHH3" />
+          <ScalarProperty Name="TCYHH1" ColumnName="TCYHH1" />
+          <ScalarProperty Name="TCYHH5" ColumnName="TCYHH5" />
+          <ScalarProperty Name="TCYHH2" ColumnName="TCYHH2" />
+          <ScalarProperty Name="TCYHH4" ColumnName="TCYHH4" />
+          <ScalarProperty Name="TCYTB1" ColumnName="TCYTB1" />
+          <ScalarProperty Name="TCYTB2" ColumnName="TCYTB2" />
+          <ScalarProperty Name="TCYTR5" ColumnName="TCYTR5" />
+          <ScalarProperty Name="TCYTR3" ColumnName="TCYTR3" />
+          <ScalarProperty Name="TCYTR1" ColumnName="TCYTR1" />
+          <ScalarProperty Name="TCYTR9" ColumnName="TCYTR9" />
+          <ScalarProperty Name="TCYTR8" ColumnName="TCYTR8" />
+          <ScalarProperty Name="TCYTR2" ColumnName="TCYTR2" />
+          <ScalarProperty Name="TCYTR4" ColumnName="TCYTR4" />
+          <ScalarProperty Name="TCYTR7" ColumnName="TCYTR7" />
+          <ScalarProperty Name="TCYTR6" ColumnName="TCYTR6" />
+          <ScalarProperty Name="TCYUT2" ColumnName="TCYUT2" />
+          <ScalarProperty Name="TCYUT3" ColumnName="TCYUT3" />
+          <ScalarProperty Name="TCYUT1" ColumnName="TCYUT1" />
+          <ScalarProperty Name="TCYUT5" ColumnName="TCYUT5" />
+          <ScalarProperty Name="TCYUT4" ColumnName="TCYUT4" />
+          <ScalarProperty Name="TCYAP707" ColumnName="TCYAP707" />
+          <ScalarProperty Name="TCYAP706" ColumnName="TCYAP706" />
+          <ScalarProperty Name="TCYAP704" ColumnName="TCYAP704" />
+          <ScalarProperty Name="TCYAP701" ColumnName="TCYAP701" />
+          <ScalarProperty Name="TCYAP705" ColumnName="TCYAP705" />
+          <ScalarProperty Name="TCYAP702" ColumnName="TCYAP702" />
+          <ScalarProperty Name="TCYAP201" ColumnName="TCYAP201" />
+          <ScalarProperty Name="TCYAP209" ColumnName="TCYAP209" />
+          <ScalarProperty Name="TCYAP205" ColumnName="TCYAP205" />
+          <ScalarProperty Name="TCYAP207" ColumnName="TCYAP207" />
+          <ScalarProperty Name="TCYAP203" ColumnName="TCYAP203" />
+          <ScalarProperty Name="TCYAP208" ColumnName="TCYAP208" />
+          <ScalarProperty Name="TCYAP206" ColumnName="TCYAP206" />
+          <ScalarProperty Name="TCYAP202" ColumnName="TCYAP202" />
+          <ScalarProperty Name="TCYAP204" ColumnName="TCYAP204" />
+          <ScalarProperty Name="TCYAP602" ColumnName="TCYAP602" />
+          <ScalarProperty Name="TCYAP604" ColumnName="TCYAP604" />
+          <ScalarProperty Name="TCYAP601" ColumnName="TCYAP601" />
+          <ScalarProperty Name="TCYAP603" ColumnName="TCYAP603" />
+          <ScalarProperty Name="TCYAP407" ColumnName="TCYAP407" />
+          <ScalarProperty Name="TCYAP401" ColumnName="TCYAP401" />
+          <ScalarProperty Name="TCYAP402" ColumnName="TCYAP402" />
+          <ScalarProperty Name="TCYAP403" ColumnName="TCYAP403" />
+          <ScalarProperty Name="TCYAP405" ColumnName="TCYAP405" />
+          <ScalarProperty Name="TCYAP404" ColumnName="TCYAP404" />
+          <ScalarProperty Name="TCYAP406" ColumnName="TCYAP406" />
+          <ScalarProperty Name="TCYAP408" ColumnName="TCYAP408" />
+          <ScalarProperty Name="TCYAP505" ColumnName="TCYAP505" />
+          <ScalarProperty Name="TCYAP501" ColumnName="TCYAP501" />
+          <ScalarProperty Name="TCYAP502" ColumnName="TCYAP502" />
+          <ScalarProperty Name="TCYAP504" ColumnName="TCYAP504" />
+          <ScalarProperty Name="TCYAP503" ColumnName="TCYAP503" />
+          <ScalarProperty Name="TCYAP104" ColumnName="TCYAP104" />
+          <ScalarProperty Name="TCYAP106" ColumnName="TCYAP106" />
+          <ScalarProperty Name="TCYAP102" ColumnName="TCYAP102" />
+          <ScalarProperty Name="TCYAP108" ColumnName="TCYAP108" />
+          <ScalarProperty Name="TCYAP107" ColumnName="TCYAP107" />
+          <ScalarProperty Name="TCYAP101" ColumnName="TCYAP101" />
+          <ScalarProperty Name="TCYAP105" ColumnName="TCYAP105" />
+          <ScalarProperty Name="TCYAP103" ColumnName="TCYAP103" />
+          <ScalarProperty Name="TCYAP109" ColumnName="TCYAP109" />
+          <ScalarProperty Name="TCYAP310" ColumnName="TCYAP310" />
+          <ScalarProperty Name="TCYAP301" ColumnName="TCYAP301" />
+          <ScalarProperty Name="TCYAP312" ColumnName="TCYAP312" />
+          <ScalarProperty Name="TCYAP302" ColumnName="TCYAP302" />
+          <ScalarProperty Name="TCYAP306" ColumnName="TCYAP306" />
+          <ScalarProperty Name="TCYAP304" ColumnName="TCYAP304" />
+          <ScalarProperty Name="TCYAP307" ColumnName="TCYAP307" />
+          <ScalarProperty Name="TCYAP305" ColumnName="TCYAP305" />
+          <ScalarProperty Name="TCYAP308" ColumnName="TCYAP308" />
+          <ScalarProperty Name="TCYAP309" ColumnName="TCYAP309" />
+          <ScalarProperty Name="TCYAP311" ColumnName="TCYAP311" />
+          <ScalarProperty Name="TCYAP303" ColumnName="TCYAP303" />
+          <ScalarProperty Name="TCYED101" ColumnName="TCYED101" />
+          <ScalarProperty Name="TCYED102" ColumnName="TCYED102" />
+          <ScalarProperty Name="TCYED103" ColumnName="TCYED103" />
+          <ScalarProperty Name="TCYED201" ColumnName="TCYED201" />
+          <ScalarProperty Name="TCYED203" ColumnName="TCYED203" />
+          <ScalarProperty Name="TCYED202" ColumnName="TCYED202" />
+          <ScalarProperty Name="TCYEN102" ColumnName="TCYEN102" />
+          <ScalarProperty Name="TCYEN103" ColumnName="TCYEN103" />
+          <ScalarProperty Name="TCYEN106" ColumnName="TCYEN106" />
+          <ScalarProperty Name="TCYEN105" ColumnName="TCYEN105" />
+          <ScalarProperty Name="TCYEN101" ColumnName="TCYEN101" />
+          <ScalarProperty Name="TCYEN104" ColumnName="TCYEN104" />
+          <ScalarProperty Name="TCYEN301" ColumnName="TCYEN301" />
+          <ScalarProperty Name="TCYEN302" ColumnName="TCYEN302" />
+          <ScalarProperty Name="TCYEN303" ColumnName="TCYEN303" />
+          <ScalarProperty Name="TCYEN306" ColumnName="TCYEN306" />
+          <ScalarProperty Name="TCYEN305" ColumnName="TCYEN305" />
+          <ScalarProperty Name="TCYEN304" ColumnName="TCYEN304" />
+          <ScalarProperty Name="TCYEN205" ColumnName="TCYEN205" />
+          <ScalarProperty Name="TCYEN201" ColumnName="TCYEN201" />
+          <ScalarProperty Name="TCYEN208" ColumnName="TCYEN208" />
+          <ScalarProperty Name="TCYEN206" ColumnName="TCYEN206" />
+          <ScalarProperty Name="TCYEN207" ColumnName="TCYEN207" />
+          <ScalarProperty Name="TCYEN210" ColumnName="TCYEN210" />
+          <ScalarProperty Name="TCYEN202" ColumnName="TCYEN202" />
+          <ScalarProperty Name="TCYEN203" ColumnName="TCYEN203" />
+          <ScalarProperty Name="TCYEN209" ColumnName="TCYEN209" />
+          <ScalarProperty Name="TCYEN204" ColumnName="TCYEN204" />
+          <ScalarProperty Name="TCYFB307" ColumnName="TCYFB307" />
+          <ScalarProperty Name="TCYFB301" ColumnName="TCYFB301" />
+          <ScalarProperty Name="TCYFB304" ColumnName="TCYFB304" />
+          <ScalarProperty Name="TCYFB302" ColumnName="TCYFB302" />
+          <ScalarProperty Name="TCYFB306" ColumnName="TCYFB306" />
+          <ScalarProperty Name="TCYFB303" ColumnName="TCYFB303" />
+          <ScalarProperty Name="TCYFB305" ColumnName="TCYFB305" />
+          <ScalarProperty Name="TCYFB119" ColumnName="TCYFB119" />
+          <ScalarProperty Name="TCYFB106" ColumnName="TCYFB106" />
+          <ScalarProperty Name="TCYFB105" ColumnName="TCYFB105" />
+          <ScalarProperty Name="TCYFB111" ColumnName="TCYFB111" />
+          <ScalarProperty Name="TCYFB104" ColumnName="TCYFB104" />
+          <ScalarProperty Name="TCYFB107" ColumnName="TCYFB107" />
+          <ScalarProperty Name="TCYFB108" ColumnName="TCYFB108" />
+          <ScalarProperty Name="TCYFB114" ColumnName="TCYFB114" />
+          <ScalarProperty Name="TCYFB103" ColumnName="TCYFB103" />
+          <ScalarProperty Name="TCYFB120" ColumnName="TCYFB120" />
+          <ScalarProperty Name="TCYFB112" ColumnName="TCYFB112" />
+          <ScalarProperty Name="TCYFB118" ColumnName="TCYFB118" />
+          <ScalarProperty Name="TCYFB117" ColumnName="TCYFB117" />
+          <ScalarProperty Name="TCYFB109" ColumnName="TCYFB109" />
+          <ScalarProperty Name="TCYFB116" ColumnName="TCYFB116" />
+          <ScalarProperty Name="TCYFB115" ColumnName="TCYFB115" />
+          <ScalarProperty Name="TCYFB113" ColumnName="TCYFB113" />
+          <ScalarProperty Name="TCYFB110" ColumnName="TCYFB110" />
+          <ScalarProperty Name="TCYFB121" ColumnName="TCYFB121" />
+          <ScalarProperty Name="TCYFB205" ColumnName="TCYFB205" />
+          <ScalarProperty Name="TCYFB204" ColumnName="TCYFB204" />
+          <ScalarProperty Name="TCYFB206" ColumnName="TCYFB206" />
+          <ScalarProperty Name="TCYFB202" ColumnName="TCYFB202" />
+          <ScalarProperty Name="TCYFB207" ColumnName="TCYFB207" />
+          <ScalarProperty Name="TCYFB201" ColumnName="TCYFB201" />
+          <ScalarProperty Name="TCYFB203" ColumnName="TCYFB203" />
+          <ScalarProperty Name="TCYGI905" ColumnName="TCYGI905" />
+          <ScalarProperty Name="TCYGI901" ColumnName="TCYGI901" />
+          <ScalarProperty Name="TCYGI902" ColumnName="TCYGI902" />
+          <ScalarProperty Name="TCYGI903" ColumnName="TCYGI903" />
+          <ScalarProperty Name="TCYGI904" ColumnName="TCYGI904" />
+          <ScalarProperty Name="TCYGI107" ColumnName="TCYGI107" />
+          <ScalarProperty Name="TCYGI102" ColumnName="TCYGI102" />
+          <ScalarProperty Name="TCYGI106" ColumnName="TCYGI106" />
+          <ScalarProperty Name="TCYGI104" ColumnName="TCYGI104" />
+          <ScalarProperty Name="TCYGI105" ColumnName="TCYGI105" />
+          <ScalarProperty Name="TCYGI101" ColumnName="TCYGI101" />
+          <ScalarProperty Name="TCYGI103" ColumnName="TCYGI103" />
+          <ScalarProperty Name="TCYGI202" ColumnName="TCYGI202" />
+          <ScalarProperty Name="TCYGI201" ColumnName="TCYGI201" />
+          <ScalarProperty Name="TCYGI604" ColumnName="TCYGI604" />
+          <ScalarProperty Name="TCYGI602" ColumnName="TCYGI602" />
+          <ScalarProperty Name="TCYGI608" ColumnName="TCYGI608" />
+          <ScalarProperty Name="TCYGI601" ColumnName="TCYGI601" />
+          <ScalarProperty Name="TCYGI603" ColumnName="TCYGI603" />
+          <ScalarProperty Name="TCYGI606" ColumnName="TCYGI606" />
+          <ScalarProperty Name="TCYGI607" ColumnName="TCYGI607" />
+          <ScalarProperty Name="TCYGI605" ColumnName="TCYGI605" />
+          <ScalarProperty Name="TCYGI609" ColumnName="TCYGI609" />
+          <ScalarProperty Name="TCYGI402" ColumnName="TCYGI402" />
+          <ScalarProperty Name="TCYGI404" ColumnName="TCYGI404" />
+          <ScalarProperty Name="TCYGI401" ColumnName="TCYGI401" />
+          <ScalarProperty Name="TCYGI403" ColumnName="TCYGI403" />
+          <ScalarProperty Name="TCYHC102" ColumnName="TCYHC102" />
+          <ScalarProperty Name="TCYHC101" ColumnName="TCYHC101" />
+          <ScalarProperty Name="TCYHC103" ColumnName="TCYHC103" />
+          <ScalarProperty Name="TCYHC104" ColumnName="TCYHC104" />
+          <ScalarProperty Name="TCYHC105" ColumnName="TCYHC105" />
+          <ScalarProperty Name="TCYHC203" ColumnName="TCYHC203" />
+          <ScalarProperty Name="TCYHC204" ColumnName="TCYHC204" />
+          <ScalarProperty Name="TCYHC205" ColumnName="TCYHC205" />
+          <ScalarProperty Name="TCYHC202" ColumnName="TCYHC202" />
+          <ScalarProperty Name="TCYHC302" ColumnName="TCYHC302" />
+          <ScalarProperty Name="TCYHC303" ColumnName="TCYHC303" />
+          <ScalarProperty Name="TCYHC301" ColumnName="TCYHC301" />
+          <ScalarProperty Name="TCYHF207" ColumnName="TCYHF207" />
+          <ScalarProperty Name="TCYHF206" ColumnName="TCYHF206" />
+          <ScalarProperty Name="TCYHF204" ColumnName="TCYHF204" />
+          <ScalarProperty Name="TCYHF205" ColumnName="TCYHF205" />
+          <ScalarProperty Name="TCYHF201" ColumnName="TCYHF201" />
+          <ScalarProperty Name="TCYHF202" ColumnName="TCYHF202" />
+          <ScalarProperty Name="TCYHF208" ColumnName="TCYHF208" />
+          <ScalarProperty Name="TCYHF203" ColumnName="TCYHF203" />
+          <ScalarProperty Name="TCYHF101" ColumnName="TCYHF101" />
+          <ScalarProperty Name="TCYHF102" ColumnName="TCYHF102" />
+          <ScalarProperty Name="TCYHF104" ColumnName="TCYHF104" />
+          <ScalarProperty Name="TCYHF103" ColumnName="TCYHF103" />
+          <ScalarProperty Name="TCYHF107" ColumnName="TCYHF107" />
+          <ScalarProperty Name="TCYHF106" ColumnName="TCYHF106" />
+          <ScalarProperty Name="TCYHF105" ColumnName="TCYHF105" />
+          <ScalarProperty Name="TCYHF504" ColumnName="TCYHF504" />
+          <ScalarProperty Name="TCYHF511" ColumnName="TCYHF511" />
+          <ScalarProperty Name="TCYHF516" ColumnName="TCYHF516" />
+          <ScalarProperty Name="TCYHF512" ColumnName="TCYHF512" />
+          <ScalarProperty Name="TCYHF502" ColumnName="TCYHF502" />
+          <ScalarProperty Name="TCYHF509" ColumnName="TCYHF509" />
+          <ScalarProperty Name="TCYHF514" ColumnName="TCYHF514" />
+          <ScalarProperty Name="TCYHF505" ColumnName="TCYHF505" />
+          <ScalarProperty Name="TCYHF507" ColumnName="TCYHF507" />
+          <ScalarProperty Name="TCYHF510" ColumnName="TCYHF510" />
+          <ScalarProperty Name="TCYHF515" ColumnName="TCYHF515" />
+          <ScalarProperty Name="TCYHF508" ColumnName="TCYHF508" />
+          <ScalarProperty Name="TCYHF503" ColumnName="TCYHF503" />
+          <ScalarProperty Name="TCYHF513" ColumnName="TCYHF513" />
+          <ScalarProperty Name="TCYHF506" ColumnName="TCYHF506" />
+          <ScalarProperty Name="TCYHF406" ColumnName="TCYHF406" />
+          <ScalarProperty Name="TCYHF404" ColumnName="TCYHF404" />
+          <ScalarProperty Name="TCYHF403" ColumnName="TCYHF403" />
+          <ScalarProperty Name="TCYHF401" ColumnName="TCYHF401" />
+          <ScalarProperty Name="TCYHF409" ColumnName="TCYHF409" />
+          <ScalarProperty Name="TCYHF407" ColumnName="TCYHF407" />
+          <ScalarProperty Name="TCYHF402" ColumnName="TCYHF402" />
+          <ScalarProperty Name="TCYHF410" ColumnName="TCYHF410" />
+          <ScalarProperty Name="TCYHF405" ColumnName="TCYHF405" />
+          <ScalarProperty Name="TCYHF408" ColumnName="TCYHF408" />
+          <ScalarProperty Name="TCYHO301" ColumnName="TCYHO301" />
+          <ScalarProperty Name="TCYHO302" ColumnName="TCYHO302" />
+          <ScalarProperty Name="TCYHO101" ColumnName="TCYHO101" />
+          <ScalarProperty Name="TCYHO102" ColumnName="TCYHO102" />
+          <ScalarProperty Name="TCYHO103" ColumnName="TCYHO103" />
+          <ScalarProperty Name="TCYHO201" ColumnName="TCYHO201" />
+          <ScalarProperty Name="TCYHO202" ColumnName="TCYHO202" />
+          <ScalarProperty Name="TCYHO205" ColumnName="TCYHO205" />
+          <ScalarProperty Name="TCYHO207" ColumnName="TCYHO207" />
+          <ScalarProperty Name="TCYHO204" ColumnName="TCYHO204" />
+          <ScalarProperty Name="TCYHO206" ColumnName="TCYHO206" />
+          <ScalarProperty Name="TCYHO203" ColumnName="TCYHO203" />
+          <ScalarProperty Name="TCYHO402" ColumnName="TCYHO402" />
+          <ScalarProperty Name="TCYHO401" ColumnName="TCYHO401" />
+          <ScalarProperty Name="TCYHO403" ColumnName="TCYHO403" />
+          <ScalarProperty Name="TCYPC101" ColumnName="TCYPC101" />
+          <ScalarProperty Name="TCYPC102" ColumnName="TCYPC102" />
+          <ScalarProperty Name="TCYPC103" ColumnName="TCYPC103" />
+          <ScalarProperty Name="TCYPC403" ColumnName="TCYPC403" />
+          <ScalarProperty Name="TCYPC404" ColumnName="TCYPC404" />
+          <ScalarProperty Name="TCYPC401" ColumnName="TCYPC401" />
+          <ScalarProperty Name="TCYPC402" ColumnName="TCYPC402" />
+          <ScalarProperty Name="TCYPC301" ColumnName="TCYPC301" />
+          <ScalarProperty Name="TCYPC302" ColumnName="TCYPC302" />
+          <ScalarProperty Name="TCYHH503" ColumnName="TCYHH503" />
+          <ScalarProperty Name="TCYHH502" ColumnName="TCYHH502" />
+          <ScalarProperty Name="TCYHH501" ColumnName="TCYHH501" />
+          <ScalarProperty Name="TCYHH302" ColumnName="TCYHH302" />
+          <ScalarProperty Name="TCYHH301" ColumnName="TCYHH301" />
+          <ScalarProperty Name="TCYHH303" ColumnName="TCYHH303" />
+          <ScalarProperty Name="TCYHH304" ColumnName="TCYHH304" />
+          <ScalarProperty Name="TCYHH306" ColumnName="TCYHH306" />
+          <ScalarProperty Name="TCYHH402" ColumnName="TCYHH402" />
+          <ScalarProperty Name="TCYHH401" ColumnName="TCYHH401" />
+          <ScalarProperty Name="TCYHH403" ColumnName="TCYHH403" />
+          <ScalarProperty Name="TCYHH305" ColumnName="TCYHH305" />
+          <ScalarProperty Name="TCYHH101" ColumnName="TCYHH101" />
+          <ScalarProperty Name="TCYHH102" ColumnName="TCYHH102" />
+          <ScalarProperty Name="TCYHH201" ColumnName="TCYHH201" />
+          <ScalarProperty Name="TCYHH202" ColumnName="TCYHH202" />
+          <ScalarProperty Name="TCYTR502" ColumnName="TCYTR502" />
+          <ScalarProperty Name="TCYTR501" ColumnName="TCYTR501" />
+          <ScalarProperty Name="TCYTR503" ColumnName="TCYTR503" />
+          <ScalarProperty Name="TCYTR101" ColumnName="TCYTR101" />
+          <ScalarProperty Name="TCYTR102" ColumnName="TCYTR102" />
+          <ScalarProperty Name="TCYTR905" ColumnName="TCYTR905" />
+          <ScalarProperty Name="TCYTR901" ColumnName="TCYTR901" />
+          <ScalarProperty Name="TCYTR904" ColumnName="TCYTR904" />
+          <ScalarProperty Name="TCYTR902" ColumnName="TCYTR902" />
+          <ScalarProperty Name="TCYTR903" ColumnName="TCYTR903" />
+          <ScalarProperty Name="TCYTR801" ColumnName="TCYTR801" />
+          <ScalarProperty Name="TCYTR802" ColumnName="TCYTR802" />
+          <ScalarProperty Name="TCYTR803" ColumnName="TCYTR803" />
+          <ScalarProperty Name="TCYTR805" ColumnName="TCYTR805" />
+          <ScalarProperty Name="TCYTR804" ColumnName="TCYTR804" />
+          <ScalarProperty Name="TCYTR201" ColumnName="TCYTR201" />
+          <ScalarProperty Name="TCYTR202" ColumnName="TCYTR202" />
+          <ScalarProperty Name="TCYTR401" ColumnName="TCYTR401" />
+          <ScalarProperty Name="TCYTR402" ColumnName="TCYTR402" />
+          <ScalarProperty Name="TCYTR601" ColumnName="TCYTR601" />
+          <ScalarProperty Name="TCYTR602" ColumnName="TCYTR602" />
+          <ScalarProperty Name="TCYUT503" ColumnName="TCYUT503" />
+          <ScalarProperty Name="TCYUT502" ColumnName="TCYUT502" />
+          <ScalarProperty Name="TCYUT501" ColumnName="TCYUT501" />
+          <ScalarProperty Name="TCYUT402" ColumnName="TCYUT402" />
+          <ScalarProperty Name="TCYUT401" ColumnName="TCYUT401" />
+          <ScalarProperty Name="TCYAP10102" ColumnName="TCYAP10102" />
+          <ScalarProperty Name="TCYAP10101" ColumnName="TCYAP10101" />
+          <ScalarProperty Name="TCYAP10301" ColumnName="TCYAP10301" />
+          <ScalarProperty Name="TCYAP10302" ColumnName="TCYAP10302" />
+          <ScalarProperty Name="TCYAP10303" ColumnName="TCYAP10303" />
+          <ScalarProperty Name="TCYAP10801" ColumnName="TCYAP10801" />
+          <ScalarProperty Name="TCYAP10802" ColumnName="TCYAP10802" />
+          <ScalarProperty Name="TCYAP10902" ColumnName="TCYAP10902" />
+          <ScalarProperty Name="TCYAP10901" ColumnName="TCYAP10901" />
+          <ScalarProperty Name="TCYAP20402" ColumnName="TCYAP20402" />
+          <ScalarProperty Name="TCYAP20401" ColumnName="TCYAP20401" />
+          <ScalarProperty Name="TCYAP20502" ColumnName="TCYAP20502" />
+          <ScalarProperty Name="TCYAP20501" ColumnName="TCYAP20501" />
+          <ScalarProperty Name="TCYAP20801" ColumnName="TCYAP20801" />
+          <ScalarProperty Name="TCYAP20802" ColumnName="TCYAP20802" />
+          <ScalarProperty Name="TCYAP20902" ColumnName="TCYAP20902" />
+          <ScalarProperty Name="TCYAP20901" ColumnName="TCYAP20901" />
+          <ScalarProperty Name="TCYAP30201" ColumnName="TCYAP30201" />
+          <ScalarProperty Name="TCYAP30202" ColumnName="TCYAP30202" />
+          <ScalarProperty Name="TCYAP30702" ColumnName="TCYAP30702" />
+          <ScalarProperty Name="TCYAP30701" ColumnName="TCYAP30701" />
+          <ScalarProperty Name="TCYAP30801" ColumnName="TCYAP30801" />
+          <ScalarProperty Name="TCYAP30803" ColumnName="TCYAP30803" />
+          <ScalarProperty Name="TCYAP30802" ColumnName="TCYAP30802" />
+          <ScalarProperty Name="TCYAP40501" ColumnName="TCYAP40501" />
+          <ScalarProperty Name="TCYAP40502" ColumnName="TCYAP40502" />
+          <ScalarProperty Name="TCYAP40701" ColumnName="TCYAP40701" />
+          <ScalarProperty Name="TCYAP40801" ColumnName="TCYAP40801" />
+          <ScalarProperty Name="TCYAP40802" ColumnName="TCYAP40802" />
+          <ScalarProperty Name="TCYEN30301" ColumnName="TCYEN30301" />
+          <ScalarProperty Name="TCYEN30302" ColumnName="TCYEN30302" />
+          <ScalarProperty Name="TCYEN30303" ColumnName="TCYEN30303" />
+          <ScalarProperty Name="TCYEN30402" ColumnName="TCYEN30402" />
+          <ScalarProperty Name="TCYEN30401" ColumnName="TCYEN30401" />
+          <ScalarProperty Name="TCYEN30501" ColumnName="TCYEN30501" />
+          <ScalarProperty Name="TCYEN30503" ColumnName="TCYEN30503" />
+          <ScalarProperty Name="TCYEN30502" ColumnName="TCYEN30502" />
+          <ScalarProperty Name="TCYEN30601" ColumnName="TCYEN30601" />
+          <ScalarProperty Name="TCYEN30602" ColumnName="TCYEN30602" />
+          <ScalarProperty Name="TCYEN30603" ColumnName="TCYEN30603" />
+          <ScalarProperty Name="TCYFB10301" ColumnName="TCYFB10301" />
+          <ScalarProperty Name="TCYFB10304" ColumnName="TCYFB10304" />
+          <ScalarProperty Name="TCYFB10303" ColumnName="TCYFB10303" />
+          <ScalarProperty Name="TCYFB10302" ColumnName="TCYFB10302" />
+          <ScalarProperty Name="TCYFB10305" ColumnName="TCYFB10305" />
+          <ScalarProperty Name="TCYFB10603" ColumnName="TCYFB10603" />
+          <ScalarProperty Name="TCYFB10604" ColumnName="TCYFB10604" />
+          <ScalarProperty Name="TCYFB10602" ColumnName="TCYFB10602" />
+          <ScalarProperty Name="TCYFB10601" ColumnName="TCYFB10601" />
+          <ScalarProperty Name="TCYFB10605" ColumnName="TCYFB10605" />
+          <ScalarProperty Name="TCYFB10606" ColumnName="TCYFB10606" />
+          <ScalarProperty Name="TCYFB10701" ColumnName="TCYFB10701" />
+          <ScalarProperty Name="TCYFB10702" ColumnName="TCYFB10702" />
+          <ScalarProperty Name="TCYFB10705" ColumnName="TCYFB10705" />
+          <ScalarProperty Name="TCYFB10703" ColumnName="TCYFB10703" />
+          <ScalarProperty Name="TCYFB10704" ColumnName="TCYFB10704" />
+          <ScalarProperty Name="TCYFB10802" ColumnName="TCYFB10802" />
+          <ScalarProperty Name="TCYFB10804" ColumnName="TCYFB10804" />
+          <ScalarProperty Name="TCYFB10801" ColumnName="TCYFB10801" />
+          <ScalarProperty Name="TCYFB10803" ColumnName="TCYFB10803" />
+          <ScalarProperty Name="TCYFB10903" ColumnName="TCYFB10903" />
+          <ScalarProperty Name="TCYFB10905" ColumnName="TCYFB10905" />
+          <ScalarProperty Name="TCYFB10902" ColumnName="TCYFB10902" />
+          <ScalarProperty Name="TCYFB10901" ColumnName="TCYFB10901" />
+          <ScalarProperty Name="TCYFB10904" ColumnName="TCYFB10904" />
+          <ScalarProperty Name="TCYFB10906" ColumnName="TCYFB10906" />
+          <ScalarProperty Name="TCYFB11001" ColumnName="TCYFB11001" />
+          <ScalarProperty Name="TCYFB11003" ColumnName="TCYFB11003" />
+          <ScalarProperty Name="TCYFB11002" ColumnName="TCYFB11002" />
+          <ScalarProperty Name="TCYFB11102" ColumnName="TCYFB11102" />
+          <ScalarProperty Name="TCYFB11101" ColumnName="TCYFB11101" />
+          <ScalarProperty Name="TCYFB11104" ColumnName="TCYFB11104" />
+          <ScalarProperty Name="TCYFB11103" ColumnName="TCYFB11103" />
+          <ScalarProperty Name="TCYFB11203" ColumnName="TCYFB11203" />
+          <ScalarProperty Name="TCYFB11201" ColumnName="TCYFB11201" />
+          <ScalarProperty Name="TCYFB11204" ColumnName="TCYFB11204" />
+          <ScalarProperty Name="TCYFB11202" ColumnName="TCYFB11202" />
+          <ScalarProperty Name="TCYFB11206" ColumnName="TCYFB11206" />
+          <ScalarProperty Name="TCYFB11205" ColumnName="TCYFB11205" />
+          <ScalarProperty Name="TCYFB11502" ColumnName="TCYFB11502" />
+          <ScalarProperty Name="TCYFB11501" ColumnName="TCYFB11501" />
+          <ScalarProperty Name="TCYFB11602" ColumnName="TCYFB11602" />
+          <ScalarProperty Name="TCYFB11604" ColumnName="TCYFB11604" />
+          <ScalarProperty Name="TCYFB11601" ColumnName="TCYFB11601" />
+          <ScalarProperty Name="TCYFB11603" ColumnName="TCYFB11603" />
+          <ScalarProperty Name="TCYFB30101" ColumnName="TCYFB30101" />
+          <ScalarProperty Name="TCYFB30102" ColumnName="TCYFB30102" />
+          <ScalarProperty Name="TCYFB30202" ColumnName="TCYFB30202" />
+          <ScalarProperty Name="TCYFB30201" ColumnName="TCYFB30201" />
+          <ScalarProperty Name="TCYGI90302" ColumnName="TCYGI90302" />
+          <ScalarProperty Name="TCYGI90303" ColumnName="TCYGI90303" />
+          <ScalarProperty Name="TCYGI90301" ColumnName="TCYGI90301" />
+          <ScalarProperty Name="TCYHC20503" ColumnName="TCYHC20503" />
+          <ScalarProperty Name="TCYHC20501" ColumnName="TCYHC20501" />
+          <ScalarProperty Name="TCYHC20504" ColumnName="TCYHC20504" />
+          <ScalarProperty Name="TCYHC20502" ColumnName="TCYHC20502" />
+          <ScalarProperty Name="TCYHH30504" ColumnName="TCYHH30504" />
+          <ScalarProperty Name="TCYHH30507" ColumnName="TCYHH30507" />
+          <ScalarProperty Name="TCYHH30505" ColumnName="TCYHH30505" />
+          <ScalarProperty Name="TCYHH30501" ColumnName="TCYHH30501" />
+          <ScalarProperty Name="TCYHH30502" ColumnName="TCYHH30502" />
+          <ScalarProperty Name="TCYHH30503" ColumnName="TCYHH30503" />
+          <ScalarProperty Name="TCYHH30506" ColumnName="TCYHH30506" />
+          <ScalarProperty Name="TCYTR60216" ColumnName="TCYTR60216" />
+          <ScalarProperty Name="TCYTR60212" ColumnName="TCYTR60212" />
+          <ScalarProperty Name="TCYTR60217" ColumnName="TCYTR60217" />
+          <ScalarProperty Name="TCYTR60203" ColumnName="TCYTR60203" />
+          <ScalarProperty Name="TCYTR60205" ColumnName="TCYTR60205" />
+          <ScalarProperty Name="TCYTR60214" ColumnName="TCYTR60214" />
+          <ScalarProperty Name="TCYTR60207" ColumnName="TCYTR60207" />
+          <ScalarProperty Name="TCYTR60213" ColumnName="TCYTR60213" />
+          <ScalarProperty Name="TCYTR60210" ColumnName="TCYTR60210" />
+          <ScalarProperty Name="TCYTR60215" ColumnName="TCYTR60215" />
+          <ScalarProperty Name="TCYTR60208" ColumnName="TCYTR60208" />
+          <ScalarProperty Name="TCYTR60209" ColumnName="TCYTR60209" />
+          <ScalarProperty Name="TCYTR60202" ColumnName="TCYTR60202" />
+          <ScalarProperty Name="TCYTR60211" ColumnName="TCYTR60211" />
+          <ScalarProperty Name="TCYTR60206" ColumnName="TCYTR60206" />
+          <ScalarProperty Name="TCYTR60201" ColumnName="TCYTR60201" />
+          <ScalarProperty Name="TCYTR60204" ColumnName="TCYTR60204" />
+          <ScalarProperty Name="TCYTR60218" ColumnName="TCYTR60218" />
+          <ScalarProperty Name="XCYAP" ColumnName="XCYAP" />
+          <ScalarProperty Name="XCYCC" ColumnName="XCYCC" />
+          <ScalarProperty Name="XCYED" ColumnName="XCYED" />
+          <ScalarProperty Name="XCYEN" ColumnName="XCYEN" />
+          <ScalarProperty Name="XCYFB" ColumnName="XCYFB" />
+          <ScalarProperty Name="XCYGI" ColumnName="XCYGI" />
+          <ScalarProperty Name="XCYHC" ColumnName="XCYHC" />
+          <ScalarProperty Name="XCYHF" ColumnName="XCYHF" />
+          <ScalarProperty Name="XCYHO" ColumnName="XCYHO" />
+          <ScalarProperty Name="XCYMI" ColumnName="XCYMI" />
+          <ScalarProperty Name="XCYPC" ColumnName="XCYPC" />
+          <ScalarProperty Name="XCYPI" ColumnName="XCYPI" />
+          <ScalarProperty Name="XCYRD" ColumnName="XCYRD" />
+          <ScalarProperty Name="XCYHH" ColumnName="XCYHH" />
+          <ScalarProperty Name="XCYTB" ColumnName="XCYTB" />
+          <ScalarProperty Name="XCYTR" ColumnName="XCYTR" />
+          <ScalarProperty Name="XCYUT" ColumnName="XCYUT" />
+          <ScalarProperty Name="XCYAP7" ColumnName="XCYAP7" />
+          <ScalarProperty Name="XCYAP2" ColumnName="XCYAP2" />
+          <ScalarProperty Name="XCYAP6" ColumnName="XCYAP6" />
+          <ScalarProperty Name="XCYAP4" ColumnName="XCYAP4" />
+          <ScalarProperty Name="XCYAP5" ColumnName="XCYAP5" />
+          <ScalarProperty Name="XCYAP1" ColumnName="XCYAP1" />
+          <ScalarProperty Name="XCYAP3" ColumnName="XCYAP3" />
+          <ScalarProperty Name="XCYED1" ColumnName="XCYED1" />
+          <ScalarProperty Name="XCYED2" ColumnName="XCYED2" />
+          <ScalarProperty Name="XCYEN1" ColumnName="XCYEN1" />
+          <ScalarProperty Name="XCYEN3" ColumnName="XCYEN3" />
+          <ScalarProperty Name="XCYEN2" ColumnName="XCYEN2" />
+          <ScalarProperty Name="XCYFB3" ColumnName="XCYFB3" />
+          <ScalarProperty Name="XCYFB1" ColumnName="XCYFB1" />
+          <ScalarProperty Name="XCYFB2" ColumnName="XCYFB2" />
+          <ScalarProperty Name="XCYGI9" ColumnName="XCYGI9" />
+          <ScalarProperty Name="XCYGI1" ColumnName="XCYGI1" />
+          <ScalarProperty Name="XCYGI2" ColumnName="XCYGI2" />
+          <ScalarProperty Name="XCYGI3" ColumnName="XCYGI3" />
+          <ScalarProperty Name="XCYGI5" ColumnName="XCYGI5" />
+          <ScalarProperty Name="XCYGI6" ColumnName="XCYGI6" />
+          <ScalarProperty Name="XCYGI7" ColumnName="XCYGI7" />
+          <ScalarProperty Name="XCYGI4" ColumnName="XCYGI4" />
+          <ScalarProperty Name="XCYGI8" ColumnName="XCYGI8" />
+          <ScalarProperty Name="XCYHC1" ColumnName="XCYHC1" />
+          <ScalarProperty Name="XCYHC2" ColumnName="XCYHC2" />
+          <ScalarProperty Name="XCYHC3" ColumnName="XCYHC3" />
+          <ScalarProperty Name="XCYHF3" ColumnName="XCYHF3" />
+          <ScalarProperty Name="XCYHF2" ColumnName="XCYHF2" />
+          <ScalarProperty Name="XCYHF5" ColumnName="XCYHF5" />
+          <ScalarProperty Name="XCYHF1" ColumnName="XCYHF1" />
+          <ScalarProperty Name="XCYHF4" ColumnName="XCYHF4" />
+          <ScalarProperty Name="XCYHO3" ColumnName="XCYHO3" />
+          <ScalarProperty Name="XCYHO1" ColumnName="XCYHO1" />
+          <ScalarProperty Name="XCYHO2" ColumnName="XCYHO2" />
+          <ScalarProperty Name="XCYHO4" ColumnName="XCYHO4" />
+          <ScalarProperty Name="XCYMI3" ColumnName="XCYMI3" />
+          <ScalarProperty Name="XCYMI2" ColumnName="XCYMI2" />
+          <ScalarProperty Name="XCYMI1" ColumnName="XCYMI1" />
+          <ScalarProperty Name="XCYMI4" ColumnName="XCYMI4" />
+          <ScalarProperty Name="XCYPC2" ColumnName="XCYPC2" />
+          <ScalarProperty Name="XCYPC4" ColumnName="XCYPC4" />
+          <ScalarProperty Name="XCYPC3" ColumnName="XCYPC3" />
+          <ScalarProperty Name="XCYPC1" ColumnName="XCYPC1" />
+          <ScalarProperty Name="XCYRD3" ColumnName="XCYRD3" />
+          <ScalarProperty Name="XCYRD2" ColumnName="XCYRD2" />
+          <ScalarProperty Name="XCYRD1" ColumnName="XCYRD1" />
+          <ScalarProperty Name="XCYHH3" ColumnName="XCYHH3" />
+          <ScalarProperty Name="XCYHH1" ColumnName="XCYHH1" />
+          <ScalarProperty Name="XCYHH5" ColumnName="XCYHH5" />
+          <ScalarProperty Name="XCYHH2" ColumnName="XCYHH2" />
+          <ScalarProperty Name="XCYHH4" ColumnName="XCYHH4" />
+          <ScalarProperty Name="XCYTB1" ColumnName="XCYTB1" />
+          <ScalarProperty Name="XCYTB2" ColumnName="XCYTB2" />
+          <ScalarProperty Name="XCYTR5" ColumnName="XCYTR5" />
+          <ScalarProperty Name="XCYTR3" ColumnName="XCYTR3" />
+          <ScalarProperty Name="XCYTR1" ColumnName="XCYTR1" />
+          <ScalarProperty Name="XCYTR9" ColumnName="XCYTR9" />
+          <ScalarProperty Name="XCYTR8" ColumnName="XCYTR8" />
+          <ScalarProperty Name="XCYTR2" ColumnName="XCYTR2" />
+          <ScalarProperty Name="XCYTR4" ColumnName="XCYTR4" />
+          <ScalarProperty Name="XCYTR7" ColumnName="XCYTR7" />
+          <ScalarProperty Name="XCYTR6" ColumnName="XCYTR6" />
+          <ScalarProperty Name="XCYUT2" ColumnName="XCYUT2" />
+          <ScalarProperty Name="XCYUT3" ColumnName="XCYUT3" />
+          <ScalarProperty Name="XCYUT1" ColumnName="XCYUT1" />
+          <ScalarProperty Name="XCYUT5" ColumnName="XCYUT5" />
+          <ScalarProperty Name="XCYUT4" ColumnName="XCYUT4" />
+          <ScalarProperty Name="XCYAP707" ColumnName="XCYAP707" />
+          <ScalarProperty Name="XCYAP706" ColumnName="XCYAP706" />
+          <ScalarProperty Name="XCYAP704" ColumnName="XCYAP704" />
+          <ScalarProperty Name="XCYAP701" ColumnName="XCYAP701" />
+          <ScalarProperty Name="XCYAP705" ColumnName="XCYAP705" />
+          <ScalarProperty Name="XCYAP702" ColumnName="XCYAP702" />
+          <ScalarProperty Name="XCYAP201" ColumnName="XCYAP201" />
+          <ScalarProperty Name="XCYAP209" ColumnName="XCYAP209" />
+          <ScalarProperty Name="XCYAP205" ColumnName="XCYAP205" />
+          <ScalarProperty Name="XCYAP207" ColumnName="XCYAP207" />
+          <ScalarProperty Name="XCYAP203" ColumnName="XCYAP203" />
+          <ScalarProperty Name="XCYAP208" ColumnName="XCYAP208" />
+          <ScalarProperty Name="XCYAP206" ColumnName="XCYAP206" />
+          <ScalarProperty Name="XCYAP202" ColumnName="XCYAP202" />
+          <ScalarProperty Name="XCYAP204" ColumnName="XCYAP204" />
+          <ScalarProperty Name="XCYAP602" ColumnName="XCYAP602" />
+          <ScalarProperty Name="XCYAP604" ColumnName="XCYAP604" />
+          <ScalarProperty Name="XCYAP601" ColumnName="XCYAP601" />
+          <ScalarProperty Name="XCYAP603" ColumnName="XCYAP603" />
+          <ScalarProperty Name="XCYAP407" ColumnName="XCYAP407" />
+          <ScalarProperty Name="XCYAP401" ColumnName="XCYAP401" />
+          <ScalarProperty Name="XCYAP402" ColumnName="XCYAP402" />
+          <ScalarProperty Name="XCYAP403" ColumnName="XCYAP403" />
+          <ScalarProperty Name="XCYAP405" ColumnName="XCYAP405" />
+          <ScalarProperty Name="XCYAP404" ColumnName="XCYAP404" />
+          <ScalarProperty Name="XCYAP406" ColumnName="XCYAP406" />
+          <ScalarProperty Name="XCYAP408" ColumnName="XCYAP408" />
+          <ScalarProperty Name="XCYAP505" ColumnName="XCYAP505" />
+          <ScalarProperty Name="XCYAP501" ColumnName="XCYAP501" />
+          <ScalarProperty Name="XCYAP502" ColumnName="XCYAP502" />
+          <ScalarProperty Name="XCYAP504" ColumnName="XCYAP504" />
+          <ScalarProperty Name="XCYAP503" ColumnName="XCYAP503" />
+          <ScalarProperty Name="XCYAP104" ColumnName="XCYAP104" />
+          <ScalarProperty Name="XCYAP106" ColumnName="XCYAP106" />
+          <ScalarProperty Name="XCYAP102" ColumnName="XCYAP102" />
+          <ScalarProperty Name="XCYAP108" ColumnName="XCYAP108" />
+          <ScalarProperty Name="XCYAP107" ColumnName="XCYAP107" />
+          <ScalarProperty Name="XCYAP101" ColumnName="XCYAP101" />
+          <ScalarProperty Name="XCYAP105" ColumnName="XCYAP105" />
+          <ScalarProperty Name="XCYAP103" ColumnName="XCYAP103" />
+          <ScalarProperty Name="XCYAP109" ColumnName="XCYAP109" />
+          <ScalarProperty Name="XCYAP310" ColumnName="XCYAP310" />
+          <ScalarProperty Name="XCYAP301" ColumnName="XCYAP301" />
+          <ScalarProperty Name="XCYAP312" ColumnName="XCYAP312" />
+          <ScalarProperty Name="XCYAP302" ColumnName="XCYAP302" />
+          <ScalarProperty Name="XCYAP306" ColumnName="XCYAP306" />
+          <ScalarProperty Name="XCYAP304" ColumnName="XCYAP304" />
+          <ScalarProperty Name="XCYAP307" ColumnName="XCYAP307" />
+          <ScalarProperty Name="XCYAP305" ColumnName="XCYAP305" />
+          <ScalarProperty Name="XCYAP308" ColumnName="XCYAP308" />
+          <ScalarProperty Name="XCYAP309" ColumnName="XCYAP309" />
+          <ScalarProperty Name="XCYAP311" ColumnName="XCYAP311" />
+          <ScalarProperty Name="XCYAP303" ColumnName="XCYAP303" />
+          <ScalarProperty Name="XCYED101" ColumnName="XCYED101" />
+          <ScalarProperty Name="XCYED102" ColumnName="XCYED102" />
+          <ScalarProperty Name="XCYED103" ColumnName="XCYED103" />
+          <ScalarProperty Name="XCYED201" ColumnName="XCYED201" />
+          <ScalarProperty Name="XCYED203" ColumnName="XCYED203" />
+          <ScalarProperty Name="XCYED202" ColumnName="XCYED202" />
+          <ScalarProperty Name="XCYEN102" ColumnName="XCYEN102" />
+          <ScalarProperty Name="XCYEN103" ColumnName="XCYEN103" />
+          <ScalarProperty Name="XCYEN106" ColumnName="XCYEN106" />
+          <ScalarProperty Name="XCYEN105" ColumnName="XCYEN105" />
+          <ScalarProperty Name="XCYEN101" ColumnName="XCYEN101" />
+          <ScalarProperty Name="XCYEN104" ColumnName="XCYEN104" />
+          <ScalarProperty Name="XCYEN301" ColumnName="XCYEN301" />
+          <ScalarProperty Name="XCYEN302" ColumnName="XCYEN302" />
+          <ScalarProperty Name="XCYEN303" ColumnName="XCYEN303" />
+          <ScalarProperty Name="XCYEN306" ColumnName="XCYEN306" />
+          <ScalarProperty Name="XCYEN305" ColumnName="XCYEN305" />
+          <ScalarProperty Name="XCYEN304" ColumnName="XCYEN304" />
+          <ScalarProperty Name="XCYEN205" ColumnName="XCYEN205" />
+          <ScalarProperty Name="XCYEN201" ColumnName="XCYEN201" />
+          <ScalarProperty Name="XCYEN208" ColumnName="XCYEN208" />
+          <ScalarProperty Name="XCYEN206" ColumnName="XCYEN206" />
+          <ScalarProperty Name="XCYEN207" ColumnName="XCYEN207" />
+          <ScalarProperty Name="XCYEN210" ColumnName="XCYEN210" />
+          <ScalarProperty Name="XCYEN202" ColumnName="XCYEN202" />
+          <ScalarProperty Name="XCYEN203" ColumnName="XCYEN203" />
+          <ScalarProperty Name="XCYEN209" ColumnName="XCYEN209" />
+          <ScalarProperty Name="XCYEN204" ColumnName="XCYEN204" />
+          <ScalarProperty Name="XCYFB307" ColumnName="XCYFB307" />
+          <ScalarProperty Name="XCYFB301" ColumnName="XCYFB301" />
+          <ScalarProperty Name="XCYFB304" ColumnName="XCYFB304" />
+          <ScalarProperty Name="XCYFB302" ColumnName="XCYFB302" />
+          <ScalarProperty Name="XCYFB306" ColumnName="XCYFB306" />
+          <ScalarProperty Name="XCYFB303" ColumnName="XCYFB303" />
+          <ScalarProperty Name="XCYFB305" ColumnName="XCYFB305" />
+          <ScalarProperty Name="XCYFB119" ColumnName="XCYFB119" />
+          <ScalarProperty Name="XCYFB106" ColumnName="XCYFB106" />
+          <ScalarProperty Name="XCYFB105" ColumnName="XCYFB105" />
+          <ScalarProperty Name="XCYFB111" ColumnName="XCYFB111" />
+          <ScalarProperty Name="XCYFB104" ColumnName="XCYFB104" />
+          <ScalarProperty Name="XCYFB107" ColumnName="XCYFB107" />
+          <ScalarProperty Name="XCYFB121" ColumnName="XCYFB121" />
+          <ScalarProperty Name="XCYFB117" ColumnName="XCYFB117" />
+          <ScalarProperty Name="XCYFB109" ColumnName="XCYFB109" />
+          <ScalarProperty Name="XCYFB116" ColumnName="XCYFB116" />
+          <ScalarProperty Name="XCYFB115" ColumnName="XCYFB115" />
+          <ScalarProperty Name="XCYFB113" ColumnName="XCYFB113" />
+          <ScalarProperty Name="XCYFB110" ColumnName="XCYFB110" />
+          <ScalarProperty Name="XCYFB108" ColumnName="XCYFB108" />
+          <ScalarProperty Name="XCYFB114" ColumnName="XCYFB114" />
+          <ScalarProperty Name="XCYFB103" ColumnName="XCYFB103" />
+          <ScalarProperty Name="XCYFB120" ColumnName="XCYFB120" />
+          <ScalarProperty Name="XCYFB112" ColumnName="XCYFB112" />
+          <ScalarProperty Name="XCYFB118" ColumnName="XCYFB118" />
+          <ScalarProperty Name="XCYFB205" ColumnName="XCYFB205" />
+          <ScalarProperty Name="XCYFB204" ColumnName="XCYFB204" />
+          <ScalarProperty Name="XCYFB206" ColumnName="XCYFB206" />
+          <ScalarProperty Name="XCYFB202" ColumnName="XCYFB202" />
+          <ScalarProperty Name="XCYFB207" ColumnName="XCYFB207" />
+          <ScalarProperty Name="XCYFB201" ColumnName="XCYFB201" />
+          <ScalarProperty Name="XCYFB203" ColumnName="XCYFB203" />
+          <ScalarProperty Name="XCYGI905" ColumnName="XCYGI905" />
+          <ScalarProperty Name="XCYGI901" ColumnName="XCYGI901" />
+          <ScalarProperty Name="XCYGI902" ColumnName="XCYGI902" />
+          <ScalarProperty Name="XCYGI903" ColumnName="XCYGI903" />
+          <ScalarProperty Name="XCYGI904" ColumnName="XCYGI904" />
+          <ScalarProperty Name="XCYGI107" ColumnName="XCYGI107" />
+          <ScalarProperty Name="XCYGI102" ColumnName="XCYGI102" />
+          <ScalarProperty Name="XCYGI106" ColumnName="XCYGI106" />
+          <ScalarProperty Name="XCYGI104" ColumnName="XCYGI104" />
+          <ScalarProperty Name="XCYGI105" ColumnName="XCYGI105" />
+          <ScalarProperty Name="XCYGI101" ColumnName="XCYGI101" />
+          <ScalarProperty Name="XCYGI103" ColumnName="XCYGI103" />
+          <ScalarProperty Name="XCYGI202" ColumnName="XCYGI202" />
+          <ScalarProperty Name="XCYGI201" ColumnName="XCYGI201" />
+          <ScalarProperty Name="XCYGI604" ColumnName="XCYGI604" />
+          <ScalarProperty Name="XCYGI602" ColumnName="XCYGI602" />
+          <ScalarProperty Name="XCYGI608" ColumnName="XCYGI608" />
+          <ScalarProperty Name="XCYGI601" ColumnName="XCYGI601" />
+          <ScalarProperty Name="XCYGI603" ColumnName="XCYGI603" />
+          <ScalarProperty Name="XCYGI606" ColumnName="XCYGI606" />
+          <ScalarProperty Name="XCYGI607" ColumnName="XCYGI607" />
+          <ScalarProperty Name="XCYGI605" ColumnName="XCYGI605" />
+          <ScalarProperty Name="XCYGI609" ColumnName="XCYGI609" />
+          <ScalarProperty Name="XCYGI402" ColumnName="XCYGI402" />
+          <ScalarProperty Name="XCYGI404" ColumnName="XCYGI404" />
+          <ScalarProperty Name="XCYGI401" ColumnName="XCYGI401" />
+          <ScalarProperty Name="XCYGI403" ColumnName="XCYGI403" />
+          <ScalarProperty Name="XCYHC102" ColumnName="XCYHC102" />
+          <ScalarProperty Name="XCYHC101" ColumnName="XCYHC101" />
+          <ScalarProperty Name="XCYHC103" ColumnName="XCYHC103" />
+          <ScalarProperty Name="XCYHC104" ColumnName="XCYHC104" />
+          <ScalarProperty Name="XCYHC105" ColumnName="XCYHC105" />
+          <ScalarProperty Name="XCYHC203" ColumnName="XCYHC203" />
+          <ScalarProperty Name="XCYHC204" ColumnName="XCYHC204" />
+          <ScalarProperty Name="XCYHC205" ColumnName="XCYHC205" />
+          <ScalarProperty Name="XCYHC202" ColumnName="XCYHC202" />
+          <ScalarProperty Name="XCYHC302" ColumnName="XCYHC302" />
+          <ScalarProperty Name="XCYHC303" ColumnName="XCYHC303" />
+          <ScalarProperty Name="XCYHC301" ColumnName="XCYHC301" />
+          <ScalarProperty Name="XCYHF207" ColumnName="XCYHF207" />
+          <ScalarProperty Name="XCYHF206" ColumnName="XCYHF206" />
+          <ScalarProperty Name="XCYHF204" ColumnName="XCYHF204" />
+          <ScalarProperty Name="XCYHF205" ColumnName="XCYHF205" />
+          <ScalarProperty Name="XCYHF201" ColumnName="XCYHF201" />
+          <ScalarProperty Name="XCYHF202" ColumnName="XCYHF202" />
+          <ScalarProperty Name="XCYHF208" ColumnName="XCYHF208" />
+          <ScalarProperty Name="XCYHF203" ColumnName="XCYHF203" />
+          <ScalarProperty Name="XCYHF504" ColumnName="XCYHF504" />
+          <ScalarProperty Name="XCYHF511" ColumnName="XCYHF511" />
+          <ScalarProperty Name="XCYHF516" ColumnName="XCYHF516" />
+          <ScalarProperty Name="XCYHF512" ColumnName="XCYHF512" />
+          <ScalarProperty Name="XCYHF502" ColumnName="XCYHF502" />
+          <ScalarProperty Name="XCYHF509" ColumnName="XCYHF509" />
+          <ScalarProperty Name="XCYHF503" ColumnName="XCYHF503" />
+          <ScalarProperty Name="XCYHF513" ColumnName="XCYHF513" />
+          <ScalarProperty Name="XCYHF506" ColumnName="XCYHF506" />
+          <ScalarProperty Name="XCYHF514" ColumnName="XCYHF514" />
+          <ScalarProperty Name="XCYHF505" ColumnName="XCYHF505" />
+          <ScalarProperty Name="XCYHF507" ColumnName="XCYHF507" />
+          <ScalarProperty Name="XCYHF510" ColumnName="XCYHF510" />
+          <ScalarProperty Name="XCYHF515" ColumnName="XCYHF515" />
+          <ScalarProperty Name="XCYHF508" ColumnName="XCYHF508" />
+          <ScalarProperty Name="XCYHF101" ColumnName="XCYHF101" />
+          <ScalarProperty Name="XCYHF102" ColumnName="XCYHF102" />
+          <ScalarProperty Name="XCYHF104" ColumnName="XCYHF104" />
+          <ScalarProperty Name="XCYHF103" ColumnName="XCYHF103" />
+          <ScalarProperty Name="XCYHF107" ColumnName="XCYHF107" />
+          <ScalarProperty Name="XCYHF106" ColumnName="XCYHF106" />
+          <ScalarProperty Name="XCYHF105" ColumnName="XCYHF105" />
+          <ScalarProperty Name="XCYHF406" ColumnName="XCYHF406" />
+          <ScalarProperty Name="XCYHF404" ColumnName="XCYHF404" />
+          <ScalarProperty Name="XCYHF403" ColumnName="XCYHF403" />
+          <ScalarProperty Name="XCYHF401" ColumnName="XCYHF401" />
+          <ScalarProperty Name="XCYHF409" ColumnName="XCYHF409" />
+          <ScalarProperty Name="XCYHF407" ColumnName="XCYHF407" />
+          <ScalarProperty Name="XCYHF402" ColumnName="XCYHF402" />
+          <ScalarProperty Name="XCYHF410" ColumnName="XCYHF410" />
+          <ScalarProperty Name="XCYHF405" ColumnName="XCYHF405" />
+          <ScalarProperty Name="XCYHF408" ColumnName="XCYHF408" />
+          <ScalarProperty Name="XCYHO301" ColumnName="XCYHO301" />
+          <ScalarProperty Name="XCYHO302" ColumnName="XCYHO302" />
+          <ScalarProperty Name="XCYHO101" ColumnName="XCYHO101" />
+          <ScalarProperty Name="XCYHO102" ColumnName="XCYHO102" />
+          <ScalarProperty Name="XCYHO103" ColumnName="XCYHO103" />
+          <ScalarProperty Name="XCYHO201" ColumnName="XCYHO201" />
+          <ScalarProperty Name="XCYHO202" ColumnName="XCYHO202" />
+          <ScalarProperty Name="XCYHO205" ColumnName="XCYHO205" />
+          <ScalarProperty Name="XCYHO207" ColumnName="XCYHO207" />
+          <ScalarProperty Name="XCYHO204" ColumnName="XCYHO204" />
+          <ScalarProperty Name="XCYHO206" ColumnName="XCYHO206" />
+          <ScalarProperty Name="XCYHO203" ColumnName="XCYHO203" />
+          <ScalarProperty Name="XCYHO402" ColumnName="XCYHO402" />
+          <ScalarProperty Name="XCYHO401" ColumnName="XCYHO401" />
+          <ScalarProperty Name="XCYHO403" ColumnName="XCYHO403" />
+          <ScalarProperty Name="XCYPC403" ColumnName="XCYPC403" />
+          <ScalarProperty Name="XCYPC404" ColumnName="XCYPC404" />
+          <ScalarProperty Name="XCYPC401" ColumnName="XCYPC401" />
+          <ScalarProperty Name="XCYPC402" ColumnName="XCYPC402" />
+          <ScalarProperty Name="XCYPC301" ColumnName="XCYPC301" />
+          <ScalarProperty Name="XCYPC302" ColumnName="XCYPC302" />
+          <ScalarProperty Name="XCYPC101" ColumnName="XCYPC101" />
+          <ScalarProperty Name="XCYPC102" ColumnName="XCYPC102" />
+          <ScalarProperty Name="XCYPC103" ColumnName="XCYPC103" />
+          <ScalarProperty Name="XCYHH302" ColumnName="XCYHH302" />
+          <ScalarProperty Name="XCYHH301" ColumnName="XCYHH301" />
+          <ScalarProperty Name="XCYHH303" ColumnName="XCYHH303" />
+          <ScalarProperty Name="XCYHH304" ColumnName="XCYHH304" />
+          <ScalarProperty Name="XCYHH306" ColumnName="XCYHH306" />
+          <ScalarProperty Name="XCYHH305" ColumnName="XCYHH305" />
+          <ScalarProperty Name="XCYHH101" ColumnName="XCYHH101" />
+          <ScalarProperty Name="XCYHH102" ColumnName="XCYHH102" />
+          <ScalarProperty Name="XCYHH503" ColumnName="XCYHH503" />
+          <ScalarProperty Name="XCYHH502" ColumnName="XCYHH502" />
+          <ScalarProperty Name="XCYHH501" ColumnName="XCYHH501" />
+          <ScalarProperty Name="XCYHH201" ColumnName="XCYHH201" />
+          <ScalarProperty Name="XCYHH202" ColumnName="XCYHH202" />
+          <ScalarProperty Name="XCYHH402" ColumnName="XCYHH402" />
+          <ScalarProperty Name="XCYHH401" ColumnName="XCYHH401" />
+          <ScalarProperty Name="XCYHH403" ColumnName="XCYHH403" />
+          <ScalarProperty Name="XCYTR502" ColumnName="XCYTR502" />
+          <ScalarProperty Name="XCYTR501" ColumnName="XCYTR501" />
+          <ScalarProperty Name="XCYTR503" ColumnName="XCYTR503" />
+          <ScalarProperty Name="XCYTR101" ColumnName="XCYTR101" />
+          <ScalarProperty Name="XCYTR102" ColumnName="XCYTR102" />
+          <ScalarProperty Name="XCYTR905" ColumnName="XCYTR905" />
+          <ScalarProperty Name="XCYTR901" ColumnName="XCYTR901" />
+          <ScalarProperty Name="XCYTR904" ColumnName="XCYTR904" />
+          <ScalarProperty Name="XCYTR902" ColumnName="XCYTR902" />
+          <ScalarProperty Name="XCYTR903" ColumnName="XCYTR903" />
+          <ScalarProperty Name="XCYTR801" ColumnName="XCYTR801" />
+          <ScalarProperty Name="XCYTR802" ColumnName="XCYTR802" />
+          <ScalarProperty Name="XCYTR803" ColumnName="XCYTR803" />
+          <ScalarProperty Name="XCYTR805" ColumnName="XCYTR805" />
+          <ScalarProperty Name="XCYTR804" ColumnName="XCYTR804" />
+          <ScalarProperty Name="XCYTR201" ColumnName="XCYTR201" />
+          <ScalarProperty Name="XCYTR202" ColumnName="XCYTR202" />
+          <ScalarProperty Name="XCYTR401" ColumnName="XCYTR401" />
+          <ScalarProperty Name="XCYTR402" ColumnName="XCYTR402" />
+          <ScalarProperty Name="XCYTR601" ColumnName="XCYTR601" />
+          <ScalarProperty Name="XCYTR602" ColumnName="XCYTR602" />
+          <ScalarProperty Name="XCYUT503" ColumnName="XCYUT503" />
+          <ScalarProperty Name="XCYUT502" ColumnName="XCYUT502" />
+          <ScalarProperty Name="XCYUT501" ColumnName="XCYUT501" />
+          <ScalarProperty Name="XCYUT402" ColumnName="XCYUT402" />
+          <ScalarProperty Name="XCYUT401" ColumnName="XCYUT401" />
+          <ScalarProperty Name="XCYAP20901" ColumnName="XCYAP20901" />
+          <ScalarProperty Name="XCYAP20902" ColumnName="XCYAP20902" />
+          <ScalarProperty Name="XCYAP20502" ColumnName="XCYAP20502" />
+          <ScalarProperty Name="XCYAP20501" ColumnName="XCYAP20501" />
+          <ScalarProperty Name="XCYAP20801" ColumnName="XCYAP20801" />
+          <ScalarProperty Name="XCYAP20802" ColumnName="XCYAP20802" />
+          <ScalarProperty Name="XCYAP20402" ColumnName="XCYAP20402" />
+          <ScalarProperty Name="XCYAP20401" ColumnName="XCYAP20401" />
+          <ScalarProperty Name="XCYAP40701" ColumnName="XCYAP40701" />
+          <ScalarProperty Name="XCYAP40501" ColumnName="XCYAP40501" />
+          <ScalarProperty Name="XCYAP40502" ColumnName="XCYAP40502" />
+          <ScalarProperty Name="XCYAP40802" ColumnName="XCYAP40802" />
+          <ScalarProperty Name="XCYAP40801" ColumnName="XCYAP40801" />
+          <ScalarProperty Name="XCYAP10801" ColumnName="XCYAP10801" />
+          <ScalarProperty Name="XCYAP10802" ColumnName="XCYAP10802" />
+          <ScalarProperty Name="XCYAP10102" ColumnName="XCYAP10102" />
+          <ScalarProperty Name="XCYAP10101" ColumnName="XCYAP10101" />
+          <ScalarProperty Name="XCYAP10302" ColumnName="XCYAP10302" />
+          <ScalarProperty Name="XCYAP10303" ColumnName="XCYAP10303" />
+          <ScalarProperty Name="XCYAP10301" ColumnName="XCYAP10301" />
+          <ScalarProperty Name="XCYAP10901" ColumnName="XCYAP10901" />
+          <ScalarProperty Name="XCYAP10902" ColumnName="XCYAP10902" />
+          <ScalarProperty Name="XCYAP30201" ColumnName="XCYAP30201" />
+          <ScalarProperty Name="XCYAP30202" ColumnName="XCYAP30202" />
+          <ScalarProperty Name="XCYAP30701" ColumnName="XCYAP30701" />
+          <ScalarProperty Name="XCYAP30702" ColumnName="XCYAP30702" />
+          <ScalarProperty Name="XCYAP30803" ColumnName="XCYAP30803" />
+          <ScalarProperty Name="XCYAP30801" ColumnName="XCYAP30801" />
+          <ScalarProperty Name="XCYAP30802" ColumnName="XCYAP30802" />
+          <ScalarProperty Name="XCYEN30301" ColumnName="XCYEN30301" />
+          <ScalarProperty Name="XCYEN30302" ColumnName="XCYEN30302" />
+          <ScalarProperty Name="XCYEN30303" ColumnName="XCYEN30303" />
+          <ScalarProperty Name="XCYEN30601" ColumnName="XCYEN30601" />
+          <ScalarProperty Name="XCYEN30602" ColumnName="XCYEN30602" />
+          <ScalarProperty Name="XCYEN30603" ColumnName="XCYEN30603" />
+          <ScalarProperty Name="XCYEN30501" ColumnName="XCYEN30501" />
+          <ScalarProperty Name="XCYEN30503" ColumnName="XCYEN30503" />
+          <ScalarProperty Name="XCYEN30502" ColumnName="XCYEN30502" />
+          <ScalarProperty Name="XCYEN30402" ColumnName="XCYEN30402" />
+          <ScalarProperty Name="XCYEN30401" ColumnName="XCYEN30401" />
+          <ScalarProperty Name="XCYFB30101" ColumnName="XCYFB30101" />
+          <ScalarProperty Name="XCYFB30102" ColumnName="XCYFB30102" />
+          <ScalarProperty Name="XCYFB30202" ColumnName="XCYFB30202" />
+          <ScalarProperty Name="XCYFB30201" ColumnName="XCYFB30201" />
+          <ScalarProperty Name="XCYFB10603" ColumnName="XCYFB10603" />
+          <ScalarProperty Name="XCYFB10604" ColumnName="XCYFB10604" />
+          <ScalarProperty Name="XCYFB10602" ColumnName="XCYFB10602" />
+          <ScalarProperty Name="XCYFB10601" ColumnName="XCYFB10601" />
+          <ScalarProperty Name="XCYFB10605" ColumnName="XCYFB10605" />
+          <ScalarProperty Name="XCYFB10606" ColumnName="XCYFB10606" />
+          <ScalarProperty Name="XCYFB11102" ColumnName="XCYFB11102" />
+          <ScalarProperty Name="XCYFB11101" ColumnName="XCYFB11101" />
+          <ScalarProperty Name="XCYFB11104" ColumnName="XCYFB11104" />
+          <ScalarProperty Name="XCYFB11103" ColumnName="XCYFB11103" />
+          <ScalarProperty Name="XCYFB10701" ColumnName="XCYFB10701" />
+          <ScalarProperty Name="XCYFB10702" ColumnName="XCYFB10702" />
+          <ScalarProperty Name="XCYFB10705" ColumnName="XCYFB10705" />
+          <ScalarProperty Name="XCYFB10703" ColumnName="XCYFB10703" />
+          <ScalarProperty Name="XCYFB10704" ColumnName="XCYFB10704" />
+          <ScalarProperty Name="XCYFB10903" ColumnName="XCYFB10903" />
+          <ScalarProperty Name="XCYFB10905" ColumnName="XCYFB10905" />
+          <ScalarProperty Name="XCYFB10902" ColumnName="XCYFB10902" />
+          <ScalarProperty Name="XCYFB10901" ColumnName="XCYFB10901" />
+          <ScalarProperty Name="XCYFB10904" ColumnName="XCYFB10904" />
+          <ScalarProperty Name="XCYFB10906" ColumnName="XCYFB10906" />
+          <ScalarProperty Name="XCYFB11602" ColumnName="XCYFB11602" />
+          <ScalarProperty Name="XCYFB11604" ColumnName="XCYFB11604" />
+          <ScalarProperty Name="XCYFB11601" ColumnName="XCYFB11601" />
+          <ScalarProperty Name="XCYFB11603" ColumnName="XCYFB11603" />
+          <ScalarProperty Name="XCYFB11502" ColumnName="XCYFB11502" />
+          <ScalarProperty Name="XCYFB11501" ColumnName="XCYFB11501" />
+          <ScalarProperty Name="XCYFB11001" ColumnName="XCYFB11001" />
+          <ScalarProperty Name="XCYFB11003" ColumnName="XCYFB11003" />
+          <ScalarProperty Name="XCYFB11002" ColumnName="XCYFB11002" />
+          <ScalarProperty Name="XCYFB10802" ColumnName="XCYFB10802" />
+          <ScalarProperty Name="XCYFB10804" ColumnName="XCYFB10804" />
+          <ScalarProperty Name="XCYFB10801" ColumnName="XCYFB10801" />
+          <ScalarProperty Name="XCYFB10803" ColumnName="XCYFB10803" />
+          <ScalarProperty Name="XCYFB10301" ColumnName="XCYFB10301" />
+          <ScalarProperty Name="XCYFB10304" ColumnName="XCYFB10304" />
+          <ScalarProperty Name="XCYFB10303" ColumnName="XCYFB10303" />
+          <ScalarProperty Name="XCYFB10302" ColumnName="XCYFB10302" />
+          <ScalarProperty Name="XCYFB10305" ColumnName="XCYFB10305" />
+          <ScalarProperty Name="XCYFB11203" ColumnName="XCYFB11203" />
+          <ScalarProperty Name="XCYFB11201" ColumnName="XCYFB11201" />
+          <ScalarProperty Name="XCYFB11204" ColumnName="XCYFB11204" />
+          <ScalarProperty Name="XCYFB11202" ColumnName="XCYFB11202" />
+          <ScalarProperty Name="XCYFB11206" ColumnName="XCYFB11206" />
+          <ScalarProperty Name="XCYFB11205" ColumnName="XCYFB11205" />
+          <ScalarProperty Name="XCYGI90302" ColumnName="XCYGI90302" />
+          <ScalarProperty Name="XCYGI90303" ColumnName="XCYGI90303" />
+          <ScalarProperty Name="XCYGI90301" ColumnName="XCYGI90301" />
+          <ScalarProperty Name="XCYHC20503" ColumnName="XCYHC20503" />
+          <ScalarProperty Name="XCYHC20501" ColumnName="XCYHC20501" />
+          <ScalarProperty Name="XCYHC20504" ColumnName="XCYHC20504" />
+          <ScalarProperty Name="XCYHC20502" ColumnName="XCYHC20502" />
+          <ScalarProperty Name="XCYHH30504" ColumnName="XCYHH30504" />
+          <ScalarProperty Name="XCYHH30507" ColumnName="XCYHH30507" />
+          <ScalarProperty Name="XCYHH30505" ColumnName="XCYHH30505" />
+          <ScalarProperty Name="XCYHH30501" ColumnName="XCYHH30501" />
+          <ScalarProperty Name="XCYHH30502" ColumnName="XCYHH30502" />
+          <ScalarProperty Name="XCYHH30503" ColumnName="XCYHH30503" />
+          <ScalarProperty Name="XCYHH30506" ColumnName="XCYHH30506" />
+          <ScalarProperty Name="XCYTR60216" ColumnName="XCYTR60216" />
+          <ScalarProperty Name="XCYTR60212" ColumnName="XCYTR60212" />
+          <ScalarProperty Name="XCYTR60217" ColumnName="XCYTR60217" />
+          <ScalarProperty Name="XCYTR60203" ColumnName="XCYTR60203" />
+          <ScalarProperty Name="XCYTR60205" ColumnName="XCYTR60205" />
+          <ScalarProperty Name="XCYTR60214" ColumnName="XCYTR60214" />
+          <ScalarProperty Name="XCYTR60202" ColumnName="XCYTR60202" />
+          <ScalarProperty Name="XCYTR60211" ColumnName="XCYTR60211" />
+          <ScalarProperty Name="XCYTR60206" ColumnName="XCYTR60206" />
+          <ScalarProperty Name="XCYTR60201" ColumnName="XCYTR60201" />
+          <ScalarProperty Name="XCYTR60204" ColumnName="XCYTR60204" />
+          <ScalarProperty Name="XCYTR60218" ColumnName="XCYTR60218" />
+          <ScalarProperty Name="XCYTR60207" ColumnName="XCYTR60207" />
+          <ScalarProperty Name="XCYTR60213" ColumnName="XCYTR60213" />
+          <ScalarProperty Name="XCYTR60210" ColumnName="XCYTR60210" />
+          <ScalarProperty Name="XCYTR60215" ColumnName="XCYTR60215" />
+          <ScalarProperty Name="XCYTR60208" ColumnName="XCYTR60208" />
+          <ScalarProperty Name="XCYTR60209" ColumnName="XCYTR60209" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ConsumerExpenditureVariables">
+      <EntityTypeMapping TypeName="SizeUp.Data.ConsumerExpenditureVariable">
+        <MappingFragment StoreEntitySet="ConsumerExpenditureVariables">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Variable" ColumnName="Variable" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Counties">
+      <EntityTypeMapping TypeName="SizeUp.Data.County">
+        <MappingFragment StoreEntitySet="County">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="MetroId" ColumnName="MetroId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Demographics">
+      <EntityTypeMapping TypeName="SizeUp.Data.Demographic">
+        <MappingFragment StoreEntitySet="Demographics">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="AirPortsWithinHalfMile" ColumnName="AirPortsWithinHalfMile" />
+          <ScalarProperty Name="AirPortsWithin50Miles" ColumnName="AirPortsWithin50Miles" />
+          <ScalarProperty Name="TradeSchoolsWithinHalfMile" ColumnName="TradeSchoolsWithinHalfMile" />
+          <ScalarProperty Name="TradeSchoolsWithin50Miles" ColumnName="TradeSchoolsWithin50Miles" />
+          <ScalarProperty Name="CommunityCollegesWithinHalfMile" ColumnName="CommunityCollegesWithinHalfMile" />
+          <ScalarProperty Name="CommunityCollegesWithin50Miles" ColumnName="CommunityCollegesWithin50Miles" />
+          <ScalarProperty Name="UniversitiesWithinHalfMile" ColumnName="UniversitiesWithinHalfMile" />
+          <ScalarProperty Name="UniversitiesWithin50Miles" ColumnName="UniversitiesWithin50Miles" />
+          <ScalarProperty Name="BachelorsOrHigherPercentage" ColumnName="BachelorsOrHigherPercentage" />
+          <ScalarProperty Name="HighSchoolOrHigherPercentage" ColumnName="HighSchoolOrHigherPercentage" />
+          <ScalarProperty Name="WhiteCollarWorkersPercentage" ColumnName="WhiteCollarWorkersPercentage" />
+          <ScalarProperty Name="BlueCollarWorkersPercentage" ColumnName="BlueCollarWorkersPercentage" />
+          <ScalarProperty Name="YoungEducatedPercentage" ColumnName="YoungEducatedPercentage" />
+          <ScalarProperty Name="VeryCreativePercentage" ColumnName="VeryCreativePercentage" />
+          <ScalarProperty Name="CreativePercentage" ColumnName="CreativePercentage" />
+          <ScalarProperty Name="HomeValue" ColumnName="HomeValue" />
+          <ScalarProperty Name="PropertyTax" ColumnName="PropertyTax" />
+          <ScalarProperty Name="InternationalTalent" ColumnName="InternationalTalent" />
+          <ScalarProperty Name="Unemployment" ColumnName="Unemployment" />
+          <ScalarProperty Name="JobGrowth" ColumnName="JobGrowth" />
+          <ScalarProperty Name="CommuteTime" ColumnName="CommuteTime" />
+          <ScalarProperty Name="TotalPopulation" ColumnName="TotalPopulation" />
+          <ScalarProperty Name="PopulationAge25PlusBachelorsDegree" ColumnName="PopulationAge25PlusBachelorsDegree" />
+          <ScalarProperty Name="PopulationAge25PlusGraduateDegree" ColumnName="PopulationAge25PlusGraduateDegree" />
+          <ScalarProperty Name="PopulationAge25Plus" ColumnName="PopulationAge25Plus" />
+          <ScalarProperty Name="PopulationAge25PlusHighSchoolGrad" ColumnName="PopulationAge25PlusHighSchoolGrad" />
+          <ScalarProperty Name="PopulationAge25PlusCollegeNoDiploma" ColumnName="PopulationAge25PlusCollegeNoDiploma" />
+          <ScalarProperty Name="PopulationAge25PlusAssociatesDegree" ColumnName="PopulationAge25PlusAssociatesDegree" />
+          <ScalarProperty Name="PopulationWhite" ColumnName="PopulationWhite" />
+          <ScalarProperty Name="PopulationBlack" ColumnName="PopulationBlack" />
+          <ScalarProperty Name="PopulationNativeAmerican" ColumnName="PopulationNativeAmerican" />
+          <ScalarProperty Name="PopulationAsian" ColumnName="PopulationAsian" />
+          <ScalarProperty Name="PopulationHawaiian" ColumnName="PopulationHawaiian" />
+          <ScalarProperty Name="PopulationOtherRace" ColumnName="PopulationOtherRace" />
+          <ScalarProperty Name="PopulationMixedRace" ColumnName="PopulationMixedRace" />
+          <ScalarProperty Name="PopulationHispanic" ColumnName="PopulationHispanic" />
+          <ScalarProperty Name="PopulationNonHispanic" ColumnName="PopulationNonHispanic" />
+          <ScalarProperty Name="MedianHouseholdIncome" ColumnName="MedianHouseholdIncome" />
+          <ScalarProperty Name="TotalHouseholdExpenditure" ColumnName="TotalHouseholdExpenditure" />
+          <ScalarProperty Name="AverageHouseholdExpenditure" ColumnName="AverageHouseholdExpenditure" />
+          <ScalarProperty Name="MuseumsZoos" ColumnName="MuseumsZoos" />
+          <ScalarProperty Name="Bars" ColumnName="Bars" />
+          <ScalarProperty Name="Restaurants" ColumnName="Restaurants" />
+          <ScalarProperty Name="WhiteCollarEmployees" ColumnName="WhiteCollarEmployees" />
+          <ScalarProperty Name="BlueCollarEmployees" ColumnName="BlueCollarEmployees" />
+          <ScalarProperty Name="TotalEstablishments" ColumnName="TotalEstablishments" />
+          <ScalarProperty Name="EstablishmentsEmployees1to4" ColumnName="EstablishmentsEmployees1to4" />
+          <ScalarProperty Name="EstablishmentsEmployees5to9" ColumnName="EstablishmentsEmployees5to9" />
+          <ScalarProperty Name="EstablishmentsEmployees10to19" ColumnName="EstablishmentsEmployees10to19" />
+          <ScalarProperty Name="MedianAge" ColumnName="MedianAge" />
+          <ScalarProperty Name="MedianCommuteTime" ColumnName="MedianCommuteTime" />
+          <ScalarProperty Name="AverageCommuteTime" ColumnName="AverageCommuteTime" />
+          <ScalarProperty Name="AveragePropertyTax" ColumnName="AveragePropertyTax" />
+          <ScalarProperty Name="AverageAnnualTemperature" ColumnName="AverageAnnualTemperature" />
+          <ScalarProperty Name="AverageAnnualHighTemperature" ColumnName="AverageAnnualHighTemperature" />
+          <ScalarProperty Name="AverageAnnualLowTemperature" ColumnName="AverageAnnualLowTemperature" />
+          <ScalarProperty Name="AnnualRainfall" ColumnName="AnnualRainfall" />
+          <ScalarProperty Name="AnnualSnowfall" ColumnName="AnnualSnowfall" />
+          <ScalarProperty Name="LaborForce" ColumnName="LaborForce" />
+          <ScalarProperty Name="LaborForceAge16Plus" ColumnName="LaborForceAge16Plus" />
+          <ScalarProperty Name="PopulationEmployed" ColumnName="PopulationEmployed" />
+          <ScalarProperty Name="PopulationEmployedCurrentYear" ColumnName="PopulationEmployedCurrentYear" />
+          <ScalarProperty Name="PersonalIncomeTax" ColumnName="PersonalIncomeTax" />
+          <ScalarProperty Name="PersonalCapitalGainsTax" ColumnName="PersonalCapitalGainsTax" />
+          <ScalarProperty Name="CorporateIncomeTax" ColumnName="CorporateIncomeTax" />
+          <ScalarProperty Name="CorporateCapitalGainsTax" ColumnName="CorporateCapitalGainsTax" />
+          <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisions">
+      <EntityTypeMapping TypeName="SizeUp.Data.Division">
+        <MappingFragment StoreEntitySet="Division">
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GeographicLocations">
+      <EntityTypeMapping TypeName="SizeUp.Data.GeographicLocation">
+        <MappingFragment StoreEntitySet="GeographicLocation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GranularityId" ColumnName="GranularityId" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+          <ScalarProperty Name="LongName" ColumnName="LongName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Geographies">
+      <EntityTypeMapping TypeName="SizeUp.Data.Geography">
+        <MappingFragment StoreEntitySet="Geography">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Polygon" ColumnName="Polygon" />
+          <ScalarProperty Name="GeographySourceId" ColumnName="GeographySourceId" />
+          <ScalarProperty Name="GeographyClassId" ColumnName="GeographyClassId" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="North" ColumnName="North" />
+          <ScalarProperty Name="South" ColumnName="South" />
+          <ScalarProperty Name="East" ColumnName="East" />
+          <ScalarProperty Name="West" ColumnName="West" />
+          <ScalarProperty Name="CenterLat" ColumnName="CenterLat" />
+          <ScalarProperty Name="CenterLong" ColumnName="CenterLong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GeographyClasses">
+      <EntityTypeMapping TypeName="SizeUp.Data.GeographyClass">
+        <MappingFragment StoreEntitySet="GeographyClass">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GeographySources">
+      <EntityTypeMapping TypeName="SizeUp.Data.GeographySource">
+        <MappingFragment StoreEntitySet="GeographySource">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Granularities">
+      <EntityTypeMapping TypeName="SizeUp.Data.Granularity">
+        <MappingFragment StoreEntitySet="Granularity">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Industries">
+      <EntityTypeMapping TypeName="SizeUp.Data.Industry">
+        <MappingFragment StoreEntitySet="Industry">
+          <ScalarProperty Name="NAICS2007Id" ColumnName="NAICS2007Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SicCode" ColumnName="SicCode" />
+          <ScalarProperty Name="IndustrySpecificCode" ColumnName="IndustrySpecificCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsDisabled" ColumnName="IsDisabled" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="NAICSId" ColumnName="NAICSId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndustryDatas">
+      <EntityTypeMapping TypeName="SizeUp.Data.IndustryData">
+        <MappingFragment StoreEntitySet="IndustryData">
+          <ScalarProperty Name="BusinessCount" ColumnName="BusinessCount" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
+          <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+          <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
+          <ScalarProperty Name="MedianEmployees" ColumnName="MedianEmployees" />
+          <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+          <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
+          <ScalarProperty Name="RevenuePerCapita" ColumnName="RevenuePerCapita" />
+          <ScalarProperty Name="MedianRevenue" ColumnName="MedianRevenue" />
+          <ScalarProperty Name="AverageAnnualSalary" ColumnName="AverageAnnualSalary" />
+          <ScalarProperty Name="CostEffectiveness" ColumnName="CostEffectiveness" />
+          <ScalarProperty Name="Hires" ColumnName="Hires" />
+          <ScalarProperty Name="Separations" ColumnName="Separations" />
+          <ScalarProperty Name="TurnoverRate" ColumnName="TurnoverRate" />
+          <ScalarProperty Name="JobGains" ColumnName="JobGains" />
+          <ScalarProperty Name="JobLosses" ColumnName="JobLosses" />
+          <ScalarProperty Name="NetJobChange" ColumnName="NetJobChange" />
+          <ScalarProperty Name="Employment" ColumnName="Employment" />
+          <ScalarProperty Name="WorkersCompRank" ColumnName="WorkersCompRank" />
+          <ScalarProperty Name="WorkersComp" ColumnName="WorkersComp" />
+          <ScalarProperty Name="HealthcareByState" ColumnName="HealthcareByState" />
+          <ScalarProperty Name="Healthcare0To9Employees" ColumnName="Healthcare0To9Employees" />
+          <ScalarProperty Name="Healthcare10To24Employees" ColumnName="Healthcare10To24Employees" />
+          <ScalarProperty Name="Healthcare25To99Employees" ColumnName="Healthcare25To99Employees" />
+          <ScalarProperty Name="Healthcare100To999Employees" ColumnName="Healthcare100To999Employees" />
+          <ScalarProperty Name="Healthcare1000orMoreEmployees" ColumnName="Healthcare1000orMoreEmployees" />
+          <ScalarProperty Name="HealthcareByIndustry" ColumnName="HealthcareByIndustry" />
+          <ScalarProperty Name="HealthcareByStateRank" ColumnName="HealthcareByStateRank" />
+          <ScalarProperty Name="Healthcare0To9EmployeesRank" ColumnName="Healthcare0To9EmployeesRank" />
+          <ScalarProperty Name="Healthcare10To24EmployeesRank" ColumnName="Healthcare10To24EmployeesRank" />
+          <ScalarProperty Name="Healthcare25To99EmployeesRank" ColumnName="Healthcare25To99EmployeesRank" />
+          <ScalarProperty Name="Healthcare100To999EmployeesRank" ColumnName="Healthcare100To999EmployeesRank" />
+          <ScalarProperty Name="Healthcare1000orMoreEmployeesRank" ColumnName="Healthcare1000orMoreEmployeesRank" />
+          <ScalarProperty Name="HealthcareByIndustryRank" ColumnName="HealthcareByIndustryRank" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IndustryKeywords">
+      <EntityTypeMapping TypeName="SizeUp.Data.IndustryKeyword">
+        <MappingFragment StoreEntitySet="IndustryKeyword">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LegacyBusinessSEOKeys">
+      <EntityTypeMapping TypeName="SizeUp.Data.LegacyBusinessSEOKey">
+        <MappingFragment StoreEntitySet="LegacyBusinessSEOKey">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="businessId" ColumnName="businessId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LegacyCommunitySEOKeys">
+      <EntityTypeMapping TypeName="SizeUp.Data.LegacyCommunitySEOKey">
+        <MappingFragment StoreEntitySet="LegacyCommunitySEOKey">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LegacyIndustrySEOKeys">
+      <EntityTypeMapping TypeName="SizeUp.Data.LegacyIndustrySEOKey">
+        <MappingFragment StoreEntitySet="LegacyIndustrySEOKey">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Metroes">
+      <EntityTypeMapping TypeName="SizeUp.Data.Metro">
+        <MappingFragment StoreEntitySet="Metro">
+          <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NAICS">
+      <EntityTypeMapping TypeName="SizeUp.Data.NAICS">
+        <MappingFragment StoreEntitySet="NAICS">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NAICSCode" ColumnName="NAICSCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Nations">
+      <EntityTypeMapping TypeName="SizeUp.Data.Nation">
+        <MappingFragment StoreEntitySet="Nation">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Places">
+      <EntityTypeMapping TypeName="SizeUp.Data.Place">
+        <MappingFragment StoreEntitySet="Place">
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="CountyId" ColumnName="CountyId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlaceKeywords">
+      <EntityTypeMapping TypeName="SizeUp.Data.PlaceKeyword">
+        <MappingFragment StoreEntitySet="PlaceKeyword">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="SizeUp.Data.Region">
+        <MappingFragment StoreEntitySet="Region">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ResourceStrings">
+      <EntityTypeMapping TypeName="SizeUp.Data.ResourceString">
+        <MappingFragment StoreEntitySet="ResourceString">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="States">
+      <EntityTypeMapping TypeName="SizeUp.Data.State">
+        <MappingFragment StoreEntitySet="State">
+          <ScalarProperty Name="FIPS" ColumnName="FIPS" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Abbreviation" ColumnName="Abbreviation" />
+          <ScalarProperty Name="SEOKey" ColumnName="SEOKey" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NationId" ColumnName="NationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ZipCodes">
+      <EntityTypeMapping TypeName="SizeUp.Data.ZipCode">
+        <MappingFragment StoreEntitySet="ZipCode">
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BusinessCity" TypeName="SizeUp.Data.BusinessCity" StoreEntitySet="BusinessCity">
+      <EndProperty Name="Business">
+        <ScalarProperty Name="Id" ColumnName="BusinessId" />
+      </EndProperty>
+      <EndProperty Name="City">
+        <ScalarProperty Name="Id" ColumnName="CityId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CityCounty" TypeName="SizeUp.Data.CityCounty" StoreEntitySet="CityCounty">
+      <EndProperty Name="City">
+        <ScalarProperty Name="Id" ColumnName="CityId" />
+      </EndProperty>
+      <EndProperty Name="County">
+        <ScalarProperty Name="Id" ColumnName="CountyId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GeographicLocationGeographicLocation" TypeName="SizeUp.Data.GeographicLocationGeographicLocation" StoreEntitySet="GeographicLocationGeographicLocation">
+      <EndProperty Name="IntersectedGeographicLocations">
+        <ScalarProperty Name="Id" ColumnName="GeographicLocationId" />
+      </EndProperty>
+      <EndProperty Name="GeographicLocations">
+        <ScalarProperty Name="Id" ColumnName="IntersectedGeographicLocationId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="IndustryDataBand" TypeName="SizeUp.Data.IndustryDataBand" StoreEntitySet="IndustryDataBand">
+      <EndProperty Name="Band">
+        <ScalarProperty Name="Id" ColumnName="BandId" />
+      </EndProperty>
+      <EndProperty Name="IndustryData">
+        <ScalarProperty Name="Id" ColumnName="IndustryDataId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZipCodeCounty" TypeName="SizeUp.Data.ZipCodeCounty" StoreEntitySet="ZipCodeCounty">
+      <EndProperty Name="County">
+        <ScalarProperty Name="Id" ColumnName="CountyId" />
+      </EndProperty>
+      <EndProperty Name="ZipCode">
+        <ScalarProperty Name="Id" ColumnName="ZipCodeId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ZipCodePlace" TypeName="SizeUp.Data.ZipCodePlace" StoreEntitySet="ZipCodePlace">
+      <EndProperty Name="Place">
+        <ScalarProperty Name="Id" ColumnName="PlaceId" />
+      </EndProperty>
+      <EndProperty Name="ZipCode">
+        <ScalarProperty Name="Id" ColumnName="ZipCodeId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="GeographicLocationRanks">
+      <EntityTypeMapping TypeName="SizeUp.Data.GeographicLocationRank">
+        <MappingFragment StoreEntitySet="GeographicLocationRank">
+          <ScalarProperty Name="EmployeesPerCapita" ColumnName="EmployeesPerCapita" />
+          <ScalarProperty Name="AverageEmployees" ColumnName="AverageEmployees" />
+          <ScalarProperty Name="TotalEmployees" ColumnName="TotalEmployees" />
+          <ScalarProperty Name="RevenuePerCapita" ColumnName="RevenuePerCapita" />
+          <ScalarProperty Name="AverageRevenue" ColumnName="AverageRevenue" />
+          <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="IndustryCity" TypeName="SizeUp.Data.IndustryCity" StoreEntitySet="IndustryCity">
+      <EndProperty Name="Industry">
+        <ScalarProperty Name="Id" ColumnName="IndustryId" />
+      </EndProperty>
+      <EndProperty Name="City">
+        <ScalarProperty Name="Id" ColumnName="CityId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="SitemapBusinesses">
+      <EntityTypeMapping TypeName="SizeUp.Data.SitemapBusiness">
+        <MappingFragment StoreEntitySet="SitemapBusiness">
+          <ScalarProperty Name="Business" ColumnName="Business" />
+          <ScalarProperty Name="BusinessId" ColumnName="BusinessId" />
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SitemapCommunities">
+      <EntityTypeMapping TypeName="SizeUp.Data.SitemapCommunity">
+        <MappingFragment StoreEntitySet="SitemapCommunity">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SitemapCommunityIndustries">
+      <EntityTypeMapping TypeName="SizeUp.Data.SitemapCommunityIndustry">
+        <MappingFragment StoreEntitySet="SitemapCommunityIndustry">
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientResourceStrings">
+      <EntityTypeMapping TypeName="SizeUp.Data.ClientResourceString">
+        <MappingFragment StoreEntitySet="ClientResourceString">
+          <ScalarProperty Name="DashboardHealthcare" ColumnName="DashboardHealthcare" />
+          <ScalarProperty Name="DashboardCostEffectiveness" ColumnName="DashboardCostEffectiveness" />
+          <ScalarProperty Name="DashboardAverageEmployees" ColumnName="DashboardAverageEmployees" />
+          <ScalarProperty Name="DashboardWorkersComp" ColumnName="DashboardWorkersComp" />
+          <ScalarProperty Name="DashboardRevenue" ColumnName="DashboardRevenue" />
+          <ScalarProperty Name="DashboardTurnover" ColumnName="DashboardTurnover" />
+          <ScalarProperty Name="DashboardSalary" ColumnName="DashboardSalary" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

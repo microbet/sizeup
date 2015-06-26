@@ -1,0 +1,63 @@
+﻿#bestPlaces h2 { font-size: 2em; font-weight: normal; }
+#bestPlaces h2 #selectList-regionMenu .selectList-list { width:22em; }
+#bestPlaces h3 {margin:0.5em 0 0.25em 1em; display:inline-block;  }
+#bestPlaces .filterLabels {margin:0 1em; text-align:left; }
+#bestPlaces .filterLabels .fixed {display:inline-block; font-size: 1.3em; margin:0 0 0.5em; }
+#bestPlaces .filterLabels .editable {display:block; font-size:1.3em; padding: 0.25em 2.5em 0.25em 0.75em; background-color:#eee; width:29em; margin: 0.5em 0;position:relative;}
+#bestPlaces .filterLabels .editable a {height:14px; width:14px; color: transparent; background:transparent url(/content/images/btn_close.png) no-repeat 0 0; position:absolute; right:0.5em; top:0.45em;  }
+#bestPlaces .filterLabels .editable:hover a {background-position: 0 -19px; }
+#bestPlaces .filterLabels em{font-size:1em; font-style:normal; font-weight:bold; }
+
+
+#bestPlaces { position:relative; margin:0 0 4em 0; }
+#bestPlaces .content.container {text-align:right; }
+
+
+
+#bestPlaces #advancedFilters {display:inline-block; padding:0 0 0 1em; }
+
+#bestPlaces  { }
+#bestPlaces .mapContent.container {  margin:1em 0 0 0; text-align:left;}
+#bestPlaces .mapContent.container .map{width:100%;height:40em;}
+#bestPlaces .mapContent .footer{background-color:#F6F6F0; padding:0.5em; font-family: Arial,Verdana,sans-serif; text-align:center; }
+#bestPlaces .mapContent .footer ul li { display: inline-block; margin: 0 1em; }
+#bestPlaces .mapContent .footer ul li img { height: 13px;    padding: 0.1em 0.5em; width: 8px; }
+#bestPlaces .mapContent .footer ul li span { font-size:1em; position:relative; top:-0.35em; display:inline-block; }
+
+#bestPlaces .list.container {width:100%; }
+#bestPlaces .list.container table{width:100%; margin:2em 0; }
+#bestPlaces .list.container table .rank{width:5%; text-align: right; padding:0 1em 0 0; }
+#bestPlaces .list.container table .name{width:45%; text-align:left; }
+#bestPlaces .list.container table .value{ width:50%; text-align:right;}
+
+#bestPlaces .list.container table thead tr td { color: #aaa; padding:0.25em 0; font-size:1.1em; }
+
+#bestPlaces .list.container table tbody tr {border-top: 1px solid #ccc;}
+#bestPlaces .list.container table tbody tr td a { font-size: 1em; }
+#bestPlaces .list.container table tbody tr td { padding: 0.5em 0; font-size:1.5em;}
+
+
+#bestPlaces .list.container .noResults { text-align: center; font-size:1.5em; }
+
+
+
+#bestPlaces .filters {margin:2em 0; text-align:left; overflow: auto; height:25em; border:1px solid #ccc; padding:1em; text-align:left;}
+#bestPlaces .filters h3 {margin:1em 0; }
+#bestPlaces .filters ul.options {margin:0.5em 0; }
+#bestPlaces .filters ul.options li { display: inline-block; width: 43em; margin:0.5em 0; }
+#bestPlaces .filters ul.options li .sliderWrap { margin: 0.5em 0 0 0;}
+#bestPlaces .filters ul.options li .sliderWrap .slider { width: 23em; display:inline-block;}
+#bestPlaces .filters ul.options li .sliderWrap .sliderLabel { display:inline-block; font-size:0.85em; padding:0 1em;}
+#bestPlaces .filters ul.options li .sliderWrap .sliderLabel.less {width:7em; text-align:right; }
+#bestPlaces .filters ul.options li .sliderWrap .sliderLabel.more {width:7em; }
+#bestPlaces .filters ul.options li .slider.off .ui-widget-header { background: none; }
+#bestPlaces .filters .valueLabel em { font-size: 1.1em; color:#606060; font-weight:bold; font-style:normal;}
+#bestPlaces .filters .filtersToggle { margin: 1em 0 0 0; }
+#bestPlaces .filters label { font-size: 1.3em; display:block; }
+#bestPlaces .filters input[type=text] { font-size: 1.3em; }
+
+#bestPlaces .shareWrapper { display:inline-block; }
+#bestPlaces .shareWrapper .menu { text-align:left; }
+#bestPlaces .shareWrapper .menu li {display:inline-block; }
+
+.footNote { font-size: 1.2em; }

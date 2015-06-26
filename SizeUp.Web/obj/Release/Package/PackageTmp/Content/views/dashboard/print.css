@@ -1,0 +1,7 @@
+﻿#dashboard .report { page-break-after: always; border:none; }
+#dashboard #signin.report { display: none; }
+#dashboard #summaryView { display: none; }
+
+
+
+

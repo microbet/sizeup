@@ -1,0 +1,170 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>
+    @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation
+</title>
+
+
+<meta name="title" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation" />
+
+<meta name="keywords" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation, @(string.Join(", ", ViewBag.Counties))" />
+<meta name="description" content="Demographic snapshot and top ranked industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation" />
+
+
+<link href="@Url.Content("~/Content/views/community/community.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="//maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+   
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/share.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/community/citycommunity.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+}
+
+
+<div id="community">
+    <h1>Community Profile for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
+    <p class="description">Counties in @ViewBag.CurrentInfo.CurrentPlace.City.Name @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation: @(string.Join(", ", ViewBag.Counties))</p>
+    <div class="map"></div>
+
+    <div class="wrapper">
+        <div class="loading">
+            <p class="title">Community Profile</p>
+            <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+            <p class="message">Generating Report</p>
+        </div>
+
+
+        <div class="wrapper bestIndustries hidden">
+            <h2>Best Ranked Industries for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+            <p>The 5 industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation with the highest total revenue
+                 are shown below along with the 5 industries with the highest revenue per capita.</p>
+            <p>Each industry must have at least 3 businesses in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation to be ranked.</p>
+            
+            
+            <div class="shareWrapper">
+                <a href="javascript:void(0);" class="button tiny shareButton">Share</a>
+                <div class="share container hidden">
+                    <ul class="menu">
+                        <li class="embed">
+                            <a href="javascript:void(0);">Embed</a>
+                        </li>
+                         <li class="link">
+                            <a href="javascript:void(0);">Link</a>
+                        </li>
+                    </ul>
+                    <ul class="content">
+                        <li class="embed">
+                            <textarea class="code"></textarea>
+                        </li>
+                         <li class="link">
+                            <input type="text" class="code"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="report">
+                <div data-template="bestIndustries">
+                    <ul>
+                        {{#Industries}}
+                        <li>
+                            <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/{{Industry.SEOKey}}">{{Industry.Name}}</a>
+                            {{#totalRevenue}}<p><span class="badge {{totalRevenue.badgeType}}" title="{{totalRevenue.badgeName}}">{{totalRevenue.rank}}</span> in the nation for <strong>Total Revenue</strong></p>{{/totalRevenue}}
+                            {{#revenuePerCapita}}<p><span class="badge {{revenuePerCapita.badgeType}}" title="{{revenuePerCapita.badgeName}}">{{revenuePerCapita.rank}}</span> in the nation for <strong>Revenue Per Capita</strong></p>{{/revenuePerCapita}}
+                        </li>
+                        {{/Industries}}
+                    </ul>
+                    <a class="" href="/find-community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/">View a complete list of industries in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</a>
+                </div>         
+            </div>
+        </div>
+
+        <div class="wrapper demographics">
+            <h2>Community Demographics for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
+            <div class="report">
+                <div class="col">
+                    <h3>People</h3>
+                    <ul>
+                        <li><span class="label">Population:</span><span class="value">@(ViewBag.Demographics.Population != null ? String.Format("{0:#,###0}", ViewBag.Demographics.Population) : "N/A")</span></li>
+                        <li><span class="label">Labor Force:</span><span class="value">@(ViewBag.Demographics.LaborForce != null ? String.Format("{0:#,###0}", ViewBag.Demographics.LaborForce) : "N/A")</span></li>
+                        <li><span class="label">Small Businesses:</span><span class="value">@(ViewBag.Demographics.SmallBusinesses != null ? String.Format("{0:#,###0}", ViewBag.Demographics.SmallBusinesses) : "N/A")</span></li>
+                        <li><span class="label">Job Growth (2000-2010):</span><span class="value">@(ViewBag.Demographics.JobGrowth != null ? String.Format("{0:0.0}%", ViewBag.Demographics.JobGrowth) : "N/A")</span></li>
+                        <li><span class="label">Unemployment Rate:</span><span class="value">@(ViewBag.Demographics.Unemployment != null ? String.Format("{0:0.0}%", ViewBag.Demographics.Unemployment) : "N/A")</span></li>
+                        <li><span class="label">Median Age:</span><span class="value">@(ViewBag.Demographics.MedianAge != null ? String.Format("{0:0.00}", ViewBag.Demographics.MedianAge) : "N/A")</span></li>
+                    </ul>
+                    <h3>Budgets</h3>
+                    <ul>
+                        <li><span class="label">Household Expenditures (Average):</span><span class="value">@(ViewBag.Demographics.AverageHouseholdExpenditures != null ? String.Format("${0:#,###0}", ViewBag.Demographics.AverageHouseholdExpenditures) : "N/A")</span></li>
+                        <li><span class="label">Household Income:</span><span class="value">@(ViewBag.Demographics.HouseholdIncome != null ? String.Format("${0:#,###0}", ViewBag.Demographics.HouseholdIncome) : "N/A")</span></li>
+                        <li><span class="label">Top State Personal Income Tax:</span><span class="value">@(ViewBag.Demographics.PersonalIncomeTax != null ? String.Format("{0:0.0}%", ViewBag.Demographics.PersonalIncomeTax) : "N/A")</span></li>
+                        <li><span class="label">Top State Personal Capital Gains Tax:</span><span class="value">@(ViewBag.Demographics.PersonalCapitalGainsTax != null ? String.Format("{0:0.0}%", ViewBag.Demographics.PersonalCapitalGainsTax) : "N/A")</span></li>
+                        <li><span class="label">Top State Corporate Income Tax:</span><span class="value">@(ViewBag.Demographics.CorporateIncomeTax != null ? String.Format("{0:0.0}%", ViewBag.Demographics.CorporateIncomeTax) : "N/A")</span></li>
+                        <li><span class="label">Top State Corporate Capital Gains Tax:</span><span class="value">@(ViewBag.Demographics.CorporateCapitalGainsTax != null ? String.Format("{0:0.0}%", ViewBag.Demographics.CorporateCapitalGainsTax) : "N/A")</span></li>
+                        <li><span class="label">State Sales Tax:</span><span class="value">@(ViewBag.Demographics.SalesTax != null ? String.Format("{0:0.0}%", ViewBag.Demographics.SalesTax) : "N/A")</span></li>
+                        <li><span class="label">Property Tax:</span><span class="value">@(ViewBag.Demographics.PropertyTax != null ? String.Format("{0:0.0}%", ViewBag.Demographics.PropertyTax) : "N/A")</span></li>            
+                        <li><span class="label">Home Value:</span><span class="value">@(ViewBag.Demographics.HomeValue != null ? String.Format("${0:#,###0}", ViewBag.Demographics.HomeValue) : "N/A")</span></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>Labor Force Quality</h3>
+                    <ul>
+                        <li><span class="label">Bachelors Degree or Higher:</span><span class="value">@(ViewBag.Demographics.BachelorsOrHigherPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.BachelorsOrHigherPercentage) : "N/A")</span></li>
+                        <li><span class="label">Highschool Degree or Higher:</span><span class="value">@(ViewBag.Demographics.HighschoolOrHigherPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.HighschoolOrHigherPercentage) : "N/A")</span></li>
+                        <li><span class="label">White Collar Workers:</span><span class="value">@(ViewBag.Demographics.WhiteCollarWorkersPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.WhiteCollarWorkersPercentage) : "N/A")</span></li>
+                        <li><span class="label">Blue Collar Workers:</span><span class="value">@(ViewBag.Demographics.BlueCollarWorkersPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.BlueCollarWorkersPercentage) : "N/A")</span></li>
+                        <li><span class="label">Very Creative Professionals:</span><span class="value">@(ViewBag.Demographics.VeryCreativeProfessionalsPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.VeryCreativeProfessionalsPercentage) : "N/A")</span></li>
+                        <li><span class="label">Creative Professionals:</span><span class="value">@(ViewBag.Demographics.CreativeProfessionalsPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.CreativeProfessionalsPercentage) : "N/A")</span></li>
+                        <li><span class="label">Young and Educated:</span><span class="value">@(ViewBag.Demographics.YoungEducatedPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.YoungEducatedPercentage) : "N/A")</span></li>
+                        <li><span class="label">International Talent:</span><span class="value">@(ViewBag.Demographics.InternationalTalentPercentage != null ? String.Format("{0:0.0}%", ViewBag.Demographics.InternationalTalentPercentage) : "N/A")</span></li>
+                        <li><span class="label">Universities in Community:</span><span class="value">@(ViewBag.Demographics.Universities != null ? String.Format("{0:#,###0}", ViewBag.Demographics.Universities) : "N/A")</span></li>
+                        <li><span class="label">Universities in Community + 50 miles:</span><span class="value">@(ViewBag.Demographics.Universities50Miles != null ? String.Format("{0:#,###0}", ViewBag.Demographics.Universities50Miles) : "N/A")</span></li>
+                        <li><span class="label">Commute Time:</span><span class="value">@(ViewBag.Demographics.CommuteTime != null ? String.Format("{0:0} minutes", ViewBag.Demographics.CommuteTime) : "N/A")</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section scripts{
+
+<script type="text/javascript">
+    var done = function(){
+        var opts =  @Html.Raw(ViewBag.CurrentInfoJSON) ; 
+        var driver = new sizeup.views.community.cityCommunity(opts);
+    };
+
+    var notifier = new sizeup.core.notifier(done);
+    var apiLoaded = notifier.getNotifier();
+    var doc = notifier.getNotifier();
+    $(document).ready(doc);
+</script>
+}

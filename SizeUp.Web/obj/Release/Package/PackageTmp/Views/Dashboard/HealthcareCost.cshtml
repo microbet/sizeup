@@ -1,0 +1,85 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Healthcare Cost</h2>
+    <span class="hint">Annual healthcare premium per employee</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please enter your annual healthcare premium per employee</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Healthcare Cost Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent">
+            <h3>How you size up</h3>
+            <p class="description">
+                <div data-template="noEmployeeDescription">
+                    @Html.Raw(ViewBag.Strings["Dashboard.Healthcare.NoEmployeeDescription"])                
+                </div>
+                <div data-template="description">
+                    @Html.Raw(ViewBag.Strings["Dashboard.Healthcare.Description"])     
+                </div>
+                <div data-template="overpayDescription">      
+                    @Html.Raw(ViewBag.Strings["Dashboard.Healthcare.OverpayDescription"])  
+                </div>
+            </p>
+            <div class="tableContainer">
+                <table data-template="table" class="table">
+                    <thead>
+                        <tr>
+                            <td class="name"></td>
+                            <td class="value">Annual Healthcare Premium per Employee</td>
+                            <td class="rank">State Rank</td>
+                        </tr>
+                    </thead>
+                    <tbody class="container">
+                        <tr>
+                            <td class="name">Your Business</td>
+                            <td class="value">{{currentBusiness}}</td>
+                            <td class="rank"></td>
+                        </tr>
+                        <tr>
+                            <td class="name">State (average for firms in similar industries)</td>
+                            <td class="value">{{industry}}</td>
+                            <td class="rank">{{industryRank}}</td>
+                        </tr>
+                        <tr>
+                            <td class="name">State (average for firms of same size)</td>
+                            <td class="value">{{firmSize}}</td>
+                            <td class="rank">{{firmSizeRank}}</td>
+                        </tr>
+                        <tr>
+                            <td class="name">State (average)</td>
+                            <td class="value">{{state}}</td>
+                            <td class="rank">{{stateRank}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+             @Html.Raw(ViewBag.Strings["Dashboard.Healthcare.Source"]) 
+            </div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Healthcare.Considerations"])
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Healthcare.Resources"])
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+    </div>
+</div>

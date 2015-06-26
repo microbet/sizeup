@@ -301,7 +301,14 @@
     <Content Include="Content\images\pencil.png" />
     <Content Include="Content\images\pinShadow.png" />
     <Content Include="Content\images\PinTemplate.png" />
+    <Content Include="Content\images\SizeUp-FI-box.png" />
+    <Content Include="Content\images\SizeUp-FI-dollar.png" />
+    <Content Include="Content\images\SizeUp-FI-hands.png" />
+    <Content Include="Content\images\SizeUp-FI-light.png" />
+    <Content Include="Content\images\SizeUp-FI-people.png" />
+    <Content Include="Content\images\SizeUp-FI-shapes.png" />
     <Content Include="Content\images\SizeUp.png" />
+    <Content Include="Content\images\SizeUpFI-magazine.png" />
     <Content Include="Content\images\slider-dot-blue.png" />
     <Content Include="Content\images\slider-dot-green.png" />
     <Content Include="Content\images\slider-dot-red.png" />
@@ -739,6 +746,8 @@
     <Content Include="Views\Client\Dashboard.cshtml" />
     <Content Include="Views\Shared\_LayoutBare.cshtml" />
     <Content Include="Views\Shared\_LayoutDashboardEditor.cshtml" />
+    <Content Include="Views\Help\FinancialInstitutionsDownload.cshtml" />
+    <Content Include="Content\files\SizeUp-FI.pdf" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

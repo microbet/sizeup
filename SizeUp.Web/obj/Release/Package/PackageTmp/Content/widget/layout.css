@@ -1,0 +1,49 @@
+﻿/*****
+Main style page. Should only contain general layout styles for the layout page.
+*****/
+body { width: 100%; }
+
+#header,
+#content {width:100%; clear:both; }
+
+/****headery things goes here******/
+#header {background-color: #F8F8F8; border-bottom: 2px solid #EEEEEE; /*height:3.1em;*/ }
+#header ul { position: relative; text-align:right; margin: 0 1em;}
+#header ul li { display: inline-block; vertical-align: top; }
+#header ul li a { display: block; padding:0.5em; }
+#header ul li a.disabled { background-color: #F7D6AA; }
+#header ul li a.disabled:hover { color: #e78500; }
+
+#header ul li.dashboard {float:left; }
+#header ul li.competition {float:left;  }
+#header ul li.advertising {float:left;  }
+
+
+#header ul li#userMenu {position:relative; }
+
+#header ul li#userMenu > a {margin: 0 1em 0 0; }
+#menu #userMenu > a span {font-size:1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  display:inline-block; }
+#header ul li#userMenu > a:after {content: ""; width:0; height:0; border-left: 0.5em solid transparent; border-right:0.5em solid transparent; border-top: 0.5em solid #E78500; position:relative; top:0.5em; left:0.5em; vertical-align:top; display: inline-block; }
+#header ul li#userMenu ul { background-color: #F8F8F8; position: absolute; width: 15em; right:0; z-index: 10000; padding:0.5em 0 0 0; display:none; border:2px solid #eee; }
+#header ul li#userMenu ul li { display: block; text-align:right; padding: 0 1em; border-bottom:1px solid #eee; }
+
+#header ul li#userMenu > a:hover + ul {display:block; }
+#header ul li#userMenu ul:hover {display:block; }
+
+
+#header ul li.startOver { }
+#header ul li.help { top: 0.8em;position:relative; }
+#header ul li a.button.help { background-color: #6699AA; border-radius: 4em 4em 4em 4em; display: inline; font-size: 1em; padding: 0.1em 0.7em; position: relative; }
+#header ul li a.button.help:hover { background-color: #061F70; }
+.highContrast #header ul li a.button.help { background-color: #061F70; }
+
+/********contenty things go here*************/
+#content {height: auto; min-height: 25em; position: relative; }
+#contentWrap {overflow:auto; overflow-x:hidden; overflow-y:scroll; padding:0 2em;}
+
+
+
+
+
+
+

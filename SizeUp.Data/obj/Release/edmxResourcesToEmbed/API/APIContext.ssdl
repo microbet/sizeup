@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SizeUp.Data.API.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SizeUpDataAPIStoreContainer">
+    <EntitySet Name="APIKey" EntityType="SizeUp.Data.API.Store.APIKey" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="APIKeyDomain" EntityType="SizeUp.Data.API.Store.APIKeyDomain" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="APIKeyRoleMapping" EntityType="SizeUp.Data.API.Store.APIKeyRoleMapping" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Role" EntityType="SizeUp.Data.API.Store.Role" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.API.Store.FK_APIKeyDomain_APIKey">
+      <End Role="APIKey" EntitySet="APIKey" />
+      <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
+    </AssociationSet>
+    <AssociationSet Name="FK_APIKeyRoleMapping_APIKey" Association="SizeUp.Data.API.Store.FK_APIKeyRoleMapping_APIKey">
+      <End Role="APIKey" EntitySet="APIKey" />
+      <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_APIKeyRoleMapping_Role" Association="SizeUp.Data.API.Store.FK_APIKeyRoleMapping_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="APIKey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="KeyValue" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="APIKeyDomain">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Domain" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="APIKeyId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="APIKeyRoleMapping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="APIKeyId" Type="bigint" Nullable="false" />
+    <Property Name="RoleId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <Association Name="FK_APIKeyDomain_APIKey">
+    <End Role="APIKey" Type="SizeUp.Data.API.Store.APIKey" Multiplicity="1" />
+    <End Role="APIKeyDomain" Type="SizeUp.Data.API.Store.APIKeyDomain" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="APIKey">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="APIKeyDomain">
+        <PropertyRef Name="APIKeyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_APIKeyRoleMapping_APIKey">
+    <End Role="APIKey" Type="SizeUp.Data.API.Store.APIKey" Multiplicity="1" />
+    <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.Store.APIKeyRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="APIKey">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="APIKeyRoleMapping">
+        <PropertyRef Name="APIKeyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_APIKeyRoleMapping_Role">
+    <End Role="Role" Type="SizeUp.Data.API.Store.Role" Multiplicity="1" />
+    <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.Store.APIKeyRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="APIKeyRoleMapping">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

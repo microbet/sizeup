@@ -1,0 +1,118 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Revenue</h2>
+    <span class="hint">Annual revenue of your business</span>
+    <input type="text" title="revenue" class="valueBox" />
+    <span class="prompt">Please enter</span>
+    <div class="gauge"></div>
+    <a href="javascript:void(0)" class="button medium runReport">Run</a>
+    <a href="javascript:void(0)" class="reportToggle" title="revenue toggle"></a>
+</div>
+<div class="body">
+    <div class="loading">
+        <p class="title">Average Revenue Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer">
+        <div class="reportContent noDataError hidden">
+            <p>No data available to display this report</p>
+        </div>
+        <div class="reportContent reportData">
+            <h3>How you size up</h3>
+            <p class="description">
+                <div data-template="description">
+                @Html.Raw(ViewBag.Strings["Dashboard.Revenue.Description"])
+                </div>
+            </p>
+            <div class="chart">
+                <a href="javascript:void(0);" class="mapToggle" data-toggleText="View Variations by Geography">Hide Variations by Geography</a>
+                <a href="javascript:void(0);" class="chartToggle" data-toggleText="View Chart">View Data Table</a>
+                <div class="container"></div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="label">Business/Geography</th>
+                        <th scope="col" class="value">Value</th>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="tableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                @Html.Raw(ViewBag.Strings["Dashboard.Revenue.Source"])
+            </div>
+            <div class="mapWrapper container">
+                <div data-template="legendTitle" class="legend titleWrap">
+                    <p class="backdrop edge title"><span class="text"></span></p>
+                </div>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
+                <div class="map"></div>
+                <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
+            </div>
+        </div>
+        <div class="reportSidebar">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Revenue.Considerations"])
+
+                <div class="question">
+                    <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a href="javascript:void(0);" class="established">established business</a>?</span>
+                </div>
+                <div class="startup answer collapsed hidden">
+                    <h5>You are a startup</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>Assess the performance of the average local business in your industry to help gauge your
+                         expectations of how much businesses in your local market area make.
+                    </p>
+                    <p>
+                        Use the <a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">competitor map</a> to identify who 
+                        your strongest local competitors and potential partners are.
+                    </p>
+                </div>
+                <div class="established answer collapsed hidden">
+                    <h5>You are an established business</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>
+                        Comparing your revenue to the industry averages in your surrounding area will tell you 
+                        whether you are outperforming your competition.
+                    </p>
+                     <p>
+                        Use the <a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">competitor map</a> to see who in
+                         your area might be getting market-share revenue your company could have.  Once you have identified
+                         your top competitors, think about what is allowing them to succeed, and then consider about 
+                        how you might be able to outperform them.
+                    </p>
+                    <p>
+                        Is your product or service faster, cheaper or better than the competition?
+                          If the answer is "yes", make sure your competitors' customers know you are better to give
+                         them a reason to buy from you.  Find the best places to <a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">advertise</a>
+                         or start a targeted <a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">marketing campaign</a>.
+                    </p>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            @if (!ViewBag.HideResources)
+            {
+                <div class="section resources collapsable">
+                    @Html.Raw(ViewBag.Strings["Dashboard.Revenue.Resources"])
+                    <p class="notice"><a  target="_blank" href="/help/contact">Get listed as a resource</a></p>
+                </div>
+                <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            }
+        </div> 
+    </div>
+</div>

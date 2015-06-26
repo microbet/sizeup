@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>@ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</title>
+<link href="@Url.Content("~/Content/views/business/find.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<meta name="robots" content="noindex" />
+
+}
+
+<div id="businessListings" class="find">
+    <h1>Businesses in @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name (@ViewBag.CurrentInfo.CurrentPlace.County.Name County - @ViewBag.CurrentInfo.CurrentPlace.City.TypeName)</h1>
+
+    <a href="/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" class="inverse details">View Detailed Industry Report</a>
+
+    @foreach(var col in ViewBag.Businesses)
+    {
+    <div class="col">
+        <ul>
+            @foreach(var item in col)
+            {
+            <li>
+                <a href="/business/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey/@item.Id/@item.SEOKey">@item.Name</a>
+                <address>
+                    @if(!string.IsNullOrWhiteSpace(item.Address)){
+                    <span class="address1">@item.Street</span>
+                    }
+                    <span class="address2">@item.City, @item.State @item.Zip</span>
+                </address>
+            </li>
+            }
+        </ul>
+    </div>
+    }
+
+</div>
+
+
+
+

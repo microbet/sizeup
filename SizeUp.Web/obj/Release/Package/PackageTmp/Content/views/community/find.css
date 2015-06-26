@@ -1,0 +1,26 @@
+﻿#community h1 { font-size:2em; margin: 0 0 1em 0; }
+#community .col { display: inline-block; vertical-align: top; }
+#community ul li { margin: 0 0 1em 0; }
+
+#community.state .col {width:20em; margin:0 0 0 2em; }
+#community.city .col {  width:40em; margin:0 0 0 2em; }
+#community.city h2 { font-size: 3.2em; color: #ccc; margin: 0; width:12em;}
+#community.city ul {  margin: 0 0 2em 2em; }
+#community.city a span { color: #999; font-weight:normal;}
+
+#community.industry .col { width:47%; margin:0 0 0 2em; }
+#community.industry h2 { font-size: 1.5em; color: #606060; margin: 0 0 0.5em 0; }
+#community.industry h3 { font-size: 1.3em; margin: 0 0 0.5em; width: 40em; font-weight:bold;}
+#community.industry ul {  margin: 0 0 3em 2em; }
+#community.industry ul li { margin: 0 0 0.5em 0; }
+#community.industry a.details { margin: 2em 0 2em 0; display:block;}
+
+
+
+#community.find .col { width:40em; margin:0 0 0 2em; }
+#community.find h2 { font-size: 1.5em; color: #606060; margin: 0 0 0.5em 0; }
+#community.find ul {  margin: 0 0 3em 2em; }
+#community.find ul li { margin: 0 0 0.5em 0; }
+#community.find a.details { margin: 0 0 2em 0; display:block;}
+#community.find .address1 { display: block; }
+#community.find .address2 { display: block; }

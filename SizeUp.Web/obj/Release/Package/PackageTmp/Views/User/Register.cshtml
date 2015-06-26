@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>SizeUp - User Profile</title>
+<link href="@Url.Content("~/Content/views/user/register.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/user/register.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+}
+
+<h1>Complete your free registration</h1>
+<p class="details">Use the form below to create a new account. The name field is optional.
+ Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength characters in length.</p>
+
+<form id="registerForm" action="/user/register/?returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])" method="post">
+    <ul id="form">
+        <li class="emailRequired hidden">
+            <span class="error">Email is required</span>
+        </li>
+         <li class="emailInvalid hidden">
+            <span class="error">A valid email address is required</span>
+        </li>
+         <li class="passwordRequired hidden">
+            <span class="error">Password is required</span>
+        </li>
+        <li>
+            <label for="nameBox">Name:</label>
+            <input id="nameBox" type="text" name="name" value="@ViewBag.Name" />
+            <span class="hint">(optional)</span>
+        </li>
+        <li>
+            <label for="emailBox">Email:</label>
+            <input id="emailBox" type="text" name="email" value="@ViewBag.Email" />
+            <span class="error hidden emailRequired" title="Email is required">*</span>
+            <span class="error hidden emailInvalid" title="A valid email address is required">*</span>
+        </li>
+        <li>
+            <label for="passwordBox">Password:</label>
+            <input id="passwordBox" type="password" name="password" />
+            <span class="error hidden passwordRequired" title="Password is required">*</span>
+        </li>
+    </ul>
+
+    <ul id="sidebar">
+        @if(ViewBag.UsernameExists){
+        <li>
+            <p class="info">This e-mail address is already registered.  Please <a href="/user/signin/?returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])">sign in</a> with your password.</p>
+        </li>
+        }
+        @if(ViewBag.Error){
+        <li>
+            <p class="info">Could not create your account.  Please contact support for assistance.</p>
+        </li> 
+        }
+       
+        <li>
+            <p class="info">
+                <span>Your SizeUp account gives you access to a wealth of information that will 
+                help you make decisions to grow your business.</span>
+                <span>
+                 We keep your information completely confidential. For more information, please read our <a href="/product/privacy-policy">Privacy Policy</a>.
+                </span>
+                <span>
+                By creating an account with SizeUp, you accept our <a href="/product/terms">Terms of Use</a>.
+                </span>
+            </p>
+        </li>
+    </ul>
+
+    <div id="submitContainer">
+        <input id="register" type="submit" class="button" value="Create Account" />
+    </div>
+</form>
+
+@section scripts{
+    <script type="text/javascript">
+
+    var driver = new sizeup.views.user.register();
+    </script>
+}
+

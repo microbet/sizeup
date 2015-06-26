@@ -29,12 +29,12 @@
     <form id="form">
         <fieldset>
             <div id="industry-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
-                <span class="input-group-addon input-group-blue">My industry is</span>
-                <input id="searchIndustry" type="text" class="form-control" placeholder="Enter Your Industry">
+                <label for ="searchIndustry" class="input-group-addon input-group-blue">My industry is</></label>
+                <input id="searchIndustry" aria-haspopup="true" aria-autocomplete="list" type="text" name="industry" class="form-control" placeholder="Enter Your Industry">
             </div>
             <div id="location-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
-                <span class="input-group-addon input-group-blue">I'm located in</span>
-                <input id="searchCommunity" type="text" class="form-control" placeholder="Enter Your City">
+                <label for ="searchCommunity" class="input-group-addon input-group-blue">I'm located in</label>
+                <input id="searchCommunity" aria-haspopup="true" aria-autocomplete="list" type="text"  name="city" class="form-control" placeholder="Enter Your City">
                 <p id="enteredLocation" class="text-center location hidden">
                     Your city is <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a>
                 </p>

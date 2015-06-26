@@ -1,0 +1,15 @@
+﻿#competition .tabs:after { border: none; }
+#competition .tabs li { display: none; }
+#competition .tabs li.active { display: block;}
+#competition .tabs li.active a{ border:none; font-size:2.5em; background:none; padding:0;}
+#competition .mapControls.container .consumerExpenditures.container { display: none; }
+#competition .mapControls.container .mapFilter.container li.all { display: none; }
+#competition .mapControls.container .mapFilter.container li input { display: none; }
+#competition .industryPicker.container p,
+#competition .industryPicker.container input { display: none; }
+#competition.competitor .industryPicker.container p.currentIndustry { display: block; }
+#competition .signinWrapper { display: none !important; }
+
+#competition .industryList li { border: none; background: none; }
+#competition .industryList li span { overflow:visible; }
+#competition .industryList li a { display: none; }

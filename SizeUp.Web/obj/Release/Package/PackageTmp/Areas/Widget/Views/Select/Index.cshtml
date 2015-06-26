@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Areas/Widget/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<link href="@Url.Content("~/Content/widget/Views/select/select.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@(ViewBag.CustomTools == true ? ViewBag.APIKeyValue : System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"])&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+@*<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>*@
+<script type="text/javascript" src="@Url.Content("~/Scripts/widget/views/select/select.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<title>Select your city and industry</title>
+}
+
+<div id="select">
+    <div id="form" class="hidden">
+        <h2>Select a city and industry</h2>
+        <ul>
+            <li>
+                <p id="noIndustryMatchesMessage" class="info hidden">No industry matched your keyword. Please search again and select from the dropdown.</p>               
+                <label for="searchIndustry">Industry</label>
+                <input type="text" id="searchIndustry" class="blank" data-prompt="e.g. Beauty Salons"  />
+            </li>
+            <li>
+                <label for="searchCommunity">City</label>
+                <input type="text" id="searchCommunity" class="blank" data-prompt="Enter Your City" />
+                <p id="invalidCityMessage" class="info hidden">Please enter a valid city name and select from the dropdown.</p>
+                <p id="noValuesEntered" class="info hidden">Please enter a city and industry and select from the dropdowns.</p>
+            </li>
+        </ul>
+        <a href="javascript:void(0);" id="continue" class="button" >Submit</a>
+    </div>
+
+    <div id="selector" class="hidden">
+        <ul>
+            <li>
+                <img src="@Url.Content("~/Content/images/mybusiness.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="My Business" />
+                <a href="#" id="myBusiness" class="button medium" >My Business</a>
+                <p>Compare your business to your industry competitors.</p>
+            </li>
+            <li>
+                <img src="@Url.Content("~/Content/images/compete.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition" />
+                <a href="#" id="competition" class="button medium" >Competition</a>
+                <p>Map your competitors, customers, and suppliers.</p>
+            </li>
+            <li>
+                <img src="@Url.Content("~/Content/images/advertise.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertising" />
+                <a href="#" id="advertising" class="button medium" >Advertising</a>
+                <p>Find best places to target your next advertising campaign.</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        
+        var done = function(){
+            var opts = {
+                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
+                startFeature: @(SizeUp.Core.Web.WebContext.Current.StartFeature  != null ? Html.Raw("'" + ViewBag.StartFeature + "'") : "null")
+            };
+            var driver = new sizeup.widget.views.select.select(opts);
+        };
+
+        var notifier = new sizeup.core.notifier(done);
+        var apiLoaded = notifier.getNotifier();
+        var doc = notifier.getNotifier();
+        $(document).ready(doc);
+    </script>
+
+
+}

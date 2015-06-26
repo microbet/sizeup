@@ -1,0 +1,66 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Workers' Compensation</h2>
+    <span class="hint">Premium per employee (per $100 of payroll)</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please enter premium per employee<br/>(per $100 of payroll)</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Workers Compensation Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent noDataError hidden">
+            <p>No data available to display this report</p>
+        </div>
+        <div class="reportContent reportData">
+            <h3>How you size up</h3>
+            <p class="description">
+                <div data-template="description">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Description"]) 
+                </div>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="name">Business/Geography</td>
+                        <td class="value">Workers' Compensation Premium per Employee <span class="hint">(per $100 of Payroll)</span></td>
+                        <td class="rank">State Rank</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="tableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                        <td class="rank">{{rank}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Source"])
+            </div>
+     
+        </div>
+        <div class="reportSidebar reportData">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Considerations"])
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.WorkersComp.Resources"])
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+    </div>
+</div>

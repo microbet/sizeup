@@ -1,0 +1,183 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Employees</h2>
+    <span class="hint">Number of full-time equivalent employees</span>
+    <input type="text" class="valueBox" />
+    <span class="prompt">Please enter <br />how many employees you have</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Employee Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent noDataError hidden">
+            <p>No data available to display this report</p>
+        </div>
+        <div class="reportContent averageEmployees reportData">
+            <h3>How you size up</h3>
+            <p class="description">
+                <div data-template="averageEmployeesDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.AverageEmployees.Description"])
+                </div>
+            </p>
+            <div class="chart">
+                <a href="javascript:void(0);" class="mapToggle" data-toggleText="View Variations by Geography">Hide Variations by Geography</a>
+                <a href="javascript:void(0);" class="chartToggle" data-toggleText="View Chart">View Data Table</a>
+                <div class="container"></div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="value">Value</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="AverageEmployeesTableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                @Html.Raw(ViewBag.Strings["Dashboard.AverageEmployees.Source"])
+            </div>
+            <div class="mapWrapper container">
+                <div data-template="legendTitle" class="legend titleWrap">
+                    <p class="backdrop edge title"><span class="text"></span></p>
+                </div>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
+                <div class="map"></div>
+                <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
+            </div>
+        </div>
+        <div class="reportSidebar  averageEmployees reportData">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.AverageEmployees.Considerations"])
+                <div class="question">
+                    <span>Are you a relatively <a href="javascript:void(0);" class="large">large</a> or <a href="javascript:void(0);" class="small">small</a> business?</span>
+                </div>
+                <div class="large answer collapsed hidden">
+                    <h5>you are a large business</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>
+                        Being large is often a sign of success and stability, showing that your particular
+                         business model is a good one.
+                    </p>
+                    <p>
+                        A large business typically has access to more resources which can be used to invest
+                         in the future of the company in areas outside of the company's basic operations 
+                        (e.g., research and development, new products, advertising).
+                    </p>
+                    <p>
+                        Large businesses often have economies of scale that can allow for higher profits and
+                         pass-through savings to customers.
+                    </p>
+                </div>
+                <div class="small answer collapsed hidden">
+                    <h5>you are a small business</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>
+                        Small businesses can gain advantages by being more nimble than their larger 
+                        competition and responding rapidly to changing conditions. They should be ready
+                         to shift direction to take advantage of new opportunities in the marketplace,
+                         or restructure during hard times.
+                    </p>
+                    <p>
+                        Small businesses should have fewer administrative needs due to their smaller size,
+                         which saves costs.
+                    </p>
+                    <p>
+                        Small businesses can succeed by focusing on developing more personal relationships
+                         with their customers. Customers can more easily get to know the few people in a small
+                         business.
+                    </p>
+                </div>
+
+
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.AverageEmployees.Resources"])
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+
+
+
+
+
+        <div class="reportContent employeesPerCapita reportData">
+            <h3>How your community sizes up</h3>
+            <p class="description">
+                <div data-template="employeesPerCapitaDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.EmployeesPerCapita.Description"])
+                </div>
+            </p>
+            <div class="chart">
+                <a href="javascript:void(0);" class="mapToggle" data-toggleText="View Variations by Geography">Hide Variations by Geography</a>
+                <a href="javascript:void(0);" class="chartToggle" data-toggleText="View Chart">View Data Table</a>
+                <div class="container"></div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="value">Value</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="employeesPerCapitaTableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                @Html.Raw(ViewBag.Strings["Dashboard.EmployeesPerCapita.Source"])
+            </div>
+            <div class="mapWrapper container">
+                <div data-template="legendTitle" class="legend titleWrap">
+                    <p class="backdrop edge title"><span class="text"></span></p>
+                </div>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
+                <div class="map"></div>
+                <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
+            </div>
+        </div>
+         <div class="reportSidebar  employeesPerCapita reportData">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.EmployeesPerCapita.Considerations"])
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+
+
+
+
+    </div>
+</div>

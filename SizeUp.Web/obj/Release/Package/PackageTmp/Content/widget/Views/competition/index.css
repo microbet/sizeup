@@ -1,0 +1,21 @@
+﻿#competition .tabs { width: 100%; }
+#competition .mapControls.container { top:0; width: 100%; border-top:1px dashed #ccc; padding:0; height:auto; background-color:#F5F5F5;}
+#competition .mapControls.container .filterMessage { width: 50%; display: inline-block; padding-left:1em; font-size:1.1em; line-height:1.6em; margin:1em 0;}
+#competition .mapControls.container .mapFilter.container ul li { padding: 0.25em 0 0 0; }
+#competition .mapControls.container .consumerExpenditures.container .menu { background-image: none; border-radius:0; box-shadow:none; background-color:#F9B354; }
+#competition .industryList li { padding: 0.5em 0.5em 0.5em 0; }
+#competition .industryList .remove { top: 0.2em; }
+#competition .industryList li > span {top:0; }
+#competition .mapWrapper.container { width: 100%; margin:0; }
+#competition .mapWrapper.container .map { width: 100%; height:33em;}
+#competition .list.container { width: 100%; }
+#competition .businessList { width: 100%; border: none; }
+#competition .industryList { float: right; margin: 0.5em 0 0 0.5em; }
+#competition .industryPicker.container .title { width: 40%; }
+#competition .industryPicker .autoComplete-container { width: 40%; }
+
+
+#competition .tabs:after { border-radius: 0; width:100%; border-left:none; left:0; border-right:none; }
+#competition .tabs li { left: 2.2em; }
+
+

@@ -1,0 +1,9 @@
+﻿h1 { margin: 0 0 1em 0; }
+h2 { margin:0 0 0.5em 0.25em; }
+p { margin:  0 0 1em 0.5em; }
+iframe{ margin:0 auto; display: block;}
+ol { margin: 0 0 0 0.5em; padding: 0 0 0 2em;}
+ol li { font-size: 1.3em; }
+ol li span,
+ol li a { font-size: 1em; }
+#about div.col { width: 44em; padding: 0 0.5em; display: inline-block; vertical-align: top; }

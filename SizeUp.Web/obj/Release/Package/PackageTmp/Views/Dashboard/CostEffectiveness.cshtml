@@ -1,0 +1,82 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Cost Effectiveness</h2>
+    <span class="hint">Revenue per employee divided by worker salary</span>
+    <input type="text" class="valueBox" disabled="disabled" />
+    <span class="prompt">Please provide revenue, number of employees and salary to see this report</span>
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Cost Effectiveness Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer ">
+        <div class="reportContent noDataError hidden">
+            <p>No data available to display this report</p>
+        </div>
+        <div class="reportContent reportData">
+            <h3>How you size up</h3>
+            <p class="description">
+                <div data-template="description">
+                @Html.Raw(ViewBag.Strings["Dashboard.CostEffectiveness.Description"])
+                </div>
+            </p>
+             <div class="chart">
+                <a href="javascript:void(0);" class="mapToggle" data-toggleText="View Variations by Geography">Hide Variations by Geography</a>
+                <a href="javascript:void(0);" class="chartToggle" data-toggleText="View Chart">View Data Table</a>
+                <div class="container"></div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="value">Value</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="tableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="value">{{value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+                @Html.Raw(ViewBag.Strings["Dashboard.CostEffectiveness.Source"])
+            </div>
+            <div class="mapWrapper container">
+                <div data-template="legendTitle" class="legend titleWrap">
+                    <p class="backdrop edge title"><span class="text"></span></p>
+                </div>
+                <div data-template="legendContainer" class="legend backdrop edge">
+                    <ul class="legend legendContainer">
+                        <li data-template="legendItem"><div class="block" data-override-style="background-color: {{color}};"></div><span class="range text">{{label}}</span></li>
+                    </ul>
+                </div>
+                <div class="map"></div>
+                <a href="javascript:void(0);" class="textAlternative">Text Alternative</a>
+            </div>
+        </div>
+        <div class="reportSidebar reportData">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.CostEffectiveness.Considerations"])
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.CostEffectiveness.Resources"])
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+
+
+        </div>
+    </div>
+</div>

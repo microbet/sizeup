@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>Contact Us</title>
+<meta name="title" content="Contact SizeUp" />
+<meta name="keywords" content="contact, email address, mailing address, social media, twitter" />
+<meta name="description" content="Stay in touch with us! Find our email or mailing address, or keep connected with SizeUp on Twitter." />
+
+<link href="@Url.Content("~/Content/views/help/contact.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+}
+
+@Html.Raw(ViewBag.Content)

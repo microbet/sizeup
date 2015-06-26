@@ -1,0 +1,69 @@
+﻿.error { color: #21649E;}
+
+a {color: #C54602;text-decoration: none;font-weight: bold;}
+a:hover {color: #0099cc;}
+
+a.inverse:hover { color: #C54602;  }
+
+
+a.button,
+.button {color:#fff; background-color:#C54602; border-color:#fff #fff #fff #fff; background-image:none;}
+a.button:hover,
+.button:hover{color:#fff;text-shadow: 0 0 0.1em #fff;background-color:#C54602;}
+
+a.button.inverse { background-color: #aaa; color:#C54602; }
+a.button.inverse:hover {background-color:#C54602; }
+
+a.menu { background-color: #C54602; }
+a.menu:hover { color: #fff; }
+
+#header ul li a.disabled:hover { color: #0099cc; }
+#header ul li a.button.help { background-color: #061F70; }
+#header ul li#userMenu > a:after { border-top-color: #C54602; }
+
+
+#dashboard .report .header .reportToggle,
+#dashboard .report .header .prompt,
+#dashboard .report .header .prompt:before { background-image: url(images/dashbuttons.png); }
+
+
+
+#competition .tabs li.active a { color: #C54602; }
+#competition .businessList li .name{color:#C54602;}
+#competition .mapControls.container .consumerExpenditures.container .menu {background-color:#C54602; }
+
+#advertising .heading .filter { background-image: url(images/actionbutton.png); }
+
+
+
+/** wells fargo accessibility */
+a {color: #A73C02;text-decoration: none;font-weight: bold;}
+a:hover {color: #006282;}
+
+
+a.button.inverse { background-color: #696969; color:#ffffff; }
+
+#dashboard .report .body .reportContainer .reportContent .table thead,
+.loading .message,
+#dashboard .fadeToggle,
+#competition .businessList li .address,
+span.hint,
+.footNote,
+#advertising .description,
+#advertising ul.results li ul.details li 
+{ color: #6d6d6d;}
+
+.loading .title,
+#dashboard h3 { color: #507B1A;}
+
+
+
+#competition .tabs li.active a { color: #A73C02; }
+#competition .businessList li .name{color:#A73C02;}
+#competition .mapControls.container .consumerExpenditures.container .menu {background-color:#A73C02; }
+
+
+
+    
+
+    

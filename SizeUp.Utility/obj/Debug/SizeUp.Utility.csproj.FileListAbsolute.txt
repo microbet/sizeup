@@ -1,0 +1,10 @@
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\SizeUp.Utility.exe.config
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\SizeUp.Utility.exe
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\SizeUp.Utility.pdb
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\CookComputing.XmlRpcV2.dll
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\PerceptiveMCAPI.dll
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\SizeUp.Data.dll
+C:\Development\sizeup2\SizeUp.Utility\bin\Debug\SizeUp.Data.pdb
+C:\Development\sizeup2\SizeUp.Utility\obj\Debug\SizeUp.Utility.csprojResolveAssemblyReference.cache
+C:\Development\sizeup2\SizeUp.Utility\obj\Debug\SizeUp.Utility.exe
+C:\Development\sizeup2\SizeUp.Utility\obj\Debug\SizeUp.Utility.pdb

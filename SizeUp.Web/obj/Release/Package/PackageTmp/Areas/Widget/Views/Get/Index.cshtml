@@ -1,0 +1,159 @@
+﻿@{
+    Layout = null;
+}
+
+(function () {
+    var me = {};
+
+    me.wigetSource = '/widget/load';
+    me.defaultMinWidth = '580';
+    me.defaultMinHeight = '900';
+    me.defaultColor = '#fff';
+    me.apiToken = '@ViewBag.Token';
+    me.sessionId = '@ViewBag.SessionId';
+    me.instanceId = '@ViewBag.InstanceId';
+
+    var buildQueryString = function (vals) {
+        var params = [];
+        for (var x in vals) {
+            if (vals.hasOwnProperty(x)) {
+                params.push(x + '=' + encodeURIComponent(vals[x]));
+            }
+        }
+        return '?' + params.join('&');
+    };
+
+    var createIframe = function () {
+        var loc = getScriptLocation();
+        var iframe = document.createElement("iframe");
+        var script = getThisScript();
+        iframe["title"] = "SizeUp Services";
+        iframe["frameBorder"] = "0";
+        iframe["border"] = "0";
+        iframe.style["border"] = "0";
+        iframe["height"] = loc.query['height'] ?  loc.query['height'] + 'px' : '100%';
+        iframe["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '100%';
+        iframe.style["height"] = loc.query['height'] ?  loc.query['height'] + 'px' : '100%';
+        iframe.style["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '100%';
+        iframe.style["background"] = loc.query['color'] || me.defaultColor;
+        iframe.style["overflow"] = 'hidden';
+        iframe.style["min-height"] = (me.defaultMinHeight) + 'px';
+        iframe.style["min-width"] = (me.defaultMinWidth) + 'px';
+        iframe.style["minHeight"] = (me.defaultMinHeight) + 'px';
+        iframe.style["minWidth"] = (me.defaultMinWidth) + 'px';
+        iframe.style["display"] = 'block';
+        iframe.id = "sizeup_iframe";
+        iframe["scrolling"] = 'no';
+        var src = loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + me.wigetSource + buildQueryString(loc.query) + '&t=' + encodeURIComponent(me.apiToken) + '&o=' + encodeURIComponent(document.location.hostname) + '&s=' + encodeURIComponent(me.sessionId) + '&i=' + encodeURIComponent(me.instanceId);
+        iframe.src = src;
+        script.parentNode.insertBefore(iframe, script.parentNode.firstChild);
+    };
+
+    var createCopyright = function () {
+        var script = getThisScript();
+        var loc = getScriptLocation();
+        var children;
+        var span = null;
+        var anchor = null;
+        children = script.parentNode.childNodes;
+        for (var x = 0; x < children.length; x++) {
+            if (children[x].nodeName.toLowerCase() == 'span') {
+                span = children[x];
+            }
+        }
+
+        children = span.childNodes;
+        for (var x = 0; x < children.length; x++) {
+            if (children[x].nodeName.toLowerCase() == 'a') {
+                anchor = children[x];
+            }
+        }
+
+        var textNode = document.createTextNode("Copyright © ");
+        span.insertBefore(textNode, anchor);
+        @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+        {
+            <text>
+                span.innerHTML = '';
+                span.appendChild(document.createTextNode("Powered by SizeUp © 2009-2015."));
+            </text>
+        }
+        textNode = document.createTextNode(" Patent Pending.");
+        span.appendChild(textNode);
+
+        var terms = document.createElement("a");
+        terms.setAttribute("href", loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + "/product/terms/");
+        @if (ViewBag.APIName == "Wells Fargo" || ViewBag.APIName == "Wells Fargo Prod")
+        {
+            <text>
+                terms.setAttribute("href", loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + "/product/terms/?hideLogin=1");
+            </text>
+        }
+        terms.setAttribute("target", "_blank");
+        terms.innerHTML = "Terms of Use";
+        span.appendChild(terms);
+
+        span.style["width"] = loc.query['width'] ?  loc.query['width'] + 'px' : '';
+        span.style["min-width"] = (me.defaultMinWidth) + 'px';
+        span.style["minWidth"] = (me.defaultMinWidth) + 'px';
+        span.style["backgroundColor"] = '#F8F8F8';
+        span.style["borderTop"] = '2px solid #EEEEEE';
+        span.style["padding"] = '5px 0';
+        span.style["textAlign"] = 'right';
+        span.style["fontSize"] = '12px';
+        span.style["fontFamily"] = '"Trebuchet MS",Arial, Verdana, Sans-Serif';
+        span.style["color"] = '#606060';
+        span.style["display"] = 'block';
+
+        anchor.style["textDecoration"] = 'none';
+        anchor.style["color"] = '#e78500';
+
+        terms.style["textDecoration"] = 'none';
+        terms.style["color"] = '#e78500';
+        terms.style["margin"] = '0 10px 0 5px';
+    };
+
+    var getThisScript = function () {
+        // get latest script added to the page (this script)
+        var scripts = document.getElementsByTagName("script");
+        var index = scripts.length - 1;
+        for(var i=0; i < scripts.length; i++){ var match = /^https?:\/\/([a-zA-Z\d-]+\.){0,}sizeup\.com/.test(scripts[i].getAttribute('src')); if(match){index = i;} }
+        return scripts[index];
+    };
+
+    var getScriptLocation = function () {
+        var script = getThisScript();
+        var src = script.src;
+        var chop = function (str) {
+            var hash = {};
+            str = str.replace(' ', '');
+            if (str.length > 0) {
+                var vars = str.split("&");
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split("=");
+                    hash[pair[0]] = unescape(pair[1]);
+                }
+            }
+            return hash;
+        };
+        var match = src.match(/^((https?|ftp):\/)?\/?((.*?)(:(.*?)|)@)?((www\.)?([^:\/\s]+))(:([^\/]*))?((\/\w+)*\/)([-\w.]+[^#?\s]*)?(\?([^#]*))?(#(.*))?$/);
+        match = match || new Array(20);
+        var ret = {
+            protocol: match[2],
+            host: match[7],
+            domain: match[9],
+            port: match[11],
+            path: match[12] + match[14],
+            query: chop(match[16] ? match[16] : ''),
+            hash: chop(match[18] ? match[18] : '')
+        };
+        return ret;
+    };
+
+    var init = function () {
+        createCopyright();
+        createIframe();
+    };
+    init();
+})();
+

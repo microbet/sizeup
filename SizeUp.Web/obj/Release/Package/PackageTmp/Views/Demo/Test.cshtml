@@ -1,0 +1,1041 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutDemo.cshtml";
+}
+
+@section head{
+    <title>Business Dashboard @*- @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name,
+        @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation*@</title>
+    <link href="@Url.Content("~/Content/views/dashboard/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/views/dashboard/print.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print"  />
+    <link href="@Url.Content("~/Content/views/home-responsive.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/views/demo/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/base.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
+
+    <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/raphael-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/mustache.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/tinycolor-min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/core/templates.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/util/numbers/format.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapColors.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/map.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLng.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/latLngBounds.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/overlay.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapOverlays.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/maps/legend.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/gauge.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/charts/barchart.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/charts/tableChart.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/charts/lineChart.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/toggleButton.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/question.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/flashBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/reportContainer.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenue.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/averageSalary.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/yearStarted.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/employees.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/costEffectiveness.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenuePerCapita.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/turnover.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/healthcareCost.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/workersComp.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/dashboard.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        var done = function(){
+            var opts = {
+                currentInfo: @Html.Raw(ViewBag.CurrentInfoJSON),
+                isAuthenticated: @(HttpContext.Current.User.Identity.IsAuthenticated ? "true" : "false")
+                };
+            var driver = new sizeup.views.dashboard.dashboard(opts);
+        };
+
+        var notifier = new sizeup.core.notifier(done);
+        var apiLoaded = notifier.getNotifier();
+        var doc = notifier.getNotifier();
+        $(document).ready(function(){
+
+            $('.reportToggle').on('click', function(e){
+                var body = $(this).closest('.header').next();
+                if (body.is(':visible')) {
+                    body.hide();
+                    $(this).removeClass('open');
+                } else {
+                    body.show();
+                    $(this).addClass('open');
+                }
+            });
+            doc();
+        });
+    </script>
+}
+
+
+
+<style>
+    #header ul li a.disabled { background-color: #F7D6AA; }
+    #header ul li a { display: block; padding: 0.5em; text-decoration: none; }
+    a { color: #e78500; text-decoration: none; font-weight: bold; }
+    #header { background-color: #F8F8F8; border-bottom: 2px solid #EEEEEE; height: 2.6em; margin-top: 0.9em; }
+    #header ul { position: relative; text-align: right; }
+    #header ul li { display: inline-block; vertical-align: top; }
+    #header ul li.dashboard { float: left; }
+    #header ul li.competition { float: left; }
+    #header ul li.advertising { float: left; }
+    #header ul li.help { top: 0.45em; position: relative; }
+    #header ul li a.button.help { background-color: #6699AA; border-radius: 4em 4em 4em 4em; display: inline; font-size: 1em; padding: 0.1em 0.7em; position: relative; }
+
+    a.button,
+    .button { color: #fff; display: inline-block; padding: 0.25em 2em; cursor: pointer; border-radius: 0.4em; background-color: #e78500; background-size: 100% 100%; font-size: 2.6em; border: none; box-shadow: 1px 1px 1px #aaa; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAvCAYAAADaU1s4AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDRURGTG9PrIAAAC8SURBVDjLrVRBDsMgDHOk/ns/r3spVZolwWxwoSBqY5vESH4gjAMA1YPn/W1un25NAOYRI7Jf0yNK1BboIvJDXdG/qOnQvkSMn/0dM1Rm9vhh8RqRGtVdM2opGYaUmGVNlToTBG9PabKKiM6ebMbIukqGVdbyC993kNsRzyrf+HC7MuAW1aaq5iriqyJniEtiLCJmLeXZi4illzMxe+yRakaKkKtViKwDV4j8uz9iZtFPVcjuAXeIZQ9vBV1EQ3POiyNDMgAAAABJRU5ErkJggg==); }
+    a.button:hover,
+    .button:hover { text-shadow: 0 0 0.1em #fff; }
+
+    #header ul li#userMenuSub { position: relative; }
+    #header ul li#userMenuSub > a { margin: 0 1em 0 0; }
+    #menu #userMenuSub > a span { font-size: 1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; }
+
+    #header ul li#userMenuSub > a:after { content: ""; width: 0; height: 0; border-left: 0.5em solid transparent; border-right: 0.5em solid transparent; border-top: 0.5em solid #E78500; position: relative; top: 0.5em; left: 0.5em; vertical-align: top; display: inline-block; }
+
+    #dashboard .headerWrapper { text-align: left; margin: 1em 0 2em 1em; padding: 0; }
+    #dashboard h1 { text-align: left; left: 0; top: 0; position: relative; margin: 0.5em; font-size: 19px; font-weight: normal; }
+    .heading span, .heading a { font-size: 1em; }
+
+    #dashboard .report { width: 94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; text-align: left; background-color: #fff; border-top: solid 2px #d7d7ce; border-left: solid 2px #d7d7ce; border-right: solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em; -webkit-border-top-left-radius: 2em; -moz-border-radius-topright: 2em; -moz-border-radius-topleft: 2em; border-top-right-radius: 2em; border-top-left-radius: 2em; }
+
+    #dashboard .report { border: none; border-radius: 0; width: 100%; }
+
+    #dashboard #revenue.report .header .icon { background-position: 0 0; }
+    #dashboard .report .header .icon { width: 60px; height: 60px; background-image: url(/content/images/demo/dashboardIconsDemo.png); background-repeat: no-repeat; }
+    #dashboard .report .header h2 { font-size: 24px; font-weight: normal; position: absolute; top: 1em; left: 3.5em; margin: 0; }
+
+    #dashboard .report .header .hint { left: 7.8em; top: 4.5em; }
+    #dashboard .report .header .hint { font-size: 11px; position: absolute; top: 5em; }
+    span.hint { color: #606060; }
+
+    #dashboard .report .header input[type="text"] { top: 1.25em; color: #606060; font-size: 1.25em; left: 23em; }
+
+    #dashboard .report .header .gauge { position: absolute; top: 1.25em; right: 4em; }
+    #dashboard #turnover.report .header .icon,
+    #dashboard #turnover-germany.report .header .icon { background-position: 0 -240px; }
+
+    #dashboard #yearStarted.report .header .icon { background-position: 0 -305px; }
+
+    #dashboard #salary.report .header .icon { background-position: 0 -60px; }
+    #dashboard #revenuePerCapita1.report .header .icon { background-position: 0 -180px; }
+
+    #dashboard #costEffectiveness1.report .header .icon { background-position: 0 -120px; }
+    #dashboard .chart a { font-size: 9px; font-weight: bold; display: inline-block; margin: 0 0 0 1em; }
+</style>
+<div id="header">
+    <div id="menu">
+        <ul>
+            <li class="dashboard">
+                <a class="disabled">My Business</a>
+            </li>
+            <li class="competition">
+                <a href="#">Competition</a>
+            </li>
+            <li class="advertising">
+                <a href="#">Advertising</a>
+            </li>
+            <li class="startOver">
+                <a href="http://demodb.bcsg.com">Home</a>
+            </li>
+            <li id="userMenuSub" class="signin">
+                <a href="#"><span>Anatalio Ubalde</span></a>
+            </li>
+            <li class="help">
+                <a href="#" class="help button">?</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<style>
+    #dashboard .reportContainer .reportContent { display: inline-block; padding: 1em; margin: 0 0 1em 0; }
+    #dashboard h3 { color: #6EAB24; font-size: 17px; text-align: left; }
+
+    #dashboard .reportContainer .reportContent .description { text-align: left; margin: 0; padding: 0; font-size: 13px; margin-left: 13px; font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; }
+    #dashboard .reportContainer .reportContent .chart { display: block; text-align: left; margin: 1em 0 0 0; }
+    #dashboard .reportContainer .reportContent .chart a { font-size: 9px; font-weight: bold; display: inline-block; margin: 0 0 0 1em; font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; }
+
+    #dashboard .reportContainer .reportSidebar { font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 13px; display: inline-block; width: 26em; margin: 0 0 1em 0; vertical-align: top; background-color: #F0F0F0; border-radius: 1em; -moz-border-radius: 1em; -webkit-border-radius: 1em; }
+
+    #dashboard .reportContainer .reportSidebar .section { padding: 15px 5px; }
+
+    #dashboard h4 { font-size: 17px; font-weight: normal; font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; }
+
+    #dashboard .reportContainer .reportSidebar .section p { padding: 0 1em; margin: 0 0 1em 0; line-height: 1.5em; font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 13px; }
+
+    #dashboard .question { background-color: #FFFFF0; border-radius: 1em; border: solid 1px #DDDDDD; text-align: center; padding: 1.5em; }
+
+    #dashboard .report .header .reportToggle { height: 30px; width: 30px; cursor: default; position: absolute; right: 1em; top: 2em; background-image: url("/content/images/dashbuttons.png"); background-position: -318px -28px; background-repeat: no-repeat; }
+    #dashboard .report .header .reportToggle.active { cursor: pointer; }
+    #dashboard .report .header .reportToggle.open { background-position: -346px -22px; }
+    #dashboard .report .header:hover .reportToggle.open.active { background-position: -346px 7px; }
+    #dashboard .report .header:hover .reportToggle.active { background-position: -318px 0px; }
+</style>
+<div id="content">
+
+    <div id="dashboard">
+        <div class="headerWrapper">
+            <h1 class="heading">
+                <span>Compare your business to the competition in the</span>
+                <a href="#" id="changeIndustry" class="changeLink">@ViewBag.Industry</a>
+                <span>industry in </span>
+                <a href="#" id="changePlace" class="changeLink">@ViewBag.Location</a>
+            </h1>
+        </div>
+        <div id="revenue" class="report">
+            <div class="header">
+                <div class="icon"></div>
+                <h2>Sales Revenue</h2>
+                <span class="hint">Annual revenue of your business from sales</span>
+                <input type="text" class="valueBox" value="&#128;900,000">
+                <span class="prompt" style="display: none;">Please enter</span>
+                <div class="gauge" style="display: block;" title="45th Percentile">
+                    @if (ViewBag.IE8 == "true"){
+                        @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN><?xml:namespace prefix = rvml ns = \"urn:schemas-microsoft-com:vml\" /> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"45th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 160\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"45th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                     }
+
+                    @if(ViewBag.IE8 == "false"){
+                        @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"28th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(141.1789176 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"28th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(141.1789176 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                    }
+                </div>
+                <a href="javascript:void(0)" class="reportToggle active"></a>
+            </div>
+            <div class="body" style="display: none;">
+                <div class="reportContainer" style="display: block;">
+                    <div class="reportContent reportData" style="padding-top: 0; width: 42em;">
+                        <h3 style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 17px;
+                            font-weight: normal;">How you size up</h3>
+                        <p class="description">
+                            The revenue your business generates is less than 80% of businesses in your industry
+                            in your @(ViewBag.Country == "italy" ? "citta" : "district"), less than 82% of businesses in your 
+                            @(ViewBag.Country == "italy" ? "provincia" : "region"), 
+                            less than 86% of businesses in your @(ViewBag.Country == "italy" ? "regione" : "state"), and less than 87% of businesses 
+                            in the @(ViewBag.Country == "italy" ? "nazione" : "nation").
+                        </p>
+                        <div class="chart">
+                            <div style="text-align: right;">
+                                <a href="javascript:void(0);" class="mapToggle" data-toggletext="View Variations by Geography">
+                                    Hide Variations by Geography</a>
+                                <a href="javascript:void(0);" class="chartToggle" data-toggletext="View Chart">View
+                                    Data Table</a>
+                            </div>
+                            <div class="container1" style="height: 626px;">
+                                @if (ViewBag.IE8 == "true"){
+                                    @Html.Raw("<DIV style=\"CLIP: rect(0px 560px 257px 0px); POSITION: relative; WIDTH: 560px; DISPLAY: inline-block; HEIGHT: 257px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <?xml:namespace prefix = rvml ns = \"urn:schemas-microsoft-com:vml\" /> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px\" class=rvml coordsize = \"1000,1000\" filled = \"f\" stroked = \"t\" strokecolor = \"#969690\" strokeweight = \"1pt\" path = \" m450,2200 l450,2170 m2000,2200 l2000,2170 m3550,2200 l3550,2170 m5100,2200 l5100,2170 e\"> <rvml:fill class=rvml></rvml:fill> <rvml:stroke class=rvml opacity = \".75\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; FONT: 12px Trebuchet MS, Arial, sans-serif; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\">Peoria, IL</SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#f6f6f0\" stroked = \"t\" strokecolor = \"#e6e6e0\" path = \" m450,10 l5600,10,5600,2170,450,2170 xe\"> <rvml:fill class=rvml type = \"gradient\" color2 = \"white\" angle = \"0\" method = \"none\" colors = \"0 #f6f6f0\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -271px; LEFT: -455px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 271px; LEFT: 455px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m45,227 l46,227 e\"> <rvml:textpath style=\"FONT: 10px 'Trebuchet MS'; v-text-align: center\" class=rvml on = \"t\" string = \"$0\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -271px; LEFT: -300px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 271px; LEFT: 300px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m200,227 l201,227 e\"> <rvml:textpath style=\"FONT: 10px 'Trebuchet MS'; v-text-align: center\" class=rvml on = \"t\" string = \"$531,468\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -271px; LEFT: -145px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 271px; LEFT: 145px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m355,227 l356,227 e\"> <rvml:textpath style=\"FONT: 10px 'Trebuchet MS'; v-text-align: center\" class=rvml on = \"t\" string = \"$1,062,936\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -271px; LEFT: 10px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 271px; LEFT: -10px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m510,227 l511,227 e\"> <rvml:textpath style=\"FONT: 10px 'Trebuchet MS'; v-text-align: center\" class=rvml on = \"t\" string = \"$1,594,404\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -253px; LEFT: -220px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 253px; LEFT: 220px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m280,245 l281,245 e\"> <rvml:textpath style=\"FONT: 10px 'Trebuchet MS'; v-text-align: center\" class=rvml on = \"t\" string = \"average annual revenue per business\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; CURSOR: pointer\" class=rvml title=$900,000 coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#5b0\" stroked = \"t\" strokecolor = \"#e6e6e0\" strokeweight = \"1pt\" path = \" m450,240 l3075,240,3075,390,450,390 xe\"> <rvml:fill class=rvml type = \"solid\" opacity = \".75\"></rvml:fill> <rvml:stroke class=rvml opacity = \".375\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -468px; LEFT: -500px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 468px; LEFT: 500px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m0,30 l1,30 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -468px; LEFT: -187px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 468px; LEFT: 187px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m312,30 l313,30 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \"My Business\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\" opacity = \"1\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; CURSOR: pointer\" class=rvml title=$733,874 coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#0af\" stroked = \"t\" strokecolor = \"#e6e6e0\" strokeweight = \"1pt\" path = \" m450,550 l2590,550,2590,700,450,700 xe\"> <rvml:fill class=rvml type = \"solid\" opacity = \".75\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -437px; LEFT: -500px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 437px; LEFT: 500px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m0,61 l1,61 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowATitle+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -437px; LEFT: -235px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 437px; LEFT: 235px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m264,61 l265,61 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowA+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\" opacity = \"1\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; CURSOR: pointer\" class=rvml title=$697,202 coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#0af\" stroked = \"t\" strokecolor = \"#e6e6e0\" strokeweight = \"1pt\" path = \" m450,860 l2483,860,2483,1010,450,1010 xe\"> <rvml:fill class=rvml type = \"solid\" opacity = \".75\"></rvml:fill> <rvml:stroke class=rvml opacity = \".375\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -406px; LEFT: -500px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 406px; LEFT: 500px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m0,92 l1,92 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowBTitle+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -406px; LEFT: -246px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 406px; LEFT: 246px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m253,92 l254,92 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowB+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\" opacity = \"1\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; CURSOR: pointer\" class=rvml title=$636,546 coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#0af\" stroked = \"t\" strokecolor = \"#e6e6e0\" strokeweight = \"1pt\" path = \" m450,1170 l2306,1170,2306,1320,450,1320 xe\"> <rvml:fill class=rvml type = \"solid\" opacity = \".75\"></rvml:fill> <rvml:stroke class=rvml opacity = \".375\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -375px; LEFT: -500px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 375px; LEFT: 500px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m0,123 l1,123 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowCTitle+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -375px; LEFT: -264px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 375px; LEFT: 264px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m236,123 l237,123 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowC+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\" opacity = \"1\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; CURSOR: pointer\" class=rvml title=$737,807 coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#0af\" stroked = \"t\" strokecolor = \"#e6e6e0\" strokeweight = \"1pt\" path = \" m450,1480 l2602,1480,2602,1630,450,1630 xe\"> <rvml:fill class=rvml type = \"solid\" opacity = \".75\"></rvml:fill> <rvml:stroke class=rvml opacity = \".375\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -344px; LEFT: -500px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 344px; LEFT: 500px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m0,154 l1,154 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowDTitle+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -344px; LEFT: -234px\" class=rvml coordsize = \"1000,1000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 344px; LEFT: 234px\" class=rvml coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#969690\" stroked = \"f\" path = \" m265,154 l266,154 e\"> <rvml:textpath style=\"FONT: 12px 'Trebuchet MS'; v-text-align: left\" class=rvml on = \"t\" string = \""+@ViewBag.RowD+"\"></rvml:textpath> <rvml:path class=rvml textpathok = \"t\"></rvml:path> <rvml:fill class=rvml type = \"solid\" opacity = \"1\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: 0px; LEFT: 0px\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; CURSOR: pointer\" class=rvml title=\"National Median $357,000\" coordsize = \"1000,1000\" filled = \"f\" stroked = \"t\" strokecolor = \"#f60\" strokeweight = \"3pt\" path = \" m1491,2170 l1491,10 e\"> <rvml:fill class=rvml opacity = \"39321f\"></rvml:fill> <rvml:stroke class=rvml opacity = \"39321f\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group></DIV><br/><br/>");  
+                                }
+                                @if(ViewBag.IE8 == "false"){
+                                    @Html.Raw("<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='560' height='257' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'> <path fill='none' stroke='#969690' d='M45,190L45,187M200,190L200,187M355,190L355,187M510,190L510,187' stroke-width='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1px;'> </path> <desc style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>Created with Raphaël</desc><defs style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><linearGradient id='r-5e9dd8cee8f8470b80e07593ea095233' x1='0' y1='1' x2='0' y2='0' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><stop offset='0%' stop-color='#f6f6f0' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'> </stop> <stop offset='100%' stop-color='#ffffff' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'> </stop> </linearGradient> </defs><rect x='45' y='1' width='515' height='185' r='0' rx='0' ry='0' fill='url(#r-5e9dd8cee8f8470b80e07593ea095233)' stroke='#e6e6e0' opacity='1' fill-opacity='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); opacity: 1; fill-opacity: 1;'></rect><text x='45' y='203.5' text-anchor='middle' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='10px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>$0</tspan> </text><text x='200' y='203.5' text-anchor='middle' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='10px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>$531,468</tspan> </text><text x='355' y='203.5' text-anchor='middle' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='10px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>$1,062,936</tspan> </text><text x='510' y='203.5' text-anchor='middle' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='10px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>$1,594,404</tspan> </text><text x='280' y='250.5' text-anchor='middle' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='10px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>average annual revenue per business</tspan> </text><a xlink:title='$900,000' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><rect x='45' y='24' width='262.4803774750065' height='15' r='0' rx='0' ry='0' fill='#55bb00' stroke='#e6e6e0' stroke-width='0.5' fill-opacity='0.75' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;'></rect></a><text x='0' y='31.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'></text><text x='312.4803774750065' y='35.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' opacity='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>My Business</tspan> </text><a xlink:title='$733,874' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><rect x='45' y='55' width='214.03058282121438' height='15' r='0' rx='0' ry='0' fill='#00aaff' stroke='#e6e6e0' stroke-width='0.5' fill-opacity='0.75' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;'></rect></a><text x='0' y='66.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowATitle + "</tspan> </text><text x='264.03058282121435' y='66.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' opacity='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowA + "</tspan> </text><a xlink:title='$697,202' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><rect x='45' y='86' width='203.33538237369945' height='15' r='0' rx='0' ry='0' fill='#00aaff' stroke='#e6e6e0' stroke-width='0.5' fill-opacity='0.75' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;'></rect></a><text x='0' y='97.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowBTitle + "</tspan> </text><text x='253.33538237369945' y='97.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' opacity='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowB + "</tspan> </text><a xlink:title='$636,546' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><rect x='45' y='117' width='185.64537151133945' height='15' r='0' rx='0' ry='0' fill='#00aaff' stroke='#e6e6e0' stroke-width='0.5' fill-opacity='0.75' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;'></rect></a><text x='0' y='128.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowCTitle + "</tspan> </text><text x='235.64537151133945' y='128.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' opacity='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowC + "</tspan> </text><a xlink:title='$737,807' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><rect x='45' y='148' width='215.17762207078013' height='15' r='0' rx='0' ry='0' fill='#00aaff' stroke='#e6e6e0' stroke-width='0.5' fill-opacity='0.75' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;'></rect></a><text x='0' y='159.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowDTitle + "</tspan> </text><text x='265.1776220707801' y='159.5' text-anchor='start' font='10px &quot;Arial&quot;' stroke='none' fill='#969690' font-size='12px' font-family='Trebuchet MS, Arial, sans-serif' opacity='1' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;'><tspan style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'>" + @ViewBag.RowDTitle + "</tspan> </text><a xlink:title='National Median $357,000' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0);'><path fill='none' stroke='#ff6600' d='M149.11721639841926,185L149.11721639841926,1' stroke-width='4' opacity='0.6' style='-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 4px; opacity: 0.6; cursor: pointer;'></path></a></svg>");                              
+                                }
+                                <img style="width:570px;height:365px;" src="@Url.Content(string.Format("~/Content/images/demo/{0}-rev.png", @ViewBag.Country))?@SizeUp.Core.Web.CacheBuster.Buster" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reportSidebar reportData" style="width: 26em;">
+                        <div class="section considerations collapsable" style="text-align: left;">
+
+                            <h4 style="margin: 0; padding: 0;">Considerations</h4>
+                            <p>
+                                Average annual revenue measures the income that the average business 
+                                in the area generates from selling its goods and services. You can use this 
+                                figure as a benchmark to determine where you should be setting goals for your 
+                                own performance.
+                            </p>
+
+                            <p>
+                                The map shows the areas with the highest average revenue for businesses in your
+                                industry.
+                            These are areas you may want to target a marketing campaign or open a future 
+                            business location.
+                            </p>
+
+
+                            <div class="question" style="font-size: 13px;">
+                                <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a
+                                    href="javascript:void(0);" class="established">established business</a>?</span>
+                            </div>
+                            <div class="startup answer collapsed" style="display: none;">
+                                <h5>You are a startup</h5>
+                                <a href="javascript:void(0);" class="clearer">[change]</a>
+                                <p>
+                                    Assess the performance of the average local business in your industry to help gauge
+                                    your
+                         expectations of how much businesses in your local market area make.
+                                </p>
+                                <p>
+                                    Use the <a href="/competition/california/los-angeles/los-angeles-city/video-games">competitor
+                                        map</a> to identify who 
+                        your strongest local competitors and potential partners are.
+                                </p>
+                            </div>
+                            <div class="established answer" style="display: none;">
+                                <h5>You are an established business</h5>
+                                <a href="javascript:void(0);" class="clearer">[change]</a>
+                                <p>
+                                    Comparing your revenue to the industry averages in your surrounding area will tell
+                                    you 
+                        whether you are outperforming your competition.
+                                </p>
+                                <p>
+                                    Use the <a href="/competition/california/los-angeles/los-angeles-city/video-games">competitor
+                                        map</a> to see who in
+                         your area might be getting market-share revenue your company could have.  Once you
+                            have identified
+                         your top competitors, think about what is allowing them to succeed, and then consider
+                            about 
+                        how you might be able to outperform them.
+                                </p>
+                                <p>
+                                    Is your product or service faster, cheaper or better than the competition?
+                          If the answer is "yes", make sure your competitors' customers know you are better
+                            to give
+                         them a reason to buy from you.  Find the best places to <a href="/advertising/california/los-angeles/los-angeles-city/video-games">
+                             advertise</a>
+                                    or start a targeted <a href="/advertising/california/los-angeles/los-angeles-city/video-games">
+                                        marketing campaign</a>.
+                                </p>
+                            </div>
+                        </div>
+                        <a style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 11px"
+                            href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggletext="More"
+                            data-toggleclass="collapsed">Less</a>
+                        <div class="section resources collapsable" style="text-align: left;">
+                            <h4>Resources</h4>
+                            <p>
+                                Apply for a small business loan from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                    Deutsche Bank</a>.
+                            </p>
+
+                            <p>
+                                Obtain a business line of credit from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                    Deutsche Bank</a>.
+                            </p>
+
+                            <p>
+                                Apply for a small business real estate loan from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                    Deutsche Bank</a>.
+                            </p>
+
+                        </div>
+                        <a style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 11px"
+                            href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggletext="More"
+                            data-toggleclass="collapsed">Less</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    @if (ViewBag.Country == "germany")
+    { 
+            <div id="turnover-germany" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Company Tax</h2>
+                    <span class="hint">Total taxes paid by your company annually</span>
+                    <input type="text" class="valueBox" value="&#128;125,000">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="1st Percentile">
+                        @if (ViewBag.IE8 == "true"){
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"1st Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 90\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"1st Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if(ViewBag.IE8 == "false"){
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(90 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(90 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+
+            </div>
+            <div id="yearStarted" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Disposable Income</h2>
+                    <span class="hint">Total annual household disposable income of area residents</span>
+                    <input type="text" class="valueBox" value="&#128;6,276,129" style="border:none;border-color:transparent;">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="88th Percentile">
+                        @if (ViewBag.IE8 == "true"){
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"88th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 230\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"88th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if(ViewBag.IE8 == "false"){
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"87th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(246.0570066 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"87th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(246.0570066 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                    <a href="javascript:void(0)" class="reportToggle active"></a>
+                </div>
+                <div class="body" style="display: none;">
+                    <div class="reportContainer" style="display: block;">
+                        <div class="reportContent reportData" style="padding-top: 0; width: 42em;">
+                             <h3 style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 17px;
+                            font-weight: normal;">How you size up</h3>
+                        <p class="description">
+                            The total disposable household income for your district is &#128;6,276,129. This total is greater than 88% of all districts in the nation.
+                        </p>
+                            
+                            
+                            <table class="table" style="font-size:13px;">
+                                <thead>
+                                    <tr>
+                                        <td>Geography</td>
+                                        <td style="text-align:right;" class="turnover">Disposable Income</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="container"><tr>
+                                        <td style="padding:0;margin:0;" class="name">Ostalbkreis </td>
+                                        <td style="padding:0;margin:0;text-align:right;" class="turnover">&#128;6,276,129</td>
+                                    </tr><tr>
+                                        <td style="padding:0;margin:0;"class="name">Germany </td>
+                                        <td style="padding:0;margin:0;text-align:right;" class="turnover">&#128;441,790,000,000</td>
+                                    </tr></tbody>
+                            </table>
+                        </div>
+                        <div class="reportSidebar reportData" style="width: 26em;">
+                            <div class="section considerations collapsable" style="text-align: left;">
+
+                                <h4 style="margin: 0; padding: 0;">Considerations</h4>
+                                <p>
+                                    The amount of money that households have available for spending and saving after
+                                    income taxes have been accounted for. Disposable personal income is often monitored
+                                    as one of the many key economic indicators used to gauge the overall state of the
+                                    economy. 
+                                </p>
+
+
+                                <div class="question" style="font-size: 13px;">
+                                    <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a
+                                        href="javascript:void(0);" class="established">established business</a>?</span>
+                                </div>
+                                <div class="startup answer collapsed" style="display: none;">
+                                    <h5>You are a startup</h5>
+                                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                                    <p>
+                                        Assess the performance of the average local business in your industry to help gauge
+                                        your
+                         expectations of how much businesses in your local market area make.
+                                    </p>
+                                    <p>
+                                        Use the <a href="/competition/california/los-angeles/los-angeles-city/video-games">competitor
+                                            map</a> to identify who 
+                        your strongest local competitors and potential partners are.
+                                    </p>
+                                </div>
+                                <div class="established answer" style="display: none;">
+                                    <h5>You are an established business</h5>
+                                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                                    <p>
+                                        Comparing your revenue to the industry averages in your surrounding area will tell
+                                        you 
+                        whether you are outperforming your competition.
+                                    </p>
+                                    <p>
+                                        Use the <a href="/competition/california/los-angeles/los-angeles-city/video-games">competitor
+                                            map</a> to see who in
+                         your area might be getting market-share revenue your company could have.  Once you
+                            have identified
+                         your top competitors, think about what is allowing them to succeed, and then consider
+                            about 
+                        how you might be able to outperform them.
+                                    </p>
+                                    <p>
+                                        Is your product or service faster, cheaper or better than the competition?
+                          If the answer is "yes", make sure your competitors' customers know you are better
+                            to give
+                         them a reason to buy from you.  Find the best places to <a href="/advertising/california/los-angeles/los-angeles-city/video-games">
+                             advertise</a>
+                                        or start a targeted <a href="/advertising/california/los-angeles/los-angeles-city/video-games">
+                                            marketing campaign</a>.
+                                    </p>
+                                </div>
+                            </div>
+                            <a style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 11px"
+                                href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggletext="More"
+                                data-toggleclass="collapsed">Less</a>
+                            <div class="section resources collapsable" style="text-align: left;">
+                                <h4>Resources</h4>
+                                <p>
+                                    Apply for a small business loan from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                        Deutsche Bank</a>.
+                                </p>
+                                <p>
+                                    Obtain a business line of credit from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                        Deutsche Bank</a>.
+                                </p>
+                                <p>
+                                    Apply for a small business real estate loan from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                        Deutsche Bank</a>.
+                                </p>
+                            </div>
+                            <a style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 11px"
+                                href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggletext="More"
+                                data-toggleclass="collapsed">Less</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div id="employees" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Employees</h2>
+                    <span class="hint">Number of full-time equivalent employees</span>
+                    <input type="text" class="valueBox" value="8">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="50th Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"50th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 180\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"50th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(150 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(180 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+            
+            <div id="costEffectiveness1" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>GDP per Capita</h2>
+                    <span class="hint">GDP generated per community resident</span>
+                    <input type="text" class="valueBox" value="&#128;29,280" style="border: none; background-color: transparent;">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="73rd Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"73rd Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 210\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"73rd Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw(" <svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(90 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(210 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+            
+            <div id="employees" class="report">
+                <div class="header">
+                    @*<div class="icon"></div>*@
+                    <img style="width:60px;height:60px;" src="@Url.Content(string.Format("~/Content/images/demo/big-business.gif"))?@SizeUp.Core.Web.CacheBuster.Buster" alt="">
+                    <h2>Big Business Concentration</h2>
+                    <span class="hint">Companies >250 employees per 1,000 inhabitants</span>
+                    <input type="text" class="valueBox" value="0.18%" style="border: none; border-color: transparent;">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="75th Percentile">
+                        
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw(" <DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"75th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 215\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"75th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(230 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(230 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+            
+            <div id="employees" class="report">
+                <div class="header">
+                    <div class="icon" style="background-position: 0 -425px;"></div>
+                    <h2>POS Turnover</h2>
+                    <span class="hint">Growth rate of POS turnover index per capita</span>
+                    <input type="text" class="valueBox" value="0.51%" style="border: none; border-color: transparent;">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="63rd Percentile">
+                         @if (ViewBag.IE8 == "true")
+                         {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"63rd Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 195\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"63rd Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                         }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(269.6257796257796 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(210 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+            
+    }
+
+        @if (ViewBag.Country == "italy")
+        { 
+
+            <div id="revenuePerCapita1" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>EBITDA</h2>
+                    <span class="hint">Earnings before interest, taxes, depreciation, and amoritization</span>
+                    <input type="text" class="valueBox" value="&#128;200,000">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="1st Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"1st Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 90\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"1st Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(90 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(90 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+
+                </div>
+                <div class="body"></div>
+            </div>
+
+            <div id="yearStarted" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Net Profit</h2>
+                    <span class="hint">Gross profit minus costs</span>
+                    <input type="text" class="valueBox" value="&#128;100,000">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="<1st Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"88th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 230\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"88th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"87th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(246.0570066 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"87th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(246.0570066 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+
+            <div id="salary" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Total Assets</h2>
+                    <span class="hint">Total value of assets</span>
+                    <input type="text" class="valueBox" value="&#128;500,000">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="50th Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"50th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 180\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"50th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(150 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(180 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+
+            <div id="employees" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Employees</h2>
+                    <span class="hint">Number of full-time equivalent employees</span>
+                    <input type="text" class="valueBox" value="8">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="50th Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"50th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 180\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"50th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(150 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\">99th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(180 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+
+            <div id="costEffectiveness1" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Debt/Equity Ratio</h2>
+                    <span class="hint">Compares total liabilities to shareholder equity</span>
+                    <input type="text" class="valueBox" value="0.6">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="73rd Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"73rd Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 210\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"73rd Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw(" <svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(90 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"<1st Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(210 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                </div>
+                <div class="body"></div>
+            </div>
+
+        
+            <div id="turnover" class="report">
+                <div class="header">
+                    <div class="icon"></div>
+                    <h2>Lending Interest Rate</h2>
+                    <span class="hint">Rate at which financial institutes lend money</span>
+                    <input type="text" class="valueBox" value="5.6%">
+                    <span class="prompt" style="display: none;">Please enter</span>
+                    <div class="gauge" style="display: block;" title="18th Percentile">
+                        @if (ViewBag.IE8 == "true")
+                        {
+                            @Html.Raw("<DIV style=\"CLIP: rect(0px 87px 55px 0px); POSITION: relative; WIDTH: 87px; DISPLAY: inline-block; HEIGHT: 55px; OVERFLOW: hidden; TOP: 0px; LEFT: 0px\"> <SPAN style=\"POSITION: absolute; PADDING-BOTTOM: 0px; LINE-HEIGHT: 1; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: inline; TOP: -9999em; PADDING-TOP: 0px; LEFT: -9999em\"></SPAN> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -472px; LEFT: -456px\" class=rvml coordsize = \"1000,1000\"> <rvml:image style=\"WIDTH: 87px; HEIGHT: 55px; TOP: 472px; LEFT: 456px\" class=rvml src = \"/content/images/gauge.png\" coordsize = \"21600,21600\"></rvml:image> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 248.216406166587\" class=rvml coordsize = \"1000,1000\"> <rvml:oval style=\"WIDTH: 8px; HEIGHT: 8px; TOP: 496px; LEFT: 496px\" class=rvml title=\"18th Percentile\" coordsize = \"21600,21600\" filled = \"t\" fillcolor = \"#999\" stroked = \"t\" strokecolor = \"#900\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \".5\" miterlimit = \"8\"></rvml:stroke> </rvml:oval> </rvml:group> <rvml:group style=\"POSITION: absolute; WIDTH: 1000px; HEIGHT: 1000px; TOP: -458px; LEFT: -457px; rotation: 240\" class=rvml coordsize = \"10000,10000\"> <rvml:shape style=\"WIDTH: 1000px; HEIGHT: 1000px; TOP: 4580px; LEFT: 4570px\" class=rvml title=\"18th Percentile\" coordsize = \"1000,1000\" filled = \"t\" fillcolor = \"#900\" stroked = \"t\" strokecolor = \"#900\" path = \" m420,380 l420,710,390,680,430,780,470,680,440,710,440,380 xe\"> <rvml:fill class=rvml type = \"solid\"></rvml:fill> <rvml:stroke class=rvml opacity = \"1\" miterlimit = \"8\"></rvml:stroke> </rvml:shape> </rvml:group> </DIV>");
+                        }
+
+                        @if (ViewBag.IE8 == "false")
+                        {
+                            @Html.Raw("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"87\" height=\"55\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"> <desc style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\">Created with Raphaël</desc><defs style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></defs><image x=\"0\" y=\"0\" width=\"87\" height=\"55\" preserveAspectRatio=\"none\" xlink:href=\"/content/images/gauge.png\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></image><a xlink:title=\"18th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><circle cx=\"43\" cy=\"42\" r=\"4\" fill=\"#999999\" stroke=\"#990000\" stroke-opacity=\"0.5\" transform=\"rotate(240 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-opacity: 0.5;\"></circle></a><a xlink:title=\"18th Percentile\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"><path fill=\"#990000\" stroke=\"#990000\" d=\"M42,38L42,71L39,68L43,78L47,68L44,71L44,38Z\" transform=\"rotate(240 43 42)\" style=\"-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\"></path></a></svg>");
+                        }
+                    </div>
+                    <a href="javascript:void(0)" class="reportToggle active"></a>
+                </div>
+                <div class="body" style="display: none;">
+                    <div class="reportContainer" style="display: block;">
+                        <div class="reportContent reportData" style="padding-top: 0; width: 42em;">
+                            
+                            <h3 style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 17px;
+                            font-weight: normal;">How you size up</h3>
+                            
+                            <p>The lending interest rate for your region is 5.6%. This interest rate is 17.7% lower than that of the nation.</p>
+
+                            <style>
+                                #dashboard .report .body .reportContainer .reportContent .table thead { font-weight: bold; border-bottom: 2px solid #ccc; color: #aaa; }
+                            </style>
+
+                            <table class="table" style="font-size:13px;">
+                                <thead>
+                                    <tr>
+                                        <td>Geography</td>
+                                        <td class="turnover">Lending Interest Rate</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="container"><tr>
+                                        <td class="name">Lombardia</td>
+                                        <td class="turnover">5.63%</td>
+                                    </tr><tr>
+                                        <td class="name">Italia - Nord-West </td>
+                                        <td class="turnover">5.97%</td>
+                                    </tr><tr>
+                                        <td class="name">Italia</td>
+                                        <td class="turnover">6.84%</td>
+                                    </tr></tbody>
+                            </table>
+
+                             @*
+                        <p class="description">
+                            The revenue your business generates is less than 99% of businesses in your industry
+                            in your city, less than 99% of businesses in your county, less than 99% of businesses
+                            in your state, and less than 99% of businesses in the nation.
+                        </p>
+                        <div class="chart">
+                            <div style="text-align: right;">
+                                <a href="javascript:void(0);" class="mapToggle" data-toggletext="View Variations by Geography">
+                                    Hide Variations by Geography</a>
+                                <a href="javascript:void(0);" class="chartToggle" data-toggletext="View Chart">View
+                                    Data Table</a>
+                            </div>
+                            <div class="container1" style="height: 226px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="570" height="226" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                    <path fill="none" stroke="#969690" d="M45,189L45,186M200,189L200,186M355,189L355,186M510,189L510,186"
+                                        stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke-width: 1px;">
+                                    </path>
+                                    <desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël</desc>
+                                    <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <linearGradient id="r-f0c5959e6c234e03855f14f3e4364ca0" x1="0" y1="1" x2="0" y2="0"
+                                            style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            <stop offset="0%" stop-color="#f6f6f0" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            </stop>
+                                            <stop offset="100%" stop-color="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                            </stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="45" y="1" width="570" height="185" r="0" rx="0" ry="0" fill="url(#r-f0c5959e6c234e03855f14f3e4364ca0)"
+                                        stroke="#e6e6e0" opacity="1" fill-opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                        opacity: 1; fill-opacity: 1;">
+                                    </rect>
+                                    <text x="45" y="201.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="10px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">$0</tspan>
+                                    </text>
+                                    <text x="200" y="201.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="10px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">$977,466</tspan>
+                                    </text>
+                                    <text x="355" y="201.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="10px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">$1,954,933</tspan>
+                                    </text>
+                                    <text x="510" y="201.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="10px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">$2,932,400</tspan>
+                                    </text>
+                                    <text x="280" y="219.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="10px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">average annual revenue per business</tspan>
+                                    </text>
+                                    <a xlink:title="$100,000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <rect x="45" y="24" width="15.857315518127145" height="15" r="0" rx="0" ry="0" fill="#55bb00"
+                                            stroke="#e6e6e0" stroke-width="0.5" fill-opacity="0.75" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                            stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;">
+                                        </rect>
+                                    </a>
+                                    <text x="0" y="31.5" text-anchor="start" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                    </text>
+                                    <text x="65.85731551812714" y="35.5" text-anchor="start" font="10px &quot;Arial&quot;"
+                                        stroke="none" fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start;
+                                        font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px;
+                                        line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">My Business</tspan>
+                                    </text>
+                                    <a xlink:title="$1,139,159" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <rect x="45" y="55" width="180.64003688314202" height="15" r="0" rx="0" ry="0" fill="#00aaff"
+                                            stroke="#e6e6e0" stroke-width="0.5" fill-opacity="0.75" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                            stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;">
+                                        </rect>
+                                    </a>
+                                    <text x="0" y="66.5" text-anchor="start" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowATitle
+                                        </tspan>
+                                    </text>
+                                    <text x="230.64003688314202" y="66.5" text-anchor="start" font="10px &quot;Arial&quot;"
+                                        stroke="none" fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start;
+                                        font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px;
+                                        line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowA</tspan>
+                                    </text>
+                                    <a xlink:title="$2,002,869" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <rect x="45" y="86" width="317.60125674475796" height="15" r="0" rx="0" ry="0" fill="#00aaff"
+                                            stroke="#e6e6e0" stroke-width="0.5" fill-opacity="0.75" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                            stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;">
+                                        </rect>
+                                    </a>
+                                    <text x="0" y="97.5" text-anchor="start" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowBTitle
+                                        </tspan>
+                                    </text>
+                                    <text x="367.60125674475796" y="97.5" text-anchor="start" font="10px &quot;Arial&quot;"
+                                        stroke="none" fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start;
+                                        font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px;
+                                        line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowB</tspan>
+                                    </text>
+                                    <a xlink:title="$1,426,675" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <rect x="45" y="117" width="226.23235616824044" height="15" r="0" rx="0" ry="0" fill="#00aaff"
+                                            stroke="#e6e6e0" stroke-width="0.5" fill-opacity="0.75" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                            stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;">
+                                        </rect>
+                                    </a>
+                                    <text x="0" y="128.5" text-anchor="start" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowCTitle
+                                        </tspan>
+                                    </text>
+                                    <text x="276.23235616824047" y="128.5" text-anchor="start" font="10px &quot;Arial&quot;"
+                                        stroke="none" fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start;
+                                        font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px;
+                                        line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowC</tspan>
+                                    </text>
+                                    <a xlink:title="$947,185" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <rect x="45" y="148" width="150.19811399037258" height="15" r="0" rx="0" ry="0" fill="#00aaff"
+                                            stroke="#e6e6e0" stroke-width="0.5" fill-opacity="0.75" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                            stroke-width: 0.5px; fill-opacity: 0.75; cursor: pointer;">
+                                        </rect>
+                                    </a>
+                                    <text x="0" y="159.5" text-anchor="start" font="10px &quot;Arial&quot;" stroke="none"
+                                        fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-style: normal;
+                                        font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal;
+                                        font-family: 'Trebuchet MS', Arial, sans-serif;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowDTitle
+                                        </tspan>
+                                    </text>
+                                    <text x="200.19811399037258" y="159.5" text-anchor="start" font="10px &quot;Arial&quot;"
+                                        stroke="none" fill="#969690" font-size="12px" font-family="Trebuchet MS, Arial, sans-serif"
+                                        opacity="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start;
+                                        font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px;
+                                        line-height: normal; font-family: 'Trebuchet MS', Arial, sans-serif; opacity: 1;">
+                                        <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">@ViewBag.RowD</tspan>
+                                    </text>
+                                    <a xlink:title="National Median $615,000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                                        <path fill="none" stroke="#ff6600" d="M142.52249043648195,186L142.52249043648195,1"
+                                            stroke-width="4" opacity="0.6" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                            stroke-width: 4px; opacity: 0.6; cursor: pointer;">
+                                        </path>
+                                    </a>
+                                </svg>
+                            </div>
+                        </div>*@
+
+                            @*<img style="width:570px;height:365px;" src="@Url.Content(string.Format("~/Content/images/demo/italy-lending.png"))?@SizeUp.Core.Web.CacheBuster.Buster" alt="">*@
+                        </div>
+                        <div class="reportSidebar reportData" style="width: 26em;">
+                            <div class="section considerations collapsable" style="text-align: left;">
+
+                                <h4 style="margin: 0; padding: 0;">Considerations</h4>
+                                <p>
+                                    Lending rate is the bank rate that usually meets the short- and medium-term financing
+                                    needs of the private sector. This rate is normally differentiated according to creditworthiness
+                                    of borrowers and objectives of financing 
+                                </p>
+
+
+
+                                <div class="question" style="font-size: 13px;">
+                                    <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a
+                                        href="javascript:void(0);" class="established">established business</a>?</span>
+                                </div>
+                                <div class="startup answer collapsed" style="display: none;">
+                                    <h5>You are a startup</h5>
+                                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                                    <p>
+                                        Assess the performance of the average local business in your industry to help gauge
+                                        your
+                         expectations of how much businesses in your local market area make.
+                                    </p>
+                                    <p>
+                                        Use the <a href="/competition/california/los-angeles/los-angeles-city/video-games">competitor
+                                            map</a> to identify who 
+                        your strongest local competitors and potential partners are.
+                                    </p>
+                                </div>
+                                <div class="established answer" style="display: none;">
+                                    <h5>You are an established business</h5>
+                                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                                    <p>
+                                        Comparing your revenue to the industry averages in your surrounding area will tell
+                                        you 
+                        whether you are outperforming your competition.
+                                    </p>
+                                    <p>
+                                        Use the <a href="/competition/california/los-angeles/los-angeles-city/video-games">competitor
+                                            map</a> to see who in
+                         your area might be getting market-share revenue your company could have.  Once you
+                            have identified
+                         your top competitors, think about what is allowing them to succeed, and then consider
+                            about 
+                        how you might be able to outperform them.
+                                    </p>
+                                    <p>
+                                        Is your product or service faster, cheaper or better than the competition?
+                          If the answer is "yes", make sure your competitors' customers know you are better
+                            to give
+                         them a reason to buy from you.  Find the best places to <a href="/advertising/california/los-angeles/los-angeles-city/video-games">
+                             advertise</a>
+                                        or start a targeted <a href="/advertising/california/los-angeles/los-angeles-city/video-games">
+                                            marketing campaign</a>.
+                                    </p>
+                                </div>
+                            </div>
+                            <a style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 11px"
+                                href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggletext="More"
+                                data-toggleclass="collapsed">Less</a>
+                            <div class="section resources collapsable" style="text-align: left;">
+                                <h4>Resources</h4>
+                                <p>
+                                    Apply for a small business loan from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                        Deutsche Bank</a>.
+                                </p>
+
+                                <p>
+                                    Obtain a business line of credit from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                        Deutsche Bank</a>.
+                                </p>
+
+                                <p>
+                                    Apply for a small business real estate loan from <a href="https://www.deutsche-bank.de/pfb/content/gk_produktshop.html#myaccordion_15605" target="_blank">
+                                        Deutsche Bank</a>.
+                                </p>
+                            </div>
+                            <a style="font-family: 'Trebuchet MS', Arial, Verdana, sans-serif; font-size: 11px"
+                                href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggletext="More"
+                                data-toggleclass="collapsed">Less</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+
+
+
+
+    </div>
+</div>

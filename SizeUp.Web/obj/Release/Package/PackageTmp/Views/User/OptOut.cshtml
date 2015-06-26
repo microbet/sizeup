@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>SizeUp - User Profile</title>
+<link href="@Url.Content("~/Content/views/user/optout.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+}
+
+<h1>E-mail Settings</h1>
+ @if(!ViewBag.BadCode){
+     if(ViewBag.OptOut)
+     {
+     <p class="details"><strong>@ViewBag.Email</strong> is not receiving e-mail from SizeUp.</p>
+     }
+     else
+     {
+     <p class="details">You are currently receiving e-mail from SizeUp to <strong>@ViewBag.Email</strong>.</p>
+     }
+}
+<form id="resetForm" action="/user/optout/?key=@Server.UrlEncode(Request["key"])" method="post">
+
+    <ul id="sidebar">
+        @if(ViewBag.BadCode){
+        <li>
+            <p class="info error">You have entered an invalid e-mail address or code.  Please check the link and try again.</p>
+        </li>
+        }      
+    </ul>
+
+     @if(!ViewBag.BadCode){
+    <div id="submitContainer">
+        @if(ViewBag.OptOut){
+        <input type="hidden" name="OptOut" value="false" />
+        <input id="continue" class="button" type="submit" value="Re-enable E-mail" />
+        }
+        else
+        {
+        <input type="hidden" name="OptOut" value="true" />
+        <input id="continue" class="button" type="submit" value="Stop All E-mail" />
+        }
+
+    </div>
+    }
+</form>
+         
+
+@section scripts{
+
+}
+

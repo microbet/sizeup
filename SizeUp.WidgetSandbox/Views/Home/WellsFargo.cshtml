@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #container { display: block; clear: both; float: none; margin: 0 auto; padding: 0; width: 960px; }
+</style>
+
+<div id="container">
+    <span><a href="https://www.sizeup.com" target="_blank">SizeUp</a></span>
+    
+    <!-- Integrated -->
+    <script type="text/javascript" src="http://sizeup.localhost/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=select&showForm=true&theme=highContrast"></script>
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=select&showForm=true"></script>*@
+
+     <!-- Dashboard -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=dashboard&showForm=true"></script>*@
+
+    <!-- Competition -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=competition&showForm=true"></script>*@
+
+    <!-- Advertising -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=advertising&showForm=true"></script>*@
+
+    <!-- Community -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=community&showForm=true"></script>*@
+
+
+
+    <!-- API --> 
+    <!-- Integrated -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=select&industryId=8495&placeId=12095"></script>*@
+
+     <!-- Dashboard -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=dashboard&industryId=8495&placeId=12095"></script>*@
+
+    <!-- Competition -->
+   @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=competition&industryId=8495&placeId=12095"></script>*@
+
+    <!-- Advertising -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=advertising&industryId=8495&placeId=12095"></script>*@
+
+    <!-- Community -->
+    @*<script type="text/javascript" src="https://www.sizeup.com/widget/get?key=831F5442-9F0F-4496-9469-BD8FCB27BF1F&feature=community&industryId=8495&placeId=12095"></script>*@
+
+
+@*    <script src="http://api.sizeup.localhost/js/?callback=loaded&apikey=831F5442-9F0F-4496-9469-BD8FCB27BF1F"></script>
+
+
+    <p id="placeResults"></p>
+    <br />
+    <p id="industryResults"></p>
+
+    <script type="text/javascript">
+        var loaded = function () {
+            sizeup.api.data.findPlace({ term: 'san fran' }, function (data) {
+                var d = '';
+                for (var x = 0; x < data.length; x++) {
+                    d = d + data[x].City.Name + ',' + data[x].State.Abbreviation;
+                    d = d + '<br/>';
+                }
+                document.getElementById('placeResults').innerHTML = d;
+            });
+
+            sizeup.api.data.findIndustry({ term: 'beauty salons' }, function (data) {
+                var d = '';
+                for (var x = 0; x < data.length; x++) {
+                    d = d + data[x].Name + '<br/>';
+                }
+                document.getElementById('industryResults').innerHTML = d;
+            });
+        };
+    </script>*@
+
+</div>
+
+
+

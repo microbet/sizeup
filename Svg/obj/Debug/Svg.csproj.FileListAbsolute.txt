@@ -1,0 +1,5 @@
+C:\Development\sizeup2\Svg\bin\Debug\Svg.dll
+C:\Development\sizeup2\Svg\bin\Debug\Svg.pdb
+C:\Development\sizeup2\Svg\obj\Debug\Svg.csprojResolveAssemblyReference.cache
+C:\Development\sizeup2\Svg\obj\Debug\Svg.dll
+C:\Development\sizeup2\Svg\obj\Debug\Svg.pdb

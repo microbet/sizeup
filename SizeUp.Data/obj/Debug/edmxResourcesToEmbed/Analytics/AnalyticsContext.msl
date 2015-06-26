@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SizeUpDataAnalyticsStoreContainer" CdmEntityContainer="AnalyticsContext">
+    <EntitySetMapping Name="APIRequests">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.APIRequest">
+        <MappingFragment StoreEntitySet="APIRequests">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+          <ScalarProperty Name="OriginIP" ColumnName="OriginIP" />
+          <ScalarProperty Name="Instance" ColumnName="Instance" />
+          <ScalarProperty Name="OriginUrl" ColumnName="OriginUrl" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Second" ColumnName="Second" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exceptions">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.Exception">
+        <MappingFragment StoreEntitySet="Exceptions">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="InnerExceptionText" ColumnName="InnerExceptionText" />
+          <ScalarProperty Name="ExceptionText" ColumnName="ExceptionText" />
+          <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LongRequests">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.LongRequest">
+        <MappingFragment StoreEntitySet="LongRequests">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+          <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRegistrations">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.UserRegistration">
+        <MappingFragment StoreEntitySet="UserRegistration">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ReturnUrl" ColumnName="ReturnUrl" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PageViews">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.PageView">
+        <MappingFragment StoreEntitySet="PageViews">
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="OriginIP" ColumnName="OriginIP" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Second" ColumnName="Second" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessAttributes">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.BusinessAttribute">
+        <MappingFragment StoreEntitySet="BusinessAttributes">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+          <ScalarProperty Name="BusinessSize" ColumnName="BusinessSize" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="WorkersComp" ColumnName="WorkersComp" />
+          <ScalarProperty Name="HealthcareCost" ColumnName="HealthcareCost" />
+          <ScalarProperty Name="Employees" ColumnName="Employees" />
+          <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+          <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
+          <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompetitorAttributes">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.CompetitorAttribute">
+        <MappingFragment StoreEntitySet="CompetitorAttributes">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+          <ScalarProperty Name="Buyers" ColumnName="Buyers" />
+          <ScalarProperty Name="Suppliers" ColumnName="Suppliers" />
+          <ScalarProperty Name="Competitors" ColumnName="Competitors" />
+          <ScalarProperty Name="RootId" ColumnName="RootId" />
+          <ScalarProperty Name="ComsumerExpenditureId" ColumnName="ComsumerExpenditureId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelatedBuyers">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedBuyer">
+        <MappingFragment StoreEntitySet="RelatedBuyer">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+          <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelatedCompetitors">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedCompetitor">
+        <MappingFragment StoreEntitySet="RelatedCompetitor">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+          <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RelatedSuppliers">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.RelatedSupplier">
+        <MappingFragment StoreEntitySet="RelatedSupplier">
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
+          <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

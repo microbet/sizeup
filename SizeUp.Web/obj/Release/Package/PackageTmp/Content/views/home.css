@@ -1,0 +1,45 @@
+﻿h1,
+h2 {font-size:3.75em; padding:0.75em 0;text-align:center; font-weight:bold;}
+input[type=text] {width: 31.5em; padding: 0.5em; color: #303030;text-align: center;}
+#header {height:12em;}
+
+#wizard { position: relative; left: 14.5em; height: 49em; }
+#selector,
+#form{width:62em; text-align:center; position: absolute;}
+#form label {display:none;}
+
+#form .tagCloud {background-color:#F0F0F0; color:#ddd; padding:0.5em; display:block;}
+#form .tagCloud span.c1{font-size:0.9em;}
+#form .tagCloud span.c2{font-size:1.05em;}
+#form .tagCloud span.c3{font-size:1.25em;}
+#form .tagCloud span.c4{font-size:1.45em;}
+#form .tagCloud span.c5{font-size:1.65em;}
+#form .tagCloud span.c6{font-size:1.85em;}
+
+#form .tagCloud.top { border-top-left-radius:2em;-moz-border-radius-topleft:2em;-webkit-border-top-left-radius: 2em;border-top-right-radius:2em;-moz-border-radius-topright:2em;-webkit-border-top-right-radius: 2em;}
+#form .tagCloud.bottom {margin-bottom:1em; border-bottom-left-radius:2em;-moz-border-radius-bottomleft:2em;-webkit-border-bottom-left-radius: 2em;border-bottom-right-radius:2em;-moz-border-radius-bottomright:2em; -webkit-border-bottom-right-radius: 2em;}
+
+#form .location {font-size:1.6em; font-weight:bold; text-align:center; padding:1.25em;}
+#form .location a,
+#form .location span {font-size:1em;}
+
+#form #continue {margin:0.25em 0 3em 0;}
+
+#form ul.ui-autocomplete { text-align: left; width:100%; }
+
+
+#form p.info {  position: absolute; left: 1em; width: 43.5em; }
+#form p.info#invalidCityMessage { top: 18.5em; }
+#form p.info#noIndustryMatchesMessage { top: 9.5em; }
+#form p.info#noDataMessage {   top :8em; }
+#form p.info#noValuesEntered {   top :18.5em; }
+
+
+#selector ul li{display:inline-block; background-color:#F0F0F0; width: 18em; padding:2em 1em; text-align: center;border-radius:1em;-moz-border-radius:1em;-webkit-border-radius: 1em; }
+#selector ul li img { margin: 0 auto; display: block; }
+#selector ul li .button {font-size: 2.2em; padding: 0.5em 0em; display:block; margin-top:1em;}
+#selector ul li p {font-size:1.2em; margin-top:1em; }
+
+p.info { color: #000; }
+
+

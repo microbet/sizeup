@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SizeUp.Data.UserData" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="UserDataContext" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.UserData.BusinessAttribute" />
+    <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.UserData.CompetitorAttribute" />
+  </EntityContainer>
+  <EntityType Name="BusinessAttribute">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="IndustryId" Type="Int64" Nullable="false" />
+    <Property Name="PlaceId" Type="Int64" Nullable="false" />
+    <Property Name="Revenue" Type="Int64" />
+    <Property Name="YearStarted" Type="Int32" />
+    <Property Name="AverageSalary" Type="Int64" />
+    <Property Name="Employees" Type="Int64" />
+    <Property Name="HealthcareCost" Type="Int64" />
+    <Property Name="WorkersComp" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="BusinessType" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="BusinessSize" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="CompetitorAttribute">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Guid" Name="UserId" Nullable="false" />
+    <Property Type="Int64" Name="IndustryId" Nullable="false" />
+    <Property Type="Int64" Name="PlaceId" Nullable="false" />
+    <Property Type="Int64" Name="ComsumerExpenditureId" />
+    <Property Type="Int64" Name="RootId" />
+    <Property Type="String" Name="Competitors" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Suppliers" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Buyers" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

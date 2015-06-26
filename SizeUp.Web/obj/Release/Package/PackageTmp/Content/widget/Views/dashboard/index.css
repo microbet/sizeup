@@ -1,0 +1,37 @@
+﻿#contentWrap { padding: 0 0.5em;}
+
+#dashboard .headerWrapper { padding: 0; }
+#dashboard { padding: 0 1em 10em 0; }
+#dashboard h1 {text-align:left; left:0; top:0; position:relative; margin:0.5em; }
+#dashboard .report {border:none; border-radius:0; width:100%; }
+#dashboard .report .header .hint { left: 7.75em; top: 4.5em; }
+#dashboard .report .header .prompt { width:40px; right:3.25em; padding:5px 10px 6px 35px; font-size:1.5em; text-transform:none; }
+#dashboard .report .header .prompt:before { height:50px; width:20px; position:absolute; right:-20px;top:0px; display:block; background-image: url("/content/images/dashbuttons.png"); background-repeat: no-repeat; content:" "; background-position:-295px 0px; }
+#dashboard .report .header a.button { right: 2.5em; display:none; width:2em; }
+#dashboard .report .header .gauge { right: 4em; }
+#dashboard .report .header .reportToggle { right: 0.25em; }
+
+#dashboard .report .header input[type="text"] { width: 5em; left:16em; }
+#dashboard #summaryView { background: none; border-radius: 0; padding:0; font-size:1.5em;}
+#dashboard .report .body .reportContainer .reportContent { width: 100%; padding:0; }
+#dashboard .report .body .reportContainer .reportSidebar { width: 100%; }
+#dashboard .collapsable:after { width: 100%; }
+
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart .container { width: 100%; }
+#dashboard #costEffectiveness .header .prompt { display: none; }
+
+#dashboard #costEffectiveness.report .header input[type="text"]  {  width:8em; left:14em;  }
+
+
+#dashboard .report.disabled .header p.message {right:2.5em; }
+
+
+
+
+
+
+
+
+
+
+

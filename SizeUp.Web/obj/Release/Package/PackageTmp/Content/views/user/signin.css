@@ -1,0 +1,24 @@
+﻿p.details { color: #999; text-indent: 1em; }
+#form { margin:1em 0 0 5em; width: 45em; border-right:1px solid #DDD; display: inline-block; }
+#form li{ padding: 1em; }
+#form li label{width: 6em;  }
+#form li input{width: 12em;  }
+
+#sidebar { display: inline-block; position: relative; vertical-align: top; width: 40em; left: 1em; }
+#sidebar li { padding:  1em 0; }
+
+#submitContainer { padding: 2em; }
+label[for=persistSignin] {position: relative; top: -0.6em; font-size: 1.3em; left: 14em; }
+input#persistSignin {position: relative; left: 3.5em; top: -0.4em; }
+#signin {position: relative; left: 8em; }
+
+
+
+
+
+
+
+
+
+
+

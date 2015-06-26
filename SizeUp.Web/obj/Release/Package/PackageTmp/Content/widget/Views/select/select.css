@@ -1,0 +1,21 @@
+﻿#contentWrap { overflow-y: auto; }
+#select { text-align: center; position:relative;}
+#select h2 { text-align: left; }
+#form {text-align:center; width:100%; position: absolute; }
+#form ul li { text-align: left; margin:1em 0; }
+#form label { width: 25%; }
+#form p.location,
+#form .autoComplete-container { width: 70%;  }
+#form .autoComplete-container input[type=text] { width: 100%; text-align: center; }
+#form p.location { display: inline-block; }
+#form #continue { margin: 1em 0; }
+#form ul li.ui-menu-item { margin: 0; }
+#form p.info { margin: 1em; }
+
+#selector {  }
+#selector ul { margin: 1em 0; }
+#selector ul li {display:inline-block; background-color:#F0F0F0; width: 28%; height:22em; padding:2em 1em; text-align: center;border-radius:1em; vertical-align:top; }
+#selector ul li img { margin: 0 auto; display: block; }
+#selector ul li .button {padding: 0.5em 1em; }
+#selector ul li p {font-size:1.2em; margin-top:1em; }
+

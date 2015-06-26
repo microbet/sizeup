@@ -1,0 +1,14 @@
+﻿#community h2 {color:#606060; }
+#community .headingWrapper { margin: 1em 0; }
+#community .chartContainer {width:100%; margin:1em 0; height:auto; }
+
+
+#community ul.features li a { display: block; padding: 0.5em; position: relative; text-align: center; width: 12.5em; height:auto; }
+#community ul.features li a p { color: #606060; display: block; font-size: 0.85em; position:relative; width:auto; left:0; height:4.5em; margin: 0.25em 0; }
+#community ul.features li a img { display: block; left: 3.25em; position: relative; }
+
+#community ul.features li a .button {position:relative; top:0; left:0; }
+
+
+#community .mapWrapper { width: inherit; display: block; }
+#community ul.features { margin: 2.5em 0 0 0; padding: 1em 0 0 0; display:block; width:inherit; text-align:center; }

@@ -1,0 +1,131 @@
+﻿<div class="header">
+    <div class="icon"></div>
+    <h2>Local Turnover</h2>
+    <span class="hint">Percentage of workers newly hired</span>
+    <input type="text" class="valueBox"  disabled="disabled" />
+    <div class="gauge "></div>
+    <a href="javascript:void(0)" class="button medium runReport ">Run Report</a>
+    <a href="javascript:void(0)" class="reportToggle"></a>
+</div>
+<div class="body ">
+    <div class="loading">
+        <p class="title">Turnover Report</p>
+        <img src="@Url.Content("~/content/images/Loading.gif")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Loading" />
+        <p class="message">Generating Report</p>
+    </div>
+    <div class="reportContainer">
+        <div class="reportContent noDataError hidden">
+            <p>No data available to display this report</p>
+        </div>
+        <div class="reportContent turnover reportData">
+            <h3>Turnover Rate</h3>
+            <p class="description">
+                <div data-template="turnoverDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Description"]) 
+                </div>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="hires">Hires</td>
+                        <td class="separations">Separations</td>
+                        <td class="turnover">Turnover Rate</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="turnoverTableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="hires">{{hires}}</td>
+                        <td class="separations">{{separations}}</td>
+                        <td class="turnover">{{turnover}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+             @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Source"]) 
+            </div>
+        </div>
+        <div class="reportSidebar turnover reportData">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Considerations"])
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+            <div class="section resources collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.Turnover.Resources"])
+                <p class="notice"><a href="/help/contact">Get listed as a resource</a></p>
+            </div>
+            <a href="javascript:void(0);" class="resourcesToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+
+
+        <div class="reportContent jobChange  reportData">
+            <h3>Net Job Change</h3>
+            <p class="description">
+                <div data-template="jobChangeDescription">
+                @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Description"]) 
+                </div>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="label">Business/Geography</td>
+                        <td class="jobGains">Job Gains</td>
+                        <td class="jobLosses">Job Losses</td>
+                        <td class="netJobChange">Net Job change</td>
+                    </tr>
+                </thead>
+                <tbody class="container">
+                    <tr data-template="jobChangeTableRow">
+                        <td class="name">{{name}}</td>
+                        <td class="jobGains">{{jobGains}}</td>
+                        <td class="jobLosses">{{jobLosses}}</td>
+                        <td class="netJobChange">{{netJobChange}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="links">
+                <li>
+                    <a class="source button inverse" href="javascript:void(0);" data-toggleText="Hide">Source</a>
+                </li>
+            </ul>
+            <div class="sourceContent " data-expandedClass="expanded">
+             @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Source"]) 
+            </div>
+        </div>
+        <div class="reportSidebar jobChange reportData">
+            <div class="section considerations collapsable">
+                @Html.Raw(ViewBag.Strings["Dashboard.JobChange.Considerations"])
+
+
+                <div class="question">
+                    <span>Are you a <a href="javascript:void(0);" class="startup">startup</a> or an <a href="javascript:void(0);" class="established">established business</a>?</span>
+                </div>
+                <div class="startup answer collapsed hidden">
+                    <h5>You are a startup</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>
+                        Be wary of starting a business in an area where the net job change is negative,
+                         especially if you are a local-serving business that depends for the bulk of
+                         your income on consumers or businesses within your area.
+                    </p>
+                </div>
+                <div class="established answer collapsed hidden">
+                    <h5>You are an established business</h5>
+                    <a href="javascript:void(0);" class="clearer">[change]</a>
+                    <p>
+                        Check the net job change every quarter to assess the employment health
+                         of your local industry, especially if you are a local-serving business
+                         that depends for the bulk of your income on consumers or businesses within your area.
+                    </p>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="considerationToggle fadeToggle" data-toggleText="More" data-toggleClass="collapsed">Less</a>
+        </div>
+    </div>
+</div>

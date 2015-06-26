@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SizeUpDataUserDataStoreContainer" CdmEntityContainer="UserDataContext">
+    <EntitySetMapping Name="BusinessAttributes">
+      <EntityTypeMapping TypeName="SizeUp.Data.UserData.BusinessAttribute">
+        <MappingFragment StoreEntitySet="BusinessAttribute">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="Revenue" ColumnName="Revenue" />
+          <ScalarProperty Name="YearStarted" ColumnName="YearStarted" />
+          <ScalarProperty Name="AverageSalary" ColumnName="AverageSalary" />
+          <ScalarProperty Name="Employees" ColumnName="Employees" />
+          <ScalarProperty Name="HealthcareCost" ColumnName="HealthcareCost" />
+          <ScalarProperty Name="WorkersComp" ColumnName="WorkersComp" />
+          <ScalarProperty Name="BusinessType" ColumnName="BusinessType" />
+          <ScalarProperty Name="BusinessSize" ColumnName="BusinessSize" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompetitorAttributes">
+      <EntityTypeMapping TypeName="SizeUp.Data.UserData.CompetitorAttribute">
+        <MappingFragment StoreEntitySet="CompetitorAttribute">
+          <ScalarProperty Name="Buyers" ColumnName="Buyers" />
+          <ScalarProperty Name="Suppliers" ColumnName="Suppliers" />
+          <ScalarProperty Name="Competitors" ColumnName="Competitors" />
+          <ScalarProperty Name="RootId" ColumnName="RootId" />
+          <ScalarProperty Name="ComsumerExpenditureId" ColumnName="ComsumerExpenditureId" />
+          <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

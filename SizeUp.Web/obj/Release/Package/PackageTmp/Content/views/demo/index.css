@@ -1,0 +1,64 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+
+* { margin: 0px; padding: 0px; }
+
+body { font-family: Arial, Helvetica, sans-serif; margin: 0px; background: url(../../images/demo/background_verlauf.gif) #E9EFF3 repeat-x left top; font-family: Arial, Helvetica, sans-serif; color: #666; }
+
+#container { width: 994px; margin: 0px auto; height: 100%; }
+
+/* *** HEADER AREA *** */
+#headerArea { margin: 0px; position: relative; float: left; background: #FFFFFF; z-index: 2 !important; }
+#topStageArea, #headerImage { width: 994px; display: block; }
+#topStageArea { margin: 0px; padding: 106px 0px 0px 0px; position: relative; }
+#topStageArea #clickLogo { position: absolute !important; top: 18px !important; right: 24px; width: 70px; height: 70px; background-image: url(../../images/demo/logo.gif); }
+
+.headerProjectName { display: block; position: absolute; left: 12px; top: 0px; padding: 18px 10px; z-index: 1; }
+
+/* *** skip links and hidden content *** */
+.skip, .hideme { position: absolute; top: -1000em; left: -1000em; height: 1px; width: 1px; }
+
+/*META NAVIGATION*/
+#metaNavi { position: absolute; top: 16px; margin: 0px 0px 0px 218px; font-size: 11px !important; line-height: 13px !important; }
+#metaNavi a { color: #666; text-decoration: none; }
+#metaNavi a:hover { color: #0098db; }
+
+#footerArea,
+#metaNavi,
+#breadcrumbNavi { font-size: 11px !important; line-height: 13px !important; }
+
+/*META, BREADCRUMB, FOOTER NAVIGATION*/
+#metaNavi ul,
+#breadcrumbNavi ul,
+#footerNavigation ul { display: inline; }
+#metaNavi li,
+#breadcrumbNavi li,
+#footerNavigation li { padding: 0px 7px 0px 9px; background: url(../../images/demo/trennung_ccc.gif) no-repeat left 2px; display: inline; list-style-image: none; }
+#metaNavi li.first,
+#footerNavigation li.first { padding: 0px 7px 0px 0px; background: none; }
+
+/* invisible link descriptions for screen reader */
+.nvsbl { position: absolute !important; left: -10000px !important; }
+legend.nvsbl { /* fix for known FF3.5 bug */ font-size: 0px; height: 0px; }
+
+/*SIZEUP CONTENT*/
+
+#sizeUpContent { padding-top: 40px; background: #fff; width: auto; padding-left: 12px; padding-right: 12px; padding-top: 35px; margin: 0px; }
+
+#level1Navi { position: absolute; top: 118px; left: 12px; height: 36px; color: #000000; font-weight: normal; font-size: 13px; width: 970px; background: url(../../images/demo/background_navi.gif) repeat-x; z-index: 9; }
+
+#lv1Search { display: block; float: right; width: 128px; overflow: hidden; padding: 0x !important; margin: 0px !important; height: 36px !important; background: url(../../images/demo/suchfeld.gif) no-repeat left 5px !important; position: relative; }
+
+#loginLinks { float: right; width: 114px; padding: 0px; margin: 0px 8px 0px 0px; height: 36px; line-height: 36px; }
+#loginLinks ul { list-style-type: none !important; list-style-image: none !important; display: block !important; height: 36px; width: 114px; padding: 0px; margin: 0px; visibility: visible!important; }
+#LoginLi { display: block; height: 36px; font-size: 11px; font-weight: normal; color: #a80303; padding: 0px !important; margin: 0px; background: url(../../images/demo/login_feld.gif) no-repeat left top !important; position: static !important; }
+a#loginA { display: block; padding: 0px 6px 0px 6px !important; font-size: 11px; height: 36px; line-height: 36px; color: white; font-weight: normal; margin: 0px; }
+ul.horNav { display: block; margin: 0px; padding: 0px; }
+
+#level1Navi .horNav li { padding: 0px 7px 0px 9px; display: block; float: left; line-height: 36px; background: url(../../images/demo/trennung_navi.gif) no-repeat left 0px; position: relative; }
+
+#level1Navi .horNav li.first { background: none; padding-left: 12px; }
+
+#level1Navi a.active { color: #0098db !important; text-decoration: none; }
+
+#level1Navi .horNav li a { display: block; color: #000000; font-size: 13px !important; line-height: 34px !important; padding: 0 0 2px 0 !important; font-weight: normal; }

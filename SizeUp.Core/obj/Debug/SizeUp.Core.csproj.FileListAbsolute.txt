@@ -1,0 +1,13 @@
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\SizeUp.Core.dll
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\SizeUp.Core.pdb
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\Antlr4.StringTemplate.dll
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\CookComputing.XmlRpcV2.dll
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\EntityFramework.dll
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\PerceptiveMCAPI.dll
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\SizeUp.Data.dll
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\SizeUp.Data.pdb
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\Antlr4.StringTemplate.pdb
+C:\Development\sizeup2\SizeUp.Core\bin\Debug\EntityFramework.xml
+C:\Development\sizeup2\SizeUp.Core\obj\Debug\SizeUp.Core.csprojResolveAssemblyReference.cache
+C:\Development\sizeup2\SizeUp.Core\obj\Debug\SizeUp.Core.dll
+C:\Development\sizeup2\SizeUp.Core\obj\Debug\SizeUp.Core.pdb

@@ -1,0 +1,152 @@
+﻿#contentWrap { padding: 0 0 2em; }
+#content { margin-bottom: 3em; }
+
+#dashboard { position: relative; text-align: center; }
+#dashboard h1 {font-size: 1.85em; font-weight:normal;}
+#dashboard h3 { color:#6EAB24; font-size: 1.7em; }
+#dashboard h4 { font-size: 1.7em; font-weight: normal; }
+#dashboard h5 { font-size: 1.3em; font-weight: bold; padding: 0 0 0 1em; }
+
+#dashboard .headerWrapper { text-align: left; margin:1em 0 2em 1em; padding:1em; }
+
+#dashboard .report {width:94em; background-color: #ccc; padding: 1em; position: relative; top: -2px; left: -2px; text-align: left; background-color:#fff; border-top:solid 2px #d7d7ce;border-left:solid 2px #d7d7ce;border-right:solid 2px #d7d7ce; -webkit-border-top-right-radius: 2em;-webkit-border-top-left-radius: 2em;-moz-border-radius-topright: 2em;-moz-border-radius-topleft: 2em;border-top-right-radius: 2em;border-top-left-radius: 2em;	}
+
+#dashboard .report .header .icon { width:60px; height:60px; background-image:url(/content/images/dashboardIcons.png);background-repeat:no-repeat; }
+
+#dashboard .report .header h2 { font-size: 2.4em; font-weight: normal;  position: absolute; top: 1em; left: 3.5em;  }
+#dashboard .report .header .hint {font-size:1.1em; position: absolute; top: 5em; left: 8.5em;   }
+#dashboard .report .header textarea,
+#dashboard .report .header input[type="text"] {font-family:  Trebuchet MS,Arial,Sans-Serif;  position: absolute;top: 1em;left: 21em;  font-weight: bold; padding: 0.5em;  width: 8em; text-align: right;}
+#dashboard .report .header .prompt {position: absolute; top: 1.25em;right: 4.75em; background-image: url("/content/images/dashbuttons.png"); background-repeat: no-repeat; color: #FFFFFF; display: block; font-size: 1.1em; font-weight: bold; height: 38px; line-height: 1.2em; padding: 11px 10px 0 35px; text-align: center; text-transform: uppercase; width: 270px; }
+#dashboard .report .header .gauge { position: absolute; top: 1em; right: 28em;  }
+#dashboard .report .header a.button { padding: 0.5em 0.75em; position: absolute; top: 1em; right: 12.5em;  }
+
+#dashboard .report .header .reportToggle { height: 30px; width: 30px; cursor: default; position: absolute; right: 1em; top: 2em; background-image: url("/content/images/dashbuttons.png"); background-position: -318px -28px; background-repeat: no-repeat; }
+#dashboard .report .header .reportToggle.active { cursor :pointer; }
+#dashboard .report .header .reportToggle.open { background-position: -346px -22px; }
+#dashboard .report .header:hover .reportToggle.open.active { background-position: -346px 7px; }
+#dashboard .report .header:hover .reportToggle.active { background-position: -318px 0px; }
+
+
+#dashboard #revenue.report .header .icon {background-position: 0 0; }
+#dashboard #yearStarted.report .header .icon {background-position: 0 -60px; }
+#dashboard #salary.report .header .icon {background-position: 0 -305px; }
+#dashboard #employees.report .header .icon {background-position: 0 -365px; }
+#dashboard #costEffectiveness.report .header .icon {background-position: 0 -120px; }
+#dashboard #revenuePerCapita.report .header .icon {background-position: 0 -180px; }
+#dashboard #turnover.report .header .icon {background-position: 0 -425px; }
+#dashboard #healthcareCost.report .header .icon {background-position: 0 -485px; }
+#dashboard #workersComp.report .header .icon {background-position: 0 -545px; }
+
+#dashboard #costEffectiveness.report .header .prompt { background-image: none; color: #aaa; }
+
+#dashboard #costEffectiveness.report .header input[type="text"],
+#dashboard #revenuePerCapita.report .header input[type="text"],
+#dashboard #turnover.report .header input[type="text"]{ border: none; background-color: transparent; }
+
+
+#dashboard .report.disabled .header { cursor: pointer; }
+#dashboard .report.disabled .header .icon { background-image:url(/content/images/dashboardIcons_disabled.png);}
+#dashboard .report.disabled .header h2 {color:#909090; }
+#dashboard .report.disabled .header p.message { color: #606060; font-size: 1.5em; position: absolute; right: 6em; top: 2em; }
+#dashboard .report.disabled .body .signinPanel.form {margin: 0 0 0 7.5em; }
+
+#dashboard .report.disabled .header .valueBox { height: 4.25em; left: 40em; position: absolute; top: 1.75em; width: 17em; border: 1px solid #CCCCCC; background-color: transparent; }
+
+
+#dashboard .report .body ul.links { margin: 1em 0; text-align: right; }
+#dashboard .report .body ul.links li { display: inline-block; padding: 0 0 0 1em; }
+
+
+#dashboard .report .body ul.links li a.source {text-transform: uppercase; width: 5em; font-size:1em; padding:0 0.5em; border:1px solid #b9b9b9; text-align:center; box-shadow:none;}
+
+
+
+#dashboard .report .body .reportContainer .reportContent { display: inline-block; width: 56em; padding: 1em; margin:  0 0 1em 0; }
+#dashboard .report .body .reportContainer .reportContent.noDataError { font-size: 1.5em; margin: 1em 4em; }
+#dashboard .report .body .reportContainer .reportContent .chart { display:block; text-align:right; margin: 1em 0 0 0; }
+#dashboard .report .body .reportContainer .reportContent .chart a {font-size: 0.9em; font-weight:bold; display: inline-block; margin: 0 0 0 1em; }
+#dashboard .report .body .reportContainer .reportContent .mapWrapper.container {margin:  1em 0 0 0; display: block; }
+#dashboard .report .body .reportContainer .reportContent .mapWrapper.container .map { height: 36em; }
+#dashboard .report .body .reportContainer .reportContent .table { width: 100%; font-size: 1.3em; margin: 1em 0; }
+#dashboard .report .body .reportContainer .reportContent .table thead { font-weight: bold; border-bottom: 2px solid #ccc; color:#aaa; }
+#dashboard .report .body .reportContainer .reportContent .table thead .hint { font-size: 0.85em; }
+#dashboard .report .body .reportContainer .reportContent .description {margin:0 0 0 1em; padding:0.25em 0; }
+
+
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart .container {width:57em; height:37em; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul { text-align: center; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart  ul li{ display:inline-block; margin:0 1em 1em 0;}
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li label { font-size: 1.1em; font-weight: normal; display:inline-block; position:relative; top:-0.3em; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li .labelBox { height:1.2em; width:1.2em; display:inline-block; border: solid 1px #606060; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li input[type=checkbox] { display:inline-block; }
+
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.city .labelBox { background-color: #35B; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.county .labelBox { background-color: #08D; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.metro .labelBox { background-color: #6AC; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.state .labelBox { background-color: #FB1; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.nation .labelBox { background-color: #F60; }
+#dashboard #yearStarted.report .body .reportContainer .reportContent .chart ul li.business .labelBox { background-color: #5b0; }
+
+#dashboard #revenue.report .body .reportContainer .reportContent .table .name ,
+#dashboard #salary.report .body .reportContainer .reportContent .table .name ,
+#dashboard #employees.report .body .reportContainer .reportContent .table .name ,
+#dashboard #costEffectiveness.report .body .reportContainer .reportContent .table .name , 
+#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .name  { width: 90%; padding: 0 0 0 0.5em; }
+
+#dashboard #revenue.report .body .reportContainer .reportContent .table .value,
+#dashboard #salary.report .body .reportContainer .reportContent .table .value,
+#dashboard #employees.report .body .reportContainer .reportContent .table .value,
+#dashboard #costEffectiveness.report .body .reportContainer .reportContent .table .value, 
+#dashboard #revenuePerCapita.report .body .reportContainer .reportContent .table .value { width: 10%; text-align: right; padding: 0 0.5em 0 0; }
+
+
+
+#dashboard #workersComp.report .body .reportContainer .reportContent .table .name { width: 50%; padding: 0 0 0 0.5em; }
+#dashboard #workersComp.report .body .reportContainer .reportContent .table .value { width: 30%; text-align: right; padding: 0 0.5em 0 0;  }
+#dashboard #workersComp.report .body .reportContainer .reportContent .table .rank  { width: 20%; text-align: right; padding: 0 0.5em 0 0;  }
+
+
+#dashboard #turnover.report .body .reportContainer .reportContent .table .name { width: 64%; padding: 0 0 0 0.5em; }
+#dashboard #turnover.report .body .reportContainer .reportContent .table .turnover,
+#dashboard #turnover.report .body .reportContainer .reportContent .table .separations,
+#dashboard #turnover.report .body .reportContainer .reportContent .table .hires,
+#dashboard #turnover.report .body .reportContainer .reportContent .table .jobGains,
+#dashboard #turnover.report .body .reportContainer .reportContent .table .jobLosses,
+#dashboard #turnover.report .body .reportContainer .reportContent .table .netJobChange { width: 12%; text-align: right; padding: 0 0.5em 0 0;  }
+
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .name { width: 60%; padding: 0 0 0 0.5em; }
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .value { width: 20%; padding: 0 0 0 0.5em; text-align: right; }
+#dashboard #healthcareCost.report .body .reportContainer .reportContent .table .rank { width: 20%; padding: 0 0 0 0.5em; text-align: right; }
+
+
+#dashboard .report .body .reportContainer .reportSidebar { display: inline-block; width: 35em; margin:  0 0 1em 0; vertical-align:top; background-color:#F0F0F0; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em; }
+#dashboard .report .body .reportContainer .reportSidebar .section { padding: 1.5em 0.5em; }
+#dashboard .report .body .reportContainer .reportSidebar .section p { padding: 0 1em; margin: 0 0 1em 0; line-height: 1.5em; }
+#dashboard .report .body .reportContainer .reportSidebar .section p.notice { text-align: right; }
+#dashboard .report .body .reportContainer .reportSidebar a[target=_blank] { background: url("/content/images/externalLink.gif") no-repeat right top; padding-right: 0.8em; }
+
+
+
+#dashboard .fadeToggle {display: block; text-align: center; font-size: 1.1em; text-transform: uppercase; color: #aaa; padding: 0 0 1em 0;   }
+#dashboard .fadeToggle:after { content: " "; display:inline-block; width:10px; height:10px; color:transparent; background-position: 0 -29px;  background-repeat: no-repeat; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAoCAYAAADHVmuAAAAAAXNSR0IArs4c6QAAAAZiS0dEAAAAAAAA+UO7fwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIChYOJ8jCqs4AAAEhSURBVDjL7dSha9ZRGMXxj0MsC9ZlDQoDcWFFmU0cm9FiExkcFgQHBhXFJbNBw5EVzQ6mRQWDxW4w+A8opjXBaPkJ2+99FwRt74nPPffcAw/3y39T2zdtz45ma22fwNyB+RZ2214YTDdxD/fh2CjhPN7iPZaxkmT/UGLbpSSfcR0XsZpkv+3S+OnbbW8l+YhFfG+7M1w6ZNzAetvHOI49/EjydFrHeXzAKewlyZ+zg4mS/MQ6XmDTTDPN9M85ND+ezU0xreFr29NHGgdA7eAV3rVdmDC2XcTzgTlbuIvXbU+OE7eHz/+l7WqSXdzBwwmkDMnPBkrcSPLyqI7bOIcVPGp7dVrHzcF0OcknXMKDthPYO4FrSX4NwPqGKzjzV0v4DRX9ZsqfcqjrAAAAAElFTkSuQmCC); }
+#dashboard .collapsed.fadeToggle:after { background-position: 0 0;  }
+
+
+#dashboard .collapsable { overflow: hidden; position: relative; }
+#dashboard .collapsable:after{content: " "; position:absolute;width: 33em; height: 20px; bottom: 0;  background-repeat: repeat-x; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUCAYAAABMDlehAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhMdLGgtp6AAAAAoSURBVAjXY/jw4YM0EwMDAy8TAwMDD5zFjSrGg0UJDxYCQ8fbt2/ZAFgOBr3ma59TAAAAAElFTkSuQmCC); }
+#dashboard .collapsable.collapsed {height: 3em;  }
+
+#dashboard #summaryView { height:1.5em; display: inline-block; position:relative; padding: 0.25em 4em 0.25em 4em; top: 3.5em; opacity: 0.9; background-color: #ddd; border-bottom-right-radius: 1em;border-bottom-left-radius: 1em; }
+
+#dashboard .question { background-color:#FFFFF0; border-radius:1em; border:solid 1px #DDDDDD; text-align:center; padding:1.5em;}
+#dashboard .answer h5 { display:inline-block; }
+#dashboard .answer a.clearer { display:inline-block; font-size:1.1em; padding: 0 0 0 0.5em; }
+#dashboard .answer.collapsed { height: 0em; }
+
+
+
+#dashboard .textAlternative { font-size: 1em; }
+
+
+#dashboard .sourceContent { line-height: 2em; }

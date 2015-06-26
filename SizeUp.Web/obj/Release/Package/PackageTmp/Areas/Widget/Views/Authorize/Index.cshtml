@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Authorizing Your Browser</title>
+</head>
+<body>
+    <p>Authorizing...</p>
+
+<script type="text/javascript">
+    //window.close();
+
+    var host=window.opener;
+    window.focus(); /* solves the iPad3 problem */
+    window.close(); /* the actual closing we want to achieve... */
+    
+    /* makes the focus go back to opener on iPad2, fails silently on iPad3 */
+    //try { host.focus(); } catch() {} 
+
+    host.location.reload();
+</script>
+</body>
+</html>

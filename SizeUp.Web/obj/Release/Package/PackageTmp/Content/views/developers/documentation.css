@@ -1,0 +1,28 @@
+﻿#documentation h1 { margin: 1em 0 0 0; }
+#documentation h2 { margin: 1em 0 0 0; }
+#documentation h3 { margin:1em 0 0 0; font-size:1.5em; font-weight:bold; }
+#documentation pre { margin: 1em 0; }
+#documentation pre.prettyprint {padding:1.5em; }
+#documentation dl {padding:0 0 1em 0; border-bottom:2px dashed #ccc;}
+#documentation dl dt {margin: 1.5em 0 0 0; font-weight:bold; font-size:1.5em; color:#909090; }
+#documentation dl dd {margin: 0.5em 0 0 2em; }
+
+#documentation ul { margin: 0 0 0 1em; }
+#documentation ul li {margin: 0.25em 0; }
+
+#documentation .method { border-bottom: dashed 2px #ccc;padding:0 0 1em 0; }
+#documentation .method p {padding: 1em 0 1em 1em; }
+#documentation .method table.params {margin:1em 0 0 1em; font-size:1.3em; width:69em; }
+#documentation .method table.params a,
+#documentation .method table.params span { font-size: 1em; }
+#documentation .method table.params thead { border-bottom: 2px solid #CCCCCC; color:#909090; font-weight: bold; }
+#documentation .method table.params tbody td { padding: 0.5em 0 0 0; vertical-align:top;  }
+#documentation .method table.params tbody td.param {width:30%; font-weight:bold; }
+#documentation .method table.params tbody td.type {width:20%; }
+#documentation .method table.params tbody td.default {width:20%; }
+#documentation .method table.params tbody td.description {width:30%; }
+
+
+
+
+

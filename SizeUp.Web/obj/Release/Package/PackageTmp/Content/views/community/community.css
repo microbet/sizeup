@@ -1,0 +1,43 @@
+﻿#community { }
+
+#community h1{font-weight:normal; text-align:left;}
+#community h1 span{color:#bbb; font-size:0.8em; padding: 0 0 0 1em; }
+#community h2{font-size:2em; color:#909090; font-weight:normal; }
+#community h3{font-size:1.75em; }
+#community p.description { margin: 0.5em 1em; }
+
+#community .map { width: 100%; height: 34em; margin: 1em 0 0 0; }
+#community .mapLegend {display:block; width: 100%; height: 3em; background: url("/content/images/mapBar.png") repeat-x scroll 0 0 transparent; margin:0 0 1em 0; }
+#community .wrapper { margin: 1em 0; }
+#community .wrapper.bestIndustries { text-align: right; }
+#community .wrapper.bestIndustries h2 {text-align:left; }
+#community .wrapper.bestIndustries p { text-align: left; }
+#community .report { }
+#community .report .col { width: 47%; display:inline-block; vertical-align:top; padding:1em; text-align:left; }
+#community .report .col ul { margin: 0 0 2.5em 0; }
+#community .report .col ul li { margin: 0.5em 0; }
+#community .report .col ul li .label { width: 80%; display:inline-block; }
+#community .report .col ul li .value { width: 20%; display:inline-block; text-align:right;}
+#community .report .col ul li .value.nodata { color: #ccc; }
+
+
+
+#community .bestIndustries .report { text-align: right; }
+#community .bestIndustries .report a { font-size: 1.3em; }
+#community .bestIndustries .report ul { text-align: left; margin:1em 0 0 0;}
+#community .bestIndustries .report ul li { padding:1em; width:47%; display:inline-block; vertical-align:top;  }
+#community .bestIndustries .report ul li a{ font-size:1.5em; display:inline; padding: 0 0.5em 0 0; }
+#community .bestIndustries .report ul li p{ padding: 0.5em 0 0.5em 1em; position:relative; margin: 0 0 0 1em;}
+#community .bestIndustries .report ul li p span.badge { background-color:#ddd; border-radius: 0.5em 0.5em 0.5em 0.5em; display: inline-block; font-weight: bold; padding: 0.25em 0.75em; text-align: center; width: 4em; }
+#community .bestIndustries .report ul li p span.badge:before { background: url("/content/images/medals.png") no-repeat scroll 0 100px transparent; content: " "; display: inline-block; height: 25px; left: -0.75em; position: absolute; top: 0.6em; width: 15px; }
+#community .bestIndustries .report ul li p span.badge.top10:before { background-position: 0 0px; }
+#community .bestIndustries .report ul li p span.badge.top50:before { background-position: 0 -26px; }
+#community .bestIndustries .report ul li p span.badge.top100:before { background-position: 0 -53px; }
+
+
+#community .shareWrapper { display:inline-block; }
+#community .shareWrapper .menu { text-align:left; }
+#community .shareWrapper .menu li {display:inline-block; }
+
+
+

@@ -1,0 +1,2472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SizeUp.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SizeUpDataStoreContainer">
+    <EntitySet Name="Attribute" EntityType="SizeUp.Data.Store.Attribute" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Band" EntityType="SizeUp.Data.Store.Band" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Business" EntityType="SizeUp.Data.Store.Business" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BusinessCity" EntityType="SizeUp.Data.Store.BusinessCity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BusinessData" EntityType="SizeUp.Data.Store.BusinessData" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="City" EntityType="SizeUp.Data.Store.City" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CityCounty" EntityType="SizeUp.Data.Store.CityCounty" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CityType" EntityType="SizeUp.Data.Store.CityType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClientResourceString" EntityType="SizeUp.Data.Store.ClientResourceString" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ConsumerExpenditures" EntityType="SizeUp.Data.Store.ConsumerExpenditures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ConsumerExpenditureVariables" EntityType="SizeUp.Data.Store.ConsumerExpenditureVariables" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="County" EntityType="SizeUp.Data.Store.County" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Demographics" EntityType="SizeUp.Data.Store.Demographics" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Division" EntityType="SizeUp.Data.Store.Division" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GeographicLocation" EntityType="SizeUp.Data.Store.GeographicLocation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GeographicLocationGeographicLocation" EntityType="SizeUp.Data.Store.GeographicLocationGeographicLocation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GeographicLocationRank" EntityType="SizeUp.Data.Store.GeographicLocationRank" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Geography" EntityType="SizeUp.Data.Store.Geography" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GeographyClass" EntityType="SizeUp.Data.Store.GeographyClass" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GeographySource" EntityType="SizeUp.Data.Store.GeographySource" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Granularity" EntityType="SizeUp.Data.Store.Granularity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Industry" EntityType="SizeUp.Data.Store.Industry" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IndustryCity" EntityType="SizeUp.Data.Store.IndustryCity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IndustryData" EntityType="SizeUp.Data.Store.IndustryData" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IndustryDataBand" EntityType="SizeUp.Data.Store.IndustryDataBand" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IndustryKeyword" EntityType="SizeUp.Data.Store.IndustryKeyword" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LegacyBusinessSEOKey" EntityType="SizeUp.Data.Store.LegacyBusinessSEOKey" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LegacyCommunitySEOKey" EntityType="SizeUp.Data.Store.LegacyCommunitySEOKey" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LegacyIndustrySEOKey" EntityType="SizeUp.Data.Store.LegacyIndustrySEOKey" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Metro" EntityType="SizeUp.Data.Store.Metro" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NAICS" EntityType="SizeUp.Data.Store.NAICS" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Nation" EntityType="SizeUp.Data.Store.Nation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Place" EntityType="SizeUp.Data.Store.Place" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PlaceKeyword" EntityType="SizeUp.Data.Store.PlaceKeyword" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Region" EntityType="SizeUp.Data.Store.Region" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ResourceString" EntityType="SizeUp.Data.Store.ResourceString" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SitemapBusiness" EntityType="SizeUp.Data.Store.SitemapBusiness" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SitemapCommunity" EntityType="SizeUp.Data.Store.SitemapCommunity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SitemapCommunityIndustry" EntityType="SizeUp.Data.Store.SitemapCommunityIndustry" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ZipCode" EntityType="SizeUp.Data.Store.ZipCode" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ZipCodeCounty" EntityType="SizeUp.Data.Store.ZipCodeCounty" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ZipCodePlace" EntityType="SizeUp.Data.Store.ZipCodePlace" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Band_Attribute" Association="SizeUp.Data.Store.FK_Band_Attribute">
+      <End Role="Attribute" EntitySet="Attribute" />
+      <End Role="Band" EntitySet="Band" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Business_County" Association="SizeUp.Data.Store.FK_Business_County">
+      <End Role="County" EntitySet="County" />
+      <End Role="Business" EntitySet="Business" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Business_Industry" Association="SizeUp.Data.Store.FK_Business_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="Business" EntitySet="Business" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Business_Metro" Association="SizeUp.Data.Store.FK_Business_Metro">
+      <End Role="Metro" EntitySet="Metro" />
+      <End Role="Business" EntitySet="Business" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Business_State" Association="SizeUp.Data.Store.FK_Business_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="Business" EntitySet="Business" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Business_ZipCode" Association="SizeUp.Data.Store.FK_Business_ZipCode">
+      <End Role="ZipCode" EntitySet="ZipCode" />
+      <End Role="Business" EntitySet="Business" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BusinessCity_Business" Association="SizeUp.Data.Store.FK_BusinessCity_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="BusinessCity" EntitySet="BusinessCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BusinessCity_City" Association="SizeUp.Data.Store.FK_BusinessCity_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="BusinessCity" EntitySet="BusinessCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BusinessData_Business" Association="SizeUp.Data.Store.FK_BusinessData_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="BusinessData" EntitySet="BusinessData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BusinessData_GeographicLocation" Association="SizeUp.Data.Store.FK_BusinessData_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="BusinessData" EntitySet="BusinessData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BusinessData_Industry" Association="SizeUp.Data.Store.FK_BusinessData_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="BusinessData" EntitySet="BusinessData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_CityType" Association="SizeUp.Data.Store.FK_City_CityType">
+      <End Role="CityType" EntitySet="CityType" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_GeographicLocation" Association="SizeUp.Data.Store.FK_City_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_State" Association="SizeUp.Data.Store.FK_City_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CityCounty_City" Association="SizeUp.Data.Store.FK_CityCounty_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="CityCounty" EntitySet="CityCounty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CityCounty_County" Association="SizeUp.Data.Store.FK_CityCounty_County">
+      <End Role="County" EntitySet="County" />
+      <End Role="CityCounty" EntitySet="CityCounty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConsumerExpenditures_GeographicLocation" Association="SizeUp.Data.Store.FK_ConsumerExpenditures_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="ConsumerExpenditures" EntitySet="ConsumerExpenditures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables" Association="SizeUp.Data.Store.FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables">
+      <End Role="ConsumerExpenditureVariables" EntitySet="ConsumerExpenditureVariables" />
+      <End Role="ConsumerExpenditureVariables1" EntitySet="ConsumerExpenditureVariables" />
+    </AssociationSet>
+    <AssociationSet Name="FK_County_GeographicLocation" Association="SizeUp.Data.Store.FK_County_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="County" EntitySet="County" />
+    </AssociationSet>
+    <AssociationSet Name="FK_County_Metro" Association="SizeUp.Data.Store.FK_County_Metro">
+      <End Role="Metro" EntitySet="Metro" />
+      <End Role="County" EntitySet="County" />
+    </AssociationSet>
+    <AssociationSet Name="FK_County_State" Association="SizeUp.Data.Store.FK_County_State">
+      <End Role="State" EntitySet="State" />
+      <End Role="County" EntitySet="County" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Demographics_GeographicLocation" Association="SizeUp.Data.Store.FK_Demographics_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Demographics" EntitySet="Demographics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Division_GeographicLocation" Association="SizeUp.Data.Store.FK_Division_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Division" EntitySet="Division" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Division_Region" Association="SizeUp.Data.Store.FK_Division_Region">
+      <End Role="Region" EntitySet="Region" />
+      <End Role="Division" EntitySet="Division" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeographicLocation_Granularity" Association="SizeUp.Data.Store.FK_GeographicLocation_Granularity">
+      <End Role="Granularity" EntitySet="Granularity" />
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeographicLocationGeographicLocation_GeographicLocation" Association="SizeUp.Data.Store.FK_GeographicLocationGeographicLocation_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="GeographicLocationGeographicLocation" EntitySet="GeographicLocationGeographicLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation" Association="SizeUp.Data.Store.FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="GeographicLocationGeographicLocation" EntitySet="GeographicLocationGeographicLocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeographicLocationRank_GeographicLocation" Association="SizeUp.Data.Store.FK_GeographicLocationRank_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="GeographicLocationRank" EntitySet="GeographicLocationRank" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GeographicLocationRank_Industry" Association="SizeUp.Data.Store.FK_GeographicLocationRank_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="GeographicLocationRank" EntitySet="GeographicLocationRank" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Geography_GeographicLocation" Association="SizeUp.Data.Store.FK_Geography_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Geography" EntitySet="Geography" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Geography_GeographyClass" Association="SizeUp.Data.Store.FK_Geography_GeographyClass">
+      <End Role="GeographyClass" EntitySet="GeographyClass" />
+      <End Role="Geography" EntitySet="Geography" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Geography_GeographySource" Association="SizeUp.Data.Store.FK_Geography_GeographySource">
+      <End Role="GeographySource" EntitySet="GeographySource" />
+      <End Role="Geography" EntitySet="Geography" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Industry_Industry" Association="SizeUp.Data.Store.FK_Industry_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="Industry1" EntitySet="Industry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_industry_NAICS" Association="SizeUp.Data.Store.FK_industry_NAICS">
+      <End Role="NAICS" EntitySet="NAICS" />
+      <End Role="Industry" EntitySet="Industry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryCity_City" Association="SizeUp.Data.Store.FK_IndustryCity_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="IndustryCity" EntitySet="IndustryCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryCity_Industry" Association="SizeUp.Data.Store.FK_IndustryCity_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="IndustryCity" EntitySet="IndustryCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryData_GeographicLocation" Association="SizeUp.Data.Store.FK_IndustryData_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="IndustryData" EntitySet="IndustryData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryData_Industry" Association="SizeUp.Data.Store.FK_IndustryData_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="IndustryData" EntitySet="IndustryData" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryDataBand_Band" Association="SizeUp.Data.Store.FK_IndustryDataBand_Band">
+      <End Role="Band" EntitySet="Band" />
+      <End Role="IndustryDataBand" EntitySet="IndustryDataBand" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryDataBand_IndustryData" Association="SizeUp.Data.Store.FK_IndustryDataBand_IndustryData">
+      <End Role="IndustryData" EntitySet="IndustryData" />
+      <End Role="IndustryDataBand" EntitySet="IndustryDataBand" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IndustryKeyword_Industry" Association="SizeUp.Data.Store.FK_IndustryKeyword_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="IndustryKeyword" EntitySet="IndustryKeyword" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LegacyBusinessSEOKey_Business" Association="SizeUp.Data.Store.FK_LegacyBusinessSEOKey_Business">
+      <End Role="Business" EntitySet="Business" />
+      <End Role="LegacyBusinessSEOKey" EntitySet="LegacyBusinessSEOKey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LegacyCommunitySEOKey_City" Association="SizeUp.Data.Store.FK_LegacyCommunitySEOKey_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="LegacyCommunitySEOKey" EntitySet="LegacyCommunitySEOKey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LegacyIndustrySEOKey_Industry" Association="SizeUp.Data.Store.FK_LegacyIndustrySEOKey_Industry">
+      <End Role="Industry" EntitySet="Industry" />
+      <End Role="LegacyIndustrySEOKey" EntitySet="LegacyIndustrySEOKey" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Metro_GeographicLocation" Association="SizeUp.Data.Store.FK_Metro_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Metro" EntitySet="Metro" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NAICS_NAICS" Association="SizeUp.Data.Store.FK_NAICS_NAICS">
+      <End Role="NAICS" EntitySet="NAICS" />
+      <End Role="NAICS1" EntitySet="NAICS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Nation_GeographicLocation" Association="SizeUp.Data.Store.FK_Nation_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Nation" EntitySet="Nation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Place_City" Association="SizeUp.Data.Store.FK_Place_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Place" EntitySet="Place" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Place_County" Association="SizeUp.Data.Store.FK_Place_County">
+      <End Role="County" EntitySet="County" />
+      <End Role="Place" EntitySet="Place" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Place_GeographicLocation" Association="SizeUp.Data.Store.FK_Place_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Place" EntitySet="Place" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlaceKeyword_Place" Association="SizeUp.Data.Store.FK_PlaceKeyword_Place">
+      <End Role="Place" EntitySet="Place" />
+      <End Role="PlaceKeyword" EntitySet="PlaceKeyword" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Region_GeographicLocation" Association="SizeUp.Data.Store.FK_Region_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="Region" EntitySet="Region" />
+    </AssociationSet>
+    <AssociationSet Name="FK_State_Division" Association="SizeUp.Data.Store.FK_State_Division">
+      <End Role="Division" EntitySet="Division" />
+      <End Role="State" EntitySet="State" />
+    </AssociationSet>
+    <AssociationSet Name="FK_State_GeographicLocation" Association="SizeUp.Data.Store.FK_State_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="State" EntitySet="State" />
+    </AssociationSet>
+    <AssociationSet Name="FK_State_Nation" Association="SizeUp.Data.Store.FK_State_Nation">
+      <End Role="Nation" EntitySet="Nation" />
+      <End Role="State" EntitySet="State" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipCode_GeographicLocation" Association="SizeUp.Data.Store.FK_ZipCode_GeographicLocation">
+      <End Role="GeographicLocation" EntitySet="GeographicLocation" />
+      <End Role="ZipCode" EntitySet="ZipCode" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipCodeCounty_County" Association="SizeUp.Data.Store.FK_ZipCodeCounty_County">
+      <End Role="County" EntitySet="County" />
+      <End Role="ZipCodeCounty" EntitySet="ZipCodeCounty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipCodeCounty_ZipCode" Association="SizeUp.Data.Store.FK_ZipCodeCounty_ZipCode">
+      <End Role="ZipCode" EntitySet="ZipCode" />
+      <End Role="ZipCodeCounty" EntitySet="ZipCodeCounty" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipCodePlace_Place" Association="SizeUp.Data.Store.FK_ZipCodePlace_Place">
+      <End Role="Place" EntitySet="Place" />
+      <End Role="ZipCodePlace" EntitySet="ZipCodePlace" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZipCodePlace_ZipCode" Association="SizeUp.Data.Store.FK_ZipCodePlace_ZipCode">
+      <End Role="ZipCode" EntitySet="ZipCode" />
+      <End Role="ZipCodePlace" EntitySet="ZipCodePlace" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Attribute">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Band">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AttributeId" Type="bigint" Nullable="false" />
+    <Property Name="Min" Type="decimal" Precision="38" Scale="10" />
+    <Property Name="Max" Type="decimal" Precision="38" Scale="10" />
+  </EntityType>
+  <EntityType Name="Business">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" MaxLength="30" />
+    <Property Name="Address" Type="nvarchar" MaxLength="30" />
+    <Property Name="City" Type="nvarchar" MaxLength="16" />
+    <Property Name="ZipPlus4" Type="nvarchar" MaxLength="4" />
+    <Property Name="PrimaryWebURL" Type="nvarchar" MaxLength="40" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="10" />
+    <Property Name="BusinessStatusCode" Type="nvarchar" MaxLength="1" />
+    <Property Name="WorkAtHomeFlag" Type="nvarchar" MaxLength="1" />
+    <Property Name="PublicCompanyIndicator" Type="nvarchar" MaxLength="1" />
+    <Property Name="FirmCode" Type="nvarchar" MaxLength="1" />
+    <Property Name="YearEstablished" Type="int" />
+    <Property Name="YearAppeared" Type="int" />
+    <Property Name="InfoGroupId" Type="bigint" />
+    <Property Name="Lat" Type="decimal" Precision="10" Scale="6" />
+    <Property Name="Long" Type="decimal" Precision="10" Scale="6" />
+    <Property Name="MatchLevel" Type="nvarchar" MaxLength="1" />
+    <Property Name="IndustryId" Type="bigint" />
+    <Property Name="ZipCodeId" Type="bigint" />
+    <Property Name="CountyId" Type="bigint" />
+    <Property Name="MetroId" Type="bigint" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="SEOKey" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="InBusiness" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BusinessCity">
+    <Key>
+      <PropertyRef Name="CityId" />
+      <PropertyRef Name="BusinessId" />
+    </Key>
+    <Property Name="CityId" Type="bigint" Nullable="false" />
+    <Property Name="BusinessId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BusinessData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="BusinessId" Type="bigint" Nullable="false" />
+    <Property Name="Revenue" Type="bigint" />
+    <Property Name="Employees" Type="bigint" />
+    <Property Name="YearStarted" Type="int" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="SEOKey" Type="nvarchar" MaxLength="150" />
+    <Property Name="StateId" Type="bigint" Nullable="false" />
+    <Property Name="CityTypeId" Type="bigint" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CityCounty">
+    <Key>
+      <PropertyRef Name="CityId" />
+      <PropertyRef Name="CountyId" />
+    </Key>
+    <Property Name="CityId" Type="bigint" Nullable="false" />
+    <Property Name="CountyId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CityType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" MaxLength="40" />
+    <Property Name="CensusClassCode" Type="nvarchar" MaxLength="3" />
+    <Property Name="LegalStatisticalAreaDescriptionCode" Type="nvarchar" MaxLength="5" />
+    <Property Name="SourceId" Type="nvarchar" MaxLength="1" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="SEOKey" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="ClientResourceString">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ClientID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DashboardSalary" Type="nvarchar(max)" />
+    <Property Name="DashboardTurnover" Type="nvarchar(max)" />
+    <Property Name="DashboardRevenue" Type="nvarchar(max)" />
+    <Property Name="DashboardWorkersComp" Type="nvarchar(max)" />
+    <Property Name="DashboardAverageEmployees" Type="nvarchar(max)" />
+    <Property Name="DashboardCostEffectiveness" Type="nvarchar(max)" />
+    <Property Name="DashboardHealthcare" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="ConsumerExpenditures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="TCYTOTAL" Type="bigint" />
+    <Property Name="XCYTOTAL" Type="float" />
+    <Property Name="TCYAP" Type="bigint" />
+    <Property Name="TCYCC" Type="bigint" />
+    <Property Name="TCYED" Type="bigint" />
+    <Property Name="TCYEN" Type="bigint" />
+    <Property Name="TCYFB" Type="bigint" />
+    <Property Name="TCYGI" Type="bigint" />
+    <Property Name="TCYHC" Type="bigint" />
+    <Property Name="TCYHF" Type="bigint" />
+    <Property Name="TCYHO" Type="bigint" />
+    <Property Name="TCYMI" Type="bigint" />
+    <Property Name="TCYPC" Type="bigint" />
+    <Property Name="TCYPI" Type="bigint" />
+    <Property Name="TCYRD" Type="bigint" />
+    <Property Name="TCYHH" Type="bigint" />
+    <Property Name="TCYTB" Type="bigint" />
+    <Property Name="TCYTR" Type="bigint" />
+    <Property Name="TCYUT" Type="bigint" />
+    <Property Name="TCYAP7" Type="bigint" />
+    <Property Name="TCYAP2" Type="bigint" />
+    <Property Name="TCYAP6" Type="bigint" />
+    <Property Name="TCYAP4" Type="bigint" />
+    <Property Name="TCYAP5" Type="bigint" />
+    <Property Name="TCYAP1" Type="bigint" />
+    <Property Name="TCYAP3" Type="bigint" />
+    <Property Name="TCYED1" Type="bigint" />
+    <Property Name="TCYED2" Type="bigint" />
+    <Property Name="TCYEN1" Type="bigint" />
+    <Property Name="TCYEN3" Type="bigint" />
+    <Property Name="TCYEN2" Type="bigint" />
+    <Property Name="TCYFB3" Type="bigint" />
+    <Property Name="TCYFB1" Type="bigint" />
+    <Property Name="TCYFB2" Type="bigint" />
+    <Property Name="TCYGI9" Type="bigint" />
+    <Property Name="TCYGI1" Type="bigint" />
+    <Property Name="TCYGI2" Type="bigint" />
+    <Property Name="TCYGI3" Type="bigint" />
+    <Property Name="TCYGI5" Type="bigint" />
+    <Property Name="TCYGI6" Type="bigint" />
+    <Property Name="TCYGI7" Type="bigint" />
+    <Property Name="TCYGI4" Type="bigint" />
+    <Property Name="TCYGI8" Type="bigint" />
+    <Property Name="TCYHC1" Type="bigint" />
+    <Property Name="TCYHC2" Type="bigint" />
+    <Property Name="TCYHC3" Type="bigint" />
+    <Property Name="TCYHF3" Type="bigint" />
+    <Property Name="TCYHF2" Type="bigint" />
+    <Property Name="TCYHF5" Type="bigint" />
+    <Property Name="TCYHF1" Type="bigint" />
+    <Property Name="TCYHF4" Type="bigint" />
+    <Property Name="TCYHO3" Type="bigint" />
+    <Property Name="TCYHO1" Type="bigint" />
+    <Property Name="TCYHO2" Type="bigint" />
+    <Property Name="TCYHO4" Type="bigint" />
+    <Property Name="TCYMI3" Type="bigint" />
+    <Property Name="TCYMI2" Type="bigint" />
+    <Property Name="TCYMI1" Type="bigint" />
+    <Property Name="TCYMI4" Type="bigint" />
+    <Property Name="TCYPC2" Type="bigint" />
+    <Property Name="TCYPC4" Type="bigint" />
+    <Property Name="TCYPC3" Type="bigint" />
+    <Property Name="TCYPC1" Type="bigint" />
+    <Property Name="TCYRD3" Type="bigint" />
+    <Property Name="TCYRD2" Type="bigint" />
+    <Property Name="TCYRD1" Type="bigint" />
+    <Property Name="TCYHH3" Type="bigint" />
+    <Property Name="TCYHH1" Type="bigint" />
+    <Property Name="TCYHH5" Type="bigint" />
+    <Property Name="TCYHH2" Type="bigint" />
+    <Property Name="TCYHH4" Type="bigint" />
+    <Property Name="TCYTB1" Type="bigint" />
+    <Property Name="TCYTB2" Type="bigint" />
+    <Property Name="TCYTR5" Type="bigint" />
+    <Property Name="TCYTR3" Type="bigint" />
+    <Property Name="TCYTR1" Type="bigint" />
+    <Property Name="TCYTR9" Type="bigint" />
+    <Property Name="TCYTR8" Type="bigint" />
+    <Property Name="TCYTR2" Type="bigint" />
+    <Property Name="TCYTR4" Type="bigint" />
+    <Property Name="TCYTR7" Type="bigint" />
+    <Property Name="TCYTR6" Type="bigint" />
+    <Property Name="TCYUT2" Type="bigint" />
+    <Property Name="TCYUT3" Type="bigint" />
+    <Property Name="TCYUT1" Type="bigint" />
+    <Property Name="TCYUT5" Type="bigint" />
+    <Property Name="TCYUT4" Type="bigint" />
+    <Property Name="TCYAP707" Type="bigint" />
+    <Property Name="TCYAP706" Type="bigint" />
+    <Property Name="TCYAP704" Type="bigint" />
+    <Property Name="TCYAP701" Type="bigint" />
+    <Property Name="TCYAP705" Type="bigint" />
+    <Property Name="TCYAP702" Type="bigint" />
+    <Property Name="TCYAP201" Type="bigint" />
+    <Property Name="TCYAP209" Type="bigint" />
+    <Property Name="TCYAP205" Type="bigint" />
+    <Property Name="TCYAP207" Type="bigint" />
+    <Property Name="TCYAP203" Type="bigint" />
+    <Property Name="TCYAP208" Type="bigint" />
+    <Property Name="TCYAP206" Type="bigint" />
+    <Property Name="TCYAP202" Type="bigint" />
+    <Property Name="TCYAP204" Type="bigint" />
+    <Property Name="TCYAP602" Type="bigint" />
+    <Property Name="TCYAP604" Type="bigint" />
+    <Property Name="TCYAP601" Type="bigint" />
+    <Property Name="TCYAP603" Type="bigint" />
+    <Property Name="TCYAP407" Type="bigint" />
+    <Property Name="TCYAP401" Type="bigint" />
+    <Property Name="TCYAP402" Type="bigint" />
+    <Property Name="TCYAP403" Type="bigint" />
+    <Property Name="TCYAP405" Type="bigint" />
+    <Property Name="TCYAP404" Type="bigint" />
+    <Property Name="TCYAP406" Type="bigint" />
+    <Property Name="TCYAP408" Type="bigint" />
+    <Property Name="TCYAP505" Type="bigint" />
+    <Property Name="TCYAP501" Type="bigint" />
+    <Property Name="TCYAP502" Type="bigint" />
+    <Property Name="TCYAP504" Type="bigint" />
+    <Property Name="TCYAP503" Type="bigint" />
+    <Property Name="TCYAP104" Type="bigint" />
+    <Property Name="TCYAP106" Type="bigint" />
+    <Property Name="TCYAP102" Type="bigint" />
+    <Property Name="TCYAP108" Type="bigint" />
+    <Property Name="TCYAP107" Type="bigint" />
+    <Property Name="TCYAP101" Type="bigint" />
+    <Property Name="TCYAP105" Type="bigint" />
+    <Property Name="TCYAP103" Type="bigint" />
+    <Property Name="TCYAP109" Type="bigint" />
+    <Property Name="TCYAP310" Type="bigint" />
+    <Property Name="TCYAP301" Type="bigint" />
+    <Property Name="TCYAP312" Type="bigint" />
+    <Property Name="TCYAP302" Type="bigint" />
+    <Property Name="TCYAP306" Type="bigint" />
+    <Property Name="TCYAP304" Type="bigint" />
+    <Property Name="TCYAP307" Type="bigint" />
+    <Property Name="TCYAP305" Type="bigint" />
+    <Property Name="TCYAP308" Type="bigint" />
+    <Property Name="TCYAP309" Type="bigint" />
+    <Property Name="TCYAP311" Type="bigint" />
+    <Property Name="TCYAP303" Type="bigint" />
+    <Property Name="TCYED101" Type="bigint" />
+    <Property Name="TCYED102" Type="bigint" />
+    <Property Name="TCYED103" Type="bigint" />
+    <Property Name="TCYED201" Type="bigint" />
+    <Property Name="TCYED203" Type="bigint" />
+    <Property Name="TCYED202" Type="bigint" />
+    <Property Name="TCYEN102" Type="bigint" />
+    <Property Name="TCYEN103" Type="bigint" />
+    <Property Name="TCYEN106" Type="bigint" />
+    <Property Name="TCYEN105" Type="bigint" />
+    <Property Name="TCYEN101" Type="bigint" />
+    <Property Name="TCYEN104" Type="bigint" />
+    <Property Name="TCYEN301" Type="bigint" />
+    <Property Name="TCYEN302" Type="bigint" />
+    <Property Name="TCYEN303" Type="bigint" />
+    <Property Name="TCYEN306" Type="bigint" />
+    <Property Name="TCYEN305" Type="bigint" />
+    <Property Name="TCYEN304" Type="bigint" />
+    <Property Name="TCYEN205" Type="bigint" />
+    <Property Name="TCYEN201" Type="bigint" />
+    <Property Name="TCYEN208" Type="bigint" />
+    <Property Name="TCYEN206" Type="bigint" />
+    <Property Name="TCYEN207" Type="bigint" />
+    <Property Name="TCYEN210" Type="bigint" />
+    <Property Name="TCYEN202" Type="bigint" />
+    <Property Name="TCYEN203" Type="bigint" />
+    <Property Name="TCYEN209" Type="bigint" />
+    <Property Name="TCYEN204" Type="bigint" />
+    <Property Name="TCYFB307" Type="bigint" />
+    <Property Name="TCYFB301" Type="bigint" />
+    <Property Name="TCYFB304" Type="bigint" />
+    <Property Name="TCYFB302" Type="bigint" />
+    <Property Name="TCYFB306" Type="bigint" />
+    <Property Name="TCYFB303" Type="bigint" />
+    <Property Name="TCYFB305" Type="bigint" />
+    <Property Name="TCYFB119" Type="bigint" />
+    <Property Name="TCYFB106" Type="bigint" />
+    <Property Name="TCYFB105" Type="bigint" />
+    <Property Name="TCYFB111" Type="bigint" />
+    <Property Name="TCYFB104" Type="bigint" />
+    <Property Name="TCYFB107" Type="bigint" />
+    <Property Name="TCYFB108" Type="bigint" />
+    <Property Name="TCYFB114" Type="bigint" />
+    <Property Name="TCYFB103" Type="bigint" />
+    <Property Name="TCYFB120" Type="bigint" />
+    <Property Name="TCYFB112" Type="bigint" />
+    <Property Name="TCYFB118" Type="bigint" />
+    <Property Name="TCYFB117" Type="bigint" />
+    <Property Name="TCYFB109" Type="bigint" />
+    <Property Name="TCYFB116" Type="bigint" />
+    <Property Name="TCYFB115" Type="bigint" />
+    <Property Name="TCYFB113" Type="bigint" />
+    <Property Name="TCYFB110" Type="bigint" />
+    <Property Name="TCYFB121" Type="bigint" />
+    <Property Name="TCYFB205" Type="bigint" />
+    <Property Name="TCYFB204" Type="bigint" />
+    <Property Name="TCYFB206" Type="bigint" />
+    <Property Name="TCYFB202" Type="bigint" />
+    <Property Name="TCYFB207" Type="bigint" />
+    <Property Name="TCYFB201" Type="bigint" />
+    <Property Name="TCYFB203" Type="bigint" />
+    <Property Name="TCYGI905" Type="bigint" />
+    <Property Name="TCYGI901" Type="bigint" />
+    <Property Name="TCYGI902" Type="bigint" />
+    <Property Name="TCYGI903" Type="bigint" />
+    <Property Name="TCYGI904" Type="bigint" />
+    <Property Name="TCYGI107" Type="bigint" />
+    <Property Name="TCYGI102" Type="bigint" />
+    <Property Name="TCYGI106" Type="bigint" />
+    <Property Name="TCYGI104" Type="bigint" />
+    <Property Name="TCYGI105" Type="bigint" />
+    <Property Name="TCYGI101" Type="bigint" />
+    <Property Name="TCYGI103" Type="bigint" />
+    <Property Name="TCYGI202" Type="bigint" />
+    <Property Name="TCYGI201" Type="bigint" />
+    <Property Name="TCYGI604" Type="bigint" />
+    <Property Name="TCYGI602" Type="bigint" />
+    <Property Name="TCYGI608" Type="bigint" />
+    <Property Name="TCYGI601" Type="bigint" />
+    <Property Name="TCYGI603" Type="bigint" />
+    <Property Name="TCYGI606" Type="bigint" />
+    <Property Name="TCYGI607" Type="bigint" />
+    <Property Name="TCYGI605" Type="bigint" />
+    <Property Name="TCYGI609" Type="bigint" />
+    <Property Name="TCYGI402" Type="bigint" />
+    <Property Name="TCYGI404" Type="bigint" />
+    <Property Name="TCYGI401" Type="bigint" />
+    <Property Name="TCYGI403" Type="bigint" />
+    <Property Name="TCYHC102" Type="bigint" />
+    <Property Name="TCYHC101" Type="bigint" />
+    <Property Name="TCYHC103" Type="bigint" />
+    <Property Name="TCYHC104" Type="bigint" />
+    <Property Name="TCYHC105" Type="bigint" />
+    <Property Name="TCYHC203" Type="bigint" />
+    <Property Name="TCYHC204" Type="bigint" />
+    <Property Name="TCYHC205" Type="bigint" />
+    <Property Name="TCYHC202" Type="bigint" />
+    <Property Name="TCYHC302" Type="bigint" />
+    <Property Name="TCYHC303" Type="bigint" />
+    <Property Name="TCYHC301" Type="bigint" />
+    <Property Name="TCYHF207" Type="bigint" />
+    <Property Name="TCYHF206" Type="bigint" />
+    <Property Name="TCYHF204" Type="bigint" />
+    <Property Name="TCYHF205" Type="bigint" />
+    <Property Name="TCYHF201" Type="bigint" />
+    <Property Name="TCYHF202" Type="bigint" />
+    <Property Name="TCYHF208" Type="bigint" />
+    <Property Name="TCYHF203" Type="bigint" />
+    <Property Name="TCYHF101" Type="bigint" />
+    <Property Name="TCYHF102" Type="bigint" />
+    <Property Name="TCYHF104" Type="bigint" />
+    <Property Name="TCYHF103" Type="bigint" />
+    <Property Name="TCYHF107" Type="bigint" />
+    <Property Name="TCYHF106" Type="bigint" />
+    <Property Name="TCYHF105" Type="bigint" />
+    <Property Name="TCYHF504" Type="bigint" />
+    <Property Name="TCYHF511" Type="bigint" />
+    <Property Name="TCYHF516" Type="bigint" />
+    <Property Name="TCYHF512" Type="bigint" />
+    <Property Name="TCYHF502" Type="bigint" />
+    <Property Name="TCYHF509" Type="bigint" />
+    <Property Name="TCYHF514" Type="bigint" />
+    <Property Name="TCYHF505" Type="bigint" />
+    <Property Name="TCYHF507" Type="bigint" />
+    <Property Name="TCYHF510" Type="bigint" />
+    <Property Name="TCYHF515" Type="bigint" />
+    <Property Name="TCYHF508" Type="bigint" />
+    <Property Name="TCYHF503" Type="bigint" />
+    <Property Name="TCYHF513" Type="bigint" />
+    <Property Name="TCYHF506" Type="bigint" />
+    <Property Name="TCYHF406" Type="bigint" />
+    <Property Name="TCYHF404" Type="bigint" />
+    <Property Name="TCYHF403" Type="bigint" />
+    <Property Name="TCYHF401" Type="bigint" />
+    <Property Name="TCYHF409" Type="bigint" />
+    <Property Name="TCYHF407" Type="bigint" />
+    <Property Name="TCYHF402" Type="bigint" />
+    <Property Name="TCYHF410" Type="bigint" />
+    <Property Name="TCYHF405" Type="bigint" />
+    <Property Name="TCYHF408" Type="bigint" />
+    <Property Name="TCYHO301" Type="bigint" />
+    <Property Name="TCYHO302" Type="bigint" />
+    <Property Name="TCYHO101" Type="bigint" />
+    <Property Name="TCYHO102" Type="bigint" />
+    <Property Name="TCYHO103" Type="bigint" />
+    <Property Name="TCYHO201" Type="bigint" />
+    <Property Name="TCYHO202" Type="bigint" />
+    <Property Name="TCYHO205" Type="bigint" />
+    <Property Name="TCYHO207" Type="bigint" />
+    <Property Name="TCYHO204" Type="bigint" />
+    <Property Name="TCYHO206" Type="bigint" />
+    <Property Name="TCYHO203" Type="bigint" />
+    <Property Name="TCYHO402" Type="bigint" />
+    <Property Name="TCYHO401" Type="bigint" />
+    <Property Name="TCYHO403" Type="bigint" />
+    <Property Name="TCYPC101" Type="bigint" />
+    <Property Name="TCYPC102" Type="bigint" />
+    <Property Name="TCYPC103" Type="bigint" />
+    <Property Name="TCYPC403" Type="bigint" />
+    <Property Name="TCYPC404" Type="bigint" />
+    <Property Name="TCYPC401" Type="bigint" />
+    <Property Name="TCYPC402" Type="bigint" />
+    <Property Name="TCYPC301" Type="bigint" />
+    <Property Name="TCYPC302" Type="bigint" />
+    <Property Name="TCYHH503" Type="bigint" />
+    <Property Name="TCYHH502" Type="bigint" />
+    <Property Name="TCYHH501" Type="bigint" />
+    <Property Name="TCYHH302" Type="bigint" />
+    <Property Name="TCYHH301" Type="bigint" />
+    <Property Name="TCYHH303" Type="bigint" />
+    <Property Name="TCYHH304" Type="bigint" />
+    <Property Name="TCYHH306" Type="bigint" />
+    <Property Name="TCYHH402" Type="bigint" />
+    <Property Name="TCYHH401" Type="bigint" />
+    <Property Name="TCYHH403" Type="bigint" />
+    <Property Name="TCYHH305" Type="bigint" />
+    <Property Name="TCYHH101" Type="bigint" />
+    <Property Name="TCYHH102" Type="bigint" />
+    <Property Name="TCYHH201" Type="bigint" />
+    <Property Name="TCYHH202" Type="bigint" />
+    <Property Name="TCYTR502" Type="bigint" />
+    <Property Name="TCYTR501" Type="bigint" />
+    <Property Name="TCYTR503" Type="bigint" />
+    <Property Name="TCYTR101" Type="bigint" />
+    <Property Name="TCYTR102" Type="bigint" />
+    <Property Name="TCYTR905" Type="bigint" />
+    <Property Name="TCYTR901" Type="bigint" />
+    <Property Name="TCYTR904" Type="bigint" />
+    <Property Name="TCYTR902" Type="bigint" />
+    <Property Name="TCYTR903" Type="bigint" />
+    <Property Name="TCYTR801" Type="bigint" />
+    <Property Name="TCYTR802" Type="bigint" />
+    <Property Name="TCYTR803" Type="bigint" />
+    <Property Name="TCYTR805" Type="bigint" />
+    <Property Name="TCYTR804" Type="bigint" />
+    <Property Name="TCYTR201" Type="bigint" />
+    <Property Name="TCYTR202" Type="bigint" />
+    <Property Name="TCYTR401" Type="bigint" />
+    <Property Name="TCYTR402" Type="bigint" />
+    <Property Name="TCYTR601" Type="bigint" />
+    <Property Name="TCYTR602" Type="bigint" />
+    <Property Name="TCYUT503" Type="bigint" />
+    <Property Name="TCYUT502" Type="bigint" />
+    <Property Name="TCYUT501" Type="bigint" />
+    <Property Name="TCYUT402" Type="bigint" />
+    <Property Name="TCYUT401" Type="bigint" />
+    <Property Name="TCYAP10102" Type="bigint" />
+    <Property Name="TCYAP10101" Type="bigint" />
+    <Property Name="TCYAP10301" Type="bigint" />
+    <Property Name="TCYAP10302" Type="bigint" />
+    <Property Name="TCYAP10303" Type="bigint" />
+    <Property Name="TCYAP10801" Type="bigint" />
+    <Property Name="TCYAP10802" Type="bigint" />
+    <Property Name="TCYAP10902" Type="bigint" />
+    <Property Name="TCYAP10901" Type="bigint" />
+    <Property Name="TCYAP20402" Type="bigint" />
+    <Property Name="TCYAP20401" Type="bigint" />
+    <Property Name="TCYAP20502" Type="bigint" />
+    <Property Name="TCYAP20501" Type="bigint" />
+    <Property Name="TCYAP20801" Type="bigint" />
+    <Property Name="TCYAP20802" Type="bigint" />
+    <Property Name="TCYAP20902" Type="bigint" />
+    <Property Name="TCYAP20901" Type="bigint" />
+    <Property Name="TCYAP30201" Type="bigint" />
+    <Property Name="TCYAP30202" Type="bigint" />
+    <Property Name="TCYAP30702" Type="bigint" />
+    <Property Name="TCYAP30701" Type="bigint" />
+    <Property Name="TCYAP30801" Type="bigint" />
+    <Property Name="TCYAP30803" Type="bigint" />
+    <Property Name="TCYAP30802" Type="bigint" />
+    <Property Name="TCYAP40501" Type="bigint" />
+    <Property Name="TCYAP40502" Type="bigint" />
+    <Property Name="TCYAP40701" Type="bigint" />
+    <Property Name="TCYAP40801" Type="bigint" />
+    <Property Name="TCYAP40802" Type="bigint" />
+    <Property Name="TCYEN30301" Type="bigint" />
+    <Property Name="TCYEN30302" Type="bigint" />
+    <Property Name="TCYEN30303" Type="bigint" />
+    <Property Name="TCYEN30402" Type="bigint" />
+    <Property Name="TCYEN30401" Type="bigint" />
+    <Property Name="TCYEN30501" Type="bigint" />
+    <Property Name="TCYEN30503" Type="bigint" />
+    <Property Name="TCYEN30502" Type="bigint" />
+    <Property Name="TCYEN30601" Type="bigint" />
+    <Property Name="TCYEN30602" Type="bigint" />
+    <Property Name="TCYEN30603" Type="bigint" />
+    <Property Name="TCYFB10301" Type="bigint" />
+    <Property Name="TCYFB10304" Type="bigint" />
+    <Property Name="TCYFB10303" Type="bigint" />
+    <Property Name="TCYFB10302" Type="bigint" />
+    <Property Name="TCYFB10305" Type="bigint" />
+    <Property Name="TCYFB10603" Type="bigint" />
+    <Property Name="TCYFB10604" Type="bigint" />
+    <Property Name="TCYFB10602" Type="bigint" />
+    <Property Name="TCYFB10601" Type="bigint" />
+    <Property Name="TCYFB10605" Type="bigint" />
+    <Property Name="TCYFB10606" Type="bigint" />
+    <Property Name="TCYFB10701" Type="bigint" />
+    <Property Name="TCYFB10702" Type="bigint" />
+    <Property Name="TCYFB10705" Type="bigint" />
+    <Property Name="TCYFB10703" Type="bigint" />
+    <Property Name="TCYFB10704" Type="bigint" />
+    <Property Name="TCYFB10802" Type="bigint" />
+    <Property Name="TCYFB10804" Type="bigint" />
+    <Property Name="TCYFB10801" Type="bigint" />
+    <Property Name="TCYFB10803" Type="bigint" />
+    <Property Name="TCYFB10903" Type="bigint" />
+    <Property Name="TCYFB10905" Type="bigint" />
+    <Property Name="TCYFB10902" Type="bigint" />
+    <Property Name="TCYFB10901" Type="bigint" />
+    <Property Name="TCYFB10904" Type="bigint" />
+    <Property Name="TCYFB10906" Type="bigint" />
+    <Property Name="TCYFB11001" Type="bigint" />
+    <Property Name="TCYFB11003" Type="bigint" />
+    <Property Name="TCYFB11002" Type="bigint" />
+    <Property Name="TCYFB11102" Type="bigint" />
+    <Property Name="TCYFB11101" Type="bigint" />
+    <Property Name="TCYFB11104" Type="bigint" />
+    <Property Name="TCYFB11103" Type="bigint" />
+    <Property Name="TCYFB11203" Type="bigint" />
+    <Property Name="TCYFB11201" Type="bigint" />
+    <Property Name="TCYFB11204" Type="bigint" />
+    <Property Name="TCYFB11202" Type="bigint" />
+    <Property Name="TCYFB11206" Type="bigint" />
+    <Property Name="TCYFB11205" Type="bigint" />
+    <Property Name="TCYFB11502" Type="bigint" />
+    <Property Name="TCYFB11501" Type="bigint" />
+    <Property Name="TCYFB11602" Type="bigint" />
+    <Property Name="TCYFB11604" Type="bigint" />
+    <Property Name="TCYFB11601" Type="bigint" />
+    <Property Name="TCYFB11603" Type="bigint" />
+    <Property Name="TCYFB30101" Type="bigint" />
+    <Property Name="TCYFB30102" Type="bigint" />
+    <Property Name="TCYFB30202" Type="bigint" />
+    <Property Name="TCYFB30201" Type="bigint" />
+    <Property Name="TCYGI90302" Type="bigint" />
+    <Property Name="TCYGI90303" Type="bigint" />
+    <Property Name="TCYGI90301" Type="bigint" />
+    <Property Name="TCYHC20503" Type="bigint" />
+    <Property Name="TCYHC20501" Type="bigint" />
+    <Property Name="TCYHC20504" Type="bigint" />
+    <Property Name="TCYHC20502" Type="bigint" />
+    <Property Name="TCYHH30504" Type="bigint" />
+    <Property Name="TCYHH30507" Type="bigint" />
+    <Property Name="TCYHH30505" Type="bigint" />
+    <Property Name="TCYHH30501" Type="bigint" />
+    <Property Name="TCYHH30502" Type="bigint" />
+    <Property Name="TCYHH30503" Type="bigint" />
+    <Property Name="TCYHH30506" Type="bigint" />
+    <Property Name="TCYTR60216" Type="bigint" />
+    <Property Name="TCYTR60212" Type="bigint" />
+    <Property Name="TCYTR60217" Type="bigint" />
+    <Property Name="TCYTR60203" Type="bigint" />
+    <Property Name="TCYTR60205" Type="bigint" />
+    <Property Name="TCYTR60214" Type="bigint" />
+    <Property Name="TCYTR60207" Type="bigint" />
+    <Property Name="TCYTR60213" Type="bigint" />
+    <Property Name="TCYTR60210" Type="bigint" />
+    <Property Name="TCYTR60215" Type="bigint" />
+    <Property Name="TCYTR60208" Type="bigint" />
+    <Property Name="TCYTR60209" Type="bigint" />
+    <Property Name="TCYTR60202" Type="bigint" />
+    <Property Name="TCYTR60211" Type="bigint" />
+    <Property Name="TCYTR60206" Type="bigint" />
+    <Property Name="TCYTR60201" Type="bigint" />
+    <Property Name="TCYTR60204" Type="bigint" />
+    <Property Name="TCYTR60218" Type="bigint" />
+    <Property Name="XCYAP" Type="float" />
+    <Property Name="XCYCC" Type="float" />
+    <Property Name="XCYED" Type="float" />
+    <Property Name="XCYEN" Type="float" />
+    <Property Name="XCYFB" Type="float" />
+    <Property Name="XCYGI" Type="float" />
+    <Property Name="XCYHC" Type="float" />
+    <Property Name="XCYHF" Type="float" />
+    <Property Name="XCYHO" Type="float" />
+    <Property Name="XCYMI" Type="float" />
+    <Property Name="XCYPC" Type="float" />
+    <Property Name="XCYPI" Type="float" />
+    <Property Name="XCYRD" Type="float" />
+    <Property Name="XCYHH" Type="float" />
+    <Property Name="XCYTB" Type="float" />
+    <Property Name="XCYTR" Type="float" />
+    <Property Name="XCYUT" Type="float" />
+    <Property Name="XCYAP7" Type="float" />
+    <Property Name="XCYAP2" Type="float" />
+    <Property Name="XCYAP6" Type="float" />
+    <Property Name="XCYAP4" Type="float" />
+    <Property Name="XCYAP5" Type="float" />
+    <Property Name="XCYAP1" Type="float" />
+    <Property Name="XCYAP3" Type="float" />
+    <Property Name="XCYED1" Type="float" />
+    <Property Name="XCYED2" Type="float" />
+    <Property Name="XCYEN1" Type="float" />
+    <Property Name="XCYEN3" Type="float" />
+    <Property Name="XCYEN2" Type="float" />
+    <Property Name="XCYFB3" Type="float" />
+    <Property Name="XCYFB1" Type="float" />
+    <Property Name="XCYFB2" Type="float" />
+    <Property Name="XCYGI9" Type="float" />
+    <Property Name="XCYGI1" Type="float" />
+    <Property Name="XCYGI2" Type="float" />
+    <Property Name="XCYGI3" Type="float" />
+    <Property Name="XCYGI5" Type="float" />
+    <Property Name="XCYGI6" Type="float" />
+    <Property Name="XCYGI7" Type="float" />
+    <Property Name="XCYGI4" Type="float" />
+    <Property Name="XCYGI8" Type="float" />
+    <Property Name="XCYHC1" Type="float" />
+    <Property Name="XCYHC2" Type="float" />
+    <Property Name="XCYHC3" Type="float" />
+    <Property Name="XCYHF3" Type="float" />
+    <Property Name="XCYHF2" Type="float" />
+    <Property Name="XCYHF5" Type="float" />
+    <Property Name="XCYHF1" Type="float" />
+    <Property Name="XCYHF4" Type="float" />
+    <Property Name="XCYHO3" Type="float" />
+    <Property Name="XCYHO1" Type="float" />
+    <Property Name="XCYHO2" Type="float" />
+    <Property Name="XCYHO4" Type="float" />
+    <Property Name="XCYMI3" Type="float" />
+    <Property Name="XCYMI2" Type="float" />
+    <Property Name="XCYMI1" Type="float" />
+    <Property Name="XCYMI4" Type="float" />
+    <Property Name="XCYPC2" Type="float" />
+    <Property Name="XCYPC4" Type="float" />
+    <Property Name="XCYPC3" Type="float" />
+    <Property Name="XCYPC1" Type="float" />
+    <Property Name="XCYRD3" Type="float" />
+    <Property Name="XCYRD2" Type="float" />
+    <Property Name="XCYRD1" Type="float" />
+    <Property Name="XCYHH3" Type="float" />
+    <Property Name="XCYHH1" Type="float" />
+    <Property Name="XCYHH5" Type="float" />
+    <Property Name="XCYHH2" Type="float" />
+    <Property Name="XCYHH4" Type="float" />
+    <Property Name="XCYTB1" Type="float" />
+    <Property Name="XCYTB2" Type="float" />
+    <Property Name="XCYTR5" Type="float" />
+    <Property Name="XCYTR3" Type="float" />
+    <Property Name="XCYTR1" Type="float" />
+    <Property Name="XCYTR9" Type="float" />
+    <Property Name="XCYTR8" Type="float" />
+    <Property Name="XCYTR2" Type="float" />
+    <Property Name="XCYTR4" Type="float" />
+    <Property Name="XCYTR7" Type="float" />
+    <Property Name="XCYTR6" Type="float" />
+    <Property Name="XCYUT2" Type="float" />
+    <Property Name="XCYUT3" Type="float" />
+    <Property Name="XCYUT1" Type="float" />
+    <Property Name="XCYUT5" Type="float" />
+    <Property Name="XCYUT4" Type="float" />
+    <Property Name="XCYAP707" Type="float" />
+    <Property Name="XCYAP706" Type="float" />
+    <Property Name="XCYAP704" Type="float" />
+    <Property Name="XCYAP701" Type="float" />
+    <Property Name="XCYAP705" Type="float" />
+    <Property Name="XCYAP702" Type="float" />
+    <Property Name="XCYAP201" Type="float" />
+    <Property Name="XCYAP209" Type="float" />
+    <Property Name="XCYAP205" Type="float" />
+    <Property Name="XCYAP207" Type="float" />
+    <Property Name="XCYAP203" Type="float" />
+    <Property Name="XCYAP208" Type="float" />
+    <Property Name="XCYAP206" Type="float" />
+    <Property Name="XCYAP202" Type="float" />
+    <Property Name="XCYAP204" Type="float" />
+    <Property Name="XCYAP602" Type="float" />
+    <Property Name="XCYAP604" Type="float" />
+    <Property Name="XCYAP601" Type="float" />
+    <Property Name="XCYAP603" Type="float" />
+    <Property Name="XCYAP407" Type="float" />
+    <Property Name="XCYAP401" Type="float" />
+    <Property Name="XCYAP402" Type="float" />
+    <Property Name="XCYAP403" Type="float" />
+    <Property Name="XCYAP405" Type="float" />
+    <Property Name="XCYAP404" Type="float" />
+    <Property Name="XCYAP406" Type="float" />
+    <Property Name="XCYAP408" Type="float" />
+    <Property Name="XCYAP505" Type="float" />
+    <Property Name="XCYAP501" Type="float" />
+    <Property Name="XCYAP502" Type="float" />
+    <Property Name="XCYAP504" Type="float" />
+    <Property Name="XCYAP503" Type="float" />
+    <Property Name="XCYAP104" Type="float" />
+    <Property Name="XCYAP106" Type="float" />
+    <Property Name="XCYAP102" Type="float" />
+    <Property Name="XCYAP108" Type="float" />
+    <Property Name="XCYAP107" Type="float" />
+    <Property Name="XCYAP101" Type="float" />
+    <Property Name="XCYAP105" Type="float" />
+    <Property Name="XCYAP103" Type="float" />
+    <Property Name="XCYAP109" Type="float" />
+    <Property Name="XCYAP310" Type="float" />
+    <Property Name="XCYAP301" Type="float" />
+    <Property Name="XCYAP312" Type="float" />
+    <Property Name="XCYAP302" Type="float" />
+    <Property Name="XCYAP306" Type="float" />
+    <Property Name="XCYAP304" Type="float" />
+    <Property Name="XCYAP307" Type="float" />
+    <Property Name="XCYAP305" Type="float" />
+    <Property Name="XCYAP308" Type="float" />
+    <Property Name="XCYAP309" Type="float" />
+    <Property Name="XCYAP311" Type="float" />
+    <Property Name="XCYAP303" Type="float" />
+    <Property Name="XCYED101" Type="float" />
+    <Property Name="XCYED102" Type="float" />
+    <Property Name="XCYED103" Type="float" />
+    <Property Name="XCYED201" Type="float" />
+    <Property Name="XCYED203" Type="float" />
+    <Property Name="XCYED202" Type="float" />
+    <Property Name="XCYEN102" Type="float" />
+    <Property Name="XCYEN103" Type="float" />
+    <Property Name="XCYEN106" Type="float" />
+    <Property Name="XCYEN105" Type="float" />
+    <Property Name="XCYEN101" Type="float" />
+    <Property Name="XCYEN104" Type="float" />
+    <Property Name="XCYEN301" Type="float" />
+    <Property Name="XCYEN302" Type="float" />
+    <Property Name="XCYEN303" Type="float" />
+    <Property Name="XCYEN306" Type="float" />
+    <Property Name="XCYEN305" Type="float" />
+    <Property Name="XCYEN304" Type="float" />
+    <Property Name="XCYEN205" Type="float" />
+    <Property Name="XCYEN201" Type="float" />
+    <Property Name="XCYEN208" Type="float" />
+    <Property Name="XCYEN206" Type="float" />
+    <Property Name="XCYEN207" Type="float" />
+    <Property Name="XCYEN210" Type="float" />
+    <Property Name="XCYEN202" Type="float" />
+    <Property Name="XCYEN203" Type="float" />
+    <Property Name="XCYEN209" Type="float" />
+    <Property Name="XCYEN204" Type="float" />
+    <Property Name="XCYFB307" Type="float" />
+    <Property Name="XCYFB301" Type="float" />
+    <Property Name="XCYFB304" Type="float" />
+    <Property Name="XCYFB302" Type="float" />
+    <Property Name="XCYFB306" Type="float" />
+    <Property Name="XCYFB303" Type="float" />
+    <Property Name="XCYFB305" Type="float" />
+    <Property Name="XCYFB119" Type="float" />
+    <Property Name="XCYFB106" Type="float" />
+    <Property Name="XCYFB105" Type="float" />
+    <Property Name="XCYFB111" Type="float" />
+    <Property Name="XCYFB104" Type="float" />
+    <Property Name="XCYFB107" Type="float" />
+    <Property Name="XCYFB121" Type="float" />
+    <Property Name="XCYFB117" Type="float" />
+    <Property Name="XCYFB109" Type="float" />
+    <Property Name="XCYFB116" Type="float" />
+    <Property Name="XCYFB115" Type="float" />
+    <Property Name="XCYFB113" Type="float" />
+    <Property Name="XCYFB110" Type="float" />
+    <Property Name="XCYFB108" Type="float" />
+    <Property Name="XCYFB114" Type="float" />
+    <Property Name="XCYFB103" Type="float" />
+    <Property Name="XCYFB120" Type="float" />
+    <Property Name="XCYFB112" Type="float" />
+    <Property Name="XCYFB118" Type="float" />
+    <Property Name="XCYFB205" Type="float" />
+    <Property Name="XCYFB204" Type="float" />
+    <Property Name="XCYFB206" Type="float" />
+    <Property Name="XCYFB202" Type="float" />
+    <Property Name="XCYFB207" Type="float" />
+    <Property Name="XCYFB201" Type="float" />
+    <Property Name="XCYFB203" Type="float" />
+    <Property Name="XCYGI905" Type="float" />
+    <Property Name="XCYGI901" Type="float" />
+    <Property Name="XCYGI902" Type="float" />
+    <Property Name="XCYGI903" Type="float" />
+    <Property Name="XCYGI904" Type="float" />
+    <Property Name="XCYGI107" Type="float" />
+    <Property Name="XCYGI102" Type="float" />
+    <Property Name="XCYGI106" Type="float" />
+    <Property Name="XCYGI104" Type="float" />
+    <Property Name="XCYGI105" Type="float" />
+    <Property Name="XCYGI101" Type="float" />
+    <Property Name="XCYGI103" Type="float" />
+    <Property Name="XCYGI202" Type="float" />
+    <Property Name="XCYGI201" Type="float" />
+    <Property Name="XCYGI604" Type="float" />
+    <Property Name="XCYGI602" Type="float" />
+    <Property Name="XCYGI608" Type="float" />
+    <Property Name="XCYGI601" Type="float" />
+    <Property Name="XCYGI603" Type="float" />
+    <Property Name="XCYGI606" Type="float" />
+    <Property Name="XCYGI607" Type="float" />
+    <Property Name="XCYGI605" Type="float" />
+    <Property Name="XCYGI609" Type="float" />
+    <Property Name="XCYGI402" Type="float" />
+    <Property Name="XCYGI404" Type="float" />
+    <Property Name="XCYGI401" Type="float" />
+    <Property Name="XCYGI403" Type="float" />
+    <Property Name="XCYHC102" Type="float" />
+    <Property Name="XCYHC101" Type="float" />
+    <Property Name="XCYHC103" Type="float" />
+    <Property Name="XCYHC104" Type="float" />
+    <Property Name="XCYHC105" Type="float" />
+    <Property Name="XCYHC203" Type="float" />
+    <Property Name="XCYHC204" Type="float" />
+    <Property Name="XCYHC205" Type="float" />
+    <Property Name="XCYHC202" Type="float" />
+    <Property Name="XCYHC302" Type="float" />
+    <Property Name="XCYHC303" Type="float" />
+    <Property Name="XCYHC301" Type="float" />
+    <Property Name="XCYHF207" Type="float" />
+    <Property Name="XCYHF206" Type="float" />
+    <Property Name="XCYHF204" Type="float" />
+    <Property Name="XCYHF205" Type="float" />
+    <Property Name="XCYHF201" Type="float" />
+    <Property Name="XCYHF202" Type="float" />
+    <Property Name="XCYHF208" Type="float" />
+    <Property Name="XCYHF203" Type="float" />
+    <Property Name="XCYHF504" Type="float" />
+    <Property Name="XCYHF511" Type="float" />
+    <Property Name="XCYHF516" Type="float" />
+    <Property Name="XCYHF512" Type="float" />
+    <Property Name="XCYHF502" Type="float" />
+    <Property Name="XCYHF509" Type="float" />
+    <Property Name="XCYHF503" Type="float" />
+    <Property Name="XCYHF513" Type="float" />
+    <Property Name="XCYHF506" Type="float" />
+    <Property Name="XCYHF514" Type="float" />
+    <Property Name="XCYHF505" Type="float" />
+    <Property Name="XCYHF507" Type="float" />
+    <Property Name="XCYHF510" Type="float" />
+    <Property Name="XCYHF515" Type="float" />
+    <Property Name="XCYHF508" Type="float" />
+    <Property Name="XCYHF101" Type="float" />
+    <Property Name="XCYHF102" Type="float" />
+    <Property Name="XCYHF104" Type="float" />
+    <Property Name="XCYHF103" Type="float" />
+    <Property Name="XCYHF107" Type="float" />
+    <Property Name="XCYHF106" Type="float" />
+    <Property Name="XCYHF105" Type="float" />
+    <Property Name="XCYHF406" Type="float" />
+    <Property Name="XCYHF404" Type="float" />
+    <Property Name="XCYHF403" Type="float" />
+    <Property Name="XCYHF401" Type="float" />
+    <Property Name="XCYHF409" Type="float" />
+    <Property Name="XCYHF407" Type="float" />
+    <Property Name="XCYHF402" Type="float" />
+    <Property Name="XCYHF410" Type="float" />
+    <Property Name="XCYHF405" Type="float" />
+    <Property Name="XCYHF408" Type="float" />
+    <Property Name="XCYHO301" Type="float" />
+    <Property Name="XCYHO302" Type="float" />
+    <Property Name="XCYHO101" Type="float" />
+    <Property Name="XCYHO102" Type="float" />
+    <Property Name="XCYHO103" Type="float" />
+    <Property Name="XCYHO201" Type="float" />
+    <Property Name="XCYHO202" Type="float" />
+    <Property Name="XCYHO205" Type="float" />
+    <Property Name="XCYHO207" Type="float" />
+    <Property Name="XCYHO204" Type="float" />
+    <Property Name="XCYHO206" Type="float" />
+    <Property Name="XCYHO203" Type="float" />
+    <Property Name="XCYHO402" Type="float" />
+    <Property Name="XCYHO401" Type="float" />
+    <Property Name="XCYHO403" Type="float" />
+    <Property Name="XCYPC403" Type="float" />
+    <Property Name="XCYPC404" Type="float" />
+    <Property Name="XCYPC401" Type="float" />
+    <Property Name="XCYPC402" Type="float" />
+    <Property Name="XCYPC301" Type="float" />
+    <Property Name="XCYPC302" Type="float" />
+    <Property Name="XCYPC101" Type="float" />
+    <Property Name="XCYPC102" Type="float" />
+    <Property Name="XCYPC103" Type="float" />
+    <Property Name="XCYHH302" Type="float" />
+    <Property Name="XCYHH301" Type="float" />
+    <Property Name="XCYHH303" Type="float" />
+    <Property Name="XCYHH304" Type="float" />
+    <Property Name="XCYHH306" Type="float" />
+    <Property Name="XCYHH305" Type="float" />
+    <Property Name="XCYHH101" Type="float" />
+    <Property Name="XCYHH102" Type="float" />
+    <Property Name="XCYHH503" Type="float" />
+    <Property Name="XCYHH502" Type="float" />
+    <Property Name="XCYHH501" Type="float" />
+    <Property Name="XCYHH201" Type="float" />
+    <Property Name="XCYHH202" Type="float" />
+    <Property Name="XCYHH402" Type="float" />
+    <Property Name="XCYHH401" Type="float" />
+    <Property Name="XCYHH403" Type="float" />
+    <Property Name="XCYTR502" Type="float" />
+    <Property Name="XCYTR501" Type="float" />
+    <Property Name="XCYTR503" Type="float" />
+    <Property Name="XCYTR101" Type="float" />
+    <Property Name="XCYTR102" Type="float" />
+    <Property Name="XCYTR905" Type="float" />
+    <Property Name="XCYTR901" Type="float" />
+    <Property Name="XCYTR904" Type="float" />
+    <Property Name="XCYTR902" Type="float" />
+    <Property Name="XCYTR903" Type="float" />
+    <Property Name="XCYTR801" Type="float" />
+    <Property Name="XCYTR802" Type="float" />
+    <Property Name="XCYTR803" Type="float" />
+    <Property Name="XCYTR805" Type="float" />
+    <Property Name="XCYTR804" Type="float" />
+    <Property Name="XCYTR201" Type="float" />
+    <Property Name="XCYTR202" Type="float" />
+    <Property Name="XCYTR401" Type="float" />
+    <Property Name="XCYTR402" Type="float" />
+    <Property Name="XCYTR601" Type="float" />
+    <Property Name="XCYTR602" Type="float" />
+    <Property Name="XCYUT503" Type="float" />
+    <Property Name="XCYUT502" Type="float" />
+    <Property Name="XCYUT501" Type="float" />
+    <Property Name="XCYUT402" Type="float" />
+    <Property Name="XCYUT401" Type="float" />
+    <Property Name="XCYAP20901" Type="float" />
+    <Property Name="XCYAP20902" Type="float" />
+    <Property Name="XCYAP20502" Type="float" />
+    <Property Name="XCYAP20501" Type="float" />
+    <Property Name="XCYAP20801" Type="float" />
+    <Property Name="XCYAP20802" Type="float" />
+    <Property Name="XCYAP20402" Type="float" />
+    <Property Name="XCYAP20401" Type="float" />
+    <Property Name="XCYAP40701" Type="float" />
+    <Property Name="XCYAP40501" Type="float" />
+    <Property Name="XCYAP40502" Type="float" />
+    <Property Name="XCYAP40802" Type="float" />
+    <Property Name="XCYAP40801" Type="float" />
+    <Property Name="XCYAP10801" Type="float" />
+    <Property Name="XCYAP10802" Type="float" />
+    <Property Name="XCYAP10102" Type="float" />
+    <Property Name="XCYAP10101" Type="float" />
+    <Property Name="XCYAP10302" Type="float" />
+    <Property Name="XCYAP10303" Type="float" />
+    <Property Name="XCYAP10301" Type="float" />
+    <Property Name="XCYAP10901" Type="float" />
+    <Property Name="XCYAP10902" Type="float" />
+    <Property Name="XCYAP30201" Type="float" />
+    <Property Name="XCYAP30202" Type="float" />
+    <Property Name="XCYAP30701" Type="float" />
+    <Property Name="XCYAP30702" Type="float" />
+    <Property Name="XCYAP30803" Type="float" />
+    <Property Name="XCYAP30801" Type="float" />
+    <Property Name="XCYAP30802" Type="float" />
+    <Property Name="XCYEN30301" Type="float" />
+    <Property Name="XCYEN30302" Type="float" />
+    <Property Name="XCYEN30303" Type="float" />
+    <Property Name="XCYEN30601" Type="float" />
+    <Property Name="XCYEN30602" Type="float" />
+    <Property Name="XCYEN30603" Type="float" />
+    <Property Name="XCYEN30501" Type="float" />
+    <Property Name="XCYEN30503" Type="float" />
+    <Property Name="XCYEN30502" Type="float" />
+    <Property Name="XCYEN30402" Type="float" />
+    <Property Name="XCYEN30401" Type="float" />
+    <Property Name="XCYFB30101" Type="float" />
+    <Property Name="XCYFB30102" Type="float" />
+    <Property Name="XCYFB30202" Type="float" />
+    <Property Name="XCYFB30201" Type="float" />
+    <Property Name="XCYFB10603" Type="float" />
+    <Property Name="XCYFB10604" Type="float" />
+    <Property Name="XCYFB10602" Type="float" />
+    <Property Name="XCYFB10601" Type="float" />
+    <Property Name="XCYFB10605" Type="float" />
+    <Property Name="XCYFB10606" Type="float" />
+    <Property Name="XCYFB11102" Type="float" />
+    <Property Name="XCYFB11101" Type="float" />
+    <Property Name="XCYFB11104" Type="float" />
+    <Property Name="XCYFB11103" Type="float" />
+    <Property Name="XCYFB10701" Type="float" />
+    <Property Name="XCYFB10702" Type="float" />
+    <Property Name="XCYFB10705" Type="float" />
+    <Property Name="XCYFB10703" Type="float" />
+    <Property Name="XCYFB10704" Type="float" />
+    <Property Name="XCYFB10903" Type="float" />
+    <Property Name="XCYFB10905" Type="float" />
+    <Property Name="XCYFB10902" Type="float" />
+    <Property Name="XCYFB10901" Type="float" />
+    <Property Name="XCYFB10904" Type="float" />
+    <Property Name="XCYFB10906" Type="float" />
+    <Property Name="XCYFB11602" Type="float" />
+    <Property Name="XCYFB11604" Type="float" />
+    <Property Name="XCYFB11601" Type="float" />
+    <Property Name="XCYFB11603" Type="float" />
+    <Property Name="XCYFB11502" Type="float" />
+    <Property Name="XCYFB11501" Type="float" />
+    <Property Name="XCYFB11001" Type="float" />
+    <Property Name="XCYFB11003" Type="float" />
+    <Property Name="XCYFB11002" Type="float" />
+    <Property Name="XCYFB10802" Type="float" />
+    <Property Name="XCYFB10804" Type="float" />
+    <Property Name="XCYFB10801" Type="float" />
+    <Property Name="XCYFB10803" Type="float" />
+    <Property Name="XCYFB10301" Type="float" />
+    <Property Name="XCYFB10304" Type="float" />
+    <Property Name="XCYFB10303" Type="float" />
+    <Property Name="XCYFB10302" Type="float" />
+    <Property Name="XCYFB10305" Type="float" />
+    <Property Name="XCYFB11203" Type="float" />
+    <Property Name="XCYFB11201" Type="float" />
+    <Property Name="XCYFB11204" Type="float" />
+    <Property Name="XCYFB11202" Type="float" />
+    <Property Name="XCYFB11206" Type="float" />
+    <Property Name="XCYFB11205" Type="float" />
+    <Property Name="XCYGI90302" Type="float" />
+    <Property Name="XCYGI90303" Type="float" />
+    <Property Name="XCYGI90301" Type="float" />
+    <Property Name="XCYHC20503" Type="float" />
+    <Property Name="XCYHC20501" Type="float" />
+    <Property Name="XCYHC20504" Type="float" />
+    <Property Name="XCYHC20502" Type="float" />
+    <Property Name="XCYHH30504" Type="float" />
+    <Property Name="XCYHH30507" Type="float" />
+    <Property Name="XCYHH30505" Type="float" />
+    <Property Name="XCYHH30501" Type="float" />
+    <Property Name="XCYHH30502" Type="float" />
+    <Property Name="XCYHH30503" Type="float" />
+    <Property Name="XCYHH30506" Type="float" />
+    <Property Name="XCYTR60216" Type="float" />
+    <Property Name="XCYTR60212" Type="float" />
+    <Property Name="XCYTR60217" Type="float" />
+    <Property Name="XCYTR60203" Type="float" />
+    <Property Name="XCYTR60205" Type="float" />
+    <Property Name="XCYTR60214" Type="float" />
+    <Property Name="XCYTR60202" Type="float" />
+    <Property Name="XCYTR60211" Type="float" />
+    <Property Name="XCYTR60206" Type="float" />
+    <Property Name="XCYTR60201" Type="float" />
+    <Property Name="XCYTR60204" Type="float" />
+    <Property Name="XCYTR60218" Type="float" />
+    <Property Name="XCYTR60207" Type="float" />
+    <Property Name="XCYTR60213" Type="float" />
+    <Property Name="XCYTR60210" Type="float" />
+    <Property Name="XCYTR60215" Type="float" />
+    <Property Name="XCYTR60208" Type="float" />
+    <Property Name="XCYTR60209" Type="float" />
+  </EntityType>
+  <EntityType Name="ConsumerExpenditureVariables">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="Variable" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="County">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="StateId" Type="bigint" Nullable="false" />
+    <Property Name="MetroId" Type="bigint" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Demographics">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="AirPortsWithinHalfMile" Type="int" />
+    <Property Name="AirPortsWithin50Miles" Type="int" />
+    <Property Name="TradeSchoolsWithinHalfMile" Type="int" />
+    <Property Name="TradeSchoolsWithin50Miles" Type="int" />
+    <Property Name="CommunityCollegesWithinHalfMile" Type="int" />
+    <Property Name="CommunityCollegesWithin50Miles" Type="int" />
+    <Property Name="UniversitiesWithinHalfMile" Type="int" />
+    <Property Name="UniversitiesWithin50Miles" Type="int" />
+    <Property Name="BachelorsOrHigherPercentage" Type="float" />
+    <Property Name="HighSchoolOrHigherPercentage" Type="float" />
+    <Property Name="WhiteCollarWorkersPercentage" Type="float" />
+    <Property Name="BlueCollarWorkersPercentage" Type="float" />
+    <Property Name="YoungEducatedPercentage" Type="float" />
+    <Property Name="VeryCreativePercentage" Type="float" />
+    <Property Name="CreativePercentage" Type="float" />
+    <Property Name="HomeValue" Type="bigint" />
+    <Property Name="PropertyTax" Type="float" />
+    <Property Name="InternationalTalent" Type="float" />
+    <Property Name="Unemployment" Type="float" />
+    <Property Name="JobGrowth" Type="float" />
+    <Property Name="CommuteTime" Type="float" />
+    <Property Name="TotalPopulation" Type="bigint" />
+    <Property Name="PopulationAge25PlusBachelorsDegree" Type="bigint" />
+    <Property Name="PopulationAge25PlusGraduateDegree" Type="bigint" />
+    <Property Name="PopulationAge25Plus" Type="bigint" />
+    <Property Name="PopulationAge25PlusHighSchoolGrad" Type="bigint" />
+    <Property Name="PopulationAge25PlusCollegeNoDiploma" Type="bigint" />
+    <Property Name="PopulationAge25PlusAssociatesDegree" Type="bigint" />
+    <Property Name="PopulationWhite" Type="bigint" />
+    <Property Name="PopulationBlack" Type="bigint" />
+    <Property Name="PopulationNativeAmerican" Type="bigint" />
+    <Property Name="PopulationAsian" Type="bigint" />
+    <Property Name="PopulationHawaiian" Type="bigint" />
+    <Property Name="PopulationOtherRace" Type="bigint" />
+    <Property Name="PopulationMixedRace" Type="bigint" />
+    <Property Name="PopulationHispanic" Type="bigint" />
+    <Property Name="PopulationNonHispanic" Type="bigint" />
+    <Property Name="MedianHouseholdIncome" Type="bigint" />
+    <Property Name="TotalHouseholdExpenditure" Type="bigint" />
+    <Property Name="AverageHouseholdExpenditure" Type="float" />
+    <Property Name="MuseumsZoos" Type="bigint" />
+    <Property Name="Bars" Type="bigint" />
+    <Property Name="Restaurants" Type="bigint" />
+    <Property Name="WhiteCollarEmployees" Type="bigint" />
+    <Property Name="BlueCollarEmployees" Type="bigint" />
+    <Property Name="TotalEstablishments" Type="bigint" />
+    <Property Name="EstablishmentsEmployees1to4" Type="bigint" />
+    <Property Name="EstablishmentsEmployees5to9" Type="bigint" />
+    <Property Name="EstablishmentsEmployees10to19" Type="bigint" />
+    <Property Name="MedianAge" Type="float" />
+    <Property Name="MedianCommuteTime" Type="float" />
+    <Property Name="AverageCommuteTime" Type="float" />
+    <Property Name="AveragePropertyTax" Type="bigint" />
+    <Property Name="AverageAnnualTemperature" Type="float" />
+    <Property Name="AverageAnnualHighTemperature" Type="float" />
+    <Property Name="AverageAnnualLowTemperature" Type="float" />
+    <Property Name="AnnualRainfall" Type="float" />
+    <Property Name="AnnualSnowfall" Type="float" />
+    <Property Name="LaborForce" Type="bigint" />
+    <Property Name="LaborForceAge16Plus" Type="bigint" />
+    <Property Name="PopulationEmployed" Type="bigint" />
+    <Property Name="PopulationEmployedCurrentYear" Type="bigint" />
+    <Property Name="PersonalIncomeTax" Type="float" />
+    <Property Name="PersonalCapitalGainsTax" Type="float" />
+    <Property Name="CorporateIncomeTax" Type="float" />
+    <Property Name="CorporateCapitalGainsTax" Type="float" />
+    <Property Name="SalesTax" Type="float" />
+  </EntityType>
+  <EntityType Name="Division">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="RegionId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GeographicLocation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="GranularityId" Type="bigint" Nullable="false" />
+    <Property Name="ShortName" Type="nvarchar" MaxLength="128" />
+    <Property Name="LongName" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="GeographicLocationGeographicLocation">
+    <Key>
+      <PropertyRef Name="GeographicLocationId" />
+      <PropertyRef Name="IntersectedGeographicLocationId" />
+    </Key>
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="IntersectedGeographicLocationId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GeographicLocationRank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="TotalRevenue" Type="bigint" />
+    <Property Name="AverageRevenue" Type="bigint" />
+    <Property Name="RevenuePerCapita" Type="bigint" />
+    <Property Name="TotalEmployees" Type="bigint" />
+    <Property Name="AverageEmployees" Type="bigint" />
+    <Property Name="EmployeesPerCapita" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Geography">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Polygon" Type="geography" Nullable="false" />
+    <Property Name="GeographySourceId" Type="bigint" Nullable="false" />
+    <Property Name="GeographyClassId" Type="bigint" Nullable="false" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="North" Type="float" Nullable="false" />
+    <Property Name="South" Type="float" Nullable="false" />
+    <Property Name="East" Type="float" Nullable="false" />
+    <Property Name="West" Type="float" Nullable="false" />
+    <Property Name="CenterLat" Type="float" />
+    <Property Name="CenterLong" Type="float" />
+  </EntityType>
+  <EntityType Name="GeographyClass">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="GeographySource">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Url" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Granularity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Industry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SicCode" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="IndustrySpecificCode" Type="nvarchar" MaxLength="2" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDisabled" Type="bit" Nullable="false" />
+    <Property Name="ParentId" Type="bigint" />
+    <Property Name="NAICSId" Type="bigint" />
+    <Property Name="NAICS2007Id" Type="bigint" />
+  </EntityType>
+  <EntityType Name="IndustryCity">
+    <Key>
+      <PropertyRef Name="CityId" />
+      <PropertyRef Name="IndustryId" />
+    </Key>
+    <Property Name="CityId" Type="bigint" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IndustryData">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="AverageEmployees" Type="bigint" />
+    <Property Name="TotalEmployees" Type="bigint" />
+    <Property Name="EmployeesPerCapita" Type="float" />
+    <Property Name="MedianEmployees" Type="bigint" />
+    <Property Name="TotalRevenue" Type="bigint" />
+    <Property Name="AverageRevenue" Type="bigint" />
+    <Property Name="RevenuePerCapita" Type="bigint" />
+    <Property Name="MedianRevenue" Type="bigint" />
+    <Property Name="AverageAnnualSalary" Type="bigint" />
+    <Property Name="CostEffectiveness" Type="float" />
+    <Property Name="Hires" Type="bigint" />
+    <Property Name="Separations" Type="bigint" />
+    <Property Name="TurnoverRate" Type="float" />
+    <Property Name="JobGains" Type="bigint" />
+    <Property Name="JobLosses" Type="bigint" />
+    <Property Name="NetJobChange" Type="bigint" />
+    <Property Name="Employment" Type="bigint" />
+    <Property Name="WorkersCompRank" Type="int" />
+    <Property Name="WorkersComp" Type="float" />
+    <Property Name="HealthcareByState" Type="bigint" />
+    <Property Name="Healthcare0To9Employees" Type="bigint" />
+    <Property Name="Healthcare10To24Employees" Type="bigint" />
+    <Property Name="Healthcare25To99Employees" Type="bigint" />
+    <Property Name="Healthcare100To999Employees" Type="bigint" />
+    <Property Name="Healthcare1000orMoreEmployees" Type="bigint" />
+    <Property Name="HealthcareByIndustry" Type="bigint" />
+    <Property Name="HealthcareByStateRank" Type="int" />
+    <Property Name="Healthcare0To9EmployeesRank" Type="int" />
+    <Property Name="Healthcare10To24EmployeesRank" Type="int" />
+    <Property Name="Healthcare25To99EmployeesRank" Type="int" />
+    <Property Name="Healthcare100To999EmployeesRank" Type="int" />
+    <Property Name="Healthcare1000orMoreEmployeesRank" Type="int" />
+    <Property Name="HealthcareByIndustryRank" Type="int" />
+    <Property Name="BusinessCount" Type="bigint" />
+  </EntityType>
+  <EntityType Name="IndustryDataBand">
+    <Key>
+      <PropertyRef Name="IndustryDataId" />
+      <PropertyRef Name="BandId" />
+    </Key>
+    <Property Name="IndustryDataId" Type="bigint" Nullable="false" />
+    <Property Name="BandId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IndustryKeyword">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="SortOrder" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LegacyBusinessSEOKey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="businessId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LegacyCommunitySEOKey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="CityId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LegacyIndustrySEOKey">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Metro">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="SEOKey" Type="nvarchar" MaxLength="150" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NAICS">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NAICSCode" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="ParentId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Nation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="SEOKey" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Place">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="CityId" Type="bigint" Nullable="false" />
+    <Property Name="CountyId" Type="bigint" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PlaceKeyword">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Region">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ResourceString">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SitemapBusiness">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="County" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Industry" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="BusinessId" Type="bigint" Nullable="false" />
+    <Property Name="Business" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="SitemapCommunity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="County" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="SitemapCommunityIndustry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="County" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Industry" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="FIPS" Type="nvarchar" Nullable="false" MaxLength="2" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Abbreviation" Type="nvarchar" Nullable="false" MaxLength="2" />
+    <Property Name="SEOKey" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DivisionId" Type="bigint" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="NationId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ZipCode">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Zip" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ZipCodeCounty">
+    <Key>
+      <PropertyRef Name="ZipCodeId" />
+      <PropertyRef Name="CountyId" />
+    </Key>
+    <Property Name="ZipCodeId" Type="bigint" Nullable="false" />
+    <Property Name="CountyId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ZipCodePlace">
+    <Key>
+      <PropertyRef Name="PlaceId" />
+      <PropertyRef Name="ZipCodeId" />
+    </Key>
+    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="ZipCodeId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Band_Attribute">
+    <End Role="Attribute" Type="SizeUp.Data.Store.Attribute" Multiplicity="1" />
+    <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attribute">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Band">
+        <PropertyRef Name="AttributeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Business_County">
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="County">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="CountyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Business_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Business_Metro">
+    <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Metro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="MetroId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Business_State">
+    <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="0..1" />
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Business_ZipCode">
+    <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="0..1" />
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZipCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="ZipCodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BusinessCity_Business">
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+    <End Role="BusinessCity" Type="SizeUp.Data.Store.BusinessCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusinessCity">
+        <PropertyRef Name="BusinessId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BusinessCity_City">
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+    <End Role="BusinessCity" Type="SizeUp.Data.Store.BusinessCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusinessCity">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BusinessData_Business">
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+    <End Role="BusinessData" Type="SizeUp.Data.Store.BusinessData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusinessData">
+        <PropertyRef Name="BusinessId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BusinessData_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="BusinessData" Type="SizeUp.Data.Store.BusinessData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusinessData">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BusinessData_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+    <End Role="BusinessData" Type="SizeUp.Data.Store.BusinessData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BusinessData">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_CityType">
+    <End Role="CityType" Type="SizeUp.Data.Store.CityType" Multiplicity="0..1" />
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CityType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="CityTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_State">
+    <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="1" />
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CityCounty_City">
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+    <End Role="CityCounty" Type="SizeUp.Data.Store.CityCounty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CityCounty">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CityCounty_County">
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="1" />
+    <End Role="CityCounty" Type="SizeUp.Data.Store.CityCounty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="County">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CityCounty">
+        <PropertyRef Name="CountyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConsumerExpenditures_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="ConsumerExpenditures" Type="SizeUp.Data.Store.ConsumerExpenditures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ConsumerExpenditures">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConsumerExpenditureVariables_ConsumerExpenditureVariables">
+    <End Role="ConsumerExpenditureVariables" Type="SizeUp.Data.Store.ConsumerExpenditureVariables" Multiplicity="0..1" />
+    <End Role="ConsumerExpenditureVariables1" Type="SizeUp.Data.Store.ConsumerExpenditureVariables" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConsumerExpenditureVariables">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ConsumerExpenditureVariables1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_County_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="County">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_County_Metro">
+    <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Metro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="County">
+        <PropertyRef Name="MetroId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_County_State">
+    <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="1" />
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="County">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Demographics_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Demographics" Type="SizeUp.Data.Store.Demographics" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Demographics">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Division_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Division" Type="SizeUp.Data.Store.Division" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Division">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Division_Region">
+    <End Role="Region" Type="SizeUp.Data.Store.Region" Multiplicity="1" />
+    <End Role="Division" Type="SizeUp.Data.Store.Division" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Division">
+        <PropertyRef Name="RegionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeographicLocation_Granularity">
+    <End Role="Granularity" Type="SizeUp.Data.Store.Granularity" Multiplicity="1" />
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Granularity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GeographicLocation">
+        <PropertyRef Name="GranularityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeographicLocationGeographicLocation_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="GeographicLocationGeographicLocation" Type="SizeUp.Data.Store.GeographicLocationGeographicLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GeographicLocationGeographicLocation">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeographicLocationGeographicLocation_IntersectedGeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="GeographicLocationGeographicLocation" Type="SizeUp.Data.Store.GeographicLocationGeographicLocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GeographicLocationGeographicLocation">
+        <PropertyRef Name="IntersectedGeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeographicLocationRank_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="GeographicLocationRank" Type="SizeUp.Data.Store.GeographicLocationRank" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GeographicLocationRank">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GeographicLocationRank_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+    <End Role="GeographicLocationRank" Type="SizeUp.Data.Store.GeographicLocationRank" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GeographicLocationRank">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Geography_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Geography" Type="SizeUp.Data.Store.Geography" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Geography">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Geography_GeographyClass">
+    <End Role="GeographyClass" Type="SizeUp.Data.Store.GeographyClass" Multiplicity="1" />
+    <End Role="Geography" Type="SizeUp.Data.Store.Geography" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographyClass">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Geography">
+        <PropertyRef Name="GeographyClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Geography_GeographySource">
+    <End Role="GeographySource" Type="SizeUp.Data.Store.GeographySource" Multiplicity="1" />
+    <End Role="Geography" Type="SizeUp.Data.Store.Geography" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographySource">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Geography">
+        <PropertyRef Name="GeographySourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Industry_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+    <End Role="Industry1" Type="SizeUp.Data.Store.Industry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Industry1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_industry_NAICS">
+    <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAICS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Industry">
+        <PropertyRef Name="NAICSId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryCity_City">
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+    <End Role="IndustryCity" Type="SizeUp.Data.Store.IndustryCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryCity">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryCity_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
+    <End Role="IndustryCity" Type="SizeUp.Data.Store.IndustryCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryCity">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryData_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="IndustryData" Type="SizeUp.Data.Store.IndustryData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryData">
+        <PropertyRef Name="GeographicLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryData_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="0..1" />
+    <End Role="IndustryData" Type="SizeUp.Data.Store.IndustryData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryData">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryDataBand_Band">
+    <End Role="Band" Type="SizeUp.Data.Store.Band" Multiplicity="1" />
+    <End Role="IndustryDataBand" Type="SizeUp.Data.Store.IndustryDataBand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Band">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryDataBand">
+        <PropertyRef Name="BandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryDataBand_IndustryData">
+    <End Role="IndustryData" Type="SizeUp.Data.Store.IndustryData" Multiplicity="1" />
+    <End Role="IndustryDataBand" Type="SizeUp.Data.Store.IndustryDataBand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IndustryData">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryDataBand">
+        <PropertyRef Name="IndustryDataId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IndustryKeyword_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
+    <End Role="IndustryKeyword" Type="SizeUp.Data.Store.IndustryKeyword" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IndustryKeyword">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LegacyBusinessSEOKey_Business">
+    <End Role="Business" Type="SizeUp.Data.Store.Business" Multiplicity="1" />
+    <End Role="LegacyBusinessSEOKey" Type="SizeUp.Data.Store.LegacyBusinessSEOKey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Business">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LegacyBusinessSEOKey">
+        <PropertyRef Name="businessId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LegacyCommunitySEOKey_City">
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+    <End Role="LegacyCommunitySEOKey" Type="SizeUp.Data.Store.LegacyCommunitySEOKey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LegacyCommunitySEOKey">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LegacyIndustrySEOKey_Industry">
+    <End Role="Industry" Type="SizeUp.Data.Store.Industry" Multiplicity="1" />
+    <End Role="LegacyIndustrySEOKey" Type="SizeUp.Data.Store.LegacyIndustrySEOKey" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Industry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LegacyIndustrySEOKey">
+        <PropertyRef Name="IndustryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Metro_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Metro" Type="SizeUp.Data.Store.Metro" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Metro">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NAICS_NAICS">
+    <End Role="NAICS" Type="SizeUp.Data.Store.NAICS" Multiplicity="0..1" />
+    <End Role="NAICS1" Type="SizeUp.Data.Store.NAICS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NAICS">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NAICS1">
+        <PropertyRef Name="ParentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Nation_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Nation" Type="SizeUp.Data.Store.Nation" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Nation">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Place_City">
+    <End Role="City" Type="SizeUp.Data.Store.City" Multiplicity="1" />
+    <End Role="Place" Type="SizeUp.Data.Store.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Place_County">
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="1" />
+    <End Role="Place" Type="SizeUp.Data.Store.Place" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="County">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="CountyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Place_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Place" Type="SizeUp.Data.Store.Place" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Place">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlaceKeyword_Place">
+    <End Role="Place" Type="SizeUp.Data.Store.Place" Multiplicity="1" />
+    <End Role="PlaceKeyword" Type="SizeUp.Data.Store.PlaceKeyword" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlaceKeyword">
+        <PropertyRef Name="PlaceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Region_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="Region" Type="SizeUp.Data.Store.Region" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Region">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_State_Division">
+    <End Role="Division" Type="SizeUp.Data.Store.Division" Multiplicity="0..1" />
+    <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_State_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_State_Nation">
+    <End Role="Nation" Type="SizeUp.Data.Store.Nation" Multiplicity="1" />
+    <End Role="State" Type="SizeUp.Data.Store.State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="NationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipCode_GeographicLocation">
+    <End Role="GeographicLocation" Type="SizeUp.Data.Store.GeographicLocation" Multiplicity="1" />
+    <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GeographicLocation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZipCode">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipCodeCounty_County">
+    <End Role="County" Type="SizeUp.Data.Store.County" Multiplicity="1" />
+    <End Role="ZipCodeCounty" Type="SizeUp.Data.Store.ZipCodeCounty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="County">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZipCodeCounty">
+        <PropertyRef Name="CountyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipCodeCounty_ZipCode">
+    <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="1" />
+    <End Role="ZipCodeCounty" Type="SizeUp.Data.Store.ZipCodeCounty" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZipCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZipCodeCounty">
+        <PropertyRef Name="ZipCodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipCodePlace_Place">
+    <End Role="Place" Type="SizeUp.Data.Store.Place" Multiplicity="1" />
+    <End Role="ZipCodePlace" Type="SizeUp.Data.Store.ZipCodePlace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Place">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZipCodePlace">
+        <PropertyRef Name="PlaceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZipCodePlace_ZipCode">
+    <End Role="ZipCode" Type="SizeUp.Data.Store.ZipCode" Multiplicity="1" />
+    <End Role="ZipCodePlace" Type="SizeUp.Data.Store.ZipCodePlace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ZipCode">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ZipCodePlace">
+        <PropertyRef Name="ZipCodeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

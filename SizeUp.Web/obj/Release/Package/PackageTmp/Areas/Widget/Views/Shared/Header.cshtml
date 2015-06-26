@@ -1,0 +1,60 @@
+﻿@if(!ViewBag.Header.HideMenu){
+<div id="menu">
+<ul>
+@if(!ViewBag.Header.HideNavigation){
+if(ViewBag.CurrentInfo.CurrentPlace.Id != null){
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Dashboard){
+<li class="dashboard"><a aria-selected="true" class="disabled">My Business</a></li>
+}else{
+<li class="dashboard"><a aria-selected="false" href="/widget/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">My Business</a></li>
+}
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition){
+<li class="competition"><a aria-selected="true" class="disabled">Competition</a></li>
+}else{
+<li class="competition"><a aria-selected="false" href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Competition</a></li>
+}
+if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
+<li class="advertising"><a aria-selected="true" class="disabled">Advertising</a></li>
+}else{
+<li class="advertising"><a aria-selected="false" href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Advertising</a></li>
+}
+}
+
+if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Dashboard){
+<li class="startOver"><a href="/widget/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
+}
+else if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Advertising){
+<li class="startOver"><a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
+}
+else if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Competition){
+<li class="startOver"><a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
+}
+else if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Community){
+<li class="startOver"><a href="/widget/community/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
+}
+else{
+<li class="startOver"><a href="/widget/select?wt=@ViewBag.WidgetToken">Home</a></li>
+}  
+}
+
+@if (ViewBag.CustomTools == false)
+{
+    if(SizeUp.Core.Identity.Identity.CurrentUser==null){
+        <li class="signin"><a href="/widget/user/signin/?wt=@ViewBag.WidgetToken&returnurl=@Server.UrlEncode(Request.Url.PathAndQuery)">Sign In</a></li>
+    }else{
+        <li id="userMenu" class="signin">
+            <a href="javascript:void(0);"><span>@SizeUp.Core.Identity.Identity.CurrentUser.DisplayName</span></a>
+            <ul>
+                <li><a href="/widget/user/profile?wt=@ViewBag.WidgetToken">Account Settings</a></li>
+                <li><a href="/widget/user/signout/?returnurl=@Server.UrlEncode("/widget/select" + "?wt=" + @ViewBag.WidgetToken)">Sign Out</a></li>
+            </ul>
+        </li>
+    }    
+    <li class="help"><a href="/widget/help?wt=@ViewBag.WidgetToken" class="help button" title="Help">?</a></li>
+}
+
+</ul>
+</div>
+}
+
+
