@@ -351,12 +351,15 @@ background-clip: padding-box;
 
             <ul class="businessList hidden">
                 <li data-template="businessItem">
-                    <a href="javascript:void(0);" data-id="{{business.Id}}">
-                        <img data-override-src="/pins/business/marker/{{index}}/{{number}}" />
+                    <a href="javascript:void(0);" data-id="{{business.Id}}" style="height:8em">
+                        <img style="margin-bottom:45px" data-override-src="/pins/business/marker/{{index}}/{{number}}" />
                         <dl>
                             <dt class="name">{{business.Name}}</dt>
                             <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
-                        </dl>
+                            <dd class="address"><span class="label">Business Type:</span><span class="value" style="padding-left:5px">{{#business.IsFirm}}Corporation{{/business.IsFirm}}{{^business.IsFirm}}{{#business.IsHomeBased}}Home-based{{/business.IsHomeBased}}{{^business.IsHomeBased}}No data{{/business.IsHomeBased}}{{/business.IsFirm}}</span></dd>
+                            <dd class="address"><span class="label">Ownership:</span><span class="value" style="padding-left:5px">{{#business.IsPublic}}Public{{/business.IsPublic}}{{^business.IsPublic}}Private{{/business.IsPublic}}</span></dd>
+                            <dd class="address"><span class="label">Website:</span>{{#business.Url}}<span style="padding-left:5px">{{business.Url}}</span>{{/business.Url}}{{^business.Url}}<span class="lowlight value">Not provided</span>{{/business.Url}}</dd>
+                            <dd class="address"><span class="label">Years in business:</span>{{#business.YearsInBusiness}}<span class="value" style="padding-left:5px">{{business.YearsInBusiness}}</span>{{/business.YearsInBusiness}}{{^business.YearsInBusiness}}<span class="value">No data</span>{{/business.YearsInBusiness}}</dd></dl>
                     </a>
                 </li>
             </ul>
