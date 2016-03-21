@@ -359,10 +359,10 @@
 
             var startVideo = function () {
 
-                if (player === undefined)
+               if (player === undefined)
                     player = new YT.Player('player', {
-                        width: $('#video').width() + 'px',
-                        height: $('#video').height() + 'px',
+                        width: ($('#video').width() * .75) + 'px',
+                        height: ($('#video').height() * .75) + 'px',
                         videoId: '-iOF1Ly6D7k',
                         events: {
                             'onReady': onPlayerReady,
@@ -380,8 +380,6 @@
                 $('#video-container').hide();
                 stopVideo();
             };
-
-            // }
 
             // 4. The API will call this function when the video player is ready.
             function onPlayerReady(event) {
