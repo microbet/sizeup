@@ -10,6 +10,7 @@
 
     <link href="@Url.Content("~/Content/views/help/contact.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/froogaloop.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 }
 @*@Html.Raw(ViewBag.Content)*@
@@ -192,9 +193,20 @@
         padding: 0px;
     }
 
-    #video-container iframe {
-        width:100% !important;
+    .video-responsive {
+        overflow: visible;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0px;
     }
+
+        .video-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
 </style>
 
 <div class="col-lg-12 wrapper">
@@ -240,103 +252,112 @@
                 <p>Financial institutions face significant challenges when working with small businesses. The successful FI must find solutions to differentiate its small and medium-sized businesses (SMB) value proposition, become more efficient, and serve a diverse array of small business customers. </p>
             </div>
 
-            <div class="nopadding">
-                <div id="video" class="nopadding">
+
+            <div class="col-md-12 nopadding">
+                <div id="video">
                     <img class="img-responsive" src="/Content/images/SizeUp-FI-video.png" style="padding: 0px;" alt="Bubbles" />
                 </div>
+
+
                 <div id="video-container" style="display: none;">
-                    <img id="close-video" style="position:relative; right: 3.5em; top: 6.5em; margin-top:-4.5em; font-size: 12px; display:none;" class="img-responsive nopadding  pull-right" src="/Content/LBI/images/button-close.png?1.0.5910.32047" alt="Close" />
-                    <div id="player" class="nopadding" ></div>
+
+                    <div class="video-responsive">
+                        <iframe id="video-iframe" src="https://player.vimeo.com/video/152317399?api=1&player_id=video-iframe" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <p><a href="https://vimeo.com/152317399">Sibos Innotribe SizeUp Fintech Presentation</a> from <a href="https://vimeo.com/gisplanning">GIS Planning</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+                        <img id="close-video" style="position: absolute; right: 3.5em; top: 2.5em; margin-top: 0em; font-size: 12px; display: block;" class="img-responsive" src="/Content/LBI/images/button-close.png?1.0.5910.32047" alt="Close" />
+
+                    </div>
+
                 </div>
             </div>
 
-<div class="options col-md-12">
+            <div class="options col-md-12">
 
-            <div class=" text-left col-md-12">
-                <h5>Value for financial institutions that implement big data for small business customers</h5>
-                <p id="first">Implementing big data insights for SMB customers using SizeUp FI provides FIs significant value and solutions to challenges they are facing.</p>
+                <div class=" text-left col-md-12">
+                    <h5>Value for financial institutions that implement big data for small business customers</h5>
+                    <p id="first">Implementing big data insights for SMB customers using SizeUp FI provides FIs significant value and solutions to challenges they are facing.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <img src="@Url.Content("~/Content/images/SizeUp-FI-shapes.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Comprehensive SMB Services"/>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <h4>DIFFERENTIATED TOOL FOR FIs</h4>
+                        <p>SizeUp FI has different offerings with unique data mash-ups and customization. Each FI can have it’s own unique implementation of SizeUp FI.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <img src="@Url.Content("~/Content/images/SizeUp-FI-people.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Comprehensive SMB Services"/>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <h4>INDIVIDUALIZED, CUSTOMIZED SERVICE</h4>
+                        <p>FIs can finally provide a valuable and individualized service to all SMB customers without limitation by industry, size, or location.</p>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <img src="@Url.Content("~/Content/images/SizeUp-FI-box.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Beign a Destination"/>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <h4>COMPETE OUTSIDE OF “ME TOO” FI OFFERINGS</h4>
+                        <p>SizeUp FI delivers competitive advantage for FIs outside of highly competitive and regulated core industry offerings.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <img src="@Url.Content("~/Content/images/SizeUp-FI-light.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Beign a Destination"/>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <h4>HELPS FI’S CUSTOMERS SOLVE PROBLEMS</h4>
+                        <p>The offering creates a “halo effect” for the FI because it provides insights SMBs would unlikely ever get/understand/afford individually.</p>
+                        @*<p>For the SMB, the service increases the value of being the FI’s customer.</p>*@
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <img src="@Url.Content("~/Content/images/SizeUp-FI-dollar.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Land Grab"/>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <h4>INTRODUCE AND SELL FI PRODUCTS & SERVICES</h4>
+                        <p>
+                            SizeUp FI provides a range of value through entire business lifecycle (e.g. feasibility, launch, grow, expand, replicate) and enables the FI to introduce the FI’s products/services through SizeUp during these key lifecycle inflection points.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-1">
+                        <img src="@Url.Content("~/Content/images/SizeUp-FI-hands.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Innovation, confusion, and ignorance"/>
+                    </div>
+                    <div class="col-md-10 text-left">
+                        <h4>BOOST CUSTOMER ENGAGEMENT WITH SMBs</h4>
+                        <p>
+                            FIs are able to deliver customized content in real time. It also fosters a “sticky” relationship because industry rankings are always changing so customers have to come back to FI website for updates. This also leverages the psychological competitiveness of entrepreneurs.  
+                        </p>
+                    </div>
+                </div>
+
+
+
             </div>
-            <div class="col-md-6">
-                <div class="col-md-1">
-                    <img src="@Url.Content("~/Content/images/SizeUp-FI-shapes.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Comprehensive SMB Services"/>
-                </div>
-                <div class="col-md-10 text-left">
-                    <h4>DIFFERENTIATED TOOL FOR FIs</h4>
-                    <p>SizeUp FI has different offerings with unique data mash-ups and customization. Each FI can have it’s own unique implementation of SizeUp FI.</p>
-                </div>
+            <div class="bottom-section text-center col-md-12">
+                <a target="_blank" type="button" style="font-size: 14px;" class="btn btn-green btn-primary btn-lg"
+                    href="/Content/files/SizeUp-FI.pdf">Download Report</a>
             </div>
-            <div class="col-md-6">
-                <div class="col-md-1">
-                    <img src="@Url.Content("~/Content/images/SizeUp-FI-people.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Comprehensive SMB Services"/>
-                </div>
-                <div class="col-md-10 text-left">
-                    <h4>INDIVIDUALIZED, CUSTOMIZED SERVICE</h4>
-                    <p>FIs can finally provide a valuable and individualized service to all SMB customers without limitation by industry, size, or location.</p>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-
-            <div class="col-md-6">
-                <div class="col-md-1">
-                    <img src="@Url.Content("~/Content/images/SizeUp-FI-box.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Beign a Destination"/>
-                </div>
-                <div class="col-md-10 text-left">
-                    <h4>COMPETE OUTSIDE OF “ME TOO” FI OFFERINGS</h4>
-                    <p>SizeUp FI delivers competitive advantage for FIs outside of highly competitive and regulated core industry offerings.</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="col-md-1">
-                    <img src="@Url.Content("~/Content/images/SizeUp-FI-light.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Beign a Destination"/>
-                </div>
-                <div class="col-md-10 text-left">
-                    <h4>HELPS FI’S CUSTOMERS SOLVE PROBLEMS</h4>
-                    <p>The offering creates a “halo effect” for the FI because it provides insights SMBs would unlikely ever get/understand/afford individually.</p>
-                    @*<p>For the SMB, the service increases the value of being the FI’s customer.</p>*@
-                </div>
-            </div>
-
-
-
-            <div class="col-md-6">
-                <div class="col-md-1">
-                    <img src="@Url.Content("~/Content/images/SizeUp-FI-dollar.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Land Grab"/>
-                </div>
-                <div class="col-md-10 text-left">
-                    <h4>INTRODUCE AND SELL FI PRODUCTS & SERVICES</h4>
-                    <p>
-                        SizeUp FI provides a range of value through entire business lifecycle (e.g. feasibility, launch, grow, expand, replicate) and enables the FI to introduce the FI’s products/services through SizeUp during these key lifecycle inflection points.
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="col-md-1">
-                    <img src="@Url.Content("~/Content/images/SizeUp-FI-hands.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Innovation, confusion, and ignorance"/>
-                </div>
-                <div class="col-md-10 text-left">
-                    <h4>BOOST CUSTOMER ENGAGEMENT WITH SMBs</h4>
-                    <p>
-                        FIs are able to deliver customized content in real time. It also fosters a “sticky” relationship because industry rankings are always changing so customers have to come back to FI website for updates. This also leverages the psychological competitiveness of entrepreneurs.  
-                    </p>
-                </div>
-            </div>
-
-
-
-        </div>
-        <div class="bottom-section text-center col-md-12">
-            <a target="_blank" type="button" style="font-size: 14px;" class="btn btn-green btn-primary btn-lg"
-                href="/Content/files/SizeUp-FI.pdf">Download Report</a>
         </div>
     </div>
-</div>
 </div>
 
 @section scripts{
@@ -344,70 +365,32 @@
     <script type="text/javascript">
 
         $(function () {
-            var player;
-            // 2. This code loads the IFrame Player API code asynchronously.
-            tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api"
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            var iframe = $('#video-iframe')[0],
+                player = $f(iframe);
 
-
-            // 3. This function creates an <iframe> (and YouTube player)
-            //    after the API code downloads.
-            //function onYouTubeIframeAPIReady() {
-
+            // Call the API when a button is pressed
+            $('button').bind('click', function () {
+                player.api($(this).text().toLowerCase());
+            });
 
             var startVideo = function () {
-
-               if (player === undefined)
-                    player = new YT.Player('player', {
-                        width: ($('#video').width() * .75) + 'px',
-                        height: ($('#video').height() * .75) + 'px',
-                        videoId: '-iOF1Ly6D7k',
-                        events: {
-                            'onReady': onPlayerReady,
-                            'onStateChange': onPlayerStateChange
-                        }
-                    });
-
                 $('#video').hide();
                 $('#video-container').fadeIn('slow', function () {
-                    player.playVideo();
+                    player.api('play');
                 });
             },
-            hideVideo = function () {
-                $('#video').show();
-                $('#video-container').hide();
-                stopVideo();
-            };
+                hideVideo = function () {
+                    $('#video').show();
+                    $('#video-container').hide();
+                    player.api('unload');
+                };
 
-            // 4. The API will call this function when the video player is ready.
-            function onPlayerReady(event) {
-                //event.target.playVideo();
-            }
-
-            // 5. The API calls this function when the player's state changes.
-            //    The function indicates that when playing a video (state=1),
-            //    the player should play for six seconds and then stop.
-            var done = false;
-            function onPlayerStateChange(event) {
-                if (event.data === YT.PlayerState.PLAYING && !done) {
-
-                    done = true;
-                }
-                if (event.data === YT.PlayerState.BUFFERING)
-                    event.target.setPlaybackQuality('hd720');
-            }
-            function stopVideo() {
-                player.stopVideo();
-            }
             checkWidth();
 
             $('#video').click(function () {
                 startVideo();
             });
-
-
+            
             $('#video-container').hover(function () {
                 $('#close-video').fadeIn('slow');
             }, function () {
