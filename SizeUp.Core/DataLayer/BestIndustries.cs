@@ -9,6 +9,7 @@ using SizeUp.Core.DataLayer.Models;
 using System.Data.Spatial;
 using SizeUp.Core.Geo;
 using System.Data.Objects.SqlClient;
+using System.Data.Objects;
 
 
 namespace SizeUp.Core.DataLayer
@@ -25,7 +26,6 @@ namespace SizeUp.Core.DataLayer
 
         public static IQueryable<Core.DataLayer.Models.GeographicLocationRank> Get(SizeUpContext context, long geographicLocationId, string attribute)
         {
-
             var data = context.Industries
                 .SelectMany(i => i.IndustryDatas, (i, o) => new { Industry = i, IndustryData = o })
                 .SelectMany(i => i.Industry.GeographicLocationRanks, (i, o) => new { i.Industry, i.IndustryData, Rank = o })
@@ -33,7 +33,7 @@ namespace SizeUp.Core.DataLayer
                 .Where(i => i.IndustryData.Year == CommonFilters.TimeSlice.Industry.Year && i.IndustryData.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
                 .Where(i => i.Rank.Year == CommonFilters.TimeSlice.Industry.Year && i.Rank.Quarter == CommonFilters.TimeSlice.Industry.Quarter)
                 .Where(i => i.Rank.GeographicLocationId == geographicLocationId)
-                .Where(i => i.IndustryData.GeographicLocationId == geographicLocationId);
+                .Where(i => i.IndustryData.GeographicLocationId == geographicLocationId);      
 
             IQueryable<BestIndustryWrapper> output = new List<BestIndustryWrapper>().AsQueryable();
 

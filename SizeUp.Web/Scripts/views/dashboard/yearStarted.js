@@ -6,14 +6,13 @@
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.opts.startYear = 1986;
-        me.opts.endYear = 2014;
+        me.opts.endYear = 2016;
         me.opts.maxYear = 2014;
         me.data = {};
         me.container = opts.container;
         me.data.enteredValue = jQuery.bbq.getState().yearStarted;
         me.data.hasData = false;
         me.data.description = {};
-
 
         var init = function () {
 

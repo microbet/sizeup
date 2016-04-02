@@ -25,7 +25,7 @@ namespace SizeUp.Core.DataLayer
                 .Select(i => new { Year = i.Key, Count = i.Count() })
                 .ToList();
 
-            output = years.GroupJoin(raw.Where(d => d.Year >= startYear && d.Year <= endYear)
+            output = years.GroupJoin(raw.Where(d => d.Year >= startYear /*&& d.Year <= endYear*/)
                ,i => i, o => o.Year, (i,o)=> new LineChartItem<int, int>() { Key = i, Value = o.Select(v => v.Count).DefaultIfEmpty(0).FirstOrDefault() }).ToList();
 
             return output;
