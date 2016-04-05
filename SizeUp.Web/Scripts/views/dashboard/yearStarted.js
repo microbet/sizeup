@@ -6,8 +6,8 @@
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.opts.startYear = 1986;
-        me.opts.endYear = 2016;
-        me.opts.maxYear = 2014;
+        me.opts.endYear = 0; // breaks another component if removed, chart is data driven
+        me.opts.maxYear = 0; // breaks another component if removed, chart is data driven
         me.data = {};
         me.container = opts.container;
         me.data.enteredValue = jQuery.bbq.getState().yearStarted;
@@ -200,10 +200,9 @@
             var percentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { percentileDataReturned(percentileData); }));
             var chartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { chartDataReturned(chartData); }));
 
-
             me.data.enteredValue = me.reportContainer.getValue();
             jQuery.bbq.pushState({ yearStarted: me.data.enteredValue });
-
+            
             sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.City.Id, startYear: me.opts.startYear, endYear: me.opts.endYear}, chartNotifier.getNotifier(function (data) { chartData.City = data; }));
             sizeup.api.data.getYearStarted({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.County.Id, startYear: me.opts.startYear, endYear: me.opts.endYear }, chartNotifier.getNotifier(function (data) { chartData.County = data; }));
             if (me.opts.report.CurrentPlace.Metro.Id) {
@@ -219,6 +218,7 @@
             }
             sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.State.Id, value: me.data.enteredValue }, percentileNotifier.getNotifier(function (data) { percentileData.State = data; }));
             sizeup.api.data.getYearStartedPercentile({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.Nation.Id, value: me.data.enteredValue }, percentileNotifier.getNotifier(function (data) { percentileData.Nation = data; }));
+
         };
 
 
