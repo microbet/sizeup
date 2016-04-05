@@ -12,9 +12,20 @@ namespace SizeUp.Core.DataLayer
 {
     public class YearStarted
     {
+        /// <summary>
+        /// Charts a set based on parameter. No longer uses endYear
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="industryId"></param>
+        /// <param name="geographicLocationId"></param>
+        /// <param name="startYear"></param>
+        /// <param name="endYear"></param>
+        /// <returns></returns>
         public static List<LineChartItem<int, int>> Chart(SizeUpContext context, long industryId, long geographicLocationId, int startYear, int endYear )
         {
-            var years = Enumerable.Range(startYear, (endYear - startYear) + 1).ToList();
+            var maxYear = Core.DataLayer.BusinessData.Get(context)
+                .Max(i => i.Year);
+            var years = Enumerable.Range(startYear, (maxYear - startYear) + 1).ToList();
             List<LineChartItem<int, int>> output = null;
 
             var data = Core.DataLayer.BusinessData.Get(context)
@@ -22,10 +33,11 @@ namespace SizeUp.Core.DataLayer
                .Where(i => i.GeographicLocationId == geographicLocationId);
 
             var raw = data.GroupBy(i => i.YearStarted)
+                .Where(x=>x.Key >= startYear)
                 .Select(i => new { Year = i.Key, Count = i.Count() })
                 .ToList();
 
-            output = years.GroupJoin(raw.Where(d => d.Year >= startYear /*&& d.Year <= endYear*/)
+            output = years.GroupJoin(raw.Where(d => d.Year >= startYear)
                ,i => i, o => o.Year, (i,o)=> new LineChartItem<int, int>() { Key = i, Value = o.Select(v => v.Count).DefaultIfEmpty(0).FirstOrDefault() }).ToList();
 
             return output;
