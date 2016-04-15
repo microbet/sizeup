@@ -6,43 +6,52 @@
 }
 
 <style>
-    #video img{ cursor:pointer;}    
-    #video:hover {opacity:0.8; alpha(opacity=80); }
-    #close-button { display:none;}
+    #video img {
+        cursor: pointer;
+    }
+
+    #video:hover {
+        opacity: 0.8;
+        alpha(opacity=80);
+    }
+
+    #close-button {
+        display: none;
+    }
 
     .responsive-video {
-position: relative;
-padding-bottom: 56.25%;
-padding-top: 60px; 
-}
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 60px;
+    }
 
 
-.responsive-video iframe,
-.responsive-video object,
-.responsive-video embed {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-}
+        .responsive-video iframe,
+        .responsive-video object,
+        .responsive-video embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 </style>
- 
-<div id="login-form" class="" style="padding:0;">
-    <div class="text-center" style="padding:2.75em 2em 0 2em;">
+
+<div id="login-form" class="" style="padding: 0;">
+    <div class="text-center" style="padding: 2.75em 2em 0 2em;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1 id="form-header">Give businesses the data they need to succeed</h1>
         </div>
-        <p id="header-info"> SizeUp for Local Business Intelligence shows businesses how they can grow within your area and stay competitive.</p>
-        <div id="video" style="margin-top:4em;">
+        <p id="header-info">SizeUp for Local Business Intelligence shows businesses how they can grow within your area and stay competitive.</p>
+        <div id="video" style="margin-top: 4em;">
             <img style="margin:0 auto;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/computerDemo.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Laptop"/>
         </div>
     </div>
-    <div id="video-container">  
+    <div id="video-container">
         <img id="close-button" style="position: absolute;
 right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/button-close.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Close"/>
-         <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-        <div id="player"></div>      
+        <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+        <div id="player"></div>
     </div>
 </div>
 
@@ -55,7 +64,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
             </p>
         </div>
     </div>
-    <div id="options" style="font-size:12px;">
+    <div id="options" style="font-size: 12px;">
         <div class="row">
             <div class="col-wrapper col-lg-6 clearfix">
                 <div class="col-lg-3 text-center">
@@ -64,7 +73,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
                 <div class="copy text-left col-lg-8">
                     <h3 class="text-blue">Benchmark Performance</h3>
                     <p>
-                       See how you size up by comparing your performance to all other competitors in your industry. SizeUp LBI super-crunches millions of data points to answer this question so businesses know where they stand.
+                        See how you size up by comparing your performance to all other competitors in your industry. SizeUp LBI super-crunches millions of data points to answer this question so businesses know where they stand.
                     </p>
                 </div>
             </div>
@@ -111,22 +120,22 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
     <div id="performance-header" class="col-lg-12">
         <h2>Give businesses the data they need to succeed.</h2>
         <p>
-           Small businesses are the backbone of the U.S. economy, and entrepreneurs work long hours to keep their businesses up and running, providing jobs and benefitting the local economy.
+            Small businesses are the backbone of the U.S. economy, and entrepreneurs work long hours to keep their businesses up and running, providing jobs and benefitting the local economy.
         </p>
     </div>
 
     <div class="col-lg-12 col-sm-12">
-        <div style="clear:both;">
-            <div style="float:left;position:relative;top:0.5em;">
+        <div style="clear: both;">
+            <div style="float: left; position: relative; top: 0.5em;">
                 <img src="@Url.Content("~/Content/LBI/images/icon-checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Check Mark"/>
             </div>
-            <div class="col-lg-11 right-col" >
+            <div class="col-lg-11 right-col">
                 <h4>What can you do to help local businesses succeed?</h4>
                 <p>Market research from CEB shows that the number one challenge small businesses face is competition from big businesses, partly because large enterprises can afford the technologies and intelligence to make better decisions about sales, advertising and managing competition. SMBs lack the benchmark data and metrics that they need. Thanks to SizeUp Local Business Intelligence (LBI), your organization can empower local businesses with access to the critical information they need for smart decision-making.</p>
             </div>
         </div>
-        <div style="clear:both;">
-            <div style="float:left;position:relative;top:0.5em;">
+        <div style="clear: both;">
+            <div style="float: left; position: relative; top: 0.5em;">
                 <img src="@Url.Content("~/Content/LBI/images/icon-checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Check Mark"/>
             </div>
             <div class="col-lg-11 right-col">
@@ -164,113 +173,109 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
         </div>
         <div class="row">
             <div class="col-lg-12 col-lg-offset-0 col-md-12 col-sm-12">
-               <h4 class="text-left">Our clients love SizeUp LBI</h4>
+                <h4 class="text-left">Our clients love SizeUp LBI</h4>
                 <p class="text-left">
                     See some of our clients who are already using the SizeUp LBI tool.
                 </p>
-                <ul class="col-lg-4  col-md-4 col-sm-4 text-left" style="padding-left:0;">
-
-
-                    <li>
-                        <a target="_blank" href="http://www.tarrantsbdc.org/sizeup-widget">Tarrant Small Business Development Center, TX</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.edcsarasotacounty.com/sizeup/sizeup.html">EDC of Sarasota County, FL</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://decaturretail.com/index.php/develop/local-business-intelligence">City of Decatur, IL</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.gilbertaz.com/sizeup">Town of Gilbert, AZ</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.choosescottsdale.com/sizeup">City of Scottsdale, AZ</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.leecountybusiness.com/analytics/sizeup-lee">Fort Myers Regional Partnership, FL</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://farmersbranchtx.gov/index.aspx?NID=686&amp;MOBILE=ON">City of Farmer's Branch, TX</a>
-                    </li> 
-                    <li>   
-                        <a target="_blank" href="http://www.quadcitieschamber.com/sizeup">City of Las Cruces, NM</a>
-                    </li>
-                    <li>   
-                        <a target="_blank" href="http://santamariaedc.com/business-sizeup/">Santa Maria Valley Chamber of Commerce, CA</a>
-                    </li>
-                      
-                </ul>
-                <ul class="col-lg-4  col-md-4 col-sm-4 text-left" style="padding-left:0;">
-                    <li>
-                                            <a target="_blank" href="http://www.quadcitieschamber.com/sizeup">Quad Cities Chamber of Commerce, IA</a>
-                    </li>
-                    <li>   
-                        <a target="_blank" href="http://www.zmchamber.com/sizeup.html">Zanesville-Muskingum County Chamber of Commerce, OH</a>
-                    </li>
-                    <li>   
-                        <a target="_blank" href="http://mesaaz.gov/business/economic-development/start-up/mesa-sizeup">City of Mesa, AZ</a>
-                    </li>
-                    <li>   
-                        <a target="_blank" href="http://www.poweringflorida.com/interactivemap">Florida Power and Light, FL</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.ci.richland.wa.us/index.aspx?NID=617">City of Richland, WA</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.pascolibraries.org/econtent/electronic-resources/sizeup/">Pasco Economic Development Council, FL</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.santarosaedo.com/intelligence.html">Santa Rosa Economic Development Office, CA</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://riversideoed.com/resources/sizeup/">City of Riverside, CA</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://businessreadywi.com/lbi-sizeup">Economic Development Washington County, WI</a>
-                    </li>
-                   
-                  
-                </ul>
-                <ul class="text-left col-lg-4  col-md-4 col-sm-4 ">
-                    <li>
-                        <a target="_blank" href="http://www.arvadaeconomicdevelopment.org/resources/sizeup-your-business/">Arvada Economic Development Association, CO</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://choosesantacruz.com/resources/sizeup">City of Santa Cruz, CA</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="http://www.cityofvacaville.com/index.aspx?page=769">City of Vacaville, CA</a>
-                    </li>
-                    <li>   
-                        <a target="_blank" href="http://sizeup.mcallen.org/">McAllen Chamber of Commerce, TX</a>
-                    </li>
-                    <li>
-                        <span>Lake Superior Community Partnership, MI</span>
-                    </li>
-                    <li>
-                        <span>Berkshire Chamber of Commerce, MA</span>
-                    </li>
-                    <li>
-                        <span>Bowling Green Area Chamber of Commerce, KY</span>
-                    </li>
-                    <li>   
-                        <span>Colorado SBDC</span>
-                    </li>
-                    <li>   
-                        <span>Bellevue Chamber of Commerce, WA</span>
-                    </li>
-                </ul>
-                
-                
             </div>
+        </div>
+        <div>
+
+            <ul class="col-lg-4  col-md-4 col-sm-4 text-left">
+                <li>
+                    <a target="_blank" href="http://www.tarrantsbdc.org/sizeup-widget">Tarrant Small Business Development Center, TX</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.edcsarasotacounty.com/sizeup/sizeup.html">EDC of Sarasota County, FL</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://decaturretail.com/index.php/develop/local-business-intelligence">City of Decatur, IL</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.gilbertaz.com/sizeup">Town of Gilbert, AZ</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.choosescottsdale.com/sizeup">City of Scottsdale, AZ</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.leecountybusiness.com/analytics/sizeup-lee">Fort Myers Regional Partnership, FL</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://farmersbranchtx.gov/index.aspx?NID=686&amp;MOBILE=ON">City of Farmer's Branch, TX</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.quadcitieschamber.com/sizeup">City of Las Cruces, NM</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://santamariaedc.com/business-sizeup/">Santa Maria Valley Chamber of Commerce, CA</a>
+                </li>
+
+            </ul>
+            <ul class="col-lg-4  col-md-4 col-sm-4 text-left">
+                <li>
+                    <a target="_blank" href="http://www.quadcitieschamber.com/sizeup">Quad Cities Chamber of Commerce, IA</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.zmchamber.com/sizeup.html">Zanesville-Muskingum County Chamber of Commerce, OH</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://mesaaz.gov/business/economic-development/start-up/mesa-sizeup">City of Mesa, AZ</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.poweringflorida.com/interactivemap">Florida Power and Light</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.ci.richland.wa.us/index.aspx?NID=617">City of Richland, WA</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.pascolibraries.org/econtent/electronic-resources/sizeup/">Pasco Economic Development Council, FL</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.santarosaedo.com/intelligence.html">Santa Rosa Economic Development Office, CA</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://riversideoed.com/resources/sizeup/">City of Riverside, CA</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://businessreadywi.com/lbi-sizeup">Economic Development Washington County, WI</a>
+                </li>
+
+
+            </ul>
+            <ul class="text-left col-lg-4  col-md-4 col-sm-4 ">
+                <li>
+                    <a target="_blank" href="http://www.arvadaeconomicdevelopment.org/resources/sizeup-your-business/">Arvada Economic Development Association, CO</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://choosesantacruz.com/resources/sizeup">City of Santa Cruz, CA</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://www.cityofvacaville.com/index.aspx?page=769">City of Vacaville, CA</a>
+                </li>
+                <li>
+                    <a target="_blank" href="http://sizeup.mcallen.org/">McAllen Chamber of Commerce, TX</a>
+                </li>
+                <li>
+                    <span>Lake Superior Community Partnership, MI</span>
+                </li>
+                <li>
+                    <span>Berkshire Chamber of Commerce, MA</span>
+                </li>
+                <li>
+                    <span>Bowling Green Area Chamber of Commerce, KY</span>
+                </li>
+                <li>
+                    <span>Colorado SBDC</span>
+                </li>
+                <li>
+                    <span>Bellevue Chamber of Commerce, WA</span>
+                </li>
+            </ul>
+
+
         </div>
     </div>
 </div>
-
-
-
-
-
 
 
 
@@ -283,7 +288,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
     <div id="performance-header" class="col-lg-12">
         <h2>Contact SizeUp LBI</h2>
         <p>
-           If you would like to know more about SizeUp LBI and how it can benefit your community, we are here to help you. 
+            If you would like to know more about SizeUp LBI and how it can benefit your community, we are here to help you. 
         </p>
         <br />
         <h4>Mark Hays, National Sales Executive</h4>
@@ -332,7 +337,7 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
             showVideo();
         });
     });
-    </script>
+</script>
 
 <script>
     $(window).load(function () {
