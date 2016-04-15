@@ -6,8 +6,8 @@
         var templates = new sizeup.core.templates(opts.container);
         me.opts = opts;
         me.opts.startYear = 1986;
-        me.opts.endYear = 0; // breaks another component if removed, chart is data driven
-        me.opts.maxYear = 0; // breaks another component if removed, chart is data driven
+        me.opts.endYear = 2014; 
+        me.opts.maxYear = 2014; 
         me.data = {};
         me.container = opts.container;
         me.data.enteredValue = jQuery.bbq.getState().yearStarted;
