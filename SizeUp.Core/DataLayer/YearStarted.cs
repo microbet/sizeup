@@ -23,9 +23,7 @@ namespace SizeUp.Core.DataLayer
         /// <returns></returns>
         public static List<LineChartItem<int, int>> Chart(SizeUpContext context, long industryId, long geographicLocationId, int startYear, int endYear )
         {
-            var maxYear = Core.DataLayer.BusinessData.Get(context)
-                .Max(i => i.Year);
-            var years = Enumerable.Range(startYear, (maxYear - startYear) + 1).ToList();
+            var years = Enumerable.Range(startYear, (endYear - startYear) + 1).ToList();
             List<LineChartItem<int, int>> output = null;
 
             var data = Core.DataLayer.BusinessData.Get(context)
