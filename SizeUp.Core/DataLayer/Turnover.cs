@@ -13,9 +13,14 @@ namespace SizeUp.Core.DataLayer
     {
         public static TurnoverChartItem Chart(SizeUpContext context, long industryId, long geographicLocationId)
         {
-            var data = Core.DataLayer.IndustryData.Get(context)
+            var data = context.IndustryDatas
+                .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == 2 && i.Industry.IsActive && !i.Industry.IsDisabled)
                .Where(i => i.IndustryId == industryId)
                .Where(i => i.GeographicLocationId == geographicLocationId);
+
+            //var data = Core.DataLayer.IndustryData.Get(context)
+            //   .Where(i => i.IndustryId == industryId)
+            //   .Where(i => i.GeographicLocationId == geographicLocationId);
 
             return data
                 .Select(new Projections.Turnover.Chart().Expression)
@@ -27,10 +32,16 @@ namespace SizeUp.Core.DataLayer
             PercentileItem output = null;
             var gran = Enum.GetName(typeof(Granularity), Granularity.County);
 
-            var raw = Core.DataLayer.IndustryData.Get(context)
+             var raw = context.IndustryDatas
+                .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == 2 && i.Industry.IsActive && !i.Industry.IsDisabled)
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.GeographicLocation.Granularity.Name == gran)
                 .Where(i => i.TurnoverRate != null && i.TurnoverRate > 0);
+
+            //var raw = Core.DataLayer.IndustryData.Get(context)
+            //    .Where(i => i.IndustryId == industryId)
+            //    .Where(i => i.GeographicLocation.Granularity.Name == gran)
+            //    .Where(i => i.TurnoverRate != null && i.TurnoverRate > 0);
 
             var value = raw.Where(i => i.GeographicLocationId == geographicLocationId).Select(i => i.TurnoverRate);
 
