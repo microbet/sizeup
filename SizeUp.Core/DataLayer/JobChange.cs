@@ -16,7 +16,7 @@ namespace SizeUp.Core.DataLayer
             //    .Where(i => i.IndustryId == industryId)
             //    .Where(i => i.GeographicLocationId == geographicLocationId);
             var data = context.IndustryDatas
-             .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == 2 && i.Industry.IsActive && !i.Industry.IsDisabled)
+             .Where(i => i.Year == 2015 && i.Quarter == 2 && i.Industry.IsActive && !i.Industry.IsDisabled)
              .Where(i => i.IndustryId == industryId)
              .Where(i => i.GeographicLocationId == geographicLocationId);
 
@@ -36,7 +36,7 @@ namespace SizeUp.Core.DataLayer
             //    .Where(i => i.NetJobChange != null && i.NetJobChange > 0);
 
             var raw = context.IndustryDatas
-             .Where(i => i.Year == CommonFilters.TimeSlice.Industry.Year && i.Quarter == 2 && i.Industry.IsActive && !i.Industry.IsDisabled)
+             .Where(i => i.Year == 2015 && i.Quarter == 2 && i.Industry.IsActive && !i.Industry.IsDisabled)
            .Where(i => i.IndustryId == industryId)
            .Where(i => i.GeographicLocation.Granularity.Name == gran)
            .Where(i => i.NetJobChange != null && i.NetJobChange > 0);
