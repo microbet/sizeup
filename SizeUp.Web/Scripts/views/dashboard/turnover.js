@@ -59,7 +59,7 @@
             me.turnover.resources = me.container.find('.reportContainer .turnover .resources');
             me.turnover.description = me.container.find('.reportContainer .turnover .description');
 
-        
+
             me.jobChange.sourceButton = new sizeup.controls.toggleButton(
                 {
                     button: me.container.find('.reportContainer .jobChange .links .source'),
@@ -112,7 +112,7 @@
             me.noData = me.container.find('.reportContent.noDataError').removeClass('hidden').hide();
 
             me.reportContainer.setValue('');
-            
+
         };
 
 
@@ -166,15 +166,19 @@
                     rows: me.data.turnover.table
                 });
 
-                me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
-                if (isNaN(me.data.turnover.raw['County'].turnover)) {
+                if (me.data.turnover.raw['County']) {
+                    me.reportContainer.setValue(sizeup.util.numbers.format.round(me.data.turnover.raw['County'].turnover, 0));
+                    if (isNaN(me.data.turnover.raw['County'].turnover)) {
+                        me.reportContainer.hideGauge();
+                    }
+                } else {
                     me.reportContainer.hideGauge();
                 }
 
 
                 me.data.turnover.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
                 me.data.turnover.description.Industry = me.opts.report.CurrentIndustry;
-                me.data.turnover.description.HasData = me.data.turnover.raw['County'].turnover != 'no data';
+                me.data.turnover.description.HasData = me.data.jobChange.raw['County'] && me.data.turnover.raw['County'].turnover != 'no data';
 
                 me.turnover.description.html(templates.bind(templates.get("turnoverDescription"), me.data.turnover.description));
 
@@ -192,7 +196,7 @@
 
                 me.data.jobChange.description.NAICS4 = me.opts.report.CurrentIndustry.NAICS4;
                 me.data.jobChange.description.Industry = me.opts.report.CurrentIndustry;
-                me.data.jobChange.description.HasData = me.data.jobChange.raw['County'].turnover != 'no data';
+                me.data.jobChange.description.HasData = me.data.jobChange.raw['County'] && me.data.jobChange.raw['County'].turnover != 'no data';
                 me.jobChange.description.html(templates.bind(templates.get("jobChangeDescription"), me.data.jobChange.description));
 
             }
@@ -208,13 +212,13 @@
             var turnoverPercentileData = {};
             var turnoverChartData = {};
             var jobChangeChartData = {};
-            var jobChangePercentileData  = {};
+            var jobChangePercentileData = {};
             var turnoverPercentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { turnoverPercentileDataReturned(turnoverPercentileData); }));
             var turnoverChartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { turnoverChartDataReturned(turnoverChartData); }));
             var jobChangeChartNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { jobChangeChartDataReturned(jobChangeChartData); }));
             var jobChangePercentileNotifier = new sizeup.core.notifier(notifier.getNotifier(function () { jobChangePercentileDataReturned(jobChangePercentileData); }));
 
-            
+
             sizeup.api.data.getTurnover({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.County.Id }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.County = data; }));
             if (me.opts.report.CurrentPlace.Metro.Id) {
                 sizeup.api.data.getTurnover({ industryId: me.opts.report.CurrentIndustry.Id, geographicLocationId: me.opts.report.CurrentPlace.Metro.Id }, turnoverChartNotifier.getNotifier(function (data) { turnoverChartData.Metro = data; }));
@@ -260,7 +264,7 @@
                 me.data.turnover.percentiles.Nation = data.Nation.Percentile < 1 ? 'more than 99%' : data.Nation.Percentile > 99 ? 'less than 99%' : 'less than or equal to ' + sizeup.util.numbers.format.percentage(data.Nation.Percentile);
                 me.data.gauge = {
                     value: data.Nation.Percentile,
-                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(sizeup.util.numbers.format.round(data.Nation.Percentile,0)) + ' Percentile'
+                    tooltip: data.Nation.Percentile < 1 ? '<1st Percentile' : data.Nation.Percentile > 99 ? '>99th Percentile' : sizeup.util.numbers.format.ordinal(sizeup.util.numbers.format.round(data.Nation.Percentile, 0)) + ' Percentile'
                 };
             }
             else {
@@ -327,7 +331,7 @@
             for (var x = 0; x < indexes.length; x++) {
                 if (data[indexes[x]] != null) {
                     me.data.jobChange.raw[indexes[x]] = {
-                        jobGains: data[indexes[x]].JobGains== null ? 'no data' : data[indexes[x]].JobGains,
+                        jobGains: data[indexes[x]].JobGains == null ? 'no data' : data[indexes[x]].JobGains,
                         jobLosses: data[indexes[x]].JobLosses == null ? 'no data' : data[indexes[x]].JobLosses,
                         netJobChange: data[indexes[x]].NetJobChange == null ? 'no data' : data[indexes[x]].NetJobChange
                     };
@@ -341,7 +345,7 @@
                 }
             }
         };
-        
+
 
         var setupReport = function () {
             me.reportContainer.doGetReport();
