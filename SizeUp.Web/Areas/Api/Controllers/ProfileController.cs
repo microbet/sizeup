@@ -116,7 +116,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetDashboardValues(long placeId, long industryId)
+        public ActionResult SetDashboardValues(long placeId, long industryId, long stateId)
         {
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
             HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
@@ -131,7 +131,10 @@ namespace SizeUp.Web.Areas.Api.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 //var geo = 130055; // Nation
-                var geo = 130073;
+                var geo = stateId; // defaults to california
+               // var geo1 = context.GeographicLocations.Where(i => i.Id == placeId);
+                //.Select(i => i.State).FirstOrDefault().Id;
+                
                 if (Request.Form.AllKeys.Contains("businessSize"))
                 {
                     cookie.Values.Add("businessSize", Request["businessSize"]);

@@ -34,7 +34,7 @@
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 jQuery.bbq.pushState(me.data.dashboardValues, 1);
-                var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id }, jQuery.bbq.getState());
+                var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, jQuery.bbq.getState());
                 sizeup.core.profile.setDashboardValues(p);
             }
 
@@ -239,7 +239,7 @@
         };
 
         var hashChanged = function (e) {
-            var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id }, e.getState());
+            var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, e.getState());
             sizeup.core.profile.setDashboardValues(p);
         };
 
