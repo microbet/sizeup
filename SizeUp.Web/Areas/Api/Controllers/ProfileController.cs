@@ -128,48 +128,70 @@ namespace SizeUp.Web.Areas.Api.Controllers
             analyticsAttr.PlaceId = placeId;
             analyticsAttr.IndustryId = industryId;
 
-            if (Request.Form.AllKeys.Contains("businessSize"))
+            using (var context = ContextFactory.SizeUpContext)
             {
-                cookie.Values.Add("businessSize", Request["businessSize"]);
-                attr.BusinessSize = Request["businessSize"];
-            }
-            if (Request.Form.AllKeys.Contains("businessType"))
-            {
-                cookie.Values.Add("businessType", Request["businessType"]);
-                attr.BusinessType = Request["businessType"];
-            }
-            if (Request.Form.AllKeys.Contains("employees"))
-            {
-                cookie.Values.Add("employees", Request["employees"]);
-                attr.Employees = int.Parse(Request["employees"]);
-            }
-            if (Request.Form.AllKeys.Contains("healthcareCost"))
-            {
-                cookie.Values.Add("healthcareCost", Request["healthcareCost"]);
-                attr.HealthcareCost = int.Parse(Request["healthcareCost"]);
-            }
-            if (Request.Form.AllKeys.Contains("revenue"))
-            {
-                cookie.Values.Add("revenue", Request["revenue"]);
-                attr.Revenue = int.Parse(Request["revenue"]);
-            }
-            if (Request.Form.AllKeys.Contains("salary"))
-            {
-                cookie.Values.Add("salary", Request["salary"]);
-                attr.AverageSalary = int.Parse(Request["salary"]);
-            }
-            if (Request.Form.AllKeys.Contains("workersComp"))
-            {
-                cookie.Values.Add("workersComp", Request["workersComp"]);
-                attr.WorkersComp = decimal.Parse(Request["workersComp"]);
-            }
-            if (Request.Form.AllKeys.Contains("yearStarted"))
-            {
-                cookie.Values.Add("yearStarted", Request["yearStarted"]);
-                attr.YearStarted = int.Parse(Request["yearStarted"]);
-            }
+                var geo = 130055; // Nation
 
+                if (Request.Form.AllKeys.Contains("businessSize"))
+                {
+                    cookie.Values.Add("businessSize", Request["businessSize"]);
+                    attr.BusinessSize = Request["businessSize"];
+                }
+                if (Request.Form.AllKeys.Contains("businessType"))
+                {
+                    cookie.Values.Add("businessType", Request["businessType"]);
+                    attr.BusinessType = Request["businessType"];
+                }
+                if (Request.Form.AllKeys.Contains("employees"))
+                {
+                    cookie.Values.Add("employees", Request["employees"]);
+                    attr.Employees = int.Parse(Request["employees"]);
+                    var percentileItem = Core.DataLayer.AverageEmployees.Percentile(context, industryId, geo, attr.Employees ?? 0);
+                    if (percentileItem != null)
+                        analyticsAttr.AverageEmployeesPercentile = percentileItem.Percentile;
+                }
+                if (Request.Form.AllKeys.Contains("healthcareCost"))
+                {
+                    cookie.Values.Add("healthcareCost", Request["healthcareCost"]);
+                    attr.HealthcareCost = int.Parse(Request["healthcareCost"]);
+                    var percentileItem = Core.DataLayer.Healthcare.Percentage(context, industryId, geo, attr.HealthcareCost ?? 0);
+                    if (percentileItem != null)
+                        analyticsAttr.HealthCareCostPercentage = percentileItem.Percentage;
+                }
+                if (Request.Form.AllKeys.Contains("revenue"))
+                {
+                    cookie.Values.Add("revenue", Request["revenue"]);
+                    attr.Revenue = int.Parse(Request["revenue"]);
+                    var percentileItem = Core.DataLayer.AverageRevenue.Percentile(context, industryId, geo, attr.Revenue ?? 0);
+                    if (percentileItem != null)
+                        analyticsAttr.AverageRevenuePercentile = percentileItem.Percentile;
+                }
+                if (Request.Form.AllKeys.Contains("salary"))
+                {
+                    cookie.Values.Add("salary", Request["salary"]);
+                    attr.AverageSalary = int.Parse(Request["salary"]);
+                    var percentileItem = Core.DataLayer.AverageSalary.Percentage(context, industryId, geo, attr.AverageSalary ?? 0);
+                    if (percentileItem != null)
+                        analyticsAttr.AverageSalaryPercentage = percentileItem.Percentage;
+                }
+                if (Request.Form.AllKeys.Contains("workersComp"))
+                {
+                    cookie.Values.Add("workersComp", Request["workersComp"]);
+                    attr.WorkersComp = decimal.Parse(Request["workersComp"]);
+                    var percentileItem = Core.DataLayer.WorkersComp.Percentage(context, industryId, geo, (double)attr.WorkersComp);
+                    if (percentileItem != null)
+                        analyticsAttr.WorkersCompPercentage = percentileItem.Percentage;
+                }
+                if (Request.Form.AllKeys.Contains("yearStarted"))
+                {
+                    cookie.Values.Add("yearStarted", Request["yearStarted"]);
+                    attr.YearStarted = int.Parse(Request["yearStarted"]);
+                    var percentileItem = Core.DataLayer.YearStarted.Percentile(context, industryId, geo, attr.YearStarted ?? 0);
+                    if (percentileItem != null)
+                        analyticsAttr.YearStartedPercentile = percentileItem.Percentile;
 
+                }
+            }
 
             if (User.Identity.IsAuthenticated)
             {

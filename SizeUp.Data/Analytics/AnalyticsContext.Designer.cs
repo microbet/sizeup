@@ -1380,6 +1380,198 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Session;
         partial void OnSessionChanging(global::System.String value);
         partial void OnSessionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> AverageRevenuePercentile
+        {
+            get
+            {
+                return _AverageRevenuePercentile;
+            }
+            set
+            {
+                OnAverageRevenuePercentileChanging(value);
+                ReportPropertyChanging("AverageRevenuePercentile");
+                _AverageRevenuePercentile = StructuralObject.SetValidValue(value, "AverageRevenuePercentile");
+                ReportPropertyChanged("AverageRevenuePercentile");
+                OnAverageRevenuePercentileChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _AverageRevenuePercentile;
+        partial void OnAverageRevenuePercentileChanging(Nullable<global::System.Decimal> value);
+        partial void OnAverageRevenuePercentileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> RevenuePerCapitaPercentile
+        {
+            get
+            {
+                return _RevenuePerCapitaPercentile;
+            }
+            set
+            {
+                OnRevenuePerCapitaPercentileChanging(value);
+                ReportPropertyChanging("RevenuePerCapitaPercentile");
+                _RevenuePerCapitaPercentile = StructuralObject.SetValidValue(value, "RevenuePerCapitaPercentile");
+                ReportPropertyChanged("RevenuePerCapitaPercentile");
+                OnRevenuePerCapitaPercentileChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _RevenuePerCapitaPercentile;
+        partial void OnRevenuePerCapitaPercentileChanging(Nullable<global::System.Decimal> value);
+        partial void OnRevenuePerCapitaPercentileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> YearStartedPercentile
+        {
+            get
+            {
+                return _YearStartedPercentile;
+            }
+            set
+            {
+                OnYearStartedPercentileChanging(value);
+                ReportPropertyChanging("YearStartedPercentile");
+                _YearStartedPercentile = StructuralObject.SetValidValue(value, "YearStartedPercentile");
+                ReportPropertyChanged("YearStartedPercentile");
+                OnYearStartedPercentileChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _YearStartedPercentile;
+        partial void OnYearStartedPercentileChanging(Nullable<global::System.Decimal> value);
+        partial void OnYearStartedPercentileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> AverageSalaryPercentage
+        {
+            get
+            {
+                return _AverageSalaryPercentage;
+            }
+            set
+            {
+                OnAverageSalaryPercentageChanging(value);
+                ReportPropertyChanging("AverageSalaryPercentage");
+                _AverageSalaryPercentage = StructuralObject.SetValidValue(value, "AverageSalaryPercentage");
+                ReportPropertyChanged("AverageSalaryPercentage");
+                OnAverageSalaryPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _AverageSalaryPercentage;
+        partial void OnAverageSalaryPercentageChanging(Nullable<global::System.Decimal> value);
+        partial void OnAverageSalaryPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> HealthCareCostPercentage
+        {
+            get
+            {
+                return _HealthCareCostPercentage;
+            }
+            set
+            {
+                OnHealthCareCostPercentageChanging(value);
+                ReportPropertyChanging("HealthCareCostPercentage");
+                _HealthCareCostPercentage = StructuralObject.SetValidValue(value, "HealthCareCostPercentage");
+                ReportPropertyChanged("HealthCareCostPercentage");
+                OnHealthCareCostPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _HealthCareCostPercentage;
+        partial void OnHealthCareCostPercentageChanging(Nullable<global::System.Decimal> value);
+        partial void OnHealthCareCostPercentageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> TurnoverPercentile
+        {
+            get
+            {
+                return _TurnoverPercentile;
+            }
+            set
+            {
+                OnTurnoverPercentileChanging(value);
+                ReportPropertyChanging("TurnoverPercentile");
+                _TurnoverPercentile = StructuralObject.SetValidValue(value, "TurnoverPercentile");
+                ReportPropertyChanged("TurnoverPercentile");
+                OnTurnoverPercentileChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _TurnoverPercentile;
+        partial void OnTurnoverPercentileChanging(Nullable<global::System.Decimal> value);
+        partial void OnTurnoverPercentileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> AverageEmployeesPercentile
+        {
+            get
+            {
+                return _AverageEmployeesPercentile;
+            }
+            set
+            {
+                OnAverageEmployeesPercentileChanging(value);
+                ReportPropertyChanging("AverageEmployeesPercentile");
+                _AverageEmployeesPercentile = StructuralObject.SetValidValue(value, "AverageEmployeesPercentile");
+                ReportPropertyChanged("AverageEmployeesPercentile");
+                OnAverageEmployeesPercentileChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _AverageEmployeesPercentile;
+        partial void OnAverageEmployeesPercentileChanging(Nullable<global::System.Decimal> value);
+        partial void OnAverageEmployeesPercentileChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> WorkersCompPercentage
+        {
+            get
+            {
+                return _WorkersCompPercentage;
+            }
+            set
+            {
+                OnWorkersCompPercentageChanging(value);
+                ReportPropertyChanging("WorkersCompPercentage");
+                _WorkersCompPercentage = StructuralObject.SetValidValue(value, "WorkersCompPercentage");
+                ReportPropertyChanged("WorkersCompPercentage");
+                OnWorkersCompPercentageChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _WorkersCompPercentage;
+        partial void OnWorkersCompPercentageChanging(Nullable<global::System.Decimal> value);
+        partial void OnWorkersCompPercentageChanged();
 
         #endregion
 

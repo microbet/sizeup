@@ -66,6 +66,14 @@
           <Property Name="BusinessSize" Type="nvarchar" MaxLength="30" />
           <Property Name="WidgetAPIKeyId" Type="bigint" />
           <Property Name="Session" Type="nvarchar" MaxLength="30" />
+          <Property Name="AverageRevenuePercentile" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="RevenuePerCapitaPercentile" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="YearStartedPercentile" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="AverageSalaryPercentage" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="HealthCareCostPercentage" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="TurnoverPercentile" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="AverageEmployeesPercentile" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="WorkersCompPercentage" Type="decimal" Precision="15" Scale="2" />
         </EntityType>
         <EntityType Name="CompetitorAttributes">
           <Key>
@@ -373,6 +381,14 @@
           <Property Type="String" Name="BusinessSize" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="WidgetAPIKeyId" />
           <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="AverageRevenuePercentile" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="RevenuePerCapitaPercentile" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="YearStartedPercentile" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="AverageSalaryPercentage" Precision="15" Scale="2" />
+          <Property Type="Decimal" Name="HealthCareCostPercentage" Precision="15" Scale="2" />
+          <Property Type="Decimal" Name="TurnoverPercentile" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="AverageEmployeesPercentile" Precision="5" Scale="2" />
+          <Property Type="Decimal" Name="WorkersCompPercentage" Precision="15" Scale="2" />
         </EntityType>
         <EntityType Name="CompetitorAttribute">
           <Key>
@@ -572,6 +588,14 @@
           <EntitySetMapping Name="BusinessAttributes">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.BusinessAttribute">
               <MappingFragment StoreEntitySet="BusinessAttributes">
+                <ScalarProperty Name="WorkersCompPercentage" ColumnName="WorkersCompPercentage" />
+                <ScalarProperty Name="AverageEmployeesPercentile" ColumnName="AverageEmployeesPercentile" />
+                <ScalarProperty Name="TurnoverPercentile" ColumnName="TurnoverPercentile" />
+                <ScalarProperty Name="HealthCareCostPercentage" ColumnName="HealthCareCostPercentage" />
+                <ScalarProperty Name="AverageSalaryPercentage" ColumnName="AverageSalaryPercentage" />
+                <ScalarProperty Name="YearStartedPercentile" ColumnName="YearStartedPercentile" />
+                <ScalarProperty Name="RevenuePerCapitaPercentile" ColumnName="RevenuePerCapitaPercentile" />
+                <ScalarProperty Name="AverageRevenuePercentile" ColumnName="AverageRevenuePercentile" />
                 <ScalarProperty Name="Session" ColumnName="Session" />
                 <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
                 <ScalarProperty Name="BusinessSize" ColumnName="BusinessSize" />
