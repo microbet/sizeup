@@ -41,7 +41,7 @@
 
 
 <div id="community">
-    <h1>Community Profile for @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
+    <h1>Community Profile for @ViewBag.CurrentInfo.CurrentPlace.City.Name - (@ViewBag.CurrentInfo.CurrentPlace.County.Name County), @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
     <p class="description">Counties in @ViewBag.CurrentInfo.CurrentPlace.City.Name @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation: @(string.Join(", ", ViewBag.Counties))</p>
     <div class="map"></div>
 
