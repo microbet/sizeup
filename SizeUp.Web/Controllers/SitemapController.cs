@@ -79,15 +79,16 @@ namespace SizeUp.Web.Controllers
                     .Where(i => i.Id > index)
                     .OrderBy(i => i.Id)
                     .Take(50000)
+                    .Join(context.Industries, x => x.Industry, i => i.SEOKey, (x, i) => new { Industry = i, SitemapCommunityIndsutry = x })
+                    .Where(i=>i.Industry.IsActive == true && i.Industry.IsDisabled == false )
                     .Select(i => new Core.DataLayer.Models.Sitemap.CommunityIndustry
                     {
-                        Industry = i.Industry,
-                        City = i.City,
-                        County = i.County,
-                        State = i.State
-                    })
+                        Industry = i.SitemapCommunityIndsutry.Industry,
+                        City = i.SitemapCommunityIndsutry.City,
+                        County = i.SitemapCommunityIndsutry.County,
+                        State = i.SitemapCommunityIndsutry.State
+                    })                   
                     .ToList();
-
 
                 Response.ContentType = "text/xml";
                 return View();
