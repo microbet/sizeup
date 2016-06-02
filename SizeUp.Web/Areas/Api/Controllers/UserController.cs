@@ -7,6 +7,11 @@ using System.Web.Security;
 using SizeUp.Core;
 using SizeUp.Core.Identity;
 using SizeUp.Core.Email;
+using System.Net.Http;
+using SizeUp.Core.Analytics;
+using SizeUp.Data.Analytics;
+using SizeUp.Core.Web;
+using System.Net;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -74,19 +79,72 @@ namespace SizeUp.Web.Areas.Api.Controllers
             {
                 Singleton<Mailer>.Instance.SendResetPasswordEmail(i);
             }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Bad Request: Invalid email.");
+            }
 
+            return Json(true);
+        }
+        [HttpPost]
+        public ActionResult Register(string email, string password, string name, long? cityId, long? industryId)
+        {
+            Identity i = new Identity()
+            {
+                Email = email,
+                FullName = name
+            };
+
+            try
+            {
+                i.IsApproved = false;
+                i.CreateUser(password);
+                Singleton<Mailer>.Instance.SendRegistrationEmail(i);
+                string ReturnUrl = string.IsNullOrWhiteSpace(Request["returnurl"]) ? "/" : Request["returnurl"];
+
+                UserRegistration reg = new UserRegistration()
+                {
+                    APIKeyId = null,
+                    CityId = cityId,
+                    IndustryId = industryId,
+                    UserId = i.UserId,
+                    Email = i.Email,
+                    ReturnUrl = ReturnUrl
+                };
+
+                Singleton<Tracker>.Instance.UserRegistration(reg);
+            }
+            catch (MembershipCreateUserException ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("Bad Request: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                return Json("Server Error: " + ex.Message);
+            }
+            
             return Json(true);
         }
 
         [HttpPost]
         public ActionResult SendVerification(string email)
         {
-            var i = Identity.GetUser(email);
-            if (i != null)
+            try
             {
-                Singleton<Mailer>.Instance.SendRegistrationEmail(i);
-            }
+                var i = Identity.GetUser(email);
+                if (i != null)
+                {
+                    Singleton<Mailer>.Instance.SendRegistrationEmail(i);
+                }
 
+            }
+            catch (System.Exception ex)
+            {
+                return Json("Server Error: " + ex.Message);
+            }
             return Json(true);
         }
 
