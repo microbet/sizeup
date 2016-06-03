@@ -81,7 +81,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
             else
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                //Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("Bad Request: Invalid email.");
             }
 
@@ -117,12 +117,12 @@ namespace SizeUp.Web.Areas.Api.Controllers
             }
             catch (MembershipCreateUserException ex)
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                //Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json("Bad Request: " + ex.Message);
             }
             catch (System.Exception ex)
             {
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return Json("Server Error: " + ex.Message);
             }
             
