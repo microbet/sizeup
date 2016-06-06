@@ -41,8 +41,8 @@
 
 @if (@ViewBag.Counties[0].Substring(0, ViewBag.Counties[0].IndexOf(',')) != @ViewBag.CurrentInfo.CurrentPlace.County.Name)
 {
-    <link href="https://www.@SizeUp.Core.Web.WebContext.Current.Domain/community/@ViewBag.CurrentInfo.CurrentPlace.State.Name/@ViewBag.Counties[0].Substring(0,ViewBag.Counties[0].IndexOf(','))/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/" rel="canonical" />
-    }
+    <link href="https://www.@SizeUp.Core.Web.WebContext.Current.Domain/community/@ViewBag.CurrentInfo.CurrentPlace.State.Name.ToLower()/@ViewBag.Counties[0].Substring(0,ViewBag.Counties[0].IndexOf(',')).ToLower()/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey.ToLower()" rel="canonical" />
+}
 
 <div id="community">
     <h1>Community Profile for @ViewBag.CurrentInfo.CurrentPlace.City.Name - (@ViewBag.CurrentInfo.CurrentPlace.County.Name County), @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h1>
