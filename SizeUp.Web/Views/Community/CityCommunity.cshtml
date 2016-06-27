@@ -9,10 +9,10 @@
 
 
     @*<meta name="title" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation" />*@
-    <meta name="title" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name.ToUpper() @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation.ToUpper() Demographics, Population, Consumer Spending | SizeUp" />
+    <meta name="title" content="Find @ViewBag.CurrentInfo.CurrentPlace.City.Name.ToUpper() @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation.ToUpper() Demographics, Population, Consumer Spending | SizeUp" />
 
     <meta name="keywords" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation, @(string.Join(", ", ViewBag.Counties))" />
-    <meta name="description" content="@DateTime.Now.Year @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name demographics, population & household spending data and top ranked industries for small business intelligence | SizeUp" />
+    <meta name="description" content="Find @DateTime.Now.Year @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name demographics, population &amp; household spending data and top ranked business categories." />
 
     @if (@ViewBag.Counties[0].Substring(0, ViewBag.Counties[0].IndexOf(',')) != @ViewBag.CurrentInfo.CurrentPlace.County.Name)
     {
