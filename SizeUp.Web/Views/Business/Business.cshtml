@@ -9,8 +9,8 @@
 
 <meta name="title" content="@ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation - @ViewBag.CurrentInfo.CurrentIndustry.Name" />
 <meta name="keywords" content="@ViewBag.Business.Name, @ViewBag.CurrentInfo.CurrentIndustry.Name, @(string.Join(", ", ViewBag.IndustryKeywords))" />
-<meta name="description" content="Average revenue, salary, number of employees for @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation categorized under @ViewBag.CurrentInfo.CurrentIndustry.Name" />
-
+<meta name="description" content="Find address &amp; map for @ViewBag.Business.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation &amp; average revenue, salary, number of employees for @ViewBag.CurrentInfo.CurrentIndustry.Name category." />
+    
 <link href="@Url.Content("~/Content/views/business/business.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
