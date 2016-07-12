@@ -5,7 +5,6 @@
 @section head{
 <title>Business Dashboard - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</title>
 <meta name="title" content="Business Dashboard for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation | SizeUp" />
-<meta name="keywords" content="@ViewBag.Business.Name, @ViewBag.CurrentInfo.CurrentIndustry.Name, @(string.Join(", ", ViewBag.IndustryKeywords))" />
 <meta name="description" content="Compare your business to competitors in the @ViewBag.CurrentInfo.CurrentIndustry.Name industry in @ViewBag.CurrentInfo.CurrentPlace.City.Name @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation across key business variables; revenue, salary, number of employees." />
     
 <link href="@Url.Content("~/Content/views/dashboard/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
