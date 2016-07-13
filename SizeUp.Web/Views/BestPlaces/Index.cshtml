@@ -6,6 +6,8 @@
 @section head{
 <title>Best Places</title>
 <link href="@Url.Content("~/Content/views/bestPlaces/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<meta name="title" content="Find Top US Cities Based on Revenue for @ViewBag.CurrentInfo.CurrentIndustry.Name | SizeUp" />
+<meta name="description" content="Find list of the top US cities for @ViewBag.CurrentInfo.CurrentIndustry.Name based on total annual revenue or use filters to search based on economic &amp; business variables." />
 
 <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="//maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
