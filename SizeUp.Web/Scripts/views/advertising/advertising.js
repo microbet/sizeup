@@ -701,9 +701,18 @@
             params.itemCount = pagerData.itemsPerPage;
             params.bands = me.opts.bandCount;
             params.page = pagerData.page;
-
+            params.filters = me.opts.filterTemplates;
+            $.each(params.filters, function (i, v) {
+                if (!me.content.filters.sliders[i] || !me.content.filters.sliders[i].hasOwnProperty('getValue')) return;
+                var range = me.content.filters.sliders[i].getValue();
+                if (range !== null) {
+                    v.Min = range.min;
+                    v.max = range.max;
+                    v.value = range.value;
+                }
+            });
             
-            new sizeup.core.analytics().advertisingReportLoaded({ attribute: params.attribute });
+            new sizeup.core.analytics().advertisingReportLoaded(params);
 
             var reportData = {
                 zips: null,
