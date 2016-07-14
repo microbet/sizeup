@@ -24,8 +24,23 @@ namespace SizeUp.Web.Controllers
             return View();
         }
 
+        public ActionResult Benefits()
+        {
+            ViewBag.Header = new Models.Header()
+            {
+                HideNavigation = true
+            };
+
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Benefits.Content").Select(i => i.Value).FirstOrDefault();
+            }
+            return View();
+        }
+
         public ActionResult About()
         {
+
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
@@ -34,21 +49,6 @@ namespace SizeUp.Web.Controllers
             using (var context = ContextFactory.SizeUpContext)
             {
                 ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "About.Content").Select(i => i.Value).FirstOrDefault();
-            }
-            return View();
-        }
-
-        public ActionResult Mission()
-        {
-
-            ViewBag.Header = new Models.Header()
-            {
-                HideNavigation = true
-            };
-
-            using (var context = ContextFactory.SizeUpContext)
-            {
-                ViewBag.Content = context.ResourceStrings.Where(i => i.Name == "Mission.Content").Select(i => i.Value).FirstOrDefault();
             }
             return View();
         }

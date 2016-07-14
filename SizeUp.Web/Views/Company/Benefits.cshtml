@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+<title>How Can Small Business Benefit From Business Intelligence</title>
+<meta name="title" content="How Can Small Business Benefit From Business Intelligence | SizeUp" />
+<meta name="keywords" content=" about, mission, goal" />
+<meta name="description" content="We are leading a movement to level the playing field about business information to help entrepreneurs grow their companies & reduce small business failure." />
+<link href="@Url.Content("~/Content/views/company/about.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+}
+<div id="about">
+    @Html.Raw(ViewBag.Content)
+</div>
