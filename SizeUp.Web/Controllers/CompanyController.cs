@@ -53,6 +53,11 @@ namespace SizeUp.Web.Controllers
             return View();
         }
 
+        public ActionResult Mission()
+        {
+            return View();
+        }
+
         public ActionResult Jobs()
         {
 
