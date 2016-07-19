@@ -1,0 +1,11 @@
+﻿@{
+    Layout = null;
+}<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    @foreach(var x in ViewBag.Data){
+   <url>
+      <loc>https://www.@SizeUp.Core.Web.WebContext.Current.Domain/Advertising/@x.State/@x.County/@x.City/@x.Industry/</loc>
+   </url>
+    }
+</urlset> 
+
