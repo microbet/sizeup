@@ -43,7 +43,7 @@
                 url = document.location.search + document.location.hash;
             }
             else {
-                url = "?returnurl=" + encodeURIComponent(document.location.pathname + document.location.search + document.location.hash);
+                url = "?wt=" + encodeURIComponent(document.location.search.replace("?wt=", '')) + "&returnurl=" + encodeURIComponent(document.location.pathname + document.location.hash);
             }
             return url;
         };
@@ -59,7 +59,7 @@
         };
 
         pub.register = function () {
-            document.location = getURLPrefix() + "/register" + getReturnQueryString();
+            document.location = getURLPrefix() + "/register/" + getReturnQueryString();
         };
 
         pub.signIn = function () {
@@ -72,7 +72,7 @@
 
         pub.updateUserProfile = function (params, callback) {
             return post('/api/user/profile/', params, callback);
-        }; 
+        };
 
         pub.setPassword = function (params, callback) {
             return post('/api/user/password/', params, callback);
@@ -89,7 +89,7 @@
         pub.setDashboardValues = function (params, callback) {
             var url = '/api/profile/dashboardValues/';
             var p = parseQueryString(jQuery.param.querystring());
-            if (p.wt!=null) {
+            if (p.wt != null) {
                 url = jQuery.param.querystring(url, { wt: decodeURIComponent(p.wt) });
             }
             return post(url, params, callback);
