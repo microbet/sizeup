@@ -19,7 +19,7 @@ namespace SizeUp.Web.Controllers
                 ViewBag.BusinessCount = context.SitemapBusinesses.Count();
                 ViewBag.CommunityCount = context.SitemapCommunities.Count();
                 ViewBag.CommunityIndustryCount = context.SitemapCommunityIndustries.Count();
-
+                ViewBag.SiteMapMainCount = context.SitemapMains.Count();
                 Response.ContentType = "text/xml";
                 return View();
             }
@@ -79,14 +79,14 @@ namespace SizeUp.Web.Controllers
                     .Where(i => i.Id > index)
                     .OrderBy(i => i.Id)
                     .Take(50000)
-                    .Join(context.Industries, x => x.Industry, i => i.SEOKey, (x, i) => new { Industry = i, SitemapCommunityIndsutry = x })
+                    .Join(context.Industries, x => x.Industry, i => i.SEOKey, (x, i) => new { Industry = i, SitemapCommunityIndustry = x })
                     .Where(i=>i.Industry.IsActive == true && i.Industry.IsDisabled == false )
                     .Select(i => new Core.DataLayer.Models.Sitemap.CommunityIndustry
                     {
-                        Industry = i.SitemapCommunityIndsutry.Industry,
-                        City = i.SitemapCommunityIndsutry.City,
-                        County = i.SitemapCommunityIndsutry.County,
-                        State = i.SitemapCommunityIndsutry.State
+                        Industry = i.SitemapCommunityIndustry.Industry,
+                        City = i.SitemapCommunityIndustry.City,
+                        County = i.SitemapCommunityIndustry.County,
+                        State = i.SitemapCommunityIndustry.State
                     })                   
                     .ToList();
 
@@ -95,5 +95,28 @@ namespace SizeUp.Web.Controllers
             }
         }
 
+        public ActionResult Advertising(int index)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                ViewBag.Data = context.SitemapMains
+                    .Where(i => i.Id > index)
+                    .OrderBy(i => i.Id)
+                    .Take(50000)
+                    .Join(context.Industries, x => x.Industry, i => i.SEOKey, (x, i) => new { Industry = i, Main = x })
+                    .Where(i => i.Industry.IsActive == true && i.Industry.IsDisabled == false)
+                    .Select(i => new Core.DataLayer.Models.Sitemap.Advertising
+                    {
+                        Industry = i.Main.Industry,
+                        City = i.Main.City,
+                        County = i.Main.County,
+                        State = i.Main.State
+                    })
+                    .ToList();
+
+                Response.ContentType = "text/xml";
+                return View();
+            }
+        }
     }
 }
