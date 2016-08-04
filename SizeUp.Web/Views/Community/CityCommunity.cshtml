@@ -3,13 +3,10 @@
 }
 
 @section head{
-    <title>
-        @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation
-    </title>
 
 
     @*<meta name="title" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation" />*@
-    <meta name="title" content="Find @ViewBag.CurrentInfo.CurrentPlace.City.Name.ToUpper() @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation.ToUpper() Demographics, Population, Consumer Spending | SizeUp" />
+    <title>Find @ViewBag.CurrentInfo.CurrentPlace.City.Name.ToUpper() @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation.ToUpper() Demographics, Population, Consumer Spending | SizeUp</title>
 
     <meta name="keywords" content="@ViewBag.CurrentInfo.CurrentPlace.City.Name @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation, @(string.Join(", ", ViewBag.Counties))" />
     <meta name="description" content="Find @DateTime.Now.Year @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Name demographics, population &amp; household spending data and top ranked business categories." />
