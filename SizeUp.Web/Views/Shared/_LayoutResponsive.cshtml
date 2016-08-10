@@ -35,6 +35,27 @@
     <script src="@Url.Content("~/Scripts/tracking/outboundLinks.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
 
     @RenderSection("head",false)
+
+    <script type="text/javascript">
+        if (!String.prototype.includes) {
+            String.prototype.includes = function (search, start) {
+
+                if (typeof start !== 'number') {
+                    start = 0;
+                }
+
+                if (start + search.length > this.length) {
+                    return false;
+                } else {
+                    return this.indexOf(search, start) !== -1;
+                }
+            };
+        }
+
+        if (screen.width <= 800 && !window.location.pathname.includes('bestPlaces')) {
+            window.location.replace('https://m.sizeup.com' + window.location.pathname + window.location.hash)
+        }
+  </script>
 </head>
 
 <body>
