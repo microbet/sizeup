@@ -63,6 +63,7 @@
             if (!jQuery.isEmptyObject(data)) {
                 me.data.restoredSession = true;
             }
+            $.extend(data, $.parseJSON(localStorage.getItem("cv-" + opts.CurrentInfo.CurrentPlace.Id + "-" + opts.CurrentInfo.CurrentIndustry.Id)));
             jQuery.bbq.pushState(data, 1);
         }));
 
@@ -302,6 +303,8 @@
      
         var hashChanged = function (e) {
             var p = $.extend(true, { placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id, }, e.getState());
+            localStorage.setItem("cv-" + opts.CurrentInfo.CurrentPlace.Id + "-" + opts.CurrentInfo.CurrentIndustry.Id, JSON.stringify(p));
+            
             sizeup.core.profile.setCompetitionValues(p);
         };
 
