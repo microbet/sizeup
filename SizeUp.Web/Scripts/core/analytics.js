@@ -44,6 +44,7 @@
 
             advertisingReportLoaded: function (params) {
                 trackEvent({ category: 'Advertising', action: 'reportLoaded', label: params.attribute, isInteraction: true });
+                return post('/analytics/advertising/reportloaded', params);
             },
             advertisingIndustryChanged: function (params) {
                 trackEvent({ category: 'Advertising', action: 'industryChanged', label: params.industry, isInteraction: true });
@@ -105,7 +106,8 @@
                 trackEvent({ category: 'BestPlaces', action: 'advancedFilters', label: params.attribute, isInteraction: true });
             },
             outgoingLink: function (params) {
-                trackEvent({ category: 'outgoingLinks',action:'clicked', label: params.label, isInteraction: true });
+                trackEvent({ category: 'outgoingLinks', action: 'clicked', label: params.label, isInteraction: true });
+                return post('/analytics/tracker/outgoingLink', params);
             }
         };
         return publicObj;

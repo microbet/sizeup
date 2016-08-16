@@ -119,7 +119,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public ActionResult SetDashboardValues(long placeId, long industryId, long stateId)
         {
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
-            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
+            //HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.BusinessAttribute attr = new Data.UserData.BusinessAttribute();
             Data.Analytics.BusinessAttribute analyticsAttr = new Data.Analytics.BusinessAttribute();
             attr.PlaceId = placeId;
@@ -137,17 +137,17 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 
                 if (Request.Form.AllKeys.Contains("businessSize"))
                 {
-                    cookie.Values.Add("businessSize", Request["businessSize"]);
+                    //cookie.Values.Add("businessSize", Request["businessSize"]);
                     attr.BusinessSize = Request["businessSize"];
                 }
                 if (Request.Form.AllKeys.Contains("businessType"))
                 {
-                    cookie.Values.Add("businessType", Request["businessType"]);
+                    //cookie.Values.Add("businessType", Request["businessType"]);
                     attr.BusinessType = Request["businessType"];
                 }
                 if (Request.Form.AllKeys.Contains("employees"))
                 {
-                    cookie.Values.Add("employees", Request["employees"]);
+                    //cookie.Values.Add("employees", Request["employees"]);
                     attr.Employees = int.Parse(Request["employees"] ?? "");
                     var percentileItem = Core.DataLayer.AverageEmployees.Percentile(context, industryId, geo, attr.Employees ?? 0);
                     if (percentileItem != null)
@@ -155,7 +155,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (Request.Form.AllKeys.Contains("healthcareCost"))
                 {
-                    cookie.Values.Add("healthcareCost", Request["healthcareCost"]);
+                    //cookie.Values.Add("healthcareCost", Request["healthcareCost"]);
                     attr.HealthcareCost = int.Parse(Request["healthcareCost"] ?? "");
                     var percentileItem = Core.DataLayer.Healthcare.Percentage(context, industryId, geo, attr.HealthcareCost ?? 0);
                     if (percentileItem != null)
@@ -163,7 +163,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (Request.Form.AllKeys.Contains("revenue"))
                 {
-                    cookie.Values.Add("revenue", Request["revenue"]);
+                    //cookie.Values.Add("revenue", Request["revenue"]);
                     attr.Revenue = int.Parse(Request["revenue"] ?? "");
                     var percentileItem = Core.DataLayer.AverageRevenue.Percentile(context, industryId, geo, attr.Revenue ?? 0);
                     if (percentileItem != null)
@@ -171,7 +171,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (Request.Form.AllKeys.Contains("salary"))
                 {
-                    cookie.Values.Add("salary", Request["salary"]);
+                    //cookie.Values.Add("salary", Request["salary"]);
                     attr.AverageSalary = int.Parse(Request["salary"] ?? "");
                     var percentileItem = Core.DataLayer.AverageSalary.Percentage(context, industryId, geo, attr.AverageSalary ?? 0);
                     if (percentileItem != null)
@@ -179,7 +179,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (Request.Form.AllKeys.Contains("workersComp"))
                 {
-                    cookie.Values.Add("workersComp", Request["workersComp"]);
+                    //cookie.Values.Add("workersComp", Request["workersComp"]);
                     attr.WorkersComp = decimal.Parse(Request["workersComp"] ?? "");
                     var percentileItem = Core.DataLayer.WorkersComp.Percentage(context, industryId, geo, (double)attr.WorkersComp);
                     if (percentileItem != null)
@@ -187,7 +187,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 }
                 if (Request.Form.AllKeys.Contains("yearStarted"))
                 {
-                    cookie.Values.Add("yearStarted", Request["yearStarted"]);
+                    //cookie.Values.Add("yearStarted", Request["yearStarted"]);
                     attr.YearStarted = int.Parse(Request["yearStarted"] ?? "");
                     var percentileItem = Core.DataLayer.YearStarted.Percentile(context, industryId, geo, attr.YearStarted ?? 0);
                     if (percentileItem != null)
@@ -248,7 +248,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             analyticsAttr.YearStarted = attr.YearStarted;
             Singleton<Tracker>.Instance.BusinessAttribute(analyticsAttr);
 
-            Response.Cookies.Add(cookie);
+            //Response.Cookies.Add(cookie);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
@@ -261,7 +261,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
-            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : SizeUp.Core.Web.CookieFactory.Create(key);
+            //var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.CompetitorAttribute attr = new Data.UserData.CompetitorAttribute();
 
             if (User.Identity.IsAuthenticated)
@@ -298,23 +298,23 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 obj.rootId = attr.RootId;
             }
 
-            if (cookie.Values.AllKeys.Contains("competitor"))
-            {
-                obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
-            }
-            if (cookie.Values.AllKeys.Contains("supplier"))
-            {
-                obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
-            }
-            if (cookie.Values.AllKeys.Contains("buyer"))
-            {
-                obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
-            }
-            if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable") && cookie.Values.AllKeys.Contains("rootId"))
-            {
-                obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
-                obj.rootId = long.Parse(cookie.Values["rootId"]);
-            }
+            //if (cookie.Values.AllKeys.Contains("competitor"))
+            //{
+            //    obj.competitor = cookie.Values["competitor"].Split(',').Select(i => long.Parse(i)).ToList();
+            //}
+            //if (cookie.Values.AllKeys.Contains("supplier"))
+            //{
+            //    obj.supplier = cookie.Values["supplier"].Split(',').Select(i => long.Parse(i)).ToList();
+            //}
+            //if (cookie.Values.AllKeys.Contains("buyer"))
+            //{
+            //    obj.buyer = cookie.Values["buyer"].Split(',').Select(i => long.Parse(i)).ToList();
+            //}
+            //if (cookie.Values.AllKeys.Contains("consumerExpenditureVariable") && cookie.Values.AllKeys.Contains("rootId"))
+            //{
+            //    obj.consumerExpenditureVariable = long.Parse(cookie.Values["consumerExpenditureVariable"]);
+            //    obj.rootId = long.Parse(cookie.Values["rootId"]);
+            //}
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
             return Json(output, JsonRequestBehavior.AllowGet);
@@ -326,7 +326,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         public ActionResult SetCompetitionValues(long placeId, long industryId)
         {
             string key = string.Format("cv-{0}-{1}", placeId, industryId);
-            HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
+            //HttpCookie cookie = SizeUp.Core.Web.CookieFactory.Create(key);
             Data.UserData.CompetitorAttribute attr = new Data.UserData.CompetitorAttribute();
             Data.Analytics.CompetitorAttribute analyticsAttr = new Data.Analytics.CompetitorAttribute();
             attr.PlaceId = placeId;
@@ -337,28 +337,28 @@ namespace SizeUp.Web.Areas.Api.Controllers
             if (Request.Form.AllKeys.Contains("competitor"))
             {
                 var ids = Form.IntValues("competitor");
-                cookie.Values.Add("competitor", string.Join(",", ids));
+                //cookie.Values.Add("competitor", string.Join(",", ids));
                 attr.Competitors = string.Join(",", ids);
             }
             if (Request.Form.AllKeys.Contains("supplier"))
             {
                 var ids = Form.IntValues("supplier");
-                cookie.Values.Add("supplier", string.Join(",", ids));
+                //cookie.Values.Add("supplier", string.Join(",", ids));
                 attr.Suppliers = string.Join(",", ids);
             }
             if (Request.Form.AllKeys.Contains("buyer"))
             {
                 var ids = Form.IntValues("buyer");
-                cookie.Values.Add("buyer", string.Join(",", ids));
+                //cookie.Values.Add("buyer", string.Join(",", ids));
                 attr.Buyers = string.Join(",", ids);
             }
             if (Request.Form.AllKeys.Contains("rootId") && Request.Form.AllKeys.Contains("consumerExpenditureVariable"))
             {
                 var id = Form.StringValue("rootId");
-                cookie.Values.Add("rootId", id);
+                //cookie.Values.Add("rootId", id);
                 attr.RootId = int.Parse(id);
                 id = Form.StringValue("consumerExpenditureVariable");
-                cookie.Values.Add("consumerExpenditureVariable", id);
+                //cookie.Values.Add("consumerExpenditureVariable", id);
                 attr.ComsumerExpenditureId = int.Parse(id);
             }
 
@@ -409,7 +409,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
             Singleton<Tracker>.Instance.CompetitorAttribute(analyticsAttr);
 
 
-            Response.Cookies.Add(cookie);
+            //Response.Cookies.Add(cookie);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
