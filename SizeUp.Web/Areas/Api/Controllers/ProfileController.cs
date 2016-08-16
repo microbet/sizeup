@@ -22,7 +22,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
         //
         // GET: /Api/User/
         [HttpGet]
-        public ActionResult GetDashboardValues(long placeId, long industryId)
+        public ActionResult GetDashboardValues(long placeId, long industryId, Data.UserData.BusinessAttribute attributes)
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
@@ -78,38 +78,38 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 obj.yearStarted = attr.YearStarted;
             }
 
-            if (cookie.Values.AllKeys.Contains("businessSize") && User.Identity.IsAuthenticated)
-            {
-                obj.businessSize = cookie.Values["businessSize"];
-            }
-            if (cookie.Values.AllKeys.Contains("businessType"))
-            {
-                obj.businessType = cookie.Values["businessType"];
-            }
-            if (cookie.Values.AllKeys.Contains("employees") && User.Identity.IsAuthenticated)
-            {
-                obj.employees = cookie.Values["employees"];
-            }
-            if (cookie.Values.AllKeys.Contains("healthcareCost") && User.Identity.IsAuthenticated)
-            {
-                obj.healthcareCost = cookie.Values["healthcareCost"];
-            }
-            if (cookie.Values.AllKeys.Contains("revenue"))
-            {
-                obj.revenue = cookie.Values["revenue"];
-            }
-            if (cookie.Values.AllKeys.Contains("salary"))
-            {
-                obj.salary = cookie.Values["salary"];
-            }
-            if (cookie.Values.AllKeys.Contains("workersComp") && User.Identity.IsAuthenticated)
-            {
-                obj.workersComp = cookie.Values["workersComp"];
-            }
-            if (cookie.Values.AllKeys.Contains("yearStarted"))
-            {
-                obj.yearStarted = cookie.Values["yearStarted"];
-            }
+            //if (cookie.Values.AllKeys.Contains("businessSize") && User.Identity.IsAuthenticated)
+            //{
+            //    obj.businessSize = cookie.Values["businessSize"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("businessType"))
+            //{
+            //    obj.businessType = cookie.Values["businessType"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("employees") && User.Identity.IsAuthenticated)
+            //{
+            //    obj.employees = cookie.Values["employees"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("healthcareCost") && User.Identity.IsAuthenticated)
+            //{
+            //    obj.healthcareCost = cookie.Values["healthcareCost"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("revenue"))
+            //{
+            //    obj.revenue = cookie.Values["revenue"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("salary"))
+            //{
+            //    obj.salary = cookie.Values["salary"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("workersComp") && User.Identity.IsAuthenticated)
+            //{
+            //    obj.workersComp = cookie.Values["workersComp"];
+            //}
+            //if (cookie.Values.AllKeys.Contains("yearStarted"))
+            //{
+            //    obj.yearStarted = cookie.Values["yearStarted"];
+            //}
 
             object output = ((ExpandoObject)obj).ToDictionary(item => item.Key, item => item.Value);
             return Json(output, JsonRequestBehavior.AllowGet);
