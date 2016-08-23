@@ -199,4 +199,4 @@ a.changeLocation:hover { color: #1898d3; }
     .btn-green { padding: 0.75em 3em; }
 }
 
-#form input[role="textbox"] :disabled {background-color:#808080;}
+#form input[role="textbox"]:disabled {background-color:#808080;}

@@ -22,7 +22,7 @@ input[type=text] {width: 31.5em; padding: 0.5em; color: #303030;text-align: cent
 #form .location {font-size:1.6em; font-weight:bold; text-align:center; padding:1.25em;}
 #form .location a,
 #form .location span {font-size:1em;}
-#form input[role="textbox"] :disabled {background-color:#808080;}
+#form input[role="textbox"]:disabled {background-color:#808080;}
 
 #form #continue {margin:0.25em 0 3em 0;}
 
