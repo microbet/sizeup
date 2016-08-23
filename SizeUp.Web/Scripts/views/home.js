@@ -89,10 +89,7 @@
             });
 
             $('#detect-my-location').on('click', function (e) {
-                if (me.form.location.cityTextbox.attr('disabled') !== 'disabled')
-                    detectLocation($('#detect-location-crosshair'));
-                else
-                    me.form.location.cityTextbox.removeAttr('disabled');
+                detectLocation($('#detect-location-crosshair'));
             });
 
 
@@ -178,19 +175,15 @@
                 $('#detect-location-crosshair').removeClass('fa-spin');
                 sizeup.api.data.getDetected({ lat: position.coords.latitude, lng: position.coords.longitude }, function (data) {
                     me.form.location.cityTextbox.val(data.DisplayName);
-                    me.form.location.cityTextbox.attr('disabled', 'disabled');
                     onCityChange(data);
-
                 });
-            }
-
-            var errorCallback = function (err) {
+            },
+            errorCallback = function (err) {
                 $('#detect-location-crosshair').removeClass('fa-spin');
                 console.log(err)
             }
 
             navigator.geolocation.getCurrentPosition(successCallback, errorCallback , { timeout: 10000 });
-
         }
 
         var onSubmit = function () {
