@@ -3,15 +3,16 @@
 }
 
 @section head{
-<title>Small Business Intelligence for All | SizeUp</title>
-<meta content="SizeUp is a free tool that shows how your business compares to competitors, identifies best places to advertise &amp; maps competitors, customers, suppliers." name="description"/>
+    <title>Small Business Intelligence for All | SizeUp</title>
+    <meta content="SizeUp is a free tool that shows how your business compares to competitors, identifies best places to advertise &amp; maps competitors, customers, suppliers." name="description" />
 
-    
-<meta name="msvalidate.01" content="617D422F1C755FBC8E951643F1B3D8C5" />
+
+    <meta name="msvalidate.01" content="617D422F1C755FBC8E951643F1B3D8C5" />
     <link href="@Url.Content("~/Content/thirdParty/toggle-switch.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/thirdParty/animations.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/views/home-responsive.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
+    <script src="https://use.fontawesome.com/4f24bdb045.js"></script>
     <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -26,17 +27,26 @@
             <img id="step-two-back" class="col-lg-1 col-md-1 col-sm-2 col-sm-2" src="@Url.Content("~/Content/images/slider-nav-prev-white.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Back"/>
             <h1 id="form-header">Business Intelligence for All</h1>
         </div>
-        <p id="header-info"> In 3 steps you will learn how your business stacks up to your competition.</p>
+        <p id="header-info">In 3 steps you will learn how your business stacks up to your competition.</p>
     </div>
     <form id="form">
         <fieldset>
-            <div id="industry-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
-                <label for ="searchIndustry" class="input-group-addon input-group-blue">My industry is</></label>
+            <div id="industry-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12" style="margin-bottom:1px;" >
+                <label for="searchIndustry" class="input-group-addon input-group-blue">My industry is</></label>
                 <input id="searchIndustry" aria-haspopup="true" aria-autocomplete="list" type="text" name="industry" class="form-control" placeholder="Enter Your Industry">
             </div>
+            <div id="detect-my-location" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12" style="margin-bottom:1px; margin-top:1px">
+                
+                <label id="detect-label" class="nopadding pull-right" style="cursor:pointer">
+                <i id="detect-location-crosshair" class="fa fa-crosshairs"></i>
+                    Use my current location
+                </label>
+
+                
+            </div>
             <div id="location-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
-                <label for ="searchCommunity" class="input-group-addon input-group-blue">I'm located in</label>
-                <input id="searchCommunity" aria-haspopup="true" aria-autocomplete="list" type="text"  name="city" class="form-control" placeholder="Enter Your City">
+                <label for="searchCommunity" class="input-group-addon input-group-blue">I'm located in</label>
+                <input id="searchCommunity" aria-haspopup="true" aria-autocomplete="list" type="text" name="city" class="form-control" placeholder="Enter Your City">
                 <p id="enteredLocation" class="text-center location hidden">
                     Your city is <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a>
                 </p>
@@ -44,6 +54,18 @@
                     We think you are in <a class="changeLocation" href="javascript:void(0);"><span class="locationText"></span>&nbsp;<span class="hint">[change]</span></a>
                 </p>
             </div>
+
+
+            @*                                 <div id="detect-location-switch-toggle-wrapper">
+                        <div class="switch-toggle well">
+                            <input id="detect-off" type="radio" name="detectLocation" value="detectOff" checked="">
+                            <label for="detect-off" style="cursor: pointer;"></label>
+                            <input id="detect-on" type="radio" name="detectLocation" value="detectOn">
+                            <label for="detect-on" style="cursor: pointer;"></label>
+                            <a class="btn btn-primary"></a>
+                        </div>
+                    </div>*@
+
             <div id="inline-switch-wrapper" class="clearfix container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12">
                 <div id="inline-switch">
                     <div id="exist-copy">
@@ -67,10 +89,14 @@
                 </div>
                 <div id="row-switch">
                     <div>
-                        <label><input id="business" type="radio" name="businessStatus" value="established" checked=""> I have an existing business</label>
+                        <label>
+                            <input id="business" type="radio" name="businessStatus" value="established" checked="">
+                            I have an existing business</label>
                     </div>
                     <div>
-                        <label><input id="startup" type="radio" name="businessStatus" value="startup"> I want to start a business</label>
+                        <label>
+                            <input id="startup" type="radio" name="businessStatus" value="startup">
+                            I want to start a business</label>
                     </div>
                     <div class="text-center">
                         <br />
@@ -229,7 +255,7 @@
         </div>
     </div>
     <div id="slider-sibling-column" class="col-lg-6 col-sm-6">
-         <div class="col-lg-1">
+        <div class="col-lg-1">
             <img src="@Url.Content("~/Content/images/checkmark.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Check Mark"/>
         </div>
         <div class="col-lg-11 right-col">
@@ -355,10 +381,12 @@
             </div>
             <!-- Controls -->
             <a class="left carousel-control" href="#carousel-competition-generic" data-slide="prev">
-                <span><img src="@Url.Content("~/Content/images/slider-nav-prev.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Prev"/></span>
+                <span>
+                    <img src="@Url.Content("~/Content/images/slider-nav-prev.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Prev"/></span>
             </a>
             <a class="right carousel-control" href="#carousel-competition-generic" data-slide="next">
-                <span> <img src="@Url.Content("~/Content/images/slider-nav-next.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Next"/></span>
+                <span>
+                    <img src="@Url.Content("~/Content/images/slider-nav-next.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Next"/></span>
             </a>
         </div>
     </div>
@@ -464,7 +492,7 @@
         <div class="container">
             <div class="col-lg-12">
                 <h2>What's the best place to advertise?</h2>
-                <p id="title-copy" >All you need to analyze your local business. Make the right decisions.</p>
+                <p id="title-copy">All you need to analyze your local business. Make the right decisions.</p>
             </div>
         </div>
     </div>
@@ -612,7 +640,9 @@
                     <!-- Default panel contents -->
                     <div class="panel-body">
                         <img src="@Url.Content("~/Content/images/square-advertise.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertising"/>
-                        <div><p class="col-lg-10 col-lg-offset-1">Places to advertise based on</p></div>
+                        <div>
+                            <p class="col-lg-10 col-lg-offset-1">Places to advertise based on</p>
+                        </div>
                     </div>
                     <!-- List group -->
                     <ul id="advertise-selection" class="list-group">

@@ -8,12 +8,11 @@
        
         var me = {};
 
-        
-
         var pub = {
-@if(ViewBag.Permissions.Place){
+@if (ViewBag.Permissions.Place)
+{
     <text>
-            findPlace: function (params, success, error) {
+    findPlace: function (params, success, error) {
                 var url = '/data/place/search/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -22,12 +21,17 @@
                 params.id = sizeup.api.util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+            getDetected: function (params, success, error) {
+                var url = '/data/place/SearchDetected/';                
+                return sizeup.api.loader.getData(url, params, success, error);
+            },
     </text>
 }
 
-@if(ViewBag.Permissions.Industry){
+@if (ViewBag.Permissions.Industry)
+{
     <text>
-            findIndustry: function (params, success, error) {
+    findIndustry: function (params, success, error) {
                 var url = '/data/industry/search/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -39,9 +43,10 @@
     </text>
 }
 
-@if(ViewBag.Permissions.IndustryData){
+@if (ViewBag.Permissions.IndustryData)
+{
     <text>
-            getAverageRevenue: function (params, success, error) {
+    getAverageRevenue: function (params, success, error) {
                 var url = '/data/averageRevenue/chart/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -207,9 +212,10 @@
 }
 
 
-@if(ViewBag.Permissions.BestPlaces){
+@if (ViewBag.Permissions.BestPlaces)
+{
     <text>
-            getBestPlaces: function (params, success, error) {
+    getBestPlaces: function (params, success, error) {
                 var url = '/data/bestPlaces/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -223,9 +229,10 @@
 
 
 
-@if(ViewBag.Permissions.Advertising){
+@if (ViewBag.Permissions.Advertising)
+{
     <text>
-            getBestPlacesToAdvertise: function (params, success, error) {
+    getBestPlacesToAdvertise: function (params, success, error) {
                 var url = '/data/Advertising/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -243,9 +250,10 @@
 }
 
 
-@if(ViewBag.Permissions.ConsumerExpenditures){
+@if (ViewBag.Permissions.ConsumerExpenditures)
+{
     <text>
-            getConsumerExpenditureVariables: function (params, success, error) {
+    getConsumerExpenditureVariables: function (params, success, error) {
                 var url = '/data/consumerExpenditures/variables/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -274,9 +282,10 @@
 
 
 
-@if(ViewBag.Permissions.Business){    
-    <text>        
-            getBusiness: function (params, success, error) {
+@if (ViewBag.Permissions.Business)
+{    
+    <text>
+    getBusiness: function (params, success, error) {
                 var url = '/data/business/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -294,9 +303,10 @@
 }
 
 
-@if(ViewBag.Permissions.Place){   
-    <text>         
-            getBoundingBox: function (params, success, error) {
+@if (ViewBag.Permissions.Place)
+{   
+    <text>
+    getBoundingBox: function (params, success, error) {
                 var url = '/data/geography/boundingbox/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
@@ -311,16 +321,17 @@
     </text>
 }
 
-@if(ViewBag.Permissions.Demographics){
+@if (ViewBag.Permissions.Demographics)
+{
     <text>
-            getDemographics: function (params, success, error) {
+    getDemographics: function (params, success, error) {
                 var url = '/data/demographics/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
     </text>
 }
 
-            version: '1.0'
+version: '1.0'
         };
 
 

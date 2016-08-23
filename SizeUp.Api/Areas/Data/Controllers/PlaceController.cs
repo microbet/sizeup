@@ -17,18 +17,28 @@ namespace SizeUp.Api.Areas.Data.Controllers
     {
         //
         // GET: /Api/Place/
-        
+
         [APIAuthorize(Role = "Place")]
         public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Search(context, term).Take(maxResults).ToList();
+                var query = ((ObjectQuery)(Core.DataLayer.Place.Search(context, term))).ToTraceString();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
 
-        
+        [APIAuthorize(Role = "Place")]
+        public ActionResult SearchDetected(double lat, double lng)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var place = Core.DataLayer.Place.GetBoundingCity(context, new LatLng() { Lat = lat, Lng = lng });
+                return Json(place, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [APIAuthorize(Role = "Place")]
         public ActionResult Detected()
         {
@@ -41,7 +51,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-        
+
         [APIAuthorize(Role = "Place")]
         public ActionResult Index(List<long> id)
         {

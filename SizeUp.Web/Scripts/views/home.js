@@ -1,12 +1,12 @@
 ﻿(function () {
     sizeup.core.namespace('sizeup.views.home');
     sizeup.views.home = function (opts) {
-        
+
         var me = {};
         var notifier = new sizeup.core.notifier(function () { init(); });
 
         var defaults = {};
-       
+
         me.opts = $.extend(true, defaults, opts);
 
         me.data = {};
@@ -27,7 +27,7 @@
             me.selector.competition = $('#competing');
             me.selector.advertising = $('#advertising');
 
-            
+
             me.errors.noIndustryMatches = $('#noIndustryMatchesMessage');
             me.errors.invalidCity = $('#invalidCityMessage');
             me.errors.noValuesEntered = $('#noValuesEntered');
@@ -37,9 +37,9 @@
             me.form.location.cityTextbox = $('#searchCommunity');
             me.form.location.cityTextboxAddon = $('#location-container .input-group-addon');
 
-            me.form.location.detectedLocation.find('.changeLocation').click(onChangeCityClicked);
+            //me.form.location.detectedLocation.find('.changeLocation').click(onChangeCityClicked);
             me.form.location.enteredLocation.find('.changeLocation').click(onChangeCityClicked);
-
+            me.form.location.isDetectingLocation =
 
             me.form.location.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.form.location.cityTextbox,
@@ -78,14 +78,21 @@
             var date = new Date();
             date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
 
-            if (me.opts.currentInfo.CurrentBusinessStatus) 
+            if (me.opts.currentInfo.CurrentBusinessStatus)
                 me.selectedBusinessStatus = me.opts.currentInfo.CurrentBusinessStatus;
-            else 
+            else
                 document.cookie = "businessStatus=" + me.selectedBusinessStatus + "; expires=" + date.toGMTString() + ";";
-            
+
             $('input[id="startup"], input[id="business"]').on('click', function () {
                 me.selectedBusinessStatus = $(this).val();
                 document.cookie = "businessStatus=" + me.selectedBusinessStatus + ";";
+            });
+
+            $('#detect-my-location').on('click', function (e) {
+                if (me.form.location.cityTextbox.attr('disabled') !== 'disable')
+                    detectLocation($('#detect-location-crosshair'));
+                else
+                    me.form.location.cityTextbox.removeAttr('disabled', null);
             });
 
 
@@ -164,6 +171,25 @@
             showPlaceSelector();
         };
 
+        var detectLocation = function ($spinner) {
+
+
+            function successCallback(position) {
+
+                sizeup.api.data.getDetected({ lat: position.coords.latitude, lng: position.coords.longitude }, function (data) {
+                    me.form.location.cityTextbox.val(data.DisplayName);
+                    me.form.location.cityTextbox.attr('disabled', 'disabled');
+                    onCityChange(data);
+
+                });
+            }
+
+            navigator.geolocation.getCurrentPosition(successCallback, function (err) { console.log(err) }, { timeout: 10000 });
+            //navigator.geolocation.getCurrentPosition(success);
+
+
+        }
+
         var onSubmit = function () {
             var current_fs, next_fs; //fieldsets
 
@@ -180,7 +206,7 @@
                     current_fs.hide();
                     next_fs.show();
                     next_fs.css({ 'position': 'inherit', 'margin-top': '2.6em', 'width': '100%' });
-                    setTimeout(function () {$("#step-two .container .card").toggleClass("flipped");}, 1);
+                    setTimeout(function () { $("#step-two .container .card").toggleClass("flipped"); }, 1);
                     setTimeout(function () {
                         $("#step-two-back").show();
                         $("#login-form h1").addClass("col-lg-6").addClass("col-lg-offset-2")
@@ -198,11 +224,11 @@
             me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
         };
 
-        
+
         var publicObj = {
 
         };
         return publicObj;
-        
+
     };
 })();
