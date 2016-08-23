@@ -89,6 +89,7 @@
             });
 
             $('#detect-my-location').on('click', function (e) {
+                $('#detect-location-crosshair').addClass('fa-spin');
                 detectLocation($('#detect-location-crosshair'));
             });
 
@@ -168,14 +169,14 @@
             showPlaceSelector();
         };
 
-        var detectLocation = function ($spinner) {
-            $('#detect-location-crosshair').addClass('fa-spin');
+        var detectLocation = function () {
 
-            var successCallback = function(position) {
-                $('#detect-location-crosshair').removeClass('fa-spin');
+
+            var successCallback = function (position) {
                 sizeup.api.data.getDetected({ lat: position.coords.latitude, lng: position.coords.longitude }, function (data) {
                     me.form.location.cityTextbox.val(data.DisplayName);
                     onCityChange(data);
+                    $('#detect-location-crosshair').removeClass('fa-spin');
                 });
             },
             errorCallback = function (err) {
@@ -183,7 +184,7 @@
                 console.log(err)
             }
 
-            navigator.geolocation.getCurrentPosition(successCallback, errorCallback , { timeout: 10000 });
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback, { timeout: 10000 });
         }
 
         var onSubmit = function () {
