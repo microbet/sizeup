@@ -80,7 +80,7 @@
 
         pub.getDetectedPlace = function (callback) {
             return get('/api/place/detected', null, callback);
-        };
+        };        
 
         pub.getDashboardValues = function (params, callback) {
             return get('/api/profile/dashboardValues/', params, callback);
