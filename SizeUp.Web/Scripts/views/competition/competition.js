@@ -720,6 +720,7 @@
             loadBusinesses();
             setBusinessOverlay();
             pushUrlState();
+            setMapFilter(tabIndex);
         };
 
         var loadConsumerExpenditureSelection = function (id, callback) {
