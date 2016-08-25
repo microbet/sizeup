@@ -767,7 +767,7 @@
             var createOverlay = function () {
                 if (id != null) {
                     var ceType = me.data.consumerExpenditure.rootId == 1 ? '(Total Households)' : '(Average Household)';
-                    var title = 'Consumer Expenditures ' + ceType + ' for ' + me.data.consumerExpenditure.currentSelection.Description;
+                    var title = 'Consumer Spending ' + ceType + ' for ' + me.data.consumerExpenditure.currentSelection.Description;
                     me.data.consumerExpenditure.overlay = new sizeup.maps.heatMapOverlays({
                         attribute: sizeup.api.tiles.overlayAttributes.heatmap.consumerExpenditures,
                         place: me.opts.CurrentInfo.CurrentPlace,
