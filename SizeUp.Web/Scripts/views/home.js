@@ -389,8 +389,10 @@
 
                     var successCallback = function (position) {
                         sizeup.api.data.getDetected({ lat: position.coords.latitude, lng: position.coords.longitude }, function (data) {
-                            me.form.location.cityTextbox.val(data.DisplayName);
-                            onCityChange(data);
+                            if (data && data.DisplayName) {
+                                me.form.location.cityTextbox.val(data.DisplayName);
+                                onCityChange(data);
+                            }
                             $spinner.removeClass('fa-spin');
                         });
                         
