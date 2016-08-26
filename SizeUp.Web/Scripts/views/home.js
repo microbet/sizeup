@@ -88,7 +88,7 @@
                 document.cookie = "businessStatus=" + me.selectedBusinessStatus + ";";
             });
 
-            $('#detect-my-location').on('click', function (e) {
+            $('#detect-location-container').on('click', function (e) {
                 $('#detect-location-crosshair').addClass('fa-spin');
                 detectLocation($('#detect-location-crosshair'));
             });
