@@ -283,8 +283,6 @@
 
             
             setMapFilter(me.data.activeMapFilter);
-          
-         
             if (me.data.consumerExpenditure.currentSelection != null) {
                 loadConsumerExpenditureSelection(me.data.consumerExpenditure.currentSelection.Id);
                 setHeatmap(me.data.consumerExpenditure.currentSelection.Id);
@@ -478,6 +476,8 @@
                     bindIndustryList();
                     loadBusinesses();
                     setBusinessOverlay();
+                    activateTab(me.data.activeIndex);
+
                 }
             }
         };
@@ -720,6 +720,10 @@
             loadBusinesses();
             setBusinessOverlay();
             pushUrlState();
+
+            var zoom = me.content.map.getZoom();
+            if (zoom < me.opts.mapFilterZoomThreshold)
+                tabIndex = 'all';
             setMapFilter(tabIndex); 
         };
 
