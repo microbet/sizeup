@@ -722,7 +722,7 @@
             pushUrlState();
 
             var zoom = me.content.map.getZoom();
-            if (zoom < me.opts.mapFilterZoomThreshold)
+            if (zoom >= me.opts.mapFilterZoomThreshold)
                 tabIndex = 'all';
             setMapFilter(tabIndex); 
         };
