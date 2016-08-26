@@ -210,7 +210,7 @@ a.changeLocation:hover { color: #1898d3; }
 /* style icon */
 .inner-addon .crosshair {
   position: absolute;
-  padding: 14px;
+  padding: 14.5px;
   cursor:pointer;
   z-index:1000;
   top:2px;
