@@ -43,7 +43,7 @@
                 url = document.location.search + document.location.hash;
             }
             else {
-                url = "?wt=" + encodeURIComponent(document.location.search.replace("?wt=", '')) + "&returnurl=" + encodeURIComponent(document.location.pathname + document.location.hash);
+                url = "?wt=" + encodeURIComponent(document.location.search.replace("?wt=", '')) + "&returnurl=" + encodeURIComponent(document.location.pathname) + document.location.hash;
             }
             return url;
         };
