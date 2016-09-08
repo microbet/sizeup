@@ -10,7 +10,14 @@ body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana
 ol, ol li { list-style: decimal outside none; }
 a,
 p,
-span {font-size:1.3em;}
+span {font-size:1.3em;  }
+
+
+.company-page ol,
+ ol li { list-style: decimal outside none; }
+.company-page a,
+ p,
+ span {font-size:1.4em;     line-height: 22px;}
 
 span a,
 p span,
