@@ -38,7 +38,7 @@
                                 formattedParams.push(x + '=' + encodeURIComponent(params[x][y]));
                             }
                         }
-                        else if (params[x]._type && params[x]._type() == 'sizeup.api.range') {
+                        else if (params[x] && params[x]._type && params[x]._type() == 'sizeup.api.range') {
                             var p = [params[x].min(), params[x].max()];
                             for (var y = 0; y < p.length; y++) {
                                 formattedParams.push(x + '=' + encodeURIComponent(p[y]));
