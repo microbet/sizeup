@@ -13,6 +13,7 @@ using SizeUp.Core.DataLayer;
 using System.Configuration;
 using SizeUp.Api.Controllers;
 using SizeUp.Core.API;
+using System.Data.Objects;
 namespace SizeUp.Api.Areas.Data.Controllers
 {
     public class BusinessController : BaseController
@@ -45,7 +46,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "Business")]
-        public ActionResult List(List<long> industryIds, long geographicLocationId, int itemCount = 10, int page = 1, int radius = 100)
+        public ActionResult List(List<long> industryIds, long geographicLocationId, int itemCount = 10, int page = 1, int radius = 100, int? employeesMin = -1, int? employeesMax = -1)
         {
             int maxResults = int.Parse(ConfigurationManager.AppSettings["Data.Business.MaxResults"]);
             itemCount = Math.Min(maxResults, itemCount);
@@ -57,9 +58,12 @@ namespace SizeUp.Api.Areas.Data.Controllers
                     .Select(new Core.DataLayer.Projections.Geography.Centroid().Expression)
                     .Select(i=>i.Value)
                     .FirstOrDefault();
-                   
+  
                 var data = Core.DataLayer.Business.ListNear(context, centroid, industryIds)
                     .Where(i => i.Distance < radius)
+                    .Join(Core.DataLayer.BusinessData.Get(context).Where(x => (x.Employees >= (employeesMin) || employeesMin == -1) && (x.Employees <= (employeesMax) || employeesMax== -1)), x => x.Entity.Id, y => y.BusinessId, (x, y) => new { DistanceEntity = x, bd = y })
+                    .Select(i => i.DistanceEntity)                    
+                    .Distinct()
                     .OrderBy(i => i.Distance)
                     .ThenBy(i => i.Entity.Name)
                     .Select(i => i.Entity);

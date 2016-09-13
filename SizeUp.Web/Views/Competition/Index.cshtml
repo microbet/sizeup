@@ -13,7 +13,6 @@
 
 
 <script type="text/javascript" src="//api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@(ViewBag.CustomTools == true ? ViewBag.APIKeyValue : System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"])&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
-@*<script type="text/javascript" src="//api.@SizeUp.Core.Web.WebContext.Current.Domain/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>*@
 
 <script type="text/javascript" src="//maps.google.com/maps/api/js?key=@System.Configuration.ConfigurationManager.AppSettings["GoogleAPI"]&sensor=false"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/core/notifier.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -27,6 +26,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/industrySelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/placeSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeSlider.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/rangeLabel.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatmapColors.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapStyles.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/mapOptions.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -118,10 +119,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div> 
         <div class="list container">
-            <div class="industryPicker container"> 
+        <div class="industryPicker container"> 
                 <ul class="industryList">
                     <li data-template="industryItem" class="item" data-id="{{Id}}">                        
                         <span title="{{Name}}"><span>{{Name}}</span><a href="javascript:void(0);" class="remove" data-id="{{Id}}"></a></span>
@@ -133,6 +133,17 @@
                 <p class="supplier">Add categories of businesses that sell to you:</p>
                 <input type="text" class="pickerInput" data-prompt="enter an industry" />
             </div>
+                       <div class="filters">
+                           <div class="employees">
+                        <span class="label">Business Size: (Number of Employees)</span>
+                               <span id="employeesLabel" class="valueLabel" data-off="<em>No Preference</em>" data-max="At most <em>{{max}}</em><a href='javascript:void(0);'></a>" data-min="At least <em>{{min}}</em><a href='javascript:void(0);'></a>" data-range="Between <em>{{min}}</em> and <em>{{max}}</em><a href='javascript:void(0);'></a>"></span>
+                        <div class="sliderWrap">
+                            <span class="sliderLabel less">less</span>
+                            <div class="slider"></div>
+                            <span class="sliderLabel more">more</span>
+                        </div>
+            </div>
+               </div> 
 
             <div class="loading hidden">
                 <p class="title"></p>
