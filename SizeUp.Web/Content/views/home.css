@@ -41,7 +41,31 @@ input[type=text] {width: 31.5em; padding: 0.5em; color: #303030;text-align: cent
 #selector ul li .button {font-size: 2.2em; padding: 0.5em 0em; display:block; margin-top:1em;}
 #selector ul li p {font-size:1.2em; margin-top:1em; }
 
+.crosshair {
+   background-image: url("~/Content/images/icon-location.png")
+       
+}
 
 p.info { color: #000; }
+
+/* enable absolute positioning */
+.inner-addon{ 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .crosshair {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .crosshair  { left:  0px;}
+.right-addon .crosshair { right: 0px;}
+
+/* add padding  */
+.left-addon .autoComplete-container input  { padding-left:  30px; }
+.right-addon .autoComplete-container input { padding-right: 30px; }
 
 

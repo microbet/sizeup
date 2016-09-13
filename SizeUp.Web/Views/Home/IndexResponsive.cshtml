@@ -11,7 +11,7 @@
     <link href="@Url.Content("~/Content/thirdParty/toggle-switch.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/thirdParty/animations.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/views/home-responsive.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/froogaloop.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script src="https://use.fontawesome.com/4f24bdb045.js"></script>
     <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
@@ -169,7 +169,7 @@
 <!-- Login Form End -->
 
 <!-- Decisions Start -->
-<div id="decisions" class="col-lg-12">
+<div id="decisions" class="col-sm-12 nopadding">
     <div id="section-header" class="row text-center">
         <h2>SizeUp your business</h2>
         <div class="col-md-8 col-md-offset-2">
@@ -221,12 +221,26 @@
             </div>
         </div>
     </div>
+                <div class="col-md-12 nopadding video">
+                <div id="video">
+                    <img class="img-responsive" src="/Content/images/Video-holder.png" style="padding: 0px; width:100%" />
+                </div>
+                <div id="video-container" style="display: none;">
+                    <div class="video-responsive">
+                        <iframe id="video-iframe" src="//player.vimeo.com/video/182473302?title=0&amp;byline=0&amp;portrait=0" width:"100%;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        
+                        <img id="close-video" style="position: absolute; right: 3.5em; top: 2.5em; margin-top: 0em;  margin-right: 0em;  margin-left: 0em;  font-size: 12px; display: block;" class="img-responsive" src="/Content/LBI/images/button-close.png?1.0.5910.32047" alt="Close" />
+
+                    </div>
+
+                </div>
+            </div>
 </div>
 <!-- Decisions End -->
 
 <!-- Performance Start -->
-<div id="performance" class="col-lg-12 clearfix">
-    <div id="performance-header" class="col-lg-12">
+<div id="performance" class="col-sm-12 clearfix">
+    <div id="performance-header" class="col-sm-12">
         <img src="@Url.Content("~/Content/images/gauge-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Performance Ribbon"/>
         <h2>How is my business performing?</h2>
         <p>
@@ -292,14 +306,14 @@
         </div>
     </div>
 </div>
-<div class="blue-footer section-end col-lg-12 text-center clearfix">
+<div class="blue-footer section-end col-sm-12 text-center clearfix">
     <span>Get started with your comparative market analysis now.</span>
     <a href="#" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Start Analysis</a>
 </div>
 <!-- Performance End -->
 
 <!-- Competition Start -->
-<div id="competition" class="col-lg-12 clearfix">
+<div id="competition" class="col-sm-12 clearfix">
     <div id="competition-header" class="col-lg-12">
         <img src="@Url.Content("~/Content/images/compete-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Competition Ribbon"/>
         <h2 style="font-weight: 400;">Where are my customers, competitors, and suppliers?</h2>
@@ -399,7 +413,7 @@
         </div>
     </div>
 </div>
-<div id="competition-gray" class="gradient gray-bg col-lg-12 text-center clearfix">
+<div id="competition-gray" class="gradient gray-bg col-sm-12 text-center clearfix">
     <div class="col-lg-6 col-md-6 col-sm-6">
         <img  class="text-center" src="@Url.Content("~/Content/images/icon-sweetSpots.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Fact"/>
         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -422,13 +436,13 @@
         </div>
     </div>
 </div>
-<div id="competition-blue" class="blue-footer section-end col-lg-12 text-center clearfix">
+<div id="competition-blue" class="blue-footer section-end col-sm-12 text-center clearfix">
     <span>Find out where your customers, competitors, and suppliers are.</span>
     <a href="#" class="btn btn-green btn-primary btn-lg" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Start Analysis</a>
 </div>
 <!-- Competition End -->
 
-<div id="advertisement" class="col-lg-12 clearfix">
+<div id="advertisement" class="col-sm-12 clearfix">
     <div id="advertisement-header" class="col-lg-12">
         <img class="text-center" src="@Url.Content("~/Content/images/advertise-ribbon-home.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Advertisement"/>
         <h2>Where should I advertise?</h2>
@@ -495,10 +509,10 @@
     </div>
 </div>
 
-<div id="advertisement-map" class="col-lg-12">
+<div id="advertisement-map" class="col-sm-12">
     <div class="row">
         <div class="container">
-            <div class="col-lg-12">
+            <div class="col-sm-12">
                 <h2>What's the best place to advertise?</h2>
                 <p id="title-copy">All you need to analyze your local business. Make the right decisions.</p>
             </div>
@@ -665,7 +679,7 @@
         </div>
     </div>
 </div>
-<div class="section-end col-lg-12 text-center clearfix">
+<div class="section-end col-sm-12 text-center clearfix">
     <span>Find out now where to advertise.</span>
     <a href="#" style="margin-left: 1em;" class="btn btn-green btn-primary btn-lg" onclick="$('html, body').animate({scrollTop: 0 }, 1000);">Start Analysis</a>
 </div>
@@ -726,6 +740,44 @@
                         .removeClass("col-xs-12");
                 }, 500);                
             });            
+        });
+
+        $(function () {
+            var iframe = $('#video-iframe')[0],
+                player = $f(iframe);
+
+            // Call the API when a button is pressed
+            $('button').bind('click', function () {
+                player.api($(this).text().toLowerCase());
+            });
+
+            var startVideo = function () {
+                $('#video').hide();
+                $('#video-container').fadeIn('slow', function () {
+                    player.api('play');
+                });
+            },
+                hideVideo = function () {
+                    $('#video').show();
+                    $('#video-container').hide();
+                    player.api('unload');
+                };
+
+            checkWidth();
+
+            $('#video').click(function () {
+                startVideo();
+            });
+            
+            $('#video-container').hover(function () {
+                $('#close-video').fadeIn('slow');
+            }, function () {
+                $('#close-video').fadeOut('slow');
+            });
+
+            $('#close-video').click(function () {
+                hideVideo();
+            });
         });
     </script>
 }

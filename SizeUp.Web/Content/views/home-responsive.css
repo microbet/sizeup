@@ -51,10 +51,10 @@ a.changeLocation:hover { color: #1898d3; }
 .btn-green { font-size: 14px; }
 .btn-green, #login-btn { -webkit-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); -moz-box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); box-shadow: 0px 1px 2px 0px rgba(50, 50, 50, 0.75); text-shadow: -1px 1px 1px rgba(4, 58, 89, 0.35); font-size: 12px; }
 
-#decisions { padding-top: 35px; padding-bottom: 60px; border: 1px solid #e3e3e3; background-color: white; }
+#decisions { padding-top: 35px; border: 1px solid #e3e3e3; background-color: white; }
 #decisions #section-header { margin-bottom: 3.5em; }
 #decisions #section-header p { color: #005687; font-size: 1.12em; }
-#decisions #options .col-wrapper { margin-bottom: 1em; }
+#decisions #options .col-wrapper { margin-bottom: 4em;  }
 #decisions #options .col-wrapper a.left-col { margin-top: 1em; }
 #decisions #options .col-wrapper div:first-child a { font-size: 12px; }
 #decisions #options h3 { font-size: 14px; margin-top: 0; font-weight: 700; }
@@ -206,17 +206,40 @@ a.changeLocation:hover { color: #1898d3; }
    text-align:center;
    
 }
+.video {
+    border-top:1px solid #e3e3e3;
+}
+    .video-responsive {
+        overflow: visible;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0px;
+    }
 
+        .video-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+           
+        }
 /* style icon */
 .inner-addon .crosshair {
   position: absolute;
-  padding: 14.5px;
+  padding: 14px;
   cursor:pointer;
   z-index:1000;
   top:2px;
 }
 
+    #video img {
+        cursor: pointer;
+    }
 
+    #video:hover {
+        opacity: 0.8;
+    }
 /* align icon */
 .left-addon .crosshair  { left:  0px;}
 .right-addon .crosshair { right: 0px;}
@@ -224,3 +247,7 @@ a.changeLocation:hover { color: #1898d3; }
 /* add padding  */
 .left-addon .autoComplete-container input  { padding-left:  30px; }
 .right-addon .autoComplete-container input { padding-right: 30px; }
+    .nopadding {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }

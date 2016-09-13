@@ -15,6 +15,20 @@
 #competition .tabs li.buyers a {background-image :url(/content/images/markerBuyer.png); }
 #competition .tabs li.question a { background-image:none;}
 
+#competition .filters {border-top: 1px dashed #CCCCCC;}
+#competition .filters h3 {margin:1em 0; }
+#competition .filters ul.options {margin:0.5em 0; }
+#competition .filters ul.options li { display: inline-block; width: 43em; margin:0.5em 0; }
+#competition .filters .sliderWrap { margin: 0.5em 0 0 0;}
+#competition .filters .sliderWrap .slider { width: 22em; display:inline-block;}
+#competition .filters .sliderWrap .sliderLabel { display:inline-block; font-size:0.85em; padding:0 1em;}
+#competition .filters .sliderWrap .sliderLabel.less {width:7em; text-align:right; }
+#competition .filters .sliderWrap .sliderLabel.more {width:7em; }
+#competition .filters .slider.off .ui-widget-header { background: none; }
+#competition .filters .valueLabel em { font-size: 1.1em; color:#606060; font-weight:bold; font-style:normal;}
+#competition .filters .filtersToggle { margin: 1em 0 0 0; }
+#competition .filters label { font-size: 1.3em; display:block; }
+#competition .filters input[type=text] { font-size: 1.3em; }
 
 #competition .content.container {margin:1em 0;}
 
@@ -75,7 +89,7 @@
 #competition .pager li.current a:hover { color: #606060; }
 
 #competition .pager { font-family: Arial,Verdana,sans-serif; }
-#competition .businessList {font-family: Arial,Verdana,sans-serif; border-top: 1px dashed #CCCCCC; padding-top: 1.5em; width: 38.5em; margin: 0.5em 0 0 0.8em;  }
+#competition .businessList {font-family: Arial,Verdana,sans-serif; /*border-top: 1px dashed #CCCCCC;*/ padding-top: 1.5em; width: 38.5em; margin: 0.5em 0 0 0.8em;  }
 #competition .businessList li a {display:block; padding:0.5em; height:3em; font-size: 1em;  }
 #competition .businessList li a:hover {background-color:#f6f6f0;}
 #competition .businessList li dl { display: inline-block;}
