@@ -36,26 +36,26 @@
 
     @RenderSection("head",false)
 
-    <script type="text/javascript">
-        if (!String.prototype.includes) {
-            String.prototype.includes = function (search, start) {
+ <script type="text/javascript">
+     if (!String.prototype.includes) {
+         String.prototype.includes = function (search, start) {
 
-                if (typeof start !== 'number') {
-                    start = 0;
-                }
+             if (typeof start !== 'number') {
+                 start = 0;
+             }
 
-                if (start + search.length > this.length) {
-                    return false;
-                } else {
-                    return this.indexOf(search, start) !== -1;
-                }
-            };
-        }
-
-        if (screen.width <= 800 && !window.location.pathname.includes('bestPlaces')) {
-            window.location.replace('https://m.sizeup.com' + window.location.pathname + window.location.hash)
-        }
+             if (start + search.length > this.length) {
+                 return false;
+             } else {
+                 return this.indexOf(search, start) !== -1;
+             }
+         };
+     }
+     if (screen.width <= 800 && !window.location.pathname.includes('bestPlaces') && !window.location.pathname.includes('company') && !window.location.pathname.includes('product') && !window.location.pathname.includes('widget')) {
+         window.location = 'https://m.sizeup.com' + window.location.pathname + window.location.hash;
+     }
   </script>
+ 
 </head>
 
 <body>
