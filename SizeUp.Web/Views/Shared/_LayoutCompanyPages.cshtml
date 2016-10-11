@@ -34,8 +34,16 @@
     <script src="@Url.Content("~/Scripts/tracking/outboundLinks.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
 
     @RenderSection("head",false)
+    
+    <style type="text/css">
+        ol, ol li { list-style: decimal outside none; }
+a,
+p,
+span {font-size:1.4em;  line-height:20px;}
 
- <script type="text/javascript">
+#footer ul,li { list-style: none !important; }
+    </style>
+    <script type="text/javascript">
 if (!String.prototype.includes) {
   String.prototype.includes = function(search, start) {
    
@@ -51,7 +59,6 @@ if (!String.prototype.includes) {
   };
 }
   
-        }
   </script>
 </head>
 

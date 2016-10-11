@@ -7,10 +7,11 @@ body{font-size:10px;position:relative; font-family:"Trebuchet MS",Arial, Verdana
 
 [data-template] { display: none !important; }
 
+
 ol, ol li { list-style: decimal outside none; }
 a,
 p,
-span {font-size:1.4em;  line-height:20px;}
+span {font-size:1.3em;  line-height:20px;}
 
 
 
