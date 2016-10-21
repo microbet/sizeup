@@ -112,6 +112,12 @@
     <EntitySetMapping Name="BusinessAttributes">
       <EntityTypeMapping TypeName="SizeUp.Data.Analytics.BusinessAttribute">
         <MappingFragment StoreEntitySet="BusinessAttributes">
+          <ScalarProperty Name="EmployeesPercentile" ColumnName="EmployeesPercentile" />
+          <ScalarProperty Name="RevenuePercentile" ColumnName="RevenuePercentile" />
+          <ScalarProperty Name="WorkersCompPercentage" ColumnName="WorkersCompPercentage" />
+          <ScalarProperty Name="HealthCareCostPercentage" ColumnName="HealthCareCostPercentage" />
+          <ScalarProperty Name="AverageSalaryPercentage" ColumnName="AverageSalaryPercentage" />
+          <ScalarProperty Name="YearStartedPercentile" ColumnName="YearStartedPercentile" />
           <ScalarProperty Name="Session" ColumnName="Session" />
           <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
           <ScalarProperty Name="BusinessSize" ColumnName="BusinessSize" />
@@ -140,6 +146,12 @@
     <EntitySetMapping Name="CompetitorAttributes">
       <EntityTypeMapping TypeName="SizeUp.Data.Analytics.CompetitorAttribute">
         <MappingFragment StoreEntitySet="CompetitorAttributes">
+          <ScalarProperty Name="BuyerEmployeesMax" ColumnName="BuyerEmployeesMax" />
+          <ScalarProperty Name="BuyerEmployeesMin" ColumnName="BuyerEmployeesMin" />
+          <ScalarProperty Name="SupplierEmployeesMax" ColumnName="SupplierEmployeesMax" />
+          <ScalarProperty Name="SupplierEmployeesMin" ColumnName="SupplierEmployeesMin" />
+          <ScalarProperty Name="CompetitorEmployeesMax" ColumnName="CompetitorEmployeesMax" />
+          <ScalarProperty Name="CompetitorEmployeesMin" ColumnName="CompetitorEmployeesMin" />
           <ScalarProperty Name="Session" ColumnName="Session" />
           <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
           <ScalarProperty Name="Buyers" ColumnName="Buyers" />
@@ -209,6 +221,57 @@
           <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
           <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
           <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Week" ColumnName="Week" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="Minute" ColumnName="Minute" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdvertisingAttributes">
+      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.AdvertisingAttribute">
+        <MappingFragment StoreEntitySet="AdvertisingAttributes">
+          <ScalarProperty Name="PercentAgeAbove65Max" ColumnName="PercentAgeAbove65Max" />
+          <ScalarProperty Name="PercentAgeAbove65Min" ColumnName="PercentAgeAbove65Min" />
+          <ScalarProperty Name="PercentAge50To64Max" ColumnName="PercentAge50To64Max" />
+          <ScalarProperty Name="PercentAge50To64Min" ColumnName="PercentAge50To64Min" />
+          <ScalarProperty Name="PercentAge40To49Max" ColumnName="PercentAge40To49Max" />
+          <ScalarProperty Name="PercentAge40To49Min" ColumnName="PercentAge40To49Min" />
+          <ScalarProperty Name="PercentAge30To39Max" ColumnName="PercentAge30To39Max" />
+          <ScalarProperty Name="PercentAge30To39Min" ColumnName="PercentAge30To39Min" />
+          <ScalarProperty Name="PercentAge20To29Max" ColumnName="PercentAge20To29Max" />
+          <ScalarProperty Name="PercentAge20To29Min" ColumnName="PercentAge20To29Min" />
+          <ScalarProperty Name="PercentAge5To19Max" ColumnName="PercentAge5To19Max" />
+          <ScalarProperty Name="PercentAge5To19Min" ColumnName="PercentAge5To19Min" />
+          <ScalarProperty Name="PercentAgeBelow5Max" ColumnName="PercentAgeBelow5Max" />
+          <ScalarProperty Name="PercentAgeBelow5Min" ColumnName="PercentAgeBelow5Min" />
+          <ScalarProperty Name="PercentFemaleMax" ColumnName="PercentFemaleMax" />
+          <ScalarProperty Name="PercentFemaleMin" ColumnName="PercentFemaleMin" />
+          <ScalarProperty Name="PercentMaleMax" ColumnName="PercentMaleMax" />
+          <ScalarProperty Name="PercentMaleMin" ColumnName="PercentMaleMin" />
+          <ScalarProperty Name="PercentForeignMax" ColumnName="PercentForeignMax" />
+          <ScalarProperty Name="PercentForeignMin" ColumnName="PercentForeignMin" />
+          <ScalarProperty Name="TotalPeopleMax" ColumnName="TotalPeopleMax" />
+          <ScalarProperty Name="TotalPeopleMin" ColumnName="TotalPeopleMin" />
+          <ScalarProperty Name="TotalEmployeesMax" ColumnName="TotalEmployeesMax" />
+          <ScalarProperty Name="TotalEmployeesMin" ColumnName="TotalEmployeesMin" />
+          <ScalarProperty Name="RevenuePerCapitaMin" ColumnName="RevenuePerCapitaMin" />
+          <ScalarProperty Name="RevenuePerCapitaMax" ColumnName="RevenuePerCapitaMax" />
+          <ScalarProperty Name="TotalRevenueMax" ColumnName="TotalRevenueMax" />
+          <ScalarProperty Name="TotalRevenueMin" ColumnName="TotalRevenueMin" />
+          <ScalarProperty Name="AverageRevenueMin" ColumnName="AverageRevenueMin" />
+          <ScalarProperty Name="AverageRevenueMax" ColumnName="AverageRevenueMax" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="Session" ColumnName="Session" />
+          <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+          <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Year" ColumnName="Year" />
           <ScalarProperty Name="Quarter" ColumnName="Quarter" />

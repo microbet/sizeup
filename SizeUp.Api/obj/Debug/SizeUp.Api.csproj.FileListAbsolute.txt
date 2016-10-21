@@ -70,6 +70,7 @@ C:\Users\GISPlanning\Desktop\SizeUp_Normal\SizeUp.Api\bin\Antlr4.StringTemplate.
 C:\Users\GISPlanning\Desktop\SizeUp_Normal\SizeUp.Api\obj\Debug\SizeUp.Api.csprojResolveAssemblyReference.cache
 C:\Users\GISPlanning\Desktop\SizeUp_Normal\SizeUp.Api\obj\Debug\SizeUp.Api.dll
 C:\Users\GISPlanning\Desktop\SizeUp_Normal\SizeUp.Api\obj\Debug\SizeUp.Api.pdb
+C:\VS2012\sizeup\SizeUp.Api\bin\SizeUp.Api.XML
 C:\VS2012\sizeup\SizeUp.Api\bin\SizeUp.Api.dll
 C:\VS2012\sizeup\SizeUp.Api\bin\SizeUp.Api.pdb
 C:\VS2012\sizeup\SizeUp.Api\bin\AjaxMin.dll

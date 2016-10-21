@@ -1501,5 +1501,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SitemapMains">
+      <EntityTypeMapping TypeName="SizeUp.Data.SitemapMain">
+        <MappingFragment StoreEntitySet="SitemapMain">
+          <ScalarProperty Name="Industry" ColumnName="Industry" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

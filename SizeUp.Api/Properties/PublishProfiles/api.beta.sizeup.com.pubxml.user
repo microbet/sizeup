@@ -10,4 +10,147 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0dr9TECfMUSqSCmDIKUJegAAAAACAAAAAAAQZgAAAAEAACAAAAB4Q27Im1FTfkW1xu3Uhjclj4d1pOZeCsTTw/4Dx860UwAAAAAOgAAAAAIAACAAAABYwxVyjnfhSkCVFAlFK9Aswonx2qb7cPGjLFeSzbLRXiAAAAAzIgmaZnPKzfVRenIKR2q28tJ8VhzoFfeYiejuHXCQmEAAAABlSx2jgRC4fAnUGqtnQ0aAuIqNb8VH3kR8B8PeuMDGmsxjar/B8sZ2gaDdvhnjrD7meqXJAnT6wp6uulneHEpF</EncryptedPassword>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="Areas/Data/Views/Web.config">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Areas/Tiles/Views/Web.config">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="bin/AjaxMin.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/Antlr4.StringTemplate.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/Antlr4.StringTemplate.pdb">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/Bundler.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/CookComputing.XmlRpcV2.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/nQuant.Core.dll">
+      <publishTime>03/16/2016 10:09:42</publishTime>
+    </File>
+    <File Include="bin/nQuant.Core.pdb">
+      <publishTime>03/16/2016 10:09:42</publishTime>
+    </File>
+    <File Include="bin/PerceptiveMCAPI.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/SizeUp.Api.dll">
+      <publishTime>04/08/2016 13:32:39</publishTime>
+    </File>
+    <File Include="bin/SizeUp.Api.pdb">
+      <publishTime>04/08/2016 13:32:39</publishTime>
+    </File>
+    <File Include="bin/SizeUp.Core.dll">
+      <publishTime>04/08/2016 13:32:39</publishTime>
+    </File>
+    <File Include="bin/SizeUp.Core.pdb">
+      <publishTime>04/08/2016 13:32:39</publishTime>
+    </File>
+    <File Include="bin/SizeUp.Data.dll">
+      <publishTime>04/07/2016 16:40:08</publishTime>
+    </File>
+    <File Include="bin/SizeUp.Data.pdb">
+      <publishTime>04/07/2016 16:40:08</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>07/10/2012 21:51:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>07/10/2012 21:51:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>07/10/2012 21:51:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>03/14/2016 17:00:12</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="bin/System.Web.Providers.dll">
+      <publishTime>03/07/2016 17:20:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>07/10/2012 21:53:02</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>03/16/2016 10:09:41</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Robots.txt">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/Error/Error403.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/Error/Error404.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/Error/Error500.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/Attributes.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/Data.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/Granularity.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/Index.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/Overlay.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/OverlayAttributes.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/JS/Range.cshtml">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>03/16/2016 10:09:38</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>04/08/2016 13:32:40</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Analytics\AnalyticsAreaRegistration.cs" />
+    <Compile Include="Areas\Analytics\Controllers\AdvertisingController.cs" />
     <Compile Include="Areas\Analytics\Controllers\TrackerController.cs" />
     <Compile Include="Areas\Analytics\Controllers\RelatedIndustryController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Controllers\LBIController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SitemapController.cs" />
+    <Compile Include="Areas\Api\Controllers\UserDataController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -275,6 +277,8 @@
     <Content Include="Content\images\heatmaplegend.png" />
     <Content Include="Content\images\heatPinShadow.png" />
     <Content Include="Content\images\home-gradient.png" />
+    <Content Include="Content\images\icon-location-on.png" />
+    <Content Include="Content\images\icon-location.png" />
     <Content Include="Content\images\icon-startUp.png" />
     <Content Include="Content\images\icon-sweetSpots.png" />
     <Content Include="Content\images\info.png" />
@@ -283,6 +287,7 @@
     <Content Include="Content\images\legend2.png" />
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\loadingSmall.gif" />
+    <Content Include="Content\images\login-form-image-1.jpg" />
     <Content Include="Content\images\logosmall.gif" />
     <Content Include="Content\images\magazine.png" />
     <Content Include="Content\images\map-advertising.png" />
@@ -328,6 +333,7 @@
     <Content Include="Content\images\square-layers.png" />
     <Content Include="Content\images\square-pushpin.png" />
     <Content Include="Content\images\up-down.png" />
+    <Content Include="Content\images\Video-holder.png" />
     <Content Include="Content\layout-responsive.css" />
     <Content Include="Content\layout.css" />
     <Content Include="Content\LBI\home-responsive.css" />
@@ -550,6 +556,9 @@
     <Content Include="Scripts\widget\views\bestIndustries\bestIndustries.js" />
     <Content Include="Scripts\widget\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\widget\views\select\select.js" />
+    <Content Include="Views\Community\CityCommunity.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -577,7 +586,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Business\Find.cshtml" />
-    <Content Include="Views\Company\About.cshtml" />
+    <Content Include="Views\Company\Benefits.cshtml" />
     <Content Include="Views\Company\Team.cshtml" />
     <Content Include="Views\Competition\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
@@ -710,7 +719,6 @@
     <Content Include="Content\admin\less\variables.less" />
     <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
-    <Content Include="Views\Community\CityCommunity.cshtml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
     <Content Include="Views\Shared\Signin.cshtml" />
@@ -756,8 +764,15 @@
     <Content Include="Views\Shared\_LayoutDashboardEditor.cshtml" />
     <Content Include="Views\Help\FinancialInstitutionsDownload.cshtml" />
     <Content Include="Content\files\SizeUp-FI.pdf" />
-    <Content Include="Views\Company\Mission.cshtml" />
+    <Content Include="Views\Company\About.cshtml" />
     <Content Include="Views\FinTinder\Index.cshtml" />
+    <Content Include="Views\Company\Jobs.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Sitemap\Advertising.cshtml" />
+    <Content Include="Views\Company\Mission.cshtml" />
+    <Content Include="Views\Shared\_LayoutCompanyPages.cshtml" />
+    <Content Include="Views\Shared\_LayoutResponsiveHome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -782,11 +797,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>55040</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://sizeup.localhost/</IISUrl>
+          <IISUrl>http://localhost:55040/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

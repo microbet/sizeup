@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-   
+
 
     <!--All Good-->
-	<!--<meta name="apple-mobile-web-app-title" content="SizeUp" />
+    <!--<meta name="apple-mobile-web-app-title" content="SizeUp" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
@@ -14,14 +14,15 @@
 	<link rel="apple-touch-icon" sizes="144x144" href="../images/touch-icon-ipad2.png" />
         -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <!--320-->
     <meta charset="utf-8" />
     <link href="@Url.Content("~/Content/reset.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="@Url.Content("~/content/images/favicon.ico")?@SizeUp.Core.Web.CacheBuster.Buster" />
     <link href="@Url.Content("~/Content/layout-responsive.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/print.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
-    
+
     @Html.Partial("Analytics")
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
@@ -34,42 +35,45 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/jquery.ba-bbq.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
     <script src="@Url.Content("~/Scripts/tracking/outboundLinks.js")?@SizeUp.Core.Web.CacheBuster.Buster" type="text/javascript"></script>
 
-    @RenderSection("head",false)
+    @RenderSection("head", false)
 
- <script type="text/javascript">
-     if (!String.prototype.includes) {
-         String.prototype.includes = function (search, start) {
+    <script type="text/javascript">
+        if (!String.prototype.includes) {
+            String.prototype.includes = function (search, start) {
 
-             if (typeof start !== 'number') {
-                 start = 0;
-             }
+                if (typeof start !== 'number') {
+                    start = 0;
+                }
 
-             if (start + search.length > this.length) {
-                 return false;
-             } else {
-                 return this.indexOf(search, start) !== -1;
-             }
-         };
-     }
-     if (screen.width <= 800 && !window.location.pathname.includes('bestPlaces') && !window.location.pathname.includes('company') && !window.location.pathname.includes('product') && !window.location.pathname.includes('widget')) {
-         window.location = 'https://m.sizeup.com' + window.location.pathname + window.location.hash;
-     }
-  </script>
- 
+                if (start + search.length > this.length) {
+                    return false;
+                } else {
+                    return this.indexOf(search, start) !== -1;
+                }
+            };
+        }
+        if (screen.width <= 800 && !window.location.pathname.includes('bestPlaces') && !window.location.pathname.includes('company') && !window.location.pathname.includes('product') && !window.location.pathname.includes('widget')) {
+            window.location = 'https://m.sizeup.com' + window.location.pathname + window.location.hash;
+        }
+    </script>
+
 </head>
 
 <body>
     <div id="header">
         <div class="container">
-            @Html.Partial("HeaderResponsive")
+            
+                @Html.Partial("HeaderResponsive")
+    
+
         </div>
     </div>
     <div class="container">
         @RenderBody()
     </div>
-    
+
     @Html.Partial("FooterResponsive")
-   
-    @RenderSection("scripts",false)
+
+    @RenderSection("scripts", false)
 </body>
 </html>

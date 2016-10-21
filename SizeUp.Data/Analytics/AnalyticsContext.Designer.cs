@@ -224,6 +224,22 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<RelatedSupplier> _RelatedSuppliers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AdvertisingAttribute> AdvertisingAttributes
+        {
+            get
+            {
+                if ((_AdvertisingAttributes == null))
+                {
+                    _AdvertisingAttributes = base.CreateObjectSet<AdvertisingAttribute>("AdvertisingAttributes");
+                }
+                return _AdvertisingAttributes;
+            }
+        }
+        private ObjectSet<AdvertisingAttribute> _AdvertisingAttributes;
 
         #endregion
 
@@ -308,6 +324,14 @@ namespace SizeUp.Data.Analytics
         {
             base.AddObject("RelatedSuppliers", relatedSupplier);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AdvertisingAttributes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAdvertisingAttributes(AdvertisingAttribute advertisingAttribute)
+        {
+            base.AddObject("AdvertisingAttributes", advertisingAttribute);
+        }
 
         #endregion
 
@@ -316,6 +340,1138 @@ namespace SizeUp.Data.Analytics
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.Analytics", Name="AdvertisingAttribute")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AdvertisingAttribute : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AdvertisingAttribute object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="timestamp">Initial value of the Timestamp property.</param>
+        /// <param name="minute">Initial value of the Minute property.</param>
+        /// <param name="hour">Initial value of the Hour property.</param>
+        /// <param name="day">Initial value of the Day property.</param>
+        /// <param name="week">Initial value of the Week property.</param>
+        /// <param name="month">Initial value of the Month property.</param>
+        /// <param name="quarter">Initial value of the Quarter property.</param>
+        /// <param name="year">Initial value of the Year property.</param>
+        /// <param name="geographicLocationId">Initial value of the GeographicLocationId property.</param>
+        /// <param name="industryId">Initial value of the IndustryId property.</param>
+        public static AdvertisingAttribute CreateAdvertisingAttribute(global::System.Int64 id, global::System.DateTime timestamp, global::System.Int32 minute, global::System.Int32 hour, global::System.Int32 day, global::System.Int32 week, global::System.Int32 month, global::System.Int32 quarter, global::System.Int32 year, global::System.Int64 geographicLocationId, global::System.Int64 industryId)
+        {
+            AdvertisingAttribute advertisingAttribute = new AdvertisingAttribute();
+            advertisingAttribute.Id = id;
+            advertisingAttribute.Timestamp = timestamp;
+            advertisingAttribute.Minute = minute;
+            advertisingAttribute.Hour = hour;
+            advertisingAttribute.Day = day;
+            advertisingAttribute.Week = week;
+            advertisingAttribute.Month = month;
+            advertisingAttribute.Quarter = quarter;
+            advertisingAttribute.Year = year;
+            advertisingAttribute.GeographicLocationId = geographicLocationId;
+            advertisingAttribute.IndustryId = industryId;
+            return advertisingAttribute;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Timestamp
+        {
+            get
+            {
+                return _Timestamp;
+            }
+            set
+            {
+                OnTimestampChanging(value);
+                ReportPropertyChanging("Timestamp");
+                _Timestamp = StructuralObject.SetValidValue(value, "Timestamp");
+                ReportPropertyChanged("Timestamp");
+                OnTimestampChanged();
+            }
+        }
+        private global::System.DateTime _Timestamp;
+        partial void OnTimestampChanging(global::System.DateTime value);
+        partial void OnTimestampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Minute
+        {
+            get
+            {
+                return _Minute;
+            }
+            set
+            {
+                OnMinuteChanging(value);
+                ReportPropertyChanging("Minute");
+                _Minute = StructuralObject.SetValidValue(value, "Minute");
+                ReportPropertyChanged("Minute");
+                OnMinuteChanged();
+            }
+        }
+        private global::System.Int32 _Minute;
+        partial void OnMinuteChanging(global::System.Int32 value);
+        partial void OnMinuteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Hour
+        {
+            get
+            {
+                return _Hour;
+            }
+            set
+            {
+                OnHourChanging(value);
+                ReportPropertyChanging("Hour");
+                _Hour = StructuralObject.SetValidValue(value, "Hour");
+                ReportPropertyChanged("Hour");
+                OnHourChanged();
+            }
+        }
+        private global::System.Int32 _Hour;
+        partial void OnHourChanging(global::System.Int32 value);
+        partial void OnHourChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Day
+        {
+            get
+            {
+                return _Day;
+            }
+            set
+            {
+                OnDayChanging(value);
+                ReportPropertyChanging("Day");
+                _Day = StructuralObject.SetValidValue(value, "Day");
+                ReportPropertyChanged("Day");
+                OnDayChanged();
+            }
+        }
+        private global::System.Int32 _Day;
+        partial void OnDayChanging(global::System.Int32 value);
+        partial void OnDayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Week
+        {
+            get
+            {
+                return _Week;
+            }
+            set
+            {
+                OnWeekChanging(value);
+                ReportPropertyChanging("Week");
+                _Week = StructuralObject.SetValidValue(value, "Week");
+                ReportPropertyChanged("Week");
+                OnWeekChanged();
+            }
+        }
+        private global::System.Int32 _Week;
+        partial void OnWeekChanging(global::System.Int32 value);
+        partial void OnWeekChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Month
+        {
+            get
+            {
+                return _Month;
+            }
+            set
+            {
+                OnMonthChanging(value);
+                ReportPropertyChanging("Month");
+                _Month = StructuralObject.SetValidValue(value, "Month");
+                ReportPropertyChanged("Month");
+                OnMonthChanged();
+            }
+        }
+        private global::System.Int32 _Month;
+        partial void OnMonthChanging(global::System.Int32 value);
+        partial void OnMonthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Quarter
+        {
+            get
+            {
+                return _Quarter;
+            }
+            set
+            {
+                OnQuarterChanging(value);
+                ReportPropertyChanging("Quarter");
+                _Quarter = StructuralObject.SetValidValue(value, "Quarter");
+                ReportPropertyChanged("Quarter");
+                OnQuarterChanged();
+            }
+        }
+        private global::System.Int32 _Quarter;
+        partial void OnQuarterChanging(global::System.Int32 value);
+        partial void OnQuarterChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Year
+        {
+            get
+            {
+                return _Year;
+            }
+            set
+            {
+                OnYearChanging(value);
+                ReportPropertyChanging("Year");
+                _Year = StructuralObject.SetValidValue(value, "Year");
+                ReportPropertyChanged("Year");
+                OnYearChanged();
+            }
+        }
+        private global::System.Int32 _Year;
+        partial void OnYearChanging(global::System.Int32 value);
+        partial void OnYearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value, "UserId");
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _UserId;
+        partial void OnUserIdChanging(Nullable<global::System.Guid> value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 GeographicLocationId
+        {
+            get
+            {
+                return _GeographicLocationId;
+            }
+            set
+            {
+                OnGeographicLocationIdChanging(value);
+                ReportPropertyChanging("GeographicLocationId");
+                _GeographicLocationId = StructuralObject.SetValidValue(value, "GeographicLocationId");
+                ReportPropertyChanged("GeographicLocationId");
+                OnGeographicLocationIdChanged();
+            }
+        }
+        private global::System.Int64 _GeographicLocationId;
+        partial void OnGeographicLocationIdChanging(global::System.Int64 value);
+        partial void OnGeographicLocationIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private global::System.Int64 _IndustryId;
+        partial void OnIndustryIdChanging(global::System.Int64 value);
+        partial void OnIndustryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> WidgetAPIKeyId
+        {
+            get
+            {
+                return _WidgetAPIKeyId;
+            }
+            set
+            {
+                OnWidgetAPIKeyIdChanging(value);
+                ReportPropertyChanging("WidgetAPIKeyId");
+                _WidgetAPIKeyId = StructuralObject.SetValidValue(value, "WidgetAPIKeyId");
+                ReportPropertyChanged("WidgetAPIKeyId");
+                OnWidgetAPIKeyIdChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _WidgetAPIKeyId;
+        partial void OnWidgetAPIKeyIdChanging(Nullable<global::System.Int64> value);
+        partial void OnWidgetAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Session
+        {
+            get
+            {
+                return _Session;
+            }
+            set
+            {
+                OnSessionChanging(value);
+                ReportPropertyChanging("Session");
+                _Session = StructuralObject.SetValidValue(value, true, "Session");
+                ReportPropertyChanged("Session");
+                OnSessionChanged();
+            }
+        }
+        private global::System.String _Session;
+        partial void OnSessionChanging(global::System.String value);
+        partial void OnSessionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> Distance
+        {
+            get
+            {
+                return _Distance;
+            }
+            set
+            {
+                OnDistanceChanging(value);
+                ReportPropertyChanging("Distance");
+                _Distance = StructuralObject.SetValidValue(value, "Distance");
+                ReportPropertyChanged("Distance");
+                OnDistanceChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _Distance;
+        partial void OnDistanceChanging(Nullable<global::System.Int64> value);
+        partial void OnDistanceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenueMax
+        {
+            get
+            {
+                return _AverageRevenueMax;
+            }
+            set
+            {
+                OnAverageRevenueMaxChanging(value);
+                ReportPropertyChanging("AverageRevenueMax");
+                _AverageRevenueMax = StructuralObject.SetValidValue(value, "AverageRevenueMax");
+                ReportPropertyChanged("AverageRevenueMax");
+                OnAverageRevenueMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenueMax;
+        partial void OnAverageRevenueMaxChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AverageRevenueMin
+        {
+            get
+            {
+                return _AverageRevenueMin;
+            }
+            set
+            {
+                OnAverageRevenueMinChanging(value);
+                ReportPropertyChanging("AverageRevenueMin");
+                _AverageRevenueMin = StructuralObject.SetValidValue(value, "AverageRevenueMin");
+                ReportPropertyChanged("AverageRevenueMin");
+                OnAverageRevenueMinChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AverageRevenueMin;
+        partial void OnAverageRevenueMinChanging(Nullable<global::System.Int64> value);
+        partial void OnAverageRevenueMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenueMin
+        {
+            get
+            {
+                return _TotalRevenueMin;
+            }
+            set
+            {
+                OnTotalRevenueMinChanging(value);
+                ReportPropertyChanging("TotalRevenueMin");
+                _TotalRevenueMin = StructuralObject.SetValidValue(value, "TotalRevenueMin");
+                ReportPropertyChanged("TotalRevenueMin");
+                OnTotalRevenueMinChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenueMin;
+        partial void OnTotalRevenueMinChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalRevenueMax
+        {
+            get
+            {
+                return _TotalRevenueMax;
+            }
+            set
+            {
+                OnTotalRevenueMaxChanging(value);
+                ReportPropertyChanging("TotalRevenueMax");
+                _TotalRevenueMax = StructuralObject.SetValidValue(value, "TotalRevenueMax");
+                ReportPropertyChanged("TotalRevenueMax");
+                OnTotalRevenueMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalRevenueMax;
+        partial void OnTotalRevenueMaxChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalRevenueMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> RevenuePerCapitaMax
+        {
+            get
+            {
+                return _RevenuePerCapitaMax;
+            }
+            set
+            {
+                OnRevenuePerCapitaMaxChanging(value);
+                ReportPropertyChanging("RevenuePerCapitaMax");
+                _RevenuePerCapitaMax = StructuralObject.SetValidValue(value, "RevenuePerCapitaMax");
+                ReportPropertyChanged("RevenuePerCapitaMax");
+                OnRevenuePerCapitaMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _RevenuePerCapitaMax;
+        partial void OnRevenuePerCapitaMaxChanging(Nullable<global::System.Int64> value);
+        partial void OnRevenuePerCapitaMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> RevenuePerCapitaMin
+        {
+            get
+            {
+                return _RevenuePerCapitaMin;
+            }
+            set
+            {
+                OnRevenuePerCapitaMinChanging(value);
+                ReportPropertyChanging("RevenuePerCapitaMin");
+                _RevenuePerCapitaMin = StructuralObject.SetValidValue(value, "RevenuePerCapitaMin");
+                ReportPropertyChanged("RevenuePerCapitaMin");
+                OnRevenuePerCapitaMinChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _RevenuePerCapitaMin;
+        partial void OnRevenuePerCapitaMinChanging(Nullable<global::System.Int64> value);
+        partial void OnRevenuePerCapitaMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployeesMin
+        {
+            get
+            {
+                return _TotalEmployeesMin;
+            }
+            set
+            {
+                OnTotalEmployeesMinChanging(value);
+                ReportPropertyChanging("TotalEmployeesMin");
+                _TotalEmployeesMin = StructuralObject.SetValidValue(value, "TotalEmployeesMin");
+                ReportPropertyChanged("TotalEmployeesMin");
+                OnTotalEmployeesMinChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployeesMin;
+        partial void OnTotalEmployeesMinChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalEmployeesMax
+        {
+            get
+            {
+                return _TotalEmployeesMax;
+            }
+            set
+            {
+                OnTotalEmployeesMaxChanging(value);
+                ReportPropertyChanging("TotalEmployeesMax");
+                _TotalEmployeesMax = StructuralObject.SetValidValue(value, "TotalEmployeesMax");
+                ReportPropertyChanged("TotalEmployeesMax");
+                OnTotalEmployeesMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalEmployeesMax;
+        partial void OnTotalEmployeesMaxChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalEmployeesMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalPeopleMin
+        {
+            get
+            {
+                return _TotalPeopleMin;
+            }
+            set
+            {
+                OnTotalPeopleMinChanging(value);
+                ReportPropertyChanging("TotalPeopleMin");
+                _TotalPeopleMin = StructuralObject.SetValidValue(value, "TotalPeopleMin");
+                ReportPropertyChanged("TotalPeopleMin");
+                OnTotalPeopleMinChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalPeopleMin;
+        partial void OnTotalPeopleMinChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalPeopleMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TotalPeopleMax
+        {
+            get
+            {
+                return _TotalPeopleMax;
+            }
+            set
+            {
+                OnTotalPeopleMaxChanging(value);
+                ReportPropertyChanging("TotalPeopleMax");
+                _TotalPeopleMax = StructuralObject.SetValidValue(value, "TotalPeopleMax");
+                ReportPropertyChanged("TotalPeopleMax");
+                OnTotalPeopleMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TotalPeopleMax;
+        partial void OnTotalPeopleMaxChanging(Nullable<global::System.Int64> value);
+        partial void OnTotalPeopleMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentForeignMin
+        {
+            get
+            {
+                return _PercentForeignMin;
+            }
+            set
+            {
+                OnPercentForeignMinChanging(value);
+                ReportPropertyChanging("PercentForeignMin");
+                _PercentForeignMin = StructuralObject.SetValidValue(value, "PercentForeignMin");
+                ReportPropertyChanged("PercentForeignMin");
+                OnPercentForeignMinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentForeignMin;
+        partial void OnPercentForeignMinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentForeignMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentForeignMax
+        {
+            get
+            {
+                return _PercentForeignMax;
+            }
+            set
+            {
+                OnPercentForeignMaxChanging(value);
+                ReportPropertyChanging("PercentForeignMax");
+                _PercentForeignMax = StructuralObject.SetValidValue(value, "PercentForeignMax");
+                ReportPropertyChanged("PercentForeignMax");
+                OnPercentForeignMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentForeignMax;
+        partial void OnPercentForeignMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentForeignMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentMaleMin
+        {
+            get
+            {
+                return _PercentMaleMin;
+            }
+            set
+            {
+                OnPercentMaleMinChanging(value);
+                ReportPropertyChanging("PercentMaleMin");
+                _PercentMaleMin = StructuralObject.SetValidValue(value, "PercentMaleMin");
+                ReportPropertyChanged("PercentMaleMin");
+                OnPercentMaleMinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentMaleMin;
+        partial void OnPercentMaleMinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentMaleMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentMaleMax
+        {
+            get
+            {
+                return _PercentMaleMax;
+            }
+            set
+            {
+                OnPercentMaleMaxChanging(value);
+                ReportPropertyChanging("PercentMaleMax");
+                _PercentMaleMax = StructuralObject.SetValidValue(value, "PercentMaleMax");
+                ReportPropertyChanged("PercentMaleMax");
+                OnPercentMaleMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentMaleMax;
+        partial void OnPercentMaleMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentMaleMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentFemaleMin
+        {
+            get
+            {
+                return _PercentFemaleMin;
+            }
+            set
+            {
+                OnPercentFemaleMinChanging(value);
+                ReportPropertyChanging("PercentFemaleMin");
+                _PercentFemaleMin = StructuralObject.SetValidValue(value, "PercentFemaleMin");
+                ReportPropertyChanged("PercentFemaleMin");
+                OnPercentFemaleMinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentFemaleMin;
+        partial void OnPercentFemaleMinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentFemaleMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentFemaleMax
+        {
+            get
+            {
+                return _PercentFemaleMax;
+            }
+            set
+            {
+                OnPercentFemaleMaxChanging(value);
+                ReportPropertyChanging("PercentFemaleMax");
+                _PercentFemaleMax = StructuralObject.SetValidValue(value, "PercentFemaleMax");
+                ReportPropertyChanged("PercentFemaleMax");
+                OnPercentFemaleMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentFemaleMax;
+        partial void OnPercentFemaleMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentFemaleMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAgeBelow5Min
+        {
+            get
+            {
+                return _PercentAgeBelow5Min;
+            }
+            set
+            {
+                OnPercentAgeBelow5MinChanging(value);
+                ReportPropertyChanging("PercentAgeBelow5Min");
+                _PercentAgeBelow5Min = StructuralObject.SetValidValue(value, "PercentAgeBelow5Min");
+                ReportPropertyChanged("PercentAgeBelow5Min");
+                OnPercentAgeBelow5MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAgeBelow5Min;
+        partial void OnPercentAgeBelow5MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAgeBelow5MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAgeBelow5Max
+        {
+            get
+            {
+                return _PercentAgeBelow5Max;
+            }
+            set
+            {
+                OnPercentAgeBelow5MaxChanging(value);
+                ReportPropertyChanging("PercentAgeBelow5Max");
+                _PercentAgeBelow5Max = StructuralObject.SetValidValue(value, "PercentAgeBelow5Max");
+                ReportPropertyChanged("PercentAgeBelow5Max");
+                OnPercentAgeBelow5MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAgeBelow5Max;
+        partial void OnPercentAgeBelow5MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAgeBelow5MaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge5To19Min
+        {
+            get
+            {
+                return _PercentAge5To19Min;
+            }
+            set
+            {
+                OnPercentAge5To19MinChanging(value);
+                ReportPropertyChanging("PercentAge5To19Min");
+                _PercentAge5To19Min = StructuralObject.SetValidValue(value, "PercentAge5To19Min");
+                ReportPropertyChanged("PercentAge5To19Min");
+                OnPercentAge5To19MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge5To19Min;
+        partial void OnPercentAge5To19MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge5To19MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge5To19Max
+        {
+            get
+            {
+                return _PercentAge5To19Max;
+            }
+            set
+            {
+                OnPercentAge5To19MaxChanging(value);
+                ReportPropertyChanging("PercentAge5To19Max");
+                _PercentAge5To19Max = StructuralObject.SetValidValue(value, "PercentAge5To19Max");
+                ReportPropertyChanged("PercentAge5To19Max");
+                OnPercentAge5To19MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge5To19Max;
+        partial void OnPercentAge5To19MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge5To19MaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge20To29Min
+        {
+            get
+            {
+                return _PercentAge20To29Min;
+            }
+            set
+            {
+                OnPercentAge20To29MinChanging(value);
+                ReportPropertyChanging("PercentAge20To29Min");
+                _PercentAge20To29Min = StructuralObject.SetValidValue(value, "PercentAge20To29Min");
+                ReportPropertyChanged("PercentAge20To29Min");
+                OnPercentAge20To29MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge20To29Min;
+        partial void OnPercentAge20To29MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge20To29MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge20To29Max
+        {
+            get
+            {
+                return _PercentAge20To29Max;
+            }
+            set
+            {
+                OnPercentAge20To29MaxChanging(value);
+                ReportPropertyChanging("PercentAge20To29Max");
+                _PercentAge20To29Max = StructuralObject.SetValidValue(value, "PercentAge20To29Max");
+                ReportPropertyChanged("PercentAge20To29Max");
+                OnPercentAge20To29MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge20To29Max;
+        partial void OnPercentAge20To29MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge20To29MaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge30To39Min
+        {
+            get
+            {
+                return _PercentAge30To39Min;
+            }
+            set
+            {
+                OnPercentAge30To39MinChanging(value);
+                ReportPropertyChanging("PercentAge30To39Min");
+                _PercentAge30To39Min = StructuralObject.SetValidValue(value, "PercentAge30To39Min");
+                ReportPropertyChanged("PercentAge30To39Min");
+                OnPercentAge30To39MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge30To39Min;
+        partial void OnPercentAge30To39MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge30To39MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge30To39Max
+        {
+            get
+            {
+                return _PercentAge30To39Max;
+            }
+            set
+            {
+                OnPercentAge30To39MaxChanging(value);
+                ReportPropertyChanging("PercentAge30To39Max");
+                _PercentAge30To39Max = StructuralObject.SetValidValue(value, "PercentAge30To39Max");
+                ReportPropertyChanged("PercentAge30To39Max");
+                OnPercentAge30To39MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge30To39Max;
+        partial void OnPercentAge30To39MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge30To39MaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge40To49Min
+        {
+            get
+            {
+                return _PercentAge40To49Min;
+            }
+            set
+            {
+                OnPercentAge40To49MinChanging(value);
+                ReportPropertyChanging("PercentAge40To49Min");
+                _PercentAge40To49Min = StructuralObject.SetValidValue(value, "PercentAge40To49Min");
+                ReportPropertyChanged("PercentAge40To49Min");
+                OnPercentAge40To49MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge40To49Min;
+        partial void OnPercentAge40To49MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge40To49MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge40To49Max
+        {
+            get
+            {
+                return _PercentAge40To49Max;
+            }
+            set
+            {
+                OnPercentAge40To49MaxChanging(value);
+                ReportPropertyChanging("PercentAge40To49Max");
+                _PercentAge40To49Max = StructuralObject.SetValidValue(value, "PercentAge40To49Max");
+                ReportPropertyChanged("PercentAge40To49Max");
+                OnPercentAge40To49MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge40To49Max;
+        partial void OnPercentAge40To49MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge40To49MaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge50To64Min
+        {
+            get
+            {
+                return _PercentAge50To64Min;
+            }
+            set
+            {
+                OnPercentAge50To64MinChanging(value);
+                ReportPropertyChanging("PercentAge50To64Min");
+                _PercentAge50To64Min = StructuralObject.SetValidValue(value, "PercentAge50To64Min");
+                ReportPropertyChanged("PercentAge50To64Min");
+                OnPercentAge50To64MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge50To64Min;
+        partial void OnPercentAge50To64MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge50To64MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAge50To64Max
+        {
+            get
+            {
+                return _PercentAge50To64Max;
+            }
+            set
+            {
+                OnPercentAge50To64MaxChanging(value);
+                ReportPropertyChanging("PercentAge50To64Max");
+                _PercentAge50To64Max = StructuralObject.SetValidValue(value, "PercentAge50To64Max");
+                ReportPropertyChanged("PercentAge50To64Max");
+                OnPercentAge50To64MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAge50To64Max;
+        partial void OnPercentAge50To64MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAge50To64MaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAgeAbove65Min
+        {
+            get
+            {
+                return _PercentAgeAbove65Min;
+            }
+            set
+            {
+                OnPercentAgeAbove65MinChanging(value);
+                ReportPropertyChanging("PercentAgeAbove65Min");
+                _PercentAgeAbove65Min = StructuralObject.SetValidValue(value, "PercentAgeAbove65Min");
+                ReportPropertyChanged("PercentAgeAbove65Min");
+                OnPercentAgeAbove65MinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAgeAbove65Min;
+        partial void OnPercentAgeAbove65MinChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAgeAbove65MinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PercentAgeAbove65Max
+        {
+            get
+            {
+                return _PercentAgeAbove65Max;
+            }
+            set
+            {
+                OnPercentAgeAbove65MaxChanging(value);
+                ReportPropertyChanging("PercentAgeAbove65Max");
+                _PercentAgeAbove65Max = StructuralObject.SetValidValue(value, "PercentAgeAbove65Max");
+                ReportPropertyChanged("PercentAgeAbove65Max");
+                OnPercentAgeAbove65MaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PercentAgeAbove65Max;
+        partial void OnPercentAgeAbove65MaxChanging(Nullable<global::System.Int32> value);
+        partial void OnPercentAgeAbove65MaxChanged();
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -2032,6 +3188,150 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Session;
         partial void OnSessionChanging(global::System.String value);
         partial void OnSessionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CompetitorEmployeesMin
+        {
+            get
+            {
+                return _CompetitorEmployeesMin;
+            }
+            set
+            {
+                OnCompetitorEmployeesMinChanging(value);
+                ReportPropertyChanging("CompetitorEmployeesMin");
+                _CompetitorEmployeesMin = StructuralObject.SetValidValue(value, "CompetitorEmployeesMin");
+                ReportPropertyChanged("CompetitorEmployeesMin");
+                OnCompetitorEmployeesMinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CompetitorEmployeesMin;
+        partial void OnCompetitorEmployeesMinChanging(Nullable<global::System.Int32> value);
+        partial void OnCompetitorEmployeesMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CompetitorEmployeesMax
+        {
+            get
+            {
+                return _CompetitorEmployeesMax;
+            }
+            set
+            {
+                OnCompetitorEmployeesMaxChanging(value);
+                ReportPropertyChanging("CompetitorEmployeesMax");
+                _CompetitorEmployeesMax = StructuralObject.SetValidValue(value, "CompetitorEmployeesMax");
+                ReportPropertyChanged("CompetitorEmployeesMax");
+                OnCompetitorEmployeesMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CompetitorEmployeesMax;
+        partial void OnCompetitorEmployeesMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnCompetitorEmployeesMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> SupplierEmployeesMin
+        {
+            get
+            {
+                return _SupplierEmployeesMin;
+            }
+            set
+            {
+                OnSupplierEmployeesMinChanging(value);
+                ReportPropertyChanging("SupplierEmployeesMin");
+                _SupplierEmployeesMin = StructuralObject.SetValidValue(value, "SupplierEmployeesMin");
+                ReportPropertyChanged("SupplierEmployeesMin");
+                OnSupplierEmployeesMinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _SupplierEmployeesMin;
+        partial void OnSupplierEmployeesMinChanging(Nullable<global::System.Int32> value);
+        partial void OnSupplierEmployeesMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> SupplierEmployeesMax
+        {
+            get
+            {
+                return _SupplierEmployeesMax;
+            }
+            set
+            {
+                OnSupplierEmployeesMaxChanging(value);
+                ReportPropertyChanging("SupplierEmployeesMax");
+                _SupplierEmployeesMax = StructuralObject.SetValidValue(value, "SupplierEmployeesMax");
+                ReportPropertyChanged("SupplierEmployeesMax");
+                OnSupplierEmployeesMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _SupplierEmployeesMax;
+        partial void OnSupplierEmployeesMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnSupplierEmployeesMaxChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> BuyerEmployeesMin
+        {
+            get
+            {
+                return _BuyerEmployeesMin;
+            }
+            set
+            {
+                OnBuyerEmployeesMinChanging(value);
+                ReportPropertyChanging("BuyerEmployeesMin");
+                _BuyerEmployeesMin = StructuralObject.SetValidValue(value, "BuyerEmployeesMin");
+                ReportPropertyChanged("BuyerEmployeesMin");
+                OnBuyerEmployeesMinChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _BuyerEmployeesMin;
+        partial void OnBuyerEmployeesMinChanging(Nullable<global::System.Int32> value);
+        partial void OnBuyerEmployeesMinChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> BuyerEmployeesMax
+        {
+            get
+            {
+                return _BuyerEmployeesMax;
+            }
+            set
+            {
+                OnBuyerEmployeesMaxChanging(value);
+                ReportPropertyChanging("BuyerEmployeesMax");
+                _BuyerEmployeesMax = StructuralObject.SetValidValue(value, "BuyerEmployeesMax");
+                ReportPropertyChanged("BuyerEmployeesMax");
+                OnBuyerEmployeesMaxChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _BuyerEmployeesMax;
+        partial void OnBuyerEmployeesMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnBuyerEmployeesMaxChanged();
 
         #endregion
 

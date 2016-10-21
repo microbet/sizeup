@@ -66,10 +66,6 @@
             return isValid;
         };
 
-
-
-
-
         var publicObj = {
 
         };

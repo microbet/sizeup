@@ -65,8 +65,32 @@ namespace SizeUp.Core.DataLayer
                 .ThenByDescending(i => i.Value);
 
 
-
-
+            string trace = ((ObjectQuery)output).ToTraceString();
+            string trace2 = ((ObjectQuery)output
+                .Select(i => new Core.DataLayer.Models.KeyValue<Core.DataLayer.Models.Industry, long> {
+                    Key = new Models.Industry
+                    {
+                        Id = i.Industry.Id,
+                        Name = i.Industry.Name,
+                        SEOKey = i.Industry.SEOKey,
+                        SICCode = i.Industry.SicCode,
+                        ParentName = i.Industry.Parent.Name,
+                        NAICS6 = new Models.NAICS
+                        {
+                            Id = i.Industry.NAICS.Id,
+                            NAICSCode = i.Industry.NAICS.NAICSCode,
+                            Name = i.Industry.NAICS.Name
+                        },
+                        NAICS4 = new Models.NAICS
+                        {
+                            Id = i.Industry.NAICS.Parent.Id,
+                            NAICSCode = i.Industry.NAICS.Parent.NAICSCode,
+                            Name = i.Industry.NAICS.Parent.Name
+                        }
+                    },
+                    Value = i.Rank.Value
+                })
+                .AsQueryable()).ToTraceString();
             return output
                 .Select(i => new Core.DataLayer.Models.KeyValue<Core.DataLayer.Models.Industry, long> {
                     Key = new Models.Industry

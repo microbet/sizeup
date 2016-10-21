@@ -18,7 +18,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
         //
         // GET: /Tiles/Business/
 
-        public ActionResult Index(int x, int y, int zoom, List<long> industryIds = null, string color = "#ff5522", int width = 256, int height = 256)
+        public ActionResult Index(int x, int y, int zoom, List<long> industryIds = null, string color = "#ff5522", int width = 256, int height = 256, int? employeesMin = null, int? employeesMax = null)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
@@ -30,6 +30,7 @@ namespace SizeUp.Api.Areas.Tiles.Controllers
                 if (industryIds.Count > 0)
                 {
                     var buisnesses = Core.DataLayer.Business.In(context, boundingBox)
+                      .Join(Core.DataLayer.BusinessData.Get(context).Where(i => (i.Employees >= (employeesMin)|| employeesMin == null) && (i.Employees <= (employeesMax) || employeesMax == null)), i => i.Id,j => j.BusinessId, (i, j) => i)
                       .Where(i => industryIds.Contains(i.IndustryId.Value))
                       .Select(i => new { Lat = i.Lat, Lng = i.Long });
 

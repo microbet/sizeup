@@ -42,8 +42,6 @@ namespace SizeUp.Core.DataLayer
         }
 
 
-
-
         public static PercentileItem Percentile(SizeUpContext context, long industryId, long geographicLocationId, int year)
         {
             PercentileItem output = null;

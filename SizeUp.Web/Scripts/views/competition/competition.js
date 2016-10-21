@@ -88,7 +88,7 @@
         var setup = function () {
             var params = jQuery.bbq.getState();
             var notifier = new sizeup.core.notifier(function () { init(); });
-            sizeup.api.data.getBoundingBox({ geographicLocationId: opts.CurrentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) {
+            sizeup.api.data.getBoundingBox({ geographicLocationId: opts.CurrentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) {
                 me.data.cityBoundingBox = new sizeup.maps.latLngBounds();
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.SouthWest.Lat, lng: data.SouthWest.Lng }));
                 me.data.cityBoundingBox.extend(new sizeup.maps.latLng({ lat: data.NorthEast.Lat, lng: data.NorthEast.Lng }));
@@ -319,7 +319,7 @@
         //////event actions//////////////////
 
         var hashChanged = function (e) {
-            var p = $.extend(true, { placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id, }, e.getState());
+            var p = $.extend(true, { placeId: opts.CurrentInfo.CurrentPlace.Id, industryId: opts.CurrentInfo.CurrentIndustry.Id }, e.getState());
             localStorage.setItem("cv-" + opts.CurrentInfo.CurrentPlace.Id + "-" + opts.CurrentInfo.CurrentIndustry.Id, JSON.stringify(p));
 
             sizeup.core.profile.setCompetitionValues(p);
@@ -629,6 +629,8 @@
         };
 
         var sliderChanged = function (attribute) {
+            var ids = getIndustryIdArray(me.data.activeIndex);
+            if (!ids || ids.length === 0) return;
             abortLoadBusinesses();
             me.content.loader.show();
             me.content.businessList.hide();
@@ -640,7 +642,7 @@
             //var p = { attribute: attribute };
             me.data.filters[attribute][me.data.activeIndex] = me.content.filters.sliders[attribute][me.data.activeIndex] ? me.content.filters.sliders[attribute][me.data.activeIndex].getValue() : null;
             me.data.businessListXHR = sizeup.api.data.getBusinessesByIndustry({
-                industryIds: getIndustryIdArray(me.data.activeIndex),
+                industryIds: ids,
                 geographicLocationId: me.opts.CurrentInfo.CurrentPlace.Id,
                 itemCount: me.data[me.data.activeIndex].pageData.itemsPerPage,
                 page: me.data[me.data.activeIndex].pageData.page,
@@ -1008,12 +1010,25 @@
             var buyers = getIndustryIdArray('buyer');
             if (competitors.length > 0) {
                 data.competitor = competitors;
+                if (me.data.filters.employees.competitor) {
+                    data.competitorsEmployeesMin = me.data.filters.employees.competitor.min;
+                    data.competitorsEmployeesMax = me.data.filters.employees.competitor.max;
+                }
             }
             if (suppliers.length > 0) {
                 data.supplier = suppliers;
+                if (me.data.filters.employees.supplier) {
+                    data.suppliersEmployeesMin = me.data.filters.employees.supplier.min;
+                    data.suppliersEmployeesMax = me.data.filters.employees.supplier.max;
+                }
+                    
             }
             if (buyers.length > 0) {
                 data.buyer = buyers;
+                if (me.data.filters.employees.buyer) {
+                    data.buyersEmployeesMin = me.data.filters.employees.buyer.min;
+                    data.buyersEmployeesMax = me.data.filters.employees.buyer.max;
+                }
             }
             if (me.data.consumerExpenditure.currentSelection != null) {
                 data.consumerExpenditureVariable = me.data.consumerExpenditure.currentSelection.Id;

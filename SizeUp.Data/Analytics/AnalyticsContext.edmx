@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="SizeUp.Data.Analytics.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SizeUpDataAnalyticsStoreContainer">
+          <EntitySet Name="AdvertisingAttributes" EntityType="SizeUp.Data.Analytics.Store.AdvertisingAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.Store.APIRequests" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.Store.CompetitorAttributes" store:Type="Tables" Schema="dbo" />
@@ -17,6 +18,56 @@
           <EntitySet Name="RelatedSupplier" EntityType="SizeUp.Data.Analytics.Store.RelatedSupplier" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserRegistration" EntityType="SizeUp.Data.Analytics.Store.UserRegistration" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="AdvertisingAttributes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Minute" Type="int" Nullable="false" />
+          <Property Name="Hour" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" Nullable="false" />
+          <Property Name="WidgetAPIKeyId" Type="bigint" />
+          <Property Name="Session" Type="nvarchar" MaxLength="30" />
+          <Property Name="Distance" Type="bigint" />
+          <Property Name="AverageRevenueMax" Type="bigint" />
+          <Property Name="AverageRevenueMin" Type="bigint" />
+          <Property Name="TotalRevenueMin" Type="bigint" />
+          <Property Name="TotalRevenueMax" Type="bigint" />
+          <Property Name="RevenuePerCapitaMax" Type="bigint" />
+          <Property Name="RevenuePerCapitaMin" Type="bigint" />
+          <Property Name="TotalEmployeesMin" Type="bigint" />
+          <Property Name="TotalEmployeesMax" Type="bigint" />
+          <Property Name="TotalPeopleMin" Type="bigint" />
+          <Property Name="TotalPeopleMax" Type="bigint" />
+          <Property Name="PercentForeignMin" Type="int" />
+          <Property Name="PercentForeignMax" Type="int" />
+          <Property Name="PercentMaleMin" Type="int" />
+          <Property Name="PercentMaleMax" Type="int" />
+          <Property Name="PercentFemaleMin" Type="int" />
+          <Property Name="PercentFemaleMax" Type="int" />
+          <Property Name="PercentAgeBelow5Min" Type="int" />
+          <Property Name="PercentAgeBelow5Max" Type="int" />
+          <Property Name="PercentAge5To19Min" Type="int" />
+          <Property Name="PercentAge5To19Max" Type="int" />
+          <Property Name="PercentAge20To29Min" Type="int" />
+          <Property Name="PercentAge20To29Max" Type="int" />
+          <Property Name="PercentAge30To39Min" Type="int" />
+          <Property Name="PercentAge30To39Max" Type="int" />
+          <Property Name="PercentAge40To49Min" Type="int" />
+          <Property Name="PercentAge40To49Max" Type="int" />
+          <Property Name="PercentAge50To64Min" Type="int" />
+          <Property Name="PercentAge50To64Max" Type="int" />
+          <Property Name="PercentAgeAbove65Min" Type="int" />
+          <Property Name="PercentAgeAbove65Max" Type="int" />
+        </EntityType>
         <EntityType Name="APIRequests">
           <Key>
             <PropertyRef Name="Id" />
@@ -96,6 +147,12 @@
           <Property Name="Buyers" Type="nvarchar(max)" />
           <Property Name="WidgetAPIKeyId" Type="bigint" />
           <Property Name="Session" Type="nvarchar" MaxLength="30" />
+          <Property Name="CompetitorEmployeesMin" Type="int" />
+          <Property Name="CompetitorEmployeesMax" Type="int" />
+          <Property Name="SupplierEmployeesMin" Type="int" />
+          <Property Name="SupplierEmployeesMax" Type="int" />
+          <Property Name="BuyerEmployeesMin" Type="int" />
+          <Property Name="BuyerEmployeesMax" Type="int" />
         </EntityType>
         <EntityType Name="Exceptions">
           <Key>
@@ -249,6 +306,7 @@
           <EntitySet Name="RelatedBuyers" EntityType="SizeUp.Data.Analytics.RelatedBuyer" />
           <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
           <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
+          <EntitySet Name="AdvertisingAttributes" EntityType="SizeUp.Data.Analytics.AdvertisingAttribute" />
         </EntityContainer>
         <EntityType Name="APIRequest">
           <Key>
@@ -409,6 +467,12 @@
           <Property Type="String" Name="Buyers" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="WidgetAPIKeyId" />
           <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CompetitorEmployeesMin" />
+          <Property Type="Int32" Name="CompetitorEmployeesMax" />
+          <Property Type="Int32" Name="SupplierEmployeesMin" />
+          <Property Type="Int32" Name="SupplierEmployeesMax" />
+          <Property Type="Int32" Name="BuyerEmployeesMin" />
+          <Property Type="Int32" Name="BuyerEmployeesMax" />
         </EntityType>
         <EntityType Name="RelatedBuyer">
           <Key>
@@ -466,6 +530,56 @@
           <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
           <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
           <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AdvertisingAttribute">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Minute" Nullable="false" />
+          <Property Type="Int32" Name="Hour" Nullable="false" />
+          <Property Type="Int32" Name="Day" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="false" />
+          <Property Type="Int32" Name="Month" Nullable="false" />
+          <Property Type="Int32" Name="Quarter" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <Property Type="Guid" Name="UserId" />
+          <Property Type="Int64" Name="GeographicLocationId" Nullable="false" />
+          <Property Type="Int64" Name="IndustryId" Nullable="false" />
+          <Property Type="Int64" Name="WidgetAPIKeyId" />
+          <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="Distance" />
+          <Property Type="Int64" Name="AverageRevenueMax" />
+          <Property Type="Int64" Name="AverageRevenueMin" />
+          <Property Type="Int64" Name="TotalRevenueMin" />
+          <Property Type="Int64" Name="TotalRevenueMax" />
+          <Property Type="Int64" Name="RevenuePerCapitaMax" />
+          <Property Type="Int64" Name="RevenuePerCapitaMin" />
+          <Property Type="Int64" Name="TotalEmployeesMin" />
+          <Property Type="Int64" Name="TotalEmployeesMax" />
+          <Property Type="Int64" Name="TotalPeopleMin" />
+          <Property Type="Int64" Name="TotalPeopleMax" />
+          <Property Type="Int32" Name="PercentForeignMin" />
+          <Property Type="Int32" Name="PercentForeignMax" />
+          <Property Type="Int32" Name="PercentMaleMin" />
+          <Property Type="Int32" Name="PercentMaleMax" />
+          <Property Type="Int32" Name="PercentFemaleMin" />
+          <Property Type="Int32" Name="PercentFemaleMax" />
+          <Property Type="Int32" Name="PercentAgeBelow5Min" />
+          <Property Type="Int32" Name="PercentAgeBelow5Max" />
+          <Property Type="Int32" Name="PercentAge5To19Min" />
+          <Property Type="Int32" Name="PercentAge5To19Max" />
+          <Property Type="Int32" Name="PercentAge20To29Min" />
+          <Property Type="Int32" Name="PercentAge20To29Max" />
+          <Property Type="Int32" Name="PercentAge30To39Min" />
+          <Property Type="Int32" Name="PercentAge30To39Max" />
+          <Property Type="Int32" Name="PercentAge40To49Min" />
+          <Property Type="Int32" Name="PercentAge40To49Max" />
+          <Property Type="Int32" Name="PercentAge50To64Min" />
+          <Property Type="Int32" Name="PercentAge50To64Max" />
+          <Property Type="Int32" Name="PercentAgeAbove65Min" />
+          <Property Type="Int32" Name="PercentAgeAbove65Max" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -618,6 +732,12 @@
           <EntitySetMapping Name="CompetitorAttributes">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.CompetitorAttribute">
               <MappingFragment StoreEntitySet="CompetitorAttributes">
+                <ScalarProperty Name="BuyerEmployeesMax" ColumnName="BuyerEmployeesMax" />
+                <ScalarProperty Name="BuyerEmployeesMin" ColumnName="BuyerEmployeesMin" />
+                <ScalarProperty Name="SupplierEmployeesMax" ColumnName="SupplierEmployeesMax" />
+                <ScalarProperty Name="SupplierEmployeesMin" ColumnName="SupplierEmployeesMin" />
+                <ScalarProperty Name="CompetitorEmployeesMax" ColumnName="CompetitorEmployeesMax" />
+                <ScalarProperty Name="CompetitorEmployeesMin" ColumnName="CompetitorEmployeesMin" />
                 <ScalarProperty Name="Session" ColumnName="Session" />
                 <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
                 <ScalarProperty Name="Buyers" ColumnName="Buyers" />
@@ -687,6 +807,57 @@
                 <ScalarProperty Name="RelatedIndustryId" ColumnName="RelatedIndustryId" />
                 <ScalarProperty Name="PrimaryIndustryId" ColumnName="PrimaryIndustryId" />
                 <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Minute" ColumnName="Minute" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvertisingAttributes">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.AdvertisingAttribute">
+              <MappingFragment StoreEntitySet="AdvertisingAttributes">
+                <ScalarProperty Name="PercentAgeAbove65Max" ColumnName="PercentAgeAbove65Max" />
+                <ScalarProperty Name="PercentAgeAbove65Min" ColumnName="PercentAgeAbove65Min" />
+                <ScalarProperty Name="PercentAge50To64Max" ColumnName="PercentAge50To64Max" />
+                <ScalarProperty Name="PercentAge50To64Min" ColumnName="PercentAge50To64Min" />
+                <ScalarProperty Name="PercentAge40To49Max" ColumnName="PercentAge40To49Max" />
+                <ScalarProperty Name="PercentAge40To49Min" ColumnName="PercentAge40To49Min" />
+                <ScalarProperty Name="PercentAge30To39Max" ColumnName="PercentAge30To39Max" />
+                <ScalarProperty Name="PercentAge30To39Min" ColumnName="PercentAge30To39Min" />
+                <ScalarProperty Name="PercentAge20To29Max" ColumnName="PercentAge20To29Max" />
+                <ScalarProperty Name="PercentAge20To29Min" ColumnName="PercentAge20To29Min" />
+                <ScalarProperty Name="PercentAge5To19Max" ColumnName="PercentAge5To19Max" />
+                <ScalarProperty Name="PercentAge5To19Min" ColumnName="PercentAge5To19Min" />
+                <ScalarProperty Name="PercentAgeBelow5Max" ColumnName="PercentAgeBelow5Max" />
+                <ScalarProperty Name="PercentAgeBelow5Min" ColumnName="PercentAgeBelow5Min" />
+                <ScalarProperty Name="PercentFemaleMax" ColumnName="PercentFemaleMax" />
+                <ScalarProperty Name="PercentFemaleMin" ColumnName="PercentFemaleMin" />
+                <ScalarProperty Name="PercentMaleMax" ColumnName="PercentMaleMax" />
+                <ScalarProperty Name="PercentMaleMin" ColumnName="PercentMaleMin" />
+                <ScalarProperty Name="PercentForeignMax" ColumnName="PercentForeignMax" />
+                <ScalarProperty Name="PercentForeignMin" ColumnName="PercentForeignMin" />
+                <ScalarProperty Name="TotalPeopleMax" ColumnName="TotalPeopleMax" />
+                <ScalarProperty Name="TotalPeopleMin" ColumnName="TotalPeopleMin" />
+                <ScalarProperty Name="TotalEmployeesMax" ColumnName="TotalEmployeesMax" />
+                <ScalarProperty Name="TotalEmployeesMin" ColumnName="TotalEmployeesMin" />
+                <ScalarProperty Name="RevenuePerCapitaMin" ColumnName="RevenuePerCapitaMin" />
+                <ScalarProperty Name="RevenuePerCapitaMax" ColumnName="RevenuePerCapitaMax" />
+                <ScalarProperty Name="TotalRevenueMax" ColumnName="TotalRevenueMax" />
+                <ScalarProperty Name="TotalRevenueMin" ColumnName="TotalRevenueMin" />
+                <ScalarProperty Name="AverageRevenueMin" ColumnName="AverageRevenueMin" />
+                <ScalarProperty Name="AverageRevenueMax" ColumnName="AverageRevenueMax" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Quarter" ColumnName="Quarter" />

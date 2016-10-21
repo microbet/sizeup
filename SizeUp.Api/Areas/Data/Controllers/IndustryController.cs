@@ -8,6 +8,7 @@ using SizeUp.Core.Web;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
+using System.Data.Objects;
 namespace SizeUp.Api.Areas.Data.Controllers
 {
     public class IndustryController : BaseController
@@ -30,7 +31,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();
+               var data = Core.DataLayer.Industry.Search(context, term).Take(maxResults).ToList();
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

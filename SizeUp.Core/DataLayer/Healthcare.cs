@@ -17,9 +17,11 @@ namespace SizeUp.Core.DataLayer
                 .Where(i => i.IndustryId == industryId)
                 .Where(i => i.GeographicLocationId == geographicLocationId);
 
-            return data
+            var test = data
                 .Select(new Projections.Healthcare.Chart(employees).Expression)
                 .FirstOrDefault();
+
+            return test;
         }
 
         public static PercentageItem Percentage(SizeUpContext context, long industryId, long geographicLocationId, long value )

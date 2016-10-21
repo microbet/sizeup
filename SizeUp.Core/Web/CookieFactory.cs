@@ -14,6 +14,7 @@ namespace SizeUp.Core.Web
         {
             HttpCookie c = new HttpCookie(name);
             c.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+            if (c.Domain == ".localhost") c.Domain = null;
             c.Name = name;
             return c;
         }

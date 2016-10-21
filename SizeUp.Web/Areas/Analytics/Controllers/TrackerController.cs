@@ -29,11 +29,11 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
             PageViewToken token = PageViewToken.ParseToken(t);
             var item = new Data.Analytics.PageView()
             {
-               GeographicLocationId = token.GeographicLocationId,
-               IndustryId = token.IndustryId,
-               Url = Server.UrlDecode(u),
-               OriginIP = SizeUp.Core.Web.WebContext.Current.ClientIP,
-               UserId = userid
+                GeographicLocationId = token.GeographicLocationId,
+                IndustryId = token.IndustryId,
+                Url = Server.UrlDecode(u),
+                OriginIP = SizeUp.Core.Web.WebContext.Current.ClientIP,
+                UserId = userid
             };
 
             Singleton<Tracker>.Instance.PageView(item);
@@ -43,7 +43,7 @@ namespace SizeUp.Web.Areas.Analytics.Controllers
             return File(stream.GetBuffer(), "image/png");
         }
 
-       
+
 
     }
 }

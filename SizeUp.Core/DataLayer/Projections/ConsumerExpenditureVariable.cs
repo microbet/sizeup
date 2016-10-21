@@ -23,7 +23,7 @@ namespace SizeUp.Core.DataLayer.Projections
                         ParentId = i.ParentId,
                         Variable = i.Variable,
                         Description = i.Description,
-                        HasChildren = i.Children.Count() > 0
+                        HasChildren = i.Children.Count() > 0                        
                     };
                 }
             }

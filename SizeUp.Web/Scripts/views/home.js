@@ -39,7 +39,7 @@
 
             //me.form.location.detectedLocation.find('.changeLocation').click(onChangeCityClicked);
             me.form.location.enteredLocation.find('.changeLocation').click(onChangeCityClicked);
-            me.form.location.isDetectingLocation =
+        
 
             me.form.location.placeSelector = sizeup.controls.placeSelector({
                 textbox: me.form.location.cityTextbox,

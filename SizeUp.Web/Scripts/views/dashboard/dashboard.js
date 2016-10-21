@@ -3,7 +3,7 @@
     sizeup.views.dashboard.dashboard = function (opts) {
 
         var me = {};
-        var notifier = new sizeup.core.notifier(function () { init();});
+        var notifier = new sizeup.core.notifier(function () { init(); });
 
         var reportIndexes = [
             'revenue',
@@ -23,26 +23,35 @@
         me.reports = [];
         me.container = $('#dashboard');
         me.reportsCollapsed = false;
+        me.data.nulledInputs = {};
 
-        sizeup.api.data.getCentroid({ geographicLocationId: opts.currentInfo.CurrentPlace.Id}, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }))
+        $.each(reportIndexes, function (i, e) { me.data.nulledInputs[e]=null });
+        sizeup.api.data.getCentroid({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }))
         sizeup.api.data.getBoundingBox({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
-        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = $.extend({}, data, localStorage)}));
-       
+        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) {me.data.dashboardValues = $.extend({}, data, localStorage);}));
+
         var init = function () {
-            
+
             me.data.activeIndustry = me.opts.currentInfo.CurrentIndustry;
             me.data.activePlace = me.opts.currentInfo.CurrentPlace;
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
-                jQuery.bbq.pushState(me.data.dashboardValues, 1);
-                var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, jQuery.bbq.getState());
-                $.each(p, function (i, e) {localStorage.setItem(i, e);});
+                //jQuery.bbq.pushState(me.data.dashboardValues, 1);
+                var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, jQuery.bbq.getState());
+                $.each(p, function (i, e) {
+                    if (e === null) {
+                        delete(p[i])
+                        localStorage.removeItem(i);
+                    }                       
+                    else
+                        localStorage.setItem(i, e);
+                });
                 sizeup.core.profile.setDashboardValues(p);
             }
 
             me.signinPanels = {};
             me.content = {};
-            
+
             me.resourceToggle = new sizeup.controls.toggleButton(
                 {
                     button: me.container.find('#summaryView'),
@@ -85,11 +94,6 @@
             me.content.changePlace.click(changePlaceClicked);
 
 
-
-
-            $(window).bind('hashchange', function (e) { hashChanged(e); });
-
-
             me.reports['revenue'] = new sizeup.views.dashboard.revenue({ container: $('#revenue'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
             me.reports['yearStarted'] = new sizeup.views.dashboard.yearStarted({ container: $('#yearStarted'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
             me.reports['salary'] = new sizeup.views.dashboard.averageSalary({ container: $('#salary'), report: me.opts.currentInfo, centroid: me.opts.MapCenter, boundingBox: me.opts.BoundingBox });
@@ -105,7 +109,7 @@
                 me.signinPanels['employees'] = new sizeup.views.shared.signin({
                     container: me.container.find('#employees .signinPanel.form')
                 });
-                
+
                 me.signinPanels['costEffectiveness'] = new sizeup.views.shared.signin({
                     container: me.container.find('#costEffectiveness .signinPanel.form')
                 });
@@ -156,11 +160,12 @@
             $('#dashboard').removeClass('hidden');
             initAllReports();
 
-                       
+
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 me.sessionLoadedBox.flash();
             }
+            window.setTimeout(function(){ $(window).bind('hashchange', hashChanged) } ,100);
         };
 
         var getParameters = function () {
@@ -196,7 +201,7 @@
 
         var industryBoxBlur = function () {
             me.content.changeIndustry.show();
-            me.content.industryBox.hide();           
+            me.content.industryBox.hide();
         };
 
 
@@ -231,7 +236,7 @@
 
 
 
-        var signinFormClicked = function(data){
+        var signinFormClicked = function (data) {
             for (var x in me.signinPanels) {
                 if (x != data) {
                     me.signinPanels[x].closeForm();
@@ -241,8 +246,15 @@
         };
 
         var hashChanged = function (e) {
-            var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, e.getState());
-            $.each(p, function (i, e) { localStorage.setItem(i, e); });
+            var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, e.getState());
+            $.each(p, function (i, e) {
+                if (e === null){
+                    delete (p[i]);
+                    localStorage.removeItem(i);
+                }                    
+                else
+                    localStorage.setItem(i, e);
+            });
             sizeup.core.profile.setDashboardValues(p);
         };
 
@@ -260,11 +272,11 @@
         };
 
         var initAllReports = function () {
-            
+
             for (var x = 0; x < reportIndexes.length; x++) {
                 var step = 250;
-                var f = function(report, delay){
-                    return function(){
+                var f = function (report, delay) {
+                    return function () {
                         report.setupReport();
                     }
                 };
@@ -274,11 +286,11 @@
             }
         };
 
-      
+
         var publicObj = {
 
         };
         return publicObj;
-        
+
     };
 })();

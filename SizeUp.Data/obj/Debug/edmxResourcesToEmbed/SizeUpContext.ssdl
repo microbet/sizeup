@@ -40,6 +40,7 @@
     <EntitySet Name="SitemapBusiness" EntityType="SizeUp.Data.Store.SitemapBusiness" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SitemapCommunity" EntityType="SizeUp.Data.Store.SitemapCommunity" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SitemapCommunityIndustry" EntityType="SizeUp.Data.Store.SitemapCommunityIndustry" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SitemapMain" EntityType="SizeUp.Data.Store.SitemapMain" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="State" EntityType="SizeUp.Data.Store.State" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ZipCode" EntityType="SizeUp.Data.Store.ZipCode" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ZipCodeCounty" EntityType="SizeUp.Data.Store.ZipCodeCounty" store:Type="Tables" Schema="dbo" />
@@ -1704,6 +1705,16 @@
     <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="150" />
   </EntityType>
   <EntityType Name="SitemapCommunityIndustry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="County" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="Industry" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="SitemapMain">
     <Key>
       <PropertyRef Name="Id" />
     </Key>

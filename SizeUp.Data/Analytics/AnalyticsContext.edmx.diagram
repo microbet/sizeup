@@ -10,11 +10,12 @@
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.LongRequest" Width="2.375" PointX="0.5" PointY="5.25" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.UserRegistration" Width="2.375" PointX="8.625" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.PageView" Width="2.375" PointX="3.125" PointY="6.5" />
-        <EntityTypeShape EntityType="SizeUp.Data.Analytics.BusinessAttribute" Width="2.125" PointX="3.125" PointY="0.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.BusinessAttribute" Width="2.75" PointX="3.125" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.CompetitorAttribute" Width="2.25" PointX="6" PointY="0.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedBuyer" Width="2" PointX="8.75" PointY="6.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedCompetitor" Width="2" PointX="11.5" PointY="6.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedSupplier" Width="2" PointX="6" PointY="6.5" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.AdvertisingAttribute" Width="1.5" PointX="13.875" PointY="5.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

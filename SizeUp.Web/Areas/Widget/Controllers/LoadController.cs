@@ -22,6 +22,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
         [APIAuthorize(Role = "Widget")]
         public ActionResult Index(long? industryId = null, long? placeId = null, string theme = null, string feature = "", bool? showForm = null)
         {
+
             //in this context the APIToken is the widget key
             bool valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
             Log();
@@ -30,15 +31,13 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                 throw new HttpException(403, "Api token not valid");
             }
 
-
-            if (Request.Cookies["enabled"] == null)
+            if (Request.Cookies["sessionId"] == null)
             {
                 return View("~/areas/widget/views/Authorize/Authorize.cshtml");
             }
             HttpCookie cc = CookieFactory.Create("enabled");
             cc.Expires = DateTime.Now.AddDays(-1);
             Response.Cookies.Add(cc);
-
 
             Feature? startFeature = null;
             if (feature.ToLower() == "dashboard")

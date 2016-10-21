@@ -35,7 +35,7 @@ namespace SizeUp.Core.DataLayer.Projections
                         State = i.HealthcareByState,
                         StateRank = i.HealthcareByStateRank,
 
-                        FirmSize = Employees == null ? null : Employees <= 9 ? i.Healthcare0To9Employees : Employees <= 24 ? i.Healthcare10To24Employees : Employees <= 99 ? i.Healthcare25To99Employees : Employees <= 999 ? i.Healthcare100To999Employees : i.Healthcare1000orMoreEmployees,
+                        FirmSize =     Employees == null ? null : Employees <= 9 ? i.Healthcare0To9Employees : Employees <= 24 ? i.Healthcare10To24Employees : Employees <= 99 ? i.Healthcare25To99Employees : Employees <= 999 ? i.Healthcare100To999Employees : i.Healthcare1000orMoreEmployees,
                         FirmSizeRank = Employees == null ? null : Employees <= 9 ? i.Healthcare0To9EmployeesRank : Employees <= 24 ? i.Healthcare10To24EmployeesRank : Employees <= 99 ? i.Healthcare25To99EmployeesRank : Employees <= 999 ? i.Healthcare100To999EmployeesRank : i.Healthcare1000orMoreEmployeesRank
                     };
                 }

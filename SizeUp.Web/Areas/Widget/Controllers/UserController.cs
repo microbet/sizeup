@@ -65,7 +65,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             ViewBag.VerificationSent = false;
             ViewBag.Email = email;
 
-            if (!Identity.ValidateUser(email, password))
+            if (Identity.ValidateUser(email, password))
             {
                 var user = Identity.GetUser(email);
                 if (user != null && !user.IsApproved)

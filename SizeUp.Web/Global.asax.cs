@@ -223,12 +223,11 @@ namespace SizeUp.Web
        );
 
 
-            /*
-            routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );*/
+        //routes.MapHttpRoute(
+        //    name: "DefaultApi",
+        //    routeTemplate: "api/{controller}/{action}/{id}",
+        //    defaults: new { action = "get", id = RouteParameter.Optional }
+        //);
 
 
             routes.MapRoute(

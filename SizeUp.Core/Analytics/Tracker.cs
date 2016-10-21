@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SizeUp.Data;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.API;
+using SizeUp.Core.Email;
 
 namespace SizeUp.Core.Analytics
 {
@@ -74,6 +75,7 @@ namespace SizeUp.Core.Analytics
             {
                 using (var context = ContextFactory.AnalyticsContext)
                 {
+                    Mailer mail = new Mailer();
                     context.Exceptions.AddObject(reg);
                     context.SaveChanges();
                 }
@@ -246,6 +248,30 @@ namespace SizeUp.Core.Analytics
                 using (var context = ContextFactory.AnalyticsContext)
                 {
                     context.PageViews.AddObject(reg);
+                    context.SaveChanges();
+                }
+            });
+        }
+
+        public void AdvertisingReportLoaded(AdvertisingAttribute reg)
+        {
+            TimeStamp stamp = new TimeStamp();
+            reg.Day = stamp.Day;
+            reg.Hour = stamp.Hour;
+            reg.Minute = stamp.Minute;
+            reg.Month = stamp.Month;
+            reg.Quarter = stamp.Quarter;
+            reg.Year = stamp.Year;
+            reg.Week = stamp.Week;
+            reg.Timestamp = stamp.Stamp;
+            reg.Session = APIContext.Current.Session;
+            reg.WidgetAPIKeyId = APIContext.Current.WidgetToken != null ? APIContext.Current.WidgetToken.APIKeyId : (long?)null;
+
+            Task.Factory.StartNew(() =>
+            {
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    context.AdvertisingAttributes.AddObject(reg);
                     context.SaveChanges();
                 }
             });

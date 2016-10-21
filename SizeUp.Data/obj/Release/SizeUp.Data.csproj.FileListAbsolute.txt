@@ -7,3 +7,12 @@ C:\Development\sizeup2\SizeUp.Data\obj\Release\SizeUp.Data.csprojResolveAssembly
 C:\Development\sizeup2\SizeUp.Data\obj\Release\SizeUp.Data.dll
 C:\Development\sizeup2\SizeUp.Data\obj\Release\SizeUp.Data.pdb
 C:\Development\sizeup2\SizeUp.Data\bin\Release\SizeUp.Data.dll.config
+C:\VS2012\sizeup\SizeUp.Data\bin\Release\SizeUp.Data.dll.config
+C:\VS2012\sizeup\SizeUp.Data\bin\Release\SizeUp.Data.dll
+C:\VS2012\sizeup\SizeUp.Data\bin\Release\SizeUp.Data.pdb
+C:\VS2012\sizeup\SizeUp.Data\bin\Release\EntityFramework.dll
+C:\VS2012\sizeup\SizeUp.Data\bin\Release\Microsoft.SqlServer.Types.dll
+C:\VS2012\sizeup\SizeUp.Data\bin\Release\EntityFramework.xml
+C:\VS2012\sizeup\SizeUp.Data\obj\Release\SizeUp.Data.dll
+C:\VS2012\sizeup\SizeUp.Data\obj\Release\SizeUp.Data.pdb
+C:\VS2012\sizeup\SizeUp.Data\obj\Release\SizeUp.Data.csprojResolveAssemblyReference.cache

@@ -45,9 +45,6 @@
             params = $.extend(true, me.opts.params, params);
             jQuery.bbq.pushState(params, 2);
 
-
-
-
             me.content = {};
 
             me.loader = me.container.find('.loading.page');

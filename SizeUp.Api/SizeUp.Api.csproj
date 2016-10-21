@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\SizeUp.Api.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -168,6 +169,7 @@
     <Compile Include="Controllers\JSController.cs" />
     <Compile Include="Areas\Data\Controllers\PlaceController.cs" />
     <Compile Include="Areas\Data\Controllers\RevenuePerCapitaController.cs" />
+    <Compile Include="Areas\Tiles\Controllers\TileController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Areas\Data\Controllers\TotalEmployeesController.cs" />
     <Compile Include="Areas\Data\Controllers\TotalRevenueController.cs" />
@@ -221,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Tiles\Views\Web.config" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\api.beta.sizeup.com.pubxml" />
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />
@@ -237,6 +240,9 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -251,7 +257,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>6605</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://api.sizeup.localhost</IISUrl>
+          <IISUrl>http://localhost/SizeUp.Api</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://api.sizeup.localhost</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

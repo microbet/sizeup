@@ -91,10 +91,10 @@ namespace SizeUp.Core.Identity
         }
 
 
-        public static Identity GetUser(string Email)
+        public static Identity GetUser(string email)
         {
             Identity i = null;
-            var user = Membership.GetUser(Email);
+            var user = Membership.GetUser(email);
             if (user != null)
             {
                 i = GetUser(user);

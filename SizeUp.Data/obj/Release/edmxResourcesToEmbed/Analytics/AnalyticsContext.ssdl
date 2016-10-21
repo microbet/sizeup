@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SizeUp.Data.Analytics.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="SizeUpDataAnalyticsStoreContainer">
+    <EntitySet Name="AdvertisingAttributes" EntityType="SizeUp.Data.Analytics.Store.AdvertisingAttributes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="APIRequests" EntityType="SizeUp.Data.Analytics.Store.APIRequests" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.Store.CompetitorAttributes" store:Type="Tables" Schema="dbo" />
@@ -12,6 +13,56 @@
     <EntitySet Name="RelatedSupplier" EntityType="SizeUp.Data.Analytics.Store.RelatedSupplier" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserRegistration" EntityType="SizeUp.Data.Analytics.Store.UserRegistration" store:Type="Tables" Schema="dbo" />
   </EntityContainer>
+  <EntityType Name="AdvertisingAttributes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Minute" Type="int" Nullable="false" />
+    <Property Name="Hour" Type="int" Nullable="false" />
+    <Property Name="Day" Type="int" Nullable="false" />
+    <Property Name="Week" Type="int" Nullable="false" />
+    <Property Name="Month" Type="int" Nullable="false" />
+    <Property Name="Quarter" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" />
+    <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
+    <Property Name="WidgetAPIKeyId" Type="bigint" />
+    <Property Name="Session" Type="nvarchar" MaxLength="30" />
+    <Property Name="Distance" Type="bigint" />
+    <Property Name="AverageRevenueMax" Type="bigint" />
+    <Property Name="AverageRevenueMin" Type="bigint" />
+    <Property Name="TotalRevenueMin" Type="bigint" />
+    <Property Name="TotalRevenueMax" Type="bigint" />
+    <Property Name="RevenuePerCapitaMax" Type="bigint" />
+    <Property Name="RevenuePerCapitaMin" Type="bigint" />
+    <Property Name="TotalEmployeesMin" Type="bigint" />
+    <Property Name="TotalEmployeesMax" Type="bigint" />
+    <Property Name="TotalPeopleMin" Type="bigint" />
+    <Property Name="TotalPeopleMax" Type="bigint" />
+    <Property Name="PercentForeignMin" Type="int" />
+    <Property Name="PercentForeignMax" Type="int" />
+    <Property Name="PercentMaleMin" Type="int" />
+    <Property Name="PercentMaleMax" Type="int" />
+    <Property Name="PercentFemaleMin" Type="int" />
+    <Property Name="PercentFemaleMax" Type="int" />
+    <Property Name="PercentAgeBelow5Min" Type="int" />
+    <Property Name="PercentAgeBelow5Max" Type="int" />
+    <Property Name="PercentAge5To19Min" Type="int" />
+    <Property Name="PercentAge5To19Max" Type="int" />
+    <Property Name="PercentAge20To29Min" Type="int" />
+    <Property Name="PercentAge20To29Max" Type="int" />
+    <Property Name="PercentAge30To39Min" Type="int" />
+    <Property Name="PercentAge30To39Max" Type="int" />
+    <Property Name="PercentAge40To49Min" Type="int" />
+    <Property Name="PercentAge40To49Max" Type="int" />
+    <Property Name="PercentAge50To64Min" Type="int" />
+    <Property Name="PercentAge50To64Max" Type="int" />
+    <Property Name="PercentAgeAbove65Min" Type="int" />
+    <Property Name="PercentAgeAbove65Max" Type="int" />
+  </EntityType>
   <EntityType Name="APIRequests">
     <Key>
       <PropertyRef Name="Id" />
@@ -61,6 +112,12 @@
     <Property Name="BusinessSize" Type="nvarchar" MaxLength="30" />
     <Property Name="WidgetAPIKeyId" Type="bigint" />
     <Property Name="Session" Type="nvarchar" MaxLength="30" />
+    <Property Name="YearStartedPercentile" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="AverageSalaryPercentage" Type="decimal" Precision="15" Scale="2" />
+    <Property Name="HealthCareCostPercentage" Type="decimal" Precision="15" Scale="2" />
+    <Property Name="WorkersCompPercentage" Type="decimal" Precision="15" Scale="2" />
+    <Property Name="RevenuePercentile" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="EmployeesPercentile" Type="decimal" Precision="5" Scale="2" />
   </EntityType>
   <EntityType Name="CompetitorAttributes">
     <Key>

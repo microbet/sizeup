@@ -19,31 +19,30 @@ namespace SizeUp.Web.Areas.Api.Controllers
 {
     public class ProfileController : BaseController
     {
-        //
         // GET: /Api/User/
         [HttpGet]
         public ActionResult GetDashboardValues(long placeId, long industryId, Data.UserData.BusinessAttribute attributes)
         {
             dynamic obj = new System.Dynamic.ExpandoObject();
             string key = string.Format("dv-{0}-{1}", placeId, industryId);
-            var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : SizeUp.Core.Web.CookieFactory.Create(key);
-            Data.UserData.BusinessAttribute attr = new Data.UserData.BusinessAttribute();
+            //var cookie = Request.Cookies[key] != null ? Request.Cookies[key] : SizeUp.Core.Web.CookieFactory.Create(key);
+            Data.Analytics.BusinessAttribute attr = new Data.Analytics.BusinessAttribute();
 
             if (User.Identity.IsAuthenticated)
             {
-                using (var context = ContextFactory.UserDataContext)
+                using (var context = ContextFactory.AnalyticsContext)
                 {
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
-                    attr = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
+                    attr = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).OrderByDescending(i => i.Id).FirstOrDefault();
                     if (attr == null)
                     {
-                        attr = new Data.UserData.BusinessAttribute();
+                        attr = new Data.Analytics.BusinessAttribute();
                     }
                 }
             }
 
-            
+
 
             if (!string.IsNullOrEmpty(attr.BusinessSize))
             {
@@ -130,11 +129,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             using (var context = ContextFactory.SizeUpContext)
             {
-                //var geo = 130055; // Nation
                 var geo = stateId; // defaults to california
-               // var geo1 = context.GeographicLocations.Where(i => i.Id == placeId);
-                //.Select(i => i.State).FirstOrDefault().Id;
-                
+
                 if (Request.Form.AllKeys.Contains("businessSize"))
                 {
                     //cookie.Values.Add("businessSize", Request["businessSize"]);
@@ -204,7 +200,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
                     analyticsAttr.UserId = userid;
-                    
+
 
                     var item = context.BusinessAttributes.Where(i => i.UserId == userid && i.PlaceId == placeId && i.IndustryId == industryId).FirstOrDefault();
                     if (item != null)
@@ -334,41 +330,33 @@ namespace SizeUp.Web.Areas.Api.Controllers
             analyticsAttr.PlaceId = placeId;
             analyticsAttr.IndustryId = industryId;
 
-            if (Request.Form.AllKeys.Contains("competitor"))
-            {
-                var ids = Form.IntValues("competitor");
-                //cookie.Values.Add("competitor", string.Join(",", ids));
-                attr.Competitors = string.Join(",", ids);
-            }
-            if (Request.Form.AllKeys.Contains("supplier"))
-            {
-                var ids = Form.IntValues("supplier");
-                //cookie.Values.Add("supplier", string.Join(",", ids));
-                attr.Suppliers = string.Join(",", ids);
-            }
-            if (Request.Form.AllKeys.Contains("buyer"))
-            {
-                var ids = Form.IntValues("buyer");
-                //cookie.Values.Add("buyer", string.Join(",", ids));
-                attr.Buyers = string.Join(",", ids);
-            }
-            if (Request.Form.AllKeys.Contains("rootId") && Request.Form.AllKeys.Contains("consumerExpenditureVariable"))
-            {
-                var id = Form.StringValue("rootId");
-                //cookie.Values.Add("rootId", id);
-                attr.RootId = int.Parse(id);
-                id = Form.StringValue("consumerExpenditureVariable");
-                //cookie.Values.Add("consumerExpenditureVariable", id);
-                attr.ComsumerExpenditureId = int.Parse(id);
-            }
+            var ids = Form.IntValues("competitor") ?? new int?[0];
+            attr.Competitors = string.Join(",", ids);
 
+            analyticsAttr.CompetitorEmployeesMin = Form.IntValue("competitorsEmployeesMin");
+            analyticsAttr.CompetitorEmployeesMax = Form.IntValue("competitorsEmployeesMax");
 
+            ids = Form.IntValues("supplier");
+            attr.Suppliers = string.Join(",", ids);
 
+            analyticsAttr.SupplierEmployeesMin = Form.IntValue("suppliersEmployeesMin");
+            analyticsAttr.SupplierEmployeesMax = Form.IntValue("suppliersEmployeesMax");
+
+            ids = Form.IntValues("buyer");
+            attr.Buyers = string.Join(",", ids);
+
+            analyticsAttr.BuyerEmployeesMin = Form.IntValue("buyersEmployeesMin");
+            analyticsAttr.BuyerEmployeesMax = Form.IntValue("buyersEmployeesMax");
+
+            var id = Form.StringValue("rootId");
+            attr.RootId = int.Parse(id);
+            id = Form.StringValue("consumerExpenditureVariable");
+            attr.ComsumerExpenditureId = int.Parse(id);
 
             if (User.Identity.IsAuthenticated)
             {
                 using (var context = ContextFactory.UserDataContext)
-                {                
+                {
                     var user = Membership.GetUser(User.Identity.Name);
                     Guid userid = (Guid)user.ProviderUserKey;
                     attr.UserId = userid;
@@ -397,7 +385,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
                     {
                         context.CompetitorAttributes.AddObject(attr);
                         context.SaveChanges();
-                        
+
                     }
                 }
             }

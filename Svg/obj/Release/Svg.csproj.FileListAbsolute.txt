@@ -3,3 +3,7 @@ C:\Development\sizeup2\Svg\bin\Release\Svg.pdb
 C:\Development\sizeup2\Svg\obj\Release\Svg.csprojResolveAssemblyReference.cache
 C:\Development\sizeup2\Svg\obj\Release\Svg.dll
 C:\Development\sizeup2\Svg\obj\Release\Svg.pdb
+C:\VS2012\sizeup\Svg\bin\Release\Svg.dll
+C:\VS2012\sizeup\Svg\bin\Release\Svg.pdb
+C:\VS2012\sizeup\Svg\obj\Release\Svg.dll
+C:\VS2012\sizeup\Svg\obj\Release\Svg.pdb

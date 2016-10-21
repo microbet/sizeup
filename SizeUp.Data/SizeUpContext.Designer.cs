@@ -698,6 +698,22 @@ namespace SizeUp.Data
             }
         }
         private ObjectSet<ClientResourceString> _ClientResourceStrings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SitemapMain> SitemapMains
+        {
+            get
+            {
+                if ((_SitemapMains == null))
+                {
+                    _SitemapMains = base.CreateObjectSet<SitemapMain>("SitemapMains");
+                }
+                return _SitemapMains;
+            }
+        }
+        private ObjectSet<SitemapMain> _SitemapMains;
 
         #endregion
 
@@ -989,6 +1005,14 @@ namespace SizeUp.Data
         public void AddToClientResourceStrings(ClientResourceString clientResourceString)
         {
             base.AddObject("ClientResourceStrings", clientResourceString);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SitemapMains EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSitemapMains(SitemapMain sitemapMain)
+        {
+            base.AddObject("SitemapMains", sitemapMain);
         }
 
         #endregion
@@ -34404,6 +34428,166 @@ namespace SizeUp.Data
             sitemapCommunityIndustry.State = state;
             sitemapCommunityIndustry.Industry = industry;
             return sitemapCommunityIndustry;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String City
+        {
+            get
+            {
+                return _City;
+            }
+            set
+            {
+                OnCityChanging(value);
+                ReportPropertyChanging("City");
+                _City = StructuralObject.SetValidValue(value, false, "City");
+                ReportPropertyChanged("City");
+                OnCityChanged();
+            }
+        }
+        private global::System.String _City;
+        partial void OnCityChanging(global::System.String value);
+        partial void OnCityChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String County
+        {
+            get
+            {
+                return _County;
+            }
+            set
+            {
+                OnCountyChanging(value);
+                ReportPropertyChanging("County");
+                _County = StructuralObject.SetValidValue(value, false, "County");
+                ReportPropertyChanged("County");
+                OnCountyChanged();
+            }
+        }
+        private global::System.String _County;
+        partial void OnCountyChanging(global::System.String value);
+        partial void OnCountyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                OnStateChanging(value);
+                ReportPropertyChanging("State");
+                _State = StructuralObject.SetValidValue(value, false, "State");
+                ReportPropertyChanged("State");
+                OnStateChanged();
+            }
+        }
+        private global::System.String _State;
+        partial void OnStateChanging(global::System.String value);
+        partial void OnStateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Industry
+        {
+            get
+            {
+                return _Industry;
+            }
+            set
+            {
+                OnIndustryChanging(value);
+                ReportPropertyChanging("Industry");
+                _Industry = StructuralObject.SetValidValue(value, false, "Industry");
+                ReportPropertyChanged("Industry");
+                OnIndustryChanged();
+            }
+        }
+        private global::System.String _Industry;
+        partial void OnIndustryChanging(global::System.String value);
+        partial void OnIndustryChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data", Name="SitemapMain")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SitemapMain : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SitemapMain object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="city">Initial value of the City property.</param>
+        /// <param name="county">Initial value of the County property.</param>
+        /// <param name="state">Initial value of the State property.</param>
+        /// <param name="industry">Initial value of the Industry property.</param>
+        public static SitemapMain CreateSitemapMain(global::System.Int64 id, global::System.String city, global::System.String county, global::System.String state, global::System.String industry)
+        {
+            SitemapMain sitemapMain = new SitemapMain();
+            sitemapMain.Id = id;
+            sitemapMain.City = city;
+            sitemapMain.County = county;
+            sitemapMain.State = state;
+            sitemapMain.Industry = industry;
+            return sitemapMain;
         }
 
         #endregion

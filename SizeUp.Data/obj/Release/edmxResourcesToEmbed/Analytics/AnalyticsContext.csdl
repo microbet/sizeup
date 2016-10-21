@@ -11,6 +11,7 @@
     <EntitySet Name="RelatedBuyers" EntityType="SizeUp.Data.Analytics.RelatedBuyer" />
     <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
     <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
+    <EntitySet Name="AdvertisingAttributes" EntityType="SizeUp.Data.Analytics.AdvertisingAttribute" />
   </EntityContainer>
   <EntityType Name="APIRequest">
     <Key>
@@ -141,6 +142,12 @@
     <Property Type="String" Name="BusinessSize" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Type="Int64" Name="WidgetAPIKeyId" />
     <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="YearStartedPercentile" Precision="5" Scale="2" />
+    <Property Type="Decimal" Name="AverageSalaryPercentage" Precision="15" Scale="2" />
+    <Property Type="Decimal" Name="HealthCareCostPercentage" Precision="15" Scale="2" />
+    <Property Type="Decimal" Name="WorkersCompPercentage" Precision="15" Scale="2" />
+    <Property Type="Decimal" Name="RevenuePercentile" Precision="5" Scale="2" />
+    <Property Type="Decimal" Name="EmployeesPercentile" Precision="5" Scale="2" />
   </EntityType>
   <EntityType Name="CompetitorAttribute">
     <Key>
@@ -222,5 +229,55 @@
     <Property Type="Int64" Name="PrimaryIndustryId" Nullable="false" />
     <Property Type="Int64" Name="RelatedIndustryId" Nullable="false" />
     <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AdvertisingAttribute">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="Timestamp" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="Minute" Nullable="false" />
+    <Property Type="Int32" Name="Hour" Nullable="false" />
+    <Property Type="Int32" Name="Day" Nullable="false" />
+    <Property Type="Int32" Name="Week" Nullable="false" />
+    <Property Type="Int32" Name="Month" Nullable="false" />
+    <Property Type="Int32" Name="Quarter" Nullable="false" />
+    <Property Type="Int32" Name="Year" Nullable="false" />
+    <Property Type="Guid" Name="UserId" />
+    <Property Type="Int64" Name="GeographicLocationId" Nullable="false" />
+    <Property Type="Int64" Name="IndustryId" Nullable="false" />
+    <Property Type="Int64" Name="WidgetAPIKeyId" />
+    <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="Distance" />
+    <Property Type="Int64" Name="AverageRevenueMax" />
+    <Property Type="Int64" Name="AverageRevenueMin" />
+    <Property Type="Int64" Name="TotalRevenueMin" />
+    <Property Type="Int64" Name="TotalRevenueMax" />
+    <Property Type="Int64" Name="RevenuePerCapitaMax" />
+    <Property Type="Int64" Name="RevenuePerCapitaMin" />
+    <Property Type="Int64" Name="TotalEmployeesMin" />
+    <Property Type="Int64" Name="TotalEmployeesMax" />
+    <Property Type="Int64" Name="TotalPeopleMin" />
+    <Property Type="Int64" Name="TotalPeopleMax" />
+    <Property Type="Int32" Name="PercentForeignMin" />
+    <Property Type="Int32" Name="PercentForeignMax" />
+    <Property Type="Int32" Name="PercentMaleMin" />
+    <Property Type="Int32" Name="PercentMaleMax" />
+    <Property Type="Int32" Name="PercentFemaleMin" />
+    <Property Type="Int32" Name="PercentFemaleMax" />
+    <Property Type="Int32" Name="PercentAgeBelow5Min" />
+    <Property Type="Int32" Name="PercentAgeBelow5Max" />
+    <Property Type="Int32" Name="PercentAge5To19Min" />
+    <Property Type="Int32" Name="PercentAge5To19Max" />
+    <Property Type="Int32" Name="PercentAge20To29Min" />
+    <Property Type="Int32" Name="PercentAge20To29Max" />
+    <Property Type="Int32" Name="PercentAge30To39Min" />
+    <Property Type="Int32" Name="PercentAge30To39Max" />
+    <Property Type="Int32" Name="PercentAge40To49Min" />
+    <Property Type="Int32" Name="PercentAge40To49Max" />
+    <Property Type="Int32" Name="PercentAge50To64Min" />
+    <Property Type="Int32" Name="PercentAge50To64Max" />
+    <Property Type="Int32" Name="PercentAgeAbove65Min" />
+    <Property Type="Int32" Name="PercentAgeAbove65Max" />
   </EntityType>
 </Schema>

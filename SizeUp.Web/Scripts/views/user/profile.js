@@ -29,10 +29,6 @@
 
         };
 
-
-
-        
-
         var validatePassword = function () {
             var isValid = true;
             var p = me.form.password.val();

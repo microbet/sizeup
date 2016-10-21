@@ -27,6 +27,9 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Antlr4.StringTemplate">
       <HintPath>..\packages\Antlr4.StringTemplate.4.0.6.9004\lib\net35\Antlr4.StringTemplate.dll</HintPath>
@@ -88,7 +91,7 @@
     <Compile Include="DataLayer\County.cs" />
     <Compile Include="DataLayer\Models\Sitemap.cs" />
     <Compile Include="DataLayer\Projections\County.cs" />
-    <Compile Include="DataLayer\State.cs" />
+    <Compile Include="Diagnostics\State.cs" />
     <Compile Include="DataLayer\GeographicLocations.cs" />
     <Compile Include="DataLayer\CostEffectiveness.cs" />
     <Compile Include="DataLayer\Demographics.cs" />

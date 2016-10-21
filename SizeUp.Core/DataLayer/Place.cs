@@ -105,14 +105,13 @@ namespace SizeUp.Core.DataLayer
                     x.West <= latLng.Lng && x.East >= latLng.Lng
                     && x.North >= latLng.Lat && x.South <= latLng.Lat
                 );
-            var count = locations.Count();
-            var ids = locations.Select(x => x.Id);
+
             foreach (var location in locations)
             {
                 var geoId = location.GeographicLocationId;
-                var geographicLocation = Core.DataLayer.GeographicLocation.Get(context).Where(x => x.Id == geoId && x.GranularityId == 4).FirstOrDefault();
+                var geographicLocation = Core.DataLayer.GeographicLocation.Get(context).Any(x => x.Id == geoId && x.GranularityId == 4);
 
-                if (geographicLocation != null)
+                if (geographicLocation == true)
                 {
                     return Core.DataLayer.Place.Get(context).Where(x => x.GeographicLocation.Id == geoId)
                         .Select(new Projections.Place.Default().Expression)

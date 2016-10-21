@@ -249,6 +249,7 @@
     <EntitySet Name="SitemapCommunities" EntityType="SizeUp.Data.SitemapCommunity" />
     <EntitySet Name="SitemapCommunityIndustries" EntityType="SizeUp.Data.SitemapCommunityIndustry" />
     <EntitySet Name="ClientResourceStrings" EntityType="SizeUp.Data.ClientResourceString" />
+    <EntitySet Name="SitemapMains" EntityType="SizeUp.Data.SitemapMain" />
   </EntityContainer>
   <EntityType Name="Attribute">
     <Key>
@@ -2343,5 +2344,15 @@
     <Property Type="String" Name="DashboardAverageEmployees" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="DashboardCostEffectiveness" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="DashboardHealthcare" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SitemapMain">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="City" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="County" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="State" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Industry" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>
