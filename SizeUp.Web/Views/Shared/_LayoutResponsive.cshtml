@@ -52,7 +52,7 @@
                 }
             };
         }
-        if (screen.width <= 800 && !window.location.pathname.includes('bestPlaces') && !window.location.pathname.includes('company') && !window.location.pathname.includes('product') && !window.location.pathname.includes('widget')) {
+        if (screen.width < 768 && !window.location.pathname.includes('bestPlaces') && !window.location.pathname.includes('company') && !window.location.pathname.includes('product') && !window.location.pathname.includes('widget')) {
             window.location = 'https://m.sizeup.com' + window.location.pathname + window.location.hash;
         }
     </script>
