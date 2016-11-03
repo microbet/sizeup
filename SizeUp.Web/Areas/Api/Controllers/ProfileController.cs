@@ -144,10 +144,16 @@ namespace SizeUp.Web.Areas.Api.Controllers
                 if (Request.Form.AllKeys.Contains("employees"))
                 {
                     //cookie.Values.Add("employees", Request["employees"]);
-                    attr.Employees = int.Parse(Request["employees"] ?? "");
-                    var percentileItem = Core.DataLayer.AverageEmployees.Percentile(context, industryId, geo, attr.Employees ?? 0);
-                    if (percentileItem != null)
-                        analyticsAttr.EmployeesPercentile = percentileItem.Percentile;
+                    //attr.Employees = int.Parse(Request["employees"] ?? "");
+                    long outVar;
+                    if (long.TryParse(Request["employees"], out outVar))
+                    {
+                        attr.Employees = outVar;
+                        var percentileItem = Core.DataLayer.AverageEmployees.Percentile(context, industryId, geo, attr.Employees ?? 0);
+                        if (percentileItem != null)
+                            analyticsAttr.EmployeesPercentile = percentileItem.Percentile;
+                    }
+
                 }
                 if (Request.Form.AllKeys.Contains("healthcareCost"))
                 {

@@ -28,7 +28,7 @@
         $.each(reportIndexes, function (i, e) { me.data.nulledInputs[e]=null });
         sizeup.api.data.getCentroid({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }))
         sizeup.api.data.getBoundingBox({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
-        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) {me.data.dashboardValues = $.extend({}, data, localStorage);}));
+        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) {me.data.dashboardValues = $.extend({}, data, localStorage); }));
 
         var init = function () {
 
@@ -36,17 +36,22 @@
             me.data.activePlace = me.opts.currentInfo.CurrentPlace;
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
+                $.each(Object.keys(me.data.dashboardValues), function (i, e) {
+                    if (typeof (me.data.dashboardValues[e]) === 'function' || typeof (me.data.dashboardValues[e]) === 'undefined') {
+                        delete (me.data.dashboardValues[e])
+                    }
+                });
                 //jQuery.bbq.pushState(me.data.dashboardValues, 1);
                jQuery.bbq.pushState(me.data.dashboardValues, 1);
                //$.each(p, function (i, e) {localStorage.setItem(i, e);});
                 var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, jQuery.bbq.getState());
-                $.each(p, function (i, e) {
-                    if (e === null) {
-                        delete(p[i])
-                        localStorage.removeItem(i);
+                $.each(Object.keys(p), function (i, e) {
+                    if (p[e] === null) {
+                        delete(p[e])
+                        localStorage.removeItem(e);
                     }                       
                     else
-                        localStorage.setItem(i, e);
+                        localStorage.setItem(e, p[e]);
                 });
                 sizeup.core.profile.setDashboardValues(p);
             }
@@ -249,13 +254,13 @@
 
         var hashChanged = function (e) {
             var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, e.getState());
-            $.each(p, function (i, e) {
-                if (e === null){
-                    delete (p[i]);
-                    localStorage.removeItem(i);
-                }                    
+            $.each(Object.keys(p), function (i, e) {
+                if (p[e] === null) {
+                    delete (p[e])
+                    localStorage.removeItem(e);
+                }
                 else
-                    localStorage.setItem(i, e);
+                    localStorage.setItem(e, p[e]);
             });
             sizeup.core.profile.setDashboardValues(p);
         };
