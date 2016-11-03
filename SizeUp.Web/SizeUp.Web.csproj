@@ -288,6 +288,7 @@
     <Content Include="Content\images\Loading.gif" />
     <Content Include="Content\images\loadingSmall.gif" />
     <Content Include="Content\images\login-form-image-1.jpg" />
+    <Content Include="Content\images\login-form-image-2.jpg" />
     <Content Include="Content\images\logosmall.gif" />
     <Content Include="Content\images\magazine.png" />
     <Content Include="Content\images\map-advertising.png" />

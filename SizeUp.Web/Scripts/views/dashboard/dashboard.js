@@ -37,6 +37,8 @@
 
             if (!jQuery.isEmptyObject(me.data.dashboardValues)) {
                 //jQuery.bbq.pushState(me.data.dashboardValues, 1);
+               jQuery.bbq.pushState(me.data.dashboardValues, 1);
+               //$.each(p, function (i, e) {localStorage.setItem(i, e);});
                 var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, jQuery.bbq.getState());
                 $.each(p, function (i, e) {
                     if (e === null) {

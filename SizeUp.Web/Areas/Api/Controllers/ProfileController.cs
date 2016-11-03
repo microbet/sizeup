@@ -336,13 +336,13 @@ namespace SizeUp.Web.Areas.Api.Controllers
             analyticsAttr.CompetitorEmployeesMin = Form.IntValue("competitorsEmployeesMin");
             analyticsAttr.CompetitorEmployeesMax = Form.IntValue("competitorsEmployeesMax");
 
-            ids = Form.IntValues("supplier");
+            ids = Form.IntValues("supplier") ?? new int?[0];
             attr.Suppliers = string.Join(",", ids);
 
             analyticsAttr.SupplierEmployeesMin = Form.IntValue("suppliersEmployeesMin");
             analyticsAttr.SupplierEmployeesMax = Form.IntValue("suppliersEmployeesMax");
 
-            ids = Form.IntValues("buyer");
+            ids = Form.IntValues("buyer") ?? new int?[0];
             attr.Buyers = string.Join(",", ids);
 
             analyticsAttr.BuyerEmployeesMin = Form.IntValue("buyersEmployeesMin");
@@ -350,7 +350,7 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             var id = Form.StringValue("rootId");
             attr.RootId = int.Parse(id);
-            id = Form.StringValue("consumerExpenditureVariable");
+            id = Form.StringValue("consumerExpenditureVariable") ?? "";
             attr.ComsumerExpenditureId = int.Parse(id);
 
             if (User.Identity.IsAuthenticated)
