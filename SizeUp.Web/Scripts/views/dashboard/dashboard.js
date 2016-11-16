@@ -28,7 +28,7 @@
         $.each(reportIndexes, function (i, e) { me.data.nulledInputs[e]=null });
         sizeup.api.data.getCentroid({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.MapCenter = data; }))
         sizeup.api.data.getBoundingBox({ geographicLocationId: opts.currentInfo.CurrentPlace.Id }, notifier.getNotifier(function (data) { me.opts.BoundingBox = data; }));
-        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) {me.data.dashboardValues = $.extend({}, data, localStorage); }));
+        sizeup.core.profile.getDashboardValues({ placeId: opts.currentInfo.CurrentPlace.Id, industryId: opts.currentInfo.CurrentIndustry.Id }, notifier.getNotifier(function (data) { me.data.dashboardValues = $.extend({}, data, JSON.parse(localStorage.getItem('dv-' + opts.currentInfo.CurrentIndustry.Id + '-' + opts.currentInfo.CurrentPlace.Id))); }));
 
         var init = function () {
 
@@ -41,18 +41,13 @@
                         delete (me.data.dashboardValues[e])
                     }
                 });
-                //jQuery.bbq.pushState(me.data.dashboardValues, 1);
                jQuery.bbq.pushState(me.data.dashboardValues, 1);
-               //$.each(p, function (i, e) {localStorage.setItem(i, e);});
                 var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, jQuery.bbq.getState());
                 $.each(Object.keys(p), function (i, e) {
-                    if (p[e] === null) {
-                        delete(p[e])
-                        localStorage.removeItem(e);
-                    }                       
-                    else
-                        localStorage.setItem(e, p[e]);
+                    if (p[e] === null)
+                        delete (p[e]);
                 });
+                localStorage.setItem('dv-' + opts.currentInfo.CurrentIndustry.Id + '-' + opts.currentInfo.CurrentPlace.Id, JSON.stringify(p));
                 sizeup.core.profile.setDashboardValues(p);
             }
 
@@ -255,13 +250,10 @@
         var hashChanged = function (e) {
             var p = $.extend(true, { placeId: me.opts.currentInfo.CurrentPlace.Id, industryId: me.opts.currentInfo.CurrentIndustry.Id, stateId: me.opts.currentInfo.CurrentPlace.State.Id }, me.data.nulledInputs, e.getState());
             $.each(Object.keys(p), function (i, e) {
-                if (p[e] === null) {
-                    delete (p[e])
-                    localStorage.removeItem(e);
-                }
-                else
-                    localStorage.setItem(e, p[e]);
+                if (p[e] === null)
+                    delete (p[e]);
             });
+            localStorage.setItem('dv-' + opts.currentInfo.CurrentIndustry.Id + '-' + opts.currentInfo.CurrentPlace.Id, JSON.stringify(p));
             sizeup.core.profile.setDashboardValues(p);
         };
 
