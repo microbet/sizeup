@@ -134,7 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Data\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Data\Controllers\MarketingController.cs" />
     <Compile Include="Areas\Data\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Data\Controllers\BusinessController.cs" />
     <Compile Include="Areas\Data\Controllers\ConsumerExpendituresController.cs" />
