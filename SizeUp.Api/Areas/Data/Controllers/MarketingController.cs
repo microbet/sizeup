@@ -16,7 +16,7 @@ using SizeUp.Core.API;
 
 namespace SizeUp.Api.Areas.Data.Controllers
 {
-    public class AdvertisingController : BaseController
+    public class MarketingController : BaseController
     {
         //
         // GET: /Api/Advertising/
@@ -57,7 +57,6 @@ namespace SizeUp.Api.Areas.Data.Controllers
             return v;
         }
 
-        
         [APIAuthorize(Role = "Advertising")]
         public ActionResult Index(int industryId, long geographicLocationId, int page = 1, int itemCount = 20)
         {
