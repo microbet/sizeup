@@ -44,7 +44,7 @@
 
             advertisingReportLoaded: function (params) {
                 trackEvent({ category: 'Advertising', action: 'reportLoaded', label: params.attribute, isInteraction: true });
-                return post('/analytics/marketing/reportloaded', params);
+                return post('/analytics/advertising/reportloaded', params);
             },
             advertisingIndustryChanged: function (params) {
                 trackEvent({ category: 'Advertising', action: 'industryChanged', label: params.industry, isInteraction: true });

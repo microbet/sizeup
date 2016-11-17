@@ -1,6 +1,6 @@
 ﻿#home-navbar { margin-top: 0.25em; margin-bottom: 12px; }
 
-#login-form { margin-bottom: 0;border-bottom: 10px solid #16a9ed; background: url("/Content/images/login-form-image-1.jpg") -40px #005c8d no-repeat; }
+#login-form { margin-bottom: 0;border-bottom: 10px solid #16a9ed; background: url("/Content/images/login-form-image-1.jpg") -40px #005687 no-repeat; }
 #login-form.jumbotron { border-radius: 0; color: #ffffff; padding-top: 2.75em; }
 #login-form.jumbotron p { font-size: 16px; }
 

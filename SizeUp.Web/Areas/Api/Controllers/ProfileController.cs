@@ -356,10 +356,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
 
             var id = Form.StringValue("rootId");
             attr.RootId = int.Parse(id);
-            id = Form.StringValue("consumerExpenditureVariable");
-            int outId;
-            if (int.TryParse(id, out outId))
-                attr.ComsumerExpenditureId = outId;
+            id = Form.StringValue("consumerExpenditureVariable") ?? "";
+            attr.ComsumerExpenditureId = int.Parse(id);
 
             if (User.Identity.IsAuthenticated)
             {

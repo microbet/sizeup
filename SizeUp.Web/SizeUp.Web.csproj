@@ -223,7 +223,7 @@
     <Content Include="Content\images\marketing-card.png" />
     <Content Include="Content\images\marketing-home.png" />
     <Content Include="Content\images\marketing-ribbon-home.png" />
-    <Content Include="Content\images\advertise.png" />
+    <Content Include="Content\images\marketing.png" />
     <Content Include="Content\images\advertiseSmall.png" />
     <Content Include="Content\images\advertisingMap2.png" />
     <Content Include="Content\images\apple-touch-icon-114x114-precomposed.png" />
@@ -341,7 +341,7 @@
     <Content Include="Content\LBI\images\button-close.png" />
     <Content Include="Content\LBI\images\computerDemo.png" />
     <Content Include="Content\LBI\images\favicon.ico" />
-    <Content Include="Content\LBI\images\icon-advertise.png" />
+    <Content Include="Content\LBI\images\icon-marketing.png" />
     <Content Include="Content\LBI\images\icon-benchmark.png" />
     <Content Include="Content\LBI\images\icon-checkmark.png" />
     <Content Include="Content\LBI\images\icon-competition.png" />
@@ -365,8 +365,8 @@
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\thirdParty\toggle-switch.css" />
     <Content Include="Content\views\accessibility\index.css" />
-    <Content Include="Content\views\marketing\index.css" />
-    <Content Include="Content\views\marketing\print.css" />
+    <Content Include="Content\views\advertising\index.css" />
+    <Content Include="Content\views\advertising\print.css" />
     <Content Include="Content\views\bestPlaces\pickIndustry.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\business\find.css" />
@@ -523,7 +523,7 @@
     <Content Include="Scripts\thirdParty\tinycolor-min.js" />
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
-    <Content Include="Scripts\views\marketing\marketing.js" />
+    <Content Include="Scripts\views\advertising\advertising.js" />
     <Content Include="Scripts\util\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
@@ -719,7 +719,6 @@
     <Content Include="Content\admin\less\sb-admin-2.less" />
     <Content Include="Content\admin\less\variables.less" />
     <Content Include="ClassDiagram1.cd" />
-    <Content Include="Content\files\SizeUp-FI.pdf" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
@@ -765,6 +764,7 @@
     <Content Include="Views\Shared\_LayoutBare.cshtml" />
     <Content Include="Views\Shared\_LayoutDashboardEditor.cshtml" />
     <Content Include="Views\Help\FinancialInstitutionsDownload.cshtml" />
+    <Content Include="Content\files\SizeUp-FI.pdf" />
     <Content Include="Views\Company\About.cshtml" />
     <Content Include="Views\FinTinder\Index.cshtml" />
     <Content Include="Views\Company\Jobs.cshtml">
