@@ -7,7 +7,7 @@ using SizeUp.Core;
 using SizeUp.Core.Analytics;
 namespace Sizeup.Web.Areas.Analytics.Controllers
 {
-    public class AdvertisingController : Controller
+    public class MarketingController : Controller
     {
         [HttpPost]
         public bool ReportLoaded(long industryId, long geographicLocationId)

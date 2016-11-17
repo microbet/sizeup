@@ -5,5 +5,5 @@ Sitemap: https://www.sizeup.com/sitemap.xml
 User-agent: *
 Disallow: /dashboard/
 Disallow: /competition/
-Disallow: /advertising/
+Disallow: /marketing/
 Disallow: /bestPlaces/

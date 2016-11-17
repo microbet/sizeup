@@ -127,7 +127,7 @@
                         window.location = '/widget/competition/' + getUrlPath();
                     }
                     else if (me.opts.startFeature != null && me.opts.startFeature == 'Advertising') {
-                        window.location = '/widget/advertising/' + getUrlPath();
+                        window.location = '/widget/marketing/' + getUrlPath();
                     }
                     else if (me.opts.startFeature != null && me.opts.startFeature == 'Community') {
                         window.location = '/widget/community/' + getUrlPath();

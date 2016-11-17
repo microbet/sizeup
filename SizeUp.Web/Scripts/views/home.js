@@ -438,7 +438,7 @@
                 var setSelectorLinks = function () {
                     me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
                     me.selector.competition.attr('href', 'competition/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
-                    me.selector.advertising.attr('href', 'ing/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+                    me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
                 };
 
                 var publicObj = {
@@ -452,7 +452,7 @@
         var setSelectorLinks = function () {
             me.selector.myBusiness.attr('href', 'dashboard/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
             me.selector.competition.attr('href', 'competition/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
-            me.selector.ing.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
+            me.selector.advertising.attr('href', 'advertising/' + me.selectedCity.State.SEOKey + '/' + me.selectedCity.County.SEOKey + '/' + me.selectedCity.City.SEOKey + '/' + me.selectedIndustry.SEOKey);
         };
 
         var publicObj = {

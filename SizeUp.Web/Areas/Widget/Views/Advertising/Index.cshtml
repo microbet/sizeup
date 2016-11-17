@@ -5,8 +5,8 @@
 
 @section head{
 <title>Best Places To Advertise - @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation </title>
-<link href="@Url.Content("~/Content/views/advertising/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/widget/views/advertising/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/views/marketing/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/widget/views/marketing/index.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@(ViewBag.CustomTools == true ? ViewBag.APIKeyValue : System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"])&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>
 @*<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&wt=@ViewBag.WidgetToken&@SizeUp.Core.Web.CacheBuster.Buster"></script>*@
@@ -39,7 +39,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/maps/heatPin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/shared/signin.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/views/advertising/advertising.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/views/marketing/advertising.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 
 }

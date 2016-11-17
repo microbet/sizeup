@@ -145,7 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Analytics\AnalyticsAreaRegistration.cs" />
-    <Compile Include="Areas\Analytics\Controllers\AdvertisingController.cs" />
+    <Compile Include="Areas\Analytics\Controllers\MarketingController.cs" />
     <Compile Include="Areas\Analytics\Controllers\TrackerController.cs" />
     <Compile Include="Areas\Analytics\Controllers\RelatedIndustryController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
@@ -365,8 +365,8 @@
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\thirdParty\toggle-switch.css" />
     <Content Include="Content\views\accessibility\index.css" />
-    <Content Include="Content\views\advertising\index.css" />
-    <Content Include="Content\views\advertising\print.css" />
+    <Content Include="Content\views\marketing\index.css" />
+    <Content Include="Content\views\marketing\print.css" />
     <Content Include="Content\views\bestPlaces\pickIndustry.css" />
     <Content Include="Content\views\business\business.css" />
     <Content Include="Content\views\business\find.css" />
@@ -523,7 +523,7 @@
     <Content Include="Scripts\thirdParty\tinycolor-min.js" />
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
-    <Content Include="Scripts\views\advertising\advertising.js" />
+    <Content Include="Scripts\views\marketing\marketing.js" />
     <Content Include="Scripts\util\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
