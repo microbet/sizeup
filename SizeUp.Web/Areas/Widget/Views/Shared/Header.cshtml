@@ -16,7 +16,7 @@ if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Competition){
 if(ViewBag.Header.ActiveTab == SizeUp.Web.Models.NavItems.Advertising){
 <li class="advertising"><a aria-selected="true" role="tab" class="disabled">Advertising</a></li>
 }else{
-<li class="advertising"><a aria-selected="false" role="tab" href="/widget/marketing/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Advertising</a></li>
+<li class="advertising"><a aria-selected="false" role="tab" href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Advertising</a></li>
 }
 }
 
@@ -24,7 +24,7 @@ if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Da
 <li class="startOver"><a href="/widget/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
 }
 else if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Advertising){
-<li class="startOver"><a href="/widget/marketing/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
+<li class="startOver"><a href="/widget/advertising/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>
 }
 else if(SizeUp.Core.Web.WebContext.Current.StartFeature == SizeUp.Core.Web.Feature.Competition){
 <li class="startOver"><a href="/widget/competition/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey?wt=@ViewBag.WidgetToken">Home</a></li>

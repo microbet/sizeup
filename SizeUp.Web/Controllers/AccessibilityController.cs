@@ -22,8 +22,7 @@ namespace SizeUp.Web.Controllers
     {
         //
         // GET: /Accessibility/
-        
-        
+
         public class Band
         {
             public string Min { get; set; }
