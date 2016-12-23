@@ -345,14 +345,14 @@ namespace SizeUp.Web.Areas.Api.Controllers
             ids = Form.IntValues("supplier") ?? new int?[0];
             attr.Suppliers = string.Join(",", ids);
 
-            analyticsAttr.SupplierEmployeesMin = Form.IntValue("suppliersEmployeesMin");
-            analyticsAttr.SupplierEmployeesMax = Form.IntValue("suppliersEmployeesMax");
+            analyticsAttr.SuppliersEmployeesMin = Form.IntValue("suppliersEmployeesMin");
+            analyticsAttr.SuppliersEmployeesMax = Form.IntValue("suppliersEmployeesMax");
 
             ids = Form.IntValues("buyer") ?? new int?[0];
             attr.Buyers = string.Join(",", ids);
 
-            analyticsAttr.BuyerEmployeesMin = Form.IntValue("buyersEmployeesMin");
-            analyticsAttr.BuyerEmployeesMax = Form.IntValue("buyersEmployeesMax");
+            analyticsAttr.BuyersEmployeesMin = Form.IntValue("buyersEmployeesMin");
+            analyticsAttr.BuyersEmployeesMax = Form.IntValue("buyersEmployeesMax");
 
             var id = Form.StringValue("rootId");
             attr.RootId = int.Parse(id);
