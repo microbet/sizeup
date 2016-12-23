@@ -11,6 +11,7 @@
           <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.Store.CompetitorAttributes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Store.Exceptions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IndustrySubscriptions" EntityType="SizeUp.Data.Analytics.Store.IndustrySubscriptions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.Store.LongRequests" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PageViews" EntityType="SizeUp.Data.Analytics.Store.PageViews" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="RelatedBuyer" EntityType="SizeUp.Data.Analytics.Store.RelatedBuyer" store:Type="Tables" Schema="dbo" />
@@ -147,12 +148,12 @@
           <Property Name="Buyers" Type="nvarchar(max)" />
           <Property Name="WidgetAPIKeyId" Type="bigint" />
           <Property Name="Session" Type="nvarchar" MaxLength="30" />
-          <Property Name="CompetitorEmployeesMin" Type="int" />
-          <Property Name="CompetitorEmployeesMax" Type="int" />
-          <Property Name="SupplierEmployeesMin" Type="int" />
-          <Property Name="SupplierEmployeesMax" Type="int" />
-          <Property Name="BuyerEmployeesMin" Type="int" />
-          <Property Name="BuyerEmployeesMax" Type="int" />
+          <Property Name="CompetitorsEmployeesMin" Type="int" />
+          <Property Name="CompetitorsEmployeesMax" Type="int" />
+          <Property Name="SuppliersEmployeesMin" Type="int" />
+          <Property Name="SuppliersEmployeesMax" Type="int" />
+          <Property Name="BuyersEmployeesMin" Type="int" />
+          <Property Name="BuyersEmployeesMax" Type="int" />
         </EntityType>
         <EntityType Name="Exceptions">
           <Key>
@@ -172,6 +173,13 @@
           <Property Name="InnerExceptionText" Type="nvarchar(max)" />
           <Property Name="StackTrace" Type="nvarchar(max)" />
           <Property Name="Session" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="IndustrySubscriptions">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IndustryId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="LongRequests">
           <Key>
@@ -307,6 +315,7 @@
           <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
           <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
           <EntitySet Name="AdvertisingAttributes" EntityType="SizeUp.Data.Analytics.AdvertisingAttribute" />
+          <EntitySet Name="IndustrySubscriptions" EntityType="SizeUp.Data.Analytics.IndustrySubscription" />
         </EntityContainer>
         <EntityType Name="APIRequest">
           <Key>
@@ -467,12 +476,12 @@
           <Property Type="String" Name="Buyers" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="WidgetAPIKeyId" />
           <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="CompetitorEmployeesMin" />
-          <Property Type="Int32" Name="CompetitorEmployeesMax" />
-          <Property Type="Int32" Name="SupplierEmployeesMin" />
-          <Property Type="Int32" Name="SupplierEmployeesMax" />
-          <Property Type="Int32" Name="BuyerEmployeesMin" />
-          <Property Type="Int32" Name="BuyerEmployeesMax" />
+          <Property Type="Int32" Name="SuppliersEmployeesMin" />
+          <Property Type="Int32" Name="SuppliersEmployeesMax" />
+          <Property Type="Int32" Name="BuyersEmployeesMin" />
+          <Property Type="Int32" Name="BuyersEmployeesMax" />
+          <Property Type="Int32" Name="CompetitorsEmployeesMin" />
+          <Property Type="Int32" Name="CompetitorsEmployeesMax" />
         </EntityType>
         <EntityType Name="RelatedBuyer">
           <Key>
@@ -580,6 +589,13 @@
           <Property Type="Int32" Name="PercentAge50To64Max" />
           <Property Type="Int32" Name="PercentAgeAbove65Min" />
           <Property Type="Int32" Name="PercentAgeAbove65Max" />
+        </EntityType>
+        <EntityType Name="IndustrySubscription">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Int64" Name="IndustryId" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -732,12 +748,12 @@
           <EntitySetMapping Name="CompetitorAttributes">
             <EntityTypeMapping TypeName="SizeUp.Data.Analytics.CompetitorAttribute">
               <MappingFragment StoreEntitySet="CompetitorAttributes">
-                <ScalarProperty Name="BuyerEmployeesMax" ColumnName="BuyerEmployeesMax" />
-                <ScalarProperty Name="BuyerEmployeesMin" ColumnName="BuyerEmployeesMin" />
-                <ScalarProperty Name="SupplierEmployeesMax" ColumnName="SupplierEmployeesMax" />
-                <ScalarProperty Name="SupplierEmployeesMin" ColumnName="SupplierEmployeesMin" />
-                <ScalarProperty Name="CompetitorEmployeesMax" ColumnName="CompetitorEmployeesMax" />
-                <ScalarProperty Name="CompetitorEmployeesMin" ColumnName="CompetitorEmployeesMin" />
+                <ScalarProperty Name="CompetitorsEmployeesMax" ColumnName="CompetitorsEmployeesMax" />
+                <ScalarProperty Name="CompetitorsEmployeesMin" ColumnName="CompetitorsEmployeesMin" />
+                <ScalarProperty Name="BuyersEmployeesMax" ColumnName="BuyersEmployeesMax" />
+                <ScalarProperty Name="BuyersEmployeesMin" ColumnName="BuyersEmployeesMin" />
+                <ScalarProperty Name="SuppliersEmployeesMax" ColumnName="SuppliersEmployeesMax" />
+                <ScalarProperty Name="SuppliersEmployeesMin" ColumnName="SuppliersEmployeesMin" />
                 <ScalarProperty Name="Session" ColumnName="Session" />
                 <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
                 <ScalarProperty Name="Buyers" ColumnName="Buyers" />
@@ -868,6 +884,14 @@
                 <ScalarProperty Name="Minute" ColumnName="Minute" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustrySubscriptions">
+            <EntityTypeMapping TypeName="SizeUp.Data.Analytics.IndustrySubscription">
+              <MappingFragment StoreEntitySet="IndustrySubscriptions">
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

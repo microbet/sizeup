@@ -240,6 +240,22 @@ namespace SizeUp.Data.Analytics
             }
         }
         private ObjectSet<AdvertisingAttribute> _AdvertisingAttributes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IndustrySubscription> IndustrySubscriptions
+        {
+            get
+            {
+                if ((_IndustrySubscriptions == null))
+                {
+                    _IndustrySubscriptions = base.CreateObjectSet<IndustrySubscription>("IndustrySubscriptions");
+                }
+                return _IndustrySubscriptions;
+            }
+        }
+        private ObjectSet<IndustrySubscription> _IndustrySubscriptions;
 
         #endregion
 
@@ -331,6 +347,14 @@ namespace SizeUp.Data.Analytics
         public void AddToAdvertisingAttributes(AdvertisingAttribute advertisingAttribute)
         {
             base.AddObject("AdvertisingAttributes", advertisingAttribute);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IndustrySubscriptions EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIndustrySubscriptions(IndustrySubscription industrySubscription)
+        {
+            base.AddObject("IndustrySubscriptions", industrySubscription);
         }
 
         #endregion
@@ -3194,144 +3218,144 @@ namespace SizeUp.Data.Analytics
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> CompetitorEmployeesMin
+        public Nullable<global::System.Int32> SuppliersEmployeesMin
         {
             get
             {
-                return _CompetitorEmployeesMin;
+                return _SuppliersEmployeesMin;
             }
             set
             {
-                OnCompetitorEmployeesMinChanging(value);
-                ReportPropertyChanging("CompetitorEmployeesMin");
-                _CompetitorEmployeesMin = StructuralObject.SetValidValue(value, "CompetitorEmployeesMin");
-                ReportPropertyChanged("CompetitorEmployeesMin");
-                OnCompetitorEmployeesMinChanged();
+                OnSuppliersEmployeesMinChanging(value);
+                ReportPropertyChanging("SuppliersEmployeesMin");
+                _SuppliersEmployeesMin = StructuralObject.SetValidValue(value, "SuppliersEmployeesMin");
+                ReportPropertyChanged("SuppliersEmployeesMin");
+                OnSuppliersEmployeesMinChanged();
             }
         }
-        private Nullable<global::System.Int32> _CompetitorEmployeesMin;
-        partial void OnCompetitorEmployeesMinChanging(Nullable<global::System.Int32> value);
-        partial void OnCompetitorEmployeesMinChanged();
+        private Nullable<global::System.Int32> _SuppliersEmployeesMin;
+        partial void OnSuppliersEmployeesMinChanging(Nullable<global::System.Int32> value);
+        partial void OnSuppliersEmployeesMinChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> CompetitorEmployeesMax
+        public Nullable<global::System.Int32> SuppliersEmployeesMax
         {
             get
             {
-                return _CompetitorEmployeesMax;
+                return _SuppliersEmployeesMax;
             }
             set
             {
-                OnCompetitorEmployeesMaxChanging(value);
-                ReportPropertyChanging("CompetitorEmployeesMax");
-                _CompetitorEmployeesMax = StructuralObject.SetValidValue(value, "CompetitorEmployeesMax");
-                ReportPropertyChanged("CompetitorEmployeesMax");
-                OnCompetitorEmployeesMaxChanged();
+                OnSuppliersEmployeesMaxChanging(value);
+                ReportPropertyChanging("SuppliersEmployeesMax");
+                _SuppliersEmployeesMax = StructuralObject.SetValidValue(value, "SuppliersEmployeesMax");
+                ReportPropertyChanged("SuppliersEmployeesMax");
+                OnSuppliersEmployeesMaxChanged();
             }
         }
-        private Nullable<global::System.Int32> _CompetitorEmployeesMax;
-        partial void OnCompetitorEmployeesMaxChanging(Nullable<global::System.Int32> value);
-        partial void OnCompetitorEmployeesMaxChanged();
+        private Nullable<global::System.Int32> _SuppliersEmployeesMax;
+        partial void OnSuppliersEmployeesMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnSuppliersEmployeesMaxChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> SupplierEmployeesMin
+        public Nullable<global::System.Int32> BuyersEmployeesMin
         {
             get
             {
-                return _SupplierEmployeesMin;
+                return _BuyersEmployeesMin;
             }
             set
             {
-                OnSupplierEmployeesMinChanging(value);
-                ReportPropertyChanging("SupplierEmployeesMin");
-                _SupplierEmployeesMin = StructuralObject.SetValidValue(value, "SupplierEmployeesMin");
-                ReportPropertyChanged("SupplierEmployeesMin");
-                OnSupplierEmployeesMinChanged();
+                OnBuyersEmployeesMinChanging(value);
+                ReportPropertyChanging("BuyersEmployeesMin");
+                _BuyersEmployeesMin = StructuralObject.SetValidValue(value, "BuyersEmployeesMin");
+                ReportPropertyChanged("BuyersEmployeesMin");
+                OnBuyersEmployeesMinChanged();
             }
         }
-        private Nullable<global::System.Int32> _SupplierEmployeesMin;
-        partial void OnSupplierEmployeesMinChanging(Nullable<global::System.Int32> value);
-        partial void OnSupplierEmployeesMinChanged();
+        private Nullable<global::System.Int32> _BuyersEmployeesMin;
+        partial void OnBuyersEmployeesMinChanging(Nullable<global::System.Int32> value);
+        partial void OnBuyersEmployeesMinChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> SupplierEmployeesMax
+        public Nullable<global::System.Int32> BuyersEmployeesMax
         {
             get
             {
-                return _SupplierEmployeesMax;
+                return _BuyersEmployeesMax;
             }
             set
             {
-                OnSupplierEmployeesMaxChanging(value);
-                ReportPropertyChanging("SupplierEmployeesMax");
-                _SupplierEmployeesMax = StructuralObject.SetValidValue(value, "SupplierEmployeesMax");
-                ReportPropertyChanged("SupplierEmployeesMax");
-                OnSupplierEmployeesMaxChanged();
+                OnBuyersEmployeesMaxChanging(value);
+                ReportPropertyChanging("BuyersEmployeesMax");
+                _BuyersEmployeesMax = StructuralObject.SetValidValue(value, "BuyersEmployeesMax");
+                ReportPropertyChanged("BuyersEmployeesMax");
+                OnBuyersEmployeesMaxChanged();
             }
         }
-        private Nullable<global::System.Int32> _SupplierEmployeesMax;
-        partial void OnSupplierEmployeesMaxChanging(Nullable<global::System.Int32> value);
-        partial void OnSupplierEmployeesMaxChanged();
+        private Nullable<global::System.Int32> _BuyersEmployeesMax;
+        partial void OnBuyersEmployeesMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnBuyersEmployeesMaxChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> BuyerEmployeesMin
+        public Nullable<global::System.Int32> CompetitorsEmployeesMin
         {
             get
             {
-                return _BuyerEmployeesMin;
+                return _CompetitorsEmployeesMin;
             }
             set
             {
-                OnBuyerEmployeesMinChanging(value);
-                ReportPropertyChanging("BuyerEmployeesMin");
-                _BuyerEmployeesMin = StructuralObject.SetValidValue(value, "BuyerEmployeesMin");
-                ReportPropertyChanged("BuyerEmployeesMin");
-                OnBuyerEmployeesMinChanged();
+                OnCompetitorsEmployeesMinChanging(value);
+                ReportPropertyChanging("CompetitorsEmployeesMin");
+                _CompetitorsEmployeesMin = StructuralObject.SetValidValue(value, "CompetitorsEmployeesMin");
+                ReportPropertyChanged("CompetitorsEmployeesMin");
+                OnCompetitorsEmployeesMinChanged();
             }
         }
-        private Nullable<global::System.Int32> _BuyerEmployeesMin;
-        partial void OnBuyerEmployeesMinChanging(Nullable<global::System.Int32> value);
-        partial void OnBuyerEmployeesMinChanged();
+        private Nullable<global::System.Int32> _CompetitorsEmployeesMin;
+        partial void OnCompetitorsEmployeesMinChanging(Nullable<global::System.Int32> value);
+        partial void OnCompetitorsEmployeesMinChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> BuyerEmployeesMax
+        public Nullable<global::System.Int32> CompetitorsEmployeesMax
         {
             get
             {
-                return _BuyerEmployeesMax;
+                return _CompetitorsEmployeesMax;
             }
             set
             {
-                OnBuyerEmployeesMaxChanging(value);
-                ReportPropertyChanging("BuyerEmployeesMax");
-                _BuyerEmployeesMax = StructuralObject.SetValidValue(value, "BuyerEmployeesMax");
-                ReportPropertyChanged("BuyerEmployeesMax");
-                OnBuyerEmployeesMaxChanged();
+                OnCompetitorsEmployeesMaxChanging(value);
+                ReportPropertyChanging("CompetitorsEmployeesMax");
+                _CompetitorsEmployeesMax = StructuralObject.SetValidValue(value, "CompetitorsEmployeesMax");
+                ReportPropertyChanged("CompetitorsEmployeesMax");
+                OnCompetitorsEmployeesMaxChanged();
             }
         }
-        private Nullable<global::System.Int32> _BuyerEmployeesMax;
-        partial void OnBuyerEmployeesMaxChanging(Nullable<global::System.Int32> value);
-        partial void OnBuyerEmployeesMaxChanged();
+        private Nullable<global::System.Int32> _CompetitorsEmployeesMax;
+        partial void OnCompetitorsEmployeesMaxChanging(Nullable<global::System.Int32> value);
+        partial void OnCompetitorsEmployeesMaxChanged();
 
         #endregion
 
@@ -3718,6 +3742,88 @@ namespace SizeUp.Data.Analytics
         private global::System.String _Session;
         partial void OnSessionChanging(global::System.String value);
         partial void OnSessionChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.Analytics", Name="IndustrySubscription")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IndustrySubscription : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IndustrySubscription object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="industryId">Initial value of the IndustryId property.</param>
+        public static IndustrySubscription CreateIndustrySubscription(global::System.Guid userId, global::System.Int64 industryId)
+        {
+            IndustrySubscription industrySubscription = new IndustrySubscription();
+            industrySubscription.UserId = userId;
+            industrySubscription.IndustryId = industryId;
+            return industrySubscription;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value, "UserId");
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 IndustryId
+        {
+            get
+            {
+                return _IndustryId;
+            }
+            set
+            {
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
+            }
+        }
+        private global::System.Int64 _IndustryId;
+        partial void OnIndustryIdChanging(global::System.Int64 value);
+        partial void OnIndustryIdChanged();
 
         #endregion
 
