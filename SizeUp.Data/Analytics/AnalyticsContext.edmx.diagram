@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedCompetitor" Width="2" PointX="11.5" PointY="6.5" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.RelatedSupplier" Width="2" PointX="6" PointY="7.875" />
         <EntityTypeShape EntityType="SizeUp.Data.Analytics.AdvertisingAttribute" Width="1.5" PointX="13.875" PointY="5.375" />
-        <EntityTypeShape EntityType="SizeUp.Data.Analytics.IndustrySubscription" Width="1.5" PointX="11.715951377393655" PointY="17.676194571739153" />
+        <EntityTypeShape EntityType="SizeUp.Data.Analytics.IndustrySubscription" Width="1.5" PointX="1.7675739590858921" PointY="8.4524448553344449" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

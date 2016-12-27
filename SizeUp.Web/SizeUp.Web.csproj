@@ -419,6 +419,7 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
+    <Content Include="Scripts\controls\industryMultiSelector.js" />
     <Content Include="Scripts\controls\share.js" />
     <Content Include="Scripts\controls\rangeLabel.js" />
     <Content Include="Scripts\controls\flashBox.js" />

@@ -177,6 +177,7 @@
         <EntityType Name="IndustrySubscriptions">
           <Key>
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="IndustryId" />
           </Key>
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IndustryId" Type="bigint" Nullable="false" />
@@ -593,6 +594,7 @@
         <EntityType Name="IndustrySubscription">
           <Key>
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="IndustryId" />
           </Key>
           <Property Type="Guid" Name="UserId" Nullable="false" />
           <Property Type="Int64" Name="IndustryId" Nullable="false" />

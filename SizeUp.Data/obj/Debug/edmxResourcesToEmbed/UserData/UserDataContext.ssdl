@@ -1,34 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="SizeUp.Data.UserData.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="SizeUp.Data.UserData.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008">
   <EntityContainer Name="SizeUpDataUserDataStoreContainer">
-    <EntitySet Name="BusinessAttribute" EntityType="SizeUp.Data.UserData.Store.BusinessAttribute" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CompetitorAttribute" EntityType="SizeUp.Data.UserData.Store.CompetitorAttribute" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BusinessAttribute" EntityType="SizeUp.Data.UserData.Store.BusinessAttribute" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CompetitorAttribute" EntityType="SizeUp.Data.UserData.Store.CompetitorAttribute" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
   <EntityType Name="BusinessAttribute">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="IndustryId" Type="bigint" Nullable="false" />
-    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="IndustryId" Nullable="false" Type="bigint" />
+    <Property Name="PlaceId" Nullable="false" Type="bigint" />
     <Property Name="Revenue" Type="bigint" />
     <Property Name="YearStarted" Type="int" />
     <Property Name="AverageSalary" Type="bigint" />
     <Property Name="Employees" Type="bigint" />
     <Property Name="HealthcareCost" Type="bigint" />
     <Property Name="WorkersComp" Type="decimal" />
-    <Property Name="BusinessType" Type="nvarchar" MaxLength="100" />
-    <Property Name="BusinessSize" Type="nvarchar" MaxLength="100" />
+    <Property Name="BusinessType" MaxLength="100" Type="nvarchar" />
+    <Property Name="BusinessSize" MaxLength="100" Type="nvarchar" />
   </EntityType>
   <EntityType Name="CompetitorAttribute">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="IndustryId" Type="bigint" Nullable="false" />
-    <Property Name="PlaceId" Type="bigint" Nullable="false" />
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="IndustryId" Nullable="false" Type="bigint" />
+    <Property Name="PlaceId" Nullable="false" Type="bigint" />
     <Property Name="ComsumerExpenditureId" Type="bigint" />
     <Property Name="RootId" Type="bigint" />
     <Property Name="Competitors" Type="nvarchar(max)" />

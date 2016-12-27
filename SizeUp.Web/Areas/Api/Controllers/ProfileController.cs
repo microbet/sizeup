@@ -255,9 +255,6 @@ namespace SizeUp.Web.Areas.Api.Controllers
         }
 
 
-
-
-
         [HttpGet]
         public ActionResult GetCompetitionValues(long placeId, long industryId)
         {
@@ -339,8 +336,8 @@ namespace SizeUp.Web.Areas.Api.Controllers
             var ids = Form.IntValues("competitor") ?? new int?[0];
             attr.Competitors = string.Join(",", ids);
 
-            analyticsAttr.CompetitorEmployeesMin = Form.IntValue("competitorsEmployeesMin");
-            analyticsAttr.CompetitorEmployeesMax = Form.IntValue("competitorsEmployeesMax");
+            analyticsAttr.CompetitorsEmployeesMin = Form.IntValue("competitorsEmployeesMin");
+            analyticsAttr.CompetitorsEmployeesMax = Form.IntValue("competitorsEmployeesMax");
 
             ids = Form.IntValues("supplier") ?? new int?[0];
             attr.Suppliers = string.Join(",", ids);

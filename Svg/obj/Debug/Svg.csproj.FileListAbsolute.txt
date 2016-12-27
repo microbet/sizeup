@@ -7,4 +7,3 @@ C:\VS2012\sizeup\Svg\bin\Debug\Svg.dll
 C:\VS2012\sizeup\Svg\bin\Debug\Svg.pdb
 C:\VS2012\sizeup\Svg\obj\Debug\Svg.dll
 C:\VS2012\sizeup\Svg\obj\Debug\Svg.pdb
-C:\VS2012\sizeup\Svg\obj\Debug\Svg.csprojResolveAssemblyReference.cache
