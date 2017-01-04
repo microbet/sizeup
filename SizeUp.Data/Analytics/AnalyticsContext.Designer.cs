@@ -3804,7 +3804,7 @@ namespace SizeUp.Data.Analytics
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int64 IndustryId
         {
@@ -3814,14 +3814,11 @@ namespace SizeUp.Data.Analytics
             }
             set
             {
-                if (_IndustryId != value)
-                {
-                    OnIndustryIdChanging(value);
-                    ReportPropertyChanging("IndustryId");
-                    _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
-                    ReportPropertyChanged("IndustryId");
-                    OnIndustryIdChanged();
-                }
+                OnIndustryIdChanging(value);
+                ReportPropertyChanging("IndustryId");
+                _IndustryId = StructuralObject.SetValidValue(value, "IndustryId");
+                ReportPropertyChanged("IndustryId");
+                OnIndustryIdChanged();
             }
         }
         private global::System.Int64 _IndustryId;

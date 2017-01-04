@@ -12,7 +12,6 @@
     <EntitySet Name="RelatedCompetitors" EntityType="SizeUp.Data.Analytics.RelatedCompetitor" />
     <EntitySet Name="RelatedSuppliers" EntityType="SizeUp.Data.Analytics.RelatedSupplier" />
     <EntitySet Name="AdvertisingAttributes" EntityType="SizeUp.Data.Analytics.AdvertisingAttribute" />
-    <EntitySet Name="IndustrySubscriptions" EntityType="SizeUp.Data.Analytics.IndustrySubscription" />
   </EntityContainer>
   <EntityType Name="APIRequest">
     <Key>
@@ -173,12 +172,12 @@
     <Property Type="String" Name="Buyers" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Type="Int64" Name="WidgetAPIKeyId" />
     <Property Type="String" Name="Session" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Type="Int32" Name="SuppliersEmployeesMin" />
-    <Property Type="Int32" Name="SuppliersEmployeesMax" />
-    <Property Type="Int32" Name="BuyersEmployeesMin" />
-    <Property Type="Int32" Name="BuyersEmployeesMax" />
-    <Property Type="Int32" Name="CompetitorsEmployeesMin" />
-    <Property Type="Int32" Name="CompetitorsEmployeesMax" />
+    <Property Type="Int32" Name="CompetitorEmployeesMin" />
+    <Property Type="Int32" Name="CompetitorEmployeesMax" />
+    <Property Type="Int32" Name="SupplierEmployeesMin" />
+    <Property Type="Int32" Name="SupplierEmployeesMax" />
+    <Property Type="Int32" Name="BuyerEmployeesMin" />
+    <Property Type="Int32" Name="BuyerEmployeesMax" />
   </EntityType>
   <EntityType Name="RelatedBuyer">
     <Key>
@@ -286,13 +285,5 @@
     <Property Type="Int32" Name="PercentAge50To64Max" />
     <Property Type="Int32" Name="PercentAgeAbove65Min" />
     <Property Type="Int32" Name="PercentAgeAbove65Max" />
-  </EntityType>
-  <EntityType Name="IndustrySubscription">
-    <Key>
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="IndustryId" />
-    </Key>
-    <Property Type="Guid" Name="UserId" Nullable="false" />
-    <Property Type="Int64" Name="IndustryId" Nullable="false" />
   </EntityType>
 </Schema>

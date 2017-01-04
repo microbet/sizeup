@@ -146,12 +146,12 @@
     <EntitySetMapping Name="CompetitorAttributes">
       <EntityTypeMapping TypeName="SizeUp.Data.Analytics.CompetitorAttribute">
         <MappingFragment StoreEntitySet="CompetitorAttributes">
-          <ScalarProperty Name="CompetitorsEmployeesMax" ColumnName="CompetitorsEmployeesMax" />
-          <ScalarProperty Name="CompetitorsEmployeesMin" ColumnName="CompetitorsEmployeesMin" />
-          <ScalarProperty Name="BuyersEmployeesMax" ColumnName="BuyersEmployeesMax" />
-          <ScalarProperty Name="BuyersEmployeesMin" ColumnName="BuyersEmployeesMin" />
-          <ScalarProperty Name="SuppliersEmployeesMax" ColumnName="SuppliersEmployeesMax" />
-          <ScalarProperty Name="SuppliersEmployeesMin" ColumnName="SuppliersEmployeesMin" />
+          <ScalarProperty Name="BuyerEmployeesMax" ColumnName="BuyerEmployeesMax" />
+          <ScalarProperty Name="BuyerEmployeesMin" ColumnName="BuyerEmployeesMin" />
+          <ScalarProperty Name="SupplierEmployeesMax" ColumnName="SupplierEmployeesMax" />
+          <ScalarProperty Name="SupplierEmployeesMin" ColumnName="SupplierEmployeesMin" />
+          <ScalarProperty Name="CompetitorEmployeesMax" ColumnName="CompetitorEmployeesMax" />
+          <ScalarProperty Name="CompetitorEmployeesMin" ColumnName="CompetitorEmployeesMin" />
           <ScalarProperty Name="Session" ColumnName="Session" />
           <ScalarProperty Name="WidgetAPIKeyId" ColumnName="WidgetAPIKeyId" />
           <ScalarProperty Name="Buyers" ColumnName="Buyers" />
@@ -282,14 +282,6 @@
           <ScalarProperty Name="Minute" ColumnName="Minute" />
           <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
           <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="IndustrySubscriptions">
-      <EntityTypeMapping TypeName="SizeUp.Data.Analytics.IndustrySubscription">
-        <MappingFragment StoreEntitySet="IndustrySubscriptions">
-          <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

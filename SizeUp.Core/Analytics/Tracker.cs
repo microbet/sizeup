@@ -7,7 +7,6 @@ using SizeUp.Data;
 using SizeUp.Data.Analytics;
 using SizeUp.Core.API;
 using SizeUp.Core.Email;
-using SizeUp.Core.Identity;
 
 namespace SizeUp.Core.Analytics
 {
@@ -273,26 +272,6 @@ namespace SizeUp.Core.Analytics
                 using (var context = ContextFactory.AnalyticsContext)
                 {
                     context.AdvertisingAttributes.AddObject(reg);
-                    context.SaveChanges();
-                }
-            });
-        }
-
-        public void IndustrySubscriptionsUpdated(Guid userId, List<IndustrySubscription> industrySubscriptions)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                using (var context = ContextFactory.AnalyticsContext)
-                {
-                    foreach (var industry in context.IndustrySubscriptions.Where(x => x.UserId == userId))
-                    {
-                        context.IndustrySubscriptions.DeleteObject(industry);
-                    }
-
-                    industrySubscriptions.ForEach( i => {
-                        context.IndustrySubscriptions.AddObject(i);
-                    });
-                    
                     context.SaveChanges();
                 }
             });
