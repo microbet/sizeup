@@ -7,11 +7,9 @@ using System.Web.Security;
 using SizeUp.Core;
 using SizeUp.Core.Identity;
 using SizeUp.Core.Email;
-using System.Net.Http;
 using SizeUp.Core.Analytics;
 using SizeUp.Data.Analytics;
-using SizeUp.Core.Web;
-using System.Net;
+using SizeUp.Data;
 
 namespace SizeUp.Web.Areas.Api.Controllers
 {
@@ -166,7 +164,44 @@ namespace SizeUp.Web.Areas.Api.Controllers
             identity.IsLockedOut = Identity.CurrentUser.IsLockedOut;
             identity.Save();
 
+            if (Request.Form.AllKeys.Contains("IndustrySubscriptions"))
+            {
+                var json = Request.Form["IndustrySubscriptions"];
+
+                var industryIds = new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<long[]>(json).ToList();
+
+                List<IndustrySubscription> industrySubscriptions = new List<IndustrySubscription>();
+                industryIds.ForEach(i => industrySubscriptions.Add(new IndustrySubscription() { UserId = identity.UserId, IndustryId = i }));
+                Singleton<Tracker>.Instance.IndustrySubscriptionsUpdated(identity.UserId, industrySubscriptions);
+            }
+
             return Json(true);
+        }
+
+        [HttpGet]
+        public ActionResult GetSubscribedIndustries()
+        {
+            List<long> subscribedIndustryIds = new List<long>();
+            List<Core.DataLayer.Models.Industry> subscribedIndustries = new List<Core.DataLayer.Models.Industry>();
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = (Guid)Membership.GetUser().ProviderUserKey;
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    subscribedIndustryIds = context.IndustrySubscriptions.Where(x => x.UserId == userId)
+                        .Select(x => x.IndustryId)
+                        .ToList<long>();
+                }
+
+                using (var context = ContextFactory.SizeUpContext)
+                {
+                    subscribedIndustries = Core.DataLayer.Industry.Get(context, subscribedIndustryIds)
+                        .ToList();
+                    //return Json(subscribedIndustries, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(subscribedIndustries, JsonRequestBehavior.AllowGet);
         }
 
 

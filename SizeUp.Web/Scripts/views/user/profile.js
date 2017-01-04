@@ -20,13 +20,25 @@
             me.form.password = $('#passwordBox');
             me.form.confirmPassword = $('#confirmPasswordBox');
             me.form.isSubscribedBox = $('#optInBox');
-
+            me.form.industrySubscriptionBox = $('#subscribeIndustry');
+            
             me.messages.passwordsDontMatch = $('#passwordsDontMatch').removeClass('hidden').hide();
             me.messages.settingsSaved = $('#settingsSaved').removeClass('hidden').hide();
-
-
+            
             me.form.container.submit(function (e) { onSubmit(); e.preventDefault(); return false; });
 
+            sizeup.core.profile.getSubscribedIndustries(function (data) { me.form.industryMultiSelector.setMultipleSelections(data) });
+
+            me.form.industryMultiSelector = sizeup.controls.industryMultiSelector({
+                textbox: me.form.industrySubscriptionBox,
+                onChange: function (item) { onIndustryChange(item); },
+                onBlur: function (item) { onIndustryChange(item); }
+            });
+
+        };
+
+        var onIndustryChange = function (item) {
+            me.selectedIndustry = item;
         };
 
         var validatePassword = function () {
@@ -54,7 +66,8 @@
             if (isValid) {
                 var profile = {
                     FullName: $.trim(me.form.fullName.val()),
-                    IsSubscribed: me.form.isSubscribedBox.is(':checked')
+                    IsSubscribed: me.form.isSubscribedBox.is(':checked'),
+                    IndustrySubscriptions: JSON.stringify($.map(me.form.industryMultiSelector.getSelection(), function (e, i) { return e.Id }))
                 };
                 var password = { password: me.form.password.val() };
 
@@ -73,15 +86,8 @@
             }
             me.form.password.val('');
             me.form.confirmPassword.val('');
-
-
             
         };
-
-
-
-
-
 
         var publicObj = {
 

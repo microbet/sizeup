@@ -1,9 +1,5 @@
-﻿﻿#
-# robots.txt for http://www.sizeup.com/ 
+#
+# robots.txt for https://www.sizeup.com/ 
 #
 Sitemap: https://www.sizeup.com/sitemap.xml
 User-agent: *
-Disallow: /dashboard/
-Disallow: /competition/
-Disallow: /marketing/
-Disallow: /bestPlaces/

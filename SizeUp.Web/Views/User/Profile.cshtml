@@ -6,6 +6,9 @@
 <title>SizeUp - User Profile</title>
 <link href="@Url.Content("~/Content/views/user/profile.css")?@SizeUp.Core.Web.CacheBuster.Buster" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/user/profile.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/controls/industryMultiSelector.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
+<script type="text/javascript" src="//@System.Configuration.ConfigurationManager.AppSettings["API.Url"]/js/?apikey=@System.Configuration.ConfigurationManager.AppSettings["SizeUpAPI"]&callback=apiLoaded&@SizeUp.Core.Web.CacheBuster.Buster"></script>
+
 }
 
 <div id="profile">
@@ -48,6 +51,10 @@
                 </li>  
             }  
             </ul>
+             <div id="industry-subscription-container" class="container input-group col-lg-7 col-md-10 col-sm-12 col-xs-12" >
+                <label for="subscribeIndustry" class="input-group-addon input-group-blue">My industry is</></label>
+                <input id="subscribeIndustry" aria-haspopup="true" aria-autocomplete="list" type="text" name="industry" class="form-control" placeholder="Enter Your Industry" />          
+            </div> 
         </div>
 
         <div id="messages">

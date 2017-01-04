@@ -77,6 +77,10 @@
         pub.setPassword = function (params, callback) {
             return post('/api/user/password/', params, callback);
         };
+        
+        pub.getSubscribedIndustries = function (callback) {
+            return get('/api/user/getSubscribedIndustries', callback);
+        }
 
         pub.getDetectedPlace = function (callback) {
             return get('/api/place/detected', null, callback);
