@@ -276,5 +276,25 @@ namespace SizeUp.Core.Analytics
                 }
             });
         }
+        public void IndustrySubscriptionsUpdated(Guid userId, List<IndustrySubscription> industrySubscriptions)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                using (var context = ContextFactory.AnalyticsContext)
+                {
+                    foreach (var industry in context.IndustrySubscriptions.Where(x => x.UserId == userId))
+                    {
+                        context.IndustrySubscriptions.DeleteObject(industry);
+                    }
+
+                    industrySubscriptions.ForEach(i =>
+                    {
+                        context.IndustrySubscriptions.AddObject(i);
+                    });
+
+                    context.SaveChanges();
+                }
+            });
+        }
     }
 }
