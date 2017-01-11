@@ -32,6 +32,7 @@ C:\Development\sizeup2\SizeUp.Admin\bin\Antlr4.StringTemplate.pdb
 C:\Development\sizeup2\SizeUp.Admin\obj\Debug\SizeUp.Admin.csprojResolveAssemblyReference.cache
 C:\Development\sizeup2\SizeUp.Admin\obj\Debug\SizeUp.Admin.dll
 C:\Development\sizeup2\SizeUp.Admin\obj\Debug\SizeUp.Admin.pdb
+C:\VS2012\sizeup\SizeUp.Admin\bin\SizeUp.Data.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\SizeUp.Admin.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\SizeUp.Admin.pdb
 C:\VS2012\sizeup\SizeUp.Admin\bin\AjaxMin.dll
@@ -40,7 +41,6 @@ C:\VS2012\sizeup\SizeUp.Admin\bin\EntityFramework.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\Microsoft.Web.Infrastructure.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\nQuant.Core.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\SizeUp.Core.dll
-C:\VS2012\sizeup\SizeUp.Admin\bin\SizeUp.Data.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\System.Net.Http.Formatting.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\System.Web.Helpers.dll
 C:\VS2012\sizeup\SizeUp.Admin\bin\System.Web.Http.dll

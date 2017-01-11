@@ -47,6 +47,6 @@ C:\VS2012\sizeup\SizeUp.WidgetSandbox\bin\System.Web.Razor.xml
 C:\VS2012\sizeup\SizeUp.WidgetSandbox\bin\System.Web.WebPages.xml
 C:\VS2012\sizeup\SizeUp.WidgetSandbox\bin\System.Web.WebPages.Deployment.xml
 C:\VS2012\sizeup\SizeUp.WidgetSandbox\bin\System.Web.WebPages.Razor.xml
+C:\VS2012\sizeup\SizeUp.WidgetSandbox\obj\Debug\SizeUp.WidgetSandbox.csprojResolveAssemblyReference.cache
 C:\VS2012\sizeup\SizeUp.WidgetSandbox\obj\Debug\SizeUp.WidgetSandbox.dll
 C:\VS2012\sizeup\SizeUp.WidgetSandbox\obj\Debug\SizeUp.WidgetSandbox.pdb
-C:\VS2012\sizeup\SizeUp.WidgetSandbox\obj\Debug\SizeUp.WidgetSandbox.csprojResolveAssemblyReference.cache

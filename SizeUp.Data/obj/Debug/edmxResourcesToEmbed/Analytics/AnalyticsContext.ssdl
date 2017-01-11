@@ -6,6 +6,7 @@
     <EntitySet Name="BusinessAttributes" EntityType="SizeUp.Data.Analytics.Store.BusinessAttributes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="CompetitorAttributes" EntityType="SizeUp.Data.Analytics.Store.CompetitorAttributes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Exceptions" EntityType="SizeUp.Data.Analytics.Store.Exceptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="IndustrySubscriptions" EntityType="SizeUp.Data.Analytics.Store.IndustrySubscriptions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LongRequests" EntityType="SizeUp.Data.Analytics.Store.LongRequests" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PageViews" EntityType="SizeUp.Data.Analytics.Store.PageViews" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="RelatedBuyer" EntityType="SizeUp.Data.Analytics.Store.RelatedBuyer" store:Type="Tables" Schema="dbo" />
@@ -142,12 +143,12 @@
     <Property Name="Buyers" Type="nvarchar(max)" />
     <Property Name="WidgetAPIKeyId" Type="bigint" />
     <Property Name="Session" Type="nvarchar" MaxLength="30" />
-    <Property Name="CompetitorEmployeesMin" Type="int" />
-    <Property Name="CompetitorEmployeesMax" Type="int" />
-    <Property Name="SupplierEmployeesMin" Type="int" />
-    <Property Name="SupplierEmployeesMax" Type="int" />
-    <Property Name="BuyerEmployeesMin" Type="int" />
-    <Property Name="BuyerEmployeesMax" Type="int" />
+    <Property Name="CompetitorsEmployeesMin" Type="int" />
+    <Property Name="CompetitorsEmployeesMax" Type="int" />
+    <Property Name="SuppliersEmployeesMin" Type="int" />
+    <Property Name="SuppliersEmployeesMax" Type="int" />
+    <Property Name="BuyersEmployeesMin" Type="int" />
+    <Property Name="BuyersEmployeesMax" Type="int" />
   </EntityType>
   <EntityType Name="Exceptions">
     <Key>
@@ -167,6 +168,13 @@
     <Property Name="InnerExceptionText" Type="nvarchar(max)" />
     <Property Name="StackTrace" Type="nvarchar(max)" />
     <Property Name="Session" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="IndustrySubscriptions">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IndustryId" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="LongRequests">
     <Key>
