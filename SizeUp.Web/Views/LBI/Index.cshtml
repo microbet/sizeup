@@ -7,7 +7,7 @@
 @section head{
     <title>SizeUp for Local Business Intelligence | SizeUp</title>
     <meta name="description" content="SizeUp for Local Business Intelligence (SizeUp LBI) shows businesses how they can grow within their area to stay competitive." />
-    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/thirdParty/froogaloop.min.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 }
 <style>
     #video img {
@@ -23,16 +23,20 @@
         display: none;
     }
 
-    .responsive-video {
+
+    .video-responsive {
         position: relative;
         padding-bottom: 56.25%;
         padding-top: 60px;
     }
 
-
-        .responsive-video iframe,
-        .responsive-video object,
-        .responsive-video embed {
+        .nopadding {
+        margin: 0px;
+        padding: 0px;
+    }
+        .video-responsive iframe,
+        .video-responsive object,
+        .video-responsive embed {
             position: absolute;
             top: 0;
             left: 0;
@@ -41,21 +45,23 @@
         }
 </style>
 
-<div id="login-form" class="" style="padding: 0;">
-    <div class="text-center" style="padding: 2.75em 2em 0 2em;">
+<div id="login-form" style="padding: 0;">
+    <div class="text-center" style="padding: 2.75em 0em 0 0em;">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1 id="form-header">Give businesses the data they need to succeed</h1>
         </div>
         <p id="header-info">SizeUp for Local Business Intelligence shows businesses how they can grow within your area and stay competitive.</p>
-        <div id="video" style="margin-top: 4em;">
-            <img style="margin:0 auto;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/computerDemo.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Laptop"/>
+
+        <div id="video" style="margin-top: 4em; display: block">
+            <img style="margin:0 auto;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/computerDemo.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Laptop" />
+
         </div>
-    </div>
-    <div id="video-container">
-        <img id="close-button" style="position: absolute;
-right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/button-close.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Close"/>
-        <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-        <div id="player"></div>
+
+        <div id="video-container" class="nopadding" style="display: none; ">
+            <img id="close-button" style="position: absolute;right: 1em; top:2.5em; z-index:4;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/button-close.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Close"/>
+            <iframe id="video-iframe" src="//player.vimeo.com/video/198887770?title=0&amp;byline=0&amp;portrait=0" width="560" height="349" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <p><a href="https://vimeo.com/198887770">Sibos Innotribe SizeUp Fintech Presentation</a> from <a href="https://vimeo.com/sizeup">SizeUp</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+        </div>
     </div>
 </div>
 
@@ -302,92 +308,133 @@ right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/LBI/
         <a href="mailto:lbi@sizeup.com">LBI@SizeUp.com</a>
     </div>
 </div>
+@*    <script type="text/javascript">
+        var player, width, height;
 
-<script type="text/javascript">
-    var player, width, height;
+
+        $(document).ready(function () {
+
+            $("#video-container").hover(function () {
+                $('#close-button').fadeIn('slow');
+            }, function () {
+                $('#close-button').fadeOut('slow');
+            });
 
 
-    $(document).ready(function () {
+            $('#close-button').on('click', function () {
+                player.stopVideo();
+                $("#video-container").hide();
+            });
 
-        $("#video-container").hover(function () {
+            function showVideo() {
+                $('#video-container').fadeIn('slow', function () {
+                    player.playVideo();
+                });
+            }
+
+            // 2. This code loads the IFrame Player API code asynchronously.
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            $('#video').on('click', function (e) {
+                showVideo();
+            });
+        });
+    </script>*@
+
+<script>
+    $(function () {
+        var iframe = $('#video-iframe')[0],
+            player = $f(iframe);
+        //width = $('#login-form').width(),
+        //height = $('#login-form').height();
+        //$('#video-container').css('width', width + 'px');
+        //$('#video-container').css('height', height + 'px');
+
+        // Call the API when a button is pressed
+        $('button').bind('click', function () {
+            player.api($(this).text().toLowerCase());
+        });
+
+        var startVideo = function () {
+            $('#video-container').fadeIn('slow', function () {
+                player.api('play');
+            });
+
+            $('#video').hide();
+        },
+            hideVideo = function () {
+                $('#video').show();
+                $('#video-container').hide();
+                player.api('unload');
+            };
+
+        checkWidth();
+
+        $('#video').click(function () {
+            startVideo();
+        });
+
+        $('#video-container').hover(function () {
             $('#close-button').fadeIn('slow');
         }, function () {
             $('#close-button').fadeOut('slow');
         });
 
-
-        $('#close-button').on('click', function () {
-            player.stopVideo();
-            $("#video-container").hide();
-        });
-
-        function showVideo() {
-            $('#video-container').fadeIn('slow', function () {
-                player.playVideo();
-            });
-        }
-
-        // 2. This code loads the IFrame Player API code asynchronously.
-        var tag = document.createElement('script');
-
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        $('#video').on('click', function (e) {
-            showVideo();
+        $('#close-button').click(function () {
+            hideVideo();
         });
     });
-</script>
+    //$(window).load(function () {
+    //    // this will fire after the entire page is loaded, including images
+    //    width = $('#login-form').width();
+    //    height = $('#login-form').height();
+    //    $('#video').css('width', width + 'px');
+    //    $('#video').css('height', height + 'px');
 
-<script>
-    $(window).load(function () {
-        // this will fire after the entire page is loaded, including images
-        width = $('#login-form').width();
-        height = $('#login-form').height();
-        $('#video-container').css('width', width + 'px');
-        $('#video-container').css('height', height + 'px');
-
-        player = new YT.Player('player', {
-            height: height,
-            //width: (parseInt(width) * .80).toString(),
-            width: width,
-            setPlaybackQuality: 'hd720',
-            suggestedQuality: 'hd720',
-            videoId: 'HBA8dfwqU8E',
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    });
+    //    //player = new YT.Player('player', {
+    //    //    height: height,
+    //    //    //width: (parseInt(width) * .80).toString(),
+    //    //    width: width,
+    //    //    setPlaybackQuality: 'hd720',
+    //    //    suggestedQuality: 'hd720',
+    //    //    videoId: 'HBA8dfwqU8E',
+    //    //    events: {
+    //    //        'onReady': onPlayerReady,
+    //    //        'onStateChange': onPlayerStateChange
+    //    //    }
+    //    //});
+    //});
 
 
-    // 3. This function creates an <iframe> (and YouTube player)
-    //    after the API code downloads.
-    function onYouTubeIframeAPIReady() {
+    //// 3. This function creates an <iframe> (and YouTube player)
+    ////    after the API code downloads.
+    //function onYouTubeIframeAPIReady() {
 
-    }
+    //}
 
-    // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-        //event.target.playVideo();
-    }
+    //// 4. The API will call this function when the video player is ready.
+    //function onPlayerReady(event) {
+    //    //event.target.playVideo();
+    //}
 
-    // 5. The API calls this function when the player's state changes.
-    //    The function indicates that when playing a video (state=1),
-    //    the player should play for six seconds and then stop.
-    var done = false;
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            //setTimeout(stopVideo, 6000);
-            done = true;
-        }
+    //// 5. The API calls this function when the player's state changes.
+    ////    The function indicates that when playing a video (state=1),
+    ////    the player should play for six seconds and then stop.
+    //var done = false;
+    //function onPlayerStateChange(event) {
+    //    if (event.data == YT.PlayerState.PLAYING && !done) {
+    //        //setTimeout(stopVideo, 6000);
+    //        done = true;
+    //    }
 
-        if (event.data == YT.PlayerState.BUFFERING)
-            event.target.setPlaybackQuality('hd720');
-    }
-    function stopVideo() {
-        player.stopVideo();
-    }
+    //    if (event.data == YT.PlayerState.BUFFERING)
+    //        event.target.setPlaybackQuality('hd720');
+    //}
+    //function stopVideo() {
+    //    player.stopVideo();
+    //}
 </script>

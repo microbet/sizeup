@@ -4,11 +4,28 @@
 #login-form { background: #2e807f; /* Old browsers */ background: -moz-linear-gradient(-45deg, #2e807f 0%, #2e5e80 80%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#2e807f), color-stop(80%,#2e5e80)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(-45deg, #2e807f 0%,#2e5e80 80%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(-45deg, #2e807f 0%,#2e5e80 80%); /* Opera 11.10+ */ background: -ms-linear-gradient(-45deg, #2e807f 0%,#2e5e80 80%); /* IE10+ */ background: linear-gradient(135deg, #2e807f 0%,#2e5e80 80%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e807f', endColorstr='#2e5e80',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */ border-radius: 0; color: #ffffff; padding-top: 2.75em; }
 #login-form p { font-size: 16px; }
 
-#video-container { display:none;
+#video-container { 
+    /*display:none;
                        position: absolute;
 background-color: black;
+height:100%;
+width:auto;
 z-index: 4;
-top: 8em; text-align:center;}
+
+text-align:center;*/
+
+	position: relative;
+	padding-bottom: 50.25%; /* 16:9 */
+	/*padding-top: 25px;*/
+	height: 0;
+}
+#video-iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 
 #login-form #industry.input-group { margin-top: 3.85em; }
 #login-form #industry input,
