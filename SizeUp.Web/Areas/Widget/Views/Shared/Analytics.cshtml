@@ -1,9 +1,17 @@
 ﻿@if(!HttpContext.Current.Request.IsLocal){
 <script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-24590551-2']);
-    _gaq.push(['_setDomainName', 'sizeup.com']);
+    var _gaq = _gaq || [],
+	domain = document.referrer;
+
+    if (domain.includes("sba.gov") === true)
+        _gaq.push(['_setAccount', 'UA-67835610-1']);
+    else if (domain.includes("wellsfargo") === true)
+        _gaq.push(['_setAccount', 'UA-67836804-1']);
+    else
+        _gaq.push(['_setAccount', 'UA-24590551-2']);
+
+    _gaq.push(['_setDomainName', domain]);
     _gaq.push(['_trackPageview']);
 
     (function () {
