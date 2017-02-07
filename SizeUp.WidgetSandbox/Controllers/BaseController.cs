@@ -12,7 +12,7 @@ namespace SizeUp.WidgetSandbox.Controllers
         {
             base.Initialize(requestContext);
 
-            ViewData["url"] = Request.IsLocal ? "sizeup.localhost" : "beta.sizeup.com";
+            ViewData["url"] = Request.IsLocal ? "localhost:55040" : "beta.sizeup.com";
 
         }
     }

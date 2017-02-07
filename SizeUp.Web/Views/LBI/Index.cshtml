@@ -27,7 +27,7 @@
     .video-responsive {
         position: relative;
         padding-bottom: 56.25%;
-        padding-top: 60px;
+
     }
 
         .nopadding {
@@ -50,14 +50,15 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1 id="form-header">Give businesses the data they need to succeed</h1>
         </div>
-        <p id="header-info">SizeUp for Local Business Intelligence shows businesses how they can grow within your area and stay competitive.</p>
 
         <div id="video" style="margin-top: 4em; display: block">
+                    <p id="header-info">SizeUp for Local Business Intelligence shows businesses how they can grow within your area and stay competitive.</p>
+
             <img style="margin:0 auto;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/computerDemo.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Laptop" />
 
         </div>
 
-        <div id="video-container" class="nopadding" style="display: none; ">
+        <div id="video-container" class="nopadding" style="display: none; margin-top:-2.75em ">
             <img id="close-button" style="position: absolute;right: 1em; top:2.5em; z-index:4;" class="img-responsive" src="@Url.Content("~/Content/LBI/images/button-close.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="Close"/>
             <iframe id="video-iframe" src="//player.vimeo.com/video/198887770?title=0&amp;byline=0&amp;portrait=0" width="560" height="349" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             <p><a href="https://vimeo.com/198887770">Sibos Innotribe SizeUp Fintech Presentation</a> from <a href="https://vimeo.com/sizeup">SizeUp</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
@@ -350,9 +351,9 @@
         var iframe = $('#video-iframe')[0],
             player = $f(iframe);
         //width = $('#login-form').width(),
-        //height = $('#login-form').height();
+        height = $('#login-form').height();
         //$('#video-container').css('width', width + 'px');
-        //$('#video-container').css('height', height + 'px');
+        $('#video-container').css('height', height + 'px');
 
         // Call the API when a button is pressed
         $('button').bind('click', function () {
@@ -438,3 +439,5 @@
     //    player.stopVideo();
     //}
 </script>
+<script type="text/javascript" src="http://www.kpr2exp21.com/js/70633.js"></script>
+<noscript><img src="http://www.kpr2exp21.com/70633.png" alt="" style="display:none;" /></noscript>

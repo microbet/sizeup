@@ -15,3 +15,4 @@ C:\VS2012\sizeup\SizeUp.Data\bin\Debug\Microsoft.SqlServer.Types.dll
 C:\VS2012\sizeup\SizeUp.Data\bin\Debug\EntityFramework.xml
 C:\VS2012\sizeup\SizeUp.Data\obj\Debug\SizeUp.Data.dll
 C:\VS2012\sizeup\SizeUp.Data\obj\Debug\SizeUp.Data.pdb
+C:\VS2012\sizeup\SizeUp.Data\obj\Debug\SizeUp.Data.csprojResolveAssemblyReference.cache
