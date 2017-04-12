@@ -355,7 +355,7 @@ background-clip: padding-box;
                         <img style="margin-bottom:45px" data-override-src="/pins/business/marker/{{index}}/{{number}}" />
                         <dl>
                             <dt class="name">{{business.Name}}</dt>
-                            <dd class="address">{{business.Address}}{{^business.Address}}Street address not provided{{/business.Address}}</dd>
+                            <dd class="address">{{business.City}}, {{business.State}}{{^business.State}}Street address not provided{{/business.State}}</dd>
                             <dd class="address"><span class="label">Business Type:</span><span class="value" style="padding-left:5px">{{#business.IsFirm}}Corporation{{/business.IsFirm}}{{^business.IsFirm}}{{#business.IsHomeBased}}Home-based{{/business.IsHomeBased}}{{^business.IsHomeBased}}No data{{/business.IsHomeBased}}{{/business.IsFirm}}</span></dd>
                             <dd class="address"><span class="label">Ownership:</span><span class="value" style="padding-left:5px">{{#business.IsPublic}}Public{{/business.IsPublic}}{{^business.IsPublic}}Private{{/business.IsPublic}}</span></dd>
                             <dd class="address"><span class="label">Website:</span>{{#business.Url}}<span style="padding-left:5px">{{business.Url}}</span>{{/business.Url}}{{^business.Url}}<span class="lowlight value">Not provided</span>{{/business.Url}}</dd>
