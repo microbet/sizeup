@@ -14,6 +14,7 @@
                     streetViewControl: false,
                     scrollwheel: false,
                     zoomControl: true,
+                    fullscreenControl: false,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
                     mapTypeControlOptions: { mapTypeIds: [google.maps.MapTypeId.ROADMAP, "mapStyle"] }
                 };
