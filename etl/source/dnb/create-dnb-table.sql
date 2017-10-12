@@ -109,6 +109,18 @@ CREATE TABLE [dbo].[DnB](
 	[Longitude] [varchar](17) NULL
 ) ON [PRIMARY]
 
+CREATE INDEX postal_code_index
+ON [dbo].[DnB] (PostalCode)
+
+CREATE INDEX state_code_index
+ON [dbo].[DnB] (StateCode)
+
+CREATE INDEX county_code_index
+ON [dbo].[DnB] (CountyCode)
+
+CREATE INDEX city_code_index
+ON [dbo].[DnB] (CityCode)
+
 GO
 
 

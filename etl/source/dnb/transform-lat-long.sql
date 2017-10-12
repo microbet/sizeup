@@ -20,3 +20,5 @@ go
 -- make negative if necessary
 update dnb set lat = (select iif(left(latitude, 1) = '-', lat*-1, lat))
 update dnb set long = (select iif(left(longitude, 1) = '-', long*-1, long))
+
+-- more TODO. Convert numeric varchars, especially codes, to numbers. But we might better do that in the initial extraction.
