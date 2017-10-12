@@ -1,0 +1,81 @@
+== Flows probably in current use, although input sources are unknown ==
+
+Input: American Community Survey files (source unknown)
+Files: ACS_*_with_ann.csv (multiple input files at the same time) (last known file: C:\Users\jstack\Desktop\census data\ACS_12_5YR_B25103\ACS_12_5YR_B25103_with_ann.csv . Who's jstack?)
+Extraction: ACSDAtaRaw.dtsx. Data from all files ends up in the same table: There are pivots to select certain variables; there are hardcoded TableID and Year values, different for each input file.
+Output: table RawData.ACSData
+
+Input: BLS Salary data (source unknown; TODO hunt for matching report at bls.gov)
+Last known file: SebSource/bls/2013/*.csv
+Extraction: BLSData.dtsx
+Output: table RawData.BLSData
+
+Input: Infogroup files (source unknown)
+Last known file: 2016Q4/SIZEUP_2017025.TXT: no known source
+Extraction: BusinessData.dtsx
+Output: table RawData.BusinessData
+
+Input: Infogroup files (source unknown)
+Last known files: 2016Q4/codedall.TXT, 2016Q4/industry.TXT
+Extraction: Industry.dtsx
+Output: tables RawData.CodedAll, RawData.Industry
+
+Input: AGS files (source unknown)
+Last known files: AGS/CONSUMEREXPENDATURESAVERAGES[PLACE,CS,COUNTY,STATE,ZIP].CSV, AGS/CONSUMEREXPENDATURESTOTALS[PLACE,CS,COUNTY,STATE,ZIP].CSV
+Extraction: AGSData.dtsx: Renames fields PLACE and CNTYSBSD to FIPS; sort by FIPS. "Place" and "CS" data are combined into "City" table.
+Output: 6 tables: RawData.ConsumerExpendaturesAveragesBy[City,County,Zip], RawData.ConsumerExpendaturesTotalsBy[City,County,Zip]
+
+Input: AGS files (source unknown)
+Last known files: AGS/SIZEUPDEMOGRAPHICS[PLACE,CS,COUNTY,STATE,ZIP].CSV
+Extraction: AGSData.dtsx: "Place" and "CS" data are combined into "City" table.
+Output: 4 tables: RawData.SizeUpDemographicsBy[City,County,State,Zip]
+
+Input: Cornell files (source unknown)
+Last known files: SebSource/cornell/2012/[County,Metro,State]/*.csv
+Extraction: Cornell*.dtsx: Screens out data prior to 2009.
+Output: 3 tables: RawData.CornellData[County,Metro,State] 
+
+Input: Healthcare files (source unknown)
+Last known file: SebSource/Healthcare/healthcare2012.csv
+Extraction: Healthcare.dtsx
+Output: table RawData.HealthCare
+
+Input: Workers Comp files (source unknown)
+Last known file: SebSource/WorkersComp/2012workerscomp.csv: no known source)
+Extraction: WokrersComp.dtsx
+Output: table RawData.WorkersComp
+
+== Tables found in gisp-calc-db02, but no reference found anywhere in SSIS projects ==
+
+These could be one-time research projects.
+
+Input: ????
+Output: tables RawData.Demographics, RawData.SicCodeRelations.
+
+== References found in SSIS code, but no table exists on gisp-calc-db02 ==
+
+These could be deprecated. The input files are from earlier years.
+
+Last known file: DEMOGRAPIHCSCBSA.CSV
+Extraction: MetroDemographics.dtsx
+Output: table RawData.MetroDemographics
+
+Last known file: DEMOGRAPHICSSTATE.CSV
+Extraction: StateDemographics.dtsx
+Output: table RawData.StateDemographics
+
+Last known file: "American Community Survey\2010\5YR_B25103\ACS_10_5YR_B25103_with_ann.csv"
+Extraction: AmericanCommunitySurvey.dtsx (perhaps obsolete and replaced by ACSDAtaRaw.)
+Output: tables in RawData where table names are ACS table IDs.
+
+Last known file: C:\SourceData\College\colleges_2010.csv
+Extraction: Colleges.dtsx: updates rows after extraction
+Output: table RawData.Colleges
+
+Last known file: "C:\SourceData\Tax Burden\Tax Burden 2012.csv"
+Extraction: TaxBurden.dtsx
+Output: table RawData.TaxBurden (not seen) (: : no known source)
+
+Last known file: C:\SourceData\Unemployement\Unemployment_Cities_June2012.csv
+Extraction: Unemployement.dtsx
+Output: table RawData.Unemployment
