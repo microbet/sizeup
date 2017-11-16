@@ -1,0 +1,24 @@
+== Install a bootstrap virtualenv on ETL control client ==
+
+# Do this so that all our python is separate from the Ubuntu system python. See https://stackoverflow.com/questions/4324558/whats-the-proper-way-to-install-pip-virtualenv-and-distribute-for-python
+
+wget https://pypi.python.org/packages/d4/0c/9840c08189e030873387a73b90ada981885010dd9aea134d6de30cd24cb8/virtualenv-15.1.0.tar.gz#md5=44e19f4134906fe2d75124427dc9b716
+tar xzf virtualenv-15.1.0.tar.gz
+sudo mkdir -p /etc/sizeup/virtualenv
+sudo python virtualenv-15.1.0/virtualenv.py /etc/sizeup/virtualenv/primary
+sudo su
+
+# as root:
+apt-get install python-dev
+. /etc/sizeup/virtualenv/primary/bin/activate
+pip install download/virtualenv-15.1.0.tar.gz
+pip install awscli --upgrade
+pip install boto3
+pip install ipython==5.4
+
+== To make an AWS ETL database instance ==
+
+From our private "gisp-calc-db02" AMI (ID=ami-fa582aed), launch an instance (I tried c4.large and named it "calc-test" in AWS console). Not sure how to get a hostname to DC.
+
+Couldn't log in anyway: "There are currently no logon servers to perform the logon request." But since it's a custom AMI, Amazon won't generate an Administrator password (as in http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/connecting_to_windows_instance.html). Onerous process to reset that password (http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ResettingAdminPassword_EC2Config.html) is okay once but not for every instance. If we're going to mint a new AMI anyway, maybe upgrade some stuff first.
+
