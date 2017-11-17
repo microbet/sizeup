@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProductVersion>10.50.4297.0</ProductVersion>
+  <SchemaVersion>9.0.1.0</SchemaVersion>
+  <State>$base64$PFNvdXJjZUNvbnRyb2xJbmZvIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOmRkbDI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDAzL2VuZ2luZS8yIiB4bWxuczpkZGwyXzI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDAzL2VuZ2luZS8yLzIiIHhtbG5zOmRkbDEwMF8xMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDA4L2VuZ2luZS8xMDAvMTAwIiB4bWxuczpkZGwyMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDEwL2VuZ2luZS8yMDAiIHhtbG5zOmRkbDIwMF8yMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDEwL2VuZ2luZS8yMDAvMjAwIiB4bWxuczpkd2Q9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vRGF0YVdhcmVob3VzZS9EZXNpZ25lci8xLjAiPg0KICA8RW5hYmxlZD5mYWxzZTwvRW5hYmxlZD4NCiAgPFByb2plY3ROYW1lPjwvUHJvamVjdE5hbWU+DQogIDxBdXhQYXRoPjwvQXV4UGF0aD4NCiAgPExvY2FsUGF0aD48L0xvY2FsUGF0aD4NCiAgPFByb3ZpZGVyPjwvUHJvdmlkZXI+DQo8L1NvdXJjZUNvbnRyb2xJbmZvPg==</State>
+  <Database>
+    <Name>SizeUp-LBI DataImport.database</Name>
+    <FullPath>SizeUp-LBI DataImport.database</FullPath>
+  </Database>
+  <Cubes />
+  <Dimensions />
+  <DataSources>
+    <ProjectItem>
+      <Name>GISP-CALC-DB02.RawData.ds</Name>
+      <FullPath>GISP-CALC-DB02.RawData.ds</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>GISP-CALC-DB02.LBINewData.ds</Name>
+      <FullPath>GISP-CALC-DB02.LBINewData.ds</FullPath>
+    </ProjectItem>
+  </DataSources>
+  <DataSourceViews />
+  <MiningModels />
+  <Roles />
+  <Miscellaneous />
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <OutputPath>bin</OutputPath>
+        <ConnectionMappings>
+          <ConfigurationSetting>
+            <Id>GISP-CALC-DB02.RawData</Id>
+            <Name>GISP-CALC-DB02.RawData</Name>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI10.1;Data Source=GISP-CALC-DB02.GISPLANNING.NET;Integrated Security=SSPI;Initial Catalog=RawData</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>GISP-CALC-DB02.LBINewData</Id>
+            <Name>GISP-CALC-DB02.LBINewData</Name>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI10.1;Data Source=GISP-CALC-DB02.GISPLANNING.NET;Integrated Security=SSPI;Initial Catalog=LBINewData</Value>
+          </ConfigurationSetting>
+        </ConnectionMappings>
+        <ConnectionProviderMappings />
+        <ConnectionSecurityMappings>
+          <ConfigurationSetting>
+            <Id>GISP-CALC-DB02.RawData</Id>
+            <Name>GISP-CALC-DB02.RawData</Name>
+            <Value xsi:type="xsd:int">0</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>GISP-CALC-DB02.LBINewData</Id>
+            <Name>GISP-CALC-DB02.LBINewData</Name>
+            <Value xsi:type="xsd:int">0</Value>
+          </ConfigurationSetting>
+        </ConnectionSecurityMappings>
+        <DatabaseStorageLocations />
+      </Options>
+    </Configuration>
+  </Configurations>
+  <DTSPackages>
+    <DtsPackage FormatVersion="3">
+      <Name>Business.dtsx</Name>
+      <FullPath>Business.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessCityMapping.dtsx</Name>
+      <FullPath>BusinessCityMapping.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>Industry.dtsx</Name>
+      <FullPath>Industry.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessDataByCity.dtsx</Name>
+      <FullPath>BusinessDataByCity.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessDataByCounty.dtsx</Name>
+      <FullPath>BusinessDataByCounty.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessDataByZipcode.dtsx</Name>
+      <FullPath>BusinessDataByZipcode.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataByCity.dtsx</Name>
+      <FullPath>IndustryDataByCity.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataByCounty.dtsx</Name>
+      <FullPath>IndustryDataByCounty.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataByZipcode.dtsx</Name>
+      <FullPath>IndustryDataByZipcode.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataByMetro.dtsx</Name>
+      <FullPath>IndustryDataByMetro.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ImportBusinessLBI.dtsx</Name>
+      <FullPath>ImportBusinessLBI.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataByNation.dtsx</Name>
+      <FullPath>IndustryDataByNation.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataByState.dtsx</Name>
+      <FullPath>IndustryDataByState.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBandsByState.dtsx</Name>
+      <FullPath>IndustryDataBandsByState.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBandsByCity.dtsx</Name>
+      <FullPath>IndustryDataBandsByCity.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBandsByCounty.dtsx</Name>
+      <FullPath>IndustryDataBandsByCounty.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBandsByMetro.dtsx</Name>
+      <FullPath>IndustryDataBandsByMetro.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBandsByZip.dtsx</Name>
+      <FullPath>IndustryDataBandsByZip.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBandsByNation.dtsx</Name>
+      <FullPath>IndustryDataBandsByNation.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessData.dtsx</Name>
+      <FullPath>BusinessData.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+  </DTSPackages>
+</Project>
