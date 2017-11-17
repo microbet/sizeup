@@ -1,11 +1,18 @@
 # First draft; needs work.
+# Don't forget to activate a virtualenv first. Primary should work:
+# . /etc/sizeup/virtualenv/primary/bin/activate
 
 import boto3
 ec2 = boto3.resource("ec2")
+client = boto3.client("ec2")
 volume = ec2.create_volume(
   AvailabilityZone="us-east-1a",
   Size=150,
   VolumeType="gp2",  # TODO change to io1
+  TagSpecifications=[{
+    "ResourceType": "volume",
+    "Tags": [{"Key": "Name", "Value": "/data/dnb"}]
+  }],
 )
 waiter = client.get_waiter("volume_available")
 waiter.wait(VolumeIds=[volume.id])

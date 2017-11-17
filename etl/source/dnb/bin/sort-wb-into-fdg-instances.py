@@ -33,10 +33,18 @@ country_codes = {
     "801", # WALES
     "793", # NORTHERN IRELAND
     "790", # UNITED KINGDOM
+    "100", # BULGARIA
+    "190", # CZECH REPUBLIC
+    "237", # FINLAND
+    "553", # NORWAY
+    "663", # SERBIA
+    "678", # SLOVENIA
+    "717", # SWEDEN
   ],
   "NA": [
     "121", # Canada
     "489", # Mexico
+    "033", # Argentina
   ],
 }
 
