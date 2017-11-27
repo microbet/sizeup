@@ -1,4 +1,5 @@
 # TODO:
+# dry-run mode!
 # read DNB_PASSWORD from invoker.
 # Take $data_ver from argument.
 # https://stackoverflow.com/questions/6133517/parse-config-files-environment-and-command-line-arguments-to-get-a-single-col
@@ -6,7 +7,11 @@
 # Log well in extraction script; especially checksums for verifying results; maybe performance metrics for Kashyap.
 # Get S3 password or decrypt .aws/credentials, gzip em all, put on s3
 
-data_ver=OCT17
+data_ver=$1
+if [ -z "$data_ver" ]; then
+  echo "Usage: $0 DATA_VERSION"
+  exit 1
+fi
 
 cmd_dir=`dirname $0`
 
@@ -19,14 +24,13 @@ sudo chmod 777 /data/dnb/
 cd $cmd_dir
 cmd_dir=`pwd`
 cd /data/dnb
-echo $cmd_dir
 
 echo -n "Enter DnB password: "
 read DNB_PASSWORD
 for part in `seq -w 26`; do
   zipfile=SIZEUP.WB$part.$data_ver.TXT.zip
   wget "ftp://sizeup:$DNB_PASSWORD@ftp.dnb.com/gets/$zipfile" -a wget.log -nv
-  unzip -p $zipfile SIZEUP.\*.WB$part.$data_ver.TXT | python $cmd_dir/sort-wb-into-fdg-instances.py
+  unzip -p $zipfile SIZEUP.\*.WB$part.$data_ver.TXT | python $cmd_dir/sort-wb-into-fdg-instances.py $data_ver
   rm $zipfile
 done
 

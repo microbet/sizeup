@@ -7,7 +7,11 @@
 
 import datetime, logging, os, sys
 
-data_version = "OCT17"
+try:
+  data_version = sys.argv[1]
+except IndexError:
+  sys.stderr.write("Failed: Must include data version number as first argument.\n")
+  sys.exit(-1)
 
 country_codes = {
   "US": [
