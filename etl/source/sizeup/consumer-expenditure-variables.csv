@@ -1,0 +1,933 @@
+﻿Id,ParentId,Variable,Description
+1,NULL,TCYTOTAL,Total
+2,NULL,XCYTOTAL,Average Per Household
+3,1,TCYAP, Apparel
+4,1,TCYCC, Contributions
+5,1,TCYED, Education
+6,1,TCYEN, Entertainment
+7,1,TCYFB, Food And Beverages
+8,1,TCYGI, Gifts
+9,1,TCYHC, Health Care
+10,1,TCYHF, Household Furnishings And Equipment
+11,1,TCYHO, Household Operations
+12,1,TCYMI, Miscellaneous Expenses
+13,1,TCYPC, Personal Care
+14,1,TCYPI, Personal Insurance
+15,1,TCYRD, Reading
+16,1,TCYHH, Shelter
+17,1,TCYTB, Tobacco
+18,1,TCYTR, Transportation
+19,1,TCYUT, Utilities
+20,3,TCYAP7, Apparel Services And Accessories
+21,3,TCYAP2, Boys Apparel
+22,3,TCYAP6, Footwear
+23,3,TCYAP4, Girls Apparel
+24,3,TCYAP5, Infants Apparel
+25,3,TCYAP1, Men's Apparel
+26,3,TCYAP3, Women's Apparel
+27,5,TCYED1, Books And Supplies
+28,5,TCYED2, Tuition
+29,6,TCYEN1, Fees And Admissions
+30,6,TCYEN3, Recreational Equipment And Supplies
+31,6,TCYEN2, Video And Audio Equipment
+32,7,TCYFB3, Alcoholic Beverages
+33,7,TCYFB1, Food At Home
+34,7,TCYFB2, Food Away From Home
+35,8,TCYGI9, Gifts Elsewhere Unspecified
+36,8,TCYGI1, Gifts Of Apparel
+37,8,TCYGI2, Gifts Of Apparel Accessories
+38,8,TCYGI3, Gifts Of Education (Tuition And Books)
+39,8,TCYGI5, Gifts Of Food And Beverages
+40,8,TCYGI6, Gifts Of Household Furnishings And Equipment
+41,8,TCYGI7, Gifts Of Household Operations
+42,8,TCYGI4, Gifts Of Recreation
+43,8,TCYGI8, Gifts Of Transportation
+44,9,TCYHC1, Health Care Insurance
+45,9,TCYHC2, Health Care Services
+46,9,TCYHC3, Health Care Supplies And Equipment
+47,10,TCYHF3, Floor Coverings
+48,10,TCYHF2, Furniture
+49,10,TCYHF5, House wares And Small Appliances
+50,10,TCYHF1, Household Textiles
+51,10,TCYHF4, Major Appliances
+52,11,TCYHO3, Alimony and Child Support
+53,11,TCYHO1, Babysitting And Elderly Care
+54,11,TCYHO2, Household Services
+55,11,TCYHO4, Household Supplies
+56,12,TCYMI3, Finance Charges Excluding Mortgage And Vehicle
+57,12,TCYMI2, Funeral And Cemetery
+58,12,TCYMI1, Legal And Accounting
+59,12,TCYMI4, Other Miscellaneous Expenses
+60,13,TCYPC2, Electric Personal Care Appliances
+61,13,TCYPC4, Personal Care Products
+62,13,TCYPC3, Personal Care Services
+63,13,TCYPC1, Wigs And Hairpieces
+64,15,TCYRD3, Books
+65,15,TCYRD2, Magazines
+66,15,TCYRD1, Newspapers
+67,16,TCYHH3, Miscellaneous Owned Dwelling Costs
+68,16,TCYHH1, Mortgage Interest
+69,16,TCYHH5, Other Lodging
+70,16,TCYHH2, Property Taxes
+71,16,TCYHH4, Rental Costs
+72,17,TCYTB1, Cigarettes
+73,17,TCYTB2, Other Tobacco Products
+74,18,TCYTR5, Gasoline And Oil
+75,18,TCYTR3, Motorcycles (New And Used)
+76,18,TCYTR1, New Vehicle Purchase
+77,18,TCYTR9, Other Transportation Costs
+78,18,TCYTR8, Public Transportation
+79,18,TCYTR2, Used Vehicle Purchase
+80,18,TCYTR4, Vehicle Finance Charges
+81,18,TCYTR7, Vehicle Insurance
+82,18,TCYTR6, Vehicle Repair And Maintenance
+83,19,TCYUT2, Electricity
+84,19,TCYUT3, Fuel Oil And Other Fuels
+85,19,TCYUT1, Natural Gas
+86,19,TCYUT5, Other Utilities
+87,19,TCYUT4, Telephone Service
+88,20,TCYAP707, Coin-Operated Laundry
+89,20,TCYAP706, Dry Cleaning
+90,20,TCYAP704, Jewelry
+91,20,TCYAP701, Material For Making Clothes
+92,20,TCYAP705, Repair And Alterations
+93,20,TCYAP702, Sewing Notions And Patterns
+95,21,TCYAP201, Boys Coats And Jackets
+96,21,TCYAP209, Boys Costumes And Uniforms
+97,21,TCYAP205, Boys Hosiery And Accessories
+98,21,TCYAP207, Boys Pants
+99,21,TCYAP203, Boys Shirts
+100,21,TCYAP208, Boys Shorts And Sportswear
+101,21,TCYAP206, Boys Suits Sportscoats And Vests
+102,21,TCYAP202, Boys Sweaters
+103,21,TCYAP204, Boys Underwear And Nightwear
+104,22,TCYAP602, Boys Footwear
+105,22,TCYAP604, Girls Footwear
+106,22,TCYAP601, Men's Footwear
+107,22,TCYAP603, Women's Footwear
+108,23,TCYAP407, Girls Accessories
+109,23,TCYAP401, Girls Coats And Jackets
+110,23,TCYAP402, Girls Dresses Suits
+111,23,TCYAP403, Girls Shirts/Blouses/Sweaters
+112,23,TCYAP405, Girls Shorts And Sportswear
+113,23,TCYAP404, Girls Skirts And Pants
+114,23,TCYAP406, Girls Underwear And Sleepwear
+115,23,TCYAP408, Girls Uniforms And Costumes
+116,24,TCYAP505, Infants Accessories
+117,24,TCYAP501, Infants Coats And Jackets
+118,24,TCYAP502, Infants Dresses And Outerwear
+119,24,TCYAP504, Infants Nightwear/Loungewear
+120,24,TCYAP503, Infants Underwear
+121,25,TCYAP104, Men's Accessories
+122,25,TCYAP106, Men's Active Sportswear
+123,25,TCYAP102, Men's Coats And Jackets
+124,25,TCYAP108, Men's Pants And Shorts
+125,25,TCYAP107, Men's Shirts
+126,25,TCYAP101, Men's Suits And Sportcoats
+127,25,TCYAP105, Men's Sweaters And Vests
+128,25,TCYAP103, Men's Underwear And Socks
+129,25,TCYAP109, Men's Uniforms And Costumes
+130,26,TCYAP310, Women's Accessories
+131,26,TCYAP301, Women's Coats And Jackets
+132,26,TCYAP312, Women's Costumes
+133,26,TCYAP302, Women's Dresses/Sportcoats
+134,26,TCYAP306, Women's Pants
+135,26,TCYAP304, Women's Shirts Tops and blouses
+136,26,TCYAP307, Women's Shorts And Sportswear
+137,26,TCYAP305, Women's Skirts
+138,26,TCYAP308, Women's Sleepwear/Undergarments
+139,26,TCYAP309, Women's Suits
+140,26,TCYAP311, Women's Uniforms
+141,26,TCYAP303, Women's Vests And Sweaters
+142,27,TCYED101, College Books And Supplies
+143,27,TCYED102, Elementary/Hs Books And Supplies
+144,27,TCYED103, Other School Expenses Incl. Rental
+145,28,TCYED201, College Tuition
+146,28,TCYED203, Day Care & Nursery/Preschool Costs
+147,28,TCYED202, Elementary/Hs Tuition
+148,29,TCYEN102, Participant Sports Fees
+149,29,TCYEN103, Performing Arts And Movies
+150,29,TCYEN106, Recreation Expenses Away From Home
+151,29,TCYEN105, Recreational Lessons
+152,29,TCYEN101, Social And Recreational Club Membership
+153,29,TCYEN104, Sporting Events
+154,30,TCYEN301, Boats And Campers
+155,30,TCYEN302, Exercise Equipment
+156,30,TCYEN303, Other Sporting Equipment
+157,30,TCYEN306, Pet Supplies And Services
+158,30,TCYEN305, Photographic Equipment And Supplies
+159,30,TCYEN304, Toys And Playground Equipment
+160,31,TCYEN205, Audio Equipment
+161,31,TCYEN201, Cable Television
+162,31,TCYEN208, Musical Instruments
+163,31,TCYEN206, Records / Tapes / CD Purchases
+164,31,TCYEN207, Rental And Repair Of Equipment
+165,31,TCYEN210, Satellite Dishes
+166,31,TCYEN202, Televisions
+167,31,TCYEN203, VCRs And Related Equipment
+168,31,TCYEN209, Video Cassette Rentals
+169,31,TCYEN204, Video Game Hardware And Software
+170,32,TCYFB307, Alcohol On Out-Of-Town Trips
+171,32,TCYFB301, Beer And Ale At Home
+172,32,TCYFB304, Beer And Ale Not At Home
+173,32,TCYFB302, Liquor At Home
+174,32,TCYFB306, Whiskey Away From Home
+175,32,TCYFB303, Wine At Home
+176,32,TCYFB305, Wine Away From Home
+177,33,TCYFB119, Baby Foods
+178,33,TCYFB106, Dairy
+179,33,TCYFB105, Eggs
+180,33,TCYFB111, Fats And Oils
+181,33,TCYFB104, Fish And Seafood
+182,33,TCYFB107, Fresh Fruits
+183,33,TCYFB108, Fresh Vegetables
+184,33,TCYFB114, Frozen Meals
+185,33,TCYFB103, Meat
+186,33,TCYFB120, Miscellaneous Prepared Foods
+187,33,TCYFB112, Non Alcoholic Beverages
+188,33,TCYFB118, Prepared Desserts
+189,33,TCYFB117, Prepared Salads
+190,33,TCYFB109, Processed Fruits And Vegetables
+191,33,TCYFB116, Seasonings And Condiments
+192,33,TCYFB115, Snack Foods
+193,33,TCYFB113, Soup
+194,33,TCYFB110, Sugar And Other Sweets
+195,33,TCYFB121, Vitamin Supplements
+196,34,TCYFB205, Board (Including At School)
+197,34,TCYFB204, Breakfast And Brunch
+198,34,TCYFB206, Catered Affairs
+199,34,TCYFB202, Dinner
+200,34,TCYFB207, Food on Out-Of-Town Trips
+201,34,TCYFB201, Lunch
+202,34,TCYFB203, Snacks And Non-Alcoholic Beverages
+203,35,TCYGI905, Gifts Of Cash
+204,35,TCYGI901, Gifts Of Health Related Items
+205,35,TCYGI902, Gifts Of Miscellaneous Items
+206,35,TCYGI903, Gifts Of Personal Care Items And Services
+207,35,TCYGI904, Gifts Of Reading Materials
+208,36,TCYGI107, Gifts Of Apparel Materials And Notions
+209,36,TCYGI102, Gifts Of Boys Apparel
+210,36,TCYGI106, Gifts Of Footwear
+211,36,TCYGI104, Gifts Of Girls Apparel
+212,36,TCYGI105, Gifts Of Infants Apparel
+213,36,TCYGI101, Gifts Of Men's Apparel
+214,36,TCYGI103, Gifts Of Women's Apparel
+215,37,TCYGI202, Gifts Of Jewelry
+216,37,TCYGI201, Gifts Of Watches
+217,40,TCYGI604, Gifts Of House wares
+218,40,TCYGI602, Gifts Of Household Furnishings
+219,40,TCYGI608, Gifts Of Household Repairs And Services
+220,40,TCYGI601, Gifts Of Household Textiles
+221,40,TCYGI603, Gifts Of Major Appliances
+222,40,TCYGI606, Gifts Of Other Household Items
+223,40,TCYGI607, Gifts Of Plants And Fresh Flowers
+224,40,TCYGI605, Gifts Of Small Appliances
+225,40,TCYGI609, Gifts Of Utilities
+226,42,TCYGI402, Gifts Of Audio And Visual Equipment
+227,42,TCYGI404, Gifts Of Computer Hardware And Software
+228,42,TCYGI401, Gifts Of Fee For Service Recreation
+229,42,TCYGI403, Gifts Of Other Recreational Equipment
+230,44,TCYHC102, Blue Cross / Blue Shield
+231,44,TCYHC101, Commercial Health Insurance
+232,44,TCYHC103, Health Maintenance Plans
+233,44,TCYHC104, Medicare Payments
+234,44,TCYHC105, Medicare Supplements
+235,45,TCYHC203, Dental Services
+236,45,TCYHC204, Eye care Services
+238,45,TCYHC205, Other Medical Services
+239,45,TCYHC202, Physician Services
+240,46,TCYHC302, Eyeglasses And Contact Lenses
+241,46,TCYHC303, Medical Equipment
+242,46,TCYHC301, Prescription Drugs
+243,48,TCYHF207, Infants Furniture
+244,48,TCYHF206, Kitchen / Dining Room Furniture
+245,48,TCYHF204, Living Room Chairs
+246,48,TCYHF205, Living Room Tables
+247,48,TCYHF201, Mattress And Springs
+248,48,TCYHF202, Other Bedroom Furniture
+249,48,TCYHF208, Outdoor Furniture
+250,48,TCYHF203, Sofas
+251,50,TCYHF101, Bathroom Linens
+252,50,TCYHF102, Bedroom Linens
+253,50,TCYHF104, Curtains And Drapes
+254,50,TCYHF103, Kitchen And Dining Room Linens
+255,50,TCYHF107, Other Linens
+256,50,TCYHF106, Sewing Materials
+257,50,TCYHF105, Slipcovers And Decorative Pillows
+258,49,TCYHF504, Clocks
+259,49,TCYHF511, Computer Hardware
+260,49,TCYHF516, Computer Information Services
+261,49,TCYHF512, Computer Software
+262,49,TCYHF502, Flatware And Serving Pieces
+263,49,TCYHF509, Hand Tools
+264,49,TCYHF514, Indoor Plants And Fresh Flowers
+265,49,TCYHF505, Lamps And Fixtures
+266,49,TCYHF507, Lawn And Garden Equipment
+267,49,TCYHF510, Luggage
+268,49,TCYHF515, Other Miscellaneous House wares
+269,49,TCYHF508, Power Tools
+270,49,TCYHF503, Small Electric Kitchen Appliances
+271,49,TCYHF513, Smoke Alarms
+272,49,TCYHF506, Telephones And Accessories
+273,51,TCYHF406,Microwave Ovens
+274,51,TCYHF404, Clothes Dryer
+275,51,TCYHF403, Clothes Washer
+276,51,TCYHF401, Dishwashers And Disposal
+277,51,TCYHF409, Electric Floor Cleaning Equipment
+278,51,TCYHF407, Portable Dishwasher
+279,51,TCYHF402, Refrigerator / Freezer
+280,51,TCYHF410, Sewing Machines
+281,51,TCYHF405, Stoves And Ovens
+282,51,TCYHF408, Window Air Conditioning
+283,52,TCYHO301, Alimony
+284,52,TCYHO302, Child Support
+285,53,TCYHO101, Babysitting
+286,53,TCYHO102, Care Of Invalids And Elderly
+287,53,TCYHO103, Day Care And Preschool Expenses
+288,54,TCYHO201, Domestic Service
+289,54,TCYHO202, Gardening And Lawn Care
+290,54,TCYHO205, Laundry And Dry Cleaning
+291,54,TCYHO207, Miscellaneous Home Services
+292,54,TCYHO204, Moving And Storage
+293,54,TCYHO206, Repair And Rental
+294,54,TCYHO203, Water Softening Service
+295,55,TCYHO402, Household Paper Goods
+296,55,TCYHO401, Laundry And Cleaning Supplies
+297,55,TCYHO403, Postage And Stationary
+298,63,TCYPC101, Hair Care Products
+299,63,TCYPC102, Non-Electric Care Articles
+300,63,TCYPC103, Wigs & Hairpieces
+301,61,TCYPC403, Cosmetics And Perfume
+302,61,TCYPC404, Deodorants/Other Personal Care/Other Personal Care
+303,61,TCYPC401, Oral Hygiene Products
+304,61,TCYPC402, Shaving Needs
+305,62,TCYPC301, Personal Care Services For Females
+306,62,TCYPC302, Personal Care Services For Males
+307,69,TCYHH503, Costs For Vacation Property
+308,69,TCYHH502, Housing For Someone At School
+309,69,TCYHH501, Lodging Away From Home
+310,67,TCYHH302, Fire Insurance
+311,67,TCYHH301, Ground Rent
+312,67,TCYHH303, Homeowners Insurance
+313,67,TCYHH304, Parking
+314,67,TCYHH306, Property Management Fees
+315,71,TCYHH402, Maintenance And Repair By Tenant
+316,71,TCYHH401, Rent
+317,71,TCYHH403, Tenants Insurance
+318,67,TCYHH305, Repairs and Maintenance
+319,68,TCYHH101," Mortgage interest, Primary Dwelling"
+320,68,TCYHH102," Mortgage Interest, Vacation Dwelling"
+321,70,TCYHH201," Property Taxes, Primary Dwelling"
+322,70,TCYHH202," Property Taxes, Vacation Dwelling"
+323,74,TCYTR502, Diesel Fuel
+324,74,TCYTR501, Gasoline
+325,74,TCYTR503, Motor Oil
+326,76,TCYTR101, New Car Purchased
+327,76,TCYTR102, New Truck Purchased
+328,77,TCYTR905, Automobile Service Clubs
+329,77,TCYTR901, Leasing Costs
+330,77,TCYTR904, Parking / Tolls / Towing
+331,77,TCYTR902, Registration And License
+332,77,TCYTR903, Rental
+333,78,TCYTR801, Airline Fares
+334,78,TCYTR802, Intercity Bus Fares
+335,78,TCYTR803, Mass Transit
+336,78,TCYTR805, Other Public Transportation
+337,78,TCYTR804, Taxi
+338,79,TCYTR201, Used Car Purchase
+339,79,TCYTR202, Used Truck Purchase
+340,80,TCYTR401, Automobile Finance Charges
+341,80,TCYTR402, Truck Finance Charges
+342,82,TCYTR601, Coolant And Other Fluids
+343,82,TCYTR602, Vehicle Repair
+344,86,TCYUT503, Septic Tank Cleaning
+345,86,TCYUT502, Trash And Garbage Collection
+346,86,TCYUT501, Water And Sewage
+347,87,TCYUT402, Cellular Phone Service
+348,87,TCYUT401, Telephone Service Excl Cell Phones
+349,126,TCYAP10102, Men’ s Sportcoats
+350,126,TCYAP10101, Men’ s Suits
+351,128,TCYAP10301, Men’s Underwear
+352,128,TCYAP10302, Men’s Hosiery
+353,128,TCYAP10303, Men’s Nightwear and Loungewear
+354,124,TCYAP10801, Men’s Pants
+355,124,TCYAP10802, Men’s Shorts
+356,129,TCYAP10902, Men’s Uniforms
+357,129,TCYAP10901, Men’s Costumes
+358,103,TCYAP20402, Boys Nightwear
+359,103,TCYAP20401, Boys Underwear
+360,97,TCYAP20502, Boys Accessories
+361,97,TCYAP20501, Boys Hosiery
+362,100,TCYAP20801, Boys Shorts
+363,100,TCYAP20802, Boys Sportswear
+364,96,TCYAP20902, Boys Uniforms
+365,96,TCYAP20901, Boys Costumes
+366,133,TCYAP30201, Women’s Dresses
+367,133,TCYAP30202, Women’s Sportcoats And Jackets
+368,136,TCYAP30702, Women’s Sportswear
+369,136,TCYAP30701, Women’s Shorts
+370,138,TCYAP30801, Women’s Sleepwear
+371,138,TCYAP30803, Women’s Hosiery
+372,138,TCYAP30802, Women’s Undergarments
+373,112,TCYAP40501, Girls Shorts
+374,112,TCYAP40502, Girls Sportswear
+375,108,TCYAP40701, Girls Hosiery
+376,115,TCYAP40801, Girls Uniforms
+377,115,TCYAP40802, Girls Costumes
+380,156,TCYEN30301, Bicycles
+381,156,TCYEN30302, Camping Equipment
+382,156,TCYEN30303, Winter And Water Sport Equipment
+383,159,TCYEN30402, Playground Equipment
+384,159,TCYEN30401, Toys / Games / Hobbies / Tricycles
+385,158,TCYEN30501, Film
+386,158,TCYEN30503, Film Processing
+387,158,TCYEN30502, Photographic Equipment
+388,157,TCYEN30601, Pet Purchases And Supplies
+389,157,TCYEN30602, Pet Services
+390,157,TCYEN30603, Veterinarian Services
+391,185,TCYFB10301, Beef
+392,185,TCYFB10304, Lamb And Other Meats
+393,185,TCYFB10303, Lunchmeat And Frankfurters
+394,185,TCYFB10302, Pork
+395,185,TCYFB10305, Poultry
+396,178,TCYFB10603, Butter
+397,178,TCYFB10604, Cheese
+398,178,TCYFB10602, Cream
+399,178,TCYFB10601, Fresh Milk
+400,178,TCYFB10605, Ice Cream And Related Products
+401,178,TCYFB10606, Other Dairy Products
+402,182,TCYFB10701, Apples
+403,182,TCYFB10702, Bananas
+404,182,TCYFB10705, Citrus Fruits Excl Oranges
+405,182,TCYFB10703, Oranges
+406,182,TCYFB10704, Other Fresh Fruits
+407,183,TCYFB10802, Lettuce
+408,183,TCYFB10804, Other Fresh Vegetables
+409,183,TCYFB10801, Potatoes
+410,183,TCYFB10803, Tomatoes
+411,190,TCYFB10903, Canned And Dried Fruits
+412,190,TCYFB10905, Canned Beans And Corn
+413,190,TCYFB10902, Frozen Fruits
+414,190,TCYFB10901, Frozen Orange Juice
+415,190,TCYFB10904, Frozen Vegetables
+416,190,TCYFB10906, Other Processed Vegetables
+417,194,TCYFB11001, Candy And Chewing Gum
+418,194,TCYFB11003, Other Sweets
+419,194,TCYFB11002, Sugar And Sweeteners
+420,180,TCYFB11102, Fats And Oils
+421,180,TCYFB11101, Margarine
+422,180,TCYFB11104, Peanut Butter
+423,180,TCYFB11103, Salad Dressings
+424,187,TCYFB11203, Coffee
+425,187,TCYFB11201, Cola Drinks
+426,187,TCYFB11204, Non Carbonated Fruit Flavor Beverages
+427,187,TCYFB11202, Other Carbonated Drinks
+428,187,TCYFB11206, Other Non Carbonated Beverages
+429,187,TCYFB11205, Tea
+430,192,TCYFB11502, Nuts
+431,192,TCYFB11501, Potato Chips And Other Snacks
+432,191,TCYFB11602, Olives Pickles And Relishes
+433,191,TCYFB11604, Other Condiments
+434,191,TCYFB11601, Salt And Other Seasonings / Spices
+435,191,TCYFB11603, Sauces And Gravies
+436,171,TCYFB30101, Beer And Ale (Alcoholic)
+437,171,TCYFB30102, Beer And Ale (Non-Alcoholic)
+438,173,TCYFB30202, Other Liquor At Home
+439,173,TCYFB30201, Whiskey At Home
+440,206,TCYGI90302, Gifts Of Cosmetics And Perfumes
+441,206,TCYGI90303, Gifts Of Personal Care Products
+442,206,TCYGI90301, Gifts Of Personal Care Services
+443,238,TCYHC20503, Convalescent/Nursing Home Care
+444,238,TCYHC20501, Lab Tests And X-Rays
+445,238,TCYHC20504, Other Medical Services Including Rentals
+446,238,TCYHC20502, Services By Non-Physician Professionals
+447,318,TCYHH30504, Hard Surface Flooring
+448,318,TCYHH30507, Landscaping Materials
+449,318,TCYHH30505, Other Repairs And Maintenance
+450,318,TCYHH30501, Paint And Wallpaper
+451,318,TCYHH30502, Plumbing And Heating
+452,318,TCYHH30503, Roofing And Siding
+453,318,TCYHH30506, Uncoded Capital Improvements
+454,343,TCYTR60216, Accessories
+455,343,TCYTR60212, Air Conditioning
+456,343,TCYTR60217, Auto Repair Service Policy
+457,343,TCYTR60203, Body Work And Painting
+458,343,TCYTR60205, Brakes (Incl. Adjustment)
+459,343,TCYTR60214, Electrical System
+460,343,TCYTR60207, Engine Cooling System
+461,343,TCYTR60213, Exhaust System
+462,343,TCYTR60210, Front End Alignment And Balancing
+463,343,TCYTR60215, Motor Repair / Replacement
+464,343,TCYTR60208, Motor Tune Up
+465,343,TCYTR60209, Oil Change And Lube
+466,343,TCYTR60202, Parts Equipment And Accessories
+467,343,TCYTR60211, Shock Absorber
+468,343,TCYTR60206, Steering Or Front End
+469,343,TCYTR60201, Tires
+470,343,TCYTR60204, Transmission / Clutch / Drive Shaft
+471,343,TCYTR60218, Vehicle Audio Equipment
+472,2,XCYAP, Apparel
+473,2,XCYCC, Contributions
+474,2,XCYED, Education
+475,2,XCYEN, Entertainment
+476,2,XCYFB, Food And Beverages
+477,2,XCYGI, Gifts
+478,2,XCYHC, Health Care
+479,2,XCYHF, Household Furnishings And Equipment
+480,2,XCYHO, Household Operations
+481,2,XCYMI, Miscellaneous Expenses
+482,2,XCYPC, Personal Care
+483,2,XCYPI, Personal Insurance
+484,2,XCYRD, Reading
+485,2,XCYHH, Shelter
+486,2,XCYTB, Tobacco
+487,2,XCYTR, Transportation
+488,2,XCYUT, Utilities
+489,472,XCYAP7, Apparel Services And Accessories
+490,472,XCYAP2, Boys Apparel
+491,472,XCYAP6, Footwear
+492,472,XCYAP4, Girls Apparel
+493,472,XCYAP5, Infants Apparel
+494,472,XCYAP1, Men's Apparel
+495,472,XCYAP3, Women's Apparel
+496,474,XCYED1, Books And Supplies
+497,474,XCYED2, Tuition
+498,475,XCYEN1, Fees And Admissions
+499,475,XCYEN3, Recreational Equipment And Supplies
+500,475,XCYEN2, Video And Audio Equipment
+501,476,XCYFB3, Alcoholic Beverages
+502,476,XCYFB1, Food At Home
+503,476,XCYFB2, Food Away From Home
+504,477,XCYGI9, Gifts Elsewhere Unspecified
+505,477,XCYGI1, Gifts Of Apparel
+506,477,XCYGI2, Gifts Of Apparel Accessories
+507,477,XCYGI3, Gifts Of Education (Tuition And Books)
+508,477,XCYGI5, Gifts Of Food And Beverages
+509,477,XCYGI6, Gifts Of Household Furnishings And Equipment
+510,477,XCYGI7, Gifts Of Household Operations
+511,477,XCYGI4, Gifts Of Recreation
+512,477,XCYGI8, Gifts Of Transportation
+513,478,XCYHC1, Health Care Insurance
+514,478,XCYHC2, Health Care Services
+515,478,XCYHC3, Health Care Supplies And Equipment
+516,479,XCYHF3, Floor Coverings
+517,479,XCYHF2, Furniture
+518,479,XCYHF5, House wares And Small Appliances
+519,479,XCYHF1, Household Textiles
+520,479,XCYHF4, Major Appliances
+521,480,XCYHO3, Alimony and Child Support
+522,480,XCYHO1, Babysitting And Elderly Care
+523,480,XCYHO2, Household Services
+524,480,XCYHO4, Household Supplies
+525,481,XCYMI3, Finance Charges Excluding Mortgage And Vehicle
+526,481,XCYMI2, Funeral And Cemetery
+527,481,XCYMI1, Legal And Accounting
+528,481,XCYMI4, Other Miscellaneous Expenses
+529,482,XCYPC2, Electric Personal Care Appliances
+530,482,XCYPC4, Personal Care Products
+531,482,XCYPC3, Personal Care Services
+532,482,XCYPC1, Wigs And Hairpieces
+533,484,XCYRD3, Books
+534,484,XCYRD2, Magazines
+535,484,XCYRD1, Newspapers
+536,485,XCYHH3, Miscellaneous Owned Dwelling Costs
+537,485,XCYHH1, Mortgage Interest
+538,485,XCYHH5, Other Lodging
+539,485,XCYHH2, Property Taxes
+540,485,XCYHH4, Rental Costs
+541,486,XCYTB1, Cigarettes
+542,486,XCYTB2, Other Tobacco Products
+543,487,XCYTR5, Gasoline And Oil
+544,487,XCYTR3, Motorcycles (New And Used)
+545,487,XCYTR1, New Vehicle Purchase
+546,487,XCYTR9, Other Transportation Costs
+547,487,XCYTR8, Public Transportation
+548,487,XCYTR2, Used Vehicle Purchase
+549,487,XCYTR4, Vehicle Finance Charges
+550,487,XCYTR7, Vehicle Insurance
+551,487,XCYTR6, Vehicle Repair And Maintenance
+552,488,XCYUT2, Electricity
+553,488,XCYUT3, Fuel Oil And Other Fuels
+554,488,XCYUT1, Natural Gas
+555,488,XCYUT5, Other Utilities
+556,488,XCYUT4, Telephone Service
+557,489,XCYAP707, Coin-Operated Laundry
+558,489,XCYAP706, Dry Cleaning
+559,489,XCYAP704, Jewelry
+560,489,XCYAP701, Material For Making Clothes
+561,489,XCYAP705, Repair And Alterations
+562,489,XCYAP702, Sewing Notions And Patterns
+564,490,XCYAP201, Boys Coats And Jackets
+565,490,XCYAP209, Boys Costumes And Uniforms
+566,490,XCYAP205, Boys Hosiery And Accessories
+567,490,XCYAP207, Boys Pants
+568,490,XCYAP203, Boys Shirts
+569,490,XCYAP208, Boys Shorts And Sportswear
+570,490,XCYAP206, Boys Suits Sportscoats And Vests
+571,490,XCYAP202, Boys Sweaters
+572,490,XCYAP204, Boys Underwear And Nightwear
+573,491,XCYAP602, Boys Footwear
+574,491,XCYAP604, Girls Footwear
+575,491,XCYAP601, Men's Footwear
+576,491,XCYAP603, Women's Footwear
+577,492,XCYAP407, Girls Accessories
+578,492,XCYAP401, Girls Coats And Jackets
+579,492,XCYAP402, Girls Dresses Suits
+580,492,XCYAP403, Girls Shirts/Blouses/Sweaters
+581,492,XCYAP405, Girls Shorts And Sportswear
+582,492,XCYAP404, Girls Skirts And Pants
+583,492,XCYAP406, Girls Underwear And Sleepwear
+584,492,XCYAP408, Girls Uniforms And Costumes
+585,493,XCYAP505, Infants Accessories
+586,493,XCYAP501, Infants Coats And Jackets
+587,493,XCYAP502, Infants Dresses And Outerwear
+588,493,XCYAP504, Infants Nightwear/Loungewear
+589,493,XCYAP503, Infants Underwear
+590,494,XCYAP104, Men's Accessories
+591,494,XCYAP106, Men's Active Sportswear
+592,494,XCYAP102, Men's Coats And Jackets
+593,494,XCYAP108, Men's Pants And Shorts
+594,494,XCYAP107, Men's Shirts
+595,494,XCYAP101, Men's Suits And Sportcoats
+596,494,XCYAP105, Men's Sweaters And Vests
+597,494,XCYAP103, Men's Underwear And Socks
+598,494,XCYAP109, Men's Uniforms And Costumes
+599,495,XCYAP310, Women's Accessories
+600,495,XCYAP301, Women's Coats And Jackets
+601,495,XCYAP312, Women's Costumes
+602,495,XCYAP302, Women's Dresses/Sportcoats
+603,495,XCYAP306, Women's Pants
+604,495,XCYAP304, Women's Shirts Tops and blouses
+605,495,XCYAP307, Women's Shorts And Sportswear
+606,495,XCYAP305, Women's Skirts
+607,495,XCYAP308, Women's Sleepwear/Undergarments
+608,495,XCYAP309, Women's Suits
+609,495,XCYAP311, Women's Uniforms
+610,495,XCYAP303, Women's Vests And Sweaters
+611,496,XCYED101, College Books And Supplies
+612,496,XCYED102, Elementary/Hs Books And Supplies
+613,496,XCYED103, Other School Expenses Incl. Rental
+614,497,XCYED201, College Tuition
+615,497,XCYED203, Day Care & Nursery/Preschool Costs
+616,497,XCYED202, Elementary/Hs Tuition
+617,498,XCYEN102, Participant Sports Fees
+618,498,XCYEN103, Performing Arts And Movies
+619,498,XCYEN106, Recreation Expenses Away From Home
+620,498,XCYEN105, Recreational Lessons
+621,498,XCYEN101, Social And Recreational Club Membership
+622,498,XCYEN104, Sporting Events
+623,499,XCYEN301, Boats And Campers
+624,499,XCYEN302, Exercise Equipment
+625,499,XCYEN303, Other Sporting Equipment
+626,499,XCYEN306, Pet Supplies And Services
+627,499,XCYEN305, Photographic Equipment And Supplies
+628,499,XCYEN304, Toys And Playground Equipment
+629,500,XCYEN205, Audio Equipment
+630,500,XCYEN201, Cable Television
+631,500,XCYEN208, Musical Instruments
+632,500,XCYEN206, Records / Tapes / CD Purchases
+633,500,XCYEN207, Rental And Repair Of Equipment
+634,500,XCYEN210, Satellite Dishes
+635,500,XCYEN202, Televisions
+636,500,XCYEN203, VCRs And Related Equipment
+637,500,XCYEN209, Video Cassette Rentals
+638,500,XCYEN204, Video Game Hardware And Software
+639,501,XCYFB307, Alcohol On Out-Of-Town Trips
+640,501,XCYFB301, Beer And Ale At Home
+641,501,XCYFB304, Beer And Ale Not At Home
+642,501,XCYFB302, Liquor At Home
+643,501,XCYFB306, Whiskey Away From Home
+644,501,XCYFB303, Wine At Home
+645,501,XCYFB305, Wine Away From Home
+646,502,XCYFB119, Baby Foods
+647,502,XCYFB106, Dairy
+648,502,XCYFB105, Eggs
+649,502,XCYFB111, Fats And Oils
+650,502,XCYFB104, Fish And Seafood
+651,502,XCYFB107, Fresh Fruits
+652,502,XCYFB121, Vitamin Supplements
+653,502,XCYFB117, Prepared Salads
+654,502,XCYFB109, Processed Fruits And Vegetables
+655,502,XCYFB116, Seasonings And Condiments
+656,502,XCYFB115, Snack Foods
+657,502,XCYFB113, Soup
+658,502,XCYFB110, Sugar And Other Sweets
+659,502,XCYFB108, Fresh Vegetables
+660,502,XCYFB114, Frozen Meals
+661,502,XCYFB103, Meat
+662,502,XCYFB120, Miscellaneous Prepared Foods
+663,502,XCYFB112, Non Alcoholic Beverages
+664,502,XCYFB118, Prepared Desserts
+665,503,XCYFB205, Board (Including At School)
+666,503,XCYFB204, Breakfast And Brunch
+667,503,XCYFB206, Catered Affairs
+668,503,XCYFB202, Dinner
+669,503,XCYFB207, Food on Out-Of-Town Trips
+670,503,XCYFB201, Lunch
+671,503,XCYFB203, Snacks And Non-Alcoholic Beverages
+672,504,XCYGI905, Gifts Of Cash
+673,504,XCYGI901, Gifts Of Health Related Items
+674,504,XCYGI902, Gifts Of Miscellaneous Items
+675,504,XCYGI903, Gifts Of Personal Care Items And Services
+676,504,XCYGI904, Gifts Of Reading Materials
+677,505,XCYGI107, Gifts Of Apparel Materials And Notions
+678,505,XCYGI102, Gifts Of Boys Apparel
+679,505,XCYGI106, Gifts Of Footwear
+680,505,XCYGI104, Gifts Of Girls Apparel
+681,505,XCYGI105, Gifts Of Infants Apparel
+682,505,XCYGI101, Gifts Of Men's Apparel
+683,505,XCYGI103, Gifts Of Women's Apparel
+684,506,XCYGI202, Gifts Of Jewelry
+685,506,XCYGI201, Gifts Of Watches
+686,509,XCYGI604, Gifts Of House wares
+687,509,XCYGI602, Gifts Of Household Furnishings
+688,509,XCYGI608, Gifts Of Household Repairs And Services
+689,509,XCYGI601, Gifts Of Household Textiles
+690,509,XCYGI603, Gifts Of Major Appliances
+691,509,XCYGI606, Gifts Of Other Household Items
+692,509,XCYGI607, Gifts Of Plants And Fresh Flowers
+693,509,XCYGI605, Gifts Of Small Appliances
+694,509,XCYGI609, Gifts Of Utilities
+695,511,XCYGI402, Gifts Of Audio And Visual Equipment
+696,511,XCYGI404, Gifts Of Computer Hardware And Software
+697,511,XCYGI401, Gifts Of Fee For Service Recreation
+698,511,XCYGI403, Gifts Of Other Recreational Equipment
+699,513,XCYHC102, Blue Cross / Blue Shield
+700,513,XCYHC101, Commercial Health Insurance
+701,513,XCYHC103, Health Maintenance Plans
+702,513,XCYHC104, Medicare Payments
+703,513,XCYHC105, Medicare Supplements
+704,514,XCYHC203, Dental Services
+705,514,XCYHC204, Eye care Services
+707,514,XCYHC205, Other Medical Services
+708,514,XCYHC202, Physician Services
+709,515,XCYHC302, Eyeglasses And Contact Lenses
+710,515,XCYHC303, Medical Equipment
+711,515,XCYHC301, Prescription Drugs
+712,517,XCYHF207, Infants Furniture
+713,517,XCYHF206, Kitchen / Dining Room Furniture
+714,517,XCYHF204, Living Room Chairs
+715,517,XCYHF205, Living Room Tables
+716,517,XCYHF201, Mattress And Springs
+717,517,XCYHF202, Other Bedroom Furniture
+718,517,XCYHF208, Outdoor Furniture
+719,517,XCYHF203, Sofas
+720,518,XCYHF504, Clocks
+721,518,XCYHF511, Computer Hardware
+722,518,XCYHF516, Computer Information Services
+723,518,XCYHF512, Computer Software
+724,518,XCYHF502, Flatware And Serving Pieces
+725,518,XCYHF509, Hand Tools
+726,518,XCYHF503, Small Electric Kitchen Appliances
+727,518,XCYHF513, Smoke Alarms
+728,518,XCYHF506, Telephones And Accessories
+729,518,XCYHF514, Indoor Plants And Fresh Flowers
+730,518,XCYHF505, Lamps And Fixtures
+731,518,XCYHF507, Lawn And Garden Equipment
+732,518,XCYHF510, Luggage
+733,518,XCYHF515, Other Miscellaneous House wares
+734,518,XCYHF508, Power Tools
+735,519,XCYHF101, Bathroom Linens
+736,519,XCYHF102, Bedroom Linens
+737,519,XCYHF104, Curtains And Drapes
+738,519,XCYHF103, Kitchen And Dining Room Linens
+739,519,XCYHF107, Other Linens
+740,519,XCYHF106, Sewing Materials
+741,519,XCYHF105, Slipcovers And Decorative Pillows
+742,520,XCYHF406,Microwave Ovens
+743,520,XCYHF404, Clothes Dryer
+744,520,XCYHF403, Clothes Washer
+745,520,XCYHF401, Dishwashers And Disposal
+746,520,XCYHF409, Electric Floor Cleaning Equipment
+747,520,XCYHF407, Portable Dishwasher
+748,520,XCYHF402, Refrigerator / Freezer
+749,520,XCYHF410, Sewing Machines
+750,520,XCYHF405, Stoves And Ovens
+751,520,XCYHF408, Window Air Conditioning
+752,521,XCYHO301, Alimony
+753,521,XCYHO302, Child Support
+754,522,XCYHO101, Babysitting
+755,522,XCYHO102, Care Of Invalids And Elderly
+756,522,XCYHO103, Day Care And Preschool Expenses
+757,523,XCYHO201, Domestic Service
+758,523,XCYHO202, Gardening And Lawn Care
+759,523,XCYHO205, Laundry And Dry Cleaning
+760,523,XCYHO207, Miscellaneous Home Services
+761,523,XCYHO204, Moving And Storage
+762,523,XCYHO206, Repair And Rental
+763,523,XCYHO203, Water Softening Service
+764,524,XCYHO402, Household Paper Goods
+765,524,XCYHO401, Laundry And Cleaning Supplies
+766,524,XCYHO403, Postage And Stationary
+767,530,XCYPC403, Cosmetics And Perfume
+768,530,XCYPC404, Deodorants/Other Personal Care/Other Personal Care
+769,530,XCYPC401, Oral Hygiene Products
+770,530,XCYPC402, Shaving Needs
+771,531,XCYPC301, Personal Care Services For Females
+772,531,XCYPC302, Personal Care Services For Males
+773,532,XCYPC101, Hair Care Products
+774,532,XCYPC102, Non-Electric Care Articles
+775,532,XCYPC103, Wigs & Hairpieces
+776,536,XCYHH302, Fire Insurance
+777,536,XCYHH301, Ground Rent
+778,536,XCYHH303, Homeowners Insurance
+779,536,XCYHH304, Parking
+780,536,XCYHH306, Property Management Fees
+781,536,XCYHH305, Repairs and Maintenance
+782,537,XCYHH101," Mortgage interest, Primary Dwelling"
+783,537,XCYHH102," Mortgage Interest, Vacation Dwelling"
+784,538,XCYHH503, Costs For Vacation Property
+785,538,XCYHH502, Housing For Someone At School
+786,538,XCYHH501, Lodging Away From Home
+787,539,XCYHH201," Property Taxes, Primary Dwelling"
+788,539,XCYHH202," Property Taxes, Vacation Dwelling"
+789,540,XCYHH402, Maintenance And Repair By Tenant
+790,540,XCYHH401, Rent
+791,540,XCYHH403, Tenants Insurance
+792,543,XCYTR502, Diesel Fuel
+793,543,XCYTR501, Gasoline
+794,543,XCYTR503, Motor Oil
+795,545,XCYTR101, New Car Purchased
+796,545,XCYTR102, New Truck Purchased
+797,546,XCYTR905, Automobile Service Clubs
+798,546,XCYTR901, Leasing Costs
+799,546,XCYTR904, Parking / Tolls / Towing
+800,546,XCYTR902, Registration And License
+801,546,XCYTR903, Rental
+802,547,XCYTR801, Airline Fares
+803,547,XCYTR802, Intercity Bus Fares
+804,547,XCYTR803, Mass Transit
+805,547,XCYTR805, Other Public Transportation
+806,547,XCYTR804, Taxi
+807,548,XCYTR201, Used Car Purchase
+808,548,XCYTR202, Used Truck Purchase
+809,549,XCYTR401, Automobile Finance Charges
+810,549,XCYTR402, Truck Finance Charges
+811,551,XCYTR601, Coolant And Other Fluids
+812,551,XCYTR602, Vehicle Repair
+813,555,XCYUT503, Septic Tank Cleaning
+814,555,XCYUT502, Trash And Garbage Collection
+815,555,XCYUT501, Water And Sewage
+816,556,XCYUT402, Cellular Phone Service
+817,556,XCYUT401, Telephone Service Excl Cell Phones
+820,565,XCYAP20901, Boys Costumes
+821,565,XCYAP20902, Boys Uniforms
+822,566,XCYAP20502, Boys Accessories
+823,566,XCYAP20501, Boys Hosiery
+824,569,XCYAP20801, Boys Shorts
+825,569,XCYAP20802, Boys Sportswear
+826,572,XCYAP20402, Boys Nightwear
+827,572,XCYAP20401, Boys Underwear
+828,577,XCYAP40701, Girls Hosiery
+829,581,XCYAP40501, Girls Shorts
+830,581,XCYAP40502, Girls Sportswear
+831,584,XCYAP40802, Girls Costumes
+832,584,XCYAP40801, Girls Uniforms
+833,593,XCYAP10801, Men’s Pants
+834,593,XCYAP10802, Men’s Shorts
+835,595,XCYAP10102, Men’ s Sportcoats
+836,595,XCYAP10101, Men’ s Suits
+837,597,XCYAP10302, Men’s Hosiery
+838,597,XCYAP10303, Men’s Nightwear and Loungewear
+839,597,XCYAP10301, Men’s Underwear
+840,598,XCYAP10901, Men’s Costumes
+841,598,XCYAP10902, Men’s Uniforms
+842,602,XCYAP30201, Women’s Dresses
+843,602,XCYAP30202, Women’s Sportcoats And Jackets
+844,605,XCYAP30701, Women’s Shorts
+845,605,XCYAP30702, Women’s Sportswear
+846,607,XCYAP30803, Women’s Hosiery
+847,607,XCYAP30801, Women’s Sleepwear
+848,607,XCYAP30802, Women’s Undergarments
+849,625,XCYEN30301, Bicycles
+850,625,XCYEN30302, Camping Equipment
+851,625,XCYEN30303, Winter And Water Sport Equipment
+852,626,XCYEN30601, Pet Purchases And Supplies
+853,626,XCYEN30602, Pet Services
+854,626,XCYEN30603, Veterinarian Services
+855,627,XCYEN30501, Film
+856,627,XCYEN30503, Film Processing
+857,627,XCYEN30502, Photographic Equipment
+858,628,XCYEN30402, Playground Equipment
+859,628,XCYEN30401, Toys / Games / Hobbies / Tricycles
+860,640,XCYFB30101, Beer And Ale (Alcoholic)
+861,640,XCYFB30102, Beer And Ale (Non-Alcoholic)
+862,642,XCYFB30202, Other Liquor At Home
+863,642,XCYFB30201, Whiskey At Home
+864,647,XCYFB10603, Butter
+865,647,XCYFB10604, Cheese
+866,647,XCYFB10602, Cream
+867,647,XCYFB10601, Fresh Milk
+868,647,XCYFB10605, Ice Cream And Related Products
+869,647,XCYFB10606, Other Dairy Products
+870,649,XCYFB11102, Fats And Oils
+871,649,XCYFB11101, Margarine
+872,649,XCYFB11104, Peanut Butter
+873,649,XCYFB11103, Salad Dressings
+874,651,XCYFB10701, Apples
+875,651,XCYFB10702, Bananas
+876,651,XCYFB10705, Citrus Fruits Excl Oranges
+877,651,XCYFB10703, Oranges
+878,651,XCYFB10704, Other Fresh Fruits
+879,654,XCYFB10903, Canned And Dried Fruits
+880,654,XCYFB10905, Canned Beans And Corn
+881,654,XCYFB10902, Frozen Fruits
+882,654,XCYFB10901, Frozen Orange Juice
+883,654,XCYFB10904, Frozen Vegetables
+884,654,XCYFB10906, Other Processed Vegetables
+885,655,XCYFB11602, Olives Pickles And Relishes
+886,655,XCYFB11604, Other Condiments
+887,655,XCYFB11601, Salt And Other Seasonings / Spices
+888,655,XCYFB11603, Sauces And Gravies
+889,656,XCYFB11502, Nuts
+890,656,XCYFB11501, Potato Chips And Other Snacks
+891,658,XCYFB11001, Candy And Chewing Gum
+892,658,XCYFB11003, Other Sweets
+893,658,XCYFB11002, Sugar And Sweeteners
+894,659,XCYFB10802, Lettuce
+895,659,XCYFB10804, Other Fresh Vegetables
+896,659,XCYFB10801, Potatoes
+897,659,XCYFB10803, Tomatoes
+898,661,XCYFB10301, Beef
+899,661,XCYFB10304, Lamb And Other Meats
+900,661,XCYFB10303, Lunchmeat And Frankfurters
+901,661,XCYFB10302, Pork
+902,661,XCYFB10305, Poultry
+903,663,XCYFB11203, Coffee
+904,663,XCYFB11201, Cola Drinks
+905,663,XCYFB11204, Non Carbonated Fruit Flavor Beverages
+906,663,XCYFB11202, Other Carbonated Drinks
+907,663,XCYFB11206, Other Non Carbonated Beverages
+908,663,XCYFB11205, Tea
+909,675,XCYGI90302, Gifts Of Cosmetics And Perfumes
+910,675,XCYGI90303, Gifts Of Personal Care Products
+911,675,XCYGI90301, Gifts Of Personal Care Services
+912,707,XCYHC20503, Convalescent/Nursing Home Care
+913,707,XCYHC20501, Lab Tests And X-Rays
+914,707,XCYHC20504, Other Medical Services Including Rentals
+915,707,XCYHC20502, Services By Non-Physician Professionals
+916,781,XCYHH30504, Hard Surface Flooring
+917,781,XCYHH30507, Landscaping Materials
+918,781,XCYHH30505, Other Repairs And Maintenance
+919,781,XCYHH30501, Paint And Wallpaper
+920,781,XCYHH30502, Plumbing And Heating
+921,781,XCYHH30503, Roofing And Siding
+922,781,XCYHH30506, Uncoded Capital Improvements
+923,812,XCYTR60216, Accessories
+924,812,XCYTR60212, Air Conditioning
+925,812,XCYTR60217, Auto Repair Service Policy
+926,812,XCYTR60203, Body Work And Painting
+927,812,XCYTR60205, Brakes (Incl. Adjustment)
+928,812,XCYTR60214, Electrical System
+929,812,XCYTR60202, Parts Equipment And Accessories
+930,812,XCYTR60211, Shock Absorber
+931,812,XCYTR60206, Steering Or Front End
+932,812,XCYTR60201, Tires
+933,812,XCYTR60204, Transmission / Clutch / Drive Shaft
+934,812,XCYTR60218, Vehicle Audio Equipment
+935,812,XCYTR60207, Engine Cooling System
+936,812,XCYTR60213, Exhaust System
+937,812,XCYTR60210, Front End Alignment And Balancing
+938,812,XCYTR60215, Motor Repair / Replacement
+939,812,XCYTR60208, Motor Tune Up
+940,812,XCYTR60209, Oil Change And Lube
