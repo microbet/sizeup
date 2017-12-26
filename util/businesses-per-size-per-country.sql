@@ -73,4 +73,3 @@ WHERE CountryCode in (
   '801' -- WALES
 )
 group by Country
-
