@@ -1,0 +1,4 @@
+# Source data versions that comprise the 20171231 version of RawData
+RawData.20171231:
+  infogroup/201710
+  tierraplan/2017B
