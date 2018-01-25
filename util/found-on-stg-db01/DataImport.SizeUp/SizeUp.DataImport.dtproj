@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProductVersion>10.50.4270.0</ProductVersion>
+  <SchemaVersion>9.0.1.0</SchemaVersion>
+  <State>$base64$PFNvdXJjZUNvbnRyb2xJbmZvIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOmRkbDI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDAzL2VuZ2luZS8yIiB4bWxuczpkZGwyXzI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDAzL2VuZ2luZS8yLzIiIHhtbG5zOmRkbDEwMF8xMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDA4L2VuZ2luZS8xMDAvMTAwIiB4bWxuczpkZGwyMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDEwL2VuZ2luZS8yMDAiIHhtbG5zOmRkbDIwMF8yMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDEwL2VuZ2luZS8yMDAvMjAwIiB4bWxuczpkd2Q9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vRGF0YVdhcmVob3VzZS9EZXNpZ25lci8xLjAiPg0KICA8RW5hYmxlZD5mYWxzZTwvRW5hYmxlZD4NCiAgPFByb2plY3ROYW1lPjwvUHJvamVjdE5hbWU+DQogIDxBdXhQYXRoPjwvQXV4UGF0aD4NCiAgPExvY2FsUGF0aD48L0xvY2FsUGF0aD4NCiAgPFByb3ZpZGVyPjwvUHJvdmlkZXI+DQo8L1NvdXJjZUNvbnRyb2xJbmZvPg==</State>
+  <Database>
+    <Name>SizeUp DataImport.database</Name>
+    <FullPath>SizeUp DataImport.database</FullPath>
+  </Database>
+  <Cubes />
+  <Dimensions />
+  <DataSources>
+    <ProjectItem>
+      <Name>localhost.RawData.ds</Name>
+      <FullPath>localhost.RawData.ds</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>localhost.NewData.ds</Name>
+      <FullPath>localhost.NewData.ds</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>SizeUpData.ds</Name>
+      <FullPath>SizeUpData.ds</FullPath>
+    </ProjectItem>
+  </DataSources>
+  <DataSourceViews />
+  <MiningModels />
+  <Roles />
+  <Miscellaneous />
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <OutputPath>bin</OutputPath>
+        <ConnectionMappings>
+          <ConfigurationSetting>
+            <Id>localhost.RawData</Id>
+            <Name>localhost.RawData</Name>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI10.1;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=RawData</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>localhost.NewData</Id>
+            <Name>localhost.NewData</Name>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI10.1;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=NewData</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>SizeUpData</Id>
+            <Name>SizeUpData</Name>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI10.1;Data Source=gisp-stg-db01.gisplanning.net;Integrated Security=SSPI;Initial Catalog=SizeUpData</Value>
+          </ConfigurationSetting>
+        </ConnectionMappings>
+        <ConnectionProviderMappings />
+        <ConnectionSecurityMappings>
+          <ConfigurationSetting>
+            <Id>localhost.RawData</Id>
+            <Name>localhost.RawData</Name>
+            <Value xsi:type="xsd:int">0</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>localhost.NewData</Id>
+            <Name>localhost.NewData</Name>
+            <Value xsi:type="xsd:int">0</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>SizeUpData</Id>
+            <Name>SizeUpData</Name>
+            <Value xsi:type="xsd:int">0</Value>
+          </ConfigurationSetting>
+        </ConnectionSecurityMappings>
+        <DatabaseStorageLocations />
+      </Options>
+    </Configuration>
+  </Configurations>
+  <DTSPackages>
+    <DtsPackage FormatVersion="3">
+      <Name>Business.dtsx</Name>
+      <FullPath>Business.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessCity.dtsx</Name>
+      <FullPath>BusinessCity.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessData.dtsx</Name>
+      <FullPath>BusinessData.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessSitemap.dtsx</Name>
+      <FullPath>BusinessSitemap.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>CityCountyMapping.dtsx</Name>
+      <FullPath>CityCountyMapping.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ConsumerExpendituresAll.dtsx</Name>
+      <FullPath>ConsumerExpendituresAll.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ConsumerExpendituresByCity.dtsx</Name>
+      <FullPath>ConsumerExpendituresByCity.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ConsumerExpendituresByCounty.dtsx</Name>
+      <FullPath>ConsumerExpendituresByCounty.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ConsumerExpendituresByState.dtsx</Name>
+      <FullPath>ConsumerExpendituresByState.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ConsumerExpendituresByZip.dtsx</Name>
+      <FullPath>ConsumerExpendituresByZip.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>DemographicsAll.dtsx</Name>
+      <FullPath>DemographicsAll.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>DemographicsByCity.dtsx</Name>
+      <FullPath>DemographicsByCity.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>DemographicsByCounty.dtsx</Name>
+      <FullPath>DemographicsByCounty.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>DemographicsByMetro.dtsx</Name>
+      <FullPath>DemographicsByMetro.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>DemographicsByState.dtsx</Name>
+      <FullPath>DemographicsByState.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>DemographicsByZip.dtsx</Name>
+      <FullPath>DemographicsByZip.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>Industry.dtsx</Name>
+      <FullPath>Industry.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>ZipCodePlaceMapping.dtsx</Name>
+      <FullPath>ZipCodePlaceMapping.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>GeographicLocationRank.dtsx</Name>
+      <FullPath>GeographicLocationRank.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryData.dtsx</Name>
+      <FullPath>IndustryData.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryDataBand.dtsx</Name>
+      <FullPath>IndustryDataBand.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>BusinessImport.dtsx</Name>
+      <FullPath>BusinessImport.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>IndustryUpdate.dtsx</Name>
+      <FullPath>IndustryUpdate.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+    <DtsPackage FormatVersion="3">
+      <Name>FindCapZoneIdForUrbanCells.dtsx</Name>
+      <FullPath>FindCapZoneIdForUrbanCells.dtsx</FullPath>
+      <References />
+    </DtsPackage>
+  </DTSPackages>
+</Project>

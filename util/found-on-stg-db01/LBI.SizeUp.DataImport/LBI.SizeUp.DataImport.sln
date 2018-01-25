@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "Lbi.SizeUp.DataImport.Staging", "Lbi.SizeUp.DataImport.Staging\Lbi.SizeUp.DataImport.Staging.dtproj", "{C904B41F-9A83-4EC8-AD45-F7196D4DE43F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C904B41F-9A83-4EC8-AD45-F7196D4DE43F}.Development|Default.ActiveCfg = Development
+		{C904B41F-9A83-4EC8-AD45-F7196D4DE43F}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
