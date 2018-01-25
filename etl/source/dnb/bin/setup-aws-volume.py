@@ -2,6 +2,10 @@
 # Don't forget to activate a virtualenv first. Primary should work:
 # . /etc/sizeup/virtualenv/primary/bin/activate
 
+import sys, logging
+if not hasattr(sys, "real_prefix"):
+  logging.warn("Virtualenv was NOT detected. If this script fails, activate one. e.g.:\n. /etc/sizeup/virtualenv/primary/bin/activate")
+  
 import boto3
 ec2 = boto3.resource("ec2")
 client = boto3.client("ec2")

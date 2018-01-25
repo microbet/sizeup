@@ -16,7 +16,8 @@ fi
 cmd_dir=`dirname $0`
 
 #check for mount before running these four lines:
-python $cmd_dir/setup-aws-volume.py
+instance_id=`ec2metadata --instance-id`
+python $cmd_dir/setup-aws-volume.py --instance-id=$instance_id
 sudo mkfs -t ext4 /dev/xvdf
 sudo mount /dev/xvdf /data/dnb/
 sudo chmod 777 /data/dnb/
