@@ -1,0 +1,235 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #video img{ cursor:pointer;}    
+    #video:hover {opacity:0.8; alpha(opacity=80); }
+    #close-button { display:none;}
+
+    .responsive-video {
+position: relative;
+padding-bottom: 56.25%;
+padding-top: 60px; 
+}
+
+
+.responsive-video iframe,
+.responsive-video object,
+.responsive-video embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+</style>
+ 
+<div id="login-form" class="" style="padding:0;">
+    <div class="text-center" style="padding:2.75em 2em 0 2em;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 id="form-header">Give businesses the data they need to succeed</h1>
+        </div>
+        <p id="header-info"> SizeUp for Local Business Intelligence shows businesses how they can grow within your area and stay competitive.</p>
+        <div id="video" style="margin-top:4em;">
+            <img style="margin:0 auto;" class="img-responsive" src="@Url.Content("~/Content/images/computerDemo.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Laptop"/>
+        </div>
+    </div>
+    <div id="video-container">  
+        <img id="close-button" style="position: absolute;
+right: 1em; top:2.5em;" class="img-responsive" src="@Url.Content("~/Content/images/button-close.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Close"/>
+         <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+        <div id="player"></div>      
+    </div>
+</div>
+
+<div id="decisions" class="col-lg-12">
+    <div id="section-header" class="row text-center">
+        <h2>SizeUp for Local Business Intelligence</h2>
+        <div class="col-md-8 col-md-offset-2">
+            <p class="text-center">
+                SizeUp for Local Business Intelligence (SizeUp LBI) shows businesses how they can grow within your area and stay competitive, powered by SizeUp's groundbreaking and award winning technology. All information is customized to your service area, and SizeUp LBI includes advanced demographics.
+            </p>
+        </div>
+    </div>
+    <div id="options" style="font-size:12px;">
+        <div class="row">
+            <div class="col-wrapper col-lg-6 clearfix">
+                <div class="col-lg-3 text-center">
+                    <img src="@Url.Content("~/Content/images/icon-benchmark.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Benchmark Performance"/>
+                </div>
+                <div class="copy text-left col-lg-8">
+                    <h3 class="text-blue">Benchmark Performance</h3>
+                    <p>
+                       See how you size up by comparing your performance to all other competitors in your industry. SizeUp LBI super-crunches millions of data points to answer this question so businesses know where they stand.
+                    </p>
+                </div>
+            </div>
+            <div class="col-wrapper col-lg-6 clearfix">
+                <div class="col-lg-3 text-center">
+                    <img src="@Url.Content("~/Content/images/icon-competition.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Assess Competitiveness"/>
+                </div>
+                <div class="copy text-left col-lg-8">
+                    <h3 class="text-blue">Assess Competitiveness</h3>
+                    <p>
+                        Map where your competitors, customers, and suppliers are located. Determine how you can best serve existing customers, and new customers, and pick suppliers.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-wrapper col-lg-6 clearfix">
+                <div class="col-lg-3 text-center">
+                    <img src="@Url.Content("~/Content/images/icon-advertise.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Find Best Places to Advertise"/>
+                </div>
+                <div class="copy text-left col-lg-8">
+                    <h3 class="text-blue">Find Best Places to Advertise</h3>
+                    <p>
+                        Determine the best areas to target your next advertising campaign.
+                    </p>
+                </div>
+            </div>
+            <div class="col-wrapper col-lg-6 clearfix">
+                <div class="col-lg-3 text-center">
+                    <img src="@Url.Content("~/Content/images/icon-demographic.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Demographic Analysis"/>
+                </div>
+                <div class="copy text-left col-lg-8">
+                    <h3 class="text-blue">Demographic Analysis</h3>
+                    <p>
+                        Interactively map demographic, labor force, and consumer expenditure data for your area. Tailor your analysis to the area around an address, or to a custom boundary.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="performance" class="col-lg-12 clearfix">
+    <div id="performance-header" class="col-lg-12">
+        <h2>Give businesses the data they need to succeed.</h2>
+        <p>
+           Small businesses are the backbone of the U.S. economy, and entrepreneurs work long hours to keep their businesses up and running, providing jobs and benefitting the local economy.
+        </p>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+        <div style="clear:both;">
+            <div style="float:left;position:relative;top:0.5em;">
+                <img src="@Url.Content("~/Content/images/icon-checkmark.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Check Mark"/>
+            </div>
+            <div class="col-lg-11 right-col" >
+                <h4>What can you do to help local businesses succeed?</h4>
+                <p>Market research from CEB shows that the number one challenge small businesses face is competition from big businesses, partly because large enterprises can afford the technologies and intelligence to make better decisions about sales, advertising and managing competition. SMBs lack the benchmark data and metrics that they need. Thanks to SizeUp Local Business Intelligence (LBI), your organization can empower local businesses with access to the critical information they need for smart decision-making.</p>
+            </div>
+        </div>
+        <div style="clear:both;">
+            <div style="float:left;position:relative;top:0.5em;">
+                <img src="@Url.Content("~/Content/images/icon-checkmark.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Check Mark"/>
+            </div>
+            <div class="col-lg-11 right-col">
+                <h4>Why SizeUP LBI?</h4>
+                <p>
+                    SizeUp LBI quickly and easily offers the data mining and processing intelligence that would otherwise take weeks of time, patience, and expertise. Embed this user-friendly, intuitive, and highly visual small business accelerator on your website, and invite local business owners and managers to quickly get information they need to make intelligent decisions based on high-quality data.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="competition-gray" class="gradient gray-bg col-lg-12 text-center clearfix">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="row">
+            <img  class="text-center" src="@Url.Content("~/Content/images/icon-retention.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Retention"/>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12">
+                <h4 class="text-left">Care about Business Retention?</h4>
+                <p class="text-left">
+                    Business counselors and economic development organizations work incredibly hard to serve the needs of the existing businesses in their communities. SizeUp LBI is a toolset that will help you scale your services to address every member of your business community. Keep your businesses happy by helping them succeed.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="row">
+            <img  class="text-center" src="@Url.Content("~/Content/images/icon-love.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="Love"/>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12">
+                <!--
+		<h4 class="text-left">A Client Perspective - See Demo</h4>
+                
+		<p class="text-left">
+                    See what the <a target="_blank" href="http://www.gilbertedi.com/gilbert-based-business">Town of Gilbert, AZ</a> had to say about their SizeUp LBI tool.
+                
+                </p>
+                <div class="responsive-video">
+                    <iframe allowfullscreen="" width="480" height="180" src="https://www.youtube.com/embed/MZAFHn4VBGg?feature=player_detailpage" frameborder="0"></iframe>
+
+                </div>
+		-->                
+            </div>
+        </div>
+    </div>
+</div>
+<div id="competition-blue" class="blue-footer section-end col-lg-12 text-center clearfix">
+    <span>Learn more about empowering local businesses</span>
+    <a href="/Content/SizeUpLBI-EmpowerLocalBusinesses.pdf" class="btn btn-green btn-primary btn-lg">Download Report</a>
+</div>
+
+<div id="contact" class="col-lg-12 clearfix">
+    <div id="performance-header" class="col-lg-12">
+        <h2>Contact SizeUp LBI</h2>
+        <p>
+           If you would like to know more about SizeUp LBI and how it can benefit your community, we are here to help you. 
+        </p>
+        <br />
+        <h4>Mark Hays, National Sales Executive</h4>
+        <a href="mailto:mhays@sizeup.com">mhays@SizeUp.com</a>
+
+        <h4>General Information</h4>
+        <a href="mailto:lbi@sizeup.com">LBI@SizeUp.com</a>
+    </div>
+</div>
+
+
+<script>
+    // 3. This function creates an <iframe> (and YouTube player)
+    //    after the API code downloads.
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: height,
+            //width: (parseInt(width) * .80).toString(),
+            width: width,
+            setPlaybackQuality: 'hd720',
+            suggestedQuality: 'hd720',
+            videoId: 'HBA8dfwqU8E',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    // 4. The API will call this function when the video player is ready.
+    function onPlayerReady(event) {
+        //event.target.playVideo();
+    }
+
+    // 5. The API calls this function when the player's state changes.
+    //    The function indicates that when playing a video (state=1),
+    //    the player should play for six seconds and then stop.
+    var done = false;
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+            //setTimeout(stopVideo, 6000);
+            done = true;
+        }
+
+        if (event.data == YT.PlayerState.BUFFERING) 
+            event.target.setPlaybackQuality('hd720');
+    }
+    function stopVideo() {
+        player.stopVideo();
+    }
+</script>

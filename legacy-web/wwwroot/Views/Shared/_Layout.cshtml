@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SizeUP LBI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/reset.css")?@lbi.sizeup.com.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="@Url.Content("~/content/images/favicon.ico")?@lbi.sizeup.com.CacheBuster.Buster" />
+    <link href="@Url.Content("~/Content/layout-responsive.css")?@lbi.sizeup.com.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/print.css")?@lbi.sizeup.com.CacheBuster.Buster" rel="stylesheet" type="text/css" media="print" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+
+
+    <link href="@Url.Content("~/Content/views/home-responsive.css")?@lbi.sizeup.com.CacheBuster.Buster" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/views/home-ui.js")?@lbi.sizeup.com.CacheBuster.Buster"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.mb.YTPlayer.js")?@lbi.sizeup.com.CacheBuster.Buster"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav id="home-navbar" class="navbar" role="navigation">
+                <a id="logo" class="pull-left col-xs-6 col-sm-4 col-md-3" href="/" style="padding-left:0;">
+                    <img class="img-responsive" src="@Url.Content("~/Content/images/SizeUpLBI-logo.png")?@lbi.sizeup.com.CacheBuster.Buster" alt="SizeUp Logo"/>
+                </a>
+                <a href="#" onclick="$('html, body').animate({scrollTop: $('#contact').offset().top }, 1000);" id="login-btn" class="col-xs-4 col-sm-4 col-md-1 col-lg-1 btn btn-green btn-primary btn-lg pull-right">Contact Us</a>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            checkWidth();
+        });
+    </script>
+</body>
+</html>
