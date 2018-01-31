@@ -3,8 +3,8 @@
 # ensure running in /data/buergel
 # parameterize data_version
 
-data_ver=$1
-if [ -z "$data_ver" ]; then
+data_version=$1
+if [ -z "$data_version" ]; then
   echo "Usage: $0 DATA_VERSION"
   echo "Buergel does not supply a version stamp. Use YYYY.MM"
   exit 1
