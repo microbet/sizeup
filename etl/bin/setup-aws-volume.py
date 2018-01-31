@@ -46,4 +46,4 @@ waiter = client.get_waiter("volume_in_use")
 waiter.wait(VolumeIds=[volume.id])
 # TODO I don't think this waits long enough. See hack in ../Makefile
 
-print "To clean up:\numount %s\nboto3.resource(\"ec2\").Instance(\"%s\").detach_volume(VolumeId=\"%s\")" % (args.device, args.instance_id, volume.id)
+print "To clean up:\numount %s\nboto3.resource(\"ec2\").Volume(\"%s\").detach_from_instance()\nboto3.resource(\"ec2\").Volume(\"%s\").delete()" % (args.device, volume.id, volume.id)
