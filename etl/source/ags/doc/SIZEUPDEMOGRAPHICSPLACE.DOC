@@ -1,0 +1,54 @@
+Database Documentation
+
+File:             C:\SOURCEDATA\AGS\SIZEUPDEMOGRAPHICSPLACE.CSV
+Type:             Comma Delimited
+Geographic Level: PL
+Coverage Level:   US
+Records:           29261 
+Fields:            44 
+
+#    FieldName  Description
+ 1   PLACE      Geographic Identifier
+ 2   NAME       Area Name
+ 3   POPCY      Population (2011A)                                              
+ 4   EDUCYBACH  Pop 25+ Bachelor's degree (2011A)                               
+ 5   EDUCYGRAD  Pop 25+ graduate or prof school degree (2011A)                  
+ 6   AGECYGT25  Population Age 25+ (2011A)                                      
+ 7   EDUCYHSCH  Pop 25+ HS graduate (2011A)                                     
+ 8   EDUCYSCOLL Pop 25+ college no diploma (2011A)                              
+ 9   EDUCYASSOC Pop 25+ Associate degree (2011A)                                
+ 10  RACCYWHITE Population white (2011A)                                        
+ 11  RACCYBLACK Population black (2011A)                                        
+ 12  RACCYAMIND Population Am In/AK Nat (2011A)                                 
+ 13  RACCYASIAN Population Asian (2011A)                                        
+ 14  RACCYHAWAI Population Hawaiian/PI (2011A)                                  
+ 15  RACCYOTHER Population other race (2011A)                                   
+ 16  RACCYMULT  Population multirace (2011A)                                    
+ 17  HISCYHISP  Population Hispanic (2011A)                                     
+ 18  HISCYNONH  Population Non-Hispanic (2011A)                                 
+ 19  INCCYMEDHH Median household income (2011A)                                 
+ 20  TCYTOTAL   Total Household Expenditure (Total Exp )                        
+ 21  XCYTOTAL   Total Household Expenditure (Ave Hhd Exp)                       
+ 22  ESTCYMUSMS Establishments: Museums and Zoos                                
+ 23  ESTCYRBAR  Establishments: Bars                                            
+ 24  ESTCYRRST  Establishments: Restaurants                                     
+ 25  BCCCYWHTCL White Collar Employees                                          
+ 26  BCCCYBLUCL Blue Collar Employees                                           
+ 27  BUSCYEST   Total Establishments                                            
+ 28  BUSCYEMP   Total Employees                                                 
+ 29  ESZCYA     Establishments: 1-4 Employees                                   
+ 30  ESZCYB     Establishments: 5-9 Employees                                   
+ 31  ESZCYC     Establishments: 10-19 Employees                                 
+ 32  AGECYMED   Median Age (2011A)                                              
+ 33  TVW00MED   Median Travel Time To Work                                      
+ 34  TVW00AVE   Average Commute Time                                            
+ 35  TAXCYAVE   Average property tax                                            
+ 36  TMPAVEANN  Average Annual Temperature                                      
+ 37  TMPMAXANN  Average Annual High Temperature                                 
+ 38  TMPMINANN  Average Annual Low Temperature                                  
+ 39  PREANNRAIN Annual Rainfall                                                 
+ 40  PREANNSNOW Annual Snowfall                                                 
+ 41  LBFCYLBF   Population In Labor Force (2011A)                               
+ 42  LBFCYPOP16 Population Age 16+ (2011A)                                      
+ 43  LBF00EMP   Employment Status: Employed                                     
+ 44  LBFCYEMPL  Pop 16+ civilian employed (2011A)                               
