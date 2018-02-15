@@ -2,7 +2,9 @@
 
 Use Linux platform.
 
-bin/get-infogroup.sh (work in progress; TODO convert to makefile and document)
+make infogroup-data-files data_version=${your-data-version}
+
+Clean up manually according to /data/infogroup.volume (read the file first and verify it's okay; we don't have safeguards in place against bad deletions)
 
 == To extract data from Infogroup files ==
 

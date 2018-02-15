@@ -2,7 +2,11 @@ import csv, logging, os, sqlite3, sys
 
 #logging.basicConfig(level=logging.DEBUG)
 
-data_version = "201710"  # TODO parameterize
+try:
+  data_version = sys.argv[1]
+except IndexError:
+  sys.stderr.write("Failed: Must include data version number as first argument.\n")
+  sys.exit(-1)
 
 sample_sics = (
   "5812", "5813", "5411", "5921", "5461", "5499", "5421", "2099", "2051",
@@ -12,7 +16,7 @@ sample_sics = (
 )
 
 def get_fdg_instance_file(instance):
-  filename = "infogroup.%s.%s.csv" % (data_version, instance)
+  filename = "/data/infogroup/infogroup.%s.%s.csv" % (data_version, instance)
   file = open(filename, "a")
   return csv.writer(file, quoting=csv.QUOTE_ALL)
 
@@ -29,4 +33,5 @@ with sys.stdin as infogroup_file:
       logging.debug("... using for small sample ...")
       instance_files["Austin"].writerow(row)
 
-#for i in instance_files: instance_files[i].close()
+# Not really bothering to close the file objects under the csv writers.
+# Keeping track of them isn't worth it, since this script exits now.

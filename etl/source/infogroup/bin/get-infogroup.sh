@@ -1,8 +1,15 @@
+#!/bin/bash
+
 # TODO:
 # ensure running in /data/infogroup
-# parameterize data_version
 
-data_version=201710
+data_version=$1
+if [ -z "$data_version" ]; then
+  echo "Usage: $0 DATA_VERSION"
+  exit 1
+fi
+
+cd /data/infogroup
 
 cat <<EOF | sftp SIZUP1RT@sftp.igxfer.com
 get SIZEUP_${data_version}1.ZIP
@@ -19,8 +26,4 @@ get naicsconv.ZIP
 EOF
 
 for i in *.ZIP; do unzip $i; aws s3 mv --region us-east-1 $i s3://sizeup-datasources/infogroup/${data_version}/$i; done
-
-cat SIZEUP_${data_version}?.TXT | python sort-infogroup-into-fdg-instances.py
-
-aws s3 mv --region us-east-1 infogroup.${data_version}.Austin.csv s3://sizeup-datasources/infogroup/${data_version}/
 
