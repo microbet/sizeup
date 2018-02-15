@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Our version stamp; these files should be considered artifacts of the build process
+SizeUp.Api/version.txt
+SizeUp.Web/Content/version.txt
+
 # User-specific files
 *.suo
 *.user

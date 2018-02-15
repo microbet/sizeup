@@ -184,6 +184,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Robots.txt" />
+    <Content Include="version.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -223,7 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Tiles\Views\Web.config" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\api.beta.sizeup.com.pubxml" />
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />

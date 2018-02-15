@@ -364,6 +364,7 @@
     <Content Include="Content\thirdParty\animations.css" />
     <Content Include="Content\thirdParty\jquery-ui-1.8.21.custom.css" />
     <Content Include="Content\thirdParty\toggle-switch.css" />
+    <Content Include="Content\version.txt" />
     <Content Include="Content\views\accessibility\index.css" />
     <Content Include="Content\views\marketing\index.css" />
     <Content Include="Content\views\marketing\print.css" />
@@ -419,7 +420,6 @@
     <Content Include="Scripts\charts\BarChart.js" />
     <Content Include="Scripts\charts\lineChart.js" />
     <Content Include="Scripts\charts\tableChart.js" />
-    <Content Include="Scripts\controls\industryMultiSelector.js" />
     <Content Include="Scripts\controls\share.js" />
     <Content Include="Scripts\controls\rangeLabel.js" />
     <Content Include="Scripts\controls\flashBox.js" />
@@ -719,7 +719,6 @@
     <Content Include="Content\admin\less\mixins.less" />
     <Content Include="Content\admin\less\sb-admin-2.less" />
     <Content Include="Content\admin\less\variables.less" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
