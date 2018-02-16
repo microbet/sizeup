@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Robots.txt" />
     <Content Include="version.txt" />
     <Content Include="Web.config">
