@@ -74,8 +74,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\sizeup-germany\Web\bin\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization">
@@ -225,11 +224,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Tiles\Views\Web.config" />
-    <None Include="Properties\PublishProfiles\api.beta.sizeup.com.pubxml" />
+    <None Include="Properties\PublishProfiles\*.pubxml" />
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />
     <Content Include="Views\JS\Data.cshtml" />
-    <None Include="Properties\PublishProfiles\api.sizeup.com.pubxml" />
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Error\Error403.cshtml" />

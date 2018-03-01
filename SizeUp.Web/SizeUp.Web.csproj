@@ -646,6 +646,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\*.pubxml" />
     <Content Include="Areas\Pins\Views\Web.config" />
     <Content Include="Areas\Widget\Views\Web.config" />
     <Content Include="Areas\Widget\Views\Shared\_Layout.cshtml" />
@@ -739,7 +740,6 @@
     <Content Include="Content\admin\less\mixins.less" />
     <Content Include="Content\admin\less\sb-admin-2.less" />
     <Content Include="Content\admin\less\variables.less" />
-    <None Include="Properties\PublishProfiles\beta.sizeup.com.pubxml" />
     <Content Include="Views\Community\CommunityWithIndustry.cshtml" />
     <Content Include="Views\Business\Business.cshtml" />
     <Content Include="Views\Shared\Signin.cshtml" />
@@ -752,8 +752,6 @@
     <Content Include="Views\Community\City.cshtml" />
     <Content Include="Views\Community\Industry.cshtml" />
     <Content Include="Views\Shared\Analytics.cshtml" />
-    <None Include="Properties\PublishProfiles\PROD.pubxml" />
-    <None Include="Properties\PublishProfiles\sizeup.com.pubxml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Community\CountyCommunity.cshtml" />
     <Content Include="Views\Community\MetroCommunity.cshtml" />
@@ -766,7 +764,6 @@
     <Content Include="Views\Sitemap\Community.cshtml" />
     <Content Include="Views\Sitemap\Business.cshtml" />
     <Content Include="Views\Sitemap\CommunityIndustry.cshtml" />
-    <None Include="Properties\PublishProfiles\SizeUp.pubxml" />
     <Content Include="Views\Shared\_LayoutResponsive.cshtml" />
     <Content Include="Views\Home\IndexResponsive.cshtml" />
     <Content Include="Views\Help\EnterprisePartners.cshtml" />
