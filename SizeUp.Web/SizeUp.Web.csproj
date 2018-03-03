@@ -545,7 +545,7 @@
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
     <Content Include="Scripts\views\marketing\marketing.js" />
-    <Content Include="Scripts\util\bestPlaces\pickIndustry.js" />
+    <Content Include="Scripts\views\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />
     <Content Include="Scripts\views\community\communityWithIndustry.js" />
     <Content Include="Scripts\views\community\stateCommunity.js" />
@@ -568,7 +568,7 @@
     <Content Include="Scripts\views\home-ui.js" />
     <Content Include="Scripts\views\home.js" />
     <Content Include="Scripts\views\shared\signin.js" />
-    <Content Include="Scripts\util\bestPlaces\bestPlaces.js" />
+    <Content Include="Scripts\views\bestPlaces\bestPlaces.js" />
     <Content Include="Scripts\views\user\profile.js" />
     <Content Include="Scripts\views\user\register.js" />
     <Content Include="Scripts\views\user\resetpassword.js" />
