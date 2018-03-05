@@ -9,7 +9,6 @@
             mapRadius: 100,
             mapFilterZoomThreshold: 12,
             maxAutoZoom: 16
-
         };
         var me = {};
 
@@ -51,23 +50,6 @@
                 legend: null,
                 list: null,
                 overlay: null
-            },
-            filters: {
-                employees: {
-                    competitor: {
-                        min: null,
-                        max: null
-                    },
-                    suppliers: {
-                        min: null,
-                        max: null
-                    },
-                    buyers: {
-                        min: null,
-                        max: null
-                    }
-                }
-
             },
             businessListXHR: null
         };
@@ -140,10 +122,6 @@
             me.content.businessList = me.content.container.find('.businessList').removeClass('hidden').hide();
             me.content.industryList = me.content.container.find('.industryList');
             me.content.businessListFootnote = me.content.container.find('.list.container .footNote').removeClass('hidden').hide();
-            me.content.filters = {};
-            me.content.filters.sliders = {};
-            me.content.filters.labels = {};
-            me.content.filters.sliders['employees'] = me.content.container.find('.employees');
 
             me.content.businessList
                 .delegate('a', 'mouseover', businessItemMouseOver)
@@ -285,7 +263,6 @@
             me.data.supplier.pageData = me.content.pager.getPageData();
             me.data.buyer.pageData = me.content.pager.getPageData();
 
-
             if (getIndustryIdArray('buyer').length > 0) {
                 showTab('buyer');
             }
@@ -299,7 +276,6 @@
                 me.data.activeIndex = 'competitor';
             }
             activateTab(me.data.activeIndex);
-            initFilterLabels();
 
             setMapFilter(me.data.activeMapFilter);
             if (me.data.consumerExpenditure.currentSelection != null) {
@@ -616,103 +592,7 @@
             me.content.placeBox.hide();
         };
 
-        var updateFilterLabel = function (attribute) {
-
-            var v = me.content.filters.sliders[attribute][me.data.activeIndex] ? me.content.filters.sliders[attribute][me.data.activeIndex].getValue() : null;
-            me.content.filters.labels[attribute].setValues(v);
-            if (v == null && !me.content.filters.labels[attribute].getContainer().hasClass('fixed')) {
-                me.content.filters.labels[attribute].hide();
-            }
-            else {
-                me.content.filters.labels[attribute].show();
-            }
-        };
-
-        var sliderChanged = function (attribute) {
-            var ids = getIndustryIdArray(me.data.activeIndex);
-            if (!ids || ids.length === 0) return;
-            abortLoadBusinesses();
-            me.content.loader.show();
-            me.content.businessList.hide();
-            me.content.businessListFootnote.hide();
-            me.content.noResults.hide();
-            me.content.pager.getContainer().hide();
-            me.content.addIndustries.hide();
-            updateFilterLabel(attribute);
-            //var p = { attribute: attribute };
-            me.data.filters[attribute][me.data.activeIndex] = me.content.filters.sliders[attribute][me.data.activeIndex] ? me.content.filters.sliders[attribute][me.data.activeIndex].getValue() : null;
-            me.data.businessListXHR = sizeup.api.data.getBusinessesByIndustry({
-                industryIds: ids,
-                geographicLocationId: me.opts.CurrentInfo.CurrentPlace.Id,
-                itemCount: me.data[me.data.activeIndex].pageData.itemsPerPage,
-                page: me.data[me.data.activeIndex].pageData.page,
-                employeesMin: me.data.filters.employees[me.data.activeIndex] ? me.data.filters.employees[me.data.activeIndex].min : null,
-                employeesMax: me.data.filters.employees[me.data.activeIndex] ? me.data.filters.employees[me.data.activeIndex].max : null
-            }, function (data) {
-                me.data[me.data.activeIndex].businesses = data;
-                me.data.businessListXHR = null;
-                bindBusinesses();
-                bindBusinessMarkers();
-                me.content.loader.hide();
-                me.content.businessList.show();
-                me.content.businessListFootnote.show();
-                checkMapFilter();
-                bindIndustryList();
-                loadBusinesses();
-                setBusinessOverlay();
-                pushUrlState();
-
-            });
-
-
-        };
-        //////////end event actions/////////////////////////////        
-        var initFilterLabels = function () {
-            me.content.filters.labels['employees'] = new sizeup.controls.rangeLabel({
-                container: me.container.find('#employeesLabel')
-            });
-        }
-
-        var initSliders = function () {
-
-            $.each(me.content.filters.sliders, function (i, e) {
-                var sliderName = e[0].className;
-
-                if (!me.content.filters.sliders[sliderName][me.data.activeIndex]) {
-                    me.content.filters.sliders[sliderName][me.data.activeIndex] = new sizeup.controls.rangeSlider({
-                        container: me.container.find('.' + sliderName),
-                        label: me.container.find('.filters .' + sliderName + ' .valueLabel'),
-                        range: [
-                        { value: 1, label: '1' },
-                        { value: 5, label: '5' },
-                        { value: 10, label: '10' },
-                        { value: 15, label: '15' },
-                        { value: 20, label: '20' },
-                        { value: 25, label: '25' },
-                        { value: 30, label: '30' },
-                        { value: 40, label: '40' },
-                        { value: 50, label: '50' },
-                        { value: 60, label: '60' },
-                        { value: 70, label: '70' },
-                        { value: 80, label: '80' },
-                        { value: 90, label: '90' },
-                        { value: 100, label: '100' }
-                        ],
-                        mode: 'range',
-                        value: me.data.filters[sliderName][me.data.activeIndex],
-                        onChange: function () { sliderChanged(sliderName) }
-                    });
-                } else {
-                    if (me.data.filters[sliderName][me.data.activeIndex])
-                        me.content.filters.sliders[sliderName][me.data.activeIndex].setParam([me.data.filters[sliderName][me.data.activeIndex].min], [me.data.filters[sliderName][me.data.activeIndex].max]);
-                    else {
-                        me.content.filters.sliders[sliderName][me.data.activeIndex].setParam(null, null);
-                    }
-                    sliderChanged(sliderName)
-                }
-
-            });
-        };
+        //////////end event actions/////////////////////////////
 
         var getParameters = function () {
             var params = jQuery.bbq.getState();
@@ -830,7 +710,6 @@
             me.container.removeClass('competitor').removeClass('supplier').removeClass('buyer').addClass(me.data.activeIndex);
 
             var ids = getIndustryIdArray(me.data.activeIndex);
-            initSliders();
             checkMapFilter();
             bindIndustryList();
             loadBusinesses();
@@ -968,9 +847,7 @@
                 attribute: sizeup.api.tiles.overlayAttributes.businesses,
                 tileParams: {
                     industryIds: competitorIndustryIds,
-                    color: '#ff5522',
-                    employeesMin: me.data.filters.employees['competitor'] ? me.data.filters.employees['competitor'].min : null,
-                    employeesMax: me.data.filters.employees['competitor'] ? me.data.filters.employees['competitor'].max : null
+                    color: '#ff5522'
                 }
             });
 
@@ -978,9 +855,7 @@
                 attribute: sizeup.api.tiles.overlayAttributes.businesses,
                 tileParams: {
                     industryIds: supplierIndustryIds,
-                    color: '#11AAFF',
-                    employeesMin: me.data.filters.employees['supplier'] ? me.data.filters.employees['supplier'].min : null,
-                    employeesMax: me.data.filters.employees['supplier'] ? me.data.filters.employees['supplier'].max : null
+                    color: '#11AAFF'
                 }
             });
 
@@ -988,9 +863,7 @@
                 attribute: sizeup.api.tiles.overlayAttributes.businesses,
                 tileParams: {
                     industryIds: buyerIndustryIds,
-                    color: '#66EE00',
-                    employeesMin: me.data.filters.employees['buyer'] ? me.data.filters.employees['buyer'].min : null,
-                    employeesMax: me.data.filters.employees['buyer'] ? me.data.filters.employees['buyer'].max : null
+                    color: '#66EE00'
                 }
             });
 
@@ -1010,25 +883,12 @@
             var buyers = getIndustryIdArray('buyer');
             if (competitors.length > 0) {
                 data.competitor = competitors;
-                if (me.data.filters.employees.competitor) {
-                    data.competitorsEmployeesMin = me.data.filters.employees.competitor.min;
-                    data.competitorsEmployeesMax = me.data.filters.employees.competitor.max;
-                }
             }
             if (suppliers.length > 0) {
                 data.supplier = suppliers;
-                if (me.data.filters.employees.supplier) {
-                    data.suppliersEmployeesMin = me.data.filters.employees.supplier.min;
-                    data.suppliersEmployeesMax = me.data.filters.employees.supplier.max;
-                }
-                    
             }
             if (buyers.length > 0) {
                 data.buyer = buyers;
-                if (me.data.filters.employees.buyer) {
-                    data.buyersEmployeesMin = me.data.filters.employees.buyer.min;
-                    data.buyersEmployeesMax = me.data.filters.employees.buyer.max;
-                }
             }
             if (me.data.consumerExpenditure.currentSelection != null) {
                 data.consumerExpenditureVariable = me.data.consumerExpenditure.currentSelection.Id;
@@ -1077,9 +937,7 @@
                     industryIds: ids,
                     geographicLocationId: me.opts.CurrentInfo.CurrentPlace.Id,
                     itemCount: me.data[me.data.activeIndex].pageData.itemsPerPage,
-                    page: me.data[me.data.activeIndex].pageData.page,
-                    employeesMin: me.data.filters.employees[me.data.activeIndex] ? me.data.filters.employees[me.data.activeIndex].min : null,
-                    employeesMax: me.data.filters.employees[me.data.activeIndex] ? me.data.filters.employees[me.data.activeIndex].max : null
+                    page: me.data[me.data.activeIndex].pageData.page
                 }, function (data) {
                     me.data[me.data.activeIndex].businesses = data;
                     me.data.businessListXHR = null;
