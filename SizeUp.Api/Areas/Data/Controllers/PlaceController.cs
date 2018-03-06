@@ -62,7 +62,15 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
-
+        [APIAuthorize(Role = "Place")]
+        public ActionResult GetBySeokey(string stateSeokey, string countySeokey, string placeSeokey)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = Core.DataLayer.Place.Get(context, stateSeokey, countySeokey, placeSeokey);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
     }

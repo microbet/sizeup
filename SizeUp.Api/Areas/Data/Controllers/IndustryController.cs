@@ -27,6 +27,16 @@ namespace SizeUp.Api.Areas.Data.Controllers
         }
         
         [APIAuthorize(Role = "Industry")]
+        public ActionResult GetBySeokey(string seokey)
+        {
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                var data = Core.DataLayer.Industry.Get(context, seokey);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [APIAuthorize(Role = "Industry")]
         public ActionResult Search(string term, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)

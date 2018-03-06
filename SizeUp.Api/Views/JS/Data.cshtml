@@ -21,6 +21,17 @@
                 params.id = sizeup.api.util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
             },
+            getPlaceBySeokey: function (params, success, error) {
+                if (typeof(params) == "string") {
+                    keys = params.split("/");
+                    params = {"stateSeokey": keys[0]};
+                    if (keys.length > 1) { params.countySeokey = keys[1]; }
+                    if (keys.length > 2) { params.placeSeokey = keys[2]; }
+                    if (keys.length > 3) { throw "Too many elements in " + keys; }
+                }
+                return sizeup.api.loader.getData(
+                    '/data/place/GetBySeokey/', params, success, error);
+            },
             getDetected: function (params, success, error) {
                 var url = '/data/place/SearchDetected/';                
                 return sizeup.api.loader.getData(url, params, success, error);
@@ -39,6 +50,11 @@
                 var url = '/data/industry/';
                 params.id = sizeup.api.util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
+            },
+            getIndustryBySeokey: function (params, success, error) {
+                if (typeof(params) == "string") { params = {"seokey": params}; }
+                return sizeup.api.loader.getData(
+                    '/data/industry/GetBySeokey/', params, success, error);
             },
     </text>
 }
