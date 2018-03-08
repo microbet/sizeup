@@ -46,6 +46,12 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/controls/promptBox.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
 
+<script type="text/javascript">
+    (function() {
+        sizeup.core.namespace('sizeup.config.timeslice.industry');
+        sizeup.config.timeslice.industry.year = @System.Configuration.ConfigurationManager.AppSettings["TimeSlice.Industry.Year"];
+    })();
+</script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/reportContainer.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/revenue.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/averageSalary.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
