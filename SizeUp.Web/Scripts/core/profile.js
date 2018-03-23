@@ -67,7 +67,9 @@
         };
 
         pub.signOut = function () {
-            document.location = getURLPrefix() + "/signout" + getReturnQueryString();
+            document.location = isWidget()
+                ? (getURLPrefix() + "/signout" + getReturnQueryString())
+                : (getURLPrefix() + "/signout?returnurl=%2F");
         };
 
         pub.updateUserProfile = function (params, callback) {
