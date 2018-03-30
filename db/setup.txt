@@ -1,0 +1,85 @@
+
+Database (create with etl/bin/create-fdg-db.sql):
+  NewData
+
+Tables (create with db/*.Table.sql):
+  Granularity (w/data)
+  GeographicLocation
+  Nation
+  Region
+  Division (what is this? no explanation in jstack)
+  State
+  Metro
+  County
+  ZipCode
+
+ETL:
+  Load into RawData:
+    s3:sizeup-datasources/unknown/Locations.Tables.sql (DDL)
+    s3:sizeup-datasources/unknown/Locations.Data.sql (DML)
+    - note: created from gisp-prod-db01 via ~twilson\sw\data\sourced-from-gisp-prod-db01\NewData-Locations-to-RawData-Locations.sql
+  Optionally make small data sets at this point:
+    etl/source/sizeup/make-small-location-sets.sql
+  Transform into NewData:
+    etl/source/DataImport.SizeUp/Locations.sql
+
+Tables (create with db/*.Table.sql):
+  NAICS
+  Industry
+  Business
+  BusinessData
+UserDefinedFunctions:
+  ProperCase (for Business.dtsx)
+  SEOIfy (for Business.dtsx)
+
+Start running SSIS tasks, ensuring the connection is correct each time.
+
+Run Business.dtsx.
+- This has database connections both to RawData and NewData, so one connection manager isn't enough to parameterize well. No good answers on google (you're supposed to use SSIS data flow, but jstack's SQL is too hairy for that) but if a param can be used as a database name, I can reduce this dtsx to regular SQL and parameterize that way.
+- See if this works better now that there are data in tables County, Metro, State, or ZipCode.
+- TODO? Pseudosource data for NAICS, Industry? What uses Infogroup's industry code tables? Load the geo data then we'll see what there is.
+
+Tables:
+  CityType (w/data)
+  City
+  BusinessCity
+  GeographyClass (w/data)
+  GeographySource
+  Geography
+
+Run BusinessCity.dtsx.
+- This does nothing, probably because there are no data in tables City, Geography.
+
+Run BusinessData.dtsx.
+- These are hardcoded and need attention:
+  - 2016 AS Year, 3 AS Quarter
+  - INNER JOIN RawData.dbo.BusinessData (6x)
+
+
+
+____
+
+Appendix A. Jonathan's braindump regarding dataflow
+
+A lot of the queries for sizeup dataflows need to have the Year/Quarter values adjusted in the query itself. I never got around to parameterizing them so for now they are manual.
+
+There are some regular SQL scripts that are used in place of SSIS packages. These are stored on gisp-stg-db01.gisplanning.net/C:/jonathansscripts
+
+The basic overview for updating data in sizeup:
+1) take a backup of SizeUpData.
+2) Restore it to gisp-calc-db01 as NewData
+3) Download the data source files and place them in a folder.
+4) Using the RawData project, find the package for data you want, and point the SSIS inputs to the new files you just downloaded.
+5) run the package.
+6) open SizeUp.Import SSIS package solution.
+7) Run the UpdateIndustry package.
+8) Run the BusinessImport package.
+9) wait
+10) wait some more (this process can take 3-4 days)
+11) Shrink the logs on NewData and backup the database.
+12) Restore NewData to gisp-stg-db01 as SizeUpData
+13) Test thoroughly 
+14) Restore to gisp-prod-db01 as SizeUpData
+
+Appendix B. In which Trav raids past processed data to get future source data.
+

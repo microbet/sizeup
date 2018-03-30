@@ -1,3 +1,5 @@
+-- TODO set county and city names by XML; see https://weblogs.asp.net/jongalloway/passing-lists-to-sql-server-2005-with-xml-parameters
+
 -- Inputs that should be set by the consumer of this script --
 
 -- Required (please replace values in "set" statements with your own):

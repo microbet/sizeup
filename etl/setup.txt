@@ -1,4 +1,4 @@
-== Install a bootstrap virtualenv on ETL control client ==
+== [moved to environment/Makefile] Install a bootstrap virtualenv on ETL control client ==
 
 # Do this so that all our python is separate from the Ubuntu system python. See https://stackoverflow.com/questions/4324558/whats-the-proper-way-to-install-pip-virtualenv-and-distribute-for-python
 
