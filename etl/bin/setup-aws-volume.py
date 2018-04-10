@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# First draft; needs work.
 
-import sys, logging
+import os, sys, logging
+
 logging.basicConfig(level=logging.INFO)
 if not hasattr(sys, "real_prefix"):
   logging.warn("Virtualenv was NOT detected. If this script fails, activate one. e.g.:\n. /etc/sizeup/virtualenv/primary/bin/activate")
@@ -15,6 +15,7 @@ parser.add_argument("--size", type=int, required=True)
 parser.add_argument("--instance-id", required=True)
 parser.add_argument("--zone", default="us-east-1a")
 parser.add_argument("--device", required=True)
+parser.add_argument("--breadcrumb-file", required=True)
 args = parser.parse_args()
 
 ec2 = boto3.resource("ec2")
@@ -46,4 +47,7 @@ waiter = client.get_waiter("volume_in_use")
 waiter.wait(VolumeIds=[volume.id])
 # TODO I don't think this waits long enough. See hack in ../Makefile
 
-print "To clean up:\numount %s\nboto3.resource(\"ec2\").Volume(\"%s\").detach_from_instance()\nboto3.resource(\"ec2\").Volume(\"%s\").delete()" % (args.device, volume.id, volume.id)
+teardown_script = "%s/teardown-aws-volume.py" % os.path.dirname(os.path.realpath(__file__))
+
+with open(args.breadcrumb_file, "w") as f:
+  f.write("# Execute this file to delete the volume.\nsudo umount %s\n%s %s --volume-id=%s\nrm %s\n" % (args.device, sys.executable, teardown_script, volume.id, args.breadcrumb_file))

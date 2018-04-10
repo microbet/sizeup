@@ -21,7 +21,7 @@ cd /data/dnb
 
 echo -n "Enter DnB password: "
 read DNB_PASSWORD
-for part in `seq -w 27`; do
+for part in `seq -w 28`; do
   zipfile=SIZEUP.WB$part.$data_ver.TXT.zip
   wget "ftp://sizeup:$DNB_PASSWORD@ftp.dnb.com/gets/$zipfile" -a wget.log -nv
   unzip -p $zipfile SIZEUP.\*.WB$part.$data_ver.TXT | python $cmd_dir/sort-wb-into-fdg-instances.py $data_ver

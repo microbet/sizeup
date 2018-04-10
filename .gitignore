@@ -24,7 +24,7 @@ SizeUp.Web/Content/version.txt
 x64/
 x86/
 bld/
-[Bb]in/
+Bin/
 [Oo]bj/
 [Ll]og/
 
