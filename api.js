@@ -1,8 +1,9 @@
 (function () {
-    window.sizeup = window.sizeup || {};
-    window.sizeup.api = window.sizeup.api || {};
+    global.sizeup = {};  // Yikes! NOTE: loaded scripts depend on sizeup being global, or at least otherwise injected
+	global.window = {sizeup:sizeup};  // see?
+    sizeup.api = {};
 
-    window.sizeup.api.util = (function () {
+    sizeup.api.util = (function () {
 
         var me = {};
 
@@ -77,28 +78,27 @@
     })();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-    window.sizeup.api.loader = (function () {
+    sizeup.api.loader = (function () {
 
         var me = {};
         var pub = {
-            getData: function (url, params, success, error) {
+            getData: function (url, params, success, error) {  // NOTE used extensively by data script!
                 return getJsonp(url, params, success, error);
             },
-            getSourceLocation: function(){
+            getSourceLocation: function(){  // NOTE used only by overlay script, not data.
                 return me.currentLocation;
             },
-            buildTokenUrl: function(src, params){
+            buildTokenUrl: function(src, params){  // NOTE used only by overlay script, not data.
                 return buildTokenUrl(src, params);
             }
         };
-        me.head = document.getElementsByTagName('head')[0];
+        // me.head = document.getElementsByTagName('head')[0];  XXX
         me.scriptQueue = [];
         me.callbackIndex = 0;
         me.jsonpPrefix = 'cbb';
-        me.sessionId = '7kuvw29ohlwfhe25e6posgt0h';
-        me.apiToken = 'utZOqvvO8s2KUngekSFKXPsZjTrtpXw6iGm4rJj6SAiCxVx/nelq3Tx/XxAWLZaK';
-        // me.apiToken = 'utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuRMKMEb3ORj95aB75AH0B+dM';
-        me.instanceId = '7kuvw29ohlwfhe25e6posgt0h';
+        me.sessionId = '7kuvw29ohlwfhe25e6posgt0h';  // TODO
+        me.apiToken = 'utZOqvvO8s2KUngekSFKXPsZjTrtpXw6iGm4rJj6SAiCxVx/nelq3Tx/XxAWLZaK'; // TODO
+        me.instanceId = '7kuvw29ohlwfhe25e6posgt0h'; // TODO
         me.widgetToken = '';
         sizeup.api[me.jsonpPrefix] = {};
         me.callbackComplete = {};
@@ -162,6 +162,7 @@
             var src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/' + item.url;
             script.src = buildTokenUrl(src, {});
             script.onload = script.onreadystatechange = function() {
+				// TODO: https://developer.mozilla.org/en-US/docs/Web/Events/readystatechange
                 if ( !item.loaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {
                     item.loaded = true;
                     ready();
@@ -211,7 +212,7 @@
             var opts = {
                 aborted: false
             };
-            var p = Math.floor((Math.random()*2) + 1);
+            var p = Math.floor((Math.random()*2) + 1); // NOTE: 1 or 2
             var script = document.createElement('script');
             sizeup.api[me.jsonpPrefix][cb] = function (data) {
                 if (success && !opts.aborted) {
@@ -237,17 +238,26 @@
             var src = me.currentLocation.protocol + '://' + 'a' + p + '-' + me.currentLocation.domain + url;
             params['cb']  = 'sizeup.api.' + me.jsonpPrefix + '.' + cb;
             script.src = buildTokenUrl(src, params);
+			// NOTE: E.g., http://a2-api.sizeup.com/data/place/search/?term=fresno&maxResults=10&cb=sizeup.api.cbb.cb33&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
+			// NOTE: E.g., http://a2-api.sizeup.com/data/place/search/?term=fresno&maxResults=10
+			//   &cb=CB
+			//   &o=   document.location.hostname
+			//   &s=   me.sessionId
+			//   &t=   me.apiToken
+			//   &i=   me.instanceId
+
             me.head.appendChild(script);
 
             var request = {
                 abort: function(){
-                    opts.aborted = true;
+                    opts.aborted = true;  // NOTE: why not null the success and error functions so they may be GC'd?
                 }
             };
             return request;
         };
 
         var updateToken = function (callback) {
+			// NOTE http://a2-api.sizeup.com/token?cb=sizeup.api.cbb.cb34&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
             getJsonp('/token',{} , function (data) {
                 me.apiToken = data;
                 if (callback) {
@@ -260,19 +270,22 @@
         };
 
         var ready = function () {
+			console.log("ready?");
             if (isScriptLoadingComplete()) {
                 window[me.currentLocation.query['callback']]();
             }
         };
 
 
-
-        window.onload = function () { me.windowLoaded = true; ready(); }
         getThisScript();
         getScriptLocation();
         setInterval(updateToken, 1000 * 60 * 5);
         fillQueue();
         loadQueue();
+
+		// window.onload = function () { me.windowLoaded = true; ready(); }
+		setImmediate(function () { me.windowLoaded = true; ready(); })
+
         return pub;
     })();
 })();
