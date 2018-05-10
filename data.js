@@ -10,7 +10,6 @@
 
     findPlace: function (params, success, error) {
                 var url = '/data/place/search/';
-                console.log("Hi mom!");
                 return sizeup.api.loader.getData(url, params, success, error);
             },
             getPlace: function (params, success, error) {

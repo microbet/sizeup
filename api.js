@@ -1,3 +1,5 @@
+var request = require('request');
+
 module.exports = function () {
     global.sizeup = {};  // Yikes! NOTE: CONSIDER REVISING: loaded scripts depend on sizeup being global, or at least otherwise injected
 	global.window = {sizeup:sizeup};  // see?
@@ -97,8 +99,8 @@ module.exports = function () {
             }
             */
         };
-        me.sessionId = '2gmexw5dasdck5m2bcvhclwby';  // TODO
-        me.apiToken = 'utZOqvvO8s2KUngekSFKXHQ7vmhVazr8RBY+Ve3SfvJVsemmZFBRBDfuhVXmACfe'; // TODO
+        me.sessionId = 'winr345x7i4k0mg7jt5khtltg';  // TODO
+        me.apiToken = 'utZOqvvO8s2KUngekSFKXHQ7vmhVazr8RBY+Ve3SfvJXMUHoUypcTNho6W4DyJdY'; // TODO
         me.instanceId = '2gmexw5dasdck5m2bcvhclwby'; // TODO
         me.widgetToken = '';
         me.callbackComplete = {};
@@ -127,12 +129,12 @@ module.exports = function () {
         };
 
 
-        var getJsonp = function (path, params, success, error) {
+        var getJsonp = function (path, params, onSuccess, onError) {
             var opts = { aborted: false };
             var p = Math.floor((Math.random()*2) + 1); // NOTE: 1 or 2
 
             var url = me.currentLocation.protocol + '://' + 'a' + p + '-' + me.currentLocation.domain + path;
-            params['cb']  = 'JSONP_WRAPPER';
+            params['cb'] = 'JSONP_WRAPPER';
             var tokenUrl = buildTokenUrl(url, params);
 			// NOTE: E.g., http://a2-api.sizeup.com/data/place/search/?term=fresno&maxResults=10&cb=sizeup.api.cbb.cb33&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
 			// NOTE: E.g., http://a2-api.sizeup.com/data/place/search/?term=fresno&maxResults=10
@@ -142,14 +144,18 @@ module.exports = function () {
 			//   &t=   me.apiToken
 			//   &i=   me.instanceId
 
-            var request = require('request');
             request(tokenUrl, function (error, response, body) {
-                console.log("TODO TODO TODO: ", path);
-                console.log(url);
-                console.log(tokenUrl);
-                console.log('error:', error); // Print the error if one occurred
-                console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-                console.log('body:', body); // Print the body
+                if (error || !response || response.statusCode!==200) {
+                    return onError(error || response);
+                }
+
+                try {
+                    var result = JSON.parse(/^JSONP_WRAPPER\((.*)\)$/.exec(body)[1]);
+                } catch (e) {
+                    return onError(e);
+                }
+
+                onSuccess(result);
             });
 
             return {
