@@ -1,9 +1,11 @@
 var request = require('request');
 
-module.exports = function () {
+module.exports = function (apiKey) {
+    if (!apiKey)  throw new Error("Need apiKey to authenticate");
+
     global.sizeup = {};  // Yikes! NOTE: CONSIDER REVISING: loaded scripts depend on sizeup being global, or at least otherwise injected
 	global.window = {sizeup:sizeup};  // see?
-    // TODO: if we modify data.js we needn't use global.sizeup, BUT then we can't use fresh and unmodifief data.js in the future
+    // TODO: if we modify data.js we needn't use global.sizeup, BUT then we can't use fresh and unmodified data.js in the future
     sizeup.api = {};  // yep: that's global.sizeup
 
     require('./data');  // installs window.sizeup.api.data
@@ -82,7 +84,9 @@ module.exports = function () {
         return pub;
     })();
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
+
     sizeup.api.loader = (function () {
 
         var me = {};
@@ -99,9 +103,9 @@ module.exports = function () {
             }
             */
         };
-        me.sessionId = 'winr345x7i4k0mg7jt5khtltg';  // TODO
-        me.apiToken = 'utZOqvvO8s2KUngekSFKXHQ7vmhVazr8RBY+Ve3SfvJXMUHoUypcTNho6W4DyJdY'; // TODO
-        me.instanceId = '2gmexw5dasdck5m2bcvhclwby'; // TODO
+        me.sessionId  = null;
+        me.apiToken   = null;
+        me.instanceId = null;
         me.widgetToken = '';
         me.callbackComplete = {};
         me.currentLocation = {
@@ -121,7 +125,7 @@ module.exports = function () {
             params['s'] = me.sessionId;
             params['t'] = me.apiToken;
             params['i'] = me.instanceId;
-            if(me.widgetToken != ''){
+            if(me.widgetToken != '') {
                 params['wt'] = me.widgetToken;
             }
             src = src + sizeup.api.util.formatParams(params);
@@ -130,6 +134,46 @@ module.exports = function () {
 
 
         var getJsonp = function (path, params, onSuccess, onError) {
+
+            // Authenticate, async: Queue requests until auth is available
+            //  Alternately client could use a callback for auth.  Burden belongs here.
+            //  TODO: if we could compute auth values from the apiKey client side, none of this would be needed; but I think server must establish session.  Why doesn't server just accept key on each request? How are sessions used/implemented on server?
+            if (!me.sessionId && !me.getJsonpQueue) {
+                me.getJsonpQueue = [];
+                var authUrl = me.currentLocation.protocol + '://' + me.currentLocation.domain + '/js/?apikey=' + apiKey;
+                // console.log(authUrl);
+                request(authUrl, function (error, response, body) {
+                    var q = me.getJsonpQueue;
+                    delete me.getJsonpQueue;
+
+                    if (error || !response || response.statusCode!==200) {
+                        for (var i = 0; i < q.length; i++) {  // TODO: discuss JS/node version support with Travis
+                            q[i].onError("Auth error: " + (error || (response||{}).statusCode));
+                        }
+                    } else {
+                        var re = /me.(sessionId|apiToken|instanceId)\s=\s['"](.*)['"];/g;
+                        for (var a; a = re.exec(body); ) {
+                            // console.log(a.slice(1));
+                            me[a[1]] = a[2];
+                        }
+
+                        for (var i = 0; i < q.length; i++) {  // TODO: discuss JS/node version support with Travis
+                            getJsonp(q[i].path, q[i].params, q[i].onSuccess, q[i].onError);  // TODO: discuss JS/node version support with Travis
+                        }
+                    }
+                });
+            }
+            if (me.getJsonpQueue) {
+                me.getJsonpQueue.push({
+                    path:       path,
+                    params:     params,
+                    onSuccess:  onSuccess,
+                    onError:    onError
+                });
+                return;
+            }
+
+            // console.log("getJsonp", path, params);
             var opts = { aborted: false };
             var p = Math.floor((Math.random()*2) + 1); // NOTE: 1 or 2
 
@@ -166,7 +210,7 @@ module.exports = function () {
         };
 
         /*
-        var updateToken = function (callback) {
+        var updateToken = function (callback) {       TODO
 			// NOTE http://a2-api.sizeup.com/token?cb=sizeup.api.cbb.cb34&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
             getJsonp('/token',{} , function (data) {
                 me.apiToken = data;
