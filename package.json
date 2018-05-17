@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Tim James <tjames@tjames.com>",
   "license": "UNLICENSED",
+  "bin": {
+    "sizeup": "bin/sizeup.js"
+  },
   "dependencies": {
     "request": "^2.85.0"
   }
