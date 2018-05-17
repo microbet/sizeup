@@ -2,7 +2,7 @@
 
 ## API SDK usage
 
-```
+```javascript
 require('sizeup-api')(process.env.SIZEUP_KEY);
 
 sizeup.api.data.findPlace(
@@ -16,12 +16,43 @@ sizeup.api.data.findPlace(
 
 (After `npm install -g sizeup-api`)
 
-```
+```bash
 export SIZEUP_KEY=...
 sizeup findPlace '{"term":"fresno"}'
 sizeup findIndustry '{"term":"tech"}'
+sizeup getAverageSalaryBands '{
+    "boundingGeographicLocationId": 130073,
+    "industryId": 8589,
+    "granularity": "County",
+    "bands": 7
+}'
+```
+
+Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeup.api.data`, per the [The API Documentation](http://www.sizeup.com/developers/documentation).
+
+The `granularity` and `attributes` values as used in the Documentation can be provided directly as strings.
+
+### granularity
+```
+ZIP_CODE: 'ZipCode',
+CITY: 'City',
+COUNTY: 'County',
+PLACE: 'Place',
+METRO: 'Metro',
+STATE: 'State',
+NATION: 'Nation'
+```
+
+### attributes
+```
+TOTAL_REVENUE: 'TotalRevenue',
+AVERAGE_REVENUE: 'AverageRevenue',
+REVENUE_PER_CAPITA: 'RevenuePerCapita',
+TOTAL_EMPLOYEES: 'TotalEmployees',
+AVERAGE_EMPLOYEES: 'AverageEmployees',
+EMPLOYEES_PER_CAPITA: 'EmployeesPerCapita'
 ```
 
 ## Read The Friendly Manual
 
-[Here](http://www.sizeup.com/developers/documentation)
+[The API Documentation](http://www.sizeup.com/developers/documentation)

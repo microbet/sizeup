@@ -6,7 +6,7 @@ var exitSaying = function (s) {
 }
 
 if (!process.env.SIZEUP_KEY)  exitSaying("ERROR: Need $SIZEUP_KEY to authenticate");
-require('../api')(process.env.SIZEUP_KEY);  // installs sizeup.* globally; TODO reconsider
+require('../src/api')(process.env.SIZEUP_KEY);  // installs sizeup.* globally; TODO reconsider
 
 var exitWithUsage = function (s) {exitSaying((s?(s+"\n"):"") + "USAGE: sizeup <command> <json>")}
 

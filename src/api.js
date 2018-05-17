@@ -8,7 +8,10 @@ module.exports = function (apiKey) {
     // TODO: if we modify data.js we needn't use global.sizeup, BUT then we can't use fresh and unmodified data.js in the future
     sizeup.api = {};  // yep: that's global.sizeup
 
-    require('./data');  // installs window.sizeup.api.data
+    // The files are unmodified: they depend on the global window semantics on browser, as hacked above.
+    require('./data');         // installs window.sizeup.api.data
+    require('./attributes');   // installs window.sizeup.api.attributes
+    require('./granularity');  // installs window.sizeup.api.granularity
 
     sizeup.api.util = (function () {
 
