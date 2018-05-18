@@ -134,10 +134,10 @@ module.exports = function (apiKey) {
             // Authenticate, async: Queue requests until auth is available
             //  Alternately client could use a callback for auth.  Burden belongs here.
             //  TODO: if we could compute auth values from the apiKey client side, none of this would be needed; but I think server must establish session.  Why doesn't server just accept key on each request? How are sessions used/implemented on server?
-            if (!me.sessionId && !me.getJsonpQueue) {
+            if ((!me.sessionId || me.authdAt && me.authdAt + 5*60*1000 < +new Date()) && !me.getJsonpQueue) {
                 me.getJsonpQueue = [];
                 var authUrl = me.currentLocation.protocol + '://' + me.currentLocation.domain + '/js/?apikey=' + apiKey;
-                // console.log(authUrl);
+                // console.log('***** AUTH', authUrl);
                 request(authUrl, function (error, response, body) {
                     var q = me.getJsonpQueue;
                     delete me.getJsonpQueue;
@@ -147,10 +147,11 @@ module.exports = function (apiKey) {
                             q[i].onError("Auth error: " + (error || (response||{}).statusCode));
                         }
                     } else {
+                        me.authdAt = +new Date();
+
                         // console.log(body);
                         var re = /me.(sessionId|apiToken|instanceId)\s=\s['"](.*)['"];/g;
                         for (var a; a = re.exec(body); ) {
-                            // console.log(a[0]);
                             // console.log(a.slice(1));
                             me[a[1]] = a[2];
                         }
@@ -206,22 +207,6 @@ module.exports = function (apiKey) {
                 }
             };;
         };
-
-        /*
-        var updateToken = function (callback) {       TODO
-			// NOTE http://a2-api.sizeup.com/token?cb=sizeup.api.cbb.cb34&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
-            getJsonp('/token',{} , function (data) {
-                me.apiToken = data;
-                if (callback) {
-                    callback();
-                }
-            },
-            function(){
-                location.reload();
-            });
-        };
-        */
-        // setInterval(updateToken, 1000 * 60 * 5);
 
         return pub;
     })();
