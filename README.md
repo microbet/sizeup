@@ -1,9 +1,9 @@
-# SizeUp API and CLI
+# SizeUp API: node SDK and CLI
 
-## API SDK usage
+## SDK usage
 
 ```javascript
-require('sizeup-api')(process.env.SIZEUP_KEY);
+require('sizeup-api')(process.env.SIZEUP_KEY);  // makes global.sizeup
 
 sizeup.api.data.findPlace(
     { term:"fresno", maxResults:10 },
@@ -30,7 +30,7 @@ sizeup getAverageSalaryBands '{
 
 Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeup.api.data`, per the [The API Documentation](http://www.sizeup.com/developers/documentation).
 
-The `granularity` and `attributes` values as used in the Documentation can be provided directly as strings.
+The `granularity` and `attributes` values as used in the Documentation can be provided directly as CamelCase strings, as in the last example (`getAverageSalaryBands`: `"granularity": "County"`), above.
 
 ### granularity
 ```

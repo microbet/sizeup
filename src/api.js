@@ -1,18 +1,11 @@
 var request = require('request');
 
+if (!global.sizeup || !global.window.sizeup)  throw new Error("Must have global sizeup already");
+
 module.exports = function (apiKey) {
     if (!apiKey)  throw new Error("Need apiKey to authenticate");
 
-    global.sizeup = {};  // Yikes! NOTE: CONSIDER REVISING: loaded scripts depend on sizeup being global, or at least otherwise injected
-	global.window = {sizeup:sizeup};  // see?
-    // TODO: if we modify data.js we needn't use global.sizeup, BUT then we can't use fresh and unmodified data.js in the future
-    sizeup.api = {};  // yep: that's global.sizeup
-
-    // The files are unmodified: they depend on the global window semantics on browser, as hacked above.
-    require('./data');         // installs window.sizeup.api.data
-    require('./attributes');   // installs window.sizeup.api.attributes
-    require('./granularity');  // installs window.sizeup.api.granularity
-
+    // yep: that's global.sizeup
     sizeup.api.util = (function () {
 
         var me = {};
