@@ -154,8 +154,10 @@ module.exports = function (apiKey) {
                             q[i].onError("Auth error: " + (error || (response||{}).statusCode));
                         }
                     } else {
+                        // console.log(body);
                         var re = /me.(sessionId|apiToken|instanceId)\s=\s['"](.*)['"];/g;
                         for (var a; a = re.exec(body); ) {
+                            // console.log(a[0]);
                             // console.log(a.slice(1));
                             me[a[1]] = a[2];
                         }
