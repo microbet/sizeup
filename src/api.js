@@ -130,6 +130,21 @@ module.exports = function (apiKey) {
 
 
         var getJsonp = function (path, params, onSuccess, onError) {
+            var opts = { aborted: false };
+            function abort() {
+                opts.aborted = true;  // NOTE: why not null the success and error functions so they may be GC'd?
+            }
+
+            var r;
+            if (!onSuccess && !onError) {
+                r = new Promise(function(resolve, reject) {  // TODO: require some Promise implementation module?
+                    onSuccess = resolve;
+                    onError   = reject;
+                })
+                r.abort = abort;
+            } else {
+                r = { abort:abort };
+            }
 
             // Authenticate, async: Queue requests until auth is available
             //  Alternately client could use a callback for auth.  Burden belongs here.
@@ -169,14 +184,13 @@ module.exports = function (apiKey) {
                     onSuccess:  onSuccess,
                     onError:    onError
                 });
-                return;
+                return r;
             }
 
             // console.log("getJsonp", path, params);
-            var opts = { aborted: false };
-            var p = Math.floor((Math.random()*2) + 1); // NOTE: 1 or 2
+            var serverNum = Math.floor((Math.random()*2) + 1); // NOTE: 1 or 2
 
-            var url = me.currentLocation.protocol + '://' + 'a' + p + '-' + me.currentLocation.domain + path;
+            var url = me.currentLocation.protocol + '://' + 'a' + serverNum + '-' + me.currentLocation.domain + path;
             params['cb'] = 'JSONP_WRAPPER';
             var tokenUrl = buildTokenUrl(url, params);
 			// NOTE: E.g., http://a2-api.sizeup.com/data/place/search/?term=fresno&maxResults=10&cb=sizeup.api.cbb.cb33&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
@@ -201,11 +215,7 @@ module.exports = function (apiKey) {
                 onSuccess(result);
             });
 
-            return {
-                abort: function(){
-                    opts.aborted = true;  // NOTE: why not null the success and error functions so they may be GC'd?
-                }
-            };;
+            return r;
         };
 
         return pub;

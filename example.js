@@ -15,9 +15,10 @@ sizeup.api.data.findPlace(
 );
 
 sizeup.api.data.findPlace(
-    { term:"san francisco", maxResults:3 },
-    onSuccess, onError
-);
+    { term:"san francisco", maxResults:3 }
+)
+    .then(onSuccess)
+    .catch(onError)
 
 sizeup.api.data.getAverageSalaryBands(
     {

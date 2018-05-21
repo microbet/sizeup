@@ -10,6 +10,13 @@ sizeup.api.data.findPlace(
     function(result) { console.log(JSON.stringify(result,0,2)); },
     function(exc) { console.error(exc); }
 );
+
+// data functions return a Promise when called without the function args
+sizeup.api.data.findPlace(
+    { term:"fresno", maxResults:10 }
+)
+.then(function(result) { console.log(JSON.stringify(result,0,2)); })
+.catch(console.error);
 ```
 
 ## CLI usage
