@@ -209,7 +209,11 @@ module.exports = function (apiKey) {
 
             request(tokenUrl, function (error, response, body) {
                 if (error || !response || response.statusCode!==200) {
-                    return onError(error || response);
+                    return onError(
+                        error    ? "Network error: " + error :
+                        response ? "Query failed (bad query?): "+response.statusMessage+"\n"+response.body :
+                        'unknown'
+                    );
                 }
 
                 try {
