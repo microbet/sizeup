@@ -1,0 +1,13 @@
+{
+  "name": "sizeup-api",
+  "version": "1.0.3",
+  "main": "index.js",
+  "author": "Tim James <tjames@sizeup.com>",
+  "license": "UNLICENSED",
+  "bin": {
+    "sizeup": "bin/sizeup.js"
+  },
+  "dependencies": {
+    "request": "^2.85.0"
+  }
+}
