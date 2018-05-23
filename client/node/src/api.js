@@ -217,7 +217,9 @@ module.exports = function (apiKey) {
                 }
 
                 try {
-                    var result = JSON.parse(/^JSONP_WRAPPER\((.*)\)$/.exec(body)[1]);
+                    // console.log(body);
+                    var unJsonpWrapped = /^JSONP_WRAPPER\((.*)\)$/.exec(body)[1];
+                    var result = unJsonpWrapped ? JSON.parse(unJsonpWrapped) : null;
                 } catch (e) {
                     return onError(e);
                 }
