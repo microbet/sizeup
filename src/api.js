@@ -158,8 +158,14 @@ module.exports = function (apiKey) {
                     delete me.getJsonpQueue;
 
                     if (error || !response || response.statusCode!==200) {
+                        var message = "Error attempting to authenticate: " + (
+                            error
+                                ? "Failed to contact sizeup server: " + error
+                                : "Auth error (invalid key?): "
+                                    + (response ? ("status code: "+response.statusCode+"; "+response.statusMessage) : "unknown") );
+
                         for (var i = 0; i < q.length; i++) {  // TODO: discuss JS/node version support with Travis
-                            q[i].onError("Auth error: " + (error || (response||{}).statusCode));
+                            q[i].onError(message);
                         }
                     } else {
                         me.authdAt = +new Date();
