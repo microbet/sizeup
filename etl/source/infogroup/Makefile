@@ -3,7 +3,7 @@ virtualenv_path = /etc/sizeup/virtualenv/primary
 python ?= $(virtualenv_path)/bin/python
 
 /data/infogroup.volume:
-	$(python) ../../bin/setup-aws-volume.py --name="/data/infogroup" --size=22 --device=/dev/xvdg --instance-id=$(instance_id)
+	$(python) ../../bin/setup-aws-volume.py --name="/data/infogroup" --size=22 --device=/dev/xvdg --instance-id=$(instance_id) --breadcrumb-file=$@
 	sleep 5  # /dev/xvdg needs a few seconds before it shows up ...?
 	sudo mkfs -t ext4 /dev/xvdg
 	sudo mount /dev/xvdg /data/infogroup/
