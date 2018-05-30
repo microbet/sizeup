@@ -13,7 +13,7 @@ namespace SizeUp.Core.Web
         public static HttpCookie Create(string name)
         {
             HttpCookie c = new HttpCookie(name);
-            c.Domain = "." + SizeUp.Core.Web.WebContext.Current.Domain;
+            c.Domain = "." + HttpContext.Current.Request.Url.Host;
             if (c.Domain == ".localhost") c.Domain = null;
             c.Name = name;
             return c;
