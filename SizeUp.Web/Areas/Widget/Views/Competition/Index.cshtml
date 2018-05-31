@@ -352,10 +352,11 @@ background-clip: padding-box;
             <ul class="businessList hidden">
                 <li data-template="businessItem">
                     <a href="javascript:void(0);" data-id="{{business.Id}}" style="height:8em">
-                        <img style="margin-bottom:45px" data-override-src="/pins/business/marker/{{index}}/{{number}}" />
-                        <dl>
+                        <img style="margin-bottom: 16px" data-override-src="/pins/business/marker/{{index}}/{{number}}" />
+                        <dl style="vertical-align: top;">
                             <dt class="name">{{business.Name}}</dt>
                             <dd class="address">{{business.City}}, {{business.State}}{{^business.State}}Street address not provided{{/business.State}}</dd>
+                        </dl>
                     </a>
                 </li>
             </ul>

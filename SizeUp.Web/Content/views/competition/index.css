@@ -90,7 +90,7 @@
 
 #competition .pager { font-family: Arial,Verdana,sans-serif; }
 #competition .businessList {font-family: Arial,Verdana,sans-serif; /*border-top: 1px dashed #CCCCCC;*/ padding-top: 1.5em; width: 38.5em; margin: 0.5em 0 0 0.8em;  }
-#competition .businessList li a {display:block; padding:0.5em; height:3em; font-size: 1em;  }
+#competition .businessList li a {padding:0.5em; height:3em; font-size: 1em;  }
 #competition .businessList li a:hover {background-color:#f6f6f0;}
 #competition .businessList li dl { display: inline-block;}
 #competition .businessList li .name { font-size:1.5em; font-weight:bold; color:#E78500; }
