@@ -9,28 +9,28 @@
 <div class="col">
     <h4>Help & Support</h4>
     <ul>
-        <li><a href="/help/how-it-works">How it Works</a></li>
-        <li><a href="/help/faq">FAQ</a></li>
-        <li><a href="/help/contact">Contact</a></li>
-        <li><a href="/help/enterprisepartners">Enterprise Partners</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/help/how-it-works">How it Works</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/help/faq">FAQ</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/help/contact">Contact</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/help/enterprisepartners">Enterprise Partners</a></li>
     </ul>
 </div>
 <div class="col">
     <h4>Company</h4>
     <ul>
-        <li><a href="/company/about">About</a></li>
-        <li><a href="/company/benefits">Benefits</a></li>
-        <li><a href="/company/team">Team</a></li>
-        <li><a href="http://news.sizeup.com" target="_blank">News</a></li>
-        <li><a href="/company/jobs">Jobs</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/company/about">About</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/company/benefits">Benefits</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/company/team">Team</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/company/news">News</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/company/jobs">Jobs</a></li>
     </ul>
 </div>
 <div class="col">
     <h4>Privacy & Security</h4>
     <ul>
-        <li><a href="/product/terms">Terms of Use</a></li>
-        <li><a href="/product/privacy-policy">Privacy Policy</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/product/terms">Terms of Use</a></li>
+        <li><a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/product/privacy-policy">Privacy Policy</a></li>
     </ul>
 </div>
 
-<p class="copy">Copyright &copy; @DateTime.Now.Year <a href="http://www.sizeup.com">SizeUp Inc.</a> Patent Pending. All Rights Reserved.</p>
+<p class="copy">Copyright &copy; @DateTime.Now.Year <a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]">SizeUp Inc.</a> Patent Pending. All Rights Reserved.</p>

@@ -79,7 +79,7 @@
         span.appendChild(textNode);
 
         var terms = document.createElement("a");
-        terms.setAttribute("href", loc.protocol + '://' + loc.host + (loc.port ? ':' + loc.port : '') + "/product/terms/");
+        terms.setAttribute("href", "@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]/product/terms");
         terms.setAttribute("target", "_blank");
         terms.innerHTML = "Terms of Use";
         span.appendChild(terms);
