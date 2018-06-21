@@ -279,17 +279,7 @@
 
 
 
-    getBusiness: function (params, success, error) {
-                var url = '/data/business/';
-                return sizeup.api.loader.getData(url, params, success, error);
-            },
-
-            getBusinessAt: function (params, success, error) {
-                var url = '/data/business/at/';
-                return sizeup.api.loader.getData(url, params, success, error);
-            },
-
-            getBusinessesByIndustry: function (params, success, error) {
+    getBusinessesByIndustry: function (params, success, error) {
                 var url = '/data/business/list/';
                 return sizeup.api.loader.getData(url, params, success, error);
             },
