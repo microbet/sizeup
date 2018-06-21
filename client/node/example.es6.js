@@ -5,11 +5,13 @@ require('.')(process.env.SIZEUP_KEY);  // installs sizeup.* globally; TODO recon
 
 const logj = r => console.log(JSON.stringify(r,0,2)) || r;
 
+sizeup.api.data.getIndustry({ id:7719 }).then(logj);
+
 Promise.all([
     sizeup.api.data.findIndustry({ term:"grocery" }),
     sizeup.api.data.findPlace({ term:"dallas, tx" }),
 ])
-// .then(logj)
+.then(logj)
 .then(([ [industry], [place] ]) => Promise.all([
     sizeup.api.data.getAverageRevenue({
         industryId: industry.Id,

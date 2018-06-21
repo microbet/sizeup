@@ -1,3 +1,4 @@
+var util = require('./util');
 
 (function () {
     window.sizeup = window.sizeup || {};
@@ -14,7 +15,7 @@
             },
             getPlace: function (params, success, error) {
                 var url = '/data/place/';
-                params.id = sizeup.api.util.wrapAsArray(params.id);
+                params.id = util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
             },
             getPlaceBySeokey: function (params, success, error) {
@@ -41,7 +42,7 @@
             },
             getIndustry: function (params, success, error) {
                 var url = '/data/industry/';
-                params.id = sizeup.api.util.wrapAsArray(params.id);
+                params.id = util.wrapAsArray(params.id);
                 return sizeup.api.loader.getData(url, params, success, error);
             },
             getIndustryBySeokey: function (params, success, error) {
