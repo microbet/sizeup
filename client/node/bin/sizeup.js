@@ -5,15 +5,16 @@ var exitSaying = function (s) {
     process.exit(1)
 }
 
+
 if (!process.env.SIZEUP_KEY)  exitSaying("ERROR: Need $SIZEUP_KEY to authenticate");
-require('..')(process.env.SIZEUP_KEY);  // installs sizeup.* globally; TODO reconsider
+var sizeupApi = require('..')(process.env.SIZEUP_KEY);  // TODO: return promise from factory to auth
 
 var exitWithUsage = function (s) {exitSaying((s?(s+"\n"):"") + "USAGE: sizeup <command> <json>")}
 
 var command = process.argv[2];
 if (!command)  exitWithUsage();
-var commandFn = sizeup.api.data[command];
-if (!commandFn)  exitSaying("ERROR: Unknown command.\n\nCommands:\n"+Object.keys(sizeup.api.data).join(', '));
+var commandFn = sizeupApi.data[command];
+if (!commandFn)  exitSaying("ERROR: Unknown command.\n\nCommands:\n"+Object.keys(sizeupApi.data).join(', '));
 
 var json = process.argv[3]; // TODO || stdin;
 if (!json)  exitWithUsage();

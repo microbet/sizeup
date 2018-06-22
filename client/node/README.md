@@ -3,16 +3,16 @@
 ## SDK usage
 
 ```javascript
-require('sizeup-api')(process.env.SIZEUP_KEY);  // makes global.sizeup
+var sizeupApi = require('sizeup-api')(process.env.SIZEUP_KEY);  // TODO: return promise from factory to auth
 
-sizeup.api.data.findPlace(
+sizeupApi.data.findPlace(
     { term:"fresno", maxResults:10 },
     function(result) { console.log(JSON.stringify(result,0,2)); },
     function(exc) { console.error(exc); }
 );
 
 // data functions return a Promise when called without the function args
-sizeup.api.data.findPlace(
+sizeupApi.data.findPlace(
     { term:"fresno", maxResults:10 }
 )
 .then(function(result) { console.log(JSON.stringify(result,0,2)); })
@@ -35,7 +35,7 @@ sizeup getAverageSalaryBands '{
 }'
 ```
 
-Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeup.api.data`, per the [The API Documentation](http://www.sizeup.com/developers/documentation).
+Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeupApi.data` — or `sizeup.api.data` in the [The API Documentation](http://www.sizeup.com/developers/documentation).
 
 The `granularity` and `attributes` values as used in the Documentation can be provided directly as CamelCase strings, as in the last example (`getAverageSalaryBands`: `"granularity": "County"`), above.
 
