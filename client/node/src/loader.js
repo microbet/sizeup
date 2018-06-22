@@ -21,25 +21,8 @@ module.exports = function makeGetData(apiKey) {
     domain: 'api.sizeup.com'
   };
 
-  var buildTokenUrl = function(src, params){
-    if (src.indexOf('?') < 0) {
-      src = src + '?';
-    }
-    else {
-      src = src + '&';
-    }
-    params['o'] = 'sizeup.com';  // TODO: unused??
-    params['s'] = me.sessionId;
-    params['t'] = me.apiToken;
-    params['i'] = me.instanceId;
-    if(me.widgetToken != '') {
-      params['wt'] = me.widgetToken;
-    }
-    src = src + util.formatParams(params);
-    return src;
-  };
 
-  return function getData(path, params, onSuccess, onError) {
+  var getData = function (path, params, onSuccess, onError) {
     var opts = { aborted: false };
     function abort() {
       opts.aborted = true;  // NOTE: why not null the success and error functions so they may be GC'd?
@@ -47,52 +30,40 @@ module.exports = function makeGetData(apiKey) {
 
     var r;
     if (!onSuccess && !onError) {
-      r = new Promise(function(resolve, reject) {  // TODO: require some Promise implementation module?
+      r = new Promise(function(resolve, reject) {
         onSuccess = resolve;
         onError   = reject;
       })
       r.abort = abort;
     } else {
-      r = { abort:abort };
+      r = { abort:abort };    // historical
     }
 
-    // Authenticate, async: Queue requests until auth is available
-    //  Alternately client could use a callback for auth.  Burden belongs here.
-    //  TODO: if we could compute auth values from the apiKey client side, none of this would be needed; but I think server must establish session.
-    //  TODO: Why doesn't server just accept key on each request? How are sessions used/implemented on server?
+    // If auth is missing or old, and not already underway ...
     if ((!me.sessionId || me.authdAt && me.authdAt + 5*60*1000 < +new Date()) && !me.getDataQueue) {
+      // ... Authenticate (async); Queue requests until auth is available.
+      //  Alternately client could use a callback for auth.  Burden belongs here.
+      //  TODO: if we could compute auth values from the apiKey client side, none of this would be needed; but I think server must establish session.
+      //  TODO: Why doesn't server just accept key on each request? How are sessions used/implemented on server?
+
       me.getDataQueue = [];
-      var authUrl = me.currentLocation.protocol + '://' + me.currentLocation.domain + '/js/?apikey=' + apiKey;
-      // console.log('***** AUTH', authUrl);
-      request(authUrl, function (error, response, body) {
-        var q = me.getDataQueue;
-        delete me.getDataQueue;
+      authenticate()
+        .then(function () {
+          var q = me.getDataQueue;
+          delete me.getDataQueue;
 
-        if (error || !response || response.statusCode!==200) {
-          var message = "Error attempting to authenticate: " + (
-            error
-              ? "Failed to contact sizeup server: " + error
-              : "Auth error (invalid key?): "
-                + (response ? ("status code: "+response.statusCode+"; "+response.statusMessage) : "unknown") );
+          for (var i = 0; i < q.length; i++) {  // TODO: move to es6??
+            getData(q[i].path, q[i].params, q[i].onSuccess, q[i].onError);  // TODO: move to es6??
+          }
+        })
+        .catch(function (message) {
+          var q = me.getDataQueue;
+          delete me.getDataQueue;
 
-          for (var i = 0; i < q.length; i++) {  // TODO: discuss JS/node version support with Travis
+          for (var i = 0; i < q.length; i++) {  // TODO: move to es6??
             q[i].onError(message);
           }
-        } else {
-          me.authdAt = +new Date();
-
-          // console.log(body);
-          var re = /me.(sessionId|apiToken|instanceId)\s=\s['"](.*)['"];/g;
-          for (var a; a = re.exec(body); ) {
-            // console.log(a.slice(1));
-            me[a[1]] = a[2];
-          }
-
-          for (var i = 0; i < q.length; i++) {  // TODO: discuss JS/node version support with Travis
-            getData(q[i].path, q[i].params, q[i].onSuccess, q[i].onError);  // TODO: discuss JS/node version support with Travis
-          }
-        }
-      });
+        })
     }
     if (me.getDataQueue) {
       me.getDataQueue.push({
@@ -140,4 +111,55 @@ module.exports = function makeGetData(apiKey) {
 
     return r;
   };
+
+
+  var authenticate = function () {
+    var authUrl = me.currentLocation.protocol + '://' + me.currentLocation.domain + '/js/?apikey=' + apiKey;
+    // console.log('***** AUTH', authUrl);
+    return new Promise(function (resolve, reject) {
+      request(authUrl, function (error, response, body) {
+        if (!error && (response||{}).statusCode == 200) {
+          me.authdAt = +new Date();
+
+          // console.log(body);
+          var re = /me.(sessionId|apiToken|instanceId)\s=\s['"](.*)['"];/g;
+          for (var a; a = re.exec(body); ) {
+            // console.log(a.slice(1));
+            me[a[1]] = a[2];
+          }
+
+          resolve();   // TODO: might be clearer to resolve with the auth'd context as argument... or not
+
+        } else {
+          reject("Error attempting to authenticate: " + (
+              error
+              ? "Failed to contact sizeup server: " + error
+              : "Auth error (invalid key?): "
+              + (response ? ("status code: "+response.statusCode+"; "+response.statusMessage) : "unknown") ) );
+        }
+      })
+    });
+  };
+
+
+  var buildTokenUrl = function (src, params){
+    if (src.indexOf('?') < 0) {
+      src = src + '?';
+    }
+    else {
+      src = src + '&';
+    }
+    params['o'] = 'sizeup.com';  // TODO: unused??
+    params['s'] = me.sessionId;
+    params['t'] = me.apiToken;
+    params['i'] = me.instanceId;
+    if(me.widgetToken != '') {
+      params['wt'] = me.widgetToken;
+    }
+    src = src + util.formatParams(params);
+    return src;
+  };
+
+
+  return getData;
 }
