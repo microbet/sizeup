@@ -47,22 +47,24 @@ module.exports = function makeGetData(apiKey) {
       //  TODO: Why doesn't server just accept key on each request? How are sessions used/implemented on server?
 
       me.getDataQueue = [];
+      function applyToAndDeleteGetDataQueue(fn) {
+        var q = me.getDataQueue;
+        delete me.getDataQueue;  // delete before fn is called: must be missing or authentication is underway.
+
+        for (var i = 0; i < q.length; i++) {                                    // TODO: move to es6??
+          fn(q[i]);
+        }
+      }
       authenticate()
         .then(function () {
-          var q = me.getDataQueue;
-          delete me.getDataQueue;
-
-          for (var i = 0; i < q.length; i++) {  // TODO: move to es6??
-            getData(q[i].path, q[i].params, q[i].onSuccess, q[i].onError);  // TODO: move to es6??
-          }
+          applyToAndDeleteGetDataQueue(function (x) {                           // TODO: move to es6??
+            getData(x.path, x.params, x.onSuccess, x.onError);
+          });
         })
         .catch(function (message) {
-          var q = me.getDataQueue;
-          delete me.getDataQueue;
-
-          for (var i = 0; i < q.length; i++) {  // TODO: move to es6??
-            q[i].onError(message);
-          }
+          applyToAndDeleteGetDataQueue(function (x) {                           // TODO: move to es6??
+            x.onError(message);
+          });
         })
     }
     if (me.getDataQueue) {
