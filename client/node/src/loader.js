@@ -163,5 +163,6 @@ module.exports = function makeGetData(apiKey) {
   };
 
 
-  return getData;
+  // Initially authenticate immediately, returning getData only once auth succeeds
+  return authenticate().then(function () { return getData; } );  // TODO es6
 }

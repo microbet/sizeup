@@ -2,22 +2,40 @@
 
 ## SDK usage
 
+### Modern ES6 style, with evolved Promise use
 ```javascript
-var sizeupApi = require('sizeup-api')(process.env.SIZEUP_KEY);  // TODO: return promise from factory to auth
-
-sizeupApi.data.findPlace(
-    { term:"fresno", maxResults:10 },
-    function(result) { console.log(JSON.stringify(result,0,2)); },
-    function(exc) { console.error(exc); }
-);
-
-// data functions return a Promise when called without the function args
-sizeupApi.data.findPlace(
-    { term:"fresno", maxResults:10 }
-)
-.then(function(result) { console.log(JSON.stringify(result,0,2)); })
-.catch(console.error);
+require('sizeup-api')(process.env.SIZEUP_KEY)
+  .then(sizeupApi => Promise
+    .all([
+      sizeupApi.data.findPlace({ term:"fresno", maxResults:2 }),
+      sizeupApi.data.findIndustry({ term:"grocery" }),
+    ])
+    .then( result => console.log(JSON.stringify(result,0,2)) )
+  )
+  .catch(console.error)
 ```
+
+### Old style
+```javascript
+require('sizeup-api')(process.env.SIZEUP_KEY)
+  .then(function (sizeupApi) {
+
+    // old style: callbacks
+    sizeupApi.data.findPlace({ term:"fresno", maxResults:10 },
+      function(result) { console.log(JSON.stringify(result,0,2)); },
+      console.error
+    );
+
+    // data functions still always return a Promise when called without function args
+    sizeupApi.data.findPlace({ term:"fresno", maxResults:10 })
+      .then(function(result) { console.log(JSON.stringify(result,0,2)); })
+      .catch(console.error);
+  })
+  .catch(console.error)
+```
+
+See also [the ES6 example](./example.es6.js) and [the pre-ES6 example](./example.js).
+
 
 ## CLI usage
 
@@ -28,10 +46,10 @@ export SIZEUP_KEY=...
 sizeup findPlace '{"term":"fresno"}'
 sizeup findIndustry '{"term":"tech"}'
 sizeup getAverageSalaryBands '{
-    "boundingGeographicLocationId": 130073,
-    "industryId": 8589,
-    "granularity": "County",
-    "bands": 7
+  "boundingGeographicLocationId": 130073,
+  "industryId": 8589,
+  "granularity": "County",
+  "bands": 7
 }'
 ```
 
