@@ -5,7 +5,10 @@ const sizeupApi = require('.')(process.env.SIZEUP_KEY);  // TODO: return promise
 
 const logj = r => console.log(JSON.stringify(r,0,2)) || r;
 
-sizeupApi.data.getIndustry({ id:7719 }).then(logj);
+sizeupApi.data.getIndustry({ id:7719 })
+.then(logj)
+.catch(console.error)
+
 
 Promise.all([
     sizeupApi.data.findIndustry({ term:"grocery" }),
@@ -22,6 +25,8 @@ Promise.all([
         geographicLocationId: place.State.Id
     }),
 ]))
+.catch(console.error)
+
 
 const data = sizeupApi.data;
 Promise.all([
