@@ -101,6 +101,12 @@ Outputs:
 
 The Node binary allows you to use Sizeup software from languages other than Node, by launching shell commands. For example:
 
+#### Installation
+
+    npm install -g sizeup-api
+
+#### Use
+
     $ export SIZEUP_KEY=YOUR_PRODUCT_KEY_HERE
     $ bin/sizeup.js findPlace '{"term": "austin, tx"}'
     ...
