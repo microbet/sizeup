@@ -9,7 +9,7 @@
 }
 
 <h1>Returning users</h1>
-<p class="details">Please enter your e-mail address and password.</p>
+<p class="details">Sign into your all-access SizeUp account here.</p>
 
 <form id="signinForm" action="/user/signin/?returnurl=@Server.UrlEncode(Request.QueryString["returnurl"])" method="post">
     <ul id="form">
@@ -78,10 +78,16 @@
     <ul id="sidebar">
         <li>
             <p class="info" style="border: 2px solid black">
-                TODO: Explain that a user account is required to use this SizeUp application.
-                No account? We need to provide a LIST OF WAYS YOU CAN USE SIZEUP WITHOUT AN ACCOUNT.
-            </p>
-        </li>
+                If you don't have an account, head over to our friends at @System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Name"].
+                <a style="font-weight: bold" href="@System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Url"]">
+                    @System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Name"]
+                provides free access to SizeUp</a> and much more.
+        </p>
+        <p class="info" style="border: none; background-color: #FFFFFF;">
+            Information and news about SizeUp can be found at
+            <a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]">@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]</a>.
+        </p>
+    </li>
     </ul>
 
     <div id="submitContainer">

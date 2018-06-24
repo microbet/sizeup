@@ -37,6 +37,14 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/business/business.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 
+@if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <style>
+        /* Applies to analysis graphs that are dynamically rendered (even when user is not auth'd) */
+        svg { display: none; }
+    </style>
+}
+
 }
 
 
@@ -60,8 +68,19 @@
     </p>
     <h2>Related Industries for @ViewBag.Business.Name</h2>
     <p class="description">@(string.Join(", ", ViewBag.IndustryKeywords))</p>
+    @if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        <p class="info">
+            For more features, including in-map industry analysis for
+            @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name,
+            head over to
+            <a style="font-weight: bold" href="@System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Url"]">fully-featured SizeUp, hosted by our friends at @System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Name"]</a>.
+        </p>
+    }
 
     <ul class="features">
+      @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+      {
         <li class="dashboard">
             <a href="/dashboard/@ViewBag.CurrentInfo.CurrentPlace.State.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.County.SEOKey/@ViewBag.CurrentInfo.CurrentPlace.City.SEOKey/@ViewBag.CurrentInfo.CurrentIndustry.SEOKey" >
                 <img src="@Url.Content("~/Content/images/mybusinessSmall.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="My Business" />    
@@ -83,6 +102,7 @@
                 <span class="button small" >Advertising</span>
             </a>
         </li>
+      }
     </ul>
     <div class="mapWrapper container">
         <div data-template="legendTitle" class="legend titleWrap">
@@ -96,6 +116,8 @@
         <div class="map"></div>
     </div>
     <div class="report wrapper">
+      @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+      {
         <h2>Industry Analysis for @ViewBag.CurrentInfo.CurrentIndustry.Name in @ViewBag.CurrentInfo.CurrentPlace.City.Name, @ViewBag.CurrentInfo.CurrentPlace.State.Abbreviation</h2>
         <div id="averageRevenue" class="chartContainer">
             <h3>Average Estimated Revenue</h3>
@@ -180,6 +202,7 @@
                 <p class="message">Generating Report</p>
             </div>
         </div>
+      }
     </div>
 
 </div>
