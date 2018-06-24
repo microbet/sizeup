@@ -77,6 +77,18 @@ Insert into [LBISizeUp].[dbo].ClientBoundaries
     @industry_placeholder, @dynamic_iframe, @show_resources, @client_id
   FROM [LBI_Geo].[dbo].[GeographicEntityGeography] where GeoEntityID=@geo_entity_id;
 
+-- If the client boundary (service area) doesn't match any entities in
+-- GeographicEntityGeography, you'll make one from spare parts:
+--
+-- select CountyID, g.GeoEntityID, Name, FIPS, g.Geography
+--   from County c inner join GeographicEntityGeography g on (c.GeoEntityID = g.GeoEntityID)
+--   where StateID=48 and Name in ('Collin','Dallas','Tarrant')
+-- declare @collin geography, @dallas geography, @tarrant geography, @service_area geography;
+-- select @collin = Geography from GeographicEntityGeography where GeoEntityID='4DE5879E-8F97-4DF8-B03D-D04B5F7B59AC'
+-- select @dallas = Geography from GeographicEntityGeography where GeoEntityID='E6838070-D463-4392-98A0-33E3CDB005B7'
+-- select @tarrant = Geography from GeographicEntityGeography where GeoEntityID='E1908583-8C0F-45BA-A889-B565C789F60D'
+-- select @service_area = @collin.STUnion(@dallas).STUnion(@tarrant)
+
 select * from [LBISizeUp].[dbo].ClientBoundaries where ClientID=@client_id
 
 -- From SIZEUPLBIADDCITYLISTING#2.sql and sizeuplbiadddefaulticty#3.sql
@@ -97,6 +109,10 @@ print 'Manual step: Trim trailing comma from the outputs of the two SELECTs belo
 -- Also, @city_id is calculated differently. The original query fetched all
 -- City rows `WHERE Name LIKE 'Santa Cruz'`. Not sure if wildcards were intended
 -- (otherwise why LIKE?) nor what to do with results where state != @state_id.
+--
+-- Followup. I think the 'Name LIKE...' was a one-time hack that sadly made it
+-- into source. We are really looking for a list of all cities or all counties
+-- which are "searchable places" (see LBI definitions). See NCW example below.
 
 SELECT '{"label":"' + Name + ', ' + @state_abbr + '", "value":"' + CONVERT(varchar(36), GeoEntityId) + '"},' 
 FROM LBI_Geo.dbo.city WHERE fipsclassid='C' and CityID = @city_id
@@ -104,6 +120,16 @@ For XML PATH ('')
 
 SELECT '{"label":"' + Name + ' County, ' + @state_abbr + '", "value":"' + CONVERT(varchar(36), GeoEntityId) + '"},' 
 FROM LBI_Geo.dbo.county WHERE CountyID = @county_id
+
+-- NCW tri county-area:
+-- SELECT '{"label":"' + Name + ' County, WA", "value":"' + CONVERT(varchar(36), GeoEntityId) + '"},'
+-- FROM LBI_Geo.dbo.County -- or from City to get city results; WHERE clause should still reference County
+-- WHERE CountyID in (
+--   select FIPS from LBISizeUp2.dbo.County
+--   where id in (2961, 2966, 2981) -- these IDs come from the ClientSetup API
+-- )
+-- FOR XML PATH('')
+
 
 -- UPDATE LBISizeUp.dbo.CityListings set
 --   citylisting='[{"label":"Long Beach, CA", "value":"976A7D48-B345-4FAD-BC8A-C6A316B3751C"}]',
