@@ -19,7 +19,6 @@ To run SizeUp entirely in a browser application, download the script directly fr
       
       ////// Look up industry and place objects //////
       function onLoadSizeup() {
-      sizeup.data = sizeup.api.data;
         sizeup.data.findIndustry(
           { term: "shoe repair" },
           function(industries) { report.industry = industries[0]; onLoadIndustries(); },
