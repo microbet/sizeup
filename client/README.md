@@ -51,31 +51,151 @@ Other customized attributes, such as the widget's content and visual appearance,
 This function can throw (TODO exceptions for permission denied, auth failure, element not found, unrecognized arguments).
 
 
-## Data API
+# Data API
 
-#### In the browser
+The `sizeup.data` object implements the data API, which has a number of specific functions to access specific analytic data. (`sizeup.api.data` refers to the same object but is considered obsolete.)
 
-Instructions are presently at https://www.sizeup.com/developers/documentation but we'll move them here.
+Each data function has the same basic signature: a dictionary of query parameters, a success callback, and an error callback. For Ecmascript 6 consumers: If you omit the callback arguments, the data function will return a Promise object. For example:
 
-#### Node.js
+    sizeup.data.findPlace(
+      { term: 'san franc', maxResults: 10 },
+      function(results) { YOUR_RESULT_HANDLER(results); },
+      function(error) { YOUR_ERROR_HANDLER(error); }
+    );
 
-Example.
+or the equivalent:
 
-    const sizeup = require("sizeup");
-    sizeup.authenticate(YOUR_KEY);
-    data = sizeup.api.data;
+    sizeup.data.findPlace(
+      { term: 'san franc', maxResults: 10 }
+    ).then(
+      YOUR_RESULT_HANDLER
+    ).catch(
+      YOUR_ERROR_HANDLER
+    );
+
+Data functions are listed below, but first, a couple of full examples.
+
+## Example: SizeUp from browser code
+
+To run SizeUp entirely in a browser application, download the script directly from our servers using your product key. For example, here we look up the average revenue of Shoe Repair businesses in Chicago and its county.
+
+#### Installation
+
+    <script src="https://api.sizeup.com/js/?callback=onLoadSizeup&apikey=YOUR_PRODUCT_KEY_HERE"></script>
+    
+#### Use
+
+    <script type="text/javascript">
+      let report = {};
+      
+      /*** Look up industry and place objects ***/
+      function onLoadSizeup() {
+        sizeup.data.findIndustry(
+          { term: "shoe repair" },
+          function(industries) { report.industry = industries[0]; onLoadIndustries(); },
+          console.error);
+      }
+      function onLoadIndustries() {
+        sizeup.data.findPlace(
+          { term: "chicago" },
+          function(places) { report.place = places[0]; onLoadPlaces(); },
+          console.error);
+      }
+      function onLoadPlaces() {
+      
+        /*** Get citywide data ***/
+        sizeup.data.getAverageRevenue(
+          { geographicLocationId: report.place.City.Id, industryId: report.industry.Id },
+          function(data) { alert(
+            "Average revenue of " + report.industry.Name
+            + " businesses in " + report.place.City.Name
+            + ": $" + data.Value);
+          },
+          console.error);
+          
+        /*** Get countywide data ***/
+        sizeup.data.getAverageRevenue(
+          { geographicLocationId: report.place.County.Id, industryId: report.industry.Id },
+          function(data) { alert(
+            "Average revenue of " + report.industry.Name
+            + " businesses in " + report.place.County.Name
+            + " County: $" + data.Value);
+          },
+          console.error);
+      }
+    </script>
+
+Outputs:
+
+    Average revenue of Shoe & Boot Repairing businesses in Chicago: $109571
+    Average revenue of Shoe & Boot Repairing businesses in Cook County: $96127
+    
+## Example: SizeUp from Node.js
+
+The `sizeup-api` npm module allows both callback coding (as in the above example) or ES6 Promise coding, as shown below. Here we look up the revenue per capita of Coffee Shops in Oakland and its county.
+
+#### Installation
+
+    npm install sizeup-api
+
+#### Use
+
+    const sizeup = require("sizeup-api")(YOUR_PRODUCT_KEY_HERE);
+    
+    /*** Look up industry and place objects ***/
     Promise.all([
-      data.getIndustryBySeokey("shoe-and-boot-repairing"),
-      data.getPlaceBySeokey("california/alameda/oakland-city"),
-    ]).then(([industry, place, user]) => Promise.all([
-      data.getAverageRevenue({geographicLocationId: place.City.Id, industryId: industry.Id}),
-    ])).then(console.log);
+      sizeup.data.getIndustryBySeokey("coffee-shops"),
+      sizeup.data.getPlaceBySeokey("california/alameda/oakland-city"),
+    ]).then(([industry, place]) => {
+      Promise.all([
+        /*** Get citywide data ***/
+        sizeup.data.getRevenuePerCapita({geographicLocationId: place.City.Id, industryId: industry.Id}),
+        /*** Get countywide data ***/
+        sizeup.data.getRevenuePerCapita({geographicLocationId: place.County.Id, industryId: industry.Id}),
+      ]).then(([city_data, county_data]) => {
+        console.log(util.format(
+          "Revenue per capita of %s businesses in %s: $%s",
+          industry.Name, place.City.Name, city_data.Value));
+        console.log(util.format(
+          "Revenue per capita of %s businesses in %s County: $%s",
+          industry.Name, place.County.Name, county_data.Value));
+      })
+    }).catch(console.error);
 
-#### Other languages
+Outputs:
 
-The Node binary allows you to use Sizeup APIs from languages other than Node.
+    Revenue per capita of Coffee Shops businesses in Oakland: $86
+    Revenue per capita of Coffee Shops businesses in Alameda County: $114
+    
+## Other languages
 
-    bin/sizeup.js findPlace '{"term":"oakland, ca"}'
+The Node binary allows you to use Sizeup software from languages other than Node, by launching shell commands. For example:
+
+#### Installation
+
+    npm install -g sizeup-api
+
+#### Use
+
+    $ export SIZEUP_KEY=YOUR_PRODUCT_KEY_HERE
+    $ bin/sizeup.js findPlace '{"term": "austin, tx"}'
+    ...
+      "DisplayName": "Austin, TX (Travis County - City)",
+      "City": {
+        "Id": 104971,
+    ...
+    $ bin/sizeup.js findIndustry '{"term": "burger"}'
+    [
+      {
+        "Id": 8524,
+        "Name": "Burger Restaurants",
+    ...
+    $ bin/sizeup.js getAverageRevenue '{"geographicLocationId": 104971, "industryId": 8524}'
+    {
+      "Value": 1537200,
+      "Median": 1481000,
+      "Name": "Austin, TX"
+    }
 
 
 ## Place Names

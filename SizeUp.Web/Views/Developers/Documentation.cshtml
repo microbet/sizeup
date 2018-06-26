@@ -17,42 +17,143 @@
         for pricing information, and we will set you up with your own API key.
     </p> 
 
-    <h2>Getting Started</h2>
-    <p>After you have obtained your API key, include a reference to the api loader script in your head tag of your page.</p>
+    <div><a href="#data-api">Data API</a></div>
+    <ul>
+        <li><a href="#example-sizeup-from-browser-code">Example: SizeUp from browser code</a></li>
+        <li><a href="#example-sizeup-from-node.js">Example: SizeUp from Node.js</a></li>
+        <li><a href="#other-languages">Other languages</a></li>
+        <li><a href="#granularity">Granularity</a></li>
+        <li><a href="#range">Range</a></li>
+        <li><a href="#data-api-functions">Data API functions</a></li>
+    </ul>
 
-    <h2>Basic Example</h2>
-<pre class="prettyprint">&lt;html&gt;
-    &lt;head&gt;
-        &lt;script src="http://api.sizeup.com/js/?callback=loaded&amp;apikey=YOUR_API_KEY_HERE"&gt;&lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-              
-        &lt;p id="placeResults"&gt;&lt;/p&gt;
-
-        &lt;p id="industryResults"&gt;&lt;/p&gt;
-
-        &lt;script type="text/javascript"&gt;
-            var loaded = function () {       
-                sizeup.api.data.findPlace({ term: 'bost' }, function (data) {
-                    var d = '';
-                    for (var x = 0; x &lt; data.length; x++) {
-                        d = d + data[x].City.Name + ',' + data[x].State.Abbreviation + '&lt;br/&gt;';
-                    }
-                    document.getElementById('placeResults').innerHTML = d;
-                });
-
-                sizeup.api.data.findIndustry({ term: 'pharm' }, function (data) {
-                    var d = '';
-                    for (var x = 0; x &lt; data.length; x++) {
-                        d = d + data[x].Name + '&lt;br/&gt;';
-                    }
-                    document.getElementById('industryResults').innerHTML = d;
-                });
-            };
-        &lt;/script&gt;  
-    &lt;/body&gt;
-&lt;/html&gt;
-</pre>
+    <h1 id="data-api">Data API</h1>
+    <p>The <code>sizeup.data</code> object implements the data API, which has a number of specific functions to access specific analytic data. (<code>sizeup.api.data</code> refers to the same object but is considered obsolete.)</p>
+    <p>Each data function has the same basic signature: a dictionary of query parameters, a success callback, and an error callback. For Ecmascript 6 consumers: If you omit the callback arguments, the data function will return a Promise object. For example:</p>
+    <pre class="prettyprint"><code>sizeup.data.findPlace(
+  { term: 'san franc', maxResults: 10 },
+  function(results) { YOUR_RESULT_HANDLER(results); },
+  function(error) { YOUR_ERROR_HANDLER(error); }
+);</code></pre>
+    <p>or the equivalent:</p>
+    <pre class="prettyprint"><code>sizeup.data.findPlace(
+  { term: 'san franc', maxResults: 10 }
+).then(
+  YOUR_RESULT_HANDLER
+).catch(
+  YOUR_ERROR_HANDLER
+);</code></pre>
+    <p>Data functions are listed below, but first, a couple of full examples.</p>
+    <h2 id="example-sizeup-from-browser-code">Example: SizeUp from browser code</h2>
+    <a name="example-sizeup-from-browser-code"></a>
+    <p>To run SizeUp entirely in a browser application, download the script directly from our servers using your product key. For example, here we look up the average revenue of Shoe Repair businesses in Chicago and its county.</p>
+    <h4 id="installation">Installation</h4>
+    <pre class="prettyprint"><code>&lt;script src="https://api.sizeup.com/js/?callback=onLoadSizeup&amp;apikey=YOUR_PRODUCT_KEY_HERE"&gt;&lt;/script&gt;
+</code></pre>
+    <h4 id="use">Use</h4>
+    <pre class="prettyprint"><code>&lt;script type="text/javascript"&gt;
+  let report = {};
+  
+  /*** Look up industry and place objects ***/
+  function onLoadSizeup() {
+    sizeup.data.findIndustry(
+      { term: "shoe repair" },
+      function(industries) { report.industry = industries[0]; onLoadIndustries(); },
+      console.error);
+  }
+  function onLoadIndustries() {
+    sizeup.data.findPlace(
+      { term: "chicago" },
+      function(places) { report.place = places[0]; onLoadPlaces(); },
+      console.error);
+  }
+  function onLoadPlaces() {
+  
+    /*** Get citywide data ***/
+    sizeup.data.getAverageRevenue(
+      { geographicLocationId: report.place.City.Id, industryId: report.industry.Id },
+      function(data) { alert(
+        "Average revenue of " + report.industry.Name
+        + " businesses in " + report.place.City.Name
+        + ": $" + data.Value);
+      },
+      console.error);
+      
+    /*** Get countywide data ***/
+    sizeup.data.getAverageRevenue(
+      { geographicLocationId: report.place.County.Id, industryId: report.industry.Id },
+      function(data) { alert(
+        "Average revenue of " + report.industry.Name
+        + " businesses in " + report.place.County.Name
+        + " County: $" + data.Value);
+      },
+      console.error);
+  }
+&lt;/script&gt;
+</code></pre>
+    <p>Outputs:</p>
+    <pre class="prettyprint"><code>Average revenue of Shoe &amp; Boot Repairing businesses in Chicago: $109571
+Average revenue of Shoe &amp; Boot Repairing businesses in Cook County: $96127
+</code></pre>
+    <h2 id="example-sizeup-from-node.js">Example: SizeUp from Node.js</h2>
+    <a name="example-sizeup-from-node.js"></a>
+    <p>The <code>sizeup-api</code> npm module allows both callback coding (as in the above example) or ES6 Promise coding, as shown below. Here we look up the revenue per capita of Coffee Shops in Oakland and its county.</p>
+    <h4 id="installation-1">Installation</h4>
+    <pre class="prettyprint"><code>npm install sizeup-api
+</code></pre>
+    <h4 id="use-1">Use</h4>
+    <pre class="prettyprint"><code>const sizeup = require("sizeup-api")(YOUR_PRODUCT_KEY_HERE);
+/*** Look up industry and place objects ***/
+Promise.all([
+  sizeup.data.getIndustryBySeokey("coffee-shops"),
+  sizeup.data.getPlaceBySeokey("california/alameda/oakland-city"),
+]).then(([industry, place]) =&gt; {
+  Promise.all([
+    /*** Get citywide data ***/
+    sizeup.data.getRevenuePerCapita({geographicLocationId: place.City.Id, industryId: industry.Id}),
+    /*** Get countywide data ***/
+    sizeup.data.getRevenuePerCapita({geographicLocationId: place.County.Id, industryId: industry.Id}),
+  ]).then(([city_data, county_data]) =&gt; {
+    console.log(util.format(
+      "Revenue per capita of %s businesses in %s: $%s",
+      industry.Name, place.City.Name, city_data.Value));
+    console.log(util.format(
+      "Revenue per capita of %s businesses in %s County: $%s",
+      industry.Name, place.County.Name, county_data.Value));
+  })
+}).catch(console.error);
+</code></pre>
+    <p>Outputs:</p>
+    <pre class="prettyprint"><code>Revenue per capita of Coffee Shops businesses in Oakland: $86
+Revenue per capita of Coffee Shops businesses in Alameda County: $114
+</code></pre>
+    <h2 id="other-languages">Other languages</h2>
+    <a name="other-languages"></a>
+    <p>The Node binary allows you to use Sizeup software from languages other than Node, by launching shell commands. For example:</p>
+    <h4 id="installation-2">Installation</h4>
+    <pre class="prettyprint"><code>npm install -g sizeup-api
+</code></pre>
+    <h4 id="use-2">Use</h4>
+    <pre class="prettyprint"><code>$ export SIZEUP_KEY=YOUR_PRODUCT_KEY_HERE
+$ bin/sizeup.js findPlace '{"term": "austin, tx"}'
+...
+  "DisplayName": "Austin, TX (Travis County - City)",
+  "City": {
+    "Id": 104971,
+...
+$ bin/sizeup.js findIndustry '{"term": "burger"}'
+[
+  {
+    "Id": 8524,
+    "Name": "Burger Restaurants",
+...
+$ bin/sizeup.js getAverageRevenue '{"geographicLocationId": 104971, "industryId": 8524}'
+{
+  "Value": 1537200,
+  "Median": 1481000,
+  "Name": "Austin, TX"
+}
+</code></pre>
 
     <h2>Granularity <a name="granularity"></a></h2>
     <p>
@@ -84,21 +185,8 @@
 
     </pre>
 
-
-    <h2>Data API</h2>
-    <p>The data API is exposed via the sizeup.api.data object. The data API has a number of methods to access different types of data available through the API.</p>
-    <p>Each method has the same basic signature:</p>
-    <pre class="prettyprint">        sizeup.api.data.findPlace({ term: 'san franc', maxResults: 10 }, 
-            function(data){
-                //your code to handle the returned data
-            }, 
-            function(){
-                //your code on error
-            });
-    </pre>
-
-
-    <h2>Data API Methods</h2>
+    <h2>Data API Functions</h2>
+    <a name="data-api-functions"></a>
     <dl>
         <dt>Place</dt>
         <dd><a href="#findPlace">findPlace</a></dd>
