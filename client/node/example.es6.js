@@ -5,6 +5,8 @@ const sizeupApi = require('.')(process.env.SIZEUP_KEY);
 
 const logj = r => console.log(JSON.stringify(r,0,2)) || r;
 const data = sizeupApi.data;
+const eachGeographyName = fn => Promise.all(['City','County','Metro','State','Nation'].map(fn));
+
 
 return Promise.all([
 
@@ -34,16 +36,10 @@ return Promise.all([
       data.getPlaceBySeokey("california/alameda/oakland-city"),
       Promise.resolve({revenue: 123123})  // KPIs for user's own business
     ]).then(([industry, place, user]) => Promise.all([
-      data.getAverageRevenue({geographicLocationId: place.City.Id, industryId: industry.Id}),
-      data.getAverageRevenue({geographicLocationId: place.County.Id, industryId: industry.Id}),
-      data.getAverageRevenue({geographicLocationId: place.Metro.Id, industryId: industry.Id}),
-      data.getAverageRevenue({geographicLocationId: place.State.Id, industryId: industry.Id}),
-      data.getAverageRevenue({geographicLocationId: place.Nation.Id, industryId: industry.Id}),
-      data.getAverageRevenuePercentile({value: user.revenue, geographicLocationId: place.City.Id, industryId: industry.Id}),
-      data.getAverageRevenuePercentile({value: user.revenue, geographicLocationId: place.County.Id, industryId: industry.Id}),
-      data.getAverageRevenuePercentile({value: user.revenue, geographicLocationId: place.Metro.Id, industryId: industry.Id}),
-      data.getAverageRevenuePercentile({value: user.revenue, geographicLocationId: place.State.Id, industryId: industry.Id}),
-      data.getAverageRevenuePercentile({value: user.revenue, geographicLocationId: place.Nation.Id, industryId: industry.Id}),
+      eachGeographyName(geogName =>
+        data.getAverageRevenue({geographicLocationId: place[geogName].Id, industryId: industry.Id})),
+      eachGeographyName(geogName =>
+        data.getAverageRevenuePercentile({value: user.revenue, geographicLocationId: place[geogName].Id, industryId: industry.Id})),
       data.getAverageRevenueBands({granularity:"ZipCode", boundingGeographicLocationId: place.County.Id, bands: 5, industryId: industry.Id}),
       data.getConsumerExpenditureVariables({parentId:1}),
       data.getConsumerExpenditureVariables({parentId:32}),
