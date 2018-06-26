@@ -48,18 +48,6 @@ require('.')(process.env.SIZEUP_KEY).then(sizeupApi => {
         data.getConsumerExpenditureVariables({parentId:1}),
         data.getConsumerExpenditureVariables({parentId:32}),
         data.getConsumerExpenditureVariable({id: 172}),
-        data.getBusinessesByIndustry({
-          industryIds: [10526,9664],
-          geographicLocationId: place.Id, itemCount: 0, page: 1,
-        }),
-        data.getBusinessesByIndustry({
-          industryIds: [10526],
-          geographicLocationId: place.Id, itemCount: 0, page: 1,
-        }),
-        data.getBusinessesByIndustry({
-          industryIds: [9664],
-          geographicLocationId: place.Id, itemCount: 0, page: 1,
-        }),
       ]))
       ,
 

@@ -273,15 +273,6 @@ module.exports = function makeDataApi(getData) {
 
 
 
-
-    getBusinessesByIndustry: function (params, success, error) {
-                var url = '/data/business/list/';
-                return getData(url, params, success, error);
-            },
-
-
-
-
     getBoundingBox: function (params, success, error) {
                 var url = '/data/geography/boundingbox/';
                 return getData(url, params, success, error);
