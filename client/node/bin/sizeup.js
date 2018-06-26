@@ -7,7 +7,7 @@ var exitSaying = function (s) {
 
 
 if (!process.env.SIZEUP_KEY)  exitSaying("ERROR: Need $SIZEUP_KEY to authenticate");
-var sizeupApi = require('..')(process.env.SIZEUP_KEY);
+var sizeupApi = require('..')({ key:process.env.SIZEUP_KEY });
 
 var exitWithUsage = function (s) {exitSaying((s?(s+"\n"):"") + "USAGE: sizeup <command> <json>")}
 

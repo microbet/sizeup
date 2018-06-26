@@ -4,7 +4,7 @@
 
 ### Modern ES6 style, using Promises
 ```javascript
-const sizeupApi = require('.')(process.env.SIZEUP_KEY);
+const sizeupApi = require('.')({ key:process.env.SIZEUP_KEY });
 Promise
   .all([
     sizeupApi.data.findPlace({ term:"fresno", maxResults:2 }),
@@ -16,10 +16,10 @@ Promise
 
 ### Old style
 ```javascript
-var sizeupApi = require('sizeup-api')(process.env.SIZEUP_KEY);
+var sizeupApi = require('sizeup-api')({ key:process.env.SIZEUP_KEY });
 
 // Old style: callbacks
-sizeupApi.data.findPlace({ term:"fresno", maxResults:10 },
+sizeupApi.data.findPlace({ term:"fresno", maxResults:2 },
   onSuccess, console.error );
 sizeupApi.data.findIndustry({ term:"grocery" }),
   onSuccess, console.error );

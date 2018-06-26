@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 if (!process.env.SIZEUP_KEY)  return console.error("ERROR: Need $SIZEUP_KEY to authenticate");
-var sizeupApi = require('.')(process.env.SIZEUP_KEY);
+var sizeupApi = require('.')({ key:process.env.SIZEUP_KEY });
 
 sizeupApi.data.findPlace({ term:"san francisco", maxResults:3 })
   .then(onSuccess)
@@ -19,7 +19,7 @@ sizeupApi.data.getAverageSalaryBands({
 
 // Old style: callbacks
 sizeupApi.data.findPlace(
-  { term:"fresno", maxResults:10 },
+  { term:"fresno", maxResults:2 },
   onSuccess, console.error
 );
 

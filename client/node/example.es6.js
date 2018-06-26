@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 if (!process.env.SIZEUP_KEY)  return console.error("ERROR: Need $SIZEUP_KEY to authenticate");
-const sizeupApi = require('.')(process.env.SIZEUP_KEY);
+const sizeupApi = require('.')({ key:process.env.SIZEUP_KEY });
 
 const logj = r => console.log(JSON.stringify(r,0,2)) || r;
 const data = sizeupApi.data;

@@ -3,7 +3,8 @@ var makeDataApi = require('./data');
 var makeGetData = require('./loader');
 
 
-module.exports = function makeApi(apiKey) {
+module.exports = function makeApi(args) {
+  var apiKey = args.key;
   if (!apiKey)  throw new Error("Need apiKey to authenticate");  // TODO: no
   return {
     data: makeDataApi(makeGetData(apiKey)),
