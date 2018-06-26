@@ -11,12 +11,12 @@ To run SizeUp entirely in a browser application, download the script directly fr
 #### Installation
 
     <script src="https://api.sizeup.com/js/?callback=onLoadSizeup&apikey=YOUR_PRODUCT_KEY_HERE"></script>
-    
+
 #### Use
 
     <script type="text/javascript">
       let report = {};
-      
+
       ////// Look up industry and place objects //////
       function onLoadSizeup() {
         sizeup.data.findIndustry(
@@ -31,7 +31,7 @@ To run SizeUp entirely in a browser application, download the script directly fr
           console.error);
       }
       function onLoadPlaces() {
-      
+
         ////// Get citywide data //////
         sizeup.data.getAverageRevenue(
           { geographicLocationId: report.place.City.Id, industryId: report.industry.Id },
@@ -41,7 +41,7 @@ To run SizeUp entirely in a browser application, download the script directly fr
             + ": $" + data.Value);
           },
           console.error);
-          
+
         ////// Get countywide data //////
         sizeup.data.getAverageRevenue(
           { geographicLocationId: report.place.County.Id, industryId: report.industry.Id },
@@ -58,7 +58,7 @@ Outputs:
 
     Average revenue of Shoe & Boot Repairing businesses in Chicago: $109571
     Average revenue of Shoe & Boot Repairing businesses in Cook County: $96127
-    
+
 ## Example: SizeUp from Node.js
 
 The `sizeup-api` npm module allows both callback coding (as in the above example) or ES6 Promise coding, as shown below. Here we look up the revenue per capita of Coffee Shops in Oakland and its county.
@@ -69,8 +69,8 @@ The `sizeup-api` npm module allows both callback coding (as in the above example
 
 #### Use
 
-    const sizeup = require("sizeup-api")(YOUR_PRODUCT_KEY_HERE);
-    
+    const sizeup = require("sizeup-api")({ key:YOUR_PRODUCT_KEY_HERE });
+
     ////// Look up industry and place objects //////
     Promise.all([
       sizeup.data.getIndustryBySeokey("coffee-shops"),
@@ -82,12 +82,8 @@ The `sizeup-api` npm module allows both callback coding (as in the above example
         ////// Get countywide data //////
         sizeup.data.getRevenuePerCapita({geographicLocationId: place.County.Id, industryId: industry.Id}),
       ]).then(([city_data, county_data]) => {
-        console.log(util.format(
-          "Revenue per capita of %s businesses in %s: $%s",
-          industry.Name, place.City.Name, city_data.Value));
-        console.log(util.format(
-          "Revenue per capita of %s businesses in %s County: $%s",
-          industry.Name, place.County.Name, county_data.Value));
+        console.log("Revenue per capita of",industry.Name,"businesses in",place.City.Name,": ",city_data.Value);
+        console.log("Revenue per capita of",industry.Name,"businesses in",place.County.Name,"County : ",county_data.Value);
       })
     }).catch(console.error);
 
@@ -95,7 +91,7 @@ Outputs:
 
     Revenue per capita of Coffee Shops businesses in Oakland: $86
     Revenue per capita of Coffee Shops businesses in Alameda County: $114
-    
+
 ## Other languages
 
 The Node binary allows you to use Sizeup software from languages other than Node, by launching shell commands. For example:
@@ -127,5 +123,5 @@ The Node binary allows you to use Sizeup software from languages other than Node
     }
 
 Read more at [Sizeup developer docs].
-    
-[Sizeup developer docs]: https://www.sizeup.com/developers/documentation 
+
+[Sizeup developer docs]: https://www.sizeup.com/developers/documentation
