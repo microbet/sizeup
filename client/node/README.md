@@ -4,26 +4,34 @@
 
 ### Modern ES6 style, using Promises
 ```javascript
-const sizeupApi = require('.')({ key:process.env.SIZEUP_KEY });
+const sizeup = require('.')({ key:process.env.SIZEUP_KEY });
+const logj = r => console.log(JSON.stringify(r,0,2)) || r;
+
 Promise
   .all([
-    sizeupApi.data.findPlace({ term:"fresno", maxResults:2 }),
-    sizeupApi.data.findIndustry({ term:"grocery" }),
+    sizeup.data.findIndustry({ term:"grocery" }),
+    sizeup.data.findPlace({ term:"fresno", maxResults:2 }),
   ])
-  .then( result => console.log(JSON.stringify(result,0,2)) )
+  // .then(logj)                       // for debugging
+  .then(([ [industry], [place] ]) =>
+    sizeup.data.getAverageRevenue({
+      industryId: industry.Id,
+      geographicLocationId: place.City.Id
+    })
+  )
+  .then(logj)                          // final output
   .catch(console.error)
 ```
 
 ### Old style
 ```javascript
-var sizeupApi = require('sizeup-api')({ key:process.env.SIZEUP_KEY });
+var sizeup = require('sizeup-api')({ key:process.env.SIZEUP_KEY });
 
 // Old style: callbacks
-sizeupApi.data.findPlace({ term:"fresno", maxResults:2 },
-  onSuccess, console.error );
-sizeupApi.data.findIndustry({ term:"grocery" }),
-  onSuccess, console.error );
-function onSuccess(result) { console.log(JSON.stringify(result,0,2)); };
+sizeup.data.findPlace({ term:"fresno", maxResults:2 },
+  console.log, console.error );
+sizeup.data.findIndustry({ term:"grocery" }),
+  console.log, console.error );
 ```
 
 See also [the ES6 example](./example.es6.js) and [the old-style example](./example.js).
@@ -45,7 +53,7 @@ sizeup getAverageSalaryBands '{
 }'
 ```
 
-Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeupApi.data` — or `sizeup.api.data` in the [The API Documentation](http://www.sizeup.com/developers/documentation).
+Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeup.data` — or `sizeup.api.data` in the [The API Documentation](http://www.sizeup.com/developers/documentation).
 
 The `granularity` and `attributes` values as used in the Documentation can be provided directly as CamelCase strings, as in the last example (`getAverageSalaryBands`: `"granularity": "County"`), above.
 
