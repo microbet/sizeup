@@ -1,4 +1,4 @@
-﻿<a id="logo" href="/"><img src="@Url.Content("~/Content/images/sizeup.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="SizeUp Logo"/></a>
+﻿<a id="logo" href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]"><img src="@Url.Content("~/Content/images/sizeup.png")?@SizeUp.Core.Web.CacheBuster.Buster" alt="SizeUp Logo"/></a>
 @if(!ViewBag.Header.HideMenu){
 <div id="menu" class="@(SizeUp.Core.Identity.Identity.CurrentUser!=null ? "signinIn" : "")  ">
 <ul>

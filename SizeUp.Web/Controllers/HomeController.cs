@@ -18,6 +18,10 @@ namespace SizeUp.Web.Controllers
 
         public ActionResult Index()
         {
+            if (! System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("signin", "user");
+            }
             ViewBag.Header = new Models.Header()
             {
                 HideNavigation = true
