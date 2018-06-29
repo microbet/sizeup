@@ -2,22 +2,40 @@
 
 ## SDK usage
 
+### Modern ES6 style, using Promises
 ```javascript
-require('sizeup-api')(process.env.SIZEUP_KEY);  // makes global.sizeup
+const sizeup = require('.')({ key:process.env.SIZEUP_KEY });
+const logj = r => console.log(JSON.stringify(r,0,2)) || r;
 
-sizeup.api.data.findPlace(
-    { term:"fresno", maxResults:10 },
-    function(result) { console.log(JSON.stringify(result,0,2)); },
-    function(exc) { console.error(exc); }
-);
-
-// data functions return a Promise when called without the function args
-sizeup.api.data.findPlace(
-    { term:"fresno", maxResults:10 }
-)
-.then(function(result) { console.log(JSON.stringify(result,0,2)); })
-.catch(console.error);
+Promise
+  .all([
+    sizeup.data.findIndustry({ term:"grocery" }),
+    sizeup.data.findPlace({ term:"fresno", maxResults:2 }),
+  ])
+  // .then(logj)                       // for debugging
+  .then(([ [industry], [place] ]) =>
+    sizeup.data.getAverageRevenue({
+      industryId: industry.Id,
+      geographicLocationId: place.City.Id
+    })
+  )
+  .then(logj)                          // final output
+  .catch(console.error)
 ```
+
+### Old style
+```javascript
+var sizeup = require('sizeup-api')({ key:process.env.SIZEUP_KEY });
+
+// Old style: callbacks
+sizeup.data.findPlace({ term:"fresno", maxResults:2 },
+  console.log, console.error );
+sizeup.data.findIndustry({ term:"grocery" }),
+  console.log, console.error );
+```
+
+See also [the ES6 example](./example.es6.js) and [the old-style example](./example.js).
+
 
 ## CLI usage
 
@@ -28,14 +46,14 @@ export SIZEUP_KEY=...
 sizeup findPlace '{"term":"fresno"}'
 sizeup findIndustry '{"term":"tech"}'
 sizeup getAverageSalaryBands '{
-    "boundingGeographicLocationId": 130073,
-    "industryId": 8589,
-    "granularity": "County",
-    "bands": 7
+  "boundingGeographicLocationId": 130073,
+  "industryId": 8589,
+  "granularity": "County",
+  "bands": 7
 }'
 ```
 
-Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeup.api.data`, per the [The API Documentation](http://www.sizeup.com/developers/documentation).
+Each `sizeup` subcommand (e.g., `findPlace`) is a function in `sizeup.data` — or `sizeup.api.data` in the [The API Documentation](http://www.sizeup.com/developers/documentation).
 
 The `granularity` and `attributes` values as used in the Documentation can be provided directly as CamelCase strings, as in the last example (`getAverageSalaryBands`: `"granularity": "County"`), above.
 

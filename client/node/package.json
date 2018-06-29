@@ -1,6 +1,6 @@
 {
   "name": "sizeup-api",
-  "version": "1.0.3",
+  "version": "1.1.1",
   "main": "index.js",
   "author": "Tim James <tjames@sizeup.com>",
   "license": "UNLICENSED",
