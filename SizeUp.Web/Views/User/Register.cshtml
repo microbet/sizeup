@@ -8,9 +8,18 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/user/register.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>
 }
 
-<h3>This page will redirect to a brochure page</h3>
-<p class="details">
-    ... which describes ways the user can get access to the SizeUp product. TODO write the brochure page.
+<h2 style="text-align: center; margin-bottom: 1em;">This site does not issue new accounts.</h2>
+
+<p class="info" style="border: 2px solid black">
+    If you don't have an account, head over to @System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Name"].
+    <a target="_blank" style="font-weight: bold" href="@System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Url"]">
+        @System.Configuration.ConfigurationManager.AppSettings["FeaturedCustomer.Name"]
+        provides free access to SizeUp
+    </a> and much more.
+</p>
+<p class="info" style="border: none; background-color: #FFFFFF;">
+    Information and news about SizeUp can be found at
+    <a href="@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]">@System.Configuration.ConfigurationManager.AppSettings["Corporate.Url"]</a>.
 </p>
 
 
