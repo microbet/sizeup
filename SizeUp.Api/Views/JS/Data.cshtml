@@ -354,4 +354,13 @@ version: '1.0'
 
         return pub;
     })();
+
+    window.sizeup.data = window.sizeup.api.data; // sizeup.data is preferred; sizeup.api.data is the original.
+
+    window.sizeup.customer = {
+        getCustomerByKey: function(params, success, error) {
+            var url = '/customer/account/get/';
+            return sizeup.api.loader.getData(url, params, success, error);
+        }
+    };
 })();
