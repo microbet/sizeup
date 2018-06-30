@@ -62,13 +62,20 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
 
+        /**
+         * Although only zero or one result can come back, we return a list because
+         * that is consistent with the get-by-ID call (which unfortunately returns
+         * a list).
+         */
         [APIAuthorize(Role = "Place")]
         public ActionResult GetBySeokey(string stateSeokey, string countySeokey, string placeSeokey)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Place.Get(context, stateSeokey, countySeokey, placeSeokey);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                List<Core.DataLayer.Models.Place> result = new List<Core.DataLayer.Models.Place>();
+                if (data != null && data != Core.DataLayer.Place.NOT_FOUND) { result.Add(data); }
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 
