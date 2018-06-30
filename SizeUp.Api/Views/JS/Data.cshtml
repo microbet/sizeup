@@ -359,6 +359,7 @@ version: '1.0'
 
     window.sizeup.customer = {
         getCustomerByKey: function(params, success, error) {
+            if (typeof(params) == "string") { params = {"key": params}; }
             var url = '/customer/account/get/';
             return sizeup.api.loader.getData(url, params, success, error);
         }
