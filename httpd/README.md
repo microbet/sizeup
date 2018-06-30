@@ -1,5 +1,6 @@
 ## Install
 
+```
 vi /etc/hosts  # add hostname and ip-10-0-xxx-xxx
 apt-get install apache2
 cd /etc/apache2/mods-enabled
@@ -15,11 +16,13 @@ vi /var/www/html/bbthackers/index.html
 vi /var/www/htpasswd
 cd /etc/apache2
 vi apache2.conf
+```
 
 Ensure the Wordpress installation's wp-config.php contains the code in wp-config-for-proxy.php .
 
 ## Test
 
+```
 curl http://$host/server-status
 curl -H "Host: www.sizeup.com" http://$host/server-status
 curl -H "Host: www.sizeup.com" http://$host/dashboard/
@@ -34,3 +37,4 @@ curl -I -H "Host: www.sizeup.com" http://$host/company/about/
 curl -I -H "Host: www.sizeup.com" http://$host/white-papers/small-business-banking-new-customer-demands-and-digital-expectations/
 curl -I -H "www.sizeup.com" http://$host/developers/documentation
 curl -I -H "www.sizeup.com" http://$host/developers/keystore/bbthackers
+```
