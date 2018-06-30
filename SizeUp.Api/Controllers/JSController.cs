@@ -8,6 +8,9 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using SizeUp.Data;
+using System.Web.Http;
+using System.Net;
+using System.Net.Http;
 
 namespace SizeUp.Api.Controllers
 {
@@ -24,8 +27,23 @@ namespace SizeUp.Api.Controllers
             APISession.Create();       
         }
 
-        public ActionResult Index(Guid apikey, string wt = "")
+        protected ActionResult InvalidApikeyArg(string apikey)
         {
+            Response.StatusCode = 400;
+            return Content("Argument \"apikey\" is missing or misformatted.\nReceived: " + apikey + "\nExpected: A valid GUID, in the format apikey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, where 'x' is a hexadecimal digit.", "text/plain");
+        }
+
+        public ActionResult Index(String apikey, string wt = "")
+        {
+            Guid apikeyGuid;
+            try
+            {
+                apikeyGuid = new Guid(apikey);
+            }
+            catch (ArgumentNullException) { return InvalidApikeyArg(apikey); }
+            catch (FormatException) { return InvalidApikeyArg(apikey); }
+            catch (OverflowException) { return InvalidApikeyArg(apikey); }
+
             APIToken token = null;
             APIToken widgetToken = null;
             if (!string.IsNullOrWhiteSpace(wt))
@@ -34,17 +52,23 @@ namespace SizeUp.Api.Controllers
             }
             using (var context = ContextFactory.APIContext)
             {
-                var k = context.APIKeys.Where(i => i.KeyValue == apikey && i.IsActive).FirstOrDefault();
+                var k = context.APIKeys.Where(i => i.KeyValue == apikeyGuid && i.IsActive).FirstOrDefault();
                 if (k == null)
                 {
-                    throw new HttpException(403, "Invalid API Key");
+                    Response.StatusCode = 401;
+                    return Content("The product key (\"apikey\") is invalid. Please see https://www.sizeup.com/developers/documentation for help.", "text/plain");
+                    // It would be nice to do this instead, but first we need to plug in a page somewhere to
+                    // render the reason. Else you get an opaque HTTP 500 error.
+                    // throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized) {
+                    //     ReasonPhrase = "Product key not recognized."
+                    // });
                 }
                 token = APIToken.Create(k.Id);
             }
             ViewBag.Token = token.GetToken();
             ViewBag.SessionId = APISession.Current.SessionId;
             ViewBag.InstanceId = RandomString.Get(25);
-            ViewBag.WidgetToken = widgetToken != null ? widgetToken.GetToken(): "";
+            ViewBag.WidgetToken = widgetToken != null ? widgetToken.GetToken() : "";
             return View();
         }
 
