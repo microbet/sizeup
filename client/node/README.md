@@ -2,9 +2,22 @@
 
 ## SDK usage
 
+### Installation
+
+
+```
+yarn add sizeup-api
+```
+or
+```
+npm install sizeup-api
+```
+
+Be sure to set `$SIZEUP_KEY` in your environment to use the examples below.
+
 ### Modern ES6 style, using Promises
 ```javascript
-const sizeup = require('.')({ key:process.env.SIZEUP_KEY });
+const sizeup = require('sizeup-api')({ key:process.env.SIZEUP_KEY });
 const logj = r => console.log(JSON.stringify(r,0,2)) || r;
 
 Promise
