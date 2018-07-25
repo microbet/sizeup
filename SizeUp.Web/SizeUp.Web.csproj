@@ -378,6 +378,7 @@
     <Content Include="Content\themes\highContrast\highContrast.css" />
     <Content Include="Content\themes\highContrast\images\actionbutton.png" />
     <Content Include="Content\themes\highContrast\images\dashbuttons.png" />
+    <Content Include="Content\themes\sizeup2\sizeup2.css" />
     <Content Include="Content\themes\wide\wide.css" />
     <Content Include="Content\thirdParty\add2home.css" />
     <Content Include="Content\thirdParty\animations.css" />

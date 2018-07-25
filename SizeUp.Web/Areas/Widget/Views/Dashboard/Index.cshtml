@@ -46,6 +46,8 @@
     (function() {
         sizeup.core.namespace('sizeup.config.timeslice.industry');
         sizeup.config.timeslice.industry.year = @System.Configuration.ConfigurationManager.AppSettings["TimeSlice.Industry.Year"];
+        sizeup.core.namespace('sizeup.config.api');
+        sizeup.config.api.url = "@System.Configuration.ConfigurationManager.AppSettings["API.Url"]";
     })();
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/views/dashboard/reportContainer.js")?@SizeUp.Core.Web.CacheBuster.Buster"></script>

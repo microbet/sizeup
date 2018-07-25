@@ -79,8 +79,17 @@
 
             
             me.container.find('.links .textAlternative').click(function () {
-                var url = '/accessibility/yearStarted/';
-                var data = { industryId: me.opts.report.CurrentIndustry.Id, placeId: me.opts.report.CurrentPlace.Id, startYear: me.opts.startYear, endYear: me.opts.endYear };
+                //var url = '/accessibility/yearStarted/';
+                var data = {
+                    industryId: me.opts.report.CurrentIndustry.Id,
+                    geographicLocationId: -1,
+                    placeId: me.opts.report.CurrentPlace.Id,
+                    startYear: me.opts.startYear,
+                    endYear: me.opts.endYear,
+                    contentType: "text/html"
+                };
+                var url = sizeup.api.loader.buildTokenUrl(
+                    "//" + sizeup.config.api.url + "/data/yearStarted/chart/", data);
                 url = jQuery.param.querystring(url, data)
                 window.open(url,'_blank');                
             });
