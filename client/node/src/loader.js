@@ -4,8 +4,8 @@ var request = require('request');
 
 var util = require('./util');
 
-
 module.exports = function makeGetData(apiKey) {
+
   // Factory function (encapsulating an authentication context per apiKey) that
   // returns a function that gets data from the SizeUp data API via JSONP, authenticating as needed
 
@@ -163,5 +163,10 @@ module.exports = function makeGetData(apiKey) {
   };
 
 
-  return getData;
+  return {
+    authenticate: authenticate,
+    buildTokenUrl: buildTokenUrl,
+    getData: getData,
+    me: me
+  };
 }

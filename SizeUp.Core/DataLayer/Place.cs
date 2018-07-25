@@ -48,6 +48,12 @@ namespace SizeUp.Core.DataLayer
                 .FirstOrDefault();
         }
 
+        /**
+         * For some reason, the Get routine wants to return this object instead of a null.
+         * Instead of researching why, I made the object a global sentinel so that, although
+         * I can't check for null, I can check whether the return value is NOT_FOUND.
+         */
+        public static Models.Place NOT_FOUND = new Models.Place() { City = new Models.City(), County = new Models.County(), Metro = new Models.Metro(), State = new Models.State() };
 
         public static Models.Place Get(SizeUpContext context, string stateSEOKey, string countySEOKey, string citySEOKey, string metroSEOKey = null)
         {
@@ -80,7 +86,7 @@ namespace SizeUp.Core.DataLayer
                     .Select(new Projections.Place.Metro().Expression)
                     .FirstOrDefault();
             }
-            return output != null ? output : new Models.Place() { City = new Models.City(), County = new Models.County(), Metro = new Models.Metro(), State = new Models.State() };
+            return output != null ? output : NOT_FOUND;
         }
 
         public static IQueryable<Models.DistanceEntity<Models.Place>> ListNear(SizeUpContext context, Core.Geo.LatLng latLng)

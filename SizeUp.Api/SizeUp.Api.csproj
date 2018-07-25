@@ -134,6 +134,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Customer\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\Data\Controllers\MarketingController.cs" />
     <Compile Include="Areas\Data\Controllers\BestPlacesController.cs" />
     <Compile Include="Areas\Data\Controllers\BusinessController.cs" />
@@ -199,6 +201,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Customer\Views\Shared\" />
     <Folder Include="Areas\Data\Models\" />
     <Folder Include="Areas\Tiles\Models\" />
     <Folder Include="Areas\Tiles\Views\Shared\" />
@@ -225,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Tiles\Views\Web.config" />
+    <Content Include="Areas\Customer\Views\Web.config" />
     <None Include="Properties\PublishProfiles\*.pubxml" />
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />

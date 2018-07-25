@@ -26,13 +26,20 @@ namespace SizeUp.Api.Areas.Data.Controllers
             }
         }
         
+        /**
+         * Although only zero or one result can come back, we return a list because
+         * that is consistent with the get-by-ID call (which unfortunately returns
+         * a list).
+         */
         [APIAuthorize(Role = "Industry")]
         public ActionResult GetBySeokey(string seokey)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
                 var data = Core.DataLayer.Industry.Get(context, seokey);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                List<Core.DataLayer.Models.Industry> result = new List<Core.DataLayer.Models.Industry>();
+                if (data != null) { result.Add(data); }
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
         }
 
