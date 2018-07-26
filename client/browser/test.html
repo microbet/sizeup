@@ -1,0 +1,44 @@
+<html>
+ <head>
+  <script id="api-script" src="http://api.www09.sizeup.com/js/?apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
+  <script type="text/javascript">
+    var tests = {
+      revenue: { query: "/data/averageRevenue/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        industryId: 8542
+      }},
+      yearStarted: { query: "/data/yearStarted/chart/", params: {
+        startYear: 1986,
+        endYear: 2017,
+        geographicLocationId: -1,
+        placeId: 2044,
+        industryId: 8542
+      }},
+    };
+
+    for (var t in tests) {console.log(tests[t].params.contentType = "text/html");}
+    
+    function getHost() {
+      var parserElem = document.createElement("a");
+      parserElem.href = document.getElementById("api-script").src;
+      return parserElem.protocol + "//" + parserElem.hostname + ":" + parserElem.port;
+    }
+    
+    window.onload = function() {
+      var test = tests.yearStarted;
+      var host = getHost();
+      params.contentType = "text/html";
+      var url = sizeup.api.loader.buildTokenUrl(host + test.query, test.params);
+      document.getElementById("result-link").href = url;
+      document.getElementById("result-link").innerHTML = test.query;
+      document.getElementById("params").innerHTML = JSON.stringify(test.params, null, 2);
+    }
+  </script>
+ </head>
+ <body>
+  <a id="result-link" href="javascript:alert('not initialized');">uninitialized link</a>
+  <pre id="params"></pre>
+ </body>
+</html>

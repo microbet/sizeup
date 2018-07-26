@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Customer\Controllers\" />
     <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\Shared\" />
     <Folder Include="Areas\Data\Models\" />
@@ -230,6 +231,9 @@
   <ItemGroup>
     <Content Include="Areas\Tiles\Views\Web.config" />
     <Content Include="Areas\Customer\Views\Web.config" />
+    <Content Include="Areas\Data\Views\Shared\Heatmap.cshtml" />
+    <Content Include="Areas\Data\Views\Shared\LineChart.cshtml" />
+    <Content Include="Areas\Data\Views\Shared\SemanticHtmlLayout.cshtml" />
     <None Include="Properties\PublishProfiles\*.pubxml" />
     <Content Include="Views\JS\Range.cshtml" />
     <Content Include="Views\JS\Granularity.cshtml" />
@@ -240,6 +244,7 @@
     <Content Include="Views\JS\Overlay.cshtml" />
     <Content Include="Views\JS\OverlayAttributes.cshtml" />
     <Content Include="Views\JS\Attributes.cshtml" />
+    <Content Include="Views\JS\Unauthorized.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

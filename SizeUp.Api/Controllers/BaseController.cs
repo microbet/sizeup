@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Configuration;
 using SizeUp.Core;
@@ -29,6 +31,15 @@ namespace SizeUp.Api.Controllers
             valid = APIContext.Current.ApiToken != null && APIContext.Current.ApiToken.IsValid && !APIContext.Current.ApiToken.IsExpired;
             if (!valid)
             {
+                // requestContext.HttpContext.Response.StatusCode = 401;
+                // requestContext.HttpContext.Response.Write("API token is invalid, possibly expired.");
+                // or
+                // HttpResponseMessage invalidToken = new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+                // invalidToken.ReasonPhrase = "API token is invalid, possibly expired.";
+                // throw new HttpResponseException(invalidToken);
+                // Okay, I have no clue what will work here. TODO infer best practice from
+                // https://stackoverflow.com/questions/12519561/throw-httpresponseexception-or-return-request-createerrorresponse?rq=1
+                // and then implement it. Till then the following line incorrectly causes HTTP 500:
                 throw new HttpException(403, "Api token not valid");
             }
         }
