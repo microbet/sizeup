@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Areas/Data/Views/Shared/SemanticHtmlLayout.cshtml";
+}
+<div id="heatmap">
+    <h1>@ViewBag.Query</h1>
+    @if (ViewBag.Bands.Count == 0)
+    {
+        <p>No data available.</p>
+    }
+    @foreach (var item in ViewBag.Bands)
+    {
+        <h2>@item.Min - @item.Max</h2>
+        <ul>
+            @if (item.Items.Count == 0)
+            {
+                <li><span>No Values on Map</span></li>
+            }
+            @foreach (var val in item.Items)
+            {
+                <li><span>@val</span></li>
+            }
+        </ul>
+    }
+</div>

@@ -1,6 +1,6 @@
 <html>
  <head>
-  <script id="api-script" src="http://api.www09.sizeup.com/js/?apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
+  <script id="api-script" src="http://localhost:49286/js/?apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
   <script type="text/javascript">
     var tests = {
       revenue: { query: "/data/averageRevenue/bands/", params: {
@@ -14,6 +14,12 @@
         endYear: 2017,
         geographicLocationId: -1,
         placeId: 2044,
+        industryId: 8542
+      }},
+      salary: { query: "/data/averageSalary/bands/", params: {
+        granularity: "County",
+        boundingGeographicLocationId: 129845,
+        bands: 5,
         industryId: 8542
       }},
     };
@@ -38,7 +44,8 @@
   </script>
  </head>
  <body>
-  <a id="result-link" href="javascript:alert('not initialized');">uninitialized link</a>
+  <a id="result-link" target="result-iframe" href="javascript:alert('not initialized');">uninitialized link</a>
   <pre id="params"></pre>
+  <iframe name="result-iframe" src="about:blank" style="width: 100%; height: 500px" />
  </body>
 </html>

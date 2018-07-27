@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SizeUp: @ViewBag.Query</title>
+    <link id="resetCss" href="@ViewBag.ThemeUrl/reset.css" rel="stylesheet" type="text/css" />
+    <link id="baseCss" href="@ViewBag.ThemeUrl/base.css" rel="stylesheet" type="text/css" />
+    <link id="layoutCss" href="@ViewBag.ThemeUrl/layout.css" rel="stylesheet" type="text/css" />
+    <link id="printCss" href="@ViewBag.ThemeUrl/print.css" rel="stylesheet" type="text/css" media="print" />
+    <link id="accessibilityCss" href="@ViewBag.ThemeUrl/views/accessibility/index.css" rel="stylesheet" type="text/css" />
+
+    <!-- use when ready: <link id="sizeup2Css" href="@ViewBag.ThemeUrl/themes/sizeup2/sizeup2.css" rel="stylesheet" type="text/css" /> -->
+</head>
+
+<body>
+    <div id="header">
+        <a id="logo" href="https://www.sizeup.com"><img src="@ViewBag.ThemeUrl/images/sizeup.png" alt="SizeUp business intelligence report" /></a>
+    </div>
+    <div id="content">
+        <div id="contentWrap">
+            @RenderBody()
+        </div>
+    </div>
+    <div id="footer">
+        <p class="copy">Copyright <a href="https://www.sizeup.com">SizeUp Inc.</a> Patent Pending. All Rights Reserved.</p>
+    </div>
+</body>
+
+</html>
