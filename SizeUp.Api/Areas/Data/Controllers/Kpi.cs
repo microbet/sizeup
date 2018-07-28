@@ -23,13 +23,14 @@ namespace SizeUp.Api.Areas.Data.Controllers
         public class LabeledValue
         {
             public string Label { get; set; }
-            public long? Value { get; set; }
+            public double? Value { get; set; }
         }
 
         public static List<Band> GetKpiBands(
             SizeUpContext context, long industryId, long locationId, string granularityName,
             Expression<Func<IndustryData, bool>> filter,
-            Expression<Func<IndustryData, LabeledValue>> selector, int numBands
+            Expression<Func<IndustryData, LabeledValue>> selector, 
+            string formatString, int numBands
         ) {
             return Core.DataLayer.IndustryData.Get(context)
                 .Where(i => i.GeographicLocation.GeographicLocations.Any(gl => gl.Id == locationId))
@@ -41,8 +42,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
                 .NTileDescending(i => i.Value, numBands)
                 .Select(i => new Kpi.Band
                 {
-                    Min = string.Format("${0}", Kpi.Format(i.Min(v => v.Value.Value))),
-                    Max = string.Format("${0}", Kpi.Format(i.Max(v => v.Value.Value))),
+                    Min = string.Format(formatString, Kpi.Format(i.Min(v => v.Value.Value))),
+                    Max = string.Format(formatString, Kpi.Format(i.Max(v => v.Value.Value))),
                     Items = i.Select(v => v.Label).ToList()
                 })
                 .ToList();
@@ -57,11 +58,12 @@ namespace SizeUp.Api.Areas.Data.Controllers
             dynamic ViewBag, SizeUpContext context,
             long industryId, long locationId, Core.DataLayer.Granularity granularity,
             Expression<Func<IndustryData, bool>> filter,
-            Expression<Func<IndustryData, LabeledValue>> selector, string kpiName, int numBands
+            Expression<Func<IndustryData, LabeledValue>> selector,
+            string kpiName, string formatString, int numBands
         ) {
             var gran = Enum.GetName(typeof(Core.DataLayer.Granularity), granularity);
 
-            var data = Kpi.GetKpiBands(context, industryId, locationId, gran, filter, selector, numBands);
+            var data = Kpi.GetKpiBands(context, industryId, locationId, gran, filter, selector, formatString, numBands);
 
             // probably obsolete
             ViewBag.BoundingEntity = context.GeographicLocations
@@ -101,12 +103,20 @@ namespace SizeUp.Api.Areas.Data.Controllers
             return bands;
         }
 
+        // TODO: neither of these Format methods deal correctly with negative numbers.
+        // We have no negative KPI data at present, but should accommodate possible
+        // future negatives here anyway.
         public static string Format(double val)
         {
             string output = "";
             if (val < 10)
             {
-                output = string.Format("{0:0.0}", System.Math.Round(val, 1));
+                // Round to two significant digits, instead of a fixed number of digits
+                // after the decimal (as Math.Round() does). This sigfig trick is from
+                // https://stackoverflow.com/questions/374316/round-a-double-to-x-significant-figures
+                double scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(val))) + 1);
+                double roundedValue = scale * Math.Round(val / scale, 2);
+                output = roundedValue.ToString();
             }
             else if (val >= 10 && val < 10000)
             {

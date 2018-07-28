@@ -88,6 +88,9 @@
             getData: function (url, params, success, error) {
                 return getJsonp(url, params, success, error);
             },
+            getServiceEndpoint: function() {
+                return me.currentLocation.root;
+            },
             getSourceLocation: function(){
                 return me.currentLocation;
             },
@@ -156,13 +159,17 @@
                 query: chop(match[16] ? match[16] : ''),
                 hash: chop(match[18] ? match[18] : '')
             };
+            me.currentLocation.root =
+                me.currentLocation.protocol
+                + '://' + me.currentLocation.host
+                + (me.currentLocation.port ? ":" + me.currentLocation.port : "");
         };
 
 
         var loadScript = function (item) {   
             var script = document.createElement('script');
             script.type = 'text/javascript';
-            var src = me.currentLocation.protocol + '://' + me.currentLocation.host + '/' + item.url;
+            var src = me.currentLocation.root + '/' + item.url;
             script.src = buildTokenUrl(src, {});
             script.onload = script.onreadystatechange = function() {
                 if ( !item.loaded && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") ) {

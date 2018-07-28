@@ -1,6 +1,6 @@
 <html>
  <head>
-  <script id="api-script" src="http://localhost:49286/js/?apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
+  <script id="api-script" src="http://api.beta.sizeup.com/js/?apikey=6388E63C-3D44-472B-A424-712395B1AD51"></script>
   <script type="text/javascript">
     var tests = {
       revenue: { query: "/data/averageRevenue/bands/", params: {
@@ -16,35 +16,115 @@
         placeId: 2044,
         industryId: 8542
       }},
+      consumerSpending: { query: "/data/consumerExpenditures/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        variableId: 34
+      }},
+      averageConsumerSpending: { query: "/data/consumerExpenditures/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        variableId: 503
+      }},
       salary: { query: "/data/averageSalary/bands/", params: {
         granularity: "County",
         boundingGeographicLocationId: 129845,
         bands: 5,
         industryId: 8542
       }},
+      employees: { query: "/data/averageEmployees/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        industryId: 8542
+      }},
+      employeesPerCapita: { query: "/data/employeesPerCapita/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        industryId: 8542
+      }},
+      costEffectiveness: { query: "/data/costEffectiveness/bands/", params: {
+        granularity: "County",
+        boundingGeographicLocationId: 129845,
+        bands: 5,
+        industryId: 8542
+      }},
+      revenuePerCapita: { query: "/data/revenuePerCapita/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        industryId: 8542
+      }},
+      totalRevenue: { query: "/data/totalRevenue/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        industryId: 8542
+      }},
+      noData: { query: "/data/costEffectiveness/bands/", params: {
+        granularity: "ZipCode",
+        boundingGeographicLocationId: 126141,
+        bands: 5,
+        industryId: 8542
+      }},
     };
-
-    for (var t in tests) {console.log(tests[t].params.contentType = "text/html");}
     
-    function getHost() {
-      var parserElem = document.createElement("a");
-      parserElem.href = document.getElementById("api-script").src;
-      return parserElem.protocol + "//" + parserElem.hostname + ":" + parserElem.port;
-    }
+    // Initial settings
+    window.test = tests.consumerSpending;
+    test.params.contentType = "text/html";
     
-    window.onload = function() {
-      var test = tests.yearStarted;
-      var host = getHost();
-      params.contentType = "text/html";
+    function setTest(test) {
+      var host = sizeup.api.loader.getServiceEndpoint();
       var url = sizeup.api.loader.buildTokenUrl(host + test.query, test.params);
       document.getElementById("result-link").href = url;
       document.getElementById("result-link").innerHTML = test.query;
       document.getElementById("params").innerHTML = JSON.stringify(test.params, null, 2);
     }
+    
+    window.onload = function() {
+      setTest(window.test);
+      for (var name in tests) {
+        var oElem = document.createElement("option");
+        oElem.value = name;
+        oElem.innerHTML = name;
+        document.getElementById("t").append(oElem);
+      };
+      document.getElementById("t").onchange = (event => {
+        var contentType = window.test.params.contentType;
+        window.test = tests[event.target.value];
+        window.test.params.contentType = contentType;
+        setTest(window.test);
+      });
+      ["c1","c2"].forEach(id => {
+        document.getElementById(id).onchange = (event => {
+          if (event.target.checked) {
+            window.test.params.contentType = (event.target.value);
+          }
+          setTest(window.test);
+        });
+      });
+    }
+    
   </script>
  </head>
  <body>
-  <a id="result-link" target="result-iframe" href="javascript:alert('not initialized');">uninitialized link</a>
+  <div><a id="result-link" target="result-iframe" href="javascript:alert('not initialized');">uninitialized link</a></div>
+  <form>
+    <div><select id="t" name="test"></select></div>
+    <div>
+      <input type="radio" name="content-type" id="c1" value="application/json" />
+      <label for="c1">contentType = application/json</label> (won't work for yearStarted)
+    </div>
+    <!-- TODO: application/javascript for JSONP. Check how the API's "cb" param is intercepted. -->
+    <div>
+      <input type="radio" name="content-type" id="c2" value="text/html" checked />
+      <label for="c2">contentType = text/html</label>
+    </div>
+    <div>
+  </form>
   <pre id="params"></pre>
   <iframe name="result-iframe" src="about:blank" style="width: 100%; height: 500px" />
  </body>

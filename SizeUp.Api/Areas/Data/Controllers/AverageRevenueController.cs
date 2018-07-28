@@ -61,7 +61,7 @@ namespace SizeUp.Api.Areas.Data.Controllers
                     Kpi.GetKpiModel(
                         ViewBag, context,
                         industryId, boundingGeographicLocationId, granularity,
-                        filter, selector, "Average Annual Revenue", bands
+                        filter, selector, "Average Annual Revenue", "${0}", bands
                     );
                     return View("Heatmap");
                 }

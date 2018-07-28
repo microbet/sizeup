@@ -11,6 +11,7 @@ using SizeUp.Core.Extensions;
 using SizeUp.Core.DataLayer;
 using SizeUp.Core.API;
 using SizeUp.Api.Controllers;
+using System.Linq.Expressions;
 namespace SizeUp.Api.Areas.Data.Controllers
 {
     public class EmployeesPerCapitaController : BaseController
@@ -40,12 +41,33 @@ namespace SizeUp.Api.Areas.Data.Controllers
 
         
         [APIAuthorize(Role = "IndustryData")]
-        public ActionResult Bands(long industryId, long boundingGeographicLocationId, int bands, Core.DataLayer.Granularity granularity)
-        {
+        public ActionResult Bands(
+            long industryId, long boundingGeographicLocationId, int bands,
+            Core.DataLayer.Granularity granularity, string contentType = "*/*"
+        ) {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.EmployeesPerCapita.Bands(context, industryId, boundingGeographicLocationId, bands, granularity);
-                return Json(data, JsonRequestBehavior.AllowGet);
+                if ("text/html".Equals(contentType))
+                {
+                    Expression<Func<SizeUp.Data.IndustryData, bool>> filter = i => i.EmployeesPerCapita != null;
+                    Expression<Func<SizeUp.Data.IndustryData, Kpi.LabeledValue>> selector;
+                    selector = i => new Kpi.LabeledValue
+                    {
+                        Label = i.GeographicLocation.LongName,
+                        Value = i.EmployeesPerCapita
+                    };
+                    Kpi.GetKpiModel(
+                        ViewBag, context,
+                        industryId, boundingGeographicLocationId, granularity,
+                        filter, selector, "Employees Per Capita", "{0}", bands
+                    );
+                    return View("Heatmap");
+                }
+                else
+                {
+                    var data = Core.DataLayer.EmployeesPerCapita.Bands(context, industryId, boundingGeographicLocationId, bands, granularity);
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
             }
         }
     }
