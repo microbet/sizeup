@@ -185,6 +185,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="documentation\index.html" />
     <Content Include="Global.asax" />
     <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Robots.txt" />

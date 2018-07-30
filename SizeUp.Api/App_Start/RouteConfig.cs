@@ -31,6 +31,9 @@ namespace SizeUp.Api
                new { controller = "Error", action = "Error500" } // Parameter defaults
            );
 
+            // Serve documentation from static file(s) -- REVISIT if necessary
+            routes.IgnoreRoute("documentation");
+            routes.IgnoreRoute("documentation/{*file}");
 
             routes.MapRoute(
                 name: "Default",
