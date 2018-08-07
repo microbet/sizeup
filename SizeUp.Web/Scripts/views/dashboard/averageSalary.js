@@ -173,7 +173,7 @@
             };
 
             me.overlay.getLegend(z, callback);
-            me.data.textAlternative = me.overlay.getParams(z);
+            me.data.textAlternative = jQuery.extend({contentType: "text/html"}, me.overlay.getParams(z));
         };
 
         var mapZoomUpdated = function () {
@@ -181,8 +181,12 @@
         };
 
         var textAlternativeClicked = function () {
-            var url = '/accessibility/averageSalary/';
-            window.open(jQuery.param.querystring(url, me.data.textAlternative), '_blank');
+            var url = sizeup.api.loader.buildTokenUrl(
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/averageSalary/bands/",
+                me.data.textAlternative
+            );
+            window.open(url, '_blank');
         };
 
       

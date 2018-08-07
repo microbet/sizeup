@@ -89,7 +89,7 @@
                     contentType: "text/html"
                 };
                 var url = sizeup.api.loader.buildTokenUrl(
-                    "//" + sizeup.config.api.url + "/data/yearStarted/chart/", data);
+                    sizeup.api.loader.getServiceEndpoint() + "/data/yearStarted/chart/", data);
                 url = jQuery.param.querystring(url, data)
                 window.open(url,'_blank');                
             });

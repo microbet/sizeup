@@ -336,8 +336,12 @@
         };
 
         var textAlternativeClicked = function () {
-            var url = '/accessibility/competition/';
-            window.open(jQuery.param.querystring(url, me.data.textAlternative), '_blank');
+            var url = sizeup.api.loader.buildTokenUrl(
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/consumerExpenditures/bands/",
+                me.data.textAlternative
+            );
+            window.open(url, '_blank');
         };
 
         var buyerQuestionClicked = function () {
@@ -815,7 +819,7 @@
                 };
 
                 me.data.consumerExpenditure.overlay.getLegend(z, callback);
-                me.data.textAlternative = me.data.consumerExpenditure.overlay.getParams(z);
+                me.data.textAlternative = jQuery.extend({ contentType: "text/html" }, me.data.consumerExpenditure.overlay.getParams(z));
                 me.textAlternative.show();
             } else {
                 me.textAlternative.hide();

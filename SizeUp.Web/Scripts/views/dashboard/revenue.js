@@ -187,7 +187,8 @@
 
         var textAlternativeClicked = function () {
             var url = sizeup.api.loader.buildTokenUrl(
-                "//" + sizeup.config.api.url + "/data/averageRevenue/bands/",
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/averageRevenue/bands/",
                 me.data.textAlternative
             );
             window.open(url, '_blank');

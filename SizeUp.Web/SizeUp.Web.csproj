@@ -792,6 +792,7 @@
     <Content Include="Views\Company\Mission.cshtml" />
     <Content Include="Views\Shared\_LayoutCompanyPages.cshtml" />
     <Content Include="Views\Shared\_LayoutResponsiveHome.cshtml" />
+    <Content Include="Views\Shared\_LayoutSizeup2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

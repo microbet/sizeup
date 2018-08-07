@@ -134,7 +134,7 @@
             };
 
             me.revenuePerCapitaOverlay.getLegend(z, callback);
-            me.data.revenuePerCapitaTextAlternative = me.revenuePerCapitaOverlay.getParams(z);
+            me.data.revenuePerCapitaTextAlternative = jQuery.extend({ contentType: "text/html" }, me.revenuePerCapitaOverlay.getParams(z));
         };
 
         var mapZoomRevenuePerCapitaUpdated = function () {
@@ -142,8 +142,12 @@
         };
 
         var textAlternativeRevenuePerCapitaClicked = function () {
-            var url = '/accessibility/revenuePerCapita/';
-            window.open(jQuery.param.querystring(url, me.data.revenuePerCapitaTextAlternative), '_blank');
+            var url = sizeup.api.loader.buildTokenUrl(
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/revenuePerCapita/bands/",
+                me.data.revenuePerCapitaTextAlternative
+            );
+            window.open(url, '_blank');
         };
 
 
@@ -168,7 +172,7 @@
             };
 
             me.totalRevenueOverlay.getLegend(z, callback);
-            me.data.totalRevenueTextAlternative = me.totalRevenueOverlay.getParams(z);
+            me.data.totalRevenueTextAlternative = jQuery.extend({ contentType: "text/html" }, me.totalRevenueOverlay.getParams(z));
         };
 
         var mapZoomTotalRevenueUpdated = function () {
@@ -176,9 +180,12 @@
         };
 
         var textAlternativeTotalRevenueClicked = function () {
-            var url = '/accessibility/totalRevenue/';
-            window.open(jQuery.param.querystring(url, me.data.totalRevenueTextAlternative), '_blank');
-
+            var url = sizeup.api.loader.buildTokenUrl(
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/totalRevenue/bands/",
+                me.data.totalRevenueTextAlternative
+            );
+            window.open(url, '_blank');
         };
 
 

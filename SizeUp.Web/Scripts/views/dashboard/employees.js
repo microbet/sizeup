@@ -244,7 +244,7 @@
             };
 
             me.averageEmployeesOverlay.getLegend(z, callback);
-            me.data.averageEmployeesTextAlternative = me.averageEmployeesOverlay.getParams(z);
+            me.data.averageEmployeesTextAlternative = jQuery.extend({ contentType: "text/html" }, me.averageEmployeesOverlay.getParams(z));
         };
 
         var mapZoomAverageEmployeesUpdated = function () {
@@ -252,8 +252,12 @@
         };
 
         var textAlternativeAverageEmployeesClicked = function () {
-            var url = '/accessibility/averageEmployees/';
-            window.open(jQuery.param.querystring(url, me.data.averageEmployeesTextAlternative), '_blank');
+            var url = sizeup.api.loader.buildTokenUrl(
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/averageEmployees/bands/",
+                me.data.averageEmployeesTextAlternative
+            );
+            window.open(url, '_blank');
         };
 
 
@@ -278,7 +282,7 @@
             };
 
             me.employeesPerCapitaOverlay.getLegend(z, callback);
-            me.data.employeesPerCapitaTextAlternative = me.employeesPerCapitaOverlay.getParams(z);
+            me.data.employeesPerCapitaTextAlternative = jQuery.extend({ contentType: "text/html" }, me.employeesPerCapitaOverlay.getParams(z));
         };
 
         var mapZoomEmployeesPerCapitaUpdated = function () {
@@ -286,8 +290,12 @@
         };
 
         var textAlternativeEmployeesPerCapitaClicked = function () {
-            var url = '/accessibility/employeesPerCapita/';
-            window.open(jQuery.param.querystring(url, me.data.employeesPerCapitaTextAlternative), '_blank');
+            var url = sizeup.api.loader.buildTokenUrl(
+                sizeup.api.loader.getServiceEndpoint()
+                + "/data/employeesPerCapita/bands/",
+                me.data.employeesPerCapitaTextAlternative
+            );
+            window.open(url, '_blank');
         };
 
 
