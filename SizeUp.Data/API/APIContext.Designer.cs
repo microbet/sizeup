@@ -22,6 +22,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_APIKeyDomain_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.APIKey), "APIKeyDomain", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.APIKeyDomain), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_APIKeyRoleMapping_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.APIKey), "APIKeyRoleMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.APIKeyRoleMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_APIKeyRoleMapping_Role", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.Role), "APIKeyRoleMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.APIKeyRoleMapping), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_IdentityProvider_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.APIKey), "IdentityProvider", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.IdentityProvider), true)]
 
 #endregion
 
@@ -136,6 +137,22 @@ namespace SizeUp.Data.API
             }
         }
         private ObjectSet<Role> _Roles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<IdentityProvider> IdentityProviders
+        {
+            get
+            {
+                if ((_IdentityProviders == null))
+                {
+                    _IdentityProviders = base.CreateObjectSet<IdentityProvider>("IdentityProviders");
+                }
+                return _IdentityProviders;
+            }
+        }
+        private ObjectSet<IdentityProvider> _IdentityProviders;
 
         #endregion
 
@@ -171,6 +188,14 @@ namespace SizeUp.Data.API
         public void AddToRoles(Role role)
         {
             base.AddObject("Roles", role);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the IdentityProviders EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToIdentityProviders(IdentityProvider identityProvider)
+        {
+            base.AddObject("IdentityProviders", identityProvider);
         }
 
         #endregion
@@ -379,6 +404,28 @@ namespace SizeUp.Data.API
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<APIKeyRoleMapping>("SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey", "APIKeyRoleMapping", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data.API", "FK_IdentityProvider_APIKey", "IdentityProvider")]
+        public EntityCollection<IdentityProvider> IdentityProviders
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<IdentityProvider>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "IdentityProvider");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IdentityProvider>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "IdentityProvider", value);
                 }
             }
         }
@@ -717,6 +764,156 @@ namespace SizeUp.Data.API
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Role>("SizeUp.Data.API.FK_APIKeyRoleMapping_Role", "Role", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.API", Name="IdentityProvider")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class IdentityProvider : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new IdentityProvider object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="aPIKeyId">Initial value of the APIKeyId property.</param>
+        /// <param name="entryPoint">Initial value of the EntryPoint property.</param>
+        public static IdentityProvider CreateIdentityProvider(global::System.Int64 id, global::System.Int64 aPIKeyId, global::System.String entryPoint)
+        {
+            IdentityProvider identityProvider = new IdentityProvider();
+            identityProvider.Id = id;
+            identityProvider.APIKeyId = aPIKeyId;
+            identityProvider.EntryPoint = entryPoint;
+            return identityProvider;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 APIKeyId
+        {
+            get
+            {
+                return _APIKeyId;
+            }
+            set
+            {
+                OnAPIKeyIdChanging(value);
+                ReportPropertyChanging("APIKeyId");
+                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
+                ReportPropertyChanged("APIKeyId");
+                OnAPIKeyIdChanged();
+            }
+        }
+        private global::System.Int64 _APIKeyId;
+        partial void OnAPIKeyIdChanging(global::System.Int64 value);
+        partial void OnAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EntryPoint
+        {
+            get
+            {
+                return _EntryPoint;
+            }
+            set
+            {
+                OnEntryPointChanging(value);
+                ReportPropertyChanging("EntryPoint");
+                _EntryPoint = StructuralObject.SetValidValue(value, false, "EntryPoint");
+                ReportPropertyChanged("EntryPoint");
+                OnEntryPointChanged();
+            }
+        }
+        private global::System.String _EntryPoint;
+        partial void OnEntryPointChanging(global::System.String value);
+        partial void OnEntryPointChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data.API", "FK_IdentityProvider_APIKey", "APIKey")]
+        public APIKey APIKey
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<APIKey>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "APIKey").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<APIKey>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "APIKey").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<APIKey> APIKeyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<APIKey>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "APIKey");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<APIKey>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "APIKey", value);
                 }
             }
         }

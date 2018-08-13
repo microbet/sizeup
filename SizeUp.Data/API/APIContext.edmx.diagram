@@ -12,6 +12,8 @@
         <AssociationConnector Association="SizeUp.Data.API.FK_APIKeyDomain_APIKey" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey" ManuallyRouted="false" />
         <AssociationConnector Association="SizeUp.Data.API.FK_APIKeyRoleMapping_Role" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SizeUp.Data.API.IdentityProvider" Width="1.5" PointX="3" PointY="7.125" />
+        <AssociationConnector Association="SizeUp.Data.API.FK_IdentityProvider_APIKey" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

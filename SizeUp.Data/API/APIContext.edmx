@@ -4,31 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SizeUp.Data.API.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="SizeUpDataAPIStoreContainer">
-          <EntitySet Name="APIKey" EntityType="SizeUp.Data.API.Store.APIKey" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="APIKeyDomain" EntityType="SizeUp.Data.API.Store.APIKeyDomain" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="APIKeyRoleMapping" EntityType="SizeUp.Data.API.Store.APIKeyRoleMapping" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Role" EntityType="SizeUp.Data.API.Store.Role" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="SizeUp.Data.API.Store.FK_APIKeyDomain_APIKey">
-            <End Role="APIKey" EntitySet="APIKey" />
-            <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
-          </AssociationSet>
-          <AssociationSet Name="FK_APIKeyRoleMapping_APIKey" Association="SizeUp.Data.API.Store.FK_APIKeyRoleMapping_APIKey">
-            <End Role="APIKey" EntitySet="APIKey" />
-            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
-          </AssociationSet>
-          <AssociationSet Name="FK_APIKeyRoleMapping_Role" Association="SizeUp.Data.API.Store.FK_APIKeyRoleMapping_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="SizeUp.Data.API.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="APIKey">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="KeyValue" Type="uniqueidentifier" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" />
@@ -37,28 +19,36 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Domain" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Domain" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="APIKeyId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="APIKeyRoleMapping">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="APIKeyId" Type="bigint" Nullable="false" />
           <Property Name="RoleId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" Nullable="false" />
+          <Property Name="EntryPoint" Type="varchar" MaxLength="1023" Nullable="false" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <Association Name="FK_APIKeyDomain_APIKey">
-          <End Role="APIKey" Type="SizeUp.Data.API.Store.APIKey" Multiplicity="1" />
-          <End Role="APIKeyDomain" Type="SizeUp.Data.API.Store.APIKeyDomain" Multiplicity="*" />
+          <End Role="APIKey" Type="Self.APIKey" Multiplicity="1" />
+          <End Role="APIKeyDomain" Type="Self.APIKeyDomain" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="APIKey">
               <PropertyRef Name="Id" />
@@ -69,8 +59,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_APIKeyRoleMapping_APIKey">
-          <End Role="APIKey" Type="SizeUp.Data.API.Store.APIKey" Multiplicity="1" />
-          <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.Store.APIKeyRoleMapping" Multiplicity="*" />
+          <End Role="APIKey" Type="Self.APIKey" Multiplicity="1" />
+          <End Role="APIKeyRoleMapping" Type="Self.APIKeyRoleMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="APIKey">
               <PropertyRef Name="Id" />
@@ -81,8 +71,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_APIKeyRoleMapping_Role">
-          <End Role="Role" Type="SizeUp.Data.API.Store.Role" Multiplicity="1" />
-          <End Role="APIKeyRoleMapping" Type="SizeUp.Data.API.Store.APIKeyRoleMapping" Multiplicity="*" />
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="APIKeyRoleMapping" Type="Self.APIKeyRoleMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -92,6 +82,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_IdentityProvider_APIKey">
+          <End Role="APIKey" Type="Self.APIKey" Multiplicity="1" />
+          <End Role="IdentityProvider" Type="Self.IdentityProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityProvider">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SizeUpDataAPIStoreContainer">
+          <EntitySet Name="APIKey" EntityType="Self.APIKey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APIKeyDomain" EntityType="Self.APIKeyDomain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APIKeyRoleMapping" EntityType="Self.APIKeyRoleMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IdentityProvider" EntityType="Self.IdentityProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="Self.FK_APIKeyDomain_APIKey">
+            <End Role="APIKey" EntitySet="APIKey" />
+            <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APIKeyRoleMapping_APIKey" Association="Self.FK_APIKeyRoleMapping_APIKey">
+            <End Role="APIKey" EntitySet="APIKey" />
+            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_APIKeyRoleMapping_Role" Association="Self.FK_APIKeyRoleMapping_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdentityProvider_APIKey" Association="Self.FK_IdentityProvider_APIKey">
+            <End Role="APIKey" EntitySet="APIKey" />
+            <End Role="IdentityProvider" EntitySet="IdentityProvider" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -113,6 +138,11 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="APIKeyRoleMapping" EntitySet="APIKeyRoleMappings" />
           </AssociationSet>
+          <EntitySet Name="IdentityProviders" EntityType="SizeUp.Data.API.IdentityProvider" />
+          <AssociationSet Name="FK_IdentityProvider_APIKey" Association="SizeUp.Data.API.FK_IdentityProvider_APIKey">
+            <End Role="APIKey" EntitySet="APIKeys" />
+            <End Role="IdentityProvider" EntitySet="IdentityProviders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="APIKey">
           <Key>
@@ -125,6 +155,7 @@
           <NavigationProperty Name="APIKeyRoleMappings" Relationship="SizeUp.Data.API.FK_APIKeyRoleMapping_APIKey" FromRole="APIKey" ToRole="APIKeyRoleMapping" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="String" Name="UserName" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IdentityProviders" Relationship="SizeUp.Data.API.FK_IdentityProvider_APIKey" FromRole="APIKey" ToRole="IdentityProvider" />
         </EntityType>
         <EntityType Name="APIKeyDomain">
           <Key>
@@ -189,6 +220,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="IdentityProvider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APIKeyId" Type="Int64" Nullable="false" />
+          <Property Name="EntryPoint" Type="String" Nullable="false" MaxLength="1023" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="APIKey" Relationship="SizeUp.Data.API.FK_IdentityProvider_APIKey" FromRole="IdentityProvider" ToRole="APIKey" />
+        </EntityType>
+        <Association Name="FK_IdentityProvider_APIKey">
+          <End Type="SizeUp.Data.API.APIKey" Role="APIKey" Multiplicity="1" />
+          <End Type="SizeUp.Data.API.IdentityProvider" Role="IdentityProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IdentityProvider">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -232,6 +284,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="IdentityProviders">
+            <EntityTypeMapping TypeName="SizeUp.Data.API.IdentityProvider">
+              <MappingFragment StoreEntitySet="IdentityProvider">
+                <ScalarProperty Name="EntryPoint" ColumnName="EntryPoint" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -249,6 +310,7 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

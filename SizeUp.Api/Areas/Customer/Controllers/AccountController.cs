@@ -27,7 +27,7 @@ namespace SizeUp.Api.Areas.Customer.Controllers
         public String Name;
         public Area ServiceArea;
         public string[] Domains;
-        public IdentityProvider IdentityProvider;
+        public IdentityProvider[] IdentityProviders;
     }
 
     public class AccountController : BaseController
@@ -62,8 +62,10 @@ namespace SizeUp.Api.Areas.Customer.Controllers
                     Name = nation.Name,
                     SEOKey = nation.SEOKey
                 };
-                customer.Domains = context.APIKeyDomains.Where(d => d.APIKeyId == customer.Id).Select(d => d.Domain).ToArray();
-                customer.IdentityProvider = new IdentityProvider { EntryPoint = "https://login.sizeup.com/saml2/idp/SSOService" };
+                customer.Domains = context.APIKeyDomains.Where(d => d.APIKeyId == customer.Id)
+                    .Select(d => d.Domain).ToArray();
+                customer.IdentityProviders = context.IdentityProviders.Where(d => d.APIKeyId == customer.Id)
+                    .Select(d => new IdentityProvider { EntryPoint = d.EntryPoint }).ToArray();
                 return Json(customer, JsonRequestBehavior.AllowGet);
             }
         }
