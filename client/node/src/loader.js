@@ -16,10 +16,7 @@ module.exports = function makeGetData(apiKey) {
   me.instanceId = null;
   me.widgetToken = '';
   me.callbackComplete = {};
-  me.currentLocation = {
-    protocol: 'https',
-    domain: 'api.sizeup.com'
-  };
+  me.currentLocation = "https://api.sizeup.com";
 
 
   var getData = function (path, params, onSuccess, onError) {
@@ -77,10 +74,7 @@ module.exports = function makeGetData(apiKey) {
       return r;
     }
 
-    // console.log("getData", path, params);
-    var serverNum = Math.floor((Math.random()*2) + 1); // NOTE: 1 or 2
-
-    var url = me.currentLocation.protocol + '://' + 'a' + serverNum + '-' + me.currentLocation.domain + path;
+    var url = me.currentLocation + path;
     params['cb'] = 'JSONP_WRAPPER';
     var tokenUrl = buildTokenUrl(url, params);
     // NOTE: E.g., http://a2-api.sizeup.com/data/place/search/?term=fresno&maxResults=10&cb=sizeup.api.cbb.cb33&o=sizeup.com&s=1f4uhh94x0968t1x46oox9z3j&t=utZOqvvO8s2KUngekSFKXGCs8Xxxh9jIHzZcuNNyuROLRHA4MFBr%2BiqIWuk4Z39E&i=re6ktch2yfdd3wb3xocdi8zrh
@@ -116,7 +110,7 @@ module.exports = function makeGetData(apiKey) {
 
 
   var authenticate = function () {
-    var authUrl = me.currentLocation.protocol + '://' + me.currentLocation.domain + '/js/?apikey=' + apiKey;
+    var authUrl = me.currentLocation + '/js/?apikey=' + apiKey;
     // console.log('***** AUTH', authUrl);
     return new Promise(function (resolve, reject) {
       request(authUrl, function (error, response, body) {

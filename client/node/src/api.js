@@ -11,10 +11,10 @@ module.exports = function makeApi(args) {
   }
   var loader = loaderMod(apiKey);
   if (args.serviceUrl) {
-    var pattern = /^(.*):\/\/(.*)$/;
+    var pattern = /^.*:\/\/.*$/;
     var match = args.serviceUrl.match(pattern);
     if (match) {
-      loader.me.currentLocation = { protocol: match[1], domain: match[2] };
+      loader.me.currentLocation = args.serviceUrl;
     } else {
       throw new Error("Argument \"serviceUrl\" must match pattern " + pattern.source);
     }
