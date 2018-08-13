@@ -38,6 +38,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="APIKeyId" Type="bigint" Nullable="false" />
           <Property Name="EntryPoint" Type="varchar" MaxLength="1023" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -228,6 +229,7 @@
           <Property Name="APIKeyId" Type="Int64" Nullable="false" />
           <Property Name="EntryPoint" Type="String" Nullable="false" MaxLength="1023" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="APIKey" Relationship="SizeUp.Data.API.FK_IdentityProvider_APIKey" FromRole="IdentityProvider" ToRole="APIKey" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_IdentityProvider_APIKey">
           <End Type="SizeUp.Data.API.APIKey" Role="APIKey" Multiplicity="1" />
@@ -287,6 +289,7 @@
           <EntitySetMapping Name="IdentityProviders">
             <EntityTypeMapping TypeName="SizeUp.Data.API.IdentityProvider">
               <MappingFragment StoreEntitySet="IdentityProvider">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EntryPoint" ColumnName="EntryPoint" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

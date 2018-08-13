@@ -6,6 +6,7 @@ CREATE TABLE [dbo].[IdentityProvider](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[APIKeyId] [bigint] NOT NULL,
 	[EntryPoint] [varchar](1023) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_IdentityProvider] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

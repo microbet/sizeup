@@ -14,6 +14,7 @@ namespace SizeUp.Api.Areas.Customer.Controllers
 {
     public class IdentityProvider {
         public string EntryPoint;
+        public string Name;
     }
     public class Area
     {
@@ -65,7 +66,10 @@ namespace SizeUp.Api.Areas.Customer.Controllers
                 customer.Domains = context.APIKeyDomains.Where(d => d.APIKeyId == customer.Id)
                     .Select(d => d.Domain).ToArray();
                 customer.IdentityProviders = context.IdentityProviders.Where(d => d.APIKeyId == customer.Id)
-                    .Select(d => new IdentityProvider { EntryPoint = d.EntryPoint }).ToArray();
+                    .Select(idp => new IdentityProvider {
+                        EntryPoint = idp.EntryPoint,
+                        Name = idp.Name
+                    }).ToArray();
                 return Json(customer, JsonRequestBehavior.AllowGet);
             }
         }
