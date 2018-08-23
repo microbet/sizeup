@@ -221,7 +221,6 @@
             var opts = {
                 aborted: false
             };
-            var p = Math.floor((Math.random()*2) + 1);
             var script = document.createElement('script');
             sizeup.api[me.jsonpPrefix][cb] = function (data) {
                 if (success && !opts.aborted) {
@@ -244,7 +243,7 @@
 
 
             script.type = 'text/javascript';
-            var src = me.currentLocation.protocol + '://' + 'a' + p + '-' + me.currentLocation.domain + url;
+            var src = me.currentLocation.root + url;
             params['cb']  = 'sizeup.api.' + me.jsonpPrefix + '.' + cb;
             script.src = buildTokenUrl(src, params);
             me.head.appendChild(script);
