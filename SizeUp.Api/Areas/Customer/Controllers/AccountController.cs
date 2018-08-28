@@ -35,8 +35,23 @@ namespace SizeUp.Api.Areas.Customer.Controllers
     {
         // GET: /customer/get?key=KEY
 
-        public ActionResult Get(Guid key)
+        protected ActionResult InvalidApikeyArg(string apikey)
         {
+            Response.StatusCode = 400;
+            return Content("Argument \"apikey\" is missing or misformatted.\nReceived: " + apikey + "\nExpected: A valid GUID, in the format apikey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, where 'x' is a hexadecimal digit.", "text/plain");
+        }
+
+        public ActionResult Get(string apikey)
+        {
+            Guid key;
+            try
+            {
+                key = new Guid(apikey);
+            }
+            catch (ArgumentNullException) { return InvalidApikeyArg(apikey); }
+            catch (FormatException) { return InvalidApikeyArg(apikey); }
+            catch (OverflowException) { return InvalidApikeyArg(apikey); }
+
             Nation nation;
             using (var context = ContextFactory.SizeUpContext) {
                 context.ContextOptions.LazyLoadingEnabled = false;

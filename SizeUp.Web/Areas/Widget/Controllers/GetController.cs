@@ -25,8 +25,23 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             APISession.Create();  
         }
 
-        public ActionResult Index(Guid key)
+        protected ActionResult InvalidApikeyArg(string apikey)
         {
+            Response.StatusCode = 400;
+            return Content("Argument \"apikey\" is missing or misformatted.\nReceived: " + apikey + "\nExpected: A valid GUID, in the format apikey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, where 'x' is a hexadecimal digit.", "text/plain");
+        }
+
+        public ActionResult Index(string apikey)
+        {
+            Guid key;
+            try
+            {
+                key = new Guid(apikey);
+            }
+            catch (ArgumentNullException) { return InvalidApikeyArg(apikey); }
+            catch (FormatException) { return InvalidApikeyArg(apikey); }
+            catch (OverflowException) { return InvalidApikeyArg(apikey); }
+
             CreateToken(key);
             ViewBag.SessionId = APISession.Current.SessionId;
             ViewBag.InstanceId = RandomString.Get(25);
