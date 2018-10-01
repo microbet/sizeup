@@ -141,33 +141,46 @@ namespace SizeUp.Core.DataLayer
                 .Select(new Projections.Place.Default().Expression);
         }
 
-
-        public static IQueryable<Models.Place> Search(SizeUpContext context, string term)
+        public class SearchResult
         {
-            var qs = term.Split(',').ToList();
-            string city = qs[0].Trim();
-            string state = qs.Count > 1 ? qs[1].Trim() : string.Empty;
-            var places = Get(context);
-            return places
-                    .Select(i => new
-                    {
-                        Place = i,
-                        Search = i.City.Name
-                    })
-                    .Union(places
+            public Data.Place Place;
+            public String Search;
+        }
+
+        public static IQueryable<Models.Place> Search(SizeUpContext context, string term, long[] countyIds)
+        {
+            var searchResults =
+                Get(context)
+                .Select(i => new SearchResult { Place = i, Search = i.City.Name })
+                .Union(
+                    Get(context)
                     .SelectMany(i => i.PlaceKeywords)
-                    .Select(i => new
-                    {
-                        Place = i.Place,
-                        Search = i.Name
-                    }))
-                    .Where(i => i.Search.StartsWith(city))
-                    .Where(i => i.Place.County.State.Abbreviation.StartsWith(state))
-                    .OrderBy(i => i.Place.City.Name)
-                    .ThenBy(i => i.Place.City.State.Abbreviation)
-                    .ThenByDescending(i => i.Place.City.GeographicLocation.Demographics.AsQueryable().Where(d => d.Year == CommonFilters.TimeSlice.Demographics.Year && d.Quarter == CommonFilters.TimeSlice.Demographics.Quarter).FirstOrDefault().TotalPopulation)
-                    .Select(i => i.Place)
-                    .Select(new Projections.Place.Default().Expression);
+                    .Select(i => new SearchResult { Place = i.Place, Search = i.Name })
+                );
+
+            // Filter by search term
+            if ( ! string.Empty.Equals(term))
+            {
+                var qs = term.Split(',').ToList();
+                string city = qs[0].Trim();
+                searchResults = searchResults.Where(i => i.Search.StartsWith(city));
+                if (qs.Count > 1)
+                {
+                    string state = qs[1].Trim();
+                    searchResults = searchResults.Where(i => i.Place.County.State.Abbreviation.StartsWith(state));
+                }
+            }
+
+            // Filter by county IDs (TODO: generalize to geographic location IDs)
+            if (countyIds != null && countyIds.Length != 0)
+            {
+                searchResults = searchResults.Where(i => countyIds.Contains(i.Place.County.Id));
+            }
+
+            return searchResults
+                .OrderByDescending(i => i.Place.City.GeographicLocation.Demographics.AsQueryable().Where(d => d.Year == CommonFilters.TimeSlice.Demographics.Year && d.Quarter == CommonFilters.TimeSlice.Demographics.Quarter).FirstOrDefault().TotalPopulation)
+                .Select(i => i.Place)
+                .Select(new Projections.Place.Default().Expression);
         }
     }
 }

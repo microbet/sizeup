@@ -19,12 +19,17 @@ namespace SizeUp.Api.Areas.Data.Controllers
         // GET: /Api/Place/
 
         [APIAuthorize(Role = "Place")]
-        public ActionResult Search(string term, int maxResults = 35)
+        public ActionResult Search(string term, long[] countyId = null, int maxResults = 35)
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Place.Search(context, term).Take(maxResults).ToList();
-                var query = ((ObjectQuery)(Core.DataLayer.Place.Search(context, term))).ToTraceString();
+                var data = Core.DataLayer.Place.Search(context, term, countyId).Take(maxResults+1).ToList();
+                var query = ((ObjectQuery)(Core.DataLayer.Place.Search(context, term, countyId))).ToTraceString();
+                if (data.Count() > maxResults)
+                {
+                    // TODO find a way to communicate that there are more results
+                    data.RemoveAt(maxResults); // pull the extra result off the end of the list
+                }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

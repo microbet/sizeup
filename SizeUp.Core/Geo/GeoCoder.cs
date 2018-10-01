@@ -29,6 +29,7 @@ namespace SizeUp.Core.Geo
         {
             return GetPlaceIdByIPAddress(HttpContext.Current.Request.UserHostAddress);
         }
+        /** Please note this probably fails, since its underlying Web Service endpoint no longer responds. We would need to upgrade to ipinfodb.com v3. */
         public static long? GetPlaceIdByIPAddress(string ip)
         {
             long? id = null;
