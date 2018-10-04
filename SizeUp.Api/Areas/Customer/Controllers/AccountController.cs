@@ -16,17 +16,23 @@ namespace SizeUp.Api.Areas.Customer.Controllers
         public string EntryPoint;
         public string Name;
     }
-    public class Area
+    // Originally used as the type for serviceAreaReferences, but I backed
+    // away from that because I didn't know how entity comparisons would work.
+    public class ServiceAreaReference
     {
+        public Int64 GeographicLocationId;
+        public Int64 GranularityId;
+    }
+    public class ServiceArea {
+        public string Granularity;
         public Int64 Id;
-        public String SEOKey;
-        public String Name;
+        public string Name;
     }
     public class CustomerPublicRecord
     {
         public Int64 Id;
         public String Name;
-        public Area ServiceArea;
+        public ServiceArea[] ServiceAreas;
         public string[] Domains;
         public IdentityProvider[] IdentityProviders;
     }
@@ -41,16 +47,16 @@ namespace SizeUp.Api.Areas.Customer.Controllers
             return Content("Argument \"apikey\" is missing or misformatted.\nReceived: " + apikey + "\nExpected: A valid GUID, in the format apikey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, where 'x' is a hexadecimal digit.", "text/plain");
         }
 
-        public ActionResult Get(string apikey)
+        public ActionResult Get(string key)
         {
-            Guid key;
+            Guid _key;
             try
             {
-                key = new Guid(apikey);
+                _key = new Guid(key);
             }
-            catch (ArgumentNullException) { return InvalidApikeyArg(apikey); }
-            catch (FormatException) { return InvalidApikeyArg(apikey); }
-            catch (OverflowException) { return InvalidApikeyArg(apikey); }
+            catch (ArgumentNullException) { return InvalidApikeyArg(key); }
+            catch (FormatException) { return InvalidApikeyArg(key); }
+            catch (OverflowException) { return InvalidApikeyArg(key); }
 
             Nation nation;
             using (var context = ContextFactory.SizeUpContext) {
@@ -58,10 +64,13 @@ namespace SizeUp.Api.Areas.Customer.Controllers
                 nation = context.Nations.FirstOrDefault();
             }
 
+            CustomerPublicRecord customer;
+            Int64[] serviceAreaReferences;
+
             using (var context = ContextFactory.APIContext)
             {
                 context.ContextOptions.LazyLoadingEnabled = false;
-                var customer = context.APIKeys.Where(i => i.KeyValue == key && i.IsActive)
+                customer = context.APIKeys.Where(i => i.KeyValue == _key && i.IsActive)
                     .Select(k => new CustomerPublicRecord {
                         Id = k.Id,
                         Name = k.Name
@@ -70,14 +79,9 @@ namespace SizeUp.Api.Areas.Customer.Controllers
                 if (customer == null)
                 {
                     Response.StatusCode = 401;
-                    return Content("The product key (\"apikey\") is invalid. Please see https://www.sizeup.com/developers/documentation for help.", "text/plain");
+                    return Content("The product key (\"key\") is invalid. Please see https://api.sizeup.com/documentation/ for help.", "text/plain");
                 }
-                customer.ServiceArea = new Area
-                {
-                    Id = nation.Id,
-                    Name = nation.Name,
-                    SEOKey = nation.SEOKey
-                };
+
                 customer.Domains = context.APIKeyDomains.Where(d => d.APIKeyId == customer.Id)
                     .Select(d => d.Domain).ToArray();
                 customer.IdentityProviders = context.IdentityProviders.Where(d => d.APIKeyId == customer.Id)
@@ -85,8 +89,23 @@ namespace SizeUp.Api.Areas.Customer.Controllers
                         EntryPoint = idp.EntryPoint,
                         Name = idp.Name
                     }).ToArray();
-                return Json(customer, JsonRequestBehavior.AllowGet);
+                serviceAreaReferences = context.ServiceAreas.Where(area => area.APIKeyId == customer.Id)
+                    .Select(area => area.GeographicLocationId).ToArray();
             }
+
+            using (var context = ContextFactory.SizeUpContext)
+            {
+                customer.ServiceAreas = context.GeographicLocations
+                    .Join(context.Granularities,
+                        loc => loc.GranularityId,
+                        gran => gran.Id,
+                        (loc, gran) => new ServiceArea {Granularity=gran.Name, Id=loc.Id, Name=loc.LongName})
+                    .Where(svcArea => serviceAreaReferences.Contains(svcArea.Id))
+                    .ToArray();
+            }
+
+            return Json(customer, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

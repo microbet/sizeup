@@ -23,13 +23,8 @@ namespace SizeUp.Api.Areas.Data.Controllers
         {
             using (var context = ContextFactory.SizeUpContext)
             {
-                var data = Core.DataLayer.Place.Search(context, term, countyId).Take(maxResults+1).ToList();
+                var data = Core.DataLayer.Place.Search(context, term, countyId).Take(maxResults).ToList();
                 var query = ((ObjectQuery)(Core.DataLayer.Place.Search(context, term, countyId))).ToTraceString();
-                if (data.Count() > maxResults)
-                {
-                    // TODO find a way to communicate that there are more results
-                    data.RemoveAt(maxResults); // pull the extra result off the end of the list
-                }
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

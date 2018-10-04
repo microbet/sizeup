@@ -23,6 +23,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_APIKeyRoleMapping_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.APIKey), "APIKeyRoleMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.APIKeyRoleMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_APIKeyRoleMapping_Role", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.Role), "APIKeyRoleMapping", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.APIKeyRoleMapping), true)]
 [assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_IdentityProvider_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.APIKey), "IdentityProvider", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.IdentityProvider), true)]
+[assembly: EdmRelationshipAttribute("SizeUp.Data.API", "FK_ServiceArea_APIKey", "APIKey", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(SizeUp.Data.API.APIKey), "ServiceArea", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(SizeUp.Data.API.ServiceArea), true)]
 
 #endregion
 
@@ -153,6 +154,22 @@ namespace SizeUp.Data.API
             }
         }
         private ObjectSet<IdentityProvider> _IdentityProviders;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ServiceArea> ServiceAreas
+        {
+            get
+            {
+                if ((_ServiceAreas == null))
+                {
+                    _ServiceAreas = base.CreateObjectSet<ServiceArea>("ServiceAreas");
+                }
+                return _ServiceAreas;
+            }
+        }
+        private ObjectSet<ServiceArea> _ServiceAreas;
 
         #endregion
 
@@ -196,6 +213,14 @@ namespace SizeUp.Data.API
         public void AddToIdentityProviders(IdentityProvider identityProvider)
         {
             base.AddObject("IdentityProviders", identityProvider);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ServiceAreas EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToServiceAreas(ServiceArea serviceArea)
+        {
+            base.AddObject("ServiceAreas", serviceArea);
         }
 
         #endregion
@@ -426,6 +451,28 @@ namespace SizeUp.Data.API
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<IdentityProvider>("SizeUp.Data.API.FK_IdentityProvider_APIKey", "IdentityProvider", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data.API", "FK_ServiceArea_APIKey", "ServiceArea")]
+        public EntityCollection<ServiceArea> ServiceAreas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ServiceArea>("SizeUp.Data.API.FK_ServiceArea_APIKey", "ServiceArea");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ServiceArea>("SizeUp.Data.API.FK_ServiceArea_APIKey", "ServiceArea", value);
                 }
             }
         }
@@ -1046,6 +1093,182 @@ namespace SizeUp.Data.API
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<APIKeyRoleMapping>("SizeUp.Data.API.FK_APIKeyRoleMapping_Role", "APIKeyRoleMapping", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="SizeUp.Data.API", Name="ServiceArea")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ServiceArea : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ServiceArea object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="aPIKeyId">Initial value of the APIKeyId property.</param>
+        /// <param name="geographicLocationId">Initial value of the GeographicLocationId property.</param>
+        /// <param name="granularityId">Initial value of the GranularityId property.</param>
+        public static ServiceArea CreateServiceArea(global::System.Int64 id, global::System.Int64 aPIKeyId, global::System.Int64 geographicLocationId, global::System.Int64 granularityId)
+        {
+            ServiceArea serviceArea = new ServiceArea();
+            serviceArea.Id = id;
+            serviceArea.APIKeyId = aPIKeyId;
+            serviceArea.GeographicLocationId = geographicLocationId;
+            serviceArea.GranularityId = granularityId;
+            return serviceArea;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _Id;
+        partial void OnIdChanging(global::System.Int64 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 APIKeyId
+        {
+            get
+            {
+                return _APIKeyId;
+            }
+            set
+            {
+                OnAPIKeyIdChanging(value);
+                ReportPropertyChanging("APIKeyId");
+                _APIKeyId = StructuralObject.SetValidValue(value, "APIKeyId");
+                ReportPropertyChanged("APIKeyId");
+                OnAPIKeyIdChanged();
+            }
+        }
+        private global::System.Int64 _APIKeyId;
+        partial void OnAPIKeyIdChanging(global::System.Int64 value);
+        partial void OnAPIKeyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 GeographicLocationId
+        {
+            get
+            {
+                return _GeographicLocationId;
+            }
+            set
+            {
+                OnGeographicLocationIdChanging(value);
+                ReportPropertyChanging("GeographicLocationId");
+                _GeographicLocationId = StructuralObject.SetValidValue(value, "GeographicLocationId");
+                ReportPropertyChanged("GeographicLocationId");
+                OnGeographicLocationIdChanged();
+            }
+        }
+        private global::System.Int64 _GeographicLocationId;
+        partial void OnGeographicLocationIdChanging(global::System.Int64 value);
+        partial void OnGeographicLocationIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 GranularityId
+        {
+            get
+            {
+                return _GranularityId;
+            }
+            set
+            {
+                OnGranularityIdChanging(value);
+                ReportPropertyChanging("GranularityId");
+                _GranularityId = StructuralObject.SetValidValue(value, "GranularityId");
+                ReportPropertyChanged("GranularityId");
+                OnGranularityIdChanged();
+            }
+        }
+        private global::System.Int64 _GranularityId;
+        partial void OnGranularityIdChanging(global::System.Int64 value);
+        partial void OnGranularityIdChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("SizeUp.Data.API", "FK_ServiceArea_APIKey", "APIKey")]
+        public APIKey APIKey
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<APIKey>("SizeUp.Data.API.FK_ServiceArea_APIKey", "APIKey").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<APIKey>("SizeUp.Data.API.FK_ServiceArea_APIKey", "APIKey").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<APIKey> APIKeyReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<APIKey>("SizeUp.Data.API.FK_ServiceArea_APIKey", "APIKey");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<APIKey>("SizeUp.Data.API.FK_ServiceArea_APIKey", "APIKey", value);
                 }
             }
         }

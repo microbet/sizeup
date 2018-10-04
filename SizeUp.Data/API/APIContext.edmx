@@ -47,6 +47,15 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="ServiceArea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="APIKeyId" Type="bigint" Nullable="false" />
+          <Property Name="GeographicLocationId" Type="bigint" Nullable="false" />
+          <Property Name="GranularityId" Type="bigint" Nullable="false" />
+        </EntityType>
         <Association Name="FK_APIKeyDomain_APIKey">
           <End Role="APIKey" Type="Self.APIKey" Multiplicity="1" />
           <End Role="APIKeyDomain" Type="Self.APIKeyDomain" Multiplicity="*" />
@@ -95,12 +104,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServiceArea_APIKey">
+          <End Role="APIKey" Type="Self.APIKey" Multiplicity="1" />
+          <End Role="ServiceArea" Type="Self.ServiceArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceArea">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SizeUpDataAPIStoreContainer">
           <EntitySet Name="APIKey" EntityType="Self.APIKey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APIKeyDomain" EntityType="Self.APIKeyDomain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APIKeyRoleMapping" EntityType="Self.APIKeyRoleMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IdentityProvider" EntityType="Self.IdentityProvider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceArea" EntityType="Self.ServiceArea" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_APIKeyDomain_APIKey" Association="Self.FK_APIKeyDomain_APIKey">
             <End Role="APIKey" EntitySet="APIKey" />
             <End Role="APIKeyDomain" EntitySet="APIKeyDomain" />
@@ -116,6 +138,10 @@
           <AssociationSet Name="FK_IdentityProvider_APIKey" Association="Self.FK_IdentityProvider_APIKey">
             <End Role="APIKey" EntitySet="APIKey" />
             <End Role="IdentityProvider" EntitySet="IdentityProvider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceArea_APIKey" Association="Self.FK_ServiceArea_APIKey">
+            <End Role="APIKey" EntitySet="APIKey" />
+            <End Role="ServiceArea" EntitySet="ServiceArea" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -144,6 +170,11 @@
             <End Role="APIKey" EntitySet="APIKeys" />
             <End Role="IdentityProvider" EntitySet="IdentityProviders" />
           </AssociationSet>
+          <EntitySet Name="ServiceAreas" EntityType="SizeUp.Data.API.ServiceArea" />
+          <AssociationSet Name="FK_ServiceArea_APIKey" Association="SizeUp.Data.API.FK_ServiceArea_APIKey">
+            <End Role="APIKey" EntitySet="APIKeys" />
+            <End Role="ServiceArea" EntitySet="ServiceAreas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="APIKey">
           <Key>
@@ -157,6 +188,7 @@
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="String" Name="UserName" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="IdentityProviders" Relationship="SizeUp.Data.API.FK_IdentityProvider_APIKey" FromRole="APIKey" ToRole="IdentityProvider" />
+          <NavigationProperty Name="ServiceAreas" Relationship="SizeUp.Data.API.FK_ServiceArea_APIKey" FromRole="APIKey" ToRole="ServiceArea" />
         </EntityType>
         <EntityType Name="APIKeyDomain">
           <Key>
@@ -243,6 +275,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ServiceArea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APIKeyId" Type="Int64" Nullable="false" />
+          <Property Name="GeographicLocationId" Type="Int64" Nullable="false" />
+          <Property Name="GranularityId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="APIKey" Relationship="SizeUp.Data.API.FK_ServiceArea_APIKey" FromRole="ServiceArea" ToRole="APIKey" />
+        </EntityType>
+        <Association Name="FK_ServiceArea_APIKey">
+          <End Type="SizeUp.Data.API.APIKey" Role="APIKey" Multiplicity="1" />
+          <End Type="SizeUp.Data.API.ServiceArea" Role="ServiceArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="APIKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceArea">
+              <PropertyRef Name="APIKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -291,6 +345,16 @@
               <MappingFragment StoreEntitySet="IdentityProvider">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EntryPoint" ColumnName="EntryPoint" />
+                <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceAreas">
+            <EntityTypeMapping TypeName="SizeUp.Data.API.ServiceArea">
+              <MappingFragment StoreEntitySet="ServiceArea">
+                <ScalarProperty Name="GranularityId" ColumnName="GranularityId" />
+                <ScalarProperty Name="GeographicLocationId" ColumnName="GeographicLocationId" />
                 <ScalarProperty Name="APIKeyId" ColumnName="APIKeyId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
