@@ -46,6 +46,8 @@ namespace SizeUp.Api.Controllers
 
             APIToken token = null;
             APIToken widgetToken = null;
+            Core.DataLayer.Models.Customer customer = null;
+
             if (!string.IsNullOrWhiteSpace(wt))
             {
                 widgetToken = APIToken.ParseToken(wt);
@@ -64,7 +66,24 @@ namespace SizeUp.Api.Controllers
                     // });
                 }
                 token = APIToken.Create(k.Id);
+
+                using (var sizeupContext = ContextFactory.SizeUpContext) {
+                    try
+                    {
+                        customer = SizeUp.Core.DataLayer.Customer.GetCustomerByKey(context, sizeupContext, apikeyGuid);
+                    }
+                    catch (System.Data.ObjectNotFoundException exc)
+                    {
+                        // This is actually an error, but the error is a real possibility and I don't
+                        // want it to abort the function. An entire API refactor is planned, which will
+                        // eventually remove the possibility of failure here.
+                        // TODO: if we get a logging framework, log the error.
+                    }
+                }
+
             }
+
+            ViewBag.Customer = customer;
             ViewBag.Token = token.GetToken();
             ViewBag.SessionId = APISession.Current.SessionId;
             ViewBag.InstanceId = RandomString.Get(25);

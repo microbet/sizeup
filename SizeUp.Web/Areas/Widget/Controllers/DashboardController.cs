@@ -28,6 +28,7 @@ namespace SizeUp.Web.Areas.Widget.Controllers
                         var currentKey = APIContext.Current.WidgetToken.APIKeyId;
                         var keyValue = context2.APIKeys.Where(i => i.Id == currentKey).Select(i => i.KeyValue).FirstOrDefault();
                         ViewBag.APIKeyValue = keyValue;
+                        ViewBag.Customer = this.GetCustomer(context2, keyValue);
                     }
                 }
 

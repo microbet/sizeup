@@ -85,6 +85,9 @@
 
         var me = {};
         var pub = {
+            getCustomer: function () {
+                return me.customer;
+            },
             getData: function (url, params, success, error) {
                 return getJsonp(url, params, success, error);
             },
@@ -96,7 +99,11 @@
             },
             buildTokenUrl: function(src, params){
                 return buildTokenUrl(src, params);
-            }
+            },
+            // The Sizeup 1 widget uses two keys, so has to use this to inject the true customer:
+            setCustomer: function(customer) {
+                me.customer = customer;
+            },
         };
         me.head = document.getElementsByTagName('head')[0]; 
         me.scriptQueue = [];
@@ -108,6 +115,7 @@
         me.widgetToken = '@ViewBag.WidgetToken';      
         sizeup.api[me.jsonpPrefix] = {};
         me.callbackComplete = {};
+        me.customer = @Html.Raw(Json.Encode(ViewBag.Customer));
 
         var buildTokenUrl = function(src, params){
             if (src.indexOf('?') < 0) {

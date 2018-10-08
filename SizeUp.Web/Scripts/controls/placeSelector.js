@@ -22,7 +22,24 @@
             return text;
         };
 
+        var generateCustomerFilters = function (customer) {
+            if ( ! customer || ! customer.ServiceAreas) { // API is too old; skip filters
+                return {};
+            }
+            if (customer.ServiceAreas.length == 0) {
+                console.error("Customer has no service areas! Please contact SizeUp.");
+                return { countyId: [126177] }; // Sentinel: San Diego County, CA.
+                // TODO provide a real sentinel and/or onscreen error message.
+            }
+            if (customer.ServiceAreas[0].Granularity != "County") { // Assume nationwide customer
+                return {};
+            }
+            return { countyId: customer.ServiceAreas.map(function (s) { return s.Id }) };
+        };
+
         var init = function () {
+            me.customerFilters = generateCustomerFilters(window.sizeup.api.loader.getCustomer());
+
             me.container = $('<div class="autoComplete-container"></div>');
             me.textbox.after(me.container);
             me.textbox.detach();
@@ -49,7 +66,11 @@
                         }));
                     };
                     me.container.addClass('loading');
-                    sizeup.api.data.findPlace({ term: request.term, maxResults: me.maxResults }, callback);
+                    var params = { term: request.term, maxResults: me.maxResults };
+                    for (var name in me.customerFilters) {
+                        params[name] = me.customerFilters[name];
+                    }
+                    sizeup.api.data.findPlace(params, callback, console.error);
                 },
                 minLength: me.minLength,
                 select: function (event, ui) {
@@ -154,7 +175,8 @@
             },
             hasFocus: function () {
                 return me.hasFocus;
-            }
+            },
+            generateCustomerFilters: generateCustomerFilters
         };
         init();
         return publicObj;

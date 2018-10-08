@@ -42,5 +42,24 @@ namespace SizeUp.Web.Areas.Widget.Controllers
             base.Initialize(requestContext);
         }
 
+        public Core.DataLayer.Models.Customer GetCustomer(SizeUp.Data.API.APIContext context, Guid key)
+        {
+            Core.DataLayer.Models.Customer customer = null;
+            using (var sizeupContext = ContextFactory.SizeUpContext)
+            {
+                try
+                {
+                    customer = SizeUp.Core.DataLayer.Customer.GetCustomerByKey(context, sizeupContext, key);
+                }
+                catch (System.Data.ObjectNotFoundException exc)
+                {
+                    // This is actually an error, but the error is a real possibility and I don't
+                    // want it to abort the function. An entire API refactor is planned, which will
+                    // eventually remove the possibility of failure here.
+                    // TODO: if we get a logging framework, log the error.
+                }
+            }
+            return customer;
+        }
     }
 }
