@@ -1,0 +1,51 @@
+== API customer development that alters the database ==
+
+= make a staging database =
+
+RESTORE DATABASE [SizeUpAPI_Staging]
+ FROM  DISK = N'C:\Users\twilson\Downloads\SizeUpAPI-2017-10-04.bak'
+  WITH  FILE = 1,
+  MOVE N'SizeUpAPI' TO N'D:\Data\SizeUp\SizeUpAPI_Staging.mdf',
+  MOVE N'SizeUpAPI_log' TO N'D:\Logs\SizeUp\SizeUpAPI_Staging_1.ldf',
+  NOUNLOAD,  STATS = 10
+GO
+
+= locally modify SizeUpApi/Web.config =
+
+= create new table in db =
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityProvider](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[APIKeyId] [bigint] NOT NULL,
+	[EntryPoint] [varchar](1023) NOT NULL,
+ CONSTRAINT [PK_IdentityProvider] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[IdentityProvider]  WITH CHECK ADD  CONSTRAINT [FK_IdentityProvider_APIKey] FOREIGN KEY([APIKeyId])
+REFERENCES [dbo].[APIKey] ([Id])
+GO
+ALTER TABLE [dbo].[IdentityProvider] CHECK CONSTRAINT [FK_IdentityProvider_APIKey]
+GO
+
+= edit the entity model =
+
+Load APIContext.edmx, right-click, "Update Model from Database"
+- may first need to change the connection string in SizeUp.Data/App.config
+
+= test all is well =
+
+key = "6388E63C-3D44-472B-A424-712395B1AD51";
+sizeup = require(".")({
+  key: key,
+  serviceUrl: "http://localhost:49286/"
+});
+sizeup.customer.getCustomerByKey("6388E63C-3D44-472B-A424-712395B1AD51",console.log, console.error);
+sizeup.customer.getCustomerByKey("3C86000B-A955-4650-A1C0-48D2EA44B8E5",console.log, console.error);
+sizeup.customer.getCustomerByKey("831f5442-9f0f-4496-9469-bd8fcb27bf1f",console.log, console.error);
