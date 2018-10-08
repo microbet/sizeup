@@ -113,6 +113,10 @@
     <Compile Include="DataLayer\BestIndustries.cs" />
     <Compile Include="DataLayer\City.cs" />
     <Compile Include="DataLayer\County.cs" />
+    <Compile Include="DataLayer\Customer.cs" />
+    <Compile Include="DataLayer\Models\Customer.cs" />
+    <Compile Include="DataLayer\Models\IdentityProvider.cs" />
+    <Compile Include="DataLayer\Models\ServiceArea.cs" />
     <Compile Include="DataLayer\Models\Sitemap.cs" />
     <Compile Include="DataLayer\Projections\County.cs" />
     <Compile Include="Diagnostics\State.cs" />
