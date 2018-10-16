@@ -21,11 +21,23 @@ namespace SizeUp.Api.Areas.Data.Controllers
         [APIAuthorize(Role = "Place")]
         public ActionResult Search(string term, long[] countyId = null, int maxResults = 35)
         {
-            using (var context = ContextFactory.SizeUpContext)
+            // Local and national search will use two different functions,
+            // until we add PlaceKeywords capability to LocalSearch.
+            if (countyId != null && countyId.Length != 0)
             {
-                var data = Core.DataLayer.Place.Search(context, term, countyId).Take(maxResults).ToList();
-                var query = ((ObjectQuery)(Core.DataLayer.Place.Search(context, term, countyId))).ToTraceString();
-                return Json(data, JsonRequestBehavior.AllowGet);
+                using (var context = ContextFactory.SizeUpContext)
+                {
+                    var data = Core.DataLayer.Place.LocalSearch(context, term, countyId, maxResults);
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                using (var context = ContextFactory.SizeUpContext)
+                {
+                    var data = Core.DataLayer.Place.Search(context, term, countyId).Take(maxResults).ToList();
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
             }
         }
 
