@@ -13,9 +13,9 @@ console.log('PDF get start');
 */
 
 const attribute = 'totalRevenue';
-const averageRevenue = [750000, 0];
+const averageRevenue = [50000, 0];
 const bands = 5;
-const distance = 6;
+const distance = 16;
 const geographicLocationId = 41284;
 const industryId = 8524;
 const itemCount = 3;
@@ -24,12 +24,12 @@ const page = 1;
 const sort = 'desc';
 const sortAttribute = 'totalRevenue';
 const totalEmployees = [10, null];
-const totalRevenue = [200000, 10000000];
+const totalRevenue = [100000, 10000000];
 const highSchoolOrHigher = 5;  // a percent
-const householdExpenditures = [20000, 100000];
+const householdExpenditures = [10000, 500000];
 const householdIncome = [20000, 200000];
 const medianAge = [3, 90];
-const revenuePerCapita = [2, 15000];
+const revenuePerCapita = [2, 35000];
 const whiteCollarWorkers = 3;
 
 function formatCamelToDisplay(input) {
@@ -116,7 +116,10 @@ function successCallback(result, msg="success") {
  */
 
 function bestCallback(result, msg="success") {
-	result.forEach(function(element) {
+//	result.forEach(function(element) {
+	var i=0;
+	for (element of result) {
+		i++;
 //		console.log(element.Centroid);
 		pdfMsgObj['zip'].push(element.ZipCode.Name);
 //		console.log(element.ZipCode.Zip);
@@ -139,7 +142,9 @@ function bestCallback(result, msg="success") {
 		pdfMsgObj['whiteCollarWorkers'].push(element.WhiteCollarWorkers);
 		pdfMsgObj['bachelorsDegreeOrHigher'].push(element.BachelorsDegreeOrHigher);
 		pdfMsgObj['highSchoolOrHigher'].push(element.HighSchoolOrHigher);
-	});
+		if (i >= 3) { break; }
+//	});
+	}
 	// ok this zip, total rev min and max need to be an array
 }
 
@@ -263,12 +268,17 @@ function buildPdf() {
 		.text("know where the most money is being made in your industry.")
 		.moveDown(2);
 	let xpos = 250;
-	let yStart = doc.y;
+	const listHeight = 200;  // pixels given to the bottom section
+	doc.y = 720 - listHeight;
+	numFields = pdfMsgObj.zip.length;
+	fieldHeight = listHeight/numFields;
+	fieldFontHeight = Math.round(fieldHeight/6);
+	subFieldFontHeight = Math.round(fieldFontHeight/2);
 	// I'm going to have to get at the length to make sure the page
 	// doesn't break
 	for (let i=0; i<pdfMsgObj.zip.length; i++) {
 		doc.fillColor(colors.orange)
-		.fontSize(15)
+		.fontSize(fieldFontHeight) //.fontSize(15)
 		.text(pdfMsgObj.zip[i], 75, doc.y, { continued: true })
 		.fillColor('black');
 		xpos = 400 - (doc.widthOfString(pdfMsgObj.totalRevenueMin[i]) + doc.widthOfString(" - ") + doc.widthOfString(pdfMsgObj.totalRevenueMax[i]));
@@ -278,7 +288,7 @@ function buildPdf() {
 		.text(" - ", { continued: true } )
 		.text(pdfMsgObj.totalRevenueMax[i])
 		.fillColor('gray')
-		.fontSize(8)
+		.fontSize(subFieldFontHeight) //.fontSize(8)
 		.text("Total Population: ", 100, doc.y, { continued: true } )
 		.text((pdfMsgObj.population[i]).toLocaleString('en'))
 		.text("Average Annual Revenue: ", 100, doc.y, { continued: true })
@@ -311,8 +321,8 @@ function buildPdf() {
 		console.log("the y position three is: ");
 	}
 	// I want to test if it's breaking the page
-	let blockLen = doc.y - yStart;
-	console.log("yEnd: ", doc.y, ", yStart: ", yStart, ", blockLen: ", blockLen);
+//	let blockLen = doc.y - yStart;
+//	console.log("yEnd: ", doc.y, ", yStart: ", yStart, ", blockLen: ", blockLen);
 
 	// Finalize the pdf file
 	doc.end();
