@@ -74,6 +74,8 @@ pdfMsgObj.averageRevenueMin = [];
 pdfMsgObj.averageRevenueMax = [];
 pdfMsgObj.revenuePerCapitaMin = [];
 pdfMsgObj.revenuePerCapitaMax = [];
+pdfMsgObj.centroidLat = [];
+pdfMsgObj.centroidLng = [];
 
 function buildPdfMsg(addedMsg, target='') {
 //		console.log("building pdf...");
@@ -119,7 +121,9 @@ function bestCallback(result, msg="success") {
 		pdfMsgObj['zip'].push(element.ZipCode.Name);
 //		console.log(element.ZipCode.Zip);
 //		console.log(element.TotalRevenue.Max);
-		console.log(element);
+//		console.log(element);
+		pdfMsgObj['centroidLng'].push(element.Centroid.Lng);
+		pdfMsgObj['centroidLat'].push(element.Centroid.Lat);
 		pdfMsgObj['totalRevenueMin'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.TotalRevenue.Min));  // throws an error if maxFDig is set to 0, but not minFDig 
 		pdfMsgObj['totalRevenueMax'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.TotalRevenue.Max));
 		pdfMsgObj['population'].push(element.Population);
@@ -161,7 +165,19 @@ function startPdf() {
 	// Need to make the image first so it is ready for the PDF
 	// I tried putting it into the PDF straight from buffer, but that
 	// was taking too long, so I will save it to a file with a unique name
-	const url = 'https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:orange%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+//	const url = 'https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:green%7Clabel:S%7C40.702147,-74.015794&markers=color:orange%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+// https://maps.googleapis.com/maps/api/js/ViewportInfoService.GetViewportInfo?1m6&1m2&1d28.541763002486213&2d-100.75242339877633&2m2&1d31.49107851274312&2d-95.13921000828736&2u9&4sen-US&5e0&6sm@442000000&7b0&8e0&callback=_xdc_._f0kl74&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE&token=19066
+console.log("lat = ", pdfMsgObj.centroidLat);
+console.log("lng = ", pdfMsgObj.centroidLng);
+//construct the string for markers
+let markerStr = '';
+for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
+		markerStr += "markers=color:blue%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
+}
+	console.log(markerStr);
+let center = pdfMsgObj.centroidLat[0] + ',' + pdfMsgObj.centroidLng[0];  // not really the center
+		const url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + center + '&zoom=11&size=600x300&maptype=roadmap&' + markerStr + 'key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+	console.log("url = ", url);
 	var download = function(uri, filename, callback){
 		request.head(uri, function(err, res, body){
 			console.log('content-type:', res.headers['content-type']);
