@@ -26,7 +26,10 @@ function getRandRange(min, max, maxmax="unlimited") {
 }
 
 const attribute = getRandElement(['revenuePerCapita', 'totalRevenue', 'averageRevenue', 'underservedMarkets', 'totalEmployees', 'householdIncome']);
-const averageRevenue = getRandRange(0, 50000000);
+// const averageRevenue = getRandRange(0, 50000000);
+// randRange function probably needs to favor the low end
+// and it maybe that the api wants some of these things very rounded off
+const averageRevenue = [1000000, 50000000];
 const bands = 5;
 const distance = 16;
 const geographicLocationId = 41284;
