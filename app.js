@@ -12,25 +12,46 @@ console.log('PDF get start');
 * for development
 */
 
-const attribute = 'totalRevenue';
-const averageRevenue = [50000, 0];
+// I should build testing into this by making these choices random
+
+function getRandElement(inputArray) {
+	return inputArray[Math.floor(Math.random() * inputArray.length)]
+}
+
+function getRandRange(min, max, maxmax="unlimited") {
+	let randMin = Math.floor((Math.random() * (max - min)) + min);
+	let randMax = Math.floor((Math.random() * (max - randMin)) + randMin);
+	if (maxmax === "unlimited") {
+		if (Math.random() > 0.5) { maxmax = null; }
+	}
+	return [randMin, randMax]
+}
+
+const attribute = getRandElement(['revenuePerCapita', 'totalRevenue', 'averageRevenue', 'underservedMarkets', 'totalEmployees', 'householdIncome']);
+const averageRevenue = getRandRange(0, 50000000);
+//const attribute = 'underservedMarkets'
+//const averageRevenue = [2500000, 50000000];
 const bands = 5;
 const distance = 16;
 const geographicLocationId = 41284;
 const industryId = 8524;
 const itemCount = 3;
-const order = 'highToLow';
+const order = 'lotToHigh';
 const page = 1;
-const sort = 'desc';
-const sortAttribute = 'totalRevenue';
-const totalEmployees = [10, null];
-const totalRevenue = [100000, 10000000];
-const highSchoolOrHigher = 5;  // a percent
-const householdExpenditures = [10000, 500000];
-const householdIncome = [20000, 200000];
-const medianAge = [3, 90];
-const revenuePerCapita = [2, 35000];
-const whiteCollarWorkers = 3;
+const sort = 'asc';
+const sortAttribute = 'underservedMarkets';
+const totalEmployees = [0, null];
+const totalRevenue = [0, null];
+const highSchoolOrHigher = 0;  // a percent
+const householdExpenditures = [0, null];
+const householdIncome = [0, null];
+const medianAge = [0, null];
+const revenuePerCapita = [0, null];
+const whiteCollarWorkers = 0;
+
+console.log("search criteria: ");
+console.log("attribute: ", attribute);
+console.log("averageRevenue: ", averageRevenue);
 
 function formatCamelToDisplay(input) {
 	input_arr = input.split('');
@@ -44,6 +65,34 @@ function formatCamelToDisplay(input) {
 	return input_arr.join('');
 }
 
+/*
+* this is used for the temporary image file name.  I think there is a better
+* way to do this with the temp directory, but I don't see it immediately and
+* I'm afraid that might cause a bug when moving to a production env I don't 
+* know at this point - also basically copypasta from Gabriele Romanato with
+* minor changes.
+*/
+
+function IDGenerator() { 
+	 
+	let length = 15;
+	let timestamp = +new Date;
+		 
+	let _getRandomInt = function( min, max ) {
+		return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+	}
+		 
+	let ts = timestamp.toString();
+	let parts = ts.split( "" ).reverse();
+	let id = "";
+	let index = "";
+	for( let i = 0; i < length; ++i ) {
+			index = _getRandomInt( 0, parts.length - 1 );
+			id += parts[index];	 
+	}
+	return id;
+}
+	
 /****
  * this function is building the pdf.  maybe it should be moved
  * the second parameter is for dynamically named properties of the pdfMsgObj
@@ -55,6 +104,7 @@ function formatCamelToDisplay(input) {
 let pdfMsgObj = {msg: 'Best places to advertise in the '};
 pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
 pdfMsgObj.distance = distance;
+pdfMsgObj.imgFile = '';
 pdfMsgObj.zip = [];
 pdfMsgObj.totalRevenueMin = [];
 pdfMsgObj.totalRevenueMax = [];
@@ -77,6 +127,26 @@ pdfMsgObj.revenuePerCapitaMax = [];
 pdfMsgObj.centroidLat = [];
 pdfMsgObj.centroidLng = [];
 
+let pdfColors = [   // was more elegant as object, but I iterate over this in loops later
+			'#dc3545', // red
+			'#28a745', // green
+			'#007bff', // blue
+			'#fd7e14', // orange
+			'#343a40', // dark grey
+			'#6c757d', // gray
+	]
+	
+	/***
+	reference - colors
+	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
+	--red:#dc3545;		--orange:#fd7e14;		--yellow:#ffc107;		--green:#28a745;
+	--teal:#20c997;		--cyan:#17a2b8;			--white:#fff;			--gray:#6c757d;
+	--gray-dark:#343a40; --primary:#007bff;		--secondary:#6c757d;	--success:#28a745;
+	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
+	--dark:#343a40;
+	*/
+
+
 function buildPdfMsg(addedMsg, target='') {
 //		console.log("building pdf...");
 	if (target) {
@@ -87,11 +157,31 @@ function buildPdfMsg(addedMsg, target='') {
 }
 // describe the query, place, industry, KPI, search distance, filters
 
+// console lot for testing/dev
+console.log("totalEmployees: ", totalEmployees);
+console.log("highSchoolOrHigher: ",  highSchoolOrHigher);
+console.log("householdExpenditures: ", householdExpenditures);
+console.log("householdIncome: ", householdIncome);
+console.log("medianAge: ", medianAge);
+console.log("revenuePerCapita: ", revenuePerCapita);
+console.log("whiteCollarWorkers: ", whiteCollarWorkers);
+console.log("totalRevenue: ", totalRevenue);
+console.log("bands: ", bands);
+console.log("industryId: ", industryId);
+console.log("order: ", order);
+console.log("page: ", page);
+console.log("sort: ", sort);
+console.log("sortAttribute: ", sortAttribute);
+console.log("geographicLocationId: ", geographicLocationId);
+console.log("distance: ", distance);
+console.log("attribute: ", attribute); 
+
 Promise.all([
 	sizeup.data.getPlace({ id: geographicLocationId }),
 	sizeup.data.getIndustry( { id: industryId }),
 	sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
 ]).then(([place, industry, bestPlaces]) => {
+		console.log(bestPlaces);
 		successCallback(place[0].City.LongName, "display location name"); // just for debug
 		successCallback(industry[0].Name, "display industry name"); // just for debug
 		bestCallback(bestPlaces.Items, "Best Places to Advertise"); // note: would you do this instead of putting the forEach loop right here?
@@ -112,7 +202,7 @@ function successCallback(result, msg="success") {
  * which then built up a pdf string or object depending on parameters
  * and T suggested generalizing the function, but when doing that it 
  * seemed like a function was unnecessary and I could just add the 
- * parameter/value to the pdfMsgObj in here
+ *	 parameter/value to the pdfMsgObj in here
  */
 
 function bestCallback(result, msg="success") {
@@ -172,54 +262,44 @@ function startPdf() {
 	// was taking too long, so I will save it to a file with a unique name
 //	const url = 'https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:green%7Clabel:S%7C40.702147,-74.015794&markers=color:orange%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
 // https://maps.googleapis.com/maps/api/js/ViewportInfoService.GetViewportInfo?1m6&1m2&1d28.541763002486213&2d-100.75242339877633&2m2&1d31.49107851274312&2d-95.13921000828736&2u9&4sen-US&5e0&6sm@442000000&7b0&8e0&callback=_xdc_._f0kl74&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE&token=19066
-console.log("lat = ", pdfMsgObj.centroidLat);
-console.log("lng = ", pdfMsgObj.centroidLng);
+// console.log("lat = ", pdfMsgObj.centroidLat);
+// console.log("lng = ", pdfMsgObj.centroidLng);
 //construct the string for markers
 let markerStr = '';
 for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
-		markerStr += "markers=color:blue%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
+	markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + (i+1) + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
 }
-	console.log(markerStr);
-let center = pdfMsgObj.centroidLat[0] + ',' + pdfMsgObj.centroidLng[0];  // not really the center
-		const url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + center + '&zoom=11&size=600x300&maptype=roadmap&' + markerStr + 'key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
-	console.log("url = ", url);
+//	console.log(markerStr);
+	// image scale needs to be based on the the search distance or the most distant pin, but that's harder
+// let center = pdfMsgObj.centroidLat[0] + ',' + pdfMsgObj.centroidLng[0];  // not really the center
+	//	const url = 'https://maps.googleapis.com/maps/api/staticmap?center=' + center + '&zoom=11&size=600x300&maptype=roadmap&' + markerStr + 'key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+	const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+//	console.log("url = ", url);
 	var download = function(uri, filename, callback){
 		request.head(uri, function(err, res, body){
-			console.log('content-type:', res.headers['content-type']);
-			console.log('content-length:', res.headers['content-length']);
+	//		console.log('content-type:', res.headers['content-type']);
+	//		console.log('content-length:', res.headers['content-length']);
 			request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
 		});
 	};
-
-	download(url, 'google.png', function(){
-  		console.log('done');
+// name of this file needs to be at least close to unique and then deleted
+let imgFile = IDGenerator();
+imgFile = imgFile + '.png';
+//console.log("start unique number ", imgFile, " end unique number");
+	download(url,  imgFile, function(){
+ // 		console.log('done');
+		pdfMsgObj.imgFile = imgFile;
 		buildPdf();
 	});
 }
 
 function buildPdf() {
 	
-	colors = {
-			orange: '#fd7e14',
-			graydark: '#343a40',
-			gray: '#6c757d',
-	}
-	
-	/***
-	reference - colors
-	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
-	--red:#dc3545;		--orange:#fd7e14;		--yellow:#ffc107;		--green:#28a745;
-	--teal:#20c997;		--cyan:#17a2b8;			--white:#fff;			--gray:#6c757d;
-	--gray-dark:#343a40; --primary:#007bff;		--secondary:#6c757d;	--success:#28a745;
-	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
-	--dark:#343a40;
-	*/
-	
 	// Create a document
 	let doc = new PDFDocument;
 	
 	// pipe its output to a file
-	let writeStream = fs.createWriteStream('output.pdf');
+	let writeStream = fs.createWriteStream('output.pdf');  // this will output to stream or something
 	doc.pipe(writeStream);
 	
 	// Draw a rectangle - this will be szu-industry-and-locationXsSm-container
@@ -233,34 +313,40 @@ function buildPdf() {
 	// Embed a font, set the font size, and render some text
 	doc.fontSize(15);
 	doc.moveDown(2);
-	doc.fillColor(colors.graydark)
+	doc.fillColor(pdfColors[4])
 	doc.text("Best places to advertise in the ", { continued: true } )
-		.fillColor(colors.orange)
+		.fillColor(pdfColors[3])
 		.text(pdfMsgObj.displayIndustry, { continued: true } )
-		.fillColor(colors.graydark)
+		.fillColor(pdfColors[4])
 		.text(" industry near ", { continued: true } )
-	    .fillColor(colors.orange) 
+	    .fillColor(pdfColors[3]) 
 		.text(pdfMsgObj.displayLocation, { continued: true } )
-		.fillColor(colors.graydark)
+		.fillColor(pdfColors[4])
 		.text(" based on ", { continued: true } )
-		.fillColor(colors.orange)
+		.fillColor(pdfColors[3])
 		.text(pdfMsgObj.displayAttribute);
 		
 	doc.fontSize(10);		
-	doc.fillColor(colors.graydark);
+	doc.fillColor(pdfColors[4]);
 	doc.text("    Filtered for Zip Codes at most ", { continued: true } )
 		.fillColor('black')
 		.text(pdfMsgObj.distance, { continued: true } )
-		.fillColor(colors.greydark)
+		.fillColor(pdfColors[4])
 			.text(" miles from the current city");
 	doc.moveDown();
-	doc.image('google.png', 25, doc.y, { width: 562 } );
-	
-// I'm going to have to pipe this image in, which probably means putting this whole 
-	// function in a promise.all
+	doc.image(pdfMsgObj.imgFile, 25, doc.y, { width: 562 } );
+	// delete the image file
+	fs.unlink(pdfMsgObj.imgFile, (err) => {
+		if (err) {
+			console.log("error deleting ", pdfMsgObj.imgFile, " :", err);
+		} else {
+			console.log(pdfMsgObj.imgFile, " was deleted");
+		}
+	});
+	 
 	// doc.image('https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE');
 	doc.moveDown();
-	doc.fillColor(colors.gray);
+	doc.fillColor(pdfColors[5]);
 	doc.fontSize(10);
 	doc.text("This is a list of Zip Codes with the highest combined business revenue in the ", 75, doc.y, { continued: true } )
 		.text(pdfMsgObj.displayIndustry)
@@ -268,54 +354,83 @@ function buildPdf() {
 		.text("know where the most money is being made in your industry.")
 		.moveDown(2);
 	let xpos = 250;
-	const listHeight = 200;  // pixels given to the bottom section
+	const listHeight = 220;  // pixels given to the bottom section
 	doc.y = 720 - listHeight;
-	numFields = pdfMsgObj.zip.length;
-	fieldHeight = listHeight/numFields;
-	fieldFontHeight = Math.round(fieldHeight/6);
-	subFieldFontHeight = Math.round(fieldFontHeight/2);
+	let secondMargin = 400;
+	let skipX = 0;
+//	numFields = pdfMsgObj.zip.length;
+//	fieldHeight = listHeight/numFields;
+//	fieldFontHeight = Math.round(fieldHeight/6);
+//	subFieldFontHeight = Math.round(fieldFontHeight/2);
+//I think I'm going to give up dynamic font sizing as it makes other things hard/impossible
 	// I'm going to have to get at the length to make sure the page
 	// doesn't break
 	for (let i=0; i<pdfMsgObj.zip.length; i++) {
-		doc.fillColor(colors.orange)
-		.fontSize(fieldFontHeight) //.fontSize(15)
-		.text(pdfMsgObj.zip[i], 75, doc.y, { continued: true })
-		.fillColor('black');
+	//	doc.fillColor(colors.orange)
+		doc.fillColor(pdfColors[i])
+//		.fontSize(fieldFontHeight) //.fontSize(15)
+		.fontSize(10)
+		// gonna try to draw a little circle here
+		.circle(75, doc.y + 5, 7)
+		.fill()
+		.fillColor('#ffffff')
+	//	.rect(75, doc.y + 2, 1, fieldFontHeight/2)
+//		.moveTo(75, doc.y + fieldFontHeight/8)
+//		.lineTo(75, doc.y + fieldFontHeight/1.8)
+	//	.fill() // no function, I left off here, stroke seems to only be black, fill doesn't get the linewidth
+		.text(i + 1, 72, doc.y + 1, { continued: true } )
+		.fillColor(pdfColors[i])
+		.fontSize(15)
+		.text("  ", { continued: true } )
+		.text(pdfMsgObj.zip[i], { continued: true })
+		.fillColor('black')
+		.fontSize(13);
 		xpos = 400 - (doc.widthOfString(pdfMsgObj.totalRevenueMin[i]) + doc.widthOfString(" - ") + doc.widthOfString(pdfMsgObj.totalRevenueMax[i]));
-		console.log("the y position two is: ");
-	console.log(doc.y);
+	//	console.log("the y position two is: ");
+//	console.log(doc.y);
 		doc.text(pdfMsgObj.totalRevenueMin[i], xpos, doc.y, { continued: true } )
 		.text(" - ", { continued: true } )
 		.text(pdfMsgObj.totalRevenueMax[i])
-		.fillColor('gray')
-		.fontSize(subFieldFontHeight) //.fontSize(8)
+		.fillColor(pdfColors[5])
+		// I need to figure out which of these are reasonable values to display as well as how many of them
+		// in order to make it look ok and not take up too much space
+		.fontSize(8) // .fontSize(subFieldFontHeight) //.fontSize(8)
 		.text("Total Population: ", 100, doc.y, { continued: true } )
-		.text((pdfMsgObj.population[i]).toLocaleString('en'))
-		.text("Average Annual Revenue: ", 100, doc.y, { continued: true })
+		.text((pdfMsgObj.population[i]).toLocaleString('en'), { continued: true } )
+		.text("Average Annual Revenue: ", secondMargin - doc.widthOfString("Average Annual Revenue: "), doc.y, { continued: true })
 		.text(pdfMsgObj.averageRevenueMin[i], { continued: true } )
 		.text(" - ", { continued: true } )
 		.text(pdfMsgObj.averageRevenueMax[i])
 		.text("Total Employees: ", 100, doc.y, { continued: true } )
 		.text(pdfMsgObj.totalEmployeesMin[i], { continued: true } )
 		.text(" - ", { continued: true } )
-		.text(pdfMsgObj.totalEmployeesMax[i])
-		.text("Revenue Per Capita: ", 100, doc.y, { continued: true } )
+		.text(pdfMsgObj.totalEmployeesMax[i], { continued: true } );
+		console.log("start");
+		console.log(pdfMsgObj.totalEmployeesMin[i]);
+		console.log(doc.widthOfString(pdfMsgObj.totalEmployeesMin[i]));
+		console.log(doc.widthOfString("41"));  // left off here, throwing NaN for some reason
+		doc.text("Revenue Per Capita: ", secondMargin - 
+			doc.widthOfString("Total Employees: ") - 
+			doc.widthOfString(pdfMsgObj.totalEmployeesMin[i]), 
+		//	doc.widthOfString(" - ") - 
+		//	doc.widthOfString(pdfMsgObj.totalEmployeesMax[i]),
+			doc.y, { continued: true } )
 		.text(pdfMsgObj.revenuePerCapitaMin[i], { continued: true } )
 		.text(" - ", { continued: true } )
 		.text(pdfMsgObj.revenuePerCapitaMax[i])
 		.text("Household Income: ", 100, doc.y, { continued: true } )
-		.text(pdfMsgObj.householdIncome[i])
-		.text("Household Expenditures (Average): ", 100, doc.y, { continued: true } )
+		.text(pdfMsgObj.householdIncome[i], { continued: true } )
+		.text("Household Expenditures (Average): ", 300, doc.y, { continued: true } )
 		.text(pdfMsgObj.householdExpenditures[i])
 		.text("Median Age: ", 100, doc.y, { continued: true } )
-		.text(pdfMsgObj.medianAge[i])
-		.text("Bachelors Degree or Higher: ", 100, doc.y, { continued: true } )
+		.text(pdfMsgObj.medianAge[i], { continued: true } )
+		.text("Bachelors Degree or Higher: ", 300, doc.y, { continued: true } )
 		.text((pdfMsgObj.bachelorsDegreeOrHigher[i] * 100).toFixed(1), { continued: true } )
 		.text("%")
 		.text("High School Degree or Higher: ", 100, doc.y, { continued: true } )
 		.text((pdfMsgObj.highSchoolOrHigher[i] * 100).toFixed(1), { continued: true } )
-		.text("%")
-		.text("White Collar Workers: ", 100, doc.y, { continued: true } )
+		.text("%", { continued: true } )
+		.text("White Collar Workers: ", 300, doc.y, { continued: true } )
 		.text((pdfMsgObj.whiteCollarWorkers[i] * 100).toFixed(1), { continued: true } )
 		.text("%");
 		console.log("the y position three is: ");
