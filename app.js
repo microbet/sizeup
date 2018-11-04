@@ -25,20 +25,21 @@ function getRandRange(min, max, maxmax="unlimited") {
 	return [randMin, randMax]
 }
 
-const attribute = getRandElement(['revenuePerCapita', 'totalRevenue', 'averageRevenue', 'underservedMarkets', 'totalEmployees', 'householdIncome']);
+// const attribute = getRandElement(['revenuePerCapita', 'totalRevenue', 'averageRevenue', 'underservedMarkets', 'totalEmployees', 'householdIncome']);
 // const averageRevenue = getRandRange(0, 50000000);
 // randRange function probably needs to favor the low end
 // and it maybe that the api wants some of these things very rounded off
-const averageRevenue = [1000000, 50000000];
+const attribute = 'underservedMarkets';
+const averageRevenue = [0, null];
 const bands = 5;
 const distance = 16;
 const geographicLocationId = 41284;
 const industryId = 8524;
 const itemCount = 3;
-const order = 'lotToHigh';
+const order = 'lowToHigh';
 const page = 1;
 const sort = 'asc';
-const sortAttribute = 'underservedMarkets';
+const	sortAttribute = attribute;
 const totalEmployees = [0, null];
 const totalRevenue = [0, null];
 const highSchoolOrHigher = 0;  // a percent
@@ -47,6 +48,7 @@ const householdIncome = [0, null];
 const medianAge = [0, null];
 const revenuePerCapita = [0, null];
 const whiteCollarWorkers = 0;
+console.log("attribute = ", attribute);
 
 // this function is to display the search criteria to the user as capitalized words
 // instead of one camelcased word
@@ -101,7 +103,6 @@ let pdfMsgObj = {
 	avgRevenueMax: [],
 	totalEmployeesMin: [],
 	totalEmployeesMax: [],
-	revenuePerCapitaMax: [],
 	householdIncome: [],
 	medianAge: [],
 	householdExpenditures: [],
@@ -114,6 +115,8 @@ let pdfMsgObj = {
 	revenuePerCapitaMax: [],
 	centroidLat: [],
 	centroidLng: [],
+	attribute: attribute,
+	sortAttribute: sortAttribute,
 }
 
 let pdfColors = [   // was more elegant as object, but I iterate over this in loops later
@@ -170,6 +173,7 @@ Promise.all([
 		successCallback(bestPlaces.Items, "Best Places to Advertise"); // note: would you do this instead of putting the forEach loop right here?
 		pdfMsgObj['displayLocation'] = place[0].City.LongName;
 		pdfMsgObj['displayIndustry'] = industry[0].Name;
+		// console.log(bestPlaces);
 	}).then(startPdf).catch(console.error)
 
 /**
@@ -183,7 +187,7 @@ function successCallback(result, msg="success") {
 	for (element of result) {
 		i++;
 		pdfMsgObj['zip'].push(element.ZipCode.Name);
-//		console.log(element);   // good for debugging
+		console.log(element);   // good for debugging
 		pdfMsgObj['centroidLng'].push(element.Centroid.Lng);
 		pdfMsgObj['centroidLat'].push(element.Centroid.Lat);
 		pdfMsgObj['totalRevenueMin'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.TotalRevenue.Min));  // throws an error if maxFDig is set to 0, but not minFDig 
@@ -332,6 +336,15 @@ function buildPdf() {
 //	fieldFontHeight = Math.round(fieldHeight/6);
 //	subFieldFontHeight = Math.round(fieldFontHeight/2);
 //I think I'm going to give up dynamic font sizing as it makes other things hard/impossible
+	let thisSortAttributeMinArr = [];
+	let thisSortAttributeMaxArr = [];
+	if (pdfMsgObj.sortAttribute === 'underservedMarkets') {
+		thisSortAttributeMinArr = pdfMsgObj.revenuePerCapitaMin;
+		thisSortAttributeMaxArr = pdfMsgObj.revenuePerCapitaMax;
+	} else {
+		thisSortAttributeMinArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Min'];
+		thisSortAttributeMaxArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Max'];
+	}
 	for (let i=0; i<pdfMsgObj.zip.length; i++) {
 		doc.fillColor(pdfColors[i])
 		.moveDown()
@@ -346,10 +359,10 @@ function buildPdf() {
 		.text(pdfMsgObj.zip[i], { continued: true })
 		.fillColor('black')
 		.fontSize(13);
-		xpos = 400 - (doc.widthOfString(pdfMsgObj.totalRevenueMin[i]) + doc.widthOfString(" - ") + doc.widthOfString(pdfMsgObj.totalRevenueMax[i]));
-		doc.text(pdfMsgObj.totalRevenueMin[i], xpos, doc.y, { continued: true } )
+		xpos = 400 - (doc.widthOfString(thisSortAttributeMinArr[i]) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i]));
+		doc.text(thisSortAttributeMinArr[i], xpos, doc.y, { continued: true } )
 		.text(" - ", { continued: true } )
-		.text(pdfMsgObj.totalRevenueMax[i])
+		.text(thisSortAttributeMaxArr[i])
 		.fillColor(pdfColors[5])
 		.fontSize(8) 
 		.text("Total Population: ", 100, doc.y, { continued: true } )
@@ -361,6 +374,9 @@ function buildPdf() {
 		*  Pdfkit positions are like dead-reckoning here.  You need to subtract
 		*  how far you've gone in a line to see how much further you need to go.
 		*/
+
+		// so if the filters are null (could be [0, null]) they 
+		// shouldn't be displayed
 		
 		.text("Average Annual Revenue: ", secondMargin - 
 			doc.widthOfString("Total Population: ") -
@@ -407,7 +423,6 @@ function buildPdf() {
 			doc.y, { continued: true } )
 		.text((pdfMsgObj.whiteCollarWorkers[i] * 100).toFixed(1), { continued: true } )
 		.text("%");
-		console.log("the y position three is: ");
 	}
 
 	// Finalize the pdf file
