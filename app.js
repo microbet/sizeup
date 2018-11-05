@@ -291,9 +291,14 @@ function startPdf() {
 // one on the right with the big font and the label should be above it with the arrow showing
 // ascending or descending
 
+// sortAttribute should be the param and sort should be asc or desc
+
+// todo - when there are 3 items (probably any odd number) it displays ok on the first
+// iteration, but on the second there are two on the right and one on the left
+
 function showFilter(label, param, min, max, doc, suffix='') {
 	let startX;
-	if (filterDisplay[param]) {
+	if (filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
 		if (filterDisplay.toggle > 0) {
 			startX = 100;
 		} else {
@@ -395,13 +400,25 @@ function buildPdf() {
 //I think I'm going to give up dynamic font sizing as it makes other things hard/impossible
 	let thisSortAttributeMinArr = [];
 	let thisSortAttributeMaxArr = [];
+	let sortText;
 	if (pdfMsgObj.sortAttribute === 'underservedMarkets') {
 		thisSortAttributeMinArr = pdfMsgObj.revenuePerCapitaMin;
 		thisSortAttributeMaxArr = pdfMsgObj.revenuePerCapitaMax;
+		sortText = "Revenue Per Capita";
 	} else {
 		thisSortAttributeMinArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Min'];
 		thisSortAttributeMaxArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Max'];
+		sortText = formatCamelToDisplay(pdfMsgObj.sortAttribute);
+		console.log("am I not here");
 	}
+	doc.fillColor(pdfColors[3])
+	.fontSize(6);
+	doc.text(sortText, 520 - doc.widthOfString(sortText), doc.y);
+	// tiny asc or desc triangle
+	doc.polygon( [523, doc.y], [525, doc.y], [524, doc.y + 2])
+	.fillAndStroke();  // I left off here and probably need to add color to that and move it up -
+	                   // maybe it should be a little bigger and add the nobreak to the last print
+	                                             // and still need the asc or desc arrow
 	for (let i=0; i<pdfMsgObj.zip.length; i++) {
 		doc.fillColor(pdfColors[i])
 		.moveDown()
