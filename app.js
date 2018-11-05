@@ -29,8 +29,8 @@ function getRandRange(min, max, maxmax="unlimited") {
 // const averageRevenue = getRandRange(0, 50000000);
 // randRange function probably needs to favor the low end
 // and it maybe that the api wants some of these things very rounded off
-const attribute = 'underservedMarkets';
-const averageRevenue = [0, null];
+const attribute = 'totalEmployees';
+const averageRevenue = [1000, null];
 const bands = 5;
 const distance = 16;
 const geographicLocationId = 41284;
@@ -38,8 +38,8 @@ const industryId = 8524;
 const itemCount = 3;
 const order = 'lowToHigh';
 const page = 1;
-const sort = 'asc';
-const	sortAttribute = attribute;
+const sort = 'desc';
+const sortAttribute = attribute;
 const totalEmployees = [0, null];
 const totalRevenue = [0, null];
 const highSchoolOrHigher = 0;  // a percent
@@ -127,7 +127,32 @@ let pdfColors = [   // was more elegant as object, but I iterate over this in lo
 	'#343a40', // dark grey
 	'#6c757d', // gray
 ]
-	
+
+	/***
+	reference - colors from sizeup
+	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
+	--red:#dc3545;		--orange:#fd7e14;		--yellow:#ffc107;		--green:#28a745;
+	--teal:#20c997;		--cyan:#17a2b8;			--white:#fff;			--gray:#6c757d;
+	--gray-dark:#343a40; --primary:#007bff;		--secondary:#6c757d;	--success:#28a745;
+	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
+	--dark:#343a40;
+	*/
+
+let filterDisplay = { toggle: 1 };
+
+if (averageRevenue[0] === 0 && averageRevenue[1] === null) { filterDisplay.averageRevenue = true; }
+if (totalEmployees[0] === 0 && totalEmployees[1] === null) { filterDisplay.totalEmployees = true; }
+if (totalRevenue[0] === 0 && totalRevenue[1] === null) { filterDisplay.totalRevenue = true; }
+if (householdIncome[0] === 0 && householdIncome[1] === null) { filterDisplay.householdIncome = true; }
+if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { filterDisplay.revenuePerCapita = true; }
+if (highSchoolOrHigher != 0) { filterDisplay.highSchoolOrHigher = true; }
+if (medianAge != 0) { filterDisplay.medianAge = true; }
+if (whiteCollarWorkers != 0) { filterDisplay.whiteCollarWorkers = true; }
+filterDisplay.population = true;
+
+console.log(averageRevenue, " is the avgR value");
+console.log(filterDisplay.averageRevenue, " is the avgR");
+
 	/***
 	reference - colors from sizeup
 	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
@@ -257,6 +282,38 @@ function startPdf() {
 	});
 }
 
+
+// renders the filters shown under results in pdf
+// but just the ones that have been changed from null
+
+
+// todo - the category I'm sorting by shouldn't show up here (I don't think), but it is the 
+// one on the right with the big font and the label should be above it with the arrow showing
+// ascending or descending
+
+function showFilter(label, param, min, max, doc, suffix='') {
+	let startX;
+	if (filterDisplay[param]) {
+		if (filterDisplay.toggle > 0) {
+			startX = 100;
+		} else {
+			startX = 350; // - filterDisplay.previousWidth;
+		}
+		doc.text(label, startX,
+			doc.y, { continued: true })
+		.text(min, { continued: true } );
+		if (max) {
+			doc.text(" - ", { continued: true } )
+			.text(max, { continued: true } );
+		}
+		doc.text(suffix);
+		if (filterDisplay.toggle < 0) {
+			doc.text('');
+			doc.moveDown();
+		}
+		filterDisplay.toggle = filterDisplay.toggle * -1;
+	}
+}
 	
 /****
  * this function is building the pdf using the info from the pdfMsgObj and using 
@@ -359,70 +416,24 @@ function buildPdf() {
 		.text(pdfMsgObj.zip[i], { continued: true })
 		.fillColor('black')
 		.fontSize(13);
-		xpos = 400 - (doc.widthOfString(thisSortAttributeMinArr[i]) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i]));
+		console.log(thisSortAttributeMinArr[i], "here");
+		xpos = 400 - (doc.widthOfString(thisSortAttributeMinArr[i].toString()) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i].toString()));
 		doc.text(thisSortAttributeMinArr[i], xpos, doc.y, { continued: true } )
 		.text(" - ", { continued: true } )
 		.text(thisSortAttributeMaxArr[i])
 		.fillColor(pdfColors[5])
 		.fontSize(8) 
-		.text("Total Population: ", 100, doc.y, { continued: true } )
-		.text((pdfMsgObj.population[i]).toLocaleString('en'), { continued: true } )
-		
-		/***
-		*  These semi-commplicated lines are making it so that the second column
-		*  of items below each result is left justified at the same point.
-		*  Pdfkit positions are like dead-reckoning here.  You need to subtract
-		*  how far you've gone in a line to see how much further you need to go.
-		*/
-
-		// so if the filters are null (could be [0, null]) they 
-		// shouldn't be displayed
-		
-		.text("Average Annual Revenue: ", secondMargin - 
-			doc.widthOfString("Total Population: ") -
-			doc.widthOfString(pdfMsgObj.population[i].toLocaleString('en')),
-			doc.y, { continued: true })
-		.text(pdfMsgObj.averageRevenueMin[i], { continued: true } )
-		.text(" - ", { continued: true } )
-		.text(pdfMsgObj.averageRevenueMax[i])
-		.text("Total Employees: ", 100, doc.y, { continued: true } )
-		.text(pdfMsgObj.totalEmployeesMin[i], { continued: true } )
-		.text(" - ", { continued: true } )
-		.text(pdfMsgObj.totalEmployeesMax[i], { continued: true } )
-		.text("Revenue Per Capita: ", secondMargin - 
-			doc.widthOfString("Total Employees: ") - 
-			doc.widthOfString(pdfMsgObj.totalEmployeesMin[i].toString()) - 
-			doc.widthOfString(" - ") - 
-			doc.widthOfString(pdfMsgObj.totalEmployeesMax[i].toString()),
-			doc.y, { continued: true } )
-		.text(pdfMsgObj.revenuePerCapitaMin[i], { continued: true } )
-		.text(" - ", { continued: true } )
-		.text(pdfMsgObj.revenuePerCapitaMax[i])
-		.text("Household Income: ", 100, doc.y, { continued: true } )
-		.text(pdfMsgObj.householdIncome[i], { continued: true } )
-		.text("Household Expenditures (Average): ", secondMargin -
-			doc.widthOfString("Household Income: ") -
-			doc.widthOfString(pdfMsgObj.householdIncome[i]),
-			doc.y, { continued: true } )
-		.text(pdfMsgObj.householdExpenditures[i])
-		.text("Median Age: ", 100, doc.y, { continued: true } )
-		.text(pdfMsgObj.medianAge[i], { continued: true } )
-		.text("Bachelors Degree or Higher: ", secondMargin -
-			doc.widthOfString("Median Age: ") - 
-			doc.widthOfString(pdfMsgObj.medianAge[i].toString()),
-			doc.y, { continued: true } )
-		.text((pdfMsgObj.bachelorsDegreeOrHigher[i] * 100).toFixed(1), { continued: true } )
-		.text("%")
-		.text("High School Degree or Higher: ", 100, doc.y, { continued: true } )
-		.text((pdfMsgObj.highSchoolOrHigher[i] * 100).toFixed(1), { continued: true } )
-		.text("%", { continued: true } )
-		.text("White Collar Workers: ", secondMargin -
-			doc.widthOfString("High School Degree or Higher: ") - 
-			doc.widthOfString((pdfMsgObj.highSchoolOrHigher[i] * 100).toFixed(1).toString()) - 
-			doc.widthOfString("%"),
-			doc.y, { continued: true } )
-		.text((pdfMsgObj.whiteCollarWorkers[i] * 100).toFixed(1), { continued: true } )
-		.text("%");
+		showFilter("Total Population: ", 'population', pdfMsgObj.population[i].toLocaleString('en'), null, doc);
+		showFilter("Average Annual Revenue: ", 'averageRevenue', pdfMsgObj.averageRevenueMin[i], pdfMsgObj.averageRevenueMax[i], doc);
+		showFilter("Total Employees: ", 'totalEmployees', pdfMsgObj.totalEmployeesMin[i], pdfMsgObj.totalEmployeesMax[i], doc);
+		showFilter("Revenue Per Capita: ", 'revenuePerCapita', pdfMsgObj.revenuePerCapitaMin[i], pdfMsgObj.revenuePerCapitaMax[i], doc);
+		showFilter("Household Income: ", 'householdIncome', pdfMsgObj.householdIncome[i], null, doc);
+		showFilter("Household Expenditures: ", 'householdExpenditures', pdfMsgObj.householdExpenditures[i], null, doc);
+		showFilter("Median Age: ", 'medianAge', pdfMsgObj.medianAge[i], null, doc);
+		showFilter("Bachelors Degree or Higher: ", 'bachelorsDegreeOrHigher', pdfMsgObj.bachelorsDegreeOrHigher[i], null, doc, '%');
+		showFilter("High School Degree or Higher: ", 'highSchoolOrHigher', pdfMsgObj.highSchoolOrHigher[i], null, doc, '%');
+		showFilter("White Collar Workers: ", 'whiteCollarWorkers', pdfMsgObj.whiteCollarWorkers[i], null, doc, '%');
+		doc.moveDown();
 	}
 
 	// Finalize the pdf file
