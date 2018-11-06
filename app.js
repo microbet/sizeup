@@ -282,17 +282,6 @@ function startPdf() {
 	});
 }
 
-
-// renders the filters shown under results in pdf
-// but just the ones that have been changed from null
-
-
-// todo - the category I'm sorting by shouldn't show up here (I don't think), but it is the 
-// one on the right with the big font and the label should be above it with the arrow showing
-// ascending or descending
-
-// sortAttribute should be the param and sort should be asc or desc
-
 // todo - when there are 3 items (probably any odd number) it displays ok on the first
 // iteration, but on the second there are two on the right and one on the left
 
@@ -302,7 +291,7 @@ function showFilter(label, param, min, max, doc, suffix='') {
 		if (filterDisplay.toggle > 0) {
 			startX = 100;
 		} else {
-			startX = 350; // - filterDisplay.previousWidth;
+			startX = 350;
 		}
 		doc.text(label, startX,
 			doc.y, { continued: true })
@@ -411,20 +400,27 @@ function buildPdf() {
 		sortText = formatCamelToDisplay(pdfMsgObj.sortAttribute);
 		console.log("am I not here");
 	}
-	doc.fillColor(pdfColors[3])
-	.fontSize(6);
-	doc.text(sortText, 520 - doc.widthOfString(sortText), doc.y);
+	doc.fillColor(pdfColors[3]);
+	doc.fontSize(6);
+	doc.text(sortText, 515 - doc.widthOfString(sortText), doc.y);
 	// tiny asc or desc triangle
-	doc.polygon( [523, doc.y], [525, doc.y], [524, doc.y + 2])
-	.fillAndStroke();  // I left off here and probably need to add color to that and move it up -
-	                   // maybe it should be a little bigger and add the nobreak to the last print
-	                                             // and still need the asc or desc arrow
+	if (pdfMsgObj.sort === 'desc') {
+		doc.polygon( [519, doc.y - 2], [523, doc.y - 2], [521, doc.y - 6]);
+	} else {
+		doc.polygon( [519, doc.y - 6], [523, doc.y - 6], [521, doc.y - 2]);
+	}
+	doc.fillAndStroke(pdfColors[3]) 
 	for (let i=0; i<pdfMsgObj.zip.length; i++) {
+		filterDisplay.toggle = 1;  // this controls the margins of the fields
+											// if it's not reset to 1 between areas
+											// shown, the margins don't work right
+											// see showFilter function
 		doc.fillColor(pdfColors[i])
-		.moveDown()
+		.moveDown(1)
 		.fontSize(10)
-		.circle(75, doc.y + 5, 7)
-		.fill()
+		.circle(75, doc.y + 5, 7);
+		console.log(doc.x, " is docx");
+		doc.fill()
 		.fillColor('#ffffff')
 		.text(i + 1, 72, doc.y + 1, { continued: true } )
 		.fillColor(pdfColors[i])
