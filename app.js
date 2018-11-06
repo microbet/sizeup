@@ -29,14 +29,14 @@ function getRandRange(min, max, maxmax="unlimited") {
 // const averageRevenue = getRandRange(0, 50000000);
 // randRange function probably needs to favor the low end
 // and it maybe that the api wants some of these things very rounded off
-const attribute = 'totalEmployees';
-const averageRevenue = [1000, null];
+const attribute = 'totalRevenue';
+const averageRevenue = [50000, null];
 const bands = 5;
 const distance = 16;
 const geographicLocationId = 41284;
 const industryId = 8524;
 const itemCount = 3;
-const order = 'lowToHigh';
+const order = 'highToLow';
 const page = 1;
 const sort = 'desc';
 const sortAttribute = attribute;
@@ -117,6 +117,7 @@ let pdfMsgObj = {
 	centroidLng: [],
 	attribute: attribute,
 	sortAttribute: sortAttribute,
+	bandArr: [],
 }
 
 let pdfColors = [   // was more elegant as object, but I iterate over this in loops later
@@ -150,8 +151,8 @@ if (medianAge != 0) { filterDisplay.medianAge = true; }
 if (whiteCollarWorkers != 0) { filterDisplay.whiteCollarWorkers = true; }
 filterDisplay.population = true;
 
-console.log(averageRevenue, " is the avgR value");
-console.log(filterDisplay.averageRevenue, " is the avgR");
+// console.log(averageRevenue, " is the avgR value");
+// console.log(filterDisplay.averageRevenue, " is the avgR");
 
 	/***
 	reference - colors from sizeup
@@ -194,13 +195,22 @@ Promise.all([
 	sizeup.data.getPlace({ id: geographicLocationId }),
 	sizeup.data.getIndustry( { id: industryId }),
 	sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
-]).then(([place, industry, bestPlaces]) => {
+	sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
+	]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
 		successCallback(bestPlaces.Items, "Best Places to Advertise"); // note: would you do this instead of putting the forEach loop right here?
 		pdfMsgObj['displayLocation'] = place[0].City.LongName;
 		pdfMsgObj['displayIndustry'] = industry[0].Name;
+		bandsCallback(bestPlacesBands, "Best Places to Advertise Bands");
 		// console.log(bestPlaces);
 	}).then(startPdf).catch(console.error)
 
+function bandsCallback(result, msg="success") {
+	console.log("in bands");
+	console.log(result);
+	pdfMsgObj.bandArr = result;
+	console.log("out of bands");
+}	
+	
 /**
  *  successCallback puts the return info into the pdfMsgObj.  The result (Items) is an array
  *  so loop through to build the arrays which are members of the pdfMsgObj
@@ -212,7 +222,7 @@ function successCallback(result, msg="success") {
 	for (element of result) {
 		i++;
 		pdfMsgObj['zip'].push(element.ZipCode.Name);
-		console.log(element);   // good for debugging
+//		console.log(element);   // good for debugging
 		pdfMsgObj['centroidLng'].push(element.Centroid.Lng);
 		pdfMsgObj['centroidLat'].push(element.Centroid.Lat);
 		pdfMsgObj['totalRevenueMin'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.TotalRevenue.Min));  // throws an error if maxFDig is set to 0, but not minFDig 
@@ -375,7 +385,32 @@ function buildPdf() {
 			console.log(pdfMsgObj.imgFile, " was deleted");
 		}
 	});
-	 
+	
+	// here is where I should put the bands
+	// the bands are inside pdfMsgObj.bandArr
+	doc.fontSize(8);
+	doc.fillColor(pdfColors[4]);
+	doc.moveDown(0.5);
+	// I need to toggle between 3 margins and need to subtract the width
+	
+	// I left off here, the x on the text was not cooperating
+	
+	let j = 0;
+	let startArrX = [35, 100, 165];
+	pdfMsgObj.bandArr.forEach(function(element) {
+		doc.text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.Min), startArrX[j], doc.y, { continued: true } )
+		.text(' - ', { continued: true } );
+		console.log("this is doc x here", startArrX[j], " and j is ", j);
+		if (j < 2) {
+			doc.text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.Max), startArrX[j], doc.y, { continued: true } );
+			j++;
+		} else {
+			j = 0;
+			doc.text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.Max), startArrX[j], doc.y);
+			doc.moveDown(0.25);
+		}
+	});
+	
 	doc.moveDown();
 	doc.fillColor(pdfColors[5]);
 	doc.fontSize(10);
@@ -409,7 +444,7 @@ function buildPdf() {
 		thisSortAttributeMinArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Min'];
 		thisSortAttributeMaxArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Max'];
 		sortText = formatCamelToDisplay(pdfMsgObj.sortAttribute);
-		console.log("am I not here");
+	//	console.log("am I not here");
 	}
 	doc.fillColor(pdfColors[3])
 	.fontSize(6);
@@ -433,7 +468,7 @@ function buildPdf() {
 		.text(pdfMsgObj.zip[i], { continued: true })
 		.fillColor('black')
 		.fontSize(13);
-		console.log(thisSortAttributeMinArr[i], "here");
+	//	console.log(thisSortAttributeMinArr[i], "here");
 		xpos = 400 - (doc.widthOfString(thisSortAttributeMinArr[i].toString()) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i].toString()));
 		doc.text(thisSortAttributeMinArr[i], xpos, doc.y, { continued: true } )
 		.text(" - ", { continued: true } )
