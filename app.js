@@ -94,6 +94,7 @@ function IDGenerator() {
 let pdfMsgObj = {
 	displayAttribute: formatCamelToDisplay(attribute),
 	distance: distance,
+	bands: bands,
 	imgFile: '',
 	zip: [],
 	totalRevenueMin: [],
@@ -127,6 +128,7 @@ let pdfColors = [   // was more elegant as object, but I iterate over this in lo
 	'#fd7e14', // orange
 	'#343a40', // dark grey
 	'#6c757d', // gray
+	'#e5e3df', // very light grey
 ]
 
 	/***
@@ -380,27 +382,44 @@ function buildPdf() {
 	doc.fontSize(8);
 	doc.fillColor(pdfColors[4]);
 	doc.moveDown(0.5);
-	// I need to toggle between 3 margins and need to subtract the width
+
+	console.log("bands = ", pdfMsgObj.bands);
+	doc.rect( 25, 446, 561, 22 );
+	doc.fillAndStroke('#f3f3f3');
 	
-	// I left off here, the x on the text was not cooperating
-	
-	let j = 0;
-	let startArrX = [35, 100, 165];
+	//  construct an array of x,y starting points for the bands
+	let j = 0, n = 0; m = 0;
+	let bandMinText, widthMinText, widthDash;
+	let startArr = [];
+	for (let k=0; k<pdfMsgObj.bands; k++) {
+		n = k % 3;  // n (remainder of k/3) is the column in the display of bands
+		m = Math.floor(k/3);  // each row will have 3 bands listed
+		startArr.push([40 + n*180, 450 + m*10]);
+	}
+	// startArr = [[40, 450 + m*10], [220, 450], [400, 450], [40, 460], [220, 460]];	
+
+	// then render the bands
+	doc.fillColor(pdfColors[4]);
 	pdfMsgObj.bandArr.forEach(function(element) {
-		doc.text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.Min), startArrX[j], doc.y, { continued: true } )
-		.text(' - ', { continued: true } );
-		console.log("this is doc x here", startArrX[j], " and j is ", j);
-		if (j < 2) {
-			doc.text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.Max), startArrX[j], doc.y, { continued: true } );
-			j++;
-		} else {
-			j = 0;
-			doc.text(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.Max), startArrX[j], doc.y);
-			doc.moveDown(0.25);
-		}
+		bandMinText = Intl.NumberFormat('en-US', { 
+			style: 'currency',
+			currency: 'USD',
+			maximumFractionDigits: 0,
+			minimumFractionDigits: 0 
+		}).format(element.Min);
+		doc.text(bandMinText, startArr[j][0], startArr[j][1]); //, { continued: true } )
+		widthMinText = doc.widthOfString(bandMinText);
+		doc.text(' - ', startArr[j][0] + widthMinText, startArr[j][1]); //, { continued: true } );
+		widthDash = doc.widthOfString(' - ');
+		doc.text(Intl.NumberFormat('en-US', { 
+			style: 'currency', 
+			currency: 'USD', 
+			maximumFractionDigits: 0, 
+			minimumFractionDigits: 0 
+		}).format(element.Max), startArr[j][0] + widthMinText + widthDash, startArr[j][1]);
+		j++;
 	});
 	
-	doc.moveDown();
 	doc.fillColor(pdfColors[5]);
 	doc.fontSize(10);
 	doc.text("This is a list of Zip Codes with the highest combined business revenue in the ", 75, doc.y, { continued: true } )
