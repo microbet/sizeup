@@ -49,6 +49,12 @@ const medianAge = [0, null];
 const revenuePerCapita = [0, null];
 const whiteCollarWorkers = 0;
 console.log("attribute = ", attribute);
+const custAddress = "1243 Main St.";
+const custCity = "Tuscon";
+const custState = "AZ";
+const custZip = "80976";
+const custEmail = "customer.email@gmail.com";
+const custBizName = "Customer Business Name";
 
 // this function is to display the search criteria to the user as capitalized words
 // instead of one camelcased word
@@ -119,6 +125,12 @@ let pdfMsgObj = {
 	attribute: attribute,
 	sortAttribute: sortAttribute,
 	bandArr: [],
+	custAddress: custAddress,
+	custCity: custCity,
+	custState: custState,
+	custZip: custZip,
+	custEmail: custEmail,
+	custBizName: custBizName,
 }
 
 let pdfColors = [   // was more elegant as object, but I iterate over this in loops later
@@ -337,13 +349,23 @@ function buildPdf() {
 	
 	// Draw a rectangle - this will be szu-industry-and-locationXsSm-container
 	doc.save()
-		.moveTo(30, 30)
-		.lineTo(600, 30)
-		.lineTo(600, 90)
-		.lineTo(30, 90)
+		.moveTo(25, 30)
+		.lineTo(575, 30)
+		.lineTo(575, 90)
+		.lineTo(25, 90)
 		.fill('#0ea1ff');
 	
-	// start writing text 
+	// start writing text
+
+	// header text
+	doc.font('Helvetica-Bold');
+	doc.fontSize(15);
+	doc.fillColor('white');
+	let center = 306;
+	doc.text(pdfMsgObj.custBizName, center, 40)
+	   .text(pdfMsgObj.custAddress, center, 55)
+	   .text(pdfMsgObj.custCity + ", " + pdfMsgObj.custState + " " + pdfMsgObj.custZip, center, 70);
+	
 	doc.fontSize(15);
 	doc.moveDown(2);
 	doc.fillColor(pdfColors[4])
