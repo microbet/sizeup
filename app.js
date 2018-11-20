@@ -5,12 +5,8 @@ require('dotenv').config();
 const sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 const request = require('request');
 	
-/****
-* the function is going to take this stuff as inputs, but I'm just setting it here
-* for development
-*/
 
-// Starting to work on testing by making some of the search choices random
+//  Used for some testing
 
 function getRandElement(inputArray) {
 	return inputArray[Math.floor(Math.random() * inputArray.length)]
@@ -25,10 +21,16 @@ function getRandRange(min, max, maxmax="unlimited") {
 	return [randMin, randMax]
 }
 
+// testing stuff
 // const attribute = getRandElement(['revenuePerCapita', 'totalRevenue', 'averageRevenue', 'underservedMarkets', 'totalEmployees', 'householdIncome']);
 // const averageRevenue = getRandRange(0, 50000000);
-// randRange function probably needs to favor the low end
-// and it maybe that the api wants some of these things very rounded off
+// randRange function probably needs to favor the low end and round off
+
+/****
+* this app is going to take in these items as inputs, but they are just set it here
+* for development
+*/
+
 const attribute = 'totalRevenue';
 const averageRevenue = [50000, null];
 const bands = 5;
@@ -48,7 +50,6 @@ const householdIncome = [0, null];
 const medianAge = [0, null];
 const revenuePerCapita = [0, null];
 const whiteCollarWorkers = 0;
-console.log("attribute = ", attribute);
 const custAddress = "1243 Main St.";
 const custCity = "Tuscon";
 const custState = "AZ";
@@ -56,7 +57,7 @@ const custZip = "80976";
 const custEmail = "customer.email@gmail.com";
 const custBizName = "Customer Business Name";
 
-// this function is to display the search criteria to the user as capitalized words
+// display the search criteria to the user as capitalized words
 // instead of one camelcased word
 
 function formatCamelToDisplay(input) {
@@ -97,11 +98,16 @@ function IDGenerator() {
 	return id;
 }
 
+/***
+ * pdfMsgObj is the primary means for taking information from input and
+ * from the response to API calls and bringing it inside the PDF builder
+ */
+
 let pdfMsgObj = {
 	displayAttribute: formatCamelToDisplay(attribute),
 	distance: distance,
 	bands: bands,
-	imgFile: '',
+	mapImgFile: '',
 	zip: [],
 	totalRevenueMin: [],
 	totalRevenueMax: [],
@@ -133,7 +139,11 @@ let pdfMsgObj = {
 	custBizName: custBizName,
 }
 
-let pdfColors = [   // was more elegant as object, but I iterate over this in loops later
+/****
+ * These colors are from SizeUp design.
+ */ 
+
+let pdfColors = [   
 	'#dc3545', // red
 	'#28a745', // green
 	'#007bff', // blue
@@ -153,6 +163,12 @@ let pdfColors = [   // was more elegant as object, but I iterate over this in lo
 	--dark:#343a40;
 	*/
 
+/**
+ * Any given search can have many different filters, but having many filters
+ * would make it difficult to have a nice presentation.  In the current state
+ * it may cause there to be a second page.  
+ */
+
 let filterDisplay = { toggle: 1 };
 
 if (averageRevenue[0] === 0 && averageRevenue[1] === null) { filterDisplay.averageRevenue = true; }
@@ -165,22 +181,9 @@ if (medianAge != 0) { filterDisplay.medianAge = true; }
 if (whiteCollarWorkers != 0) { filterDisplay.whiteCollarWorkers = true; }
 filterDisplay.population = true;
 
-// console.log(averageRevenue, " is the avgR value");
-// console.log(filterDisplay.averageRevenue, " is the avgR");
 
-	/***
-	reference - colors from sizeup
-	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
-	--red:#dc3545;		--orange:#fd7e14;		--yellow:#ffc107;		--green:#28a745;
-	--teal:#20c997;		--cyan:#17a2b8;			--white:#fff;			--gray:#6c757d;
-	--gray-dark:#343a40; --primary:#007bff;		--secondary:#6c757d;	--success:#28a745;
-	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
-	--dark:#343a40;
-	*/
+/* console log for testing/dev
 
-// describe the query, place, industry, KPI, search distance, filters - todo along with customer info
-
-// console log for testing/dev
 console.log("totalEmployees: ", totalEmployees);
 console.log("highSchoolOrHigher: ",  highSchoolOrHigher);
 console.log("householdExpenditures: ", householdExpenditures);
@@ -198,6 +201,7 @@ console.log("sortAttribute: ", sortAttribute);
 console.log("geographicLocationId: ", geographicLocationId);
 console.log("distance: ", distance);
 console.log("attribute: ", attribute); 
+*/
 
 /***
 * Communication with sizeup api
@@ -211,20 +215,13 @@ Promise.all([
 	sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
 	sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
 	]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
-		successCallback(bestPlaces.Items, "Best Places to Advertise"); // note: would you do this instead of putting the forEach loop right here?
 		pdfMsgObj['displayLocation'] = place[0].City.LongName;
 		pdfMsgObj['displayIndustry'] = industry[0].Name;
-		bandsCallback(bestPlacesBands, "Best Places to Advertise Bands");
+		successCallback(bestPlaces.Items, "Best Places to Advertise"); 
+		pdfMsgObj['bandArr'] = bestPlacesBands;
 		// console.log(bestPlaces);
 	}).then(startPdf).catch(console.error)
 
-function bandsCallback(result, msg="success") {
-	console.log("in bands");
-	console.log(result);
-	pdfMsgObj.bandArr = result;
-	console.log("out of bands");
-}	
-	
 /**
  *  successCallback puts the return info into the pdfMsgObj.  The result (Items) is an array
  *  so loop through to build the arrays which are members of the pdfMsgObj
@@ -265,25 +262,19 @@ function failureCallback(error) {
 /****
  * note: If more than one pdf style is necessary it would not be hard
  * to make a template and then some markup for inserting values of the
- * pdfMsgObj.  If there is generally some problem with the html2pdf
- * scripts it might not be that hard to develop a markup for basic
- * html, but adding specific things for something like pdfkit where
- * you can specify position - draw lines etc with its functions
+ * pdfMsgObj. 
  */
 
 /***
 *  startPdf creates the static map image using static google map api.
 *  Perhaps the image could be streamed into the pdf and supposedly 
-*  that is possible with pdfkit, but after trying for too long we
-*  decided to just download the image and then bring it into the pdf.
+*  that is possible with pdfkit, but it didn't work as shown in docs. 
+*  The image is downloaded and then brought into the pdf.
 *  It is given a virtually unique file name and deleted after it 
 *  is brought into the pdf. 
 */
  
 function startPdf() {
-// just keeping those urls as a reference	
-//	const url = 'https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:green%7Clabel:S%7C40.702147,-74.015794&markers=color:orange%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
-// https://maps.googleapis.com/maps/api/js/ViewportInfoService.GetViewportInfo?1m6&1m2&1d28.541763002486213&2d-100.75242339877633&2m2&1d31.49107851274312&2d-95.13921000828736&2u9&4sen-US&5e0&6sm@442000000&7b0&8e0&callback=_xdc_._f0kl74&key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE&token=19066
 
 	// building the markers string for the pins on the map, then download the static map
 
@@ -298,16 +289,13 @@ function startPdf() {
 		});
 	};
 
-	let imgFile = IDGenerator();  // create the random/unique name
-	imgFile = imgFile + '.png';
-	download(url,  imgFile, function(){
-		pdfMsgObj.imgFile = imgFile;
+	let mapImgFile = IDGenerator();  // create the random/unique name
+	mapImgFile = mapImgFile + '.png';
+	download(url,  mapImgFile, function(){
+		pdfMsgObj.mapImgFile = mapImgFile;
 		buildPdf();
 	});
 }
-
-// todo - when there are 3 items (probably any odd number) it displays ok on the first
-// iteration, but on the second there are two on the right and one on the left
 
 function showFilter(label, param, min, max, doc, suffix='') {
 	let startX;
@@ -347,29 +335,29 @@ function buildPdf() {
 	let writeStream = fs.createWriteStream('output.pdf');  // this will output to stream or something
 	doc.pipe(writeStream);
 	
-	// Draw a rectangle - this will be szu-industry-and-locationXsSm-container
+	// Draw a rectangle for the header 
 	doc.save()
 		.moveTo(25, 30)
-		.lineTo(575, 30)
-		.lineTo(575, 90)
+		.lineTo(588, 30)
+		.lineTo(588, 90)
 		.lineTo(25, 90)
-		.fill('#0ea1ff');
+		.fill(pdfColors[2]);
 	
 	// start writing text
 
 	// header text
 	doc.font('Helvetica-Bold');
-	doc.fontSize(15);
+	doc.fontSize(22);
 	doc.fillColor('white');
-	let center = 306;
-	doc.text(pdfMsgObj.custBizName, center, 40)
-	   .text(pdfMsgObj.custAddress, center, 55)
-	   .text(pdfMsgObj.custCity + ", " + pdfMsgObj.custState + " " + pdfMsgObj.custZip, center, 70);
+	let widthBizName = doc.widthOfString(pdfMsgObj.custBizName);
+	let startBizName = 245 - (widthBizName/2);
+	doc.text(pdfMsgObj.custBizName, startBizName, 50);
+	doc.image("./smlogo.png", 425, doc.y - 32, { width: 120 } );
 	
 	doc.fontSize(15);
 	doc.moveDown(2);
 	doc.fillColor(pdfColors[4])
-	doc.text("Best places to advertise in the ", { continued: true } )
+	doc.text("Best places to advertise in the ", 25, doc.y, { continued: true } )
 		.fillColor(pdfColors[3])
 		.text(pdfMsgObj.displayIndustry, { continued: true } )
 		.fillColor(pdfColors[4])
@@ -389,23 +377,19 @@ function buildPdf() {
 		.fillColor(pdfColors[4])
 			.text(" miles from the current city");
 	doc.moveDown();
-	doc.image(pdfMsgObj.imgFile, 25, doc.y, { width: 562 } );
+	doc.image(pdfMsgObj.mapImgFile, 25, doc.y, { width: 562 } );
 	// delete the image file
-	fs.unlink(pdfMsgObj.imgFile, (err) => {
+	fs.unlink(pdfMsgObj.mapImgFile, (err) => {
 		if (err) {
-			console.log("error deleting ", pdfMsgObj.imgFile, " :", err);
-		} else {
-			console.log(pdfMsgObj.imgFile, " was deleted");
+			console.log("error deleting ", pdfMsgObj.mapImgFile, " :", err);
 		}
 	});
 	
-	// here is where I should put the bands
-	// the bands are inside pdfMsgObj.bandArr
+	// the bands 
 	doc.fontSize(8);
 	doc.fillColor(pdfColors[4]);
 	doc.moveDown(0.5);
 
-	console.log("bands = ", pdfMsgObj.bands);
 	doc.rect( 25, 446, 561, 22 );
 	doc.fillAndStroke('#f3f3f3');
 	
@@ -418,7 +402,6 @@ function buildPdf() {
 		m = Math.floor(k/3);  // each row will have 3 bands listed
 		startArr.push([40 + n*180, 450 + m*10]);
 	}
-	// startArr = [[40, 450 + m*10], [220, 450], [400, 450], [40, 460], [220, 460]];	
 
 	// then render the bands
 	doc.fillColor(pdfColors[4]);
@@ -429,9 +412,9 @@ function buildPdf() {
 			maximumFractionDigits: 0,
 			minimumFractionDigits: 0 
 		}).format(element.Min);
-		doc.text(bandMinText, startArr[j][0], startArr[j][1]); //, { continued: true } )
+		doc.text(bandMinText, startArr[j][0], startArr[j][1]);
 		widthMinText = doc.widthOfString(bandMinText);
-		doc.text(' - ', startArr[j][0] + widthMinText, startArr[j][1]); //, { continued: true } );
+		doc.text(' - ', startArr[j][0] + widthMinText, startArr[j][1]);
 		widthDash = doc.widthOfString(' - ');
 		doc.text(Intl.NumberFormat('en-US', { 
 			style: 'currency', 
@@ -444,25 +427,28 @@ function buildPdf() {
 	
 	doc.fillColor(pdfColors[5]);
 	doc.fontSize(10);
-	doc.text("This is a list of Zip Codes with the highest combined business revenue in the ", 75, doc.y, { continued: true } )
+	doc.text("This is a list of Zip Codes with the highest combined business revenue in the ", 75, doc.y + 10, { continued: true } )
 		.text(pdfMsgObj.displayIndustry)
 		.text("industry. You should consider using this list if you are selling to businesses or consumers and want to")
 		.text("know where the most money is being made in your industry.")
 		.moveDown(2);
 	let xpos = 250;
-	const listHeight = 220;  // pixels given to the bottom section
+	const listHeight = 200;  // pixels given to the bottom section
 	doc.y = 720 - listHeight;
 	let secondMargin = 300;
 	let skipX = 0;
 
-//  leaving the comments below for now.  I had implimented it with variable font sizes
-//  to make it fill the page better, but that was making precise layout difficult
-//  it's still a possibility, but some variable line spacing may be enough
-//	numFields = pdfMsgObj.zip.length;
-//	fieldHeight = listHeight/numFields;
-//	fieldFontHeight = Math.round(fieldHeight/6);
-//	subFieldFontHeight = Math.round(fieldFontHeight/2);
-//I think I'm going to give up dynamic font sizing as it makes other things hard/impossible
+	/**
+	 * note: Dynamic font sizing is a possibility if more flexibility in
+	 * what content gets displayed on one page is needed.  It makes
+	 * precise layout more difficult though. eg:
+	 *
+	 *	numFields = pdfMsgObj.zip.length;
+	 *	fieldHeight = listHeight/numFields;
+	 *	fieldFontHeight = Math.round(fieldHeight/6); 
+	 *	subFieldFontHeight = Math.round(fieldFontHeight/2);
+	 */
+	
 	let thisSortAttributeMinArr = [];
 	let thisSortAttributeMaxArr = [];
 	let sortText;
@@ -474,7 +460,6 @@ function buildPdf() {
 		thisSortAttributeMinArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Min'];
 		thisSortAttributeMaxArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Max'];
 		sortText = formatCamelToDisplay(pdfMsgObj.sortAttribute);
-	//	console.log("am I not here");
 	}
 	doc.fillColor(pdfColors[3]);
 	doc.fontSize(6);
@@ -495,7 +480,6 @@ function buildPdf() {
 		.moveDown(1)
 		.fontSize(10)
 		.circle(75, doc.y + 5, 7);
-		console.log(doc.x, " is docx");
 		doc.fill()
 		.fillColor('#ffffff')
 		.text(i + 1, 72, doc.y + 1, { continued: true } )
@@ -505,7 +489,6 @@ function buildPdf() {
 		.text(pdfMsgObj.zip[i], { continued: true })
 		.fillColor('black')
 		.fontSize(13);
-	//	console.log(thisSortAttributeMinArr[i], "here");
 		xpos = 400 - (doc.widthOfString(thisSortAttributeMinArr[i].toString()) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i].toString()));
 		doc.text(thisSortAttributeMinArr[i], xpos, doc.y, { continued: true } )
 		.text(" - ", { continued: true } )
@@ -522,9 +505,27 @@ function buildPdf() {
 		showFilter("Bachelors Degree or Higher: ", 'bachelorsDegreeOrHigher', pdfMsgObj.bachelorsDegreeOrHigher[i], null, doc, '%');
 		showFilter("High School Degree or Higher: ", 'highSchoolOrHigher', pdfMsgObj.highSchoolOrHigher[i], null, doc, '%');
 		showFilter("White Collar Workers: ", 'whiteCollarWorkers', pdfMsgObj.whiteCollarWorkers[i], null, doc, '%');
-		doc.moveDown();
 	}
+
+	// footer text
+	doc.font('Helvetica-Bold');
+	doc.fontSize(15);
+	widthBizName = doc.widthOfString(pdfMsgObj.custBizName);
+	doc.fillColor(pdfColors[2])
+	startBizName = 306 - (widthBizName/2);
+	doc.text(pdfMsgObj.custBizName, startBizName, 673);
+	doc.fontSize(12);
+	doc.fillColor('black');
+	let addressString = pdfMsgObj.custAddress + ' ' + pdfMsgObj.custCity + ' ' + pdfMsgObj.custZip;
+	let widthAddress = doc.widthOfString(addressString);
+	let startAddress = 306 - widthAddress/2;
+	doc.text(addressString, startAddress, doc.y);
+	let widthEmail = doc.widthOfString(pdfMsgObj.custEmail);
+	let startEmail = 306 - widthEmail/2;
+	doc.text(pdfMsgObj.custEmail, startEmail, doc.y);
+
 
 	// Finalize the pdf file
 	doc.end();
+	console.log("PDF output.pdf created");
 }
