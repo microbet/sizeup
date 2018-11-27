@@ -1,0 +1,21 @@
+{
+  "name": "sizeup-pdf",
+  "version": "1.0.0",
+  "description": "pdf generator",
+  "main": "app.js",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "pdfkit": "^0.8.3",
+    "sizeup-api": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitup.com/microbet/sizeup.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
