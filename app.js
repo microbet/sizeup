@@ -30,7 +30,7 @@ function getRandRange(min, max, maxmax="unlimited") {
 * for development
 */
 
-const filename = "output.pdf";
+// const filename = "output.pdf";
 // let writeStream = fs.createWriteStream(filename);  
 function done(filename) {
 //	writeStream.close();
@@ -139,8 +139,9 @@ function IDGenerator() {
 	}
 	return id;
 }
-
-function generatePDF(
+module.exports = {
+	generatePDF: function(
+// function generatePDF(
 	attribute,
 	averageRevenue,
 	bands,
@@ -255,6 +256,7 @@ function generatePDF(
 			successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
 		}) // .then(startPdf(pdfMsgObj)).catch(console.error)
 }
+}
 
 /**
  *  successCallback puts the return info into the pdfMsgObj.  The result (Items) is an array
@@ -345,7 +347,6 @@ function startPdf(pdfMsgObj, pdfColors) {
 	let mapImgFile = IDGenerator();  // create the random/unique name
 	mapImgFile = mapImgFile + '.png';
 		pdfMsgObj.mapImgFile = mapImgFile;
-	console.log("pdmo = ", pdfMsgObj);
 	download(url,  mapImgFile, function(){
 		pdfMsgObj.mapImgFile = mapImgFile;
 		buildPdf(pdfMsgObj, pdfColors);
@@ -587,7 +588,7 @@ function buildPdf(pdfMsgObj, pdfColors) {
 //	});
 	console.log("PDF output.pdf created");
 }
-
+/*
 generatePDF(
 	'totalRevenue',
 	[50000, null],
@@ -614,3 +615,4 @@ generatePDF(
 	"80976",
 	"customer.email@gmail.com",
 	"Customer Business Name", filename); // .then(done).catch(fail);
+*/	
