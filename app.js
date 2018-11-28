@@ -30,16 +30,6 @@ function getRandRange(min, max, maxmax="unlimited") {
 * for development
 */
 
-// const filename = "output.pdf";
-// let writeStream = fs.createWriteStream(filename);  
-function done(filename) {
-//	writeStream.close();
-	console.log("Wrote ", filename);
-}
-function fail(e) {
-//	writeStream.close();
-	console.error(e);
-}
 
 	/***
 	 * pdfMsgObj is the primary means for taking information from input and
@@ -139,6 +129,7 @@ function IDGenerator() {
 	}
 	return id;
 }
+
 module.exports = {
 	generatePDF: function(
 // function generatePDF(
@@ -168,6 +159,7 @@ module.exports = {
 	custEmail,
 	custBizName,
 	filename) {
+	//stream) {
 
 	let pdfMsgObj = {};
 	pdfMsgObj.custBizName = custBizName;
@@ -253,6 +245,7 @@ module.exports = {
 			pdfMsgObj['displayLocation'] = place[0].City.LongName;
 			pdfMsgObj['displayIndustry'] = industry[0].Name;
 			pdfMsgObj['bandArr'] = bestPlacesBands;
+		//	successCallback(pdfMsgObj, pdfColors, stream, bestPlaces.Items, "Best Places to Advertise"); 
 			successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
 		}) // .then(startPdf(pdfMsgObj)).catch(console.error)
 }
@@ -264,6 +257,7 @@ module.exports = {
  *  A lot of formatting in here.  Max output is 3.  It's hard to present more on one page.
  */
 
+// function successCallback(pdfMsgObj, pdfColors, stream, result, msg="success") {
 function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
 	let i=0;
 	pdfMsgObj.zip = [];
@@ -307,6 +301,7 @@ function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
 		pdfMsgObj['highSchoolOrHigher'].push(element.HighSchoolOrHigher);
 		if (i >= 3) { break; }
 	}
+	// startPdf(pdfMsgObj, pdfColors, stream);
 	startPdf(pdfMsgObj, pdfColors);
 }
 
@@ -329,6 +324,7 @@ function failureCallback(error) {
 *  is brought into the pdf. 
 */
  
+// function startPdf(pdfMsgObj, pdfColors, stream) {
 function startPdf(pdfMsgObj, pdfColors) {
 
 	// building the markers string for the pins on the map, then download the static map
@@ -349,6 +345,7 @@ function startPdf(pdfMsgObj, pdfColors) {
 		pdfMsgObj.mapImgFile = mapImgFile;
 	download(url,  mapImgFile, function(){
 		pdfMsgObj.mapImgFile = mapImgFile;
+		//buildPdf(pdfMsgObj, pdfColors, stream);
 		buildPdf(pdfMsgObj, pdfColors);
 	});
 }
@@ -382,6 +379,7 @@ function showFilter(pdfMsgObj, label, param, min, max, doc, suffix='') {
  * pdfkit module
  */
 
+// function buildPdf(pdfMsgObj, pdfColors, stream) {
 function buildPdf(pdfMsgObj, pdfColors) {
 	
 	// Create a document
@@ -389,7 +387,9 @@ function buildPdf(pdfMsgObj, pdfColors) {
 	
 	// pipe its output to a file
 	let writeStream = fs.createWriteStream(pdfMsgObj.filename);  // this will output to stream or something
+	console.log("fn = ", pdfMsgObj.filename);
 	doc.pipe(writeStream);
+//	doc.pipe(stream);
 	
 	// Draw a rectangle for the header 
 	doc.save()

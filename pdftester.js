@@ -1,6 +1,18 @@
 const pdf = require("./app.js");
 const filename = "trav.pdf";
-pdf.generatePDF(
+// const stream = require("fs").createWriteStream(filename);
+
+function done() {
+//	stream.close();
+	console.log("Wrote ", filename);
+}
+
+function fail(e) {
+//	stream.close();
+	console.error("error", e);
+}
+
+Promise.all([pdf.generatePDF(
 	'totalRevenue',
 	[50000, null],
 	5,
@@ -25,4 +37,6 @@ pdf.generatePDF(
 	"AZ",
 	"80976",
 	"customer.email@gmail.com",
-	"Customer Business Name", filename); // .then(done).catch(fail);.
+//	"Customer Business Name", stream)]).then(done()).catch(fail());
+	"Customer Business Name", filename)]).then(done()).catch(fail());
+
