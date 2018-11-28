@@ -1,6 +1,7 @@
 const pdf = require("./app.js");
 const filename = "trav.pdf";
-// const stream = require("fs").createWriteStream(filename);
+const stream = require("fs").createWriteStream(filename);
+const fs = require('fs');
 
 function done() {
 //	stream.close();
@@ -37,6 +38,4 @@ Promise.all([pdf.generatePDF(
 	"AZ",
 	"80976",
 	"customer.email@gmail.com",
-//	"Customer Business Name", stream)]).then(done()).catch(fail());
-	"Customer Business Name", filename)]).then(done()).catch(fail());
-
+	"Customer Business Name", stream)]).then(done()).catch(fail());   // was working kinda

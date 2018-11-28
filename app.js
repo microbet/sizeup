@@ -5,76 +5,6 @@ require('dotenv').config();
 const sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 const request = require('request');
 	
-//  Used for some testing
-
-function getRandElement(inputArray) {
-	return inputArray[Math.floor(Math.random() * inputArray.length)]
-}
-
-function getRandRange(min, max, maxmax="unlimited") {
-	let randMin = Math.floor((Math.random() * (max - min)) + min);
-	let randMax = Math.floor((Math.random() * (max - randMin)) + randMin);
-	if (maxmax === "unlimited") {
-		if (Math.random() > 0.5) { maxmax = null; }
-	}
-	return [randMin, randMax]
-}
-
-// testing stuff
-// const attribute = getRandElement(['revenuePerCapita', 'totalRevenue', 'averageRevenue', 'underservedMarkets', 'totalEmployees', 'householdIncome']);
-// const averageRevenue = getRandRange(0, 50000000);
-// randRange function probably needs to favor the low end and round off
-
-/****
-* this app is going to take in these items as inputs, but they are just set it here
-* for development
-*/
-
-
-	/***
-	 * pdfMsgObj is the primary means for taking information from input and
-	 * from the response to API calls and bringing it inside the PDF builder
-	 */
-
-/*
-	let pdfMsgObj = {
-		displayAttribute: formatCamelToDisplay(attribute),
-		distance: distance,
-		bands: bands,
-		mapImgFile: '',
-		zip: [],
-		totalRevenueMin: [],
-		totalRevenueMax: [],
-		population: [],
-		avgRevenueMin: [],
-		avgRevenueMax: [],
-		totalEmployeesMin: [],
-		totalEmployeesMax: [],
-		householdIncome: [],
-		medianAge: [],
-		householdExpenditures: [],
-		whiteCollarWorkers: [],
-		bachelorsDegreeOrHigher: [],
-		highSchoolOrHigher: [],
-		averageRevenueMin: [],
-		averageRevenueMax: [],
-		revenuePerCapitaMin: [],
-		revenuePerCapitaMax: [],
-		centroidLat: [],
-		centroidLng: [],
-		attribute: attribute,
-		sortAttribute: sortAttribute,
-		bandArr: [],
-		custAddress: custAddress,
-		custCity: custCity,
-		custState: custState,
-		custZip: custZip,
-		custEmail: custEmail,
-		custBizName: custBizName,
-	}
-	*/
-//	let pdfMsgObj = {};
-
 	/***
 	reference - colors from sizeup
 	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
@@ -84,10 +14,6 @@ function getRandRange(min, max, maxmax="unlimited") {
 	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
 	--dark:#343a40;
 	*/
-
-// display the search criteria to the user as capitalized words
-// instead of one camelcased word
-
 
 // display the search criteria to the user as capitalized words
 // instead of one camelcased word
@@ -130,125 +56,106 @@ function IDGenerator() {
 	return id;
 }
 
+/***
+* Function that can be called from outside.  Starts the process.
+*/
+
 module.exports = {
 	generatePDF: function(
-// function generatePDF(
-	attribute,
-	averageRevenue,
-	bands,
-	distance,
-	geographicLocationId,
-	industryId,
-	itemCount,
-	order,
-	page,
-	sort,
-	sortAttribute,
-	totalEmployees,
-	totalRevenue,
-	highSchoolOrHigher,
-	householdExpenditures,
-	householdIncome,
-	medianAge,
-	revenuePerCapita,
-	whiteCollarWorkers,
-	custAddress,
-	custCity,
-	custState,
-	custZip,
-	custEmail,
-	custBizName,
-	filename) {
-	//stream) {
+		attribute,
+		averageRevenue,
+		bands,
+		distance,
+		geographicLocationId,
+		industryId,
+		itemCount,
+		order,
+		page,
+		sort,
+		sortAttribute,
+		totalEmployees,
+		totalRevenue,
+		highSchoolOrHigher,
+		householdExpenditures,
+		householdIncome,
+		medianAge,
+		revenuePerCapita,
+		whiteCollarWorkers,
+		custAddress,
+		custCity,
+		custState,
+		custZip,
+		custEmail,
+		custBizName,
+		//	filename) {
+		stream) {
+	
+		// pdfMsgObj holds most of the data to be used in the pdf
+	
+		let pdfMsgObj = {};
+		pdfMsgObj.custBizName = custBizName;
+		pdfMsgObj.bands = bands;
+		pdfMsgObj.sortAttribute = sortAttribute;
+		pdfMsgObj.custEmail = custEmail;
+		pdfMsgObj.distance = distance;
+		pdfMsgObj.attribute = attribute;
+		pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
+		pdfMsgObj.custAddress = custAddress;
+		pdfMsgObj.custCity = custCity;
+		pdfMsgObj.custState = custState;
+		pdfMsgObj.custZip = custZip;
+	//	pdfMsgObj.filename = filename;
+		pdfMsgObj.stream = stream;
+		pdfMsgObj.filterDisplay = { toggle: 1 };
 
-	let pdfMsgObj = {};
-	pdfMsgObj.custBizName = custBizName;
-	pdfMsgObj.bands = bands;
-	pdfMsgObj.sortAttribute = sortAttribute;
-	pdfMsgObj.custEmail = custEmail;
-	pdfMsgObj.distance = distance;
-	pdfMsgObj.attribute = attribute;
-	pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
-	pdfMsgObj.custAddress = custAddress;
-	pdfMsgObj.custCity = custCity;
-	pdfMsgObj.custState = custState;
-	pdfMsgObj.custZip = custZip;
-	pdfMsgObj.filename = filename;
-	pdfMsgObj.filterDisplay = { toggle: 1 };
+		/****
+		* These colors are from SizeUp design and are used in the pdf
+		*/ 
 
-	/****
-	 * These colors are from SizeUp design.
-	 */ 
+		let pdfColors = [   
+			'#dc3545', // red
+			'#28a745', // green
+			'#007bff', // blue
+			'#fd7e14', // orange
+			'#343a40', // dark grey
+			'#6c757d', // gray
+			'#e5e3df', // very light grey
+		]
 
-	let pdfColors = [   
-		'#dc3545', // red
-		'#28a745', // green
-		'#007bff', // blue
-		'#fd7e14', // orange
-		'#343a40', // dark grey
-		'#6c757d', // gray
-		'#e5e3df', // very light grey
-	]
+		/**
+		* Any given search can have many different filters, but having many filters
+		* would make it difficult to have a nice presentation.  In the current state
+		* it may cause there to be a second page.  
+		*/
 
+		if (averageRevenue[0] === 0 && averageRevenue[1] === null) { pdfMsgObj.filterDisplay.averageRevenue = true; }
+		if (totalEmployees[0] === 0 && totalEmployees[1] === null) { pdfMsgObj.filterDisplay.totalEmployees = true; }
+		if (totalRevenue[0] === 0 && totalRevenue[1] === null) { pdfMsgObj.filterDisplay.totalRevenue = true; }
+		if (householdIncome[0] === 0 && householdIncome[1] === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
+		if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { pdfMsgObj.filterDisplay.revenuePerCapita = true; }
+		if (highSchoolOrHigher != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
+		if (medianAge != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
+		if (whiteCollarWorkers != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
+		pdfMsgObj.filterDisplay.population = true;
 
-	/**
-	 * Any given search can have many different filters, but having many filters
-	 * would make it difficult to have a nice presentation.  In the current state
-	 * it may cause there to be a second page.  
-	 */
-
-
-	if (averageRevenue[0] === 0 && averageRevenue[1] === null) { pdfMsgObj.filterDisplay.averageRevenue = true; }
-	if (totalEmployees[0] === 0 && totalEmployees[1] === null) { pdfMsgObj.filterDisplay.totalEmployees = true; }
-	if (totalRevenue[0] === 0 && totalRevenue[1] === null) { pdfMsgObj.filterDisplay.totalRevenue = true; }
-	if (householdIncome[0] === 0 && householdIncome[1] === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
-	if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { pdfMsgObj.filterDisplay.revenuePerCapita = true; }
-	if (highSchoolOrHigher != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
-	if (medianAge != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
-	if (whiteCollarWorkers != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
-	pdfMsgObj.filterDisplay.population = true;
-
-
-	/* console log for testing/dev
-
-	console.log("totalEmployees: ", totalEmployees);
-	console.log("highSchoolOrHigher: ",  highSchoolOrHigher);
-	console.log("householdExpenditures: ", householdExpenditures);
-	console.log("householdIncome: ", householdIncome);
-	console.log("medianAge: ", medianAge);
-	console.log("revenuePerCapita: ", revenuePerCapita);
-	console.log("whiteCollarWorkers: ", whiteCollarWorkers);
-	console.log("totalRevenue: ", totalRevenue);
-	console.log("bands: ", bands);
-	console.log("industryId: ", industryId);
-	console.log("order: ", order);
-	console.log("page: ", page);
-	console.log("sort: ", sort);
-	console.log("sortAttribute: ", sortAttribute);
-	console.log("geographicLocationId: ", geographicLocationId);
-	console.log("distance: ", distance);
-	console.log("attribute: ", attribute); 
-	*/
-
-	/***
-	* Communication with sizeup api
-	* Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
-	* Then build the pdf with that info
-	*/
-
-	Promise.all([
-		sizeup.data.getPlace({ id: geographicLocationId }),
-		sizeup.data.getIndustry( { id: industryId }),
-		sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
-		sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
-		]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
-			pdfMsgObj['displayLocation'] = place[0].City.LongName;
-			pdfMsgObj['displayIndustry'] = industry[0].Name;
-			pdfMsgObj['bandArr'] = bestPlacesBands;
-		//	successCallback(pdfMsgObj, pdfColors, stream, bestPlaces.Items, "Best Places to Advertise"); 
-			successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
-		}) // .then(startPdf(pdfMsgObj)).catch(console.error)
-}
+		/***
+		* Communication with sizeup api
+		* Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
+		* Then build the pdf with that info
+		*/
+	
+		Promise.all([
+			sizeup.data.getPlace({ id: geographicLocationId }),
+			sizeup.data.getIndustry( { id: industryId }),
+			sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
+			sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
+			]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
+				pdfMsgObj['displayLocation'] = place[0].City.LongName;
+				pdfMsgObj['displayIndustry'] = industry[0].Name;
+				pdfMsgObj['bandArr'] = bestPlacesBands;
+				successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
+			})
+	}
 }
 
 /**
@@ -257,7 +164,6 @@ module.exports = {
  *  A lot of formatting in here.  Max output is 3.  It's hard to present more on one page.
  */
 
-// function successCallback(pdfMsgObj, pdfColors, stream, result, msg="success") {
 function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
 	let i=0;
 	pdfMsgObj.zip = [];
@@ -301,7 +207,6 @@ function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
 		pdfMsgObj['highSchoolOrHigher'].push(element.HighSchoolOrHigher);
 		if (i >= 3) { break; }
 	}
-	// startPdf(pdfMsgObj, pdfColors, stream);
 	startPdf(pdfMsgObj, pdfColors);
 }
 
@@ -324,7 +229,6 @@ function failureCallback(error) {
 *  is brought into the pdf. 
 */
  
-// function startPdf(pdfMsgObj, pdfColors, stream) {
 function startPdf(pdfMsgObj, pdfColors) {
 
 	// building the markers string for the pins on the map, then download the static map
@@ -345,7 +249,6 @@ function startPdf(pdfMsgObj, pdfColors) {
 		pdfMsgObj.mapImgFile = mapImgFile;
 	download(url,  mapImgFile, function(){
 		pdfMsgObj.mapImgFile = mapImgFile;
-		//buildPdf(pdfMsgObj, pdfColors, stream);
 		buildPdf(pdfMsgObj, pdfColors);
 	});
 }
@@ -379,17 +282,11 @@ function showFilter(pdfMsgObj, label, param, min, max, doc, suffix='') {
  * pdfkit module
  */
 
-// function buildPdf(pdfMsgObj, pdfColors, stream) {
 function buildPdf(pdfMsgObj, pdfColors) {
 	
 	// Create a document
 	let doc = new PDFDocument;
-	
-	// pipe its output to a file
-	let writeStream = fs.createWriteStream(pdfMsgObj.filename);  // this will output to stream or something
-	console.log("fn = ", pdfMsgObj.filename);
-	doc.pipe(writeStream);
-//	doc.pipe(stream);
+	doc.pipe(pdfMsgObj.stream);
 	
 	// Draw a rectangle for the header 
 	doc.save()
@@ -579,40 +476,10 @@ function buildPdf(pdfMsgObj, pdfColors) {
 	let widthEmail = doc.widthOfString(pdfMsgObj.custEmail);
 	let startEmail = 306 - widthEmail/2;
 	doc.text(pdfMsgObj.custEmail, startEmail, doc.y);
-
+//	console.log("pdfmsgob = ", pdfMsgObj);
 
 	// Finalize the pdf file
 	doc.end();
-//	writeStream.on('finish', function () {
-//		return writeStream;
-//	});
+	return pdfMsgObj.stream;
 	console.log("PDF output.pdf created");
 }
-/*
-generatePDF(
-	'totalRevenue',
-	[50000, null],
-	5,
-	16,
-	41284,
-	8524,
-	3,
-	'highToLow',
-	1,
-	'desc',
-	'totalRevenue',
-	[0, null],
-	[0, null],
-	0,  // a percent
-	[0, null],
-	[0, null],
-	[0, null],
-	[0, null],
-	0,
-	"1243 Main St.",
-	"Tuscon",
-	"AZ",
-	"80976",
-	"customer.email@gmail.com",
-	"Customer Business Name", filename); // .then(done).catch(fail);
-*/	
