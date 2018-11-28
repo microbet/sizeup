@@ -5,7 +5,6 @@ require('dotenv').config();
 const sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 const request = require('request');
 	
-
 //  Used for some testing
 
 function getRandElement(inputArray) {
@@ -31,31 +30,89 @@ function getRandRange(min, max, maxmax="unlimited") {
 * for development
 */
 
-const attribute = 'totalRevenue';
-const averageRevenue = [50000, null];
-const bands = 5;
-const distance = 16;
-const geographicLocationId = 41284;
-const industryId = 8524;
-const itemCount = 3;
-const order = 'highToLow';
-const page = 1;
-const sort = 'desc';
-const sortAttribute = attribute;
-const totalEmployees = [0, null];
-const totalRevenue = [0, null];
-const highSchoolOrHigher = 0;  // a percent
-const householdExpenditures = [0, null];
-const householdIncome = [0, null];
-const medianAge = [0, null];
-const revenuePerCapita = [0, null];
-const whiteCollarWorkers = 0;
-const custAddress = "1243 Main St.";
-const custCity = "Tuscon";
-const custState = "AZ";
-const custZip = "80976";
-const custEmail = "customer.email@gmail.com";
-const custBizName = "Customer Business Name";
+const filename = "output.pdf";
+// let writeStream = fs.createWriteStream(filename);  
+function done(filename) {
+//	writeStream.close();
+	console.log("Wrote ", filename);
+}
+function fail(e) {
+//	writeStream.close();
+	console.error(e);
+}
+
+	/***
+	 * pdfMsgObj is the primary means for taking information from input and
+	 * from the response to API calls and bringing it inside the PDF builder
+	 */
+
+/*
+	let pdfMsgObj = {
+		displayAttribute: formatCamelToDisplay(attribute),
+		distance: distance,
+		bands: bands,
+		mapImgFile: '',
+		zip: [],
+		totalRevenueMin: [],
+		totalRevenueMax: [],
+		population: [],
+		avgRevenueMin: [],
+		avgRevenueMax: [],
+		totalEmployeesMin: [],
+		totalEmployeesMax: [],
+		householdIncome: [],
+		medianAge: [],
+		householdExpenditures: [],
+		whiteCollarWorkers: [],
+		bachelorsDegreeOrHigher: [],
+		highSchoolOrHigher: [],
+		averageRevenueMin: [],
+		averageRevenueMax: [],
+		revenuePerCapitaMin: [],
+		revenuePerCapitaMax: [],
+		centroidLat: [],
+		centroidLng: [],
+		attribute: attribute,
+		sortAttribute: sortAttribute,
+		bandArr: [],
+		custAddress: custAddress,
+		custCity: custCity,
+		custState: custState,
+		custZip: custZip,
+		custEmail: custEmail,
+		custBizName: custBizName,
+	}
+	*/
+	let pdfMsgObj = {};
+	let filterDisplay = { toggle: 1 };
+
+	/****
+	 * These colors are from SizeUp design.
+	 */ 
+
+	let pdfColors = [   
+		'#dc3545', // red
+		'#28a745', // green
+		'#007bff', // blue
+		'#fd7e14', // orange
+		'#343a40', // dark grey
+		'#6c757d', // gray
+		'#e5e3df', // very light grey
+	]
+
+	/***
+	reference - colors from sizeup
+	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
+	--red:#dc3545;		--orange:#fd7e14;		--yellow:#ffc107;		--green:#28a745;
+	--teal:#20c997;		--cyan:#17a2b8;			--white:#fff;			--gray:#6c757d;
+	--gray-dark:#343a40; --primary:#007bff;		--secondary:#6c757d;	--success:#28a745;
+	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
+	--dark:#343a40;
+	*/
+
+// display the search criteria to the user as capitalized words
+// instead of one camelcased word
+
 
 // display the search criteria to the user as capitalized words
 // instead of one camelcased word
@@ -98,129 +155,106 @@ function IDGenerator() {
 	return id;
 }
 
-/***
- * pdfMsgObj is the primary means for taking information from input and
- * from the response to API calls and bringing it inside the PDF builder
- */
+function generatePDF(
+	attribute,
+	averageRevenue,
+	bands,
+	distance,
+	geographicLocationId,
+	industryId,
+	itemCount,
+	order,
+	page,
+	sort,
+	sortAttribute,
+	totalEmployees,
+	totalRevenue,
+	highSchoolOrHigher,
+	householdExpenditures,
+	householdIncome,
+	medianAge,
+	revenuePerCapita,
+	whiteCollarWorkers,
+	custAddress,
+	custCity,
+	custState,
+	custZip,
+	custEmail,
+	custBizName,
+	filename) {
 
-let pdfMsgObj = {
-	displayAttribute: formatCamelToDisplay(attribute),
-	distance: distance,
-	bands: bands,
-	mapImgFile: '',
-	zip: [],
-	totalRevenueMin: [],
-	totalRevenueMax: [],
-	population: [],
-	avgRevenueMin: [],
-	avgRevenueMax: [],
-	totalEmployeesMin: [],
-	totalEmployeesMax: [],
-	householdIncome: [],
-	medianAge: [],
-	householdExpenditures: [],
-	whiteCollarWorkers: [],
-	bachelorsDegreeOrHigher: [],
-	highSchoolOrHigher: [],
-	averageRevenueMin: [],
-	averageRevenueMax: [],
-	revenuePerCapitaMin: [],
-	revenuePerCapitaMax: [],
-	centroidLat: [],
-	centroidLng: [],
-	attribute: attribute,
-	sortAttribute: sortAttribute,
-	bandArr: [],
-	custAddress: custAddress,
-	custCity: custCity,
-	custState: custState,
-	custZip: custZip,
-	custEmail: custEmail,
-	custBizName: custBizName,
-}
+	pdfMsgObj.custBizName = custBizName;
+	pdfMsgObj.bands = bands;
+	pdfMsgObj.sortAttribute = sortAttribute;
+	pdfMsgObj.custEmail = custEmail;
+	pdfMsgObj.distance = distance;
+	pdfMsgObj.attribute = attribute;
+	pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
+	pdfMsgObj.custAddress = custAddress;
+	pdfMsgObj.custCity = custCity;
+	pdfMsgObj.custState = custState;
+	pdfMsgObj.custZip = custZip;
+	pdfMsgObj.filename = filename;
 
-/****
- * These colors are from SizeUp design.
- */ 
 
-let pdfColors = [   
-	'#dc3545', // red
-	'#28a745', // green
-	'#007bff', // blue
-	'#fd7e14', // orange
-	'#343a40', // dark grey
-	'#6c757d', // gray
-	'#e5e3df', // very light grey
-]
 
-	/***
-	reference - colors from sizeup
-	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
-	--red:#dc3545;		--orange:#fd7e14;		--yellow:#ffc107;		--green:#28a745;
-	--teal:#20c997;		--cyan:#17a2b8;			--white:#fff;			--gray:#6c757d;
-	--gray-dark:#343a40; --primary:#007bff;		--secondary:#6c757d;	--success:#28a745;
-	--info:#17a2b8;		--warning:#ffc107;		--danger:#dc3545;		--light:#f8f9fa;
-	--dark:#343a40;
+	/**
+	 * Any given search can have many different filters, but having many filters
+	 * would make it difficult to have a nice presentation.  In the current state
+	 * it may cause there to be a second page.  
+	 */
+
+
+	if (averageRevenue[0] === 0 && averageRevenue[1] === null) { filterDisplay.averageRevenue = true; }
+	if (totalEmployees[0] === 0 && totalEmployees[1] === null) { filterDisplay.totalEmployees = true; }
+	if (totalRevenue[0] === 0 && totalRevenue[1] === null) { filterDisplay.totalRevenue = true; }
+	if (householdIncome[0] === 0 && householdIncome[1] === null) { filterDisplay.householdIncome = true; }
+	if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { filterDisplay.revenuePerCapita = true; }
+	if (highSchoolOrHigher != 0) { filterDisplay.highSchoolOrHigher = true; }
+	if (medianAge != 0) { filterDisplay.medianAge = true; }
+	if (whiteCollarWorkers != 0) { filterDisplay.whiteCollarWorkers = true; }
+	filterDisplay.population = true;
+
+
+	/* console log for testing/dev
+
+	console.log("totalEmployees: ", totalEmployees);
+	console.log("highSchoolOrHigher: ",  highSchoolOrHigher);
+	console.log("householdExpenditures: ", householdExpenditures);
+	console.log("householdIncome: ", householdIncome);
+	console.log("medianAge: ", medianAge);
+	console.log("revenuePerCapita: ", revenuePerCapita);
+	console.log("whiteCollarWorkers: ", whiteCollarWorkers);
+	console.log("totalRevenue: ", totalRevenue);
+	console.log("bands: ", bands);
+	console.log("industryId: ", industryId);
+	console.log("order: ", order);
+	console.log("page: ", page);
+	console.log("sort: ", sort);
+	console.log("sortAttribute: ", sortAttribute);
+	console.log("geographicLocationId: ", geographicLocationId);
+	console.log("distance: ", distance);
+	console.log("attribute: ", attribute); 
 	*/
 
-/**
- * Any given search can have many different filters, but having many filters
- * would make it difficult to have a nice presentation.  In the current state
- * it may cause there to be a second page.  
- */
+	/***
+	* Communication with sizeup api
+	* Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
+	* Then build the pdf with that info
+	*/
 
-let filterDisplay = { toggle: 1 };
-
-if (averageRevenue[0] === 0 && averageRevenue[1] === null) { filterDisplay.averageRevenue = true; }
-if (totalEmployees[0] === 0 && totalEmployees[1] === null) { filterDisplay.totalEmployees = true; }
-if (totalRevenue[0] === 0 && totalRevenue[1] === null) { filterDisplay.totalRevenue = true; }
-if (householdIncome[0] === 0 && householdIncome[1] === null) { filterDisplay.householdIncome = true; }
-if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { filterDisplay.revenuePerCapita = true; }
-if (highSchoolOrHigher != 0) { filterDisplay.highSchoolOrHigher = true; }
-if (medianAge != 0) { filterDisplay.medianAge = true; }
-if (whiteCollarWorkers != 0) { filterDisplay.whiteCollarWorkers = true; }
-filterDisplay.population = true;
-
-
-/* console log for testing/dev
-
-console.log("totalEmployees: ", totalEmployees);
-console.log("highSchoolOrHigher: ",  highSchoolOrHigher);
-console.log("householdExpenditures: ", householdExpenditures);
-console.log("householdIncome: ", householdIncome);
-console.log("medianAge: ", medianAge);
-console.log("revenuePerCapita: ", revenuePerCapita);
-console.log("whiteCollarWorkers: ", whiteCollarWorkers);
-console.log("totalRevenue: ", totalRevenue);
-console.log("bands: ", bands);
-console.log("industryId: ", industryId);
-console.log("order: ", order);
-console.log("page: ", page);
-console.log("sort: ", sort);
-console.log("sortAttribute: ", sortAttribute);
-console.log("geographicLocationId: ", geographicLocationId);
-console.log("distance: ", distance);
-console.log("attribute: ", attribute); 
-*/
-
-/***
-* Communication with sizeup api
-* Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
-* Then build the pdf with that info
-*/
-
-Promise.all([
-	sizeup.data.getPlace({ id: geographicLocationId }),
-	sizeup.data.getIndustry( { id: industryId }),
-	sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
-	sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
-	]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
-		pdfMsgObj['displayLocation'] = place[0].City.LongName;
-		pdfMsgObj['displayIndustry'] = industry[0].Name;
-		successCallback(bestPlaces.Items, "Best Places to Advertise"); 
-		pdfMsgObj['bandArr'] = bestPlacesBands;
-		// console.log(bestPlaces);
-	}).then(startPdf).catch(console.error)
+	Promise.all([
+		sizeup.data.getPlace({ id: geographicLocationId }),
+		sizeup.data.getIndustry( { id: industryId }),
+		sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
+		sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
+		]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
+			pdfMsgObj['displayLocation'] = place[0].City.LongName;
+			pdfMsgObj['displayIndustry'] = industry[0].Name;
+			successCallback(bestPlaces.Items, "Best Places to Advertise"); 
+			pdfMsgObj['bandArr'] = bestPlacesBands;
+		}).then(startPdf).catch(console.error)
+}
 
 /**
  *  successCallback puts the return info into the pdfMsgObj.  The result (Items) is an array
@@ -230,6 +264,24 @@ Promise.all([
 
 function successCallback(result, msg="success") {
 	let i=0;
+	pdfMsgObj.zip = [];
+	pdfMsgObj.centroidLng = [];
+	pdfMsgObj.centroidLat = [];
+	pdfMsgObj.totalRevenueMin = [];
+	pdfMsgObj.totalRevenueMax = [];
+	pdfMsgObj.population = [];
+	pdfMsgObj.averageRevenueMin = [];
+	pdfMsgObj.averageRevenueMax = [];
+	pdfMsgObj.totalEmployeesMin = [];
+	pdfMsgObj.totalEmployeesMax = [];
+	pdfMsgObj.revenuePerCapitaMin = [];
+	pdfMsgObj.revenuePerCapitaMax = [];
+	pdfMsgObj.householdIncome = [];
+	pdfMsgObj.medianAge = [];
+	pdfMsgObj.householdExpenditures = [];
+	pdfMsgObj.whiteCollarWorkers = [];
+	pdfMsgObj.bachelorsDegreeOrHigher = [];
+	pdfMsgObj.highSchoolOrHigher = [];
 	for (element of result) {
 		i++;
 		pdfMsgObj['zip'].push(element.ZipCode.Name);
@@ -332,7 +384,7 @@ function buildPdf() {
 	let doc = new PDFDocument;
 	
 	// pipe its output to a file
-	let writeStream = fs.createWriteStream('output.pdf');  // this will output to stream or something
+	let writeStream = fs.createWriteStream(pdfMsgObj.filename);  // this will output to stream or something
 	doc.pipe(writeStream);
 	
 	// Draw a rectangle for the header 
@@ -527,5 +579,35 @@ function buildPdf() {
 
 	// Finalize the pdf file
 	doc.end();
+//	writeStream.on('finish', function () {
+//		return writeStream;
+//	});
 	console.log("PDF output.pdf created");
 }
+
+generatePDF(
+	'totalRevenue',
+	[50000, null],
+	5,
+	16,
+	41284,
+	8524,
+	3,
+	'highToLow',
+	1,
+	'desc',
+	'totalRevenue',
+	[0, null],
+	[0, null],
+	0,  // a percent
+	[0, null],
+	[0, null],
+	[0, null],
+	[0, null],
+	0,
+	"1243 Main St.",
+	"Tuscon",
+	"AZ",
+	"80976",
+	"customer.email@gmail.com",
+	"Customer Business Name", filename); // .then(done).catch(fail);
