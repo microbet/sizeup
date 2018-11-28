@@ -83,7 +83,7 @@ function fail(e) {
 		custBizName: custBizName,
 	}
 	*/
-	let pdfMsgObj = {};
+//	let pdfMsgObj = {};
 	let filterDisplay = { toggle: 1 };
 
 	/****
@@ -183,6 +183,7 @@ function generatePDF(
 	custBizName,
 	filename) {
 
+	let pdfMsgObj = {};
 	pdfMsgObj.custBizName = custBizName;
 	pdfMsgObj.bands = bands;
 	pdfMsgObj.sortAttribute = sortAttribute;
