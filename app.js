@@ -84,21 +84,6 @@ function fail(e) {
 	}
 	*/
 //	let pdfMsgObj = {};
-	let filterDisplay = { toggle: 1 };
-
-	/****
-	 * These colors are from SizeUp design.
-	 */ 
-
-	let pdfColors = [   
-		'#dc3545', // red
-		'#28a745', // green
-		'#007bff', // blue
-		'#fd7e14', // orange
-		'#343a40', // dark grey
-		'#6c757d', // gray
-		'#e5e3df', // very light grey
-	]
 
 	/***
 	reference - colors from sizeup
@@ -196,7 +181,21 @@ function generatePDF(
 	pdfMsgObj.custState = custState;
 	pdfMsgObj.custZip = custZip;
 	pdfMsgObj.filename = filename;
+	pdfMsgObj.filterDisplay = { toggle: 1 };
 
+	/****
+	 * These colors are from SizeUp design.
+	 */ 
+
+	let pdfColors = [   
+		'#dc3545', // red
+		'#28a745', // green
+		'#007bff', // blue
+		'#fd7e14', // orange
+		'#343a40', // dark grey
+		'#6c757d', // gray
+		'#e5e3df', // very light grey
+	]
 
 
 	/**
@@ -206,15 +205,15 @@ function generatePDF(
 	 */
 
 
-	if (averageRevenue[0] === 0 && averageRevenue[1] === null) { filterDisplay.averageRevenue = true; }
-	if (totalEmployees[0] === 0 && totalEmployees[1] === null) { filterDisplay.totalEmployees = true; }
-	if (totalRevenue[0] === 0 && totalRevenue[1] === null) { filterDisplay.totalRevenue = true; }
-	if (householdIncome[0] === 0 && householdIncome[1] === null) { filterDisplay.householdIncome = true; }
-	if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { filterDisplay.revenuePerCapita = true; }
-	if (highSchoolOrHigher != 0) { filterDisplay.highSchoolOrHigher = true; }
-	if (medianAge != 0) { filterDisplay.medianAge = true; }
-	if (whiteCollarWorkers != 0) { filterDisplay.whiteCollarWorkers = true; }
-	filterDisplay.population = true;
+	if (averageRevenue[0] === 0 && averageRevenue[1] === null) { pdfMsgObj.filterDisplay.averageRevenue = true; }
+	if (totalEmployees[0] === 0 && totalEmployees[1] === null) { pdfMsgObj.filterDisplay.totalEmployees = true; }
+	if (totalRevenue[0] === 0 && totalRevenue[1] === null) { pdfMsgObj.filterDisplay.totalRevenue = true; }
+	if (householdIncome[0] === 0 && householdIncome[1] === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
+	if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { pdfMsgObj.filterDisplay.revenuePerCapita = true; }
+	if (highSchoolOrHigher != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
+	if (medianAge != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
+	if (whiteCollarWorkers != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
+	pdfMsgObj.filterDisplay.population = true;
 
 
 	/* console log for testing/dev
@@ -252,9 +251,9 @@ function generatePDF(
 		]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
 			pdfMsgObj['displayLocation'] = place[0].City.LongName;
 			pdfMsgObj['displayIndustry'] = industry[0].Name;
-			successCallback(bestPlaces.Items, "Best Places to Advertise"); 
 			pdfMsgObj['bandArr'] = bestPlacesBands;
-		}).then(startPdf).catch(console.error)
+			successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
+		}) // .then(startPdf(pdfMsgObj)).catch(console.error)
 }
 
 /**
@@ -263,7 +262,7 @@ function generatePDF(
  *  A lot of formatting in here.  Max output is 3.  It's hard to present more on one page.
  */
 
-function successCallback(result, msg="success") {
+function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
 	let i=0;
 	pdfMsgObj.zip = [];
 	pdfMsgObj.centroidLng = [];
@@ -306,6 +305,7 @@ function successCallback(result, msg="success") {
 		pdfMsgObj['highSchoolOrHigher'].push(element.HighSchoolOrHigher);
 		if (i >= 3) { break; }
 	}
+	startPdf(pdfMsgObj, pdfColors);
 }
 
 function failureCallback(error) {
@@ -327,7 +327,7 @@ function failureCallback(error) {
 *  is brought into the pdf. 
 */
  
-function startPdf() {
+function startPdf(pdfMsgObj, pdfColors) {
 
 	// building the markers string for the pins on the map, then download the static map
 
@@ -344,16 +344,18 @@ function startPdf() {
 
 	let mapImgFile = IDGenerator();  // create the random/unique name
 	mapImgFile = mapImgFile + '.png';
+		pdfMsgObj.mapImgFile = mapImgFile;
+	console.log("pdmo = ", pdfMsgObj);
 	download(url,  mapImgFile, function(){
 		pdfMsgObj.mapImgFile = mapImgFile;
-		buildPdf();
+		buildPdf(pdfMsgObj, pdfColors);
 	});
 }
 
-function showFilter(label, param, min, max, doc, suffix='') {
+function showFilter(pdfMsgObj, label, param, min, max, doc, suffix='') {
 	let startX;
-	if (filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
-		if (filterDisplay.toggle > 0) {
+	if (pdfMsgObj.filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
+		if (pdfMsgObj.filterDisplay.toggle > 0) {
 			startX = 100;
 		} else {
 			startX = 350;
@@ -366,11 +368,11 @@ function showFilter(label, param, min, max, doc, suffix='') {
 			.text(max, { continued: true } );
 		}
 		doc.text(suffix);
-		if (filterDisplay.toggle < 0) {
+		if (pdfMsgObj.filterDisplay.toggle < 0) {
 			doc.text('');
 			doc.moveDown();
 		}
-		filterDisplay.toggle = filterDisplay.toggle * -1;
+		pdfMsgObj.filterDisplay.toggle = pdfMsgObj.filterDisplay.toggle * -1;
 	}
 }
 	
@@ -379,7 +381,7 @@ function showFilter(label, param, min, max, doc, suffix='') {
  * pdfkit module
  */
 
-function buildPdf() {
+function buildPdf(pdfMsgObj, pdfColors) {
 	
 	// Create a document
 	let doc = new PDFDocument;
@@ -525,7 +527,7 @@ function buildPdf() {
 	}
 	doc.fillAndStroke(pdfColors[3]) 
 	for (let i=0; i<pdfMsgObj.zip.length; i++) {
-		filterDisplay.toggle = 1;  // this controls the margins of the fields
+		pdfMsgObj.filterDisplay.toggle = 1;  // this controls the margins of the fields
 											// if it's not reset to 1 between areas
 											// shown, the margins don't work right
 											// see showFilter function
@@ -548,16 +550,16 @@ function buildPdf() {
 		.text(thisSortAttributeMaxArr[i])
 		.fillColor(pdfColors[5])
 		.fontSize(8) 
-		showFilter("Total Population: ", 'population', pdfMsgObj.population[i].toLocaleString('en'), null, doc);
-		showFilter("Average Annual Revenue: ", 'averageRevenue', pdfMsgObj.averageRevenueMin[i], pdfMsgObj.averageRevenueMax[i], doc);
-		showFilter("Total Employees: ", 'totalEmployees', pdfMsgObj.totalEmployeesMin[i], pdfMsgObj.totalEmployeesMax[i], doc);
-		showFilter("Revenue Per Capita: ", 'revenuePerCapita', pdfMsgObj.revenuePerCapitaMin[i], pdfMsgObj.revenuePerCapitaMax[i], doc);
-		showFilter("Household Income: ", 'householdIncome', pdfMsgObj.householdIncome[i], null, doc);
-		showFilter("Household Expenditures: ", 'householdExpenditures', pdfMsgObj.householdExpenditures[i], null, doc);
-		showFilter("Median Age: ", 'medianAge', pdfMsgObj.medianAge[i], null, doc);
-		showFilter("Bachelors Degree or Higher: ", 'bachelorsDegreeOrHigher', pdfMsgObj.bachelorsDegreeOrHigher[i], null, doc, '%');
-		showFilter("High School Degree or Higher: ", 'highSchoolOrHigher', pdfMsgObj.highSchoolOrHigher[i], null, doc, '%');
-		showFilter("White Collar Workers: ", 'whiteCollarWorkers', pdfMsgObj.whiteCollarWorkers[i], null, doc, '%');
+		showFilter(pdfMsgObj, "Total Population: ", 'population', pdfMsgObj.population[i].toLocaleString('en'), null, doc);
+		showFilter(pdfMsgObj, "Average Annual Revenue: ", 'averageRevenue', pdfMsgObj.averageRevenueMin[i], pdfMsgObj.averageRevenueMax[i], doc);
+		showFilter(pdfMsgObj, "Total Employees: ", 'totalEmployees', pdfMsgObj.totalEmployeesMin[i], pdfMsgObj.totalEmployeesMax[i], doc);
+		showFilter(pdfMsgObj, "Revenue Per Capita: ", 'revenuePerCapita', pdfMsgObj.revenuePerCapitaMin[i], pdfMsgObj.revenuePerCapitaMax[i], doc);
+		showFilter(pdfMsgObj, "Household Income: ", 'householdIncome', pdfMsgObj.householdIncome[i], null, doc);
+		showFilter(pdfMsgObj, "Household Expenditures: ", 'householdExpenditures', pdfMsgObj.householdExpenditures[i], null, doc);
+		showFilter(pdfMsgObj, "Median Age: ", 'medianAge', pdfMsgObj.medianAge[i], null, doc);
+		showFilter(pdfMsgObj, "Bachelors Degree or Higher: ", 'bachelorsDegreeOrHigher', pdfMsgObj.bachelorsDegreeOrHigher[i], null, doc, '%');
+		showFilter(pdfMsgObj, "High School Degree or Higher: ", 'highSchoolOrHigher', pdfMsgObj.highSchoolOrHigher[i], null, doc, '%');
+		showFilter(pdfMsgObj, "White Collar Workers: ", 'whiteCollarWorkers', pdfMsgObj.whiteCollarWorkers[i], null, doc, '%');
 	}
 
 	// footer text
