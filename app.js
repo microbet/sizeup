@@ -480,6 +480,6 @@ function buildPdf(pdfMsgObj, pdfColors) {
 
 	// Finalize the pdf file
 	doc.end();
-	return pdfMsgObj.stream;
+//	return pdfMsgObj.stream;
 	console.log("PDF output.pdf created");
 }

@@ -38,4 +38,6 @@ Promise.all([pdf.generatePDF(
 	"AZ",
 	"80976",
 	"customer.email@gmail.com",
-	"Customer Business Name", stream)]).then(done()).catch(fail());   // was working kinda
+	"Customer Business Name", stream)]).then(() => {
+		done();
+	}).catch(fail());   // was working kinda
