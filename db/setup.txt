@@ -1,5 +1,5 @@
 
-Database (create with etl/bin/create-fdg-db.sql):
+Database (create with etl/bin/create-fdg-db.sql though actually need to standardize on db/NewData.Database.sql):
   NewData
 
 Tables (create with db/*.Table.sql):
@@ -80,6 +80,4 @@ The basic overview for updating data in sizeup:
 12) Restore NewData to gisp-stg-db01 as SizeUpData
 13) Test thoroughly 
 14) Restore to gisp-prod-db01 as SizeUpData
-
-Appendix B. In which Trav raids past processed data to get future source data.
 
