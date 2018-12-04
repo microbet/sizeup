@@ -1,7 +1,16 @@
 const pdf = require("./app.js");
+
+// Monkeypatch the Sizeup API with our mock function, since production code
+// doesn't know about customer graphics.
+
+var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
+sizeup.customer = require("./test/mockCustomer.js");
+pdf.setSizeup(sizeup);
+
+// Run test code.
+
 const filename = "trav.pdf";
 const stream = require("fs").createWriteStream(filename);
-const fs = require('fs');
 
 function done() {
 //	stream.close();
@@ -33,11 +42,7 @@ Promise.all([pdf.generatePDF(
 	[0, null],
 	[0, null],
 	0,
-	"1243 Main St.",
-	"Tuscon",
-	"AZ",
-	"80976",
-	"customer.email@gmail.com",
-	"Customer Business Name", stream)]).then(() => {
+  process.env.SIZEUP_KEY,
+  stream)]).then(() => {
 		done();
 	}).catch(fail());   // was working kinda

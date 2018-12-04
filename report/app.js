@@ -2,9 +2,12 @@ const fs = require('fs');
 const PDFDocument = require('pdfkit');
 const https = require('https');
 require('dotenv').config();
-const sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 const request = require('request');
-	
+
+var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
+function setSizeup(sizeupObj) {
+  sizeup = sizeupObj;
+}
 	/***
 	reference - colors from sizeup
 	--blue:#007bff;		--indigo:#6610f2;		--purple:#6f42c1;		--pink:#e83e8c;
@@ -60,8 +63,7 @@ function IDGenerator() {
 * Function that can be called from outside.  Starts the process.
 */
 
-module.exports = {
-	generatePDF: function(
+var generatePDF = function(
 		attribute,
 		averageRevenue,
 		bands,
@@ -81,29 +83,19 @@ module.exports = {
 		medianAge,
 		revenuePerCapita,
 		whiteCollarWorkers,
-		custAddress,
-		custCity,
-		custState,
-		custZip,
-		custEmail,
-		custBizName,
+    customerKey,
 		//	filename) {
 		stream) {
 	
 		// pdfMsgObj holds most of the data to be used in the pdf
 	
 		let pdfMsgObj = {};
-		pdfMsgObj.custBizName = custBizName;
 		pdfMsgObj.bands = bands;
 		pdfMsgObj.sortAttribute = sortAttribute;
-		pdfMsgObj.custEmail = custEmail;
 		pdfMsgObj.distance = distance;
 		pdfMsgObj.attribute = attribute;
 		pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
-		pdfMsgObj.custAddress = custAddress;
-		pdfMsgObj.custCity = custCity;
-		pdfMsgObj.custState = custState;
-		pdfMsgObj.custZip = custZip;
+    pdfMsgObj.customerGraphics = sizeup.customer.getReportGraphics(customerKey);
 	//	pdfMsgObj.filename = filename;
 		pdfMsgObj.stream = stream;
 		pdfMsgObj.filterDisplay = { toggle: 1 };
@@ -155,8 +147,7 @@ module.exports = {
 				pdfMsgObj['bandArr'] = bestPlacesBands;
 				successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
 			})
-	}
-}
+};
 
 /**
  *  successCallback puts the return info into the pdfMsgObj.  The result (Items) is an array
@@ -288,6 +279,8 @@ function buildPdf(pdfMsgObj, pdfColors) {
 	let doc = new PDFDocument;
 	doc.pipe(pdfMsgObj.stream);
 	
+  let theme = { text: { color: pdfColors[2] } };
+  
 	// Draw a rectangle for the header 
 	doc.save()
 		.moveTo(25, 30)
@@ -299,14 +292,8 @@ function buildPdf(pdfMsgObj, pdfColors) {
 	// start writing text
 
 	// header text
-	doc.font('Helvetica-Bold');
-	doc.fontSize(22);
-	doc.fillColor('white');
-	let widthBizName = doc.widthOfString(pdfMsgObj.custBizName);
-	let startBizName = 245 - (widthBizName/2);
-	doc.text(pdfMsgObj.custBizName, startBizName, 50);
-	doc.image("./smlogo.png", 425, doc.y - 32, { width: 120 } );
-	
+  pdfMsgObj.customerGraphics.writeHeader(doc, theme);
+
 	doc.fontSize(15);
 	doc.moveDown(2);
 	doc.fillColor(pdfColors[4])
@@ -461,21 +448,8 @@ function buildPdf(pdfMsgObj, pdfColors) {
 	}
 
 	// footer text
-	doc.font('Helvetica-Bold');
-	doc.fontSize(15);
-	widthBizName = doc.widthOfString(pdfMsgObj.custBizName);
-	doc.fillColor(pdfColors[2])
-	startBizName = 306 - (widthBizName/2);
-	doc.text(pdfMsgObj.custBizName, startBizName, 673);
-	doc.fontSize(12);
-	doc.fillColor('black');
-	let addressString = pdfMsgObj.custAddress + ' ' + pdfMsgObj.custCity + ' ' + pdfMsgObj.custZip;
-	let widthAddress = doc.widthOfString(addressString);
-	let startAddress = 306 - widthAddress/2;
-	doc.text(addressString, startAddress, doc.y);
-	let widthEmail = doc.widthOfString(pdfMsgObj.custEmail);
-	let startEmail = 306 - widthEmail/2;
-	doc.text(pdfMsgObj.custEmail, startEmail, doc.y);
+  pdfMsgObj.customerGraphics.writeFooter(doc, theme);
+
 //	console.log("pdfmsgob = ", pdfMsgObj);
 
 	// Finalize the pdf file
@@ -483,3 +457,9 @@ function buildPdf(pdfMsgObj, pdfColors) {
 //	return pdfMsgObj.stream;
 	console.log("PDF output.pdf created");
 }
+
+module.exports = {
+	generatePDF: generatePDF,
+  setSizeup: setSizeup
+}
+
