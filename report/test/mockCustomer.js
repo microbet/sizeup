@@ -1,12 +1,12 @@
 const path = require("path");
 
 var mockCustomerGraphics = {
-	custAddress: "1243 Main St.",
-	custCity: "Tuscon",
-	custState: "AZ",
-	custZip: "80976",
-	custEmail: "customer.email@gmail.com",
-	custBizName: "Customer Business Name",
+  custAddress: "1243 Main St.",
+  custCity: "Tuscon",
+  custState: "AZ",
+  custZip: "80976",
+  custEmail: "customer.email@gmail.com",
+  custBizName: "Customer Business Name",
   
   writeHeader: function(doc, theme) {
     doc.font('Helvetica-Bold');
