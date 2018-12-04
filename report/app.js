@@ -68,8 +68,8 @@ var generatePDF = function(
     averageRevenue,
     bands,
     distance,
-    geographicLocationId,
-    industryId,
+    placeCompoundKey,
+    industryKey,
     itemCount,
     order,
     page,
@@ -137,16 +137,22 @@ var generatePDF = function(
     */
   
     Promise.all([
-      sizeup.data.getPlace({ id: geographicLocationId }),
-      sizeup.data.getIndustry( { id: industryId }),
-      sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
-      sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industryId, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: geographicLocationId, distance: distance, attribute: attribute } ),
+      sizeup.data.getPlaceBySeokey(
+        `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`),
+      sizeup.data.getIndustryBySeokey(industryKey)
+    ]).then(([place, industry]) => {
+      Promise.all([
+        Promise.resolve(place),
+        Promise.resolve(industry),
+        sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } ),
+        sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } )
       ]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
         pdfMsgObj['displayLocation'] = place[0].City.LongName;
         pdfMsgObj['displayIndustry'] = industry[0].Name;
         pdfMsgObj['bandArr'] = bestPlacesBands;
         successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
       })
+    }).catch(console.error);
 };
 
 /**
