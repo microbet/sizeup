@@ -2,6 +2,7 @@ const pdf = require("./app.js");
 
 // Monkeypatch the Sizeup API with our mock function, since production code
 // doesn't know about customer graphics.
+// testing a change - J
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 sizeup.customer = require("./test/mockCustomer.js");
