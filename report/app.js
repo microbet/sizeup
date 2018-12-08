@@ -5,9 +5,11 @@ require('dotenv').config();
 const request = require('request');
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
+/*
 function setSizeup(sizeupObj) {
   sizeup = sizeupObj;
 }
+*/
   /***
   reference - colors from sizeup
   --blue:#007bff;   --indigo:#6610f2;   --purple:#6f42c1;   --pink:#e83e8c;
@@ -64,41 +66,47 @@ function IDGenerator() {
 */
 
 var generatePDF = function(
-    attribute,
-    averageRevenue,
-    bands,
-    distance,
-    placeCompoundKey,
-    industryKey,
-    itemCount,
-    order,
-    page,
-    sort,
-    sortAttribute,
-    totalEmployees,
-    totalRevenue,
-    highSchoolOrHigher,
-    householdExpenditures,
-    householdIncome,
-    medianAge,
-    revenuePerCapita,
-    whiteCollarWorkers,
+	 searchObj,
     customerKey,
-    //  filename) {
+	 customerObj,
     stream) {
   
     // pdfMsgObj holds most of the data to be used in the pdf
+	// if the bestplacestoadvertise functions took the objects
+	// a lot of this wouldn't be necessary
   
     let pdfMsgObj = {};
-    pdfMsgObj.bands = bands;
-    pdfMsgObj.sortAttribute = sortAttribute;
-    pdfMsgObj.distance = distance;
-    pdfMsgObj.attribute = attribute;
+	// bands wasn't part of the search obj, so I'm just setting it
+	// to 5
+	 pdfMsgObj.bands = 5;
+	 let bands = pdfMsgObj.bands;
+	 pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
+	 let sortAttribute = pdfMsgObj.sortAttribute;
+    pdfMsgObj.distance = searchObj.area.distance;
+	 let distance = pdfMsgObj.distance;
+	 pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
+	 let attribute = pdfMsgObj.attribute;
     pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
-    pdfMsgObj.customerGraphics = sizeup.customer.getReportGraphics(customerKey);
-  //  pdfMsgObj.filename = filename;
+    pdfMsgObj.customerGraphics = customerObj.getReportGraphics(customerKey);
     pdfMsgObj.stream = stream;
     pdfMsgObj.filterDisplay = { toggle: 1 };
+	 let placeCompoundKey = searchObj.area.place;
+	 let industryKey = searchObj.ranking_metric.industry;
+	 let itemCount = 3;  // This isnpt in search obj, so just setting it
+	 let order = 'highToLow'; // don't see this is search obj
+	 let page = 1;  // not sure what page is
+	 let sort = searchObj.ranking_metric.order; // doesn't seem right, but maybe is
+	 let totalEmployees = [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max];
+	 let totalRevenue = [searchObj.filter.totalRevenue.min, searchObj.filter.totalRevenue.max];
+	 let averageRevenue = searchObj.filter.averageRevenue;
+	 let highSchoolOrHigher = searchObj.filter.highSchoolOrHigher.min;
+	 let householdExpenditures = [searchObj.filter.householdExpenditures.min, searchObj.filter.householdExpenditures.max];
+	 let householdIncome = [searchObj.filter.householdIncome.min, searchObj.filter.householdIncome.max]; 
+	 let medianAge = [searchObj.filter.medianAge.min, searchObj.filter.medianAge.max];
+	 let revenuePerCapita = [searchObj.filter.revenuePerCapita.min, searchObj.filter.revenuePerCapita.max];
+	 let whiteCollarWorkers = searchObj.filter.whiteCollarWorkers.min;
+	// I think bachelorsdegree or higher is left out
+
 
     /****
     * These colors are from SizeUp design and are used in the pdf
@@ -141,6 +149,7 @@ var generatePDF = function(
         `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`),
       sizeup.data.getIndustryBySeokey(industryKey)
     ]).then(([place, industry]) => {
+        sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } )
       Promise.all([
         Promise.resolve(place),
         Promise.resolve(industry),
@@ -466,6 +475,6 @@ function buildPdf(pdfMsgObj, pdfColors) {
 
 module.exports = {
   generatePDF: generatePDF,
-  setSizeup: setSizeup
+  // setSizeup: setSizeup
 }
 

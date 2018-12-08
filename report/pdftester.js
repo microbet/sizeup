@@ -1,12 +1,19 @@
+const mockSearchObj = require('./test/mockSearch2.json');  // why doesn't import work
+																	// here - look at microdb
 const pdf = require("./app.js");
 
 // Monkeypatch the Sizeup API with our mock function, since production code
 // doesn't know about customer graphics.
-// testing a change - J
 
+// note for trav - why do this instead of pass customer info (customerObj)
+// in pdfGenerator?
+/* 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 sizeup.customer = require("./test/mockCustomer.js");
 pdf.setSizeup(sizeup);
+*/
+const customerObj = require("./test/mockCustomer.js");
+
 
 // Run test code.
 
@@ -23,6 +30,7 @@ function fail(e) {
   console.error("error", e);
 }
 
+ /* comment out while working on new arguments
 Promise.all([pdf.generatePDF(
   'totalRevenue',
   [50000, null],
@@ -44,6 +52,15 @@ Promise.all([pdf.generatePDF(
   [0, null],
   0,
   process.env.SIZEUP_KEY,
+  customerObj,	
+  stream)]).then(() => {
+    done();
+  }).catch(fail());   // was working kinda
+  */
+Promise.all([pdf.generatePDF(
+  mockSearchObj,
+  process.env.SIZEUP_KEY,
+  customerObj,	
   stream)]).then(() => {
     done();
   }).catch(fail());   // was working kinda
