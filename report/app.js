@@ -65,7 +65,7 @@ function IDGenerator() {
 * Function that can be called from outside.  Starts the process.
 */
 
-var generatePDF = function(
+var generatePDF = async function(
 	 searchObj,
     customerKey,
 	 customerObj,
@@ -143,7 +143,19 @@ var generatePDF = function(
     * Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
     * Then build the pdf with that info
     */
-  
+
+	let place = await sizeup.data.getPlaceBySeokey(
+        `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`);
+	let industry = await sizeup.data.getIndustryBySeokey(industryKey);
+   let bestPlaces = await sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } );
+	let bestPlacesBands = await sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } );
+   pdfMsgObj['displayLocation'] = place[0].City.LongName;
+   pdfMsgObj['displayIndustry'] = industry[0].Name;
+   pdfMsgObj['bandArr'] = bestPlacesBands;
+   successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
+	
+
+	/*
     Promise.all([
       sizeup.data.getPlaceBySeokey(
         `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`),
@@ -162,6 +174,7 @@ var generatePDF = function(
         successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
       })
     }).catch(console.error);
+	*/
 };
 
 /**
