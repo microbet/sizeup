@@ -272,7 +272,8 @@ function startPdf(pdfMsgObj, pdfColors) {
   });
 }
 
-function showFilter(pdfMsgObj, label, param, min, max, doc, suffix='') {
+// are there no max's showing?
+function showFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
   let startX;
   if (pdfMsgObj.filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
     if (pdfMsgObj.filterDisplay.toggle > 0) {
@@ -288,9 +289,8 @@ function showFilter(pdfMsgObj, label, param, min, max, doc, suffix='') {
       .text(max, { continued: true } );
     }
     doc.text(suffix);
-    if (pdfMsgObj.filterDisplay.toggle < 0) {
-      doc.text('');
-      doc.moveDown();
+    if (pdfMsgObj.filterDisplay.toggle > 0) {
+      doc.moveDown(-1);
     }
     pdfMsgObj.filterDisplay.toggle = pdfMsgObj.filterDisplay.toggle * -1;
   }
@@ -396,8 +396,8 @@ function buildPdf(pdfMsgObj, pdfColors) {
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
   doc.text("This is a list of Zip Codes with the highest combined business revenue in the ", 75, doc.y + 10, { continued: true } )
-    .text(pdfMsgObj.displayIndustry)
-    .text("industry. You should consider using this list if you are selling to businesses or consumers and want to")
+    .text(pdfMsgObj.displayIndustry, { continued: true } )
+    .text("industry. You should consider using this list if you are selling to businesses or consumers and want to", { continued: true } )
     .text("know where the most money is being made in your industry.")
     .moveDown(2);
   let xpos = 250;
@@ -454,10 +454,11 @@ function buildPdf(pdfMsgObj, pdfColors) {
     .fillColor(pdfColors[i])
     .fontSize(15)
     .text("  ", { continued: true } )
-    .text(pdfMsgObj.zip[i], { continued: true })
+    .text(pdfMsgObj.zip[i]) // , { continued: true })
     .fillColor('black')
     .fontSize(13);
-    xpos = 400 - (doc.widthOfString(thisSortAttributeMinArr[i].toString()) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i].toString()));
+	  doc.moveDown(-1);
+    xpos = 535 - (doc.widthOfString(thisSortAttributeMinArr[i].toString()) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i].toString()));
     doc.text(thisSortAttributeMinArr[i], xpos, doc.y, { continued: true } )
     .text(" - ", { continued: true } )
     .text(thisSortAttributeMaxArr[i])
@@ -471,8 +472,11 @@ function buildPdf(pdfMsgObj, pdfColors) {
     showFilter(pdfMsgObj, "Household Expenditures: ", 'householdExpenditures', pdfMsgObj.householdExpenditures[i], null, doc);
     showFilter(pdfMsgObj, "Median Age: ", 'medianAge', pdfMsgObj.medianAge[i], null, doc);
     showFilter(pdfMsgObj, "Bachelors Degree or Higher: ", 'bachelorsDegreeOrHigher', pdfMsgObj.bachelorsDegreeOrHigher[i], null, doc, '%');
-    showFilter(pdfMsgObj, "High School Degree or Higher: ", 'highSchoolOrHigher', pdfMsgObj.highSchoolOrHigher[i], null, doc, '%');
-    showFilter(pdfMsgObj, "White Collar Workers: ", 'whiteCollarWorkers', pdfMsgObj.whiteCollarWorkers[i], null, doc, '%');
+    showFilter(pdfMsgObj, "High School Degree or Higher: ", 'highSchoolOrHigher', Math.round(pdfMsgObj.highSchoolOrHigher[i]), null, doc, '%');
+    showFilter(pdfMsgObj, "White Collar Workers: ", 'whiteCollarWorkers', Math.round(pdfMsgObj.whiteCollarWorkers[i]), null, doc, '%');
+	  if (pdfMsgObj.filterDisplay.toggle < 0 ) {
+		  doc.moveDown(1);
+	  }
   }
 
   // footer text

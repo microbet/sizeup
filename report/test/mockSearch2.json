@@ -42,14 +42,14 @@
       "max": "250000"
     },
     "medianAge": {
-      "min": "4",
-      "max": "80"
+      "min": "0",
+      "max": "null"
     },
     "highSchoolOrHigher": {
-      "min": "1"
+      "min": "0"
     },
     "whiteCollarWorkers": {
-      "min": "5"
+      "min": "0"
     },
     "bachelorsDegreeOrHigher": {
       "min": "8"

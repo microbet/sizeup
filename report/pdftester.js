@@ -1,4 +1,4 @@
-const mockSearchObj = require('./test/mockSearch.json');  // why doesn't import work
+const mockSearchObj = require('./test/mockSearch2.json');  // why doesn't import work
 const pdf = require("./app.js");
 
 // Monkeypatch the Sizeup API with our mock function, since production code
