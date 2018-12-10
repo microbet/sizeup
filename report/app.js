@@ -3,6 +3,7 @@ const PDFDocument = require('pdfkit');
 const https = require('https');
 require('dotenv').config();
 const request = require('request');
+const staticMap = require('./mapGenerator.js');
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 /*
@@ -257,6 +258,7 @@ function startPdf(pdfMsgObj, pdfColors) {
     markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + (i+1) + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
   }
   const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+  console.log('up here url is', url);
   var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
       request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
@@ -271,6 +273,10 @@ function startPdf(pdfMsgObj, pdfColors) {
     buildPdf(pdfMsgObj, pdfColors);
   });
 }
+
+// instead of calling startPdf and having that call buildPdf I should just call buildPdf and 
+// from inside of there I could call getStaticMap and that could be in another file
+
 
 // are there no max's showing?
 function showFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
@@ -301,7 +307,7 @@ function showFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
  * pdfkit module
  */
 
-function buildPdf(pdfMsgObj, pdfColors) {
+async function buildPdf(pdfMsgObj, pdfColors) {
   
   // Create a document
   let doc = new PDFDocument;
@@ -353,6 +359,23 @@ function buildPdf(pdfMsgObj, pdfColors) {
     }
   });
   
+  // trying to get the image stream  - key should probably be put in environment variable
+  let markerStr = '';
+  for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
+    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + (i+1) + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
+  }
+  let optionsObj = {
+	  url: 'https://maps.googleapis.com/maps/api/staticmap',
+	  size: '600x300',
+	  maptype: 'roadmap',
+	  markerStr: markerStr,
+	  key: 'AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE',
+  }
+  console.log('hi');
+  let googleMap = await staticMap.getStaticMap(optionsObj);
+  console.log('howdy'); 
+// console.log('ho', googleMap);
+//  doc.image(googleMap, 25, doc.y, { width: 562 } );
   // the bands 
   doc.fontSize(8);
   doc.fillColor(pdfColors[4]);
