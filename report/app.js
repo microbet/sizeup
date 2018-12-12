@@ -257,7 +257,7 @@ function startPdf(pdfMsgObj, pdfColors) {
   for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
     markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + (i+1) + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
   }
-  const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE';
+  const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
   console.log('up here url is', url);
   var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
@@ -369,7 +369,7 @@ async function buildPdf(pdfMsgObj, pdfColors) {
 	  size: '600x300',
 	  maptype: 'roadmap',
 	  markerStr: markerStr,
-	  key: 'AIzaSyBYmAqm62QJXA2XRi1KkKVtWa6-BVTZ7WE',
+	  key: process.env.GOOGLEMAP_KEY, 
   }
   console.log('hi');
   let googleMap = await staticMap.getStaticMap(optionsObj);
