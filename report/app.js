@@ -5,6 +5,10 @@ require('dotenv').config();
 const request = require('request');
 const staticMap = require('./mapGenerator.js');
 
+
+// note - make labels below show letters, breaks at page break, maybe grey doesn't work
+// checkout greyscale
+
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 /*
 function setSizeup(sizeupObj) {
@@ -77,6 +81,8 @@ var generatePDF = async function(
 	// a lot of this wouldn't be necessary
   
     let pdfMsgObj = {};
+        pdfMsgObj.filter = searchObj.filter;
+        pdfMsgObj.title = searchObj.title;
 	// bands wasn't part of the search obj, so I'm just setting it
 	// to 5
 	 pdfMsgObj.bands = 5;
@@ -93,7 +99,7 @@ var generatePDF = async function(
     pdfMsgObj.filterDisplay = { toggle: 1 };
 	 let placeCompoundKey = searchObj.area.place;
 	 let industryKey = searchObj.ranking_metric.industry;
-	 let itemCount = 3;  // This isnpt in search obj, so just setting it
+	 let itemCount = 26;  // This isnpt in search obj, so just setting it
 	 let order = 'highToLow'; // don't see this is search obj
 	 let page = 1;  // not sure what page is
 	 let sort = searchObj.ranking_metric.order; // doesn't seem right, but maybe is
@@ -120,7 +126,26 @@ var generatePDF = async function(
       '#fd7e14', // orange
       '#343a40', // dark grey
       '#6c757d', // gray
-      '#e5e3df', // very light grey
+      '#dc3545', // red
+      '#28a745', // green
+      '#007bff', // blue
+      '#fd7e14', // orange
+      '#343a40', // dark grey
+      '#6c757d', // gray
+      '#dc3545', // red
+      '#28a745', // green
+      '#007bff', // blue
+      '#fd7e14', // orange
+      '#343a40', // dark grey
+      '#6c757d', // gray
+      '#dc3545', // red
+      '#28a745', // green
+      '#007bff', // blue
+      '#fd7e14', // orange
+      '#343a40', // dark grey
+      '#dc3545', // red
+      '#28a745', // green
+      '#007bff', // blue
     ]
 
     /**
@@ -225,7 +250,7 @@ function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
     pdfMsgObj['whiteCollarWorkers'].push(element.WhiteCollarWorkers);
     pdfMsgObj['bachelorsDegreeOrHigher'].push(element.BachelorsDegreeOrHigher);
     pdfMsgObj['highSchoolOrHigher'].push(element.HighSchoolOrHigher);
-    if (i >= 3) { break; }
+    if (i >= 26) { break; }
   }
   startPdf(pdfMsgObj, pdfColors);
 }
@@ -239,6 +264,17 @@ function failureCallback(error) {
  * to make a template and then some markup for inserting values of the
  * pdfMsgObj. 
  */
+
+function getBand(n, pdfMsgObj) {
+  for(let i=0; i<pdfMsgObj.bandArr.length; i++) {
+    let pMin = parseInt(pdfMsgObj.averageRevenueMin[n].replace(/\$/g, "").replace(/,/g,""));
+    let pMax = parseInt(pdfMsgObj.averageRevenueMax[n].replace(/\$/g, "").replace(/,/g,""));
+    if (pMin >= pdfMsgObj.bandArr[i].Min && pMax <= pdfMsgObj.bandArr[i].Max) {
+      return i;
+    }
+  }
+}
+  
 
 /***
 *  startPdf creates the static map image using static google map api.
@@ -254,11 +290,14 @@ function startPdf(pdfMsgObj, pdfColors) {
   // building the markers string for the pins on the map, then download the static map
 
   let markerStr = '';
+  let whichBand = 0;
   for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
-    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + (i+1) + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
+    let markerLabel = String.fromCharCode(65 + i);
+    // I need to know what band it's in to get the color
+    whichBand = getBand(i, pdfMsgObj);
+    markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
   }
   const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
-  console.log('up here url is', url);
   var download = function(uri, filename, callback){
     request.head(uri, function(err, res, body){
       request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
@@ -301,6 +340,52 @@ function showFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
     pdfMsgObj.filterDisplay.toggle = pdfMsgObj.filterDisplay.toggle * -1;
   }
 }
+
+function formatDollars(string) {
+  return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(string);
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+function formatFilter(filterObj) {
+  let filterText = '';
+  if (filterObj.totalRevenue) { 
+     filterText += 'total revenue between ' + formatDollars(filterObj.totalRevenue.min) + ' and ' + formatDollars(filterObj.totalRevenue.max) + ', ';
+  }
+  if (filterObj.averageRevenue) { 
+     filterText += 'average revenue between ' + formatDollars(filterObj.averageRevenue.min) + ' and ' + formatDollars(filterObj.averageRevenue.max) + ', ';
+  }
+  if (filterObj.totalEmployees) { 
+     filterText += 'between ' + numberWithCommas(filterObj.totalEmployees.min) + ' and ' + numberWithCommas(filterObj.totalEmployees.max) + 'employees, ';
+  }
+  if (filterObj.revenuePerCapita) { 
+     filterText += 'average revenue per capita between ' + formatDollars(filterObj.revenuePerCapita.min) + ' and ' + formatDollars(filterObj.revenuePerCapita.max) + ', ';
+  }
+  if (filterObj.revenuePerCapita) { 
+     filterText += 'household income between ' + formatDollars(filterObj.householdIncome.min) + ' and ' + formatDollars(filterObj.householdIncome.max) + ', ';
+  }
+  if (filterObj.medianAge) { 
+    if (filterObj.medianAge.max) {
+      filterText += 'median age between ' + filterObj.medianAge.min + ' and ' + filterObj.medianAge.max;
+    }
+    else {
+      filterText += 'median age greater than ' + filterObj.medianAge.min + ', ';
+    }
+  }
+  if (filterObj.highSchoolOrHigher) { 
+     filterText += 'High School graduate rate of ' + filterObj.highSchoolOrHigher.min + '% or greater' + ', ';
+  }
+  if (filterObj.bachelorsDegreeOrHigher) { 
+     filterText += 'bachelors degree rate of ' + filterObj.highSchoolOrHigher.min + '% or greater, ';
+  }
+  if (filterObj.whiteCollarWorkers) { 
+     filterText += 'white collar worker rate of ' + filterObj.whiteCollarWorkers.min + '% or greater, ';
+  }
+  return filterText;
+}
   
 /****
  * this function is building the pdf using the info from the pdfMsgObj and using 
@@ -331,8 +416,32 @@ async function buildPdf(pdfMsgObj, pdfColors) {
   doc.fontSize(15);
   doc.moveDown(2);
   doc.fillColor(pdfColors[4])
-  doc.text("Best places to advertise in the ", 25, doc.y, { continued: true } )
+  doc.text(pdfMsgObj.title, 25, doc.y);
+  doc.fillColor(pdfColors[5]);
+  doc.fontSize(10);
+  doc.text("This is a list of postal codes with the highest combined business revenue in the ", 35, doc.y + 10, { continued: true } )
     .fillColor(pdfColors[3])
+    .text(pdfMsgObj.displayIndustry, { continued: true } )
+    .fillColor(pdfColors[5])
+    .text("industry.  You should consider using this list if you are selling to businesses or consumers and want to", { continued: true } )
+    .text("know where the most money is being made in your industry. ", { continued: true } )
+    .text("The analysis is based on locations ", { continued: true } )
+   .fillColor(pdfColors[3])
+    .text(pdfMsgObj.distance, { continued: true } )
+    .fillColor(pdfColors[5])
+    .text(" miles from the centroid of ", { continued: true } )
+   .fillColor(pdfColors[3])
+    .text(pdfMsgObj.displayLocation, { continued: true } )
+    .fillColor(pdfColors[5])
+    .text(". The list has been filtered to include only areas that have ", { continued: true } );
+   doc.fillColor(pdfColors[3]);
+  doc.text(formatFilter(pdfMsgObj.filter));
+  // get filters here in natural language
+    doc.text("")
+    .moveDown(1);
+  /*
+  doc.text("Best places to advertise in the ", 25, doc.y, { continued: true } )
+   .fillColor(pdfColors[3])
     .text(pdfMsgObj.displayIndustry, { continued: true } )
     .fillColor(pdfColors[4])
     .text(" industry near ", { continued: true } )
@@ -342,15 +451,17 @@ async function buildPdf(pdfMsgObj, pdfColors) {
     .text(" based on ", { continued: true } )
     .fillColor(pdfColors[3])
     .text(pdfMsgObj.displayAttribute);
+    */
     
   doc.fontSize(10);   
   doc.fillColor(pdfColors[4]);
+  /*
   doc.text("    Filtered for Zip Codes at most ", { continued: true } )
     .fillColor('black')
     .text(pdfMsgObj.distance, { continued: true } )
     .fillColor(pdfColors[4])
       .text(" miles from the current city");
-  doc.moveDown();
+      */
   doc.image(pdfMsgObj.mapImgFile, 25, doc.y, { width: 562 } );
   // delete the image file
   fs.unlink(pdfMsgObj.mapImgFile, (err) => {
@@ -371,17 +482,14 @@ async function buildPdf(pdfMsgObj, pdfColors) {
 	  markerStr: markerStr,
 	  key: process.env.GOOGLEMAP_KEY, 
   }
-  console.log('hi');
-  let googleMap = await staticMap.getStaticMap(optionsObj);
-  console.log('howdy'); 
-// console.log('ho', googleMap);
+//  let googleMap = await staticMap.getStaticMap(optionsObj);
 //  doc.image(googleMap, 25, doc.y, { width: 562 } );
   // the bands 
   doc.fontSize(8);
   doc.fillColor(pdfColors[4]);
   doc.moveDown(0.5);
 
-  doc.rect( 25, 446, 561, 22 );
+  doc.rect( 25, 528, 563, 22 );
   doc.fillAndStroke('#f3f3f3');
   
   //  construct an array of x,y starting points for the bands
@@ -391,12 +499,15 @@ async function buildPdf(pdfMsgObj, pdfColors) {
   for (let k=0; k<pdfMsgObj.bands; k++) {
     n = k % 3;  // n (remainder of k/3) is the column in the display of bands
     m = Math.floor(k/3);  // each row will have 3 bands listed
-    startArr.push([40 + n*180, 450 + m*10]);
+    startArr.push([40 + n*180, 532 + m*10]);
   }
 
   // then render the bands
   doc.fillColor(pdfColors[4]);
+  i = 0;
   pdfMsgObj.bandArr.forEach(function(element) {
+    doc.fillColor(pdfColors[i]);
+    i++;
     bandMinText = Intl.NumberFormat('en-US', { 
       style: 'currency',
       currency: 'USD',
@@ -416,15 +527,8 @@ async function buildPdf(pdfMsgObj, pdfColors) {
     j++;
   });
   
-  doc.fillColor(pdfColors[5]);
-  doc.fontSize(10);
-  doc.text("This is a list of Zip Codes with the highest combined business revenue in the ", 75, doc.y + 10, { continued: true } )
-    .text(pdfMsgObj.displayIndustry, { continued: true } )
-    .text("industry. You should consider using this list if you are selling to businesses or consumers and want to", { continued: true } )
-    .text("know where the most money is being made in your industry.")
-    .moveDown(2);
   let xpos = 250;
-  const listHeight = 200;  // pixels given to the bottom section
+  const listHeight = 165;  // pixels given to the bottom section
   doc.y = 720 - listHeight;
   let secondMargin = 300;
   let skipX = 0;
@@ -463,17 +567,20 @@ async function buildPdf(pdfMsgObj, pdfColors) {
   }
   doc.fillAndStroke(pdfColors[3]) 
   for (let i=0; i<pdfMsgObj.zip.length; i++) {
+    if (doc.y > 700) {
+      doc.text(' ');
+    }
     pdfMsgObj.filterDisplay.toggle = 1;  // this controls the margins of the fields
                       // if it's not reset to 1 between areas
                       // shown, the margins don't work right
                       // see showFilter function
-    doc.fillColor(pdfColors[i])
+    doc.fillColor(pdfColors[getBand(i, pdfMsgObj)])
     .moveDown(1)
     .fontSize(10)
     .circle(75, doc.y + 5, 7);
     doc.fill()
     .fillColor('#ffffff')
-    .text(i + 1, 72, doc.y + 1, { continued: true } )
+    .text(String.fromCharCode(65 + i), 72, doc.y + 1, { continued: true } )
     .fillColor(pdfColors[i])
     .fontSize(15)
     .text("  ", { continued: true } )
@@ -517,4 +624,3 @@ module.exports = {
   generatePDF: generatePDF,
   // setSizeup: setSizeup
 }
-
