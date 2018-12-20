@@ -50,7 +50,7 @@
       "min": "0"
     },
     "whiteCollarWorkers": {
-      "min": "0"
+      "min": "8"
     },
     "bachelorsDegreeOrHigher": {
       "min": "8"

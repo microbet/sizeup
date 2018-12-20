@@ -5,10 +5,6 @@ require('dotenv').config();
 const request = require('request');
 const staticMap = require('./mapGenerator.js');
 
-
-// note - make labels below show letters, breaks at page break, maybe grey doesn't work
-// checkout greyscale
-
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 /*
 function setSizeup(sizeupObj) {
@@ -67,6 +63,79 @@ function IDGenerator() {
 }
 
 /***
+ * It's just easier later if we know all the filter terms are 
+ * defined. Also, everything probably comes in as a string,
+ * but we should get the correct typing here.
+ */
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function fixParam(paramObj, range) {
+  let err = '';
+  if (paramObj == null) {
+    if (range === 'min') {
+      paramObj = { "min" : 0 }
+    }
+    if (range === 'both') {
+      paramObj = { "min" : 0, "max" : null, }
+    }
+  } else {
+    if (paramObj.min == null) {
+      paramObj.min = 0;
+    } else {
+      paramObj.min = parseFloat(paramObj.min);
+    }
+    if (paramObj.max == null) {  // could be undefined
+      paramObj.max = null;
+    } else { 
+      if (paramObj.max.toLowerCase() === 'null') {
+        paramObj.max = null;
+      } else {
+        paramObj.max = parseFloat(paramObj.max);
+      }
+    }
+  }
+  if (isNaN(paramObj.min)) {
+    paramObj.min = 0;
+    err += " min parameter was not a number";
+  }
+  if (isNaN(paramObj.max)) {
+    paramObj.max = null;
+    err += " max parameter was not a number";
+  }
+  return err;
+}
+
+function filloutPdfFilter(pdfMsgObj) {
+  if (err = fixParam(pdfMsgObj.filter.whiteCollarWorkers, 'min')) {
+    pdfMsgObj.error += 'White Collar Worker ' + err;
+  };
+  if (err = fixParam(pdfMsgObj.filter.bachelorsDegreeOrHigher, 'min')) {
+    pdfMsgObj.error += 'Bachelors degree or higher ' + err;
+  };
+  if (err = fixParam(pdfMsgObj.filter.highSchoolOrHigher, 'min')) {
+    pdfMsgObj.error += 'High school or higher ' + err;
+  };
+  if (err = fixParam(pdfMsgObj.filter.medianAge, 'both')) {
+    pdfMsgObj.error += 'Median Age ' + err;
+  }
+  if (err = fixParam(pdfMsgObj.filter.totalRevenue, 'both')) {
+    pdfMsgObj.error += 'Total Revenue ' + err;
+  }
+  if (err = fixParam(pdfMsgObj.filter.averageRevenue, 'both')) {
+    pdfMsgObj.error += 'Average Revenue ' + err;
+  }
+  if (err = fixParam(pdfMsgObj.filter.revenuePerCapita, 'both')) {
+    pdfMsgObj.error += 'Revenue per capita ' + err;
+  }
+  if (err = fixParam(pdfMsgObj.filter.totalEmployees, 'both')) {
+    pdfMsgObj.error += 'Total Employees ' + err;
+  }
+}
+
+/***
 * Function that can be called from outside.  Starts the process.
 */
 
@@ -81,7 +150,9 @@ var generatePDF = async function(
 	// a lot of this wouldn't be necessary
   
     let pdfMsgObj = {};
+        pdfMsgObj.error = '';
         pdfMsgObj.filter = searchObj.filter;
+        filloutPdfFilter(pdfMsgObj);
         pdfMsgObj.title = searchObj.title;
 	// bands wasn't part of the search obj, so I'm just setting it
 	// to 5
@@ -89,14 +160,14 @@ var generatePDF = async function(
 	 let bands = pdfMsgObj.bands;
 	 pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
 	 let sortAttribute = pdfMsgObj.sortAttribute;
-    pdfMsgObj.distance = searchObj.area.distance;
+         pdfMsgObj.distance = searchObj.area.distance;
 	 let distance = pdfMsgObj.distance;
 	 pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
 	 let attribute = pdfMsgObj.attribute;
-    pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
-    pdfMsgObj.customerGraphics = customerObj.getReportGraphics(customerKey);
-    pdfMsgObj.stream = stream;
-    pdfMsgObj.filterDisplay = { toggle: 1 };
+         pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
+         pdfMsgObj.customerGraphics = customerObj.getReportGraphics(customerKey);
+         pdfMsgObj.stream = stream;
+         pdfMsgObj.filterDisplay = { toggle: 1 };
 	 let placeCompoundKey = searchObj.area.place;
 	 let industryKey = searchObj.ranking_metric.industry;
 	 let itemCount = 26;  // This isnpt in search obj, so just setting it
@@ -111,7 +182,7 @@ var generatePDF = async function(
 	 let householdIncome = [searchObj.filter.householdIncome.min, searchObj.filter.householdIncome.max]; 
 	 let medianAge = [searchObj.filter.medianAge.min, searchObj.filter.medianAge.max];
 	 let revenuePerCapita = [searchObj.filter.revenuePerCapita.min, searchObj.filter.revenuePerCapita.max];
-	 let whiteCollarWorkers = searchObj.filter.whiteCollarWorkers.min;
+	 let whiteCollarWorkers = pdfMsgObj.filter.whiteCollarWorkers.min;
 	// I think bachelorsdegree or higher is left out
 
 
@@ -201,6 +272,7 @@ var generatePDF = async function(
       })
     }).catch(console.error);
 	*/
+  console.log(pdfMsgObj.error);
 };
 
 /**
@@ -352,39 +424,60 @@ function numberWithCommas(x) {
 
 function formatFilter(filterObj) {
   let filterText = '';
-  if (filterObj.totalRevenue) { 
-     filterText += 'total revenue between ' + formatDollars(filterObj.totalRevenue.min) + ' and ' + formatDollars(filterObj.totalRevenue.max) + ', ';
-  }
-  if (filterObj.averageRevenue) { 
-     filterText += 'average revenue between ' + formatDollars(filterObj.averageRevenue.min) + ' and ' + formatDollars(filterObj.averageRevenue.max) + ', ';
-  }
-  if (filterObj.totalEmployees) { 
-     filterText += 'between ' + numberWithCommas(filterObj.totalEmployees.min) + ' and ' + numberWithCommas(filterObj.totalEmployees.max) + 'employees, ';
-  }
-  if (filterObj.revenuePerCapita) { 
-     filterText += 'average revenue per capita between ' + formatDollars(filterObj.revenuePerCapita.min) + ' and ' + formatDollars(filterObj.revenuePerCapita.max) + ', ';
-  }
-  if (filterObj.revenuePerCapita) { 
-     filterText += 'household income between ' + formatDollars(filterObj.householdIncome.min) + ' and ' + formatDollars(filterObj.householdIncome.max) + ', ';
-  }
-  if (filterObj.medianAge) { 
-    if (filterObj.medianAge.max) {
-      filterText += 'median age between ' + filterObj.medianAge.min + ' and ' + filterObj.medianAge.max;
-    }
-    else {
-      filterText += 'median age greater than ' + filterObj.medianAge.min + ', ';
-    }
-  }
-  if (filterObj.highSchoolOrHigher) { 
+  filterText += addFilterText(filterObj.totalRevenue, 'both', 'total revenue', 'USD');
+  filterText += addFilterText(filterObj.averageRevenue, 'both', 'average revenue', 'USD');
+  filterText += addFilterText(filterObj.totalEmployees, 'both', ' total employees', 'number');
+  filterText += addFilterText(filterObj.revenuePerCapita, 'both', 'revenue per capita', 'USD');
+  filterText += addFilterText(filterObj.medianAge, 'both', 'median age');
+  if (filterObj.highSchoolOrHigher > 0) { 
      filterText += 'High School graduate rate of ' + filterObj.highSchoolOrHigher.min + '% or greater' + ', ';
   }
-  if (filterObj.bachelorsDegreeOrHigher) { 
+  if (filterObj.bachelorsDegreeOrHigher > 0) { 
      filterText += 'bachelors degree rate of ' + filterObj.highSchoolOrHigher.min + '% or greater, ';
   }
-  if (filterObj.whiteCollarWorkers) { 
+  if (filterObj.whiteCollarWorkers.min > 0) { 
      filterText += 'white collar worker rate of ' + filterObj.whiteCollarWorkers.min + '% or greater, ';
   }
   return filterText;
+}
+
+function addFilterText(paramObj, range, msg, format='') {
+  let moreText = '';
+  if (paramObj.min > 0 || paramObj.max != null) { 
+    moreText += msg + ' ';
+  }
+  if (paramObj.min > 0) {
+    moreText += 'greater than ';
+    if (format === 'USD') {
+      moreText += formatDollars(paramObj.min);
+    } else if (format === 'number') {
+      moreText += numberWithCommas(paramObj.min);
+    }
+    else {
+      moreText += paramObj.min;
+    }
+  }
+  if (paramObj.max != 'null') {
+      moreText +=  ' and less than ';
+    if (format === 'USD') {
+      moreText += formatDollars(paramObj.max);
+    } else if (format === 'number') {
+      moreText += numberWithCommas(paramObj.max);
+    } else {
+      moreText += paramObj.max;
+    }
+    moreText + ', ';
+  }
+  return moreText;
+}
+
+function miniPin(x, y, color, doc) {
+  doc.moveTo(x, y)   
+   .lineWidth(1)
+   .lineTo(x-2, y-3) 
+   .lineTo(x+2, y-3)
+   .circle(x, y-4, 2)
+   .fillAndStroke(color, color);
 }
   
 /****
@@ -462,7 +555,7 @@ async function buildPdf(pdfMsgObj, pdfColors) {
     .fillColor(pdfColors[4])
       .text(" miles from the current city");
       */
-  doc.image(pdfMsgObj.mapImgFile, 25, doc.y, { width: 562 } );
+  doc.image(pdfMsgObj.mapImgFile, 25, 246, { width: 562 } );
   // delete the image file
   fs.unlink(pdfMsgObj.mapImgFile, (err) => {
     if (err) {
@@ -491,7 +584,7 @@ async function buildPdf(pdfMsgObj, pdfColors) {
 
   doc.rect( 25, 528, 563, 22 );
   doc.fillAndStroke('#f3f3f3');
-  
+
   //  construct an array of x,y starting points for the bands
   let j = 0, n = 0; m = 0;
   let bandMinText, widthMinText, widthDash;
@@ -514,6 +607,7 @@ async function buildPdf(pdfMsgObj, pdfColors) {
       maximumFractionDigits: 0,
       minimumFractionDigits: 0 
     }).format(element.Min);
+    miniPin(startArr[j][0] - 4, startArr[j][1] + 5, pdfColors[i], doc);
     doc.text(bandMinText, startArr[j][0], startArr[j][1]);
     widthMinText = doc.widthOfString(bandMinText);
     doc.text(' - ', startArr[j][0] + widthMinText, startArr[j][1]);
@@ -569,6 +663,7 @@ async function buildPdf(pdfMsgObj, pdfColors) {
   for (let i=0; i<pdfMsgObj.zip.length; i++) {
     if (doc.y > 700) {
       doc.text(' ');
+      doc.text(' ');
     }
     pdfMsgObj.filterDisplay.toggle = 1;  // this controls the margins of the fields
                       // if it's not reset to 1 between areas
@@ -581,7 +676,7 @@ async function buildPdf(pdfMsgObj, pdfColors) {
     doc.fill()
     .fillColor('#ffffff')
     .text(String.fromCharCode(65 + i), 72, doc.y + 1, { continued: true } )
-    .fillColor(pdfColors[i])
+    .fillColor(pdfColors[getBand(i, pdfMsgObj)])
     .fontSize(15)
     .text("  ", { continued: true } )
     .text(pdfMsgObj.zip[i]) // , { continued: true })
@@ -612,7 +707,6 @@ async function buildPdf(pdfMsgObj, pdfColors) {
   // footer text
   pdfMsgObj.customerGraphics.writeFooter(doc, theme);
 
-//  console.log("pdfmsgob = ", pdfMsgObj);
 
   // Finalize the pdf file
   doc.end();
