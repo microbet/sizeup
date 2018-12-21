@@ -15,12 +15,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microbet/sizeup.git"
+    "url": "git+https://jay-softwaredev@bitbucket.org/sizeupteam/sizeup.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/microbet/sizeup/issues"
-  },
-  "homepage": "https://github.com/microbet/sizeup#readme"
 }

@@ -241,6 +241,7 @@ var generatePDF = async function(
     * Then build the pdf with that info
     */
 
+  /*
 	let place = await sizeup.data.getPlaceBySeokey(
         `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`);
 	let industry = await sizeup.data.getIndustryBySeokey(industryKey);
@@ -250,9 +251,9 @@ var generatePDF = async function(
    pdfMsgObj['displayIndustry'] = industry[0].Name;
    pdfMsgObj['bandArr'] = bestPlacesBands;
    successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
+   */
 	
 
-	/*
     Promise.all([
       sizeup.data.getPlaceBySeokey(
         `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`),
@@ -271,7 +272,6 @@ var generatePDF = async function(
         successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
       })
     }).catch(console.error);
-	*/
   console.log(pdfMsgObj.error);
 };
 
