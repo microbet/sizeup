@@ -219,12 +219,6 @@ var generatePDF = async function(
       '#007bff', // blue
     ]
 
-    /**
-    * Any given search can have many different filters, but having many filters
-    * would make it difficult to have a nice presentation.  In the current state
-    * it may cause there to be a second page.  
-    */
-
     if (averageRevenue[0] === 0 && averageRevenue[1] === null) { pdfMsgObj.filterDisplay.averageRevenue = true; }
     if (totalEmployees[0] === 0 && totalEmployees[1] === null) { pdfMsgObj.filterDisplay.totalEmployees = true; }
     if (totalRevenue[0] === 0 && totalRevenue[1] === null) { pdfMsgObj.filterDisplay.totalRevenue = true; }
