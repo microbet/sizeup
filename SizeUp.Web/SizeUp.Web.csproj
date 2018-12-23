@@ -545,6 +545,7 @@
     <Content Include="Scripts\thirdParty\tinycolor-min.js" />
     <Content Include="Scripts\tracking\outboundLinks.js" />
     <Content Include="Scripts\util\numbers\format.js" />
+    <Content Include="Scripts\util\query.js" />
     <Content Include="Scripts\views\marketing\marketing.js" />
     <Content Include="Scripts\views\bestPlaces\pickIndustry.js" />
     <Content Include="Scripts\views\business\business.js" />

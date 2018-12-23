@@ -1,7 +1,6 @@
 ﻿
 (function () {
-    sizeup.core.namespace('sizeup.util.numbers.format');
-    sizeup.util.numbers.format =  {
+    var exported_objects = {
         addCommas: function(number) {
             number += '';
             x = number.split('.');
@@ -71,4 +70,14 @@
             }
         }
     };
+    
+    // Export objects: first to sizeup.core.namespace system, designed for
+    // browsers. If that doesn't exist, presume we're in ES5 Node environment.
+    if (typeof sizeup !== "undefined" && typeof sizeup.core !== "undefined") {
+        sizeup.core.namespace('sizeup.util.numbers.format');
+        sizeup.util.numbers.format = exported_objects;
+    } else {
+        module.exports = exported_objects;
+    }
+    
 })();
