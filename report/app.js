@@ -35,6 +35,11 @@ function formatCamelToDisplay(input) {
   return input_arr.join('');
 }
 
+// Translate the query filter name to the API return item filter name
+function filterToItemFilter(filter) {
+  return filter.charAt(0).toUpperCase() + filter.slice(1);
+}
+
 /*
 * this is used for the temporary image file name.  I think there is a better
 * way to do this with the temp directory, but I don't see it immediately and
@@ -134,6 +139,11 @@ function filloutPdfFilter(pdfMsgObj) {
     pdfMsgObj.error += 'Total Employees ' + err;
   }
 }
+ 
+var moneyRangeFilters = ["totalRevenue", "averageRevenue", "revenuePerCapita"];
+var moneyFilters = ["householdIncome", "householdExpenditures"];
+var scalarRangeFilters = ["totalEmployees"];
+var scalarFilters = ["medianAge", "whiteCollarWorkers", "bachelorsDegreeOrHigher", "highSchoolOrHigher"];
 
 /***
 * Function that can be called from outside.  Starts the process.
@@ -154,37 +164,14 @@ var generatePDF = async function(
         pdfMsgObj.filter = searchObj.filter;
         filloutPdfFilter(pdfMsgObj);
         pdfMsgObj.title = searchObj.title;
-	// bands wasn't part of the search obj, so I'm just setting it
-	// to 5
 	 pdfMsgObj.bands = 5;
-	 let bands = pdfMsgObj.bands;
 	 pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
-	 let sortAttribute = pdfMsgObj.sortAttribute;
          pdfMsgObj.distance = searchObj.area.distance;
-	 let distance = pdfMsgObj.distance;
 	 pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
-	 let attribute = pdfMsgObj.attribute;
-         pdfMsgObj.displayAttribute = formatCamelToDisplay(attribute);
+         pdfMsgObj.displayAttribute = formatCamelToDisplay(pdfMsgObj.attribute);
          pdfMsgObj.customerGraphics = customerObj.getReportGraphics(customerKey);
          pdfMsgObj.stream = stream;
          pdfMsgObj.filterDisplay = { toggle: 1 };
-	 let placeCompoundKey = searchObj.area.place;
-	 let industryKey = searchObj.ranking_metric.industry;
-	 let itemCount = 26;  // This isnpt in search obj, so just setting it
-	 let order = 'highToLow'; // don't see this is search obj
-	 let page = 1;  // not sure what page is
-	 let sort = searchObj.ranking_metric.order; // doesn't seem right, but maybe is
-	 let totalEmployees = [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max];
-	 let totalRevenue = [searchObj.filter.totalRevenue.min, searchObj.filter.totalRevenue.max];
-	 let averageRevenue = searchObj.filter.averageRevenue;
-	 let highSchoolOrHigher = searchObj.filter.highSchoolOrHigher.min;
-	 let householdExpenditures = [searchObj.filter.householdExpenditures.min, searchObj.filter.householdExpenditures.max];
-	 let householdIncome = [searchObj.filter.householdIncome.min, searchObj.filter.householdIncome.max]; 
-	 let medianAge = [searchObj.filter.medianAge.min, searchObj.filter.medianAge.max];
-	 let revenuePerCapita = [searchObj.filter.revenuePerCapita.min, searchObj.filter.revenuePerCapita.max];
-	 let whiteCollarWorkers = pdfMsgObj.filter.whiteCollarWorkers.min;
-	// I think bachelorsdegree or higher is left out
-
 
     /****
     * These colors are from SizeUp design and are used in the pdf
@@ -219,46 +206,58 @@ var generatePDF = async function(
       '#007bff', // blue
     ]
 
-    if (averageRevenue[0] === 0 && averageRevenue[1] === null) { pdfMsgObj.filterDisplay.averageRevenue = true; }
-    if (totalEmployees[0] === 0 && totalEmployees[1] === null) { pdfMsgObj.filterDisplay.totalEmployees = true; }
-    if (totalRevenue[0] === 0 && totalRevenue[1] === null) { pdfMsgObj.filterDisplay.totalRevenue = true; }
-    if (householdIncome[0] === 0 && householdIncome[1] === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
-    if (revenuePerCapita[0] === 0 && revenuePerCapita === null) { pdfMsgObj.filterDisplay.revenuePerCapita = true; }
-    if (highSchoolOrHigher != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
-    if (medianAge != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
-    if (whiteCollarWorkers != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
+    for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
+      if (searchObj.filter[filter].min === 0 && searchObj.filter[filter].max === null) {
+        pdfMsgObj.filterDisplay[filter] = true;
+      }
+    }
+    // I can't quite figure this one. I made the "*Filters" arrays based on how they
+    // were used in successCallback. But here it seems like more of them are range
+    // filters. The UI is confusing. Really all of them are range filters, but some
+    // of them don't let the user control the "max" part of the range. I'm leaving
+    // these, will clean up later.
+    if (searchObj.filter.householdIncome.min === 0 && searchObj.filter.householdIncome.max === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
+    if (searchObj.filter.highSchoolOrHigher.min != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
+    if (searchObj.filter.medianAge.min != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
+    if (pdfMsgObj.filter.whiteCollarWorkers.min != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
     pdfMsgObj.filterDisplay.population = true;
 
     /***
     * Communication with sizeup api
     * Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
     * Then build the pdf with that info
-    */
-
-  /*
-	let place = await sizeup.data.getPlaceBySeokey(
-        `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`);
-	let industry = await sizeup.data.getIndustryBySeokey(industryKey);
-   let bestPlaces = await sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } );
-	let bestPlacesBands = await sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } );
-   pdfMsgObj['displayLocation'] = place[0].City.LongName;
-   pdfMsgObj['displayIndustry'] = industry[0].Name;
-   pdfMsgObj['bandArr'] = bestPlacesBands;
-   successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
-   */
-	
+    */	
 
     Promise.all([
       sizeup.data.getPlaceBySeokey(
-        `${placeCompoundKey.state}/${placeCompoundKey.county}/${placeCompoundKey.city}`),
-      sizeup.data.getIndustryBySeokey(industryKey)
+        `${searchObj.area.place.state}/${searchObj.area.place.county}/${searchObj.area.place.city}`),
+      sizeup.data.getIndustryBySeokey(searchObj.ranking_metric.industry)
     ]).then(([place, industry]) => {
-        sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } )
+      var argument_list = {
+        totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
+        highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
+        householdExpenditures: [searchObj.filter.householdExpenditures.min, searchObj.filter.householdExpenditures.max],
+        householdIncome: [searchObj.filter.householdIncome.min, searchObj.filter.householdIncome.max],
+        medianAge: [searchObj.filter.medianAge.min, searchObj.filter.medianAge.max],
+        revenuePerCapita: [searchObj.filter.revenuePerCapita.min, searchObj.filter.revenuePerCapita.max],
+        whiteCollarWorkers: searchObj.filter.whiteCollarWorkers.min,
+        totalRevenue: [searchObj.filter.totalRevenue.min, searchObj.filter.totalRevenue.max],
+        bands: 5,  // bands wasn't part of the search obj, so I'm just setting it to 5
+        industryId: industry[0].Id,
+        order: 'highToLow',  // don't see this is search obj
+        page: 1,  // not sure what page is
+        sort: searchObj.ranking_metric.order,  // doesn't seem right, but maybe is
+        sortAttribute: searchObj.ranking_metric.kpi,  // I think
+        geographicLocationId: place[0].Id,
+        distance: searchObj.area.distance,
+        attribute: searchObj.ranking_metric.kpi  // not sure
+        // I think bachelorsdegree or higher is left out
+      }
       Promise.all([
         Promise.resolve(place),
         Promise.resolve(industry),
-        sizeup.data.getBestPlacesToAdvertise( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } ),
-        sizeup.data.getBestPlacesToAdvertiseBands( { totalEmployees: totalEmployees, highSchoolOrHigher: highSchoolOrHigher, householdExpenditures: householdExpenditures, householdIncome: householdIncome, medianAge: medianAge, revenuePerCapita: revenuePerCapita, whiteCollarWorkers: whiteCollarWorkers, totalRevenue: totalRevenue, bands: bands, industryId: industry[0].Id, order: order, page: page, sort: sort, sortAttribute: sortAttribute, geographicLocationId: place[0].Id, distance: distance, attribute: attribute } )
+        sizeup.data.getBestPlacesToAdvertise(argument_list),
+        sizeup.data.getBestPlacesToAdvertiseBands(argument_list)
       ]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
         pdfMsgObj['displayLocation'] = place[0].City.LongName;
         pdfMsgObj['displayIndustry'] = industry[0].Name;
@@ -295,27 +294,39 @@ function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
   pdfMsgObj.whiteCollarWorkers = [];
   pdfMsgObj.bachelorsDegreeOrHigher = [];
   pdfMsgObj.highSchoolOrHigher = [];
+  var currencyFormat = {
+    style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0
+  };
   for (element of result) {
     i++;
     pdfMsgObj['zip'].push(element.ZipCode.Name);
 //    console.log(element);   // good for debugging
     pdfMsgObj['centroidLng'].push(element.Centroid.Lng);
     pdfMsgObj['centroidLat'].push(element.Centroid.Lat);
-    pdfMsgObj['totalRevenueMin'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.TotalRevenue.Min));  // throws an error if maxFDig is set to 0, but not minFDig 
-    pdfMsgObj['totalRevenueMax'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.TotalRevenue.Max));
     pdfMsgObj['population'].push(element.Population);
-    pdfMsgObj['averageRevenueMin'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.AverageRevenue.Min));
-    pdfMsgObj['averageRevenueMax'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.AverageRevenue.Max));
-    pdfMsgObj['totalEmployeesMin'].push(element.TotalEmployees.Min);
-    pdfMsgObj['totalEmployeesMax'].push(element.TotalEmployees.Max);
-    pdfMsgObj['revenuePerCapitaMin'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.RevenuePerCapita.Min));
-    pdfMsgObj['revenuePerCapitaMax'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.RevenuePerCapita.Max));
-    pdfMsgObj['householdIncome'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.HouseholdIncome));
-    pdfMsgObj['medianAge'].push(element.MedianAge);
-    pdfMsgObj['householdExpenditures'].push(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(element.HouseholdExpenditures));
-    pdfMsgObj['whiteCollarWorkers'].push(element.WhiteCollarWorkers);
-    pdfMsgObj['bachelorsDegreeOrHigher'].push(element.BachelorsDegreeOrHigher);
-    pdfMsgObj['highSchoolOrHigher'].push(element.HighSchoolOrHigher);
+
+    for (filter of moneyRangeFilters) {
+      pdfMsgObj[filter+'Min'].push(
+        Intl.NumberFormat('en-US', currencyFormat).format(element[filterToItemFilter(filter)].Min));
+      // throws an error if maxFDig is set to 0, but not minFDig
+      pdfMsgObj[filter+'Max'].push(
+        Intl.NumberFormat('en-US', currencyFormat).format(element[filterToItemFilter(filter)].Max));
+    }
+
+    for (filter of moneyFilters) {
+      pdfMsgObj[filter].push(
+        Intl.NumberFormat('en-US', currencyFormat).format(element[filterToItemFilter(filter)]));
+    }
+
+    for (filter of scalarFilters) {
+      pdfMsgObj[filter].push(element[filterToItemFilter(filter)]);
+    }
+
+    for (filter of scalarRangeFilters) {
+      pdfMsgObj[filter+'Min'].push(element[filterToItemFilter(filter)].Min);
+      pdfMsgObj[filter+'Max'].push(element[filterToItemFilter(filter)].Max);
+    }
+
     if (i >= 26) { break; }
   }
   startPdf(pdfMsgObj, pdfColors);
