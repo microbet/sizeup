@@ -154,73 +154,6 @@ var generatePDF = async function(
     customerKey,
 	 customerObj,
     stream) {
-  
-    // pdfMsgObj holds most of the data to be used in the pdf
-	// if the bestplacestoadvertise functions took the objects
-	// a lot of this wouldn't be necessary
-  
-    let pdfMsgObj = {};
-        pdfMsgObj.error = '';
-        pdfMsgObj.filter = searchObj.filter;
-        filloutPdfFilter(pdfMsgObj);
-        pdfMsgObj.title = searchObj.title;
-	 pdfMsgObj.bands = 5;
-	 pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
-         pdfMsgObj.distance = searchObj.area.distance;
-	 pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
-         pdfMsgObj.displayAttribute = formatCamelToDisplay(pdfMsgObj.attribute);
-         pdfMsgObj.customerGraphics = customerObj.getReportGraphics(customerKey);
-         pdfMsgObj.stream = stream;
-         pdfMsgObj.filterDisplay = { toggle: 1 };
-
-    /****
-    * These colors are from SizeUp design and are used in the pdf
-    */ 
-
-    let pdfColors = [   
-      '#dc3545', // red
-      '#28a745', // green
-      '#007bff', // blue
-      '#fd7e14', // orange
-      '#343a40', // dark grey
-      '#6c757d', // gray
-      '#dc3545', // red
-      '#28a745', // green
-      '#007bff', // blue
-      '#fd7e14', // orange
-      '#343a40', // dark grey
-      '#6c757d', // gray
-      '#dc3545', // red
-      '#28a745', // green
-      '#007bff', // blue
-      '#fd7e14', // orange
-      '#343a40', // dark grey
-      '#6c757d', // gray
-      '#dc3545', // red
-      '#28a745', // green
-      '#007bff', // blue
-      '#fd7e14', // orange
-      '#343a40', // dark grey
-      '#dc3545', // red
-      '#28a745', // green
-      '#007bff', // blue
-    ]
-
-    for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
-      if (searchObj.filter[filter].min === 0 && searchObj.filter[filter].max === null) {
-        pdfMsgObj.filterDisplay[filter] = true;
-      }
-    }
-    // I can't quite figure this one. I made the "*Filters" arrays based on how they
-    // were used in successCallback. But here it seems like more of them are range
-    // filters. The UI is confusing. Really all of them are range filters, but some
-    // of them don't let the user control the "max" part of the range. I'm leaving
-    // these, will clean up later.
-    if (searchObj.filter.householdIncome.min === 0 && searchObj.filter.householdIncome.max === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
-    if (searchObj.filter.highSchoolOrHigher.min != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
-    if (searchObj.filter.medianAge.min != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
-    if (pdfMsgObj.filter.whiteCollarWorkers.min != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
-    pdfMsgObj.filterDisplay.population = true;
 
     /***
     * Communication with sizeup api
@@ -232,7 +165,9 @@ var generatePDF = async function(
       sizeup.data.getPlaceBySeokey(
         `${searchObj.area.place.state}/${searchObj.area.place.county}/${searchObj.area.place.city}`),
       sizeup.data.getIndustryBySeokey(searchObj.ranking_metric.industry)
-    ]).then(([place, industry]) => {
+    ])
+    
+    .then(([place, industry]) => {
       var argument_list = {
         totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
         highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
@@ -258,14 +193,17 @@ var generatePDF = async function(
         Promise.resolve(industry),
         sizeup.data.getBestPlacesToAdvertise(argument_list),
         sizeup.data.getBestPlacesToAdvertiseBands(argument_list)
-      ]).then(([place, industry, bestPlaces, bestPlacesBands]) => {
-        pdfMsgObj['displayLocation'] = place[0].City.LongName;
-        pdfMsgObj['displayIndustry'] = industry[0].Name;
-        pdfMsgObj['bandArr'] = bestPlacesBands;
-        successCallback(pdfMsgObj, pdfColors, bestPlaces.Items, "Best Places to Advertise"); 
+      ])
+      
+      .then(([place, industry, bestPlaces, bestPlacesBands]) => {
+        successCallback(
+          searchObj,
+          place[0].City.LongName, industry[0].Name,
+          customerObj.getReportGraphics(customerKey),
+          bestPlacesBands, bestPlaces.Items, "Best Places to Advertise",
+          stream);
       })
     }).catch(console.error);
-  console.log(pdfMsgObj.error);
 };
 
 /**
@@ -274,8 +212,51 @@ var generatePDF = async function(
  *  A lot of formatting in here.  Max output is 3.  It's hard to present more on one page.
  */
 
-function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
+function successCallback(
+  searchObj, displayLocation, displayIndustry, customerGraphics,
+  bandArr, result, msg="success", stream
+) {
   let i=0;
+  
+  // pdfMsgObj holds most of the data to be used in the pdf
+  // if the bestplacestoadvertise functions took the objects
+  // a lot of this wouldn't be necessary
+
+  let pdfMsgObj = {};
+
+  pdfMsgObj['displayLocation'] = displayLocation;
+  pdfMsgObj['displayIndustry'] = displayIndustry;
+  pdfMsgObj['bandArr'] = bandArr;
+  
+  pdfMsgObj.error = '';
+  pdfMsgObj.filter = searchObj.filter;
+  filloutPdfFilter(pdfMsgObj);
+  pdfMsgObj.title = searchObj.title;
+  pdfMsgObj.bands = 5;
+  pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
+  pdfMsgObj.distance = searchObj.area.distance;
+  pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
+  pdfMsgObj.displayAttribute = formatCamelToDisplay(pdfMsgObj.attribute);
+  pdfMsgObj.customerGraphics = customerGraphics;
+  pdfMsgObj.stream = stream;
+  pdfMsgObj.filterDisplay = { toggle: 1 };
+
+  for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
+    if (searchObj.filter[filter].min === 0 && searchObj.filter[filter].max === null) {
+      pdfMsgObj.filterDisplay[filter] = true;
+    }
+  }
+  // I can't quite figure this one. I made the "*Filters" arrays based on how they
+  // were used in successCallback. But here it seems like more of them are range
+  // filters. The UI is confusing. Really all of them are range filters, but some
+  // of them don't let the user control the "max" part of the range. I'm leaving
+  // these, will clean up later.
+  if (searchObj.filter.householdIncome.min === 0 && searchObj.filter.householdIncome.max === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
+  if (searchObj.filter.highSchoolOrHigher.min != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
+  if (searchObj.filter.medianAge.min != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
+  if (pdfMsgObj.filter.whiteCollarWorkers.min != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
+  pdfMsgObj.filterDisplay.population = true;
+
   pdfMsgObj.zip = [];
   pdfMsgObj.centroidLng = [];
   pdfMsgObj.centroidLat = [];
@@ -329,7 +310,8 @@ function successCallback(pdfMsgObj, pdfColors, result, msg="success") {
 
     if (i >= 26) { break; }
   }
-  startPdf(pdfMsgObj, pdfColors);
+  startPdf(pdfMsgObj);
+  console.log(pdfMsgObj.error);
 }
 
 function failureCallback(error) {
@@ -362,7 +344,40 @@ function getBand(n, pdfMsgObj) {
 *  is brought into the pdf. 
 */
  
-function startPdf(pdfMsgObj, pdfColors) {
+function startPdf(pdfMsgObj) {
+
+  /****
+  * These colors are from SizeUp design and are used in the pdf
+  */ 
+
+  let pdfColors = [   
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#6c757d', // gray
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#6c757d', // gray
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#6c757d', // gray
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+  ]
 
   // building the markers string for the pins on the map, then download the static map
 
