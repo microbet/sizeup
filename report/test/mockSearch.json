@@ -1,4 +1,5 @@
 {
+  "title": "This report provided by your friendly neighborhood business banker",
   "template": "What are the ${granularity} places in ${area}, ranked by ${ranking_metric}, given ${filters}?",
   "granularity": "ZipCode",
   "area": {
@@ -6,13 +7,13 @@
     "distance": "11",
     "place": {
       "state": "texas",
-      "county": "collin",
-      "city": "dallas-city"
+      "county": "tarrant",
+      "city": "fort-worth-city"
     }
   },
   "ranking_metric": {
     "template": "${kpi} in ${industry} (${order})",
-    "kpi": "revenuePerCapita",
+    "kpi": "averageRevenue",
     "industry": "shoe-and-footwear-stores",
     "order": "desc"
   },

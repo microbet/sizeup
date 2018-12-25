@@ -18,7 +18,7 @@ function getStaticMap(optionsObj) {
             "data:" +
               response.headers["content-type"] +
               ";base64," +
-              new Buffer(body) // .toString("base64")
+              new Buffer(body).toString("base64")
           );
         } else {
 		  console.log('okey');
@@ -34,6 +34,7 @@ function getStaticMap(optionsObj) {
 //      request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
 //    });
 //  };
+//
 
 module.exports = {
 	getStaticMap: getStaticMap,

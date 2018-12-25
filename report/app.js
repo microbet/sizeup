@@ -6,23 +6,6 @@ const request = require('request');
 const staticMap = require('./mapGenerator.js');
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
-/*
-function setSizeup(sizeupObj) {
-  sizeup = sizeupObj;
-}
-*/
-  /***
-  reference - colors from sizeup
-  --blue:#007bff;   --indigo:#6610f2;   --purple:#6f42c1;   --pink:#e83e8c;
-  --red:#dc3545;    --orange:#fd7e14;   --yellow:#ffc107;   --green:#28a745;
-  --teal:#20c997;   --cyan:#17a2b8;     --white:#fff;     --gray:#6c757d;
-  --gray-dark:#343a40; --primary:#007bff;   --secondary:#6c757d;  --success:#28a745;
-  --info:#17a2b8;   --warning:#ffc107;    --danger:#dc3545;   --light:#f8f9fa;
-  --dark:#343a40;
-  */
-
-// display the search criteria to the user as capitalized words
-// instead of one camelcased word
 
 function formatCamelToDisplay(input) {
   input_arr = input.split('');
@@ -149,17 +132,7 @@ var scalarFilters = ["medianAge", "whiteCollarWorkers", "bachelorsDegreeOrHigher
 * Function that can be called from outside.  Starts the process.
 */
 
-var generatePDF = async function(
-	 searchObj,
-    customerKey,
-	 customerObj,
-    stream) {
-
-    /***
-    * Communication with sizeup api
-    * Get the info from the sizeup api, then in successCallback put the return info into the pdfMsgObj
-    * Then build the pdf with that info
-    */	
+var generatePDF = function( searchObj, customerKey, customerObj, stream) {
 
     Promise.all([
       sizeup.data.getPlaceBySeokey(
@@ -168,6 +141,8 @@ var generatePDF = async function(
     ])
     
     .then(([place, industry]) => {
+    //  searchObj.ranking_metric.kpi = 'averageRevenue'; // works
+    //  searchObj.ranking_metric.kpi = 'totalRevenue'; // doesn't - test directly against api
       var argument_list = {
         totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
         highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
@@ -185,8 +160,7 @@ var generatePDF = async function(
         sortAttribute: searchObj.ranking_metric.kpi,  // I think
         geographicLocationId: place[0].Id,
         distance: searchObj.area.distance,
-        attribute: searchObj.ranking_metric.kpi  // not sure
-        // I think bachelorsdegree or higher is left out
+        attribute: searchObj.ranking_metric.kpi,  // not sure
       }
       Promise.all([
         Promise.resolve(place),
@@ -196,6 +170,7 @@ var generatePDF = async function(
       ])
       
       .then(([place, industry, bestPlaces, bestPlacesBands]) => {
+  //      console.log("place = ", place);
         successCallback(
           searchObj,
           place[0].City.LongName, industry[0].Name,
@@ -212,10 +187,43 @@ var generatePDF = async function(
  *  A lot of formatting in here.  Max output is 3.  It's hard to present more on one page.
  */
 
+function getCentroids(objWithCentroids) {
+  let centroidArr = [];
+  for (element of objWithCentroids) {
+    centroidArr.push( { 'latitude' : element.Centroid.Lat, 'longitude' : element.Centroid.Lng } );
+  }
+  return centroidArr;
+}
+
+function getMapOptionsArr(centroidArr, pdfColors) {
+  let markerStr = '';
+  let markerLabel = '';
+  for (let i=0; i<centroidArr.length; i++) {
+    markerLabel = String.fromCharCode(65 + i);
+    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
+  }
+  let optionsObj = {
+	  url: 'https://maps.googleapis.com/maps/api/staticmap',
+	  size: '600x300',
+	  maptype: 'roadmap',
+	  markerStr: markerStr,
+	  key: process.env.GOOGLEMAP_KEY, 
+  }
+  return optionsObj;
+}
+
 function successCallback(
   searchObj, displayLocation, displayIndustry, customerGraphics,
-  bandArr, result, msg="success", stream
+  bandArr, resultObj, msg="success", stream
 ) {
+ // console.log(searchObj);
+  // console.log(resultObj);
+
+  // trying to get the image stream  - key should probably be put in environment variable
+  //
+  // searchObj is the search parameters
+  // result, displayLocation, displayIndustry, customerGraphics and bandArr
+  // are all results of the query
   let i=0;
   
   // pdfMsgObj holds most of the data to be used in the pdf
@@ -278,7 +286,8 @@ function successCallback(
   var currencyFormat = {
     style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0
   };
-  for (element of result) {
+ // console.log("here: ", resultObj);
+  for (element of resultObj) {
     i++;
     pdfMsgObj['zip'].push(element.ZipCode.Name);
 //    console.log(element);   // good for debugging
@@ -310,7 +319,7 @@ function successCallback(
 
     if (i >= 26) { break; }
   }
-  startPdf(pdfMsgObj);
+  startPdf(pdfMsgObj, resultObj);
   console.log(pdfMsgObj.error);
 }
 
@@ -319,10 +328,10 @@ function failureCallback(error) {
 }
 
 /****
- * note: If more than one pdf style is necessary it would not be hard
- * to make a template and then some markup for inserting values of the
- * pdfMsgObj. 
+ * getBand returns the band in which the pdfMsgObj belongs
  */
+
+// this needs to know which filter
 
 function getBand(n, pdfMsgObj) {
   for(let i=0; i<pdfMsgObj.bandArr.length; i++) {
@@ -344,7 +353,7 @@ function getBand(n, pdfMsgObj) {
 *  is brought into the pdf. 
 */
  
-function startPdf(pdfMsgObj) {
+function startPdf(pdfMsgObj, resultObj) {
 
   /****
   * These colors are from SizeUp design and are used in the pdf
@@ -378,8 +387,32 @@ function startPdf(pdfMsgObj) {
     '#28a745', // green
     '#007bff', // blue
   ]
+  /*
 
   // building the markers string for the pins on the map, then download the static map
+
+  let centroidArr = getCentroids(resultObj);
+  let mapOptionsObj = await getMapOptionsArr(centroidArr, pdfColors);
+  let googleMap = staticMap.getStaticMap(mapOptionsObj);
+//  console.log("googlemap from successcallback is ", googleMap);
+  */
+  
+  /*
+function getMapOptionsArr(centroidArr, pdfColors) {
+  let markerStr = '';
+  let markerLabel = '';
+  for (let i=0; i<centroidArr.length; i++) {
+    markerLabel = String.fromCharCode(65 + i);
+    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
+  }
+  let optionsObj = {
+	  url: 'https://maps.googleapis.com/maps/api/staticmap',
+	  size: '600x300',
+	  maptype: 'roadmap',
+	  markerStr: markerStr,
+	  key: process.env.GOOGLEMAP_KEY, 
+  }
+  return optionsObj;
 
   let markerStr = '';
   let whichBand = 0;
@@ -401,8 +434,26 @@ function startPdf(pdfMsgObj) {
     pdfMsgObj.mapImgFile = mapImgFile;
   download(url,  mapImgFile, function(){
     pdfMsgObj.mapImgFile = mapImgFile;
-    buildPdf(pdfMsgObj, pdfColors);
+    buildPdf(pdfMsgObj, pdfColors, googleMap);
   });
+  */
+  let markerStr = '';
+  let whichBand = 0;
+  let centroidArr = getCentroids(resultObj);
+  for (let i=0; i<centroidArr.length; i++) {
+    let markerLabel = String.fromCharCode(65 + i);
+    // I need to know what band it's in to get the color
+    whichBand = getBand(i, pdfMsgObj);
+    markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
+  }
+  const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
+  var request = require('request').defaults({ encoding: null });
+  request.get(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
+      buildPdf(pdfMsgObj, pdfColors, body);
+    }
+  })
 }
 
 // instead of calling startPdf and having that call buildPdf I should just call buildPdf and 
@@ -505,12 +556,14 @@ function miniPin(x, y, color, doc) {
  * pdfkit module
  */
 
-async function buildPdf(pdfMsgObj, pdfColors) {
+function buildPdf(pdfMsgObj, pdfColors, googleMap) {
   
   // Create a document
   let doc = new PDFDocument;
   doc.pipe(pdfMsgObj.stream);
   
+  doc.image(googleMap, 25, 246, { width: 562 } );
+
   let theme = { text: { color: pdfColors[2] } };
   
   // Draw a rectangle for the header 
@@ -575,6 +628,25 @@ async function buildPdf(pdfMsgObj, pdfColors) {
     .fillColor(pdfColors[4])
       .text(" miles from the current city");
       */
+  /*
+function getMapOptionsArr(centroidArr, pdfColors) {
+  let markerStr = '';
+  let markerLabel = '';
+  for (let i=0; i<centroidArr.length; i++) {
+    markerLabel = String.fromCharCode(65 + i);
+    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
+  }
+  let optionsObj = {
+	  url: 'https://maps.googleapis.com/maps/api/staticmap',
+	  size: '600x300',
+	  maptype: 'roadmap',
+	  markerStr: markerStr,
+	  key: process.env.GOOGLEMAP_KEY, 
+  }
+  return optionsObj;
+}
+*/
+  /*
   doc.image(pdfMsgObj.mapImgFile, 25, 246, { width: 562 } );
   // delete the image file
   fs.unlink(pdfMsgObj.mapImgFile, (err) => {
@@ -582,7 +654,8 @@ async function buildPdf(pdfMsgObj, pdfColors) {
       console.log("error deleting ", pdfMsgObj.mapImgFile, " :", err);
     }
   });
-  
+  */
+ /* 
   // trying to get the image stream  - key should probably be put in environment variable
   let markerStr = '';
   for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
@@ -595,7 +668,9 @@ async function buildPdf(pdfMsgObj, pdfColors) {
 	  markerStr: markerStr,
 	  key: process.env.GOOGLEMAP_KEY, 
   }
-//  let googleMap = await staticMap.getStaticMap(optionsObj);
+  let googleMap = staticMap.getStaticMap(optionsObj);
+  */
+ // console.log(googleMap);
 //  doc.image(googleMap, 25, doc.y, { width: 562 } );
   // the bands 
   doc.fontSize(8);
