@@ -20,7 +20,7 @@ const filename = "trav.pdf";
 const stream = require("fs").createWriteStream(filename);
 
 function done() {
-//  stream.close();
+ // stream.close();
   console.log("Wrote ", filename);
 }
 
@@ -35,4 +35,4 @@ Promise.all([pdf.generatePDF(
   customerObj,	
   stream)]).then(() => {
     done();
-  }).catch(fail());   // was working kinda
+  }).catch(fail());  

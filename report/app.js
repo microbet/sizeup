@@ -23,33 +23,6 @@ function filterToItemFilter(filter) {
   return filter.charAt(0).toUpperCase() + filter.slice(1);
 }
 
-/*
-* this is used for the temporary image file name.  I think there is a better
-* way to do this with the temp directory, but I don't see it immediately and
-* I'm afraid that might cause a bug when moving to a production env I don't 
-* know at this point.
-*/
-
-function IDGenerator() { 
-   
-  let length = 15;
-  let timestamp = +new Date;
-     
-  let _getRandomInt = function( min, max ) {
-    return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-  }
-     
-  let ts = timestamp.toString();
-  let parts = ts.split( "" ).reverse();
-  let id = "";
-  let index = "";
-  for( let i = 0; i < length; ++i ) {
-      index = _getRandomInt( 0, parts.length - 1 );
-      id += parts[index];  
-  }
-  return id;
-}
-
 /***
  * It's just easier later if we know all the filter terms are 
  * defined. Also, everything probably comes in as a string,
@@ -219,17 +192,11 @@ function successCallback(
  // console.log(searchObj);
   // console.log(resultObj);
 
-  // trying to get the image stream  - key should probably be put in environment variable
-  //
   // searchObj is the search parameters
   // result, displayLocation, displayIndustry, customerGraphics and bandArr
   // are all results of the query
   let i=0;
   
-  // pdfMsgObj holds most of the data to be used in the pdf
-  // if the bestplacestoadvertise functions took the objects
-  // a lot of this wouldn't be necessary
-
   let pdfMsgObj = {};
 
   pdfMsgObj['displayLocation'] = displayLocation;
@@ -387,56 +354,7 @@ function startPdf(pdfMsgObj, resultObj) {
     '#28a745', // green
     '#007bff', // blue
   ]
-  /*
-
-  // building the markers string for the pins on the map, then download the static map
-
-  let centroidArr = getCentroids(resultObj);
-  let mapOptionsObj = await getMapOptionsArr(centroidArr, pdfColors);
-  let googleMap = staticMap.getStaticMap(mapOptionsObj);
-//  console.log("googlemap from successcallback is ", googleMap);
-  */
   
-  /*
-function getMapOptionsArr(centroidArr, pdfColors) {
-  let markerStr = '';
-  let markerLabel = '';
-  for (let i=0; i<centroidArr.length; i++) {
-    markerLabel = String.fromCharCode(65 + i);
-    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
-  }
-  let optionsObj = {
-	  url: 'https://maps.googleapis.com/maps/api/staticmap',
-	  size: '600x300',
-	  maptype: 'roadmap',
-	  markerStr: markerStr,
-	  key: process.env.GOOGLEMAP_KEY, 
-  }
-  return optionsObj;
-
-  let markerStr = '';
-  let whichBand = 0;
-  for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
-    let markerLabel = String.fromCharCode(65 + i);
-    // I need to know what band it's in to get the color
-    whichBand = getBand(i, pdfMsgObj);
-    markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
-  }
-  const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
-  var download = function(uri, filename, callback){
-    request.head(uri, function(err, res, body){
-      request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-    });
-  };
-
-  let mapImgFile = IDGenerator();  // create the random/unique name
-  mapImgFile = mapImgFile + '.png';
-    pdfMsgObj.mapImgFile = mapImgFile;
-  download(url,  mapImgFile, function(){
-    pdfMsgObj.mapImgFile = mapImgFile;
-    buildPdf(pdfMsgObj, pdfColors, googleMap);
-  });
-  */
   let markerStr = '';
   let whichBand = 0;
   let centroidArr = getCentroids(resultObj);
@@ -456,11 +374,6 @@ function getMapOptionsArr(centroidArr, pdfColors) {
   })
 }
 
-// instead of calling startPdf and having that call buildPdf I should just call buildPdf and 
-// from inside of there I could call getStaticMap and that could be in another file
-
-
-// are there no max's showing?
 function showFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
   let startX;
   if (pdfMsgObj.filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
@@ -628,50 +541,6 @@ function buildPdf(pdfMsgObj, pdfColors, googleMap) {
     .fillColor(pdfColors[4])
       .text(" miles from the current city");
       */
-  /*
-function getMapOptionsArr(centroidArr, pdfColors) {
-  let markerStr = '';
-  let markerLabel = '';
-  for (let i=0; i<centroidArr.length; i++) {
-    markerLabel = String.fromCharCode(65 + i);
-    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
-  }
-  let optionsObj = {
-	  url: 'https://maps.googleapis.com/maps/api/staticmap',
-	  size: '600x300',
-	  maptype: 'roadmap',
-	  markerStr: markerStr,
-	  key: process.env.GOOGLEMAP_KEY, 
-  }
-  return optionsObj;
-}
-*/
-  /*
-  doc.image(pdfMsgObj.mapImgFile, 25, 246, { width: 562 } );
-  // delete the image file
-  fs.unlink(pdfMsgObj.mapImgFile, (err) => {
-    if (err) {
-      console.log("error deleting ", pdfMsgObj.mapImgFile, " :", err);
-    }
-  });
-  */
- /* 
-  // trying to get the image stream  - key should probably be put in environment variable
-  let markerStr = '';
-  for (let i=0; i<pdfMsgObj.centroidLat.length; i++) {
-    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + (i+1) + "%7C" + pdfMsgObj.centroidLat[i] + ',' + pdfMsgObj.centroidLng[i] + '&';
-  }
-  let optionsObj = {
-	  url: 'https://maps.googleapis.com/maps/api/staticmap',
-	  size: '600x300',
-	  maptype: 'roadmap',
-	  markerStr: markerStr,
-	  key: process.env.GOOGLEMAP_KEY, 
-  }
-  let googleMap = staticMap.getStaticMap(optionsObj);
-  */
- // console.log(googleMap);
-//  doc.image(googleMap, 25, doc.y, { width: 562 } );
   // the bands 
   doc.fontSize(8);
   doc.fillColor(pdfColors[4]);
