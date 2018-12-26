@@ -12,6 +12,20 @@ function filterToItemFilter(filter) {
   return filter.charAt(0).toUpperCase() + filter.slice(1);
 }
 
+function filterToDisplay(filter) {
+  filterArr = filter.split('');
+  let i = 0;
+  filterArr.forEach(function(element) {
+    if (element == element.toUpperCase()) {
+      filterArr[i] = ' ' + element;
+    }
+    i++;
+  });
+  return filterToItemFilter(filterArr.join(''))
+}
+
+
+
 var moneyRangeFilters = ["totalRevenue", "averageRevenue", "revenuePerCapita"];
 var moneyFilters = ["householdIncome", "householdExpenditures"];
 var scalarRangeFilters = ["totalEmployees"];
@@ -222,12 +236,23 @@ function getElementDisplay(element, item) {
   }
 }
 
-function displaySearch(filter, doc) {
-  for (let key in filter) {
-    // doc.text(key + ' between ' + formatDollars(filter[key].min) + ' and ' + formatDollars(filter[key].Max) + ', ', doc.x, doc.y, { continued: true });
-    doc.text(key + ' ' + filter[key], doc.x, doc.y, { continued: true }); 
-  } 
-
+function displaySearch(realFiltersArr, doc, filter) {
+//  console.log("rfa = ", realFiltersArr);
+//  console.log("so = ", searchObj);
+  realFiltersArr.forEach(function(element) {
+    if (searchFilterTypes[element] === 'money-range') {
+      doc.text(filterToDisplay(element) + ' between ' + formatDollars(filter[element].min) + ' and ' + formatDollars(filter[element].max) + ', ', doc.x, doc.y, { continued: true });
+    }
+    else if (searchFilterTypes[element] === 'scalar') {
+      doc.text(filterToDisplay(element) + ' ' + filter[element] + ' or greater, ', doc.x, doc.y, { continued: true }); 
+    }
+    else if (searchFilterTypes[element] === 'scalar-range') {
+      doc.text(filterToDisplay(element) + ' between ' + filter[element].min + ' and ' + filter[element].max + ', ', doc.x, doc.y, { continued: true });
+    }
+    else if (searchFilterTypes[element] === 'percent-or-higher') {
+      doc.text(filterToDisplay(element) + ' greater than ' + filter[element].min + '%, ', doc.x, doc.y, { continued: true }); 
+    }
+  }); 
 }
 
 function printBelowResultFilters(realFiltersArr, doc, item) {
@@ -299,6 +324,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.image(googleMap, 25, 246, { width: 562 } );
 
   let theme = { text: { color: pdfColors[2] } };
+  let realFiltersArr = getRealFilters(searchObj.filter);
   
   // Draw a rectangle for the header 
   doc.save()
@@ -336,7 +362,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .text(". The list has been filtered to include only areas that have ", { continued: true } );
    doc.fillColor(pdfColors[3]);
   // need to just get filters that are not maxed out
-   displaySearch(searchObj.filter, doc);
+   displaySearch(realFiltersArr, doc, searchObj.filter);
     doc.text("")
     .moveDown(1);
     
@@ -421,11 +447,12 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   }
   doc.fillAndStroke(pdfColors[3]) 
   let toggle = 1;
-  let realFiltersArr = getRealFilters(searchObj.filter);
   for (let i=0; i<bestPlacesItems.length; i++) {
-    if (doc.y > 700) {
+    if (doc.y > 600) {
+      // footer text
       doc.text(' ');
-      doc.text(' ');
+      doc.moveDown(3);
+      customerGraphics.writeFooter(doc, theme);
     }
     doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .moveDown(1)
@@ -453,6 +480,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   }
 
   // footer text
+  doc.text(' ');
   customerGraphics.writeFooter(doc, theme);
 
 
