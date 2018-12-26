@@ -96,10 +96,50 @@ function filloutPdfFilter(pdfMsgObj) {
   }
 }
  
+
 var moneyRangeFilters = ["totalRevenue", "averageRevenue", "revenuePerCapita"];
 var moneyFilters = ["householdIncome", "householdExpenditures"];
 var scalarRangeFilters = ["totalEmployees"];
 var scalarFilters = ["medianAge", "whiteCollarWorkers", "bachelorsDegreeOrHigher", "highSchoolOrHigher"];
+var searchFilterTypes = { 
+                    'population' : 'scalar',
+                    'averageRevenue' : 'money-range',
+                    'totalRevenue' : 'money-range',
+                    'totalEmployees' : 'scalar-range',
+                    'revenuePerCapita' : 'money-range',
+                    'householdExpenditures' : 'money-range',
+                    'medianAge' : 'scalar-range',
+                    'bachelorsDegreeOrHigher' : 'percent-or-higher',
+                    'highschoolOrHigher' : 'percent-or-higher',
+                    'whiteCollarWorkers' : 'percent-or-higher',
+}
+
+var itemFilterTypes = { 
+                    'population' : 'scalar',
+                    'averageRevenue' : 'money-range',
+                    'totalRevenue' : 'money-range',
+                    'totalEmployees' : 'scalar-range',
+                    'revenuePerCapita' : 'money-range',
+                    'householdExpenditures' : 'money-average',
+                    'medianAge' : 'scalar',
+                    'bachelorsDegreeOrHigher' : 'percent',
+                    'highschoolOrHigher' : 'percent',
+                    'whiteCollarWorkers' : 'percent',
+                    'householdIncome' : 'money-average',
+}
+
+                    
+
+function checkRepairResults(searchObj) {
+//  console.log("ro = ", resultObj);
+  /*
+  for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
+    console.log("there: ", filterToItemFilter(filter));
+    fixParam(resultObj
+  }
+  */
+}
+  
 
 /***
 * Function that can be called from outside.  Starts the process.
@@ -144,7 +184,8 @@ var generatePDF = function( searchObj, customerKey, customerObj, stream) {
       
       .then(([place, industry, bestPlaces, bestPlacesBands]) => {
   //      console.log("place = ", place);
-        successCallback(
+  //      successCallback(
+          startPdf(
           searchObj,
           place[0].City.LongName, industry[0].Name,
           customerObj.getReportGraphics(customerKey),
@@ -206,6 +247,7 @@ function successCallback(
   pdfMsgObj.error = '';
   pdfMsgObj.filter = searchObj.filter;
   filloutPdfFilter(pdfMsgObj);
+  checkRepairResults(resultObj);
   pdfMsgObj.title = searchObj.title;
   pdfMsgObj.bands = 5;
   pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
@@ -295,16 +337,16 @@ function failureCallback(error) {
 }
 
 /****
- * getBand returns the band in which the pdfMsgObj belongs
+ * getBand returns the band in which the bestPlacesItems arry belongs
  */
 
 // this needs to know which filter
 
-function getBand(n, pdfMsgObj) {
-  for(let i=0; i<pdfMsgObj.bandArr.length; i++) {
-    let pMin = parseInt(pdfMsgObj.averageRevenueMin[n].replace(/\$/g, "").replace(/,/g,""));
-    let pMax = parseInt(pdfMsgObj.averageRevenueMax[n].replace(/\$/g, "").replace(/,/g,""));
-    if (pMin >= pdfMsgObj.bandArr[i].Min && pMax <= pdfMsgObj.bandArr[i].Max) {
+function getBand(kpi, bestPlacesBands, Item) {
+  for(let i=0; i<bestPlacesBands.length; i++) {
+  //  let pMin = Item[filterToItemFilter(kpi)].Min;
+  //  let pMax = parseInt(pdfMsgObj.averageRevenueMax[n].replace(/\$/g, "").replace(/,/g,""));
+    if (Item[filterToItemFilter(kpi)].Min >= bestPlacesBands[i].Min && Item[filterToItemFilter(kpi)].Min <= bestPlacesBands[i].Max) {
       return i;
     }
   }
@@ -320,7 +362,53 @@ function getBand(n, pdfMsgObj) {
 *  is brought into the pdf. 
 */
  
-function startPdf(pdfMsgObj, resultObj) {
+//function startPdf(pdfMsgObj, resultObj) {
+function startPdf(
+  searchObj, displayLocation, displayIndustry, customerGraphics,
+  bestPlacesBands, bestPlacesItems, msg="success", stream
+) {
+  bestPlacesItems.bands = 5;
+ // console.log(searchObj);
+  // console.log(resultObj);
+
+  // searchObj is the search parameters
+  // result, displayLocation, displayIndustry, customerGraphics and bandArr
+  // are all results of the query
+  /*
+  let i=0;
+  
+  let pdfMsgObj = {};
+
+  pdfMsgObj['displayLocation'] = displayLocation;
+  pdfMsgObj['displayIndustry'] = displayIndustry;
+  pdfMsgObj['bandArr'] = bandArr;
+  
+  pdfMsgObj.error = '';
+  pdfMsgObj.filter = searchObj.filter;
+  filloutPdfFilter(pdfMsgObj);
+  checkRepairResults(resultObj);
+  pdfMsgObj.title = searchObj.title;
+  pdfMsgObj.bands = 5;
+  pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
+  pdfMsgObj.distance = searchObj.area.distance;
+  pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
+  pdfMsgObj.displayAttribute = formatCamelToDisplay(pdfMsgObj.attribute);
+  pdfMsgObj.customerGraphics = customerGraphics;
+  pdfMsgObj.stream = stream;
+  pdfMsgObj.filterDisplay = { toggle: 1 };
+
+  for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
+    if (searchObj.filter[filter].min === 0 && searchObj.filter[filter].max === null) {
+      pdfMsgObj.filterDisplay[filter] = true;
+    }
+  }
+  // I can't quite figure this one. I made the "*Filters" arrays based on how they
+  // were used in successCallback. But here it seems like more of them are range
+  // filters. The UI is confusing. Really all of them are range filters, but some
+  // of them don't let the user control the "max" part of the range. I'm leaving
+  // these, will clean up later.
+  if (searchObj.filter.householdIncome.min === 0 && searchObj.filter.householdIncome.max === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
+  */
 
   /****
   * These colors are from SizeUp design and are used in the pdf
@@ -357,11 +445,11 @@ function startPdf(pdfMsgObj, resultObj) {
   
   let markerStr = '';
   let whichBand = 0;
-  let centroidArr = getCentroids(resultObj);
+  let centroidArr = getCentroids(bestPlacesItems);
   for (let i=0; i<centroidArr.length; i++) {
     let markerLabel = String.fromCharCode(65 + i);
     // I need to know what band it's in to get the color
-    whichBand = getBand(i, pdfMsgObj);
+    whichBand = getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i]);
     markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
   }
   const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
@@ -369,12 +457,64 @@ function startPdf(pdfMsgObj, resultObj) {
   request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-      buildPdf(pdfMsgObj, pdfColors, body);
+     // buildPdf(pdfMsgObj, pdfColors, body);
+      buildPdf( searchObj, displayLocation, displayIndustry, 
+        customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
+        pdfColors, body, stream);
     }
   })
 }
 
-function showFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
+function getElementDisplay(element, item) {
+  if (itemFilterTypes[element] === 'scalar') {
+    return filterToItemFilter(element) + ': ' + numberWithCommas(item[filterToItemFilter(element)]);
+  }
+  else if (itemFilterTypes[element] === 'money-range') {
+    return filterToItemFilter(element) + ': ' + formatDollars(item[filterToItemFilter(element)].Min) + ' - ' + formatDollars(item[filterToItemFilter(element)].Max);
+  }
+  else if (itemFilterTypes[element] == 'scalar-range') {
+    return filterToItemFilter(element) + ': ' + numberWithCommas(item[filterToItemFilter(element)].Min) + ' - ' + numberWithCommas(item[filterToItemFilter(element)].Max);
+  }
+  else if (itemFilterTypes[element] == 'money-average') {
+    return filterToItemFilter(element) + ' (Average): ' + formatDollars(item[filterToItemFilter(element)]);
+  }
+  else if (itemFilterTypes[element] == 'percent') {
+    return filterToItemFilter(element) + ': ' + (Math.round(item[filterToItemFilter(element)] * 1000)/10) + '%';
+  }
+  else {
+    return element;
+  }
+}
+
+function displaySearch(filter, doc) {
+  for (let key in filter) {
+    // doc.text(key + ' between ' + formatDollars(filter[key].min) + ' and ' + formatDollars(filter[key].Max) + ', ', doc.x, doc.y, { continued: true });
+    doc.text(key + ' ' + filter[key], doc.x, doc.y, { continued: true }); 
+  } 
+
+}
+
+function printBelowResultFilters(realFiltersArr, doc, item) {
+  let startX = 100;
+  let widthAdj = 0;
+  let displayElement = '';
+  realFiltersArr.unshift('population');
+  realFiltersArr.forEach(function(element) {
+    displayElement = getElementDisplay(element, item);
+    if (startX === 350) {
+       doc.text(displayElement, startX - widthAdj, doc.y);
+       startX = 100;
+    } else {
+       doc.text(displayElement, startX, doc.y, { continued: true });
+       startX = 350;
+    }
+    widthAdj = doc.widthOfString(displayElement);
+  });
+  realFiltersArr.shift();
+}
+
+
+function showBestFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
   let startX;
   if (pdfMsgObj.filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
     if (pdfMsgObj.filterDisplay.toggle > 0) {
@@ -463,17 +603,38 @@ function miniPin(x, y, color, doc) {
    .circle(x, y-4, 2)
    .fillAndStroke(color, color);
 }
+
+// get the params from the search obj that aren't 0 or 0,null
+
+function getRealFilters(filter) {
+  let realFiltersArr = [];
+  for (let key in filter) {
+    if (filter[key].min != '0') {
+      if (typeof filter[key].max !== 'undefined') {
+        if (filter[key].max != 'null') {
+          realFiltersArr.push(key);
+        }
+      } else {
+        realFiltersArr.push(key);
+      }
+    }
+  }
+  return realFiltersArr;
+}
   
 /****
  * this function is building the pdf using the info from the pdfMsgObj and using 
  * pdfkit module
  */
 
-function buildPdf(pdfMsgObj, pdfColors, googleMap) {
+// function buildPdf(pdfMsgObj, pdfColors, googleMap) {
+function buildPdf( searchObj, displayLocation, displayIndustry, 
+        customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
+        pdfColors, googleMap, stream) {
   
   // Create a document
   let doc = new PDFDocument;
-  doc.pipe(pdfMsgObj.stream);
+  doc.pipe(stream);
   
   doc.image(googleMap, 25, 246, { width: 562 } );
 
@@ -490,31 +651,32 @@ function buildPdf(pdfMsgObj, pdfColors, googleMap) {
   // start writing text
 
   // header text
-  pdfMsgObj.customerGraphics.writeHeader(doc, theme);
+  customerGraphics.writeHeader(doc, theme);
 
   doc.fontSize(15);
   doc.moveDown(2);
   doc.fillColor(pdfColors[4])
-  doc.text(pdfMsgObj.title, 25, doc.y);
+  doc.text(searchObj.title, 25, doc.y);
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
   doc.text("This is a list of postal codes with the highest combined business revenue in the ", 35, doc.y + 10, { continued: true } )
     .fillColor(pdfColors[3])
-    .text(pdfMsgObj.displayIndustry, { continued: true } )
+    .text(displayIndustry, { continued: true } )
     .fillColor(pdfColors[5])
     .text("industry.  You should consider using this list if you are selling to businesses or consumers and want to", { continued: true } )
     .text("know where the most money is being made in your industry. ", { continued: true } )
     .text("The analysis is based on locations ", { continued: true } )
    .fillColor(pdfColors[3])
-    .text(pdfMsgObj.distance, { continued: true } )
+    .text(searchObj.distance, { continued: true } )
     .fillColor(pdfColors[5])
     .text(" miles from the centroid of ", { continued: true } )
    .fillColor(pdfColors[3])
-    .text(pdfMsgObj.displayLocation, { continued: true } )
+    .text(displayLocation, { continued: true } )
     .fillColor(pdfColors[5])
     .text(". The list has been filtered to include only areas that have ", { continued: true } );
    doc.fillColor(pdfColors[3]);
-  doc.text(formatFilter(pdfMsgObj.filter));
+  // need to just get filters that are not maxed out
+   displaySearch(searchObj.filter, doc);
   // get filters here in natural language
     doc.text("")
     .moveDown(1);
@@ -553,7 +715,7 @@ function buildPdf(pdfMsgObj, pdfColors, googleMap) {
   let j = 0, n = 0; m = 0;
   let bandMinText, widthMinText, widthDash;
   let startArr = [];
-  for (let k=0; k<pdfMsgObj.bands; k++) {
+  for (let k=0; k<bestPlacesItems.bands; k++) {
     n = k % 3;  // n (remainder of k/3) is the column in the display of bands
     m = Math.floor(k/3);  // each row will have 3 bands listed
     startArr.push([40 + n*180, 532 + m*10]);
@@ -562,7 +724,7 @@ function buildPdf(pdfMsgObj, pdfColors, googleMap) {
   // then render the bands
   doc.fillColor(pdfColors[4]);
   i = 0;
-  pdfMsgObj.bandArr.forEach(function(element) {
+  bestPlacesBands.forEach(function(element) {
     doc.fillColor(pdfColors[i]);
     i++;
     bandMinText = Intl.NumberFormat('en-US', { 
@@ -602,58 +764,70 @@ function buildPdf(pdfMsgObj, pdfColors, googleMap) {
    *  subFieldFontHeight = Math.round(fieldFontHeight/2);
    */
   
-  let thisSortAttributeMinArr = [];
-  let thisSortAttributeMaxArr = [];
-  let sortText;
-  if (pdfMsgObj.sortAttribute === 'underservedMarkets') {
-    thisSortAttributeMinArr = pdfMsgObj.revenuePerCapitaMin;
-    thisSortAttributeMaxArr = pdfMsgObj.revenuePerCapitaMax;
-    sortText = "Revenue Per Capita";
+//  let thisSortAttributeMinArr = [];
+//  let thisSortAttributeMaxArr = [];
+ // let sortText;
+  let sortAttribute = '';
+  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
+    sortAttribute = revenuePerCapita;
   } else {
-    thisSortAttributeMinArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Min'];
-    thisSortAttributeMaxArr = pdfMsgObj[pdfMsgObj.sortAttribute + 'Max'];
-    sortText = formatCamelToDisplay(pdfMsgObj.sortAttribute);
+    sortAttribute = searchObj.ranking_metric.kpi;
   }
   doc.fillColor(pdfColors[3]);
   doc.fontSize(6);
-  doc.text(sortText, 515 - doc.widthOfString(sortText), doc.y);
+  doc.text(sortAttribute, 515 - doc.widthOfString(sortAttribute), doc.y);
   // tiny asc or desc triangle
-  if (pdfMsgObj.sort === 'desc') {
+  if (searchObj.ranking_metric.order === 'desc') {
     doc.polygon( [519, doc.y - 2], [523, doc.y - 2], [521, doc.y - 6]);
   } else {
     doc.polygon( [519, doc.y - 6], [523, doc.y - 6], [521, doc.y - 2]);
   }
   doc.fillAndStroke(pdfColors[3]) 
-  for (let i=0; i<pdfMsgObj.zip.length; i++) {
+  let toggle = 1;
+  let realFiltersArr = getRealFilters(searchObj.filter);
+  for (let i=0; i<bestPlacesItems.length; i++) {
     if (doc.y > 700) {
       doc.text(' ');
       doc.text(' ');
     }
-    pdfMsgObj.filterDisplay.toggle = 1;  // this controls the margins of the fields
+//    pdfMsgObj.filterDisplay.toggle = 1;  // this controls the margins of the fields
                       // if it's not reset to 1 between areas
                       // shown, the margins don't work right
                       // see showFilter function
-    doc.fillColor(pdfColors[getBand(i, pdfMsgObj)])
+    doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .moveDown(1)
+    .text(' ')
     .fontSize(10)
     .circle(75, doc.y + 5, 7);
     doc.fill()
     .fillColor('#ffffff')
     .text(String.fromCharCode(65 + i), 72, doc.y + 1, { continued: true } )
-    .fillColor(pdfColors[getBand(i, pdfMsgObj)])
+    .fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .fontSize(15)
     .text("  ", { continued: true } )
-    .text(pdfMsgObj.zip[i]) // , { continued: true })
+    .text(bestPlacesItems[i].ZipCode.Name) // , { continued: true })
     .fillColor('black')
-    .fontSize(13);
-	  doc.moveDown(-1);
-    xpos = 535 - (doc.widthOfString(thisSortAttributeMinArr[i].toString()) + doc.widthOfString(" - ") + doc.widthOfString(thisSortAttributeMaxArr[i].toString()));
-    doc.text(thisSortAttributeMinArr[i], xpos, doc.y, { continued: true } )
+    .fontSize(13)
+    .moveDown(-1);
+ //   console.log("sortAttribute = ", sortAttribute);
+  //  console.log("ftifsa = ", filterToItemFilter(sortAttribute));
+   // console.log("bpiftifsa = ", bestPlacesItems[i][filterToItemFilter(sortAttribute)]);
+ //   console.log("bpiftifsa = ", bestPlacesItems[i]['AverageRevenue']);
+    xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min.toString())) + doc.widthOfString(" - ") + doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max.toString())));
+    doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min), xpos, doc.y, { continued: true } )
     .text(" - ", { continued: true } )
-    .text(thisSortAttributeMaxArr[i])
+    .text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max))
     .fillColor(pdfColors[5])
-    .fontSize(8) 
-    showFilter(pdfMsgObj, "Total Population: ", 'population', pdfMsgObj.population[i].toLocaleString('en'), null, doc);
+    .fontSize(8);
+  //  bestItemFilterArr = filterToItemFilter(getRealSearchParams(searchObj)).unshift('Population');
+  //  console.log("rfa = ", realFiltersArr);
+ //   belowResultsFilterArr = realFiltersArr;
+//    belowResultsFilterArr.unshift('population');
+//    console.log("brfa = ", belowResultsFilterArr);
+    printBelowResultFilters(realFiltersArr, doc, bestPlacesItems[i]);
+		  doc.moveDown(1);
+    // left off here
+    /*
     showFilter(pdfMsgObj, "Average Annual Revenue: ", 'averageRevenue', pdfMsgObj.averageRevenueMin[i], pdfMsgObj.averageRevenueMax[i], doc);
     showFilter(pdfMsgObj, "Total Employees: ", 'totalEmployees', pdfMsgObj.totalEmployeesMin[i], pdfMsgObj.totalEmployeesMax[i], doc);
     showFilter(pdfMsgObj, "Revenue Per Capita: ", 'revenuePerCapita', pdfMsgObj.revenuePerCapitaMin[i], pdfMsgObj.revenuePerCapitaMax[i], doc);
@@ -666,10 +840,11 @@ function buildPdf(pdfMsgObj, pdfColors, googleMap) {
 	  if (pdfMsgObj.filterDisplay.toggle < 0 ) {
 		  doc.moveDown(1);
 	  }
+          */
   }
 
   // footer text
-  pdfMsgObj.customerGraphics.writeFooter(doc, theme);
+  customerGraphics.writeFooter(doc, theme);
 
 
   // Finalize the pdf file

@@ -13,7 +13,7 @@
   },
   "ranking_metric": {
     "template": "${kpi} in ${industry} (${order})",
-    "kpi": "averageRevenue",
+    "kpi": "totalRevenue",
     "industry": "shoe-and-footwear-stores",
     "order": "desc"
   },
