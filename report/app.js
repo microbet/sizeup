@@ -7,95 +7,10 @@ const staticMap = require('./mapGenerator.js');
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 
-function formatCamelToDisplay(input) {
-  input_arr = input.split('');
-  input_arr.forEach(function(element, index, input_arr) {
-    if (element == element.toUpperCase()) {
-      input_arr[index] = ' ' + element;
-    }
-  });
-  input_arr[0] = input_arr[0].toUpperCase();
-  return input_arr.join('');
-}
-
 // Translate the query filter name to the API return item filter name
 function filterToItemFilter(filter) {
   return filter.charAt(0).toUpperCase() + filter.slice(1);
 }
-
-/***
- * It's just easier later if we know all the filter terms are 
- * defined. Also, everything probably comes in as a string,
- * but we should get the correct typing here.
- */
-
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
-function fixParam(paramObj, range) {
-  let err = '';
-  if (paramObj == null) {
-    if (range === 'min') {
-      paramObj = { "min" : 0 }
-    }
-    if (range === 'both') {
-      paramObj = { "min" : 0, "max" : null, }
-    }
-  } else {
-    if (paramObj.min == null) {
-      paramObj.min = 0;
-    } else {
-      paramObj.min = parseFloat(paramObj.min);
-    }
-    if (paramObj.max == null) {  // could be undefined
-      paramObj.max = null;
-    } else { 
-      if (paramObj.max.toLowerCase() === 'null') {
-        paramObj.max = null;
-      } else {
-        paramObj.max = parseFloat(paramObj.max);
-      }
-    }
-  }
-  if (isNaN(paramObj.min)) {
-    paramObj.min = 0;
-    err += " min parameter was not a number";
-  }
-  if (isNaN(paramObj.max)) {
-    paramObj.max = null;
-    err += " max parameter was not a number";
-  }
-  return err;
-}
-
-function filloutPdfFilter(pdfMsgObj) {
-  if (err = fixParam(pdfMsgObj.filter.whiteCollarWorkers, 'min')) {
-    pdfMsgObj.error += 'White Collar Worker ' + err;
-  };
-  if (err = fixParam(pdfMsgObj.filter.bachelorsDegreeOrHigher, 'min')) {
-    pdfMsgObj.error += 'Bachelors degree or higher ' + err;
-  };
-  if (err = fixParam(pdfMsgObj.filter.highSchoolOrHigher, 'min')) {
-    pdfMsgObj.error += 'High school or higher ' + err;
-  };
-  if (err = fixParam(pdfMsgObj.filter.medianAge, 'both')) {
-    pdfMsgObj.error += 'Median Age ' + err;
-  }
-  if (err = fixParam(pdfMsgObj.filter.totalRevenue, 'both')) {
-    pdfMsgObj.error += 'Total Revenue ' + err;
-  }
-  if (err = fixParam(pdfMsgObj.filter.averageRevenue, 'both')) {
-    pdfMsgObj.error += 'Average Revenue ' + err;
-  }
-  if (err = fixParam(pdfMsgObj.filter.revenuePerCapita, 'both')) {
-    pdfMsgObj.error += 'Revenue per capita ' + err;
-  }
-  if (err = fixParam(pdfMsgObj.filter.totalEmployees, 'both')) {
-    pdfMsgObj.error += 'Total Employees ' + err;
-  }
-}
- 
 
 var moneyRangeFilters = ["totalRevenue", "averageRevenue", "revenuePerCapita"];
 var moneyFilters = ["householdIncome", "householdExpenditures"];
@@ -128,18 +43,6 @@ var itemFilterTypes = {
                     'householdIncome' : 'money-average',
 }
 
-                    
-
-function checkRepairResults(searchObj) {
-//  console.log("ro = ", resultObj);
-  /*
-  for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
-    console.log("there: ", filterToItemFilter(filter));
-    fixParam(resultObj
-  }
-  */
-}
-  
 
 /***
 * Function that can be called from outside.  Starts the process.
@@ -193,12 +96,10 @@ var generatePDF = function( searchObj, customerKey, customerObj, stream) {
           stream);
       })
     }).catch(console.error);
-};
+}
 
-/**
- *  successCallback puts the return info into the pdfMsgObj.  The result (Items) is an array
- *  so loop through to build the arrays which are members of the pdfMsgObj
- *  A lot of formatting in here.  Max output is 3.  It's hard to present more on one page.
+/*****
+ * Functions needed for the map
  */
 
 function getCentroids(objWithCentroids) {
@@ -226,189 +127,24 @@ function getMapOptionsArr(centroidArr, pdfColors) {
   return optionsObj;
 }
 
-function successCallback(
-  searchObj, displayLocation, displayIndustry, customerGraphics,
-  bandArr, resultObj, msg="success", stream
-) {
- // console.log(searchObj);
-  // console.log(resultObj);
-
-  // searchObj is the search parameters
-  // result, displayLocation, displayIndustry, customerGraphics and bandArr
-  // are all results of the query
-  let i=0;
-  
-  let pdfMsgObj = {};
-
-  pdfMsgObj['displayLocation'] = displayLocation;
-  pdfMsgObj['displayIndustry'] = displayIndustry;
-  pdfMsgObj['bandArr'] = bandArr;
-  
-  pdfMsgObj.error = '';
-  pdfMsgObj.filter = searchObj.filter;
-  filloutPdfFilter(pdfMsgObj);
-  checkRepairResults(resultObj);
-  pdfMsgObj.title = searchObj.title;
-  pdfMsgObj.bands = 5;
-  pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
-  pdfMsgObj.distance = searchObj.area.distance;
-  pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
-  pdfMsgObj.displayAttribute = formatCamelToDisplay(pdfMsgObj.attribute);
-  pdfMsgObj.customerGraphics = customerGraphics;
-  pdfMsgObj.stream = stream;
-  pdfMsgObj.filterDisplay = { toggle: 1 };
-
-  for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
-    if (searchObj.filter[filter].min === 0 && searchObj.filter[filter].max === null) {
-      pdfMsgObj.filterDisplay[filter] = true;
-    }
-  }
-  // I can't quite figure this one. I made the "*Filters" arrays based on how they
-  // were used in successCallback. But here it seems like more of them are range
-  // filters. The UI is confusing. Really all of them are range filters, but some
-  // of them don't let the user control the "max" part of the range. I'm leaving
-  // these, will clean up later.
-  if (searchObj.filter.householdIncome.min === 0 && searchObj.filter.householdIncome.max === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
-  if (searchObj.filter.highSchoolOrHigher.min != 0) { pdfMsgObj.filterDisplay.highSchoolOrHigher = true; }
-  if (searchObj.filter.medianAge.min != 0) { pdfMsgObj.filterDisplay.medianAge = true; }
-  if (pdfMsgObj.filter.whiteCollarWorkers.min != 0) { pdfMsgObj.filterDisplay.whiteCollarWorkers = true; }
-  pdfMsgObj.filterDisplay.population = true;
-
-  pdfMsgObj.zip = [];
-  pdfMsgObj.centroidLng = [];
-  pdfMsgObj.centroidLat = [];
-  pdfMsgObj.totalRevenueMin = [];
-  pdfMsgObj.totalRevenueMax = [];
-  pdfMsgObj.population = [];
-  pdfMsgObj.averageRevenueMin = [];
-  pdfMsgObj.averageRevenueMax = [];
-  pdfMsgObj.totalEmployeesMin = [];
-  pdfMsgObj.totalEmployeesMax = [];
-  pdfMsgObj.revenuePerCapitaMin = [];
-  pdfMsgObj.revenuePerCapitaMax = [];
-  pdfMsgObj.householdIncome = [];
-  pdfMsgObj.medianAge = [];
-  pdfMsgObj.householdExpenditures = [];
-  pdfMsgObj.whiteCollarWorkers = [];
-  pdfMsgObj.bachelorsDegreeOrHigher = [];
-  pdfMsgObj.highSchoolOrHigher = [];
-  var currencyFormat = {
-    style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0
-  };
- // console.log("here: ", resultObj);
-  for (element of resultObj) {
-    i++;
-    pdfMsgObj['zip'].push(element.ZipCode.Name);
-//    console.log(element);   // good for debugging
-    pdfMsgObj['centroidLng'].push(element.Centroid.Lng);
-    pdfMsgObj['centroidLat'].push(element.Centroid.Lat);
-    pdfMsgObj['population'].push(element.Population);
-
-    for (filter of moneyRangeFilters) {
-      pdfMsgObj[filter+'Min'].push(
-        Intl.NumberFormat('en-US', currencyFormat).format(element[filterToItemFilter(filter)].Min));
-      // throws an error if maxFDig is set to 0, but not minFDig
-      pdfMsgObj[filter+'Max'].push(
-        Intl.NumberFormat('en-US', currencyFormat).format(element[filterToItemFilter(filter)].Max));
-    }
-
-    for (filter of moneyFilters) {
-      pdfMsgObj[filter].push(
-        Intl.NumberFormat('en-US', currencyFormat).format(element[filterToItemFilter(filter)]));
-    }
-
-    for (filter of scalarFilters) {
-      pdfMsgObj[filter].push(element[filterToItemFilter(filter)]);
-    }
-
-    for (filter of scalarRangeFilters) {
-      pdfMsgObj[filter+'Min'].push(element[filterToItemFilter(filter)].Min);
-      pdfMsgObj[filter+'Max'].push(element[filterToItemFilter(filter)].Max);
-    }
-
-    if (i >= 26) { break; }
-  }
-  startPdf(pdfMsgObj, resultObj);
-  console.log(pdfMsgObj.error);
-}
-
-function failureCallback(error) {
-  console.log("failure: " + error);
-}
-
-/****
- * getBand returns the band in which the bestPlacesItems arry belongs
- */
-
-// this needs to know which filter
-
 function getBand(kpi, bestPlacesBands, Item) {
   for(let i=0; i<bestPlacesBands.length; i++) {
-  //  let pMin = Item[filterToItemFilter(kpi)].Min;
-  //  let pMax = parseInt(pdfMsgObj.averageRevenueMax[n].replace(/\$/g, "").replace(/,/g,""));
     if (Item[filterToItemFilter(kpi)].Min >= bestPlacesBands[i].Min && Item[filterToItemFilter(kpi)].Min <= bestPlacesBands[i].Max) {
       return i;
     }
   }
 }
   
+/******
+ * startPdf gets the map and after getting it calls the 
+ * buildPdf function to create the pdf
+ */
 
-/***
-*  startPdf creates the static map image using static google map api.
-*  Perhaps the image could be streamed into the pdf and supposedly 
-*  that is possible with pdfkit, but it didn't work as shown in docs. 
-*  The image is downloaded and then brought into the pdf.
-*  It is given a virtually unique file name and deleted after it 
-*  is brought into the pdf. 
-*/
- 
-//function startPdf(pdfMsgObj, resultObj) {
 function startPdf(
   searchObj, displayLocation, displayIndustry, customerGraphics,
   bestPlacesBands, bestPlacesItems, msg="success", stream
 ) {
   bestPlacesItems.bands = 5;
- // console.log(searchObj);
-  // console.log(resultObj);
-
-  // searchObj is the search parameters
-  // result, displayLocation, displayIndustry, customerGraphics and bandArr
-  // are all results of the query
-  /*
-  let i=0;
-  
-  let pdfMsgObj = {};
-
-  pdfMsgObj['displayLocation'] = displayLocation;
-  pdfMsgObj['displayIndustry'] = displayIndustry;
-  pdfMsgObj['bandArr'] = bandArr;
-  
-  pdfMsgObj.error = '';
-  pdfMsgObj.filter = searchObj.filter;
-  filloutPdfFilter(pdfMsgObj);
-  checkRepairResults(resultObj);
-  pdfMsgObj.title = searchObj.title;
-  pdfMsgObj.bands = 5;
-  pdfMsgObj.sortAttribute = searchObj.ranking_metric.kpi;  // I think
-  pdfMsgObj.distance = searchObj.area.distance;
-  pdfMsgObj.attribute = searchObj.ranking_metric.kpi;  // not sure 
-  pdfMsgObj.displayAttribute = formatCamelToDisplay(pdfMsgObj.attribute);
-  pdfMsgObj.customerGraphics = customerGraphics;
-  pdfMsgObj.stream = stream;
-  pdfMsgObj.filterDisplay = { toggle: 1 };
-
-  for (filter of moneyRangeFilters.concat(scalarRangeFilters)) {
-    if (searchObj.filter[filter].min === 0 && searchObj.filter[filter].max === null) {
-      pdfMsgObj.filterDisplay[filter] = true;
-    }
-  }
-  // I can't quite figure this one. I made the "*Filters" arrays based on how they
-  // were used in successCallback. But here it seems like more of them are range
-  // filters. The UI is confusing. Really all of them are range filters, but some
-  // of them don't let the user control the "max" part of the range. I'm leaving
-  // these, will clean up later.
-  if (searchObj.filter.householdIncome.min === 0 && searchObj.filter.householdIncome.max === null) { pdfMsgObj.filterDisplay.householdIncome = true; }
-  */
 
   /****
   * These colors are from SizeUp design and are used in the pdf
@@ -513,86 +249,12 @@ function printBelowResultFilters(realFiltersArr, doc, item) {
   realFiltersArr.shift();
 }
 
-
-function showBestFilter(pdfMsgObj, label, param, min, max, doc, suffix=' ') {
-  let startX;
-  if (pdfMsgObj.filterDisplay[param] && param !== pdfMsgObj.sortAttribute) {
-    if (pdfMsgObj.filterDisplay.toggle > 0) {
-      startX = 100;
-    } else {
-      startX = 350;
-    }
-    doc.text(label, startX,
-      doc.y, { continued: true })
-    .text(min, { continued: true } );
-    if (max) {
-      doc.text(" - ", { continued: true } )
-      .text(max, { continued: true } );
-    }
-    doc.text(suffix);
-    if (pdfMsgObj.filterDisplay.toggle > 0) {
-      doc.moveDown(-1);
-    }
-    pdfMsgObj.filterDisplay.toggle = pdfMsgObj.filterDisplay.toggle * -1;
-  }
-}
-
 function formatDollars(string) {
   return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(string);
 }
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
-function formatFilter(filterObj) {
-  let filterText = '';
-  filterText += addFilterText(filterObj.totalRevenue, 'both', 'total revenue', 'USD');
-  filterText += addFilterText(filterObj.averageRevenue, 'both', 'average revenue', 'USD');
-  filterText += addFilterText(filterObj.totalEmployees, 'both', ' total employees', 'number');
-  filterText += addFilterText(filterObj.revenuePerCapita, 'both', 'revenue per capita', 'USD');
-  filterText += addFilterText(filterObj.medianAge, 'both', 'median age');
-  if (filterObj.highSchoolOrHigher > 0) { 
-     filterText += 'High School graduate rate of ' + filterObj.highSchoolOrHigher.min + '% or greater' + ', ';
-  }
-  if (filterObj.bachelorsDegreeOrHigher > 0) { 
-     filterText += 'bachelors degree rate of ' + filterObj.highSchoolOrHigher.min + '% or greater, ';
-  }
-  if (filterObj.whiteCollarWorkers.min > 0) { 
-     filterText += 'white collar worker rate of ' + filterObj.whiteCollarWorkers.min + '% or greater, ';
-  }
-  return filterText;
-}
-
-function addFilterText(paramObj, range, msg, format='') {
-  let moreText = '';
-  if (paramObj.min > 0 || paramObj.max != null) { 
-    moreText += msg + ' ';
-  }
-  if (paramObj.min > 0) {
-    moreText += 'greater than ';
-    if (format === 'USD') {
-      moreText += formatDollars(paramObj.min);
-    } else if (format === 'number') {
-      moreText += numberWithCommas(paramObj.min);
-    }
-    else {
-      moreText += paramObj.min;
-    }
-  }
-  if (paramObj.max != 'null') {
-      moreText +=  ' and less than ';
-    if (format === 'USD') {
-      moreText += formatDollars(paramObj.max);
-    } else if (format === 'number') {
-      moreText += numberWithCommas(paramObj.max);
-    } else {
-      moreText += paramObj.max;
-    }
-    moreText + ', ';
-  }
-  return moreText;
 }
 
 function miniPin(x, y, color, doc) {
@@ -623,11 +285,9 @@ function getRealFilters(filter) {
 }
   
 /****
- * this function is building the pdf using the info from the pdfMsgObj and using 
- * pdfkit module
+ * this function is building the pdf  
  */
 
-// function buildPdf(pdfMsgObj, pdfColors, googleMap) {
 function buildPdf( searchObj, displayLocation, displayIndustry, 
         customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
         pdfColors, googleMap, stream) {
@@ -677,32 +337,12 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
    doc.fillColor(pdfColors[3]);
   // need to just get filters that are not maxed out
    displaySearch(searchObj.filter, doc);
-  // get filters here in natural language
     doc.text("")
     .moveDown(1);
-  /*
-  doc.text("Best places to advertise in the ", 25, doc.y, { continued: true } )
-   .fillColor(pdfColors[3])
-    .text(pdfMsgObj.displayIndustry, { continued: true } )
-    .fillColor(pdfColors[4])
-    .text(" industry near ", { continued: true } )
-      .fillColor(pdfColors[3]) 
-    .text(pdfMsgObj.displayLocation, { continued: true } )
-    .fillColor(pdfColors[4])
-    .text(" based on ", { continued: true } )
-    .fillColor(pdfColors[3])
-    .text(pdfMsgObj.displayAttribute);
-    */
     
   doc.fontSize(10);   
   doc.fillColor(pdfColors[4]);
-  /*
-  doc.text("    Filtered for Zip Codes at most ", { continued: true } )
-    .fillColor('black')
-    .text(pdfMsgObj.distance, { continued: true } )
-    .fillColor(pdfColors[4])
-      .text(" miles from the current city");
-      */
+
   // the bands 
   doc.fontSize(8);
   doc.fillColor(pdfColors[4]);
@@ -764,9 +404,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
    *  subFieldFontHeight = Math.round(fieldFontHeight/2);
    */
   
-//  let thisSortAttributeMinArr = [];
-//  let thisSortAttributeMaxArr = [];
- // let sortText;
   let sortAttribute = '';
   if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
     sortAttribute = revenuePerCapita;
@@ -790,10 +427,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
       doc.text(' ');
       doc.text(' ');
     }
-//    pdfMsgObj.filterDisplay.toggle = 1;  // this controls the margins of the fields
-                      // if it's not reset to 1 between areas
-                      // shown, the margins don't work right
-                      // see showFilter function
     doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .moveDown(1)
     .text(' ')
@@ -809,38 +442,14 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .fillColor('black')
     .fontSize(13)
     .moveDown(-1);
- //   console.log("sortAttribute = ", sortAttribute);
-  //  console.log("ftifsa = ", filterToItemFilter(sortAttribute));
-   // console.log("bpiftifsa = ", bestPlacesItems[i][filterToItemFilter(sortAttribute)]);
- //   console.log("bpiftifsa = ", bestPlacesItems[i]['AverageRevenue']);
     xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min.toString())) + doc.widthOfString(" - ") + doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max.toString())));
     doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min), xpos, doc.y, { continued: true } )
     .text(" - ", { continued: true } )
     .text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max))
     .fillColor(pdfColors[5])
     .fontSize(8);
-  //  bestItemFilterArr = filterToItemFilter(getRealSearchParams(searchObj)).unshift('Population');
-  //  console.log("rfa = ", realFiltersArr);
- //   belowResultsFilterArr = realFiltersArr;
-//    belowResultsFilterArr.unshift('population');
-//    console.log("brfa = ", belowResultsFilterArr);
-    printBelowResultFilters(realFiltersArr, doc, bestPlacesItems[i]);
-		  doc.moveDown(1);
-    // left off here
-    /*
-    showFilter(pdfMsgObj, "Average Annual Revenue: ", 'averageRevenue', pdfMsgObj.averageRevenueMin[i], pdfMsgObj.averageRevenueMax[i], doc);
-    showFilter(pdfMsgObj, "Total Employees: ", 'totalEmployees', pdfMsgObj.totalEmployeesMin[i], pdfMsgObj.totalEmployeesMax[i], doc);
-    showFilter(pdfMsgObj, "Revenue Per Capita: ", 'revenuePerCapita', pdfMsgObj.revenuePerCapitaMin[i], pdfMsgObj.revenuePerCapitaMax[i], doc);
-    showFilter(pdfMsgObj, "Household Income: ", 'householdIncome', pdfMsgObj.householdIncome[i], null, doc);
-    showFilter(pdfMsgObj, "Household Expenditures: ", 'householdExpenditures', pdfMsgObj.householdExpenditures[i], null, doc);
-    showFilter(pdfMsgObj, "Median Age: ", 'medianAge', pdfMsgObj.medianAge[i], null, doc);
-    showFilter(pdfMsgObj, "Bachelors Degree or Higher: ", 'bachelorsDegreeOrHigher', pdfMsgObj.bachelorsDegreeOrHigher[i], null, doc, '%');
-    showFilter(pdfMsgObj, "High School Degree or Higher: ", 'highSchoolOrHigher', Math.round(pdfMsgObj.highSchoolOrHigher[i]), null, doc, '%');
-    showFilter(pdfMsgObj, "White Collar Workers: ", 'whiteCollarWorkers', Math.round(pdfMsgObj.whiteCollarWorkers[i]), null, doc, '%');
-	  if (pdfMsgObj.filterDisplay.toggle < 0 ) {
-		  doc.moveDown(1);
-	  }
-          */
+     printBelowResultFilters(realFiltersArr, doc, bestPlacesItems[i]);
+     doc.moveDown(1);
   }
 
   // footer text
