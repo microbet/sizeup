@@ -24,8 +24,6 @@ function filterToDisplay(filter) {
   return filterToItemFilter(filterArr.join(''))
 }
 
-
-
 var moneyRangeFilters = ["totalRevenue", "averageRevenue", "revenuePerCapita"];
 var moneyFilters = ["householdIncome", "householdExpenditures"];
 var scalarRangeFilters = ["totalEmployees"];
@@ -72,8 +70,6 @@ var generatePDF = function( searchObj, customerKey, customerObj, stream) {
     ])
     
     .then(([place, industry]) => {
-    //  searchObj.ranking_metric.kpi = 'averageRevenue'; // works
-    //  searchObj.ranking_metric.kpi = 'totalRevenue'; // doesn't - test directly against api
       var argument_list = {
         totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
         highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
@@ -101,8 +97,6 @@ var generatePDF = function( searchObj, customerKey, customerObj, stream) {
       ])
       
       .then(([place, industry, bestPlaces, bestPlacesBands]) => {
-  //      console.log("place = ", place);
-  //      successCallback(
           startPdf(
           searchObj,
           place[0].City.LongName, industry[0].Name,
@@ -143,8 +137,14 @@ function getMapOptionsArr(centroidArr, pdfColors) {
 }
 
 function getBand(kpi, bestPlacesBands, Item) {
+  let point;
+  if (itemFilterTypes[kpi].includes('range')) {
+    point = Item[filterToItemFilter(kpi)].Min;
+  } else {
+    point = Item[filterToItemFilter(kpi)];
+  }
   for(let i=0; i<bestPlacesBands.length; i++) {
-    if (Item[filterToItemFilter(kpi)].Min >= bestPlacesBands[i].Min && Item[filterToItemFilter(kpi)].Min <= bestPlacesBands[i].Max) {
+    if (point >= bestPlacesBands[i].Min && point <= bestPlacesBands[i].Max) {
       return i;
     }
   }
@@ -313,6 +313,28 @@ function getRealFilters(filter) {
   }
   return realFiltersArr;
 }
+
+function sortIndicator(sortAttribute, order, pdfColors, doc) {
+  doc.fillColor(pdfColors[3]);
+  doc.fontSize(6);
+  doc.text(sortAttribute, 515 - doc.widthOfString(sortAttribute), doc.y);
+  // tiny asc or desc triangle
+  if (order === 'desc') {
+    doc.polygon( [519, doc.y - 2], [523, doc.y - 2], [521, doc.y - 6]);
+  } else {
+    doc.polygon( [519, doc.y - 6], [523, doc.y - 6], [521, doc.y - 2]);
+  }
+  doc.fillAndStroke(pdfColors[3]) 
+}
+
+function headerRectangle(pdfColors, doc) {
+  // Draw a rectangle for the header 
+  doc.moveTo(25, 30)
+  .lineTo(588, 30)
+  .lineTo(588, 90)
+  .lineTo(25, 90)
+  .fill(pdfColors[2]);
+}
   
 /****
  * this function is building the pdf  
@@ -331,18 +353,13 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   let theme = { text: { color: pdfColors[2] } };
   let realFiltersArr = getRealFilters(searchObj.filter);
   
-  // Draw a rectangle for the header 
-  doc.save()
-    .moveTo(25, 30)
-    .lineTo(588, 30)
-    .lineTo(588, 90)
-    .lineTo(25, 90)
-    .fill(pdfColors[2]);
+  headerRectangle(pdfColors, doc);
   
   // start writing text
 
   // header text
   customerGraphics.writeHeader(doc, theme);
+  doc.font('Helvetica-Bold');
 
   doc.fontSize(15);
   doc.moveDown(2);
@@ -358,7 +375,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .text("know where the most money is being made in your industry. ", { continued: true } )
     .text("The analysis is based on locations ", { continued: true } )
    .fillColor(pdfColors[3])
-    .text(searchObj.distance, { continued: true } )
+    .text(searchObj.area.distance, { continued: true } )
     .fillColor(pdfColors[5])
     .text(" miles from the centroid of ", { continued: true } )
    .fillColor(pdfColors[3])
@@ -441,53 +458,34 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   } else {
     sortAttribute = searchObj.ranking_metric.kpi;
   }
-  doc.fillColor(pdfColors[3]);
-  doc.fontSize(6);
-  doc.text(sortAttribute, 515 - doc.widthOfString(sortAttribute), doc.y);
-  // tiny asc or desc triangle
-  if (searchObj.ranking_metric.order === 'desc') {
-    doc.polygon( [519, doc.y - 2], [523, doc.y - 2], [521, doc.y - 6]);
-  } else {
-    doc.polygon( [519, doc.y - 6], [523, doc.y - 6], [521, doc.y - 2]);
-  }
-  doc.fillAndStroke(pdfColors[3]) 
+  sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
   let toggle = 1;
   for (let i=0; i<bestPlacesItems.length; i++) {
-    /*
-    if (doc.y < 270) {
-  // Draw a rectangle for the header 
-    doc.moveTo(25, 30)
-    .lineTo(588, 30)
-    .lineTo(588, 90)
-    .lineTo(25, 90)
-    .fill(pdfColors[2]);
-      customerGraphics.writeHeader(doc, theme);
-      doc.text(' ');
-      doc.y = 200;
-    }
-    console.log("dy = ", doc.y);
-    */
     if (doc.y > 600) {
       // footer text
       customerGraphics.writeFooter(doc, theme);
-      doc.addpage();
+      doc.addPage();
+      headerRectangle(pdfColors, doc);
       customerGraphics.writeHeader(doc, theme);
+      doc.font('Helvetica-Bold');
       doc.text(' ');
+      doc.y = 110;
       /*
       doc.text(' ');
       doc.moveDown(1);
       doc.text(' ');
       doc.moveDown(1);
       */
+      sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
     }
     doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
-    .moveDown(1)
+  //  .moveDown(1)
     .text(' ')
     .fontSize(10)
     .circle(75, doc.y + 7, 7);
     doc.fill()
     .fillColor('#ffffff')
-    .text(String.fromCharCode(65 + i), 72, doc.y + 1, { continued: true } )
+    .text(String.fromCharCode(65 + i), 72, doc.y + 3, { continued: true } )
     .fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .fontSize(15)
     .text("  ", { continued: true } )
@@ -495,12 +493,26 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .fillColor('black')
     .fontSize(13)
     .moveDown(-1);
-    xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min.toString())) + doc.widthOfString(" - ") + doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max.toString())));
-    doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min), xpos, doc.y, { continued: true } )
-    .text(" - ", { continued: true } )
-    .text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max))
-    .fillColor(pdfColors[5])
-    .fontSize(8);
+    if (itemFilterTypes[sortAttribute] === 'money-range') {
+      xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min).toString()) + doc.widthOfString(" - ") + doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max).toString()));
+      doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min).toString() + " - " + formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max).toString(), xpos, doc.y, { continued: true } );
+    }
+    if (itemFilterTypes[sortAttribute] === 'money-average') {
+      xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)]).toString()));
+      doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)]), xpos, doc.y, { continued: true } )
+    }
+    if (itemFilterTypes[sortAttribute] === 'scalar') {
+      xpos = 535 - (doc.widthOfString(bestPlacesItems[i][filterToItemFilter(sortAttribute)].toString()));
+      doc.text(bestPlacesItems[i][filterToItemFilter(sortAttribute)].toString(), xpos, doc.y, { continued: true } );
+    }
+    if (itemFilterTypes[sortAttribute] === 'percent') {
+      xpos = 535 - (doc.widthOfString(bestPlacesItems[i][filterToItemFilter(sortAttribute + '%')].toString()));
+      doc.text(bestPlacesItems[i][filterToItemFilter(sortAttribute + '%')].toString());
+    }
+   // .text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max))
+   // .fillColor(pdfColors[5])
+     doc.text(' ');
+     doc.fontSize(8);
      printBelowResultFilters(realFiltersArr, doc, bestPlacesItems[i]);
      doc.moveDown(1);
   }
