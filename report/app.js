@@ -6,6 +6,9 @@ const request = require('request');
 const staticMap = require('./mapGenerator.js');
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
+function setSizeup(_sizeup) {
+  sizeup = _sizeup;
+}
 
 // Translate the query filter name to the API return item filter name
 function filterToItemFilter(filter) {
@@ -61,7 +64,7 @@ var itemFilterTypes = {
 * Function that can be called from outside.  Starts the process.
 */
 
-var generatePDF = function( searchObj, customerKey, customerObj, stream) {
+var generatePDF = function( searchObj, customerKey, stream) {
 
     Promise.all([
       sizeup.data.getPlaceBySeokey(
@@ -101,7 +104,7 @@ var generatePDF = function( searchObj, customerKey, customerObj, stream) {
           startPdf(
           searchObj,
           place[0].City.LongName, industry[0].Name,
-          customerObj.getReportGraphics(customerKey),
+          sizeup.customer.getReportGraphics(customerKey),
           bestPlacesBands, bestPlaces.Items, "Best Places to Advertise",
           stream);
       })
@@ -530,5 +533,5 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
 
 module.exports = {
   generatePDF: generatePDF,
-  // setSizeup: setSizeup
+  setSizeup: setSizeup
 }
