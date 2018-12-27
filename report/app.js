@@ -453,6 +453,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.fillAndStroke(pdfColors[3]) 
   let toggle = 1;
   for (let i=0; i<bestPlacesItems.length; i++) {
+    /*
     if (doc.y < 270) {
   // Draw a rectangle for the header 
     doc.moveTo(25, 30)
@@ -465,13 +466,19 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
       doc.y = 200;
     }
     console.log("dy = ", doc.y);
+    */
     if (doc.y > 600) {
       // footer text
       customerGraphics.writeFooter(doc, theme);
+      doc.addpage();
+      customerGraphics.writeHeader(doc, theme);
+      doc.text(' ');
+      /*
       doc.text(' ');
       doc.moveDown(1);
       doc.text(' ');
       doc.moveDown(1);
+      */
     }
     doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .moveDown(1)
