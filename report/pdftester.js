@@ -13,9 +13,7 @@ var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 sizeup.customer = require("./test/mockCustomer.js");
 pdf.setSizeup(sizeup);
 */
-const customerObj = require("./test/mockCustomer.js");
-const customerObj2 = require("./test/defaultCustomer.js");
-
+const mockCustomerService = require("./test/mockCustomer.js");
 
 // Run test code.
 
@@ -38,26 +36,28 @@ function fail(e) {
   console.error("error", e);
 }
 
+var sizeup_keys = Object.keys(mockCustomerService.mockDatabase);
+
 Promise.all([pdf.generatePDF(
   mockSearchObj,
-  process.env.SIZEUP_KEY,
-  customerObj,	
+  sizeup_keys[1],
+  mockCustomerService,
   stream)]).then(() => {
     done();
   }).catch(fail());  
 
 Promise.all([pdf.generatePDF(
   mockSearchObj2,
-  process.env.SIZEUP_KEY,
-  customerObj2,	
+  sizeup_keys[0],
+  mockCustomerService,
   stream2)]).then(() => {
     done();
   }).catch(fail());  
 
 Promise.all([pdf.generatePDF(
   mockSearchObj3,
-  process.env.SIZEUP_KEY,
-  customerObj,	
+  sizeup_keys[1],
+  mockCustomerService,
   stream3)]).then(() => {
     done();
   }).catch(fail());  
