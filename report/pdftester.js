@@ -11,7 +11,8 @@ var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 sizeup.customer = require("./test/mockCustomer.js");
 pdf.setSizeup(sizeup);
 */
-const customerObj = require("./test/mockCustomer.js");
+// const customerObj = require("./test/mockCustomer.js");
+const customerObj = require("./test/defaultCustomer.js");
 
 
 // Run test code.
@@ -19,7 +20,7 @@ const customerObj = require("./test/mockCustomer.js");
 const filename = "trav.pdf";
 const stream = require("fs").createWriteStream(filename);
 
-function done() {
+function done(stream) {
  // stream.close();
   console.log("Wrote ", filename);
 }

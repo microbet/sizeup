@@ -36,6 +36,7 @@ var searchFilterTypes = {
                     'totalRevenue' : 'money-range',
                     'totalEmployees' : 'scalar-range',
                     'revenuePerCapita' : 'money-range',
+                    'householdIncome' : 'money-range',
                     'householdExpenditures' : 'money-range',
                     'medianAge' : 'scalar-range',
                     'bachelorsDegreeOrHigher' : 'percent-or-higher',
@@ -207,7 +208,6 @@ function startPdf(
   request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-     // buildPdf(pdfMsgObj, pdfColors, body);
       buildPdf( searchObj, displayLocation, displayIndustry, 
         customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
         pdfColors, body, stream);
@@ -237,20 +237,25 @@ function getElementDisplay(element, item) {
 }
 
 function displaySearch(realFiltersArr, doc, filter) {
-//  console.log("rfa = ", realFiltersArr);
-//  console.log("so = ", searchObj);
+  let i = 0;
   realFiltersArr.forEach(function(element) {
+    i++;
     if (searchFilterTypes[element] === 'money-range') {
-      doc.text(filterToDisplay(element) + ' between ' + formatDollars(filter[element].min) + ' and ' + formatDollars(filter[element].max) + ', ', doc.x, doc.y, { continued: true });
+      doc.text(filterToDisplay(element) + ' between ' + formatDollars(filter[element].min) + ' and ' + formatDollars(filter[element].max), doc.x, doc.y, { continued: true });
     }
     else if (searchFilterTypes[element] === 'scalar') {
-      doc.text(filterToDisplay(element) + ' ' + filter[element] + ' or greater, ', doc.x, doc.y, { continued: true }); 
+      doc.text(filterToDisplay(element) + ' ' + filter[element] + ' or greater', doc.x, doc.y, { continued: true }); 
     }
     else if (searchFilterTypes[element] === 'scalar-range') {
-      doc.text(filterToDisplay(element) + ' between ' + filter[element].min + ' and ' + filter[element].max + ', ', doc.x, doc.y, { continued: true });
+      doc.text(filterToDisplay(element) + ' between ' + numberWithCommas(filter[element].min) + ' and ' + numberWithCommas(filter[element].max), doc.x, doc.y, { continued: true });
     }
     else if (searchFilterTypes[element] === 'percent-or-higher') {
-      doc.text(filterToDisplay(element) + ' greater than ' + filter[element].min + '%, ', doc.x, doc.y, { continued: true }); 
+      doc.text(filterToDisplay(element) + ' greater than ' + filter[element].min + '%', doc.x, doc.y, { continued: true }); 
+    }
+    if (i < realFiltersArr.length) {
+     doc.text(', ', doc.x, doc.y, { continued: true } );
+    } else {
+     doc.text('.', doc.x, doc.y, { continued: true } );
     }
   }); 
 }
@@ -448,17 +453,31 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.fillAndStroke(pdfColors[3]) 
   let toggle = 1;
   for (let i=0; i<bestPlacesItems.length; i++) {
+    if (doc.y < 270) {
+  // Draw a rectangle for the header 
+    doc.moveTo(25, 30)
+    .lineTo(588, 30)
+    .lineTo(588, 90)
+    .lineTo(25, 90)
+    .fill(pdfColors[2]);
+      customerGraphics.writeHeader(doc, theme);
+      doc.text(' ');
+      doc.y = 200;
+    }
+    console.log("dy = ", doc.y);
     if (doc.y > 600) {
       // footer text
-      doc.text(' ');
-      doc.moveDown(3);
       customerGraphics.writeFooter(doc, theme);
+      doc.text(' ');
+      doc.moveDown(1);
+      doc.text(' ');
+      doc.moveDown(1);
     }
     doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .moveDown(1)
     .text(' ')
     .fontSize(10)
-    .circle(75, doc.y + 5, 7);
+    .circle(75, doc.y + 7, 7);
     doc.fill()
     .fillColor('#ffffff')
     .text(String.fromCharCode(65 + i), 72, doc.y + 1, { continued: true } )
@@ -486,7 +505,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
 
   // Finalize the pdf file
   doc.end();
-//  return pdfMsgObj.stream;
   console.log("PDF output.pdf created");
 }
 

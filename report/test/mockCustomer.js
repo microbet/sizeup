@@ -7,6 +7,7 @@ var mockCustomerGraphics = {
   custZip: "80976",
   custEmail: "customer.email@gmail.com",
   custBizName: "Customer Business Name",
+  custLogo: "smlogo.png",
   
   writeHeader: function(doc, theme) {
     doc.font('Helvetica-Bold');
@@ -15,7 +16,7 @@ var mockCustomerGraphics = {
     let widthBizName = doc.widthOfString(this.custBizName);
     let startBizName = 245 - (widthBizName/2);
     doc.text(this.custBizName, startBizName, 50);
-    doc.image(path.join(__dirname, "smlogo.png"), 425, doc.y - 32, { width: 120 } );
+    doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
   },
 
   writeFooter: function(doc, theme) {
