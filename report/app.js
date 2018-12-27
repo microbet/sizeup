@@ -38,7 +38,7 @@ var searchFilterTypes = {
                     'householdExpenditures' : 'money-range',
                     'medianAge' : 'scalar-range',
                     'bachelorsDegreeOrHigher' : 'percent-or-higher',
-                    'highschoolOrHigher' : 'percent-or-higher',
+                    'highSchoolOrHigher' : 'percent-or-higher',
                     'whiteCollarWorkers' : 'percent-or-higher',
 }
 
@@ -51,7 +51,7 @@ var itemFilterTypes = {
                     'householdExpenditures' : 'money-average',
                     'medianAge' : 'scalar',
                     'bachelorsDegreeOrHigher' : 'percent',
-                    'highschoolOrHigher' : 'percent',
+                    'highSchoolOrHigher' : 'percent',
                     'whiteCollarWorkers' : 'percent',
                     'householdIncome' : 'money-average',
 }
@@ -70,6 +70,7 @@ var generatePDF = function( searchObj, customerKey, customerObj, stream) {
     ])
     
     .then(([place, industry]) => {
+      console.log("filter = ", searchObj.filter);
       var argument_list = {
         totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
         highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
