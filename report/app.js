@@ -73,7 +73,6 @@ var generatePDF = function( searchObj, customerKey, stream) {
     ])
     
     .then(([place, industry]) => {
-      console.log("filter = ", searchObj.filter);
       var argument_list = {
         totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
         highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
@@ -413,29 +412,32 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     startArr.push([40 + n*180, 532 + m*10]);
   }
 
+  let sortAttribute = '';
+  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
+    sortAttribute = revenuePerCapita;
+  } else {
+    sortAttribute = searchObj.ranking_metric.kpi;
+  }
+
   // then render the bands
   doc.fillColor(pdfColors[4]);
   i = 0;
   bestPlacesBands.forEach(function(element) {
     doc.fillColor(pdfColors[i]);
     i++;
-    bandMinText = Intl.NumberFormat('en-US', { 
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-      minimumFractionDigits: 0 
-    }).format(element.Min);
+    if (itemFilterTypes[sortAttribute].includes('money')) {
+      bandMinText = formatDollars(element.Min);
+      bandMaxText = formatDollars(element.Max);
+    } else {
+      bandMinText = element.Min.toString();
+      bandMaxText = element.Max.toString();
+    }
     miniPin(startArr[j][0] - 4, startArr[j][1] + 5, pdfColors[i], doc);
     doc.text(bandMinText, startArr[j][0], startArr[j][1]);
     widthMinText = doc.widthOfString(bandMinText);
     doc.text(' - ', startArr[j][0] + widthMinText, startArr[j][1]);
     widthDash = doc.widthOfString(' - ');
-    doc.text(Intl.NumberFormat('en-US', { 
-      style: 'currency', 
-      currency: 'USD', 
-      maximumFractionDigits: 0, 
-      minimumFractionDigits: 0 
-    }).format(element.Max), startArr[j][0] + widthMinText + widthDash, startArr[j][1]);
+    doc.text(bandMaxText, startArr[j][0] + widthMinText + widthDash, startArr[j][1]);
     j++;
   });
   
@@ -456,12 +458,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
    *  subFieldFontHeight = Math.round(fieldFontHeight/2);
    */
   
-  let sortAttribute = '';
-  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
-    sortAttribute = revenuePerCapita;
-  } else {
-    sortAttribute = searchObj.ranking_metric.kpi;
-  }
   sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
   let toggle = 1;
   for (let i=0; i<bestPlacesItems.length; i++) {
