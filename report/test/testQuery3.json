@@ -1,5 +1,6 @@
 {
-  "title": "This is the title for another page",
+ "title": "This is the title for another page",
+ "query": {
   "template": "What are the ${granularity} places in ${area}, ranked by ${ranking_metric}, given ${filters}?",
   "granularity": "ZipCode",
   "area": {
@@ -56,4 +57,5 @@
       "min": "6"
     }
   }
+ }
 }

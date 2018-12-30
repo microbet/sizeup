@@ -4,7 +4,7 @@ const testInputs = [
   require('./test/testQuery3.json')
 ];
 const mockCustomer = require("./test/mockCustomer.js");
-const pdf = require("./app.js");
+const report = require(".");
 
 // Monkeypatch the Sizeup API with our mock function, since production code
 // doesn't know about customer graphics.
@@ -28,7 +28,7 @@ const pdf = require("./app.js");
 
 var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
 sizeup.customer = mockCustomer;
-pdf.setSizeup(sizeup);
+report.setSizeup(sizeup);
 
 // Run test code.
 
@@ -56,23 +56,29 @@ function fail(e) {
 
 var sizeup_keys = Object.keys(mockCustomer.mockDatabase);
 
-Promise.all([pdf.generatePDF(
-  testInputs[0],
+Promise.all([report.advertising.generatePDF(
+  testInputs[0].query,
   sizeup_keys[1],
-  stream)]).then(() => {
+  stream,
+  testInputs[0].title
+  )]).then(() => {
     done();
   }).catch(fail());  
 
-Promise.all([pdf.generatePDF(
-  testInputs[1],
+Promise.all([report.advertising.generatePDF(
+  testInputs[1].query,
   sizeup_keys[0],
-  stream2)]).then(() => {
+  stream2,
+  testInputs[1].title
+  )]).then(() => {
     done();
   }).catch(fail());  
 
-Promise.all([pdf.generatePDF(
-  testInputs[2],
+Promise.all([report.advertising.generatePDF(
+  testInputs[2].query,
   sizeup_keys[1],
-  stream3)]).then(() => {
+  stream3,
+  testInputs[2].title
+  )]).then(() => {
     done();
   }).catch(fail());  

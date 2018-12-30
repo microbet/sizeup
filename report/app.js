@@ -5,11 +5,6 @@ require('dotenv').config();
 const request = require('request');
 const staticMap = require('./mapGenerator.js');
 
-var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
-function setSizeup(_sizeup) {
-  sizeup = _sizeup;
-}
-
 // Translate the query filter name to the API return item filter name
 function filterToItemFilter(filter) {
   return filter.charAt(0).toUpperCase() + filter.slice(1);
@@ -57,57 +52,6 @@ var itemFilterTypes = {
                     'highSchoolOrHigher' : 'percent',
                     'whiteCollarWorkers' : 'percent',
                     'householdIncome' : 'money-average',
-}
-
-
-/***
-* Function that can be called from outside.  Starts the process.
-*/
-
-var generatePDF = function( searchObj, customerKey, stream) {
-
-    Promise.all([
-      sizeup.data.getPlaceBySeokey(
-        `${searchObj.area.place.state}/${searchObj.area.place.county}/${searchObj.area.place.city}`),
-      sizeup.data.getIndustryBySeokey(searchObj.ranking_metric.industry)
-    ])
-    
-    .then(([place, industry]) => {
-      var argument_list = {
-        totalEmployees: [searchObj.filter.totalEmployees.min, searchObj.filter.totalEmployees.max],
-        highSchoolOrHigher: searchObj.filter.highSchoolOrHigher.min,
-        householdExpenditures: [searchObj.filter.householdExpenditures.min, searchObj.filter.householdExpenditures.max],
-        householdIncome: [searchObj.filter.householdIncome.min, searchObj.filter.householdIncome.max],
-        medianAge: [searchObj.filter.medianAge.min, searchObj.filter.medianAge.max],
-        revenuePerCapita: [searchObj.filter.revenuePerCapita.min, searchObj.filter.revenuePerCapita.max],
-        whiteCollarWorkers: searchObj.filter.whiteCollarWorkers.min,
-        totalRevenue: [searchObj.filter.totalRevenue.min, searchObj.filter.totalRevenue.max],
-        bands: 5,  // bands wasn't part of the search obj, so I'm just setting it to 5
-        industryId: industry[0].Id,
-        order: 'highToLow',  // don't see this is search obj
-        page: 1,  // not sure what page is
-        sort: searchObj.ranking_metric.order,  // doesn't seem right, but maybe is
-        sortAttribute: searchObj.ranking_metric.kpi,  // I think
-        geographicLocationId: place[0].Id,
-        distance: searchObj.area.distance,
-        attribute: searchObj.ranking_metric.kpi,  // not sure
-      }
-      Promise.all([
-        Promise.resolve(place),
-        Promise.resolve(industry),
-        sizeup.data.getBestPlacesToAdvertise(argument_list),
-        sizeup.data.getBestPlacesToAdvertiseBands(argument_list)
-      ])
-      
-      .then(([place, industry, bestPlaces, bestPlacesBands]) => {
-          startPdf(
-          searchObj,
-          place[0].City.LongName, industry[0].Name,
-          sizeup.customer.getReportGraphics(customerKey),
-          bestPlacesBands, bestPlaces.Items, "Best Places to Advertise",
-          stream);
-      })
-    }).catch(console.error);
 }
 
 /*****
@@ -159,10 +103,23 @@ function getBand(kpi, bestPlacesBands, Item) {
  */
 
 function startPdf(
-  searchObj, displayLocation, displayIndustry, customerGraphics,
-  bestPlacesBands, bestPlacesItems, msg="success", stream
+  report, customerGraphics, msg="success", stream, title
 ) {
-  bestPlacesItems.bands = 5;
+  
+  // I'm assigning local variables here to match the variables
+  // that used to be in your function argument. I did that to avoid
+  // editing the body of this function and maybe causing confusion
+  // or merge conflicts. But these locals seem unnecessary and should
+  // probably be replaced throughout the function with direct references
+  // to the report.
+  var searchObj = report.query;
+  var displayLocation = report.place.City.LongName;
+  var displayIndustry = report.industry.Name;
+  var bestPlacesItems = report.bestPlaces.Items;
+  var bestPlacesBands = report.bands;
+  
+  bestPlacesItems.bands = 5; // TODO this function is mutating objects
+  // that don't belong to it. Please find another way to do this.
 
   /****
   * These colors are from SizeUp design and are used in the pdf
@@ -213,7 +170,7 @@ function startPdf(
       data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
       buildPdf( searchObj, displayLocation, displayIndustry, 
         customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
-        pdfColors, body, stream);
+        pdfColors, body, stream, title);
     }
   })
 }
@@ -345,7 +302,7 @@ function headerRectangle(pdfColors, doc) {
 
 function buildPdf( searchObj, displayLocation, displayIndustry, 
         customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
-        pdfColors, googleMap, stream) {
+        pdfColors, googleMap, stream, title) {
   
   // Create a document
   let doc = new PDFDocument;
@@ -367,7 +324,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.fontSize(15);
   doc.moveDown(2);
   doc.fillColor(pdfColors[4])
-  doc.text(searchObj.title, 25, doc.y);
+  doc.text(title, 25, doc.y);
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
   doc.text("This is a list of postal codes with the highest combined business revenue in the ", 35, doc.y + 10, { continued: true } )
@@ -528,6 +485,5 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
 }
 
 module.exports = {
-  generatePDF: generatePDF,
-  setSizeup: setSizeup
+  startPdf: startPdf
 }

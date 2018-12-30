@@ -2,7 +2,7 @@
   "name": "sizeup-pdf",
   "version": "1.0.0",
   "description": "pdf generator",
-  "main": "app.js",
+  "main": "index.js",
   "dependencies": {
     "dotenv": "^6.1.0",
     "pdfkit": "^0.8.3",
@@ -18,5 +18,5 @@
     "url": "git+https://jay-softwaredev@bitbucket.org/sizeupteam/sizeup.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "ISC"
 }

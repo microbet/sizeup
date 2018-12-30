@@ -1,5 +1,6 @@
 {
-  "title": "This report provided by your friendly neighborhood business banker",
+ "title": "This report provided by your friendly neighborhood business banker",
+ "query": {
   "template": "What are the ${granularity} places in ${area}, ranked by ${ranking_metric}, given ${filters}?",
   "granularity": "ZipCode",
   "area": {
@@ -56,4 +57,5 @@
       "min": "1"
     }
   }
+ }
 }
