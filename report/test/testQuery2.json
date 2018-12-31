@@ -1,4 +1,5 @@
 {
+ "title": "This report provided by your friendly neighborhood business banker",
  "query": {
   "template": "What are the ${granularity} places in ${area}, ranked by ${ranking_metric}, given ${filters}?",
   "granularity": "ZipCode",
@@ -13,7 +14,7 @@
   },
   "ranking_metric": {
     "template": "${kpi} in ${industry} (${order})",
-    "kpi": "totalRevenue",
+    "kpi": "revenuePerCapita",
     "industry": "shoe-and-footwear-stores",
     "order": "desc"
   },
@@ -43,17 +44,17 @@
       "max": "250000"
     },
     "medianAge": {
-      "min": "0",
-      "max": "null"
+      "min": "5",
+      "max": "80"
     },
     "highSchoolOrHigher": {
-      "min": "0"
+      "min": "2"
     },
     "whiteCollarWorkers": {
-      "min": "8"
+      "min": "4"
     },
     "bachelorsDegreeOrHigher": {
-      "min": "8"
+      "min": "1"
     }
   }
  }

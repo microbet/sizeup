@@ -84,6 +84,7 @@ function getMapOptionsArr(centroidArr, pdfColors) {
 }
 
 function getBand(kpi, bestPlacesBands, Item) {
+  if (kpi === 'underservedMarkets') { kpi = 'revenuePerCapita'; }
   let point;
   if (itemFilterTypes[kpi].includes('range')) {
     point = Item[filterToItemFilter(kpi)].Min;
@@ -313,6 +314,13 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   let theme = { text: { color: pdfColors[2] } };
   let realFiltersArr = getRealFilters(searchObj.filter);
   
+  let sortAttribute = '';
+  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
+    sortAttribute = 'revenuePerCapita';
+  } else {
+    sortAttribute = searchObj.ranking_metric.kpi;
+  }
+
   headerRectangle(pdfColors, doc);
   
   // start writing text
@@ -327,12 +335,34 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.text(title, 25, doc.y);
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
-  doc.text("This is a list of postal codes with the highest combined business revenue in the ", 35, doc.y + 10, { continued: true } )
+// "the most money is being made in your industry" needs to depend on the kpi
+  // I think make an object with key=the 5 possible kpis and
+  // value = the text that goes here - don't think it's really
+  // more automatable
+
+  /*
+householdExpenditures - household expenditures is the highest
+revenuePerCapita - revenue per capita is the highest
+underservedMarkets
+averageRevenue
+totalEmployees
+
+maybe it is just display format
+*/
+
+    doc.text("This is a list of postal codes with the highest ", 35, doc.y + 10, { continued: true } )
+    .fillColor(pdfColors[3])
+    .text(filterToDisplay(sortAttribute), { continued: true } )
+    .fillColor(pdfColors[5])
+    .text(" in the ", { continued: true } )
     .fillColor(pdfColors[3])
     .text(displayIndustry, { continued: true } )
     .fillColor(pdfColors[5])
-    .text("industry.  You should consider using this list if you are selling to businesses or consumers and want to", { continued: true } )
-    .text("know where the most money is being made in your industry. ", { continued: true } )
+    .text(" industry.  You should consider using this list if you are selling to businesses or consumers and want to know where the ", { continued: true } )
+    .fillColor(pdfColors[3])
+    .text(filterToDisplay(sortAttribute), { continued: true } )
+    .fillColor(pdfColors[5])
+    .text(" is the highest. ", { continued: true } )
     .text("The analysis is based on locations ", { continued: true } )
    .fillColor(pdfColors[3])
     .text(searchObj.area.distance, { continued: true } )
@@ -367,13 +397,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     n = k % 3;  // n (remainder of k/3) is the column in the display of bands
     m = Math.floor(k/3);  // each row will have 3 bands listed
     startArr.push([40 + n*180, 532 + m*10]);
-  }
-
-  let sortAttribute = '';
-  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
-    sortAttribute = revenuePerCapita;
-  } else {
-    sortAttribute = searchObj.ranking_metric.kpi;
   }
 
   // then render the bands

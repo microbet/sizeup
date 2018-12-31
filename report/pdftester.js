@@ -1,7 +1,9 @@
 const testInputs = [
   require('./test/testQuery1.json'),
   require('./test/testQuery2.json'),
-  require('./test/testQuery3.json')
+  require('./test/testQuery3.json'),
+  require('./test/testQuery4.json'),
+  require('./test/testQuery5.json'),
 ];
 const mockCustomer = require("./test/mockCustomer.js");
 const report = require(".");
@@ -41,6 +43,12 @@ const stream2 = require("fs").createWriteStream(filename2);
 const filename3 = "trav3.pdf";
 const stream3 = require("fs").createWriteStream(filename3);
 
+const filename4 = "trav4.pdf";
+const stream4 = require("fs").createWriteStream(filename4);
+
+const filename5 = "trav5.pdf";
+const stream5 = require("fs").createWriteStream(filename5);
+
 function done(stream) {
  // stream.close();
   console.log("Wrote ", filename); // You have a bug here now,
@@ -79,6 +87,24 @@ Promise.all([report.advertising.generatePDF(
   sizeup_keys[1],
   stream3,
   testInputs[2].title
+  )]).then(() => {
+    done();
+  }).catch(fail());  
+
+Promise.all([report.advertising.generatePDF(
+  testInputs[3].query,
+  sizeup_keys[1],
+  stream4,
+  testInputs[3].title
+  )]).then(() => {
+    done();
+  }).catch(fail());  
+
+Promise.all([report.advertising.generatePDF(
+  testInputs[4].query,
+  sizeup_keys[1],
+  stream5,
+  testInputs[4].title
   )]).then(() => {
     done();
   }).catch(fail());  

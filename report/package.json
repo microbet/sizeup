@@ -4,7 +4,7 @@
   "description": "pdf generator",
   "main": "index.js",
   "dependencies": {
-    "dotenv": "^6.1.0",
+    "dotenv": "^6.2.0",
     "pdfkit": "^0.8.3",
     "query-string": "^6.2.0",
     "sizeup-api": "^1.1.2"

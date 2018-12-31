@@ -1,5 +1,5 @@
 {
- "title": "This is the title for another page",
+ "title": "This report provided by your friendly neighborhood business banker",
  "query": {
   "template": "What are the ${granularity} places in ${area}, ranked by ${ranking_metric}, given ${filters}?",
   "granularity": "ZipCode",
@@ -8,20 +8,20 @@
     "distance": "11",
     "place": {
       "state": "texas",
-      "county": "collin",
-      "city": "dallas-city"
+      "county": "tarrant",
+      "city": "fort-worth-city"
     }
   },
   "ranking_metric": {
     "template": "${kpi} in ${industry} (${order})",
-    "kpi": "medianAge",
+    "kpi": "underservedMarkets",
     "industry": "shoe-and-footwear-stores",
     "order": "desc"
   },
   "filter": {
     "totalRevenue": {
       "min": "100000",
-      "max": "50000000000"
+      "max": "100000000000"
     },
     "averageRevenue": {
       "min": "50000",
@@ -45,16 +45,16 @@
     },
     "medianAge": {
       "min": "5",
-      "max": "77"
+      "max": "80"
     },
     "highSchoolOrHigher": {
-      "min": "5"
+      "min": "2"
     },
     "whiteCollarWorkers": {
-      "min": "7"
+      "min": "4"
     },
     "bachelorsDegreeOrHigher": {
-      "min": "6"
+      "min": "1"
     }
   }
  }
