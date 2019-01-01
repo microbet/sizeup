@@ -47,7 +47,6 @@ advertising.generatePDF = function(searchObj, customerKey, stream, title) {
   // it starts off right away with failure if any filters are missing
   // and hence have no min or max values
 
- // searchObj = validate(searchObj);
   validate(searchObj);
 
   Promise.all([

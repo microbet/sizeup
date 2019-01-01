@@ -381,15 +381,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.text(title, 25, doc.y);
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
-  /*
-   displaySearch(realFiltersArr, doc, searchObj.filter);
-    doc.text("")
-    .moveDown(1);
-    */
-
-
-
-
   doc.fontSize(10);
     doc.text("This is a list of postal codes with the highest ", 35, doc.y + 10, { continued: true } )
     .fillColor(pdfColors[3])
@@ -415,18 +406,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   // need to just get filters that are not maxed out
   // displaySearch(realFiltersArr, doc, searchObj.filter);
    displaySrch(realFiltersArr, doc, searchObj.filter, pdfColors, searchObj.area.distance);
-
-
-
-
-
-
-
-
-
-
-
-    
   doc.fontSize(10);   
   doc.fillColor(pdfColors[4]);
 
