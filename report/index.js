@@ -43,6 +43,13 @@ advertising.getShortTitle = function(advertisingReport, locale) {
 
 advertising.generatePDF = function(searchObj, customerKey, stream, title) {
 
+  // seems like validation of searchObj has to happen here
+  // it starts off right away with failure if any filters are missing
+  // and hence have no min or max values
+
+ // searchObj = validate(searchObj);
+  validate(searchObj);
+
   Promise.all([
     sizeup.data.getPlaceBySeokey(
       `${searchObj.area.place.state}/${searchObj.area.place.county}/${searchObj.area.place.city}`),
@@ -98,6 +105,42 @@ advertising.generatePDF = function(searchObj, customerKey, stream, title) {
     })
   }).catch(console.error);
 };
+
+function validate(searchObj) {
+ // console.log(typeof searchObj.totalEmployees);
+  let fieldsArr = ['totalEmployees', 'householdIncome', 'highSchoolOrHigher', 
+    'averageRevenue', 'revenuePerCapita', 'householdExpenditures', 
+    'medianAge', 'whiteCollarWorkers', 'bachelorsDegreeOrHigher', 'totalRevenue'];
+  fieldsArr.forEach(function(element) {
+    if (typeof searchObj.filter[element] === 'undefined') {
+     searchObj.filter[element] = { 'min' : '0', 'max' : 'null' };
+    }
+  });
+    /*
+
+  if (typeof searchObj.filter.totalEmployees === 'undefined') {
+    searchObj.filter.totalEmployees = { 'min' : '0', 'max' : 'null' };
+  }
+  if (typeof searchObj.filter.householdIncome === 'undefined') {
+    searchObj.filter.householdIncome = { 'min' : '0', 'max' : 'null' };
+  }
+  if (typeof searchObj.filter.highSchoolOrHigher === 'undefined') {
+    searchObj.filter.highSchoolOrHigher = { 'min' : '0', 'max' : 'null' };
+  }
+  // this needs to be done for 
+   "totalRevenue": {
+    "averageRevenue": {
+    "totalEmployees": {
+    "revenuePerCapita": {
+    "householdIncome": {
+    "householdExpenditures": {
+    "medianAge": {
+    "highSchoolOrHigher": {
+    "whiteCollarWorkers": {
+    "bachelorsDegreeOrHigher": {
+    */
+
+}
 
 module.exports = {
   advertising: advertising,

@@ -66,6 +66,7 @@ function getCentroids(objWithCentroids) {
   return centroidArr;
 }
 
+/*
 function getMapOptionsArr(centroidArr, pdfColors) {
   let markerStr = '';
   let markerLabel = '';
@@ -82,6 +83,7 @@ function getMapOptionsArr(centroidArr, pdfColors) {
   }
   return optionsObj;
 }
+*/
 
 function getBand(kpi, bestPlacesBands, Item) {
   if (kpi === 'underservedMarkets') { kpi = 'revenuePerCapita'; }
@@ -164,7 +166,8 @@ function startPdf(
     whichBand = getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i]);
     markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
   }
-  const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
+  //const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
+  const url = 'https://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
   var request = require('request').defaults({ encoding: null });
   request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -196,6 +199,48 @@ function getElementDisplay(element, item) {
     return element;
   }
 }
+
+function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
+  // if there is no realFiltersArr - just show distance maybe
+ // doc.fillColor(pdfColors[4]);
+
+  //doc.rect( 25, 205, 156, 300 );
+  doc.rect( 25, 205, 158, 300 );
+  doc.fillAndStroke('#f3f3f3');
+  doc.fillColor('black');
+  let i = 0;
+  let startX = 30;
+  doc.y = doc.y + 20;
+  doc.text(' ')
+  .text('The list has been filtered to include only areas that have:', startX, doc.y, { width: 146 })
+  .text(' ')
+  .fontSize(8);
+  if (realFiltersArr.length === 0) {
+    doc.text('Distance: ' + distance + ' miles', startX, doc.y, { width: 146 });
+    return;
+  }
+  realFiltersArr.forEach(function(element) {
+    i++;
+    if (searchFilterTypes[element] === 'money-range') {
+      doc.text(filterToDisplay(element) + ' between ' + formatDollars(filter[element].min) + ' and ' + formatDollars(filter[element].max), startX, doc.y, { width: 146 });
+    }
+    else if (searchFilterTypes[element] === 'scalar') {
+      doc.text(filterToDisplay(element) + ' ' + filter[element] + ' or greater', startX, doc.y, { width: 146 }); 
+    }
+    else if (searchFilterTypes[element] === 'scalar-range') {
+      doc.text(filterToDisplay(element) + ' between ' + numberWithCommas(filter[element].min) + ' and ' + numberWithCommas(filter[element].max), startX, doc.y, { width: 146 });
+    }
+    else if (searchFilterTypes[element] === 'percent-or-higher') {
+      doc.text(filterToDisplay(element) + ' greater than ' + filter[element].min + '%', startX, doc.y, { width: 146 }); 
+    }
+    if (i < realFiltersArr.length) {
+     doc.text(' ');
+    } 
+  }); 
+}
+
+
+  
 
 function displaySearch(realFiltersArr, doc, filter) {
   let i = 0;
@@ -309,7 +354,8 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   let doc = new PDFDocument;
   doc.pipe(stream);
   
-  doc.image(googleMap, 25, 246, { width: 562 } );
+ // doc.image(googleMap, 25, 246, { width: 562 } );
+  doc.image(googleMap, 183, 205, { width: 400 } );
 
   let theme = { text: { color: pdfColors[2] } };
   let realFiltersArr = getRealFilters(searchObj.filter);
@@ -335,21 +381,16 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.text(title, 25, doc.y);
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
-// "the most money is being made in your industry" needs to depend on the kpi
-  // I think make an object with key=the 5 possible kpis and
-  // value = the text that goes here - don't think it's really
-  // more automatable
-
   /*
-householdExpenditures - household expenditures is the highest
-revenuePerCapita - revenue per capita is the highest
-underservedMarkets
-averageRevenue
-totalEmployees
+   displaySearch(realFiltersArr, doc, searchObj.filter);
+    doc.text("")
+    .moveDown(1);
+    */
 
-maybe it is just display format
-*/
 
+
+
+  doc.fontSize(10);
     doc.text("This is a list of postal codes with the highest ", 35, doc.y + 10, { continued: true } )
     .fillColor(pdfColors[3])
     .text(filterToDisplay(sortAttribute), { continued: true } )
@@ -370,13 +411,21 @@ maybe it is just display format
     .text(" miles from the centroid of ", { continued: true } )
    .fillColor(pdfColors[3])
     .text(displayLocation, { continued: true } )
-    .fillColor(pdfColors[5])
-    .text(". The list has been filtered to include only areas that have ", { continued: true } );
-   doc.fillColor(pdfColors[3]);
+   doc.fillColor(pdfColors[5]);
   // need to just get filters that are not maxed out
-   displaySearch(realFiltersArr, doc, searchObj.filter);
-    doc.text("")
-    .moveDown(1);
+  // displaySearch(realFiltersArr, doc, searchObj.filter);
+   displaySrch(realFiltersArr, doc, searchObj.filter, pdfColors, searchObj.area.distance);
+
+
+
+
+
+
+
+
+
+
+
     
   doc.fontSize(10);   
   doc.fillColor(pdfColors[4]);
@@ -386,7 +435,7 @@ maybe it is just display format
   doc.fillColor(pdfColors[4]);
   doc.moveDown(0.5);
 
-  doc.rect( 25, 528, 563, 22 );
+  doc.rect( 25, 505, 558, 22 );
   doc.fillAndStroke('#f3f3f3');
 
   //  construct an array of x,y starting points for the bands
@@ -396,7 +445,7 @@ maybe it is just display format
   for (let k=0; k<bestPlacesItems.bands; k++) {
     n = k % 3;  // n (remainder of k/3) is the column in the display of bands
     m = Math.floor(k/3);  // each row will have 3 bands listed
-    startArr.push([40 + n*180, 532 + m*10]);
+    startArr.push([40 + n*180, 509 + m*10]);
   }
 
   // then render the bands
