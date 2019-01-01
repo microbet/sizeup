@@ -22,9 +22,6 @@ function filterToDisplay(filter) {
   return filterToItemFilter(filterArr.join(''))
 }
 
-var moneyRangeFilters = ["totalRevenue", "averageRevenue", "revenuePerCapita"];
-var moneyFilters = ["householdIncome", "householdExpenditures"];
-var scalarRangeFilters = ["totalEmployees"];
 var scalarFilters = ["medianAge", "whiteCollarWorkers", "bachelorsDegreeOrHigher", "highSchoolOrHigher"];
 var searchFilterTypes = { 
                     'population' : 'scalar',
@@ -65,25 +62,6 @@ function getCentroids(objWithCentroids) {
   }
   return centroidArr;
 }
-
-/*
-function getMapOptionsArr(centroidArr, pdfColors) {
-  let markerStr = '';
-  let markerLabel = '';
-  for (let i=0; i<centroidArr.length; i++) {
-    markerLabel = String.fromCharCode(65 + i);
-    markerStr += "markers=color:" + pdfColors[i].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
-  }
-  let optionsObj = {
-	  url: 'https://maps.googleapis.com/maps/api/staticmap',
-	  size: '600x300',
-	  maptype: 'roadmap',
-	  markerStr: markerStr,
-	  key: process.env.GOOGLEMAP_KEY, 
-  }
-  return optionsObj;
-}
-*/
 
 function getBand(kpi, bestPlacesBands, Item) {
   if (kpi === 'underservedMarkets') { kpi = 'revenuePerCapita'; }
@@ -166,7 +144,6 @@ function startPdf(
     whichBand = getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i]);
     markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
   }
-  //const url = 'https://maps.googleapis.com/maps/api/staticmap?size=600x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
   const url = 'https://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
   var request = require('request').defaults({ encoding: null });
   request.get(url, function (error, response, body) {
@@ -201,18 +178,16 @@ function getElementDisplay(element, item) {
 }
 
 function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
-  // if there is no realFiltersArr - just show distance maybe
- // doc.fillColor(pdfColors[4]);
 
-  //doc.rect( 25, 205, 156, 300 );
-  doc.rect( 25, 205, 158, 300 );
+  doc.rect( 25, 180, 158, 300 );
   doc.fillAndStroke('#f3f3f3');
   doc.fillColor('black');
   let i = 0;
   let startX = 30;
-  doc.y = doc.y + 20;
-  doc.text(' ')
-  .text('The list has been filtered to include only areas that have:', startX, doc.y, { width: 146 })
+ // doc.y = doc.y + 20;
+  doc.y = 173;
+  doc.text(' ');
+  doc.text('The list has been filtered to include only areas that have:', startX, doc.y, { width: 146 })
   .text(' ')
   .fontSize(8);
   if (realFiltersArr.length === 0) {
@@ -238,9 +213,6 @@ function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
     } 
   }); 
 }
-
-
-  
 
 function displaySearch(realFiltersArr, doc, filter) {
   let i = 0;
@@ -332,7 +304,7 @@ function sortIndicator(sortAttribute, order, pdfColors, doc) {
   }
   doc.fillAndStroke(pdfColors[3]) 
 }
-
+/*
 function headerRectangle(pdfColors, doc) {
   // Draw a rectangle for the header 
   doc.moveTo(25, 30)
@@ -341,6 +313,7 @@ function headerRectangle(pdfColors, doc) {
   .lineTo(25, 90)
   .fill(pdfColors[2]);
 }
+*/
   
 /****
  * this function is building the pdf  
@@ -351,11 +324,15 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
         pdfColors, googleMap, stream, title) {
   
   // Create a document
-  let doc = new PDFDocument;
+ // let doc = new PDFDocument;
+  let doc = new PDFDocument( { 'margins':  { 'top': 0, 'bottom': 0, 'left': 0, 'right': 20 } } );
+  // console.log(" width is ", doc.page.width); // 612
+  // console.log(" height is ", doc.page.height); // 792 
+
   doc.pipe(stream);
   
  // doc.image(googleMap, 25, 246, { width: 562 } );
-  doc.image(googleMap, 183, 205, { width: 400 } );
+  doc.image(googleMap, 183, 180, { width: 400 } );
 
   let theme = { text: { color: pdfColors[2] } };
   let realFiltersArr = getRealFilters(searchObj.filter);
@@ -367,12 +344,18 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     sortAttribute = searchObj.ranking_metric.kpi;
   }
 
-  headerRectangle(pdfColors, doc);
+ // headerRectangle(pdfColors, doc);
+  // rectangle taken out, should be drawn by writeHeader if at all
+
+  // Send writeHeader the start point, height and width
+  // the writeHeader has the doc and can still break things
+  // but it doesn't need to tell this app where it goes
+  // or its size
   
   // start writing text
 
   // header text
-  customerGraphics.writeHeader(doc, theme);
+  customerGraphics.writeHeader(doc, theme, 25, 30, 60, 563);
   doc.font('Helvetica-Bold');
 
   doc.fontSize(15);
@@ -382,7 +365,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.fillColor(pdfColors[5]);
   doc.fontSize(10);
   doc.fontSize(10);
-    doc.text("This is a list of postal codes with the highest ", 35, doc.y + 10, { continued: true } )
+    doc.text("This is a list of postal codes with the highest ", 25, doc.y + 10, { continued: true } )
     .fillColor(pdfColors[3])
     .text(filterToDisplay(sortAttribute), { continued: true } )
     .fillColor(pdfColors[5])
@@ -401,7 +384,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .fillColor(pdfColors[5])
     .text(" miles from the centroid of ", { continued: true } )
    .fillColor(pdfColors[3])
-    .text(displayLocation, { continued: true } )
+    .text(displayLocation, { continued: true } );
    doc.fillColor(pdfColors[5]);
   // need to just get filters that are not maxed out
   // displaySearch(realFiltersArr, doc, searchObj.filter);
@@ -414,7 +397,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.fillColor(pdfColors[4]);
   doc.moveDown(0.5);
 
-  doc.rect( 25, 505, 558, 22 );
+  doc.rect( 25, 480, 558, 22 );
   doc.fillAndStroke('#f3f3f3');
 
   //  construct an array of x,y starting points for the bands
@@ -424,7 +407,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   for (let k=0; k<bestPlacesItems.bands; k++) {
     n = k % 3;  // n (remainder of k/3) is the column in the display of bands
     m = Math.floor(k/3);  // each row will have 3 bands listed
-    startArr.push([40 + n*180, 509 + m*10]);
+    startArr.push([200 + n*140, 484 + m*10]);
   }
 
   // then render the bands
@@ -450,7 +433,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   });
   
   let xpos = 250;
-  const listHeight = 165;  // pixels given to the bottom section
+  const listHeight = 210;  // pixels given to the bottom section
   doc.y = 720 - listHeight;
   let secondMargin = 300;
   let skipX = 0;
@@ -465,25 +448,19 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
    *  fieldFontHeight = Math.round(fieldHeight/6); 
    *  subFieldFontHeight = Math.round(fieldFontHeight/2);
    */
-  
   sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
   let toggle = 1;
   for (let i=0; i<bestPlacesItems.length; i++) {
-    if (doc.y > 600) {
+    if (doc.y > 620) {
       // footer text
       customerGraphics.writeFooter(doc, theme);
       doc.addPage();
-      headerRectangle(pdfColors, doc);
-      customerGraphics.writeHeader(doc, theme);
+      // headerRectangle(pdfColors, doc);
+     // customerGraphics.writeHeader(doc, theme);
+      customerGraphics.writeHeader(doc, theme, 25, 30, 60, 563);
       doc.font('Helvetica-Bold');
       doc.text(' ');
       doc.y = 110;
-      /*
-      doc.text(' ');
-      doc.moveDown(1);
-      doc.text(' ');
-      doc.moveDown(1);
-      */
       sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
     }
     doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
@@ -517,8 +494,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
       xpos = 535 - (doc.widthOfString(bestPlacesItems[i][filterToItemFilter(sortAttribute + '%')].toString()));
       doc.text(bestPlacesItems[i][filterToItemFilter(sortAttribute + '%')].toString());
     }
-   // .text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max))
-   // .fillColor(pdfColors[5])
      doc.text(' ');
      doc.fontSize(8);
      printBelowResultFilters(realFiltersArr, doc, bestPlacesItems[i]);
@@ -527,6 +502,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
 
   // footer text
   doc.text(' ');
+  console.log("doc.y  o= ", doc.y);
   customerGraphics.writeFooter(doc, theme);
 
 

@@ -10,14 +10,14 @@ var mockCustomerGraphics = {
   custBizName: "Customer Business Name",
   custLogo: "smlogo.png",
 
-  writeHeader: function(doc, theme) {
+  writeHeader: function(doc, theme, startX, startY, height, width) {
     doc.font('Helvetica-Bold');
     doc.fontSize(22);
-    doc.fillColor('white');
+    doc.fillColor('blue');
     let widthBizName = doc.widthOfString(this.custBizName);
-    let startBizName = 245 - (widthBizName/2);
-    doc.text(this.custBizName, startBizName, 50);
-    doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
+    let startBizName = (width - widthBizName - 200);
+    doc.text(this.custBizName, startBizName, startY -5 );
+    doc.image(path.join(__dirname, this.custLogo), startX + width - 200, startY - 15, { width: 120 } );
   },
 
   writeFooter: function(doc, theme) {
@@ -27,7 +27,7 @@ var mockCustomerGraphics = {
     let widthBizName = doc.widthOfString(this.custBizName);
     doc.fillColor(theme.text.color);
     let startBizName = 306 - (widthBizName/2);
-    doc.text(this.custBizName, startBizName, 673);
+    doc.text(this.custBizName, startBizName, 730);
     doc.fontSize(12);
     doc.fillColor('black');
     let addressString = this.custAddress + ' ' + this.custCity + ' ' + this.custZip;
@@ -44,29 +44,29 @@ var mockDefaultGraphics = {
   custBizName: "Business Intelligence for All",
   custLogo: "SizeUp.png",
   
-  writeHeader: function(doc, theme) {
+  writeHeader: function(doc, theme, startX, startY, height, width) {
     doc.font('Helvetica-Bold');
     doc.text(' ');
     // TODO pending available file: doc.font('./fonts/SourceSansPro-Light.otf');
-    doc.fontSize(28);
-    doc.fillColor('white');
+    doc.fontSize(25);
+    doc.fillColor('blue');
     let widthBizName = doc.widthOfString(this.custBizName);
-    let startBizName = 245 - (widthBizName/2);
-    doc.text(this.custBizName, startBizName, 45);
-    doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
+    let startBizName = (width - widthBizName - 175);
+    doc.text(this.custBizName, startBizName, startY);
+    doc.image(path.join(__dirname, this.custLogo), startX + width - 175, startY - 15, { width: 120 } );
   },
 
   writeFooter: function(doc, theme) {
     doc.text(' ');
-    doc.image(path.join(__dirname, "gauge-home.png"), 80, 678);
+    doc.image(path.join(__dirname, "gauge-home.png"), 80, 725);
     // TODO pending available file: doc.font('./fonts/SourceSansPro-Light.otf');
     doc.fillColor('black');
     doc.fontSize(12);
-    doc.text('How is My Business Performing?', 140, 683, { continued: true, width: 100});
-    doc.image(path.join(__dirname, "marketing-home.png"), 250, 678);
+    doc.text('How is My Business Performing?', 140, 725, { continued: true, width: 100});
+    doc.image(path.join(__dirname, "marketing-home.png"), 250, 730);
     doc.text(' ');
-    doc.text('Where should I advertise?', 310, 683, { continued: true, width: 100, align : 'left' });
-    doc.image(path.join(__dirname, this.custLogo), 420, 678, { width: 120 } );
+    doc.text('Where should I advertise?', 310, 725, { continued: true, width: 100, align : 'left' });
+    doc.image(path.join(__dirname, this.custLogo), 420, 730, { width: 120 } );
   }
 };
 
