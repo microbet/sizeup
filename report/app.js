@@ -502,7 +502,6 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
 
   // footer text
   doc.text(' ');
-  console.log("doc.y  o= ", doc.y);
   customerGraphics.writeFooter(doc, theme);
 
 
