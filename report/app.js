@@ -63,7 +63,7 @@ function getCentroids(objWithCentroids) {
   return centroidArr;
 }
 
-function getBand(kpi, bestPlacesBands, Item) {
+function getBand(kpi, bands, Item) {
   if (kpi === 'underservedMarkets') { kpi = 'revenuePerCapita'; }
   let point;
   if (itemFilterTypes[kpi].includes('range')) {
@@ -71,8 +71,8 @@ function getBand(kpi, bestPlacesBands, Item) {
   } else {
     point = Item[filterToItemFilter(kpi)];
   }
-  for(let i=0; i<bestPlacesBands.length; i++) {
-    if (point >= bestPlacesBands[i].Min && point <= bestPlacesBands[i].Max) {
+  for(let i=0; i<bands.length; i++) {
+    if (point >= bands[i].Min && point <= bands[i].Max) {
       return i;
     }
   }
@@ -93,14 +93,17 @@ function startPdf(
   // or merge conflicts. But these locals seem unnecessary and should
   // probably be replaced throughout the function with direct references
   // to the report.
-  var searchObj = report.query;
-  var displayLocation = report.place.City.LongName;
-  var displayIndustry = report.industry.Name;
-  var bestPlacesItems = report.bestPlaces.Items;
-  var bestPlacesBands = report.bands;
+//  var searchObj = report.query;
+//  var displayLocation = report.place.City.LongName;
+//  var displayIndustry = report.industry.Name;
+ // var bestPlacesItems = report.bestPlaces.Items;
+//  var bestPlacesBands = report.bands;  - removed these locals
   
-  bestPlacesItems.bands = 5; // TODO this function is mutating objects
+  // var numBands = 5; // TODO this function is mutating objects
   // that don't belong to it. Please find another way to do this.
+  // done, J  I wasn't really using it anyway, but the display
+  // of bands is going to be very sensitive to not being 5
+  // there's not much room to play with in that little area
 
   /****
   * These colors are from SizeUp design and are used in the pdf
@@ -137,11 +140,12 @@ function startPdf(
   
   let markerStr = '';
   let whichBand = 0;
-  let centroidArr = getCentroids(bestPlacesItems);
+  let centroidArr = getCentroids(report.bestPlaces.Items);
   for (let i=0; i<centroidArr.length; i++) {
     let markerLabel = String.fromCharCode(65 + i);
     // I need to know what band it's in to get the color
-    whichBand = getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i]);
+   // whichBand = getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i]);
+    whichBand = getBand(report.query.ranking_metric.kpi, report.bands, report.bestPlaces.Items[i]);
     markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
   }
   const url = 'https://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
@@ -149,8 +153,10 @@ function startPdf(
   request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-      buildPdf( searchObj, displayLocation, displayIndustry, 
-        customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
+     // buildPdf( searchObj, displayLocation, displayIndustry, 
+     // buildPdf( report.query, displayLocation, displayIndustry, 
+      buildPdf( report.query, report.place.City.LongName, report.industry.Name, 
+        customerGraphics, report.bands, report.bestPlaces.Items, msg="success", 
         pdfColors, body, stream, title);
     }
   })
@@ -214,6 +220,7 @@ function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
   }); 
 }
 
+/*
 function displaySearch(realFiltersArr, doc, filter) {
   let i = 0;
   realFiltersArr.forEach(function(element) {
@@ -237,6 +244,7 @@ function displaySearch(realFiltersArr, doc, filter) {
     }
   }); 
 }
+*/
 
 function printBelowResultFilters(realFiltersArr, doc, item) {
   let startX = 100;
@@ -319,8 +327,9 @@ function headerRectangle(pdfColors, doc) {
  * this function is building the pdf  
  */
 
-function buildPdf( searchObj, displayLocation, displayIndustry, 
-        customerGraphics, bestPlacesBands, bestPlacesItems, msg="success", 
+// function buildPdf( searchObj, displayLocation, displayIndustry, 
+function buildPdf( query, LongName, industryName, 
+        customerGraphics, bands, Items, msg="success", 
         pdfColors, googleMap, stream, title) {
   
   // Create a document
@@ -335,13 +344,16 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   doc.image(googleMap, 183, 180, { width: 400 } );
 
   let theme = { text: { color: pdfColors[2] } };
-  let realFiltersArr = getRealFilters(searchObj.filter);
+  // let realFiltersArr = getRealFilters(searchObj.filter);
+  let realFiltersArr = getRealFilters(query.filter);
   
   let sortAttribute = '';
-  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
+//  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
+  if (query.ranking_metric.kpi === 'underservedMarkets') {
     sortAttribute = 'revenuePerCapita';
   } else {
-    sortAttribute = searchObj.ranking_metric.kpi;
+    //sortAttribute = searchObj.ranking_metric.kpi;
+    sortAttribute = query.ranking_metric.kpi;
   }
 
  // headerRectangle(pdfColors, doc);
@@ -371,7 +383,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .fillColor(pdfColors[5])
     .text(" in the ", { continued: true } )
     .fillColor(pdfColors[3])
-    .text(displayIndustry, { continued: true } )
+    .text(industryName, { continued: true } )
     .fillColor(pdfColors[5])
     .text(" industry.  You should consider using this list if you are selling to businesses or consumers and want to know where the ", { continued: true } )
     .fillColor(pdfColors[3])
@@ -380,15 +392,17 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     .text(" is the highest. ", { continued: true } )
     .text("The analysis is based on locations ", { continued: true } )
    .fillColor(pdfColors[3])
-    .text(searchObj.area.distance, { continued: true } )
+  //  .text(searchObj.area.distance, { continued: true } )
+    .text(query.area.distance, { continued: true } )
     .fillColor(pdfColors[5])
     .text(" miles from the centroid of ", { continued: true } )
    .fillColor(pdfColors[3])
-    .text(displayLocation, { continued: true } );
+    .text(LongName, { continued: true } );
    doc.fillColor(pdfColors[5]);
   // need to just get filters that are not maxed out
   // displaySearch(realFiltersArr, doc, searchObj.filter);
-   displaySrch(realFiltersArr, doc, searchObj.filter, pdfColors, searchObj.area.distance);
+ //  displaySrch(realFiltersArr, doc, searchObj.filter, pdfColors, searchObj.area.distance);
+   displaySrch(realFiltersArr, doc, query.filter, pdfColors, query.area.distance);
   doc.fontSize(10);   
   doc.fillColor(pdfColors[4]);
 
@@ -404,7 +418,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   let j = 0, n = 0; m = 0;
   let bandMinText, widthMinText, widthDash;
   let startArr = [];
-  for (let k=0; k<bestPlacesItems.bands; k++) {
+  for (let k=0; k<bands.length; k++) {
     n = k % 3;  // n (remainder of k/3) is the column in the display of bands
     m = Math.floor(k/3);  // each row will have 3 bands listed
     startArr.push([200 + n*140, 484 + m*10]);
@@ -413,7 +427,7 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
   // then render the bands
   doc.fillColor(pdfColors[4]);
   i = 0;
-  bestPlacesBands.forEach(function(element) {
+  bands.forEach(function(element) {
     doc.fillColor(pdfColors[i]);
     i++;
     if (itemFilterTypes[sortAttribute].includes('money')) {
@@ -448,9 +462,10 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
    *  fieldFontHeight = Math.round(fieldHeight/6); 
    *  subFieldFontHeight = Math.round(fieldFontHeight/2);
    */
-  sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
+ // sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
+  sortIndicator(sortAttribute, query.ranking_metric.order, pdfColors, doc);
   let toggle = 1;
-  for (let i=0; i<bestPlacesItems.length; i++) {
+  for (let i=0; i<Items.length; i++) {
     if (doc.y > 620) {
       // footer text
       customerGraphics.writeFooter(doc, theme);
@@ -461,9 +476,11 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
       doc.font('Helvetica-Bold');
       doc.text(' ');
       doc.y = 110;
-      sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
+     // sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
+      sortIndicator(sortAttribute, query.ranking_metric.order, pdfColors, doc);
     }
-    doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
+    // doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
+     doc.fillColor(pdfColors[getBand(query.ranking_metric.kpi, bands, Items[i])])
   //  .moveDown(1)
     .text(' ')
     .fontSize(10)
@@ -471,32 +488,33 @@ function buildPdf( searchObj, displayLocation, displayIndustry,
     doc.fill()
     .fillColor('#ffffff')
     .text(String.fromCharCode(65 + i), 72, doc.y + 3, { continued: true } )
-    .fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
+   // .fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
+    .fillColor(pdfColors[getBand(query.ranking_metric.kpi, bands, Items[i])])
     .fontSize(15)
     .text("  ", { continued: true } )
-    .text(bestPlacesItems[i].ZipCode.Name) // , { continued: true })
+    .text(Items[i].ZipCode.Name) // , { continued: true })
     .fillColor('black')
     .fontSize(13)
     .moveDown(-1);
     if (itemFilterTypes[sortAttribute] === 'money-range') {
-      xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min).toString()) + doc.widthOfString(" - ") + doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max).toString()));
-      doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Min).toString() + " - " + formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)].Max).toString(), xpos, doc.y, { continued: true } );
+      xpos = 535 - (doc.widthOfString(formatDollars(Items[i][filterToItemFilter(sortAttribute)].Min).toString()) + doc.widthOfString(" - ") + doc.widthOfString(formatDollars(Items[i][filterToItemFilter(sortAttribute)].Max).toString()));
+      doc.text(formatDollars(Items[i][filterToItemFilter(sortAttribute)].Min).toString() + " - " + formatDollars(Items[i][filterToItemFilter(sortAttribute)].Max).toString(), xpos, doc.y, { continued: true } );
     }
     if (itemFilterTypes[sortAttribute] === 'money-average') {
-      xpos = 535 - (doc.widthOfString(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)]).toString()));
-      doc.text(formatDollars(bestPlacesItems[i][filterToItemFilter(sortAttribute)]), xpos, doc.y, { continued: true } )
+      xpos = 535 - (doc.widthOfString(formatDollars(Items[i][filterToItemFilter(sortAttribute)]).toString()));
+      doc.text(formatDollars(Items[i][filterToItemFilter(sortAttribute)]), xpos, doc.y, { continued: true } )
     }
     if (itemFilterTypes[sortAttribute] === 'scalar') {
-      xpos = 535 - (doc.widthOfString(bestPlacesItems[i][filterToItemFilter(sortAttribute)].toString()));
-      doc.text(bestPlacesItems[i][filterToItemFilter(sortAttribute)].toString(), xpos, doc.y, { continued: true } );
+      xpos = 535 - (doc.widthOfString(Items[i][filterToItemFilter(sortAttribute)].toString()));
+      doc.text(Items[i][filterToItemFilter(sortAttribute)].toString(), xpos, doc.y, { continued: true } );
     }
     if (itemFilterTypes[sortAttribute] === 'percent') {
-      xpos = 535 - (doc.widthOfString(bestPlacesItems[i][filterToItemFilter(sortAttribute + '%')].toString()));
-      doc.text(bestPlacesItems[i][filterToItemFilter(sortAttribute + '%')].toString());
+      xpos = 535 - (doc.widthOfString(Items[i][filterToItemFilter(sortAttribute + '%')].toString()));
+      doc.text(Items[i][filterToItemFilter(sortAttribute + '%')].toString());
     }
      doc.text(' ');
      doc.fontSize(8);
-     printBelowResultFilters(realFiltersArr, doc, bestPlacesItems[i]);
+     printBelowResultFilters(realFiltersArr, doc, Items[i]);
      doc.moveDown(1);
   }
 
