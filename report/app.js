@@ -359,15 +359,10 @@ function buildPdf( query, LongName, industryName,
  // headerRectangle(pdfColors, doc);
   // rectangle taken out, should be drawn by writeHeader if at all
 
-  // Send writeHeader the start point, height and width
-  // the writeHeader has the doc and can still break things
-  // but it doesn't need to tell this app where it goes
-  // or its size
-  
   // start writing text
 
   // header text
-  customerGraphics.writeHeader(doc, theme, 25, 30, 60, 563);
+  customerGraphics.writeHeader(doc, theme);
   doc.font('Helvetica-Bold');
 
   doc.fontSize(15);
@@ -472,7 +467,7 @@ function buildPdf( query, LongName, industryName,
       doc.addPage();
       // headerRectangle(pdfColors, doc);
      // customerGraphics.writeHeader(doc, theme);
-      customerGraphics.writeHeader(doc, theme, 25, 30, 60, 563);
+      customerGraphics.writeHeader(doc, theme);
       doc.font('Helvetica-Bold');
       doc.text(' ');
       doc.y = 110;

@@ -10,14 +10,14 @@ var mockCustomerGraphics = {
   custBizName: "Customer Business Name",
   custLogo: "smlogo.png",
 
-  writeHeader: function(doc, theme, startX, startY, height, width) {
+  writeHeader: function(doc, theme) {
     doc.font('Helvetica-Bold');
     doc.fontSize(22);
     doc.fillColor('blue');
     let widthBizName = doc.widthOfString(this.custBizName);
-    let startBizName = (width - widthBizName - 200);
-    doc.text(this.custBizName, startBizName, startY -5 );
-    doc.image(path.join(__dirname, this.custLogo), startX + width - 200, startY - 15, { width: 120 } );
+    let startBizName = (245 - (widthBizName/2));
+    doc.text(this.custBizName, startBizName, 50);
+    doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
   },
 
   writeFooter: function(doc, theme) {
@@ -44,7 +44,7 @@ var mockDefaultGraphics = {
   custBizName: "Business Intelligence for All",
   custLogo: "SizeUp.png",
   
-  writeHeader: function(doc, theme, startX, startY, height, width) {
+  writeHeader: function(doc, theme) {
     doc.font('Helvetica-Bold');
     doc.text(' ');
     // TODO pending available file: - done, J
@@ -52,9 +52,9 @@ var mockDefaultGraphics = {
     doc.fontSize(25);
     doc.fillColor('blue');
     let widthBizName = doc.widthOfString(this.custBizName);
-    let startBizName = (width - widthBizName - 175);
-    doc.text(this.custBizName, startBizName, startY);
-    doc.image(path.join(__dirname, this.custLogo), startX + width - 175, startY - 15, { width: 120 } );
+    let startBizName = (245 - (widthBizName/2));
+    doc.text(this.custBizName, startBizName, 45);
+    doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
   },
 
   writeFooter: function(doc, theme) {
