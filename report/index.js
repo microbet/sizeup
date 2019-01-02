@@ -127,6 +127,9 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
     stream, title);
 };
 
+// TODO this belongs in advertising.validateQuery, above, but it can't mutate
+// the object it claims to be validating. The input object is either valid
+// or invalid.
 function validate(searchObj) {
  // console.log(typeof searchObj.totalEmployees);
   let fieldsArr = ['totalEmployees', 'householdIncome', 'highSchoolOrHigher', 

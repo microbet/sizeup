@@ -520,7 +520,6 @@ function buildPdf( query, LongName, industryName,
 
   // Finalize the pdf file
   doc.end();
-  console.log("PDF output.pdf created");
 }
 
 module.exports = {

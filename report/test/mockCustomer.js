@@ -47,8 +47,7 @@ var mockDefaultGraphics = {
   writeHeader: function(doc, theme) {
     doc.font('Helvetica-Bold');
     doc.text(' ');
-    // TODO pending available file: - done, J
-    doc.font('./fonts/SourceSansPro-Light.otf');
+    doc.font(path.join(__dirname, '../fonts/SourceSansPro-Light.otf'));
     doc.fontSize(25);
     doc.fillColor('blue');
     let widthBizName = doc.widthOfString(this.custBizName);
@@ -60,8 +59,7 @@ var mockDefaultGraphics = {
   writeFooter: function(doc, theme) {
     doc.text(' ');
     doc.image(path.join(__dirname, "gauge-home.png"), 80, 725);
-    // TODO pending available file:  - done, J
-    doc.font('./fonts/SourceSansPro-Light.otf');
+    doc.font(path.join(__dirname, '../fonts/SourceSansPro-Light.otf'));
     doc.fillColor('black');
     doc.fontSize(12);
     doc.text('How is My Business Performing?', 140, 725, { continued: true, width: 100});
