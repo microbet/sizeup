@@ -96,3 +96,32 @@ Where query is a size-up query object, key is a size-up key, and the stream is t
 }
 
 ```
+## Customer info header/footer
+
+Header and footer are obtained from 
+
+```
+sizeup.customer.getReportGraphics(customerKey)
+```
+
+specifically,
+
+```
+sizeup.customer.getReportGraphics(customerKey).writeHeader(doc, theme)
+```
+and
+```
+sizeup.customer.getReportGraphics(customerKey).writeFooter(doc, theme)
+```
+a customer specific example of which looks like:
+```
+ writeHeader: function(doc, theme) {
+    doc.text(' ');
+    doc.font('./fonts/SourceSansPro-Light.otf');
+    doc.fontSize(25);
+    doc.fillColor('blue');
+    doc.text('Business Name', 45);
+    doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
+  }
+```
+These functions are passed the doc object and can break the pdf if they are out of place or two large.  They should not take more than about 60 px height and 563 in width.  The header should start at about y = 30 and footer at about y = 725
