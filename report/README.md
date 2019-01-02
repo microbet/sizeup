@@ -124,4 +124,4 @@ a customer specific example of which looks like:
     doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
   }
 ```
-These functions are passed the doc object and can break the pdf if they are out of place or two large.  They should not take more than about 60 px height and 563 in width.  The header should start at about y = 30 and footer at about y = 725
+These functions are passed the doc object and can break the pdf if they are out of place or too large.  They should not take more than about 60 px height and 563 in width.  The header should start at about y = 30 and footer at about y = 725
