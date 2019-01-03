@@ -8,7 +8,9 @@ Clone project from Bitbucket.  The repository is at sizeupteam/sizeup.git.  The 
 
 ### Prerequisites
 
-Node.js.  Latest testing has been on 10.14.2.  Packages used include, dotenv, pdfkit, query-string, request, and sizeup-api. A sizeup key, a static google map key and a customer key are required.  At this point in development the sizeup and google map keys are stored as environment variables and the costemer is mocked. 
+- Node.js version 6.14.
+- A key for the SizeUp API.
+- A key for the Google Static Maps API.
 
 ### Installation
 
@@ -34,68 +36,8 @@ Where query is a size-up query object, key is a size-up key, and the stream is t
 
 ## Example sizeup query object
 
-```
-{
-  "title": "This report provided by your friendly neighborhood business banker",
-  "template": "What are the ${granularity} places in ${area}, ranked by ${ranking_metric}, given ${filters}?",
-  "granularity": "ZipCode",
-  "area": {
-    "template": "within ${distance} of ${place}",
-    "distance": "11",
-    "place": {
-      "state": "texas",
-      "county": "tarrant",
-      "city": "fort-worth-city"
-    }
-  },
-  "ranking_metric": {
-    "template": "${kpi} in ${industry} (${order})",
-    "kpi": "householdExpenditures",
-    "industry": "shoe-and-footwear-stores",
-    "order": "desc"
-  },
-  "filter": {
-    "totalRevenue": {
-      "min": "100000",
-      "max": "100000000000"
-    },
-    "averageRevenue": {
-      "min": "50000",
-      "max": "50000000"
-    },
-    "totalEmployees": {
-      "min": "10",
-      "max": "1000000"
-    },
-    "revenuePerCapita": {
-      "min": "5",
-      "max": "15000"
-    },
-    "householdIncome": {
-      "min": "10000",
-      "max": "250000"
-    },
-    "householdExpenditures": {
-      "min": "10000",
-      "max": "250000"
-    },
-    "medianAge": {
-      "min": "5",
-      "max": "80"
-    },
-    "highSchoolOrHigher": {
-      "min": "2"
-    },
-    "whiteCollarWorkers": {
-      "min": "4"
-    },
-    "bachelorsDegreeOrHigher": {
-      "min": "1"
-    }
-  }
-}
+See sample queries in test/ directory.
 
-```
 ## Customer info header/footer
 
 Header and footer are obtained from 
@@ -124,4 +66,4 @@ a customer specific example of which looks like:
     doc.image(path.join(__dirname, this.custLogo), 425, doc.y - 32, { width: 120 } );
   }
 ```
-These functions are passed the doc object and can break the pdf if they are out of place or two large.  They should not take more than about 60 px height and 563 in width.  The header should start at about y = 30 and footer at about y = 725
+These functions are passed the doc object and can break the pdf if they are out of place or too large.  They should not take more than about 60 px height and 563 in width.  The header should start at about y = 30 and footer at about y = 725

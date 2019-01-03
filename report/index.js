@@ -135,6 +135,12 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
     stream, title);
 };
 
+// TODO this belongs in advertising.validateQuery, above, but it can't mutate
+// the object it claims to be validating. The input object is either valid
+// or invalid.
+// J - I eliminated this function, didn't do the validation we need
+// I'll redo it 
+
 module.exports = {
   advertising: advertising,
   setSizeup: setSizeup
