@@ -58,7 +58,7 @@ advertising.runQuery = function(advertisingQuery) {
     for ( let key in advertisingQuery.filter) {
       if (advertisingQuery.filter.hasOwnProperty(key)) {
         if (!advertisingQuery.filter.hasOwnProperty('max'))
-          argument_list[key] = [ advertisingQuery.filter[key]['min'], 'null'];
+          argument_list[key] = [ advertisingQuery.filter[key]['min'], null ];
         else {
           argument_list[key] = [ advertisingQuery.filter[key]['min'], advertisingQuery.filter[key]['max']];
         }
