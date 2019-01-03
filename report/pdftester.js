@@ -2,9 +2,9 @@ const testInputs = [
   require('./test/testQuery1.json'),
   require('./test/testQuery2.json'),
   require('./test/testQuery3.json'),
-  // TODO add these to repo:
-  // require('./test/testQuery4.json'),
-  // require('./test/testQuery5.json'),
+  // TODO add these to repo: J - done
+  require('./test/testQuery4.json'),
+  require('./test/testQuery5.json'),
 ];
 const mockCustomer = require("./test/mockCustomer.js");
 const report = require(".");
@@ -95,6 +95,9 @@ Promise.all([report.advertising.generatePDF(
 /* Commenting these out since the test file is missing.
  * But, isn't that silly? If there was a for loop here,
  * no one would need to comment and uncomment these.
+*/
+// - been meaning to do this and the wrote filename bug and 
+// will asap
 
 Promise.all([report.advertising.generatePDF(
   testInputs[3].query,
@@ -113,4 +116,3 @@ Promise.all([report.advertising.generatePDF(
   )]).then(() => {
     done();
   }).catch(fail());  
-*/
