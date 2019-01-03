@@ -112,12 +112,12 @@ var pdfColors = [
 ];
   
 /******
- * startPdf gets the map and after getting it calls the 
- * buildPdf function to create the pdf
+ * Gets the map for the report. After getting it calls the continuation,
+ * which is typically a call to buildPdf.
  */
 
-function startPdf(report, customerGraphics, stream, title) {
-  
+function getGoogleMap(report) {
+
   let markerStr = '';
   let whichBand = 0;
   let centroidArr = getCentroids(report.bestPlaces.Items);
@@ -128,14 +128,19 @@ function startPdf(report, customerGraphics, stream, title) {
     markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
   }
   const url = 'https://maps.googleapis.com/maps/api/staticmap?size=400x300&maptype=roadmap&' + markerStr + 'key=' + process.env.GOOGLEMAP_KEY; 
-  var request = require('request').defaults({ encoding: null });
-  request.get(url, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-      // Jay: what is "data" for? It looks unused.
-      buildPdf(report, customerGraphics, body, stream, title);
-    }
-  })
+
+  return new Promise(function(resolve, reject) {
+    var request = require('request').defaults({ encoding: null });
+    request.get(url, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
+        // Jay: what is "data" for? It looks unused.
+        resolve(body);
+      } else {
+        reject(new Error(error));
+      }
+    })
+  });
 }
 
 function getElementDisplay(element, item) {
@@ -284,6 +289,13 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
   let doc = new PDFDocument( { 'margins':  { 'top': 0, 'bottom': 0, 'left': 0, 'right': 20 } } );
 
   doc.pipe(stream);
+  
+  // doc.end() is asynchronous and uses event propagation to signal when it's
+  // done. So we'll watch for that. See https://github.com/foliojs/pdfkit/issues/762
+  // and also https://github.com/foliojs/pdfkit/issues/265
+  var promiseFinish = new Promise(function(resolve, reject) {
+    stream.on('finish', function () { resolve("finished"); });
+  });
   
   doc.image(googleMap, 183, 180, { width: 400 } );
 
@@ -452,9 +464,10 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
 
   // Finalize the pdf file
   doc.end();
+  return promiseFinish;
 }
 
 module.exports = {
   buildPdf: buildPdf,
-  startPdf: startPdf
+  getGoogleMap: getGoogleMap
 }

@@ -17,12 +17,15 @@ sizeup.customer = mockCustomer;
 report.setSizeup(sizeup);
 
 function done(stream, filename) {
- // stream.close();
+  stream.close(); // Technically not correct, because pdfkit closes the
+  // stream on its own, after flushing all pages, during doc.end() .
+  // But I close the stream here anyway so that the test will fail if
+  // it thinks the operation is done before it's actually done.
   console.log("Wrote ", filename);
 }
 
 function fail(e, stream) {
-//  stream.close();
+  stream.close();
   console.error("error", e);
 }
 

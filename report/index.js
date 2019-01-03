@@ -97,11 +97,10 @@ advertising.runQuery = function(advertisingQuery) {
 };
 
 advertising.generatePDF = function(advertisingQuery, customerKey, stream, title) {
-  var pReport = advertising.runQuery(advertisingQuery);
-  pReport.then((report) => {
-    advertising.renderPDF(report, customerKey, stream, title);
-  })
-  .catch(console.error);
+  return advertising.runQuery(advertisingQuery)
+  .then((report) => {
+    return advertising.renderPDF(report, customerKey, stream, title);
+  });
 };
 
 // Functions to run on the report
@@ -124,10 +123,13 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
   if (typeof(title) == "undefined") {
     title = advertising.getShortTitle(advertisingReport);
   }
-  pdf.startPdf(
-    advertisingReport,
-    sizeup.customer.getReportGraphics(customerKey),
-    stream, title);
+  // n.b: getReportGraphics is expected to remain synchronous, but not sure
+  var graphics = sizeup.customer.getReportGraphics(customerKey);
+  
+  return pdf.getGoogleMap(advertisingReport)
+  .then(map => {
+    return pdf.buildPdf(advertisingReport, graphics, map, stream, title);
+  });
 };
 
 module.exports = {
