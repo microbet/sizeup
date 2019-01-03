@@ -127,19 +127,8 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
   pdf.startPdf(
     advertisingReport,
     sizeup.customer.getReportGraphics(customerKey),
-   // "Best Places to Advertise", // TODO Jay: this looks like your
-    // attempt to provide a default title, but I can't see where
-    // this "msg" argument is used. In previous version, when
-    // I specified no title there was simply no title on the PDF.
-    // elminated, J - was not used for anything anymore
     stream, title);
 };
-
-// TODO this belongs in advertising.validateQuery, above, but it can't mutate
-// the object it claims to be validating. The input object is either valid
-// or invalid.
-// J - I eliminated this function, didn't do the validation we need
-// I'll redo it 
 
 module.exports = {
   advertising: advertising,

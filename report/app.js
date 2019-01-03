@@ -79,52 +79,44 @@ function getBand(kpi, bands, Item) {
   }
 }
   
+/****
+* These colors are from SizeUp design and are used in the pdf
+*/ 
+var pdfColors = [   
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#6c757d', // gray
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#6c757d', // gray
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#6c757d', // gray
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+    '#fd7e14', // orange
+    '#343a40', // dark grey
+    '#dc3545', // red
+    '#28a745', // green
+    '#007bff', // blue
+];
+  
 /******
  * startPdf gets the map and after getting it calls the 
  * buildPdf function to create the pdf
  */
 
-function startPdf(
-  report, customerGraphics, stream, title
-) {
-  // var numBands = 5; // TODO this function is mutating objects
-  // that don't belong to it. Please find another way to do this.
-  // done, J  I wasn't really using it anyway, but the display
-  // of bands is going to be very sensitive to not being 5
-  // there's not much room to play with in that little area
-
-  /****
-  * These colors are from SizeUp design and are used in the pdf
-  */ 
-
-  let pdfColors = [   
-    '#dc3545', // red
-    '#28a745', // green
-    '#007bff', // blue
-    '#fd7e14', // orange
-    '#343a40', // dark grey
-    '#6c757d', // gray
-    '#dc3545', // red
-    '#28a745', // green
-    '#007bff', // blue
-    '#fd7e14', // orange
-    '#343a40', // dark grey
-    '#6c757d', // gray
-    '#dc3545', // red
-    '#28a745', // green
-    '#007bff', // blue
-    '#fd7e14', // orange
-    '#343a40', // dark grey
-    '#6c757d', // gray
-    '#dc3545', // red
-    '#28a745', // green
-    '#007bff', // blue
-    '#fd7e14', // orange
-    '#343a40', // dark grey
-    '#dc3545', // red
-    '#28a745', // green
-    '#007bff', // blue
-  ]
+function startPdf(report, customerGraphics, stream, title) {
   
   let markerStr = '';
   let whichBand = 0;
@@ -140,9 +132,8 @@ function startPdf(
   request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-      buildPdf( report.query, report.place.City.LongName, report.industry.Name, 
-        customerGraphics, report.bands, report.bestPlaces.Items, msg="success", 
-        pdfColors, body, stream, title);
+      // Jay: what is "data" for? It looks unused.
+      buildPdf(report, customerGraphics, body, stream, title);
     }
   })
 }
@@ -275,9 +266,20 @@ function sortIndicator(sortAttribute, order, pdfColors, doc) {
  * this function is building the pdf  
  */
 
-function buildPdf( query, LongName, industryName, 
-        customerGraphics, bands, Items, msg="success", 
-        pdfColors, googleMap, stream, title) {
+function buildPdf(report, customerGraphics, googleMap, stream, title) {
+        
+  var query = report.query;
+  var LongName = report.place.City.LongName;
+  var industryName = report.industry.Name;
+  var bands = report.bands;
+  var Items = report.bestPlaces.Items;
+  // TODO replace local vars with references to arguments
+
+  // var numBands = 5; // TODO this function is mutating objects
+  // that don't belong to it. Please find another way to do this.
+  // done, J  I wasn't really using it anyway, but the display
+  // of bands is going to be very sensitive to not being 5
+  // there's not much room to play with in that little area
   
   let doc = new PDFDocument( { 'margins':  { 'top': 0, 'bottom': 0, 'left': 0, 'right': 20 } } );
 
@@ -453,5 +455,6 @@ function buildPdf( query, LongName, industryName,
 }
 
 module.exports = {
+  buildPdf: buildPdf,
   startPdf: startPdf
 }
