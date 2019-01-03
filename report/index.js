@@ -48,23 +48,34 @@ advertising.runQuery = function(advertisingQuery) {
 
   .then(([place, industry]) => {
     var argument_list = {
-      totalEmployees: [advertisingQuery.filter.totalEmployees.min, advertisingQuery.filter.totalEmployees.max],
-      highSchoolOrHigher: advertisingQuery.filter.highSchoolOrHigher.min,
-      householdExpenditures: [advertisingQuery.filter.householdExpenditures.min, advertisingQuery.filter.householdExpenditures.max],
-      householdIncome: [advertisingQuery.filter.householdIncome.min, advertisingQuery.filter.householdIncome.max],
-      medianAge: [advertisingQuery.filter.medianAge.min, advertisingQuery.filter.medianAge.max],
-      revenuePerCapita: [advertisingQuery.filter.revenuePerCapita.min, advertisingQuery.filter.revenuePerCapita.max],
-      whiteCollarWorkers: advertisingQuery.filter.whiteCollarWorkers.min,
-      totalRevenue: [advertisingQuery.filter.totalRevenue.min, advertisingQuery.filter.totalRevenue.max],
-      bands: 5,  // bands wasn't part of the search obj, so I'm just setting it to 5
+      bands: 5, 
+      page: 1,
       industryId: industry[0].Id,
-      order: 'highToLow',  // don't see this is search obj
-      page: 1,  // not sure what page is
-      sort: advertisingQuery.ranking_metric.order,  // doesn't seem right, but maybe is
-      sortAttribute: advertisingQuery.ranking_metric.kpi,  // I think
       geographicLocationId: place[0].Id,
-      distance: advertisingQuery.area.distance,
-      attribute: advertisingQuery.ranking_metric.kpi,  // not sure
+      sortAttribute: advertisingQuery.ranking_metric.kpi,
+      attribute: advertisingQuery.ranking_metric.kpi, 
+    }
+    for ( let key in advertisingQuery.filter) {
+      if (advertisingQuery.filter.hasOwnProperty(key)) {
+        if (!advertisingQuery.filter.hasOwnProperty('max'))
+          argument_list[key] = [ advertisingQuery.filter[key]['min'], 'null'];
+        else {
+          argument_list[key] = [ advertisingQuery.filter[key]['min'], advertisingQuery.filter[key]['max']];
+        }
+      }
+    }
+    for ( let key in advertisingQuery.ranking_metric ) {
+      if (advertisingQuery.ranking_metric.hasOwnProperty(key)) {
+        argument_list[key] = advertisingQuery.ranking_metric[key];
+      }
+    }
+    for ( let key in advertisingQuery.area) {
+      if (advertisingQuery.area.hasOwnProperty(key)) {
+        argument_list[key] = advertisingQuery.area[key];
+      }
+    }
+    if (advertisingQuery.ranking_metric.hasOwnProperty('order')) {
+      argument_list['sort'] = advertisingQuery.ranking_metric['order'];
     }
     return Promise.all([
       Promise.resolve(place),
@@ -86,10 +97,6 @@ advertising.runQuery = function(advertisingQuery) {
 };
 
 advertising.generatePDF = function(advertisingQuery, customerKey, stream, title) {
-  // seems like validation of searchObj has to happen here
-  // it starts off right away with failure if any filters are missing
-  // and hence have no min or max values
-  validate(advertisingQuery);
   var pReport = advertising.runQuery(advertisingQuery);
   pReport.then((report) => {
     advertising.renderPDF(report, customerKey, stream, title);
@@ -120,24 +127,13 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
   pdf.startPdf(
     advertisingReport,
     sizeup.customer.getReportGraphics(customerKey),
-    "Best Places to Advertise", // TODO Jay: this looks like your
+   // "Best Places to Advertise", // TODO Jay: this looks like your
     // attempt to provide a default title, but I can't see where
     // this "msg" argument is used. In previous version, when
     // I specified no title there was simply no title on the PDF.
+    // elminated, J - was not used for anything anymore
     stream, title);
 };
-
-function validate(searchObj) {
- // console.log(typeof searchObj.totalEmployees);
-  let fieldsArr = ['totalEmployees', 'householdIncome', 'highSchoolOrHigher', 
-    'averageRevenue', 'revenuePerCapita', 'householdExpenditures', 
-    'medianAge', 'whiteCollarWorkers', 'bachelorsDegreeOrHigher', 'totalRevenue'];
-  fieldsArr.forEach(function(element) {
-    if (typeof searchObj.filter[element] === 'undefined') {
-     searchObj.filter[element] = { 'min' : '0', 'max' : 'null' };
-    }
-  });
-}
 
 module.exports = {
   advertising: advertising,

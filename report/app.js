@@ -73,6 +73,7 @@ function getBand(kpi, bands, Item) {
   }
   for(let i=0; i<bands.length; i++) {
     if (point >= bands[i].Min && point <= bands[i].Max) {
+      // console.log("the band should be ", i);
       return i;
     }
   }
@@ -84,21 +85,8 @@ function getBand(kpi, bands, Item) {
  */
 
 function startPdf(
-  report, customerGraphics, msg="success", stream, title
+  report, customerGraphics, stream, title
 ) {
-  
-  // I'm assigning local variables here to match the variables
-  // that used to be in your function argument. I did that to avoid
-  // editing the body of this function and maybe causing confusion
-  // or merge conflicts. But these locals seem unnecessary and should
-  // probably be replaced throughout the function with direct references
-  // to the report.
-//  var searchObj = report.query;
-//  var displayLocation = report.place.City.LongName;
-//  var displayIndustry = report.industry.Name;
- // var bestPlacesItems = report.bestPlaces.Items;
-//  var bestPlacesBands = report.bands;  - removed these locals
-  
   // var numBands = 5; // TODO this function is mutating objects
   // that don't belong to it. Please find another way to do this.
   // done, J  I wasn't really using it anyway, but the display
@@ -144,7 +132,6 @@ function startPdf(
   for (let i=0; i<centroidArr.length; i++) {
     let markerLabel = String.fromCharCode(65 + i);
     // I need to know what band it's in to get the color
-   // whichBand = getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i]);
     whichBand = getBand(report.query.ranking_metric.kpi, report.bands, report.bestPlaces.Items[i]);
     markerStr += "markers=color:" + pdfColors[whichBand].replace("#", "0x") + "%7C" + "label:" + markerLabel + "%7C" + centroidArr[i]['latitude'] + ',' + centroidArr[i]['longitude'] + '&';
   }
@@ -153,8 +140,6 @@ function startPdf(
   request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       data = "data:" + response.headers["content-type"] + ";base64," + new Buffer(body).toString('base64');
-     // buildPdf( searchObj, displayLocation, displayIndustry, 
-     // buildPdf( report.query, displayLocation, displayIndustry, 
       buildPdf( report.query, report.place.City.LongName, report.industry.Name, 
         customerGraphics, report.bands, report.bestPlaces.Items, msg="success", 
         pdfColors, body, stream, title);
@@ -190,7 +175,6 @@ function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
   doc.fillColor('black');
   let i = 0;
   let startX = 30;
- // doc.y = doc.y + 20;
   doc.y = 173;
   doc.text(' ');
   doc.text('The list has been filtered to include only areas that have:', startX, doc.y, { width: 146 })
@@ -219,32 +203,6 @@ function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
     } 
   }); 
 }
-
-/*
-function displaySearch(realFiltersArr, doc, filter) {
-  let i = 0;
-  realFiltersArr.forEach(function(element) {
-    i++;
-    if (searchFilterTypes[element] === 'money-range') {
-      doc.text(filterToDisplay(element) + ' between ' + formatDollars(filter[element].min) + ' and ' + formatDollars(filter[element].max), doc.x, doc.y, { continued: true });
-    }
-    else if (searchFilterTypes[element] === 'scalar') {
-      doc.text(filterToDisplay(element) + ' ' + filter[element] + ' or greater', doc.x, doc.y, { continued: true }); 
-    }
-    else if (searchFilterTypes[element] === 'scalar-range') {
-      doc.text(filterToDisplay(element) + ' between ' + numberWithCommas(filter[element].min) + ' and ' + numberWithCommas(filter[element].max), doc.x, doc.y, { continued: true });
-    }
-    else if (searchFilterTypes[element] === 'percent-or-higher') {
-      doc.text(filterToDisplay(element) + ' greater than ' + filter[element].min + '%', doc.x, doc.y, { continued: true }); 
-    }
-    if (i < realFiltersArr.length) {
-     doc.text(', ', doc.x, doc.y, { continued: true } );
-    } else {
-     doc.text('.', doc.x, doc.y, { continued: true } );
-    }
-  }); 
-}
-*/
 
 function printBelowResultFilters(realFiltersArr, doc, item) {
   let startX = 100;
@@ -312,52 +270,30 @@ function sortIndicator(sortAttribute, order, pdfColors, doc) {
   }
   doc.fillAndStroke(pdfColors[3]) 
 }
-/*
-function headerRectangle(pdfColors, doc) {
-  // Draw a rectangle for the header 
-  doc.moveTo(25, 30)
-  .lineTo(588, 30)
-  .lineTo(588, 90)
-  .lineTo(25, 90)
-  .fill(pdfColors[2]);
-}
-*/
   
 /****
  * this function is building the pdf  
  */
 
-// function buildPdf( searchObj, displayLocation, displayIndustry, 
 function buildPdf( query, LongName, industryName, 
         customerGraphics, bands, Items, msg="success", 
         pdfColors, googleMap, stream, title) {
   
-  // Create a document
- // let doc = new PDFDocument;
   let doc = new PDFDocument( { 'margins':  { 'top': 0, 'bottom': 0, 'left': 0, 'right': 20 } } );
-  // console.log(" width is ", doc.page.width); // 612
-  // console.log(" height is ", doc.page.height); // 792 
 
   doc.pipe(stream);
   
- // doc.image(googleMap, 25, 246, { width: 562 } );
   doc.image(googleMap, 183, 180, { width: 400 } );
 
   let theme = { text: { color: pdfColors[2] } };
-  // let realFiltersArr = getRealFilters(searchObj.filter);
   let realFiltersArr = getRealFilters(query.filter);
   
   let sortAttribute = '';
-//  if (searchObj.ranking_metric.kpi === 'underservedMarkets') {
   if (query.ranking_metric.kpi === 'underservedMarkets') {
     sortAttribute = 'revenuePerCapita';
   } else {
-    //sortAttribute = searchObj.ranking_metric.kpi;
     sortAttribute = query.ranking_metric.kpi;
   }
-
- // headerRectangle(pdfColors, doc);
-  // rectangle taken out, should be drawn by writeHeader if at all
 
   // start writing text
 
@@ -387,16 +323,12 @@ function buildPdf( query, LongName, industryName,
     .text(" is the highest. ", { continued: true } )
     .text("The analysis is based on locations ", { continued: true } )
    .fillColor(pdfColors[3])
-  //  .text(searchObj.area.distance, { continued: true } )
     .text(query.area.distance, { continued: true } )
     .fillColor(pdfColors[5])
     .text(" miles from the centroid of ", { continued: true } )
    .fillColor(pdfColors[3])
     .text(LongName, { continued: true } );
    doc.fillColor(pdfColors[5]);
-  // need to just get filters that are not maxed out
-  // displaySearch(realFiltersArr, doc, searchObj.filter);
- //  displaySrch(realFiltersArr, doc, searchObj.filter, pdfColors, searchObj.area.distance);
    displaySrch(realFiltersArr, doc, query.filter, pdfColors, query.area.distance);
   doc.fontSize(10);   
   doc.fillColor(pdfColors[4]);
@@ -424,7 +356,6 @@ function buildPdf( query, LongName, industryName,
   i = 0;
   bands.forEach(function(element) {
     doc.fillColor(pdfColors[i]);
-    i++;
     if (itemFilterTypes[sortAttribute].includes('money')) {
       bandMinText = formatDollars(element.Min);
       bandMaxText = formatDollars(element.Max);
@@ -438,6 +369,7 @@ function buildPdf( query, LongName, industryName,
     doc.text(' - ', startArr[j][0] + widthMinText, startArr[j][1]);
     widthDash = doc.widthOfString(' - ');
     doc.text(bandMaxText, startArr[j][0] + widthMinText + widthDash, startArr[j][1]);
+    i++;
     j++;
   });
   
@@ -465,29 +397,23 @@ function buildPdf( query, LongName, industryName,
       // footer text
       customerGraphics.writeFooter(doc, theme);
       doc.addPage();
-      // headerRectangle(pdfColors, doc);
-     // customerGraphics.writeHeader(doc, theme);
       customerGraphics.writeHeader(doc, theme);
       doc.font('Helvetica-Bold');
       doc.text(' ');
       doc.y = 110;
-     // sortIndicator(sortAttribute, searchObj.ranking_metric.order, pdfColors, doc);
       sortIndicator(sortAttribute, query.ranking_metric.order, pdfColors, doc);
     }
-    // doc.fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
      doc.fillColor(pdfColors[getBand(query.ranking_metric.kpi, bands, Items[i])])
-  //  .moveDown(1)
     .text(' ')
     .fontSize(10)
     .circle(75, doc.y + 7, 7);
     doc.fill()
     .fillColor('#ffffff')
     .text(String.fromCharCode(65 + i), 72, doc.y + 3, { continued: true } )
-   // .fillColor(pdfColors[getBand(searchObj.ranking_metric.kpi, bestPlacesBands, bestPlacesItems[i])])
     .fillColor(pdfColors[getBand(query.ranking_metric.kpi, bands, Items[i])])
     .fontSize(15)
     .text("  ", { continued: true } )
-    .text(Items[i].ZipCode.Name) // , { continued: true })
+    .text(Items[i].ZipCode.Name)
     .fillColor('black')
     .fontSize(13)
     .moveDown(-1);
@@ -502,6 +428,10 @@ function buildPdf( query, LongName, industryName,
     if (itemFilterTypes[sortAttribute] === 'scalar') {
       xpos = 535 - (doc.widthOfString(Items[i][filterToItemFilter(sortAttribute)].toString()));
       doc.text(Items[i][filterToItemFilter(sortAttribute)].toString(), xpos, doc.y, { continued: true } );
+    }
+    if (itemFilterTypes[sortAttribute] === 'scalar-range') {
+      xpos = 535 - (doc.widthOfString(Items[i][filterToItemFilter(sortAttribute)].Min.toString()) + doc.widthOfString(" - ") + doc.widthOfString(Items[i][filterToItemFilter(sortAttribute)].Max.toString()));
+      doc.text(Items[i][filterToItemFilter(sortAttribute)].Min.toString() + " - " + Items[i][filterToItemFilter(sortAttribute)].Max.toString(), xpos, doc.y, { continued: true } );
     }
     if (itemFilterTypes[sortAttribute] === 'percent') {
       xpos = 535 - (doc.widthOfString(Items[i][filterToItemFilter(sortAttribute + '%')].toString()));

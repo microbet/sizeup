@@ -11,9 +11,16 @@ var mockCustomerGraphics = {
   custLogo: "smlogo.png",
 
   writeHeader: function(doc, theme) {
+     // Draw a rectangle for the header 
+    doc.moveTo(25, 30)
+    .lineTo(588, 30)
+    .lineTo(588, 90)
+    .lineTo(25, 90)
+    .fill('#007bff');
+
     doc.font('Helvetica-Bold');
     doc.fontSize(22);
-    doc.fillColor('blue');
+    doc.fillColor('white');
     let widthBizName = doc.widthOfString(this.custBizName);
     let startBizName = (245 - (widthBizName/2));
     doc.text(this.custBizName, startBizName, 50);

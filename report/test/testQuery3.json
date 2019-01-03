@@ -16,7 +16,7 @@
     "template": "${kpi} in ${industry} (${order})",
     "kpi": "underservedMarkets",
     "industry": "shoe-and-footwear-stores",
-    "order": "desc"
+    "order": "asc"
   },
   "filter": {
     "totalRevenue": {
