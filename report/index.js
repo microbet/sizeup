@@ -1,8 +1,20 @@
-var sizeup = require("sizeup-api")({ key:process.env.SIZEUP_KEY });
-function setSizeup(_sizeup) {
-  sizeup = _sizeup;
+// Config. TODO(twilson) relocate this section to config files.
+var config = {
+  editorRootUrl: "https://application.sizeup.com/widget",
+  googlemap_key: process.env.GOOGLEMAP_KEY,
+  sizeup_key: process.env.SIZEUP_KEY,
+  sizeup: require("sizeup-api")({ key: process.env.SIZEUP_KEY })
+}
+function setConfig(_config) {
+  for (var key in _config) { config[key] = _config[key]; }
+}
+function setSizeup(_sizeup) { // for backwards compatibility
+  setConfig({ sizeup: _sizeup });
 }
 
+// We may have a circular dependency with this module. Consider carefully
+// and rearrange modules.exports if needed. See
+// https://stackoverflow.com/questions/10869276/how-to-deal-with-cyclic-dependencies-in-node-js
 const pdf = require("./app.js");
 
 var advertising = {};
@@ -11,6 +23,27 @@ var advertising = {};
 
 advertising.validateQuery = function(advertisingQuery) {
   throw Error("Not implemented");
+}
+
+advertising.getEditorUrl = function(query) {
+  // For now, only implemented for Sizeup 1 editor, and will break customer frame.
+  // TODO either upgrade the embedding tech in Sizeup 1, or convert this
+  // function to Sizeup 2 editor.
+  var url = util.format("%s/advertising/%s/%s/%s/%s#attribute=%s&distance=%s&sort=%s",
+    config.editorRootUrl,
+    query.area.place.state, query.area.place.county, query.area.place.city,
+    query.ranking_metric.industry,
+    query.ranking_metric.kpi,
+    query.area.distance,
+    query.ranking_metric.order
+  );
+  for (var key in query.filter) {
+    url = util.format("%s&%s=%s", url, key, query.filter[key].min || 0);
+    if (pdf.searchFilterTypes[key] != "percent-or-higher") {
+      url = util.format("%s&%s=%s", url, key, query.filter[key].max || 0);
+    }
+  }
+  return url;
 }
 
 advertising.getDescription = function(advertisingQuery) {
@@ -113,7 +146,11 @@ advertising.getShortTitle = function(advertisingReport, locale) {
     throw Error("Unsupported locale " + locale);
   }
   try {
-    return "Best places to advertise near " + advertisingReport.place.City.LongName;
+    if (advertisingReport.query.area.distance) {
+      return "Best places to advertise near " + advertisingReport.place.City.LongName;
+    } else {
+      return "Best places to advertise nationwide";
+    }
   } catch (_nullPointer) {
     return "Best places to advertise";
   }
@@ -134,5 +171,6 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
 
 module.exports = {
   advertising: advertising,
+  setConfig: setConfig,
   setSizeup: setSizeup
 };

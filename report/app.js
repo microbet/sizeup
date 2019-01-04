@@ -137,7 +137,12 @@ function getGoogleMap(report) {
         // Jay: what is "data" for? It looks unused.
         resolve(body);
       } else {
-        reject(new Error(error));
+        reject(new Error(JSON.stringify({
+          requestUrl: url,
+          status: response.statusCode,
+          body: new Buffer(body).toString(),
+          errorObj: error
+        })));
       }
     })
   });
@@ -469,5 +474,6 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
 
 module.exports = {
   buildPdf: buildPdf,
-  getGoogleMap: getGoogleMap
+  getGoogleMap: getGoogleMap,
+  searchFilterTypes: searchFilterTypes
 }
