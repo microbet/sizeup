@@ -169,6 +169,31 @@ function getElementDisplay(element, item) {
   }
 }
 
+function getRangeTemplate(element, filter, type) {
+  if (filter[element].min && !filter[element].max) {
+    if (type === 'money') {
+      return `${filterToDisplay(element)} greater than ${formatDollars(filter[element].min)}`;
+    }
+    else {
+      return `${filterToDisplay(element)} greater than ${numberWithCommas(filter[element].min)}`;
+    }
+  } else if (!filter[element].max && filter[element].max) {
+    if (type === 'money') {
+      return `${filterToDisplay(element)} at most ${formatDollars(filter[element].max)}`;
+    }
+    else {
+      return `${filterToDisplay(element)} at most ${numberWithCommas(filter[element].max)}`;
+    }
+  }
+  else {
+    if (type === 'money') {
+      return `${filterToDisplay(element)} between ${formatDollars(filter[element].min)} and ${formatDollars(filter[element].max)}`
+    } else {
+      return `${filterToDisplay(element)} between ${numberWithCommas(filter[element].min)} and ${numberWithCommas(filter[element].max)}`
+    }
+  }
+}
+
 function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
 
   doc.rect( 25, 180, 158, 300 );
@@ -185,16 +210,19 @@ function displaySrch(realFiltersArr, doc, filter, pdfColors, distance) {
     doc.text('Distance: ' + distance + ' miles', startX, doc.y, { width: 146 });
     return;
   }
+  let naturalFilter = '';
   realFiltersArr.forEach(function(element) {
     i++;
     if (searchFilterTypes[element] === 'money-range') {
-      doc.text(filterToDisplay(element) + ' between ' + formatDollars(filter[element].min) + ' and ' + formatDollars(filter[element].max), startX, doc.y, { width: 146 });
+      naturalFilter = getRangeTemplate(element, filter, 'money');
+      doc.text(naturalFilter, startX, doc.y, { width: 146 });
     }
     else if (searchFilterTypes[element] === 'scalar') {
       doc.text(filterToDisplay(element) + ' ' + filter[element] + ' or greater', startX, doc.y, { width: 146 }); 
     }
     else if (searchFilterTypes[element] === 'scalar-range') {
-      doc.text(filterToDisplay(element) + ' between ' + numberWithCommas(filter[element].min) + ' and ' + numberWithCommas(filter[element].max), startX, doc.y, { width: 146 });
+      naturalFilter = getRangeTemplate(element, filter, 'scalar');
+      doc.text(naturalFilter, startX, doc.y, { width: 146 });
     }
     else if (searchFilterTypes[element] === 'percent-or-higher') {
       doc.text(filterToDisplay(element) + ' greater than ' + filter[element].min + '%', startX, doc.y, { width: 146 }); 
