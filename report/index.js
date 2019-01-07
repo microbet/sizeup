@@ -74,9 +74,9 @@ advertising.getUserAdvice = function(advertisingQuery) {
 advertising.runQuery = function(advertisingQuery) {
 
   return Promise.all([
-    sizeup.data.getPlaceBySeokey(
+    config.sizeup.data.getPlaceBySeokey(
       `${advertisingQuery.area.place.state}/${advertisingQuery.area.place.county}/${advertisingQuery.area.place.city}`),
-    sizeup.data.getIndustryBySeokey(advertisingQuery.ranking_metric.industry)
+    config.sizeup.data.getIndustryBySeokey(advertisingQuery.ranking_metric.industry)
   ])
 
   .then(([place, industry]) => {
@@ -113,8 +113,8 @@ advertising.runQuery = function(advertisingQuery) {
     return Promise.all([
       Promise.resolve(place),
       Promise.resolve(industry),
-      sizeup.data.getBestPlacesToAdvertise(argument_list),
-      sizeup.data.getBestPlacesToAdvertiseBands(argument_list)
+      config.sizeup.data.getBestPlacesToAdvertise(argument_list),
+      config.sizeup.data.getBestPlacesToAdvertiseBands(argument_list)
     ]);
   })
 
@@ -161,7 +161,7 @@ advertising.renderPDF = function(advertisingReport, customerKey, stream, title) 
     title = advertising.getShortTitle(advertisingReport);
   }
   // n.b: getReportGraphics is expected to remain synchronous, but not sure
-  var graphics = sizeup.customer.getReportGraphics(customerKey);
+  var graphics = config.sizeup.customer.getReportGraphics(customerKey);
   
   return pdf.getGoogleMap(advertisingReport)
   .then(map => {
