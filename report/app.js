@@ -4,6 +4,7 @@ const https = require('https');
 require('dotenv').config();
 const request = require('request');
 const staticMap = require('./mapGenerator.js');
+const xpath = require("xpath");
 
 // Translate the query filter name to the API return item filter name
 function filterToItemFilter(filter) {
@@ -311,6 +312,9 @@ function sortIndicator(sortAttribute, order, pdfColors, doc) {
 
 function buildPdf(report, customerGraphics, googleMap, stream, title) {
         
+  var reportModule = require("./index.js");
+  // REVISIT how best to do this circular dependency. See note in index.js.
+
   var query = report.query;
   var LongName = report.place.City.LongName;
   var industryName = report.industry.Name;
@@ -360,6 +364,22 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
   doc.fillColor(pdfColors[9]);
   doc.fontSize(10);
   doc.fontSize(10);
+    // TODO Jay: take the user advice paragraph from existing literature.
+    // There are different paragraphs for different ranking metrics; it's
+    // not just that you swap out the name of the KPI in the advice. I now
+    // return that advice in XML from advertising.getUserAdvice(report) .
+    // For example:
+    var userAdvice = reportModule.advertising.getUserAdvice(report);
+    for (var child = userAdvice.firstChild; child != null; child = child.nextSibling) {
+      if (child.nodeType == child.TEXT_NODE) {
+        var output = child.textContent.replace(/\s+/g," ").trim();
+        console.log(pdfColors[5] + ": " + output);
+      } else {
+        var output = xpath.select("text()", child).toString();
+        console.log(pdfColors[3] + ": " + output);
+      }
+    }
+    // So adapt that to this:
     doc.text("This is a list of postal codes with the highest ", 25, doc.y + 10, { continued: true } )
     .fillColor(pdfColors[8])
     .text(filterToDisplay(sortAttribute), { continued: true } )
@@ -373,6 +393,7 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
     .text(filterToDisplay(sortAttribute), { continued: true } )
     .fillColor(pdfColors[10])
     .text(" is the highest. ", { continued: true } )
+    // and then the rest can remain as is (except add the "nationwide" case):
     .text("The analysis is based on locations ", { continued: true } )
    .fillColor(pdfColors[8])
     .text(query.area.distance, { continued: true } )

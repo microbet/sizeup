@@ -1,4 +1,6 @@
 const testInputs = [
+  // note testQuery1 currently fails because "householdExpenditures" has no
+  // user advice written for it. This is a correct failure.
   require('./test/testQuery1.json'),
   require('./test/testQuery2.json'),
   require('./test/testQuery3.json'),

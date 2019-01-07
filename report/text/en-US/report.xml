@@ -1,0 +1,40 @@
+<!--
+  This is copied from SizeUp.Web/Areas/Widget/Views/Advertising/Index.cshtml ,
+  but slightly enhanced to work with more flexible queries.
+  TODO(twilson) after Sizeup 1/2 decision: re-centralize this sort of markup
+  so that website and reporting code use the same report text.
+-->
+<reportText>
+  <advertising>
+    <userAdvice>
+      <p>
+          This is a list of postal codes with the highest <kpi value="revenuePerCapita">amount of revenue generated per resident</kpi> in the <industry/> industry.
+          If the industry serves the local area, then residents or businesses within the area are spending more than average.
+          Central business districts will have inflated revenue per capita figures because they serve as destinations for 
+          commerce and they have few residents.
+      </p>
+      <p>
+          This is a list of ZIP codes with the <kpi value="underservedMarkets">lowest amount of revenue generated per resident</kpi> in the <industry/> industry.
+          If the industry serves the local area, then residents or businesses within the area are spending less than average,
+          which may mean that that there is opportunity for new businesses within that industry to take advantage of untapped markets.
+      </p>
+      <p>
+          This is a list of ZIP codes with the highest <kpi value="averageRevenue">average business revenue</kpi> in the <industry/> industry.
+          You should consider using this list if you are selling to businesses and want to target areas where
+           the average business is very successful.
+      </p>
+      <p>
+          This is a list of ZIP codes with the highest <kpi value="totalRevenue">combined business revenue</kpi> in the <industry/> industry.
+          You should consider using this list if you are selling to businesses or consumers and want to know where the most
+          money is being made in your industry.
+      </p>
+      <p>
+          This is a list of ZIP codes with the highest <kpi value="householdIncome">median household incomes</kpi>. Use this list if your products or 
+          services are targeted at consumers with specific income levels.
+      </p>
+      <p>
+          This is a list of ZIP codes showing <kpi value="totalEmployees">Total Employees</kpi> for the <industry/> industry.
+      </p>
+    </userAdvice>
+  </advertising>
+</reportText>

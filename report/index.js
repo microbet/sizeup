@@ -1,3 +1,8 @@
+const DOMParser = require("xmldom").DOMParser;
+const fs = require("fs");
+const path = require("path");
+const xpath = require("xpath");
+
 // Config. TODO(twilson) relocate this section to config files.
 var config = {
   editorRootUrl: "https://application.sizeup.com/widget",
@@ -11,6 +16,13 @@ function setConfig(_config) {
 function setSizeup(_sizeup) { // for backwards compatibility
   setConfig({ sizeup: _sizeup });
 }
+
+// Notes about functions that output natural language:
+// 1) They accept a "locale" parameter. We don't internationalize at the
+// moment, but I want consumers to pass locale if they feel like it.
+// TODO(twilson) internationalize properly, someday.
+// 2) They return text strings at the moment, but they may return markup
+// in the future. Schema TBD.
 
 // We may have a circular dependency with this module. Consider carefully
 // and rearrange modules.exports if needed. See
@@ -50,12 +62,56 @@ advertising.getDescription = function(advertisingQuery) {
   throw Error("Not implemented");
 }
 
-advertising.getUserAdvice = function(advertisingQuery) {
-  var userAdvice = {
-    "totalRevenue": "You should consider using this list if you are selling to businesses or consumers and want to know where the most money is being made in your industry."
-  };
-  return userAdvice[advertisingQuery.ranking_metric.kpi];
+advertising.getUserAdvice = function(report, locale) {
+  if (locale && locale != "en-US") {
+    throw Error("Unsupported locale " + locale);
+  }
+  // FIXME back to factory of course
+  html = fs.readFileSync(path.join(__dirname, "text", "en-US", "report.xml"));
+  htmldoc = new DOMParser().parseFromString(new Buffer(html).toString());
+  nodes = xpath.select(
+    `//userAdvice/p[kpi[@value='${report.query.ranking_metric.kpi}']]`,
+    htmldoc);
+  if (nodes.length == 0) {
+    throw Error("No advice for " + report.query.ranking_metric.kpi);
+  }
+
+  // Add industry
+  nlIndustry = xpath.select("industry", nodes[0]);
+  for (var i = 0; i < nlIndustry.length; i++) {
+    nlIndustry[i].textContent = report.industry.Name;
+  }
+  
+  return nodes[0];
+  for (var child = nodes[0].firstChild; child != null; child = child.nextSibling) {
+    if (child.nodeType == child.TEXT_NODE) {
+      console.log(child.textContent.replace(/\s+/g," ").trim());
+    } else {
+      console.log("COLOR");
+      console.log(xpath.select("text()", child).toString());
+    }
+  }
 }
+
+function createAdvertisingAdviceDictionary() {
+//  html = fs.readFileSync("../SizeUp.Web/Areas/Widget/Views/Advertising/Index.cshtml");
+//  htmldoc = new DOMParser({errorHandler:{warning:x=>{}, error:x=>{}}}).parseFromString(new Buffer(html).toString());
+  html = fs.readFileSync(path.join(__dirname, "text", "en-US", "report.xml"));
+  htmldoc = new DOMParser().parseFromString(new Buffer(html).toString());
+  nodes = xpath.select("//div[@class='description']/p", htmldoc);
+  dict = {};
+  for (node of nodes) {
+    var content = "";
+    for (var child = node.firstChild; child != null; child = child.nextSibling) {
+      content = content + child.toString();
+    }
+    var key = node.getAttribute("data-template").replace(/Description/, "");
+    dict[key] = content.replace(/\s+/g," ").trim();
+  }
+  return dict;
+}
+
+var advertisingAdviceDictionary = createAdvertisingAdviceDictionary();
 
 /**
  * Accepts query (structure documented TODO) and runs functions in the
@@ -139,9 +195,6 @@ advertising.generatePDF = function(advertisingQuery, customerKey, stream, title)
 // Functions to run on the report
 
 advertising.getShortTitle = function(advertisingReport, locale) {
-  // We don't really use locale at the moment, but I want consumers to pass
-  // it in if they feel like it, since this function outputs natural language.
-  // TODO(twilson) internationalize properly, someday.
   if (locale && locale != "en-US") {
     throw Error("Unsupported locale " + locale);
   }
