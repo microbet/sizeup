@@ -83,6 +83,11 @@ function getBand(kpi, bands, Item) {
 * These colors are from SizeUp design and are used in the pdf
 */ 
 var pdfColors = [   
+    '#dcdc00', // heatmap yellow
+    '#ffc102', // heatmap light orange
+    '#fe7e00', // heatmap orange
+    '#fe3f00', // heatmap light red
+    '#fe0101', // heatmap red
     '#dc3545', // red
     '#28a745', // green
     '#007bff', // blue
@@ -288,7 +293,7 @@ function getRealFilters(filter) {
 }
 
 function sortIndicator(sortAttribute, order, pdfColors, doc) {
-  doc.fillColor(pdfColors[3]);
+  doc.fillColor(pdfColors[8]);
   doc.fontSize(6);
   doc.text(sortAttribute, 515 - doc.widthOfString(sortAttribute), doc.y);
   // tiny asc or desc triangle
@@ -297,7 +302,7 @@ function sortIndicator(sortAttribute, order, pdfColors, doc) {
   } else {
     doc.polygon( [519, doc.y - 6], [523, doc.y - 6], [521, doc.y - 2]);
   }
-  doc.fillAndStroke(pdfColors[3]) 
+  doc.fillAndStroke(pdfColors[8]) 
 }
   
 /****
@@ -332,7 +337,7 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
   
   doc.image(googleMap, 183, 180, { width: 400 } );
 
-  let theme = { text: { color: pdfColors[2] } };
+  let theme = { text: { color: pdfColors[6] } };
   let realFiltersArr = getRealFilters(query.filter);
   
   let sortAttribute = '';
@@ -350,39 +355,39 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
 
   doc.fontSize(15);
   doc.moveDown(2);
-  doc.fillColor(pdfColors[4])
+  doc.fillColor(pdfColors[9])
   doc.text(title, 25, doc.y);
-  doc.fillColor(pdfColors[5]);
+  doc.fillColor(pdfColors[9]);
   doc.fontSize(10);
   doc.fontSize(10);
     doc.text("This is a list of postal codes with the highest ", 25, doc.y + 10, { continued: true } )
-    .fillColor(pdfColors[3])
+    .fillColor(pdfColors[8])
     .text(filterToDisplay(sortAttribute), { continued: true } )
-    .fillColor(pdfColors[5])
+    .fillColor(pdfColors[10])
     .text(" in the ", { continued: true } )
-    .fillColor(pdfColors[3])
+    .fillColor(pdfColors[8])
     .text(industryName, { continued: true } )
-    .fillColor(pdfColors[5])
+    .fillColor(pdfColors[10])
     .text(" industry.  You should consider using this list if you are selling to businesses or consumers and want to know where the ", { continued: true } )
-    .fillColor(pdfColors[3])
+    .fillColor(pdfColors[8])
     .text(filterToDisplay(sortAttribute), { continued: true } )
-    .fillColor(pdfColors[5])
+    .fillColor(pdfColors[10])
     .text(" is the highest. ", { continued: true } )
     .text("The analysis is based on locations ", { continued: true } )
-   .fillColor(pdfColors[3])
+   .fillColor(pdfColors[8])
     .text(query.area.distance, { continued: true } )
-    .fillColor(pdfColors[5])
+    .fillColor(pdfColors[10])
     .text(" miles from the centroid of ", { continued: true } )
-   .fillColor(pdfColors[3])
+   .fillColor(pdfColors[8])
     .text(LongName, { continued: true } );
-   doc.fillColor(pdfColors[5]);
+   doc.fillColor(pdfColors[10]);
    displaySrch(realFiltersArr, doc, query.filter, pdfColors, query.area.distance);
   doc.fontSize(10);   
-  doc.fillColor(pdfColors[4]);
+  doc.fillColor(pdfColors[9]);
 
   // the bands 
   doc.fontSize(8);
-  doc.fillColor(pdfColors[4]);
+  doc.fillColor(pdfColors[9]);
   doc.moveDown(0.5);
 
   doc.rect( 25, 480, 558, 22 );
@@ -399,7 +404,7 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
   }
 
   // then render the bands
-  doc.fillColor(pdfColors[4]);
+  doc.fillColor(pdfColors[9]);
   i = 0;
   bands.forEach(function(element) {
     doc.fillColor(pdfColors[i]);
@@ -457,7 +462,8 @@ function buildPdf(report, customerGraphics, googleMap, stream, title) {
     doc.fill()
     .fillColor('#ffffff')
     .text(String.fromCharCode(65 + i), 72, doc.y + 3, { continued: true } )
-    .fillColor(pdfColors[getBand(query.ranking_metric.kpi, bands, Items[i])])
+   // .fillColor(pdfColors[getBand(query.ranking_metric.kpi, bands, Items[i])])
+    .fillColor(pdfColors[9])
     .fontSize(15)
     .text("  ", { continued: true } )
     .text(Items[i].ZipCode.Name)
